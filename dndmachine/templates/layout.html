@@ -64,28 +64,36 @@
                             </a>
                         </li>
 
+                        {% if 'admin' in request.user.role %}
                         <li>
-                            <a href="#" class="icon fa-book">
+                            <span class="icon fa-book">
                                 Admin
-                            </a>
+                            </span>
                             <ul>
                                 <li>
-                                    <a href="{{ url_for('show_user') }}">Users</a>
+                                    <a href="{{ url_for('user.list') }}">Users</a>
                                 </li>
                             </ul>
                         </li>
-                    </ul>
+                        {% endif %}
 
-                    <ul class="nice-header-menu menu-alt">
+                        {% if request.user %}
                         <li>
-                            {% if not request.user %}
-                            <a href="{{ url_for('login') }}" class="icon fa-sign-in">
-                                Login
-                            </a>
-                            {% else %}
-                            <a href="{{ url_for('logout') }}" class="icon fa-sign-out">
-                                Logout {{ request.user.username }}
-                            </a>
+                            <span class="icon fa-user-circle">
+                                {{ request.user.username }}
+                            </span>
+                            <ul>
+                                <li>
+                                    <a href="{{ url_for('user.show', user_id=request.user.id) }}" class="icon fa-address-book">
+                                        View profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('logout') }}" class="icon fa-sign-out">
+                                        Logout {{ request.user.username }}
+                                    </a>
+                                </li>
+                            </ul>
                             {% endif %}
                         </li>
                     </ul>

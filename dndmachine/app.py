@@ -7,10 +7,12 @@ from passlib.hash import pbkdf2_sha256 as password
 
 from .config import get_config
 from .models import datamapper_factory, get_db
+from .views.user import user
 from .views.monster import monster
 
 app = Flask(__name__)
 app.register_blueprint(monster, url_prefix='/monster')
+app.register_blueprint(user, url_prefix='/user')
 
 # Load default config and override config from an environment variable
 app.config.update(get_config())
@@ -66,80 +68,6 @@ def home():
     if session.get('userid') is None:
         return redirect(url_for('login'))
     return redirect(url_for('show_party'))
-
-@app.route('/user')
-@app.route('/user/<int:user_id>')
-@app.route('/user/<action>/<int:user_id>', methods=['GET', 'POST'])
-def show_user(user_id=None, action=None):
-    user_mapper = get_datamapper('user')
-
-    if user_id is not None:
-        user = user_mapper.getById(user_id)
-
-        if user['id'] != request.user['id'] \
-                and (
-                    'role' not in request.user
-                    or 'admin' not in request.user['role']
-                    ):
-            abort(403)
-
-        if request.method == 'POST':
-            if request.form["button"] == "cancel":
-                return redirect(url_for('show_user', user_id=user_id))
-
-            user = user_mapper.fromPost(request.form, user)
-
-            if request.form.get("button", "save") == "save":
-                user = user_mapper.update(user)
-                return redirect(url_for('show_user', user_id=user['id']))
-
-        if action == 'edit':
-            return render_template(
-                'edit_user.html',
-                info=app.config['info'],
-                data=app.config['data'],
-                user=user
-                )
-
-        return render_template(
-            'show_user.html',
-            info=app.config['info'],
-            user=user
-            )
-
-    search = request.args.get('search', '')
-    users = user_mapper.getList(search)
-    return render_template(
-        'list_users.html',
-        info=app.config['info'],
-        users=users,
-        search=search
-        )
-
-@app.route('/user/add', methods=['GET', 'POST'])
-def add_user():
-    user_mapper = get_datamapper('user')
-
-    user = {}
-    if request.method == 'POST':
-        if request.form["button"] == "cancel":
-            return redirect(url_for('show_user'))
-
-        user = user_mapper.fromPost(request.form)
-
-        if 'admin' not in request.user['role']:
-            abort(403)
-
-        if request.form.get("button", "save") == "save":
-            user = user_mapper.insert(user)
-            return redirect(url_for('show_user', user_id=user['id']))
-
-    return render_template(
-        'edit_user.html',
-        info=app.config['info'],
-        data=app.config['data'],
-        user=user
-        )
 
 @app.route('/party')
 @app.route('/party/<int:party_id>')

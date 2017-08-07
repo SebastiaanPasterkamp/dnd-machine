@@ -3,11 +3,11 @@
 {% if user.id %}
 <h2 class="icon fa-pencil">User</h2>
 
-<form action="{{ url_for('show_user', user_id=user.id, action='edit') }}" method="post">
+<form action="{{ url_for('user.edit', user_id=user.id) }}" method="post">
 {% else %}
 <h2 class="icon fa-user-plus">User</h2>
 
-<form action="{{ url_for('add_user') }}" method="post">
+<form action="{{ url_for('user.add') }}" method="post">
 {% endif %}
     <input type="hidden" name="id" value="{{ user.id }}">
 
@@ -99,9 +99,9 @@
 </div>
 
 <div class="nice-btn-group position-fixed position-bottom position-right" style="z-index: 1000">
-    <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
-    <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
     <button name="button" value="save" class="nice-btn primary icon fa-save">Save</button>
+    <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
+    <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
 </div>
 
 </form>
