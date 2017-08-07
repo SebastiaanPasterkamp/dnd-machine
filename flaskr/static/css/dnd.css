@@ -1,0 +1,30 @@
+@charset "UTF-8";
+.product-icon.d20:before {
+    background: transparent url('../img/d20.png') no-repeat center center;
+    background-size: auto 2em;
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    content: "";
+}
+
+table#character thead th,
+    table#party thead th,
+    table#encounter thead th,
+    table#monsterlist thead th { font-weight: bold; text-align: center; }
+table#character thead tr:first-child th:first-child,
+    table#party thead tr:first-child th:first-child,
+    table#encounter thead tr:first-child th:first-child,
+    table#monsterlist thead tr:first-child th:first-child { font-weight: bold; text-align: left; }
+table#character tbody td,
+    table#party tbody td,
+    table#encounter tbody td,
+    table#monsterlist tbody td { text-align: center; }
+table#character tbody td:first-child,
+    table#party tbody td:first-child,
+    table#encounter tbody td:first-child,
+    table#monsterlist tbody td:first-child { font-weight: bold; text-align: left; }
+
+table#statblock thead th { font-weight: bold; text-align: center; }
+table#statblock tbody td { text-align: center; }
+table#monsterstats tbody th { text-align: right; }

@@ -1,0 +1,503 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-paw">Monster</h2>
+
+<form action="{{ url_for('edit_monster', monster_id=monster.id) }}" method="post">
+    <input type="hidden" name="id" value="{{ monster.id }}">
+
+<div class="nice-row">
+    <div class="nice-col-6 nice-col-mobile-12">
+
+<div class="nice-panel gray">
+    <div class="nice-panel-heading">
+        Description
+    </div>
+    <div class="nice-panel-content">
+        <div class="nice-form-group">
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Name
+                </span>
+                <input type="text" placeholder="Monster name" class="nice-form-control" name="name" value="{{ monster.name }}" />
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Size
+                </span>
+                <select class="nice-form-control" name="size">
+                {% for size in machine.size_hit_dice %}
+                    {% if size == monster.size %}
+                    <option selected>{{ size }}</option>
+                    {% else %}
+                    <option>{{ size }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+                <span class="nice-input-addon">
+                    Type
+                </span>
+                <select class="nice-form-control" name="type">
+                {% for type in machine.monster_types %}
+                    {% if type == monster.type %}
+                    <option selected>{{ type }}</option>
+                    {% else %}
+                    <option>{{ type }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Alignment
+                </span>
+                <select class="nice-form-control" name="alignment">
+                {% for b in ['good', 'neutral', 'evil'] %}
+                {% for a in ['lawful', 'neutral', 'chaotic'] %}
+                    {% set alignment = ('true' if a == b else a) + ' ' + b %}
+                    {% if alignment == monster.alignment %}
+                    <option selected>{{ alignment }}</option>
+                    {% else %}
+                    <option>{{ alignment }}</option>
+                    {% endif %}
+                {% endfor %}
+                {% endfor %}
+                </select>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Level
+                </span>
+                <select class="nice-form-control" name="level">
+                {% for level in range(1, 31) %}
+                    {% if level == monster.level %}
+                    <option selected>{{ level }}</option>
+                    {% else %}
+                    <option>{{ level }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Armor Class
+                </span>
+                <select class="nice-form-control" name="armor_class">
+                {% for armor_class in range(10, 20) %}
+                    {% if armor_class == monster.armor_class %}
+                    <option selected>{{ armor_class }}</option>
+                    {% else %}
+                    <option>{{ armor_class }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div class="nice-col-6 nice-col-mobile-12">
+
+<div class="nice-panel gray">
+    <div class="nice-panel-heading">
+        Speed
+    </div>
+    <div class="nice-panel-content">
+        <div class="nice-form-group">
+
+            {% for mode in ["walk", "burrow", "climb", "fly", "swim"] %}
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    {{ mode|capitalize }}
+                </span>
+                <select class="small nice-form-control" name="motion.{{ mode }}">
+                    {% if mode not in monster.motion or monster.motion[mode] == 0 %}
+                    <option selected value="0">N/A</option>
+                    {% else %}
+                    <option value="0">N/A</option>
+                    {% endif %}
+                {% for option in range(5, 40, 5) %}
+                    {% if mode in monster.motion and monster.motion[mode] == option %}
+                    <option selected>{{ option }}</option>
+                    {% else %}
+                    <option>{{ option }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+                <span class="nice-input-addon">
+                    ft.
+                </span>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div class="nice-row">
+    <div class="nice-col-6 nice-col-mobile-12">
+
+<div class="nice-panel gray">
+    <div class="nice-panel-heading">
+        Statistics
+    </div>
+    <div class="nice-panel-content">
+        <div class="nice-form-group">
+
+            {% set stats = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"] %}
+            <table class="nice-table condensed bordered" id="statblock">
+                <thead>
+                    <tr>
+                    <tr>
+                        <th></th>
+                        <th>Statistic</th>
+                        <th>Modifier</th>
+                    </tr>
+                <tbody>
+                    {% for stat in stats %}
+                    <tr>
+                        <th>{{ stat|capitalize }}</th>
+                        <td>
+                            <select class="small nice-form-control" name="stats.{{ stat }}">
+                            {% for option in range(1, 31) %}
+                                {% if monster.stats[stat] == option %}
+                                <option selected>{{ option }}</option>
+                                {% else %}
+                                <option>{{ option }}</option>
+                                {% endif %}
+                            {% endfor %}
+                            </select>
+                        </td>
+                        <td>
+                            ({{ monster.modifiers[stat] }})
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div class="nice-col-6 nice-col-mobile-12">
+
+<div class="nice-panel gray">
+    <div class="nice-panel-heading">
+        Attributes
+    </div>
+    <div class="nice-panel-content">
+        <div class="nice-form-group">
+
+            <label>Challenge Rating</label>
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Challenge Rating
+                </span>
+                <input type="text" disabled class="nice-form-control" value="{{ monster.challenge_rating }}" />
+                <span class="nice-input-addon">/</span>
+                <input type="text" disabled class="nice-form-control" value="{{ monster.xp }}" />
+                <span class="nice-input-addon">XP</span>
+            </div>
+
+            <label>Traits</label>
+            <div class="nice-control-group">
+                {% for i in range(monster.trait|length) %}
+                {% set trait = monster.trait[i] %}
+                <input type="text" placeholder="Trait Name..." class="nice-form-control" name="traits.{{ i }}.name" value="{{ trait.name }}" />
+                <textarea class="nice-form-control" placeholder="Description..." name="traits.{{ i }}.description">{{ traits.description }}</textarea>
+                {% endfor %}
+            </div>
+
+            <label>Features</label>
+            <div class="nice-control-group">
+                {% for i in range(monster.features|length) %}
+                {% set feature = monster.features[i] %}
+                <input type="text" placeholder="Feature Name..." class="nice-form-control" name="features.{{ i }}.name" value="{{ feature.name }}" />
+                <textarea class="nice-form-control" placeholder="Description..." name="features.{{ i }}.description">{{ feature.description }}</textarea>
+                {% endfor %}
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Languages
+                </span>
+                <div class="nice-tags-container" id="languages">
+                    {% for i in range(monster.languages|length) %}
+                    {% set language = monster.languages[i] %}
+                    {% if language %}
+                    <div class="nice-tag">
+                        <span class="nice-tag-label">
+                            <input type="hidden" value="{{ language }}" name="languages.{{ i }}" />
+                            {{ language }}
+                        </span>
+                        <button class="nice-tag-btn">
+                            <i class="icon fa-trash-o"></i>
+                        </button>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <select
+                        data-next="{{ monster.languages|length }}"
+                        class="nice-form-control add-tag"
+                        data-name="languages."
+                        data-target="languages">
+                        <option value="">Add language...</option>
+                    {% for language in data.languages %}
+                        <option>{{ language.name }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+<div class="nice-row">
+    <div class="nice-col-6 nice-col-mobile-12">
+
+<div class="nice-panel gray">
+    <div class="nice-panel-heading">
+        Attacks
+    </div>
+
+{% for i in range(monster.attacks|length+1) %}
+{% set attack = monster.attacks[i]|default({}) %}
+    <div class="nice-panel-content">
+        <div class="nice-form-group">
+
+            <label>Attack</label>
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Name
+                </span>
+                <input type="text" placeholder="Attack name..." class="nice-form-control" name="attacks.{{ i }}.name" value="{{ attack.name }}" />
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Description
+                </span>
+                <textarea class="nice-form-control" placeholder="Description..." name="attacks.{{ i }}.description">{{ attack.description }}</textarea>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Mode
+                </span>
+                <select class="nice-form-control" name="attacks.{{ i }}.mode">
+                {% for option in ["melee", "ranged", "spell"] %}
+                    {% if attack.mode == option %}
+                    <option selected>{{ option }}</option>
+                    {% else %}
+                    <option>{{ option }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+            </div>
+
+            {% set damages = attack.damage|default([]) %}
+            {% for j in range(damages|length+1) %}
+            {% set damage = damages[j]|default({}) %}
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Damage
+                </span>
+                <select class="nice-form-control" name="attacks.{{ i }}.damage.{{ j }}.type">
+                {% if j %}
+                <option />
+                {% endif %}
+                {% for option in data.damage_types %}
+                    {% if damage.type == option.name %}
+                    <option selected>{{ option.name }}</option>
+                    {% else %}
+                    <option>{{ option.name }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+                <span class="nice-input-addon">
+                    Dice
+                </span>
+                <select class="nice-form-control" name="attacks.{{ i }}.damage.{{ j }}.dice_count">
+                    {% set dice = range(1, 31) %}
+                    {% if j %}
+                        {% set dice = range(0, 31) %}
+                    {% endif %}
+                    {% for option in dice %}
+                        {% if damage.dice_count == option %}
+                        <option selected>{{ option }}</option>
+                        {% else %}
+                        <option>{{ option }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <span class="nice-input-addon">
+                    d
+                </span>
+                <select class="nice-form-control" name="attacks.{{ i }}.damage.{{ j }}.dice_size">
+                    {% for option in [4, 6, 8, 10, 12, 20] %}
+                        {% if damage.dice_size == option %}
+                        <option selected>{{ option }}</option>
+                        {% else %}
+                        <option>{{ option }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <span class="nice-input-addon">
+                    +
+                </span>
+                {% if j %}
+                <input type="text" placeholder="Bonus..." class="nice-form-control" name="attacks.{{ i }}.damage.{{ j }}.bonus" value="{{ damage.bonus }}" />
+                {% else %}
+                <input type="text" class="nice-form-control" value="{{ attack.modifier }}" disabled />
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Target
+                </span>
+                <select class="nice-form-control" name="attacks.{{ i }}.target">
+                    {% for option in ['single', 'multiple', 'area'] %}
+                        {% if attack.target == option %}
+                        <option selected>{{ option }}</option>
+                        {% else %}
+                        <option>{{ option }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Range
+                </span>
+                <select class="nice-form-control" name="attacks.{{ i }}.range">
+                {% for option in range(5, 40, 5) %}
+                    {% if attack.range == option %}
+                    <option selected>{{ option }}</option>
+                    {% else %}
+                    <option>{{ option }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+                <span class="nice-input-addon">
+                    ft.
+                </span>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    On Hit:
+                </span>
+                <input type="text" placeholder="On hit bad stuff..." class="nice-form-control" name="attacks.{{ i }}.on_hit" value="{{ attack.on_hit }}" />
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    On Mis:
+                </span>
+                <input type="text" placeholder="On mis still bad stuff..." class="nice-form-control" name="attacks.{{ i }}.in_mis" value="{{ attack.on_mis }}" />
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+    </div>
+    <div class="nice-col-6 nice-col-mobile-12">
+
+<div class="nice-panel gray">
+    <div class="nice-panel-heading">
+        Multiattacks
+    </div>
+
+    {% for i in range(monster.multiattack|length+1) %}
+    {% set rotation = monster.multiattack[i]|default({}) %}
+    <div class="nice-panel-content">
+        <div class="nice-form-group">
+
+            <label>Multiattack</label>
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Name
+                </span>
+                <input type="text" placeholder="Rotation name..." class="nice-form-control" name="multiattack.{{ i }}.name" value="{{ rotation.name }}" />
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Description
+                </span>
+                <textarea class="nice-form-control" placeholder="Rotation does an average of %average% damage..." name="multiattack.{{ i }}.description">{{ rotation.description }}</textarea>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Condition
+                </span>
+                <textarea class="nice-form-control" placeholder="Condition..." name="multiattack.{{ i }}.condition">{{ rotation.condition }}</textarea>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Rotation
+                </span>
+                <div class="nice-tags-container" id="rotation-{{ i }}">
+                    {% for j in range(rotation.sequence|length) %}
+                    {% set attack = rotation.sequence[j] %}
+                        {% if attack %}
+                    <div class="nice-tag">
+                        <span class="nice-tag-label">
+                            <input type="hidden" value="{{ attack }}" name="multiattack.{{ i }}.sequence.{{ j }}" />
+                            {{ attack }}
+                        </span>
+                        <button class="nice-tag-btn">
+                            <i class="icon fa-trash-o"></i>
+                        </button>
+                    </div>
+                        {% endif %}
+                    {% endfor %}
+                    <select
+                        data-next="{{ rotation.sequence|length }}"
+                        class="nice-form-control add-tag"
+                        data-name="multiattack.{{ i }}.sequence."
+                        data-target="rotation-{{ i }}">
+                        <option value="">Add attack...</option>
+                    {% for attack in monster.attacks %}
+                        <option>{{ attack.name }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+    </div>
+</div>
+
+<div class="nice-btn-group position-fixed position-bottom position-right" style="z-index: 1000">
+    <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+    <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
+    <button name="button" value="save" class="nice-btn primary icon fa-save">Save</button>
+</div>
+
+</form>
+{% endblock %}

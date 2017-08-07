@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'Colaborate';
+    src: url($font-path + '/colaborate-thin/ColabThi-webfont.eot');
+    src: url($font-path + '/colaborate-thin/ColabThi-webfont.eot?#iefix') format('embedded-opentype'),
+         url($font-path + '/colaborate-thin/ColabThi-webfont.woff') format('woff'),
+         url($font-path + '/colaborate-thin/ColabThi-webfont.ttf') format('truetype'),
+         url($font-path + '/colaborate-thin/ColabThi-webfont.svg#colaborate-thinregular') format('svg');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Colaborate';
+    src: url($font-path + '/colaborate-light/ColabLig-webfont.eot');
+    src: url($font-path + '/colaborate-light/ColabLig-webfont.eot?#iefix') format('embedded-opentype'),
+         url($font-path + '/colaborate-light/ColabLig-webfont.woff') format('woff'),
+         url($font-path + '/colaborate-light/ColabLig-webfont.ttf') format('truetype'),
+         url($font-path + '/colaborate-light/ColabLig-webfont.svg#colaboratelightregular') format('svg');
+    font-weight: 200;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Colaborate';
+    src: url($font-path + '/colaborate-medium/ColabMed-webfont.eot');
+    src: url($font-path + '/colaborate-medium/ColabMed-webfont.eot?#iefix') format('embedded-opentype'),
+         url($font-path + '/colaborate-medium/ColabMed-webfont.woff') format('woff'),
+         url($font-path + '/colaborate-medium/ColabMed-webfont.ttf') format('truetype'),
+         url($font-path + '/colaborate-medium/ColabMed-webfont.svg#colaborate-mediumregular') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Colaborate';
+    src: url($font-path + '/colaborate-regular/ColabReg-webfont.eot');
+    src: url($font-path + '/colaborate-regular/ColabReg-webfont.eot?#iefix') format('embedded-opentype'),
+         url($font-path + '/colaborate-regular/ColabReg-webfont.woff') format('woff'),
+         url($font-path + '/colaborate-regular/ColabReg-webfont.ttf') format('truetype'),
+         url($font-path + '/colaborate-regular/ColabReg-webfont.svg#colaborate-regularregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Colaborate';
+    src: url($font-path + '/colaborate-bold/ColabBol-webfont.eot');
+    src: url($font-path + '/colaborate-bold/ColabBol-webfont.eot?#iefix') format('embedded-opentype'),
+         url($font-path + '/colaborate-bold/ColabBol-webfont.woff') format('woff'),
+         url($font-path + '/colaborate-bold/ColabBol-webfont.ttf') format('truetype'),
+         url($font-path + '/colaborate-bold/ColabBol-webfont.svg#colaborate-boldregular') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}

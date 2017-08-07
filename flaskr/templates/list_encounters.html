@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-gamepad">Encounter list</h2>
+
+<table class="nice-table condensed striped bordered hover" id="encounter">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Challenge Rating</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for encounter in encounters %}
+        <tr>
+            <td>{{ encounter.name }}</td>
+            <td>{{ encounter.size }}</td>
+            <td>{{ encounter.challenge_rating }} / {{ encounter.xp }} XP</td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                    {% if 'dm' in request.user.role %}
+                    <a href="{{ url_for('edit_encounter', encounter_id=encounter.id, action='edit') }}" class="nice-btn icon fa-cog">Edit</a>
+                    {% endif %}
+                    <a href="{{ url_for('show_encounter', encounter_id=encounter.id) }}" class="nice-btn icon fa-eye">View</a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

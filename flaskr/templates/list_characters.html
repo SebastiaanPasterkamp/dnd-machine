@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-user">Character list</h2>
+
+<table class="nice-table condensed striped bordered hover" id="character">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Level</th>
+            <th>
+            {% if party %}
+                Party:
+                <a href="{{ url_for('show_party', party_id=party.id) }}" class="nice-btn">{{ party.name }}</a>
+            {% endif %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for character in characters %}
+        <tr>
+            <td>{{ character.name }}</td>
+            <td>{{ character.level }}</td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                {% if party %}
+                    {% if character.id in members %}
+                    <a href="{{ url_for('modify_party', party_id=party.id, character_id=character.id, action='del') }}" class="nice-btn bad icon fa-user-times">Remove</a>
+                    {% else %}
+                    <a href="{{ url_for('modify_party', party_id=party.id, character_id=character.id, action='add') }}" class="nice-btn good icon fa-user-plus">Add</a>
+                    {% endif %}
+                {% endif %}
+                    <a href="{{ url_for('show_character', character_id=character.id) }}" class="nice-btn icon fa-eye">View</a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfooter>
+        <tr>
+            <td colspan="2"></td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                    <a href="#" class="nice-btn good icon fa-user-o">New</a>
+                </div>
+            </td>
+        </tr>
+    </tfooter>
+</table>
+{% endblock %}

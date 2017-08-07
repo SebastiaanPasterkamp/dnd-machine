@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-user">User list</h2>
+
+<table class="nice-table condensed striped bordered hover" id="character">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                <a href="{{ url_for('show_user', user_id=user.id) }}" class="nice-btn icon fa-eye">View</a>
+                {% if user.id == request.user.id or 'admin' in request.user.role %}
+                <a href="{{ url_for('show_user', user_id=user.id, action='edit') }}" class="nice-btn warning icon fa-pencil">Edit</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfooter>
+        <tr>
+            <td colspan="2"></td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('add_user') }}" class="nice-btn accent icon fa-user-plus">Add</a>
+                </div>
+            </td>
+        </tr>
+    </tfooter>
+</table>
+{% endblock %}

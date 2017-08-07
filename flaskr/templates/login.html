@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block body %}
+<form action="{{ url_for('login') }}" method="post">
+
+<div class="nice-login">
+    <div class="nice-login-brand">
+        <span class="text-brand">{{ info.title }}</span>
+    </div>
+    <div class="nice-login-intro">
+        <div class="nice-login-intro-logo">
+            <i class="product-icon icon d20"></i>
+        </div>
+        <div class="nice-login-intro-content">
+            Welcome to <strong>{{ info.title }}</strong>. Please log in using your credentials to access this website.
+        </div>
+        <div class="nice-login-loading"></div>
+    </div>
+    <div class="nice-login-content">
+        <div class="nice-form-group">
+            <label for="username">Username</label>
+            <input tabindex="1" type="text" class="nice-form-control" placeholder="Username..." name="username" id="username" />
+        </div>
+        <div class="nice-form-group">
+            <label for="password">Password</label>
+            <input tabindex="2" type="password" class="nice-form-control" placeholder="Password..." name="password" id="password" />
+        </div>
+    </div>
+    <div class="nice-login-footer">
+        <a href="#" class="nice-btn link icon fa-question">Lost your credentials?</a>
+        <div class="nice-btn-group pull-right">
+            <button type="button" class="nice-btn">
+                Cancel
+            </button>
+            <button type="submit" class="nice-btn primary icon fa-sign-in">
+                Sign in
+            </button>
+        </div>
+    </div>
+    <div class="nice-login-version">
+        {{ info.title }} {{ info.version }}
+        <span class="text-brand pull-right">
+            by {{ info.author }} &copy;{{ info.date }}
+        </span>
+    </div>
+</div>
+
+</form>
+{% endblock %}

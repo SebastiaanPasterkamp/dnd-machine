@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-users">Part list</h2>
+
+<table class="nice-table condensed striped bordered hover" id="party">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for party in parties %}
+        <tr>
+            <td>{{ party.name }}</td>
+            <td>{{ party.size }}</td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('show_party', party_id=party.id) }}" class="nice-btn icon fa-eye">View</a>
+                    {% if encounter %}
+                    <a href="{{ url_for('show_encounter', party_id=party.id, encounter_id=encounter.id) }}" class="nice-btn icon fa-gamepad">Set for {{ encounter.name }}</a>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
