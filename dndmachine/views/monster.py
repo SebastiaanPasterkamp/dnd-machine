@@ -3,20 +3,10 @@ from flask import Blueprint, request, session, g, redirect, url_for, abort, \
     render_template, flash, current_app
 
 from ..config import get_config
-from ..models import datamapper_factory
+from . import get_datamapper
 
 monster = Blueprint(
     'monster', __name__, template_folder='templates')
-monster.config = get_config()
-
-def get_datamapper(datamapper):
-    """Returns a datamapper for a type.
-    """
-    if not hasattr(g, 'datamappers'):
-        g.datamappers = {}
-    if datamapper not in g.datamappers:
-        g.datamappers[datamapper] = datamapper_factory(datamapper)
-    return g.datamappers[datamapper]
 
 @monster.route('/')
 def home():
@@ -27,6 +17,7 @@ def home():
 @monster.route('/list')
 @monster.route('/list/<int:encounter_id>')
 def list(encounter_id=None):
+    config = get_config()
     machine = get_datamapper('machine')
     monster_mapper = get_datamapper('monster')
 
@@ -47,7 +38,7 @@ def list(encounter_id=None):
 
     return render_template(
         'list_monsters.html',
-        info=monster.config['info'],
+        info=config['info'],
         monsters=monsters,
         encounter=encounter,
         members=members,
@@ -56,6 +47,7 @@ def list(encounter_id=None):
 
 @monster.route('/<int:monster_id>')
 def show(monster_id):
+    config = get_config()
     machine = get_datamapper('machine')
     monster_mapper = get_datamapper('monster')
 
@@ -63,12 +55,13 @@ def show(monster_id):
     m = machine.computeMonsterStatistics(m)
     return render_template(
         'show_monster.html',
-        info=monster.config['info'],
+        info=config['info'],
         monster=m
         )
 
 @monster.route('/edit/<int:monster_id>', methods=['GET', 'POST'])
 def edit(monster_id):
+    config = get_config()
     machine = get_datamapper('machine')
     monster_mapper = get_datamapper('monster')
 
@@ -95,14 +88,15 @@ def edit(monster_id):
 
     return render_template(
         'edit_monster.html',
-        info=monster.config['info'],
-        data=monster.config['data'],
-        machine=monster.config['machine'],
+        info=config['info'],
+        data=config['data'],
+        machine=config['machine'],
         monster=m
         )
 
 @monster.route('/new', methods=['GET', 'POST'])
 def new():
+    config = get_config()
     machine = get_datamapper('machine')
     monster_mapper = get_datamapper('monster')
 
@@ -128,8 +122,8 @@ def new():
 
     return render_template(
         'edit_monster.html',
-        info=monster.config['info'],
-        data=monster.config['data'],
-        machine=monster.config['machine'],
+        info=config['info'],
+        data=config['data'],
+        machine=config['machine'],
         monster=m
         )
