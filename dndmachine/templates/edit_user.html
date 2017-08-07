@@ -9,6 +9,7 @@
 
 <form action="{{ url_for('user.add') }}" method="post">
 {% endif %}
+    <button name="button" value="save" class="hidden">Hidden</button>
     <input type="hidden" name="id" value="{{ user.id }}">
 
 <div class="nice-row">
