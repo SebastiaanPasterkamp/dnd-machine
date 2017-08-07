@@ -49,7 +49,7 @@
     },
     "monster": {
         "default": {
-            "name": "?",
+            "name": "",
             "size": "Small",
             "type": "Beast",
             "level": 1,

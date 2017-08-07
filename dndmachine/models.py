@@ -1,5 +1,50 @@
+from flask import g
 import json
+import sqlite3
 from passlib.hash import pbkdf2_sha256 as password
+
+from .config import get_config
+
+def connect_db():
+    """Connects to the specific database.
+    """
+    config = get_config()
+    rv = sqlite3.connect(config['DATABASE'])
+    rv.row_factory = sqlite3.Row
+    return rv
+
+def get_db():
+    """Opens a new database connection if there is none yet for the
+    current application context.
+    """
+    if not hasattr(g, 'sqlite_db'):
+        g.sqlite_db = connect_db()
+    return g.sqlite_db
+
+def datamapper_factory(datamapper):
+    """Returns a datamapper for a type.
+    """
+    config = get_config()
+
+    if datamapper == 'machine':
+        return DndMachine(config['machine'])
+
+    if datamapper == 'user':
+        return UserMapper(get_db())
+
+    if datamapper == 'party':
+        return PartyMapper(get_db())
+
+    if datamapper == 'character':
+        return CharacterMapper(get_db())
+
+    if datamapper == 'encounter':
+        return EncounterMapper(get_db(), config['encounter'])
+
+    if datamapper == 'monster':
+        return MonsterMapper(get_db(), config['monster'])
+
+    raise ValueError("No datamapper for %s" % datamapper)
 
 def mergeDict(a, b, path=None):
     "merges b into a"
@@ -214,14 +259,14 @@ class DataMapper(object):
         return self.getById(obj['id'])
 
 
-class User(DataMapper):
+class UserMapper(DataMapper):
     table = "users"
     fields = ['username', 'password', 'email']
     typeCastDefault = unicode
     typeCast = {}
 
     def fromPost(self, form, old={}):
-        user = super(User, self).fromPost(form)
+        user = super(UserMapper, self).fromPost(form)
         if 'username' not in user:
             user['username'] = old['username']
         if len(user['password']):
@@ -258,7 +303,7 @@ class User(DataMapper):
         return self.getById(obj['id'])
 
 
-class Character(DataMapper):
+class CharacterMapper(DataMapper):
     table = "character"
     fields = ['name', 'level']
 
@@ -286,7 +331,7 @@ class Character(DataMapper):
             ]
 
 
-class Party(DataMapper):
+class PartyMapper(DataMapper):
     table = "party"
     fields = ['name']
 
@@ -320,7 +365,7 @@ class Party(DataMapper):
         self.db.commit()
 
 
-class Monster(DataMapper):
+class MonsterMapper(DataMapper):
     table = "monster"
     fields = ['name', 'challenge_rating', 'xp_rating', 'xp']
     typeCastDefault = int
@@ -353,11 +398,11 @@ class Monster(DataMapper):
         }
 
     def __init__(self, db, config):
-        super(Monster, self).__init__(db)
+        super(MonsterMapper, self).__init__(db)
         self.defaultConfig = config["default"]
 
     def fromPost(self, form):
-        monster = super(Monster, self).fromPost(form)
+        monster = super(MonsterMapper, self).fromPost(form)
         monster = self.setDefaults(monster)
         return monster
 
@@ -380,7 +425,7 @@ class Monster(DataMapper):
 
     def getById(self, monster_id):
         """Returns a monster by monster_id"""
-        monster = super(Monster, self).getById(monster_id)
+        monster = super(MonsterMapper, self).getById(monster_id)
         if monster:
             monster = self.setDefaults(monster)
         return monster
@@ -402,12 +447,12 @@ class Monster(DataMapper):
         return monsters
 
 
-class Encounter(DataMapper):
+class EncounterMapper(DataMapper):
     table = "encounter"
     fields = ['name', 'size', 'challenge_rating', 'xp_rating', 'xp']
 
     def __init__(self, db, config):
-        super(Encounter, self).__init__(db)
+        super(EncounterMapper, self).__init__(db)
         self.encounter_modifiers = config["encounter_modifiers"]
 
     def getList(self, search=None):
@@ -482,7 +527,7 @@ class Encounter(DataMapper):
             ]) * encounter['modifier']['total']
         return encounter
 
-class Machine(object):
+class DndMachine(object):
     def __init__(self, config):
         self.challenge_rating = config["challenge_rating"]
         self.monster_scaling = config["monster_scaling"]
