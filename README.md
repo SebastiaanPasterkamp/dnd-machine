@@ -7,7 +7,7 @@ sudo pip install -r requirements.txt
 ## Setup Flask
 
 ```bash
-export FLASK_APP=flaskr/flaskr.py
+export FLASK_APP=dndmachine/app.py
 export FLASK_DEBUG=true
 flask initdb
 ```

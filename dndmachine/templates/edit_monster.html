@@ -1,9 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
-<h2 class="icon fa-paw">Monster</h2>
+{% if monster.id %}
+<h2 class="icon fa-pencil">Monster</h2>
 
-<form action="{{ url_for('edit_monster', monster_id=monster.id) }}" method="post">
-    <input type="hidden" name="id" value="{{ monster.id }}">
+<form action="{{ url_for('monster.edit', monster_id=monster.id) }}" method="post">
+{% else %}
+<h2 class="icon fa-user-plus">Monster</h2>
+
+<form action="{{ url_for('monster.new') }}" method="post">
+{% endif %}
 
 <div class="nice-row">
     <div class="nice-col-6 nice-col-mobile-12">

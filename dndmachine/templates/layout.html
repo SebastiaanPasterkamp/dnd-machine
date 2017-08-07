@@ -52,8 +52,8 @@
                             </a>
                         </li>
 
-                        <li class="highlight{% if request.path == url_for('show_monster') %} primary{% endif %}">
-                            <a href="{{ url_for('show_monster') }}" class="icon fa-paw">
+                        <li class="highlight{% if request.path == url_for('monster.list') %} primary{% endif %}">
+                            <a href="{{ url_for('monster.list') }}" class="icon fa-paw">
                                 Monsters
                             </a>
                         </li>

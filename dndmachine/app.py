@@ -1,26 +1,21 @@
-    # all the imports
+# -*- coding: utf-8 -*-
 import os
 import json
-import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, jsonify
 from passlib.hash import pbkdf2_sha256 as password
 
-from helpers.datamapper import User, Party, Character, Machine, Encounter, Monster
+from .config import get_config
+from .models import datamapper_factory, get_db
+from .views.monster import monster
 
-app = Flask(__name__) # create the application instance :)
+app = Flask(__name__)
+app.register_blueprint(monster, url_prefix='/monster')
 
 # Load default config and override config from an environment variable
-with open(os.path.join(app.root_path, 'config.json')) as cfg:
-    app.config.update(json.load(cfg))
+app.config.update(get_config())
 
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
-
-def connect_db():
-    """Connects to the specific database."""
-    rv = sqlite3.connect(app.config['DATABASE'])
-    rv.row_factory = sqlite3.Row
-    return rv
 
 def init_db():
     db = get_db()
@@ -38,46 +33,14 @@ def initdb_command():
     init_db()
     print('Initialized the database.')
 
-def get_db():
-    """Opens a new database connection if there is none yet for the
-    current application context.
-    """
-    if not hasattr(g, 'sqlite_db'):
-        g.sqlite_db = connect_db()
-    return g.sqlite_db
-
 def get_datamapper(datamapper):
     """Returns a datamapper for a type.
     """
-    if datamapper == 'machine':
-        if not hasattr(g, 'machine'):
-            g.machine = Machine(app.config['machine'])
-            return g.machine
-
-    if datamapper == 'user':
-        if not hasattr(g, 'user'):
-            g.user_mapper = User(get_db())
-            return g.user_mapper
-
-    if datamapper == 'party':
-        if not hasattr(g, 'party'):
-            g.party_mapper = Party(get_db())
-            return g.party_mapper
-
-    if datamapper == 'character':
-        if not hasattr(g, 'character'):
-            g.character_mapper = Character(get_db())
-            return g.character_mapper
-
-    if datamapper == 'encounter':
-        if not hasattr(g, 'encounter'):
-            g.encounter_mapper = Encounter(get_db(), app.config['encounter'])
-            return g.encounter_mapper
-
-    if datamapper == 'monster':
-        if not hasattr(g, 'monster'):
-            g.monster_mapper = Monster(get_db(), app.config['monster'])
-            return g.monster_mapper
+    if not hasattr(g, 'datamappers'):
+        g.datamappers = {}
+    if datamapper not in g.datamappers:
+        g.datamappers[datamapper] = datamapper_factory(datamapper)
+    return g.datamappers[datamapper]
 
 @app.before_request
 def get_user():
@@ -404,76 +367,6 @@ def edit_encounter(action, encounter_id, monster_id=None):
     else:
         flash("Unknown action '%s'." % action, 'error')
     return redirect(request.referrer)
-
-@app.route('/monster')
-@app.route('/monster/<int:monster_id>')
-@app.route('/monster/add/<int:encounter_id>')
-def show_monster(monster_id=None, encounter_id=None):
-    machine = get_datamapper('machine')
-    monster_mapper = get_datamapper('monster')
-
-    if monster_id is not None:
-        monster = monster_mapper.getById(monster_id)
-        monster = machine.computeMonsterStatistics(monster)
-        return render_template(
-            'show_monster.html',
-            info=app.config['info'],
-            monster=monster
-            )
-
-    encounter = None
-    members = []
-    if encounter_id is not None:
-        encounter_mapper = get_datamapper('encounter')
-        encounter = encounter_mapper.getById(encounter_id)
-        members = [
-            m['id']
-            for m in monster_mapper.getByEncounter(encounter_id)
-            ]
-
-    search = request.args.get('search', '')
-    monsters = monster_mapper.getList(search)
-    for monster in monsters:
-        monster = machine.computeMonsterStatistics(monster)
-
-    return render_template(
-        'list_monsters.html',
-        info=app.config['info'],
-        monsters=monsters,
-        encounter=encounter,
-        members=members,
-        search=search
-        )
-
-@app.route('/monster/edit/<int:monster_id>', methods=['GET', 'POST'])
-def edit_monster(monster_id):
-    machine = get_datamapper('machine')
-    monster_mapper = get_datamapper('monster')
-
-    if request.method == 'POST':
-        if request.form["button"] == "cancel":
-            return redirect(url_for('show_monster', monster_id=monster_id))
-
-        monster = monster_mapper.fromPost(request.form)
-        monster = machine.computeMonsterStatistics(monster)
-
-        if request.form.get("button", "save") == "save":
-            monster_mapper.update(monster)
-            return redirect(url_for('show_monster', monster_id=monster_id))
-        # button == "update"
-        # just resume the edit_monster.html
-        #return jsonify([monster, request.form])
-    else:
-        monster = monster_mapper.getById(monster_id)
-        monster = machine.computeMonsterStatistics(monster)
-
-    return render_template(
-        'edit_monster.html',
-        info=app.config['info'],
-        data=app.config['data'],
-        machine=app.config['machine'],
-        monster=monster
-        )
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

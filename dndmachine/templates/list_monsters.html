@@ -28,8 +28,8 @@
                     {% endif %}
                     <a href="{{ url_for('modify_encounter', encounter_id=encounter.id, monster_id=monster.id, action='add') }}" class="nice-btn good icon fa-plus">Add</a>
                     {% endif %}
-                    <a href="{{ url_for('show_monster', monster_id=monster.id) }}" class="nice-btn icon fa-eye">View</a>
-                    <a href="{{ url_for('edit_monster', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                    <a href="{{ url_for('monster.show', monster_id=monster.id) }}" class="nice-btn icon fa-eye">View</a>
+                    <a href="{{ url_for('monster.edit', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
                 </div>
             </td>
         </tr>
@@ -40,7 +40,7 @@
             <td colspan="2"></td>
             <td>
                 <div class="nice-btn-group pull-right">
-                    <a href="#" class="nice-btn good icon fa-plus">New</a>
+                    <a href="{{ url_for('monster.new') }}" class="nice-btn good icon fa-plus">New</a>
                 </div>
             </td>
         </tr>

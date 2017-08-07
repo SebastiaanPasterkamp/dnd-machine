@@ -16,7 +16,7 @@
                             {{ monster.alignment }}
                         </i>
                         <span class="badge pull-right">
-                            <a href="{{ url_for('edit_monster', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                            <a href="{{ url_for('monster.edit', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
                         </span>
                     </th>
                 </tr>
