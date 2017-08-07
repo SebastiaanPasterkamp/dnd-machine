@@ -1,0 +1,25 @@
+$icon-frontify: "\e900";
+
+@font-face {
+    font-family: 'TKAdditional';
+    src:  url('#{$font-path}/tk-additional/tk-additional.eot?opn9zj');
+    src:  url('#{$font-path}/tk-additional/tk-additional.eot?opn9zj#iefix') format('embedded-opentype'),
+        url('#{$font-path}/tk-additional/tk-additional.ttf?opn9zj') format('truetype'),
+        url('#{$font-path}/tk-additional/tk-additional.woff?opn9zj') format('woff'),
+        url('#{$font-path}/tk-additional/tk-additional.svg?opn9zj#TKAdditional') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.additional-icon {
+    font-style: normal;
+
+    &::before {
+        font-family: TKAdditional;
+    }
+    &.frontify {
+        &:before {
+            content: $icon-frontify;
+        }
+    }
+}

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-paw">Monster list</h2>
+
+<table class="nice-table condensed striped bordered hover" id="monsterlist">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Challenge Rating</th>
+            <th>
+            {% if encounter %}
+                Encounter:
+                <a href="{{ url_for('show_encounter', encounter_id=encounter.id) }}" class="nice-btn">{{ encounter.name }}</a>
+            {% endif %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for monster in monsters %}
+        <tr>
+            <td>{{ monster.name }}</td>
+            <td>{{ monster.challenge_rating }} / {{ monster.xp }} XP</td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                {% if encounter %}
+                    {% if monster.id in members %}
+                    <a href="{{ url_for('modify_encounter', encounter_id=encounter.id, monster_id=monster.id, action='del') }}" class="nice-btn bad icon fa-times">Remove</a>
+                    {% endif %}
+                    <a href="{{ url_for('modify_encounter', encounter_id=encounter.id, monster_id=monster.id, action='add') }}" class="nice-btn good icon fa-plus">Add</a>
+                    {% endif %}
+                    <a href="{{ url_for('show_monster', monster_id=monster.id) }}" class="nice-btn icon fa-eye">View</a>
+                    <a href="{{ url_for('edit_monster', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfooter>
+        <tr>
+            <td colspan="2"></td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                    <a href="#" class="nice-btn good icon fa-plus">New</a>
+                </div>
+            </td>
+        </tr>
+    </tfooter>
+</table>
+{% endblock %}

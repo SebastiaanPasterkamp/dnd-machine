@@ -1,0 +1,156 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-gamepad">{{ encounter.name }}</h2>
+
+<h3>Target Encounter Challenge Rating</h3>
+
+<div class="nice-row">
+    <div class="nice-col-7 nice-col-mobile-12">
+
+<table class="nice-table condensed striped bordered hover" id="party">
+    <thead>
+        <tr>
+            <th>Party name</th>
+            <th>Party size</th>
+            <th class="info">Easy</th>
+            <th class="good">Medium</th>
+            <th class="warning">Hard</th>
+            <th class="bad">Deadly</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ party.name }}</td>
+            <td>{{ party.size }}</td>
+            <td class="info">{{ party.easy }} XP</td>
+            <td class="good">{{ party.medium }} XP</td>
+            <td class="warning">{{ party.hard }} XP</td>
+            <td class="bad">{{ party.deadly }} XP</td>
+        </tr>
+    </tbody>
+</table>
+
+    </div>
+    <div class="nice-col-5 nice-col-mobile-12">
+
+        <table class="nice-table condensed striped bordered hover" id="modifier">
+            <thead>
+                <tr>
+                    <th>Encounter Rating</th>
+                    <th>Monster Modifier</th>
+                    <th>Party Modifier</th>
+                    <th>Final Modifier</th>
+                    <th>Modified Encounter Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ encounter.challenge_rating }} / {{ encounter.xp_rating|int }} XP</td>
+                    <td>{{ encounter.modifier.monster }}</td>
+                    <td>{{ encounter.modifier.party }}</td>
+                    <td>{{ encounter.modifier.total }}</td>
+                    {% if (encounter.xp_modified <= (party.easy + (party.medium-party.easy)/2)) %}
+                    <td class="info">
+                    {% elif (encounter.xp_modified <= (party.medium + (party.hard-party.medium)/2)) %}
+                    <td class="good">
+                    {% elif (encounter.xp_modified <= (party.hard + (party.deadly-party.hard)/2)) %}
+                    <td class="warning">
+                    {% else %}
+                    <td class="bad">
+                    {% endif %}
+                        {{ encounter.challenge_modified }} / {{ encounter.xp_modified|int }} XP
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<h3>Monsters</h3>
+
+<table class="nice-table condensed striped bordered hover" id="challenge">
+    <thead>
+        <tr>
+            <th rowspan="2">Monster Name</th>
+            <th colspan="3">Monser Stats</th>
+            <th colspan="2">Defensive</th>
+            <th colspan="3">Offensive</th>
+            <th rowspan="2"></th>
+        </tr>
+        <tr>
+            <th>Challenge Rating</th>
+            <th>Challenge XP</th>
+            <th>Proficiency Bonus</th>
+            <th>Hit Points</th>
+            <th>Armor Class</th>
+            <th>Damage / Round</th>
+            <th>Attack Bonus</th>
+            <th>Spell Save DC</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for monster in monsters %}
+        <tr>
+            <th>{{ monster.name }}</th>
+            <td>{{ monster.challenge_rating }}</td>
+            <td>{{ monster.xp|default('?') }} XP</td>
+            <td>{{ monster.proficiency|default('?') }}</td>
+            <td>{{ monster.hit_points|default('?') }}</td>
+            <td>{{ monster.armor_class|default('?') }}</td>
+            <td>{{ monster.average_damage|default('?') }}</td>
+            <td>
+                {% if monster.attack_bonus is defined %}
+                    {% if monster.attack_bonus > 0 %}+{% endif %}{{ monster.attack_bonus}}
+                {% else %}
+                ?
+                {% endif %}
+            </td>
+            <td>
+                {% if monster.spell_save is defined %}
+                    &ge;{{ monster.spell_save}}
+                {% else %}
+                ?
+                {% endif %}
+            </td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('show_monster', monster_id=monster.id) }}" class="nice-btn icon fa-eye">
+                        View
+                    </a>
+                    <a href="{{ url_for('edit_encounter', encounter_id=encounter.id, monster_id=monster.id, action='del') }}" class="nice-btn bad icon fa-times">
+                        Remove
+                    </a>
+                    <a href="{{ url_for('edit_encounter', encounter_id=encounter.id, monster_id=monster.id, action='add') }}" class="nice-btn icon fa-clone">
+                        Copy
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfooter>
+        <tr>
+            <th>Total</th>
+            <td>{{ encounter.challenge_rating }}</td>
+            <td>{{ encounter.xp }} XP</td>
+            <td rowspan="3" colspan="6"></td>
+            <td rowspan="3">
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('show_monster', encounter_id=encounter.id) }}" class="nice-btn good icon fa-plus">Add</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>Rating</th>
+            <td>{{ encounter.challenge_modified }}</td>
+            <td>{{ encounter.xp_modified|int }} XP</td>
+        </tr>
+        <tr>
+        {% if party and party.size %}
+            <th colspan="2">XP Gain per Character</th>
+            <td>{{ (encounter.xp / party.size)|int }} XP</td>
+        {% endif %}
+        </tr>
+    </tfooter>
+</table>
+{% endblock %}

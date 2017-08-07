@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if user.id %}
+<h2 class="icon fa-pencil">User</h2>
+
+<form action="{{ url_for('show_user', user_id=user.id, action='edit') }}" method="post">
+{% else %}
+<h2 class="icon fa-user-plus">User</h2>
+
+<form action="{{ url_for('add_user') }}" method="post">
+{% endif %}
+    <input type="hidden" name="id" value="{{ user.id }}">
+
+<div class="nice-row">
+    <div class="nice-col-6 nice-col-mobile-12">
+
+<div class="nice-panel gray">
+    <div class="nice-panel-heading">
+        Description
+    </div>
+    <div class="nice-panel-content">
+        <div class="nice-form-group">
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Name
+                </span>
+                {% if user.id %}
+                <input type="text" disabled class="nice-form-control" value="{{ user.username }}" />
+                {% else %}
+                <input type="text" class="nice-form-control" name="username" value="{{ user.username }}" />
+                {% endif %}
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Password
+                </span>
+                <input type="password" placeholder="Password..." class="nice-form-control" name="password" />
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    E-mail
+                </span>
+                <input type="email" placeholder="E-mail..." class="nice-form-control" name="email" value="{{ user.email }}" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% if 'admin' in request.user.role %}
+<div class="nice-panel gray">
+    <div class="nice-panel-heading">
+        Permissions
+    </div>
+    <div class="nice-panel-content">
+        <div class="nice-form-group">
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Role
+                </span>
+                <div class="nice-tags-container" id="role">
+                    {% for i in range(user.role|length) %}
+                    {% set role = user.role[i] %}
+                    {% if role %}
+                    <div class="nice-tag">
+                        <span class="nice-tag-label">
+                            <input type="hidden" value="{{ role }}" name="role.{{ i }}" />
+                            {{ role|capitalize }}
+                        </span>
+                        <button class="nice-tag-btn">
+                            <i class="icon fa-trash-o"></i>
+                        </button>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <select
+                        data-next="{{ user.role|length }}"
+                        class="nice-form-control add-tag"
+                        data-name="role."
+                        data-target="role">
+                        <option value="">Assign role...</option>
+                    {% for role in data.roles %}
+                        <option value="{{ role.name }}">{{ role.description }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endif %}
+
+    </div>
+</div>
+
+<div class="nice-btn-group position-fixed position-bottom position-right" style="z-index: 1000">
+    <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+    <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
+    <button name="button" value="save" class="nice-btn primary icon fa-save">Save</button>
+</div>
+
+</form>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-user">Character</h2>
+
+<table class="nice-table condensed striped bordered hover" id="character">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Level</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ character.name}}</td>
+            <td>{{ character.level }}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-users">Party {{ party.name }}</h2>
+
+<h3>Target Encounter Challenge Rating</h3>
+
+<table class="nice-table condensed striped bordered hover" id="party">
+    <thead>
+        <tr>
+            <th>Party size</th>
+            <th>Challenge modifier</th>
+            <th class="info">Easy</th>
+            <th class="good">Medium</th>
+            <th class="warning">Hard</th>
+            <th class="bad">Deadly</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ party.size }}</td>
+            <td>{{ party.modifier }}</td>
+            <td class="info">{{ party.easy }}XP</td>
+            <td class="good">{{ party.medium }}XP</td>
+            <td class="warning">{{ party.hard }}XP</td>
+            <td class="bad">{{ party.deadly }}XP</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Individual Challenge Rating</h3>
+
+<table class="nice-table condensed striped bordered hover" id="character">
+    <thead>
+        <tr>
+            <th>Character Level</th>
+            <th>Level</th>
+            <th>Easy</th>
+            <th>Medium</th>
+            <th>Hard</th>
+            <th>Deadly</th>
+            <th>Modify party</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for character in characters %}
+        <tr>
+            <td>{{ character.name }}</td>
+            <td>{{ character.level }}</td>
+            <td class="info">{{ character.easy }}XP</td>
+            <td class="good">{{ character.medium }}XP</td>
+            <td class="warning">{{ character.hard }}XP</td>
+            <td class="bad">{{ character.deadly }}XP</td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('modify_party', party_id=party.id, character_id=character.id, action='del') }}" class="nice-btn bad icon fa-user-times">Remove</a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfooter>
+        <tr>
+            <td colspan="6"></td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('show_character', party_id=party.id) }}" class="nice-btn good icon fa-user-plus">Add</a>
+                </div>
+            </td>
+        </tr>
+    </tfooter>
+</table>
+{% endblock %}

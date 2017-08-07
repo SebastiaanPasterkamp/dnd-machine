@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-user">User</h2>
+
+<div class="nice-row">
+    <div class="nice-col-6 nice-col-mobile-12">
+
+<table class="nice-table condensed striped bordered hover">
+    <thead>
+        <tr>
+            <th colspan="2">
+                <h3>{{ user.username }}</h3>
+                {% if user.role %}
+                {% endif %}
+                {% if user.id == request.user.id or 'admin' in request.user.role %}
+                <span class="badge pull-right">
+                    <a href="{{ url_for('show_user', user_id=user.id, action='edit') }}" class="nice-btn icon fa-cog">Edit</a>
+                </span>
+                {% endif %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Email</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        {% if user.role %}
+        <tr>
+            <th>Role</th>
+            <td class="nice-tags-container">
+                {% for role in user.role %}
+                {% if role %}
+                <div class="nice-tag">
+                    <span class="nice-tag-label">
+                        {{ role|capitalize}}
+                    </span>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+    </div>
+</div>
+
+</table>
+{% endblock %}

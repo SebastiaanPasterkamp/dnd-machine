@@ -1,0 +1,79 @@
+$product-extract: "\e900";
+$product-harvester: "\e901";
+$product-jobfeed: "\e902";
+$product-match: "\e903";
+$product-search: "\e904";
+$product-sourcebox: "\e905";
+$product-wte: "\e906";
+$product-textkernel: "\e907";
+$product-connector: "\e908";
+$product-tkportal: "\e909";
+
+@font-face {
+    font-family: 'TKProducts';
+    src:  url('#{$font-path}/tk-products/tk-products.eot?1313ij');
+    src:  url('#{$font-path}/tk-products/tk-products.eot?1313ij#iefix') format('embedded-opentype'),
+        url('#{$font-path}/tk-products/tk-products.ttf?1313ij') format('truetype'),
+        url('#{$font-path}/tk-products/tk-products.woff?1313ij') format('woff'),
+        url('#{$font-path}/tk-products/tk-products.svg?1313ij#TKProducts') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.product-icon {
+    font-style: normal;
+
+    &::before {
+        font-family: TKProducts;
+    }
+    &.extract {
+        &:before {
+            content: $product-extract;
+        }
+    }
+    &.harvester {
+        &:before {
+            content: $product-harvester;
+        }
+    }
+    &.jobfeed {
+        &:before {
+            content: $product-jobfeed;
+        }
+    }
+    &.match {
+        &:before {
+            content: $product-match;
+        }
+    }
+    &.search {
+        &:before {
+            content: $product-search;
+        }
+    }
+    &.sourcebox {
+        &:before {
+            content: $product-sourcebox;
+        }
+    }
+    &.wte {
+        &:before {
+            content: $product-wte;
+        }
+    }
+    &.textkernel {
+        &:before {
+            content: $product-textkernel;
+        }
+    }
+    &.connector {
+        &:before {
+            content: $product-connector;
+        }
+    }
+    &.tkportal {
+        &:before {
+            content: $product-tkportal;
+        }
+    }
+}
