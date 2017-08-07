@@ -1,7 +1,7 @@
 ## Setup python
 
 ```bash
-sudo pip install -r requirements.txt`
+sudo pip install -r requirements.txt
 ```
 
 ## Setup Flask
