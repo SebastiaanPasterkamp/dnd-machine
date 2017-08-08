@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, request, session, g, redirect, url_for, abort, \
-    render_template, flash, current_app
+    render_template, flash, jsonify
 
 from ..config import get_config
 from . import get_datamapper
@@ -9,11 +9,6 @@ user = Blueprint(
     'user', __name__, template_folder='templates')
 
 @user.route('/')
-def home():
-    if session.get('userid') is None:
-        return redirect(url_for('app.login'))
-    return redirect(url_for('user.list'))
-
 @user.route('/list')
 def list():
     if 'role' not in request.user \
@@ -54,10 +49,7 @@ def show(user_id):
 @user.route('/edit/<int:user_id>', methods=['GET', 'POST'])
 def edit(user_id):
     if user_id != request.user['id'] \
-            and (
-                'role' not in request.user
-                or 'admin' not in request.user['role']
-                ):
+            and 'admin' not in request.user['role']:
         abort(403)
 
     config = get_config()
@@ -73,7 +65,6 @@ def edit(user_id):
                 ))
 
         u = user_mapper.fromPost(request.form, u)
-        u['id'] = user_id
 
         if request.form.get("button", "save") == "save":
             user_mapper.update(u)
