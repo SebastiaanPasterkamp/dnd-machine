@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if character.id %}
+<h2 class="icon fa-pencil">Character</h2>
+
+<form action="{{ url_for('character.edit', character_id=character.id) }}" method="post">
+{% else %}
+<h2 class="icon fa-user-plus">Character</h2>
+
+<form action="{{ url_for('character.new') }}" method="post">
+{% endif %}
+    <button name="button" value="save" class="hidden">Hidden</button>
+
+<div class="nice-row">
+    <div class="nice-col-6 nice-col-mobile-12">
+
+<div class="nice-panel gray">
+    <div class="nice-panel-heading">
+        Description
+    </div>
+    <div class="nice-panel-content">
+        <div class="nice-form-group">
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Name
+                </span>
+                <input type="text" class="nice-form-control" name="name" value="{{ character.name }}" />
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Level
+                </span>
+                <select class="nice-form-control" name="level">
+                {% for level in range(1, 21) %}
+                    {% if level == character.level %}
+                    <option selected>{{ level }}</option>
+                    {% else %}
+                    <option>{{ level }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+<div class="nice-btn-group position-fixed position-bottom position-right" style="z-index: 1000">
+    <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+    <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
+    <button name="button" value="save" class="nice-btn primary icon fa-save">Save</button>
+</div>
+
+</form>
+{% endblock %}

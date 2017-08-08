@@ -2,18 +2,32 @@
 {% block body %}
 <h2 class="icon fa-user">Character</h2>
 
-<table class="nice-table condensed striped bordered hover" id="character">
+<div class="nice-row">
+    <div class="nice-col-6 nice-col-mobile-12">
+
+<table class="nice-table condensed striped bordered hover">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Level</th>
+            <th colspan="2">
+                <h3>{{ character.name }}</h3>
+                {% if character.user_id == request.user.id or 'admin' in request.user.role or 'dm' in request.user.role %}
+                <span class="badge pull-right">
+                    <a href="{{ url_for('character.edit', character_id=character.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                </span>
+                {% endif %}
+            </th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>{{ character.name}}</td>
+            <th>Level</th>
             <td>{{ character.level }}</td>
         </tr>
     </tbody>
+</table>
+
+    </div>
+</div>
+
 </table>
 {% endblock %}

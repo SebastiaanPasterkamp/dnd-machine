@@ -7,6 +7,9 @@
         <tr>
             <th>Name</th>
             <th>Level</th>
+            {% if users %}
+            <th>User</th>
+            {% endif %}
             <th>
             {% if party %}
                 Party:
@@ -20,6 +23,9 @@
         <tr>
             <td>{{ character.name }}</td>
             <td>{{ character.level }}</td>
+            {% if users and character.user_id %}
+            <td>{{ users[character.user_id].username }}</td>
+            {% endif %}
             <td>
                 <div class="nice-btn-group pull-right">
                 {% if party %}
@@ -29,7 +35,8 @@
                     <a href="{{ url_for('modify_party', party_id=party.id, character_id=character.id, action='add') }}" class="nice-btn good icon fa-user-plus">Add</a>
                     {% endif %}
                 {% endif %}
-                    <a href="{{ url_for('show_character', character_id=character.id) }}" class="nice-btn icon fa-eye">View</a>
+                    <a href="{{ url_for('character.show', character_id=character.id) }}" class="nice-btn icon fa-eye">View</a>
+                    <a href="{{ url_for('character.delete', character_id=character.id) }}" class="nice-btn icon fa-trash">Delete</a>
                 </div>
             </td>
         </tr>
@@ -37,10 +44,14 @@
     </tbody>
     <tfooter>
         <tr>
+            {% if users %}
+            <td colspan="3"></td>
+            {% else%}
             <td colspan="2"></td>
+            {% endif %}
             <td>
                 <div class="nice-btn-group pull-right">
-                    <a href="#" class="nice-btn good icon fa-user-o">New</a>
+                    <a href="{{ url_for('character.new') }}" class="nice-btn good icon fa-user-o">New</a>
                 </div>
             </td>
         </tr>

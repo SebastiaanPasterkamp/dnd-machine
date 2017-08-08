@@ -40,8 +40,8 @@
                     {% endif %}
 
                     <ul class="nice-header-menu menu-pills">
-                        <li class="highlight{% if request.path == url_for('show_character') %} primary{% endif %}">
-                            <a href="{{ url_for('show_character') }}" class="icon fa-user">
+                        <li class="highlight{% if request.path == url_for('character.list') %} primary{% endif %}">
+                            <a href="{{ url_for('character.list') }}" class="icon fa-user">
                                 Characters
                             </a>
                         </li>
