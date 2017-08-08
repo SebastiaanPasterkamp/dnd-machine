@@ -23,7 +23,7 @@ def list(encounter_id=None):
         encounter = encounter_mapper.getById(encounter_id)
         members = [
             m['id']
-            for m in monster_mapper.getByEncounter(encounter_id)
+            for m in monster_mapper.getByEncounterId(encounter_id)
             ]
 
     search = request.args.get('search', '')
@@ -98,8 +98,7 @@ def new():
     if request.method == 'POST':
         if request.form["button"] == "cancel":
             return redirect(url_for(
-                'monster.show',
-                monster_id=monster_id
+                'monster.list'
                 ))
 
         m = monster_mapper.fromPost(request.form)

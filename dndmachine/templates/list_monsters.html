@@ -10,7 +10,7 @@
             <th>
             {% if encounter %}
                 Encounter:
-                <a href="{{ url_for('show_encounter', encounter_id=encounter.id) }}" class="nice-btn">{{ encounter.name }}</a>
+                <a href="{{ url_for('encounter.show', encounter_id=encounter.id) }}" class="nice-btn">{{ encounter.name }}</a>
             {% endif %}
             </th>
         </tr>
@@ -22,15 +22,17 @@
             <td>{{ monster.challenge_rating }} / {{ monster.xp }} XP</td>
             <td>
                 <div class="nice-btn-group pull-right">
-                {% if encounter %}
-                    {% if monster.id in members %}
-                    <a href="{{ url_for('modify_encounter', encounter_id=encounter.id, monster_id=monster.id, action='del') }}" class="nice-btn bad icon fa-times">Remove</a>
-                    {% endif %}
-                    <a href="{{ url_for('modify_encounter', encounter_id=encounter.id, monster_id=monster.id, action='add') }}" class="nice-btn good icon fa-plus">Add</a>
-                    {% endif %}
                     <a href="{{ url_for('monster.show', monster_id=monster.id) }}" class="nice-btn icon fa-eye">View</a>
                     <a href="{{ url_for('monster.edit', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
                 </div>
+                {% if encounter %}
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='add', monster_id=monster.id) }}" class="nice-btn good icon fa-plus">Add to {{ encounter.name }}</a>
+                    {% if monster.id in members %}
+                    <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='del', monster_id=monster.id) }}" class="nice-btn bad icon fa-times">Remove from {{ encounter.name }}</a>
+                    {% endif %}
+                </div>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

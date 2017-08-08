@@ -491,7 +491,7 @@ class MonsterMapper(DataMapper):
             monster = self.setDefaults(monster)
         return monster
 
-    def getByEncounter(self, encounter_id):
+    def getByEncounterId(self, encounter_id):
         """Returns all monsters in an encounter by encounter_id"""
         cur = self.db.execute("""
             SELECT m.*
@@ -510,7 +510,15 @@ class MonsterMapper(DataMapper):
 
 class EncounterMapper(DataMapper):
     table = "encounter"
-    fields = ['name', 'size', 'challenge_rating', 'xp_rating', 'xp']
+    fields = ['name', 'user_id', 'size', 'challenge_rating', 'xp_rating', 'xp']
+    keepFields = ['user_id']
+    typeCast = {
+        'user_id': int,
+        'size': int,
+        'challenge_rating': float,
+        'xp_rating': float,
+        'xp': int
+        }
 
     def __init__(self, db, config):
         super(EncounterMapper, self).__init__(db)
@@ -522,6 +530,21 @@ class EncounterMapper(DataMapper):
             "`name` LIKE :search",
             {"search": '%%%s%%' % search}
             )
+
+    def getByDmUserId(self, user_id):
+        """Returns all encounterx created by DM by user_id"""
+        cur = self.db.execute("""
+            SELECT *
+            FROM `%s`
+            WHERE `user_id` = ?
+            """ % self.table,
+            [user_id]
+            )
+        encounters = cur.fetchall() or []
+        return [
+            self._read(dict(encounter))
+            for encounter in encounters
+            ]
 
     def addMonster(self, encounter_id, monster_id):
         """Add monster to encounter"""

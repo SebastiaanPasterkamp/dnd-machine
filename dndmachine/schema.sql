@@ -54,6 +54,7 @@ DROP TABLE IF EXISTS `encounter`;
 CREATE TABLE `encounter` (
   `id` INTEGER primary key autoincrement,
   `name` text not null,
+  `user_id` INTEGER,
   `size` INTEGER,
   `challenge_rating` FLOAT DEFAULT 0.0,
   `xp_rating` INTEGER DEFAULT 10,

@@ -58,8 +58,8 @@
                             </a>
                         </li>
 
-                        <li class="highlight{% if request.path == url_for('show_encounter') %} primary{% endif %}">
-                            <a href="{{ url_for('show_encounter') }}" class="icon fa-gamepad">
+                        <li class="highlight{% if request.path == url_for('encounter.list') %} primary{% endif %}">
+                            <a href="{{ url_for('encounter.list') }}" class="icon fa-gamepad">
                                 Encounters
                             </a>
                         </li>
