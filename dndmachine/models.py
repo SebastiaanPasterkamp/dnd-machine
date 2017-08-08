@@ -323,26 +323,45 @@ class CharacterMapper(DataMapper):
             {"search": '%%%s%%' % search}
             )
 
-    def getByParty(self, party_id):
+    def getByPartyId(self, party_id):
         """Returns all characters in a party by party_id"""
         cur = self.db.execute("""
             SELECT c.*
             FROM `party_characters` AS pc
-            LEFT JOIN `character` AS c ON (pc.character_id=c.id)
+            LEFT JOIN `%s` AS c ON (pc.character_id=c.id)
             WHERE `party_id` = ?
-            """,
+            """ % self.table,
             [party_id]
             )
         characters = cur.fetchall() or []
         return [
-                self._read(dict(character))
+            self._read(dict(character))
+            for character in characters
+            ]
+
+    def getByUserId(self, user_id):
+        """Returns all characters from a user by user_id"""
+        cur = self.db.execute("""
+            SELECT c.*
+            FROM `user_characters` AS uc
+            LEFT JOIN `%s` AS c ON (uc.character_id=c.id)
+            WHERE `user_id` = ?
+            """ % self.table,
+            [user_id]
+            )
+        characters = cur.fetchall() or []
+        return [
+            self._read(dict(character))
             for character in characters
             ]
 
 
 class PartyMapper(DataMapper):
     table = "party"
-    fields = ['name']
+    fields = ['name', 'user_id']
+    keepFields = ['user_id']
+    typeCast = {
+        'user_id': int}
 
     def getList(self, search=None):
         """Returns a list of parties matching the search parameter"""
@@ -350,6 +369,39 @@ class PartyMapper(DataMapper):
             "`name` LIKE :search",
             {"search": '%%%s%%' % search}
             )
+
+    def getByDmUserId(self, user_id):
+        """Returns all parties run by the DM by user_id"""
+        cur = self.db.execute("""
+            SELECT *
+            FROM `%s`
+            WHERE `user_id` = ?
+            """ % self.table,
+            [user_id]
+            )
+        parties = cur.fetchall() or []
+        return [
+            self._read(dict(party))
+            for party in parties
+            ]
+
+    def getByUserId(self, user_id):
+        """Returns all parties where a user by user_id
+        has characters involved"""
+        cur = self.db.execute("""
+            SELECT p.*
+            FROM `%s` AS p
+            LEFT JOIN `party_characters` AS pc ON (p.id=pc.party_id)
+            LEFT JOIN `user_characters` AS uc USING (character_id)
+            WHERE uc.`user_id` = ?
+            """ % self.table,
+            [user_id]
+            )
+        parties = cur.fetchall() or []
+        return [
+            self._read(dict(party))
+            for party in parties
+            ]
 
     def addCharacter(self, party_id, character_id):
         """Add character to party"""

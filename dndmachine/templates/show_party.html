@@ -1,6 +1,36 @@
 {% extends "layout.html" %}
 {% block body %}
-<h2 class="icon fa-users">Party {{ party.name }}</h2>
+<h2 class="icon fa-users">Party</h2>
+
+<div class="nice-row">
+    <div class="nice-col-6 nice-col-mobile-12">
+
+<table class="nice-table condensed striped bordered hover">
+    <thead>
+        <tr>
+            <th colspan="2">
+                <h3>{{ party.name }}</h3>
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('party.edit', party_id=party.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                    <a href="{{ url_for('party.delete', party_id=party.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Dungeon Master</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>description</th>
+            <td>{{ party.description }}</td>
+        </tr>
+    </tbody>
+</table>
+
+    </div>
+    <div class="nice-col-6 nice-col-mobile-12">
 
 <h3>Target Encounter Challenge Rating</h3>
 
@@ -27,6 +57,9 @@
     </tbody>
 </table>
 
+    </div>
+</div>
+
 <h3>Individual Challenge Rating</h3>
 
 <table class="nice-table condensed striped bordered hover" id="character">
@@ -52,7 +85,8 @@
             <td class="bad">{{ character.deadly }}XP</td>
             <td>
                 <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('modify_party', party_id=party.id, character_id=character.id, action='del') }}" class="nice-btn bad icon fa-user-times">Remove</a>
+                    <a href="{{ url_for('character.show', character_id=character.id) }}" class="nice-btn icon fa-eye">View</a>
+                    <a href="{{ url_for('party.modify', party_id=party.id, action='del', character_id=character.id) }}" class="nice-btn bad icon fa-times">Remove</a>
                 </div>
             </td>
         </tr>
@@ -63,7 +97,7 @@
             <td colspan="6"></td>
             <td>
                 <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('show_character', party_id=party.id) }}" class="nice-btn good icon fa-user-plus">Add</a>
+                    <a href="{{ url_for('character.list', party_id=party.id) }}" class="nice-btn accent icon fa-plus">Add Character</a>
                 </div>
             </td>
         </tr>

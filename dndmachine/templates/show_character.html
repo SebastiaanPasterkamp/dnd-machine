@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-<h2 class="icon fa-user">Character</h2>
+<h2 class="icon fa-user-secret">Character</h2>
 
 <div class="nice-row">
     <div class="nice-col-6 nice-col-mobile-12">
@@ -11,9 +11,10 @@
             <th colspan="2">
                 <h3>{{ character.name }}</h3>
                 {% if character.user_id == request.user.id or 'admin' in request.user.role or 'dm' in request.user.role %}
-                <span class="badge pull-right">
+                <div class="nice-btn-group pull-right">
                     <a href="{{ url_for('character.edit', character_id=character.id) }}" class="nice-btn icon fa-cog">Edit</a>
-                </span>
+                    <a href="{{ url_for('character.delete', character_id=character.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+                </div>
                 {% endif %}
             </th>
         </tr>
@@ -28,6 +29,4 @@
 
     </div>
 </div>
-
-</table>
 {% endblock %}
