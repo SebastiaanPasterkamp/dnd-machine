@@ -9,11 +9,6 @@ monster = Blueprint(
     'monster', __name__, template_folder='templates')
 
 @monster.route('/')
-def home():
-    if session.get('userid') is None:
-        return redirect(url_for('app.login'))
-    return redirect(url_for('monster.list'))
-
 @monster.route('/list')
 @monster.route('/list/<int:encounter_id>')
 def list(encounter_id=None):
