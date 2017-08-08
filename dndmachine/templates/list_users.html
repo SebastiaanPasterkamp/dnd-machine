@@ -18,7 +18,7 @@
             <td>
                 <div class="nice-btn-group pull-right">
                     <a href="{{ url_for('user.show', user_id=user.id) }}" class="nice-btn icon fa-eye">View</a>
-                    <a href="{{ url_for('user.edit', user_id=user.id, action='edit') }}" class="nice-btn warning icon fa-pencil">Edit</a>
+                    <a href="{{ url_for('user.edit', user_id=user.id, action='edit') }}" class="nice-btn icon fa-cog">Edit</a>
                 </div>
             </td>
         </tr>
@@ -29,7 +29,7 @@
             <td colspan="2"></td>
             <td>
                 <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('user.new') }}" class="nice-btn accent icon fa-user-plus">Add</a>
+                    <a href="{{ url_for('user.new') }}" class="nice-btn accent icon fa-plus">Add</a>
                 </div>
             </td>
         </tr>

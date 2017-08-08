@@ -10,15 +10,18 @@ character = Blueprint(
 
 @character.route('/')
 @character.route('/list')
-def list():
+@character.route('/list/<int:party_id>')
+def list(party_id=None):
     config = get_config()
     character_mapper = get_datamapper('character')
 
     search = request.args.get('search', '')
     characters = character_mapper.getList(search)
+    party = None
+    members = []
     users = []
 
-    if 'admin' not in request.user['role']:
+    if not any(role in request.user['role'] for role in ['admin', 'dm']):
         characters = [
             c
             for c in characters
@@ -31,11 +34,18 @@ def list():
             for user_id in set([c['user_id'] for c in characters if c.get('user_id')])
             ])
 
+    if party_id is not None:
+        party_mapper = get_datamapper('party')
+        party = party_mapper.getById(party_id)
+        members = [c['id'] for c in character_mapper.getByPartyId(party_id)]
+
     return render_template(
         'list_characters.html',
         info=config['info'],
         characters=characters,
         users=users,
+        party=party,
+        members=members,
         search=search
         )
 
@@ -73,7 +83,10 @@ def edit(character_id):
                 ))
 
         c = character_mapper.fromPost(request.form, c)
-        c['id'] = character_id
+
+        machine = get_datamapper('machine')
+        cr = machine.challengeByLevel(c['level'])
+        c.update(cr)
 
         if request.form.get("button", "save") == "save":
             character_mapper.update(c)
@@ -114,6 +127,10 @@ def new():
 
         c = character_mapper.fromPost(request.form)
         c['user_id'] = request.user['id']
+
+        machine = get_datamapper('machine')
+        cr = machine.challengeByLevel(c['level'])
+        c.update(cr)
 
         if request.form.get("button", "save") == "save":
             c = character_mapper.insert(c)

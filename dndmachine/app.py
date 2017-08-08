@@ -9,11 +9,13 @@ from .config import get_config
 from .models import datamapper_factory, get_db
 from .views.user import user
 from .views.character import character
+from .views.party import party
 from .views.monster import monster
 
 app = Flask(__name__)
 app.register_blueprint(user, url_prefix='/user')
 app.register_blueprint(character, url_prefix='/character')
+app.register_blueprint(party, url_prefix='/party')
 app.register_blueprint(monster, url_prefix='/monster')
 
 # Load default config and override config from an environment variable
@@ -36,6 +38,18 @@ def initdb_command():
     """Initializes the database."""
     init_db()
     print('Initialized the database.')
+
+def update_db():
+    db = get_db()
+    with app.open_resource('update.sql', mode='r') as f:
+        db.cursor().executescript(f.read())
+    db.commit()
+
+@app.cli.command('updatedb')
+def updatedb_command():
+    """Updates the database."""
+    update_db()
+    print('Updated the database.')
 
 def get_datamapper(datamapper):
     """Returns a datamapper for a type.
@@ -69,88 +83,7 @@ def close_db(error):
 def home():
     if session.get('userid') is None:
         return redirect(url_for('login'))
-    return redirect(url_for('show_party'))
-
-@app.route('/party')
-@app.route('/party/<int:party_id>')
-@app.route('/party/encounter/<int:encounter_id>')
-def show_party(party_id=None, encounter_id=None):
-    party_mapper = get_datamapper('party')
-    encounter_mapper = get_datamapper('encounter')
-
-    if party_id is None:
-        search = request.args.get('search', '')
-        parties = party_mapper.getList(search)
-        encounter = None
-        if encounter_id is not None:
-            encounter = encounter_mapper.getById(encounter_id)
-        return render_template(
-            'list_parties.html',
-            info=app.config['info'],
-            parties=parties,
-            encounter=encounter,
-            search=search
-            )
-
-    character_mapper = get_datamapper('character')
-    machine = get_datamapper('machine')
-
-    characters = character_mapper.getByParty(party_id)
-
-    for character in characters:
-        cr = machine.challengeByLevel(
-            character['level'],
-            session.get('method', 'lookup') == 'formula'
-            )
-        character.update(cr)
-
-    party = party_mapper.getById(party_id)
-    party['size'] = len(characters)
-    party['modifier'] = encounter_mapper.modifierByPartySize(party['size'])
-    for cr in ['easy', 'medium', 'hard', 'deadly']:
-        party[cr] = sum([c[cr] for c in characters])
-
-    return render_template(
-        'show_party.html',
-        info=app.config['info'],
-        party=party,
-        characters=characters
-        )
-
-@app.route('/party/<action>/<int:party_id>/<int:character_id>')
-def modify_party(action, party_id, character_id):
-    party_mapper = get_datamapper('party')
-    character_mapper = get_datamapper('character')
-    user_mapper = get_datamapper('user')
-
-    party = party_mapper.getById(party_id)
-    character = character_mapper.getById(character_id)
-
-    if action == 'add':
-        party_mapper.addCharacter(party_id, character_id)
-        flash(
-            "The Character '%s' was added to Party '%s'." % (
-                character['name'],
-                party['name']
-                ),
-            'info'
-            )
-    elif action == 'del':
-        party_mapper.delCharacter(party_id, character_id)
-        flash(
-            "The Character '%s' was removed from Party '%s'." % (
-                character['name'],
-                party['name']
-                ),
-            'info'
-            )
-    else:
-        flash("Unknown action '%s'." % action, 'error')
-
-    party['size'] = len(character_mapper.getByParty(party_id))
-    party_mapper.update(party)
-
-    return redirect(request.referrer)
+    return redirect(url_for('character.list'))
 
 @app.route('/encounter')
 @app.route('/encounter/<int:encounter_id>')
