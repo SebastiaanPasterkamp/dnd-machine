@@ -46,9 +46,17 @@ def show(encounter_id, party_id=None):
     party = party_mapper.getById(party_id)
 
     monsters = monster_mapper.getByEncounterId(encounter_id)
+
+    info = {}
     for monster in monsters:
         monster = machine.computeMonsterStatistics(monster)
-
+        if monster['id'] not in info:
+            info[monster['id']] = {
+                'count': 1,
+                'monster': monster
+                }
+        else:
+            info[monster['id']]['count'] += 1
     e = encounter_mapper.computeChallenge(e, monsters, party)
 
     return render_template(
@@ -57,7 +65,7 @@ def show(encounter_id, party_id=None):
         encounter=e,
         user=user,
         party=party,
-        monsters=monsters
+        monsters=info.values()
         )
 
 @encounter.route('/edit/<int:encounter_id>', methods=['GET', 'POST'])
@@ -84,7 +92,13 @@ def edit(encounter_id):
         if request.form.get("button", "save") == "save":
             encounter_mapper.update(e)
             return redirect(url_for(
-                'encounter.show',
+                'encounter.list'
+                ))
+
+        if request.form.get("button", "save") == "update":
+            encounter_mapper.update(e)
+            return redirect(url_for(
+                'encounter.edit',
                 encounter_id=encounter_id
                 ))
 
@@ -131,7 +145,7 @@ def new():
         if request.form.get("button", "save") == "save":
             e = encounter_mapper.insert(e)
             return redirect(url_for(
-                'encounter.show',
+                'encounter.edit',
                 encounter_id=e['id']
                 ))
     else:

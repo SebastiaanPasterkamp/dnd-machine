@@ -95,6 +95,13 @@ def edit(character_id):
                 character_id=character_id
                 ))
 
+        if request.form.get("button", "save") == "update":
+            character_mapper.update(c)
+            return redirect(url_for(
+                'character.edit',
+                character_id=character_id
+                ))
+
     return render_template(
         'edit_character.html',
         info=config['info'],

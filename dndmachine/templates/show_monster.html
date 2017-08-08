@@ -120,7 +120,7 @@
     </div>
     <div class="nice-col-5 nice-col-mobile-12">
 
-        <table class="nice-table condensed striped bordered hover" id="monsteractions">
+        <table class="nice-table condensed striped bordered hover">
             <tbody>
                 <tr>
                     <th colspan="2"><h3>Actions</h3></th>
@@ -136,6 +136,10 @@
                 <tr>
                     <th>Mode</th>
                     <td>{{ attack.mode }}</td>
+                </tr>
+                <tr>
+                    <th>Attack Notation</th>
+                    <td>{{ attack.notation }}</td>
                 </tr>
                 <tr>
                     <th>Attack Damage</th>
@@ -160,31 +164,30 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <th>Attack Notation</th>
-                    <td>{{ attack.notation }}</td>
-                </tr>
+                {% if attack.bonus %}
                 <tr>
                     <th>Attack Bonus</th>
-                    <td>{{ attack.bonus }}</td>
+                    <td>{% if attack.bonus > 0 %}+{% endif %}{{ attack.bonus }}</td>
                 </tr>
+                {% endif %}
+                {% if attack.spell_save_dc %}
                 <tr>
                     <th>Attack Save DC</th>
-                    <td>{{ attack.spell_save_dc }}</td>
+                    <td>&ge; {{ attack.spell_save_dc }}</td>
                 </tr>
-                {% for damage in attack.damage %}
-                <tr>
-                    <th>Damage type</th>
-                    <td>{{ damage.type }}</td>
-                </tr>
-                {% endfor %}
+                {% endif %}
                 <tr>
                     <th>Target</th>
                     <td>{{ attack.target }}</td>
                 </tr>
                 <tr>
                     <th>Range</th>
-                    <td>{{ attack.range }} ft.</td>
+                    <td>
+                        {% if attack.range_min < attack.range_max %}
+                        {{ attack.range_min }} -
+                        {% endif %}
+                        {{ attack.range_max }} ft.
+                    </td>
                 </tr>
                 <tr>
                     <th>On Hit</th>
@@ -195,10 +198,17 @@
                     <td>{{ attack.on_mis }}</td>
                 </tr>
                 {% endfor %}
+            </tbody>
+        </table>
 
-                {% if monster.multiattack %}
+        {% if monster.multiattack %}
+        <table class="nice-table condensed striped bordered hover">
+            <tbody>
                 <tr>
-                    <th colspan="2"><h4>Multiattack</h4></th>
+                    <th colspan="2"><h3>Actions</h3></th>
+                </tr>
+                <tr>
+                    <th colspan="2"><h3>Multiattack</h3></th>
                 </tr>
                 <tr>
                     <th>Multiattack</th>
@@ -219,9 +229,9 @@
                     {% endfor %}
                     </td>
                 </tr>
-                {% endif %}
             </tbody>
         </table>
+        {% endif %}
 
     </div>
 </div>

@@ -511,7 +511,7 @@ class MonsterMapper(DataMapper):
 class EncounterMapper(DataMapper):
     table = "encounter"
     fields = ['name', 'user_id', 'size', 'challenge_rating', 'xp_rating', 'xp']
-    keepFields = ['user_id']
+    keepFields = ['user_id', 'size', 'challenge_rating', 'xp_rating', 'xp']
     typeCast = {
         'user_id': int,
         'size': int,

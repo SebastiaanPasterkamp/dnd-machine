@@ -390,9 +390,21 @@
                 <span class="nice-input-addon">
                     Range
                 </span>
-                <select class="nice-form-control" name="attacks.{{ i }}.range">
-                {% for option in range(5, 40, 5) %}
-                    {% if attack.range == option %}
+                <select class="nice-form-control" name="attacks.{{ i }}.range_min">
+                {% for option in range(5, 100, 5) %}
+                    {% if attack.range_min == option %}
+                    <option selected>{{ option }}</option>
+                    {% else %}
+                    <option>{{ option }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+                <span class="nice-input-addon">
+                    -
+                </span>
+                <select class="nice-form-control" name="attacks.{{ i }}.range_max">
+                {% for option in range(5, 100, 5) %}
+                    {% if attack.range_max == option %}
                     <option selected>{{ option }}</option>
                     {% else %}
                     <option>{{ option }}</option>

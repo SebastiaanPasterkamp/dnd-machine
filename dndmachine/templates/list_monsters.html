@@ -10,7 +10,7 @@
             <th>
             {% if encounter %}
                 Encounter:
-                <a href="{{ url_for('encounter.show', encounter_id=encounter.id) }}" class="nice-btn">{{ encounter.name }}</a>
+                <a href="{{ url_for('encounter.edit', encounter_id=encounter.id) }}" class="nice-btn">{{ encounter.name }}</a>
             {% endif %}
             </th>
         </tr>

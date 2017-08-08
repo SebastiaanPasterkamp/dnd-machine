@@ -93,89 +93,243 @@
 
 <h3>Monsters</h3>
 
-<table class="nice-table condensed striped bordered hover" id="challenge">
+{% for info in monsters %}
+{% set monster = info.monster %}
+<div class="nice-row">
+    <div class="nice-col-5 nice-col-mobile-12">
+
+<table class="nice-table condensed striped bordered hover" id="monsterstats">
     <thead>
         <tr>
-            <th rowspan="2">Monster Name</th>
-            <th colspan="3">Monser Stats</th>
-            <th colspan="2">Defensive</th>
-            <th colspan="3">Offensive</th>
-            <th rowspan="2"></th>
-        </tr>
-        <tr>
-            <th>Challenge Rating</th>
-            <th>Challenge XP</th>
-            <th>Proficiency Bonus</th>
-            <th>Hit Points</th>
-            <th>Armor Class</th>
-            <th>Damage / Round</th>
-            <th>Attack Bonus</th>
-            <th>Spell Save DC</th>
+            <th colspan="2">
+                <h3>{{ monster.name }}{% if info.count > 1 %} x {{ info.count }}{% endif %}</h3>
+                <i>
+                    {{ monster.size }}
+                    {{ monster.type }},
+                    {{ monster.alignment }}
+                </i>
+                <span class="badge pull-right">
+                    <a href="{{ url_for('monster.edit', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                </span>
+            </th>
         </tr>
     </thead>
     <tbody>
-        {% for monster in monsters %}
         <tr>
-            <th>{{ monster.name }}</th>
-            <td>{{ monster.challenge_rating }}</td>
-            <td>{{ monster.xp|default('?') }} XP</td>
-            <td>{{ monster.proficiency|default('?') }}</td>
-            <td>{{ monster.hit_points|default('?') }}</td>
-            <td>{{ monster.armor_class|default('?') }}</td>
-            <td>{{ monster.average_damage|default('?') }}</td>
+            <th>Level</th>
+            <td>{{ monster.level }}</td>
+        </tr>
+        <tr>
+            <th>Armor Class</th>
+            <td>{{ monster.armor_class }}</td>
+        </tr>
+        <tr>
+            <th>Hit Points</th>
             <td>
-                {% if monster.attack_bonus is defined %}
-                    {% if monster.attack_bonus > 0 %}+{% endif %}{{ monster.attack_bonus}}
-                {% else %}
-                ?
-                {% endif %}
+                {{ monster.hit_points }}
+                <i>({{ monster.hit_points_notation }})</i>
             </td>
+        </tr>
+        <tr>
+            <th>Speed</th>
             <td>
-                {% if monster.spell_save is defined %}
-                    &ge;{{ monster.spell_save}}
-                {% else %}
-                ?
+                {% for mode, speed in monster.motion.iteritems() %}
+                {% if speed %}
+                    <strong>{{ mode }}:</strong> {{ speed }} ft.
                 {% endif %}
+                {% endfor %}
             </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table class="nice-table condensed striped bordered hover">
+    <tbody>
+        {% for trait in monster.trait %}
+        <tr>
+            <th>{{ trait.name }}</th>
+            <td>{{ trait.description }}</td>
+        </tr>
+        {% endfor %}
+        {% for feature in monster.features %}
+        <tr>
+            <th>{{ feature.name }}</th>
+            <td>{{ feature.description }}</td>
+        </tr>
+        {% endfor %}
+        {% if monster.languages %}
+        <tr>
+            <th>Languages</th>
             <td>
-                <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('monster.show', monster_id=monster.id) }}" class="nice-btn icon fa-eye">
-                        View
-                    </a>
-                    <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='del', monster_id=monster.id) }}" class="nice-btn bad icon fa-times">
-                        Remove
-                    </a>
-                    <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='add', monster_id=monster.id) }}" class="nice-btn icon fa-clone">
-                        Copy
-                    </a>
+                <div class="nice-tags-container">
+                    {% for language in monster.languages %}
+                    {% if language %}
+                    <div class="nice-tag">
+                        <span class="nice-tag-label">
+                            {{ language }}
+                        </span>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>Challenge Rating</th>
+            <td>{{ monster.challenge_rating }} ({{ monster.xp }} XP)</td>
+        </tr>
+        <tr>
+            <th>Proficiency</th>
+            <td>{{ monster.proficiency }}</td>
+        </tr>
+    </tbody>
+</table>
+
+    </div>
+    <div class="nice-col-7 nice-col-mobile-12">
+
+{% set stats = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"] %}
+<table class="nice-table condensed striped bordered hover" id="statblock">
+    <thead>
+        <tr>
+            {% for stat in stats %}
+            <th>{{ stat|capitalize }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for stat in stats %}
+            <td>
+                {{ monster.stats[stat] }}
+                (
+                    {% if monster.modifiers[stat] > 0 %}+{% endif %}
+                    {{ monster.modifiers[stat] }}
+                )
+            </td>
+            {% endfor %}
+        </tr>
+    </tbody>
+</table>
+
+<table class="nice-table condensed striped bordered hover">
+    <tbody>
+        <tr>
+            <th colspan="2"><h3>Actions</h3></th>
+        </tr>
+        {% for i in range(monster.attacks|length) %}
+        {% set attack = monster.attacks[i] %}
+        <tr>
+            <th colspan="2">
+                <h4>{{ attack.name }}</h4>
+                <i>{{ attack.description }}</i>
+            </th>
+        </tr>
+        <tr>
+            <th>Mode</th>
+            <td>{{ attack.mode }}</td>
+        </tr>
+        <tr>
+            <th>Attack Notation</th>
+            <td>{{ attack.notation }}</td>
+        </tr>
+        <tr>
+            <th>Attack Damage</th>
+            <td>
+                <div class="nice-tags-container">
+                    <div class="nice-tag">
+                        <span class="nice-tag-label">
+                            Average
+                        </span>
+                        <span class="nice-tag-badge">
+                            {{ attack.average }}
+                        <span>
+                    </div>
+                    <div class="nice-tag accent">
+                        <span class="nice-tag-label">
+                            Critical average
+                        </span>
+                        <span class="nice-tag-badge">
+                            {{ attack.critical }}
+                        <span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% if attack.bonus %}
+        <tr>
+            <th>Attack Bonus</th>
+            <td>{% if attack.bonus > 0 %}+{% endif %}{{ attack.bonus }}</td>
+        </tr>
+        {% endif %}
+        {% if attack.spell_save_dc %}
+        <tr>
+            <th>Attack Save DC</th>
+            <td>&ge; {{ attack.spell_save_dc }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>Target</th>
+            <td>{{ attack.target }}</td>
+        </tr>
+        <tr>
+            <th>Range</th>
+            <td>
+                {% if attack.range_min < attack.range_max %}
+                {{ attack.range_min }} -
+                {% endif %}
+                {{ attack.range_max }} ft.
+            </td>
+        </tr>
+        <tr>
+            <th>On Hit</th>
+            <td>{{ attack.on_hit }}</td>
+        </tr>
+        <tr>
+            <th>On Mis</th>
+            <td>{{ attack.on_mis }}</td>
         </tr>
         {% endfor %}
     </tbody>
-    <tfooter>
+</table>
+
+{% if monster.multiattack %}
+<table class="nice-table condensed striped bordered hover">
+    <tbody>
         <tr>
-            <th>Total</th>
-            <td>{{ encounter.challenge_rating }}</td>
-            <td>{{ encounter.xp }} XP</td>
-            <td rowspan="3" colspan="6"></td>
-            <td rowspan="3">
-                <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('monster.list', encounter_id=encounter.id) }}" class="nice-btn good icon fa-plus">Add</a>
+            <th colspan="2"><h3>Actions</h3></th>
+        </tr>
+        <tr>
+            <th colspan="2"><h3>Multiattack</h3></th>
+        </tr>
+        <tr>
+            <th>Multiattack</th>
+            <td>
+            {% for rotation in monster.multiattack %}
+                {{ rotation.name }}
+                <i>({{ rotation.condition }})</i>
+                {{ rotation.description|replace('%average%', rotation.average) }}
+                <div class="nice-tags-container">
+                    {% for attack in rotation.sequence %}
+                    <div class="nice-tag">
+                        <span class="nice-tag-label">
+                            {{ attack }}
+                        </span>
+                    </div>
+                    {% endfor %}
                 </div>
+            {% endfor %}
             </td>
         </tr>
-        <tr>
-            <th>Rating</th>
-            <td>{{ encounter.challenge_modified }}</td>
-            <td>{{ encounter.xp_modified|int }} XP</td>
-        </tr>
-        <tr>
-        {% if party and party.size %}
-            <th colspan="2">XP Gain per Character</th>
-            <td>{{ (encounter.xp / party.size)|int }} XP</td>
-        {% endif %}
-        </tr>
-    </tfooter>
+    </tbody>
 </table>
+{% endif %}
+
+
+    </div>
+</div>
+{% endfor %}
+
 {% endblock %}
