@@ -10,7 +10,6 @@
 <form action="{{ url_for('user.add') }}" method="post">
 {% endif %}
     <button name="button" value="save" class="hidden">Hidden</button>
-    <input type="hidden" name="id" value="{{ user.id }}">
 
 <div class="nice-row">
     <div class="nice-col-6 nice-col-mobile-12">
@@ -100,9 +99,9 @@
 </div>
 
 <div class="nice-btn-group position-fixed position-bottom position-right" style="z-index: 1000">
-    <button name="button" value="save" class="nice-btn primary icon fa-save">Save</button>
-    <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
     <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+    <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
+    <button name="button" value="save" class="nice-btn primary icon fa-save">Save</button>
 </div>
 
 </form>
