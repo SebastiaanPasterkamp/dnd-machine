@@ -8,11 +8,13 @@ from passlib.hash import pbkdf2_sha256 as password
 from .config import get_config
 from .models import datamapper_factory, get_db
 from .views.user import user
+from .views.character import character
 from .views.monster import monster
 
 app = Flask(__name__)
-app.register_blueprint(monster, url_prefix='/monster')
 app.register_blueprint(user, url_prefix='/user')
+app.register_blueprint(character, url_prefix='/character')
+app.register_blueprint(monster, url_prefix='/monster')
 
 # Load default config and override config from an environment variable
 app.config.update(get_config())
@@ -149,41 +151,6 @@ def modify_party(action, party_id, character_id):
     party_mapper.update(party)
 
     return redirect(request.referrer)
-
-@app.route('/character')
-@app.route('/character/<int:character_id>')
-@app.route('/character/add/<int:party_id>')
-def show_character(character_id=None, party_id=None):
-    character_mapper = get_datamapper('character')
-
-    if character_id is not None:
-        character = character_mapper.getById(character_id)
-        return render_template(
-            'show_character.html',
-            info=app.config['info'],
-            character=character
-            )
-
-    party = None
-    members = []
-    if party_id is not None:
-        party_mapper = get_datamapper('party')
-        party = party_mapper.getById(party_id)
-        members = [
-            c['id']
-            for c in character_mapper.getByParty(party_id)
-            ]
-
-    search = request.args.get('search', '')
-    characters = character_mapper.getList(search)
-    return render_template(
-        'list_characters.html',
-        info=app.config['info'],
-        characters=characters,
-        party=party,
-        members=members,
-        search=search
-        )
 
 @app.route('/encounter')
 @app.route('/encounter/<int:encounter_id>')
