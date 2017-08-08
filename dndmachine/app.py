@@ -11,12 +11,14 @@ from .views.user import user
 from .views.character import character
 from .views.party import party
 from .views.monster import monster
+from .views.encounter import encounter
 
 app = Flask(__name__)
 app.register_blueprint(user, url_prefix='/user')
 app.register_blueprint(character, url_prefix='/character')
 app.register_blueprint(party, url_prefix='/party')
 app.register_blueprint(monster, url_prefix='/monster')
+app.register_blueprint(encounter, url_prefix='/encounter')
 
 # Load default config and override config from an environment variable
 app.config.update(get_config())
@@ -84,117 +86,6 @@ def home():
     if session.get('userid') is None:
         return redirect(url_for('login'))
     return redirect(url_for('character.list'))
-
-@app.route('/encounter')
-@app.route('/encounter/<int:encounter_id>')
-@app.route('/encounter/<int:encounter_id>/<int:party_id>')
-def show_encounter(encounter_id=None, party_id=None):
-    encounter_mapper = get_datamapper('encounter')
-
-    if encounter_id is None:
-        search = request.args.get('search', '')
-        encounters = encounter_mapper.getList(search)
-        return render_template(
-            'list_encounters.html',
-            info=app.config['info'],
-            encounters=encounters,
-            search=search
-            )
-
-    machine = get_datamapper('machine')
-    party_mapper = get_datamapper('party')
-
-    if party_id is None:
-        return redirect( url_for('show_party', encounter_id=encounter_id) )
-
-    character_mapper = get_datamapper('character')
-    characters = character_mapper.getByParty(party_id)
-
-    for character in characters:
-        cr = machine.challengeByLevel(
-            character['level'],
-            session.get('method', 'lookup') == 'formula'
-            )
-        character.update(cr)
-
-    party = party_mapper.getById(party_id)
-    party['size'] = len(characters)
-    party['modifier'] = encounter_mapper.modifierByPartySize(party['size'])
-    for cr in ['easy', 'medium', 'hard', 'deadly']:
-        party[cr] = sum([c[cr] for c in characters])
-
-    monster_mapper = get_datamapper('monster')
-    monsters = monster_mapper.getByEncounter(encounter_id)
-    for monster in monsters:
-        monster = machine.computeMonsterStatistics(monster)
-
-    encounter = encounter_mapper.getById(encounter_id)
-    encounter = encounter_mapper.computeChallenge(encounter, monsters, party)
-
-    return render_template(
-        'show_encounter.html',
-        info=app.config['info'],
-        encounter=encounter,
-        monsters=monsters,
-        party=party
-        )
-
-@app.route('/encounter/<action>/<int:encounter_id>')
-@app.route('/encounter/<action>/<int:encounter_id>/<int:monster_id>')
-def edit_encounter(action, encounter_id, monster_id=None):
-    encounter_mapper = get_datamapper('encounter')
-    monster_mapper = get_datamapper('monster')
-    machine = get_datamapper('machine')
-
-    encounter = encounter_mapper.getById(encounter_id)
-    monster = monster_mapper.getById(monster_id)
-
-    if action == 'edit':
-        monsters = monster_mapper.getByEncounter(encounter_id)
-        for monster in monsters:
-            monster = machine.computeMonsterStatistics(monster)
-
-        encounter = encounter_mapper.getById(encounter_id)
-        encounter = encounter_mapper.computeChallenge(encounter, monsters)
-
-        return render_template(
-            'edit_encounter.html',
-            info=app.config['info'],
-            encounter=encounter,
-            monsters=monsters
-            )
-
-    elif action in ['add', 'del']:
-        if action == 'del':
-            encounter_mapper.delMonster(encounter_id, monster_id)
-            flash(
-                "The Monster '%s' was removed from Encounter '%s'." % (
-                    monster['name'],
-                    encounter['name']
-                    ),
-                'info'
-                )
-        else:
-            encounter_mapper.addMonster(encounter_id, monster_id)
-            flash(
-                "The Monster '%s' was added to Encounter '%s'." % (
-                    monster['name'],
-                    encounter['name']
-                    ),
-                'info'
-                )
-
-        monsters = monster_mapper.getByEncounter(encounter_id)
-        for monster in monsters:
-            monster = machine.computeMonsterStatistics(monster)
-
-        encounter = encounter_mapper.getById(encounter_id)
-        encounter = encounter_mapper.computeChallenge(encounter, monsters)
-        encounter_mapper.update(encounter)
-
-    else:
-        flash("Unknown action '%s'." % action, 'error')
-    return redirect(request.referrer)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

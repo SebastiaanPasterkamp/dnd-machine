@@ -36,6 +36,7 @@ def list(encounter_id=None):
         ])
 
     if encounter_id is not None:
+        encounter_mapper = get_datamapper('encounter')
         encounter = encounter_mapper.getById(encounter_id)
 
     return render_template(
@@ -125,8 +126,7 @@ def new():
     if request.method == 'POST':
         if request.form["button"] == "cancel":
             return redirect(url_for(
-                'party.show',
-                party_id=party_id
+                'party.list'
                 ))
 
         p = party_mapper.fromPost(request.form)

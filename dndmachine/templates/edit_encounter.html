@@ -1,32 +1,87 @@
 {% extends "layout.html" %}
 {% block body %}
-<h2 class="icon fa-gamepad">{{ encounter.name }}</h2>
+{% if encounter.id %}
+<h2 class="icon fa-pencil">Encounter</h2>
 
-<h3>Target Encounter Challenge Rating</h3>
+<form action="{{ url_for('encounter.edit', encounter_id=encounter.id) }}" method="post">
+{% else %}
+<h2 class="icon fa-plus">Encounter</h2>
+
+<form action="{{ url_for('encounter.new') }}" method="post">
+{% endif %}
+    <button name="button" value="save" class="hidden">Hidden</button>
 
 <div class="nice-row">
     <div class="nice-col-6 nice-col-mobile-12">
-        <table class="nice-table condensed striped bordered hover" id="modifier">
-            <thead>
-                <tr>
-                    <th>Encounter Rating</th>
-                    <th>Monster Modifier</th>
-                    <th>Party Modifier</th>
-                    <th>Final Modifier</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ encounter.challenge_rating }} / {{ encounter.xp_rating|int }} XP</td>
-                    <td>{{ encounter.modifier.encounter }}</td>
-                    <td>{{ encounter.modifier.party }}</td>
-                    <td>{{ encounter.modifier.total }}</td>
-                </tr>
-            </tbody>
-        </table>
+
+<div class="nice-panel gray">
+    <div class="nice-panel-heading">
+        Description
+    </div>
+    <div class="nice-panel-content">
+        <div class="nice-form-group">
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Name
+                </span>
+                <input type="text" class="nice-form-control" name="name" value="{{ encounter.name }}" />
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Description
+                </span>
+                <textarea class="nice-form-control" name="description">{{ encounter.description }}</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="nice-panel-heading">
+        <div class="nice-btn-group pull-right" style="z-index: 1000">
+            <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+            <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
+            <button name="button" value="save" class="nice-btn primary icon fa-save">Save</button>
+        </div>
+        <div class="clearfix"></div>
     </div>
 </div>
 
+
+</form>
+
+    </div>
+    <div class="nice-col-6 nice-col-mobile-12">
+
+{% if encounter.id %}
+
+<h3>Expected Encounter Challenge Rating</h3>
+
+<table class="nice-table condensed striped bordered hover" id="modifier">
+    <thead>
+        <tr>
+            <th>Encounter Rating</th>
+            <th>Monster Modifier</th>
+            <th>Party Modifier</th>
+            <th>Final Modifier</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ encounter.challenge_rating }} / {{ encounter.xp_rating|int }} XP</td>
+            <td>{{ encounter.modifier.monster }}</td>
+            <td>{{ encounter.modifier.party }}</td>
+            <td>{{ encounter.modifier.total }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endif %}
+
+    </div>
+</div>
+
+
+{% if encounter.id %}
 <h3>Monsters</h3>
 
 <table class="nice-table condensed striped bordered hover" id="challenge">
@@ -78,10 +133,10 @@
                     <a href="{{ url_for('monster.show', monster_id=monster.id) }}" class="nice-btn icon fa-eye">
                         View
                     </a>
-                    <a href="{{ url_for('edit_encounter', encounter_id=encounter.id, monster_id=monster.id, action='del') }}" class="nice-btn bad icon fa-times">
+                    <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='del', monster_id=monster.id) }}" class="nice-btn bad icon fa-times">
                         Remove
                     </a>
-                    <a href="{{ url_for('edit_encounter', encounter_id=encounter.id, monster_id=monster.id, action='add') }}" class="nice-btn icon fa-clone">
+                    <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='add', monster_id=monster.id) }}" class="nice-btn icon fa-clone">
                         Copy
                     </a>
                 </div>
@@ -114,4 +169,5 @@
         </tr>
     </tfooter>
 </table>
+{% endif %}
 {% endblock %}

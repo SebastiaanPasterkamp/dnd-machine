@@ -121,8 +121,7 @@ def new():
     if request.method == 'POST':
         if request.form["button"] == "cancel":
             return redirect(url_for(
-                'character.show',
-                character_id=character_id
+                'character.list'
                 ))
 
         c = character_mapper.fromPost(request.form)

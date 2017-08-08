@@ -18,7 +18,7 @@
             <td>
                 <div class="nice-btn-group pull-right">
                     {% if encounter %}
-                    <a href="{{ url_for('show_encounter', party_id=party.id, encounter_id=encounter.id) }}" class="nice-btn icon fa-gamepad">Set for {{ encounter.name }}</a>
+                    <a href="{{ url_for('encounter.show', party_id=party.id, encounter_id=encounter.id) }}" class="nice-btn icon good fa-gamepad">Set for {{ encounter.name }}</a>
                     {% endif %}
                     <a href="{{ url_for('party.show', party_id=party.id) }}" class="nice-btn icon fa-eye">View</a>
                     <a href="{{ url_for('party.delete', party_id=party.id) }}" class="nice-btn icon bad fa-trash">Delete</a>

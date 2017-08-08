@@ -2,10 +2,35 @@
 {% block body %}
 <h2 class="icon fa-gamepad">{{ encounter.name }}</h2>
 
-<h3>Target Encounter Challenge Rating</h3>
-
 <div class="nice-row">
     <div class="nice-col-7 nice-col-mobile-12">
+
+<table class="nice-table condensed striped bordered hover">
+    <thead>
+        <tr>
+            <th colspan="2">
+                <h3>{{ encounter.name }}</h3>
+                {% if encounter.user_id == request.user.id or 'admin' in request.user.role %}
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('encounter.edit', encounter_id=encounter.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                    <a href="{{ url_for('encounter.delete', encounter_id=encounter.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+                </div>
+                {% endif %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Description</th>
+            <td>{{ encounter.description }}</td>
+        </tr>
+    </tbody>
+</table>
+
+    </div>
+    <div class="nice-col-5 nice-col-mobile-12">
+
+<h3>Party Encounter Challenge Rating</h3>
 
 <table class="nice-table condensed striped bordered hover" id="party">
     <thead>
@@ -30,39 +55,39 @@
     </tbody>
 </table>
 
-    </div>
-    <div class="nice-col-5 nice-col-mobile-12">
+<h3>Modified Encounter Challenge Rating</h3>
 
-        <table class="nice-table condensed striped bordered hover" id="modifier">
-            <thead>
-                <tr>
-                    <th>Encounter Rating</th>
-                    <th>Monster Modifier</th>
-                    <th>Party Modifier</th>
-                    <th>Final Modifier</th>
-                    <th>Modified Encounter Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ encounter.challenge_rating }} / {{ encounter.xp_rating|int }} XP</td>
-                    <td>{{ encounter.modifier.monster }}</td>
-                    <td>{{ encounter.modifier.party }}</td>
-                    <td>{{ encounter.modifier.total }}</td>
-                    {% if (encounter.xp_modified <= (party.easy + (party.medium-party.easy)/2)) %}
-                    <td class="info">
-                    {% elif (encounter.xp_modified <= (party.medium + (party.hard-party.medium)/2)) %}
-                    <td class="good">
-                    {% elif (encounter.xp_modified <= (party.hard + (party.deadly-party.hard)/2)) %}
-                    <td class="warning">
-                    {% else %}
-                    <td class="bad">
-                    {% endif %}
-                        {{ encounter.challenge_modified }} / {{ encounter.xp_modified|int }} XP
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<table class="nice-table condensed striped bordered hover" id="modifier">
+    <thead>
+        <tr>
+            <th>Encounter Rating</th>
+            <th>Monster Modifier</th>
+            <th>Party Modifier</th>
+            <th>Final Modifier</th>
+            <th>Modified Encounter Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ encounter.challenge_rating }} / {{ encounter.xp_rating|int }} XP</td>
+            <td>{{ encounter.modifier.monster }}</td>
+            <td>{{ encounter.modifier.party }}</td>
+            <td>{{ encounter.modifier.total }}</td>
+            {% if (encounter.xp_modified <= (party.easy + (party.medium-party.easy)/2)) %}
+            <td class="info">
+            {% elif (encounter.xp_modified <= (party.medium + (party.hard-party.medium)/2)) %}
+            <td class="good">
+            {% elif (encounter.xp_modified <= (party.hard + (party.deadly-party.hard)/2)) %}
+            <td class="warning">
+            {% else %}
+            <td class="bad">
+            {% endif %}
+                {{ encounter.challenge_modified }} / {{ encounter.xp_modified|int }} XP
+            </td>
+        </tr>
+    </tbody>
+</table>
+
     </div>
 </div>
 
@@ -114,13 +139,13 @@
             </td>
             <td>
                 <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('show_monster', monster_id=monster.id) }}" class="nice-btn icon fa-eye">
+                    <a href="{{ url_for('monster.show', monster_id=monster.id) }}" class="nice-btn icon fa-eye">
                         View
                     </a>
-                    <a href="{{ url_for('edit_encounter', encounter_id=encounter.id, monster_id=monster.id, action='del') }}" class="nice-btn bad icon fa-times">
+                    <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='del', monster_id=monster.id) }}" class="nice-btn bad icon fa-times">
                         Remove
                     </a>
-                    <a href="{{ url_for('edit_encounter', encounter_id=encounter.id, monster_id=monster.id, action='add') }}" class="nice-btn icon fa-clone">
+                    <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='add', monster_id=monster.id) }}" class="nice-btn icon fa-clone">
                         Copy
                     </a>
                 </div>
@@ -136,7 +161,7 @@
             <td rowspan="3" colspan="6"></td>
             <td rowspan="3">
                 <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('show_monster', encounter_id=encounter.id) }}" class="nice-btn good icon fa-plus">Add</a>
+                    <a href="{{ url_for('monster.list', encounter_id=encounter.id) }}" class="nice-btn good icon fa-plus">Add</a>
                 </div>
             </td>
         </tr>
