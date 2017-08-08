@@ -77,6 +77,13 @@ def edit(monster_id):
                 'monster.show',
                 monster_id=monster_id
                 ))
+
+        if request.form.get("button", "save") == "update":
+            monster_mapper.update(m)
+            return redirect(url_for(
+                'monster.edit',
+                monster_id=monster_id
+                ))
     else:
         m = monster_mapper.getById(monster_id)
         m = machine.computeMonsterStatistics(m)
