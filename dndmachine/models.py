@@ -25,25 +25,18 @@ def datamapper_factory(datamapper):
     """Returns a datamapper for a type.
     """
     config = get_config()
-
     if datamapper == 'machine':
         return DndMachine(config['machine'])
-
     if datamapper == 'user':
         return UserMapper(get_db())
-
     if datamapper == 'party':
         return PartyMapper(get_db())
-
     if datamapper == 'character':
         return CharacterMapper(get_db())
-
     if datamapper == 'encounter':
         return EncounterMapper(get_db(), config['encounter'])
-
     if datamapper == 'monster':
         return MonsterMapper(get_db(), config['monster'])
-
     raise ValueError("No datamapper for %s" % datamapper)
 
 def mergeDict(a, b, path=None):
@@ -72,6 +65,7 @@ def mergeDict(a, b, path=None):
 class DataMapper(object):
     table = None
     fields = []
+    keepFields = []
     typeCastDefault = unicode
     typeCast = {}
 
@@ -138,8 +132,7 @@ class DataMapper(object):
         rv[step] = value
 
 
-    def fromPost(self, form):
-
+    def fromPost(self, form, old={}):
         obj = {}
         for path, value in form.iteritems():
             if path == "button":
@@ -149,6 +142,9 @@ class DataMapper(object):
                 continue
             value = cast(value)
             self._setPath(obj, path, value)
+        for keep in self.keepFields + ['id']:
+            if not obj.get(keep) and keep in old:
+                obj[keep] = old[keep]
         return obj
 
     def _read(self, obj):
@@ -258,17 +254,27 @@ class DataMapper(object):
         self.db.commit()
         return self.getById(obj['id'])
 
+    def delete(self, obj):
+        """Deletes an object from the table"""
+        cur = self.db.execute("""
+            DELETE
+            FROM `%s`
+            WHERE `id` = ?
+            """ % self.table,
+            [obj['id']]
+            )
+        self.db.commit()
+
 
 class UserMapper(DataMapper):
     table = "users"
     fields = ['username', 'password', 'email']
+    keepFields = ['username', 'password', 'role']
     typeCastDefault = unicode
     typeCast = {}
 
     def fromPost(self, form, old={}):
-        user = super(UserMapper, self).fromPost(form)
-        if 'username' not in user:
-            user['username'] = old['username']
+        user = super(UserMapper, self).fromPost(form, old)
         if len(user['password']):
             try:
                 user['password'] = password.hash(user['password'])
@@ -306,6 +312,9 @@ class UserMapper(DataMapper):
 class CharacterMapper(DataMapper):
     table = "character"
     fields = ['name', 'level']
+    keepFields = ['user_id']
+    typeCast = {
+        'level': int}
 
     def getList(self, search=None):
         """Returns a list of characters matching the search parameter"""
@@ -401,8 +410,8 @@ class MonsterMapper(DataMapper):
         super(MonsterMapper, self).__init__(db)
         self.defaultConfig = config["default"]
 
-    def fromPost(self, form):
-        monster = super(MonsterMapper, self).fromPost(form)
+    def fromPost(self, form, old={}):
+        monster = super(MonsterMapper, self).fromPost(form, old)
         monster = self.setDefaults(monster)
         return monster
 
