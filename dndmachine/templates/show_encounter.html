@@ -69,7 +69,7 @@
     </thead>
     <tbody>
         <tr>
-            <td>{{ encounter.challenge_rating }} / {{ encounter.xp_rating|int }} XP</td>
+            <td>{{ encounter.challenge_rating|round(3) }} / {{ encounter.xp_rating|int }} XP</td>
             <td>{{ encounter.modifier.monster }}</td>
             <td>{{ encounter.modifier.party }}</td>
             <td>{{ encounter.modifier.total }}</td>
@@ -90,6 +90,67 @@
 
     </div>
 </div>
+
+{% if mode == 'combat' %}
+<h3>Combat</h3>
+
+<form method="POST" action="?initiative">
+{% else %}
+<h3>Initiative</h3>
+
+<form method="POST">
+{% endif %}
+
+<div class="nice-row">
+    {% for c in combatants %}
+    <div class="nice-col-2 nice-col-mobile-4">
+        <span>{{ c.name }}</span>
+        {% if mode == 'combat' %}
+        {% set percent = c.current_hit_points * 100 / c.hit_points %}
+        {% if c.current_hit_points <= 0 %}
+        <div class="nice-progress small bad text-align-center">
+            Dead
+        </div>
+        {% elif percent < 33 %}
+        <div class="nice-progress small bad">
+            <div class="nice-progress-fill" style="width: {{ percent }}%;">
+                {{ c.current_hit_points }}
+            </div>
+        </div>
+        {% elif percent < 66 %}
+        <div class="nice-progress small warning">
+            <div class="nice-progress-fill" style="width: {{ percent }}%;">
+                {{ c.current_hit_points }} / {{ c.hit_points }}
+            </div>
+        </div>
+        {% else %}
+        <div class="nice-progress small good">
+            <div class="nice-progress-fill" style="width: {{ percent }}%;">
+                {{ c.current_hit_points }} / {{ c.hit_points }}
+            </div>
+        </div>
+        {% endif %}
+        <input name="damage-taken-{{ c.index }}" placeholder="Damage taken..." class="nice-form-control small" value="{{ c.damage_taken }}" />
+        <input type="hidden" name="initiative-{{ c.index }}" placeholder="Initiative..." class="nice-form-control small" value="{{ c.initiative }}" />
+        {% else %}
+        <input type="number" min="0" max="30" name="initiative-{{ c.index }}" placeholder="Initiative..." class="nice-form-control small" value="{{ c.initiative }}" />
+        <input type="hidden" name="damage-taken-{{ c.index }}" placeholder="Damage taken..." class="nice-form-control small" value="{{ c.damage_taken }}" />
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <div class="nice-btn-group pull-right">
+    {% if mode == 'combat' %}
+        <button name="mode" value="initiative" class="nice-btn accent icon fa-order">Change Initiative</button>
+        <button name="mode" value="{{ mode }}" class="nice-btn primary icon fa-refresh">Update</button>
+    {% else %}
+        <button name="mode" value="{{ mode }}" class="nice-btn info icon fa-refresh">Update</button>
+        <button name="mode" value="combat" class="nice-btn primary icon fa-gamepad">Combat</button>
+    {% endif %}
+    </div>
+</div>
+
+</form>
 
 <h3>Monsters</h3>
 
@@ -135,7 +196,7 @@
             <td>
                 {% for mode, speed in monster.motion.iteritems() %}
                 {% if speed %}
-                    <strong>{{ mode }}:</strong> {{ speed }} ft.
+                    <strong>{{ mode|capitalize }}:</strong> {{ speed }} ft.
                 {% endif %}
                 {% endfor %}
             </td>
@@ -143,6 +204,29 @@
     </tbody>
 </table>
 
+{% set stats = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"] %}
+<table class="nice-table condensed striped bordered hover" id="statblock">
+    <thead>
+        <tr>
+            {% for stat in stats %}
+            <th>{{ stat|capitalize }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for stat in stats %}
+            <td>
+                {{ monster.stats[stat] }}
+                (
+                    {% if monster.modifiers[stat] > 0 %}+{% endif %}
+                    {{ monster.modifiers[stat] }}
+                )
+            </td>
+            {% endfor %}
+        </tr>
+    </tbody>
+</table>
 
 <table class="nice-table condensed striped bordered hover">
     <tbody>
@@ -178,7 +262,7 @@
         {% endif %}
         <tr>
             <th>Challenge Rating</th>
-            <td>{{ monster.challenge_rating }} ({{ monster.xp }} XP)</td>
+            <td>{{ monster.challenge_rating|round(3) }} ({{ monster.xp }} XP)</td>
         </tr>
         <tr>
             <th>Proficiency</th>
@@ -189,30 +273,6 @@
 
     </div>
     <div class="nice-col-7 nice-col-mobile-12">
-
-{% set stats = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"] %}
-<table class="nice-table condensed striped bordered hover" id="statblock">
-    <thead>
-        <tr>
-            {% for stat in stats %}
-            <th>{{ stat|capitalize }}</th>
-            {% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            {% for stat in stats %}
-            <td>
-                {{ monster.stats[stat] }}
-                (
-                    {% if monster.modifiers[stat] > 0 %}+{% endif %}
-                    {{ monster.modifiers[stat] }}
-                )
-            </td>
-            {% endfor %}
-        </tr>
-    </tbody>
-</table>
 
 <table class="nice-table condensed striped bordered hover">
     <tbody>
@@ -283,14 +343,18 @@
                 {{ attack.range_max }} ft.
             </td>
         </tr>
+        {% if attack.on_hit %}
         <tr>
             <th>On Hit</th>
             <td>{{ attack.on_hit }}</td>
         </tr>
+        {% endif %}
+        {% if attack.on_mis %}
         <tr>
             <th>On Mis</th>
             <td>{{ attack.on_mis }}</td>
         </tr>
+        {% endif %}
         {% endfor %}
     </tbody>
 </table>

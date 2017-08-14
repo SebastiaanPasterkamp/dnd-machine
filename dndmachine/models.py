@@ -668,7 +668,6 @@ class DndMachine(object):
         return data
 
     def monsterChallengeRatingByStat(self, stat, value, target=None):
-        print 'monsterChallengeRatingByStat', (stat, value, target)
         indexes = []
         for index in range(len(self.monster_scaling)):
             data = self.monster_scaling[index]
@@ -681,7 +680,6 @@ class DndMachine(object):
         else:
             index = min(indexes, key=lambda i: abs(i - target))
         data = self.monster_scaling[index]
-        print data["challenge"], index
         return data["challenge"], index
 
     def computeMonsterStatistics(self, monster):
@@ -828,9 +826,6 @@ class DndMachine(object):
         defensive = hp + (ac - hp) / 2.0
         offensive = ad + max([(ab - ad) / 2.0, (dc - ad) / 2.0])
         challenge_rating = (defensive + offensive) / 2.0
-        print 'defensive', hp, hp_i, ac, ac_i, '=', hp, '+', (ac - hp) / 2.0
-        print 'offensive', ad, ad_i, ab, ab_i, dc, dc_i, '=', ad, '+', max([(ab - ad) / 2.0, (dc - ad) / 2.0])
-        print defensive, offensive, challenge_rating, (challenge_rating % 1.0)
 
         monster["challenge_rating"] = challenge_rating
         monster["proficiency"] = self.monsterStatByChallengeRating(

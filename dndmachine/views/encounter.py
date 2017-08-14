@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, request, session, g, redirect, url_for, abort, \
     render_template, flash
+import re
 
 from ..config import get_config
 from . import get_datamapper
@@ -29,7 +30,7 @@ def list(encounter_id=None):
         )
 
 @encounter.route('/show/<int:encounter_id>')
-@encounter.route('/show/<int:encounter_id>/<int:party_id>')
+@encounter.route('/show/<int:encounter_id>/<int:party_id>', methods=['GET', 'POST'])
 def show(encounter_id, party_id=None):
     if party_id is None:
         return redirect( url_for('party.list', encounter_id=encounter_id) )
@@ -38,6 +39,7 @@ def show(encounter_id, party_id=None):
     encounter_mapper = get_datamapper('encounter')
     user_mapper = get_datamapper('user')
     party_mapper = get_datamapper('party')
+    character_mapper = get_datamapper('character')
     monster_mapper = get_datamapper('monster')
     machine = get_datamapper('machine')
 
@@ -45,7 +47,55 @@ def show(encounter_id, party_id=None):
     user = user_mapper.getById(e['user_id'])
     party = party_mapper.getById(party_id)
 
+    characters = character_mapper.getByPartyId(party['id'])
     monsters = monster_mapper.getByEncounterId(encounter_id)
+
+    combatants = [
+        {
+            'index': i,
+            'initiative': 0,
+            'name': c['name'],
+            'hit_points': c.get('hit_points', 1),
+            'current_hit_points': c.get('hit_points', 1)
+            }
+            for i, c in enumerate(characters)
+        ]
+    offset = len(characters)
+    combatants.extend([
+        {
+            'index': offset + i,
+            'initiative': 0,
+            'name': m['name'],
+            'hit_points': m['hit_points'],
+            'current_hit_points': m['hit_points']
+            }
+            for i, m in enumerate(monsters)
+        ])
+
+    if request.method == 'POST':
+        for c in combatants:
+            c['initiative'] = int(request.form.get(
+                'initiative-%d' % c['index'], c['initiative']
+                ))
+            c['current_hit_points'] = c['hit_points']
+            c['damage_taken'] = request.form.get(
+                'damage-taken-%d' % c['index'], '')
+            for m in re.finditer(ur'[+-]?\d+', c['damage_taken']):
+                damage = m.group(0)
+                try:
+                    print c['current_hit_points'], '+=', damage
+                    c['current_hit_points'] += int(damage)
+                    if c['current_hit_points'] < 0:
+                        c['current_hit_points'] = 0
+                except:
+                    # Can't resolve; oh well
+                    pass
+        combatants = sorted(
+            combatants,
+            key=lambda c: c['initiative'],
+            reverse=True
+            )
+    mode = request.form.get('mode', 'initiative')
 
     info = {}
     for monster in monsters:
@@ -63,8 +113,10 @@ def show(encounter_id, party_id=None):
         'show_encounter.html',
         info=config['info'],
         encounter=e,
+        mode=mode,
         user=user,
         party=party,
+        combatants=combatants,
         monsters=info.values()
         )
 
