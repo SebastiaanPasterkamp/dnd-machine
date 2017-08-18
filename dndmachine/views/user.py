@@ -10,7 +10,7 @@ user = Blueprint(
 
 @user.route('/')
 @user.route('/list')
-def list():
+def overview():
     if 'role' not in request.user \
             or 'admin' not in request.user['role']:
         abort(403)

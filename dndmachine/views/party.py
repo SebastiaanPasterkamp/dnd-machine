@@ -11,7 +11,7 @@ party = Blueprint(
 @party.route('/')
 @party.route('/list')
 @party.route('/list/<int:encounter_id>')
-def list(encounter_id=None):
+def overview(encounter_id=None):
     config = get_config()
     party_mapper = get_datamapper('party')
     character_mapper = get_datamapper('character')
@@ -115,7 +115,7 @@ def delete(party_id):
     party_mapper.delete(p)
 
     return redirect(url_for(
-        'party.list'
+        'party.overview'
         ))
 
 @party.route('/new', methods=['GET', 'POST'])
@@ -126,7 +126,7 @@ def new():
     if request.method == 'POST':
         if request.form["button"] == "cancel":
             return redirect(url_for(
-                'party.list'
+                'party.overview'
                 ))
 
         p = party_mapper.fromPost(request.form)
