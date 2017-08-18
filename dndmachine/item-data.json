@@ -1,0 +1,692 @@
+{
+    "statistics": ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"],
+    "skills": [
+        {"name": "athletics", "stat": "strength"},
+        {"name": "acrobatics", "stat": "dexterity"},
+        {"name": "sleight of hand", "stat": "dexterity"},
+        {"name": "stealth", "stat": "dexterity"},
+        {"name": "arcana", "stat": "intelligence"},
+        {"name": "history", "stat": "intelligence"},
+        {"name": "investigation", "stat": "intelligence"},
+        {"name": "nature", "stat": "intelligence"},
+        {"name": "religion", "stat": "intelligence"},
+        {"name": "animal handling", "stat": "wisdom"},
+        {"name": "insight", "stat": "wisdom"},
+        {"name": "medicine", "stat": "wisdom"},
+        {"name": "perception", "stat": "wisdom"},
+        {"name": "survival", "stat": "wisdom"},
+        {"name": "deception", "stat": "charisma"},
+        {"name": "intimidation", "stat": "charisma"},
+        {"name": "performance", "stat": "charisma"},
+        {"name": "persuasion", "stat": "charisma"}
+    ],
+    "languages": {
+        "common": [
+            {"name": "Common", "speakers": "Humans", "script": "Common"},
+            {"name": "Dwarvish", "speakers": "Dwarves", "script": "Dwarvish"},
+            {"name": "Elvish", "speakers": "Elves", "script": "Elvish"},
+            {"name": "Giant", "speakers": "Ogres, Giants", "script": "Dwarvish"},
+            {"name": "Gnomish", "speakers": "Gnomes", "script": "Dwarvish"},
+            {"name": "Goblin", "speakers": "Goblinoids", "script": "Dwarvish"},
+            {"name": "Halfling", "speakers": "Halflings", "script": "Common"},
+            {"name": "Orc", "speakers": "Orcs", "script": "Dwarvish"}
+        ],
+        "exotic": [
+            {"name": "Abyssal", "speakers": "Demons", "script": "Infernal"},
+            {"name": "Celestial", "speakers": "Celestials", "script": "Celestial"},
+            {"name": "Draconic", "speakers": "Dragons, Dragonborn", "script": "Draconic"},
+            {"name": "Deep Speech", "speakers": "Mind flayers, Beholders"},
+            {"name": "Infernal", "speakers": "Devils", "script": "Infernal"},
+            {"name": "Primordial", "speakers": "Elementals", "script": "Dwarvish"},
+            {"name": "Sylvan", "speakers": "Fey creatures", "script": "Elvish"},
+            {"name": "Undercommon", "speakers": "Underdark traders", "script": "Elvish"}
+        ]
+    },
+    "armor": {
+        "light": [
+            {"name": "Padded", "cost": [5, "gp"], "armor": {"formula": "11 + modifier.dexterity"}},
+            {"name": "Leather", "cost": [10, "gp"], "armor": {"formula": "11 + modifier.dexterity"}},
+            {"name": "Studded leather", "cost": [45, "gp"], "armor": {"formula": "12 + modifier.dexterity"}}
+        ],
+        "medium": [
+            {"name": "Hide", "cost": [10, "gp"], "armor": {"formula": "12 + min(2, modifier.dexterity)"}},
+            {"name": "Chain shirt", "cost": [50, "gp"], "armor": {"formula": "13 + min(2, modifier.dexterity)"}},
+            {"name": "Scale mail", "cost": [50, "gp"], "armor": {"formula": "14 + min(2, modifier.dexterity)"}},
+            {"name": "Breastplate", "cost": [400, "gp"], "armor": {"formula": "14 + min(2, modifier.dexterity)"}},
+            {"name": "Half plate", "cost": [750, "gp"], "armor": {"formula": "15 + min(2, modifier.dexterity)"}}
+        ],
+        "heavy": [
+            {"name": "Ring mail", "cost": [30, "gp"], "armor": {"value": 14}},
+            {"name": "Chain mail", "cost": [75, "gp"], "armor": {"value": 16}, "strength": 13},
+            {"name": "Splint", "cost": [200, "gp"], "armor": {"value": 17}, "strength": 15},
+            {"name": "Plate", "cost": [1500, "gp"], "armor": {"value": 18}, "strength": 15}
+        ],
+        "shield": [
+            {"name": "Shield", "cost": [10, "gp"], "armor": {"bonus": 2}}
+        ]
+    },
+    "weapons": {
+        "simple": {
+            "melee": [
+                {"name": "Club", "cost": [1, "sp"], "damage": {"dice_count": 1, "dice_size": 4, "type": "bludgeoning"}, "property": ["light"]},
+                {"name": "Dagger", "cost": [2, "gp"], "damage": {"dice_count": 1, "dice_size": 4, "type": "piercing"}, "property": ["finesse", "light", "thrown"], "range": {"min": 20, "max": 60}},
+                {"name": "Greatclub", "cost": [2, "sp"], "damage": {"dice_count": 1, "dice_size": 8, "type": "bludgeoning"}, "property": ["two-handed"]},
+                {"name": "Handaxe", "cost": [5, "gp"], "damage": {"dice_count": 1, "dice_size": 6, "type": "slashing"}, "property": ["light", "thrown"], "range": {"min": 20, "max": 60}},
+                {"name": "Javelin", "cost": [5, "sp"], "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "property": ["thrown"], "range": {"min": 30, "max": 120}},
+                {"name": "Light hammer", "cost": [2, "gp"], "damage": {"dice_count": 1, "dice_size": 4, "type": "bludgeoning"}, "property": ["light", "thrown"], "range": {"min": 20, "max": 60}},
+                {"name": "Mace", "cost": [5, "gp"], "damage": {"dice_count": 1, "dice_size": 6, "type": "bludgeoning"}},
+                {"name": "Quarterstaff", "cost": [2, "sp"], "damage": {"dice_count": 1, "dice_size": 6, "type": "bludgeoning"}, "property": ["versatile"], "versatile": {"dice_count": 1, "dice_size": 8}},
+                {"name": "Sickle", "cost": [1, "gp"], "damage": {"dice_count": 1, "dice_size": 4, "type": "slashing"}, "property": ["light"]},
+                {"name": "Spear", "cost": [1, "gp"], "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "property": ["thrown", "versatile"], "range": {"min": 20, "max": 60}, "versatile": {"dice_count": 1, "dice_size": 8}}
+            ],
+            "ranged": [
+                {"name": "Crossbow, light", "cost": [25, "gp"], "damage": {"dice_count": 1, "dice_size": 8, "type": "piercing"}, "range": {"min": 80, "max": 320}, "property": ["ammunition", "loading", "two-handed"]},
+                {"name": "Dart", "cost": [5, "cp"], "damage": {"dice_count": 1, "dice_size": 4, "type": "piercing"}, "property": ["finesse", "thrown"], "range": {"min": 20, "max": 60}},
+                {"name": "Shortbow", "cost": [25, "gp"], "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "range": {"min": 80, "max": 320}, "property": ["ammunition", "two-handed"]},
+                {"name": "Sling", "cost": [1, "sp"], "damage": {"dice_count": 1, "dice_size": 4, "type": "bludgeoning"}, "range": {"min": 30, "max": 120}, "property": ["ammunition"]}
+            ]
+        },
+        "martial": {
+            "melee": [
+                {"name": "Battleaxe", "cost": [10, "gp"], "damage": {"dice_count": 1, "dice_size": 8, "type": "slashing"}, "property": ["versatile"], "versatile": {"dice_count": 1, "dice_size": 10}},
+                {"name": "Flail", "cost": [10, "gp"], "damage": {"dice_count": 1, "dice_size": 8, "type": "bludgeoning"}},
+                {"name": "Glaive", "cost": [20, "gp"], "damage": {"dice_count": 1, "dice_size": 10, "type": "slashing"}, "property": ["heavy", "reach", "two-handed"]},
+                {"name": "Greataxe", "cost": [30, "gp"], "damage": {"dice_count": 1, "dice_size": 12, "type": "slashing"}, "property": ["heavy", "two-handed"]},
+                {"name": "Greatsword", "cost": [50, "gp"], "damage": {"dice_count": 2, "dice_size": 6, "type": "slashing"}, "property": ["heavy", "two-handed"]},
+                {"name": "Halberd", "cost": [20, "gp"], "damage": {"dice_count": 1, "dice_size": 10, "type": "slashing"}, "property": ["heavy", "reach", "two-handed"]},
+                {"name": "Lance", "cost": [10, "gp"], "damage": {"dice_count": 1, "dice_size": 12, "type": "piercing"}, "property": ["reach", "special"]},
+                {"name": "Longsword", "cost": [15, "gp"], "damage": {"dice_count": 1, "dice_size": 8, "type": "slashing"}, "property": ["versatile"], "versatile": {"dice_count": 1, "dice_size": 10}},
+                {"name": "Maul", "cost": [10, "gp"], "damage": {"dice_count": 2, "dice_size": 6, "type": "bludgeoning"}, "property": ["heavy", "two-handed"]},
+                {"name": "Morningstar", "cost": [15, "gp"], "damage": {"dice_count": 1, "dice_size": 8, "type": "piercing"}},
+                {"name": "Pike", "cost": [5, "gp"], "damage": {"dice_count": 1, "dice_size": 10, "type": "piercing"}, "property": ["heavy", "reach", "two-handed"]},
+                {"name": "Rapier", "cost": [25, "gp"], "damage": {"dice_count": 1, "dice_size": 8, "type": "piercing"}, "property": ["finesse"]},
+                {"name": "Scimitar", "cost": [25, "gp"], "damage": {"dice_count": 1, "dice_size": 6, "type": "slashing"}, "property": ["finesse", "light"]},
+                {"name": "Shortsword", "cost": [10, "gp"], "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "property": ["finesse", "light"]},
+                {"name": "Trident", "cost": [5, "gp"], "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "property": ["thrown", "versatile"], "range": {"min": 20, "max": 60}, "versatile": {"dice_count": 1, "dice_size": 8}},
+                {"name": "War pick", "cost": [5, "gp"], "damage": {"dice_count": 1, "dice_size": 8, "type": "piercing"}},
+                {"name": "Warhammer", "cost": [15, "gp"], "damage": {"dice_count": 1, "dice_size": 8, "type": "bludgeoning"}, "property": ["versatile"], "versatile": {"dice_count": 1, "dice_size": 10}},
+                {"name": "Whip", "cost": [2, "gp"], "damage": {"dice_count": 1, "dice_size": 4, "type": "slashing"}, "property": ["finesse", "reach"]}
+            ],
+            "ranged": [
+                {"name": "Blowgun", "cost": [10, "gp"], "damage": {"value": 1, "type": "piercing"}, "range": {"min": 25, "max": 100}, "property": ["ammunition", "loading"]},
+                {"name": "Crossbow, hand", "cost": [75, "gp"], "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "range": {"min": 30, "max": 120}, "property": ["ammunition", "light", "loading"]},
+                {"name": "Crossbow, heavy", "cost": [50, "gp"], "damage": {"dice_count": 1, "dice_size": 10, "type": "piercing"}, "range": {"min": 100, "max": 400}, "property": ["ammunition", "heavy", "loading", "two-handed"]},
+                {"name": "Longbow", "cost": [50, "gp"], "damage": {"dice_count": 1, "dice_size": 8, "type": "piercing"}, "range": {"min": 150, "max": 600}, "property": ["ammunition", "heavy", "two-handed"]},
+                {"name": "Net", "cost": [1, "gp"], "range": {"min": 5, "max": 15}, "property": ["special", "thrown"]}
+            ]
+        }
+    },
+    "packs": {
+        "Burglar’s Pack": {
+            "worth": [16, "gp"],
+            "items": [
+                "backpack",
+                "bag of 1,000 ball bearings",
+                "10 feet of string",
+                "bell",
+                "5 candles",
+                "crowbar",
+                "hammer",
+                "10 pitons",
+                "hooded lantern",
+                "2 flasks of oil",
+                "5 days rations",
+                "tinderbox",
+                "waterskin",
+                "50 feet of hempen rope"
+            ]
+        },
+        "Diplomat’s Pack": {
+            "worth": [39, "gp"],
+            "items": [
+                "chest",
+                "2 cases for maps and scrolls",
+                "set of fine clothes",
+                "bottle of ink",
+                "ink pen",
+                "lamp",
+                "2 flasks of oil",
+                "5 sheets of paper",
+                "vial of perfume",
+                "sealing wax",
+                "soap"
+            ]
+        },
+        "Dungeoneer’s Pack": {
+            "worth": [12, "gp"],
+            "items": [
+                "backpack",
+                "crowbar",
+                "hammer",
+                "pitons",
+                "torches",
+                "tinderbox",
+                "10 days of rations",
+                "waterskin",
+                "50 feet of hempen rope"
+            ]
+        },
+        "Entertainer’s Pack": {
+            "worth": [40, "gp"],
+            "items": [
+                "backpack",
+                "bedroll",
+                "2 costumes",
+                "5 candles",
+                "5 days of rations",
+                "waterskin",
+                "disguise kit"
+            ]
+        },
+        "Explorer’s Pack": {
+            "worth": [10, "gp"],
+            "items": [
+                "backpack",
+                "bedroll",
+                "mess kit",
+                "tinderbox",
+                "10 torches",
+                "10 days of rations",
+                "waterskin",
+                "50 feet of hempen rope"
+            ]
+        },
+        "Priest’s Pack": {
+            "worth": [19, "gp"],
+            "items": [
+                "backpack",
+                "blanket",
+                "10 candles",
+                "tinderbox",
+                "alms box",
+                "2 blocks of incense",
+                "censer",
+                "vestments",
+                "2 days of rations",
+                "waterskin"
+            ]
+        },
+        "Scholar’s Pack": {
+            "worth": [40, "gp"],
+            "items": [
+                "backpack",
+                "book of lore",
+                "bottle of ink",
+                "ink pen",
+                "10 sheets of parchment",
+                "little bag of sand",
+                "small knife"
+            ]
+        }
+    },
+    "items": {
+        "artisan": [
+            {"name": "Alchemist's supplies", "worth": [50, "gp"], "weight": [8, "lb"]},
+            {"name": "Brewer's supplies", "worth": [20, "gp"], "weight": [9, "lb"]},
+            {"name": "Calligrapher's supplies", "worth": [10, "gp"], "weight": [5, "lb"]},
+            {"name": "Carpenter's tools", "worth": [8, "gp"], "weight": [6, "lb"]},
+            {"name": "Cartographer's tools", "worth": [15, "gp"], "weight": [6, "lb"]},
+            {"name": "Cobbler's tools", "worth": [5, "gp"], "weight": [5, "lb"]},
+            {"name": "Cook's utensils", "worth": [1, "gp"], "weight": [8, "lb"]},
+            {"name": "Glassblower's tools", "worth": [30, "gp"], "weight": [5, "lb"]},
+            {"name": "Jeweler's tools", "worth": [25, "gp"], "weight": [2, "lb"]},
+            {"name": "Leatherworker's tools", "worth": [5, "gp"], "weight": [5, "lb"]},
+            {"name": "Mason's tools", "worth": [10, "gp"], "weight": [8, "lb"]},
+            {"name": "Painter's supplies", "worth": [10, "gp"], "weight": [5, "lb"]},
+            {"name": "Potter's tools", "worth": [10, "gp"], "weight": [3, "lb"]},
+            {"name": "Smith's tools", "worth": [20, "gp"], "weight": [8, "lb"]},
+            {"name": "Tinker's tools", "worth": [50, "gp"], "weight": [10, "lb"]},
+            {"name": "Weaver's tools", "worth": [1, "gp"], "weight": [5, "lb"]},
+            {"name": "Woodcarver's tools", "worth": [1, "gp"], "weight": [5, "lb"]}
+        ],
+        "kits": [
+            {"name": "Disguise kit", "worth": [25, "gp"], "weight": [3, "lb"]},
+            {"name": "Forgery kit", "worth": [15, "gp"], "weight": [5, "lb"]},
+            {"name": "Herbalism kit", "worth": [5, "gp"], "weight": [3, "lb"]},
+            {"name": "Navigator's tools", "worth": [25, "gp"], "weight": [2, "lb"]},
+            {"name": "Poisoner's kit", "worth": [50, "gp"], "weight": [2, "lb"]},
+            {"name": "Thieves' tools", "worth": [25, "gp"], "weight": [1, "lb"]}
+        ],
+        "gaming": [
+            {"name": "Dice set", "worth": [1, "gp"]},
+            {"name": "Dragonchess set", "worth": [1, "gp"], "weight": [0.5, "lb"]},
+            {"name": "Playing card set", "worth": [5, "sp"]},
+            {"name": "Three-Dragon Ante set", "worth": [1, "gp"]}
+        ],
+        "musical": [
+            {"name": "Bagpipes", "worth": [30, "gp"], "weight": [6, "lb"]},
+            {"name": "Drum", "worth": [6, "gp"], "weight": [3, "lb"]},
+            {"name": "Dulcimer", "worth": [25, "gp"], "weight": [10, "lb"]},
+            {"name": "Flute", "worth": [2, "gp"], "weight": [1, "lb"]},
+            {"name": "Lute", "worth": [35, "gp"], "weight": [2, "lb"]},
+            {"name": "Lyre", "worth": [30, "gp"], "weight": [2, "lb"]},
+            {"name": "Horn", "worth": [3, "gp"], "weight": [2, "lb"]},
+            {"name": "Pan flute", "worth": [12, "gp"], "weight": [2, "lb"]},
+            {"name": "Shawm", "worth": [2, "gp"], "weight": [1, "lb"]},
+            {"name": "Viol", "worth": [30, "gp"], "weight": [1, "lb"]}
+        ]
+    },
+    "trinket": [
+        "A mummified goblin hand",
+        "A piece of crystal that faintly glows in the moonlight",
+        "A gold coin minted in an unknown land",
+        "A diary written in a language you don’t know",
+        "A brass ring that never tarnishes",
+        "An old chess piece made from glass",
+        "A pair of knucklebone dice, each with a skull symbol on the side that would normally show six pips",
+        "A small idol depicting a nightmarish creature that gives you unsettling dreams when you sleep near it",
+        "A rope necklace from which dangles four mummified elf fingers",
+        "The deed for a parcel of land in a realm unknown to you",
+        "A 1-ounce block made from an unknown material",
+        "A small cloth doll skewered with needles",
+        "A tooth from an unknown beast",
+        "An enormous scale, perhaps from a dragon",
+        "A bright green feather",
+        "An old divination card bearing your likeness",
+        "A glass orb filled with moving smoke",
+        "A 1-pound egg with a bright red shell",
+        "A pipe that blows bubbles",
+        "A glass jar containing a weird bit of flesh floating in pickling fluid",
+        "A tiny gnome-crafted music box that plays a song you dimly remember from your childhood",
+        "A small wooden statuette of a smug halfling",
+        "A brass orb etched with strange runes",
+        "A multicolored stone disk",
+        "A tiny silver icon of a raven",
+        "A bag containing forty-seven humanoid teeth, one of which is rotten",
+        "A shard of obsidian that always feels warm to the touch",
+        "A dragon's bony talon hanging from a plain leather necklace",
+        "A pair of old socks",
+        "A blank book whose pages refuse to hold ink, chalk, graphite, or any other substance or marking",
+        "A silver badge in the shape of a five-pointed star",
+        "A knife that belonged to a relative",
+        "A glass vial filled with nail clippings",
+        "A rectangular metal device with two tiny metal cups on one end that throws sparks when wet",
+        "A white, sequined glove sized for a human",
+        "A vest with one hundred tiny pockets",
+        "A small, weightless stone block",
+        "A tiny sketch portrait of a goblin",
+        "An empty glass vial that smells of perfume when opened",
+        "A gemstone that looks like a lump of coal when examined by anyone but you",
+        "A scrap of cloth from an old banner",
+        "A rank insignia from a lost legionnaire",
+        "A tiny silver bell without a clapper",
+        "A mechanical canary inside a gnome-crafted lamp",
+        "A tiny chest carved to look like it has numerous feet on the bottom",
+        "A dead sprite inside a clear glass bottle",
+        "A metal can that has no opening but sounds as if it is filled with liquid, sand, spiders, or broken glass (your choice)",
+        "A glass orb filled with water, in which swims a clockwork goldfish",
+        "A silver spoon with an M engraved on the handle",
+        "A whistle made from gold-colored wood",
+        "A dead scarab beetle the size of your hand",
+        "Two toy soldiers, one with a missing head",
+        "A small box filled with different-sized buttons",
+        "A candle that can’t be lit",
+        "A tiny cage with no door",
+        "An old key",
+        "An indecipherable treasure map",
+        "A hilt from a broken sword",
+        "A rabbit’s foot",
+        "A glass eye",
+        "A cameo carved in the likeness of a hideous person",
+        "A silver skull the size of a coin",
+        "An alabaster mask",
+        "A pyramid of sticky black incense that smells very bad",
+        "A nightcap that, when worn, gives you pleasant dreams",
+        "A single caltrop made from bone",
+        "A gold monocle frame without the lens",
+        "A 1-inch cube, each side painted a different color",
+        "A crystal knob from a door",
+        "A small packet filled with pink dust",
+        "A fragment of a beautiful song, written as musical notes on two pieces of parchment",
+        "A silver teardrop earring made from a real teardrop",
+        "The shell of an egg painted with scenes of human misery in disturbing detail",
+        "A fan that, when unfolded, shows a sleeping cat",
+        "A set of bone pipes",
+        "A four-leaf clover pressed inside a book discussing manners and etiquette",
+        "A sheet of parchment upon which is drawn a complex mechanical contraption",
+        "An ornate scabbard that fits no blade you have found so far",
+        "An invitation to a party where a murder happened",
+        "A bronze pentacle with an etching of a rat's head in its center",
+        "A purple handkerchief embroidered with the name of a powerful archmage",
+        "Half of a floorplan for a temple, castle, or some other structure",
+        "A bit of folded cloth that, when unfolded, turns into a stylish cap",
+        "A receipt of deposit at a bank in a far-flung city",
+        "A diary with seven missing pages",
+        "An empty silver snuffbox bearing an inscription on the surface that says “dreams”",
+        "An iron holy symbol devoted to an unknown god",
+        "A book that tells the story of a legendary hero's rise and fall, with the last chapter missing",
+        "A vial of dragon blood",
+        "An ancient arrow of elven design",
+        "A needle that never bends",
+        "An ornate brooch of dwarven design",
+        "An empty wine bottle bearing a pretty label that says, “The Wizard of Wines Winery, Red Dragon Crush, 331422-W”",
+        "A mosaic tile with a multicolored, glazed surface",
+        "A petrified mouse",
+        "A black pirate flag adorned with a dragon's skull and crossbones",
+        "A tiny mechanical crab or spider that moves about when it’s not being observed",
+        "A glass jar containing lard with a label that reads, “Griffon Grease”",
+        "A wooden box with a ceramic bottom that holds a living worm with a head on each end of its body",
+        "A metal urn containing the ashes of a hero"
+    ],
+    "spells": {
+        "bard": {
+            "cantrip": [
+                "Blade Ward",
+                "Dancing Lights",
+                "Friends",
+                "Light",
+                "Mage Hand",
+                "Mending",
+                "Message",
+                "Minor Illusion",
+                "Prestidigitation",
+                "True Strike",
+                "Vicious Mockery"
+            ],
+            "1st": [
+                "Animal Friendship",
+                "Bane",
+                "Charm Person",
+                "Comprehend Languages",
+                "Cure Wounds",
+                "Detect Magic",
+                "Disguise Self",
+                "Dissonant Whispers",
+                "Faerie Fire",
+                "Feather Fall",
+                "Healing Word",
+                "Heroism",
+                "Identify",
+                "Illusory Script",
+                "Longstrider",
+                "Silent Image",
+                "Sleep",
+                "Speak with Animals",
+                "Tasha's Hideous Laughter",
+                "Thunderwave",
+                "Unseen Servant"
+            ],
+            "2nd": [
+                "Animal Messenger",
+                "Blindness/Deafness",
+                "Calm Emotions",
+                "Cloud of Daggers",
+                "Crown of Madness",
+                "Detect Thoughts",
+                "Enhance Ability",
+                "Enthrall",
+                "Heat Metal",
+                "Hold Person",
+                "Invisibility",
+                "Knock",
+                "Lesser Restoration",
+                "Locate Animals or Plants",
+                "Locate Object",
+                "Magic Mouth",
+                "Phantasmal Force",
+                "See Invisibility",
+                "Shatter",
+                "Silence",
+                "Suggestion",
+                "Zone of Truth"
+            ],
+            "3rd": [
+                "Bestow Curse",
+                "Clairvoyance",
+                "Dispel Magic",
+                "Fear",
+                "Feign Death",
+                "Glyph of Warding",
+                "Hypnotic Pattern",
+                "Leomund's Tiny Hut",
+                "Major Image",
+                "Nondetection",
+                "Plant Growth",
+                "Sending",
+                "Speak with Dead",
+                "Speak with Plants",
+                "Stinking Cloud",
+                "Tongues"
+            ],
+            "4th": [
+                "Compulsion",
+                "Confusion",
+                "Dimension Door",
+                "Freedom of Movement",
+                "Greater Invisibility",
+                "Hallucinatory Terrain",
+                "Locate Creature",
+                "Polymorph"
+            ],
+            "5th": [
+                "Animate Objects",
+                "Awaken",
+                "Dominate Person",
+                "Dream",
+                "Geas",
+                "Greater Restoration",
+                "Hold Monster",
+                "Legend Lore",
+                "Mass Cure Wounds",
+                "Mislead",
+                "Modify Memory",
+                "Planar Binding",
+                "Raise Dead",
+                "Scrying",
+                "Seeming",
+                "Teleportation Circle"
+            ],
+            "6th": [
+                "Eyebite",
+                "Find the Path",
+                "Guards and Wards",
+                "Mass Suggestion",
+                "Otto's Irresistible Dance",
+                "Programmed Illusion",
+                "True Seeing"
+            ],
+            "7th": [
+                "Etherealness",
+                "Forcecage",
+                "Mirage Arcane",
+                "Mordenkainen's",
+                "Magnificent Mansion",
+                "Mordenkainen's Sword",
+                "Project Image",
+                "Regenerate",
+                "Resurrection",
+                "Symbol",
+                "Teleport"
+            ],
+            "8th": [
+                "Dominate Monster",
+                "Feeblemind",
+                "Glibness",
+                "Mind Blank",
+                "Power Word Stun"
+            ],
+            "9th": [
+                "Foresight",
+                "Power Word Heal",
+                "Power Word Kill",
+                "True Polymorph"
+            ]
+        },
+        "cleric": {
+            "cantrip": [
+                {"name": "Guidance"},
+                {"name": "light"},
+                {"name": "Resistance"},
+                {"name": "Sacred Flame"},
+                {"name": "Spare the Dying"},
+                {"name": "Thaumaturgy"}
+            ],
+            "1st": [
+                {"name": "Bless"},
+                {"name": "Command"},
+                {"name": "Cure Wounds"},
+                {"name": "Detect Magic"},
+                {"name": "Guiding Bolt"},
+                {"name": "Healing Word"},
+                {"name": "Inflict Wounds"},
+                {"name": "Sanctuary"},
+                {"name": "Shield of Faith"}
+            ],
+            "2nd": [
+                {"name": "Aid"},
+                {"name": "Augury"},
+                {"name": "Hold Person"},
+                {"name": "Lesser Restoration"},
+                {"name": "Prayer of Healing"},
+                {"name": "Silence"},
+                {"name": "Spiritual Weapon"},
+                {"name": "Warding Bond"}
+            ],
+            "3rd": [
+                {"name": "Beacon of Hope"},
+                {"name": "Dispel Magic"},
+                {"name": "Mass Healing Word"},
+                {"name": "Protection from Energy"},
+                {"name": "Remove Curse"},
+                {"name": "Revivify"},
+                {"name": "Speak with Dead"},
+                {"name": "Spirit Guardians"}
+            ],
+            "4th": [
+                {"name": "Death Ward"},
+                {"name": "Divination"},
+                {"name": "Freedom of Movement"},
+                {"name": "Guardian of Faith"},
+                {"name": "Locate Creature"}
+            ],
+            "5th": [
+                {"name": "Commune"},
+                {"name": "Flame Strike"},
+                {"name": "Greater Restoration"},
+                {"name": "Mass Cure Wounds"},
+                {"name": "Raise Dead"}
+            ],
+            "6th": [
+                {"name": "Blade Barrier"},
+                {"name": "Find the Path"},
+                {"name": "Harm"},
+                {"name": "Heal"},
+                {"name": "Heroes’ Feast"},
+                {"name": "True Seeing"}
+            ],
+            "7th": [
+                {"name": "Etherealness"},
+                {"name": "Fire Storm"},
+                {"name": "Regenerate"},
+                {"name": "Resurrection"}
+            ],
+            "8th": [
+                {"name": "Antimagic Field"},
+                {"name": "Earthquake"},
+                {"name": "Holy Aura"}
+            ],
+            "9th": [
+                {"name": "Astral Projection"},
+                {"name": "Gate"},
+                {"name": "Mass Heal"},
+                {"name": "True Resurrection"}
+            ]
+        },
+        "wizard": {
+            "cantrip": [
+                {"name": "Acid Splash"},
+                {"name": "Dancing Lights"},
+                {"name": "Fire Bolt"},
+                {"name": "light"},
+                {"name": "Mage Hand"},
+                {"name": "Minor Illusion"},
+                {"name": "Poison Spray"},
+                {"name": "Prestidigitation"},
+                {"name": "Ray of Frost"},
+                {"name": "Shocking Grasp"}
+            ],
+            "1st": [
+                {"name": "Burning Hands"},
+                {"name": "Charm Person"},
+                {"name": "Comprehend Languages"},
+                {"name": "Detect Magic"},
+                {"name": "Disguise Self"},
+                {"name": "Identify"},
+                {"name": "Mage Armor"},
+                {"name": "Magic Missile"},
+                {"name": "Shield"},
+                {"name": "Silent Image"},
+                {"name": "Sleep"},
+                {"name": "Thunderwave"}
+            ],
+            "2nd": [
+                {"name": "Arcane Lock"},
+                {"name": "Blur"},
+                {"name": "Darkness"},
+                {"name": "Flaming Sphere"},
+                {"name": "Hold Person"},
+                {"name": "Invisibility"},
+                {"name": "Knock"},
+                {"name": "Levitate"},
+                {"name": "Magic Weapon"},
+                {"name": "Misty Step"},
+                {"name": "Shatter"},
+                {"name": "Spider Climb"},
+                {"name": "Suggestion"},
+                {"name": "Web"}
+            ],
+            "3rd": [
+                {"name": "Counterspell"},
+                {"name": "Dispel Magic"},
+                {"name": "Fireball"},
+                {"name": "Fly"},
+                {"name": "Haste"},
+                {"name": "Lightning Bolt"},
+                {"name": "Major Image"},
+                {"name": "Protection from Energy"}
+            ],
+            "4th": [
+                {"name": "Arcane Eye"},
+                {"name": "Dimension Door"},
+                {"name": "Greater Invisibility"},
+                {"name": "Ice Storm"},
+                {"name": "Stoneskin"},
+                {"name": "Wall of Fire"}
+            ],
+            "5th": [
+                {"name": "Cone of Cold"},
+                {"name": "Dominate Person"},
+                {"name": "Dream"},
+                {"name": "Passwall"},
+                {"name": "Wall of Stone"}
+            ],
+            "6th": [
+                {"name": "Chain Lightning"},
+                {"name": "Disintegrate"},
+                {"name": "Globe of Invulnerability"},
+                {"name": "Mass Suggestion"},
+                {"name": "Otto’s Irresistible Dance"},
+                {"name": "True Seeing"}
+            ],
+            "7th": [
+                {"name": "Delayed Blast Fireball"},
+                {"name": "Finger of Death"},
+                {"name": "Mordenkainen’s Sword"},
+                {"name": "Teleport"}
+            ],
+            "8th": [
+                {"name": "Dominate Monster"},
+                {"name": "Maze"},
+                {"name": "Power Word Stun"},
+                {"name": "Sunburst"}
+            ],
+            "9th": [
+                {"name": "Foresight"},
+                {"name": "Imprisonment"},
+                {"name": "Meteor Swarm"},
+                {"name": "Power Word Kill"},
+                {"name": "Time Stop"}
+            ]
+        }
+    }
+}

@@ -2,6 +2,8 @@ from flask import g
 import json
 import sqlite3
 from passlib.hash import pbkdf2_sha256 as password
+import parser
+import re
 
 from .config import get_config
 
@@ -32,7 +34,7 @@ def datamapper_factory(datamapper):
     if datamapper == 'party':
         return PartyMapper(get_db())
     if datamapper == 'character':
-        return CharacterMapper(get_db())
+        return CharacterMapper(get_db(), config['character'])
     if datamapper == 'encounter':
         return EncounterMapper(get_db(), config['encounter'])
     if datamapper == 'monster':
@@ -62,6 +64,15 @@ def mergeDict(a, b, path=None):
     return a
 
 
+def resolveMath(obj, formula):
+    replace = {}
+    for m in re.finditer(ur'[a-z.]+', formula):
+        replace[m.group(0)] = DataMapper.getPath(obj, m.group(0))
+    for var, val in replace.iteritems():
+        formula = formula.replace(var, str(val))
+    code = parser.expr(formula).compile()
+    return eval(code)
+
 class DataMapper(object):
     table = None
     fields = []
@@ -75,14 +86,15 @@ class DataMapper(object):
     def _getType(self, path):
         if path == "id":
             return int
-        typeCast = self._getPath(
+        typeCast = DataMapper.getPath(
             self.typeCast,
             path,
             self.typeCastDefault
             )
         return typeCast
 
-    def _getPath(self, structure, path, default=None):
+    @staticmethod
+    def getPath(structure, path, default=None):
         path = [
             step
             for step in path.split('.')
@@ -98,19 +110,20 @@ class DataMapper(object):
                 raise Exception("No dict or list '%r': %r" % (path, rv))
         return rv
 
-    def _setPath(self, structure, path, value):
+    @staticmethod
+    def setPath(structure, path, value):
         path = path.split('.')
         rv = structure
         for i in range(len(path)-1):
             step = path[i]
             next_type = dict
-            if path[i+1].isdigit():
+            if path[i+1].isdigit() or path[i+1] == '+':
                 next_type = list
 
-            if step.isdigit():
-                step = int(step)
+            if step.isdigit() or step == '+':
                 if not isinstance(rv, list):
                     raise Exception("Not a list at %s %r: %r" % (step, path, rv))
+                step = int(step) if step.isdigit() else len(rv) + 1
                 rv.extend([
                     next_type()
                     for i in range(step - len(rv) + 1)
@@ -123,8 +136,10 @@ class DataMapper(object):
             rv = rv[step]
 
         step = path[-1]
-        if step.isdigit():
-            step = int(step)
+        if step.isdigit() or step == '+':
+            if not isinstance(rv, list):
+                raise Exception("Not a list at %s %r: %r" % (step, path, rv))
+            step = int(step) if step.isdigit() else len(rv) + 1
             rv.extend([
                 None
                 for i in range(step - len(rv) + 1)
@@ -141,7 +156,7 @@ class DataMapper(object):
             if not len(value) and cast == int:
                 continue
             value = cast(value)
-            self._setPath(obj, path, value)
+            DataMapper.setPath(obj, path, value)
         for keep in self.keepFields + ['id']:
             if not obj.get(keep) and keep in old:
                 obj[keep] = old[keep]
@@ -312,9 +327,43 @@ class UserMapper(DataMapper):
 class CharacterMapper(DataMapper):
     table = "character"
     fields = ['name', 'level']
-    keepFields = ['user_id']
+    keepFields = ['user_id', 'race', 'class', 'background', 'stats', 'modifiers']
     typeCast = {
-        'level': int}
+        'level': int,
+        'stats': {
+            'strength': int,
+            'dexterity': int,
+            'constitution': int,
+            'intelligence': int,
+            'wisdom': int,
+            'charisma': int
+            },
+        'modifiers': {
+            'strength': int,
+            'dexterity': int,
+            'constitution': int,
+            'intelligence': int,
+            'wisdom': int,
+            'charisma': int
+            }
+        }
+
+    def __init__(self, db, config):
+        super(CharacterMapper, self).__init__(db)
+        self.defaultConfig = config["default"]
+
+    def fromPost(self, form, old={}):
+        character = super(CharacterMapper, self).fromPost(form, old)
+        character = self.setDefaults(character)
+        return character
+
+    def setDefaults(self, character):
+        character = mergeDict(character, self.defaultConfig)
+        for stat, value in character["stats"].iteritems():
+            character["modifiers"][stat] = \
+                character["stats_bonus"][stat] \
+                + (value-10)/2
+        return character
 
     def getList(self, search=None):
         """Returns a list of characters matching the search parameter"""

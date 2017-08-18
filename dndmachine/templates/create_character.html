@@ -1,0 +1,455 @@
+{% extends "layout.html" %}
+
+{% set buttons %}
+<div class="nice-btn-group pull-right">
+    <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+    {% if completed %}
+    <button name="button" value="save" class="nice-btn primary icon fa-save">Save</button>
+    {% else %}
+    <button name="button" value="next" class="nice-btn primary icon fa-arrow-right">Next</button>
+    {% endif %}
+</div>
+<div class="clearfix"></div>
+{% endset %}
+
+{%- macro attribute(choises, path, given=[], attr='') %}
+{% if given %}
+<ul>
+{% for g in given %}
+    <li>{{ g }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% for choise in choises %}
+    {% if 'options' in choise %}
+    <select class="small nice-form-control" {{ attr }} name="{{ path }}.+">
+    {% for option in choise.options %}
+        <option>{{ option }}</option>
+    {% endfor %}
+    </select>
+    {% endif %}
+
+    {% if 'sets' in choise %}
+    {% for set in choise.sets %}
+    {{ attribute([set], path) }}
+    {% endfor %}
+    {% endif %}
+
+    {% if 'choose' in choise %}
+    <table class="nice-table condensed bordered itemset">
+    {% for set in choise.choose %}
+        <tr>
+            <td><input type="radio" name="{{ choise.choose }}" {% if loop.first %}checked{% endif %}/></td>
+            <td>{{ attribute([set], path, attr='disabled' if not loop.first else '') }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    {% endif %}
+
+    {% if 'multiple' in choise %}
+    {% for set in choise.multiple %}
+    {{ attribute([set], path) }}
+    {% endfor %}
+    {% endif %}
+
+    {% if 'group' in choise %}
+    {{ choise.group|join(', ') }}"
+    {% for set in choise.group %}
+    <input type="hidden" name="path.+" {{ attr }} value="{{ set }}" />
+    {% endfor %}
+    {% endif %}
+{% endfor %}
+{% endmacro -%}
+
+{% block body %}
+<h2 class="icon fa-plus">New Character</h2>
+
+<form action="{{ url_for('character.new') }}" method="post">
+    <input type="hidden" name="current" value="{{ current.tab }}" />
+    {% if completed %}
+    <button name="button" value="save" class="hidden">Hidden</button>
+    {% else %}
+    <button name="button" value="next" class="hidden">Hidden</button>
+    {% endif %}
+
+<div class="nice-tabs-wrapper">
+    <ul class="nice-tabs">
+    {% for tab in tabs %}
+        {% set class = "current" if tab == current.tab else '' %}
+        <li class="{{ class }}">
+            {% if tab in completed_tabs %}
+            <a class="icon fa-check-square-o">
+            {% else %}
+            <a class="icon fa-square-o">
+            {% endif %}
+                {{ tab|capitalize }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+    <ul class="nice-tab-content">
+        <li class="current" data-name="{{ current.tab }}">
+
+{% if current.tab == "race" %}
+<div class="nice-tabs-wrapper" id="race">
+    <ul class="nice-tabs small">
+    {% for data in cdata.race %}
+        {% set class = "current" if data.name == current.race else '' %}
+        <li class="{{ class }}" data-name="{{ data.name }}">
+            <a href="#">{{ data.name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+    <ul class="nice-tab-content">
+    {% for data in cdata.race %}
+        {% set class = "current" if data.name == current.race else '' %}
+        <li class="{{ class }}" data-name="{{ data.name }}">
+            {{ buttons }}
+
+{% for sub in data.sub %}
+<label>
+    {% set checked = "checked" if sub.name == character.race else '' %}
+    <input type="radio" name="race" value="{{ sub.name }}" {{ checked }} />
+    {{ sub.name }}
+</label>
+{% endfor %}
+{{ data.description|safe }}
+
+            {{ buttons }}
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% else %}
+<input type="hidden" name="race" value="{{ character.race }}" />
+{% endif %}
+
+{% if current.tab == "class" %}
+<div class="nice-tabs-wrapper" id="class">
+    <ul class="nice-tabs small">
+    {% for data in cdata.class %}
+        {% set class = "current" if data.name == current.class else '' %}
+        <li class="{{ class }}" data-name="{{ data.name }}">
+            <a href="#">{{ data.name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+    <ul class="nice-tab-content">
+    {% for data in cdata.class %}
+        {% set class = "current" if data.name == current.class else '' %}
+        <li class="{{ class }}" data-name="{{ data.name }}">
+            {{ buttons }}
+
+<label>
+{% set checked = "checked" if data.name == character.class %}
+    <input type="radio" name="class" value="{{ data.name }}" {{ checked }} />
+    {{ data.name }}
+</label>
+{{ data.description|safe }}
+
+            {{ buttons }}
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% else %}
+<input type="hidden" name="class" value="{{ character.class }}" />
+{% endif %}
+
+{% if current.tab == "background" %}
+<div class="nice-tabs-wrapper" id="background">
+    <ul class="nice-tabs small">
+    {% for data in cdata.background %}
+        {% set class = "current" if data.name == current.background else '' %}
+        <li class="{{ class }}" data-name="{{ data.name }}">
+            <a href="#">{{ data.name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+    <ul class="nice-tab-content">
+    {% for data in cdata.background %}
+        {% set class = "current" if data.name == current.background else '' %}
+        <li class="{{ class }}" data-name="{{ data.name }}">
+            {{ buttons }}
+
+<label>
+{% set checked = "checked" if data.name == character.background %}
+    <input type="radio" name="background" value="{{ data.name }}" {{ checked }} />
+    {{ data.name }}
+</label>
+{{ data.description|safe }}
+
+            {{ buttons }}
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% else %}
+<input type="hidden" name="background" value="{{ character.background }}" />
+{% endif %}
+
+{% set stats = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"] %}
+{% if current.tab == "stats" %}
+{{ buttons }}
+<div class="nice-form-group">
+    <table class="nice-table condensed bordered" id="statsblockeditor">
+        <thead>
+            <tr>
+                <th></th>
+            {% for stat in stats %}
+            {% set class = "good" if stat in character.proficiencies.saving_throws else "" %}
+                <th class="{{ class }}">{{ stat|capitalize }}</th>
+            {% endfor %}
+                <th>Budget</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Statistics</th>
+            {% for stat in stats %}
+            {% set class = "good" if stat in character.proficiencies.saving_throws else "" %}
+                <td class="{{ class }}">
+                    <select class="small nice-form-control" data-stat="{{ stat }}" name="stats.{{ stat }}">
+                    {% for option in range(8, 16) %}
+                        {% if character.stats[stat] == option %}
+                        <option selected>{{ option }}</option>
+                        {% else %}
+                        <option>{{ option }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    </select>
+                </td>
+            {% endfor %}
+                <td>
+                    <input type="number" disabled id="budget" data-total="27" value="27" class="nice-form-control" />
+                </td>
+            </tr>
+            <tr>
+                <th>Modifiers</th>
+            {% for stat in stats %}
+            {% set class = "good" if stat in character.proficiencies.saving_throws else "" %}
+                <td class="{{ class }}">
+                    <input type="number" disabled data-modifier="{{ stat }}" data-bonus="{{ character.stats_bonus[stat] }}" value="{{ character.modifiers[stat] }}" class="nice-form-control" />
+                </td>
+            {% endfor %}
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{{ buttons }}
+{% else %}
+{% for stat in stats %}
+    <input type="hidden" name="stats.{{ stat }}" value="{{ character.stats[stat] }}" />
+{% endfor %}
+{% endif %}
+
+{% if current.tab == "customize" %}
+{{ buttons }}
+<div class="nice-form-group">
+    <table class="nice-table condensed bordered">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td><input class="small nice-form-control" name="name" placeholder="Name..."></td>
+            </tr>
+            <tr>
+                <th>Race</th>
+                <td>{{ character.race }}</td>
+            </tr>
+            <tr>
+                <th>Class</th>
+                <td>{{ character.class }}</td>
+            </tr>
+            <tr>
+                <th>Background</th>
+                <td>{{ character.background }}</td>
+            </tr>
+            <tr>
+                <th>Alignment</th>
+                <td>
+                    <select class="nice-form-control" name="alignment">
+                    {% for b in ['good', 'neutral', 'evil'] %}
+                    {% for a in ['lawful', 'neutral', 'chaotic'] %}
+                        {% set alignment = ('true' if a == b else a) + ' ' + b %}
+                        <option>{{ alignment }}</option>
+                    {% endfor %}
+                    {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Level</th>
+                <td>{{ character.level }}</td>
+            </tr>
+            <tr>
+                <th>Size</th>
+                <td>{{ character.size }}</td>
+            </tr>
+            <tr>
+                <th>Speed</th>
+                <td>{{ character.speed }}</td>
+            </tr>
+            <tr>
+                <th>Hit Dice</th>
+                <td>{{ character.level }}d{{ character.hit_dice }}</td>
+            </tr>
+            <tr>
+                <th>Hit Points</th>
+                <td>{{ character.hit_points }}</td>
+            </tr>
+            <tr>
+                <th>Spell Save DC</th>
+                <td>{{ character.spell_safe_dc }}</td>
+            </tr>
+            <tr>
+                <th>Spell Attack Modifier</th>
+                <td>{{ character.spell_attack_modifier }}</td>
+            </tr>
+            <tr>
+                <th>Stats</th>
+                <td>
+<table class="nice-table condensed striped bordered hover" id="statblock">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Statistic</th>
+            <th>Modifier</th>
+            <th>Proficient</th>
+            <th>Saving Throw</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stat in character.stats %}
+        <tr>
+            <th>{{ stat|capitalize }}</th>
+            <td>
+                {{ character.stats[stat] }}
+                {% if character.stats_bonus[stat] %}
+                ({{ character.stats[stat] - character.stats_bonus[stat] }} + {{ character.stats_bonus[stat] }})
+                {% endif %}
+            </td>
+            <td>
+                {{ character.modifiers[stat] }}
+            </td>
+            <td>
+                {% if stat in character.proficiencies.saving_throws %}
+                <span class="icon fa-check-square-o">&nbsp;</span>
+                {% else %}
+                <span class="icon fa-square-o">&nbsp;</span>
+                {% endif %}
+            </td>
+            <td>
+                {{ character.saving_throws[stat] }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+                </td>
+            </tr>
+            <tr>
+                <th>Senses</th>
+                <td>
+                    {{ attribute(
+                        options.senses|default({}),
+                        'senses',
+                        character.senses|default([])
+                    ) }}
+                </td>
+            </tr>
+            <tr>
+                <th>Skills</th>
+                <td>
+                    {{ attribute(
+                        options.skills|default({}),
+                        'skills',
+                        character.skills|default([])
+                    ) }}
+                </td>
+            </tr>
+            <tr>
+                <th>Languages</th>
+                <td>
+                    {{ attribute(
+                        options.languages|default({}),
+                        'languages',
+                        character.languages|default([])
+                    ) }}
+                </td>
+            </tr>
+            <tr>
+                <th>Proficiencies</th>
+                <td>
+                    <table class="nice-table condensed bordered">
+                    {% for type, profs in character.proficiencies.items() %}
+                    {% if type in profs or type in options.proficiencies %}
+                        <tr>
+                            <th>{{ type }}</th>
+                            <td>
+                            {{ attribute(
+                                options.proficiencies[type]|default({}),
+                                'proficiencies.' + type,
+                                profs[type]|default([])
+                            ) }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% endfor %}
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <th>Spells</th>
+                <td>
+                    {{ attribute(
+                        options.spells|default({}),
+                        'spells',
+                        character.spells|default([])
+                    ) }}
+                </td>
+            </tr>
+            <tr>
+                <th>Equipment</th>
+                <td>
+                    {{ attribute(
+                        options.equipment|default({}),
+                        'equipment',
+                        character.equipment|default([])
+                    ) }}
+                </td>
+            </tr>
+            {% if character.info %}
+            <tr>
+                <th>Info</th>
+                <td>
+                    <ul>
+                    {% for name, desc in character.info.items() %}
+                        <li><strong>{{ name }}</strong>: {{ desc }}</li>
+                    {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>Wealth</th>
+                <td>
+                    <ul>
+                    {% for coin in character.wealth %}
+                        <li><strong>{{ coin }}</strong>: {{ character.wealth[coin] }}</li>
+                    {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+            {{ buttons }}
+</div>
+{% endif %}
+
+        </li>
+    </ul>
+</div>
+</form>
+{% endblock %}

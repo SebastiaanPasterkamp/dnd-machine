@@ -10,3 +10,11 @@ def get_config():
         with open(os.path.join('dndmachine', 'config.json')) as cfg:
             config = json.load(cfg)
     return config
+
+def get_character_data():
+    with open(os.path.join('dndmachine', 'character-data.json')) as cfg:
+        return json.load(cfg)
+
+def get_item_data():
+    with open(os.path.join('dndmachine', 'item-data.json')) as cfg:
+        return json.load(cfg)

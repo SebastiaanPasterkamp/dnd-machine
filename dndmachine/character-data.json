@@ -1,0 +1,593 @@
+{
+    "race": [{
+        "name": "Dwarf",
+        "filename": "dwarf.md",
+        "sub": [{
+            "name": "Hill Dwarf",
+            "stats_bonus": {
+                "wisdom": 1
+            },
+            "hit_points": {
+                "bonus": [
+                    "1 * level"
+                ]
+            }
+        }, {
+            "name": "Mountain Dwarf",
+            "stats_bonus": {
+                "strength": 1
+            },
+            "proficiencies": {
+                "armor": {
+                    "given": ["Light Armor", "Medium Armor"]
+                }
+            }
+        }],
+        "stats_bonus": {
+            "constitution": 2
+        },
+        "size": "medium",
+        "speed": 25,
+        "senses": {
+            "given": ["Darkvision"]
+        },
+        "proficiencies": {
+            "weapons": {
+                "given": ["Battleaxe", "Handaxe", "Throwing Hammer", "Warhammer"]
+            },
+            "tools": {
+                "options": ["Smith’s Tools", "Brewer’s Supplies", "Mason’s Tools"]
+            }
+        },
+        "languages": {
+            "given": ["Dwarvish"]
+        },
+        "info": {
+            "Darkvision": "Accustomed to life underground, you have superior vision in dark and dim conditions. You  can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray.",
+            "Dwarven Resilience": "You have advantage on saving throws against poison, and you have resistance against poison damage.",
+            "Stonecunning": "Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus to the check, instead of your normal proficiency bonus."
+        }
+    }, {
+        "name": "Elf",
+        "filename": "elf.md",
+        "sub": [{
+            "name": "High Elf",
+            "stats_bonus": {
+                "intelligence": 1
+            },
+            "languages": {
+                "options": "languages.common,languages.exotic"
+            },
+            "spells": {
+                "options": "spells.wizard.cantrip"
+            }
+        }, {
+            "name": "Wood Elf",
+            "stats_bonus": {
+                "wisdom": 1
+            },
+            "speed": 35,
+            "info": {
+                "Mask of the Wild": "You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena."
+            }
+        }],
+        "stats_bonus": {
+            "dexterity": 2
+        },
+        "size": "medium",
+        "speed": 30,
+        "senses": {
+            "given": ["darkvision"]
+        },
+        "skills": {
+            "given": ["perception"]
+        },
+        "proficiencies": {
+            "weapons": {
+                "given": ["Longsword", "Shortsword", "Shortbow", "Longbow"]
+            }
+        },
+        "languages": {
+            "given": ["Elvish"]
+        },
+        "info": {
+            "Darkvision": "Accustomed to twilit forests and the night sky, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray.",
+            "Fey Ancestry": "You have advantage on saving throws against being charmed, and magic can’t put you to sleep.",
+            "Trance": "Elves don’t need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day. (The Common word for such meditation is “trance.”) While meditating, you can dream after a fashion; such dreams are actually mental exercises that have become reflexive through years of practice. After resting in this way, you gain the same benefit that a human does from 8 hours of sleep."
+        }
+    }, {
+        "name": "Gnome",
+        "filename": "gnome.md",
+        "sub": [{
+            "name": "Forrest Gnome",
+            "stats_bonus": {
+                "dexterity": 1
+            },
+            "spells": {
+                "given": ["Minor Illusion"]
+            },
+            "proficiencies": {
+                "tools": {
+                    "given": ["Tinker's tools"]
+                }
+            },
+            "info": {
+                "*Speak with Small Beasts": "Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts. Forest gnomes love animals and often keep squirrels, badgers, rabbits, moles, woodpeckers, and other creatures as beloved pets."
+            }
+        }, {
+            "name": "Rock Gnome",
+            "stats_bonus": {
+                "constitution": 1
+            },
+            "info": {
+                "Artificer's Lore": "Whenever you make an Intelligence (History) check related to magic items, alchemical objects, or technological devices, you can add twice your proficiency bonus, instead of any proficiency bonus you normally apply.",
+                "Tinker": "You have proficiency with artisan's tools (tinker's tools). Using those tools, you can spend 1 hour and 10 gp worth of materials to construct a Tiny clockwork device (AC 5, I hp). The device ceases to function after 24 hours (unless you spend 1 hour repairing it to keep the device functioning), or when you use your action to dismantle it; at that time, you can reclaim the materials used to create it. You can have up to three such devices active at a time."
+            }
+        }],
+        "stats_bonus": {
+            "intelligence": 2
+        },
+        "size": "small",
+        "speed": 25,
+        "senses": {
+            "given": ["Darkvision"]
+        },
+        "languages": {
+            "given": ["Common", "Gnomish"]
+        },
+        "info": {
+            "Darkvision": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
+            "Gnome Cunning": "You have advantage on all Intelligence, Wisdom, and Charisma saving throws against magic."
+        }
+    }, {
+        "name": "Halfling",
+        "filename": "halfling.md",
+        "sub": [{
+            "name": "Lightfoot Halfing",
+            "stats_bonus": {
+                "charisma": 1
+            },
+            "info": {
+                "Naturally Stealthy": "You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you."
+            }
+        }, {
+            "name": "Stouth Halfing",
+            "stats_bonus": {
+                "constitution": 1
+            },
+            "info": {
+                "Stout Resilience": "You have advantage on saving throws against poison, and you have resistance against poison damage."
+            }
+        }],
+        "stats_bonus": {
+            "dexterity": 2
+        },
+        "size": "small",
+        "speed": 25,
+        "languages": {
+            "given": ["Common", "Halfing"]
+        },
+        "info": {
+            "Lucky": "When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.",
+            "Brave": "You have advantage on saving throws against being frightened.",
+            "Halfling Nimbleness": "You can move through the space of any creature that is of a size larger than yours."
+        }
+    }, {
+        "name": "Human",
+        "filename": "human.md",
+        "sub": [{
+            "name": "Ucalishite Human"
+        }, {
+            "name": "Chondathan Human"
+        }, {
+            "name": "Damaran Human"
+        }, {
+            "name": "Illuskan Human"
+        }, {
+            "name": "Mulan Human"
+        }, {
+            "name": "Rashemi Human"
+        }, {
+            "name": "Shou Human"
+        }, {
+            "name": "Tethyrian Human"
+        }, {
+            "name": "Turami Human"
+        }],
+        "stats_bonus": {
+            "strength": 1,
+            "dexterity": 1,
+            "constitution": 1,
+            "intelligence": 1,
+            "wisdom": 1,
+            "charisma": 1
+        },
+        "size": "medium",
+        "speed": 30,
+        "languages": {
+            "options": "languages.common,languages.exotic",
+            "given": ["Common"]
+        }
+    }],
+    "class": [{
+        "name": "Bard",
+        "filename": "bard.md",
+        "hit_dice": 8,
+        "hit_points": {
+            "formula": "(8 + modifiers.constitution) + (5 + modifiers.constitution) * (level - 1)"
+        },
+        "skills": {
+            "sets": [
+                {"options": "skills"},
+                {"options": "skills"},
+                {"options": "skills"}
+            ]
+        },
+        "proficiencies": {
+            "saving_throws": {
+                "given": ["dexterity", "charisma"]
+            },
+            "armor": {
+                "given": ["Light Armor"]
+            },
+            "weapons": {
+                "given": ["Simple Weapons", "Hand Crossbow", "Longsword", "Rapier", "Shortsword"]
+            },
+            "tools": {
+                "sets": [
+                    {"options": "items.musical"},
+                    {"options": "items.musical"},
+                    {"options": "items.musical"}
+                ]
+            }
+        },
+        "equipment": {
+            "sets": [
+                {"choose": [
+                    {"options": ["Rapier", "Longsword"]},
+                    {"options": "weapons.simple.melee,weapons.simple.ranged"}
+                ]},
+                {"choose": [
+                    {"group": ["Lute"]},
+                    {"options": "items.musical"}
+                ]}
+            ],
+            "given": ["Leather Armor", "Dagger"]
+        },
+        "spells": {
+            "sets": [
+                {"options": "spells.bard.cantrip"},
+                {"options": "spells.bard.cantrip"},
+                {"options": "spells.bard.1st"},
+                {"options": "spells.bard.1st"},
+                {"options": "spells.bard.1st"},
+                {"options": "spells.bard.1st"}
+            ]
+        },
+        "spell_safe_dc": {
+            "formula": "8 + proficiency + modifiers.charisma"
+        },
+        "spell_attack_modifier": {
+            "formula": "proficiency + modifiers.charisma"
+        }
+    }, {
+        "name": "Cleric",
+        "filename": "cleric.md",
+        "hit_dice": 8,
+        "hit_points": {
+            "formula": "(8 + modifiers.constitution) + (5 + modifiers.constitution) * (level - 1)"
+        },
+        "skills": {
+            "sets": [
+                {"options": ["history", "insight", "medicine", "pursuasion", "religion"]},
+                {"options": ["history", "insight", "medicine", "pursuasion", "religion"]}
+            ]
+        },
+        "proficiencies": {
+            "saving_throws": {
+                "given": ["wisdom", "charisma"]
+            },
+            "armor": {
+                "given": ["Light Armor", "Medium Armor", "Shield"]
+            },
+            "weapons": {
+                "given": ["Simple Weapons"]
+            }
+        },
+        "equipment": {
+            "sets": [
+                {"options": ["Mace", "Warhammer"]},
+                {"options": ["Scale Mail", "Leather Armor", "Chain Mail"]},
+                {"choose": [
+                    {"group": ["Light Crossbow", "20 Bolts"]},
+                    {"options": "weapons.simple.melee,weapons.simple.ranged"}
+                ]},
+                {"choose": [
+                    {"group": "packs.Priest’s Pack.items"},
+                    {"group": "packs.Explorer’s Pack.items"}
+                ]}
+            ],
+            "given": ["Shield", "Holy Symbol"]
+        },
+        "spells": {
+            "sets": [
+                {"options": "spells.cleric.cantrip"},
+                {"options": "spells.cleric.cantrip"},
+                {"options": "spells.cleric.cantrip"}
+            ]
+        },
+        "spell_safe_dc": {
+            "formula": "8 + proficiency + modifiers.wisdom"
+        },
+        "spell_attack_modifier": {
+            "formula": "proficiency + modifiers.wisdom"
+        }
+    }, {
+        "name": "Fighter",
+        "filename": "fighter.md",
+        "hit_dice": 10,
+        "hit_points": {
+            "formula": "(10 + modifiers.constitution) + (6 + modifiers.constitution) * (level - 1)"
+        },
+        "skills": {
+            "sets": [
+                {"options": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]},
+                {"options": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]}
+            ]
+        },
+        "proficiencies": {
+            "saving_throws": {
+                "given": ["strength", "constitution"]
+            },
+            "armor": {
+                "given": ["Light Armor", "Medium Armor", "Heavy Armor", "Shield"]
+            },
+            "weapons": {
+                "given": ["Simple Weapons", "Martial Weapons"]
+            }
+        },
+        "equipment": {
+            "sets": [
+                {"choose": [
+                    {"group": ["Chain mail"]},
+                    {"group": ["Leather armor", "Longbow", "20 Arrows"]}
+                ]},
+                {"choose": [
+                    {"multiple": [
+                        {"options": "weapons.martial.melee,weapons.martial.ranged"},
+                        {"options": "armor.shield"}
+                    ]},
+                    {"multiple": [
+                        {"options": "weapons.martial.melee,weapons.martial.ranged"},
+                        {"options": "weapons.martial.melee,weapons.martial.ranged"}
+                    ]}
+                ]},
+                {"choose": [
+                    {"group": ["Light Crossbow", "20 Bolts"]},
+                    {"group": ["Handaxe", "Handaxe"]}
+                ]},
+                {"choose": [
+                    {"group": "packs.Dungeoneer’s Pack.items"},
+                    {"group": "packs.Explorer’s Pack.items"}
+                ]}
+            ]
+        }
+    }, {
+        "name": "Rogue",
+        "filename": "rogue.md",
+        "hit_dice": 8,
+        "hit_points": {
+            "formula": "(8 + modifiers.constitution) + (5 + modifiers.constitution) * (level - 1)"
+        },
+        "skills": {
+            "sets": [
+                {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
+                {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
+                {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
+                {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]}
+            ]
+        },
+        "proficiencies": {
+            "saving_throws": {
+                "given": ["dexterity", "intelligence"]
+            },
+            "armor": {
+                "given": ["Light Armor"]
+            },
+            "weapons": {
+                "given": ["Simple weapons", "Hand Crossbow", "Longsword", "Rapier", "Shortsword"]
+            },
+            "tools": {
+                "given": ["Thieves’ tools"]
+            }
+        },
+        "equipment": {
+            "sets": [
+                {"choose": [
+                    {"group": ["Rapier"]},
+                    {"group": ["Shortsword"]}
+                ]},
+                {"choose": [
+                    {"group": ["Shortbow", "Quiver", "20 arrows"]},
+                    {"group": ["Shortsword"]}
+                ]},
+                {"choose": [
+                    {"group": "packs.Burglar’s Pack.items"},
+                    {"group": "packs.Dungeoneer’s Pack.items"},
+                    {"group": "packs.Explorer’s Pack.items"}
+                ]}
+            ],
+            "given": ["Leather armor", "Two Daggers", "Thieves’ Tools"]
+        }
+    }],
+    "background": [{
+        "name": "Acolyte",
+        "filename": "acolyte.md",
+        "languages": {
+            "sets": [
+                {"options": "languages.common,languages.exotic"},
+                {"options": "languages.common,languages.exotic"}
+            ]
+        },
+        "skills": {
+            "given": ["insight", "religion"]
+        },
+        "equipment": {
+            "options": ["Prayer Book", "Prayer Wheel"],
+            "given": ["Holy Symbol", "5 Sticks of Incense", "Vestments", "Set of Common Clothes", "Belt Pouch"]
+        },
+        "wealth": {
+            "gp": 15
+        },
+        "info": {
+            "Shelter of the Faithful": "As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle."
+        }
+    }, {
+        "name": "Criminal",
+        "filename": "criminal.md",
+        "skill": {
+            "given": ["Deception", "Stealth"]
+        },
+        "proficiencies": {
+            "tools": {
+                "options": ["Gaming Set", "Thieves’ Tools"]
+            }
+        },
+        "equipment": {
+            "options": ["Gaming Set", "Thieves’ Tools"],
+            "given": ["Crowbar", "Set of Dark Common Clothes, Including a Hood", "Belt Pouch"]
+        },
+        "wealth": {
+            "gp": 15
+        },
+        "info": {
+            "Criminal Contact": "You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you."
+        }
+    }, {
+        "name": "Entertainer",
+        "filename": "entertainer.md",
+        "skills": {
+            "given": ["acrobatics", "performance"]
+        },
+        "proficiencies": {
+            "tools": {
+                "options": "items.musical",
+                "given": ["Disguise Kit"]
+            }
+        },
+        "equipment": {
+            "sets": [
+                {"choose": [
+                    {"options": "items.musical"},
+                    {"options": ["Spear", "Trident", "Whip", "Net"]}
+                ]},
+                {"choose": [
+                    {"options": "trinket"},
+                    {"options": ["Love Letter; the Favor of an Admirer", "Lock of Hair; the Favor of an Admirer"]}
+                ]}
+            ],
+            "given": ["Costume", "Belt Pouch"]
+        },
+        "wealth": {
+            "gp": 15
+        },
+        "info": {
+            "By Popular Demand": "You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble's court. At such a place, you receive free lodging and food of a modest or comfortable standard (depending on the quality of the establishment), as long as you perform each night. In addition, your performance makes you something of a local figure. When strangers recognize you in a town where you have performed, they typically take a liking to you."
+        }
+    }, {
+        "name": "Folk Hero",
+        "filename": "folk_hero.md",
+        "skill": {
+            "given": ["Animal Handling", "Survival"]
+        },
+        "proficiencies": {
+            "tools": {
+                "options": "tools.artisan",
+                "given": "Vehicles (land)"
+            }
+        },
+        "equipment": {
+            "options": "tools.artisan",
+            "given": ["Shovel", "Iron Pot", "Set of Common Clothes", "pouch"]
+        },
+        "wealth": {
+            "gp": 15
+        },
+        "info": {
+            "Rustic Hospitality": "Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners, unless you have shown yourself to be a danger to them. They will shield you from the law or anyone else searching for you, though they will not risk their lives for you."
+        }
+    }, {
+        "name": "Noble",
+        "filename": "noble.md",
+        "skill": {
+            "given": ["History", "Persuasion"]
+        },
+        "proficiencies": {
+            "tools": {
+                "options": "tools.gaming"
+            }
+        },
+        "languages": {
+            "options": "languages.common,languages.exotic"
+        },
+        "equipment": {
+            "given": ["Set of fine clothes", "Signet Ring", "Scroll of Pedigree", "Purse"]
+        },
+        "wealth": {
+            "gp": 25
+        },
+        "info": {
+            "Position of Privilege": "Thanks to your noble birth, people are inclined to think the best of you. You are welcome in high society, and people assume you have the right to be wherever you are. The common folk make every effort to accommodate you and avoid your displeasure, and other people of high birth treat you as a member of the same social sphere. You can secure an audience with a local noble if you need to."
+        }
+    }, {
+        "name": "Sage",
+        "filename": "sage.md",
+        "skill": {
+            "given": ["Arcana", "History"]
+        },
+        "languages": {
+            "sets": [
+                {"options": "languages.common,languages.exotic"},
+                {"options": "languages.common,languages.exotic"}
+            ]
+        },
+        "equipment": {
+            "given": ["Bottle of Black Ink", "Quill", "Small Knife", "Letter From a Dead Colleague posing a question you have not yet been able to answer", "Set of Common Clothes", "Pouch"]
+        },
+        "wealth": {
+            "gp": 10
+        },
+        "info": {
+            "Researcher": "When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature. Your DM might rule that the knowledge you seek is secreted away in an almost inaccessible place, or that it simply cannot be found. Unearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign."
+        }
+    }, {
+        "name": "Soldier",
+        "filename": "soldier.md",
+        "skill": {
+            "given": ["Athletics", "Intimidation"]
+        },
+        "proficiencies": {
+            "tools": {
+                "options": "tools.gaming",
+                "given": ["Vehicles (land)"]
+            }
+        },
+        "equipment": {
+            "sets": [
+                {"options": ["Set of Bone Dice", "Deck of cards"]},
+                {"options": [
+                    "Dagger taken as a Trophy from a Fallen Enemy",
+                    "Broken Blade taken as a Trophy from a Fallen Enemy",
+                    "Piece of a Banner taken as a Trophy from a Fallen Enemy"
+                ]}
+            ],
+            "given": ["Insignia of Rank", "Set of Common Clothes", "Pouch"]
+        },
+        "wealth": {
+            "gp": 10
+        },
+        "info": {
+            "Military Rank": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized."
+        }
+    }]
+}
