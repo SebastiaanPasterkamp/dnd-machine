@@ -22,7 +22,7 @@ html {
 
 .nice-header .nice-header-brand, .nice-form-inline .nice-form-group, .nice-form-inline .nice-form-group input.nice-form-control,
 .nice-form-inline .nice-form-group select.nice-form-control, .nice-form-inline .nice-form-group label, .nice-radio label,
-.nice-checkbox label, .nice-tabs li a .badge, .nice-stacked-list .list-item .item-heading.icon:before, .nice-breadcrumb li, .nice-pagination, .nice-menu.stacked li a.icon:before, .nice-menu.stacked li span.icon:before, .nice-btn, .nice-toggle + .nice-toggle-btn, .nice-dropdown, .nice-dropdown.shown, .nice-dropdown .dropdown-menu li a i, .nice-dropdown .dropdown-menu li span i, .nice-dropdown .dropdown-menu li label i, .nice-alert .nice-alert-dismiss .icon, .nice-tooltip, .nice-popover .nice-popover-title .icon,
+.nice-checkbox label, .nice-tabs > li a .badge, .nice-stacked-list .list-item .item-heading.icon:before, .nice-breadcrumb li, .nice-pagination, .nice-menu.stacked li a.icon:before, .nice-menu.stacked li span.icon:before, .nice-btn, .nice-toggle + .nice-toggle-btn, .nice-dropdown, .nice-dropdown.shown, .nice-dropdown .dropdown-menu li a i, .nice-dropdown .dropdown-menu li span i, .nice-dropdown .dropdown-menu li label i, .nice-alert .nice-alert-dismiss .icon, .nice-tooltip, .nice-popover .nice-popover-title .icon,
 .nice-popover .nice-popover-title .product-icon,
 .nice-popover .nice-popover-title .additional-icon, .nice-loading {
   display: -moz-inline-stack;
@@ -5517,29 +5517,29 @@ textarea.nice-form-control {
   padding: 0;
   margin: 0;
   border-bottom: 1px solid #D0D1D5; }
-  .nice-tabs li {
+  .nice-tabs > li {
     margin-bottom: -1px;
     position: relative;
     float: left; }
-    .nice-tabs li + li {
+    .nice-tabs > li + li {
       margin-left: 1px; }
-    .nice-tabs li.pull-right {
+    .nice-tabs > li.pull-right {
       float: right; }
-      .nice-tabs li.pull-right a {
+      .nice-tabs > li.pull-right a {
         -webkit-border-top-right-radius: 3px;
         -moz-border-radius-topright: 3px;
         border-top-right-radius: 3px;
         -webkit-background-clip: padding-box;
         -moz-background-clip: padding;
         background-clip: padding-box; }
-      .nice-tabs li.pull-right + .pull-right a {
+      .nice-tabs > li.pull-right + .pull-right a {
         -webkit-border-top-right-radius: 0;
         -moz-border-radius-topright: 0;
         border-top-right-radius: 0;
         -webkit-background-clip: padding-box;
         -moz-background-clip: padding;
         background-clip: padding-box; }
-    .nice-tabs li.brand a {
+    .nice-tabs > li.brand a {
       background-color: #009CC1;
       color: #FFF;
       -webkit-transition: background-color 0.3s;
@@ -5547,18 +5547,18 @@ textarea.nice-form-control {
       -ms-transition: background-color 0.3s;
       -o-transition: background-color 0.3s;
       transition: background-color 0.3s; }
-      .nice-tabs li.brand a .badge {
+      .nice-tabs > li.brand a .badge {
         background-color: #0fd1ff; }
-      .nice-tabs li.brand a:hover {
+      .nice-tabs > li.brand a:hover {
         background-color: #00c5f4; }
-        .nice-tabs li.brand a:hover .badge {
+        .nice-tabs > li.brand a:hover .badge {
           background-color: #009CC1;
           color: #FFF; }
-    .nice-tabs li.brand.current a {
+    .nice-tabs > li.brand.current a {
       border-top-color: #009CC1; }
-      .nice-tabs li.brand.current a .badge {
+      .nice-tabs > li.brand.current a .badge {
         background-color: #009CC1; }
-    .nice-tabs li.primary a {
+    .nice-tabs > li.primary a {
       background-color: #F18700;
       color: #FFF;
       -webkit-transition: background-color 0.3s;
@@ -5566,18 +5566,18 @@ textarea.nice-form-control {
       -ms-transition: background-color 0.3s;
       -o-transition: background-color 0.3s;
       transition: background-color 0.3s; }
-      .nice-tabs li.primary a .badge {
+      .nice-tabs > li.primary a .badge {
         background-color: #ffaa3f; }
-      .nice-tabs li.primary a:hover {
+      .nice-tabs > li.primary a:hover {
         background-color: #ff9f25; }
-        .nice-tabs li.primary a:hover .badge {
+        .nice-tabs > li.primary a:hover .badge {
           background-color: #F18700;
           color: #FFF; }
-    .nice-tabs li.primary.current a {
+    .nice-tabs > li.primary.current a {
       border-top-color: #F18700; }
-      .nice-tabs li.primary.current a .badge {
+      .nice-tabs > li.primary.current a .badge {
         background-color: #F18700; }
-    .nice-tabs li.accent a {
+    .nice-tabs > li.accent a {
       background-color: #182642;
       color: #FFF;
       -webkit-transition: background-color 0.3s;
@@ -5585,18 +5585,18 @@ textarea.nice-form-control {
       -ms-transition: background-color 0.3s;
       -o-transition: background-color 0.3s;
       transition: background-color 0.3s; }
-      .nice-tabs li.accent a .badge {
+      .nice-tabs > li.accent a .badge {
         background-color: #2c467a; }
-      .nice-tabs li.accent a:hover {
+      .nice-tabs > li.accent a:hover {
         background-color: #263c67; }
-        .nice-tabs li.accent a:hover .badge {
+        .nice-tabs > li.accent a:hover .badge {
           background-color: #182642;
           color: #FFF; }
-    .nice-tabs li.accent.current a {
+    .nice-tabs > li.accent.current a {
       border-top-color: #182642; }
-      .nice-tabs li.accent.current a .badge {
+      .nice-tabs > li.accent.current a .badge {
         background-color: #182642; }
-    .nice-tabs li.info a, .nice-tabs .nice-control-group.info li.nice-form-control a, .nice-control-group.info .nice-tabs li.nice-form-control a, .nice-tabs .nice-control-group.info li.nice-btn a, .nice-control-group.info .nice-tabs li.nice-btn a {
+    .nice-tabs > li.info a, .nice-tabs .nice-control-group.info li.nice-form-control a, .nice-control-group.info .nice-tabs > li.nice-form-control a, .nice-tabs .nice-control-group.info li.nice-btn a, .nice-control-group.info .nice-tabs > li.nice-btn a {
       background-color: #60C4DE;
       color: #FFF;
       -webkit-transition: background-color 0.3s;
@@ -5604,18 +5604,18 @@ textarea.nice-form-control {
       -ms-transition: background-color 0.3s;
       -o-transition: background-color 0.3s;
       transition: background-color 0.3s; }
-      .nice-tabs li.info a .badge, .nice-tabs .nice-control-group.info li.nice-form-control a .badge, .nice-control-group.info .nice-tabs li.nice-form-control a .badge, .nice-tabs .nice-control-group.info li.nice-btn a .badge, .nice-control-group.info .nice-tabs li.nice-btn a .badge {
+      .nice-tabs > li.info a .badge, .nice-tabs .nice-control-group.info li.nice-form-control a .badge, .nice-control-group.info .nice-tabs > li.nice-form-control a .badge, .nice-tabs .nice-control-group.info li.nice-btn a .badge, .nice-control-group.info .nice-tabs > li.nice-btn a .badge {
         background-color: #9fdceb; }
-      .nice-tabs li.info a:hover, .nice-tabs .nice-control-group.info li.nice-form-control a:hover, .nice-control-group.info .nice-tabs li.nice-form-control a:hover, .nice-tabs .nice-control-group.info li.nice-btn a:hover, .nice-control-group.info .nice-tabs li.nice-btn a:hover {
+      .nice-tabs > li.info a:hover, .nice-tabs .nice-control-group.info li.nice-form-control a:hover, .nice-control-group.info .nice-tabs > li.nice-form-control a:hover, .nice-tabs .nice-control-group.info li.nice-btn a:hover, .nice-control-group.info .nice-tabs > li.nice-btn a:hover {
         background-color: #8ad4e7; }
-        .nice-tabs li.info a:hover .badge, .nice-tabs .nice-control-group.info li.nice-form-control a:hover .badge, .nice-control-group.info .nice-tabs li.nice-form-control a:hover .badge, .nice-tabs .nice-control-group.info li.nice-btn a:hover .badge, .nice-control-group.info .nice-tabs li.nice-btn a:hover .badge {
+        .nice-tabs > li.info a:hover .badge, .nice-tabs .nice-control-group.info li.nice-form-control a:hover .badge, .nice-control-group.info .nice-tabs > li.nice-form-control a:hover .badge, .nice-tabs .nice-control-group.info li.nice-btn a:hover .badge, .nice-control-group.info .nice-tabs > li.nice-btn a:hover .badge {
           background-color: #60C4DE;
           color: #FFF; }
-    .nice-tabs li.info.current a, .nice-tabs .nice-control-group.info li.current.nice-form-control a, .nice-control-group.info .nice-tabs li.current.nice-form-control a, .nice-tabs .nice-control-group.info li.current.nice-btn a, .nice-control-group.info .nice-tabs li.current.nice-btn a {
+    .nice-tabs > li.info.current a, .nice-tabs .nice-control-group.info li.current.nice-form-control a, .nice-control-group.info .nice-tabs > li.current.nice-form-control a, .nice-tabs .nice-control-group.info li.current.nice-btn a, .nice-control-group.info .nice-tabs > li.current.nice-btn a {
       border-top-color: #60C4DE; }
-      .nice-tabs li.info.current a .badge, .nice-tabs .nice-control-group.info li.current.nice-form-control a .badge, .nice-control-group.info .nice-tabs li.current.nice-form-control a .badge, .nice-tabs .nice-control-group.info li.current.nice-btn a .badge, .nice-control-group.info .nice-tabs li.current.nice-btn a .badge {
+      .nice-tabs > li.info.current a .badge, .nice-tabs .nice-control-group.info li.current.nice-form-control a .badge, .nice-control-group.info .nice-tabs > li.current.nice-form-control a .badge, .nice-tabs .nice-control-group.info li.current.nice-btn a .badge, .nice-control-group.info .nice-tabs > li.current.nice-btn a .badge {
         background-color: #60C4DE; }
-    .nice-tabs li.good a, .nice-tabs .nice-control-group.good li.nice-form-control a, .nice-control-group.good .nice-tabs li.nice-form-control a, .nice-tabs .nice-control-group.good li.nice-btn a, .nice-control-group.good .nice-tabs li.nice-btn a {
+    .nice-tabs > li.good a, .nice-tabs .nice-control-group.good li.nice-form-control a, .nice-control-group.good .nice-tabs > li.nice-form-control a, .nice-tabs .nice-control-group.good li.nice-btn a, .nice-control-group.good .nice-tabs > li.nice-btn a {
       background-color: #5CB85C;
       color: #FFF;
       -webkit-transition: background-color 0.3s;
@@ -5623,18 +5623,18 @@ textarea.nice-form-control {
       -ms-transition: background-color 0.3s;
       -o-transition: background-color 0.3s;
       transition: background-color 0.3s; }
-      .nice-tabs li.good a .badge, .nice-tabs .nice-control-group.good li.nice-form-control a .badge, .nice-control-group.good .nice-tabs li.nice-form-control a .badge, .nice-tabs .nice-control-group.good li.nice-btn a .badge, .nice-control-group.good .nice-tabs li.nice-btn a .badge {
+      .nice-tabs > li.good a .badge, .nice-tabs .nice-control-group.good li.nice-form-control a .badge, .nice-control-group.good .nice-tabs > li.nice-form-control a .badge, .nice-tabs .nice-control-group.good li.nice-btn a .badge, .nice-control-group.good .nice-tabs > li.nice-btn a .badge {
         background-color: #91cf91; }
-      .nice-tabs li.good a:hover, .nice-tabs .nice-control-group.good li.nice-form-control a:hover, .nice-control-group.good .nice-tabs li.nice-form-control a:hover, .nice-tabs .nice-control-group.good li.nice-btn a:hover, .nice-control-group.good .nice-tabs li.nice-btn a:hover {
+      .nice-tabs > li.good a:hover, .nice-tabs .nice-control-group.good li.nice-form-control a:hover, .nice-control-group.good .nice-tabs > li.nice-form-control a:hover, .nice-tabs .nice-control-group.good li.nice-btn a:hover, .nice-control-group.good .nice-tabs > li.nice-btn a:hover {
         background-color: #80c780; }
-        .nice-tabs li.good a:hover .badge, .nice-tabs .nice-control-group.good li.nice-form-control a:hover .badge, .nice-control-group.good .nice-tabs li.nice-form-control a:hover .badge, .nice-tabs .nice-control-group.good li.nice-btn a:hover .badge, .nice-control-group.good .nice-tabs li.nice-btn a:hover .badge {
+        .nice-tabs > li.good a:hover .badge, .nice-tabs .nice-control-group.good li.nice-form-control a:hover .badge, .nice-control-group.good .nice-tabs > li.nice-form-control a:hover .badge, .nice-tabs .nice-control-group.good li.nice-btn a:hover .badge, .nice-control-group.good .nice-tabs > li.nice-btn a:hover .badge {
           background-color: #5CB85C;
           color: #FFF; }
-    .nice-tabs li.good.current a, .nice-tabs .nice-control-group.good li.current.nice-form-control a, .nice-control-group.good .nice-tabs li.current.nice-form-control a, .nice-tabs .nice-control-group.good li.current.nice-btn a, .nice-control-group.good .nice-tabs li.current.nice-btn a {
+    .nice-tabs > li.good.current a, .nice-tabs .nice-control-group.good li.current.nice-form-control a, .nice-control-group.good .nice-tabs > li.current.nice-form-control a, .nice-tabs .nice-control-group.good li.current.nice-btn a, .nice-control-group.good .nice-tabs > li.current.nice-btn a {
       border-top-color: #5CB85C; }
-      .nice-tabs li.good.current a .badge, .nice-tabs .nice-control-group.good li.current.nice-form-control a .badge, .nice-control-group.good .nice-tabs li.current.nice-form-control a .badge, .nice-tabs .nice-control-group.good li.current.nice-btn a .badge, .nice-control-group.good .nice-tabs li.current.nice-btn a .badge {
+      .nice-tabs > li.good.current a .badge, .nice-tabs .nice-control-group.good li.current.nice-form-control a .badge, .nice-control-group.good .nice-tabs > li.current.nice-form-control a .badge, .nice-tabs .nice-control-group.good li.current.nice-btn a .badge, .nice-control-group.good .nice-tabs > li.current.nice-btn a .badge {
         background-color: #5CB85C; }
-    .nice-tabs li.warning a, .nice-tabs .nice-control-group.warning li.nice-form-control a, .nice-control-group.warning .nice-tabs li.nice-form-control a, .nice-tabs .nice-control-group.warning li.nice-btn a, .nice-control-group.warning .nice-tabs li.nice-btn a {
+    .nice-tabs > li.warning a, .nice-tabs .nice-control-group.warning li.nice-form-control a, .nice-control-group.warning .nice-tabs > li.nice-form-control a, .nice-tabs .nice-control-group.warning li.nice-btn a, .nice-control-group.warning .nice-tabs > li.nice-btn a {
       background-color: #FFB819;
       color: #FFF;
       -webkit-transition: background-color 0.3s;
@@ -5642,18 +5642,18 @@ textarea.nice-form-control {
       -ms-transition: background-color 0.3s;
       -o-transition: background-color 0.3s;
       transition: background-color 0.3s; }
-      .nice-tabs li.warning a .badge, .nice-tabs .nice-control-group.warning li.nice-form-control a .badge, .nice-control-group.warning .nice-tabs li.nice-form-control a .badge, .nice-tabs .nice-control-group.warning li.nice-btn a .badge, .nice-control-group.warning .nice-tabs li.nice-btn a .badge {
+      .nice-tabs > li.warning a .badge, .nice-tabs .nice-control-group.warning li.nice-form-control a .badge, .nice-control-group.warning .nice-tabs > li.nice-form-control a .badge, .nice-tabs .nice-control-group.warning li.nice-btn a .badge, .nice-control-group.warning .nice-tabs > li.nice-btn a .badge {
         background-color: #ffd066; }
-      .nice-tabs li.warning a:hover, .nice-tabs .nice-control-group.warning li.nice-form-control a:hover, .nice-control-group.warning .nice-tabs li.nice-form-control a:hover, .nice-tabs .nice-control-group.warning li.nice-btn a:hover, .nice-control-group.warning .nice-tabs li.nice-btn a:hover {
+      .nice-tabs > li.warning a:hover, .nice-tabs .nice-control-group.warning li.nice-form-control a:hover, .nice-control-group.warning .nice-tabs > li.nice-form-control a:hover, .nice-tabs .nice-control-group.warning li.nice-btn a:hover, .nice-control-group.warning .nice-tabs > li.nice-btn a:hover {
         background-color: #ffc84c; }
-        .nice-tabs li.warning a:hover .badge, .nice-tabs .nice-control-group.warning li.nice-form-control a:hover .badge, .nice-control-group.warning .nice-tabs li.nice-form-control a:hover .badge, .nice-tabs .nice-control-group.warning li.nice-btn a:hover .badge, .nice-control-group.warning .nice-tabs li.nice-btn a:hover .badge {
+        .nice-tabs > li.warning a:hover .badge, .nice-tabs .nice-control-group.warning li.nice-form-control a:hover .badge, .nice-control-group.warning .nice-tabs > li.nice-form-control a:hover .badge, .nice-tabs .nice-control-group.warning li.nice-btn a:hover .badge, .nice-control-group.warning .nice-tabs > li.nice-btn a:hover .badge {
           background-color: #FFB819;
           color: #FFF; }
-    .nice-tabs li.warning.current a, .nice-tabs .nice-control-group.warning li.current.nice-form-control a, .nice-control-group.warning .nice-tabs li.current.nice-form-control a, .nice-tabs .nice-control-group.warning li.current.nice-btn a, .nice-control-group.warning .nice-tabs li.current.nice-btn a {
+    .nice-tabs > li.warning.current a, .nice-tabs .nice-control-group.warning li.current.nice-form-control a, .nice-control-group.warning .nice-tabs > li.current.nice-form-control a, .nice-tabs .nice-control-group.warning li.current.nice-btn a, .nice-control-group.warning .nice-tabs > li.current.nice-btn a {
       border-top-color: #FFB819; }
-      .nice-tabs li.warning.current a .badge, .nice-tabs .nice-control-group.warning li.current.nice-form-control a .badge, .nice-control-group.warning .nice-tabs li.current.nice-form-control a .badge, .nice-tabs .nice-control-group.warning li.current.nice-btn a .badge, .nice-control-group.warning .nice-tabs li.current.nice-btn a .badge {
+      .nice-tabs > li.warning.current a .badge, .nice-tabs .nice-control-group.warning li.current.nice-form-control a .badge, .nice-control-group.warning .nice-tabs > li.current.nice-form-control a .badge, .nice-tabs .nice-control-group.warning li.current.nice-btn a .badge, .nice-control-group.warning .nice-tabs > li.current.nice-btn a .badge {
         background-color: #FFB819; }
-    .nice-tabs li.bad a, .nice-tabs .nice-control-group.bad li.nice-form-control a, .nice-control-group.bad .nice-tabs li.nice-form-control a, .nice-tabs .nice-control-group.bad li.nice-btn a, .nice-control-group.bad .nice-tabs li.nice-btn a {
+    .nice-tabs > li.bad a, .nice-tabs .nice-control-group.bad li.nice-form-control a, .nice-control-group.bad .nice-tabs > li.nice-form-control a, .nice-tabs .nice-control-group.bad li.nice-btn a, .nice-control-group.bad .nice-tabs > li.nice-btn a {
       background-color: #F42534;
       color: #FFF;
       -webkit-transition: background-color 0.3s;
@@ -5661,18 +5661,18 @@ textarea.nice-form-control {
       -ms-transition: background-color 0.3s;
       -o-transition: background-color 0.3s;
       transition: background-color 0.3s; }
-      .nice-tabs li.bad a .badge, .nice-tabs .nice-control-group.bad li.nice-form-control a .badge, .nice-control-group.bad .nice-tabs li.nice-form-control a .badge, .nice-tabs .nice-control-group.bad li.nice-btn a .badge, .nice-control-group.bad .nice-tabs li.nice-btn a .badge {
+      .nice-tabs > li.bad a .badge, .nice-tabs .nice-control-group.bad li.nice-form-control a .badge, .nice-control-group.bad .nice-tabs > li.nice-form-control a .badge, .nice-tabs .nice-control-group.bad li.nice-btn a .badge, .nice-control-group.bad .nice-tabs > li.nice-btn a .badge {
         background-color: #f86e78; }
-      .nice-tabs li.bad a:hover, .nice-tabs .nice-control-group.bad li.nice-form-control a:hover, .nice-control-group.bad .nice-tabs li.nice-form-control a:hover, .nice-tabs .nice-control-group.bad li.nice-btn a:hover, .nice-control-group.bad .nice-tabs li.nice-btn a:hover {
+      .nice-tabs > li.bad a:hover, .nice-tabs .nice-control-group.bad li.nice-form-control a:hover, .nice-control-group.bad .nice-tabs > li.nice-form-control a:hover, .nice-tabs .nice-control-group.bad li.nice-btn a:hover, .nice-control-group.bad .nice-tabs > li.nice-btn a:hover {
         background-color: #f65661; }
-        .nice-tabs li.bad a:hover .badge, .nice-tabs .nice-control-group.bad li.nice-form-control a:hover .badge, .nice-control-group.bad .nice-tabs li.nice-form-control a:hover .badge, .nice-tabs .nice-control-group.bad li.nice-btn a:hover .badge, .nice-control-group.bad .nice-tabs li.nice-btn a:hover .badge {
+        .nice-tabs > li.bad a:hover .badge, .nice-tabs .nice-control-group.bad li.nice-form-control a:hover .badge, .nice-control-group.bad .nice-tabs > li.nice-form-control a:hover .badge, .nice-tabs .nice-control-group.bad li.nice-btn a:hover .badge, .nice-control-group.bad .nice-tabs > li.nice-btn a:hover .badge {
           background-color: #F42534;
           color: #FFF; }
-    .nice-tabs li.bad.current a, .nice-tabs .nice-control-group.bad li.current.nice-form-control a, .nice-control-group.bad .nice-tabs li.current.nice-form-control a, .nice-tabs .nice-control-group.bad li.current.nice-btn a, .nice-control-group.bad .nice-tabs li.current.nice-btn a {
+    .nice-tabs > li.bad.current a, .nice-tabs .nice-control-group.bad li.current.nice-form-control a, .nice-control-group.bad .nice-tabs > li.current.nice-form-control a, .nice-tabs .nice-control-group.bad li.current.nice-btn a, .nice-control-group.bad .nice-tabs > li.current.nice-btn a {
       border-top-color: #F42534; }
-      .nice-tabs li.bad.current a .badge, .nice-tabs .nice-control-group.bad li.current.nice-form-control a .badge, .nice-control-group.bad .nice-tabs li.current.nice-form-control a .badge, .nice-tabs .nice-control-group.bad li.current.nice-btn a .badge, .nice-control-group.bad .nice-tabs li.current.nice-btn a .badge {
+      .nice-tabs > li.bad.current a .badge, .nice-tabs .nice-control-group.bad li.current.nice-form-control a .badge, .nice-control-group.bad .nice-tabs > li.current.nice-form-control a .badge, .nice-tabs .nice-control-group.bad li.current.nice-btn a .badge, .nice-control-group.bad .nice-tabs > li.current.nice-btn a .badge {
         background-color: #F42534; }
-    .nice-tabs li a {
+    .nice-tabs > li a {
       text-align: center;
       min-width: 80px;
       display: block;
@@ -5689,24 +5689,24 @@ textarea.nice-form-control {
       -ms-transition: background-color 0.1s, color 0.1s;
       -o-transition: background-color 0.1s, color 0.1s;
       transition: background-color 0.1s, color 0.1s; }
-      .nice-tabs li a:hover {
+      .nice-tabs > li a:hover {
         background-color: #009CC1;
         color: #FFF; }
-        .nice-tabs li a:hover .badge {
+        .nice-tabs > li a:hover .badge {
           background-color: #FFF;
           color: #009CC1; }
-      .nice-tabs li a.icon {
+      .nice-tabs > li a.icon {
         min-width: auto;
         text-align: left;
         padding-left: 35px; }
-        .nice-tabs li a.icon:before {
+        .nice-tabs > li a.icon:before {
           position: absolute;
           left: 5px;
           top: 50%;
           margin-top: -10px;
           width: 24px;
           text-align: center; }
-      .nice-tabs li a .badge {
+      .nice-tabs > li a .badge {
         text-align: center;
         font-size: .8em;
         padding: 1px 6px 2px;
@@ -5726,7 +5726,7 @@ textarea.nice-form-control {
         -ms-transition: background-color 0.1s, color 0.1s;
         -o-transition: background-color 0.1s, color 0.1s;
         transition: background-color 0.1s, color 0.1s; }
-    .nice-tabs li.current a {
+    .nice-tabs > li.current a {
       background-color: #FFF;
       border: 1px solid #D0D1D5;
       border-bottom-color: #FFF;
@@ -5734,21 +5734,21 @@ textarea.nice-form-control {
       padding: 9px 14px 10px 14px;
       cursor: default;
       color: #000; }
-      .nice-tabs li.current a:hover {
+      .nice-tabs > li.current a:hover {
         background-color: #FFF; }
-      .nice-tabs li.current a.icon {
+      .nice-tabs > li.current a.icon {
         padding: 9px 14px 10px 34px; }
-      .nice-tabs li.current a .badge {
+      .nice-tabs > li.current a .badge {
         background-color: #F18700;
         color: #FFF; }
-    .nice-tabs li:first-child a {
+    .nice-tabs > li:first-child a {
       -webkit-border-top-left-radius: 3px;
       -moz-border-radius-topleft: 3px;
       border-top-left-radius: 3px;
       -webkit-background-clip: padding-box;
       -moz-background-clip: padding;
       background-clip: padding-box; }
-    .nice-tabs li:last-child a {
+    .nice-tabs > li:last-child a {
       -webkit-border-top-right-radius: 3px;
       -moz-border-radius-topright: 3px;
       border-top-right-radius: 3px;
@@ -5790,32 +5790,34 @@ textarea.nice-form-control {
   -moz-background-clip: padding;
   background-clip: padding-box; }
 
-.nice-tabs-wrapper ul.nice-tab-content {
+.nice-tabs-wrapper > ul.nice-tab-content {
   list-style: none;
   margin: 0;
   padding: 0; }
-  .nice-tabs-wrapper ul.nice-tab-content li {
+  .nice-tabs-wrapper > ul.nice-tab-content > li {
     display: none;
     padding: 15px; }
-    .nice-tabs-wrapper ul.nice-tab-content li.current {
+    .nice-tabs-wrapper > ul.nice-tab-content > li.current {
+      display: block; }
+  .nice-tabs-wrapper > ul.nice-tab-content ul.nice-tabs > li {
       display: block; }
 
 @media screen and (max-width: 1025px) {
-  .nice-tabs li a.icon {
+  .nice-tabs > li a.icon {
     min-width: 80px;
     text-align: left;
     padding: 25px 15px 5px;
     text-align: center; }
-    .nice-tabs li a.icon:before {
+    .nice-tabs > li a.icon:before {
       position: absolute;
       top: 15px;
       left: 50%;
       margin-left: -12px;
       width: 24px;
       text-align: center; }
-  .nice-tabs li.current a {
+  .nice-tabs > li.current a {
     padding: 9px 14px 10px 14px; }
-    .nice-tabs li.current a.icon {
+    .nice-tabs > li.current a.icon {
       padding: 24px 14px 5px; }
   .nice-tabs.small li a.icon {
     min-width: 60px; }

@@ -47,6 +47,55 @@
             {"name": "Thunder", "description": "A concussive burst of sound, such as the effect of the Thunderwave spell, deals thunder damage." }
         ]
     },
+    "character": {
+        "default": {
+            "race": "",
+            "class": "",
+            "background": "",
+            "level": 1,
+            "xp": 0,
+            "stats": {
+                "strength": 8,
+                "dexterity": 8,
+                "constitution": 8,
+                "intelligence": 8,
+                "wisdom": 8,
+                "charisma": 8
+            },
+            "stats_bonus": {
+                "strength": 0,
+                "dexterity": 0,
+                "constitution": 0,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 0
+            },
+            "modifiers": {
+                    "strength": 0,
+                    "dexterity": 0,
+                    "constitution": 0,
+                    "intelligence": 0,
+                    "wisdom": 0,
+                    "charisma": 0
+            },
+            "saving_throws": {
+                "strength": 0,
+                "dexterity": 0,
+                "constitution": 0,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 0
+            },
+            "equipment": [],
+            "proficiency": 2,
+            "proficiencies": {
+                "armor": [],
+                "weapons": [],
+                "tools": [],
+                "saving_throws": []
+            }
+        }
+    },
     "monster": {
         "default": {
             "name": "",
