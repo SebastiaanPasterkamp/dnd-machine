@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, request, session, g, redirect, url_for, abort, \
-    render_template, jsonify
+from flask import Blueprint, request, session, g, redirect, url_for, \
+    send_file, current_app, abort, render_template, jsonify
 import markdown
 import os
 import codecs
+import re
 
 from ..config import get_config, get_character_data, get_item_data
-from . import get_datamapper
+from . import get_datamapper, fill_pdf
 from ..models import resolveMath, DataMapper
 
 character = Blueprint(
@@ -56,17 +57,92 @@ def overview(party_id=None):
 @character.route('/show/<int:character_id>')
 def show(character_id):
     config = get_config()
+    items = get_item_data()
+    character_mapper = get_datamapper('character')
+    user_mapper = get_datamapper('user')
+
+    c = character_mapper.getById(character_id)
+    if c['user_id'] != request.user['id'] \
+            and 'admin' not in request.user['role']:
+        abort(403)
+    user = user_mapper.getById(c['user_id'])
+
+    return render_template(
+        'show_character.html',
+        info=config['info'],
+        character=c,
+        items=items,
+        user=user
+        )
+
+@character.route('/raw/<int:character_id>')
+def raw(character_id):
     character_mapper = get_datamapper('character')
 
     c = character_mapper.getById(character_id)
     if c['user_id'] != request.user['id'] \
             and 'admin' not in request.user['role']:
         abort(403)
+    return jsonify(c)
 
-    return render_template(
-        'show_character.html',
-        info=config['info'],
-        character=c
+@character.route('/download/<int:character_id>')
+def download(character_id):
+    config = get_config()
+    items = get_item_data()
+    character_mapper = get_datamapper('character')
+    user_mapper = get_datamapper('user')
+
+    c = character_mapper.getById(character_id)
+    if c['user_id'] != request.user['id'] \
+            and 'admin' not in request.user['role']:
+        abort(403)
+    user = user_mapper.getById(c['user_id'])
+
+    fdf_data = {
+        "CharacterName": c['name'],
+        "CharacterName 2": c['name'],
+        "PlayerName": user["username"],
+        "HPMax": c["hit_points"],
+        "HD": "%dd%d" % (c["level"], c["hit_dice"]),
+        "XP": c["xp"],
+        "Race ": c["race"],
+        "ClassLevel": "%s %d" % (c["class"], c["level"]),
+        "Speed": c["speed"],
+        "Background": c['background'],
+        "Alignment": c['alignment'],
+        "ProBonus": c['proficiency'],
+        "SpellSaveDC  2": c["spell_safe_dc"],
+        "SpellAtkBonus 2": c["spell_attack_modifier"],
+        "Spellcasting Class 2": c["class"],
+        "ProficienciesLang": str(c["languages"]),
+        "Initiative": c["modifiers"]["dexterity"],
+        "Passive": 10 + c["modifiers"]["wisdom"]
+        }
+    for stat, value in c["stats"].iteritems():
+        stat_name = stat.capitalize()
+        fdf_data[stat[:3].upper()] = value
+        fdf_data[stat[:3].upper() + 'mod'] = c["modifiers"][stat]
+
+        fdf_data[stat_name] = c['modifiers'][stat]
+        if stat in c['skills']:
+            fdf_data[stat_name] += c['proficiency']
+            fdf_data['ST ' + stat_name] = True
+
+    for skill in items['skills']:
+        skill_name = skill['name'].capitalize()
+        fdf_data[skill_name] = c['modifiers'][skill['stat']]
+        if skill['name'] in c['skills']:
+            fdf_data[skill_name] += c['proficiency']
+            fdf_data['ChBx ' + skill_name] = True
+
+    pdf_file = os.path.join('dndmachine', 'static', 'pdf', 'Current Standard v1.4.pdf')
+
+    filename = re.sub(ur'[^\w\d]+', '_', c['name']) + '.pdf'
+    return send_file(
+        fill_pdf(pdf_file, fdf_data, '/tmp/%s.fdf' % c['name']),
+        mimetype="application/pdf",
+        as_attachment=True,
+        attachment_filename=filename
         )
 
 @character.route('/edit/<int:character_id>', methods=['GET', 'POST'])
@@ -184,12 +260,12 @@ def new():
             if 'options' in profs:
                 options['proficiencies'][field] = options['proficiencies'].get(field, [])
                 options['proficiencies'][field].append({
-                    'options': profs['options']
+                    'options': expandOptions(profs['options'])
                     })
             if 'sets' in profs:
                 options['proficiencies'][field] = options['proficiencies'].get(field, [])
                 options['proficiencies'][field].append({
-                    'sets': profs['sets']
+                    'sets': expandOptions(profs['sets'])
                     })
             obj['proficiencies'][field] = list(
                 set(obj['proficiencies'][field]) \
@@ -228,9 +304,7 @@ def new():
             if field in perks:
                 perk = perks[field]
                 obj[field] = obj.get(field, {})
-                obj[field].update(
-                    perk.get('given', {})
-                )
+                obj[field].update(perk)
 
         return obj
 
@@ -329,5 +403,6 @@ def new():
         current=current,
         completed=completed,
         cdata=cdata,
+        items=items,
         options=options
         )

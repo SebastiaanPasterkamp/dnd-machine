@@ -23,7 +23,7 @@
 
 {% for choise in choises %}
     {% if 'options' in choise %}
-    <select class="small nice-form-control" {{ attr }} name="{{ path }}.+">
+    <select class="small nice-form-control" {{ attr }} name="character.{{ path }}.+">
     {% for option in choise.options %}
         <option>{{ option }}</option>
     {% endfor %}
@@ -56,7 +56,7 @@
     {% if 'group' in choise %}
     {{ choise.group|join(', ') }}"
     {% for set in choise.group %}
-    <input type="hidden" name="path.+" {{ attr }} value="{{ set }}" />
+    <input type="hidden" name="character.{{ path }}.+" {{ attr }} value="{{ set }}" />
     {% endfor %}
     {% endif %}
 {% endfor %}
@@ -110,7 +110,7 @@
 {% for sub in data.sub %}
 <label>
     {% set checked = "checked" if sub.name == character.race else '' %}
-    <input type="radio" name="race" value="{{ sub.name }}" {{ checked }} />
+    <input type="radio" name="character.race" value="{{ sub.name }}" {{ checked }} />
     {{ sub.name }}
 </label>
 {% endfor %}
@@ -122,7 +122,7 @@
     </ul>
 </div>
 {% else %}
-<input type="hidden" name="race" value="{{ character.race }}" />
+<input type="hidden" name="character.race" value="{{ character.race }}" />
 {% endif %}
 
 {% if current.tab == "class" %}
@@ -143,7 +143,7 @@
 
 <label>
 {% set checked = "checked" if data.name == character.class %}
-    <input type="radio" name="class" value="{{ data.name }}" {{ checked }} />
+    <input type="radio" name="character.class" value="{{ data.name }}" {{ checked }} />
     {{ data.name }}
 </label>
 {{ data.description|safe }}
@@ -154,7 +154,7 @@
     </ul>
 </div>
 {% else %}
-<input type="hidden" name="class" value="{{ character.class }}" />
+<input type="hidden" name="character.class" value="{{ character.class }}" />
 {% endif %}
 
 {% if current.tab == "background" %}
@@ -175,7 +175,7 @@
 
 <label>
 {% set checked = "checked" if data.name == character.background %}
-    <input type="radio" name="background" value="{{ data.name }}" {{ checked }} />
+    <input type="radio" name="character.background" value="{{ data.name }}" {{ checked }} />
     {{ data.name }}
 </label>
 {{ data.description|safe }}
@@ -186,7 +186,7 @@
     </ul>
 </div>
 {% else %}
-<input type="hidden" name="background" value="{{ character.background }}" />
+<input type="hidden" name="character.background" value="{{ character.background }}" />
 {% endif %}
 
 {% set stats = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"] %}
@@ -210,7 +210,7 @@
             {% for stat in stats %}
             {% set class = "good" if stat in character.proficiencies.saving_throws else "" %}
                 <td class="{{ class }}">
-                    <select class="small nice-form-control" data-stat="{{ stat }}" name="stats.{{ stat }}">
+                    <select class="small nice-form-control" data-stat="{{ stat }}" name="character.stats.{{ stat }}">
                     {% for option in range(8, 16) %}
                         {% if character.stats[stat] == option %}
                         <option selected>{{ option }}</option>
@@ -241,7 +241,7 @@
 {{ buttons }}
 {% else %}
 {% for stat in stats %}
-    <input type="hidden" name="stats.{{ stat }}" value="{{ character.stats[stat] }}" />
+    <input type="hidden" name="character.stats.{{ stat }}" value="{{ character.stats[stat] }}" />
 {% endfor %}
 {% endif %}
 
@@ -252,7 +252,7 @@
         <tbody>
             <tr>
                 <th>Name</th>
-                <td><input class="small nice-form-control" name="name" placeholder="Name..."></td>
+                <td><input class="small nice-form-control" name="character.name" placeholder="Name..."></td>
             </tr>
             <tr>
                 <th>Race</th>
@@ -269,11 +269,11 @@
             <tr>
                 <th>Alignment</th>
                 <td>
-                    <select class="nice-form-control" name="alignment">
+                    <select class="nice-form-control" name="character.alignment">
                     {% for b in ['good', 'neutral', 'evil'] %}
                     {% for a in ['lawful', 'neutral', 'chaotic'] %}
                         {% set alignment = ('true' if a == b else a) + ' ' + b %}
-                        <option>{{ alignment }}</option>
+                        <option>{{ alignment|capitalize }}</option>
                     {% endfor %}
                     {% endfor %}
                     </select>
