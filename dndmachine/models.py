@@ -79,6 +79,7 @@ class DataMapper(object):
     keepFields = []
     typeCastDefault = unicode
     typeCast = {}
+    form_prefix = 'obj'
 
     def __init__(self, db):
         self.db = db
@@ -113,8 +114,11 @@ class DataMapper(object):
     @staticmethod
     def setPath(structure, path, value):
         path = path.split('.')
+        if path[0] != self.form_prefix:
+            return
+
         rv = structure
-        for i in range(len(path)-1):
+        for i in range(1, len(path)-1):
             step = path[i]
             next_type = dict
             if path[i+1].isdigit() or path[i+1] == '+':
@@ -150,8 +154,6 @@ class DataMapper(object):
     def fromPost(self, form, old={}):
         obj = {}
         for path, value in form.iteritems():
-            if path == "button":
-                continue
             cast = self._getType(path)
             if not len(value) and cast == int:
                 continue
@@ -282,6 +284,7 @@ class DataMapper(object):
 
 
 class UserMapper(DataMapper):
+    form_prefix = "user"
     table = "users"
     fields = ['username', 'password', 'email']
     keepFields = ['username', 'password', 'role']
@@ -325,6 +328,7 @@ class UserMapper(DataMapper):
 
 
 class CharacterMapper(DataMapper):
+    form_prefix = "character"
     table = "character"
     fields = ['name', 'level']
     keepFields = ['user_id', 'race', 'class', 'background', 'stats', 'modifiers']
@@ -406,6 +410,7 @@ class CharacterMapper(DataMapper):
 
 
 class PartyMapper(DataMapper):
+    form_prefix = "party"
     table = "party"
     fields = ['name', 'user_id']
     keepFields = ['user_id']
@@ -476,6 +481,7 @@ class PartyMapper(DataMapper):
 
 
 class MonsterMapper(DataMapper):
+    form_prefix = "monster"
     table = "monster"
     fields = ['name', 'challenge_rating', 'xp_rating', 'xp']
     typeCastDefault = int
@@ -558,6 +564,7 @@ class MonsterMapper(DataMapper):
 
 
 class EncounterMapper(DataMapper):
+    form_prefix = "encounter"
     table = "encounter"
     fields = ['name', 'user_id', 'size', 'challenge_rating', 'xp_rating', 'xp']
     keepFields = ['user_id', 'size', 'challenge_rating', 'xp_rating', 'xp']
