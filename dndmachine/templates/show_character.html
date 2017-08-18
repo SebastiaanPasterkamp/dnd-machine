@@ -13,17 +13,140 @@
                 {% if character.user_id == request.user.id or 'admin' in request.user.role or 'dm' in request.user.role %}
                 <div class="nice-btn-group pull-right">
                     <a href="{{ url_for('character.edit', character_id=character.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                    <a href="{{ url_for('character.download', character_id=character.id) }}" class="nice-btn icon fa-download">Download</a>
+                    <a href="{{ url_for('character.raw', character_id=character.id) }}" class="nice-btn icon fa-database">Raw</a>
                     <a href="{{ url_for('character.delete', character_id=character.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
                 </div>
                 {% endif %}
             </th>
         </tr>
     </thead>
+</table>
+
+    </div>
+    <div class="nice-col-6 nice-col-mobile-12">
+
+<table class="nice-table condensed striped bordered hover">
+    <thead>
+        <tr>
+            <th>Class</th>
+            <th>Background</th>
+            <th>Player</th>
+        </tr>
+    </thead>
     <tbody>
         <tr>
-            <th>Level</th>
-            <td>{{ character.level }}</td>
+            <td>{{ character.class }}</td>
+            <td>{{ character.background }}</td>
+            <td>{{ user.username }}</td>
+        <tr>
+    </tbody>
+    <thead>
+        <tr>
+            <th>Race</th>
+            <th>Alignment</th>
+            <th>XP</th>
         </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ character.race }}</td>
+            <td>{{ character.alignment }}</td>
+            <td>{{ character.xp }} XP</td>
+        <tr>
+    </tbody>
+</table>
+
+    </div>
+</div>
+
+<div class="nice-row">
+    <div class="nice-col-2 nice-col-mobile-4">
+
+{% set stats = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"] %}
+<table class="nice-table condensed striped bordered">
+    <tbody>
+        {% for stat in stats %}
+        <tr>
+            <th>{{ stat|capitalize }}</th>
+            <td>{{ character.stats[stat] }}</td>
+            <td>
+                {% if character.modifiers[stat] > 0 %}+{% endif %}
+                {{ character.modifiers[stat] }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    </div>
+    <div class="nice-col-4 nice-col-mobile-8">
+
+<table class="nice-table condensed striped bordered">
+    <tbody>
+        <tr>
+            <td>{{ character.proficiency }}</td>
+            <th>Proficiency Bonus</th>
+        </tr>
+    </tbody>
+</table>
+
+<table class="nice-table condensed striped bordered">
+    <tbody>
+        {% for stat in stats %}
+        <tr>
+            <td>
+                {% if stat in character.proficiencies.saving_throws %}
+                <span class="icon fa-check-square-o">&nbsp;</span>
+                {% else %}
+                <span class="icon fa-square-o">&nbsp;</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if stat in character.proficiencies.saving_throws %}
+                {% set prof = character.modifiers[stat] + character.proficiency %}
+                {% else %}
+                {% set prof = character.modifiers[stat] %}
+                {% endif %}
+                {% if prof > 0 %}+{% endif %}{{ prof }}
+            </td>
+            <th>{{ stat|capitalize }}</th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% set skillsets = {
+    "strength": ["Athletics"],
+    "dexterity": ["Acrobatics", "Sleight of Hand", "Stealth"],
+    "intelligence": ["Arcana", "History", "Investigation", "Nature", "Religion"],
+    "wisdom": ["Animal Handling", "Insight", "Medicine", "Perception", "Survival"],
+    "charisma": ["Deception", "Intimidation", "Performance", "Persuasion"]
+} %}
+<table class="nice-table condensed striped bordered">
+    <tbody>
+        {% for stat, skills in skillsets.items() %}
+        {% for skill in skills %}
+        <tr>
+            <td>
+                {% if stat in character.proficiencies.skills %}
+                <span class="icon fa-check-square-o">&nbsp;</span>
+                {% else %}
+                <span class="icon fa-square-o">&nbsp;</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if skill in character.proficiencies.skills %}
+                {% set prof = character.modifiers[stat] + character.proficiency %}
+                {% else %}
+                {% set prof = character.modifiers[stat] %}
+                {% endif %}
+                {% if prof > 0 %}+{% endif %}{{ prof }}
+            </td>
+            <th>{{ skill }}</th>
+        </tr>
+        {% endfor %}
+        {% endfor %}
     </tbody>
 </table>
 
