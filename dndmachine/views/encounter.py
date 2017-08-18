@@ -11,7 +11,7 @@ encounter = Blueprint(
 
 @encounter.route('/')
 @encounter.route('/list')
-def list(encounter_id=None):
+def overview(encounter_id=None):
     config = get_config()
     encounter_mapper = get_datamapper('encounter')
 
@@ -33,7 +33,7 @@ def list(encounter_id=None):
 @encounter.route('/show/<int:encounter_id>/<int:party_id>', methods=['GET', 'POST'])
 def show(encounter_id, party_id=None):
     if party_id is None:
-        return redirect( url_for('party.list', encounter_id=encounter_id) )
+        return redirect( url_for('party.overview', encounter_id=encounter_id) )
 
     config = get_config()
     encounter_mapper = get_datamapper('encounter')
@@ -144,7 +144,7 @@ def edit(encounter_id):
         if request.form.get("button", "save") == "save":
             encounter_mapper.update(e)
             return redirect(url_for(
-                'encounter.list'
+                'encounter.overview'
                 ))
 
         if request.form.get("button", "save") == "update":
@@ -175,7 +175,7 @@ def delete(encounter_id):
     encounter_mapper.delete(e)
 
     return redirect(url_for(
-        'encounter.list'
+        'encounter.overview'
         ))
 
 @encounter.route('/new', methods=['GET', 'POST'])
@@ -186,7 +186,7 @@ def new():
     if request.method == 'POST':
         if request.form["button"] == "cancel":
             return redirect(url_for(
-                'encounter.list'
+                'encounter.overview'
                 ))
 
         e = encounter_mapper.fromPost(request.form)

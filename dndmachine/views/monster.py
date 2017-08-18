@@ -11,7 +11,7 @@ monster = Blueprint(
 @monster.route('/')
 @monster.route('/list')
 @monster.route('/list/<int:encounter_id>')
-def list(encounter_id=None):
+def overview(encounter_id=None):
     config = get_config()
     machine = get_datamapper('machine')
     monster_mapper = get_datamapper('monster')
@@ -102,13 +102,15 @@ def new():
     machine = get_datamapper('machine')
     monster_mapper = get_datamapper('monster')
 
+    m = monster_mapper.setDefaults({})
+
     if request.method == 'POST':
         if request.form["button"] == "cancel":
             return redirect(url_for(
-                'monster.list'
+                'monster.overview'
                 ))
 
-        m = monster_mapper.fromPost(request.form)
+        m = monster_mapper.fromPost(request.form, m)
         m = machine.computeMonsterStatistics(m)
 
         if request.form.get("button", "save") == "save":
@@ -118,7 +120,6 @@ def new():
                 monster_id=m['id']
                 ))
     else:
-        m = monster_mapper.setDefaults({})
         m = machine.computeMonsterStatistics(m)
 
     return render_template(

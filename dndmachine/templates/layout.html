@@ -40,26 +40,26 @@
                     {% endif %}
 
                     <ul class="nice-header-menu menu-pills">
-                        <li class="highlight{% if request.path == url_for('character.list') %} primary{% endif %}">
-                            <a href="{{ url_for('character.list') }}" class="icon fa-user-secret">
+                        <li class="highlight{% if request.path == url_for('character.overview') %} primary{% endif %}">
+                            <a href="{{ url_for('character.overview') }}" class="icon fa-user-secret">
                                 Characters
                             </a>
                         </li>
 
-                        <li class="highlight{% if request.path == url_for('party.list') %} primary{% endif %}">
-                            <a href="{{ url_for('party.list') }}" class="icon fa-users">
+                        <li class="highlight{% if request.path == url_for('party.overview') %} primary{% endif %}">
+                            <a href="{{ url_for('party.overview') }}" class="icon fa-users">
                                 Parties
                             </a>
                         </li>
 
-                        <li class="highlight{% if request.path == url_for('monster.list') %} primary{% endif %}">
-                            <a href="{{ url_for('monster.list') }}" class="icon fa-paw">
+                        <li class="highlight{% if request.path == url_for('monster.overview') %} primary{% endif %}">
+                            <a href="{{ url_for('monster.overview') }}" class="icon fa-paw">
                                 Monsters
                             </a>
                         </li>
 
-                        <li class="highlight{% if request.path == url_for('encounter.list') %} primary{% endif %}">
-                            <a href="{{ url_for('encounter.list') }}" class="icon fa-gamepad">
+                        <li class="highlight{% if request.path == url_for('encounter.overview') %} primary{% endif %}">
+                            <a href="{{ url_for('encounter.overview') }}" class="icon fa-gamepad">
                                 Encounters
                             </a>
                         </li>
@@ -71,7 +71,7 @@
                             </span>
                             <ul>
                                 <li>
-                                    <a href="{{ url_for('user.list') }}">Users</a>
+                                    <a href="{{ url_for('user.overview') }}">Users</a>
                                 </li>
                             </ul>
                         </li>
