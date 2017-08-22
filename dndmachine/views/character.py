@@ -45,7 +45,7 @@ def overview(party_id=None):
         members = [c['id'] for c in character_mapper.getByPartyId(party_id)]
 
     return render_template(
-        'list_characters.html',
+        'character/overview.html',
         info=config['info'],
         characters=characters,
         users=users,
@@ -68,7 +68,7 @@ def show(character_id):
     user = user_mapper.getById(c['user_id'])
 
     return render_template(
-        'show_character.html',
+        'character/show.html',
         info=config['info'],
         character=c,
         items=items,
@@ -183,7 +183,7 @@ def edit(character_id):
                 ))
 
     return render_template(
-        'edit_character.html',
+        'character/edit.html',
         info=config['info'],
         data=config['data'],
         character=c
@@ -394,7 +394,7 @@ def new():
         }
 
     return render_template(
-        'create_character.html',
+        'character/create.html',
         info=config['info'],
         data=config['data'],
         character=c,

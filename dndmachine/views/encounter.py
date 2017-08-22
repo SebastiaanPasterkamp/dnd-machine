@@ -23,7 +23,7 @@ def overview(encounter_id=None):
         encounters = encounter_mapper.getByDmUserId(request.user['id'])
 
     return render_template(
-        'list_encounters.html',
+        'encounter/overview.html',
         info=config['info'],
         encounters=encounters,
         search=search
@@ -110,7 +110,7 @@ def show(encounter_id, party_id=None):
     e = encounter_mapper.computeChallenge(e, monsters, party)
 
     return render_template(
-        'show_encounter.html',
+        'encounter/show.html',
         info=config['info'],
         encounter=e,
         mode=mode,
@@ -161,7 +161,7 @@ def edit(encounter_id):
     e = encounter_mapper.computeChallenge(e, monsters)
 
     return render_template(
-        'edit_encounter.html',
+        'encounter/edit.html',
         info=config['info'],
         encounter=e,
         monsters=monsters
@@ -204,7 +204,7 @@ def new():
         e = {}
 
     return render_template(
-        'edit_encounter.html',
+        'encounter/edit.html',
         info=config['info'],
         encounter=e
         )

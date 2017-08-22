@@ -40,7 +40,7 @@ def overview(encounter_id=None):
         encounter = encounter_mapper.getById(encounter_id)
 
     return render_template(
-        'list_parties.html',
+        'party/overview.html',
         info=config['info'],
         parties=parties,
         characters=characters,
@@ -67,7 +67,7 @@ def show(party_id):
         p[cr] = sum([c[cr] for c in characters])
 
     return render_template(
-        'show_party.html',
+        'party/show.html',
         info=config['info'],
         party=p,
         user=user,
@@ -101,7 +101,7 @@ def edit(party_id):
                 ))
 
     return render_template(
-        'edit_party.html',
+        'party/edit.html',
         info=config['info'],
         data=config['data'],
         party=p
@@ -142,7 +142,7 @@ def new():
         p = {}
 
     return render_template(
-        'edit_party.html',
+        'party/edit.html',
         info=config['info'],
         data=config['data'],
         party=p

@@ -32,7 +32,7 @@ def overview(encounter_id=None):
         m = machine.computeMonsterStatistics(m)
 
     return render_template(
-        'list_monsters.html',
+        'monster/overview.html',
         info=config['info'],
         monsters=monsters,
         encounter=encounter,
@@ -49,7 +49,7 @@ def show(monster_id):
     m = monster_mapper.getById(monster_id)
     m = machine.computeMonsterStatistics(m)
     return render_template(
-        'show_monster.html',
+        'monster/show.html',
         info=config['info'],
         monster=m
         )
@@ -89,7 +89,7 @@ def edit(monster_id):
         m = machine.computeMonsterStatistics(m)
 
     return render_template(
-        'edit_monster.html',
+        'monster/edit.html',
         info=config['info'],
         data=config['data'],
         machine=config['machine'],
@@ -123,7 +123,7 @@ def new():
         m = machine.computeMonsterStatistics(m)
 
     return render_template(
-        'edit_monster.html',
+        'monster/edit.html',
         info=config['info'],
         data=config['data'],
         machine=config['machine'],
