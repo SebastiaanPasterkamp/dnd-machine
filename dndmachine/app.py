@@ -85,7 +85,7 @@ def close_db(error):
 def home():
     if session.get('userid') is None:
         return redirect(url_for('login'))
-    return redirect(url_for('character.list'))
+    return redirect(url_for('character.overview'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

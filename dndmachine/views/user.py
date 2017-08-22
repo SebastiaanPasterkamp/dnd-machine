@@ -21,7 +21,7 @@ def overview():
     search = request.args.get('search', '')
     users = user_mapper.getList(search)
     return render_template(
-        'list_users.html',
+        'user/overview.html',
         info=config['info'],
         users=users,
         search=search
@@ -41,7 +41,7 @@ def show(user_id):
 
     u = user_mapper.getById(user_id)
     return render_template(
-        'show_user.html',
+        'user/show.html',
         info=config['info'],
         user=u
         )
@@ -74,7 +74,7 @@ def edit(user_id):
                 ))
 
     return render_template(
-        'edit_user.html',
+        'user/edit.html',
         info=config['info'],
         data=config['data'],
         user=u
@@ -107,7 +107,7 @@ def new():
         u = {}
 
     return render_template(
-        'edit_user.html',
+        'user/edit.html',
         info=config['info'],
         data=config['data'],
         user=u
