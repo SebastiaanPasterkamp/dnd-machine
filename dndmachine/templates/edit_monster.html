@@ -24,14 +24,14 @@
                 <span class="nice-input-addon">
                     Name
                 </span>
-                <input type="text" placeholder="Monster name" class="nice-form-control" name="name" value="{{ monster.name }}" />
+                <input type="text" placeholder="Monster name" class="nice-form-control" name="monster.name" value="{{ monster.name }}" />
             </div>
 
             <div class="nice-control-group">
                 <span class="nice-input-addon">
                     Size
                 </span>
-                <select class="nice-form-control" name="size">
+                <select class="nice-form-control" name="monster.size">
                 {% for size in machine.size_hit_dice %}
                     {% if size == monster.size %}
                     <option selected>{{ size }}</option>
@@ -43,7 +43,7 @@
                 <span class="nice-input-addon">
                     Type
                 </span>
-                <select class="nice-form-control" name="type">
+                <select class="nice-form-control" name="monster.type">
                 {% for type in machine.monster_types %}
                     {% if type == monster.type %}
                     <option selected>{{ type }}</option>
@@ -58,7 +58,7 @@
                 <span class="nice-input-addon">
                     Alignment
                 </span>
-                <select class="nice-form-control" name="alignment">
+                <select class="nice-form-control" name="monster.alignment">
                 {% for b in ['good', 'neutral', 'evil'] %}
                 {% for a in ['lawful', 'neutral', 'chaotic'] %}
                     {% set alignment = ('true' if a == b else a) + ' ' + b %}
@@ -76,7 +76,7 @@
                 <span class="nice-input-addon">
                     Level
                 </span>
-                <select class="nice-form-control" name="level">
+                <select class="nice-form-control" name="monster.level">
                 {% for level in range(1, 31) %}
                     {% if level == monster.level %}
                     <option selected>{{ level }}</option>
@@ -91,7 +91,7 @@
                 <span class="nice-input-addon">
                     Armor Class
                 </span>
-                <select class="nice-form-control" name="armor_class">
+                <select class="nice-form-control" name="monster.armor_class">
                 {% for armor_class in range(10, 20) %}
                     {% if armor_class == monster.armor_class %}
                     <option selected>{{ armor_class }}</option>
@@ -121,7 +121,7 @@
                 <span class="nice-input-addon">
                     {{ mode|capitalize }}
                 </span>
-                <select class="small nice-form-control" name="motion.{{ mode }}">
+                <select class="small nice-form-control" name="monster.motion.{{ mode }}">
                     {% if mode not in monster.motion or monster.motion[mode] == 0 %}
                     <option selected value="0">N/A</option>
                     {% else %}
@@ -171,7 +171,7 @@
                     <tr>
                         <th>{{ stat|capitalize }}</th>
                         <td>
-                            <select class="small nice-form-control" name="stats.{{ stat }}">
+                            <select class="small nice-form-control" name="monster.stats.{{ stat }}">
                             {% for option in range(1, 31) %}
                                 {% if monster.stats[stat] == option %}
                                 <option selected>{{ option }}</option>
@@ -218,8 +218,8 @@
             <div class="nice-control-group">
                 {% for i in range(monster.trait|length) %}
                 {% set trait = monster.trait[i] %}
-                <input type="text" placeholder="Trait Name..." class="nice-form-control" name="traits.{{ i }}.name" value="{{ trait.name }}" />
-                <textarea class="nice-form-control" placeholder="Description..." name="traits.{{ i }}.description">{{ traits.description }}</textarea>
+                <input type="text" placeholder="Trait Name..." class="nice-form-control" name="monster.traits.{{ i }}.name" value="{{ trait.name }}" />
+                <textarea class="nice-form-control" placeholder="Description..." name="monster.traits.{{ i }}.description">{{ traits.description }}</textarea>
                 {% endfor %}
             </div>
 
@@ -227,8 +227,8 @@
             <div class="nice-control-group">
                 {% for i in range(monster.features|length) %}
                 {% set feature = monster.features[i] %}
-                <input type="text" placeholder="Feature Name..." class="nice-form-control" name="features.{{ i }}.name" value="{{ feature.name }}" />
-                <textarea class="nice-form-control" placeholder="Description..." name="features.{{ i }}.description">{{ feature.description }}</textarea>
+                <input type="text" placeholder="Feature Name..." class="nice-form-control" name="monster.features.{{ i }}.name" value="{{ feature.name }}" />
+                <textarea class="nice-form-control" placeholder="Description..." name="monster.features.{{ i }}.description">{{ feature.description }}</textarea>
                 {% endfor %}
             </div>
 
@@ -242,7 +242,7 @@
                     {% if language %}
                     <div class="nice-tag">
                         <span class="nice-tag-label">
-                            <input type="hidden" value="{{ language }}" name="languages.{{ i }}" />
+                            <input type="hidden" value="{{ language }}" name="monster.languages.{{ i }}" />
                             {{ language }}
                         </span>
                         <button class="nice-tag-btn">
@@ -254,7 +254,7 @@
                     <select
                         data-next="{{ monster.languages|length }}"
                         class="nice-form-control add-tag"
-                        data-name="languages."
+                        data-name="monster.languages."
                         data-target="languages">
                         <option value="">Add language...</option>
                     {% for language in data.languages %}
@@ -288,21 +288,21 @@
                 <span class="nice-input-addon">
                     Name
                 </span>
-                <input type="text" placeholder="Attack name..." class="nice-form-control" name="attacks.{{ i }}.name" value="{{ attack.name }}" />
+                <input type="text" placeholder="Attack name..." class="nice-form-control" name="monster.attacks.{{ i }}.name" value="{{ attack.name }}" />
             </div>
 
             <div class="nice-control-group">
                 <span class="nice-input-addon">
                     Description
                 </span>
-                <textarea class="nice-form-control" placeholder="Description..." name="attacks.{{ i }}.description">{{ attack.description }}</textarea>
+                <textarea class="nice-form-control" placeholder="Description..." name="monster.attacks.{{ i }}.description">{{ attack.description }}</textarea>
             </div>
 
             <div class="nice-control-group">
                 <span class="nice-input-addon">
                     Mode
                 </span>
-                <select class="nice-form-control" name="attacks.{{ i }}.mode">
+                <select class="nice-form-control" name="monster.attacks.{{ i }}.mode">
                 {% for option in ["melee", "ranged", "spell"] %}
                     {% if attack.mode == option %}
                     <option selected>{{ option }}</option>
@@ -320,7 +320,7 @@
                 <span class="nice-input-addon">
                     Damage
                 </span>
-                <select class="nice-form-control" name="attacks.{{ i }}.damage.{{ j }}.type">
+                <select class="nice-form-control" name="monster.attacks.{{ i }}.damage.{{ j }}.type">
                 {% if j %}
                 <option />
                 {% endif %}
@@ -335,7 +335,7 @@
                 <span class="nice-input-addon">
                     Dice
                 </span>
-                <select class="nice-form-control" name="attacks.{{ i }}.damage.{{ j }}.dice_count">
+                <select class="nice-form-control" name="monster.attacks.{{ i }}.damage.{{ j }}.dice_count">
                     {% set dice = range(1, 31) %}
                     {% if j %}
                         {% set dice = range(0, 31) %}
@@ -351,7 +351,7 @@
                 <span class="nice-input-addon">
                     d
                 </span>
-                <select class="nice-form-control" name="attacks.{{ i }}.damage.{{ j }}.dice_size">
+                <select class="nice-form-control" name="monster.attacks.{{ i }}.damage.{{ j }}.dice_size">
                     {% for option in [4, 6, 8, 10, 12, 20] %}
                         {% if damage.dice_size == option %}
                         <option selected>{{ option }}</option>
@@ -364,7 +364,7 @@
                     +
                 </span>
                 {% if j %}
-                <input type="text" placeholder="Bonus..." class="nice-form-control" name="attacks.{{ i }}.damage.{{ j }}.bonus" value="{{ damage.bonus }}" />
+                <input type="text" placeholder="Bonus..." class="nice-form-control" name="monster.attacks.{{ i }}.damage.{{ j }}.bonus" value="{{ damage.bonus }}" />
                 {% else %}
                 <input type="text" class="nice-form-control" value="{{ attack.modifier }}" disabled />
                 {% endif %}
@@ -375,7 +375,7 @@
                 <span class="nice-input-addon">
                     Target
                 </span>
-                <select class="nice-form-control" name="attacks.{{ i }}.target">
+                <select class="nice-form-control" name="monster.attacks.{{ i }}.target">
                     {% for option in ['single', 'multiple', 'area'] %}
                         {% if attack.target == option %}
                         <option selected>{{ option }}</option>
@@ -390,7 +390,7 @@
                 <span class="nice-input-addon">
                     Range
                 </span>
-                <select class="nice-form-control" name="attacks.{{ i }}.range_min">
+                <select class="nice-form-control" name="monster.attacks.{{ i }}.range_min">
                 {% for option in range(5, 100, 5) %}
                     {% if attack.range_min == option %}
                     <option selected>{{ option }}</option>
@@ -402,7 +402,7 @@
                 <span class="nice-input-addon">
                     -
                 </span>
-                <select class="nice-form-control" name="attacks.{{ i }}.range_max">
+                <select class="nice-form-control" name="monster.attacks.{{ i }}.range_max">
                 {% for option in range(5, 100, 5) %}
                     {% if attack.range_max == option %}
                     <option selected>{{ option }}</option>
@@ -420,14 +420,14 @@
                 <span class="nice-input-addon">
                     On Hit:
                 </span>
-                <input type="text" placeholder="On hit bad stuff..." class="nice-form-control" name="attacks.{{ i }}.on_hit" value="{{ attack.on_hit }}" />
+                <input type="text" placeholder="On hit bad stuff..." class="nice-form-control" name="monster.attacks.{{ i }}.on_hit" value="{{ attack.on_hit }}" />
             </div>
 
             <div class="nice-control-group">
                 <span class="nice-input-addon">
                     On Mis:
                 </span>
-                <input type="text" placeholder="On mis still bad stuff..." class="nice-form-control" name="attacks.{{ i }}.in_mis" value="{{ attack.on_mis }}" />
+                <input type="text" placeholder="On mis still bad stuff..." class="nice-form-control" name="monster.attacks.{{ i }}.in_mis" value="{{ attack.on_mis }}" />
             </div>
 
         </div>
@@ -453,21 +453,21 @@
                 <span class="nice-input-addon">
                     Name
                 </span>
-                <input type="text" placeholder="Rotation name..." class="nice-form-control" name="multiattack.{{ i }}.name" value="{{ rotation.name }}" />
+                <input type="text" placeholder="Rotation name..." class="nice-form-control" name="monster.multiattack.{{ i }}.name" value="{{ rotation.name }}" />
             </div>
 
             <div class="nice-control-group">
                 <span class="nice-input-addon">
                     Description
                 </span>
-                <textarea class="nice-form-control" placeholder="Rotation does an average of %average% damage..." name="multiattack.{{ i }}.description">{{ rotation.description }}</textarea>
+                <textarea class="nice-form-control" placeholder="Rotation does an average of %average% damage..." name="monster.multiattack.{{ i }}.description">{{ rotation.description }}</textarea>
             </div>
 
             <div class="nice-control-group">
                 <span class="nice-input-addon">
                     Condition
                 </span>
-                <textarea class="nice-form-control" placeholder="Condition..." name="multiattack.{{ i }}.condition">{{ rotation.condition }}</textarea>
+                <textarea class="nice-form-control" placeholder="Condition..." name="monster.multiattack.{{ i }}.condition">{{ rotation.condition }}</textarea>
             </div>
 
             <div class="nice-control-group">
@@ -480,7 +480,7 @@
                         {% if attack %}
                     <div class="nice-tag">
                         <span class="nice-tag-label">
-                            <input type="hidden" value="{{ attack }}" name="multiattack.{{ i }}.sequence.{{ j }}" />
+                            <input type="hidden" value="{{ attack }}" name="monster.multiattack.{{ i }}.sequence.{{ j }}" />
                             {{ attack }}
                         </span>
                         <button class="nice-tag-btn">
@@ -492,7 +492,7 @@
                     <select
                         data-next="{{ rotation.sequence|length }}"
                         class="nice-form-control add-tag"
-                        data-name="multiattack.{{ i }}.sequence."
+                        data-name="monster.multiattack.{{ i }}.sequence."
                         data-target="rotation-{{ i }}">
                         <option value="">Add attack...</option>
                     {% for attack in monster.attacks %}
