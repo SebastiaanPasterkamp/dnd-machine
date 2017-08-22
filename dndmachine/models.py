@@ -83,9 +83,16 @@ class DataMapper(object):
 
     def __init__(self, db):
         self.db = db
+        self._steps = {}
 
     def _getType(self, path):
-        if path == "id":
+        path = path.split('.')
+        if path[0] == self.form_prefix:
+            path = '.'.join(path[1:])
+        else:
+            path = '.'.join(path)
+
+        if path == "%s.id" % self.form_prefix:
             return int
         typeCast = DataMapper.getPath(
             self.typeCast,
@@ -111,26 +118,33 @@ class DataMapper(object):
                 raise Exception("No dict or list '%r': %r" % (path, rv))
         return rv
 
-    @staticmethod
-    def setPath(structure, path, value):
+    def setPath(self, structure, path, value):
         path = path.split('.')
         if path[0] != self.form_prefix:
             return
+
+        if 'equipment' in path:
+            print path, '=', value
 
         rv = structure
         for i in range(1, len(path)-1):
             step = path[i]
             next_type = dict
-            if path[i+1].isdigit() or path[i+1] == '+':
+            if path[i+1].isdigit() or path[i+1].startswith('+'):
                 next_type = list
 
-            if step.isdigit() or step == '+':
+            if step.isdigit() or step.startswith('+'):
                 if not isinstance(rv, list):
                     raise Exception("Not a list at %s %r: %r" % (step, path, rv))
-                step = int(step) if step.isdigit() else len(rv) + 1
+                if step.isdigit():
+                    step = int(step)
+                else:
+                    key = step
+                    step = self._steps.get(key, len(rv) + 1)
+                    self._steps[key] = step
                 rv.extend([
                     next_type()
-                    for i in range(step - len(rv) + 1)
+                    for i in range(step - len(rv))
                     ])
             else:
                 if not isinstance(rv, dict):
@@ -140,25 +154,38 @@ class DataMapper(object):
             rv = rv[step]
 
         step = path[-1]
-        if step.isdigit() or step == '+':
+        if step.isdigit() or step.startswith('+'):
             if not isinstance(rv, list):
                 raise Exception("Not a list at %s %r: %r" % (step, path, rv))
-            step = int(step) if step.isdigit() else len(rv) + 1
+            if step.isdigit():
+                step = int(step)
+            else:
+                key = step
+                step = self._steps.get(key, len(rv))
+                self._steps[key] = step
             rv.extend([
                 None
                 for i in range(step - len(rv) + 1)
                 ])
+
+        if 'equipment' in path:
+            print rv
+
         rv[step] = value
+
+        if 'equipment' in path:
+            print rv
 
 
     def fromPost(self, form, old={}):
+        self._steps = {}
         obj = {}
         for path, value in form.iteritems():
             cast = self._getType(path)
             if not len(value) and cast == int:
                 continue
             value = cast(value)
-            DataMapper.setPath(obj, path, value)
+            self.setPath(obj, path, value)
         for keep in self.keepFields + ['id']:
             if not obj.get(keep) and keep in old:
                 obj[keep] = old[keep]

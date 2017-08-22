@@ -28,7 +28,7 @@
                 {% if user.id %}
                 <input type="text" disabled class="nice-form-control" value="{{ user.username }}" />
                 {% else %}
-                <input type="text" class="nice-form-control" name="username" value="{{ user.username }}" />
+                <input type="text" class="nice-form-control" name="user.username" value="{{ user.username }}" />
                 {% endif %}
             </div>
 
@@ -36,14 +36,14 @@
                 <span class="nice-input-addon">
                     Password
                 </span>
-                <input type="password" placeholder="Password..." class="nice-form-control" name="password" />
+                <input type="password" placeholder="Password..." class="nice-form-control" name="user.password" />
             </div>
 
             <div class="nice-control-group">
                 <span class="nice-input-addon">
                     E-mail
                 </span>
-                <input type="email" placeholder="E-mail..." class="nice-form-control" name="email" value="{{ user.email }}" />
+                <input type="email" placeholder="E-mail..." class="nice-form-control" name="user.email" value="{{ user.email }}" />
             </div>
         </div>
 
@@ -68,7 +68,7 @@
                     {% if role %}
                     <div class="nice-tag">
                         <span class="nice-tag-label">
-                            <input type="hidden" value="{{ role }}" name="role.{{ i }}" />
+                            <input type="hidden" value="{{ role }}" name="user.role.{{ i }}" />
                             {{ role|capitalize }}
                         </span>
                         <button class="nice-tag-btn">
@@ -80,7 +80,7 @@
                     <select
                         data-next="{{ user.role|length }}"
                         class="nice-form-control add-tag"
-                        data-name="role."
+                        data-name="user.role."
                         data-target="role">
                         <option value="">Assign role...</option>
                     {% for role in data.roles %}

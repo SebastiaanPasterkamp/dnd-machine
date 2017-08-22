@@ -12,7 +12,7 @@
 <div class="clearfix"></div>
 {% endset %}
 
-{%- macro attribute(choises, path, given=[], attr='') %}
+{%- macro attribute(choises, path, given=[], attr='', suffix='') %}
 {% if given %}
 <ul>
 {% for g in given %}
@@ -22,8 +22,9 @@
 {% endif %}
 
 {% for choise in choises %}
+{% set plus = [suffix, loop.index]|join('-') %}
     {% if 'options' in choise %}
-    <select class="small nice-form-control" {{ attr }} name="character.{{ path }}.+">
+    <select class="small nice-form-control" {{ attr }} name="character.{{ path }}.+{{ plus }}">
     {% for option in choise.options %}
         <option>{{ option }}</option>
     {% endfor %}
@@ -32,7 +33,7 @@
 
     {% if 'sets' in choise %}
     {% for set in choise.sets %}
-    {{ attribute([set], path) }}
+    {{ attribute([set], path, suffix=[plus, loop.index]|join('-')) }}
     {% endfor %}
     {% endif %}
 
@@ -41,7 +42,7 @@
     {% for set in choise.choose %}
         <tr>
             <td><input type="radio" name="{{ choise.choose }}" {% if loop.first %}checked{% endif %}/></td>
-            <td>{{ attribute([set], path, attr='disabled' if not loop.first else '') }}</td>
+            <td>{{ attribute([set], path, attr='disabled' if not loop.first else '', suffix=[plus, loop.index]|join('-')) }}</td>
         </tr>
     {% endfor %}
     </table>
@@ -49,14 +50,14 @@
 
     {% if 'multiple' in choise %}
     {% for set in choise.multiple %}
-    {{ attribute([set], path) }}
+    {{ attribute([set], path, suffix=[plus, loop.index]|join('-')) }}
     {% endfor %}
     {% endif %}
 
     {% if 'group' in choise %}
     {{ choise.group|join(', ') }}"
     {% for set in choise.group %}
-    <input type="hidden" name="character.{{ path }}.+" {{ attr }} value="{{ set }}" />
+    <input type="hidden" name="character.{{ path }}.+{{ plus }}" {{ attr }} value="{{ set }}" />
     {% endfor %}
     {% endif %}
 {% endfor %}
@@ -384,14 +385,14 @@
                 <td>
                     <table class="nice-table condensed bordered">
                     {% for type, profs in character.proficiencies.items() %}
-                    {% if type in profs or type in options.proficiencies %}
+                    {% if profs or type in options.proficiencies %}
                         <tr>
                             <th>{{ type }}</th>
                             <td>
                             {{ attribute(
                                 options.proficiencies[type]|default({}),
                                 'proficiencies.' + type,
-                                profs[type]|default([])
+                                profs|default([])
                             ) }}
                             </td>
                         </tr>
