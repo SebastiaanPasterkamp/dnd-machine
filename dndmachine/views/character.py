@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, request, session, g, redirect, url_for, \
     send_file, current_app, abort, render_template, jsonify
-import markdown
 import os
 import codecs
 import re
@@ -214,7 +213,7 @@ def new():
         for part in cdata[section]:
             mdfile = os.path.join('dndmachine', 'data', part['filename'])
             with codecs.open(mdfile, encoding='utf-8') as fh:
-                part['description'] = markdown.markdown(fh.read())
+                part['description'] = fh.read()
 
     def expandOptions(options):
         if isinstance(options, dict):

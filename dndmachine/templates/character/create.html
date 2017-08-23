@@ -115,7 +115,7 @@
     {{ sub.name }}
 </label>
 {% endfor %}
-{{ data.description|safe }}
+{{ data.description|markdown }}
 
             {{ buttons }}
         </li>
@@ -147,7 +147,7 @@
     <input type="radio" name="character.class" value="{{ data.name }}" {{ checked }} />
     {{ data.name }}
 </label>
-{{ data.description|safe }}
+{{ data.description|markdown }}
 
             {{ buttons }}
         </li>
@@ -179,7 +179,7 @@
     <input type="radio" name="character.background" value="{{ data.name }}" {{ checked }} />
     {{ data.name }}
 </label>
-{{ data.description|safe }}
+{{ data.description|markdown }}
 
             {{ buttons }}
         </li>
