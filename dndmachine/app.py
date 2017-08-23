@@ -2,8 +2,9 @@
 import os
 import json
 from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash, jsonify
+     render_template, flash, jsonify, Markup
 from passlib.hash import pbkdf2_sha256 as password
+import markdown
 
 from .config import get_config
 from .models import datamapper_factory, get_db
@@ -12,6 +13,7 @@ from .views.character import character
 from .views.party import party
 from .views.monster import monster
 from .views.encounter import encounter
+from .views.campaign import campaign
 
 app = Flask(__name__)
 app.register_blueprint(user, url_prefix='/user')
@@ -19,6 +21,7 @@ app.register_blueprint(character, url_prefix='/character')
 app.register_blueprint(party, url_prefix='/party')
 app.register_blueprint(monster, url_prefix='/monster')
 app.register_blueprint(encounter, url_prefix='/encounter')
+app.register_blueprint(campaign, url_prefix='/campaign')
 
 # Load default config and override config from an environment variable
 app.config.update(get_config())
@@ -81,6 +84,11 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
+@app.context_processor
+def inject_metadata():
+    config = get_config()
+    return dict(info=config['info'])
+
 @app.route('/')
 def home():
     if session.get('userid') is None:
@@ -137,3 +145,8 @@ def set_method(method):
     else:
         flash("Unknown method '%s'" % method, 'error')
     return redirect(request.referrer)
+
+@app.template_filter('markdown')
+def filter_markdown(md):
+    return Markup(markdown.markdown(md))
+
