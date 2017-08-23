@@ -5,7 +5,7 @@ from passlib.hash import pbkdf2_sha256 as password
 import parser
 import re
 
-from .config import get_config
+from .config import get_config, get_item_data
 
 def connect_db():
     """Connects to the specific database.
@@ -39,6 +39,8 @@ def datamapper_factory(datamapper):
         return EncounterMapper(get_db(), config['encounter'])
     if datamapper == 'monster':
         return MonsterMapper(get_db(), config['monster'])
+    if datamapper == 'campaign':
+        return CampaignMapper(get_db())
     raise ValueError("No datamapper for %s" % datamapper)
 
 def mergeDict(a, b, path=None):
@@ -92,7 +94,7 @@ class DataMapper(object):
         else:
             path = '.'.join(path)
 
-        if path == "%s.id" % self.form_prefix:
+        if path == 'id':
             return int
         typeCast = DataMapper.getPath(
             self.typeCast,
@@ -168,18 +170,14 @@ class DataMapper(object):
                 for i in range(step - len(rv) + 1)
                 ])
 
-        if 'equipment' in path:
-            print rv
-
         rv[step] = value
 
-        if 'equipment' in path:
-            print rv
-
+    def setDefaults(self, obj):
+        return obj
 
     def fromPost(self, form, old={}):
         self._steps = {}
-        obj = {}
+        obj = self.setDefaults(old)
         for path, value in form.iteritems():
             cast = self._getType(path)
             if not len(value) and cast == int:
@@ -241,7 +239,9 @@ class DataMapper(object):
         obj = cur.fetchone()
         if obj is None:
             return None
-        return self._read(dict(obj))
+        obj = self._read(dict(obj))
+        obj = self.setDefaults(obj)
+        return obj
 
     def getMultiple(self, where="1", values={}):
         """Returns a list of obj matching the where clause"""
@@ -251,10 +251,15 @@ class DataMapper(object):
             values
             )
         objs = cur.fetchall() or []
-        return [
+        objs = [
             self._read(dict(obj))
             for obj in objs
             ]
+        objs = [
+            self.setDefaults(obj)
+            for obj in objs
+            ]
+        return objs
 
     def save(self, obj):
         """Insert or Update an obj"""
@@ -358,9 +363,27 @@ class CharacterMapper(DataMapper):
     form_prefix = "character"
     table = "character"
     fields = ['name', 'level']
-    keepFields = ['user_id', 'race', 'class', 'background', 'stats', 'modifiers']
+    keepFields = ['user_id', 'race', 'class', 'background', 'base_stats', 'stats_bonus', 'xp']
     typeCast = {
         'level': int,
+        'user_id': int,
+        "xp": int,
+        'base_stats': {
+            'strength': int,
+            'dexterity': int,
+            'constitution': int,
+            'intelligence': int,
+            'wisdom': int,
+            'charisma': int
+            },
+        'stats_bonus': {
+            'strength': int,
+            'dexterity': int,
+            'constitution': int,
+            'intelligence': int,
+            'wisdom': int,
+            'charisma': int
+            },
         'stats': {
             'strength': int,
             'dexterity': int,
@@ -383,17 +406,12 @@ class CharacterMapper(DataMapper):
         super(CharacterMapper, self).__init__(db)
         self.defaultConfig = config["default"]
 
-    def fromPost(self, form, old={}):
-        character = super(CharacterMapper, self).fromPost(form, old)
-        character = self.setDefaults(character)
-        return character
-
     def setDefaults(self, character):
+        if 'skills' in character \
+                and isinstance(character['skills'], list):
+            character['proficiencies']['skills'] = character['skills']
+            character['skills'] = {}
         character = mergeDict(character, self.defaultConfig)
-        for stat, value in character["stats"].iteritems():
-            character["modifiers"][stat] = \
-                character["stats_bonus"][stat] \
-                + (value-10)/2
         return character
 
     def getList(self, search=None):
@@ -408,14 +426,14 @@ class CharacterMapper(DataMapper):
         cur = self.db.execute("""
             SELECT c.*
             FROM `party_characters` AS pc
-            LEFT JOIN `%s` AS c ON (pc.character_id=c.id)
+            JOIN `%s` AS c ON (pc.character_id=c.id)
             WHERE `party_id` = ?
             """ % self.table,
             [party_id]
             )
         characters = cur.fetchall() or []
         return [
-            self._read(dict(character))
+            self.setDefaults(self._read(dict(character)))
             for character in characters
             ]
 
@@ -424,14 +442,14 @@ class CharacterMapper(DataMapper):
         cur = self.db.execute("""
             SELECT c.*
             FROM `user_characters` AS uc
-            LEFT JOIN `%s` AS c ON (uc.character_id=c.id)
+            JOIN `%s` AS c ON (uc.character_id=c.id)
             WHERE `user_id` = ?
             """ % self.table,
             [user_id]
             )
         characters = cur.fetchall() or []
         return [
-            self._read(dict(character))
+            self.setDefaults(self._read(dict(character)))
             for character in characters
             ]
 
@@ -472,8 +490,8 @@ class PartyMapper(DataMapper):
         cur = self.db.execute("""
             SELECT p.*
             FROM `%s` AS p
-            LEFT JOIN `party_characters` AS pc ON (p.id=pc.party_id)
-            LEFT JOIN `user_characters` AS uc USING (character_id)
+            JOIN `party_characters` AS pc ON (p.id=pc.party_id)
+            JOIN `user_characters` AS uc USING (character_id)
             WHERE uc.`user_id` = ?
             """ % self.table,
             [user_id]
@@ -544,41 +562,23 @@ class MonsterMapper(DataMapper):
         super(MonsterMapper, self).__init__(db)
         self.defaultConfig = config["default"]
 
-    def fromPost(self, form, old={}):
-        monster = super(MonsterMapper, self).fromPost(form, old)
-        monster = self.setDefaults(monster)
-        return monster
-
     def setDefaults(self, monster):
         monster = mergeDict(monster, self.defaultConfig)
-        for stat, value in monster["stats"].iteritems():
-            monster["modifiers"][stat] = (value-10)/2
         return monster
 
     def getList(self, search=None):
         """Returns a list of parties matching the search parameter"""
-        monsters = self.getMultiple(
+        return self.getMultiple(
             "`name` LIKE :search",
             {"search": '%%%s%%' % search}
             )
-        return [
-            self.setDefaults(monster)
-            for monster in monsters
-            ]
-
-    def getById(self, monster_id):
-        """Returns a monster by monster_id"""
-        monster = super(MonsterMapper, self).getById(monster_id)
-        if monster:
-            monster = self.setDefaults(monster)
-        return monster
 
     def getByEncounterId(self, encounter_id):
         """Returns all monsters in an encounter by encounter_id"""
         cur = self.db.execute("""
             SELECT m.*
             FROM `encounter_monsters` AS em
-            LEFT JOIN `monster` AS m ON (em.monster_id=m.id)
+            JOIN `monster` AS m ON (em.monster_id=m.id)
             WHERE `encounter_id` = ?
             """,
             [encounter_id]
@@ -694,8 +694,40 @@ class EncounterMapper(DataMapper):
             ]) * encounter['modifier']['total']
         return encounter
 
+class CampaignMapper(DataMapper):
+    form_prefix = "campaign"
+    table = "campaign"
+    fields = ['name', 'user_id']
+    keepFields = ['name', 'user_id']
+    typeCast = {
+        'user_id': int
+        }
+
+    def getList(self, search=None):
+        """Returns a list of campaigns matching the search parameter"""
+        return self.getMultiple(
+            "`name` LIKE :search",
+            {"search": '%%%s%%' % search}
+            )
+
+    def getByDmUserId(self, user_id):
+        """Returns all campaigns created by DM by user_id"""
+        cur = self.db.execute("""
+            SELECT *
+            FROM `%s`
+            WHERE `user_id` = ?
+            """ % self.table,
+            [user_id]
+            )
+        campaigns = cur.fetchall() or []
+        return [
+            self._read(dict(campaign))
+            for campaign in campaigns
+            ]
+
 class DndMachine(object):
     def __init__(self, config):
+        self.xp_at_level = config['xp_at_level']
         self.challenge_rating = config["challenge_rating"]
         self.monster_scaling = config["monster_scaling"]
         self.size_hit_dice = config["size_hit_dice"]
@@ -715,6 +747,9 @@ class DndMachine(object):
         if bonus:
             notation.append("%d" % bonus)
         return '+'.join(notation)
+
+    def xpAtLevel(self, level):
+        return self.xp_at_level[str(level)]
 
     def challengeByLevel(self, level, formula=False):
         """Returns the Challenge Rating in XP by level
@@ -765,7 +800,43 @@ class DndMachine(object):
         data = self.monster_scaling[index]
         return data["challenge"], index
 
+    def computeCharacterStatistics(self, character):
+        items = get_item_data()
+        character_mapper = datamapper_factory('character')
+
+        for stat in items["statistics"]:
+            stat = stat["name"]
+            character["stats"][stat] = character["base_stats"][stat] \
+                + character["stats_bonus"][stat]
+            character["modifiers"][stat] = int(
+                (character["stats"][stat] - 10) / 2
+                )
+
+        for skill in items["skills"]:
+            stat, skill = skill["stat"], skill["name"]
+            character["skills"][skill] = character["stats"][stat]
+            if skill in character["proficiencies"]["skills"]:
+                character["skills"][skill] += character["proficiency"]
+
+        for path, compute in character["computed"].iteritems():
+            value = resolveMath(character, compute.get("formula", ""))
+            for bonus in compute.get('bonus', []):
+                value += resolveMath(character, bonus)
+            character = character_mapper.setPath(character, path, value)
+
+        cr = self.challengeByLevel(character['level'])
+        character.update(cr)
+
+        character['xp_level'] = self.xpAtLevel(character['level'])
+        character['xp_next_level'] = \
+            self.xpAtLevel(character['level'] + 1)
+
+        return character
+
     def computeMonsterStatistics(self, monster):
+        for stat, value in monster["stats"].iteritems():
+            monster["modifiers"][stat] = (value - 10) / 2
+
         monster["hit_points"] = self.diceAverage(
                 self.size_hit_dice.get(monster["size"], 4),
                 monster["level"],

@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-gamepad">{{ campaign.name }}</h2>
+
+<div class="nice-row">
+    <div class="nice-col-12 nice-col-mobile-12">
+
+<table class="nice-table condensed striped bordered hover">
+    <thead>
+        <tr>
+            <th colspan="2">
+                <h3>{{ campaign.name }}</h3>
+                {% if campaign.user_id == request.user.id or 'admin' in request.user.role %}
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('campaign.edit', campaign_id=campaign.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                    <a href="{{ url_for('campaign.delete', campaign_id=campaign.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+                </div>
+                {% endif %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Description</th>
+            <td>{{ campaign.description|markdown }}</td>
+        </tr>
+        <tr>
+            <th>Story</th>
+            <td>{{ campaign.story|markdown }}</td>
+        </tr>
+    </tbody>
+</table>
+
+    </div>
+{% endblock %}

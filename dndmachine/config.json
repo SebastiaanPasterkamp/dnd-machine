@@ -54,7 +54,7 @@
             "background": "",
             "level": 1,
             "xp": 0,
-            "stats": {
+            "base_stats": {
                 "strength": 8,
                 "dexterity": 8,
                 "constitution": 8,
@@ -70,13 +70,21 @@
                 "wisdom": 0,
                 "charisma": 0
             },
+            "stats": {
+                "strength": 8,
+                "dexterity": 8,
+                "constitution": 8,
+                "intelligence": 8,
+                "wisdom": 8,
+                "charisma": 8
+            },
             "modifiers": {
-                    "strength": 0,
-                    "dexterity": 0,
-                    "constitution": 0,
-                    "intelligence": 0,
-                    "wisdom": 0,
-                    "charisma": 0
+                "strength": 0,
+                "dexterity": 0,
+                "constitution": 0,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 0
             },
             "saving_throws": {
                 "strength": 0,
@@ -86,14 +94,17 @@
                 "wisdom": 0,
                 "charisma": 0
             },
+            "skills": {},
             "equipment": [],
             "proficiency": 2,
             "proficiencies": {
                 "armor": [],
                 "weapons": [],
                 "tools": [],
-                "saving_throws": []
-            }
+                "saving_throws": [],
+                "skills": []
+            },
+            "computed": {}
         }
     },
     "monster": {
@@ -155,6 +166,28 @@
         }
     },
     "machine": {
+        "xp_at_level": {
+            "1": 0,
+            "2": 300,
+            "3": 900,
+            "4": 2700,
+            "5": 6500,
+            "6": 14000,
+            "7": 23000,
+            "8": 34000,
+            "9": 48000,
+            "10": 64000,
+            "11": 85000,
+            "12": 100000,
+            "13": 120000,
+            "14": 140000,
+            "15": 165000,
+            "16": 195000,
+            "17": 225000,
+            "18": 265000,
+            "19": 305000,
+            "20": 355000
+        },
         "challenge_rating": {
             "linear": -12.0,
             "power": 7.6,

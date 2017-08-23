@@ -59,11 +59,14 @@ def show(character_id):
     items = get_item_data()
     character_mapper = get_datamapper('character')
     user_mapper = get_datamapper('user')
+    machine = get_datamapper('machine')
 
     c = character_mapper.getById(character_id)
     if c['user_id'] != request.user['id'] \
             and 'admin' not in request.user['role']:
         abort(403)
+    c = machine.computeCharacterStatistics(c)
+
     user = user_mapper.getById(c['user_id'])
 
     return render_template(
@@ -79,6 +82,7 @@ def raw(character_id):
     character_mapper = get_datamapper('character')
 
     c = character_mapper.getById(character_id)
+
     if c['user_id'] != request.user['id'] \
             and 'admin' not in request.user['role']:
         abort(403)
@@ -164,8 +168,7 @@ def edit(character_id):
         c = character_mapper.fromPost(request.form, c)
 
         machine = get_datamapper('machine')
-        cr = machine.challengeByLevel(c['level'])
-        c.update(cr)
+        c = machine.computeCharacterStatistics(c)
 
         if request.form.get("button", "save") == "save":
             character_mapper.update(c)
@@ -193,6 +196,10 @@ def delete(character_id):
     character_mapper = get_datamapper('character')
 
     c = character_mapper.getById(character_id)
+    if c['user_id'] != request.user['id'] \
+            and 'admin' not in request.user['role']:
+        abort(403)
+
     character_mapper.delete(c)
 
     return redirect(url_for(
@@ -245,16 +252,17 @@ def new():
 
         for field in ['hit_points', 'spell_safe_dc', 'spell_attack_modifier']:
             if field in perks:
-                obj[field] = obj.get(field, 0)
                 perk = perks[field]
+                obj["computed"][field] = obj["computed"].get(field, {})
                 if "formula" in perk:
-                    obj[field] = resolveMath(
-                        obj, perk["formula"])
-                for bonus in perk.get('bonus', []):
-                    obj[field] += resolveMath(
-                        obj, bonus)
-        options['proficiencies'] = options.get('proficiencies', {})
+                    obj["computed"][field]["formula"] = perk["formula"]
+                if "bonus" in perk:
+                    obj["computed"][field]["bonus"] = \
+                        obj["computed"][field]["bonus"].get(field, [])
+                    obj["computed"][field]["bonus"].extend(
+                        perk.get('bonus', []))
 
+        options['proficiencies'] = options.get('proficiencies', {})
         for field, profs in perks.get('proficiencies', {}).iteritems():
             if 'options' in profs:
                 options['proficiencies'][field] = options['proficiencies'].get(field, [])
@@ -309,7 +317,9 @@ def new():
 
 
     character_mapper = get_datamapper('character')
+    machine = get_datamapper('machine')
     c = character_mapper.setDefaults({})
+    c = machine.computeCharacterStatistics(c)
     c['user_id'] = request.user['id']
     options = {}
 

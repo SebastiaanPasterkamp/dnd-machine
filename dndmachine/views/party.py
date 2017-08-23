@@ -10,11 +10,13 @@ party = Blueprint(
 
 @party.route('/')
 @party.route('/list')
-@party.route('/list/<int:encounter_id>')
-def overview(encounter_id=None):
+@party.route('/list/campaign/<int:campaign_id>')
+@party.route('/list/encounter/<int:encounter_id>')
+def overview(campaign_id=None, encounter_id=None):
     config = get_config()
     party_mapper = get_datamapper('party')
     character_mapper = get_datamapper('character')
+    campaign = None
     encounter = None
 
     search = None
@@ -35,6 +37,10 @@ def overview(encounter_id=None):
         for p in parties
         ])
 
+    if campaign_id is not None:
+        campaign_mapper = get_datamapper('campaign')
+        campaign = campaign_mapper.getById(campaign_id)
+
     if encounter_id is not None:
         encounter_mapper = get_datamapper('encounter')
         encounter = encounter_mapper.getById(encounter_id)
@@ -44,6 +50,7 @@ def overview(encounter_id=None):
         info=config['info'],
         parties=parties,
         characters=characters,
+        campaign=campaign,
         encounter=encounter,
         search=search
         )
@@ -55,12 +62,16 @@ def show(party_id):
     user_mapper = get_datamapper('user')
     character_mapper = get_datamapper('character')
     encounter_mapper = get_datamapper('encounter')
+    machine = get_datamapper('machine')
 
     p = party_mapper.getById(party_id)
 
     user = user_mapper.getById(p['user_id'])
 
-    characters = character_mapper.getByPartyId(party_id)
+    characters = [
+        machine.computeCharacterStatistics(c)
+        for c in character_mapper.getByPartyId(party_id)
+        ]
     p['size'] = len(characters)
     p['modifier'] = encounter_mapper.modifierByPartySize(p['size'])
     for cr in ['easy', 'medium', 'hard', 'deadly']:

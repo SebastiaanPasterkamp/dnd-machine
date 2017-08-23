@@ -67,3 +67,11 @@ CREATE TABLE `encounter_monsters` (
   `encounter_id` INTEGER,
   `monster_id` INTEGER
 );
+
+DROP TABLE IF EXISTS `campaign`;
+CREATE TABLE `campaign` (
+  `id` INTEGER primary key autoincrement,
+  `name` text not null,
+  `user_id` INTEGER,
+  `config` TEXT
+);

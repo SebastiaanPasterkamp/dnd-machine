@@ -12,6 +12,9 @@ $(function() {
     $('form').on('submit', function() {
         $(this).find('.nice-login-loading').addClass('shown');
     });
+    $('body').on('a.fa-trash', 'click', function() {
+        return confirm('Are you sure?');
+    });
     $('form div.nice-tags-container select.add-tag').on('change', function(e) {
         var target = $(this).attr('data-target'),
             name = $(this).attr('data-name'),

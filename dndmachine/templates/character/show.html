@@ -10,6 +10,13 @@
         <tr>
             <th colspan="2">
                 <h3>{{ character.name }}</h3>
+
+                <div class="nice-progress good">
+                    <div class="nice-progress-fill" style="width: {{ (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) }}%;">
+                        Level {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
+                    </div>
+                </div>
+
                 {% if character.user_id == request.user.id or 'admin' in request.user.role or 'dm' in request.user.role %}
                 <div class="nice-btn-group pull-right">
                     <a href="{{ url_for('character.edit', character_id=character.id) }}" class="nice-btn icon fa-cog">Edit</a>
@@ -64,6 +71,15 @@
     <div class="nice-col-4 nice-col-mobile-8">
 
 <table class="nice-table condensed striped bordered">
+    <tbody>
+        <tr>
+            <td>{{ character.proficiency }}</td>
+            <th>Proficiency Bonus</th>
+        </tr>
+    </tbody>
+</table>
+
+<table class="nice-table condensed striped bordered">
     <thead>
         <tr>
             <th></th>
@@ -74,11 +90,11 @@
     <tbody>
         {% for stat in items.statistics %}
         <tr>
-            <th>{{ stat|capitalize }}</th>
-            <td>{{ character.stats[stat] }}</td>
+            <th>{{ stat.label }}</th>
+            <td>{{ character.stats[stat.name] }}</td>
             <td>
-                {% if character.modifiers[stat] > 0 %}+{% endif %}
-                {{ character.modifiers[stat] }}
+                {% if character.modifiers[stat.name] > 0 %}+{% endif %}
+                {{ character.modifiers[stat.name] }}
             </td>
         </tr>
         {% endfor %}
@@ -86,25 +102,25 @@
 </table>
 
 <table class="nice-table condensed striped bordered">
+    <thead>
+        <tr>
+            <th colspan="3">Saving Throws</th>
+        </tr>
+    </thead>
     <tbody>
         {% for stat in items.statistics %}
         <tr>
             <td>
-                {% if stat in character.proficiencies.saving_throws %}
+                {% if stat.name in character.proficiencies.saving_throws %}
                 <span class="icon fa-check-square-o">&nbsp;</span>
                 {% else %}
                 <span class="icon fa-square-o">&nbsp;</span>
                 {% endif %}
             </td>
             <td>
-                {% if stat in character.proficiencies.saving_throws %}
-                {% set prof = character.modifiers[stat] + character.proficiency %}
-                {% else %}
-                {% set prof = character.modifiers[stat] %}
-                {% endif %}
-                {% if prof > 0 %}+{% endif %}{{ prof }}
+                {% if character.saving_throws[stat.name] > 0 %}+{% endif %}{{ character.saving_throws[stat.name] }}
             </td>
-            <th>{{ stat|capitalize }}</th>
+            <th>{{ stat.label }}</th>
         </tr>
         {% endfor %}
     </tbody>
@@ -114,34 +130,25 @@
     <div class="nice-col-4 nice-col-mobile-8">
 
 <table class="nice-table condensed striped bordered">
-    <tbody>
+    <thead>
         <tr>
-            <td>{{ character.proficiency }}</td>
-            <th>Proficiency Bonus</th>
+            <th colspan="3">Skills</th>
         </tr>
-    </tbody>
-</table>
-
-<table class="nice-table condensed striped bordered">
+    </thead>
     <tbody>
         {% for skill in items.skills %}
         <tr>
             <td>
-                {% if skill.name in character.skills %}
+                {% if skill.name in character.proficiencies.skills %}
                 <span class="icon fa-check-square-o">&nbsp;</span>
                 {% else %}
                 <span class="icon fa-square-o">&nbsp;</span>
                 {% endif %}
             </td>
             <td>
-                {% if skill.name in character.skills %}
-                {% set prof = character.modifiers[skill.stat] + character.proficiency %}
-                {% else %}
-                {% set prof = character.modifiers[skill.stat] %}
-                {% endif %}
-                {% if prof > 0 %}+{% endif %}{{ prof }}
+                {% if character.skills[skill.name] > 0 %}+{% endif %}{{ character.skills[skill.name] }}
             </td>
-            <th>{{ skill.name|capitalize }}</th>
+            <th>{{ skill.label }}</th>
         </tr>
         {% endfor %}
     </tbody>

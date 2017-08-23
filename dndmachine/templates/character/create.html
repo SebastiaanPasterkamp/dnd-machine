@@ -190,7 +190,6 @@
 <input type="hidden" name="character.background" value="{{ character.background }}" />
 {% endif %}
 
-{% set stats = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"] %}
 {% if current.tab == "stats" %}
 {{ buttons }}
 <div class="nice-form-group">
@@ -198,9 +197,9 @@
         <thead>
             <tr>
                 <th></th>
-            {% for stat in stats %}
-            {% set class = "good" if stat in character.proficiencies.saving_throws else "" %}
-                <th class="{{ class }}">{{ stat|capitalize }}</th>
+            {% for stat in items.statistics %}
+            {% set class = "good" if stat.name in character.proficiencies.saving_throws else "" %}
+                <th class="{{ class }}">{{ stat.label }}</th>
             {% endfor %}
                 <th>Budget</th>
             </tr>
@@ -208,12 +207,12 @@
         <tbody>
             <tr>
                 <th>Statistics</th>
-            {% for stat in stats %}
-            {% set class = "good" if stat in character.proficiencies.saving_throws else "" %}
+            {% for stat in items.statistics %}
+            {% set class = "good" if stat.name in character.proficiencies.saving_throws else "" %}
                 <td class="{{ class }}">
-                    <select class="small nice-form-control" data-stat="{{ stat }}" name="character.stats.{{ stat }}">
+                    <select class="small nice-form-control" data-stat="{{ stat.name }}" name="character.base_stats.{{ stat.name }}">
                     {% for option in range(8, 16) %}
-                        {% if character.stats[stat] == option %}
+                        {% if character.stats[stat.name] == option %}
                         <option selected>{{ option }}</option>
                         {% else %}
                         <option>{{ option }}</option>
@@ -228,10 +227,10 @@
             </tr>
             <tr>
                 <th>Modifiers</th>
-            {% for stat in stats %}
-            {% set class = "good" if stat in character.proficiencies.saving_throws else "" %}
+            {% for stat in items.statistics %}
+            {% set class = "good" if stat.name in character.proficiencies.saving_throws else "" %}
                 <td class="{{ class }}">
-                    <input type="number" disabled data-modifier="{{ stat }}" data-bonus="{{ character.stats_bonus[stat] }}" value="{{ character.modifiers[stat] }}" class="nice-form-control" />
+                    <input type="number" disabled data-modifier="{{ stat.name }}" data-bonus="{{ character.stats_bonus[stat.name] }}" value="{{ character.modifiers[stat.name] }}" class="nice-form-control" />
                 </td>
             {% endfor %}
                 <td></td>
@@ -241,8 +240,8 @@
 </div>
 {{ buttons }}
 {% else %}
-{% for stat in stats %}
-    <input type="hidden" name="character.stats.{{ stat }}" value="{{ character.stats[stat] }}" />
+{% for stat in items.statistics %}
+    <input type="hidden" name="character.stats.{{ stat.name }}" value="{{ character.base_stats[stat.name] }}" />
 {% endfor %}
 {% endif %}
 
@@ -309,7 +308,7 @@
                 <td>{{ character.spell_attack_modifier }}</td>
             </tr>
             <tr>
-                <th>Stats</th>
+                <th>Statistics</th>
                 <td>
 <table class="nice-table condensed striped bordered hover" id="statblock">
     <thead>
@@ -322,27 +321,27 @@
         </tr>
     </thead>
     <tbody>
-        {% for stat in character.stats %}
+        {% for stat in items.statistics %}
         <tr>
-            <th>{{ stat|capitalize }}</th>
+            <th>{{ stat.label }}</th>
             <td>
-                {{ character.stats[stat] }}
-                {% if character.stats_bonus[stat] %}
-                ({{ character.stats[stat] - character.stats_bonus[stat] }} + {{ character.stats_bonus[stat] }})
+                {{ character.stats[stat.name] }}
+                {% if character.stats_bonus[stat.name] %}
+                ({{ character.base_stats[stat.name] }} + {{ character.stats_bonus[stat.name] }})
                 {% endif %}
             </td>
             <td>
                 {{ character.modifiers[stat] }}
             </td>
             <td>
-                {% if stat in character.proficiencies.saving_throws %}
+                {% if stat.name in character.proficiencies.saving_throws %}
                 <span class="icon fa-check-square-o">&nbsp;</span>
                 {% else %}
                 <span class="icon fa-square-o">&nbsp;</span>
                 {% endif %}
             </td>
             <td>
-                {{ character.saving_throws[stat] }}
+                {{ character.saving_throws[stat.name] }}
             </td>
         </tr>
         {% endfor %}
