@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-gamepad">Campaign list</h2>
+
+<table class="nice-table condensed striped bordered hover" id="campaign">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for campaign in campaigns %}
+        <tr>
+            <td>{{ campaign.name }}</td>
+            <td>{{ campaign.description|markdown }}</td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('campaign.show', campaign_id=campaign.id) }}" class="nice-btn icon fa-eye">View</a>
+                    {% if 'dm' in request.user.role %}
+                    <a href="{{ url_for('campaign.edit', campaign_id=campaign.id, action='edit') }}" class="nice-btn icon fa-cog">Edit</a>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    {% if 'dm' in request.user.role %}
+    <tfooter>
+        <tr>
+            <td colspan="2"></td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('campaign.new') }}" class="nice-btn accent icon fa-plus">Create</a>
+                </div>
+            </td>
+        </tr>
+    </tfooter>
+    {% endif %}
+</table>
+{% endblock %}

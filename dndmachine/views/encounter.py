@@ -135,7 +135,7 @@ def edit(encounter_id):
     if request.method == 'POST':
         if request.form["button"] == "cancel":
             return redirect(url_for(
-                '@encounter.show',
+                'encounter.show',
                 encounter_id=encounter_id
                 ))
 
@@ -172,6 +172,10 @@ def delete(encounter_id):
     encounter_mapper = get_datamapper('encounter')
 
     e = encounter_mapper.getById(encounter_id)
+    if e['user_id'] != request.user['id'] \
+            and 'admin' not in request.user['role']:
+        abort(403)
+
     encounter_mapper.delete(e)
 
     return redirect(url_for(

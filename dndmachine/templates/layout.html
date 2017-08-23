@@ -64,6 +64,12 @@
                             </a>
                         </li>
 
+                        <li class="highlight{% if request.path == url_for('campaign.overview') %} primary{% endif %}">
+                            <a href="{{ url_for('campaign.overview') }}" class="icon fa-book">
+                                Campaigns
+                            </a>
+                        </li>
+
                         {% if 'admin' in request.user.role %}
                         <li>
                             <span class="icon fa-book">
