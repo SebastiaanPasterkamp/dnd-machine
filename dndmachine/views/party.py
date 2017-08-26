@@ -10,14 +10,10 @@ party = Blueprint(
 
 @party.route('/')
 @party.route('/list')
-@party.route('/list/campaign/<int:campaign_id>')
-@party.route('/list/encounter/<int:encounter_id>')
-def overview(campaign_id=None, encounter_id=None):
+def overview():
     config = get_config()
     party_mapper = get_datamapper('party')
     character_mapper = get_datamapper('character')
-    campaign = None
-    encounter = None
 
     search = None
     if 'admin' in request.user['role']:
@@ -37,21 +33,11 @@ def overview(campaign_id=None, encounter_id=None):
         for p in parties
         ])
 
-    if campaign_id is not None:
-        campaign_mapper = get_datamapper('campaign')
-        campaign = campaign_mapper.getById(campaign_id)
-
-    if encounter_id is not None:
-        encounter_mapper = get_datamapper('encounter')
-        encounter = encounter_mapper.getById(encounter_id)
-
     return render_template(
         'party/overview.html',
         info=config['info'],
         parties=parties,
         characters=characters,
-        campaign=campaign,
-        encounter=encounter,
         search=search
         )
 
@@ -158,6 +144,11 @@ def new():
         data=config['data'],
         party=p
         )
+
+@party.route('/<int:party_id>')
+def host(party_id):
+    session['party_id'] = party_id
+    return redirect(request.referrer)
 
 @party.route('/<int:party_id>/<action>/<int:character_id>')
 def modify(party_id, action, character_id):

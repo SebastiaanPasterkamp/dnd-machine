@@ -34,11 +34,14 @@ def show(campaign_id, party_id=None):
 
     campaign_mapper = get_datamapper('campaign')
     user_mapper = get_datamapper('user')
+    character_mapper = get_datamapper('character')
     party_mapper = get_datamapper('party')
 
     c = campaign_mapper.getById(campaign_id)
     party = party_mapper.getById(party_id)
     user = user_mapper.getById(c['user_id'])
+
+    characters = character_mapper.getByPartyId(party_id)
 
     c['toc'] = markdownToToc(c['story'])
 
@@ -46,6 +49,7 @@ def show(campaign_id, party_id=None):
         'campaign/show.html',
         campaign=c,
         party=party,
+        characters=characters,
         user=user
         )
 
