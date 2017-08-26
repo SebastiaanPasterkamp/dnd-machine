@@ -28,3 +28,29 @@ table#character tbody td:first-child,
 table#statblock thead th { font-weight: bold; text-align: center; }
 table#statblock tbody td { text-align: center; }
 table#monsterstats tbody th { text-align: right; }
+
+div#campaign {
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto max-content max-content 100%;
+    grid-template-areas: "title title control"
+                         "toc story description"
+                         "toc story info"
+                         ". story info"; }
+
+@media screen and (max-width: 60em) and (orientation: portrait) {
+    div#campaign {
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: auto max-content max-content 100%;
+        grid-template-areas: "title control"
+                            "toc toc"
+                            "description description"
+                            "story info"; } }
+
+div#campaign > #title { grid-area: title; }
+div#campaign > #description { grid-area: description; }
+div#campaign > #control { grid-area: control; }
+div#campaign > #toc { grid-area: toc; }
+div#campaign > #story { grid-area: story; }
+div#campaign > #info { grid-area: info; }

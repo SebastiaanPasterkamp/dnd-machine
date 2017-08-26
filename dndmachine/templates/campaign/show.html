@@ -1,35 +1,62 @@
 {% extends "layout.html" %}
 {% block body %}
-<h2 class="icon fa-gamepad">{{ campaign.name }}</h2>
-
-<div class="nice-row">
-    <div class="nice-col-12 nice-col-mobile-12">
-
-<table class="nice-table condensed striped bordered hover">
-    <thead>
-        <tr>
-            <th colspan="2">
-                <h3>{{ campaign.name }}</h3>
-                {% if campaign.user_id == request.user.id or 'admin' in request.user.role %}
-                <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('campaign.edit', campaign_id=campaign.id) }}" class="nice-btn icon fa-cog">Edit</a>
-                    <a href="{{ url_for('campaign.delete', campaign_id=campaign.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
-                </div>
-                {% endif %}
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th>Description</th>
-            <td>{{ campaign.description|markdown }}</td>
-        </tr>
-        <tr>
-            <th>Story</th>
-            <td>{{ campaign.story|markdown }}</td>
-        </tr>
-    </tbody>
-</table>
-
+<div id="campaign">
+    <div id="title">
+        <h1 class="icon fa-gamepad">{{ campaign.name }}</h1>
     </div>
+
+    <div id="description" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Description
+        </div>
+        <div class="nice-panel-content">
+            {{ campaign.description|markdown }}
+        </div>
+    </div>
+
+    <div id="story" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Story
+        </div>
+        <div class="nice-panel-content">
+            {{ campaign.story|md_internal_links|markdown|named_headers }}
+        </div>
+    </div>
+
+    {% if campaign.user_id == request.user.id or 'admin' in request.user.role %}
+    <div id="control" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Control
+        </div>
+        <div class="nice-panel-content">
+            <a href="{{ url_for('campaign.edit', campaign_id=campaign.id) }}" class="nice-btn icon fa-cog">Edit</a>
+            <a href="{{ url_for('campaign.delete', campaign_id=campaign.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+        </div>
+    </div>
+    {% endif %}
+
+    <div id="toc" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Table of Content
+        </div>
+        <div class="nice-panel-content">
+            <ul class="nice-menu stacked">
+            {%- for item in campaign.toc recursive %}
+                <li><a href="#{{ item.title|sanitize }}">{{ item.title }}</a>
+                {%- if item.children -%}
+                    <ul>{{ loop(item.children) }}</ul>
+                {%- endif %}</li>
+            {%- endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div id="info" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Info
+        </div>
+        <div class="nice-panel-content">
+        </div>
+    </div>
+</div>
 {% endblock %}
