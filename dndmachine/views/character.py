@@ -279,7 +279,7 @@ def new():
                 | set(profs.get('given', []))
                 )
 
-        for field in ['size', 'speed', 'hit_dice']:
+        for field in ['size', 'speed', 'hit_dice', 'spell_stat']:
             if field in perks:
                 obj[field] = perks[field]
 
@@ -319,7 +319,6 @@ def new():
     character_mapper = get_datamapper('character')
     machine = get_datamapper('machine')
     c = character_mapper.setDefaults({})
-    c = machine.computeCharacterStatistics(c)
     c['user_id'] = request.user['id']
     options = {}
 
@@ -376,12 +375,16 @@ def new():
             if stat in c["proficiencies"]["saving_throws"]:
                 c["saving_throws"][stat] += c["proficiency"]
 
+        c = machine.computeCharacterStatistics(c)
+
         if request.form.get("button", "save") == "save":
             c = character_mapper.insert(c)
             return redirect(url_for(
                 'character.show',
                 character_id=c['id']
                 ))
+
+    c = machine.computeCharacterStatistics(c)
 
     current = {
         'tab': tab,

@@ -23,6 +23,27 @@ def get_db():
         g.sqlite_db = connect_db()
     return g.sqlite_db
 
+def markdownToToc(markdown):
+    re_titles = re.compile('^(#+) (.*)', re.M)
+    root = []
+    level = 1
+
+    current = root
+    for match in re_titles.finditer(markdown):
+        depth, title = match.groups()
+        while len(depth) > level:
+            if 'children' not in current[-1]:
+                current[-1]['children'] = []
+            current = current[-1]['children']
+            level += 1
+        if len(depth) > level:
+            current = root
+            level = len(depth)
+            for _ in range(level):
+                current = current[-1]['children']
+        current.append({'title': title})
+    return root
+
 def datamapper_factory(datamapper):
     """Returns a datamapper for a type.
     """
@@ -822,7 +843,7 @@ class DndMachine(object):
             value = resolveMath(character, compute.get("formula", ""))
             for bonus in compute.get('bonus', []):
                 value += resolveMath(character, bonus)
-            character = character_mapper.setPath(character, path, value)
+            character_mapper.setPath(character, 'character.' + path, value)
 
         cr = self.challengeByLevel(character['level'])
         character.update(cr)
