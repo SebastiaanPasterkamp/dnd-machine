@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, request, session, g, redirect, url_for, abort, \
     render_template, flash, jsonify
-import re
 
 from . import get_datamapper
+from ..models import markdownToToc
 
 campaign = Blueprint(
     'campaign', __name__, template_folder='templates')
@@ -40,6 +40,8 @@ def show(campaign_id, party_id=None):
     party = party_mapper.getById(party_id)
     user = user_mapper.getById(c['user_id'])
 
+    c['toc'] = markdownToToc(c['story'])
+
     return render_template(
         'campaign/show.html',
         campaign=c,
@@ -64,6 +66,7 @@ def edit(campaign_id):
                 ))
 
         c = campaign_mapper.fromPost(request.form, c)
+        c['toc'] = markdownToToc(c['story'])
 
         if request.form.get("button", "save") == "save":
             campaign_mapper.update(c)

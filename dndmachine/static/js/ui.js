@@ -73,33 +73,31 @@ $(function() {
             switchNiceTab(parent, name);
     });
     $('#statsblockeditor select').on('change', function(e) {
-        var budget = $("#budget").attr('data-total');
+        var budget = $("#statsblockeditor #budget").attr('data-total');
 
         $('#statsblockeditor select').each(function(){
-            var stat = $(this).attr('data-stat'),
-                val = parseInt($(this).find('option:selected').val()),
-                cost = (val-8) + Math.max(0, val-13),
-                modifier = $('#statsblockeditor input[data-modifier="' + stat + '"]'),
-                bonus = $(modifier).attr('data-bonus');
-            if (bonus) {
-                bonus = parseInt(bonus);
-            } else {
-                bonus = 0;
-            }
+            var row = $(this).closest('tr'),
+                base_val = parseInt($(this).find('option:selected').val()),
+                cost = (base_val-8) + Math.max(0, base_val-13),
+                bonus = $(row).find('input[data-field="bonus"]'),
+                bonus_val = parseInt($(bonus).val()),
+                final = $(row).find('input[data-field="final"]'),
+                modifier = $(row).find('input[data-field="modifier"]');
 
             budget -= cost;
-            $(modifier).val( bonus + Math.floor((val - 10) / 2) );
+            $(final).val(base_val + bonus_val);
+            $(modifier).val(Math.floor(((base_val + bonus_val) - 10) / 2) );
         });
 
         $('#statsblockeditor select').each(function(){
-            var val = parseInt($(this).find('option:selected').val()),
-                cost = (val-8) + Math.max(0, val-13)
+            var base_val = parseInt($(this).find('option:selected').val()),
+                cost = (base_val-8) + Math.max(0, base_val-13)
 
             $(this).find('option').each(function(){
                 var optval = parseInt($(this).val()),
                     optcost = (optval-8) + Math.max(0, optval-13);
 
-                $(this).attr('disabled', optval > val && optcost > budget + cost);
+                $(this).attr('disabled', optval > base_val && optcost > budget + cost);
             });
         });
 
