@@ -51,6 +51,26 @@
         </div>
     </div>
 
+    <div id="party" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Party
+        </div>
+        <div class="nice-panel-content">
+        {% for character in characters %}
+
+            <div class="nice-panel info">
+                <div class="nice-panel-heading">
+                    {{ character.name }}
+                </div>
+                <div class="nice-panel-content">
+                    Level {{ character.level}} {{ character.race }} {{ character.class }}
+                </div>
+            </div>
+
+        {% endfor %}
+        </div>
+    </div>
+
     <div id="info" class="nice-panel brand">
         <div class="nice-panel-heading">
             Info

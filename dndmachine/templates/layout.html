@@ -95,6 +95,13 @@
                                         View profile
                                     </a>
                                 </li>
+                                {% if request.party %}
+                                <li>
+                                    <span class="icon fa-beer">
+                                        Hosting "{{ request.party.name }}"
+                                    </span>
+                                </li>
+                                {% endif %}
                                 <li>
                                     <a href="{{ url_for('logout') }}" class="icon fa-sign-out">
                                         Logout {{ request.user.username }}

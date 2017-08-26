@@ -19,7 +19,7 @@
             <td>{{ encounter.challenge_rating }} / {{ encounter.xp }} XP</td>
             <td>
                 <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('encounter.show', encounter_id=encounter.id) }}" class="nice-btn icon fa-eye">View</a>
+                    <a href="{{ url_for('encounter.show', encounter_id=encounter.id, party_id=session.party_id) }}" class="nice-btn icon fa-eye">View</a>
                     {% if 'dm' in request.user.role %}
                     <a href="{{ url_for('encounter.edit', encounter_id=encounter.id, action='edit') }}" class="nice-btn icon fa-cog">Edit</a>
                     {% endif %}

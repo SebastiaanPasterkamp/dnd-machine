@@ -82,6 +82,15 @@ def get_user():
         user_mapper = get_datamapper('user')
         request.user = user_mapper.getById(session.get('userid'))
 
+@app.before_request
+def get_party():
+    """Checks if the user is hosting a party"""
+    if session.get('party_id') is not None:
+        party_mapper = get_datamapper('party')
+        request.party = party_mapper.getById(session.get('party_id'))
+    else:
+        request.party = None
+
 @app.teardown_appcontext
 def close_db(error):
     """Closes the database again at the end of the request."""
