@@ -5,6 +5,10 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, jsonify, Markup
 from passlib.hash import pbkdf2_sha256 as password
 import markdown
+from markdown.util import etree
+from markdown.blockprocessors import BlockProcessor
+from markdown.extensions import Extension
+import re
 
 from .config import get_config
 from .models import datamapper_factory, get_db
@@ -146,7 +150,118 @@ def set_method(method):
         flash("Unknown method '%s'" % method, 'error')
     return redirect(request.referrer)
 
+@app.template_filter('sanitize')
+def filter_sanitize(text):
+    sanitize = re.compile(ur'[^a-zA-Z0-9]+')
+    cleaned = sanitize.sub(text, '_')
+    return cleaned
+
+class SpecialBlockQuoteProcessor(BlockProcessor):
+    RE = re.compile(r'(^|\n)[ ]{0,3}\|(?:\(([^)]+)\))?[ ]?(.*)', re.M)
+
+    def test(self, parent, block):
+        return bool(self.RE.search(block))
+
+    def run(self, parent, blocks):
+        block = blocks.pop(0)
+        css = ''
+        m = self.RE.search(block)
+        if m:
+            css = m.group(2) or ''
+            before = block[:m.start()]  # Lines before blockquote
+            # Pass lines before blockquote in recursively for parsing forst.
+            self.parser.parseBlocks(parent, [before])
+            # Remove ``| `` from begining of each line.
+            block = '\n'.join(
+                [self.clean(line) for line in block[m.start():].split('\n')]
+            )
+        sibling = self.lastChild(parent)
+        if sibling is not None \
+                and sibling.tag == "blockquote" \
+                and sibling.get('class') == css:
+            # Previous block was a blockquote with the same class,
+            # so set that as this blocks parent
+            quote = sibling
+        else:
+            # This is a new blockquote. Create a new parent element.
+            quote = etree.SubElement(parent, 'blockquote')
+            quote.set('class', css)
+        # Recursively parse block with blockquote as parent.
+        # change parser state so blockquotes embedded in lists use p tags
+        self.parser.state.set('blockquote')
+        self.parser.parseChunk(quote, block)
+        self.parser.state.reset()
+
+    def clean(self, line):
+        """ Remove ``|`` from beginning of a line. """
+        m = self.RE.match(line)
+        if line.strip() == "|":
+            return ""
+        elif m:
+            return m.group(3)
+        else:
+            return line
+
+class SpecialBlockQuoteExtension(Extension):
+    """ Add configurable blockquotes to Markdown. """
+
+    def extendMarkdown(self, md, md_globals):
+        """ Override existing Processors. """
+        md.parser.blockprocessors.add(
+            'sbq', SpecialBlockQuoteProcessor(md.parser), '>quote'
+            )
+
 @app.template_filter('markdown')
 def filter_markdown(md):
-    return Markup(markdown.markdown(md))
+    html = markdown.markdown(md, extensions=[
+        SpecialBlockQuoteExtension()
+        ])
+    return Markup(html)
+
+@app.template_filter('named_headers')
+def filter_named_headers(html):
+    if isinstance(html, Markup):
+        html = html.unescape()
+    namedHeaders = re.compile(ur'(<(h\d+)>([^<]+)</h\d+>)')
+
+    for match in namedHeaders.finditer(html):
+        full, header, title = match.groups()
+        name = filter_sanitize(title)
+        html = html.replace(
+            full,
+            u'<a name="%(name)s"><%(header)s>%(title)s</%(header)s></a>' % {
+                'name': filter_sanitize(title),
+                'header': header,
+                'title': title
+                }
+            )
+    return Markup(html)
+
+@app.template_filter('md_internal_links')
+def filter_md_internal_links(md):
+    internalLinks = re.compile(
+        ur"^(/(encounter|monster)/(\d+))", re.M)
+
+    mappers = {
+        'encounter': get_datamapper('encounter'),
+        'monster': get_datamapper('monster')
+        }
+
+    for match in internalLinks.finditer(md):
+        full, view, view_id = match.groups()
+        obj = mappers[view].getById(int(view_id))
+
+        if obj is None:
+            continue
+
+        args = {'%s_id'%view: view_id}
+        md = md.replace(
+            full,
+            u"**%(view)s**: [%(title)s](%(url)s)" % {
+                'view': view.capitalize(),
+                'title': obj['name'],
+                'url': url_for('%s.show' % view, **args)
+                }
+            )
+    return Markup(md)
 
