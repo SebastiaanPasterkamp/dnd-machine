@@ -79,10 +79,10 @@
         "senses": {
             "given": ["darkvision"]
         },
-        "skills": {
-            "given": ["perception"]
-        },
         "proficiencies": {
+            "skills": {
+                "given": ["perception"]
+            },
             "weapons": {
                 "given": ["Longsword", "Shortsword", "Shortbow", "Longbow"]
             }
@@ -216,14 +216,14 @@
         "hit_points": {
             "formula": "(8 + modifiers.constitution) + (5 + modifiers.constitution) * (level - 1)"
         },
-        "skills": {
-            "sets": [
-                {"options": "skills"},
-                {"options": "skills"},
-                {"options": "skills"}
-            ]
-        },
         "proficiencies": {
+            "skills": {
+                "sets": [
+                    {"options": "skills"},
+                    {"options": "skills"},
+                    {"options": "skills"}
+                ]
+            },
             "saving_throws": {
                 "given": ["dexterity", "charisma"]
             },
@@ -264,6 +264,7 @@
                 {"options": "spells.bard.1st"}
             ]
         },
+        "spell_stat": "charisma",
         "spell_safe_dc": {
             "formula": "8 + proficiency + modifiers.charisma"
         },
@@ -277,13 +278,13 @@
         "hit_points": {
             "formula": "(8 + modifiers.constitution) + (5 + modifiers.constitution) * (level - 1)"
         },
-        "skills": {
-            "sets": [
-                {"options": ["history", "insight", "medicine", "pursuasion", "religion"]},
-                {"options": ["history", "insight", "medicine", "pursuasion", "religion"]}
-            ]
-        },
         "proficiencies": {
+            "skills": {
+                "sets": [
+                    {"options": ["history", "insight", "medicine", "pursuasion", "religion"]},
+                    {"options": ["history", "insight", "medicine", "pursuasion", "religion"]}
+                ]
+            },
             "saving_throws": {
                 "given": ["wisdom", "charisma"]
             },
@@ -316,6 +317,7 @@
                 {"options": "spells.cleric.cantrip"}
             ]
         },
+        "spell_stat": "wisdom",
         "spell_safe_dc": {
             "formula": "8 + proficiency + modifiers.wisdom"
         },
@@ -329,13 +331,13 @@
         "hit_points": {
             "formula": "(10 + modifiers.constitution) + (6 + modifiers.constitution) * (level - 1)"
         },
-        "skills": {
-            "sets": [
-                {"options": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]},
-                {"options": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]}
-            ]
-        },
         "proficiencies": {
+            "skills": {
+                "sets": [
+                    {"options": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]},
+                    {"options": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]}
+                ]
+            },
             "saving_throws": {
                 "given": ["strength", "constitution"]
             },
@@ -379,15 +381,15 @@
         "hit_points": {
             "formula": "(8 + modifiers.constitution) + (5 + modifiers.constitution) * (level - 1)"
         },
-        "skills": {
-            "sets": [
-                {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
-                {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
-                {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
-                {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]}
-            ]
-        },
         "proficiencies": {
+            "skills": {
+                "sets": [
+                    {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
+                    {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
+                    {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
+                    {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]}
+                ]
+            },
             "saving_throws": {
                 "given": ["dexterity", "intelligence"]
             },
@@ -429,8 +431,10 @@
                 {"options": "languages.common,languages.exotic"}
             ]
         },
-        "skills": {
-            "given": ["insight", "religion"]
+        "proficiencies": {
+            "skills": {
+                "given": ["insight", "religion"]
+            }
         },
         "equipment": {
             "options": ["Prayer Book", "Prayer Wheel"],
@@ -466,10 +470,10 @@
     }, {
         "name": "Entertainer",
         "filename": "entertainer.md",
-        "skills": {
-            "given": ["acrobatics", "performance"]
-        },
         "proficiencies": {
+            "skills": {
+                "given": ["acrobatics", "performance"]
+            },
             "tools": {
                 "options": "items.musical",
                 "given": ["Disguise Kit"]
