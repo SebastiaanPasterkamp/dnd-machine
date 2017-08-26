@@ -265,3 +265,30 @@ def filter_md_internal_links(md):
             )
     return Markup(md)
 
+@app.template_filter('linked_objects')
+def filter_linked_objects(md):
+    internalLinks = re.compile(
+        ur"^(/(encounter|monster)/(\d+))", re.M)
+
+    mappers = {
+        'encounter': get_datamapper('encounter'),
+        'monster': get_datamapper('monster')
+        }
+
+    info = []
+    for match in internalLinks.finditer(md):
+        full, view, view_id = match.groups()
+        obj = mappers[view].getById(int(view_id))
+
+        if obj is None:
+            continue
+
+        args = {'%s_id'%view: view_id}
+        info.append({
+            'type': view,
+            'id': view_id,
+            'data': obj,
+            'url': url_for('%s.show' % view, **args)
+            })
+    return info
+

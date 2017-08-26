@@ -26,7 +26,7 @@
     {% if campaign.user_id == request.user.id or 'admin' in request.user.role %}
     <div id="control" class="nice-panel brand">
         <div class="nice-panel-heading">
-            Control
+                Control
         </div>
         <div class="nice-panel-content">
             <a href="{{ url_for('campaign.edit', campaign_id=campaign.id) }}" class="nice-btn icon fa-cog">Edit</a>
@@ -56,6 +56,20 @@
             Info
         </div>
         <div class="nice-panel-content">
+            <div class="nice-menu position-fixed position-top">
+        {% for item in campaign.story|linked_objects %}
+
+<div id="{{ item.type }}-{{ item.id }}" data-link="{{ item.url }}" class="nice-panel info hidden">
+    <div class="nice-panel-heading">
+        {{ item.data.name }}
+    </div>
+    <div class="nice-panel-content">
+        Hello
+    </div>
+</div>
+
+        {% endfor %}
+            </div>
         </div>
     </div>
 </div>

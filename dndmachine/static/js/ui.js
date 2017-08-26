@@ -120,4 +120,26 @@ $(function() {
                 $(this).attr('disabled', false);
             });
     });
+
+    $('div.nice-panel.hidden').each(function(){
+        var link = $(this).attr('data-link'),
+            id = $(this).attr('id');
+
+        console.log([link, id]);
+
+        $('a[href="'+link+'"]')
+            .addClass('inview')
+            .attr('data-link-id', id)
+            .on('inview', function(event, isInView) {
+                var linked_id = $(this).attr('data-link-id');
+                console.log([linked_id, isInView]);
+                if (isInView) {
+                    // element is now visible in the viewport
+                    $('#' + linked_id).removeClass('hidden');
+                } else {
+                    // element has gone out of viewport
+                    $('#' + linked_id).addClass('hidden');
+                }
+            });
+    });
 });
