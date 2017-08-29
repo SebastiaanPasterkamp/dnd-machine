@@ -125,21 +125,29 @@ $(function() {
         var link = $(this).attr('data-link'),
             id = $(this).attr('id');
 
-        console.log([link, id]);
+        if (link) {
+            $('a[href="'+link+'"]')
+                .addClass('inview')
+                .attr('data-link-id', id)
+                .on('inview', function(event, isInView) {
+                    var linked_id = $(this).attr('data-link-id');
+                    if (isInView) {
+                        // element is now visible in the viewport
+                        $('#' + linked_id).removeClass('hidden');
+                    } else {
+                        // element has gone out of viewport
+                        $('#' + linked_id).addClass('hidden');
+                    }
+                });
+        }
+    });
 
-        $('a[href="'+link+'"]')
-            .addClass('inview')
-            .attr('data-link-id', id)
-            .on('inview', function(event, isInView) {
-                var linked_id = $(this).attr('data-link-id');
-                console.log([linked_id, isInView]);
-                if (isInView) {
-                    // element is now visible in the viewport
-                    $('#' + linked_id).removeClass('hidden');
-                } else {
-                    // element has gone out of viewport
-                    $('#' + linked_id).addClass('hidden');
-                }
-            });
+    $('#party > div.nice-panel-heading, #npc > div.nice-panel-heading').each(function(){
+        $(this).addClass('hiding');
+        $(this).on('click', function() {
+            $(this)
+                .closest('div.nice-panel')
+                .toggleClass('hiding');
+        });
     });
 });

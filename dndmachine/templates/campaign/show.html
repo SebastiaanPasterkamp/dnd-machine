@@ -51,8 +51,9 @@
         </div>
     </div>
 
-    <div id="party" class="nice-panel brand">
+    <div id="party" class="nice-panel brand hiding">
         <div class="nice-panel-heading">
+            <span class="icon fa-beer">&nbsp;</span>
             Party
         </div>
         <div class="nice-panel-content">
@@ -71,12 +72,13 @@
         </div>
     </div>
 
-    <div id="info" class="nice-panel brand">
+    <div id="npc" class="nice-panel brand hiding">
         <div class="nice-panel-heading">
-            Info
+            <span class="icon fa-gamepad">&nbsp;</span>
+            NPCs
         </div>
         <div class="nice-panel-content">
-            <div class="nice-menu position-fixed position-top">
+            <div class="nice-menu">
         {% for item in campaign.story|linked_objects %}
 
 <div id="{{ item.type }}-{{ item.id }}" data-link="{{ item.url }}" class="nice-panel info hidden">
