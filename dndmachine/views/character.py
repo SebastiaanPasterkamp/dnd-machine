@@ -6,8 +6,8 @@ import codecs
 import re
 
 from ..config import get_config, get_character_data, get_item_data
-from . import get_datamapper, fill_pdf
-from ..models import resolveMath, DataMapper
+from ..utils import get_datamapper
+from . import fill_pdf
 
 character = Blueprint(
     'character', __name__, template_folder='templates')
@@ -16,7 +16,6 @@ character = Blueprint(
 @character.route('/list')
 @character.route('/list/<int:party_id>')
 def overview(party_id=None):
-    config = get_config()
     character_mapper = get_datamapper('character')
 
     search = request.args.get('search', '')
@@ -35,7 +34,10 @@ def overview(party_id=None):
         user_mapper = get_datamapper('user')
         users = dict([
             (user_id, user_mapper.getById(user_id))
-            for user_id in set([c['user_id'] for c in characters if c.get('user_id')])
+            for user_id in set([
+                c.user_id
+                for c in characters if c.user_id
+                ])
             ])
 
     if party_id is not None:
@@ -45,7 +47,6 @@ def overview(party_id=None):
 
     return render_template(
         'character/overview.html',
-        info=config['info'],
         characters=characters,
         users=users,
         party=party,
@@ -55,7 +56,6 @@ def overview(party_id=None):
 
 @character.route('/show/<int:character_id>')
 def show(character_id):
-    config = get_config()
     items = get_item_data()
     character_mapper = get_datamapper('character')
     user_mapper = get_datamapper('user')
@@ -71,7 +71,6 @@ def show(character_id):
 
     return render_template(
         'character/show.html',
-        info=config['info'],
         character=c,
         items=items,
         user=user
@@ -90,7 +89,6 @@ def raw(character_id):
 
 @character.route('/download/<int:character_id>')
 def download(character_id):
-    config = get_config()
     items = get_item_data()
     character_mapper = get_datamapper('character')
     user_mapper = get_datamapper('user')
@@ -165,7 +163,7 @@ def edit(character_id):
                 character_id=character_id
                 ))
 
-        c = character_mapper.fromPost(request.form, c)
+        c.updateFromPost(request.form)
 
         machine = get_datamapper('machine')
         c = machine.computeCharacterStatistics(c)
@@ -186,7 +184,6 @@ def edit(character_id):
 
     return render_template(
         'character/edit.html',
-        info=config['info'],
         data=config['data'],
         character=c
         )
@@ -346,7 +343,7 @@ def new():
                 'character.overview'
                 ))
 
-        c = character_mapper.fromPost(request.form, c)
+        c.updateFromPost(request.form)
         c['stats_bonus'] = dict([
             (stat, 0)
             for stat in c['stats_bonus']
@@ -407,7 +404,6 @@ def new():
 
     return render_template(
         'character/create.html',
-        info=config['info'],
         data=config['data'],
         character=c,
         tabs=tabs,

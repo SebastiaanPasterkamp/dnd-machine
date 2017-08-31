@@ -11,7 +11,7 @@ from markdown.extensions import Extension
 import re
 
 from .config import get_config
-from .models import datamapper_factory, get_db
+from .utils import get_datamapper
 from .views.user import user
 from .views.character import character
 from .views.party import party
@@ -59,15 +59,6 @@ def updatedb_command():
     """Updates the database."""
     update_db()
     print('Updated the database.')
-
-def get_datamapper(datamapper):
-    """Returns a datamapper for a type.
-    """
-    if not hasattr(g, 'datamappers'):
-        g.datamappers = {}
-    if datamapper not in g.datamappers:
-        g.datamappers[datamapper] = datamapper_factory(datamapper)
-    return g.datamappers[datamapper]
 
 @app.before_request
 def get_user():

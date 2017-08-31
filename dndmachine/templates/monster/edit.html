@@ -33,10 +33,10 @@
                 </span>
                 <select class="nice-form-control" name="monster.size">
                 {% for size in machine.size_hit_dice %}
-                    {% if size == monster.size %}
-                    <option selected>{{ size }}</option>
+                    {% if size.name == monster.size %}
+                    <option value="{{ size.name }}" selected>{{ size.label }}</option>
                     {% else %}
-                    <option>{{ size }}</option>
+                    <option value="{{ size.name }}" >{{ size.label }}</option>
                     {% endif %}
                 {% endfor %}
                 </select>
@@ -216,19 +216,17 @@
 
             <label>Traits</label>
             <div class="nice-control-group">
-                {% for i in range(monster.trait|length) %}
-                {% set trait = monster.trait[i] %}
-                <input type="text" placeholder="Trait Name..." class="nice-form-control" name="monster.traits.{{ i }}.name" value="{{ trait.name }}" />
-                <textarea class="nice-form-control" placeholder="Description..." name="monster.traits.{{ i }}.description">{{ traits.description }}</textarea>
+                {% for trait in monster.traits %}
+                <input type="text" placeholder="Trait Name..." class="nice-form-control" name="monster.traits.{{ loop.index }}.name" value="{{ trait.name }}" />
+                <textarea class="nice-form-control" placeholder="Description..." name="monster.traits.{{ loop.index }}.description">{{ traits.description }}</textarea>
                 {% endfor %}
             </div>
 
             <label>Features</label>
             <div class="nice-control-group">
-                {% for i in range(monster.features|length) %}
-                {% set feature = monster.features[i] %}
-                <input type="text" placeholder="Feature Name..." class="nice-form-control" name="monster.features.{{ i }}.name" value="{{ feature.name }}" />
-                <textarea class="nice-form-control" placeholder="Description..." name="monster.features.{{ i }}.description">{{ feature.description }}</textarea>
+                {% for feature in monster.features %}
+                <input type="text" placeholder="Feature Name..." class="nice-form-control" name="monster.features.{{ loop.index }}.name" value="{{ feature.name }}" />
+                <textarea class="nice-form-control" placeholder="Description..." name="monster.features.{{ loop.index }}.description">{{ feature.description }}</textarea>
                 {% endfor %}
             </div>
 

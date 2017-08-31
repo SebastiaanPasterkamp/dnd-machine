@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, request, session, g, redirect, url_for, abort, \
-    render_template, flash, current_app
+    render_template, flash, jsonify
 
+from ..models.monster import MonsterObject
 from ..config import get_config
-from . import get_datamapper
+from ..utils import get_datamapper
 
 monster = Blueprint(
     'monster', __name__, template_folder='templates')
@@ -12,7 +13,6 @@ monster = Blueprint(
 @monster.route('/list')
 @monster.route('/list/<int:encounter_id>')
 def overview(encounter_id=None):
-    config = get_config()
     machine = get_datamapper('machine')
     monster_mapper = get_datamapper('monster')
 
@@ -33,7 +33,6 @@ def overview(encounter_id=None):
 
     return render_template(
         'monster/overview.html',
-        info=config['info'],
         monsters=monsters,
         encounter=encounter,
         members=members,
@@ -42,7 +41,6 @@ def overview(encounter_id=None):
 
 @monster.route('/<int:monster_id>')
 def show(monster_id):
-    config = get_config()
     machine = get_datamapper('machine')
     monster_mapper = get_datamapper('monster')
 
@@ -50,7 +48,6 @@ def show(monster_id):
     m = machine.computeMonsterStatistics(m)
     return render_template(
         'monster/show.html',
-        info=config['info'],
         monster=m
         )
 
@@ -60,6 +57,8 @@ def edit(monster_id):
     machine = get_datamapper('machine')
     monster_mapper = get_datamapper('monster')
 
+    m = monster_mapper.getById(monster_id)
+
     if request.method == 'POST':
         if request.form["button"] == "cancel":
             return redirect(url_for(
@@ -67,9 +66,9 @@ def edit(monster_id):
                 monster_id=monster_id
                 ))
 
-        m = monster_mapper.fromPost(request.form)
+        m.updateFromPost(request.form)
         m = machine.computeMonsterStatistics(m)
-        m['id'] = monster_id
+
 
         if request.form.get("button", "save") == "save":
             monster_mapper.update(m)
@@ -85,12 +84,10 @@ def edit(monster_id):
                 monster_id=monster_id
                 ))
     else:
-        m = monster_mapper.getById(monster_id)
         m = machine.computeMonsterStatistics(m)
 
     return render_template(
         'monster/edit.html',
-        info=config['info'],
         data=config['data'],
         machine=config['machine'],
         monster=m
@@ -110,7 +107,7 @@ def new():
                 'monster.overview'
                 ))
 
-        m = monster_mapper.fromPost(request.form, m)
+        m.updateFromPost(request.form)
         m = machine.computeMonsterStatistics(m)
 
         if request.form.get("button", "save") == "save":
@@ -124,7 +121,6 @@ def new():
 
     return render_template(
         'monster/edit.html',
-        info=config['info'],
         data=config['data'],
         machine=config['machine'],
         monster=m

@@ -3,8 +3,7 @@ from flask import Blueprint, request, session, g, redirect, url_for, abort, \
     render_template, flash
 import re
 
-from ..config import get_config
-from . import get_datamapper
+from ..utils import get_datamapper
 
 encounter = Blueprint(
     'encounter', __name__, template_folder='templates')
@@ -12,7 +11,6 @@ encounter = Blueprint(
 @encounter.route('/')
 @encounter.route('/list')
 def overview(encounter_id=None):
-    config = get_config()
     encounter_mapper = get_datamapper('encounter')
 
     search = None
@@ -24,7 +22,6 @@ def overview(encounter_id=None):
 
     return render_template(
         'encounter/overview.html',
-        info=config['info'],
         encounters=encounters,
         search=search
         )
@@ -35,7 +32,6 @@ def show(encounter_id, party_id=None):
     if party_id is None:
         return redirect( url_for('party.overview', encounter_id=encounter_id) )
 
-    config = get_config()
     encounter_mapper = get_datamapper('encounter')
     user_mapper = get_datamapper('user')
     party_mapper = get_datamapper('party')
@@ -111,7 +107,6 @@ def show(encounter_id, party_id=None):
 
     return render_template(
         'encounter/show.html',
-        info=config['info'],
         encounter=e,
         mode=mode,
         user=user,
@@ -122,7 +117,6 @@ def show(encounter_id, party_id=None):
 
 @encounter.route('/edit/<int:encounter_id>', methods=['GET', 'POST'])
 def edit(encounter_id):
-    config = get_config()
     encounter_mapper = get_datamapper('encounter')
     monster_mapper = get_datamapper('monster')
     machine = get_datamapper('machine')
@@ -139,7 +133,7 @@ def edit(encounter_id):
                 encounter_id=encounter_id
                 ))
 
-        e = encounter_mapper.fromPost(request.form, e)
+        e.updateFromPost(request.form)
 
         if request.form.get("button", "save") == "save":
             encounter_mapper.update(e)
@@ -162,7 +156,6 @@ def edit(encounter_id):
 
     return render_template(
         'encounter/edit.html',
-        info=config['info'],
         encounter=e,
         monsters=monsters
         )
@@ -184,7 +177,6 @@ def delete(encounter_id):
 
 @encounter.route('/new', methods=['GET', 'POST'])
 def new():
-    config = get_config()
     encounter_mapper = get_datamapper('encounter')
 
     if request.method == 'POST':
@@ -193,7 +185,7 @@ def new():
                 'encounter.overview'
                 ))
 
-        e = encounter_mapper.fromPost(request.form)
+        e.updateFromPost(request.form)
         e['user_id'] = request.user['id']
 
         e = encounter_mapper.computeChallenge(e)
@@ -209,7 +201,6 @@ def new():
 
     return render_template(
         'encounter/edit.html',
-        info=config['info'],
         encounter=e
         )
 

@@ -2,8 +2,7 @@
 from flask import Blueprint, request, session, g, redirect, url_for, abort, \
     render_template, flash, jsonify
 
-from . import get_datamapper
-from ..models import markdownToToc
+from ..utils import get_datamapper, markdownToToc
 
 campaign = Blueprint(
     'campaign', __name__, template_folder='templates')
@@ -14,11 +13,11 @@ def overview(campaign_id=None):
     campaign_mapper = get_datamapper('campaign')
 
     search = None
-    if 'admin' in request.user['role']:
+    if 'admin' in request.user.role:
         search = request.args.get('search', '')
         campaigns = campaign_mapper.getList(search)
     else:
-        campaigns = campaign_mapper.getByDmUserId(request.user['id'])
+        campaigns = campaign_mapper.getByDmUserId(request.user.id)
 
     return render_template(
         'campaign/overview.html',
@@ -39,11 +38,11 @@ def show(campaign_id, party_id=None):
 
     c = campaign_mapper.getById(campaign_id)
     party = party_mapper.getById(party_id)
-    user = user_mapper.getById(c['user_id'])
+    user = user_mapper.getById(c.user_id)
 
     characters = character_mapper.getByPartyId(party_id)
 
-    c['toc'] = markdownToToc(c['story'])
+    c.toc = markdownToToc(c.story)
 
     return render_template(
         'campaign/show.html',
@@ -69,7 +68,7 @@ def edit(campaign_id):
                 campaign_id=campaign_id
                 ))
 
-        c = campaign_mapper.fromPost(request.form, c)
+        c.updateFromPost(request.form)
         c['toc'] = markdownToToc(c['story'])
 
         if request.form.get("button", "save") == "save":
@@ -115,7 +114,7 @@ def new():
                 'campaign.overview'
                 ))
 
-        c = campaign_mapper.fromPost(request.form)
+        c.updateFromPost(request.form)
         c['user_id'] = request.user['id']
 
         if request.form.get("button", "save") == "save":
