@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, request, session, g, redirect, url_for, abort, \
-    render_template, flash, jsonify
+from flask import Blueprint, request, session, g, redirect, url_for, \
+    abort, render_template, flash, jsonify
 
 from ..config import get_config
-from . import get_datamapper
+from ..utils import get_datamapper
 
 user = Blueprint(
     'user', __name__, template_folder='templates')
@@ -64,7 +64,7 @@ def edit(user_id):
                 user_id=user_id
                 ))
 
-        u = user_mapper.fromPost(request.form, u)
+        u.updateFromPost(request.form)
 
         if request.form.get("button", "save") == "save":
             user_mapper.update(u)
@@ -95,7 +95,7 @@ def new():
                 user_id=user_id
                 ))
 
-        u = user_mapper.fromPost(request.form)
+        u.updateFromPost(request.form)
 
         if request.form.get("button", "save") == "save":
             u = user_mapper.insert(u)

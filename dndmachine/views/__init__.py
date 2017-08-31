@@ -1,20 +1,7 @@
 # -*- coding: utf-8 -*-
-from flask import g
-
-from ..models import datamapper_factory
-
 import re
 from subprocess import Popen, PIPE
 from io import BytesIO
-
-def get_datamapper(datamapper):
-    """Returns a datamapper for a type.
-    """
-    if not hasattr(g, 'datamappers'):
-        g.datamappers = {}
-    if datamapper not in g.datamappers:
-        g.datamappers[datamapper] = datamapper_factory(datamapper)
-    return g.datamappers[datamapper]
 
 def fill_pdf(pdf_file, data, fdf_file=None):
     # Get empty FDF

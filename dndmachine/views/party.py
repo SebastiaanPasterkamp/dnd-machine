@@ -2,8 +2,7 @@
 from flask import Blueprint, request, session, g, redirect, url_for, abort, \
     render_template, flash
 
-from ..config import get_config
-from . import get_datamapper
+from ..utils import get_datamapper
 
 party = Blueprint(
     'party', __name__, template_folder='templates')
@@ -11,7 +10,6 @@ party = Blueprint(
 @party.route('/')
 @party.route('/list')
 def overview():
-    config = get_config()
     party_mapper = get_datamapper('party')
     character_mapper = get_datamapper('character')
 
@@ -35,7 +33,6 @@ def overview():
 
     return render_template(
         'party/overview.html',
-        info=config['info'],
         parties=parties,
         characters=characters,
         search=search
@@ -43,7 +40,6 @@ def overview():
 
 @party.route('/show/<int:party_id>')
 def show(party_id):
-    config = get_config()
     party_mapper = get_datamapper('party')
     user_mapper = get_datamapper('user')
     character_mapper = get_datamapper('character')
@@ -65,7 +61,6 @@ def show(party_id):
 
     return render_template(
         'party/show.html',
-        info=config['info'],
         party=p,
         user=user,
         characters=characters
@@ -73,7 +68,6 @@ def show(party_id):
 
 @party.route('/edit/<int:party_id>', methods=['GET', 'POST'])
 def edit(party_id):
-    config = get_config()
     party_mapper = get_datamapper('party')
 
     p = party_mapper.getById(party_id)
@@ -88,7 +82,7 @@ def edit(party_id):
                 party_id=party_id
                 ))
 
-        p = party_mapper.fromPost(request.form, p)
+        p.updateFromPost(request.form)
 
         if request.form.get("button", "save") == "save":
             party_mapper.update(p)
@@ -99,8 +93,6 @@ def edit(party_id):
 
     return render_template(
         'party/edit.html',
-        info=config['info'],
-        data=config['data'],
         party=p
         )
 
@@ -117,7 +109,6 @@ def delete(party_id):
 
 @party.route('/new', methods=['GET', 'POST'])
 def new():
-    config = get_config()
     party_mapper = get_datamapper('party')
 
     if request.method == 'POST':
@@ -126,7 +117,7 @@ def new():
                 'party.overview'
                 ))
 
-        p = party_mapper.fromPost(request.form)
+        p.updateFromPost(request.form)
         p['user_id'] = request.user['id']
 
         if request.form.get("button", "save") == "save":
@@ -140,8 +131,6 @@ def new():
 
     return render_template(
         'party/edit.html',
-        info=config['info'],
-        data=config['data'],
         party=p
         )
 
