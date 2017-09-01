@@ -265,9 +265,9 @@ class JsonObjectDataMapper(object):
 
         cur = self.db.execute("""
             INSERT INTO `%s`
-                (%s)
+                (`config`, %s)
             VALUES
-                (%s)
+                (:config, %s)
             """ % (
                 self.table,
                 ', '.join(["`%s`" % f for f in new_obj]),
@@ -284,7 +284,7 @@ class JsonObjectDataMapper(object):
 
         cur = self.db.execute("""
             UPDATE `%s`
-            SET %s
+            SET `config` = :config, %s
             WHERE `id` = :id
             """ % (
                 self.table,
