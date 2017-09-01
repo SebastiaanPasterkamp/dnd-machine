@@ -29,7 +29,26 @@ table#statblock thead th { font-weight: bold; text-align: center; }
 table#statblock tbody td { text-align: center; }
 table#monsterstats tbody th { text-align: right; }
 
-div#campaign {
+div#edit-monster {
+    display: grid;
+    grid-gap: 1em .5em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, min-content);
+    grid-template-areas: "description speed"
+                         "statistics attributes"
+                         "attacks multiattacks"; }
+
+div#view-monster {
+    display: grid;
+    grid-gap: 1em .5em;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: repeat(4, min-content);
+    grid-template-areas: "description actions"
+                         "statistics actions"
+                         "attributes actions"
+                         "multiattacks actions"; }
+
+div#view-campaign {
     display: grid;
     grid-gap: 1em .5em;
     grid-template-columns: 1fr 3fr;
@@ -40,38 +59,67 @@ div#campaign {
                          "toc story"
                          ". story"; }
 
-@media screen and (max-width: 80em) and (orientation: portrait) {
-    div#campaign {
+@media screen and (max-width: 100em) and (orientation: portrait) {
+    div#view-campaign {
         grid-template-columns: auto;
         grid-template-rows: repeat(5, auto);
         grid-template-areas: "title"
                             "control"
                             "toc"
                             "description"
-                            "story"; } }
+                            "story"; }
+    div#edit-monster {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(4, min-content);
+        grid-template-areas: "description speed"
+                            "statistics attributes"
+                            "attacks"
+                            "multiattacks"; }
 
-div#campaign > #title { grid-area: title; }
-div#campaign > #description { grid-area: description; }
-div#campaign > #control { grid-area: control; }
-div#campaign > #toc { grid-area: toc; }
-div#campaign > #story { grid-area: story; }
+    div#view-monster {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, min-content);
+        grid-template-areas: "description attributes"
+                            "statistics statistics"
+                            "actions multiattacks"; }
+    }
 
-div#campaign > #party {
+div#view-campaign > #title { grid-area: title; }
+div#view-campaign > #description { grid-area: description; }
+div#view-campaign > #control { grid-area: control; }
+div#view-campaign > #toc { grid-area: toc; }
+div#view-campaign > #story { grid-area: story; }
+
+div#edit-monster > #description { grid-area: description; }
+div#edit-monster > #speed { grid-area: speed; }
+div#edit-monster > #statistics{ grid-area: statistics; }
+div#edit-monster > #attributes { grid-area: attributes; }
+div#edit-monster > #attacks { grid-area: attacks; }
+div#edit-monster > #multiattacks { grid-area: multiattacks; }
+
+div#view-monster > #description { grid-area: description; }
+div#view-monster > #speed { grid-area: speed; }
+div#view-monster > #statistics{ grid-area: statistics; }
+div#view-monster > #attributes { grid-area: attributes; }
+div#view-monster > #attacks { grid-area: attacks; }
+div#view-monster > #multiattacks { grid-area: multiattacks; }
+
+div#view-campaign > #party {
     position: fixed; left: 0; width: 30em; }
-div#campaign > #party.hiding {
+div#view-campaign > #party.hiding {
     left: -29.5em; }
-    div#campaign > #party.hiding > div.nice-panel-heading {
+    div#view-campaign > #party.hiding > div.nice-panel-heading {
         position: relative; left: 3em; }
-    div#campaign > #party.hiding div.nice-panel-heading {
+    div#view-campaign > #party.hiding div.nice-panel-heading {
         text-align: right; }
-    div#campaign > #party.hiding div.nice-panel-heading span.icon {
+    div#view-campaign > #party.hiding div.nice-panel-heading span.icon {
         float: right; margin-left: 1em; }
 
-div#campaign > #npc {
+div#view-campaign > #npc {
     position: fixed; right: 0; width: 30em; }
-div#campaign > #npc.hiding {
+div#view-campaign > #npc.hiding {
     right: -29.5em; }
-    div#campaign > #npc.hiding > div.nice-panel-heading {
+    div#view-campaign > #npc.hiding > div.nice-panel-heading {
         position: relative; right: 3em; }
-    div#campaign > #npc.hiding > div.nice-panel-heading span.icon {
+    div#view-campaign > #npc.hiding > div.nice-panel-heading span.icon {
         float: left; margin-right: 1em; }

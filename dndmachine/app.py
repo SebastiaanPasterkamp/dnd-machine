@@ -10,7 +10,7 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 import re
 
-from .config import get_config
+from .config import get_config, get_item_data
 from .utils import get_datamapper
 from .views.user import user
 from .views.character import character
@@ -91,7 +91,11 @@ def close_db(error):
 @app.context_processor
 def inject_metadata():
     config = get_config()
-    return dict(info=config['info'])
+    items = get_item_data()
+    return dict(
+        info=config['info'],
+        items=items
+        )
 
 @app.route('/')
 def home():
