@@ -24,6 +24,7 @@
                 <div class="nice-btn-group pull-right">
                     <a href="{{ url_for('monster.show', monster_id=monster.id) }}" class="nice-btn icon fa-eye">View</a>
                     <a href="{{ url_for('monster.edit', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                    <a href="{{ url_for('monster.new', monster_id=monster.id) }}" class="nice-btn icon fa-copy">Copy</a>
                 </div>
                 {% if encounter %}
                 <div class="nice-btn-group pull-right">
