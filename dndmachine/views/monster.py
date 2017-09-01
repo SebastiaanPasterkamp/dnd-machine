@@ -94,12 +94,17 @@ def edit(monster_id):
         )
 
 @monster.route('/new', methods=['GET', 'POST'])
-def new():
+@monster.route('/copy/<int:monster_id>')
+def new(monster_id=None):
     config = get_config()
     machine = get_datamapper('machine')
     monster_mapper = get_datamapper('monster')
 
-    m = monster_mapper.setDefaults({})
+    if monster_id is None:
+        m = MonsterObject()
+    else:
+        m = monster_mapper.getById(monster_id)
+        m.id = None
 
     if request.method == 'POST':
         if request.form["button"] == "cancel":
