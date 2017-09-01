@@ -26,19 +26,28 @@ class DndMachine(object):
         code = parser.expr(formula).compile()
         return eval(code)
 
-    def findByName(self, name, items, default=None):
+    def findByName(self, name, items):
         matches = [
             item
             for item in items
             if item['name'] == name
             ]
-        return matches[0] if matches else default
+        if matches:
+            return matches[0]
+        return None
+
+    def diceCast(self, size, number=1, bonus=0):
+        return {
+            'average': self.diceAverage(size, number, bonus),
+            'critical': self.diceCritical(size, number, bonus),
+            'notation': self.diceNotation(size, number, bonus)
+            }
 
     def diceAverage(self, size, number=1, bonus=0):
         return int(number * ((size+1)/2.0) + bonus)
 
     def diceCritical(self, size, number=1, bonus=0):
-        return int(number * size + number * ((size+1)/2.0) + bonus)
+        return int((number*2) * ((size+1)/2.0) + bonus)
 
     def diceNotation(self, size, number, bonus=0):
         notation = []
@@ -103,200 +112,77 @@ class DndMachine(object):
     def computeCharacterStatistics(self, character):
         items = get_item_data()
 
+        for stat, modifier in character.modifiers.iteritems():
+            character.saving_throws[stat] = modifier
+            if stat in character.proficienciesSaving_throws:
+                character.saving_throws[stat] += character.proficiency
+
         for stat in items["statistics"]:
             stat = stat["name"]
-            character["stats"][stat] = character["base_stats"][stat] \
-                + character["stats_bonus"][stat]
-            character["modifiers"][stat] = int(
-                (character["stats"][stat] - 10) / 2
+            character.stats[stat] = character.base_stats[stat] \
+                + character.stats_bonus[stat]
+            character.modifiers[stat] = int(
+                (character.stats[stat] - 10) / 2
                 )
 
         for skill in items["skills"]:
             stat, skill = skill["stat"], skill["name"]
-            character["skills"][skill] = character["stats"][stat]
-            if skill in character["proficiencies"]["skills"]:
-                character["skills"][skill] += character["proficiency"]
+            character.skills[skill] = character.modifiers[stat]
+            if skill in character.proficienciesSkills:
+                character.skills[skill] += character.proficiency
 
-        for path, compute in character["computed"].iteritems():
+        for path, compute in character.computed.iteritems():
             value = self.resolveMath(
                 character, compute.get("formula", ""))
             for bonus in compute.get('bonus', []):
                 value += resolveMath(character, bonus)
-            character[path] = value
+            character.setPath(path, value)
 
         cr = self.challengeByLevel(character['level'])
         for challenge, rating in cr.iteritems():
             character[challenge] = rating
 
-        character['xp_level'] = self.xpAtLevel(character['level'])
-        character['xp_next_level'] = \
-            self.xpAtLevel(character['level'] + 1)
-
+        character.xp_level = self.xpAtLevel(character.level)
+        character.xp_next_level = \
+            self.xpAtLevel(character.level + 1)
         return character
 
-    def computeMonsterStatistics(self, monster):
-        for stat, value in monster["stats"].iteritems():
-            monster["modifiers"][stat] = (value - 10) / 2
-
-        monster_size = self.findByName(
-            monster["size"], self.size_hit_dice, {'dice_size': 4})
-        monster["hit_points"] = self.diceAverage(
-                monster_size['dice_size'],
-                monster["level"],
-                monster["modifiers"]["constitution"] * monster["level"]
-                )
-
-        monster["hit_points_notation"] = self.diceNotation(
-            monster_size['dice_size'],
-            monster["level"],
-            monster["modifiers"]["constitution"] * monster["level"]
-            )
-
-        monster["average_damage"] = 0
-        monster["critical_damage"] = 0
-        monster["attack_bonus"] = 0
-        monster["spell_save_dc"] = 0
-
-        monster["attacks"] = [
-            attack
-            for attack in monster["attacks"]
-            if attack.get("name", "")
-            ]
-        primary_attack = monster["proficiency"]
-        for attack in monster["attacks"]:
-            attack_method = attack.get("method", "melee")
-
-            attack["modifier"] = monster["modifiers"].get(
-                self.attack_modifier.get(attack_method, "strength"), 0
-                ) + primary_attack
-            attack["bonus"] = attack["modifier"] \
-                if attack_method in ["melee", "ranged"] \
-                else 0
-            attack["spell_save_dc"] = attack["modifier"] \
-                if attack_method not in ["melee", "ranged"] \
-                else 0
-
-            attack["damage"] = [
-                damage
-                for damage in attack.get("damage", [])
-                if any(damage.get(n, 0)
-                       for n in ['dice_count', 'bonus']
-                       )
-                ]
-            default_bonus = attack['modifier']
-            for damage in attack["damage"]:
-                damage["average"] = self.diceAverage(
-                    damage["dice_size"],
-                    damage["dice_count"],
-                    default_bonus \
-                            if default_bonus \
-                            else damage.get('bonus', 0)
-                    )
-                damage["notation"] = self.diceNotation(
-                    damage["dice_size"],
-                    damage["dice_count"],
-                    default_bonus \
-                            if default_bonus \
-                            else damage.get('bonus', 0)
-                    )
-                damage["critical"] = self.diceCritical(
-                    damage["dice_size"],
-                    damage["dice_count"],
-                    default_bonus \
-                            if default_bonus \
-                            else damage.get('bonus', 0)
-                    )
-                # Primary attack gets stats modifier as bonus
-                default_bonus = 0
-            attack["average"] = sum([
-                damage["average"]
-                for damage in attack["damage"]
-                ])
-            attack["notation"] = ' + '.join([
-                "%(notation)s %(type)s" % (damage)
-                for damage in sorted(
-                    attack["damage"],
-                    key=lambda d: d["average"],
-                    reverse=True
-                    )
-                ])
-            attack["critical"] = sum([
-                damage["critical"]
-                for damage in attack["damage"]
-                ]) + attack["modifier"]
-            if attack["average"] > monster["average_damage"]:
-                monster["average_damage"] = attack["average"]
-                monster["attack_bonus"] = attack["bonus"]
-                monster["critical_damage"] = attack["critical"]
-                monster["spell_save_dc"] = attack["spell_save_dc"]
-
-        monster["multiattack"] = [
-            rotation
-            for rotation in monster["multiattack"]
-            if rotation.get("name", "")
-            ]
-        for multiattack in monster["multiattack"]:
-            multiattack["average"] = sum([
-                attack["average"]
-                for attack_name in multiattack["sequence"]
-                for attack in monster["attacks"]
-                if attack["name"] == attack_name
-                ])
-            multiattack["critical"] = sum([
-                attack["critical"]
-                for attack_name in multiattack["sequence"]
-                for attack in monster["attacks"]
-                if attack["name"] == attack_name
-                ])
-            if multiattack["average"] > monster["average_damage"]:
-                monster["average_damage"] = multiattack["average"]
-                monster["critical_damage"] = multiattack["critical"]
-                monster["attack_bonus"] = max([
-                    attack["modifier"]
-                    for attack_name in multiattack["sequence"]
-                    for attack in monster["attacks"]
-                    if attack["name"] == attack_name
-                    ])
-                monster["spell_save_dc"] = max([
-                    attack["spell_save_dc"]
-                    for attack_name in multiattack["sequence"]
-                    for attack in monster["attacks"]
-                    if attack["name"] == attack_name
-                    ])
-
-        monster.traits = [
-            trait
-            for trait in monster.traits
-            if trait and trait.get('name')
-            ]
-
+    def computeMonsterChallengeRating(self, hit_points, armor_class,
+                               average_damage, attack_bonus, spell_dc):
         hp, hp_i = self.monsterChallengeRatingByStat(
-            "hit_points", monster["hit_points"]
+            "hit_points", hit_points
             )
         ac, ac_i = self.monsterChallengeRatingByStat(
-            "armor_class", monster["armor_class"], hp_i
+            "armor_class", armor_class, hp_i
             )
         ad, ad_i = self.monsterChallengeRatingByStat(
-            "average_damage", monster["average_damage"]
+            "average_damage", average_damage
             )
         ab, ab_i = self.monsterChallengeRatingByStat(
-            "attack_bonus", monster["attack_bonus"], ad_i
+            "attack_bonus", attack_bonus, ad_i
             )
         dc, dc_i = self.monsterChallengeRatingByStat(
-            "spell_save_dc", monster["spell_save_dc"], ad_i
+            "spell_save_dc", spell_dc, ad_i
             )
 
         defensive = hp + (ac - hp) / 2.0
         offensive = ad + max([(ab - ad) / 2.0, (dc - ad) / 2.0])
         challenge_rating = (defensive + offensive) / 2.0
 
-        monster["challenge_rating"] = challenge_rating
-        monster["proficiency"] = self.monsterStatByChallengeRating(
-            challenge_rating, "proficiency"
+        xp = self.monsterStatByChallengeRating(
+           challenge_rating, "xp"
+           )
+        next_xp = self.monsterStatByChallengeRating(
+            challenge_rating + 0.5, "xp"
             )
-        monster["xp"] = self.monsterStatByChallengeRating(
-            challenge_rating, "xp"
-            )
-        monster["xp_rating"] = monster["xp"]
+        challenge_ratio = challenge_rating % 1.0
 
-        return monster
+        return {
+            'challenge_rating': challenge_rating,
+            'proficiency': self.monsterStatByChallengeRating(
+                challenge_rating, "proficiency"
+                ),
+            'xp': xp,
+            'xp_rating': (xp * challenge_ratio) \
+                + (xp * (1.0-challenge_ratio))
+            }

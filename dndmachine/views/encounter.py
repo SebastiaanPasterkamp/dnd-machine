@@ -96,7 +96,6 @@ def show(encounter_id, party_id=None):
 
     info = {}
     for monster in monsters:
-        monster = machine.computeMonsterStatistics(monster)
         if monster['id'] not in info:
             info[monster['id']] = {
                 'count': 1,
@@ -150,8 +149,6 @@ def edit(encounter_id):
                 ))
 
     monsters = monster_mapper.getByEncounterId(encounter_id)
-    for monster in monsters:
-        monster = machine.computeMonsterStatistics(monster)
 
     e = encounter_mapper.computeChallenge(e, monsters)
 
@@ -237,8 +234,6 @@ def modify(encounter_id, action, monster_id):
         flash("Unknown action '%s'." % action, 'error')
 
     monsters = monster_mapper.getByEncounterId(encounter_id)
-    for monster in monsters:
-        monster = machine.computeMonsterStatistics(monster)
     e = encounter_mapper.computeChallenge(e, monsters)
 
     encounter_mapper.update(e)
