@@ -230,10 +230,10 @@
 
 <table class="nice-table condensed striped bordered hover">
     <tbody>
-        {% for trait in monster.trait %}
+        {% for trait in monster.traits %}
         <tr>
             <th>{{ trait.name }}</th>
-            <td>{{ trait.description }}</td>
+            <td>{{ trait.description|markdown }}</td>
         </tr>
         {% endfor %}
         {% for feature in monster.features %}

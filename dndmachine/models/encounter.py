@@ -89,30 +89,30 @@ class EncounterMapper(JsonObjectDataMapper):
 
     def computeChallenge(self, encounter, monsters=[], party=None):
         encounter.size = len(monsters)
-        encounter.modifier = {
-            'party': self.modifierByPartySize(party['size']) if party else 0.0,
-            'monster': self.modifierByEncounterSize(encounter['size'])
-            }
-        encounter.modifierTotal = sum(encounter['modifier'].values())
+        encounter.modifierParty = self.modifierByPartySize(party.size) \
+            if party else 0.0
+        encounter.modifierMonster = self.modifierByEncounterSize(encounter.size)
+        encounter.modifierTotal = 0
+        encounter.modifierTotal = sum(encounter.modifier.values())
 
-        encounter['challenge_rating'] = sum([
-            m['challenge_rating']
+        encounter.challenge_rating = sum([
+            m.challenge_rating
             for m in monsters
-            ]) * encounter['modifier']['monster']
-        encounter['challenge_modified'] = sum([
-            m['challenge_rating']
+            ]) * encounter.modifierMonster
+        encounter.challenge_modified = sum([
+            m.challenge_rating
             for m in monsters
-            ]) * encounter['modifier']['total']
-        encounter['xp'] = sum([
-            m['xp']
+            ]) * encounter.modifierTotal
+        encounter.xp = sum([
+            m.xp
             for m in monsters
             ])
-        encounter['xp_rating'] = sum([
-            m['xp_rating']
+        encounter.xp_rating = sum([
+            m.xp_rating
             for m in monsters
-            ]) * encounter['modifier']['monster']
-        encounter['xp_modified'] = sum([
-            m['xp_rating']
+            ]) * encounter.modifierMonster
+        encounter.xp_modified = sum([
+            m.xp_rating
             for m in monsters
-            ]) * encounter['modifier']['total']
+            ]) * encounter.modifierTotal
         return encounter

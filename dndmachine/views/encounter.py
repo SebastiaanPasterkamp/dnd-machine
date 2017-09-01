@@ -3,6 +3,7 @@ from flask import Blueprint, request, session, g, redirect, url_for, abort, \
     render_template, flash
 import re
 
+from ..models.encounter import EncounterObject
 from ..utils import get_datamapper
 
 encounter = Blueprint(
@@ -50,9 +51,9 @@ def show(encounter_id, party_id=None):
         {
             'index': i,
             'initiative': 0,
-            'name': c['name'],
-            'hit_points': c.get('hit_points', 1),
-            'current_hit_points': c.get('hit_points', 1)
+            'name': c.name,
+            'hit_points': c.hit_points,
+            'current_hit_points': c.hit_points
             }
             for i, c in enumerate(characters)
         ]
@@ -61,9 +62,9 @@ def show(encounter_id, party_id=None):
         {
             'index': offset + i,
             'initiative': 0,
-            'name': m['name'],
-            'hit_points': m['hit_points'],
-            'current_hit_points': m['hit_points']
+            'name': m.name,
+            'hit_points': m.hit_points,
+            'current_hit_points': m.hit_points
             }
             for i, m in enumerate(monsters)
         ])
@@ -179,6 +180,8 @@ def delete(encounter_id):
 def new():
     encounter_mapper = get_datamapper('encounter')
 
+    e = EncounterObject()
+
     if request.method == 'POST':
         if request.form["button"] == "cancel":
             return redirect(url_for(
@@ -186,8 +189,7 @@ def new():
                 ))
 
         e.updateFromPost(request.form)
-        e['user_id'] = request.user['id']
-
+        e.user_id = request.user['id']
         e = encounter_mapper.computeChallenge(e)
 
         if request.form.get("button", "save") == "save":
