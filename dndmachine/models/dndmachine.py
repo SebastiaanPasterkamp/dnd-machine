@@ -35,12 +35,12 @@ class DndMachine(object):
         return matches[0] if matches else default
 
     def diceAverage(self, size, number=1, bonus=0):
-        return number * ((size+1)/2) + bonus
+        return int(number * ((size+1)/2.0) + bonus)
 
     def diceCritical(self, size, number=1, bonus=0):
-        return number * size + number * ((size+1)/2) + bonus
+        return int(number * size + number * ((size+1)/2.0) + bonus)
 
-    def diceNotation(self, number, size, bonus=0):
+    def diceNotation(self, size, number, bonus=0):
         notation = []
         if number:
             notation.append("%dd%d" % (number, size))
@@ -193,8 +193,8 @@ class DndMachine(object):
                             else damage.get('bonus', 0)
                     )
                 damage["notation"] = self.diceNotation(
-                    damage["dice_count"],
                     damage["dice_size"],
+                    damage["dice_count"],
                     default_bonus \
                             if default_bonus \
                             else damage.get('bonus', 0)
@@ -263,6 +263,12 @@ class DndMachine(object):
                     for attack in monster["attacks"]
                     if attack["name"] == attack_name
                     ])
+
+        monster.traits = [
+            trait
+            for trait in monster.traits
+            if trait and trait.get('name')
+            ]
 
         hp, hp_i = self.monsterChallengeRatingByStat(
             "hit_points", monster["hit_points"]
