@@ -13,7 +13,6 @@ monster = Blueprint(
 @monster.route('/list')
 @monster.route('/list/<int:encounter_id>')
 def overview(encounter_id=None):
-    machine = get_datamapper('machine')
     monster_mapper = get_datamapper('monster')
 
     encounter = None
@@ -28,8 +27,6 @@ def overview(encounter_id=None):
 
     search = request.args.get('search', '')
     monsters = monster_mapper.getList(search)
-    for m in monsters:
-        m = machine.computeMonsterStatistics(m)
 
     return render_template(
         'monster/overview.html',
@@ -41,11 +38,9 @@ def overview(encounter_id=None):
 
 @monster.route('/<int:monster_id>')
 def show(monster_id):
-    machine = get_datamapper('machine')
     monster_mapper = get_datamapper('monster')
 
     m = monster_mapper.getById(monster_id)
-    m = machine.computeMonsterStatistics(m)
     return render_template(
         'monster/show.html',
         monster=m
@@ -67,11 +62,9 @@ def edit(monster_id):
                 ))
 
         m.updateFromPost(request.form)
-        m = machine.computeMonsterStatistics(m)
-
 
         if request.form.get("button", "save") == "save":
-            monster_mapper.update(m)
+            m = monster_mapper.update(m)
             return redirect(url_for(
                 'monster.show',
                 monster_id=monster_id
@@ -79,12 +72,6 @@ def edit(monster_id):
 
         if request.form.get("button", "save") == "update":
             monster_mapper.update(m)
-            return redirect(url_for(
-                'monster.edit',
-                monster_id=monster_id
-                ))
-    else:
-        m = machine.computeMonsterStatistics(m)
 
     return render_template(
         'monster/edit.html',
@@ -113,7 +100,6 @@ def new(monster_id=None):
                 ))
 
         m.updateFromPost(request.form)
-        m = machine.computeMonsterStatistics(m)
 
         if request.form.get("button", "save") == "save":
             m = monster_mapper.insert(m)
@@ -121,8 +107,6 @@ def new(monster_id=None):
                 'monster.show',
                 monster_id=m['id']
                 ))
-    else:
-        m = machine.computeMonsterStatistics(m)
 
     return render_template(
         'monster/edit.html',

@@ -203,11 +203,15 @@
             </div>
 
             <label>Traits</label>
-            <div class="nice-control-group">
-                {% for trait in monster.traits %}
+            {% for trait in monster.traits %}
+            <div class="nice-form-group">
                 <input type="text" placeholder="Trait Name..." class="nice-form-control" name="monster.traits.{{ loop.index }}.name" value="{{ trait.name }}" />
-                <textarea class="nice-form-control" placeholder="Description..." name="monster.traits.{{ loop.index }}.description">{{ traits.description }}</textarea>
-                {% endfor %}
+                <textarea class="nice-form-control" placeholder="Description..." name="monster.traits.{{ loop.index }}.description">{{ trait.description }}</textarea>
+            </div>
+            {% endfor %}
+            <div class="nice-form-group">
+                <input type="text" placeholder="Trait Name..." class="nice-form-control" name="monster.traits.+1.name" value="" />
+                <textarea class="nice-form-control" placeholder="Description..." name="monster.traits.+1.description"></textarea>
             </div>
 
             <label>Features</label>

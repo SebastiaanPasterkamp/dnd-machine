@@ -8,7 +8,7 @@
         <div class="nice-panel-heading">
             Description
         </div>
-        <table class="nice-panel-content nice-table condensed striped bordered" id="monsterstats">
+        <table class="nice-panel-content nice-table condensed bordered" id="monsterstats">
             <thead>
                 <tr>
                     <th colspan="2">
@@ -57,7 +57,7 @@
         <div class="nice-panel-heading">
             statistics
         </div>
-        <table class="nice-panel-content nice-table condensed striped bordered">
+        <table class="nice-panel-content nice-table condensed bordered">
             <thead>
                 <tr>
                     {% for stat in items.statistics %}
@@ -85,18 +85,18 @@
         <div class="nice-panel-heading">
             Attributes
         </div>
-        <table class="nice-panel-content nice-table condensed striped bordered">
+        <table class="nice-panel-content nice-table condensed bordered">
             <tbody>
                 {% for trait in monster.traits %}
                 <tr>
                     <th>{{ trait.name }}</th>
-                    <td>{{ trait.description }}</td>
+                    <td>{{ trait.description|markdown }}</td>
                 </tr>
                 {% endfor %}
                 {% for feature in monster.features %}
                 <tr>
                     <th>{{ feature.name }}</th>
-                    <td>{{ feature.description }}</td>
+                    <td>{{ feature.description|markdown }}</td>
                 </tr>
                 {% endfor %}
                 {% if monster.languages %}
@@ -129,117 +129,124 @@
         </table>
     </div>
 
-    <div id="actions" class="nice-panel brand">
-        <div class="nice-panel-heading">
-            Actions
-        </div>
-        <table class="nice-panel-content nice-table condensed striped bordered">
-            <tbody>
-                {% for i in range(monster.attacks|length) %}
-                {% set attack = monster.attacks[i] %}
-                <tr>
-                    <th colspan="2">
-                        <h4>{{ attack.name }}</h4>
-                        <i>{{ attack.description }}</i>
-                    </th>
-                </tr>
-                <tr>
-                    <th>Mode</th>
-                    <td>{{ attack.mode }}</td>
-                </tr>
-                <tr>
-                    <th>Attack Notation</th>
-                    <td>{{ attack.notation }}</td>
-                </tr>
-                <tr>
-                    <th>Attack Damage</th>
-                    <td>
-                        <div class="nice-tags-container">
-                            <div class="nice-tag">
-                                <span class="nice-tag-label">
-                                    Average
-                                </span>
-                                <span class="nice-tag-badge">
-                                    {{ attack.average }}
-                                <span>
-                            </div>
-                            <div class="nice-tag accent">
-                                <span class="nice-tag-label">
-                                    Critical average
-                                </span>
-                                <span class="nice-tag-badge">
-                                    {{ attack.critical }}
-                                <span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                {% if attack.bonus %}
-                <tr>
-                    <th>Attack Bonus</th>
-                    <td>{% if attack.bonus > 0 %}+{% endif %}{{ attack.bonus }}</td>
-                </tr>
-                {% endif %}
-                {% if attack.spell_save_dc %}
-                <tr>
-                    <th>Attack Save DC</th>
-                    <td>&ge; {{ attack.spell_save_dc }}</td>
-                </tr>
-                {% endif %}
-                <tr>
-                    <th>Target</th>
-                    <td>{{ attack.target }}</td>
-                </tr>
-                <tr>
-                    <th>Range</th>
-                    <td>
-                        {% if attack.range_min < attack.range_max %}
-                        {{ attack.range_min }} -
-                        {% endif %}
-                        {{ attack.range_max }} ft.
-                    </td>
-                </tr>
-                <tr>
-                    <th>On Hit</th>
-                    <td>{{ attack.on_hit }}</td>
-                </tr>
-                <tr>
-                    <th>On Mis</th>
-                    <td>{{ attack.on_mis }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    {% if monster.multiattack %}
-    <div id="multiattacks" class="nice-panel brand">
-        <div class="nice-panel-heading">
-            Multiattacks
-        </div>
-        <table class="nice-panel-content nice-table condensed striped bordered">
-            <tbody>
-                <tr>
-                    <td>
+    <div id="actions">
+        {% if monster.multiattack %}
+        <div class="nice-panel brand">
+            <div class="nice-panel-heading">
+                Multiattacks
+            </div>
+            <table class="nice-panel-content nice-table condensed bordered">
+                <tbody>
                     {% for rotation in monster.multiattack %}
-                        {{ rotation.name }}
-                        <i>({{ rotation.condition }})</i>
-                        {{ rotation.description|replace('%average%', rotation.average) }}
-                        <div class="nice-tags-container">
-                            {% for attack in rotation.sequence %}
-                            <div class="nice-tag">
-                                <span class="nice-tag-label">
-                                    {{ attack }}
-                                </span>
+                    <tr>
+                        <th>{{ rotation.name }}{% if rotation.condition %}<br/><i>({{ rotation.condition }})</i>{% endif %}</th>
+                        <td>
+                            {{ rotation.description|markdown|replace('%average%', rotation.average) }}
+                        </td>
+                        <td>
+                            <div class="nice-tags-container">
+                                {% for attack in rotation.sequence %}
+                                <div class="nice-tag">
+                                    <span class="nice-tag-label">
+                                        {{ attack }}
+                                    </span>
+                                </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
-                        </div>
+                        </td>
+                    </tr>
                     {% endfor %}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        <div class="nice-panel brand">
+            <div class="nice-panel-heading">
+                Actions
+            </div>
+            <table class="nice-panel-content nice-table condensed bordered">
+                <tbody>
+                    {% for i in range(monster.attacks|length) %}
+                    {% set attack = monster.attacks[i] %}
+                    <tr>
+                        <th colspan="2">
+                            <h4>{{ attack.name }}</h4>
+                            <i>{{ attack.description|markdown }}</i>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Mode</th>
+                        <td>{{ attack.mode }}</td>
+                    </tr>
+                    <tr>
+                        <th>Attack Notation</th>
+                        <td>{{ attack.notation }}</td>
+                    </tr>
+                    <tr>
+                        <th>Attack Damage</th>
+                        <td>
+                            <div class="nice-tags-container">
+                                <div class="nice-tag">
+                                    <span class="nice-tag-label">
+                                        Average
+                                    </span>
+                                    <span class="nice-tag-badge">
+                                        {{ attack.average }}
+                                    <span>
+                                </div>
+                                <div class="nice-tag accent">
+                                    <span class="nice-tag-label">
+                                        Critical average
+                                    </span>
+                                    <span class="nice-tag-badge">
+                                        {{ attack.critical }}
+                                    <span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% if attack.bonus %}
+                    <tr>
+                        <th>Attack Bonus</th>
+                        <td>{% if attack.bonus > 0 %}+{% endif %}{{ attack.bonus }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if attack.spell_save_dc %}
+                    <tr>
+                        <th>Attack Save DC</th>
+                        <td>&ge; {{ attack.spell_save_dc }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <th>Target</th>
+                        <td>{{ attack.target }}</td>
+                    </tr>
+                    <tr>
+                        <th>Range</th>
+                        <td>
+                            {% if attack.range_min < attack.range_max %}
+                            {{ attack.range_min }} -
+                            {% endif %}
+                            {{ attack.range_max }} ft.
+                        </td>
+                    </tr>
+                    {% if attack.on_hit %}
+                    <tr>
+                        <th>On Hit</th>
+                        <td>{{ attack.on_hit|markdown }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if attack.on_mis %}
+                    <tr>
+                        <th>On Mis</th>
+                        <td>{{ attack.on_mis|markdown }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-    {% endif %}
 </div>
 {% endblock %}

@@ -19,6 +19,7 @@ class JsonObject(object):
 
         self._config = self._merge({}, self._defaultConfig)
         self._config = self._merge(self._config, config)
+        self.compute()
 
     @property
     def config(self):
@@ -70,6 +71,10 @@ class JsonObject(object):
             if not self.getPath(keep) \
                     and self.getPath(keep, structure=old):
                 self.setPath(keep, self.getPath(keep, structure=old))
+        self.compute()
+
+    def compute(self):
+        pass
 
     def __iter__(self):
         return self._config.iteritems()
