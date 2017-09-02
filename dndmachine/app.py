@@ -210,14 +210,18 @@ class SpecialBlockQuoteExtension(Extension):
     """ Add configurable blockquotes to Markdown. """
 
     def extendMarkdown(self, md, md_globals):
-        """ Override existing Processors. """
+        """ Add an instance of SpecialBlockQuoteProcessor to BlockParser.
+        """
+        if '|' not in md.ESCAPED_CHARS:
+            md.ESCAPED_CHARS.append('|')
         md.parser.blockprocessors.add(
-            'sbq', SpecialBlockQuoteProcessor(md.parser), '>quote'
+            'sbq', SpecialBlockQuoteProcessor(md.parser), '>hashheader'
             )
 
 @app.template_filter('markdown')
 def filter_markdown(md):
     html = markdown.markdown(md, extensions=[
+        'markdown.extensions.tables',
         SpecialBlockQuoteExtension()
         ])
     return Markup(html)
