@@ -1,5 +1,8 @@
 from base import JsonObject, JsonObjectDataMapper
 
+from ..config import get_config, get_item_data
+from dndmachine import DndMachine
+
 class CharacterObject(JsonObject):
     def __init__(self, config={}):
         super(CharacterObject, self).__init__(
@@ -54,6 +57,7 @@ class CharacterObject(JsonObject):
                 "skills": {},
                 "equipment": [],
                 "proficiency": 2,
+                "languages": ["common"],
                 "proficiencies": {
                     "armor": [],
                     "weapons": [],
@@ -68,7 +72,8 @@ class CharacterObject(JsonObject):
                 'xp',
                 'race', 'class', 'background',
                 'base_stats', 'stats_bonus',
-                'equipment'
+                'equipment', 'proficiencies', 'languages',
+                'computed'
                 ],
             fieldTypes = {
                 'user_id': int,
@@ -109,6 +114,45 @@ class CharacterObject(JsonObject):
                 }
             )
 
+    def compute(self):
+        config = get_config()
+        machine = DndMachine(config['machine'])
+        items = get_item_data()
+
+        for stat in items["statistics"]:
+            stat = stat["name"]
+            self.stats[stat] = self.base_stats[stat] \
+                + self.stats_bonus[stat]
+            self.modifiers[stat] = int(
+                (self.stats[stat] - 10) / 2
+                )
+            self.saving_throws[stat] = self.modifiers[stat]
+            if stat in self.proficienciesSaving_throws:
+                self.saving_throws[stat] += self.proficiency
+
+        for skill in items["skills"]:
+            stat, skill = skill["stat"], skill["name"]
+            self.skills[skill] = self.modifiers[stat]
+            if skill in self.proficienciesSkills:
+                self.skills[skill] += self.proficiency
+
+        for path, compute in self.computed.iteritems():
+            value = machine.resolveMath(
+                self, compute.get("formula", ""))
+            for bonus in compute.get('bonus', []):
+                value += machine.resolveMath(self, bonus)
+            self.setPath(path, value)
+
+        cr = machine.challengeByLevel(self.level)
+        for challenge, rating in cr.iteritems():
+            self[challenge] = rating
+
+        self.xp_level = machine.xpAtLevel(self.level)
+        self.xp_next_level = machine.xpAtLevel(self.level + 1)
+        while self.xp_next_level and self.xp >= self.xp_next_level:
+            self.level += 1
+            self.xp_level = self.xp_next_level
+            self.xp_next_level = machine.xpAtLevel(self.level + 1)
 
 class CharacterMapper(JsonObjectDataMapper):
     obj = CharacterObject

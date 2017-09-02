@@ -66,7 +66,6 @@ def show(character_id):
     if c['user_id'] != request.user['id'] \
             and 'admin' not in request.user['role']:
         abort(403)
-    c = machine.computeCharacterStatistics(c)
 
     user = user_mapper.getById(c['user_id'])
 
@@ -165,9 +164,6 @@ def edit(character_id):
                 ))
 
         c.updateFromPost(request.form)
-
-        machine = get_datamapper('machine')
-        c = machine.computeCharacterStatistics(c)
 
         if request.form.get("button", "save") == "save":
             character_mapper.update(c)
@@ -361,16 +357,12 @@ def new():
                 if sub:
                     setPerks(c, sub[0], options)
 
-        c = machine.computeCharacterStatistics(c)
-
         if request.form.get("button", "save") == "save":
             c = character_mapper.insert(c)
             return redirect(url_for(
                 'character.show',
                 character_id=c['id']
                 ))
-
-    c = machine.computeCharacterStatistics(c)
 
     current = {
         'tab': tab,
