@@ -10,6 +10,7 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 import re
 
+from . import get_db
 from .config import get_config, get_item_data
 from .utils import get_datamapper
 from .views.user import user
@@ -64,14 +65,14 @@ def updatedb_command():
 def get_user():
     """Checks if the user is logged in, and returns the user
     object"""
-    if session.get('userid') is None \
+    if session.get('user_id') is None \
             and request.endpoint not in ('login', 'static'):
         request.user = None
         if request.path != url_for('login'):
             return redirect(url_for('login'))
     else:
         user_mapper = get_datamapper('user')
-        request.user = user_mapper.getById(session.get('userid'))
+        request.user = user_mapper.getById(session.get('user_id'))
 
 @app.before_request
 def get_party():
@@ -99,7 +100,7 @@ def inject_metadata():
 
 @app.route('/')
 def home():
-    if session.get('userid') is None:
+    if session.get('user_id') is None:
         return redirect(url_for('login'))
     return redirect(url_for('character.overview'))
 
@@ -107,36 +108,27 @@ def home():
 def login():
     error = None
     if request.method == 'POST':
-        db = get_db()
-        name, pwd = request.form['username'], request.form['password']
-        cur = db.execute("""
-            SELECT `id`, `username`, `password`
-            FROM `users`
-            WHERE `username` = ?
-            """,
-            [name]
-            )
-        user = cur.fetchone()
-        #if not user \
-                #or not password.verify(pwd, user['password']):
-            #flash('Login failed', 'error')
-        #else:
-        if True:
-            session['userid'] = user['id']
+        user_mapper = get_datamapper('user')
+
+        username, pwd = request.form['username'], request.form['password']
+        user = user_mapper.getByCredentials(username, password)
+
+        if not user :
+            flash('Login failed', 'error')
+        else:
+            session['user_id'] = user.id
             flash(
-                'You are now logged in, %s' % user['username'],
+                'You are now logged in, %s' % user.username,
                 'info'
                 )
             return redirect('/')
-    return render_template(
-        'login.html',
-        info=app.config['info']
-        )
+    return render_template('login.html')
 
 @app.route('/logout')
 def logout():
-    session.pop('userid', None)
+    session.pop('user_id', None)
     session.pop('user', None)
+    session.pop('party_id', None)
     flash('You were logged out', 'info')
     return redirect(url_for('home'))
 

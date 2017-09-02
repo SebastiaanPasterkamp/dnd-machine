@@ -6,12 +6,25 @@ class UserObject(JsonObject):
         super(UserObject, self).__init__(
             config,
             pathPrefix = "user",
-            keepFields = ['username', 'password', 'role']
+            keepFields = ['username', 'password', 'role'],
+            defaultConfig = {
+                'username': u'',
+                'password': u'',
+                'email': u'',
+                'role': []
+                }
             )
 
-    def fromPost(self, form):
+    def compute(self):
+        self.role = [
+            role
+            for role in self.role
+            if role
+            ]
+
+    def updateFromPost(self, form):
         old_password = self.password
-        super(UserMapper, self).fromPost(form)
+        super(UserObject, self).updateFromPost(form)
         if len(self.password):
             try:
                 self.password = password.hash(self.password)
@@ -36,15 +49,22 @@ class UserMapper(JsonObjectDataMapper):
 
     def getByExactMatch(self, search=None):
         """Returns a user by exact name or email"""
-        cur = self.db.execute("""
-            SELECT id
-            FROM `%s`
-            WHERE `name` = ? or email = ?
-            """ % self.table,
-            [search, search]
+        objs = self.getMultiple(
+            """`username` = :search OR `email` =:search""",
+            {"search": search}
             )
-        obj = cur.fetchone()
-        if obj is None:
+        if not objs:
             return None
-        obj = dict(obj)
-        return self.getById(obj['id'])
+        return objs[0]
+
+    def getByCredentials(self, username, password):
+        objs = self.getMultiple(
+            """`username` = :username""",
+            {"username": username}
+            )
+        if not objs:
+            return None
+        user = objs[0]
+        #if not password.verify(password, user.password):
+            #return None
+        return user
