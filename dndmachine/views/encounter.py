@@ -43,8 +43,8 @@ def show(encounter_id, party_id=None):
     e = encounter_mapper.getById(encounter_id)
     user = user_mapper.getById(e['user_id'])
     party = party_mapper.getById(party_id)
+    party.members = character_mapper.getByPartyId(party['id'])
 
-    characters = character_mapper.getByPartyId(party['id'])
     monsters = monster_mapper.getByEncounterId(encounter_id)
 
     combatants = [
@@ -55,9 +55,9 @@ def show(encounter_id, party_id=None):
             'hit_points': c.hit_points,
             'current_hit_points': c.hit_points
             }
-            for i, c in enumerate(characters)
+            for i, c in enumerate(party.members)
         ]
-    offset = len(characters)
+    offset = len(party.members)
     combatants.extend([
         {
             'index': offset + i,
@@ -80,7 +80,6 @@ def show(encounter_id, party_id=None):
             for m in re.finditer(ur'[+-]?\d+', c['damage_taken']):
                 damage = m.group(0)
                 try:
-                    print c['current_hit_points'], '+=', damage
                     c['current_hit_points'] += int(damage)
                     if c['current_hit_points'] < 0:
                         c['current_hit_points'] = 0
