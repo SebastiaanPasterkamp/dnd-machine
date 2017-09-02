@@ -5,6 +5,7 @@ import os
 import codecs
 import re
 
+from ..models.character import CharacterObject
 from ..config import get_config, get_character_data, get_item_data
 from ..utils import get_datamapper
 from . import fill_pdf
@@ -85,7 +86,7 @@ def raw(character_id):
     if c['user_id'] != request.user['id'] \
             and 'admin' not in request.user['role']:
         abort(403)
-    return jsonify(c)
+    return jsonify(c.config)
 
 @character.route('/download/<int:character_id>')
 def download(character_id):
@@ -234,7 +235,7 @@ def new():
             expanded = [
                 item['name'] if isinstance(item, dict) else item
                 for path in options.split(',')
-                for item in DataMapper.getPath(items, path) or []
+                for item in c.getPath(path, structure=items, default=[])
                 ]
             if expanded:
                 return expanded
@@ -244,19 +245,16 @@ def new():
         if options is None:
             options = {}
 
-        for stat, bonus in perks.get('stats_bonus', {}).iteritems():
-            obj['stats_bonus'][stat] += bonus
-
         for field in ['hit_points', 'spell_safe_dc', 'spell_attack_modifier']:
             if field in perks:
                 perk = perks[field]
-                obj["computed"][field] = obj["computed"].get(field, {})
+                obj.computed[field] = obj.computed.get(field, {})
                 if "formula" in perk:
-                    obj["computed"][field]["formula"] = perk["formula"]
+                    obj.computed[field]["formula"] = perk["formula"]
                 if "bonus" in perk:
-                    obj["computed"][field]["bonus"] = \
-                        obj["computed"][field]["bonus"].get(field, [])
-                    obj["computed"][field]["bonus"].extend(
+                    obj.computed[field]["bonus"] = \
+                        obj.computed[field]["bonus"].get(field, [])
+                    obj.computed[field]["bonus"].extend(
                         perk.get('bonus', []))
 
         options['proficiencies'] = options.get('proficiencies', {})
@@ -271,8 +269,8 @@ def new():
                 options['proficiencies'][field].append({
                     'sets': expandOptions(profs['sets'])
                     })
-            obj['proficiencies'][field] = list(
-                set(obj['proficiencies'][field]) \
+            obj.proficiencies[field] = list(
+                set(obj.proficiencies[field]) \
                 | set(profs.get('given', []))
                 )
 
@@ -280,8 +278,8 @@ def new():
             if field in perks:
                 obj[field] = perks[field]
 
-        for field in ['wealth']:
-            obj[field] = obj.get(field, {})
+        for field in ['wealth', 'stats_bonus']:
+            obj[field] = obj[field] or {}
             for key, val in perks.get(field, {}).iteritems():
                 obj[field][key] = \
                     obj[field].get(key, 0) + val
@@ -300,14 +298,14 @@ def new():
                         'sets': expandOptions(perk['sets'])
                         })
                 obj[field] = list(
-                    set(obj.get(field, [])) \
+                    set(obj[field] or []) \
                     | set(perk.get('given', []))
                     )
 
         for field in ['info']:
             if field in perks:
                 perk = perks[field]
-                obj[field] = obj.get(field, {})
+                obj[field] = obj[field] or {}
                 obj[field].update(perk)
 
         return obj
@@ -315,8 +313,9 @@ def new():
 
     character_mapper = get_datamapper('character')
     machine = get_datamapper('machine')
-    c = character_mapper.setDefaults({})
-    c['user_id'] = request.user['id']
+    c = CharacterObject({
+        'user_id': request.user['id']
+        })
     options = {}
 
     tabs = ['race', 'class', 'background', 'stats', 'customize']
@@ -344,13 +343,8 @@ def new():
                 ))
 
         c.updateFromPost(request.form)
-        c['stats_bonus'] = dict([
-            (stat, 0)
-            for stat in c['stats_bonus']
-            ])
-        c['wealth'] = {}
         for field in cdata:
-            if c.get(field):
+            if c[field]:
                 data = [
                     data for data in cdata[field]
                     if c[field] == data['name'] or any(
@@ -358,19 +352,14 @@ def new():
                         for sub in data.get('sub', [])
                         )
                     ][0]
-                c = setPerks(c, data, options)
+                setPerks(c, data, options)
 
                 sub =[
                     sub for sub in data.get('sub', [])
                     if c[field] == sub['name']
                     ]
                 if sub:
-                    c = setPerks(c, sub[0], options)
-
-        for stat, modifier in c['modifiers'].iteritems():
-            c["saving_throws"][stat] = modifier
-            if stat in c["proficiencies"]["saving_throws"]:
-                c["saving_throws"][stat] += c["proficiency"]
+                    setPerks(c, sub[0], options)
 
         c = machine.computeCharacterStatistics(c)
 
