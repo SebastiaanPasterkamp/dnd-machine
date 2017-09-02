@@ -2,158 +2,230 @@
 {% block body %}
 <h2 class="icon fa-user-secret">Character</h2>
 
-<div class="nice-row">
-    <div class="nice-col-8 nice-col-mobile-12">
+<div id="view-character">
 
-<table class="nice-table condensed striped bordered hover">
-    <thead>
-        <tr>
-            <th colspan="2">
-                <h3>{{ character.name }}</h3>
+    <div id="description" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Description
+        </div>
+        <table class="nice-table condensed striped bordered">
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        <h3>{{ character.name }}</h3>
 
-                <div class="nice-progress good">
-                    <div class="nice-progress-fill" style="width: {{ (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) }}%;">
-                        Level {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
-                    </div>
-                </div>
+                        <div class="nice-progress good">
+                            <div class="nice-progress-fill" style="width: {{ (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) }}%;">
+                                Level {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
+                            </div>
+                        </div>
 
-                {% if character.user_id == request.user.id or 'admin' in request.user.role or 'dm' in request.user.role %}
-                <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('character.edit', character_id=character.id) }}" class="nice-btn icon fa-cog">Edit</a>
-                    <a href="{{ url_for('character.download', character_id=character.id) }}" class="nice-btn icon fa-download">Download</a>
-                    <a href="{{ url_for('character.raw', character_id=character.id) }}" class="nice-btn icon fa-database">Raw</a>
-                    <a href="{{ url_for('character.delete', character_id=character.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
-                </div>
-                {% endif %}
-            </th>
-        </tr>
-    </thead>
-</table>
-
+                        {% if character.user_id == request.user.id or 'admin' in request.user.role or 'dm' in request.user.role %}
+                        <div class="nice-btn-group pull-right">
+                            <a href="{{ url_for('character.edit', character_id=character.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                            <a href="{{ url_for('character.download', character_id=character.id) }}" class="nice-btn icon fa-download">Download</a>
+                            <a href="{{ url_for('character.raw', character_id=character.id) }}" class="nice-btn icon fa-database">Raw</a>
+                            <a href="{{ url_for('character.delete', character_id=character.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+                        </div>
+                        {% endif %}
+                    </th>
+                </tr>
+            </thead>
+        </table>
     </div>
-    <div class="nice-col-4 nice-col-mobile-12">
 
-<table class="nice-table condensed striped bordered hover">
-    <thead>
-        <tr>
-            <th>Class</th>
-            <th>Background</th>
-            <th>Player</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{ character.class }}</td>
-            <td>{{ character.background }}</td>
-            <td>{{ user.username }}</td>
-        <tr>
-    </tbody>
-    <thead>
-        <tr>
-            <th>Race</th>
-            <th>Alignment</th>
-            <th>XP</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{ character.race }}</td>
-            <td>{{ character.alignment }}</td>
-            <td>{{ character.xp }} XP</td>
-        <tr>
-    </tbody>
-</table>
-
+    <div id="info" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Info
+        </div>
+        <table class="nice-panel-content nice-table condensed bordered">
+            <thead>
+                <tr>
+                    <th>Class</th>
+                    <th>Background</th>
+                    <th>Player</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ character.class }}</td>
+                    <td>{{ character.background }}</td>
+                    <td>{{ user.username }}</td>
+                <tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th>Race</th>
+                    <th>Alignment</th>
+                    <th>XP</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ character.race }}</td>
+                    <td>{{ character.alignment }}</td>
+                    <td>{{ character.xp }} XP</td>
+                <tr>
+            </tbody>
+        </table>
     </div>
-</div>
 
-<div class="nice-row">
-    <div class="nice-col-4 nice-col-mobile-8">
+    <div id="base" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Base
+        </div>
+        <table class="nice-panel-content nice-table condensed bordered">
+            <tbody>
+                <tr>
+                    <th>Proficiency Bonus</th>
+                    <td>{{ character.proficiency }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-<table class="nice-table condensed striped bordered">
-    <tbody>
-        <tr>
-            <td>{{ character.proficiency }}</td>
-            <th>Proficiency Bonus</th>
-        </tr>
-    </tbody>
-</table>
+    <div id="equipment" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Equipment
+        </div>
+        <div class="nice-panel-content">
+            <ul>
+            {% for item in character.equipment %}
+                <li>{{ item }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
 
-<table class="nice-table condensed striped bordered">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Statistic</th>
-            <th>Modifier</th>
-        </tr>
-    </thead>
-    <tbody>
+    <div id="proficiencies" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Proficiencies
+        </div>
+        <table class="nice-panel-content nice-table condensed bordered">
+            <tbody>
+                <tr>
+                    <th>Languages</th>
+                    <td>
+                        <ul>
+                    {% for language in character.languages %}
+                            <li>{{ language }}</li>
+                    {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Armor</th>
+                    <td>
+                        <ul>
+                    {% for armor in character.proficiencies.armor %}
+                            <li>{{ armor }}</li>
+                    {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Weapons</th>
+                    <td>
+                        <ul>
+                    {% for weapon in character.proficiencies.weapons %}
+                            <li>{{ weapon }}</li>
+                    {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="statistics" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Statistics
+        </div>
+        <table class="nice-panel-content nice-table condensed bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Statistic</th>
+                    <th>Modifier</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stat in items.statistics %}
+                <tr>
+                    <th>{{ stat.label }}</th>
+                    <td>{{ character.stats[stat.name] }}</td>
+                    <td>
+                        {% if character.modifiers[stat.name] > 0 %}+{% endif %}
+                        {{ character.modifiers[stat.name] }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <div id="saving-throws" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Saving Throws
+        </div>
+        <table class="nice-panel-content nice-table condensed bordered">
+            <thead>
+                <tr>
+                    <th colspan="3">Saving Throws</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stat in items.statistics %}
+                <tr>
+                    <td>
+                        {% if stat.name in character.proficiencies.saving_throws %}
+                        <span class="icon fa-check-square-o">&nbsp;</span>
+                        {% else %}
+                        <span class="icon fa-square-o">&nbsp;</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if character.saving_throws[stat.name] > 0 %}+{% endif %}{{ character.saving_throws[stat.name] }}
+                    </td>
+                    <th>{{ stat.label }}</th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="skills" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Skills
+        </div>
+        <table class="nice-panel-content nice-table condensed bordered">
         {% for stat in items.statistics %}
-        <tr>
-            <th>{{ stat.label }}</th>
-            <td>{{ character.stats[stat.name] }}</td>
-            <td>
-                {% if character.modifiers[stat.name] > 0 %}+{% endif %}
-                {{ character.modifiers[stat.name] }}
-            </td>
-        </tr>
+            <thead>
+                <th colspan="3">{{ stat.label }}</th>
+            </thead>
+            <tbody>
+            {% for skill in items.skills %}
+            {% if skill.stat == stat.name %}
+                <tr>
+                    <td>
+                        {% if skill.name in character.proficiencies.skills %}
+                        <span class="icon fa-check-square-o">&nbsp;</span>
+                        {% else %}
+                        <span class="icon fa-square-o">&nbsp;</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if character.skills[skill.name] > 0 %}+{% endif %}{{ character.skills[skill.name] }}
+                    </td>
+                    <th>{{ skill.label }}</th>
+                </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
         {% endfor %}
-    </tbody>
-</table>
-
-<table class="nice-table condensed striped bordered">
-    <thead>
-        <tr>
-            <th colspan="3">Saving Throws</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for stat in items.statistics %}
-        <tr>
-            <td>
-                {% if stat.name in character.proficiencies.saving_throws %}
-                <span class="icon fa-check-square-o">&nbsp;</span>
-                {% else %}
-                <span class="icon fa-square-o">&nbsp;</span>
-                {% endif %}
-            </td>
-            <td>
-                {% if character.saving_throws[stat.name] > 0 %}+{% endif %}{{ character.saving_throws[stat.name] }}
-            </td>
-            <th>{{ stat.label }}</th>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
+        </table>
     </div>
-    <div class="nice-col-4 nice-col-mobile-8">
 
-<table class="nice-table condensed striped bordered">
-    <thead>
-        <tr>
-            <th colspan="3">Skills</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for skill in items.skills %}
-        <tr>
-            <td>
-                {% if skill.name in character.proficiencies.skills %}
-                <span class="icon fa-check-square-o">&nbsp;</span>
-                {% else %}
-                <span class="icon fa-square-o">&nbsp;</span>
-                {% endif %}
-            </td>
-            <td>
-                {% if character.skills[skill.name] > 0 %}+{% endif %}{{ character.skills[skill.name] }}
-            </td>
-            <th>{{ skill.label }}</th>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-    </div>
 </div>
 {% endblock %}

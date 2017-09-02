@@ -59,6 +59,17 @@ div#view-campaign {
                          "toc story"
                          ". story"; }
 
+div#view-character {
+    display: grid;
+    grid-gap: 1em .5em;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(5, min-content);
+    grid-template-areas: "description description info"
+                         "base statistics skills"
+                         "equipment saving-throws skills"
+                         "equipment proficiencies skills"
+                         "equipment . skills"; }
+
 @media screen and (max-width: 100em) and (orientation: portrait) {
     div#view-campaign {
         grid-template-columns: auto;
@@ -82,6 +93,14 @@ div#view-campaign {
                             "statistics statistics"
                             "actions actions"; }
     }
+
+div#view-character > #description { grid-area: description; }
+div#view-character > #info { grid-area: info; }
+div#view-character > #equipment { grid-area: equipment; }
+div#view-character > #proficiencies { grid-area: proficiencies; }
+div#view-character > #skills { grid-area: skills; }
+div#view-character > #statistics { grid-area: statistics; }
+div#view-character > #saving-throws { grid-area: saving-throws; }
 
 div#view-campaign > #title { grid-area: title; }
 div#view-campaign > #description { grid-area: description; }

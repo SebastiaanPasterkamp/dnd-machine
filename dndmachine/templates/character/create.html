@@ -55,7 +55,7 @@
     {% endif %}
 
     {% if 'group' in choise %}
-    {{ choise.group|join(', ') }}"
+    {{ choise.group|join(', ') }}
     {% for set in choise.group %}
     <input type="hidden" name="character.{{ path }}.+{{ plus }}" {{ attr }} value="{{ set }}" />
     {% endfor %}
@@ -252,7 +252,7 @@
 {{ buttons }}
 {% else %}
 {% for stat in items.statistics %}
-    <input type="hidden" name="character.stats.{{ stat.name }}" value="{{ character.base_stats[stat.name] }}" />
+    <input type="hidden" name="character.base_stats.{{ stat.name }}" value="{{ character.base_stats[stat.name] }}" />
 {% endfor %}
 {% endif %}
 
