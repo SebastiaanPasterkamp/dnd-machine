@@ -14,28 +14,35 @@ def overview():
     party_mapper = get_datamapper('party')
     character_mapper = get_datamapper('character')
 
-    search = None
-    if 'admin' in request.user['role']:
-        search = request.args.get('search', '')
-        parties = party_mapper.getList(search)
-    else:
-        parties = party_mapper.getByUserId(request.user['id'])
-        if 'dm' in request.user['role']:
-            partyIds = set([p['id'] for p in parties])
-            for party in party_mapper.getByDmUserId(request.user['id']):
-                if party['id'] not in partyIds:
-                    parties.append(party)
-                    partyIds.add(party['id'])
+    search = request.args.get('search', '')
+    parties = party_mapper.getList(search)
 
-    characters = dict([
-        (p['id'], character_mapper.getByPartyId(p['id']))
-        for p in parties
-        ])
+    if 'admin' not in request.user.role:
+        visibleParties = set()
+        if 'player' in request.user.role:
+            visibleParties |= set([
+                party.id
+                for party in party_mapper.getByUserId(request.user.id)
+                ])
+            print 'player', visibleParties
+        if 'dm' in request.user.role:
+            visibleParties |= set([
+                party.id
+                for party in party_mapper.getByDmUserId(request.user.id)
+                ])
+            print 'dm', visibleParties
+        parties = [
+            party
+            for party in parties
+            if party.id in visibleParties
+            ]
+
+    for party in parties:
+        party.members = character_mapper.getByPartyId(party.id)
 
     return render_template(
         'party/overview.html',
         parties=parties,
-        characters=characters,
         search=search
         )
 
@@ -128,16 +135,18 @@ def new():
         party=p
         )
 
-@party.route('/<int:party_id>')
+@party.route('/host/<int:party_id>')
 def host(party_id):
     session['party_id'] = party_id
     return redirect(request.referrer)
 
-@party.route('/<int:party_id>/<action>/<int:character_id>')
-@party.route('/<int:party_id>/<action>/<int:encounter_id>')
+@party.route('/<int:party_id>/<action>_character/<int:character_id>')
+@party.route('/<int:party_id>/award_<action>/<int:encounter_id>')
 def modify(party_id, action, character_id=None, encounter_id=None):
     party_mapper = get_datamapper('party')
     character_mapper = get_datamapper('character')
+
+    print 'modify', party_id, action, character_id, encounter_id
 
     p = party_mapper.getById(party_id)
     character = character_mapper.getById(character_id)
@@ -146,8 +155,8 @@ def modify(party_id, action, character_id=None, encounter_id=None):
         party_mapper.addCharacter(party_id, character_id)
         flash(
             "The Character '%s' was added to Party '%s'." % (
-                character['name'],
-                p['name']
+                character.name,
+                p.name
                 ),
             'info'
             )
@@ -155,8 +164,8 @@ def modify(party_id, action, character_id=None, encounter_id=None):
         party_mapper.delCharacter(party_id, character_id)
         flash(
             "The Character '%s' was removed from Party '%s'." % (
-                character['name'],
-                p['name']
+                character.name,
+                p.name
                 ),
             'info'
             )
