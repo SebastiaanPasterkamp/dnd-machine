@@ -19,6 +19,7 @@
                         </i>
                         <span class="badge pull-right">
                             <a href="{{ url_for('monster.edit', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                            <a href="{{ url_for('monster.delete', monster_id=monster.id) }}" class="nice-btn bad icon fa-trash">Delete</a>
                         </span>
                     </th>
                 </tr>

@@ -80,6 +80,18 @@ def edit(monster_id):
         monster=m
         )
 
+@monster.route('/del/<int:monster_id>')
+def delete(monster_id):
+    monster_mapper = get_datamapper('monster')
+
+    m = monster_mapper.getById(monster_id)
+
+    monster_mapper.delete(m)
+
+    return redirect(url_for(
+        'monster.overview'
+        ))
+
 @monster.route('/new', methods=['GET', 'POST'])
 @monster.route('/copy/<int:monster_id>')
 def new(monster_id=None):
