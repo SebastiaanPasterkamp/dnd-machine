@@ -90,17 +90,24 @@ class JsonObject(object):
         try:
             return self.__dict__[field]
         except KeyError:
-            path = '.'.join(self.splitCamelCase(field))
-            return self.getPath(path)
+            try:
+                return self.__class__.__dict__[field]
+            except KeyError:
+                path = '.'.join(self.splitCamelCase(field))
+                return self.getPath(path)
 
     def __setattr__(self, field, value):
-        if field.startswith('_') or field in self.__dict__:
+        if field.startswith('_') \
+                or field in self.__dict__ \
+                or field in self.__class__.__dict__:
             return object.__setattr__(self, field, value)
         path = '.'.join(self.splitCamelCase(field))
         self.setPath(path, value)
 
     def __setitem__(self, field, value):
-        if field.startswith('_') or field in self.__dict__:
+        if field.startswith('_') \
+                or field in self.__dict__ \
+                or field in self.__class__.__dict__:
             self.__dict__[field] = value
         path = '.'.join(self.splitCamelCase(field))
         self.setPath(path, value)
@@ -117,7 +124,7 @@ class JsonObject(object):
         if path[0] == self._pathPrefix:
             path = path[1:]
 
-        rv = structure or self._config
+        rv = structure if structure is not None else self._config
         for step in path:
             if isinstance(step, int):
                 if not isinstance(rv, list):
