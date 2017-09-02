@@ -29,11 +29,11 @@
         <tr>
             <th>Role</th>
             <td class="nice-tags-container">
-                {% for role in user.role %}
-                {% if role %}
+                {% for role in data.roles %}
+                {% if role.name in user.role %}
                 <div class="nice-tag">
                     <span class="nice-tag-label">
-                        {{ role|capitalize}}
+                        {{ role.label }}
                     </span>
                 </div>
                 {% endif %}

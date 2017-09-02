@@ -2,6 +2,7 @@
 from flask import Blueprint, request, session, g, redirect, url_for, \
     abort, render_template, flash, jsonify
 
+from ..models.user import UserObject
 from ..config import get_config
 from ..utils import get_datamapper
 
@@ -22,7 +23,7 @@ def overview():
     users = user_mapper.getList(search)
     return render_template(
         'user/overview.html',
-        info=config['info'],
+        data=config['data'],
         users=users,
         search=search
         )
@@ -42,7 +43,7 @@ def show(user_id):
     u = user_mapper.getById(user_id)
     return render_template(
         'user/show.html',
-        info=config['info'],
+        data=config['data'],
         user=u
         )
 
@@ -75,7 +76,6 @@ def edit(user_id):
 
     return render_template(
         'user/edit.html',
-        info=config['info'],
         data=config['data'],
         user=u
         )
@@ -86,7 +86,8 @@ def new():
         abort(403)
 
     config = get_config()
-    user_mapper = get_datamapper('user')
+
+    u = UserObject()
 
     if request.method == 'POST':
         if request.form["button"] == "cancel":
@@ -98,17 +99,15 @@ def new():
         u.updateFromPost(request.form)
 
         if request.form.get("button", "save") == "save":
+            user_mapper = get_datamapper('user')
             u = user_mapper.insert(u)
             return redirect(url_for(
                 'user.show',
-                user_id=u['id']
+                user_id=u.id
                 ))
-    else:
-        u = {}
 
     return render_template(
         'user/edit.html',
-        info=config['info'],
         data=config['data'],
         user=u
         )

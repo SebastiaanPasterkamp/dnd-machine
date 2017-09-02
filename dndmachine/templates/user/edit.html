@@ -7,7 +7,7 @@
 {% else %}
 <h2 class="icon fa-user-plus">User</h2>
 
-<form action="{{ url_for('user.add') }}" method="post">
+<form action="{{ url_for('user.new') }}" method="post">
 {% endif %}
     <button name="button" value="save" class="hidden">Hidden</button>
 
@@ -25,10 +25,10 @@
                 <span class="nice-input-addon">
                     Name
                 </span>
-                {% if user.id %}
-                <input type="text" disabled class="nice-form-control" value="{{ user.username }}" />
-                {% else %}
+                {% if 'admin' in request.user.role %}
                 <input type="text" class="nice-form-control" name="user.username" value="{{ user.username }}" />
+                {% else %}
+                <input type="text" disabled class="nice-form-control" value="{{ user.username }}" />
                 {% endif %}
             </div>
 
@@ -63,13 +63,12 @@
                     Role
                 </span>
                 <div class="nice-tags-container" id="role">
-                    {% for i in range(user.role|length) %}
-                    {% set role = user.role[i] %}
-                    {% if role %}
+                    {% for role in data.roles %}
+                    {% if role.name in user.role %}
                     <div class="nice-tag">
                         <span class="nice-tag-label">
-                            <input type="hidden" value="{{ role }}" name="user.role.{{ i }}" />
-                            {{ role|capitalize }}
+                            <input type="hidden" value="{{ role.name }}" name="user.role.{{ user.role.index(role.name) }}" />
+                            {{ role.label }}
                         </span>
                         <button class="nice-tag-btn">
                             <i class="icon fa-trash-o"></i>
@@ -78,13 +77,12 @@
                     {% endif %}
                     {% endfor %}
                     <select
-                        data-next="{{ user.role|length }}"
                         class="nice-form-control add-tag"
-                        data-name="user.role."
+                        data-name="user.role.+"
                         data-target="role">
                         <option value="">Assign role...</option>
                     {% for role in data.roles %}
-                        <option value="{{ role.name }}">{{ role.description }}</option>
+                        <option value="{{ role.name }}">{{ role.label }}</option>
                     {% endfor %}
                     </select>
                 </div>
