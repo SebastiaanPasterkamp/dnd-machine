@@ -6,7 +6,7 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Level</th>
+            <th>Progress</th>
             {% if users %}
             <th>User</th>
             {% endif %}
@@ -22,7 +22,14 @@
         {% for character in characters %}
         <tr>
             <td>{{ character.name }}</td>
-            <td>{{ character.level }}</td>
+            <td>
+                <div class="nice-progress good">
+                    <div class="nice-progress-fill" style="width: {{ (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) }}%;">
+                        Level {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
+                    </div>
+                </div>
+            </td>
+
             {% if users and character.user_id %}
             <td>{{ users[character.user_id].username }}</td>
             {% endif %}

@@ -27,21 +27,6 @@
                 </span>
                 <input type="text" class="nice-form-control" name="character.name" value="{{ character.name }}" />
             </div>
-
-            <div class="nice-control-group">
-                <span class="nice-input-addon">
-                    Level
-                </span>
-                <select class="nice-form-control" name="character.level">
-                {% for level in range(1, 21) %}
-                    {% if level == character.level %}
-                    <option selected>{{ level }}</option>
-                    {% else %}
-                    <option>{{ level }}</option>
-                    {% endif %}
-                {% endfor %}
-                </select>
-            </div>
         </div>
 
     </div>

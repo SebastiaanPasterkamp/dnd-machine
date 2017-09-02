@@ -6,7 +6,6 @@ import parser
 import re
 
 from ..config import get_config, get_item_data
-from .character import CharacterMapper
 
 class DndMachine(object):
     def __init__(self, config):
@@ -108,44 +107,6 @@ class DndMachine(object):
             index = min(indexes, key=lambda i: abs(i - target))
         data = self.monster_scaling[index]
         return data["challenge"], index
-
-    def computeCharacterStatistics(self, character):
-        items = get_item_data()
-
-        for stat, modifier in character.modifiers.iteritems():
-            character.saving_throws[stat] = modifier
-            if stat in character.proficienciesSaving_throws:
-                character.saving_throws[stat] += character.proficiency
-
-        for stat in items["statistics"]:
-            stat = stat["name"]
-            character.stats[stat] = character.base_stats[stat] \
-                + character.stats_bonus[stat]
-            character.modifiers[stat] = int(
-                (character.stats[stat] - 10) / 2
-                )
-
-        for skill in items["skills"]:
-            stat, skill = skill["stat"], skill["name"]
-            character.skills[skill] = character.modifiers[stat]
-            if skill in character.proficienciesSkills:
-                character.skills[skill] += character.proficiency
-
-        for path, compute in character.computed.iteritems():
-            value = self.resolveMath(
-                character, compute.get("formula", ""))
-            for bonus in compute.get('bonus', []):
-                value += resolveMath(character, bonus)
-            character.setPath(path, value)
-
-        cr = self.challengeByLevel(character['level'])
-        for challenge, rating in cr.iteritems():
-            character[challenge] = rating
-
-        character.xp_level = self.xpAtLevel(character.level)
-        character.xp_next_level = \
-            self.xpAtLevel(character.level + 1)
-        return character
 
     def computeMonsterChallengeRating(self, hit_points, armor_class,
                                average_damage, attack_bonus, spell_dc):
