@@ -56,18 +56,27 @@ def overview(party_id=None):
         )
 
 @character.route('/show/<int:character_id>')
-def show(character_id):
+@character.route('/show/<int:party_id>/<int:character_id>')
+def show(character_id, party_id=None):
     items = get_item_data()
     character_mapper = get_datamapper('character')
     user_mapper = get_datamapper('user')
     machine = get_datamapper('machine')
 
+    party_members = []
+    if party_id:
+        party_members = [
+            c.id
+            for c in character_mapper.getByPartyId(party_id)
+            ]
+
     c = character_mapper.getById(character_id)
-    if c['user_id'] != request.user['id'] \
-            and 'admin' not in request.user['role']:
+    if c.user_id != request.user.id \
+            and c.id not in party_members \
+            and not any([role in request.user.role for role in ['admin', 'dm']]):
         abort(403)
 
-    user = user_mapper.getById(c['user_id'])
+    user = user_mapper.getById(c.user_id)
 
     return render_template(
         'character/show.html',
@@ -153,7 +162,7 @@ def edit(character_id):
 
     c = character_mapper.getById(character_id)
     if c['user_id'] != request.user['id'] \
-            and 'admin' not in request.user['role']:
+            and not any([role in request.user.role for role in ['admin', 'dm']]):
         abort(403)
 
     if request.method == 'POST':

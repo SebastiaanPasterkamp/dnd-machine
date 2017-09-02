@@ -24,8 +24,12 @@
                         <div class="nice-btn-group pull-right">
                             <a href="{{ url_for('character.edit', character_id=character.id) }}" class="nice-btn icon fa-cog">Edit</a>
                             <a href="{{ url_for('character.download', character_id=character.id) }}" class="nice-btn icon fa-download">Download</a>
+                            {% if 'admin' in request.user.role %}
                             <a href="{{ url_for('character.raw', character_id=character.id) }}" class="nice-btn icon fa-database">Raw</a>
+                            {% endif %}
+                            {% if character.user_id == request.user.id %}
                             <a href="{{ url_for('character.delete', character_id=character.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+                            {% endif %}
                         </div>
                         {% endif %}
                     </th>

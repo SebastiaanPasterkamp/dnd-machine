@@ -10,10 +10,12 @@
         <tr>
             <th colspan="2">
                 <h3>{{ party.name }}</h3>
+                {% if 'dm' in request.user.role and party.user_id == request.user.id %}
                 <div class="nice-btn-group pull-right">
                     <a href="{{ url_for('party.edit', party_id=party.id) }}" class="nice-btn icon fa-cog">Edit</a>
                     <a href="{{ url_for('party.delete', party_id=party.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
                 </div>
+                {% endif %}
             </th>
         </tr>
     </thead>
@@ -38,7 +40,6 @@
     <thead>
         <tr>
             <th>Party size</th>
-            <th>Challenge modifier</th>
             <th class="info">Easy</th>
             <th class="good">Medium</th>
             <th class="warning">Hard</th>
@@ -48,7 +49,6 @@
     <tbody>
         <tr>
             <td>{{ party.size }}</td>
-            <td>{{ party.modifier }}</td>
             <td class="info">{{ party.easy }}XP</td>
             <td class="good">{{ party.medium }}XP</td>
             <td class="warning">{{ party.hard }}XP</td>
@@ -71,7 +71,7 @@
             <th>Medium</th>
             <th>Hard</th>
             <th>Deadly</th>
-            <th>Modify party</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -85,13 +85,16 @@
             <td class="bad">{{ character.deadly }}XP</td>
             <td>
                 <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('character.show', character_id=character.id) }}" class="nice-btn icon fa-eye">View</a>
+                    <a href="{{ url_for('character.show', character_id=character.id, party_id=party.id) }}" class="nice-btn icon fa-eye">View</a>
+                    {% if 'dm' in request.user.role and party.user_id == request.user.id %}
                     <a href="{{ url_for('party.modify', party_id=party.id, action='del', character_id=character.id) }}" class="nice-btn bad icon fa-times">Remove</a>
+                    {% endif %}
                 </div>
             </td>
         </tr>
         {% endfor %}
     </tbody>
+    {% if 'dm' in request.user.role and party.user_id == request.user.id %}
     <tfooter>
         <tr>
             <td colspan="6"></td>
@@ -102,5 +105,6 @@
             </td>
         </tr>
     </tfooter>
+    {% endif %}
 </table>
 {% endblock %}

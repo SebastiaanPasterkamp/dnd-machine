@@ -12,6 +12,7 @@ class CharacterObject(JsonObject):
                 "race": u"",
                 "class": u"",
                 "background": u"",
+                "alignment": u"true neutral",
                 "level": 1,
                 "xp": 0,
                 "base_stats": {
@@ -70,7 +71,7 @@ class CharacterObject(JsonObject):
             keepFields = [
                 'user_id',
                 'xp',
-                'race', 'class', 'background',
+                'race', 'class', 'background', 'alignment',
                 'base_stats', 'stats_bonus',
                 'equipment', 'proficiencies', 'languages',
                 'computed'
@@ -165,6 +166,26 @@ class CharacterMapper(JsonObjectDataMapper):
             "`name` LIKE :search",
             {"search": '%%%s%%' % search}
             )
+
+    def insert(self, obj):
+        """Adds the link between user and character after inserting"""
+        new_obj = super(CharacterMapper, self).update(obj)
+        self.db.execute("""
+            INSERT INTO `user_characters` (`user_id`, `character_id`)
+            VALUES (:user_id, :character_id)""",
+            new_obj)
+        self.db.commit()
+        return new_obj
+
+    def delete(self, obj):
+        """Removes the link between user and character before deleting"""
+        cur = self.db.execute("""
+            DELETE FROM `user_characters`
+            WHERE `user_id` = :user_id AND `character_id` = :id
+            """ % self.table,
+            [obj]
+            )
+        return super(CharacterMapper, self).delete(obj)
 
     def getByPartyId(self, party_id):
         """Returns all characters in a party by party_id"""

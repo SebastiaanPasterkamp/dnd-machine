@@ -8,7 +8,7 @@
             <th>Name</th>
             <th>Size</th>
             <th>Challenge Rating</th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -19,10 +19,14 @@
             <td>{{ encounter.challenge_rating }} / {{ encounter.xp }} XP</td>
             <td>
                 <div class="nice-btn-group pull-right">
+                {% if session.party_id %}
                     <a href="{{ url_for('encounter.show', encounter_id=encounter.id, party_id=session.party_id) }}" class="nice-btn icon fa-eye">View</a>
-                    {% if 'dm' in request.user.role %}
+                {% else %}
+                    <a href="{{ url_for('party.overview') }}" class="nice-btn icon warning fa-beer">Host a party</a>
+                {% endif %}
+                {% if 'dm' in request.user.role %}
                     <a href="{{ url_for('encounter.edit', encounter_id=encounter.id, action='edit') }}" class="nice-btn icon fa-cog">Edit</a>
-                    {% endif %}
+                {% endif %}
                 </div>
             </td>
         </tr>

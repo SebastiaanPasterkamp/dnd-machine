@@ -97,9 +97,14 @@
                                 </li>
                                 {% if request.party %}
                                 <li>
-                                    <span class="icon fa-beer">
-                                        Hosting "{{ request.party.name }}"
-                                    </span>
+                                    <a href="{{ url_for('party.show', party_id=request.party.id) }}" class="icon fa-beer">
+                                       {{ request.party.name }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('party.host', party_id=0) }}" class="icon fa-ban">
+                                       Stop hosting
+                                    </a>
                                 </li>
                                 {% endif %}
                                 <li>

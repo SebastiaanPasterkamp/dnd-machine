@@ -6,7 +6,7 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Size</th>
+            <th>Members</th>
             <th></th>
         </tr>
     </thead>
@@ -14,14 +14,33 @@
         {% for party in parties %}
         <tr>
             <td>{{ party.name }}</td>
-            <td>{{ party.size }}</td>
+            <td>
+                <ul class="text-align-left">
+                {% for character in party.members %}
+                    <li>
+                        {{ character.name }}, Level {{ character.level }} {{ character.race }} {{ character.class }} ({{ character.alignment }})
+                        <div class="nice-progress good">
+                            <div class="nice-progress-fill" style="width: {{ (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) }}%;">
+                                Level {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            </td>
             <td>
                 <div class="nice-btn-group pull-right">
-                    {% if 'dm' in request.user.role and not request.party_id %}
-                    <a href="{{ url_for('party.host', party_id=party.id) }}" class="nice-btn icon good fa-beer">Host</a>
+                    {% if 'dm' in request.user.role %}
+                        {% if party.id != request.party.id %}
+                        <a href="{{ url_for('party.host', party_id=party.id) }}" class="nice-btn icon good fa-beer">Host</a>
+                        {% else %}
+                        <a href="{{ url_for('party.host', party_id=0) }}" class="nice-btn icon warning fa-ban">Stop hosting</a>
+                        {% endif %}
                     {% endif %}
                     <a href="{{ url_for('party.show', party_id=party.id) }}" class="nice-btn icon fa-eye">View</a>
-                    <a href="{{ url_for('party.delete', party_id=party.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+                    {% if 'dm' in request.user.role and party.user_id == request.user.id %}
+                        <a href="{{ url_for('party.delete', party_id=party.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+                    {% endif %}
                 </div>
             </td>
         </tr>

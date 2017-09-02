@@ -19,16 +19,27 @@
         Description
     </div>
     <div class="nice-panel-content">
-        <div class="nice-form-group">
 
-            <div class="nice-control-group">
-                <span class="nice-input-addon">
-                    Name
-                </span>
-                <input type="text" class="nice-form-control" name="character.name" value="{{ character.name }}" />
-            </div>
+        <div class="nice-control-group">
+            <span class="nice-input-addon">
+                Name
+            </span>
+            <input type="text" class="nice-form-control" name="character.name" value="{{ character.name }}" />
         </div>
 
+        <div class="nice-control-group">
+            <span class="nice-input-addon">
+                Alignment
+            </span>
+            <select class="nice-form-control" name="character.alignment">
+            {% for b in ['good', 'neutral', 'evil'] %}
+            {% for a in ['lawful', 'neutral', 'chaotic'] %}
+                {% set alignment = ('true' if a == b else a) + ' ' + b %}
+                <option>{{ alignment|capitalize }}</option>
+            {% endfor %}
+            {% endfor %}
+            </select>
+        </div>
     </div>
 </div>
 

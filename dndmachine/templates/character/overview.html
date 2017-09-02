@@ -6,10 +6,13 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Progress</th>
+            <th>Race</th>
+            <th>Class</th>
+            <th>Alignment</th>
             {% if users %}
             <th>User</th>
             {% endif %}
+            <th>Progress</th>
             <th>
             {% if party %}
                 Party:
@@ -22,6 +25,14 @@
         {% for character in characters %}
         <tr>
             <td>{{ character.name }}</td>
+            <td>{{ character.race }}</td>
+            <td>{{ character.class }}</td>
+            <td>{{ character.alignment }}</td>
+
+            {% if users and character.user_id %}
+            <td>{{ users[character.user_id].username }}</td>
+            {% endif %}
+
             <td>
                 <div class="nice-progress good">
                     <div class="nice-progress-fill" style="width: {{ (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) }}%;">
@@ -30,9 +41,6 @@
                 </div>
             </td>
 
-            {% if users and character.user_id %}
-            <td>{{ users[character.user_id].username }}</td>
-            {% endif %}
             <td>
                 <div class="nice-btn-group pull-right">
                 {% if party %}
@@ -43,7 +51,9 @@
                     {% endif %}
                 {% endif %}
                     <a href="{{ url_for('character.show', character_id=character.id) }}" class="nice-btn icon fa-eye">View</a>
+                {% if character.user_id == request.user.id or 'dm' in request.user.role %}
                     <a href="{{ url_for('character.edit', character_id=character.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                {% endif %}
                 </div>
             </td>
         </tr>
@@ -52,9 +62,9 @@
     <tfooter>
         <tr>
             {% if users %}
-            <td colspan="3"></td>
+            <td colspan="6"></td>
             {% else%}
-            <td colspan="2"></td>
+            <td colspan="5"></td>
             {% endif %}
             <td>
                 <div class="nice-btn-group pull-right">
