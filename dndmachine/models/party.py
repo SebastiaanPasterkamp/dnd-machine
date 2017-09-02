@@ -2,6 +2,7 @@ from base import JsonObject, JsonObjectDataMapper
 
 class PartyObject(JsonObject):
     def __init__(self, config={}):
+        self._members = []
         super(PartyObject, self).__init__(
             config,
             pathPrefix = "party",
@@ -10,6 +11,22 @@ class PartyObject(JsonObject):
                 },
             keepFields = ['name', 'user_id']
             )
+
+    @property
+    def members(self):
+        return self._members
+
+    @members.setter
+    def members(self, members):
+        self._members = members
+        self.compute()
+
+    def compute(self):
+        if self._members:
+            self.size = len(self._members)
+            for cr in ['easy', 'medium', 'hard', 'deadly']:
+                self[cr] = sum([c[cr] for c in self._members])
+
 
 class PartyMapper(JsonObjectDataMapper):
     obj = PartyObject
