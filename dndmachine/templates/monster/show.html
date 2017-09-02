@@ -140,7 +140,12 @@
                 <tbody>
                     {% for rotation in monster.multiattack %}
                     <tr>
-                        <th>{{ rotation.name }}{% if rotation.condition %}<br/><i>({{ rotation.condition }})</i>{% endif %}</th>
+                        <th>
+                            {{ rotation.name }}
+                            {% if rotation.condition %}
+                            {{ ('(' ~ rotation.condition ~ ')')|markdown }}
+                            {% endif %}
+                        </th>
                         <td>
                             {{ rotation.description|markdown|replace('%average%', rotation.average) }}
                         </td>
