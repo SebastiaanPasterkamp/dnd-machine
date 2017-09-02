@@ -25,7 +25,7 @@ Choose the role you played in your criminal life, or roll
 on the table below.
 
 | d8 | Specialty |
-| -- | --------- |
+| --- | --- |
 | 1 | Blackmailer |
 | 2 | Burglar |
 | 3 | Enforcer |

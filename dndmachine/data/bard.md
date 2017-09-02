@@ -71,7 +71,7 @@ after telling so many stories about heroes accomplishing
 mighty deeds, many bards take these themes to heart
 and assume heroic roles themselves.
 
-## Creating a Bard
+# Creating a Bard
 Bards thrive on stories, whether those stories are true
 or not. Your character's background and motivations
 are not as important as the stories that he or she tells
@@ -93,16 +93,16 @@ child tutored by a master. Perhaps you stumbled into the
 clutches of a hag, making a bargain for a musical gift in
 addition to your life and freedom, but at what cost?
 
-## class features
+## Class Features
 As a bard, you gain the following class features.
 
 ### Hit Points
-**Hit Dice:** 1d8 per cleric level
+**Hit Dice:** 1d8 per bard level
 
 **Hit Points at 1st Level:** 8 + your Constitution modifier
 
 **Hit Points at Higher Levels:** 1d8 (or 5) + your
-Constitution modifier per cleric level after 1st
+Constitution modifier per bard level after 1st
 
 ### Proficiencies
 **Armor:** Light armor
