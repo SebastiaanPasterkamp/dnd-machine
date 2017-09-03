@@ -148,23 +148,6 @@
             "xp": 10
         }
     },
-    "encounter": {
-        "encounter_modifiers": {
-            "party": [
-                {"min": 1, "max": 2, "modifier": 0.5},
-                {"min": 3, "max": 5, "modifier": 0.0},
-                {"min": 6, "max": 8, "modifier": -0.5}
-            ],
-            "encounter": [
-                {"min": 1, "max": 1, "modifier": 1.0},
-                {"min": 2, "max": 2, "modifier": 1.5},
-                {"min": 3, "max": 6, "modifier": 2.0},
-                {"min": 7, "max": 10, "modifier": 2.5},
-                {"min": 11, "max": 14, "modifier": 3.0},
-                {"min": 15, "max": 20, "modifier": 4.0}
-            ]
-        }
-    },
     "machine": {
         "xp_at_level": {
             "1": 0,

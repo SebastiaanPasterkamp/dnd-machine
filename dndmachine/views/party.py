@@ -171,17 +171,22 @@ def modify(party_id, action, character_id=None, encounter_id=None):
             )
     elif action == 'xp' and encounter_id:
         encounter_mapper = get_datamapper('encounter')
-        encounter = encounter_mapper.getById(encounter_id)
+        monster_mapper = get_datamapper('monster')
 
-        characters = character_mapper.getByPartyId(party_id)
-        for character in characters:
-            character.xp += int(encounter.xp / len(characters))
+        p.members = character_mapper.getByPartyId(party_id)
+
+        encounter = encounter_mapper.getById(encounter_id)
+        encounter.party = p
+        encounter.monsters = monster_mapper.getByEncounterId(encounter_id)
+
+        for character in p.members:
+            character.xp += int(encounter.xp / len(p.members))
             character_mapper.update(character)
 
         flash(
             "The Characters have been rewarded %d XP (%d / %d)." % (
-                int(encounter.xp / len(characters)),
-                encounter.xp, len(characters)
+                int(encounter.xp / len(p.members)),
+                encounter.xp, len(p.members)
                 ),
             'info'
             )

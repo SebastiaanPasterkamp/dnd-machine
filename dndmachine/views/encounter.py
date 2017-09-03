@@ -14,12 +14,15 @@ encounter = Blueprint(
 def overview(encounter_id=None):
     encounter_mapper = get_datamapper('encounter')
 
-    search = None
-    if 'admin' in request.user['role']:
-        search = request.args.get('search', '')
-        encounters = encounter_mapper.getList(search)
-    else:
-        encounters = encounter_mapper.getByDmUserId(request.user['id'])
+    search = request.args.get('search', '')
+    encounters = encounter_mapper.getList(search)
+
+    if 'admin' not in request.user['role']:
+        encounters = [
+            e
+            for e in encounters
+            if e.user_id == request.user.id
+            ]
 
     return render_template(
         'encounter/overview.html',
@@ -38,14 +41,15 @@ def show(encounter_id, party_id=None):
     party_mapper = get_datamapper('party')
     character_mapper = get_datamapper('character')
     monster_mapper = get_datamapper('monster')
-    machine = get_datamapper('machine')
 
     e = encounter_mapper.getById(encounter_id)
-    user = user_mapper.getById(e['user_id'])
-    party = party_mapper.getById(party_id)
-    party.members = character_mapper.getByPartyId(party['id'])
+    user = user_mapper.getById(e.user_id)
 
-    monsters = monster_mapper.getByEncounterId(encounter_id)
+    party = party_mapper.getById(party_id)
+    party.members = character_mapper.getByPartyId(party_id)
+    e.party = party
+
+    e.monsters = monster_mapper.getByEncounterId(encounter_id)
 
     combatants = [
         {
@@ -53,20 +57,24 @@ def show(encounter_id, party_id=None):
             'initiative': 0,
             'name': c.name,
             'hit_points': c.hit_points,
-            'current_hit_points': c.hit_points
+            'current_hit_points': c.hit_points,
+            'damage_taken': u'',
+            'notes': u''
             }
-            for i, c in enumerate(party.members)
+            for i, c in enumerate(e.party.members)
         ]
-    offset = len(party.members)
+    offset = len(e.party.members)
     combatants.extend([
         {
             'index': offset + i,
             'initiative': 0,
             'name': m.name,
             'hit_points': m.hit_points,
-            'current_hit_points': m.hit_points
+            'current_hit_points': m.hit_points,
+            'damage_taken': u'',
+            'notes': u''
             }
-            for i, m in enumerate(monsters)
+            for i, m in enumerate(e.monsters)
         ])
 
     if request.method == 'POST':
@@ -75,6 +83,7 @@ def show(encounter_id, party_id=None):
                 'initiative-%d' % c['index'], c['initiative']
                 ))
             c['current_hit_points'] = c['hit_points']
+            c['notes'] = request.form.get('notes-%d' % c['index'], u'')
             c['damage_taken'] = request.form.get(
                 'damage-taken-%d' % c['index'], '')
             for m in re.finditer(ur'[+-]?\d+', c['damage_taken']):
@@ -88,28 +97,27 @@ def show(encounter_id, party_id=None):
                     pass
         combatants = sorted(
             combatants,
-            key=lambda c: c['initiative'],
+            key=lambda c: (c['current_hit_points'] > 0, c['initiative']),
             reverse=True
             )
     mode = request.form.get('mode', 'initiative')
 
     info = {}
-    for monster in monsters:
-        if monster['id'] not in info:
-            info[monster['id']] = {
+    for monster in e.monsters:
+        if monster.id not in info:
+            info[monster.id] = {
                 'count': 1,
                 'monster': monster
                 }
         else:
-            info[monster['id']]['count'] += 1
-    e = encounter_mapper.computeChallenge(e, monsters, party)
+            info[monster.id]['count'] += 1
 
     return render_template(
         'encounter/show.html',
         encounter=e,
         mode=mode,
         user=user,
-        party=party,
+        party=e.party,
         combatants=combatants,
         monsters=info.values()
         )
@@ -121,9 +129,10 @@ def edit(encounter_id):
     machine = get_datamapper('machine')
 
     e = encounter_mapper.getById(encounter_id)
-    if e['user_id'] != request.user['id'] \
-            and 'admin' not in request.user['role']:
+    if e.user_id != request.user.id \
+            and 'admin' not in request.user.role:
         abort(403)
+    e.monsters = monster_mapper.getByEncounterId(encounter_id)
 
     if request.method == 'POST':
         if request.form["button"] == "cancel":
@@ -147,14 +156,12 @@ def edit(encounter_id):
                 encounter_id=encounter_id
                 ))
 
-    monsters = monster_mapper.getByEncounterId(encounter_id)
-
-    e = encounter_mapper.computeChallenge(e, monsters)
+    e.monsters = monster_mapper.getByEncounterId(encounter_id)
 
     return render_template(
         'encounter/edit.html',
         encounter=e,
-        monsters=monsters
+        monsters=e.monsters
         )
 
 @encounter.route('/del/<int:encounter_id>')
@@ -162,8 +169,8 @@ def delete(encounter_id):
     encounter_mapper = get_datamapper('encounter')
 
     e = encounter_mapper.getById(encounter_id)
-    if e['user_id'] != request.user['id'] \
-            and 'admin' not in request.user['role']:
+    if e.user_id != request.user.id \
+            and 'admin' not in request.user.role:
         abort(403)
 
     encounter_mapper.delete(e)
@@ -176,7 +183,9 @@ def delete(encounter_id):
 def new():
     encounter_mapper = get_datamapper('encounter')
 
-    e = EncounterObject()
+    e = EncounterObject({
+        'user_id': request.user.id
+        })
 
     if request.method == 'POST':
         if request.form["button"] == "cancel":
@@ -185,17 +194,13 @@ def new():
                 ))
 
         e.updateFromPost(request.form)
-        e.user_id = request.user['id']
-        e = encounter_mapper.computeChallenge(e)
 
         if request.form.get("button", "save") == "save":
             e = encounter_mapper.insert(e)
             return redirect(url_for(
                 'encounter.edit',
-                encounter_id=e['id']
+                encounter_id=e.id
                 ))
-    else:
-        e = {}
 
     return render_template(
         'encounter/edit.html',
@@ -206,7 +211,6 @@ def new():
 def modify(encounter_id, action, monster_id):
     encounter_mapper = get_datamapper('encounter')
     monster_mapper = get_datamapper('monster')
-    machine = get_datamapper('machine')
 
     e = encounter_mapper.getById(encounter_id)
     monster = monster_mapper.getById(monster_id)
@@ -215,8 +219,8 @@ def modify(encounter_id, action, monster_id):
         encounter_mapper.addMonster(encounter_id, monster_id)
         flash(
             "The Monster '%s' was added to Encounter '%s'." % (
-                monster['name'],
-                e['name']
+                monster.name,
+                e.name
                 ),
             'info'
             )
@@ -224,17 +228,15 @@ def modify(encounter_id, action, monster_id):
         encounter_mapper.delMonster(encounter_id, monster_id)
         flash(
             "The Monster '%s' was removed from Encounter '%s'." % (
-                monster['name'],
-                e['name']
+                monster.name,
+                e.name
                 ),
             'info'
             )
     else:
         flash("Unknown action '%s'." % action, 'error')
 
-    monsters = monster_mapper.getByEncounterId(encounter_id)
-    e = encounter_mapper.computeChallenge(e, monsters)
-
+    e.monsters = monster_mapper.getByEncounterId(encounter_id)
     encounter_mapper.update(e)
 
     return redirect(request.referrer)
