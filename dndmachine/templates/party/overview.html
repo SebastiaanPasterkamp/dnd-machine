@@ -20,8 +20,15 @@
                     <li>
                         {{ character.name }}, Level {{ character.level }} {{ character.race }} {{ character.class }} ({{ character.alignment }})
                         <div class="nice-progress good">
-                            <div class="nice-progress-fill" style="width: {{ (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) }}%;">
+                            {% set percent = (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) %}
+                            <div class="nice-progress-fill" style="width: {{ percent }}%;">
+                                {%- if percent > 33.0 -%}
                                 Level {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
+                                {%- elif percent > 10.0 -%}
+                                Level {{ character.level }}
+                                {%- else -%}
+                                {{ character.level }}
+                                {%- endif -%}
                             </div>
                         </div>
                     </li>
