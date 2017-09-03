@@ -29,7 +29,7 @@
         "size": "medium",
         "speed": 25,
         "senses": {
-            "given": ["Darkvision"]
+            "given": ["darkvision"]
         },
         "proficiencies": {
             "weapons": {
@@ -40,7 +40,7 @@
             }
         },
         "languages": {
-            "given": ["Dwarvish"]
+            "given": ["dwarvish"]
         },
         "info": {
             "Darkvision": "Accustomed to life underground, you have superior vision in dark and dim conditions. You  can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray.",
@@ -88,7 +88,7 @@
             }
         },
         "languages": {
-            "given": ["Elvish"]
+            "given": ["elvish"]
         },
         "info": {
             "Darkvision": "Accustomed to twilit forests and the night sky, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray.",
@@ -112,7 +112,7 @@
                 }
             },
             "info": {
-                "*Speak with Small Beasts": "Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts. Forest gnomes love animals and often keep squirrels, badgers, rabbits, moles, woodpeckers, and other creatures as beloved pets."
+                "Speak with Small Beasts": "Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts. Forest gnomes love animals and often keep squirrels, badgers, rabbits, moles, woodpeckers, and other creatures as beloved pets."
             }
         }, {
             "name": "Rock Gnome",
@@ -130,10 +130,10 @@
         "size": "small",
         "speed": 25,
         "senses": {
-            "given": ["Darkvision"]
+            "given": ["darkvision"]
         },
         "languages": {
-            "given": ["Common", "Gnomish"]
+            "given": ["common", "gnomish"]
         },
         "info": {
             "Darkvision": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
@@ -152,7 +152,7 @@
         "size": "medium",
         "speed": 30,
         "senses": {
-            "given": ["Darkvision"]
+            "given": ["darkvision"]
         },
         "proficiencies": {
             "skills": {
@@ -194,7 +194,7 @@
         "size": "small",
         "speed": 25,
         "languages": {
-            "given": ["Common", "Halfing"]
+            "given": ["common", "halfing"]
         },
         "info": {
             "Lucky": "When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.",
@@ -235,7 +235,7 @@
         "speed": 30,
         "languages": {
             "options": "languages.common,languages.exotic",
-            "given": ["Common"]
+            "given": ["common"]
         }
     }],
     "class": [{
@@ -256,6 +256,9 @@
             "saving_throws": {
                 "given": ["dexterity", "charisma"]
             },
+            "advantages": {
+                "given": ["intelligence", "wisdom", "charisma"]
+            },
             "armor": {
                 "given": ["Light Armor"]
             },
@@ -264,9 +267,9 @@
             },
             "tools": {
                 "sets": [
-                    {"options": "items.musical"},
-                    {"options": "items.musical"},
-                    {"options": "items.musical"}
+                    {"options": "items.musical.items"},
+                    {"options": "items.musical.items"},
+                    {"options": "items.musical.items"}
                 ]
             }
         },
@@ -274,11 +277,11 @@
             "sets": [
                 {"choose": [
                     {"options": ["Rapier", "Longsword"]},
-                    {"options": "weapons.simple.melee,weapons.simple.ranged"}
+                    {"options": "weapons.simple.melee.items,weapons.simple.ranged.items"}
                 ]},
                 {"choose": [
                     {"group": ["Lute"]},
-                    {"options": "items.musical"}
+                    {"options": "items.musical.items"}
                 ]}
             ],
             "given": ["Leather Armor", "Dagger"]
@@ -318,7 +321,7 @@
                 "given": ["wisdom", "charisma"]
             },
             "armor": {
-                "given": ["Light Armor", "Medium Armor", "Shield"]
+                "given": ["Light Armor", "Medium Armor", "Shields"]
             },
             "weapons": {
                 "given": ["Simple Weapons"]
@@ -371,7 +374,7 @@
                 "given": ["strength", "constitution"]
             },
             "armor": {
-                "given": ["Light Armor", "Medium Armor", "Heavy Armor", "Shield"]
+                "given": ["Light Armor", "Medium Armor", "Heavy Armor", "Shields"]
             },
             "weapons": {
                 "given": ["Simple Weapons", "Martial Weapons"]
@@ -381,12 +384,12 @@
             "sets": [
                 {"choose": [
                     {"group": ["Chain mail"]},
-                    {"group": ["Leather armor", "Longbow", "20 Arrows"]}
+                    {"group": ["Leather Armor", "Longbow", "20 Arrows"]}
                 ]},
                 {"choose": [
                     {"multiple": [
                         {"options": "weapons.martial.melee,weapons.martial.ranged"},
-                        {"options": "armor.shield"}
+                        {"options": "armor.shield.items"}
                     ]},
                     {"multiple": [
                         {"options": "weapons.martial.melee,weapons.martial.ranged"},
@@ -421,7 +424,7 @@
                 "given": ["wisdom", "charisma"]
             },
             "armor": {
-                "given": ["Light Armor", "Heavy Armor", "Shield"]
+                "given": ["Light Armor", "Heavy Armor", "Shields"]
             },
             "weapons": {
                 "given": ["Simple Weapons", "Martial Weapons"]
@@ -432,7 +435,7 @@
                 {"choose": [
                     {"multiple": [
                         {"options": "weapons.martial.melee,weapons.martial.ranged"},
-                        {"options": "armor.shield"}
+                        {"options": "armor.shield.items"}
                     ]},
                     {"multiple": [
                         {"options": "weapons.martial.melee,weapons.martial.ranged"},
@@ -480,7 +483,7 @@
                 "given": ["Light Armor"]
             },
             "weapons": {
-                "given": ["Simple weapons", "Hand Crossbow", "Longsword", "Rapier", "Shortsword"]
+                "given": ["Simple Weapons", "Hand Crossbow", "Longsword", "Rapier", "Shortsword"]
             },
             "tools": {
                 "given": ["Thieves’ tools"]
@@ -502,7 +505,7 @@
                     {"group": "packs.Explorer’s Pack.items"}
                 ]}
             ],
-            "given": ["Leather armor", "Two Daggers", "Thieves’ Tools"]
+            "given": ["Leather armor", "Dagger", "Dagger", "Thieves’ Tools"]
         }
     }],
     "background": [{
@@ -558,7 +561,7 @@
                 "given": ["deception", "stealth"]
             },
             "tools": {
-                "options": ["Gaming Set", "Thieves’ Tools"]
+                "options": ["Gaming Sets", "Thieves’ Tools"]
             }
         },
         "equipment": {
@@ -579,14 +582,14 @@
                 "given": ["acrobatics", "performance"]
             },
             "tools": {
-                "options": "items.musical",
+                "options": "items.musical.items",
                 "given": ["Disguise Kit"]
             }
         },
         "equipment": {
             "sets": [
                 {"choose": [
-                    {"options": "items.musical"},
+                    {"options": "items.musical.items"},
                     {"options": ["Spear", "Trident", "Whip", "Net"]}
                 ]},
                 {"choose": [
@@ -616,7 +619,7 @@
         },
         "equipment": {
             "options": "tools.artisan",
-            "given": ["Shovel", "Iron Pot", "Set of Common Clothes", "pouch"]
+            "given": ["Shovel", "Iron Pot", "Set of Common Clothes", "Pouch"]
         },
         "wealth": {
             "gp": 15

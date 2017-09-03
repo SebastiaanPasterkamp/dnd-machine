@@ -81,8 +81,55 @@
         <table class="nice-panel-content nice-table condensed bordered">
             <tbody>
                 <tr>
+                    <th>Armor Class</th>
+                    <td>{{ character.armor_class }}</td>
+                </tr>
+                <tr>
+                    <th>Hit Points</th>
+                    <td>{{ character.hit_points }}</td>
+                </tr>
+                <tr>
+                    <th>Hit Dice</th>
+                    <td>{{ character.level}}d{{ character.hit_dice }}</td>
+                </tr>
+                <tr>
+                    <th>Speed</th>
+                    <td>{{ character.speed }}</td>
+                </tr>
+                <tr>
+                    <th>Initiative Modifier</th>
+                    <td>{{ character.initiative_bonus|bonus }}</td>
+                </tr>
+                <tr>
+                    <th>Passive Perception</th>
+                    <td>{{ character.passive_perception }}</td>
+                </tr>
+                <tr>
                     <th>Proficiency Bonus</th>
-                    <td>{{ character.proficiency }}</td>
+                    <td>{{ character.proficiency|bonus }}</td>
+                </tr>
+                <tr>
+                    <th>Spells</th>
+                    <td>
+                        <ul>
+                            <li>
+                                <strong>Class:</strong>
+                                {{ character.class }}
+                            </li>
+                            <li>
+                                <strong>Ability:</strong>
+                                {{ character.spell_stat }}
+                            </li>
+                            <li>
+                                <strong>DC:</strong>
+                                {{ character.spell_safe_dc }}
+                            </li>
+                            <li>
+                                <strong>Attack Modifier:</strong>
+                                {{ character.spell_attack_modifier|bonus }}
+                            </li>
+                        </dl>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -92,13 +139,143 @@
         <div class="nice-panel-heading">
             Equipment
         </div>
-        <div class="nice-panel-content">
-            <ul>
-            {% for item in character.equipment %}
-                <li>{{ item }}</li>
-            {% endfor %}
-            </ul>
-        </div>
+        <table class="nice-panel-content nice-table condensed bordered">
+            <tbody>
+                {% if character.weapons %}
+                <tr>
+                    <th>Weapons</th>
+                    <td>
+                        <ul>
+                        {% for weapon in character.weapons %}
+                            <li>
+                                <strong>{{ weapon.name }}:</strong>
+                                {{ weapon.damage.notation }}
+                                {{ weapon.damage.type_label }},
+                                Hit: {{ weapon.bonus|bonus }}
+
+                                {% set props = {
+                                    'two-handed': 'Two-Handed',
+                                    'versatile': 'Versatile',
+                                    'light': 'Light',
+                                    'finesse': 'Finesse',
+                                    'ammunition': 'Ammonution',
+                                    'loading': 'Loading',
+                                    'thrown': 'Thrown'
+                                    }
+                                %}
+                                {% for prop, desc in props.items() %}
+                                    {% if prop in weapon.property %}
+                                        , {{ desc }}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if range in weapon %}
+                                (Range: {{ weapon.range.min }}/{{ weapon.range.max }})
+                                {% endif %}
+
+                                {% if "notation_alt" in weapon.damage %}
+                                <br/>
+                                <em>({{ weapon.use_alt }}:
+                                {{ weapon.damage.notation_alt }}
+                                {{ weapon.damage.type_label }},
+                                Hit: {{ weapon.bonus_alt|bonus }})
+                                </em>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endif %}
+                {% if character.weapons %}
+                <tr>
+                    <th>Armor</th>
+                    <td>
+                        <ul>
+                        {% for armor in character.armor %}
+                            <li>
+                                <strong>{{ armor.name }}:</strong>
+                                Armor Class: {{ armor.armor.value }}
+                                {% if "strength" in armor %}
+                                , Strength: {{ armor.strength }}
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endif %}
+                {% if character.items.artisan %}
+                <tr>
+                    <th>Artisan</th>
+                    <td>
+                        <ul>
+                        {% for item in character.items.artisan %}
+                            <li>
+                                {{ item.name }}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endif %}
+                {% if character.items.kits %}
+                <tr>
+                    <th>Kits</th>
+                    <td>
+                        <ul>
+                        {% for item in character.items.kits %}
+                            <li>
+                                {{ item.name }}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endif %}
+                {% if character.items.gaming %}
+                <tr>
+                    <th>Gaming</th>
+                    <td>
+                        <ul>
+                        {% for item in character.items.gaming %}
+                            <li>
+                                {{ item.name }}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endif %}
+                {% if character.items.musical %}
+                <tr>
+                    <th>Musical</th>
+                    <td>
+                        <ul>
+                        {% for item in character.items.musical %}
+                            <li>
+                                {{ item.name }}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endif %}
+                {% if character.items.misc %}
+                <tr>
+                    <th>Miscellaneous</th>
+                    <td>
+                        <ul>
+                        {% for item in character.items.misc %}
+                            <li>
+                                {{ item }}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
     </div>
 
     <div id="proficiencies" class="nice-panel brand">
@@ -107,16 +284,24 @@
         </div>
         <table class="nice-panel-content nice-table condensed bordered">
             <tbody>
+                {% if character.languages %}
                 <tr>
                     <th>Languages</th>
                     <td>
-                        <ul>
-                    {% for language in character.languages %}
-                            <li>{{ language }}</li>
+                        <dl>
+                    {% for lang in items.languages.common + items.languages.exotic %}
+                        {% if lang.name in character.languages %}
+                            <dt>{{ lang.label }}</dt>
+                            <dd>
+                                <strong>Speakers:</strong> {{ lang.speakers }},
+                                <strong>Script:</strong> {{ lang.script }}</dd>
+                        {% endif %}
                     {% endfor %}
-                        </ul>
+                        </dl>
                     </td>
                 </tr>
+                {% endif %}
+                {% if character.proficiencies.armor %}
                 <tr>
                     <th>Armor</th>
                     <td>
@@ -127,6 +312,8 @@
                         </ul>
                     </td>
                 </tr>
+                {% endif %}
+                {% if character.proficiencies.weapons %}
                 <tr>
                     <th>Weapons</th>
                     <td>
@@ -137,6 +324,19 @@
                         </ul>
                     </td>
                 </tr>
+                {% endif %}
+                {% if character.proficiencies.tools %}
+                <tr>
+                    <th>Tools</th>
+                    <td>
+                        <ul>
+                    {% for armor in character.proficiencies.tools%}
+                            <li>{{ armor }}</li>
+                    {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endif %}
             </tbody>
         </table>
     </div>
@@ -159,8 +359,7 @@
                     <th>{{ stat.label }}</th>
                     <td>{{ character.stats[stat.name] }}</td>
                     <td>
-                        {% if character.modifiers[stat.name] > 0 %}+{% endif %}
-                        {{ character.modifiers[stat.name] }}
+                        {{ character.modifiers[stat.name]|bonus }}
                     </td>
                 </tr>
                 {% endfor %}
@@ -190,7 +389,7 @@
                         {% endif %}
                     </td>
                     <td>
-                        {% if character.saving_throws[stat.name] > 0 %}+{% endif %}{{ character.saving_throws[stat.name] }}
+                        {{ character.saving_throws[stat.name]|bonus }}
                     </td>
                     <th>{{ stat.label }}</th>
                 </tr>
@@ -220,7 +419,7 @@
                         {% endif %}
                     </td>
                     <td>
-                        {% if character.skills[skill.name] > 0 %}+{% endif %}{{ character.skills[skill.name] }}
+                        {{ character.skills[skill.name]|bonus }}
                     </td>
                     <th>{{ skill.label }}</th>
                 </tr>

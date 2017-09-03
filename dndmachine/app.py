@@ -152,6 +152,12 @@ def filter_sanitize(text):
     cleaned = sanitize.sub(text, '_')
     return cleaned
 
+@app.template_filter('bonus')
+def filter_bonus(number):
+    if number > 0:
+        return "+%d" % number
+    return "%d" % number
+
 class SpecialBlockQuoteProcessor(BlockProcessor):
     RE = re.compile(r'(^|\n)[ ]{0,3}\|(?:\(([^)]+)\))?[ ]?(.*)', re.M)
 

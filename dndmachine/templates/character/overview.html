@@ -35,8 +35,15 @@
 
             <td>
                 <div class="nice-progress good">
-                    <div class="nice-progress-fill" style="width: {{ (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) }}%;">
+                    {% set percent = (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) %}
+                    <div class="nice-progress-fill" style="width: {{ percent }}%;">
+                        {%- if percent > 40.0 -%}
                         Level {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
+                        {%- elif percent > 25.0 -%}
+                        Level {{ character.level }}
+                        {%- else -%}
+                        {{ character.level }}
+                        {%- endif -%}
                     </div>
                 </div>
             </td>
