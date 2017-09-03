@@ -77,7 +77,7 @@ def get_user():
 @app.before_request
 def get_party():
     """Checks if the user is hosting a party"""
-    if session.get('party_id') is not None:
+    if session.get('party_id'):
         party_mapper = get_datamapper('party')
         request.party = party_mapper.getById(session.get('party_id'))
     else:

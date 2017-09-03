@@ -19,8 +19,8 @@
             <td>{{ encounter.challenge_rating }} / {{ encounter.xp }} XP</td>
             <td>
                 <div class="nice-btn-group pull-right">
-                {% if session.party_id %}
-                    <a href="{{ url_for('encounter.show', encounter_id=encounter.id, party_id=session.party_id) }}" class="nice-btn icon fa-eye">View</a>
+                {% if request.party %}
+                    <a href="{{ url_for('encounter.show', encounter_id=encounter.id, party_id=request.party.id) }}" class="nice-btn icon fa-eye">View</a>
                 {% else %}
                     <a href="{{ url_for('party.overview') }}" class="nice-btn icon warning fa-beer">Host a party</a>
                 {% endif %}
