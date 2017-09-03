@@ -17,10 +17,14 @@
             <td>{{ campaign.description|markdown }}</td>
             <td>
                 <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('campaign.show', campaign_id=campaign.id, party_id=session.party_id) }}" class="nice-btn icon fa-eye">View</a>
-                    {% if 'dm' in request.user.role %}
+                {% if request.party %}
+                    <a href="{{ url_for('campaign.show', campaign_id=campaign.id, party_id=request.party.id) }}" class="nice-btn icon fa-eye">View</a>
+                {% else %}
+                    <a href="{{ url_for('party.overview') }}" class="nice-btn icon warning fa-beer">Host a party</a>
+                {% endif %}
+                {% if 'dm' in request.user.role %}
                     <a href="{{ url_for('campaign.edit', campaign_id=campaign.id, action='edit') }}" class="nice-btn icon fa-cog">Edit</a>
-                    {% endif %}
+                {% endif %}
                 </div>
             </td>
         </tr>
