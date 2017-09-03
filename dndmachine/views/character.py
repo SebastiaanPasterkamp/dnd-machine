@@ -101,6 +101,12 @@ def download(character_id):
     items = get_item_data()
     character_mapper = get_datamapper('character')
     user_mapper = get_datamapper('user')
+    machine = get_datamapper('machine')
+
+    def filter_bonus(number):
+        if number > 0:
+            return "+%d" % number
+        return "%d" % number
 
     c = character_mapper.getById(character_id)
     if c['user_id'] != request.user['id'] \
@@ -109,41 +115,235 @@ def download(character_id):
     user = user_mapper.getById(c['user_id'])
 
     fdf_data = {
-        "CharacterName": c['name'],
-        "CharacterName 2": c['name'],
-        "PlayerName": user["username"],
-        "HPMax": c["hit_points"],
-        "HD": "%dd%d" % (c["level"], c["hit_dice"]),
-        "XP": c["xp"],
-        "Race ": c["race"],
-        "ClassLevel": "%s %d" % (c["class"], c["level"]),
-        "Speed": c["speed"],
-        "Background": c['background'],
-        "Alignment": c['alignment'],
-        "ProBonus": c['proficiency'],
-        "SpellSaveDC  2": c["spell_safe_dc"],
-        "SpellAtkBonus 2": c["spell_attack_modifier"],
-        "Spellcasting Class 2": c["class"],
-        "ProficienciesLang": str(c["languages"]),
-        "Initiative": c["modifiers"]["dexterity"],
-        "Passive": 10 + c["modifiers"]["wisdom"]
+        "CharacterName": c.name,
+        "CharacterName 2": c.name,
+        "PlayerName": user.username,
+        "HPMax": c.hit_points,
+        "AC": "%s%s" % (
+            c.armor_class,
+            " / +%d" % c.armor_class_bonus if c.armor_class_bonus else ""
+            ),
+        "HD": "%dd%d" % (c.level, c.hit_dice),
+        "XP": c.xp,
+        "Race ": c.race,
+        "ClassLevel": "%s %d" % (c.Class, c.level),
+        "Speed": c.speed,
+        "Background": c.background,
+        "Alignment": c.alignment,
+        "ProBonus": filter_bonus(c.proficiency),
+        "SpellSaveDC  2": c.spell_safe_dc,
+        "SpellAtkBonus 2": filter_bonus(c.spell_attack_modifier),
+        "Spellcasting Class 2": c.Class,
+        "Initiative": filter_bonus(c.initiative_bonus),
+        "Passive": filter_bonus(c.passive_perception)
         }
-    for stat, value in c["stats"].iteritems():
-        stat_name = stat.capitalize()
-        fdf_data[stat[:3].upper()] = value
-        fdf_data[stat[:3].upper() + 'mod'] = c["modifiers"][stat]
 
-        fdf_data[stat_name] = c['modifiers'][stat]
-        if stat in c['skills']:
-            fdf_data[stat_name] += c['proficiency']
-            fdf_data['ST ' + stat_name] = True
+    for stat in items['statistics']:
+        stat_prefix = stat['name'][:3].upper()
+        fdf_data[stat_prefix] = c.stats[stat['name']]
+        fdf_data[stat_prefix + 'mod'] = filter_bonus(c.modifiers[stat['name']])
+        fdf_data['SavingThrow ' + stat['label']] = filter_bonus(c.saving_throws[stat['name']])
+        if stat['name'] in c.proficienciesAdvantages:
+            fdf_data['SavingThrow ' + stat['label']] += 'A'
+        if stat['name'] in c.proficienciesSaving_throws:
+            fdf_data['ST ' + stat['label']] = True
 
     for skill in items['skills']:
-        skill_name = skill['name'].capitalize()
-        fdf_data[skill_name] = c['modifiers'][skill['stat']]
-        if skill['name'] in c['skills']:
-            fdf_data[skill_name] += c['proficiency']
-            fdf_data['ChBx ' + skill_name] = True
+        fdf_data[skill['label']] = filter_bonus(c.skills[skill['name']])
+        if skill['name'] in c.proficienciesSkills:
+            fdf_data['ChBx ' + skill['label']] = True
+
+    for i, weapon in enumerate(c.weapons):
+        fdf_data['Wpn Name %d' % (i+1)] = weapon['name']
+        fdf_data['Wpn%d Damage' % (i+1)] = "%s %s" % (
+            weapon['damage'].get('notation', ''),
+            weapon['damage'].get('type_short', '')
+            )
+        fdf_data['Wpn%d AtkBonus' % (i+1)] = filter_bonus(weapon.get('bonus', 0))
+
+    for coin in ['cp', 'sp', 'ep', 'gp', 'pp']:
+        fdf_data[coin.upper()] = c.wealth[coin]
+
+    proficiencies = {}
+    if c.languages:
+        proficiencies["Languages"] = []
+        languages = items['languages']
+        for lang in languages['common'] + languages['exotic']:
+            if lang['name'] in c.languages:
+                proficiencies["Languages"].append(lang['label'])
+
+    if c.proficienciesArmor:
+        proficiencies["Armor"] = []
+        for prof in c.proficienciesArmor:
+            if prof is None:
+                continue
+            proficiencies["Armor"].append(prof)
+
+    if c.proficienciesWeapons:
+        proficiencies["Weapons"] = []
+        for prof in c.proficienciesWeapons:
+            if prof is None:
+                continue
+            proficiencies["Weapons"].append(prof)
+
+    if c.proficienciesTools:
+        proficiencies["Tools"] = []
+        for prof in c.proficienciesTools:
+            if prof is None:
+                continue
+            proficiencies["Tools"].append(prof)
+    fdf_data["ProficienciesLang"] = "\n\n".join([
+        "%s:\n    %s" % (
+            key, ", ".join(lines)
+            )
+        for key, lines in proficiencies.iteritems()
+        ])
+
+    fdf_data["Features and Traits"] = "\n\n".join([
+        "%s:\n    %s" % (
+            key, desc
+            )
+        for key, desc in c.info.iteritems()
+        ])
+    equipment = []
+    if c.weapons:
+        equipment.append(["Weapons:"])
+        for weapon in c.weapons:
+            desc = [
+                "-",
+                weapon['name'],
+                weapon['damage']['notation'],
+                weapon['damage']['type_label'],
+                "Hit: %s" % filter_bonus(weapon['bonus'])
+                ]
+            equipment[-1].append(" ".join(desc))
+
+            desc = []
+            props = {
+                'two-handed': '2H',
+                'versatile': 'Vers.',
+                'light': 'Light',
+                'finesse': 'Fin.',
+                'ammunition': 'Ammo',
+                'loading': 'Load',
+                'thrown': 'Throw'
+                }
+            for prop, label in props.iteritems():
+                if prop in weapon["property"]:
+                    desc.append(label)
+            if "range" in weapon:
+                desc.append(
+                    "Range: %d/%d" % (
+                        weapon["range"]["min"],
+                        weapon["range"]["max"]
+                        )
+                    )
+            if desc:
+                equipment[-1].append("  " + ", ".join(desc))
+
+            if "notation_alt" in weapon["damage"]:
+                desc = [
+                    " ",
+                    weapon["use_alt"],
+                    ":",
+                    weapon["damage"]["notation_alt"],
+                    weapon["damage"]["type_label"],
+                    "Hit: %s" % filter_bonus(weapon["bonus_alt"])
+                    ]
+                equipment[-1].append(" ".join(desc))
+
+    if c.armor:
+        equipment.append(["Armor:"])
+        for armor in c.armor:
+            desc = [
+                "-",
+                armor['name'],
+                "AC: %d" % armor["armor"]["value"]
+                ]
+            if "Strength" in armor:
+                desc.extend([
+                    "(Str: %d)" % armor["Strength"]
+                    ])
+            equipment[-1].append(" ".join(desc))
+
+    if c.itemsArtisan:
+        equipment.append(["Artisan:"])
+        for item in c.itemsArtisan:
+            desc = [
+                "-",
+                item["name"]
+                ]
+            equipment[-1].append(" ".join(desc))
+
+    if c.itemsKits:
+        equipment.append(["Kits:"])
+        for item in c.itemsKits:
+            desc = [
+                "-",
+                item["name"]
+                ]
+            equipment[-1].append(" ".join(desc))
+
+    if c.itemsGaming:
+        equipment.append(["Gaming:"])
+        for item in c.itemsGaming:
+            desc = [
+                "-",
+                item["name"]
+                ]
+            equipment[-1].append(" ".join(desc))
+
+    if c.itemsMusical:
+        equipment.append(["Musical:"])
+        for item in c.itemsMusical:
+            desc = [
+                "-",
+                item["name"]
+                ]
+            equipment[-1].append(" ".join(desc))
+
+    if c.itemsMisc:
+        equipment.append(["Misc:"])
+        for item in c.itemsMisc:
+            desc = [
+                "-",
+                item
+                ]
+            equipment[-1].append(" ".join(desc))
+
+    equipment = sorted(
+        equipment,
+        key=lambda lines: len(lines),
+        reverse=True
+        )
+    key = ["Equipment", "Equipment2"]
+    fdf_data["Equipment"] = "\n".join([
+        "\n".join(equipment[i])
+        for i in range(0, len(equipment), 2)
+        ])
+    fdf_data["Equipment2"] = "\n".join([
+        "\n".join(equipment[i])
+        for i in range(1, len(equipment), 2)
+        ])
+
+    fdf_translation = {
+        'Wpn Name 1': 'Wpn Name',
+        'Wpn2 Damage': 'Wpn2 Damage ',
+        'Wpn3 Damage': 'Wpn3 Damage ',
+        'Wpn2 AtkBonus': 'Wpn2 AtkBonus ',
+        'Wpn3 AtkBonus': 'Wpn3 AtkBonus  ',
+        'Sleight of Hand': 'SleightofHand',
+        'ChBx Sleight of Hand': 'ChBx Sleight',
+        'SavingThrow Strength': 'SavingThrows',
+        'SavingThrow Dexterity': 'SavingThrows2',
+        'SavingThrow Constitution': 'SavingThrows3',
+        'SavingThrow Intelligence': 'SavingThrows4',
+        'SavingThrow Wisdom': 'SavingThrows5',
+        'SavingThrow Charisma': 'SavingThrows6',
+        }
+    for old, new in fdf_translation.iteritems():
+        if old in fdf_data:
+            fdf_data[new] = fdf_data[old]
 
     pdf_file = os.path.join('dndmachine', 'static', 'pdf', 'Current Standard v1.4.pdf')
 
@@ -151,7 +351,7 @@ def download(character_id):
     return send_file(
         fill_pdf(pdf_file, fdf_data, '/tmp/%s.fdf' % c['name']),
         mimetype="application/pdf",
-        as_attachment=True,
+        #as_attachment=True,
         attachment_filename=filename
         )
 
@@ -210,7 +410,8 @@ def delete(character_id):
         ))
 
 @character.route('/new', methods=['GET', 'POST'])
-def new():
+@character.route('/new/<int:character_id>', methods=['GET', 'POST'])
+def new(character_id=None):
     config = get_config()
     cdata = get_character_data()
     items = get_item_data()
@@ -287,7 +488,7 @@ def new():
             obj[field] = obj[field] or {}
             for key, val in perks.get(field, {}).iteritems():
                 obj[field][key] = \
-                    obj[field].get(key, 0) + val
+                    obj[field][key] = val
 
         for field in ['senses', 'languages', 'skills', 'equipment', 'spells']:
             if field in perks:
@@ -321,6 +522,8 @@ def new():
     c = CharacterObject({
         'user_id': request.user['id']
         })
+    if character_id:
+        c = character_mapper.getById(character_id)
     options = {}
 
     tabs = ['race', 'class', 'background', 'stats', 'customize']
@@ -367,7 +570,7 @@ def new():
                     setPerks(c, sub[0], options)
 
         if request.form.get("button", "save") == "save":
-            c = character_mapper.insert(c)
+            c = character_mapper.save(c)
             return redirect(url_for(
                 'character.show',
                 character_id=c['id']

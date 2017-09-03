@@ -37,7 +37,7 @@ def fill_pdf(pdf_file, data, fdf_file=None):
             )
     for val in re_bool.finditer(fdf_template):
         (replace, field) = val.groups()
-        value = '/' if data.get(field, False) else '/Off'
+        value = '/Yes' if data.get(field, False) else '/Off'
         fdf_data = fdf_data.replace(
             replace,
             """<<\n/V %s\n/T (%s)\n>>""" % (
