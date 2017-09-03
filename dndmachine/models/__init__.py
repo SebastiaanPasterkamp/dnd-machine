@@ -27,7 +27,7 @@ def datamapper_factory(datamapper):
     if datamapper == 'character':
         return CharacterMapper(get_db())
     if datamapper == 'encounter':
-        return EncounterMapper(get_db(), config['encounter'])
+        return EncounterMapper(get_db())
     if datamapper == 'monster':
         return MonsterMapper(get_db())
     if datamapper == 'campaign':

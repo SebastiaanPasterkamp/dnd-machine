@@ -21,7 +21,7 @@ def overview(encounter_id=None):
         encounter_mapper = get_datamapper('encounter')
         encounter = encounter_mapper.getById(encounter_id)
         members = [
-            m['id']
+            m.id
             for m in monster_mapper.getByEncounterId(encounter_id)
             ]
 

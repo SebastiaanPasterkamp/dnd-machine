@@ -133,10 +133,12 @@
         </div>
         {% endif %}
         <input name="damage-taken-{{ c.index }}" placeholder="Damage taken..." class="nice-form-control small" value="{{ c.damage_taken }}" />
-        <input type="hidden" name="initiative-{{ c.index }}" placeholder="Initiative..." class="nice-form-control small" value="{{ c.initiative }}" />
+        <textarea name="notes-{{ c.index }}" placeholder="Notes..." class="nice-form-control small">{{ c.notes }}</textarea>
+        <input type="hidden" name="initiative-{{ c.index }}" value="{{ c.initiative }}" />
         {% else %}
         <input type="number" min="0" max="30" name="initiative-{{ c.index }}" placeholder="Initiative..." class="nice-form-control small" value="{{ c.initiative }}" />
-        <input type="hidden" name="damage-taken-{{ c.index }}" placeholder="Damage taken..." class="nice-form-control small" value="{{ c.damage_taken }}" />
+        <input type="hidden" name="damage-taken-{{ c.index }}" value="{{ c.damage_taken }}" />
+        <input type="hidden" name="notes-{{ c.index }}" value="{{ c.notes }}" />
         {% endif %}
     </div>
     {% endfor %}

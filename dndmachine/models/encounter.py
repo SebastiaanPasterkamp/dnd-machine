@@ -2,6 +2,24 @@ from base import JsonObject, JsonObjectDataMapper
 
 class EncounterObject(JsonObject):
     def __init__(self, config={}):
+        self._party = None
+        self._monsters = []
+        self._encounter_modifiers = {
+            "party": [
+                {"min": 1, "max": 2, "modifier": 0.5},
+                {"min": 3, "max": 5, "modifier": 0.0},
+                {"min": 6, "max": 8, "modifier": -0.5}
+                ],
+            "encounter": [
+                {"min": 1, "max": 1, "modifier": 1.0},
+                {"min": 2, "max": 2, "modifier": 1.5},
+                {"min": 3, "max": 6, "modifier": 2.0},
+                {"min": 7, "max": 10, "modifier": 2.5},
+                {"min": 11, "max": 14, "modifier": 3.0},
+                {"min": 15, "max": 20, "modifier": 4.0}
+                ]
+            }
+
         super(EncounterObject, self).__init__(
             config,
             pathPrefix = "encounter",
@@ -14,9 +32,73 @@ class EncounterObject(JsonObject):
                 },
             keepFields = [
                 'user_id',
-                'size', 'challenge_rating', 'xp_rating', 'xp'
+                'size', 'challenge_rating', 'xp_rating', 'xp',
+                'modifier.monster', 'modifier.party', 'modifier.total'
                 ]
             )
+
+    @property
+    def party(self):
+        return self._party
+
+    @party.setter
+    def party(self, party):
+        self._party = party
+        self.compute()
+
+    @property
+    def monsters(self):
+        return self._monsters
+
+    @monsters.setter
+    def monsters(self, monsters):
+        self._monsters = monsters
+        self.compute()
+
+    def modifierByPartySize(self, size):
+        for data in self._encounter_modifiers['party']:
+            if data['min'] <= size <= data['max']:
+                return data['modifier']
+        return 0.0
+
+    def modifierByEncounterSize(self, size):
+        for data in self._encounter_modifiers['encounter']:
+            if data['min'] <= size <= data['max']:
+                return data['modifier']
+        return 1.0
+
+    def compute(self):
+        if not len(self._monsters):
+            return
+
+        self.size = len(self._monsters)
+        self.modifierMonster = self.modifierByEncounterSize(self.size)
+        self.modifierParty = self.modifierByPartySize(self._party.size) \
+            if self._party else 0.0
+        self.modifierTotal = 0
+        self.modifierTotal = sum(self.modifier.values())
+
+        self.challenge_rating = sum([
+            m.challenge_rating
+            for m in self._monsters
+            ]) * self.modifierMonster
+        self.challenge_modified = sum([
+            m.challenge_rating
+            for m in self._monsters
+            ]) * self.modifierTotal
+        self.xp = sum([
+            m.xp
+            for m in self._monsters
+            ])
+        self.xp_rating = sum([
+            m.xp_rating
+            for m in self._monsters
+            ]) * self.modifierMonster
+        self.xp_modified = sum([
+            m.xp_rating
+            for m in self._monsters
+            ]) * self.modifierTotal
+
 
 class EncounterMapper(JsonObjectDataMapper):
     obj = EncounterObject
@@ -24,10 +106,6 @@ class EncounterMapper(JsonObjectDataMapper):
     fields = [
         'name', 'user_id',
         'size', 'challenge_rating', 'xp_rating', 'xp']
-
-    def __init__(self, db, config):
-        super(EncounterMapper, self).__init__(db)
-        self.encounter_modifiers = config["encounter_modifiers"]
 
     def getList(self, search=None):
         """Returns a list of encounters matching the search parameter"""
@@ -74,45 +152,3 @@ class EncounterMapper(JsonObjectDataMapper):
             [encounter_id, monster_id]
             )
         self.db.commit()
-
-    def modifierByPartySize(self, size):
-        for data in self.encounter_modifiers['party']:
-            if data['min'] <= size <= data['max']:
-                return data['modifier']
-        return 0.0
-
-    def modifierByEncounterSize(self, size):
-        for data in self.encounter_modifiers['encounter']:
-            if data['min'] <= size <= data['max']:
-                return data['modifier']
-        return 1.0
-
-    def computeChallenge(self, encounter, monsters=[], party=None):
-        encounter.size = len(monsters)
-        encounter.modifierParty = self.modifierByPartySize(party.size) \
-            if party else 0.0
-        encounter.modifierMonster = self.modifierByEncounterSize(encounter.size)
-        encounter.modifierTotal = 0
-        encounter.modifierTotal = sum(encounter.modifier.values())
-
-        encounter.challenge_rating = sum([
-            m.challenge_rating
-            for m in monsters
-            ]) * encounter.modifierMonster
-        encounter.challenge_modified = sum([
-            m.challenge_rating
-            for m in monsters
-            ]) * encounter.modifierTotal
-        encounter.xp = sum([
-            m.xp
-            for m in monsters
-            ])
-        encounter.xp_rating = sum([
-            m.xp_rating
-            for m in monsters
-            ]) * encounter.modifierMonster
-        encounter.xp_modified = sum([
-            m.xp_rating
-            for m in monsters
-            ]) * encounter.modifierTotal
-        return encounter
