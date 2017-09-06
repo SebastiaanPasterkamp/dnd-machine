@@ -9,27 +9,44 @@ class JsonObject(object):
             |(?<=[a-zA-Z])(?=[0-9])
             |$
             )""", re.X)
-        self._steps = {}
 
         self._pathPrefix = kwargs.get('pathPrefix', 'obj')
         self._defaultConfig = kwargs.get('defaultConfig', {})
-        self._keepFields = kwargs.get('keepFields', [])
         self._defaultFieldType = kwargs.get('defaultFieldType', unicode)
         self._fieldTypes = kwargs.get('fieldTypes', {})
 
         self._config = self._merge({}, self._defaultConfig)
-        self._config = self._merge(self._config, config)
-        self.compute()
+        self.update(config)
 
     @property
     def config(self):
         return self._config
 
-    def splitCamelCase(self, string):
-        return [
-            m.group(0).lower()
-            for m in self._camelCaseRe.finditer(string)
+    def splitPath(self, path, filterPrefix=True):
+        """ Splits a path by
+        - period: path.in.steps.1
+        - camelCase: pathInSteps1
+        returns ['path','in','steps',1]
+        """
+        steps = []
+        if "." in path:
+            steps = path.lower().split('.')
+        else:
+            steps = [
+                m.group(0).lower()
+                for m in self._camelCaseRe.finditer(path)
+                ]
+        steps = [
+            int(step) if step.isdigit() else step
+            for step in steps
             ]
+        if filterPrefix and steps[0] == self._pathPrefix:
+            steps = steps[1:]
+        return steps
+
+    def update(self, update):
+        self._config = self._merge(self._config, update)
+        self.compute()
 
     def _merge(self, a, b, path=None):
         if path is None: path = []
@@ -38,39 +55,35 @@ class JsonObject(object):
                 type(a), type(b)
                 ))
         for key in b:
+            if not isinstance(b[key], list) and not isinstance(b[key], dict):
+                b[key] = self.castFieldType(path + [key], b[key])
+
             if key in a:
                 if isinstance(a[key], dict) and isinstance(b[key], dict):
                     a[key] = self._merge(a[key], b[key], path + [key])
-                elif type(a[key]) != type(b[key]):
+                elif isinstance(a[key], list) and isinstance(b[key], list):
+                    a[key].extend([
+                        self.castFieldType(path + [key], value)
+                        for value in b[key]
+                        ])
+                elif type(a[key]) == type(b[key]):
+                    a[key] = b[key]
+                else:
                     raise Exception('Conflict at %s: %s vs %s (%r vs %r)' % (
                         '.'.join(path + [key]),
                         type(a[key]), type(b[key]),
                         a[key], b[key]
                         ))
-                else:
-                    a[key] = b[key]
             else:
                 a[key] = b[key]
         return a
 
     def updateFromPost(self, form):
-        old = self._config
-        self._config = self._merge(self._defaultConfig, {})
-
-        for path, value in form.iteritems():
-            steps = path.split('.')
-            if steps[0] != self._pathPrefix:
+        for field, value in form.iteritems():
+            path = self.splitPath(field, False)
+            if path[0] != self._pathPrefix:
                 continue
-            cast = self.getFieldType(path)
-            if not len(value) and cast == int:
-                continue
-            value = cast(value)
-            self.setPath(path, value)
-
-        for keep in self._keepFields + ['id']:
-            if not self.getPath(keep) \
-                    and self.getPath(keep, structure=old):
-                self.setPath(keep, self.getPath(keep, structure=old))
+            self.setPath(path[1:], value)
         self.compute()
 
     def compute(self):
@@ -83,8 +96,7 @@ class JsonObject(object):
         try:
             return object.__getattr__(self, field)
         except AttributeError:
-            path = '.'.join(self.splitCamelCase(field))
-            return self.getPath(path)
+            return self.getPath(field)
 
     def __getitem__(self, field):
         try:
@@ -93,79 +105,86 @@ class JsonObject(object):
             try:
                 return self.__class__.__dict__[field]
             except KeyError:
-                path = '.'.join(self.splitCamelCase(field))
-                return self.getPath(path)
+                return self.getPath(field)
 
     def __setattr__(self, field, value):
         if field.startswith('_') \
                 or field in self.__dict__ \
                 or field in self.__class__.__dict__:
             return object.__setattr__(self, field, value)
-        path = '.'.join(self.splitCamelCase(field))
-        self.setPath(path, value)
+        self.setPath(field, value)
 
     def __setitem__(self, field, value):
         if field.startswith('_') \
                 or field in self.__dict__ \
                 or field in self.__class__.__dict__:
             self.__dict__[field] = value
-        path = '.'.join(self.splitCamelCase(field))
-        self.setPath(path, value)
+        self.setPath(field, value)
 
     def __contains__(self, field):
-        path = '.'.join(self.splitCamelCase(field))
-        return self.getPath(path) is not None
+        return self.getPath(field) is not None
 
     def getPath(self, path, default=None, structure=None):
-        path = [
-            int(step) if step.isdigit() else step
-            for step in path.split('.')
-            ]
-        if path[0] == self._pathPrefix:
-            path = path[1:]
+        if not isinstance(path, list):
+            path = self.splitPath(path)
 
-        rv = structure if structure is not None else self._config
+        rv = structure \
+            if structure is not None \
+            else self._config
+
         for step in path:
             if isinstance(step, int):
                 if not isinstance(rv, list):
                     if default:
                         return default
-                    raise Exception("Not a list (%r) '%r': %r" % (
+                    raise Exception("Not a list %s in '%r': %r" % (
                         step, path, rv))
                 elif step >= len(rv):
                     return default
             elif not isinstance(rv, dict):
                 if default:
                     return default
-                raise Exception("Not a dict (%r) '%r': %r" % (
+                raise Exception("Not a dict %s in '%r': %r" % (
                     step, path, rv))
             elif step not in rv:
-                return default
+                if "*" in rv:
+                    step = "*"
+                else:
+                    return default
             rv = rv[step]
         return rv
 
-    def getFieldType(self, path):
-        if path in ['id', '%s.id' % self._pathPrefix]:
-            return int
-        path = '.'.join([
-            step
-            for step in path.split('.')
-            if not step.isdigit() and not step.startswith('+')
-            ])
-        fieldType = self.getPath(
-            path,
-            default=self._defaultFieldType,
-            structure=self._fieldTypes
-            )
-        return fieldType
+    def castFieldType(self, path, value):
+        if not isinstance(path, list):
+            path = self.splitPath(path)
+
+        if len(path) == 1 and path[0] == 'id':
+            cast = int
+        else:
+            path = [
+                step
+                for step in path
+                if not isinstance(step, int) and step != '+'
+                ]
+            cast = self.getPath(
+                path,
+                default=self._defaultFieldType,
+                structure=self._fieldTypes
+                )
+
+        if isinstance(cast, dict) or isinstance(cast, list):
+            if isinstance(value, list) or isinstance(value, dict):
+                # TODO: type-check or cast everyting inside 'value'
+                return value
+            raise Exception("Invalid type for %s. Expected %s, received %s (%r)" % (
+                path, cast, type(value), value))
+        return cast(value)
 
     def setPath(self, path, value):
-        path = [
-            int(step) if step.isdigit() else step
-            for step in path.split('.')
-            ]
-        if path[0] == self._pathPrefix:
-            path = path[1:]
+        if not isinstance(path, list):
+            path = self.splitPath(path)
+
+        value = self.castFieldType(path, value)
 
         rv = self._config
         for i in range(len(path)):
@@ -174,20 +193,16 @@ class JsonObject(object):
             next_type = dict
             if i+1 >= len(path):
                 next_type = lambda: None
-            elif isinstance(path[i+1], int) or path[i+1].startswith('+'):
+            elif isinstance(path[i+1], int) or path[i+1] == '+':
                 next_type = list
 
-            if isinstance(step, int) or step.startswith('+'):
+            if isinstance(step, int) or step == '+':
                 if not isinstance(rv, list):
                     raise Exception("Not a list at %s %r: %r" % (step, path, rv))
-                elif not isinstance(step, int):
-                    key = step
-                    step = self._steps.get(key, len(rv))
-                    self._steps[key] = step
-                rv.extend([
-                    next_type()
-                    for _ in range(step - len(rv) + 1)
-                    ])
+                elif step == '+':
+                    step = len(rv)
+                if step >= len(rv):
+                    rv.extend([next_type()] * (step - len(rv) + 1))
             else:
                 if not isinstance(rv, dict):
                     raise Exception("Not a dict at %s %r: %r" % (step, path, rv))
