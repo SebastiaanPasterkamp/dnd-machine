@@ -6,9 +6,9 @@ class CampaignObject(JsonObject):
             config,
             pathPrefix = "campaign",
             fieldTypes = {
-                'user_id': int
-                },
-            keepFields = ['name', 'user_id']
+                'user_id': int,
+                'toc': {}
+                }
             )
 
 class CampaignMapper(JsonObjectDataMapper):
