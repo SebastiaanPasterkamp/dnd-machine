@@ -88,14 +88,6 @@ class CharacterObject(JsonObject):
                     "pp": 0
                     }
                 },
-            keepFields = [
-                "user_id", "creation",
-                "xp", "hit_dice", "speed",
-                "race", "class", "background", "alignment",
-                "base_stats", "stats_bonus",
-                "equipment", "proficiencies", "languages",
-                "computed", "wealth"
-                ],
             fieldTypes = {
                 "user_id": int,
                 "xp": int,

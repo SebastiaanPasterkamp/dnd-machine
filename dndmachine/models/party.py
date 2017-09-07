@@ -7,9 +7,14 @@ class PartyObject(JsonObject):
             config,
             pathPrefix = "party",
             fieldTypes = {
-                'user_id': int
+                'user_id': int,
+                'challenge': {
+                    "*": int
+                    }
                 },
-            keepFields = ['name', 'user_id']
+            defaultConfig = {
+                'challenge': {}
+                }
             )
 
     @property
@@ -25,7 +30,7 @@ class PartyObject(JsonObject):
         if self._members:
             self.size = len(self._members)
             for cr in ['easy', 'medium', 'hard', 'deadly']:
-                self[cr] = sum([c[cr] for c in self._members])
+                self.challenge[cr] = sum([c.challenge[cr] for c in self._members])
 
 
 class PartyMapper(JsonObjectDataMapper):

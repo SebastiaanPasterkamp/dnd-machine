@@ -27,14 +27,12 @@ class EncounterObject(JsonObject):
                 'user_id': int,
                 'size': int,
                 'challenge_rating': float,
+                'modifier': {
+                    '*': int
+                    },
                 'xp_rating': float,
                 'xp': int
-                },
-            keepFields = [
-                'user_id',
-                'size', 'challenge_rating', 'xp_rating', 'xp',
-                'modifier.monster', 'modifier.party', 'modifier.total'
-                ]
+                }
             )
 
     @property

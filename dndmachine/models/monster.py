@@ -25,9 +25,7 @@ class MonsterObject(JsonObject):
                 "features": [],
                 "languages": [],
                 "multiattack": [],
-                "attacks": [
-                    {"damage": []}
-                    ],
+                "attacks": [],
                 "stats": {
                     "strength": 10,
                     "dexterity": 10,
@@ -47,43 +45,43 @@ class MonsterObject(JsonObject):
                 "challenge": 0.0,
                 "xp": 10
                 },
-            defaultFieldType = int,
             fieldTypes = {
-                'name': unicode,
-                'challenge_rating': float,
-                'xp_rating': float,
                 'xp': int,
-                'size': unicode,
-                'type': unicode,
-                'alignment': unicode,
-                'languages': unicode,
+                'level': int,
+                'challenge': float,
+                'motion': {
+                    "*": int
+                    },
                 'traits': {
-                    'name': unicode,
-                    'description': unicode
-                    },
-                'attacks': {
-                    'name': unicode,
-                    'description': unicode,
-                    'damage': {
-                        'type': unicode
-                    },
-                    'mode': unicode,
-                    'target': unicode,
-                    'on_hit': unicode,
-                    'on_mis': unicode
+                    '*': unicode
                     },
                 'multiattack': {
-                    'name': unicode,
-                    'description': unicode,
-                    'condition': unicode,
-                    'sequence': unicode
+                    '*': int
+                    },
+                'attacks': {
+                    '*': int,
+                    'attack_method': unicode,
+                    'notation': unicode,
+                    'damage': {
+                        '*': int,
+                        'type': unicode
+                        }
+                    },
+                'hit_points': int,
+                'armor_class': int,
+                'proficiency': int,
+                'stats': {
+                    "*": int
+                    },
+                'modifiers': {
+                    "*": int
                     }
                 }
             )
 
     def compute(self):
         config = get_config()
-        machine = DndMachine(config['machine'])
+        machine = DndMachine(config['machine'], get_item_data())
 
         for stat, value in self.stats.iteritems():
             self.modifiers[stat] = (value - 10) / 2

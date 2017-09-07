@@ -6,7 +6,6 @@ class UserObject(JsonObject):
         super(UserObject, self).__init__(
             config,
             pathPrefix = "user",
-            keepFields = ['username', 'password', 'role'],
             defaultConfig = {
                 'username': u'',
                 'password': u'',
