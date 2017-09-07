@@ -47,10 +47,10 @@
         <tr>
             <td>{{ party.name }}</td>
             <td>{{ party.size }}</td>
-            <td class="info">{{ party.easy }} XP</td>
-            <td class="good">{{ party.medium }} XP</td>
-            <td class="warning">{{ party.hard }} XP</td>
-            <td class="bad">{{ party.deadly }} XP</td>
+            <td class="info">{{ party.challenge.easy }} XP</td>
+            <td class="good">{{ party.challenge.medium }} XP</td>
+            <td class="warning">{{ party.challenge.hard }} XP</td>
+            <td class="bad">{{ party.challenge.deadly }} XP</td>
         </tr>
     </tbody>
 </table>
@@ -75,11 +75,11 @@
             <td>{{ encounter.modifier.monster }}</td>
             <td>{{ encounter.modifier.party }}</td>
             <td>{{ encounter.modifier.total }}</td>
-            {% if (encounter.xp_modified <= (party.easy + (party.medium-party.easy)/2)) %}
+            {% if (encounter.xp_modified <= (party.challenge.easy + (party.challenge.medium-party.challenge.easy)/2)) %}
             <td class="info">
-            {% elif (encounter.xp_modified <= (party.medium + (party.hard-party.medium)/2)) %}
+            {% elif (encounter.xp_modified <= (party.challenge.medium + (party.challenge.hard-party.challenge.medium)/2)) %}
             <td class="good">
-            {% elif (encounter.xp_modified <= (party.hard + (party.deadly-party.hard)/2)) %}
+            {% elif (encounter.xp_modified <= (party.challenge.hard + (party.challenge.deadly-party.challenge.hard)/2)) %}
             <td class="warning">
             {% else %}
             <td class="bad">
