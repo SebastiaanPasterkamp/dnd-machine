@@ -135,6 +135,22 @@
         </table>
     </div>
 
+    <div id="traits" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Traits
+        </div>
+        <div class="nice-panel-content">
+            <ul>
+            {% for info, description in character.info.items() %}
+                <li>
+                    <strong>{{ info }}</strong>
+                    {{ description|markdown }}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
     <div id="equipment" class="nice-panel brand">
         <div class="nice-panel-heading">
             Equipment
@@ -194,7 +210,7 @@
                         {% for armor in character.armor %}
                             <li>
                                 <strong>{{ armor.name }}:</strong>
-                                Armor Class: {{ armor.armor.value }}
+                                Armor Class: {{ armor.value }}
                                 {% if "strength" in armor %}
                                 , Strength: {{ armor.strength }}
                                 {% endif %}
