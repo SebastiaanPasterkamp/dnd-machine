@@ -42,12 +42,12 @@ div#view-character {
     display: grid;
     grid-gap: 1em .5em;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: repeat(5, min-content);
+    grid-template-rows: repeat(5, auto);
     grid-template-areas: "description description info"
                          "base statistics skills"
                          "equipment saving-throws skills"
-                         "equipment proficiencies skills"
-                         "equipment . skills"; }
+                         "equipment proficiencies traits"
+                         ". . traits"; }
 
 @media screen and (max-width: 100em) and (orientation: portrait) {
     div#view-campaign {
