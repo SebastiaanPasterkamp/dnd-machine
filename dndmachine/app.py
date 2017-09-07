@@ -158,6 +158,18 @@ def filter_bonus(number):
         return "+%d" % number
     return "%d" % number
 
+@app.template_filter('completed')
+def filter_completed(tabs, completed):
+    current = True
+    for tab in tabs:
+        if tab in completed:
+            yield tab, True, False
+        elif current:
+            current = False
+            yield tab, False, True
+        else:
+            yield tab, False, False
+
 class SpecialBlockQuoteProcessor(BlockProcessor):
     RE = re.compile(r'(^|\n)[ ]{0,3}\|(?:\(([^)]+)\))?[ ]?(.*)', re.M)
 
