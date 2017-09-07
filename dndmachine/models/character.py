@@ -9,6 +9,8 @@ class CharacterObject(JsonObject):
             config,
             pathPrefix = "character",
             defaultConfig = {
+                "name": u"",
+                "creation": [],
                 "race": u"",
                 "class": u"",
                 "background": u"",
@@ -55,8 +57,18 @@ class CharacterObject(JsonObject):
                     "wisdom": 0,
                     "charisma": 0
                     },
+                "challenge": {},
                 "skills": {},
                 "equipment": [],
+                "weapon": [],
+                "armor": [],
+                "items": {
+                    "artisan": [],
+                    "kits": [],
+                    "gaming": [],
+                    "musical": [],
+                    "misc": []
+                    },
                 "proficiency": 2,
                 "languages": ["common"],
                 "proficiencies": {
@@ -77,7 +89,7 @@ class CharacterObject(JsonObject):
                     }
                 },
             keepFields = [
-                "user_id",
+                "user_id", "creation",
                 "xp", "hit_dice", "speed",
                 "race", "class", "background", "alignment",
                 "base_stats", "stats_bonus",
@@ -87,52 +99,82 @@ class CharacterObject(JsonObject):
             fieldTypes = {
                 "user_id": int,
                 "xp": int,
+                "xp_level": int,
+                "xp_next_level": int,
                 "level": int,
+                "proficiency": int,
+                "initiative_bonus": int,
+                "passive_perception": int,
+                "spell_safe_dc": int,
+                "spell_attack_modifier": int,
+                "armor_class": int,
+                "armor_class_bonus": int,
+                "challenge": {
+                    "*": int
+                    },
                 "base_stats": {
-                    "strength": int,
-                    "dexterity": int,
-                    "constitution": int,
-                    "intelligence": int,
-                    "wisdom": int,
-                    "charisma": int
+                    "*": int
                     },
                 "stats_bonus": {
-                    "strength": int,
-                    "dexterity": int,
-                    "constitution": int,
-                    "intelligence": int,
-                    "wisdom": int,
-                    "charisma": int
+                    "*": int
                     },
                 "stats": {
-                    "strength": int,
-                    "dexterity": int,
-                    "constitution": int,
-                    "intelligence": int,
-                    "wisdom": int,
-                    "charisma": int
+                    "*": int
                     },
                 "modifiers": {
-                    "strength": int,
-                    "dexterity": int,
-                    "constitution": int,
-                    "intelligence": int,
-                    "wisdom": int,
-                    "charisma": int
+                    "*": int
+                    },
+                "saving_throws": {
+                    "*": int
+                    },
+                "skills": {
+                    "*": int
                     },
                 "wealth": {
-                    "cp": int,
-                    "sp": int,
-                    "ep": int,
-                    "gp": int,
-                    "pp": int
+                    "*": int
+                    },
+                "armor": {
+                    "value": int,
+                    "bonus": int,
+                    "strength": int,
+                    "cost": {
+                        "*": int
+                        }
+                    },
+                "weapons": {
+                    "damage": {
+                        "dice_count": int,
+                        "dice_size": int
+                        },
+                    "range": {
+                        "min": int,
+                        "max": int
+                        },
+                    "versatile": {
+                        "dice_count": int,
+                        "dice_size": int
+                        },
+                    "bonus": int,
+                    "bonus_alt": int,
+                    "cost": {
+                        "*": int
+                        }
+                    },
+                "items": {
+                    "artisan": {
+                        "*": unicode
+                        },
+                    "kits": [],
+                    "gaming": [],
+                    "musical": [],
+                    "misc": unicode
                     }
                 }
             )
 
     def compute(self):
         config = get_config()
-        machine = DndMachine(config["machine"])
+        machine = DndMachine(config["machine"], get_item_data())
         items = JsonObject(get_item_data())
 
         for stat in items.statistics:
@@ -163,8 +205,8 @@ class CharacterObject(JsonObject):
             self.setPath(path, value)
 
         cr = machine.challengeByLevel(self.level)
-        for challenge, rating in cr.iteritems():
-            self[challenge] = rating
+        for rating, value in cr.iteritems():
+            self.challenge[rating] = value
 
         self.xp_level = machine.xpAtLevel(self.level)
         self.xp_next_level = machine.xpAtLevel(self.level + 1)
@@ -203,7 +245,7 @@ class CharacterObject(JsonObject):
         def findDesc(item):
             for dest, paths in search.items():
                 for path in paths:
-                    desc = machine.findByName(item, items.getPath(path))
+                    desc = machine.itemByName(item, path)
                     if desc:
                         desc["path"] = path
                         return dest, desc
@@ -223,8 +265,8 @@ class CharacterObject(JsonObject):
             if "ranged" in weapon["path"]:
                 attack_modifier = "dexterity"
 
-            dmg = machine.findByName(
-                weapon["damage"]["type"], items.damage_types)
+            dmg = machine.itemByName(
+                weapon["damage"]["type"], 'damage_types')
             weapon["damage"]["type_label"] = dmg["label"]
             weapon["damage"]["type_short"] = dmg["short"]
 
@@ -262,15 +304,15 @@ class CharacterObject(JsonObject):
         self.armor_class = machine.resolveMath(self, "10 + modifiers.dexterity")
         self.armor_class_bonus = 0
         for armor in self.armor:
-            if "formula" in armor["armor"]:
-                armor["armor"]["value"] = machine.resolveMath(
-                    self, armor["armor"]["formula"])
-            if "value" in armor["armor"]:
-                if armor["armor"]["value"] > self.armor_class:
-                    self.armor_class = armor["armor"]["value"]
-            elif "bonus" in armor["armor"]:
-                if armor["armor"]["bonus"] > self.armor_class_bonus:
-                    self.armor_class_bonus = armor["armor"]["bonus"]
+            if "formula" in armor:
+                armor["value"] = machine.resolveMath(
+                    self, armor["formula"])
+            if "value" in armor:
+                if armor["value"] > self.armor_class:
+                    self.armor_class = armor["value"]
+            elif "bonus" in armor:
+                if armor["bonus"] > self.armor_class_bonus:
+                    self.armor_class_bonus = armor["bonus"]
 
 class CharacterMapper(JsonObjectDataMapper):
     obj = CharacterObject

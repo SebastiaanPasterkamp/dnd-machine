@@ -2,9 +2,9 @@
 from flask import Blueprint, request, session, g, redirect, url_for, \
     send_file, current_app, abort, render_template, jsonify
 import os
-import codecs
 import re
 
+from ..models.base import JsonObject
 from ..models.character import CharacterObject
 from ..config import get_config, get_character_data, get_item_data
 from ..utils import get_datamapper
@@ -12,6 +12,12 @@ from . import fill_pdf
 
 character = Blueprint(
     'character', __name__, template_folder='templates')
+
+def find_caracter_field(character_data, field, value):
+    for data in character_data[field]:
+        for sub in data.get('sub', [data]):
+            if sub['name'] == value:
+                return data
 
 @character.route('/')
 @character.route('/list')
@@ -110,7 +116,7 @@ def download(character_id):
 
     c = character_mapper.getById(character_id)
     if c['user_id'] != request.user['id'] \
-            and 'admin' not in request.user['role']:
+            and not any([role in request.user.role for role in ['admin', 'dm']]):
         abort(403)
     user = user_mapper.getById(c['user_id'])
 
@@ -229,7 +235,7 @@ def download(character_id):
                 'thrown': 'Throw'
                 }
             for prop, label in props.iteritems():
-                if prop in weapon["property"]:
+                if prop in weapon.get("property", []):
                     desc.append(label)
             if "range" in weapon:
                 desc.append(
@@ -255,11 +261,18 @@ def download(character_id):
     if c.armor:
         equipment.append(["Armor:"])
         for armor in c.armor:
-            desc = [
-                "-",
-                armor['name'],
-                "AC: %d" % armor["armor"]["value"]
-                ]
+            if "value" in armor["armor"]:
+                desc = [
+                    "-",
+                    armor['name'],
+                    "AC: %d" % armor["armor"]["value"]
+                    ]
+            if "bonus" in armor["armor"]:
+                desc = [
+                    "-",
+                    armor['name'],
+                    "AC: %s" % filter_bonus(armor["armor"]["bonus"])
+                    ]
             if "Strength" in armor:
                 desc.extend([
                     "(Str: %d)" % armor["Strength"]
@@ -351,19 +364,54 @@ def download(character_id):
     return send_file(
         fill_pdf(pdf_file, fdf_data, '/tmp/%s.fdf' % c['name']),
         mimetype="application/pdf",
-        #as_attachment=True,
+        as_attachment=True,
         attachment_filename=filename
         )
 
-@character.route('/edit/<int:character_id>', methods=['GET', 'POST'])
-def edit(character_id):
-    config = get_config()
+@character.route('/edit/<int:character_id>')
+@character.route('/edit/<string:phase>/<int:character_id>', methods=['GET', 'POST'])
+def edit(character_id, phase=None):
+    character_data = get_character_data()
     character_mapper = get_datamapper('character')
 
     c = character_mapper.getById(character_id)
     if c['user_id'] != request.user['id'] \
             and not any([role in request.user.role for role in ['admin', 'dm']]):
         abort(403)
+
+    phases = {
+        'init': {
+            'level': 0,
+            'steps': ["core", "stats", "equip"],
+            'template': 'character/edit/init.html'
+            },
+        'lvl-1': {
+            'level': 1,
+            'steps': ["1"],
+            'template': 'character/edit/lvl-1.html'
+            },
+        'base': {
+            'level': 0,
+            'steps': [],
+            'template': 'character/edit/init.html'
+            }
+        }
+
+    if not phase or phase not in phases:
+        phase_names = [
+            p for p, req in phases.iteritems()
+            if c.level >= req['level'] \
+                and any(s not in c.creation for s in req['steps'])
+            ]
+        phase_names = sorted(
+            phase_names,
+            key=lambda p: (p == 'base', phases[p]['level'])
+            )
+        return redirect(url_for(
+            'character.edit',
+            character_id=character_id,
+            phase=phase_names[0]
+            ))
 
     if request.method == 'POST':
         if request.form["button"] == "cancel":
@@ -373,24 +421,29 @@ def edit(character_id):
                 ))
 
         c.updateFromPost(request.form)
+        c = character_mapper.save(c)
 
         if request.form.get("button", "save") == "save":
-            character_mapper.update(c)
             return redirect(url_for(
                 'character.show',
-                character_id=character_id
+                character_id=c.id
                 ))
 
-        if request.form.get("button", "save") == "update":
-            character_mapper.update(c)
-            return redirect(url_for(
-                'character.edit',
-                character_id=character_id
-                ))
+    options = JsonObject()
+    for field in ['race', 'class', 'background']:
+        data = find_caracter_field(
+            character_data, field, c[field]
+            )
+        if 'phases' in data:
+            options.update(data['phases'].get(phase, {}))
+    #return jsonify(options.config)
 
     return render_template(
-        'character/edit.html',
-        data=config['data'],
+        phases[phase]['template'],
+        phase=phase,
+        tabs=phases[phase]['steps'],
+        last=sum([1 for s in phases[phase]['steps'] if s not in c.creation]) == 1,
+        options=options.config,
         character=c
         )
 
@@ -412,19 +465,69 @@ def delete(character_id):
 @character.route('/new', methods=['GET', 'POST'])
 @character.route('/new/<int:character_id>', methods=['GET', 'POST'])
 def new(character_id=None):
+    character_data = get_character_data()
+    character_mapper = get_datamapper('character')
+    steps = ["race", "class", "background"]
+
+    c = CharacterObject({
+        'user_id': request.user.id
+        })
+
+    if character_id:
+        old = character_mapper.getById(character_id)
+        if old.user_id != request.user.id \
+                and not any([role in request.user.role for role in ['admin', 'dm']]):
+            abort(403)
+        c.id = old.id
+        c.xp = old.xp
+
+    if request.method == 'POST':
+        if request.form["button"] == "cancel":
+            if character_id:
+                return redirect(url_for(
+                    'character.show',
+                    character_id=character_id
+                    ))
+            return redirect(url_for(
+                'character.overview'
+                ))
+
+        c.updateFromPost(request.form)
+
+        completed = all(
+            step in c.creation
+            for step in steps
+            )
+
+        if request.form.get("button", "save") == "save":
+            if completed:
+                for step in steps:
+                    data = find_caracter_field(
+                        character_data, step, c[step]
+                        )
+                    print step, c[step], data.get('config', {})
+                    c.update(data.get('config', {}))
+
+            c = character_mapper.save(c)
+
+            return redirect(url_for(
+                'character.edit',
+                character_id=c.id
+                ))
+
+    return render_template(
+        'character/create.html',
+        tabs=steps,
+        last=sum([1 for step in steps if step not in c.creation]) == 1,
+        character_data=character_data,
+        character=c
+        )
+
+@character.route('/create/<int:character_id>', methods=['GET', 'POST'])
+def create(character_id=None):
     config = get_config()
     cdata = get_character_data()
     items = get_item_data()
-
-    for section in ['race', 'class', 'background']:
-        cdata[section] = [
-            part for part in cdata[section]
-            if part['name']
-            ]
-        for part in cdata[section]:
-            mdfile = os.path.join('dndmachine', 'data', part['filename'])
-            with codecs.open(mdfile, encoding='utf-8') as fh:
-                part['description'] = fh.read()
 
     def expandOptions(options):
         if isinstance(options, dict):

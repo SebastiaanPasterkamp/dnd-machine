@@ -3,7 +3,7 @@ import json
 
 from flask import g
 
-from ..config import get_config
+from ..config import get_config, get_item_data
 from .. import get_db
 
 from campaign import CampaignMapper
@@ -19,7 +19,7 @@ def datamapper_factory(datamapper):
     """
     config = get_config()
     if datamapper == 'machine':
-        return DndMachine(config['machine'])
+        return DndMachine(config['machine'], get_item_data())
     if datamapper == 'user':
         return UserMapper(get_db())
     if datamapper == 'party':

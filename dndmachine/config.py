@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import json
+import codecs
 
 config = None
 
@@ -13,7 +14,14 @@ def get_config():
 
 def get_character_data():
     with open(os.path.join('dndmachine', 'character-data.json')) as cfg:
-        return json.load(cfg)
+        character_data = json.load(cfg)
+        for section in ['race', 'class', 'background']:
+            for part in character_data[section]:
+                mdfile = os.path.join(
+                    'dndmachine', 'data', part['filename'])
+                with codecs.open(mdfile, encoding='utf-8') as fh:
+                    part['description'] = fh.read()
+        return character_data
 
 def get_item_data():
     with open(os.path.join('dndmachine', 'item-data.json')) as cfg:

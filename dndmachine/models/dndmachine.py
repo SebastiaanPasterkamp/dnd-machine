@@ -5,16 +5,17 @@ from passlib.hash import pbkdf2_sha256 as password
 import parser
 import re
 
-from ..config import get_config, get_item_data
+from base import JsonObject
 
 class DndMachine(object):
-    def __init__(self, config):
+    def __init__(self, config, items):
         self.xp_at_level = config['xp_at_level']
         self.challenge_rating = config["challenge_rating"]
         self.monster_scaling = config["monster_scaling"]
         self.size_hit_dice = config["size_hit_dice"]
         self.attack_modifier = config["attack_modifier"]
         self.monster_types = config["monster_types"]
+        self.items = JsonObject(items)
 
     def resolveMath(self, obj, formula):
         replace = {}
@@ -25,10 +26,20 @@ class DndMachine(object):
         code = parser.expr(formula).compile()
         return eval(code)
 
-    def findByName(self, name, items):
+    def findByName(self, name, items, default=None):
         matches = [
             item
             for item in items
+            if item['name'] == name
+            ]
+        if matches:
+            return matches[0]
+        return default
+
+    def itemByName(self, name, path=[], items=None):
+        matches = [
+            item
+            for item in self.items.getPath(path)
             if item['name'] == name
             ]
         if matches:
