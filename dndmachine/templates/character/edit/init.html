@@ -15,9 +15,13 @@
 {% for choise in choises %}
 
     {% if 'options' in choise %}
-    <select class="small nice-form-control" {{ attr }} name="character.{{ path }}.+">
+    <select class="small nice-form-control" {{ attr }} name="character.{{ path }}[]">
         {% for option in choise.options %}
+        {% if option is mapping %}
+        <option valeu="{{ option.name }}">{{ option.label|default(option.name) }}</option>
+        {% else %}
         <option>{{ option }}</option>
+        {% endif %}
         {% endfor %}
     </select>
     {% endif %}
@@ -51,7 +55,7 @@
     {% if 'group' in choise %}
         {{ choise.group|join(', ') }}
         {% for set in choise.group %}
-        <input type="hidden" name="character.{{ path }}.+" {{ attr }} value="{{ set }}" />
+        <input type="hidden" name="character.{{ path }}[]" {{ attr }} value="{{ set }}" />
         {% endfor %}
     {% endif %}
 {% endfor %}
@@ -68,7 +72,7 @@
 
 {% if not done %}
     <form action="{{ url_for('character.edit', phase=phase, character_id=character.id) }}" method="post">
-        <input type="hidden" name="character.creation.+" value="{{ tab }}" />
+        <input type="hidden" name="character.creation[]" value="{{ tab }}" />
 
         {{ buttons }}
 {% endif %}
@@ -88,7 +92,7 @@
                 {% for b in ['good', 'neutral', 'evil'] %}
                 {% for a in ['lawful', 'neutral', 'chaotic'] %}
                     {% set alignment = ('true' if a == b else a) + ' ' + b %}
-                    <option>{{ alignment|capitalize }}</option>
+                    <option value="{{ alignment }}">{{ alignment|capitalize }}</option>
                 {% endfor %}
                 {% endfor %}
                 </select>
@@ -146,7 +150,7 @@
                 </select>
             </td>
             <td class="{{ class }}">
-                <input type="number" disabled value="{{ character.stats_bonus[stat.name] }}" data-field="bonus" class="nice-form-control" />
+                <input type="number" disabled value="{{ character.stats_bonus[stat.name]|sum }}" data-field="bonus" class="nice-form-control" />
             </td>
             <td class="{{ class }}">
                 <input type="number" disabled value="{{ character.stats[stat.name] }}" data-field="final" class="nice-form-control" />
@@ -191,7 +195,7 @@
         {% endif %}
             <th>{{ stat.name }}</th>
             <td>{{ character.base_stats[stat.name] }}</td>
-            <td>{{ character.stats_bonus[stat.name]|bonus }}</td>
+            <td>{{ character.stats_bonus[stat.name]|sum|bonus }}</td>
             <td><strong>{{ character.stats[stat.name] }}</strong></td>
             <td><strong>{{ character.modifiers[stat.name]|bonus }}</strong></td>
         </tr>
