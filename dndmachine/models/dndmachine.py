@@ -36,7 +36,7 @@ class DndMachine(object):
             return matches[0]
         return default
 
-    def itemByName(self, name, path=[], items=None):
+    def itemByName(self, name, path=[]):
         matches = [
             item
             for item in self.items.getPath(path)

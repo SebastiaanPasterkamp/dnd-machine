@@ -109,6 +109,11 @@
                     <td>{{ character.proficiency|bonus }}</td>
                 </tr>
                 <tr>
+                    <th>Expertise Bonus</th>
+                    <td>{{ (character.proficiency*2)|bonus }}</td>
+                </tr>
+                {% if character.spell_stat %}
+                <tr>
                     <th>Spells</th>
                     <td>
                         <ul>
@@ -131,6 +136,7 @@
                         </dl>
                     </td>
                 </tr>
+                {% endif %}
             </tbody>
         </table>
     </div>
@@ -346,8 +352,13 @@
                     <th>Tools</th>
                     <td>
                         <ul>
-                    {% for armor in character.proficiencies.tools%}
-                            <li>{{ armor }}</li>
+                    {% for tool in character.proficiencies.tools%}
+                            <li>
+                                {{ tool }}
+                                {% if tool in character.proficiencies.expertise %}
+                                (Expertise)
+                                {% endif %}
+                            </li>
                     {% endfor %}
                         </ul>
                     </td>
@@ -403,6 +414,11 @@
                         {% else %}
                         <span class="icon fa-square-o">&nbsp;</span>
                         {% endif %}
+                        {% if stat.name in character.proficiencies.expertise %}
+                        <span class="icon fa-check-square-o">&nbsp;</span>
+                        {% elif character.proficiencies.expertise %}
+                        <span class="icon fa-square-o">&nbsp;</span>
+                        {% endif %}
                     </td>
                     <td>
                         {{ character.saving_throws[stat.name]|bonus }}
@@ -433,11 +449,16 @@
                         {% else %}
                         <span class="icon fa-square-o">&nbsp;</span>
                         {% endif %}
+                        {% if skill.name in character.proficiencies.expertise %}
+                        <span class="icon fa-check-square-o">&nbsp;</span>
+                        {% elif character.proficiencies.expertise %}
+                        <span class="icon fa-square-o">&nbsp;</span>
+                        {% endif %}
                     </td>
                     <td>
                         {{ character.skills[skill.name]|bonus }}
                     </td>
-                    <th>{{ skill.label }}</th>
+                    <th>{{ skill.label }} ({{ skill.name }})</th>
                 </tr>
             {% endif %}
             {% endfor %}

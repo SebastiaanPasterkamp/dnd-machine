@@ -5,6 +5,13 @@ from dndmachine import DndMachine
 
 class CharacterObject(JsonObject):
     def __init__(self, config={}):
+
+        if 'stats_bonus' in config:
+            config['stats_bonus'] = dict([
+                (stat, bonus) if isinstance(bonus, list) else (stat, [bonus])
+                for stat, bonus in config['stats_bonus'].iteritems()
+                ])
+
         super(CharacterObject, self).__init__(
             config,
             pathPrefix = "character",
@@ -26,12 +33,12 @@ class CharacterObject(JsonObject):
                     "charisma": 8
                     },
                 "stats_bonus": {
-                    "strength": 0,
-                    "dexterity": 0,
-                    "constitution": 0,
-                    "intelligence": 0,
-                    "wisdom": 0,
-                    "charisma": 0
+                    "strength": [],
+                    "dexterity": [],
+                    "constitution": [],
+                    "intelligence": [],
+                    "wisdom": [],
+                    "charisma": []
                     },
                 "stats": {
                     "strength": 8,
@@ -77,9 +84,14 @@ class CharacterObject(JsonObject):
                     "tools": [],
                     "saving_throws": [],
                     "advantages": [],
+                    "expertise": [],
                     "skills": []
                     },
-                "computed": {},
+                "computed": {
+                    "unarmored": {
+                        "formula": "10 + modifiers.dexterity + modifiers.constitution"
+                    }
+                },
                 "wealth": {
                     "cp": 0,
                     "sp": 0,
@@ -153,13 +165,16 @@ class CharacterObject(JsonObject):
                         }
                     },
                 "items": {
+                    "*": [],
                     "artisan": {
                         "*": unicode
                         },
-                    "kits": [],
-                    "gaming": [],
-                    "musical": [],
                     "misc": unicode
+                    },
+                "computed": {
+                    "*": {
+                        "bonus": int
+                        }
                     }
                 }
             )
@@ -167,12 +182,21 @@ class CharacterObject(JsonObject):
     def compute(self):
         config = get_config()
         machine = DndMachine(config["machine"], get_item_data())
-        items = JsonObject(get_item_data())
 
-        for stat in items.statistics:
+        if isinstance(self.spell_attack_modifier, dict):
+            self.computedSpell_attack_modifier = \
+                self.spell_attack_modifier
+        if isinstance(self.spell_safe_dc, dict):
+            self.computedSpell_safe_dc = \
+                self.spell_safe_dc
+        if isinstance(self.hit_points, dict):
+            self.computedHit_points = \
+                self.hit_points
+
+        for stat in machine.items.statistics:
             stat = stat["name"]
             self.stats[stat] = self.base_stats[stat] \
-                + self.stats_bonus[stat]
+                + sum(self.stats_bonus[stat])
             self.modifiers[stat] = int(
                 (self.stats[stat] - 10) / 2
                 )
@@ -183,7 +207,7 @@ class CharacterObject(JsonObject):
         self.initiative_bonus = self.modifiersDexterity
         self.passive_perception = 10 + self.modifiersWisdom
 
-        for skill in items.skills:
+        for skill in machine.items.skills:
             stat, skill = skill["stat"], skill["name"]
             self.skills[skill] = self.modifiers[stat]
             if skill in self.proficienciesSkills:
@@ -245,10 +269,11 @@ class CharacterObject(JsonObject):
 
         for item in self.equipment:
             dest, desc = findDesc(item)
+            dest = dest or 'misc'
             if desc:
-                self[dest].append(desc)
+                self[dest] = [desc]
             else:
-                self.itemsMisc.append(item)
+                self.itemsMisc = [item]
 
         for weapon in self.weapons:
             attack_modifier = "strength"

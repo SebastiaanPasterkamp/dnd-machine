@@ -3,7 +3,7 @@
 {% if character.id %}
 <h2 class="icon fa-pencil">Character</h2>
 
-<form action="{{ url_for('character.edit', character_id=character.id) }}" method="post">
+<form action="{{ url_for('character.edit', phase=phase, character_id=character.id) }}" method="post">
 {% else %}
 <h2 class="icon fa-plus">Character</h2>
 
@@ -35,7 +35,11 @@
             {% for b in ['good', 'neutral', 'evil'] %}
             {% for a in ['lawful', 'neutral', 'chaotic'] %}
                 {% set alignment = ('true' if a == b else a) + ' ' + b %}
-                <option>{{ alignment|capitalize }}</option>
+                {% if alignment == character.alignment %}
+                <option value="{{ alignment }}" selected>{{ alignment|capitalize }}</option>
+                {% else %}
+                <option value="{{ alignment }}">{{ alignment|capitalize }}</option>
+                {% endif%}
             {% endfor %}
             {% endfor %}
             </select>

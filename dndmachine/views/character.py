@@ -15,9 +15,11 @@ character = Blueprint(
 
 def find_caracter_field(character_data, field, value):
     for data in character_data[field]:
-        for sub in data.get('sub', [data]):
+        for sub in data.get('sub', []):
             if sub['name'] == value:
-                return data
+                return data, sub
+        if data['name'] == value:
+            return data, None
 
 @character.route('/')
 @character.route('/list')
@@ -369,49 +371,114 @@ def download(character_id):
         )
 
 @character.route('/edit/<int:character_id>')
-@character.route('/edit/<string:phase>/<int:character_id>', methods=['GET', 'POST'])
-def edit(character_id, phase=None):
+@character.route('/edit/<string:current_phase>/<int:character_id>', methods=['GET', 'POST'])
+def edit(character_id, current_phase=None):
     character_data = get_character_data()
     character_mapper = get_datamapper('character')
+    machine = get_datamapper('machine')
 
     c = character_mapper.getById(character_id)
     if c['user_id'] != request.user['id'] \
             and not any([role in request.user.role for role in ['admin', 'dm']]):
         abort(403)
+    c.xp = 300
+    c.compute()
 
-    phases = {
+    phases = JsonObject({
         'init': {
-            'level': 0,
-            'steps': ["core", "stats", "equip"],
+            'steps': [u"core", u"stats", u"equip"],
             'template': 'character/edit/init.html'
-            },
-        'lvl-1': {
-            'level': 1,
-            'steps': ["1"],
-            'template': 'character/edit/lvl-1.html'
             },
         'base': {
-            'level': 0,
-            'steps': [],
-            'template': 'character/edit/init.html'
+            'conditions': {},
+            'template': 'character/edit/base.html'
             }
-        }
+        },
+        fieldTypes = {
+            '*': { 'conditions': { 'level': int } }
+        })
 
-    if not phase or phase not in phases:
-        phase_names = [
-            p for p, req in phases.iteritems()
-            if c.level >= req['level'] \
-                and any(s not in c.creation for s in req['steps'])
-            ]
+    for field in ['race', 'class', 'background']:
+        data, sub = find_caracter_field(
+            character_data, field, c[field]
+            )
+        if 'phases' in data:
+            phases.update(data['phases'])
+        if sub and 'phases' in sub:
+            phases.update(sub['phases'])
+    phases = phases.config
+
+    if not current_phase or current_phase not in phases:
+        phase_names = []
+        for p, phase in phases.iteritems():
+            cond = phase['conditions']
+            if 'level' in cond \
+                    and not cond['level'][0] <= c.level <= cond['level'][1]:
+                continue
+
+            if 'steps' in phase and all(s in c.creation for s in phase['steps']):
+                continue
+            if 'steps' in phase:
+                print p, phase['steps'], c.creation
+
+            if 'path' in cond and not all(p in c.path for p in cond['path']):
+                continue
+
+            phase_names.append(p)
+
         phase_names = sorted(
             phase_names,
-            key=lambda p: (p == 'base', phases[p]['level'])
+            key=lambda p: phases[p].get('level', [99, 99])
             )
+
         return redirect(url_for(
             'character.edit',
             character_id=character_id,
-            phase=phase_names[0]
+            current_phase=phase_names[0]
             ))
+    phase = phases[current_phase]
+
+    def assigning(key, val):
+        if isinstance(val, unicode) and '.' in val:
+            if val.startswith('character'):
+                return (
+                    key,
+                    c.getPath(val) or val
+                    )
+            if val.endswith('_formula'):
+                return (
+                    key.replace('_formula', ''),
+                    machine.resolveMath(c, val)
+                    )
+            return (
+                key,
+                [item
+                 for v in val.split(',')
+                 for item in machine.items.getPath(v) or val
+                 ]
+                )
+        if isinstance(val, dict):
+            return (
+                key,
+                dict([
+                    assigning(sub_key, sub_val)
+                    for sub_key, sub_val in val.iteritems()
+                    ])
+                )
+        if isinstance(val, list):
+            return (
+                key,
+                [assigning(key, v)[1] for v in val]
+                )
+        return (key, val)
+
+    phase = dict([
+        assigning(key, val)
+        for key, val in phase.iteritems()
+        ])
+    #return jsonify(phase)
+
+    c.update(phase.get('given', {}))
 
     if request.method == 'POST':
         if request.form["button"] == "cancel":
@@ -424,26 +491,30 @@ def edit(character_id, phase=None):
         c = character_mapper.save(c)
 
         if request.form.get("button", "save") == "save":
+            if current_phase == 'base':
+                return redirect(url_for(
+                    'character.show',
+                    character_id=c.id
+                    ))
             return redirect(url_for(
-                'character.show',
+                'character.edit',
                 character_id=c.id
                 ))
 
-    options = JsonObject()
-    for field in ['race', 'class', 'background']:
-        data = find_caracter_field(
-            character_data, field, c[field]
-            )
-        if 'phases' in data:
-            options.update(data['phases'].get(phase, {}))
-    #return jsonify(options.config)
+    tabs = []
+    last = False
+    if 'steps' in phase:
+        tabs = phase['steps']
+        last = sum([1 for s in tabs if s not in c.creation]) == 1
 
     return render_template(
-        phases[phase]['template'],
+        phase.get('template', 'character/edit/level-up.html'),
         phase=phase,
-        tabs=phases[phase]['steps'],
-        last=sum([1 for s in phases[phase]['steps'] if s not in c.creation]) == 1,
-        options=options.config,
+        tabs=tabs,
+        last=last,
+        given=phase.get('given', {}),
+        options=phase.get('options', {}),
+        paths=phase.get('paths', {}),
         character=c
         )
 
@@ -499,14 +570,14 @@ def new(character_id=None):
             for step in steps
             )
 
-        if request.form.get("button", "save") == "save":
-            if completed:
-                for step in steps:
-                    data = find_caracter_field(
-                        character_data, step, c[step]
-                        )
-                    print step, c[step], data.get('config', {})
-                    c.update(data.get('config', {}))
+        if completed and request.form.get("button", "save") == "save":
+            for step in steps:
+                data, sub = find_caracter_field(
+                    character_data, step, c[step]
+                    )
+                c.update(data.get('config', {}))
+                if sub:
+                    c.update(sub.get('config', {}))
 
             c = character_mapper.save(c)
 
@@ -675,7 +746,7 @@ def create(character_id=None):
         if request.form.get("button", "save") == "save":
             c = character_mapper.save(c)
             return redirect(url_for(
-                'character.show',
+                'character.edit',
                 character_id=c['id']
                 ))
 

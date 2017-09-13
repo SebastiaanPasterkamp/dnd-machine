@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% set buttons %}
+<div class="nice-btn-group pull-right">
+    <button name="button" value="save" class="hidden">Save</button>
+
+    <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+    <button name="button" value="save" class="nice-btn accent icon fa-save">Save</button>
+</div>
+<div class="clearfix"></div>
+{% endset %}
+
+
+{%- macro attribute(path, choises, given=[], attr='') -%}
+
+{% if given %}
+<ul>
+{% for g in given %}
+    <li>{{ g }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% for choise in choises %}
+
+    {% if 'options' in choise %}
+    <select class="small nice-form-control" {{ attr }} name="character.{{ path }}[]">
+        {% for option in choise.options %}
+        <option>{{ option }}</option>
+        {% endfor %}
+    </select>
+    {% endif %}
+
+    {% if 'choose' in choise %}
+    <table class="nice-table condensed bordered itemset">
+        {% for set in choise.choose %}
+        <tr>
+            <td><input type="radio" name="{{ choise.choose }}" {% if loop.first %}checked{% endif %}/></td>
+            <td>{{
+                attribute(
+                    path,
+                    [set],
+                    attr='disabled' if not loop.first else ''
+                )
+            }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    {% if 'multiple' in choise %}
+        {% for set in choise.multiple %}
+        {{ attribute(
+            path,
+            set
+            ) }}
+        {% endfor %}
+    {% endif %}
+
+    {% if 'group' in choise %}
+        {{ choise.group|join(', ') }}
+        {% for set in choise.group %}
+        <input type="hidden" name="character.{{ path }}[]" {{ attr }} value="{{ set }}" />
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+{% endmacro -%}
+
+{% block body %}
+<h1 class="icon fa-level-up">Character Level-Up</h1>
+
+<form action="{{ url_for('character.edit', phase=phase, character_id=character.id) }}" method="post">
+    <input type="hidden" name="character.creation[]" value="{{ phase }}" />
+
+    {{ buttons }}
+
+    <table class="nice-table condensed bordered nice-form-group">
+        <tbody>
+
+            {% if 'proficiency' in options %}
+            <tr>
+                <th>Proficiency</th>
+                <td>{{ options.proficiency|bonus }} </td>
+            </tr>
+            {% endif %}
+
+            {% if 'proficiencies' in options %}
+            {% for type, profs in options.proficiencies.items() %}
+                <tr>
+                    <th>{{ type|capitalize }} proficiency</th>
+                    <td>{{ attribute(
+                        'proficiencies.' + type,
+                        profs|default({}),
+                        character.proficiencies[type]|default([])
+                    ) }}</td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+
+    {{ buttons }}
+
+</form>
+
+{% endblock body %}
