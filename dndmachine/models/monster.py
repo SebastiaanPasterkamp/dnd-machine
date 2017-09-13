@@ -56,15 +56,19 @@ class MonsterObject(JsonObject):
                     '*': unicode
                     },
                 'multiattack': {
-                    '*': int
+                    'average': int,
+                    'critical': int
                     },
                 'attacks': {
-                    '*': int,
-                    'attack_method': unicode,
-                    'notation': unicode,
+                    'modifier': int,
+                    'bonus': int,
+                    'spell_save_dc': int,
+                    'average': int,
+                    'critical': int,
                     'damage': {
                         '*': int,
-                        'type': unicode
+                        'type': unicode,
+                        'notation': unicode
                         }
                     },
                 'hit_points': int,
