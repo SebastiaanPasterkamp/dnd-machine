@@ -50,18 +50,18 @@
         ]
     },
     "damage_types": [
-        {"name": "acid", "label": "Acid", "short": "Acid", "description": "The corrosive spray of a black dragon’s breath and the dissolving enzymes secreted by a black pudding deal acid damage." },
+        {"name": "acid", "label": "Acid", "short": "Acid", "description": "The corrosive spray of a black dragon's breath and the dissolving enzymes secreted by a black pudding deal acid damage." },
         {"name": "bludgeoning", "label": "Bludgeoning", "short": "Bldgn", "description": "Blunt force attacks—hammers, falling, constriction, and the like—deal bludgeoning damage." },
-        {"name": "cold", "label": "Cold", "short": "Cold", "description": "The infernal chill radiating from an ice devil’s spear and the frigid blast of a white dragon’s breath deal cold damage." },
+        {"name": "cold", "label": "Cold", "short": "Cold", "description": "The infernal chill radiating from an ice devil's spear and the frigid blast of a white dragon's breath deal cold damage." },
         {"name": "fire", "label": "Fire", "short": "Fire", "description": "Red dragons breathe fire, and many spells conjure flames to deal fire damage." },
         {"name": "force", "label": "Force", "short": "Force", "description": "Force is pure magical energy focused into a damaging form. Most effects that deal force damage are spells, including magic missile and spiritual weapon." },
-        {"name": "lightning", "label": "Lightning", "short": "Lghtn", "description": "A lightning bolt spell and a blue dragon’s breath deal lightning damage." },
+        {"name": "lightning", "label": "Lightning", "short": "Lghtn", "description": "A lightning bolt spell and a blue dragon's breath deal lightning damage." },
         {"name": "necrotic", "label": "Necrotic", "short": "Necro", "description": "Necrotic damage, dealt by certain undead and a spell such as chill touch, withers matter and even the soul." },
-        {"name": "piercing", "label": "Piercing", "short": "Prcng", "description": "Puncturing and impaling attacks, including spears and monsters’ bites, deal piercing damage." },
-        {"name": "poison", "label": "Poison", "short": "Poisn", "description": "Venomous stings and the toxic gas of a green dragon’s breath deal poison damage." },
-        {"name": "psychic", "label": "Psychic", "short": "Psych", "description": "Mental abilities such as a mind flayer’s psionic blast deal psychic damage." },
-        {"name": "radiant", "label": "Radiant", "short": "Radnt", "description": "Radiant damage, dealt by a cleric’s flame strike spell or an angel’s smiting weapon, sears the flesh like fire and overloads the spirit with power." },
-        {"name": "slashing", "label": "Slashing", "short": "Slash", "description": "Swords, axes, and monsters’ claws deal slashing damage." },
+        {"name": "piercing", "label": "Piercing", "short": "Prcng", "description": "Puncturing and impaling attacks, including spears and monsters' bites, deal piercing damage." },
+        {"name": "poison", "label": "Poison", "short": "Poisn", "description": "Venomous stings and the toxic gas of a green dragon's breath deal poison damage." },
+        {"name": "psychic", "label": "Psychic", "short": "Psych", "description": "Mental abilities such as a mind flayer's psionic blast deal psychic damage." },
+        {"name": "radiant", "label": "Radiant", "short": "Radnt", "description": "Radiant damage, dealt by a cleric's flame strike spell or an angel's smiting weapon, sears the flesh like fire and overloads the spirit with power." },
+        {"name": "slashing", "label": "Slashing", "short": "Slash", "description": "Swords, axes, and monsters' claws deal slashing damage." },
         {"name": "thunder", "label": "Thunder", "short": "Thndr", "description": "A concussive burst of sound, such as the effect of the Thunderwave spell, deals thunder damage." }
     ],
     "armor": {
@@ -165,7 +165,7 @@
         }
     },
     "packs": {
-        "Burglar’s Pack": {
+        "burglar's pack": {
             "worth": [16, "gp"],
             "items": [
                 "Backpack",
@@ -184,7 +184,7 @@
                 "50 Feet of Hempen Rope"
             ]
         },
-        "Diplomat’s Pack": {
+        "diplomat's pack": {
             "worth": [39, "gp"],
             "items": [
                 "Chest",
@@ -200,7 +200,7 @@
                 "Soap"
             ]
         },
-        "Dungeoneer’s Pack": {
+        "dungeoneer's pack": {
             "worth": [12, "gp"],
             "items": [
                 "Backpack",
@@ -214,7 +214,7 @@
                 "50 Feet of Hempen Rope"
             ]
         },
-        "Entertainer’s Pack": {
+        "entertainer's pack": {
             "worth": [40, "gp"],
             "items": [
                 "Backpack",
@@ -226,7 +226,7 @@
                 "Disguise Kit"
             ]
         },
-        "Explorer’s Pack": {
+        "explorer's pack": {
             "worth": [10, "gp"],
             "items": [
                 "Backpack",
@@ -239,7 +239,7 @@
                 "50 Feet of Hempen Rope"
             ]
         },
-        "Priest’s Pack": {
+        "priest's pack": {
             "worth": [19, "gp"],
             "items": [
                 "Backpack",
@@ -254,7 +254,7 @@
                 "Waterskin"
             ]
         },
-        "Scholar’s Pack": {
+        "scholar's pack": {
             "worth": [40, "gp"],
             "items": [
                 "Backpack",
@@ -330,7 +330,7 @@
         "A mummified goblin hand",
         "A piece of crystal that faintly glows in the moonlight",
         "A gold coin minted in an unknown land",
-        "A diary written in a language you don’t know",
+        "A diary written in a language you don't know",
         "A brass ring that never tarnishes",
         "An old chess piece made from glass",
         "A pair of knucklebone dice, each with a skull symbol on the side that would normally show six pips",
@@ -380,12 +380,12 @@
         "A dead scarab beetle the size of your hand",
         "Two toy soldiers, one with a missing head",
         "A small box filled with different-sized buttons",
-        "A candle that can’t be lit",
+        "A candle that can't be lit",
         "A tiny cage with no door",
         "An old key",
         "An indecipherable treasure map",
         "A hilt from a broken sword",
-        "A rabbit’s foot",
+        "A rabbit's foot",
         "A glass eye",
         "A cameo carved in the likeness of a hideous person",
         "A silver skull the size of a coin",
@@ -423,7 +423,7 @@
         "A mosaic tile with a multicolored, glazed surface",
         "A petrified mouse",
         "A black pirate flag adorned with a dragon's skull and crossbones",
-        "A tiny mechanical crab or spider that moves about when it’s not being observed",
+        "A tiny mechanical crab or spider that moves about when it's not being observed",
         "A glass jar containing lard with a label that reads, “Griffon Grease”",
         "A wooden box with a ceramic bottom that holds a living worm with a head on each end of its body",
         "A metal urn containing the ashes of a hero"
@@ -631,7 +631,7 @@
                 {"name": "Find the Path"},
                 {"name": "Harm"},
                 {"name": "Heal"},
-                {"name": "Heroes’ Feast"},
+                {"name": "Heroes' Feast"},
                 {"name": "True Seeing"}
             ],
             "7th": [
@@ -725,13 +725,13 @@
                 {"name": "Disintegrate"},
                 {"name": "Globe of Invulnerability"},
                 {"name": "Mass Suggestion"},
-                {"name": "Otto’s Irresistible Dance"},
+                {"name": "Otto's Irresistible Dance"},
                 {"name": "True Seeing"}
             ],
             "7th": [
                 {"name": "Delayed Blast Fireball"},
                 {"name": "Finger of Death"},
-                {"name": "Mordenkainen’s Sword"},
+                {"name": "Mordenkainen's Sword"},
                 {"name": "Teleport"}
             ],
             "8th": [

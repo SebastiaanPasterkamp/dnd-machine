@@ -14,9 +14,9 @@ When you choose this background, work with your DM to determine which military o
 
 During your time as a soldier, you had a specific role to play in your unit or army. Roll a d8 or choose from the options in the table below to determine your role:
 
-| d8Specialty
+| d8 | Specialty |
 | --- | --- |
-| 1 | 1Officer |
+| 1 | Officer |
 | 2 | Scout |
 | 3 | Infantry |
 | 4 | Cavalry |
@@ -33,7 +33,7 @@ You have a military rank from your career as a soldier. Soldiers loyal to your f
 
 The horrors of war combined with the rigid discipline of military service leave their mark on all soldiers, shaping their ideals, creating strong bonds, and often leaving them scarred and vulnerable to fear, shame, and hatred.
 
-d8Personality Trait
+| d8 | Personality Trait |
 | --- | --- |
 | 1 | I’m always polite and respectful. |
 | 2 | I’m haunted by memories of war. I can’t get the images of violence out of my mind. |
@@ -64,9 +64,9 @@ d8Personality Trait
 
 | d6 | Flaw |
 | --- | --- |
- | 1 | The monstrous enemy we faced in battle still leaves me quivering with fear. |
- | 2 | I have little respect for anyone who is not a proven warrior. |
- | 3 | I made a terrible mistake in battle that cost many lives—and I would do anything to keep that mistake secret. |
- | 4 | My hatred of my enemies is blind and unreasoning. |
- | 5 | I obey the law, even if the law causes misery. |
- | 6 | I’d rather eat my armor than admit when I’m wrong. |
+| 1 | The monstrous enemy we faced in battle still leaves me quivering with fear. |
+| 2 | I have little respect for anyone who is not a proven warrior. |
+| 3 | I made a terrible mistake in battle that cost many lives—and I would do anything to keep that mistake secret. |
+| 4 | My hatred of my enemies is blind and unreasoning. |
+| 5 | I obey the law, even if the law causes misery. |
+| 6 | I’d rather eat my armor than admit when I’m wrong. |
