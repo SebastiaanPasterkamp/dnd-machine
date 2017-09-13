@@ -12,12 +12,14 @@ campaign = Blueprint(
 def overview(campaign_id=None):
     campaign_mapper = get_datamapper('campaign')
 
-    search = None
-    if 'admin' in request.user.role:
-        search = request.args.get('search', '')
-        campaigns = campaign_mapper.getList(search)
-    else:
-        campaigns = campaign_mapper.getByDmUserId(request.user.id)
+    search = request.args.get('search', '')
+    campaigns = campaign_mapper.getList(search)
+    if 'admin' not in request.user.role:
+        campaigns = [
+            c
+            for c in campaigns
+            if c.user_id == request.user.id
+            ]
 
     return render_template(
         'campaign/overview.html',

@@ -49,41 +49,51 @@ class JsonObject(object):
         self.compute()
 
     def _merge(self, a, b, path=None):
-        if path is None: path = []
-        if not isinstance(a, dict) or not isinstance(b, dict):
-            raise Exception("Conflict: a (%s) or b (%s) is not a dict" % (
-                type(a), type(b)
-                ))
-        for key in b:
-            if not isinstance(b[key], list) and not isinstance(b[key], dict):
-                b[key] = self.castFieldType(path + [key], b[key])
+        if path is None:
+            path = []
+            b = self.castFieldType(path, b)
 
-            if key in a:
-                if isinstance(a[key], dict) and isinstance(b[key], dict):
+        if isinstance(a, dict) and isinstance(b, dict):
+            for key in b:
+                if key in a:
                     a[key] = self._merge(a[key], b[key], path + [key])
-                elif isinstance(a[key], list) and isinstance(b[key], list):
-                    a[key].extend([
-                        self.castFieldType(path + [key], value)
-                        for value in b[key]
-                        ])
-                elif type(a[key]) == type(b[key]):
-                    a[key] = b[key]
                 else:
-                    raise Exception('Conflict at %s: %s vs %s (%r vs %r)' % (
-                        '.'.join(path + [key]),
-                        type(a[key]), type(b[key]),
-                        a[key], b[key]
-                        ))
-            else:
-                a[key] = b[key]
+                    a[key] = b[key]
+        elif isinstance(a, list) and isinstance(b, list):
+            a.extend([
+                self.castFieldType(path, value)
+                for value in b
+                ])
+        else:
+            b = self.castFieldType(path, b)
+            if type(a) == type(b):
+                return b
+            raise Exception('Conflict at %r: %s vs %s (%r vs %r)' % (
+                path,
+                type(a), type(b),
+                a, b
+                ))
         return a
 
     def updateFromPost(self, form):
         for field, value in form.iteritems():
+            if field.endswith('[]') or field.endswith('.+'):
+                value = form.getlist(field)
+                field = field[:-2]
+
             path = self.splitPath(field, False)
             if path[0] != self._pathPrefix:
                 continue
-            self.setPath(path[1:], value)
+            path = path[1:]
+
+            old_value = self.getPath(path)
+            if old_value is not None:
+                self.setPath(
+                    path,
+                    self._merge(old_value, value, path)
+                    )
+            else:
+                self.setPath(path, value)
         self.compute()
 
     def compute(self):
@@ -137,8 +147,8 @@ class JsonObject(object):
                 if not isinstance(rv, list):
                     if default:
                         return default
-                    raise Exception("Not a list %s in '%r': %r" % (
-                        step, path, rv))
+                    raise Exception("Not a list %s in '%r'" % (
+                        step, path))
                 elif step >= len(rv):
                     return default
             elif not isinstance(rv, dict):
@@ -158,6 +168,21 @@ class JsonObject(object):
         if not isinstance(path, list):
             path = self.splitPath(path)
 
+        if path and path[-1] == u'cost' and isinstance(value, list):
+            return {value[1]: int(value[0])}
+
+        if isinstance(value, list):
+            return [
+                self.castFieldType(path, v)
+                for v in value
+                ]
+
+        if isinstance(value, dict):
+            return dict([
+                (step, self.castFieldType(path + [step], v))
+                for step, v in value.iteritems()
+                ])
+
         if len(path) == 1 and path[0] == 'id':
             cast = int
         else:
@@ -172,12 +197,10 @@ class JsonObject(object):
                 structure=self._fieldTypes
                 )
 
-        if isinstance(cast, dict) or isinstance(cast, list):
-            if isinstance(value, list) or isinstance(value, dict):
-                # TODO: type-check or cast everyting inside 'value'
-                return value
+        if cast in [dict, list]:
             raise Exception("Invalid type for %s. Expected %s, received %s (%r)" % (
                 path, cast, type(value), value))
+
         return cast(value)
 
     def setPath(self, path, value):
