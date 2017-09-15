@@ -129,7 +129,7 @@ def download(character_id):
         "HPMax": c.hit_points,
         "AC": "%s%s" % (
             c.armor_class,
-            " / +%d" % c.armor_class_bonus if c.armor_class_bonus else ""
+            " / +%s" % c.armor_class_bonus if c.armor_class_bonus else ""
             ),
         "HD": "%dd%d" % (c.level, c.hit_dice),
         "XP": c.xp,
@@ -263,17 +263,17 @@ def download(character_id):
     if c.armor:
         equipment.append(["Armor:"])
         for armor in c.armor:
-            if "value" in armor["armor"]:
+            if "value" in armor:
                 desc = [
                     "-",
                     armor['name'],
-                    "AC: %d" % armor["armor"]["value"]
+                    "AC: %d" % armor["value"]
                     ]
-            if "bonus" in armor["armor"]:
+            if "bonus" in armor:
                 desc = [
                     "-",
                     armor['name'],
-                    "AC: %s" % filter_bonus(armor["armor"]["bonus"])
+                    "AC: %s" % filter_bonus(armor["bonus"])
                     ]
             if "Strength" in armor:
                 desc.extend([
@@ -362,7 +362,9 @@ def download(character_id):
 
     pdf_file = os.path.join('dndmachine', 'static', 'pdf', 'Current Standard v1.4.pdf')
 
-    filename = re.sub(ur'[^\w\d]+', '_', c['name']) + '.pdf'
+    filename = re.sub(ur'[^\w\d]+', '_', c['name'])
+    filename = re.sub(ur'^_+|_+$', '', filename)
+    filename +=  '.pdf'
     return send_file(
         fill_pdf(pdf_file, fdf_data, '/tmp/%s.fdf' % c['name']),
         mimetype="application/pdf",
