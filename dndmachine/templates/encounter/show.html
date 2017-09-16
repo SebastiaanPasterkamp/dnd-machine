@@ -75,16 +75,14 @@
             <td>{{ encounter.modifier.monster }}</td>
             <td>{{ encounter.modifier.party }}</td>
             <td>{{ encounter.modifier.total }}</td>
-            {% if (encounter.xp_modified <= (party.challenge.easy + (party.challenge.medium-party.challenge.easy)/2)) %}
-            <td class="info">
-            {% elif (encounter.xp_modified <= (party.challenge.medium + (party.challenge.hard-party.challenge.medium)/2)) %}
-            <td class="good">
-            {% elif (encounter.xp_modified <= (party.challenge.hard + (party.challenge.deadly-party.challenge.hard)/2)) %}
-            <td class="warning">
-            {% else %}
-            <td class="bad">
-            {% endif %}
-                {{ encounter.challenge_modified }} / {{ encounter.xp_modified|int }} XP
+            {% set class = encounter.xp_modified|classify({
+                'info': party.challenge.easy,
+                'good': party.challenge.medium,
+                'warning': party.challenge.hard,
+                'bad': party.challenge.deadly
+            }) %}
+            <td class="{{ class }}">
+                {{ encounter.challenge_modified }} / {{ encounter.xp_modified }} XP
             </td>
         </tr>
     </tbody>
@@ -367,18 +365,12 @@
 <table class="nice-table condensed striped bordered">
     <tbody>
         <tr>
-            <th colspan="2"><h3>Actions</h3></th>
-        </tr>
-        <tr>
-            <th colspan="2"><h3>Multiattack</h3></th>
-        </tr>
-        <tr>
             <th>Multiattack</th>
             <td>
             {% for rotation in monster.multiattack %}
                 {{ rotation.name }}
-                <i>({{ rotation.condition }})</i>
-                {{ rotation.description|replace('%average%', rotation.average) }}
+                <i>{{ ('(' ~ rotation.condition ~ ')')|markdown }}</i>
+                {{ rotation.description|replace('%average%', rotation.average)|markdown }}
                 <div class="nice-tags-container">
                     {% for attack in rotation.sequence %}
                     <div class="nice-tag">
