@@ -158,6 +158,14 @@ def filter_bonus(number):
         return "+%d" % number
     return "%d" % number
 
+@app.template_filter('classify')
+def filter_classify(number, ranges={}):
+    closest = min(
+        ranges,
+        key=lambda k: abs(ranges[k] - number)
+        )
+    return closest
+
 @app.template_filter('completed')
 def filter_completed(tabs, completed):
     current = True

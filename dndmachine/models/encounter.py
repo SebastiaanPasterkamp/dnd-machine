@@ -23,10 +23,14 @@ class EncounterObject(JsonObject):
         super(EncounterObject, self).__init__(
             config,
             pathPrefix = "encounter",
+            defaultConfig = {
+                'size': 0
+                },
             fieldTypes = {
                 'user_id': int,
                 'size': int,
                 'challenge_rating': float,
+                'xp_modified': int,
                 'modifier': {
                     '*': int
                     },

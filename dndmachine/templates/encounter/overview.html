@@ -16,7 +16,9 @@
         <tr>
             <td>{{ encounter.name }}</td>
             <td>{{ encounter.size }}</td>
-            <td>{{ encounter.challenge_rating }} / {{ encounter.xp }} XP</td>
+            <td>
+                {{ encounter.challenge_rating }} / {{ encounter.xp }} XP
+            </td>
             <td>
                 <div class="nice-btn-group pull-right">
                 {% if request.party %}
