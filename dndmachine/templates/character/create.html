@@ -1,68 +1,352 @@
-{% extends "tabbed-layout.html" %}
+{% extends "layout.html" %}
 
-{% set completed = character.creation %}
+{% import 'macros.html' as macro %}
 
-{% block title %}
-<h1 class="icon fa-plus">New Character</h1>
-{% endblock title %}
+{% set basic = ["race", "class", "background"] %}
 
-{% block content %}
-
-{% for tab, done, current in tabs|completed(completed) %}
-<li class="{{ 'current' if current else '' }}" data-name="{{ tab }}">
-
-    <form action="{{ url_for('character.new', character_id=character.id) }}" method="post">
-        {% for finished in character.creation %}
-        <input type="hidden" name="character.creation[]" value="{{ finished }}" />
-        <input type="hidden" name="character.{{ finished }}" value="{{ character[finished] }}" />
-        {% endfor %}
-        <input type="hidden" name="character.creation[]" value="{{ tab }}" />
-
-    {% if not done %}
-        <div class="nice-tabs-wrapper" id="{{ tab }}">
-            <ul class="nice-tabs small">
-            {% for data in character_data[tab] %}
-                <li class="{{ 'current' if loop.first else '' }}" data-name="{{ data.name }}">
-                    <a href="#">{{ data.name }}</a>
-                </li>
-            {% endfor %}
-            </ul>
-
-            <ul class="nice-tab-content">
-            {% for data in character_data[tab] %}
-                <li class="{{ 'current' if loop.first else '' }}" data-name="{{ data.name }}">
-                    {{ buttons }}
-
-                    {% for sub in data.sub|default([data]) %}
-                    <label>
-                        <input type="radio" name="character.{{ tab }}" value="{{ sub.name }}" required/>
-                        {{ sub.name }}
-                    </label>
-                    {% endfor %}
-
-                    {{ data.description|markdown }}
-
-                    {{ buttons }}
-                </li>
-            {% endfor %}
-            </ul>
-        </div>
+{% macro buttons(last) %}
+<div class="nice-btn-group pull-right">
+    <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+    {% if last %}
+    <button name="button" value="save" class="nice-btn accent icon fa-save">Save</button>
     {% else %}
-        {% for data in character_data[tab] %}
-            {% for sub in data.sub|default([data]) %}
-                {% if character[tab] == sub.name %}
-
-                    {% if sub.name != data.name %}
-        <strong>({{ character[tab] }})</strong>
-                    {% endif %}
-
-        {{ data.description|markdown }}
-
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
+    <button name="button" value="save" class="nice-btn primary icon fa-arrow-right">Next</button>
     {% endif %}
-    </li>
-</form>
+</div>
+<div class="clearfix"></div>
+{% endmacro %}
+
+{% set current_character %}
+    {% for creation in character.creation %}
+    <input{{ {
+        "type": "hidden",
+        "name": "character.creation[]",
+        "value": creation
+        }|xmlattr }} />
+    {% endfor %}
+    {% for field in basic %}
+    {% if character[field] %}
+    <input{{ {
+        "type": "hidden",
+        "name": "character." + field,
+        "value": character[field]
+        }|xmlattr }} />
+    {% endif %}
+    {% endfor%}
+    {% if "core" in character.creation %}
+    {% for field in ["name", "alignment"] %}
+    {% if character[field] %}
+    <input{{ {
+        "type": "hidden",
+        "name": "character." + field,
+        "value": character[field]
+        }|xmlattr }} />
+    {% endif %}
+    {% endfor%}
+    {% endif %}
+    {% if "stats" in character.creation %}
+    {% for base_stat, value in character.base_stats.items() %}
+    <input{{ {
+        "type": "hidden",
+        "name": "character.base_stats." + base_stat,
+        "value": value
+        }|xmlattr }} />
+    {% endfor%}
+    {% endif %}
+{% endset %}
+
+{% block body %}
+<h1 class="icon fa-plus">New Character</h1>
+
+<div class="nice-tabs-wrapper" id="tabs">
+    <ul class="nice-tabs">
+        {% for tab, done, current in basic|completed(character.creation) %}
+        <li{{ {
+                "data-name": tab,
+                "class": " ".join([
+                    "current" if current else "",
+                    "good" if done else "info"
+                    ])
+                }|xmlattr }}>
+            <a href="#">{{ tab|capitalize }}</a>
+        </li>
+        {% endfor %}
+
+        <li{{ {
+            "data-name": "core" if character.creation >= basic else "",
+            "class": " ".join([
+                "current" if character.creation == basic else "",
+                "good" if "core" in character.creation else "muted"
+                ])
+            }|xmlattr }}>
+            <a href="#">Core</a>
+        </li>
+
+        <li{{ {
+            "data-name": "stats" if "core" in character.creation else "",
+            "class": " ".join([
+                "current" if ("core" in character.creation and "stats" not in character.creation) else "",
+                "good" if "stats" in character.creation else "muted"
+                ])
+            }|xmlattr }}>
+            <a href="#">Stats</a>
+        </li>
+    </ul>
+
+    <ul class="nice-tab-content">
+
+{% for tab, done, current in basic|completed(character.creation) %}
+
+        <li{{ {
+            "class": "current" if current else "",
+            "data-name": tab
+            }|xmlattr }} >
+
+            {% if not done %}
+
+            <form action="{{ url_for('character.new', character_id=character.id) }}" method="post">
+                <button name="button" value="save" class="hidden">Save</button>
+
+                {{ current_character }}
+
+                <input{{ {
+                    "type": "hidden",
+                    "name": "character.creation[]",
+                    "value": tab
+                    }|xmlattr }} />
+
+                {{ buttons(False) }}
+
+                <div class="nice-tabs-wrapper" id="{{ tab }}">
+                    <ul class="nice-tabs small">
+                    {% for data in character_data[tab] %}
+                        <li{{ {
+                            "class": "current" if loop.first else "",
+                            "data-name": data.name
+                            }|xmlattr }} >
+                            <a href="#">{{ data.name }}</a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+
+                    <ul class="nice-tab-content">
+                    {% for data in character_data[tab] %}
+                        <li{{ {
+                            "class": "current" if loop.first else "",
+                            "data-name": data.name
+                            }|xmlattr }} >
+
+                            {% for sub in data.sub|default([data]) %}
+                            <label>
+                                <input{{ {
+                                    "type": "radio",
+                                    "name": "character." + tab,
+                                    "value": sub.name
+                                    }|xmlattr }} required />
+                                {{ sub.name }}
+                            </label>
+                            {% endfor %}
+
+                            {{ data.description|markdown }}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+
+                {{ buttons(False) }}
+            </form>
+
+            {% else %}
+
+            {% for data in character_data[tab] %}
+                {% for sub in data.sub|default([data]) %}
+                    {% if character[tab] == sub.name %}
+
+                        {% if sub.name != data.name %}
+            <strong>({{ character[tab] }})</strong>
+                        {% endif %}
+
+            {{ data.description|markdown }}
+
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            {% endif %}
+
+        </li>
 {% endfor %}
-{% endblock content %}
+
+{% if character.creation|length >= 3 %}
+        <li{{ {
+            "class": "current" if "core" not in character.creation else "good",
+            "data-name": "core"
+            }|xmlattr }} >
+
+    {% if "core" not in character.creation %}
+            <form action="{{ url_for('character.new', character_id=character.id) }}" method="post">
+                <button name="button" value="save" class="hidden">Save</button>
+
+                {{ current_character }}
+
+                <input{{ {
+                    "type": "hidden",
+                    "name": "character.creation[]",
+                    "value": "core"
+                    }|xmlattr }} />
+
+                {{ buttons(False) }}
+
+                <table class="nice-table condensed bordered nice-form-group">
+                    <tr>
+                        <th>Name</th>
+                        <td><input class="small nice-form-control" name="character.name" placeholder="Name..."></td>
+                    </tr>
+                    <tr>
+                        <th>Alignment</th>
+                        <td>
+                            <select class="nice-form-control" name="character.alignment">
+                            {% for b in ['good', 'neutral', 'evil'] %}
+                            {% for a in ['lawful', 'neutral', 'chaotic'] %}
+                                {% set alignment = ('true' if a == b else a) + ' ' + b %}
+                                <option value="{{ alignment }}">{{ alignment|capitalize }}</option>
+                            {% endfor %}
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+
+                {{ buttons(False) }}
+
+            </form>
+    {% else %}
+            <table class="nice-table condensed bordered">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ character.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Alignment</th>
+                        <td>{{ character.alignment }}</td>
+                    </tr>
+                </tbody>
+            </table>
+    {% endif %}
+        </li>
+{% endif %}
+
+{% if "core" in character.creation %}
+        <li{{ {
+            "class": "current" if "stats" not in character.creation else "good",
+            "data-name": "stats"
+            }|xmlattr }} >
+
+    {% if "stats" not in character.creation %}
+            <form action="{{ url_for('character.new', character_id=character.id) }}" method="post">
+                <button name="button" value="save" class="hidden">Save</button>
+
+                {{ current_character }}
+
+                <input{{ {
+                    "type": "hidden",
+                    "name": "character.creation[]",
+                    "value": "stats"
+                    }|xmlattr }} />
+
+                {{ buttons(True) }}
+
+                <table class="nice-table condensed bordered nice-form-group" id="statsblockeditor">
+                    <thead>
+                        <tr>
+                            <th>Statistic</th>
+                            <th>Base</th>
+                            <th>Bonus</th>
+                            <th>Final</th>
+                            <th>Modifier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in items.statistics %}
+                        {% set class = "" %}
+                        {% if stat.name == character.spell_stat %}
+                            {% set class = "good" %}
+                        {% elif stat.name in character.proficiencies.saving_throws %}
+                            {% set class = "info" %}
+                        {% endif %}
+                        <tr class="{{ class }}">
+                            <th>{{ stat.name }}</th>
+                            <td class="{{ class }}">
+                                <select class="small nice-form-control" data-field="base" name="character.base_stats.{{ stat.name }}">
+                                {% for option in range(8, 16) %}
+                                    {% if character.base_stats[stat.name] == option %}
+                                    <option selected>{{ option }}</option>
+                                    {% else %}
+                                    <option>{{ option }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
+                            </td>
+                            <td class="{{ class }}">
+                                <input type="number" disabled value="{{ character.stats_bonus[stat.name]|sum }}" data-field="bonus" class="nice-form-control" />
+                            </td>
+                            <td class="{{ class }}">
+                                <input type="number" disabled value="{{ character.stats[stat.name] }}" data-field="final" class="nice-form-control" />
+                            </td>
+                            <td class="{{ class }}">
+                                <input type="number" disabled value="{{ character.modifiers[stat.name] }}" data-field="modifier" class="nice-form-control" />
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfooter>
+                        <tr>
+                            <th>Budget</th>
+                            <th>
+                                <input type="number" disabled id="budget" data-total="27" value="27" class="nice-form-control" />
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfooter>
+                </table>
+
+                {{ buttons(True) }}
+
+            </form>
+    {% else %}
+            <table class="nice-table condensed bordered">
+                <thead>
+                    <tr>
+                        <th>Statistic</th>
+                        <th>Base</th>
+                        <th>Bonus</th>
+                        <th>Final</th>
+                        <th>Modifier</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stat in items.statistics %}
+                    {% if stat.name == character.spell_stat %}
+                    <tr class="good">
+                    {% elif stat.name in character.proficiencies.saving_throws %}
+                    <tr class="info">
+                    {% else %}
+                    <tr>
+                    {% endif %}
+                        <th>{{ stat.name }}</th>
+                        <td>{{ character.base_stats[stat.name] }}</td>
+                        <td>{{ character.stats_bonus[stat.name]|sum|bonus }}</td>
+                        <td><strong>{{ character.stats[stat.name] }}</strong></td>
+                        <td><strong>{{ character.modifiers[stat.name]|bonus }}</strong></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    {% endif %}
+        </li>
+{% endif %}
+    </ul>
+</div>
+{% endblock body %}

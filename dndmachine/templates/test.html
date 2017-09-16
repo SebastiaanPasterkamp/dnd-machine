@@ -1,0 +1,171 @@
+{% extends "layout.html" %}
+{% import 'macros.html' as macro %}
+
+{% block body %}
+<h1>Test</h1>
+
+<table class="nice-table condensed bordered">
+    <thead>
+        <tr>
+            <th>Widget</th>
+            <th>Input</th>
+            <th>Output</th>
+            <th>Code</th>
+        </th>
+    </thead>
+    <tbody>
+        {% set input={
+            "spells": [
+                "Ensnaring Strike",
+                "Speak with Animals"
+            ],
+            "abilities": {
+                "Nature's Wrath": {
+                    "description": "You can use your **Channel Divinity** to invoke primeval forces to ensnare a foe. The creature must succeed on a **Strength** or **Dexterity** *Saving Throw* (its choice, `DC %(dc)d`) or be *restrained*.",
+                    "dc": 12
+                },
+                "Turn the Faithless": {
+                    "description": "You can use your **Channel Divinity** to utter ancient. Each fey or fiend within 30 feet of you must make a **Wisdom** *Saving Throw* (`DC %(dc)d`).",
+                    "dc": 12
+                }
+            }
+        } %}
+        <tr>
+            <th rowspan="2">Existing</th>
+            <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
+            {% set output = macro.widgets({'existing': input}, ["test"]) %}
+            <td>{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        </tr>
+        <tr>
+            {% set output = macro.widgets({'existing': input}, ["test"], True) %}
+            <td class="disabled">{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        <tr>
+
+        <tr>
+            <th rowspan="2">Given</th>
+            <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
+            {% set output = macro.widgets({'given': input}, ["test"]) %}
+            <td>{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        </tr>
+        <tr>
+            {% set output = macro.widgets({'given': input}, ["test"], True) %}
+            <td class="disabled">{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        <tr>
+
+        {% set input=[
+            "one", "two", "three"
+        ] %}
+        <tr>
+            <th rowspan="2">Group</th>
+            <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
+            {% set output = macro.widgets({'group': input}, ["test"]) %}
+            <td>{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        </tr>
+        <tr>
+            {% set output = macro.widgets({'group': input}, ["test"], True) %}
+            <td class="disabled">{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        <tr>
+
+        {% set input=[
+            "one",
+            "two",
+            {"name": "item name", "label": "Item Label"}
+        ] %}
+        <tr>
+            <th rowspan="2">Select</th>
+            <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
+            {% set output = macro.widgets({'select': input}, ["test"]) %}
+            <td>{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        </tr>
+        <tr>
+            {% set output = macro.widgets({'select': input}, ["test"], True) %}
+            <td class="disabled">{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        <tr>
+
+        {% set input=[
+            {"group": ["Rapier"]},
+            {'select': ["one", "two", {"name": "item name", "label": "Item Label"}]}
+        ] %}
+        <tr>
+            <th rowspan="2">Multiple</th>
+            <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
+            {% set output = macro.widgets({'multiple': input}, ["test"]) %}
+            <td>{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        </tr>
+        <tr>
+            {% set output = macro.widgets({'multiple': input}, ["test"], True) %}
+            <td class="disabled">{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        <tr>
+
+        {% set input={
+            'foo': [{"group": ["Rapier"]}],
+            'bar': [{'select': ["one", "two", {"name": "item name", "label": "Item Label"}]}]
+        } %}
+        <tr>
+            <th rowspan="2">Options</th>
+            <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
+            {% set output = macro.widgets({'options': input}, ["test"]) %}
+            <td>{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        </tr>
+        <tr>
+            {% set output = macro.widgets({'options': input}, ["test"], True) %}
+            <td class="disabled">{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        <tr>
+
+        {% set input=[
+            {"group": ["Rapier"]},
+            {'select': ["one", "two", {"name": "item name", "label": "Item Label"}]}
+        ] %}
+        <tr>
+            <th rowspan="2">Choose</th>
+            <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
+            {% set output = macro.widgets({'choose': input}, ["test"]) %}
+            <td>{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        </tr>
+        <tr>
+            {% set output = macro.widgets({'choose': input}, ["test"], True) %}
+            <td class="disabled">{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        <tr>
+
+        {% set input={
+            "description": "Something profound.",
+            "options": [{
+                "name": "One",
+                "description": "Foo",
+                "group": ["Rapier"]
+            }, {
+                "name": "Two",
+                "description": "Bar",
+                "select": ["one", "two", {"name": "item name", "label": "Item Label"}]
+            }]
+        } %}
+        <tr>
+            <th rowspan="2">Tabs</th>
+            <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
+            {% set output = macro.widgets({'tabs': input}, ["test"]) %}
+            <td>{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        </tr>
+        <tr>
+            {% set output = macro.widgets({'tabs': input}, ["test"], True) %}
+            <td class="disabled">{{ output }}</td>
+            <td><pre><code>{{ output|forceescape }}</code></pre></td>
+        <tr>
+
+    <tbody>
+</table>
+{% endblock %}

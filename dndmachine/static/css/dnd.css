@@ -8,6 +8,9 @@
     content: "";
 }
 
+.disabled {
+    color: gray; }
+
 div#edit-monster {
     display: grid;
     grid-gap: 1em .5em;
@@ -46,8 +49,8 @@ div#view-character {
     grid-template-areas: "description description info"
                          "base statistics skills"
                          "equipment saving-throws skills"
-                         "equipment proficiencies traits"
-                         ". . traits"; }
+                         "proficiencies abilities  traits"
+                         ". abilities traits"; }
 
 @media screen and (max-width: 100em) and (orientation: portrait) {
     div#view-campaign {
@@ -80,6 +83,7 @@ div#view-character > #proficiencies { grid-area: proficiencies; }
 div#view-character > #skills { grid-area: skills; }
 div#view-character > #statistics { grid-area: statistics; }
 div#view-character > #saving-throws { grid-area: saving-throws; }
+div#view-character > #abilities { grid-area: abilities; }
 
 div#view-campaign > #title { grid-area: title; }
 div#view-campaign > #description { grid-area: description; }

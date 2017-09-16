@@ -77,7 +77,7 @@ class CharacterObject(JsonObject):
                     "misc": []
                     },
                 "proficiency": 2,
-                "languages": ["common"],
+                "languages": [],
                 "proficiencies": {
                     "armor": [],
                     "weapons": [],
@@ -171,6 +171,11 @@ class CharacterObject(JsonObject):
                         "*": unicode
                         },
                     "misc": unicode
+                    },
+                "abilities": {
+                    "*": {
+                        "*": unicode
+                        }
                     },
                 "computed": {
                     "*": {
@@ -331,6 +336,12 @@ class CharacterObject(JsonObject):
             elif "bonus" in armor:
                 if armor["bonus"] > self.armor_class_bonus:
                     self.armor_class_bonus = armor["bonus"]
+
+        if 'abilities' in self:
+            for ability in self.abilities.values():
+                for key, val in ability.items():
+                    if key.endswith('_formula'):
+                        ability[key[:-8]] = machine.resolveMath(self, val)
 
 class CharacterMapper(JsonObjectDataMapper):
     obj = CharacterObject

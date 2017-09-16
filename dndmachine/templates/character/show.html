@@ -15,8 +15,9 @@
                         <h3>{{ character.name }}</h3>
 
                         <div class="nice-progress good">
-                            <div class="nice-progress-fill" style="width: {{ (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) }}%;">
-                                Level {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
+                            {%- set percent = (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) -%}
+                            <div class="nice-progress-fill overflow-hidden" style="width: {{ percent }}%;">
+                                {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
                             </div>
                         </div>
 
@@ -151,6 +152,22 @@
                 <li>
                     <strong>{{ info }}</strong>
                     {{ description|markdown }}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div id="abilities" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Abilities
+        </div>
+        <div class="nice-panel-content">
+            <ul>
+            {% for name, ability in character.abilities.items() %}
+                <li>
+                    <strong>{{ name }}</strong>
+                    {{ (ability.description % ability)|markdown }}
                 </li>
             {% endfor %}
             </ul>
@@ -458,7 +475,7 @@
                     <td>
                         {{ character.skills[skill.name]|bonus }}
                     </td>
-                    <th>{{ skill.label }} ({{ skill.name }})</th>
+                    <th>{{ skill.label }}</th>
                 </tr>
             {% endif %}
             {% endfor %}

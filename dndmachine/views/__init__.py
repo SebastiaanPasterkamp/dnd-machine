@@ -3,7 +3,7 @@ import re
 from subprocess import Popen, PIPE
 from io import BytesIO
 
-def fill_pdf(pdf_file, data, fdf_file=None):
+def fill_pdf(pdf_file, text, html={}, fdf_file=None):
     # Get empty FDF
     args = [
         "pdftk",
@@ -25,19 +25,22 @@ def fill_pdf(pdf_file, data, fdf_file=None):
     fdf_data = fdf_template
     for val in re_value.finditer(fdf_template):
         (replace, field) = val.groups()
-        value = data.get(field, '')
-        if isinstance(value, str):
-            value = value.encode('utf-8')
-        fdf_data = fdf_data.replace(
-            replace,
-            """<<\n/V ({value})\n/T ({field})\n>>""".format(
-                value=value,
-                field=field
-                )
-            )
+        template = """<<\n/V (%(text)s)\n/T (%(field)s)\n>>"""
+        params = {
+            'field': field,
+            'text': text.get(field, '')
+            }
+        if field in html:
+            params['html'] = html.get(field)
+            template = """<<\n/V (%(text)s)\n/RV (%(html)s)\n/T (%(field)s)\n>>"""
+        for field in params:
+            if isinstance(params[field], basestring):
+                params[field] = params[field].encode('utf-8')
+        fdf_data = fdf_data.replace(replace, template % params)
+
     for val in re_bool.finditer(fdf_template):
         (replace, field) = val.groups()
-        value = '/Yes' if data.get(field, False) else '/Off'
+        value = '/Yes' if text.get(field, False) else '/Off'
         fdf_data = fdf_data.replace(
             replace,
             """<<\n/V %s\n/T (%s)\n>>""" % (

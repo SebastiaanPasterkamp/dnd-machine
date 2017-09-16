@@ -1,4 +1,4 @@
-from passlib.hash import pbkdf2_sha256 as password
+from passlib.hash import pbkdf2_sha256
 from base import JsonObject, JsonObjectDataMapper
 
 class UserObject(JsonObject):
@@ -21,14 +21,19 @@ class UserObject(JsonObject):
             if role
             ]
 
+    def checkPassword(self, password):
+        if pbkdf2_sha256.verify(password, self.password):
+            return True
+        return False
+
     def updateFromPost(self, form):
         old_password = self.password
         super(UserObject, self).updateFromPost(form)
         if len(self.password):
             try:
-                self.password = password.hash(self.password)
+                self.password = pbkdf2_sha256.hash(self.password)
             except AttributeError:
-                self.password = password.encrypt(self.password)
+                self.password = pbkdf2_sha256.encrypt(self.password)
             else:
                 self.password = old_password
         else:
@@ -64,6 +69,6 @@ class UserMapper(JsonObjectDataMapper):
         if not objs:
             return None
         user = objs[0]
-        #if not password.verify(password, user.password):
-            #return None
-        return user
+        if user.checkPassword(password):
+            return user
+        return None
