@@ -103,7 +103,7 @@ def new(monster_id=None):
         m = MonsterObject()
     else:
         m = monster_mapper.getById(monster_id)
-        m.id = None
+        m = m.clone()
 
     if request.method == 'POST':
         if request.form["button"] == "cancel":

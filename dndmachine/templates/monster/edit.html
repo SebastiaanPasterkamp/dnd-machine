@@ -210,8 +210,8 @@
             </div>
             {% endfor %}
             <div class="nice-form-group">
-                <input type="text" placeholder="Trait Name..." class="nice-form-control" name="monster.traits.+1.name" value="" />
-                <textarea class="nice-form-control" placeholder="Description..." name="monster.traits.+1.description"></textarea>
+                <input type="text" placeholder="Trait Name..." class="nice-form-control" name="monster.traits.{{ monster.traits|length }}.name" value="" />
+                <textarea class="nice-form-control" placeholder="Description..." name="monster.traits.{{ monster.traits|length }}.description"></textarea>
             </div>
 
             <label>Features</label>
