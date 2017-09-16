@@ -22,6 +22,11 @@ class JsonObject(object):
     def config(self):
         return self._config
 
+    def clone(self):
+        clone = self.__class__(self.config)
+        del(clone._config['id'])
+        return clone
+
     def splitPath(self, path, filterPrefix=True):
         """ Splits a path by
         - period: path.in.steps.1
@@ -77,9 +82,10 @@ class JsonObject(object):
 
     def updateFromPost(self, form):
         for field, value in form.iteritems():
-            if field.endswith('[]') or field.endswith('.+'):
+            if '[]' in field or '.+' in field:
                 value = form.getlist(field)
-                field = field[:-2]
+                field = field.replace('[]', '')
+                field = field.replace('.+', '')
 
             path = self.splitPath(field, False)
             if path[0] != self._pathPrefix:
@@ -200,6 +206,9 @@ class JsonObject(object):
         if cast in [dict, list]:
             raise Exception("Invalid type for %s. Expected %s, received %s (%r)" % (
                 path, cast, type(value), value))
+
+        if cast == int and value in [None, '']:
+            return 0
 
         return cast(value)
 
