@@ -3,12 +3,12 @@ import os
 import json
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, jsonify, Markup
-from passlib.hash import pbkdf2_sha256 as password
 import markdown
 from markdown.util import etree
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 import re
+import md5
 
 from . import get_db
 from .config import get_config, get_item_data
@@ -110,10 +110,11 @@ def login():
     if request.method == 'POST':
         user_mapper = get_datamapper('user')
 
-        username, pwd = request.form['username'], request.form['password']
+        username,password = \
+            request.form['username'], request.form['password']
         user = user_mapper.getByCredentials(username, password)
 
-        if not user :
+        if user is None:
             flash('Login failed', 'error')
         else:
             session['user_id'] = user.id
@@ -132,25 +133,26 @@ def logout():
     flash('You were logged out', 'info')
     return redirect(url_for('home'))
 
-@app.route('/set_method/<method>')
-def set_method(method):
-    if method in ['lookup', 'formula']:
-        session['method'] = method
-        flash(
-            "Your calculation method is now set to '%s'" % (
-                session.get('method')
-                ),
-            'good'
-            )
-    else:
-        flash("Unknown method '%s'" % method, 'error')
-    return redirect(request.referrer)
+@app.route('/test')
+def show_test():
+    return render_template('test.html')
 
 @app.template_filter('sanitize')
 def filter_sanitize(text):
     sanitize = re.compile(ur'[^a-zA-Z0-9]+')
     cleaned = sanitize.sub(text, '_')
     return cleaned
+
+@app.template_filter('field_title')
+def filter_field_title(field):
+    replace = {
+        '[]': '',
+        '.+': '',
+        '_': ' '
+        }
+    field = reduce(lambda a, kv: a.replace(*kv), replace.iteritems(), field)
+    field = field.split('.')[-1]
+    return field.capitalize()
 
 @app.template_filter('bonus')
 def filter_bonus(number):
@@ -177,6 +179,20 @@ def filter_completed(tabs, completed):
             yield tab, False, True
         else:
             yield tab, False, False
+
+@app.template_filter('json')
+def filter_json(structure):
+    return json.dumps(
+        structure,
+        indent=4,
+        separators=(',', ': ')
+        )
+
+@app.template_filter('md5')
+def filter_md5(data):
+    if not isinstance(data, basestring):
+        data = unicode(data)
+    return md5.new(data).hexdigest()
 
 class SpecialBlockQuoteProcessor(BlockProcessor):
     RE = re.compile(r'(^|\n)[ ]{0,3}\|(?:\(([^)]+)\))?[ ]?(.*)', re.M)

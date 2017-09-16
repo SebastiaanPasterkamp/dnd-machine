@@ -1,8 +1,16 @@
 function switchNiceTab(parent, name) {
-    $('#' + parent + ' > ul > li.current')
-        .removeClass('current');
+    $('#' + parent + ' > ul > li')
+        .removeClass('current')
+        .find('input, select, textarea')
+        .each(function(){
+            $(this).attr('disabled', true);
+        });
     $('#' + parent + ' > ul > li[data-name="' + name + '"]')
-        .addClass('current');
+        .addClass('current')
+        .find('input, select, textarea')
+        .each(function(){
+            $(this).attr('disabled', false);
+        });
 };
 
 $(function() {
@@ -67,10 +75,13 @@ $(function() {
         return false;
     });
 
-    $('.nice-tabs li').bind('click', function(e) {
+    $('.nice-tabs').on('click', '> li:not(.disabled)', function(e) {
         var name = $(this).attr('data-name'),
             parent = $(this).closest('div.nice-tabs-wrapper').attr('id');
-            switchNiceTab(parent, name);
+        if (name == null) {
+            return false;
+        }
+        switchNiceTab(parent, name);
     });
     $('#statsblockeditor select').on('change', function(e) {
         var budget = $("#statsblockeditor #budget").attr('data-total');
@@ -104,18 +115,22 @@ $(function() {
         $('#budget').val(budget);
     });
     $('table.itemset input[type="radio"]').on('change', function() {
-        var table = $(this).closest('table.itemset'),
+        var name = $(this).attr('name'),
+            table = $(this).closest('table.itemset'),
             active = $(this).closest('tr');
 
         $(table)
-            .find('input, select')
-            .not('input[type="radio"]')
+            .find('input, select, textarea')
+            .not('input[type="radio"][name="' + name + '"]')
             .each(function(){
                 $(this).attr('disabled', true);
             });
+        $(table)
+            .find('> tbody > tr > td')
+            .toggleClass('disabled');
         $(active)
-            .find('input, select')
-            .not('input[type="radio"]')
+            .find('input, select, textarea')
+            .not('input[type="radio"][name="' + name + '"]')
             .each(function(){
                 $(this).attr('disabled', false);
             });

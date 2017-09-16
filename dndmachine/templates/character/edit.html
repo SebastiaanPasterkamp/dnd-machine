@@ -3,7 +3,7 @@
 {% if character.id %}
 <h2 class="icon fa-pencil">Character</h2>
 
-<form action="{{ url_for('character.edit', phase=phase, character_id=character.id) }}" method="post">
+<form action="{{ url_for('character.edit', current_phase=current_phase, character_id=character.id) }}" method="post">
 {% else %}
 <h2 class="icon fa-plus">Character</h2>
 
@@ -29,7 +29,7 @@
 
         <div class="nice-control-group">
             <span class="nice-input-addon">
-                Alignment
+                Alignment {{ character.alignment }}
             </span>
             <select class="nice-form-control" name="character.alignment">
             {% for b in ['good', 'neutral', 'evil'] %}

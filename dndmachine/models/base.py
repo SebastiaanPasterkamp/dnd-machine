@@ -35,7 +35,7 @@ class JsonObject(object):
         """
         steps = []
         if "." in path:
-            steps = path.lower().split('.')
+            steps = path.split('.')
         else:
             steps = [
                 m.group(0).lower()
@@ -86,6 +86,7 @@ class JsonObject(object):
                 value = form.getlist(field)
                 field = field.replace('[]', '')
                 field = field.replace('.+', '')
+                print "Array:", field, value
 
             path = self.splitPath(field, False)
             if path[0] != self._pathPrefix:
@@ -94,11 +95,15 @@ class JsonObject(object):
 
             old_value = self.getPath(path)
             if old_value is not None:
+                if isinstance(value, list):
+                    print "Merge:", path, old_value, value
                 self.setPath(
                     path,
                     self._merge(old_value, value, path)
                     )
             else:
+                if isinstance(value, list):
+                    print "Set:", path, old_value, value
                 self.setPath(path, value)
         self.compute()
 
@@ -163,8 +168,17 @@ class JsonObject(object):
                 raise Exception("Not a dict %s in '%r': %r" % (
                     step, path, rv))
             elif step not in rv:
-                if "*" in rv:
-                    step = "*"
+                matches = dict([
+                    (match.replace("*", ''), match)
+                    for match in rv
+                    if "*" in match
+                    ])
+                found = ""
+                for match, replace in matches.iteritems():
+                    if match in step and len(replace) > len(found):
+                        found = replace
+                if found:
+                    step = found
                 else:
                     return default
             rv = rv[step]
@@ -210,7 +224,11 @@ class JsonObject(object):
         if cast == int and value in [None, '']:
             return 0
 
-        return cast(value)
+        try:
+            return cast(value)
+        except Exception as error:
+            print error, path, cast, type(value), value
+        return value
 
     def setPath(self, path, value):
         if not isinstance(path, list):

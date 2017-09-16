@@ -35,15 +35,9 @@
 
             <td>
                 <div class="nice-progress good">
-                    {% set percent = (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) %}
-                    <div class="nice-progress-fill" style="width: {{ percent }}%;">
-                        {%- if percent > 40.0 -%}
-                        Level {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
-                        {%- elif percent > 25.0 -%}
-                        Level {{ character.level }}
-                        {%- else -%}
-                        {{ character.level }}
-                        {%- endif -%}
+                    {%- set percent = (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) -%}
+                    <div class="nice-progress-fill" style="width: {{ percent }}%; height: 1.25rem;">
+                        {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
                     </div>
                 </div>
             </td>
@@ -60,6 +54,9 @@
                     <a href="{{ url_for('character.show', character_id=character.id) }}" class="nice-btn icon fa-eye">View</a>
                 {% if character.user_id == request.user.id or 'dm' in request.user.role %}
                     <a href="{{ url_for('character.edit', character_id=character.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                {% endif %}
+                {% if "%d" % character.level not in character.creation %}
+                    <a href="{{ url_for('character.level_up', character_id=character.id) }}" class="nice-btn icon fa-level-up">Level Up</a>
                 {% endif %}
                 </div>
             </td>

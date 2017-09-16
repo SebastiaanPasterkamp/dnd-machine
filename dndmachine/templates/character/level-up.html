@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% set completed = character.creation %}
+
+{% import 'macros.html' as macro %}
+
+{% block body %}
+<h1 class="icon fa-level-up">Character Level-Up</h1>
+
+<form action="{{ url_for('character.level_up', level=level, character_id=character.id) }}" method="post">
+    <button name="button" value="save" class="hidden">Save</button>
+
+    <div class="nice-btn-group pull-right">
+        <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+        <button name="button" value="save" class="nice-btn accent icon fa-save">Save</button>
+    </div>
+    <div class="clearfix"></div>
+
+    {{ macro.widgets(phase, ['character'])|indent(4)|safe }}
+
+    <div class="nice-btn-group pull-right">
+        <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+        <button name="button" value="save" class="nice-btn accent icon fa-save">Save</button>
+    </div>
+    <div class="clearfix"></div>
+</form>
+
+{% endblock body %}

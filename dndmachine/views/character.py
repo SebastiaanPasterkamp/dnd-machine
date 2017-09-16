@@ -3,6 +3,7 @@ from flask import Blueprint, request, session, g, redirect, url_for, \
     send_file, current_app, abort, render_template, jsonify
 import os
 import re
+import markdown
 
 from ..models.base import JsonObject
 from ..models.character import CharacterObject
@@ -122,7 +123,7 @@ def download(character_id):
         abort(403)
     user = user_mapper.getById(c['user_id'])
 
-    fdf_data = {
+    fdf_text = {
         "CharacterName": c.name,
         "CharacterName 2": c.name,
         "PlayerName": user.username,
@@ -139,38 +140,44 @@ def download(character_id):
         "Background": c.background,
         "Alignment": c.alignment,
         "ProBonus": filter_bonus(c.proficiency),
-        "SpellSaveDC  2": c.spell_safe_dc,
-        "SpellAtkBonus 2": filter_bonus(c.spell_attack_modifier),
-        "Spellcasting Class 2": c.Class,
         "Initiative": filter_bonus(c.initiative_bonus),
         "Passive": filter_bonus(c.passive_perception)
         }
+    fdf_html = {
+        "Background": c.background
+        }
+    if c.spell_safe_dc:
+        fdf_text.update({
+            "SpellSaveDC  2": c.spell_safe_dc,
+            "SpellAtkBonus 2": filter_bonus(c.spell_attack_modifier),
+            "Spellcasting Class 2": c.Class
+            })
 
     for stat in items['statistics']:
         stat_prefix = stat['name'][:3].upper()
-        fdf_data[stat_prefix] = c.stats[stat['name']]
-        fdf_data[stat_prefix + 'mod'] = filter_bonus(c.modifiers[stat['name']])
-        fdf_data['SavingThrow ' + stat['label']] = filter_bonus(c.saving_throws[stat['name']])
+        fdf_text[stat_prefix] = c.stats[stat['name']]
+        fdf_text[stat_prefix + 'mod'] = filter_bonus(c.modifiers[stat['name']])
+        fdf_text['SavingThrow ' + stat['label']] = filter_bonus(c.saving_throws[stat['name']])
         if stat['name'] in c.proficienciesAdvantages:
-            fdf_data['SavingThrow ' + stat['label']] += 'A'
+            fdf_text['SavingThrow ' + stat['label']] += 'A'
         if stat['name'] in c.proficienciesSaving_throws:
-            fdf_data['ST ' + stat['label']] = True
+            fdf_text['ST ' + stat['label']] = True
 
     for skill in items['skills']:
-        fdf_data[skill['label']] = filter_bonus(c.skills[skill['name']])
+        fdf_text[skill['label']] = filter_bonus(c.skills[skill['name']])
         if skill['name'] in c.proficienciesSkills:
-            fdf_data['ChBx ' + skill['label']] = True
+            fdf_text['ChBx ' + skill['label']] = True
 
     for i, weapon in enumerate(c.weapons):
-        fdf_data['Wpn Name %d' % (i+1)] = weapon['name']
-        fdf_data['Wpn%d Damage' % (i+1)] = "%s %s" % (
+        fdf_text['Wpn Name %d' % (i+1)] = weapon['name']
+        fdf_text['Wpn%d Damage' % (i+1)] = "%s %s" % (
             weapon['damage'].get('notation', ''),
             weapon['damage'].get('type_short', '')
             )
-        fdf_data['Wpn%d AtkBonus' % (i+1)] = filter_bonus(weapon.get('bonus', 0))
+        fdf_text['Wpn%d AtkBonus' % (i+1)] = filter_bonus(weapon.get('bonus', 0))
 
     for coin in ['cp', 'sp', 'ep', 'gp', 'pp']:
-        fdf_data[coin.upper()] = c.wealth[coin]
+        fdf_text[coin.upper()] = c.wealth[coin]
 
     proficiencies = {}
     if c.languages:
@@ -200,19 +207,39 @@ def download(character_id):
             if prof is None:
                 continue
             proficiencies["Tools"].append(prof)
-    fdf_data["ProficienciesLang"] = "\n\n".join([
+    fdf_text["ProficienciesLang"] = "\n\n".join([
         "%s:\n    %s" % (
             key, ", ".join(lines)
             )
         for key, lines in proficiencies.iteritems()
         ])
 
-    fdf_data["Features and Traits"] = "\n\n".join([
-        "%s:\n    %s" % (
+    fdf_text["Features and Traits"] = "\n\n".join([
+        "* %s: %s" % (
             key, desc
             )
         for key, desc in c.info.iteritems()
         ])
+    fdf_html["Features and Traits"] = "\n".join([
+        "* **%s**: %s" % (
+            key, desc
+            )
+        for key, desc in c.info.iteritems()
+        ])
+
+    fdf_text["Feat+Traits"] = "\n\n".join([
+        "* %s: %s" % (
+            key, ability['description'] % ability
+            )
+        for key, ability in c.abilities.iteritems()
+        ])
+    fdf_html["Feat+Traits"] = "\n".join([
+        "* **%s**: %s" % (
+            key, ability['description'] % ability
+            )
+        for key, ability in c.abilities.iteritems()
+        ])
+
     equipment = []
     if c.weapons:
         equipment.append(["Weapons:"])
@@ -332,11 +359,11 @@ def download(character_id):
         reverse=True
         )
     key = ["Equipment", "Equipment2"]
-    fdf_data["Equipment"] = "\n".join([
+    fdf_text["Equipment"] = "\n".join([
         "\n".join(equipment[i])
         for i in range(0, len(equipment), 2)
         ])
-    fdf_data["Equipment2"] = "\n".join([
+    fdf_text["Equipment2"] = "\n".join([
         "\n".join(equipment[i])
         for i in range(1, len(equipment), 2)
         ])
@@ -357,8 +384,12 @@ def download(character_id):
         'SavingThrow Charisma': 'SavingThrows6',
         }
     for old, new in fdf_translation.iteritems():
-        if old in fdf_data:
-            fdf_data[new] = fdf_data[old]
+        if old in fdf_text:
+            fdf_text[new] = fdf_text[old]
+
+    for field in fdf_html:
+        fdf_html[field] = """<?xml version="1.0"?><body>%s</body>""" % (
+            markdown.markdown(fdf_html[field]))
 
     pdf_file = os.path.join('dndmachine', 'static', 'pdf', 'Current Standard v1.4.pdf')
 
@@ -366,15 +397,14 @@ def download(character_id):
     filename = re.sub(ur'^_+|_+$', '', filename)
     filename +=  '.pdf'
     return send_file(
-        fill_pdf(pdf_file, fdf_data, '/tmp/%s.fdf' % c['name']),
+        fill_pdf(pdf_file, fdf_text, fdf_html, '/tmp/%s.fdf' % c['name']),
         mimetype="application/pdf",
         as_attachment=True,
         attachment_filename=filename
         )
 
-@character.route('/edit/<int:character_id>')
-@character.route('/edit/<string:current_phase>/<int:character_id>', methods=['GET', 'POST'])
-def edit(character_id, current_phase=None):
+@character.route('/edit/<int:character_id>', methods=['GET', 'POST'])
+def edit(character_id):
     character_data = get_character_data()
     character_mapper = get_datamapper('character')
     machine = get_datamapper('machine')
@@ -383,19 +413,40 @@ def edit(character_id, current_phase=None):
     if c['user_id'] != request.user['id'] \
             and not any([role in request.user.role for role in ['admin', 'dm']]):
         abort(403)
-    c.xp = 300
-    c.compute()
 
-    phases = JsonObject({
-        'init': {
-            'steps': [u"core", u"stats", u"equip"],
-            'template': 'character/edit/init.html'
-            },
-        'base': {
-            'conditions': {},
-            'template': 'character/edit/base.html'
-            }
-        },
+    if request.method == 'POST':
+        if request.form["button"] == "cancel":
+            return redirect(url_for(
+                'character.show',
+                character_id=character_id
+                ))
+
+        if request.form.get("button", "save") == "save":
+            c.updateFromPost(request.form)
+            c = character_mapper.save(c)
+            return redirect(url_for(
+                'character.show',
+                character_id=c.id
+                ))
+
+    return render_template(
+        'character/edit.html',
+        character=c
+        )
+
+@character.route('/level-up/<int:character_id>')
+@character.route('/level-up/<string:level>/<int:character_id>', methods=['GET', 'POST'])
+def level_up(character_id, level=None):
+    character_data = get_character_data()
+    character_mapper = get_datamapper('character')
+    machine = get_datamapper('machine')
+
+    c = character_mapper.getById(character_id)
+    if c['user_id'] != request.user['id'] \
+            and not any([role in request.user.role for role in ['admin', 'dm']]):
+        abort(403)
+
+    phases = JsonObject(
         fieldTypes = {
             '*': { 'conditions': { 'level': int } }
         })
@@ -410,35 +461,35 @@ def edit(character_id, current_phase=None):
             phases.update(sub['phases'])
     phases = phases.config
 
-    if not current_phase or current_phase not in phases:
+    if level not in phases:
         phase_names = []
         for p, phase in phases.iteritems():
-            cond = phase['conditions']
-            if 'level' in cond \
-                    and not cond['level'][0] <= c.level <= cond['level'][1]:
+            if p in c.creation:
                 continue
-
-            if 'steps' in phase and all(s in c.creation for s in phase['steps']):
+            cond = phase.get('conditions', {})
+            if 'level' in cond and c.level < cond['level']:
                 continue
-            if 'steps' in phase:
-                print p, phase['steps'], c.creation
-
             if 'path' in cond and not all(p in c.path for p in cond['path']):
                 continue
-
+            if 'creation' in cond and cond['creation'] not in c.creation:
+                continue
             phase_names.append(p)
-
         phase_names = sorted(
             phase_names,
-            key=lambda p: phases[p].get('level', [99, 99])
+            key=lambda p: phases[p].get('level', 99)
             )
-
+        if not len(phase_names):
+            return redirect(url_for(
+                'character.edit',
+                character_id=character_id
+                ))
         return redirect(url_for(
-            'character.edit',
+            'character.level_up',
             character_id=character_id,
-            current_phase=phase_names[0]
+            level=phase_names[0]
             ))
-    phase = phases[current_phase]
+
+    phase = phases[level]
 
     def assigning(key, val):
         if isinstance(val, unicode) and '.' in val:
@@ -452,13 +503,13 @@ def edit(character_id, current_phase=None):
                     key.replace('_formula', ''),
                     machine.resolveMath(c, val)
                     )
-            return (
-                key,
-                [item
-                 for v in val.split(',')
-                 for item in machine.items.getPath(v) or val
-                 ]
-                )
+            if any(machine.items.getPath(v) for v in val.split(',')):
+                return (key, [
+                    item
+                    for v in val.split(',')
+                    for item in machine.items.getPath(v) or val
+                    ])
+            return (key, val)
         if isinstance(val, dict):
             return (
                 key,
@@ -480,8 +531,6 @@ def edit(character_id, current_phase=None):
         ])
     #return jsonify(phase)
 
-    c.update(phase.get('given', {}))
-
     if request.method == 'POST':
         if request.form["button"] == "cancel":
             return redirect(url_for(
@@ -489,34 +538,21 @@ def edit(character_id, current_phase=None):
                 character_id=character_id
                 ))
 
-        c.updateFromPost(request.form)
-        c = character_mapper.save(c)
-
         if request.form.get("button", "save") == "save":
-            if current_phase == 'base':
-                return redirect(url_for(
-                    'character.show',
-                    character_id=c.id
-                    ))
+
+            c.updateFromPost(request.form)
+            c.creation.append(level)
+            c = character_mapper.save(c)
+
             return redirect(url_for(
-                'character.edit',
+                'character.level_up',
                 character_id=c.id
                 ))
 
-    tabs = []
-    last = False
-    if 'steps' in phase:
-        tabs = phase['steps']
-        last = sum([1 for s in tabs if s not in c.creation]) == 1
-
     return render_template(
-        phase.get('template', 'character/edit/level-up.html'),
+        phase.get('template', 'character/level-up.html'),
+        level=level,
         phase=phase,
-        tabs=tabs,
-        last=last,
-        given=phase.get('given', {}),
-        options=phase.get('options', {}),
-        paths=phase.get('paths', {}),
         character=c
         )
 
@@ -540,7 +576,6 @@ def delete(character_id):
 def new(character_id=None):
     character_data = get_character_data()
     character_mapper = get_datamapper('character')
-    steps = ["race", "class", "background"]
 
     c = CharacterObject({
         'user_id': request.user.id
@@ -552,8 +587,10 @@ def new(character_id=None):
                 and not any([role in request.user.role for role in ['admin', 'dm']]):
             abort(403)
         c.id = old.id
+        c.user_id = old.user_id
         c.xp = old.xp
 
+    last = False
     if request.method == 'POST':
         if request.form["button"] == "cancel":
             if character_id:
@@ -567,13 +604,8 @@ def new(character_id=None):
 
         c.updateFromPost(request.form)
 
-        completed = all(
-            step in c.creation
-            for step in steps
-            )
-
-        if completed and request.form.get("button", "save") == "save":
-            for step in steps:
+        for step in ["race", "class", "background"]:
+            if step in c.creation:
                 data, sub = find_caracter_field(
                     character_data, step, c[step]
                     )
@@ -581,17 +613,20 @@ def new(character_id=None):
                 if sub:
                     c.update(sub.get('config', {}))
 
-            c = character_mapper.save(c)
+        completed = all(
+            step in c.creation
+            for step in ["race", "class", "background", "core", "stats"]
+            )
 
+        if completed and request.form.get("button", "save") == "save":
+            c = character_mapper.save(c)
             return redirect(url_for(
-                'character.edit',
+                'character.level_up',
                 character_id=c.id
                 ))
 
     return render_template(
         'character/create.html',
-        tabs=steps,
-        last=sum([1 for step in steps if step not in c.creation]) == 1,
         character_data=character_data,
         character=c
         )

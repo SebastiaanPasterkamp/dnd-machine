@@ -1,6 +1,7 @@
 {
     "SECRET_KEY": "development key",
     "DATABASE": "flaskr.db",
+    "SEND_FILE_MAX_AGE_DEFAULT": 3600,
     "info": {
         "title": "D&D Machine",
         "version": "v0.1",

@@ -36,9 +36,6 @@
             },
             "size": "medium",
             "speed": 25,
-            "languages": [
-                "dwarvish"
-            ],
             "proficiencies": {
                 "weapons": [
                     "Battleaxe",
@@ -54,17 +51,18 @@
             }
         },
         "phases": {
-            "init": {
+            "1": {
+                "given": {
+                    "languages[]": ["common", "dwarvish"]
+                },
                 "options": {
-                    "proficiencies": {
-                        "tools": [
-                            {"options": [
-                                "Smith's Tools",
-                                "Brewer's Supplies",
-                                "Mason's Tools"
-                            ]}
-                        ]
-                    }
+                    "proficiencies.tools[]": [
+                        {"select": [
+                            "Smith's Tools",
+                            "Brewer's Supplies",
+                            "Mason's Tools"
+                        ]}
+                    ]
                 }
             }
         }
@@ -79,13 +77,13 @@
                 }
             },
             "phases": {
-                "init": {
+                "1": {
                     "options": {
-                        "languages": [
-                            {"options": "languages.common,languages.exotic"}
+                        "languages[]": [
+                            {"select": "languages.common,languages.exotic"}
                         ],
-                        "spells": [
-                            {"options": "spells.wizard.cantrip"}
+                        "spells[]": [
+                            {"select": "spells.wizard.cantrip"}
                         ]
                     }
                 }
@@ -108,13 +106,7 @@
             },
             "size": "medium",
             "speed": 30,
-            "languages": [
-                "elvish"
-            ],
             "proficiencies": {
-                "skills": [
-                    "perception"
-                ],
                 "weapons": [
                     "Longsword",
                     "Shortsword",
@@ -126,6 +118,14 @@
                 "Darkvision": "Accustomed to twilit forests and the night sky, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
                 "Fey Ancestry": "You have **Advantage** on *Saving Throws* against being *Charmed*, and magic can't put you to *Sleep*.",
                 "Trance": "Elves don't need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day. (The Common word for such meditation is \"trance.\") While meditating, you can dream after a fashion; such dreams are actually mental exercises that have become reflexive through years of practice. After resting in this way, you gain the same benefit that a human does from 8 hours of sleep."
+            }
+        },
+        "phases": {
+            "1": {
+                "given": {
+                    "languages[]": ["common", "elvish"],
+                    "proficiencies.skills[]": ["perception"]
+                }
             }
         }
     }, {
@@ -139,10 +139,14 @@
                 },
                 "info": {
                     "Speak with Small Beasts": "Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts. Forest gnomes love animals and often keep squirrels, badgers, rabbits, moles, woodpeckers, and other creatures as beloved pets."
-                },
-                "spells": [
-                    "Minor Illusion"
-                ]
+                }
+            },
+            "phases": {
+                "1": {
+                    "given": {
+                        "spells[]": ["Minor Illusion"]
+                    }
+                }
             }
         }, {
             "name": "Rock Gnome",
@@ -153,11 +157,13 @@
                 "info": {
                     "Artificer's Lore": "Whenever you make an **Intelligence** (**History**) check related to magic items, alchemical objects, or technological devices, you can add twice your proficiency bonus, instead of any proficiency bonus you normally apply.",
                     "Tinker": "You have proficiency with **Artisan's Tools** (**Tinker's Tools**). Using those tools, you can spend 1 hour and 10 gp worth of materials to construct a **Tiny Clockwork Device** (*AC 5, 1 HP*). The device ceases to function after 24 hours (unless you spend 1 hour repairing it to keep the device functioning), or when you use your *action* to dismantle it; at that time, you can reclaim the materials used to create it. You can have up to three such devices active at a time."
-                },
-                "proficiencies": {
-                    "tools": [
-                        "Tinker's tools"
-                    ]
+                }
+            },
+            "phases": {
+                "1": {
+                    "given": {
+                        "proficiencies.tools[]": ["Tinker's tools"]
+                    }
                 }
             }
         }],
@@ -167,13 +173,16 @@
             },
             "size": "small",
             "speed": 25,
-            "languages": [
-                "common",
-                "gnomish"
-            ],
             "info": {
                 "Darkvision": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
                 "Gnome Cunning": "You have **Advantage** on all **Intelligence**, **Wisdom**, and **Charisma** *Saving Throws* against magic."
+            }
+        },
+        "phases": {
+            "1": {
+                "given": {
+                    "languages[]": ["common", "gnomish"]
+                }
             }
         }
     }, {
@@ -189,20 +198,19 @@
             },
             "size": "medium",
             "speed": 30,
-            "proficiencies": {
-                "skills": [
-                    "intimidation"
-                ]
-            },
-            "languages": [
-                "orc",
-                "common"
-            ],
             "info": {
                 "Darkvision": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
                 "Menacing": "You gain *proficiency* in the **Intimidation** skill.",
                 "Relentless Endurance": "When you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. You can't use this feature again until you finish a long rest.",
                 "Savage Attacks": "When you score a critical hit with a melee weapon attack, you can roll one of the weapon's damage dice one additional time and add it to the extra damage of the critical hit."
+            }
+        },
+        "phases": {
+            "1": {
+                "given": {
+                    "proficiencies.skills[]": ["intimidation"],
+                    "languages[]": ["orc", "common"]
+                }
             }
         }
     }, {
@@ -219,7 +227,7 @@
                 }
             }
         }, {
-            "name": "Stouth Halfing",
+            "name": "Stout Halfing",
             "config": {
                 "stats_bonus": {
                     "constitution": [1]
@@ -235,14 +243,17 @@
             },
             "size": "small",
             "speed": 25,
-            "languages": [
-                "common",
-                "halfing"
-            ],
             "info": {
                 "Lucky": "When you roll a 1 on an *Attack Roll*, *Ability Check*, or *Saving Throw*, you can reroll the die and must use the new roll.",
                 "Brave": "You have **Advantage** on *Saving Throws* against being *Frightened*.",
                 "Halfling Nimbleness": "You can move through the space of any creature that is of a size larger than yours."
+            }
+        },
+        "phases": {
+            "1": {
+                "given": {
+                    "languages[]": ["common", "halfing"]
+                }
             }
         }
     }, {
@@ -277,16 +288,16 @@
                 "charisma": [1]
             },
             "size": "medium",
-            "speed": 30,
-            "languages": [
-                "common"
-            ]
+            "speed": 30
         },
         "phases": {
-            "init": {
+            "1": {
+                "given": {
+                    "languages[]": ["common"]
+                },
                 "options": {
-                    "languages": [
-                        {"options": "languages.common,languages.exotic"}
+                    "languages[]": [
+                        {"select": "languages.common,languages.exotic"}
                     ]
                 }
             }
@@ -324,40 +335,32 @@
                 "Unarmored Defense": "While you are not wearing any armor, your **Armor Class** equals 10 + your **Dexterity Modifier** + **Constitution Modifier**. You can use a shield and still gain this benefit."
             },
             "abilities": {
-                "rage": {
-                    "name": "Rage",
-                    "description": "In battle, you fight with primal ferocity. On your turn, you can enter a rage as a *Bonus Action*. While raging, you gain the following benefits if you aren't wearing heavy armor:\n\n* You have **Advantage** on **Strength** checks and **Strength** *Saving Throws*.\n*  When you make a melee weapon attack using **Strength**, you gain %{bonus}% bonus to the damage.\n* You have *resistance* to *bludgeoning*, *piercing*, and *slashing* damage.\n\nIf you are able to cast spells, you can't **cast** them or **concentrate** on them while raging. Your rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven't attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a *bonus action*. Once you have raged %{rages}% times, you must finish a long rest before you can rage again.",
-                    "bonus": 2,
-                    "rages": 2
+                "Rage": {
+                    "description": "In battle, you fight with primal ferocity. On your turn, you can enter a rage as a *Bonus Action*. While raging, you gain the following benefits if you aren't wearing heavy armor:\n\n* You have **Advantage** on **Strength** checks and **Strength** *Saving Throws*.\n*  When you make a melee weapon attack using **Strength**, you gain %(bonus_damage)s bonus to the damage.\n* You have *resistance* to *bludgeoning*, *piercing*, and *slashing* damage.\n\nIf you are able to cast spells, you can't **cast** them or **concentrate** on them while raging. Your rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven't attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a *bonus action*. Once you have raged %(maximum_rages)s times, you must finish a long rest before you can rage again.",
+                    "bonus_damage": 2,
+                    "maximum_rages": 2
                 }
             }
         },
         "phases": {
-            "init": {
-                "conditions": {
-                    "level": [0, 1]
-                },
+            "1": {
                 "given": {
-                    "proficiency": 2,
-                    "equipment": [
-                        "4 Javalin"
-                    ]
+                    "proficiency": 2
                 },
                 "options": {
-                    "proficiencies": {
-                        "skills": [
-                            {"options": ["animal handling", "athletics", "intimidation", "nature", "perception", "survival"]},
-                            {"options": ["animal handling", "athletics", "intimidation", "nature", "perception", "survival"]}
-                        ]
-                    },
-                    "equipment": [
+                    "proficiencies.skills[]": [
+                        {"select": ["animal handling", "athletics", "intimidation", "nature", "perception", "survival"]},
+                        {"select": ["animal handling", "athletics", "intimidation", "nature", "perception", "survival"]}
+                    ],
+                    "equipment[]": [
+                        {"group": ["4 Javalin"]},
                         {"choose": [
                             {"group": ["Greataxe"]},
-                            {"options": "weapons.martial.melee.items"}
+                            {"select": "weapons.martial.melee.items"}
                         ]},
                         {"choose": [
                             {"group": ["Handaxe", "Handaxe"]},
-                            {"options": "weapons.simple.melee.items,weapons.simple.ranged.items"}
+                            {"select": "weapons.simple.melee.items,weapons.simple.ranged.items"}
                         ]},
                         {"choose": [
                             {"group": "packs.Explorer's Pack.items"}
@@ -367,562 +370,512 @@
             },
             "2": {
                 "conditions": {
-                    "level": [2, 20]
+                    "level": 2,
+                    "creation": "1"
                 },
                 "given": {
                     "proficiency": 2,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 2,
-                            "rages": 2
-                        },
-                        "reckless_attack": {
-                            "name": "Reckless Attack",
-                            "description": "You can throw aside all concern for defense to attack with fierce desperation. When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you **Advantage** on melee weapon attack rolls using **Strength** during this turn, but attack rolls against you have **Advantage** until your next turn."
-                        },
-                        "danger_sense": {
-                            "name": "Danger Sense",
-                            "description": "You gain an uncanny sense of when things nearby aren't as they should be, giving you an edge when you dodge away from danger. You have **Advantage** on **Dexterity** *Saving Throws* against effects that you can see, such as traps and spells. To gain this benefit, you can't be blinded, deafened, or incapacitated."
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 2,
+                        "maximum_rages": 2
+                    },
+                    "abilities.Reckless Attack": {
+                        "description": "You can throw aside all concern for defense to attack with fierce desperation. When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you **Advantage** on melee weapon attack rolls using **Strength** during this turn, but attack rolls against you have **Advantage** until your next turn."
+                    },
+                    "abilities.Danger Sense": {
+                        "description": "You gain an uncanny sense of when things nearby aren't as they should be, giving you an edge when you dodge away from danger. You have **Advantage** on **Dexterity** *Saving Throws* against effects that you can see, such as traps and spells. To gain this benefit, you can't be blinded, deafened, or incapacitated."
                     }
                 }
             },
             "3": {
                 "conditions": {
-                    "level": [3, 20]
+                    "level": 3,
+                    "creation": "2"
                 },
                 "given": {
                     "proficiency": 2,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 2,
-                            "rages": 3
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 2,
+                        "maximum_rages": 3
                     }
                 },
-                "paths": {
-                    "Path of the Berserker": {
-                        "description": "For some barbarians, rage is a means to an end—that end being violence. The Path of the Berserker is a path of untrammeled fury, slick with blood. As you enter the berserker's rage, you thrill in the chaos of battle, heedless of your own health or well-being.",
+                "tabs": {
+                    "description": "# Primal Paths\nRage burns in every barbarian's heart, a furnace that drives him or her toward greatness. Different barbarians attribute their rage to different sources, however. For some, it is an internal reservoir where pain, grief, and anger are forged into a fury hard as steel. Others see it as a spiritual blessing, a gift of a totem animal.",
+                    "options": [{
+                        "name": "Path of the Berserker",
+                        "description": "For some barbarians, rage is a means to an end - that end being violence. The Path of the Berserker is a path of untrammeled fury, slick with blood. As you enter the berserker's rage, you thrill in the chaos of battle, heedless of your own health or well-being.",
                         "given": {
-                            "path": "Path of the Berserker",
-                            "abilities": {
-                                "frenzy": {
-                                    "name": "Frenzy",
-                                    "description": "You can go into a frenzy when you rage. If you do so, for the duration of your rage you can make a single melee weapon attack as a *bonus action* on each of your turns after this one. When your rage ends, you suffer one level of *exhaustion*"
-                                }
+                            "path[]": "Berserker",
+                            "abilities.Frenzy": {
+                                "description": "You can go into a frenzy when you rage. If you do so, for the duration of your rage you can make a single melee weapon attack as a *bonus action* on each of your turns after this one. When your rage ends, you suffer one level of *exhaustion*"
                             }
                         }
-                    },
-                    "Totem Spirit: Bear": {
-                        "description": "Yours is a path that seeks attunement with the natural world, giving you a kinship with beasts. When you adopt this path, you gain the ability to cast the *Beast sense* and *Speak with Animals* spells, but only as rituals.\n\n## Totem Spirit\n\nWhen you adopt this path, you choose a totem spirit and gain its feature. You must make or acquire a physical totem object -an amulet or similar adornment—that incorporates fur or feathers, claws, teeth, or bones of the totem animal. At your option. you also gain minor physical attributes that are reminiscent of your totem spirit. For example. if you have a hear totem spirit, you might be unusually hairy and thick- skinned, or if your totem is the eagle, your eyes turn bright yellow.",
+                    }, {
+                        "name": "Path of the Totem Warrior",
+                        "description": "Yours is a path that seeks attunement with the natural world, giving you a kinship with beasts. When you adopt this path, you gain the ability to cast the *Beast sense* and *Speak with Animals* spells, but only as rituals.\n\n## Totem Spirit\n\nWhen you adopt this path, you choose a totem spirit and gain its feature. You must make or acquire a physical totem object -an amulet or similar adornment - that incorporates fur or feathers, claws, teeth, or bones of the totem animal. At your option. you also gain minor physical attributes that are reminiscent of your totem spirit. For example. if you have a hear totem spirit, you might be unusually hairy and thick- skinned, or if your totem is the eagle, your eyes turn bright yellow.",
                         "given": {
-                            "path": "Path of the Totem Warrior",
-                            "spells": [
+                            "path[]": "Totem Warrior",
+                            "spells[]": [
                                 "Beast Sense",
                                 "Speak With Animals"
                             ],
-                            "equipment": [
+                            "equipment[]": [
+                                "Bear Totem Animal"
+                            ]
+                        }
+                    }]
+                }
+            },
+            "3-totem": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2",
+                    "path": ["Totem Warrior"]
+                },
+                "tabs": {
+                    "description": "You chose a totem spirit and gain its feature. You must make or acquire a physical totem object -an amulet or similar adornment—that incorporates fur or feathers, claws, teeth, or bones of the totem animal. At your option. you also gain minor physical attributes that are reminiscent of your totem spirit. For example. if you have a hear totem spirit, you might be unusually hairy and thick- skinned, or if your totem is the eagle, your eyes turn bright yellow.",
+                    "options": [{
+                        "name": "Totem Spirit: Bear",
+                        "given": {
+                            "spells[]": [
+                                "Beast Sense",
+                                "Speak With Animals"
+                            ],
+                            "equipment[]": [
                                 "Bear Totem Animal"
                             ],
-                            "abilities": {
-                                "totem_spirit": {
-                                    "name": "Totem Spirit: Bear",
-                                    "description": "While raging. you have *resistance* to all damage except *psychic* damage. The spirit of the bear makes you tough enough to stand up to any punishment."
-                                }
+                            "abilities.Totem Spirit": {
+                                "description": "While raging. you have *resistance* to all damage except *psychic* damage. The spirit of the bear makes you tough enough to stand up to any punishment."
                             }
                         }
-                    },
-                    "Totem Spirit: Eagle": {
-                        "description": "Yours is a path that seeks attunement with the natural world, giving you a kinship with beasts. When you adopt this path, you gain the ability to cast the *Beast sense* and *Speak with Animals* spells, but only as rituals.\n\n## Totem Spirit\n\nWhen you adopt this path, you choose a totem spirit and gain its feature. You must make or acquire a physical totem object -an amulet or similar adornment—that incorporates fur or feathers, claws, teeth, or bones of the totem animal. At your option. you also gain minor physical attributes that are reminiscent of your totem spirit. For example. if you have a hear totem spirit, you might be unusually hairy and thick- skinned, or if your totem is the eagle, your eyes turn bright yellow.",
+                    }, {
+                        "name": "Totem Spirit: Eagle",
                         "given": {
-                            "path": "Path of the Totem Warrior",
-                            "spells": [
+                            "spells[]": [
                                 "Beast Sense",
                                 "Speak With Animals"
                             ],
-                            "equipment": [
+                            "equipment[]": [
                                 "Eagle Totem Animal"
                             ],
-                            "abilities": {
-                                "totem_spirit": {
-                                    "name": "Totem Spirit: Bear",
-                                    "description": "While raging. you have *resistance* to all damage except *psychic* damage. The spirit of the bear makes you tough enough to stand up to any punishment."
-                                }
+                            "abilitiesTotem Spirit": {
+                                "description": "While raging. you have *resistance* to all damage except *psychic* damage. The spirit of the bear makes you tough enough to stand up to any punishment."
                             }
                         }
-                    },
-                    "Totem Spirit: Wolf": {
-                        "description": "Yours is a path that seeks attunement with the natural world, giving you a kinship with beasts. When you adopt this path, you gain the ability to cast the *Beast sense* and *Speak with Animals* spells, but only as rituals.\n\n## Totem Spirit\n\nWhen you adopt this path, you choose a totem spirit and gain its feature. You must make or acquire a physical totem object -an amulet or similar adornment—that incorporates fur or feathers, claws, teeth, or bones of the totem animal. At your option. you also gain minor physical attributes that are reminiscent of your totem spirit. For example. if you have a hear totem spirit, you might be unusually hairy and thick- skinned, or if your totem is the eagle, your eyes turn bright yellow.",
+                    }, {
+                        "name": "Totem Spirit: Wolf",
                         "given": {
-                            "path": "Path of the Totem Warrior",
-                            "spells": [
+                            "spells[]": [
                                 "Beast Sense",
                                 "Speak With Animals"
                             ],
-                            "equipment": [
+                            "equipment[]": [
                                 "Wolf Totem Animal"
                             ],
-                            "abilities": {
-                                "totem_spirit": {
-                                    "name": "Totem Spirit: Wolf",
-                                    "description": "While you're raging, your friends have **Advantage* on melee attack rolls against any creature within 5 feet of you that is hostile to you. The spirit of the wolf makes you a leader of hunters."
-                                }
+                            "abilitiesTotem Spirit": {
+                                "description": "While you're raging, your friends have **Advantage* on melee attack rolls against any creature within 5 feet of you that is hostile to you. The spirit of the wolf makes you a leader of hunters."
                             }
                         }
-                    }
+                    }]
                 }
             },
             "4": {
                 "conditions": {
-                    "level": [4, 20]
+                    "level": 4,
+                    "creation": "3"
                 },
                 "given": {
                     "proficiency": 2,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 2,
-                            "rages": 3
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 2,
+                        "maximum_rages": 3
                     }
                 },
                 "options": {
                     "ability_improvement": [
-                        {"choose": [
-                            {"options": "statistics"},
-                            {"options": "statistics"}
-                        ]}
+                        {"select": "statistics"},
+                        {"select": "statistics"}
                     ]
                 }
             },
             "5": {
                 "conditions": {
-                    "level": [5, 20]
+                    "level": 5,
+                    "creation": "4"
                 },
                 "given": {
                     "proficiency": 3,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 2,
-                            "rages": 3
-                        },
-                        "extra_attack": {
-                            "name": "Extra Attack",
-                            "description": "You can attack twice, instead of once, whenever you take the **Attack** action on your turn."
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 2,
+                        "maximum_rages": 3
+                    },
+                    "abilities.Extra Attack": {
+                        "description": "You can attack twice, instead of once, whenever you take the **Attack** action on your turn."
                     }
                 }
             },
             "6": {
                 "conditions": {
-                    "level": [6, 20]
+                    "level": 6,
+                    "creation": "5"
                 },
                 "given": {
                     "proficiency": 3,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 2,
-                            "rages": 4
-                        },
-                        "fast_movement": {
-                            "name": "Fast Movement",
-                            "description": "Your speed increases by 10 feet while you aren't wearing heavy armor."
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 2,
+                        "maximum_rages": 4
+                    },
+                    "abilities.Fast Movement": {
+                        "description": "Your speed increases by 10 feet while you aren't wearing heavy armor."
                     }
                 }
             },
             "6-berserker": {
                 "conditions": {
-                    "level": [6, 20],
-                    "path": ["Path of the Berserker"]
+                    "level": 6,
+                    "creation": "5",
+                    "path": ["Berserker"]
                 },
                 "given": {
-                    "abilities": {
-                        "mindless_rage": {
-                            "name": "Mindless Rage",
-                            "description": "You can't be *charmed* or *frightened* while raging. If you are *charmed* or *frightened* when you enter your rage, the effect is suspended for the duration of the rage."
-                        }
+                    "abilities.Mindless Rage": {
+                        "description": "You can't be *charmed* or *frightened* while raging. If you are *charmed* or *frightened* when you enter your rage, the effect is suspended for the duration of the rage."
                     }
                 }
             },
             "6-totem": {
                 "conditions": {
-                    "level": [6, 20],
-                    "path": ["Path of the Totem Warrior"]
+                    "level": 6,
+                    "creation": "5",
+                    "path": ["Totem Warrior"]
                 },
                 "paths": {
-                    "Aspect of the Bear": {
-                        "description": "You gain a magical benefit based on the totem animal of your choice. You can choose the same animal you selected earlier or a different one.",
+                    "description": "You gain a magical benefit based on the totem animal of your choice. You can choose the same animal you selected earlier or a different one.",
+                    "options": [{
+                        "name": "Aspect of the Bear",
                         "given": {
-                            "abilities": {
-                                "aspect_of_the_beast": {
-                                    "name": "Aspect of the Bear",
-                                    "description": "You gain the might of a bear. Your carrying capacity (including maximum load and maximum lift) is doubled, and you have **Advantage** on *Strength* checks made to *push*, *pull*, *lift*, or *break* objects."
-                                }
+                            "abilities.Aspect of the Bear": {
+                                "description": "You gain the might of a bear. Your carrying capacity (including maximum load and maximum lift) is doubled, and you have **Advantage** on *Strength* checks made to *push*, *pull*, *lift*, or *break* objects."
                             }
                         }
-                    },
-                    "Aspect of the Eagle": {
-                        "description": "You gain a magical benefit based on the totem animal of your choice. You can choose the same animal you selected earlier or a different one.",
+                    }, {
+                        "name": "Aspect of the Eagle",
                         "given": {
-                            "abilities": {
-                                "aspect_of_the_beast": {
-                                    "name": "Aspect of the Eagle",
-                                    "description": "You gain the eyesight of an eagle. You can see up to 1 mile away with no difficulty, able to discern even fine details as though looking at something no more than 100 feet away from you. Additionally, dim light doesn't impose disadvantage on your *Wisdom (Perception)* checks."
-                                }
+                            "abilities.Aspect of the Eagle": {
+                                "description": "You gain the eyesight of an eagle. You can see up to 1 mile away with no difficulty, able to discern even fine details as though looking at something no more than 100 feet away from you. Additionally, dim light doesn't impose disadvantage on your *Wisdom (Perception)* checks."
                             }
                         }
-                    },
-                    "Aspect of the Wolf": {
-                        "description": "You gain a magical benefit based on the totem animal of your choice. You can choose the same animal you selected earlier or a different one.",
+                    }, {
+                        "name": "Aspect of the Wolf",
                         "given": {
-                            "abilities": {
-                                "aspect_of_the_beast": {
-                                    "name": "Aspect of the Wolf",
-                                    "description": "You gain the hunting sensibilities of a wolf. You can track other creatures while traveling at a fast pace, and you can move stealthily while traveling at a normal pace (see chapter 8 for rules on travel pace)."
-                                }
+                            "abilities.Aspect of the Wolf": {
+                                "description": "You gain the hunting sensibilities of a wolf. You can track other creatures while traveling at a fast pace, and you can move stealthily while traveling at a normal pace (see chapter 8 for rules on travel pace)."
                             }
                         }
-                    }
+                    }]
                 }
             },
             "7": {
                 "conditions": {
-                    "level": [7, 20]
+                    "level": 7,
+                    "creation": "6"
                 },
                 "given": {
                     "proficiency": 3,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 2,
-                            "rages": 4
-                        },
-                        "feral_instinct": {
-                            "name": "Feral Instinct",
-                            "description": "Your instincts are so honed that you have **Advantage** on *initiative* rolls. Additionally, if you are *surprised* at the beginning of combat and aren't incapacitated, you can act normally on your first turn. but only if you enter your rage before doing anything else on that turn."
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 2,
+                        "maximum_rages": 4
+                    },
+                    "abilities.Feral Instinct": {
+                        "description": "Your instincts are so honed that you have **Advantage** on *initiative* rolls. Additionally, if you are *surprised* at the beginning of combat and aren't incapacitated, you can act normally on your first turn. but only if you enter your rage before doing anything else on that turn."
                     }
                 }
             },
             "8": {
                 "conditions": {
-                    "level": [8, 20]
+                    "level": 8,
+                    "creation": "7"
                 },
                 "given": {
                     "proficiency": 3,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 2,
-                            "rages": 4
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 2,
+                        "maximum_rages": 4
                     }
                 },
                 "options": {
                     "ability_improvement": [
-                        {"options": "statistics"},
-                        {"options": "statistics"}
+                        {"select": "statistics"},
+                        {"select": "statistics"}
                     ]
                 }
             },
             "9": {
                 "conditions": {
-                    "level": [9, 20]
+                    "level": 9,
+                    "creation": "8"
                 },
                 "given": {
                     "proficiency": 4,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 3,
-                            "rages": 4
-                        },
-                        "brutal_critical": {
-                            "name": "Brutal Critical",
-                            "description": "You can roll %{dice}% additional weapon damage die when determining the extra damage for a *Critical Hit* with a melee attack.",
-                            "dice": 1
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 3,
+                        "maximum_rages": 4
+                    },
+                    "ability.Brutal Critical": {
+                        "description": "You can roll %(damage dice)s additional weapon damage die when determining the extra damage for a *Critical Hit* with a melee attack.",
+                        "damage dice": 1
                     }
                 }
             },
             "10": {
                 "conditions": {
-                    "level": [10, 20]
+                    "level": 10,
+                    "creation": "9"
                 },
                 "given": {
                     "proficiency": 4,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 3,
-                            "rages": 4
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 3,
+                        "maximum_rages": 4
                     }
                 }
             },
             "10-berserker": {
                 "conditions": {
-                    "level": [10, 20],
-                    "path": ["Path of the Berserker"]
+                    "level": 10,
+                    "creation": "9",
+                    "path": ["Berserker"]
                 },
                 "given": {
-                    "abilities": {
-                        "intimidating_presence": {
-                            "name": "Intimidating Presence",
-                            "description": "You can use your *action* to *frighten* someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a **Wisdom** *Saving Throw* (DC equal to %{dc}%) or be *frightened* of you until the end of your next turn. On subsequent turns, you can use your *action* to extend the duration of this effect on the frightened creature until the end of your next turn. This effect ends if the creature ends its turn out of line of sight or more than 60 feet away from you. If the creature succeeds on its saving throw, you can't use this feature on that creature again for 24 hours.",
-                            "dc_formula": "8 + character.proficiency + character.modifiers.charisma"
-                        }
+                    "abilities.Intimidating Presence": {
+                        "description": "You can use your *action* to *frighten* someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a **Wisdom** *Saving Throw* (DC equal to %(dc)s) or be *frightened* of you until the end of your next turn. On subsequent turns, you can use your *action* to extend the duration of this effect on the frightened creature until the end of your next turn. This effect ends if the creature ends its turn out of line of sight or more than 60 feet away from you. If the creature succeeds on its saving throw, you can't use this feature on that creature again for 24 hours.",
+                        "dc_formula": "8 + character.proficiency + character.modifiers.charisma"
                     }
                 }
             },
             "10-totem": {
                 "conditions": {
-                    "level": [10, 20],
-                    "path": ["Path of the Totem Warrior"]
+                    "level": 10,
+                    "creation": "9",
+                    "path": ["Totem Warrior"]
                 },
                 "given": {
-                    "abilities": {
-                        "spirit_walker": {
-                            "name": "Spirit Walker",
-                            "description": "You can cast the **Commune with Nature** spell, but only as a ritual. When you do so, a spiritual version of one of the animals you chose for **Totem Spirit or Aspect** or the **Beast** appears to you to convey the information you seek."
-                        }
+                    "abilities.Spirit Walker": {
+                        "description": "You can cast the **Commune with Nature** spell, but only as a ritual. When you do so, a spiritual version of one of the animals you chose for **Totem Spirit or Aspect** or the **Beast** appears to you to convey the information you seek."
                     }
                 }
             },
             "11": {
                 "conditions": {
-                    "level": [11, 20]
+                    "level": 11,
+                    "creation": "10"
                 },
                 "given": {
                     "proficiency": 4,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 3,
-                            "rages": 4
-                        },
-                        "relentless_rage": {
-                            "name": "Relentless Rage",
-                            "description": "Starting at 11th level, your rage can keep you fighting despite grievous wounds. If you drop to 0 hit points while you're raging and don't die outright, you can make a DC 10 Constitution saving throw. If you succeed, you drop to 1 hit point instead. Each time you use this feature after the first, the DC increases by 5. When you finish a short or long rest, the DC resets to 10."
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 3,
+                        "maximum_rages": 4
+                    },
+                    "abilities.Relentless Rage": {
+                        "description": "Your rage can keep you fighting despite grievous wounds. If you drop to 0 hit points while you're raging and don't die outright, you can make a DC 10 Constitution saving throw. If you succeed, you drop to 1 hit point instead. Each time you use this feature after the first, the DC increases by 5. When you finish a short or long rest, the DC resets to 10."
                     }
                 }
             },
             "12": {
                 "conditions": {
-                    "level": [12, 20]
+                    "level": 12,
+                    "creation": "11"
                 },
                 "given": {
                     "proficiency": 4,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 3,
-                            "rages": 5
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 3,
+                        "maximum_rages": 5
                     }
                 },
                 "options": {
                     "ability_improvement": [
-                        {"options": "statistics"},
-                        {"options": "statistics"}
+                        {"select": "statistics"},
+                        {"select": "statistics"}
                     ]
                 }
             },
             "13": {
                 "conditions": {
-                    "level": [13, 20]
+                    "level": 13,
+                    "creation": "12"
                 },
                 "given": {
                     "proficiency": 5,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 3,
-                            "rages": 5
-                        },
-                        "brutal_critical": {
-                            "dice": 2
-                        }
-
+                    "abilities.Rage": {
+                        "bonus_damage": 3,
+                        "maximum_rages": 5
+                    },
+                    "abilities.Brutal Critical": {
+                        "damage dice": 2
                     }
                 }
             },
             "14": {
                 "conditions": {
-                    "level": [14, 20]
+                    "level": 14,
+                    "creation": "13"
                 },
                 "given": {
                     "proficiency": 5,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 3,
-                            "rages": 5
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 3,
+                        "maximum_rages": 5
                     }
                 }
             },
             "14-berserker": {
                 "conditions": {
-                    "level": [14, 20],
-                    "path": ["Path of the Berserker"]
+                    "level": 14,
+                    "creation": "13",
+                    "path": ["Berserker"]
                 },
                 "given": {
-                    "abilities": {
-                        "retaliation": {
-                            "name": "Retaliation",
-                            "description": "When you take damage from a creature that is within 5 feet of you, you can use your *reaction* to make a melee weapon attack against that creature."
-                        }
+                    "abilities.Retaliation": {
+                        "description": "When you take damage from a creature that is within 5 feet of you, you can use your *reaction* to make a melee weapon attack against that creature."
                     }
                 }
             },
             "14-totem": {
                 "conditions": {
-                    "level": [14, 20],
-                    "path": ["Path of the Totem Warrior"]
+                    "level": 14,
+                    "creation": "13",
+                    "path": ["Totem Warrior"]
                 },
-                "paths": {
-                    "Totemic Attunement: Bear": {
-                        "description": "You gain a magical benefit based on a totem animal of your choice. You can choose the same animal you selected previously or a different one.",
+                "tabs": {
+                    "description": "You gain a magical benefit based on a totem animal of your choice. You can choose the same animal you selected previously or a different one.",
+                    "options": [{
+                        "name": "Totemic Attunement: Bear",
                         "given": {
-                            "abilities": {
-                                "totemic_attunement": {
-                                    "name": "Totemic Attunement: Bear",
-                                    "description": "While you're raging, any creature within 5 feet of you that's hostile to you has **Disadvantage** on attack rolls against targets other than you or another character with this feature. An enemy is immune to this effect if it can't see or hear you or if it can't be frightened."
-                                }
+                            "abilities.Totemic Attunement: Bear": {
+                                "description": "While you're raging, any creature within 5 feet of you that's hostile to you has **Disadvantage** on attack rolls against targets other than you or another character with this feature. An enemy is immune to this effect if it can't see or hear you or if it can't be frightened."
                             }
                         }
-                    },
-                    "Totemic Attunement: Eagle": {
-                        "description": "You gain a magical benefit based on a totem animal of your choice. You can choose the same animal you selected previously or a different one.",
+                    }, {
+                        "name": "Totemic Attunement: Eagle",
                         "given": {
-                            "abilities": {
-                                "totemic_attunement": {
-                                    "name": "Totemic Attunement: Eagle",
-                                    "description": "While raging, you have a flying speed equal to your current walking speed. This benefit works only in short bursts; you fall if you end your turn in the air and nothing else is holding you aloft."
-                                }
+                            "abilities.Totemic Attunement: Eagle": {
+                                "description": "While raging, you have a flying speed equal to your current walking speed. This benefit works only in short bursts; you fall if you end your turn in the air and nothing else is holding you aloft."
                             }
                         }
-                    },
-                    "Totemic Attunement: Wolf": {
-                        "description": "You gain a magical benefit based on a totem animal of your choice. You can choose the same animal you selected previously or a different one.",
+                    }, {
+                        "name": "Totemic Attunement: Wolf",
                         "given": {
-                            "abilities": {
-                                "totemic_attunement": {
-                                    "name": "Totemic Attunement: Wolf",
-                                    "description": "While you're raging, you can use a *bonus action* on your turn to knock a **Large** or smaller creature prone when you hit it with melee weapon attack."
-                                }
+                            "abilities.Totemic Attunement: Wolf": {
+                                "description": "While you're raging, you can use a *bonus action* on your turn to knock a **Large** or smaller creature prone when you hit it with melee weapon attack."
                             }
                         }
-                    }
+                    }]
                 }
             },
             "15": {
                 "conditions": {
-                    "level": [15, 20]
+                    "level": 15,
+                    "creation": "14"
                 },
                 "given": {
                     "proficiency": 5,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 3,
-                            "rages": 5
-                        },
-                        "persistent_rage": {
-                            "name": "Persistent Rage",
-                            "description": "Beginning at 15th level, your rage is so fierce that it ends early only if you fall unconscious or if you choose to end it."
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 3,
+                        "maximum_rages": 5
+                    },
+                    "abilities.Persistent Rage": {
+                        "description": "Your rage is so fierce that it ends early only if you fall unconscious or if you choose to end it."
                     }
                 }
             },
             "16": {
                 "conditions": {
-                    "level": [16, 20]
+                    "level": 16,
+                    "creation": "15"
                 },
                 "given": {
                     "proficiency": 5,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 4,
-                            "rages": 5
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 4,
+                        "maximum_rages": 5
                     }
                 },
                 "options": {
                     "ability_improvement": [
-                        {"options": "statistics"},
-                        {"options": "statistics"}
+                        {"select": "statistics"},
+                        {"select": "statistics"}
                     ]
                 }
             },
             "17": {
                 "conditions": {
-                    "level": [17, 20]
+                    "level": 17,
+                    "creation": "16"
                 },
                 "given": {
                     "proficiency": 6,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 4,
-                            "rages": 6
-                        },
-                        "brutal_critical": {
-                            "dice": 3
-                        }
-
+                    "abilities.Rage": {
+                        "bonus_damage": 4,
+                        "maximum_rages": 6
+                    },
+                    "abilities.Brutal Critical": {
+                        "damage dice": 3
                     }
                 }
             },
             "18": {
                 "conditions": {
-                    "level": [18, 20]
+                    "level": 18,
+                    "creation": "17"
                 },
                 "given": {
                     "proficiency": 6,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 4,
-                            "rages": 6
-                        },
-                        "indomitable_might": {
-                            "name": "Indomitable Might",
-                            "description": "If your total for a **Strength** check is less than your **Strength** score, you can use that score in place of the total."
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 4,
+                        "maximum_rages": 6
+                    },
+                    "abilities.Indomitable Might": {
+                        "description": "If your total for a **Strength** check is less than your **Strength** score (%(minimum_score)s), you can use %(minimum_score)s in place of the total.",
+                        "minimum_score_formula": "stats.strength"
                     }
                 }
             },
             "19": {
                 "conditions": {
-                    "level": [19, 20]
+                    "level": 19,
+                    "creation": "18"
                 },
                 "given": {
                     "proficiency": 6,
-                    "abilities": {
-                        "rage": {
-                            "bonus": 4,
-                            "rages": 6
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 4,
+                        "maximum_rages": 6
                     }
                 },
                 "options": {
                     "ability_improvement": [
-                        {"options": "statistics"},
-                        {"options": "statistics"}
+                        {"select": "statistics"},
+                        {"select": "statistics"}
                     ]
                 }
             },
             "20": {
                 "conditions": {
-                    "level": [20, 20]
+                    "level": 20,
+                    "creation": "19"
                 },
                 "given": {
                     "proficiency": 6,
                     "stats_bonus": {
-                        "strength": [4],
-                        "constitution": [4]
+                        "strength[]": 4,
+                        "constitution[]": 4
                     },
-                    "abilities": {
-                        "rage": {
-                            "bonus": 4,
-                            "rages": "unlimited"
-                        },
-                        "primal_champion": {
-                            "name": "Primal Champion",
-                            "description": "You embody the power of the wilds. Your **Strength** and **Constitution** scores increase by 4. Your maximum for those scores is now 24."
-                        }
+                    "abilities.Rage": {
+                        "bonus_damage": 4,
+                        "maximum_rages": "unlimited"
+                    },
+                    "abilities.Primal Champion": {
+                        "description": "You embody the power of the wilds. Your **Strength** and **Constitution** scores increase by 4. Your maximum for those scores is now 24."
                     }
                 }
             }
@@ -971,37 +924,35 @@
             ]
         },
         "phases": {
-            "init": {
+            "1": {
                 "options": {
-                    "proficiencies": {
-                        "skills": [
-                            {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
-                            {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
-                            {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]}
-                        ],
-                        "tools": [
-                            {"options": "items.musical.items"},
-                            {"options": "items.musical.items"},
-                            {"options": "items.musical.items"}
-                        ]
-                    },
-                    "equipment": [
+                    "proficiencies.skills[]": [
+                        {"select": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
+                        {"select": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
+                        {"select": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]}
+                    ],
+                    "proficiencies.tools[]": [
+                        {"select": "items.musical.items"},
+                        {"select": "items.musical.items"},
+                        {"select": "items.musical.items"}
+                    ],
+                    "equipment[]": [
                         {"choose": [
-                            {"options": ["Rapier", "Longsword"]},
-                            {"options": "weapons.simple.melee.items,weapons.simple.ranged.items"}
+                            {"select": ["Rapier", "Longsword"]},
+                            {"select": "weapons.simple.melee.items,weapons.simple.ranged.items"}
                         ]},
                         {"choose": [
                             {"group": ["Lute"]},
-                            {"options": "items.musical.items"}
+                            {"select": "items.musical.items"}
                         ]}
                     ],
-                    "spells": [
-                        {"options": "spells.bard.cantrip"},
-                        {"options": "spells.bard.cantrip"},
-                        {"options": "spells.bard.1st"},
-                        {"options": "spells.bard.1st"},
-                        {"options": "spells.bard.1st"},
-                        {"options": "spells.bard.1st"}
+                    "spells[]": [
+                        {"select": "spells.bard.cantrip"},
+                        {"select": "spells.bard.cantrip"},
+                        {"select": "spells.bard.1st"},
+                        {"select": "spells.bard.1st"},
+                        {"select": "spells.bard.1st"},
+                        {"select": "spells.bard.1st"}
                     ]
                 }
             }
@@ -1043,30 +994,28 @@
             ]
         },
         "phases": {
-            "init": {
+            "1": {
                 "options": {
-                    "proficiencies": {
-                        "skills": [
-                            {"options": ["history", "insight", "medicine", "pursuasion", "religion"]},
-                            {"options": ["history", "insight", "medicine", "pursuasion", "religion"]}
-                        ]
-                    },
-                    "equipment": [
-                        {"options": ["Mace", "Warhammer"]},
-                        {"options": ["Scale Mail", "Leather Armor", "Chain Mail"]},
+                    "proficiencies.skills[]": [
+                        {"select": ["history", "insight", "medicine", "pursuasion", "religion"]},
+                        {"select": ["history", "insight", "medicine", "pursuasion", "religion"]}
+                    ],
+                    "equipment[]": [
+                        {"select": ["Mace", "Warhammer"]},
+                        {"select": ["Scale Mail", "Leather Armor", "Chain Mail"]},
                         {"choose": [
                             {"group": ["Light Crossbow", "20 Bolts"]},
-                            {"options": "weapons.simple.melee.items,weapons.simple.ranged.items"}
+                            {"select": "weapons.simple.melee.items,weapons.simple.ranged.items"}
                         ]},
                         {"choose": [
                             {"group": "packs.Priest's Pack.items"},
                             {"group": "packs.Explorer's Pack.items"}
                         ]}
                     ],
-                    "spells": [
-                        {"options": "spells.cleric.cantrip"},
-                        {"options": "spells.cleric.cantrip"},
-                        {"options": "spells.cleric.cantrip"}
+                    "spells[]": [
+                        {"select": "spells.cleric.cantrip"},
+                        {"select": "spells.cleric.cantrip"},
+                        {"select": "spells.cleric.cantrip"}
                     ]
                 }
             }
@@ -1099,27 +1048,25 @@
             }
         },
         "phases": {
-            "init": {
+            "1": {
                 "options": {
-                    "proficiencies": {
-                        "skills": [
-                            {"options": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]},
-                            {"options": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]}
-                        ]
-                    },
-                    "equipment": [
+                    "proficiencies.skills[]": [
+                        {"select": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]},
+                        {"select": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]}
+                    ],
+                    "equipment[]": [
                         {"choose": [
                             {"group": ["Chain mail"]},
                             {"group": ["Leather Armor", "Longbow", "20 Arrows"]}
                         ]},
                         {"choose": [
                             {"multiple": [
-                                [{"options": "weapons.martial.melee.items,weapons.martial.ranged.items"}],
-                                [{"options": "armor.shield.items"}]
+                                {"select": "weapons.martial.melee.items,weapons.martial.ranged.items"},
+                                {"select": "armor.shield.items"}
                             ]},
                             {"multiple": [
-                                [{"options": "weapons.martial.melee.items,weapons.martial.ranged.items"}],
-                                [{"options": "weapons.martial.melee.items,weapons.martial.ranged.items"}]
+                                {"select": "weapons.martial.melee.items,weapons.martial.ranged.items"},
+                                {"select": "weapons.martial.melee.items,weapons.martial.ranged.items"}
                             ]}
                         ]},
                         {"choose": [
@@ -1143,6 +1090,9 @@
             "computed": {
                 "hit_points": {
                     "formula": "(10 + modifiers.constitution) + (6 + modifiers.constitution) * (level - 1)"
+                },
+                "known_spells": {
+                    "formula": "modifiers.charisma + (level/2)"
                 },
                 "spell_safe_dc": {
                     "formula": "8 + proficiency + modifiers.charisma"
@@ -1169,37 +1119,775 @@
             "equipment": [
                 "Chain Mail",
                 "Holy Symbol"
-            ]
+            ],
+            "abilities": {
+                "Divine Sense": {
+                    "description": "The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strand von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the hallow spell. You can use this feature %(uses)s times. When you finish a long rest, you regain all expended uses.",
+                    "uses_formula": "1 + modifiers.charisma"
+                },
+                "Lay on Hands": {
+                    "description": "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total of %(pool_size)s hit points. As an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool. Alternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one. This feature has no effect on undead and constructs.",
+                    "pool_size_formula": "5 * level"
+                }
+            }
         },
         "phases": {
-            "init": {
+            "1": {
                 "options": {
-                    "proficiencies": {
-                        "skills": [
-                            {"options": ["athletics", "insight", "intimidation", "medicine", "persuasion", "religion"]},
-                            {"options": ["athletics", "insight", "intimidation", "medicine", "persuasion", "religion"]}
-                        ]
-                    },
-                    "equipment": [
+                    "proficiencies.skills[]": [
+                        {"select": ["athletics", "insight", "intimidation", "medicine", "persuasion", "religion"]},
+                        {"select": ["athletics", "insight", "intimidation", "medicine", "persuasion", "religion"]}
+                    ],
+                    "equipment[]": [
                         {"choose": [
                             {"multiple": [
-                                [{"options": "weapons.martial.melee.items,weapons.martial.ranged.items"}],
-                                [{"options": "armor.shield.items"}]
+                                {"select": "weapons.martial.melee.items,weapons.martial.ranged.items"},
+                                {"select": "armor.shield.items"}
                             ]},
                             {"multiple": [
-                                [{"options": "weapons.martial.melee.items,weapons.martial.ranged.items"}],
-                                [{"options": "weapons.martial.melee.items,weapons.martial.ranged.items"}]
+                                {"select": "weapons.martial.melee.items,weapons.martial.ranged.items"},
+                                {"select": "weapons.martial.melee.items,weapons.martial.ranged.items"}
                             ]}
                         ]},
                         {"choose": [
-                            {"options": ["5 Javelins"]},
-                            {"options": "weapons.simple.melee.items,weapons.simple.ranged.items"}
+                            {"select": ["5 Javelins"]},
+                            {"select": "weapons.simple.melee.items,weapons.simple.ranged.items"}
                         ]},
                         {"choose": [
                             {"group": "packs.Priest's Pack.items"},
                             {"group": "packs.Explorer's Pack.items"}
                         ]}
                     ]
+                }
+            },
+            "2": {
+                "conditions": {
+                    "level": 2,
+                    "creation": "1"
+                },
+                "given": {
+                    "proficiency": 2,
+                    "spell_slots.1st_level": 2,
+                    "abilities.Divine Smite": {
+                        "description": "When you hit a creature with a melee weapon attack, you can expend one paladin spell slot to deal radiant damage to the target, in addition to the weapon's damage. The extra damage is 2d8 for a 1st-level spell slot, plus 1d8 for each spell level higher than 1st, to a maximum of 5d8. The damage increases by 1d8 if the target is an undead or a fiend."
+                    }
+                },
+                "paths": {
+                    "description": "You adopt a style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again.",
+                    "options": [{
+                        "name": "Defense",
+                        "given": {
+                            "abilities": {
+                                "Defense": {
+                                    "description": "While you are wearing armor, you gain a +1 bonus to AC."
+                                }
+                            }
+                        }
+                    }, {
+                        "name": "Dueling",
+                        "given": {
+                            "abilities": {
+                                "Dueling": {
+                                    "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon."
+                                }
+                            }
+                        }
+                    }, {
+                        "name": "Great Weapon Fighting",
+                        "given": {
+                            "abilities": {
+                                "Great Weapon Fighting": {
+                                    "description": "When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll. The weapon must have the two-handed or versatile property for you to gain this benefit."
+                                }
+                            }
+                        }
+                    }, {
+                        "name": "Protection",
+                        "given": {
+                            "abilities": {
+                                "Protection": {
+                                    "description": "When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield."
+                                }
+                            }
+                        }
+                    }]
+                }
+            },
+            "3": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2"
+                },
+                "given": {
+                    "proficiency": 2,
+                    "spell_slots.1st_level": 3,
+                    "abilities": {
+                        "Divine Health": {
+                            "description": "The divine magic flowing through you makes you immune to disease."
+                        },
+                        "Channel Divinity": {
+                            "description": "Your oath allows you to channel divine energy to fuel magical effects. Each Channel Divinity option provided by your oath explains how to use it. When you use your Channel Divinity, you choose which option to use. You must then finish a short or long rest to use your Channel Divinity again. Some Channel Divinity effects require saving throws. When you use such an effect from this class, the DC equals %(dc)s.",
+                            "dc_formula": "spell_safe_dc"
+                        }
+                    }
+                },
+                "paths": {
+                    "description": "Becoming a paladin involves taking vows that commit the paladin to the cause of righteousness, an active path of fighting wickedness. The final oath, taken when he or she reaches 3rd level, is the culmination of all the paladin's training. Some characters with this class don't consider themselves true paladins until they have reached 3rd level and made this oath. For others, the actual swearing of the oath is a formality, an official stamp on what has always been true in the paladin's heart.",
+                    "options": [{
+                        "name": "Oath of Devotion",
+                        "description": "The Oath of Devotion binds a paladin to the loftiest ideals of justice, virtue, and order. Sometimes called cavaliers, white knights, or holy warriors, these paladins meet the ideal of the knight in shining armor, acting with honor in pursuit of justice and the greater good. They hold themselves to the highest standards of conduct, and some, for better or worse, hold the rest of the world to the same standards. Many who swear this oath are devoted to gods of law and good and use their gods' tenets as the measure of their devotion. They hold angels—the perfect servants of good—as their ideals, and incorporate images of angelic wings into their helmets or coats of arms.\n\n## Tenets of Devotion\nThough the exact words and strictures of the Oath of Devotion vary, paladins of this oath share these tenets.\n\n* **Honesty.** Don't lie or cheat. Let your word be your promise.\n* **Courage.** Never fear to act, though caution is wise.\n* **Compassion.** Aid others, protect the weak, and punish those who threaten them. Show mercy to your foes, but temper it with wisdom.\n* **Honor.** Treat others with fairness, and let your honorable deeds be an example to them. Do as much good as possible while causing the least amount of harm.\n* **Duty.** Be responsible for your actions and their consequences, protect those entrusted to your care, and obey those who have just authority over you.",
+                        "given": {
+                            "spells[]": [
+                                "Protection From Evil and Good",
+                                "Sanctuary"
+                            ],
+                            "abilities": {
+                                "Sacred Weapon": {
+                                    "description": "As an action, you can imbue one weapon that you are holding with positive energy, using your Channel Divinity. For 1 minute, you add +%(bonus)s to attack rolls made with that weapon. The weapon also emits bright light in a 20-foot radius and dim light 20 feet beyond that. lithe weapon is not already magical, it becomes magical for the duration.\n\nYou can end this effect on your turn as part of any other action. If you are no longer holding or carrying this weapon, or if you fall unconscious, this effect ends.",
+                                    "bonus_formula": "max(1, modifiers.charisma)"
+                                },
+                                "Turn the Unholy": {
+                                    "description": "As an action, you present your holy symbol and speak a prayer censuring fiends and undead, using your Channel Divinity. Each fiend or undead that can see or hear you within 30 feet of you must make a Wisdom saving throw (DC %(dc)s. lithe creature fails its saving throw, it is turned for 1 minute or until it takes damage.\n\nA turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action.",
+                                    "dc_formula": "spell_safe_dc"
+                                }
+                            }
+                        }
+                    }, {
+                        "name": "Oath of the Ancients",
+                        "description": "The Oath of the Ancients is as old as the race of elves and the rituals of the druids. Sometimes called fey knights, green knights, or horned knights, paladins who swear this oath cast their lot with the side of the light in the cosmic struggle against darkness because they love the beautiful and life-giving things of the world, not necessarily because they believe in principles of honor, courage, and justice. They adorn their armor and clothing with images of growing things—leaves, antlers, or flowers—to reflect their commitment to preserving life and light in the world.\n\n## Tenets of the Ancients\nThe tenets of the Oath of the Ancients have been preserved for uncounted centuries. This oath emphasizes the principles of good above any concerns of taw or chaos. Its four central principles are simple.\n\n* **Kindle the Light.** Through your acts of mercy, kindness, and forgiveness, kindle the light of hope in the world, beating back despair.\n* **Shelter the Light.** Where there is good, beauty, love. and laughter in the world, stand against the wickedness that would swallow it. Where life flourishes, stand against the forces that would render it barren.\n* **Preserve Your Own Light.** Delight in song and laughter, in beauty and art. If you allow the light to die in your own heart, you can't preserve it in the world.\n* **Be the Light.** Be a glorious beacon for all who live in despair. Let the light of your joy and courage shine forth in all your deeds.",
+                        "given": {
+                            "spells[]": [
+                                "Ensnaring Strike",
+                                "Speak with Animals"
+                            ],
+                            "abilities": {
+                                "Nature's Wrath": {
+                                    "description": "You can use your Channel Divinity to invoke primeval forces to ensnare a foe. As an action, you can cause spectral vines to spring up and reach for a creature within 10 feet of you that you can see. The creature must succeed on a Strength or Dexterity saving throw (its choice, DC %(dc)s) or be restrained, While restrained by the vines, the creature repeats the saving throw at the end of each of its turns. On a success, it frees itself and the vines vanish.",
+                                    "dc_formula": "spell_safe_dc"
+                                },
+                                "Turn the Faithless": {
+                                    "description": "You can use your Channel Divinity to utter ancient words that are painful for fey and fiends to hear. As an action, you present your holy symbol, and each fey or fiend within 30 feet of you that can hear you must make a Wisdom saving throw (DC %(dc)s). On a failed save, the creature is turned for 1 minute or until it takes damage.\n\nA turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action. If the creature's true form is concealed by an illusion, shapeshifting, or other effect, that form is revealed while it is turned.",
+                                    "dc_formula": "spell_safe_dc"
+                                }
+                            }
+                        }
+                    }, {
+                        "name": "Oath of Vengeance",
+                        "description": "The Oath of Vengeance is a solemn commitment to punish those who have committed a grievous sin. When evil forces slaughter helpless villagers, when an entire people turns against the will of the gods, when a thieves' guild grows too violent and powerful, when a dragon rampages through the countryside—at times like these, paladins arise and swear an Oath of Vengeance to set right that which has gone wrong. To these paladins— sometimes called avengers or dark knights—their own purity is not as important as delivering justice.\n## Tenets of Vengeance\nThe tenets of the Oath of Vengeance vary by paladin, but all the tenets revolve around punishing wrongdoers by any means necessary. Paladins who uphold these tenets are willing to sacrifice even their own righteousness to mete out justice upon those who do evil, so the paladins are often neutral or lawful neutral in alignment. The core principles of the tenets are brutally simple.\n\n* **Fight the Greater Evil.** Faced with a choice of fighting my sworn foes or combating a lesser evil, I choose the greater evil.\n* **No Mercy for the Wicked.** Ordinary foes might win my mercy, but my sworn enemies do not.\n* **By Any Means Necessary.** My qualms can't get in the way of exterminating my foes.\n* **Restitution.** if my foes wreak ruin on the world, it is because I failed to stop them. I must help those harmed by their misdeeds.",
+                        "given": {
+                            "spells[]": [
+                                "Bane",
+                                "Hunter's Mark"
+                            ],
+                            "abilities": {
+                                "Abjure Enemy.": {
+                                    "description": "As an action, you present your holy symbol and speak a prayer of denunciation, using your Channel Divinity. Choose one creature within 60 feet of you that you can see. That creature must make a Wisdom saving throw (DC %(dc)s), unless it is immune to being frightened. Fiends and undead have disadvantage on this saving throw.\nOn a failed save, the creature is frightened for 1 minute or until it takes any damage. While frightened, the creature's speed is 0. and it can't benefit from any bonus to its speed.\n On a successful save, the creature's speed is halved for 1 minute or until the creature takes any damage.",
+                                    "dc_formula": "spell_safe_dc"
+                                },
+                                "Vow of Enmity.": {
+                                    "description": "As a bonus action, you can utter a vow of enmity against a creature you can see within 10 feet of you, using your Channel Divinity. You gain advantage on attack rolls against the creature for 1 minute or until it drops to 0 hit points or falls unconscious."
+                                }
+                            }
+                        }
+                    }]
+                }
+            },
+            "4": {
+                "conditions": {
+                    "level": 4,
+                    "creation": "3"
+                },
+                "given": {
+                    "proficiency": 2,
+                    "spell_slots.1st_level": 3
+                },
+                "options": {
+                    "ability_improvement": [
+                        {"select": "statistics"},
+                        {"select": "statistics"}
+                    ]
+                }
+            },
+            "5": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 2,
+                    "abilities": {
+                        "extra_attack": {
+                            "name": "Extra Attack",
+                            "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+                        }
+                    }
+                }
+            },
+            "5-devotion": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4",
+                    "path": ["Oath of Devotion"]
+                },
+                "given": {
+                    "spells[]": [
+                        "Lesser Restoration",
+                        "Zone of Truth"
+                    ]
+                }
+            },
+            "6": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "aura_range": 10,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 2,
+                    "abilities": {
+                        "aura_of_protection": {
+                            "name": "Aura of Protection",
+                            "description": "Whenever you or a friendly creature within %(range)s feet of you must make a saving throw, the creature gains a bonus to the saving throw equal to %(bonus)s. You must be conscious to grant this bonus.",
+                            "bonus_formula": "modifiers.charisma",
+                            "range_formula": "aura_range"
+                        }
+                    }
+                }
+            },
+            "7": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3
+                }
+            },
+            "7-devotion": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6",
+                    "path": ["Oath of Devotion"]
+                },
+                "given": {
+                    "abilities": {
+                        "Aura of Devotion": {
+                            "description": "You and friendly creatures within %(range)s feet of you can't be charmed while you are conscious. At 18th level, the range of this aura increases to 30 feet.",
+                            "range_formula": "aura_range"
+                        }
+                    }
+                }
+            },
+            "7-ancients": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6",
+                    "path": ["Oath of the Ancients"]
+                },
+                "given": {
+                    "abilities": {
+                        "Aura of Warding": {
+                            "description": "Ancient magic lies so heavily upon you that it forms an eldritch ward. You and friendly creatures within %(range)s feet of you have resistance to damage from spells.",
+                            "range_formula": "aura_range"
+                        }
+                    }
+                }
+            },
+            "7-vengeance": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6",
+                    "path": ["Oath of Vengeance"]
+                },
+                "given": {
+                    "abilities": {
+                        "Relentless Avenger": {
+                            "description": "Your supernatural focus helps you close off a foe's retreat. When you hit a creature with an opportunity attack, you can move up to %(distance)s feet immediately after the attack and as part of the same reaction. This movement doesn't provoke opportunity attacks.",
+                            "distance_formula": "speed/2"
+                        }
+                    }
+                }
+            },
+            "8": {
+                "conditions": {
+                    "level": 8,
+                    "creation": "7"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3
+                },
+                "options": {
+                    "ability_improvement": [
+                        {"select": "statistics"},
+                        {"select": "statistics"}
+                    ]
+                }
+            },
+            "9": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 2
+                }
+            },
+            "9-devotion": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8",
+                    "path": ["Oath of Devotion"]
+                },
+                "given": {
+                    "spells[]": [
+                        "Beacon of Hope",
+                        "Dispel Magic"
+                    ]
+                }
+            },
+            "10": {
+                "conditions": {
+                    "level": 10,
+                    "creation": "9"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 2,
+                    "abilities": {
+                        "aura_of_courage": {
+                            "name": "Aura of Courage",
+                            "description": "You and friendly creatures within %(range)s feet of you can't be frightened while you are conscious.",
+                            "range_formula": "aura_range"
+                        }
+                    }
+                }
+            },
+            "11": {
+                "conditions": {
+                    "level": 11,
+                    "creation": "10"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "abilities": {
+                        "improved_divine_smite": {
+                            "name": "Improved Divine Smite",
+                            "description": "You are so suffused with righteous might that all your melee weapon strikes carry divine power with them. Whenever you hit a creature with a melee weapon, the creature takes an extra 1d8 radiant damage. If you also use your Divine Smite with an attack, you add this damage to the extra damage of your Divine Smite."
+                        }
+                    }
+                }
+            },
+            "12": {
+                "conditions": {
+                    "level": 12,
+                    "creation": "11"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3
+                },
+                "options": {
+                    "ability_improvement": [
+                        {"select": "statistics"},
+                        {"select": "statistics"}
+                    ]
+                }
+            },
+            "13": {
+                "conditions": {
+                    "level": 13,
+                    "creation": "12"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 1
+                }
+            },
+            "13-devotion": {
+                "conditions": {
+                    "level": 13,
+                    "creation": "12",
+                    "path": ["Oath of Devotion"]
+                },
+                "given": {
+                    "spells[]": [
+                        "Freedom of Movement",
+                        "Guardian of Faith"
+                    ]
+                }
+            },
+            "14": {
+                "conditions": {
+                    "level": 14,
+                    "creation": "13"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th": 1,
+                    "abilities": {
+                        "cleansing_touch": {
+                            "name": "Cleansing Touch",
+                            "description": "You can use your action to end one spell on yourself or on one willing creature that you touch. You can use this feature %(uses)s of times (a minimum of once). You regain expended uses when you finish a long rest.",
+                            "uses_formula": "modifiers.charisma"
+                        }
+                    }
+                }
+            },
+            "15": {
+                "conditions": {
+                    "level": 15,
+                    "creation": "14"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 2,
+                    "abilities": {
+                        "": {
+                            "name": "",
+                            "description": ""
+                        }
+                    }
+                }
+            },
+            "15-devotion": {
+                "conditions": {
+                    "level": 15,
+                    "creation": "14",
+                    "path": ["Oath of Devotion"]
+                },
+                "given": {
+                    "abilities": {
+                        "Purity of Spirit": {
+                            "description": "You are always under the effects of a Protection From Evil and Good spell."
+                        }
+                    }
+                }
+            },
+            "15-ancients": {
+                "conditions": {
+                    "level": 15,
+                    "creation": "14",
+                    "path": ["Oath of the Ancients"]
+                },
+                "given": {
+                    "abilities": {
+                        "Undying Sentinel": {
+                            "description": "When you are reduced to 0 hit points and are not killed outright, you can choose to drop to 1 hit point instead. Once you use this ability, you can't use it again until you finish a long rest. Additionally, you suffer none of the drawbacks of old age, and you can't be aged magically."
+                        }
+                    }
+                }
+            },
+            "15-vengeance": {
+                "conditions": {
+                    "level": 15,
+                    "creation": "14",
+                    "path": ["Oath of Vengeance"]
+                },
+                "given": {
+                    "abilities": {
+                        "Soul of Vengeance": {
+                            "description": "The authority with which you speak your Vow of Enmity gives you greater power over your foe. When a creature under the effect of your Vow of Enmity makes an attack, you can use your reaction to make a melee weapon attack against that creature if it is within range."
+                        }
+                    }
+                }
+            },
+            "16": {
+                "conditions": {
+                    "level": 16,
+                    "creation": "15"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 1
+                },
+                "options": {
+                    "ability_improvement": [
+                        {"select": "statistics"},
+                        {"select": "statistics"}
+                    ]
+                }
+            },
+            "17": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 1,
+                    "abilities": {
+                        "": {
+                            "name": "",
+                            "description": ""
+                        }
+                    }
+                }
+            },
+            "17-devotion": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16",
+                    "path": ["Oath of Devotion"]
+                },
+                "given": {
+                    "spells[]": [
+                        "Commune",
+                        "Flame Strike"
+                    ]
+                }
+            },
+            "18": {
+                "conditions": {
+                    "level": 18,
+                    "creation": "17"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "aura_range": 30,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 1
+                }
+            },
+            "19": {
+                "conditions": {
+                    "level": 19,
+                    "creation": "18"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2
+                },
+                "options": {
+                    "ability_improvement": [
+                        {"select": "statistics"},
+                        {"select": "statistics"}
+                    ]
+                }
+            },
+            "20": {
+                "conditions": {
+                    "level": 20,
+                    "creation": "19"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "abilities": {
+                        "": {
+                            "name": "",
+                            "description": ""
+                        }
+                    }
+                }
+            },
+            "20-devotion": {
+                "conditions": {
+                    "level": 20,
+                    "creation": "19",
+                    "path": ["Oath of Devotion"]
+                },
+                "given": {
+                    "abilities": {
+                        "Holy Nimbus": {
+                            "description": "As an action, you can emanate an aura of sunlight. For 1 minute. bright light shines from you in a 30-foot radius, and dim light shines 30 feet beyond that. Whenever an enemy creature starts its turn in the bright light, the creature takes 10 radiant damage. In addition, for the duration, you have advantage on saving throws against spells cast by fiends or undead. Once you use this feature, you can't use it again until you finish a long rest."
+                        }
+                    }
+                }
+            },
+            "20-ancients": {
+                "conditions": {
+                    "level": 20,
+                    "creation": "19",
+                    "path": ["Oath of the Ancients"]
+                },
+                "given": {
+                    "abilities": {
+                        "Elder Champion": {
+                            "description": "You can assume the form of an ancient force of nature, taking on an appearance you choose. For example, your skin might turn green or take on a bark-like texture, your hair might become leafy or moss- like, or you might sprout antlers or a lion-like mane. Using your action, you undergo a transformation. For 1 minute, you gain the following benefits:\n\n* At the start of each of your turns, you regain 10 hit points.\n* Whenever you cast a paladin spell that has a casting time of 1 action, you can cast it using a bonus action instead.\n* Enemy creatures within 10 feet of you have disadvantage on saving throws against your paladin spells and Channel Divinity options.\n\nOnce you use this feature you can't use it again until you finish a long rest."
+                        }
+                    }
+                }
+            },
+            "20-vengeance": {
+                "conditions": {
+                    "level": 20,
+                    "creation": "19",
+                    "path": ["Oath of Vengeance"]
+                },
+                "given": {
+                    "abilities": {
+                        "Avenging Angel": {
+                            "description": "You can assume the form of an angelic avenger. Using your action, you undergo a transformation. For 1 hour, you gain the following benefits:\n\n* Wings sprout from your back and grant you a flying speed of 60 feet.\n* You emanate an aura of menace in a 30-foot radius. The first time any enemy creature enters the aura or starts its turn there during a battle, the creature must succeed on a Wisdom saving throw or become frightened of you for 1 minute or until it takes any damage. Attack rolls against the frightened creature have advantage.\n\nOnce you use this feature, you can't use it again until you finish a long rest."
+                        }
+                    }
+                }
+            }
+        }
+    }, {
+        "name": "Ranger",
+        "filename": "ranger.md",
+        "config": {
+            "hit_dice": 10,
+            "computed": {
+                "hit_points": {
+                    "formula": "(10 + modifiers.constitution) + (6 + modifiers.constitution) * (level - 1)"
+                }
+            },
+            "proficiencies": {
+                "saving_throws": [
+                    "dexterity",
+                    "strength"
+                ],
+                "armor": [
+                    "Light Armor",
+                    "Medium Armor",
+                    "Shield"
+                ],
+                "weapons": [
+                    "Simple Weapons",
+                    "Martial Weapons"
+                ]
+            }
+        },
+        "phases": {
+            "1": {
+                "given": {
+                    "abilities": {
+                        "Favored Enemy": {
+                            "description": "You have significant experience studying, tracking, hunting, and even talking to a certain type of enemy. You have advantage on Wisdom (Survival) checks to track your favored enemies, as well as on intelligence checks to recall information about them."
+                        }
+                    }
+                },
+                "paths": {
+                    "description": "# Favored Enemy\nYou have significant experience studying, tracking, hunting, and even talking to a certain type of enemy.",
+                    "options": [{
+                        "Aberrations": {
+                            "given": {
+                                "favored_enemy": "Aberrations"
+                            }
+                        },
+                        "Beasts": {
+                            "given": {
+                                "favored_enemy": "Beasts"
+                            }
+                        },
+                        "Celestials": {
+                            "given": {
+                                "favored_enemy": "Beasts",
+                                "languages[]": "celestial"
+                            }
+                        },
+                        "Constructs": {
+                            "given": {
+                                "favored_enemy": "Constructs"
+                            }
+                        },
+                        "Dragons": {
+                            "given": {
+                                "favored_enemy": "Beasts",
+                                "languages[]": "draconic"
+                            }
+                        },
+                        "Elementals": {
+                            "given": {
+                                "favored_enemy": "Elementals"
+                            }
+                        },
+                        "Fey": {
+                            "given": {
+                                "favored_enemy": "Beasts",
+                                "languages[]": "sylvan"
+                            }
+                        },
+                        "Fiends": {
+                            "given": {
+                                "favored_enemy": "Fiends"
+                            }
+                        },
+                        "Giants": {
+                            "given": {
+                                "favored_enemy": "Beasts",
+                                "languages[]": "giant"
+                            }
+                        },
+                        "Monstrosities": {
+                            "given": {
+                                "favored_enemy": "Monstrosities"
+                            }
+                        },
+                        "Oozes": {
+                            "given": {
+                                "favored_enemy": "Oozes"
+                            }
+                        },
+                        "Plants": {
+                            "given": {
+                                "favored_enemy": "Plants"
+                            }
+                        },
+                        "Undead": {
+                            "given": {
+                                "favored_enemy": "Undead"
+                            }
+                        },
+                        "Humanoids": {
+                            "options": {
+                                "favored_enemy[]": [
+                                    {"select": ["Aasimar", "Bugbear", "Bullywug", "Catfolk", "Darfellan", "Dark One", "Dragonborn", "Drow", "Dwarf", "Eladrin", "Elf", "Genasi", "Gibberling", "Githyanki", "Githzerai", "Gnoll", "Gnome", "Goblin", "Goliath", "Grippli", "Half-Elf", "Half-Orc", "Halfling", "Hobgoblin", "Human", "Kenku", "Kobold", "Lizardfolk", "Locathah", "Merfolk", "Mongrelfolk", "Mul", "Nilbog", "Norker", "Orc", "Orog", "Rakasta", "Saurial", "Selkie", "Shifter", "Skulk", "Swanmay", "Tasloi", "Tiefling", "Troglodyte"]},
+                                    {"select": ["Aasimar", "Bugbear", "Bullywug", "Catfolk", "Darfellan", "Dark One", "Dragonborn", "Drow", "Dwarf", "Eladrin", "Elf", "Genasi", "Gibberling", "Githyanki", "Githzerai", "Gnoll", "Gnome", "Goblin", "Goliath", "Grippli", "Half-Elf", "Half-Orc", "Halfling", "Hobgoblin", "Human", "Kenku", "Kobold", "Lizardfolk", "Locathah", "Merfolk", "Mongrelfolk", "Mul", "Nilbog", "Norker", "Orc", "Orog", "Rakasta", "Saurial", "Selkie", "Shifter", "Skulk", "Swanmay", "Tasloi", "Tiefling", "Troglodyte"]}
+                                ],
+                                "languages[]": [
+                                    {"select": "languages.common,languages.exotic"},
+                                    {"select": "languages.common,languages.exotic"}
+                                ]
+                            }
+                        }
+                    }]
                 }
             }
         }
@@ -1245,23 +1933,41 @@
             "abilities": {
                 "sneak_attack": {
                     "name": "Sneak Attack",
-                    "description": "Once per turn, you can deal an extra %{abilities.sneak_attack.damage}% damage to one creature you hit with an attack if you have **Advantage** on the attack roll. The attack must use a *finesse* or a *ranged* weapon.\n\nYou don't need **Advantage** on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn't incapacitated, and you don't have **Disadvantage** on the attack roll.",
+                    "description": "Once per turn, you can deal an extra %(damage)s damage to one creature you hit with an attack if you have **Advantage** on the attack roll. The attack must use a *finesse* or a *ranged* weapon.\n\nYou don't need **Advantage** on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn't incapacitated, and you don't have **Disadvantage** on the attack roll.",
                     "damage": "1d6"
                 }
             }
         },
         "phases": {
-            "init": {
+            "1": {
+                "given": {
+                    "proficiency": 2,
+                    "abilities": {
+                        "sneak_attack": {
+                            "damage": "1d6"
+                        }
+                    }
+                },
                 "options": {
-                    "proficiencies": {
-                        "skills": [
-                            {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
-                            {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
-                            {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
-                            {"options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]}
-                        ]
-                    },
-                    "equipment": [
+                    "proficiencies.expertise[]": [
+                        {"choose": [
+                            {"multiple": [
+                                {"select": "character.proficiencies.skills"},
+                                {"select": "character.proficiencies.skills"}
+                            ]},
+                            {"multiple": [
+                                {"select": "character.proficiencies.skills"},
+                                {"group": ["Thieves' Tools"]}
+                            ]}
+                        ]}
+                    ],
+                    "proficiencies.skills[]": [
+                        {"select": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
+                        {"select": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
+                        {"select": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]},
+                        {"select": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]}
+                    ],
+                    "equipment[]": [
                         {"choose": [
                             {"group": ["Rapier"]},
                             {"group": ["Shortsword"]}
@@ -1278,33 +1984,11 @@
                     ]
                 }
             },
-            "1": {
-                "given": {
-                    "proficiency": 2,
-                    "abilities": {
-                        "sneak_attack": {
-                            "damage": "1d6"
-                        }
-                    }
-                },
-                "options": {
-                    "proficiencies": {
-                        "expertise": [
-                            {"choose": [
-                                {"multiple": [
-                                    [{"options": "character.proficiencies.skills"}],
-                                    [{"options": "character.proficiencies.skills"}]
-                                ]},
-                                {"multiple": [
-                                    [{"options": "character.proficiencies.skills"}],
-                                    [{"group": ["Thieves' Tools"]}]
-                                ]}
-                            ]}
-                        ]
-                    }
-                }
-            },
             "2": {
+                "conditions": {
+                    "level": 2,
+                    "creation": "1"
+                },
                 "given": {
                     "proficiency": 2,
                     "abilities": {
@@ -1319,6 +2003,10 @@
                 }
             },
             "3": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2"
+                },
                 "given": {
                     "proficiency": 2,
                     "abilities": {
@@ -1329,6 +2017,10 @@
                 }
             },
             "4": {
+                "conditions": {
+                    "level": 4,
+                    "creation": "3"
+                },
                 "given": {
                     "proficiency": 2,
                     "abilities": {
@@ -1339,16 +2031,19 @@
                 },
                 "options": {
                     "path": [
-                        {"options": ["Thief", "Assassin", "Arcane Trickster"]}
+                        {"select": ["Thief", "Assassin", "Arcane Trickster"]}
                     ],
                     "ability_improvement": [
-                        {"options": "statistics"},
-                        {"options": "statistics"}
+                        {"select": "statistics"},
+                        {"select": "statistics"}
                     ]
                 }
-
             },
             "5": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4"
+                },
                 "given": {
                     "proficiency": 3,
                     "abilities": {
@@ -1360,8 +2055,13 @@
                             "description": "When an attacker that you can see hits you with an attack, you can use your **Reaction** to halve the attack's damage against you."
                         }
                     }
-                }            },
+                }
+            },
             "6": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5"
+                },
                 "given": {
                     "proficiency": 3,
                     "abilities": {
@@ -1372,6 +2072,10 @@
                 }
             },
             "7": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6"
+                },
                 "given": {
                     "proficiency": 3,
                     "abilities": {
@@ -1386,6 +2090,10 @@
                 }
             },
             "8": {
+                "conditions": {
+                    "level": 8,
+                    "creation": "7"
+                },
                 "given": {
                     "proficiency": 3,
                     "abilities": {
@@ -1396,12 +2104,16 @@
                 },
                 "options": {
                     "ability_improvement": [
-                        {"options": "statistics"},
-                        {"options": "statistics"}
+                        {"select": "statistics"},
+                        {"select": "statistics"}
                     ]
                 }
             },
             "9": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8"
+                },
                 "given": {
                     "proficiency": 4,
                     "abilities": {
@@ -1412,6 +2124,10 @@
                 }
             },
             "10": {
+                "conditions": {
+                    "level": 10,
+                    "creation": "9"
+                },
                 "given": {
                     "proficiency": 4,
                     "abilities": {
@@ -1422,12 +2138,16 @@
                 },
                 "options": {
                     "ability_improvement": [
-                        {"options": "statistics"},
-                        {"options": "statistics"}
+                        {"select": "statistics"},
+                        {"select": "statistics"}
                     ]
                 }
             },
             "11": {
+                "conditions": {
+                    "level": 11,
+                    "creation": "10"
+                },
                 "given": {
                     "proficiency": 4,
                     "abilities": {
@@ -1442,6 +2162,10 @@
                 }
             },
             "12": {
+                "conditions": {
+                    "level": 12,
+                    "creation": "11"
+                },
                 "given": {
                     "proficiency": 4,
                     "abilities": {
@@ -1452,12 +2176,16 @@
                 },
                 "options": {
                     "ability_improvement": [
-                        {"options": "statistics"},
-                        {"options": "statistics"}
+                        {"select": "statistics"},
+                        {"select": "statistics"}
                     ]
                 }
             },
             "13": {
+                "conditions": {
+                    "level": 13,
+                    "creation": "12"
+                },
                 "given": {
                     "proficiency": 5,
                     "abilities": {
@@ -1468,6 +2196,10 @@
                 }
             },
             "14": {
+                "conditions": {
+                    "level": 14,
+                    "creation": "13"
+                },
                 "given": {
                     "proficiency": 5,
                     "abilities": {
@@ -1482,6 +2214,10 @@
                 }
             },
             "15": {
+                "conditions": {
+                    "level": 15,
+                    "creation": "14"
+                },
                 "given": {
                     "proficiency": 5,
                     "abilities": {
@@ -1496,6 +2232,10 @@
                 }
             },
             "16": {
+                "conditions": {
+                    "level": 16,
+                    "creation": "15"
+                },
                 "given": {
                     "proficiency": 5,
                     "abilities": {
@@ -1506,12 +2246,16 @@
                 },
                 "options": {
                     "ability_improvement": [
-                        {"options": "statistics"},
-                        {"options": "statistics"}
+                        {"select": "statistics"},
+                        {"select": "statistics"}
                     ]
                 }
             },
             "17": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16"
+                },
                 "given": {
                     "proficiency": 6,
                     "abilities": {
@@ -1522,6 +2266,10 @@
                 }
             },
             "18": {
+                "conditions": {
+                    "level": 18,
+                    "creation": "17"
+                },
                 "given": {
                     "proficiency": 6,
                     "abilities": {
@@ -1536,6 +2284,10 @@
                 }
             },
             "19": {
+                "conditions": {
+                    "level": 19,
+                    "creation": "18"
+                },
                 "given": {
                     "proficiency": 6,
                     "abilities": {
@@ -1546,12 +2298,16 @@
                 },
                 "options": {
                     "ability_improvement": [
-                        {"options": "statistics"},
-                        {"options": "statistics"}
+                        {"select": "statistics"},
+                        {"select": "statistics"}
                     ]
                 }
             },
             "20": {
+                "conditions": {
+                    "level": 20,
+                    "creation": "19"
+                },
                 "given": {
                     "proficiency": 6,
                     "abilities": {
@@ -1571,71 +2327,63 @@
         "name": "Acolyte",
         "filename": "acolyte.md",
         "config": {
-            "proficiencies": {
-                "skills": [
-                    "insight",
-                    "religion"
-                ]
-            },
-            "equipment": [
-                "Holy Symbol",
-                "5 Sticks of Incense",
-                "Vestments",
-                "Set of Common Clothes",
-                "Belt Pouch"
-            ],
             "wealth": {
                 "gp": 15
-            },
-            "info": {
-                "Shelter of the Faithful": "As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle."
             }
         },
         "phases": {
-            "init": {
-                "options": {
-                    "languages": [
-                        {"options": "languages.common,languages.exotic"},
-                        {"options": "languages.common,languages.exotic"}
-                    ]
+            "1": {
+                "given": {
+                    "info.Shelter of the Faithful": "As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle."
                 },
-                "equipment": [
-                    {"options": ["Prayer Book", "Prayer Wheel"]}
-                ]
+                "options": {
+                    "proficiencies.skills[]": [
+                        {"group": ["insight", "religion"]}
+                    ],
+                    "languages[]": [
+                        {"select": "languages.common,languages.exotic"},
+                        {"select": "languages.common,languages.exotic"}
+                    ],
+                    "equipment[]": [
+                        {"group": [
+                            "Holy Symbol",
+                            "5 Sticks of Incense",
+                            "Vestments",
+                            "Set of Common Clothes",
+                            "Belt Pouch"
+                        ]},
+                        {"select": ["Prayer Book", "Prayer Wheel"]}
+                    ]
+                }
             }
         }
     }, {
         "name": "Charlatan",
         "filename": "charlatan.md",
         "config": {
-            "proficiencies": {
-                "skills": [
-                    "deception",
-                    "sleight of hand"
-                ]
-            },
-            "equipment": [
-                "Set of Fine Clothes",
-                "Disguise Kit",
-                "Belt Pouch"
-            ],
             "wealth": {
                 "gp": 15
-            },
-            "info": {
-                "False Identity": "You have created a second identity that includes documentation, established acquaintances, and disguises that allow you to assume that persona. Additionally, you can forge documents including official papers and personal letters, as long as you have seen an example of the kind of document or the handwriting you are trying to copy."
             }
         },
         "phases": {
-            "init": {
+            "1": {
+                "given": {
+                    "info.False Identity": "You have created a second identity that includes documentation, established acquaintances, and disguises that allow you to assume that persona. Additionally, you can forge documents including official papers and personal letters, as long as you have seen an example of the kind of document or the handwriting you are trying to copy."
+                },
                 "options": {
-                    "proficiencies": {
-                        "tools": [
-                            {"options": ["Disguise kit", "Forgery kit"]}
-                        ]
-                    },
-                    "equipment": [
-                        {"options": ["Ten Stoppered Bottles filled with Colored Liquid", "Set of Weighted Dice", "Deck of Marked Cards", "Signet Ring of an Imaginary Duke"]}
+                    "proficiencies.skills[]": [
+                        {"given": ["deception", "sleight of hand"]}
+                    ],
+                    "proficiencies.tools[]": [
+                        {"select": ["Disguise kit", "Forgery kit"]}
+                    ],
+                    "equipment[]": [
+                        {"group": [
+                            "Set of Fine Clothes",
+                            "Disguise Kit",
+                            "Belt Pouch"
+                        ]},
+                        {"select": ["Ten Stoppered Bottles filled with Colored Liquid", "Set of Weighted Dice", "Deck of Marked Cards", "Signet Ring of an Imaginary Duke"]}
                     ]
                 }
             }
@@ -1644,34 +2392,29 @@
         "name": "Criminal",
         "filename": "criminal.md",
         "config": {
-            "proficiencies": {
-                "skills": [
-                    "deception",
-                    "stealth"
-                ]
-            },
-            "equipment": [
-                "Crowbar",
-                "Set of Dark Common Clothes, Including a Hood",
-                "Belt Pouch"
-            ],
             "wealth": {
                 "gp": 15
-            },
-            "info": {
-                "Criminal Contact": "You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you."
             }
         },
         "phases": {
-            "init": {
+            "1": {
+                "given": {
+                    "info.Criminal Contact": "You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you."
+                },
                 "options": {
-                    "proficiencies": {
-                        "tools": [
-                            {"options": ["Gaming Sets", "Thieves' Tools"]}
-                        ]
-                    },
-                    "equipment": [
-                        {"options": ["Gaming Set", "Thieves' Tools"]}
+                    "proficiencies.skills": [
+                        {"group": ["deception", "stealth"]}
+                    ],
+                    "proficiencies.tools[]": [
+                        {"select": ["Gaming Sets", "Thieves' Tools"]}
+                    ],
+                    "equipment[]": [
+                        {"group": [
+                            "Crowbar",
+                            "Set of Dark Common Clothes, Including a Hood",
+                            "Belt Pouch"
+                        ]},
+                        {"select": ["Gaming Set", "Thieves' Tools"]}
                     ]
                 }
             }
@@ -1680,42 +2423,35 @@
         "name": "Entertainer",
         "filename": "entertainer.md",
         "config": {
-            "proficiencies": {
-                "skills": [
-                    "acrobatics",
-                    "performance"
-                ],
-                "tools": [
-                    "Disguise Kit"
-                ]
-            },
-            "equipment": [
-                "Costume",
-                "Belt Pouch"
-            ],
             "wealth": {
                 "gp": 15
-            },
-            "info": {
-                "By Popular Demand": "You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble's court. At such a place, you receive free lodging and food of a modest or comfortable standard (depending on the quality of the establishment), as long as you perform each night. In addition, your performance makes you something of a local figure. When strangers recognize you in a town where you have performed, they typically take a liking to you."
             }
         },
         "phases": {
-            "init": {
+            "1": {
+                "given": {
+                    "info.By Popular Demand": "You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble's court. At such a place, you receive free lodging and food of a modest or comfortable standard (depending on the quality of the establishment), as long as you perform each night. In addition, your performance makes you something of a local figure. When strangers recognize you in a town where you have performed, they typically take a liking to you."
+                },
                 "options": {
-                    "proficiencies": {
-                        "tools": [
-                            {"options": "items.musical.items"}
-                        ]
-                    },
-                    "equipment": [
-                        {"choose": [
-                            {"options": "items.musical.items"},
-                            {"options": ["Spear", "Trident", "Whip", "Net"]}
+                    "proficiencies.skills[]": [
+                        {"group": ["acrobatics", "performance"]}
+                    ],
+                    "proficiencies.tools[]": [
+                        {"group": ["Disguise Kit"]},
+                        {"select": "items.musical.items"}
+                    ],
+                    "equipment[]": [
+                        {"group": [
+                            "Costume",
+                            "Belt Pouch"
                         ]},
                         {"choose": [
-                            {"options": "trinket"},
-                            {"options": ["Love Letter; the Favor of an Admirer", "Lock of Hair; the Favor of an Admirer"]}
+                            {"select": "items.musical.items"},
+                            {"select": ["Spear", "Trident", "Whip", "Net"]}
+                        ]},
+                        {"choose": [
+                            {"select": "items.trinket"},
+                            {"select": ["Love Letter; the Favor of an Admirer", "Lock of Hair; the Favor of an Admirer"]}
                         ]}
                     ]
                 }
@@ -1725,38 +2461,33 @@
         "name": "Folk Hero",
         "filename": "folk_hero.md",
         "config": {
-            "proficiencies": {
-                "skills": [
-                    "animal handling",
-                    "survival"
-                ],
-                "tools": [
-                    "Vehicles (land)"
-                ]
-            },
-            "equipment": [
-                "Shovel",
-                "Iron Pot",
-                "Set of Common Clothes",
-                "Pouch"
-            ],
             "wealth": {
                 "gp": 15
-            },
-            "info": {
-                "Rustic Hospitality": "Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners, unless you have shown yourself to be a danger to them. They will shield you from the law or anyone else searching for you, though they will not risk their lives for you."
             }
         },
         "phases": {
-            "init": {
+            "1": {
+                "given": {
+                    "info.Rustic Hospitality": "Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners, unless you have shown yourself to be a danger to them. They will shield you from the law or anyone else searching for you, though they will not risk their lives for you."
+                },
                 "options": {
-                    "proficiencies": {
-                        "tools": [
-                            {"options": "items.artisan.items"}
-                        ]
-                    },
-                    "equipment": [
-                        {"options": "items.artisan.items"}
+                    "proficiencies.skills[]": [
+                        {"group": ["animal handling", "survival"]}
+                    ],
+                    "proficiencies.tools[]": [
+                        {"select": "items.artisan.items"}
+                    ],
+                    "equipment[]": [
+                        {"group": [
+                            "Vehicles (land)"
+                        ]},
+                        {"group": [
+                            "Shovel",
+                            "Iron Pot",
+                            "Set of Common Clothes",
+                            "Pouch"
+                        ]},
+                        {"select": "items.artisan.items"}
                     ]
                 }
             }
@@ -1765,33 +2496,32 @@
         "name": "Hermit",
         "filename": "hermit.md",
         "config": {
-            "proficiencies": {
-                "skills": [
-                    "medicine",
-                    "religion"
-                ],
-                "tools": [
-                    "Herbalism kit"
-                ]
-            },
-            "equipment": [
-                "Scroll case stuffed full of notes from your studies or prayers",
-                "Winter blanket",
-                "Set of common clothes",
-                "Herbalism Kit"
-            ],
             "wealth": {
                 "gp": 5
-            },
-            "info": {
-                "Discovery": "The quiet seclusion of your extended hermitage gave you access to a unique and powerful discovery. The exact nature of this revelation depends on the nature of your seclusion. It might be a great truth about the cosmos, the deities, the powerful beings of the outer planes, or the forces of nature. It could be a site that no one else has ever seen. You might have uncovered a fact that has long been forgotten, or unearthed some relic of the past that could rewrite history. It might be information that would be damaging to the people who or consigned you to exile, and hence the reason for your return to society. Work with your DM to determine the details of your discovery and its impact on the campaign."
             }
         },
         "phases": {
-            "init": {
+            "1": {
+                "given": {
+                    "info.Discovery": "The quiet seclusion of your extended hermitage gave you access to a unique and powerful discovery. The exact nature of this revelation depends on the nature of your seclusion. It might be a great truth about the cosmos, the deities, the powerful beings of the outer planes, or the forces of nature. It could be a site that no one else has ever seen. You might have uncovered a fact that has long been forgotten, or unearthed some relic of the past that could rewrite history. It might be information that would be damaging to the people who or consigned you to exile, and hence the reason for your return to society. Work with your DM to determine the details of your discovery and its impact on the campaign."
+                },
                 "options": {
-                    "languages": [
-                        {"options": "languages.common,languages.exotic"}
+                    "proficiencies.skills[]": [
+                        {"group": ["medicine", "religion"]}
+                    ],
+                    "proficiencies.tools[]": [
+                        {"group": ["Herbalism kit"]}
+                    ],
+                    "equipment[]": [
+                        {"group": [
+                            "Scroll case stuffed full of notes from your studies or prayers",
+                            "Winter blanket",
+                            "Set of common clothes",
+                            "Herbalism Kit"
+                        ]}
+                    ],
+                    "languages[]": [
+                        {"select": "languages.common,languages.exotic"}
                     ]
                 }
             }
@@ -1800,38 +2530,32 @@
         "name": "Noble",
         "filename": "noble.md",
         "config": {
-            "proficiencies": {
-                "skills": [
-                    "history",
-                    "persuasion"
-                ],
-                "tools": [
-                    {"options": "items.gaming.items"}
-                ]
-            },
-            "equipment": [
-                "Set of fine clothes",
-                "Signet Ring",
-                "Scroll of Pedigree",
-                "Purse"
-            ],
             "wealth": {
                 "gp": 25
-            },
-            "info": {
-                "Position of Privilege": "Thanks to your noble birth, people are inclined to think the best of you. You are welcome in high society, and people assume you have the right to be wherever you are. The common folk make every effort to accommodate you and avoid your displeasure, and other people of high birth treat you as a member of the same social sphere. You can secure an audience with a local noble if you need to."
             }
         },
         "phases": {
-            "init": {
+            "1": {
+                "given": {
+                    "info.Position of Privilege": "Thanks to your noble birth, people are inclined to think the best of you. You are welcome in high society, and people assume you have the right to be wherever you are. The common folk make every effort to accommodate you and avoid your displeasure, and other people of high birth treat you as a member of the same social sphere. You can secure an audience with a local noble if you need to."
+                },
                 "options": {
-                    "proficiencies": {
-                        "tools": [
-                            {"options": "items.gaming.items"}
-                        ]
-                    },
-                    "languages": [
-                        {"options": "languages.common,languages.exotic"}
+                    "proficiencies.skills[]": [
+                        {"group": ["history", "persuasion"]}
+                    ],
+                    "proficiencies.tools[]": [
+                        {"select": "items.gaming.items"}
+                    ],
+                    "equipment[]": [
+                        {"group": [
+                            "Set of fine clothes",
+                            "Signet Ring",
+                            "Scroll of Pedigree",
+                            "Purse"
+                        ]}
+                    ],
+                    "languages[]": [
+                        {"select": "languages.common,languages.exotic"}
                     ]
                 }
             }
@@ -1840,33 +2564,32 @@
         "name": "Sage",
         "filename": "sage.md",
         "config": {
-            "proficiencies": {
-                "skills": [
-                    "arcana",
-                    "history"
-                ]
-            },
-            "equipment": [
-                "Bottle of Black Ink",
-                "Quill",
-                "Small Knife",
-                "Letter From a Dead Colleague posing a question you have not yet been able to answer",
-                "Set of Common Clothes",
-                "Pouch"
-            ],
             "wealth": {
                 "gp": 10
-            },
-            "info": {
-                "Researcher": "When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature. Your DM might rule that the knowledge you seek is secreted away in an almost inaccessible place, or that it simply cannot be found. Unearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign."
             }
         },
         "phases": {
-            "init": {
+            "1": {
+                "given": {
+                    "info.Researcher": "When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature. Your DM might rule that the knowledge you seek is secreted away in an almost inaccessible place, or that it simply cannot be found. Unearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign."
+                },
                 "options": {
-                    "languages": [
-                        {"options": "languages.common,languages.exotic"},
-                        {"options": "languages.common,languages.exotic"}
+                    "proficiencies.skills[]": [
+                        {"group": ["arcana", "history"]}
+                    ],
+                    "equipment[]": [
+                        {"group": [
+                            "Bottle of Black Ink",
+                            "Quill",
+                            "Small Knife",
+                            "Letter From a Dead Colleague posing a question you have not yet been able to answer",
+                            "Set of Common Clothes",
+                            "Pouch"
+                        ]}
+                    ],
+                    "languages[]": [
+                        {"select": "languages.common,languages.exotic"},
+                        {"select": "languages.common,languages.exotic"}
                     ]
                 }
             }
@@ -1876,38 +2599,27 @@
         "name": "Soldier",
         "filename": "soldier.md",
         "config": {
-            "proficiencies": {
-                "skills": [
-                    "athletics",
-                    "intimidation"
-                ],
-                "tools": [
-                    "Vehicles (land)"
-                ]
-            },
-            "equipment": [
-                "Insignia of Rank",
-                "Set of Common Clothes",
-                "Pouch"
-            ],
             "wealth": {
                 "gp": 10
-            },
-            "info": {
-                "Military Rank": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized."
             }
         },
         "phases": {
-            "init": {
+            "1": {
+                "given": {
+                    "info.Military Rank": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized."
+                },
                 "options": {
-                    "proficiencies": {
-                        "tools": [
-                            {"options": "items.gaming.items"}
-                        ]
-                    },
-                    "equipment": [
-                        {"options": ["Set of Bone Dice", "Deck of cards"]},
-                        {"options": [
+                    "proficiencies.skills[]": [
+                        {"group": ["athletics", "intimidation"]}
+                    ],
+                    "proficiencies.tools[]": [
+                        {"group": ["Vehicles (land)"]},
+                        {"select": "items.gaming.items"}
+                    ],
+                    "equipment[]": [
+                        {"group": ["Insignia of Rank", "Set of Common Clothes", "Pouch"]},
+                        {"select": ["Set of Bone Dice", "Deck of cards"]},
+                        {"select": [
                             "Dagger taken as a Trophy from a Fallen Enemy",
                             "Broken Blade taken as a Trophy from a Fallen Enemy",
                             "Piece of a Banner taken as a Trophy from a Fallen Enemy"
