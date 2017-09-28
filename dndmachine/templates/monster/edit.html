@@ -1,4 +1,163 @@
 {% extends "layout.html" %}
+
+{% macro macro_damage(damage, attack, path, first=False) %}
+<div class="nice-control-group">
+    <span class="nice-input-addon">
+        Damage
+    </span>
+    <select class="nice-form-control" name="{{ path }}.type">
+    {% if not first %}
+    <option />
+    {% endif %}
+    {% for option in data.damage_types %}
+        {% if damage.type == option.name %}
+        <option selected>{{ option.name }}</option>
+        {% else %}
+        <option>{{ option.name }}</option>
+        {% endif %}
+    {% endfor %}
+    </select>
+    <span class="nice-input-addon">
+        Dice
+    </span>
+    <select class="nice-form-control" name="{{ path }}.dice_count">
+        {% set dice = range(1, 31) %}
+        {% if not first %}
+            {% set dice = range(0, 31) %}
+        {% endif %}
+        {% for option in dice %}
+            {% if damage.dice_count == option %}
+            <option selected>{{ option }}</option>
+            {% else %}
+            <option>{{ option }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <span class="nice-input-addon">
+        d
+    </span>
+    <select class="nice-form-control" name="{{ path }}.dice_size">
+        {% for option in [4, 6, 8, 10, 12, 20] %}
+            {% if damage.dice_size == option %}
+            <option selected>{{ option }}</option>
+            {% else %}
+            <option>{{ option }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <span class="nice-input-addon">
+        +
+    </span>
+    {% if not first %}
+    <input type="text" placeholder="Bonus..." class="nice-form-control" name="{{ path }}.bonus" value="{{ damage.bonus }}" />
+    {% else %}
+    <input type="text" class="nice-form-control" value="{{ attack.modifier }}" disabled />
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro macro_attack(attack, path) %}
+<div class="nice-panel-content">
+    <div class="nice-form-group">
+
+        <label>Attack</label>
+        <div class="nice-control-group">
+            <span class="nice-input-addon">
+                Name
+            </span>
+            <input type="text" placeholder="Attack name..." class="nice-form-control" name="{{ path }}.name" value="{{ attack.name }}" />
+        </div>
+
+        <div class="nice-control-group">
+            <span class="nice-input-addon">
+                Description
+            </span>
+            <textarea class="nice-form-control" placeholder="Description..." name="{{ path }}.description">{{ attack.description }}</textarea>
+        </div>
+
+        <div class="nice-control-group">
+            <span class="nice-input-addon">
+                Mode
+            </span>
+            <select class="nice-form-control" name="{{ path }}.mode">
+            {% for option in ["melee", "ranged", "spell"] %}
+                {% if attack.mode == option %}
+                <option selected>{{ option }}</option>
+                {% else %}
+                <option>{{ option }}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+        </div>
+
+        {% for damage in attack.damage %}
+        {{ macro_damage(damage, attack, [path, "damage", loop.index0]|join('.'), loop.index0==0) }}
+        {% endfor %}
+        {{ macro_damage({}, attack, [path, "damage", attack.damage|length]|join('.'), attack.damage|length==0) }}
+
+        <div class="nice-control-group">
+            <span class="nice-input-addon">
+                Target
+            </span>
+            <select class="nice-form-control" name="{{ path }}.target">
+                {% for option in ['single', 'multiple', 'area'] %}
+                    {% if attack.target == option %}
+                    <option selected>{{ option }}</option>
+                    {% else %}
+                    <option>{{ option }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="nice-control-group">
+            <span class="nice-input-addon">
+                Range
+            </span>
+            <select class="nice-form-control" name="{{ path }}.range_min">
+            {% for option in range(5, 100, 5) %}
+                {% if attack.range_min == option %}
+                <option selected>{{ option }}</option>
+                {% else %}
+                <option>{{ option }}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+            <span class="nice-input-addon">
+                -
+            </span>
+            <select class="nice-form-control" name="{{ path }}.range_max">
+            {% for option in range(5, 100, 5) %}
+                {% if attack.range_max == option %}
+                <option selected>{{ option }}</option>
+                {% else %}
+                <option>{{ option }}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+            <span class="nice-input-addon">
+                ft.
+            </span>
+        </div>
+
+        <div class="nice-control-group">
+            <span class="nice-input-addon">
+                On Hit:
+            </span>
+            <input type="text" placeholder="On hit bad stuff..." class="nice-form-control" name="{{ path }}.on_hit" value="{{ attack.on_hit }}" />
+        </div>
+
+        <div class="nice-control-group">
+            <span class="nice-input-addon">
+                On Mis:
+            </span>
+            <input type="text" placeholder="On mis still bad stuff..." class="nice-form-control" name="{{ path }}.in_mis" value="{{ attack.on_mis }}" />
+        </div>
+
+    </div>
+</div>
+{% endmacro %}
+
 {% block body %}
 {% if monster.id %}
 <h2 class="icon fa-pencil">Monster</h2>
@@ -205,8 +364,8 @@
             <label>Traits</label>
             {% for trait in monster.traits %}
             <div class="nice-form-group">
-                <input type="text" placeholder="Trait Name..." class="nice-form-control" name="monster.traits.{{ loop.index }}.name" value="{{ trait.name }}" />
-                <textarea class="nice-form-control" placeholder="Description..." name="monster.traits.{{ loop.index }}.description">{{ trait.description }}</textarea>
+                <input type="text" placeholder="Trait Name..." class="nice-form-control" name="monster.traits.{{ loop.index0 }}.name" value="{{ trait.name }}" />
+                <textarea class="nice-form-control" placeholder="Description..." name="monster.traits.{{ loop.index0 }}.description">{{ trait.description }}</textarea>
             </div>
             {% endfor %}
             <div class="nice-form-group">
@@ -217,8 +376,8 @@
             <label>Features</label>
             <div class="nice-control-group">
                 {% for feature in monster.features %}
-                <input type="text" placeholder="Feature Name..." class="nice-form-control" name="monster.features.{{ loop.index }}.name" value="{{ feature.name }}" />
-                <textarea class="nice-form-control" placeholder="Description..." name="monster.features.{{ loop.index }}.description">{{ feature.description }}</textarea>
+                <input type="text" placeholder="Feature Name..." class="nice-form-control" name="monster.features.{{ loop.index0 }}.name" value="{{ feature.name }}" />
+                <textarea class="nice-form-control" placeholder="Description..." name="monster.features.{{ loop.index0 }}.description">{{ feature.description }}</textarea>
                 {% endfor %}
             </div>
 
@@ -263,161 +422,10 @@
         Attacks
     </div>
 
-{% for i in range(monster.attacks|length+1) %}
-{% set attack = monster.attacks[i]|default({}) %}
-    <div class="nice-panel-content">
-        <div class="nice-form-group">
-
-            <label>Attack</label>
-            <div class="nice-control-group">
-                <span class="nice-input-addon">
-                    Name
-                </span>
-                <input type="text" placeholder="Attack name..." class="nice-form-control" name="monster.attacks.{{ i }}.name" value="{{ attack.name }}" />
-            </div>
-
-            <div class="nice-control-group">
-                <span class="nice-input-addon">
-                    Description
-                </span>
-                <textarea class="nice-form-control" placeholder="Description..." name="monster.attacks.{{ i }}.description">{{ attack.description }}</textarea>
-            </div>
-
-            <div class="nice-control-group">
-                <span class="nice-input-addon">
-                    Mode
-                </span>
-                <select class="nice-form-control" name="monster.attacks.{{ i }}.mode">
-                {% for option in ["melee", "ranged", "spell"] %}
-                    {% if attack.mode == option %}
-                    <option selected>{{ option }}</option>
-                    {% else %}
-                    <option>{{ option }}</option>
-                    {% endif %}
-                {% endfor %}
-                </select>
-            </div>
-
-            {% set damages = attack.damage|default([]) %}
-            {% for j in range(damages|length+1) %}
-            {% set damage = damages[j]|default({}) %}
-            <div class="nice-control-group">
-                <span class="nice-input-addon">
-                    Damage
-                </span>
-                <select class="nice-form-control" name="monster.attacks.{{ i }}.damage.{{ j }}.type">
-                {% if j %}
-                <option />
-                {% endif %}
-                {% for option in data.damage_types %}
-                    {% if damage.type == option.name %}
-                    <option selected>{{ option.name }}</option>
-                    {% else %}
-                    <option>{{ option.name }}</option>
-                    {% endif %}
-                {% endfor %}
-                </select>
-                <span class="nice-input-addon">
-                    Dice
-                </span>
-                <select class="nice-form-control" name="monster.attacks.{{ i }}.damage.{{ j }}.dice_count">
-                    {% set dice = range(1, 31) %}
-                    {% if j %}
-                        {% set dice = range(0, 31) %}
-                    {% endif %}
-                    {% for option in dice %}
-                        {% if damage.dice_count == option %}
-                        <option selected>{{ option }}</option>
-                        {% else %}
-                        <option>{{ option }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-                <span class="nice-input-addon">
-                    d
-                </span>
-                <select class="nice-form-control" name="monster.attacks.{{ i }}.damage.{{ j }}.dice_size">
-                    {% for option in [4, 6, 8, 10, 12, 20] %}
-                        {% if damage.dice_size == option %}
-                        <option selected>{{ option }}</option>
-                        {% else %}
-                        <option>{{ option }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-                <span class="nice-input-addon">
-                    +
-                </span>
-                {% if j %}
-                <input type="text" placeholder="Bonus..." class="nice-form-control" name="monster.attacks.{{ i }}.damage.{{ j }}.bonus" value="{{ damage.bonus }}" />
-                {% else %}
-                <input type="text" class="nice-form-control" value="{{ attack.modifier }}" disabled />
-                {% endif %}
-            </div>
-            {% endfor %}
-
-            <div class="nice-control-group">
-                <span class="nice-input-addon">
-                    Target
-                </span>
-                <select class="nice-form-control" name="monster.attacks.{{ i }}.target">
-                    {% for option in ['single', 'multiple', 'area'] %}
-                        {% if attack.target == option %}
-                        <option selected>{{ option }}</option>
-                        {% else %}
-                        <option>{{ option }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-            </div>
-
-            <div class="nice-control-group">
-                <span class="nice-input-addon">
-                    Range
-                </span>
-                <select class="nice-form-control" name="monster.attacks.{{ i }}.range_min">
-                {% for option in range(5, 100, 5) %}
-                    {% if attack.range_min == option %}
-                    <option selected>{{ option }}</option>
-                    {% else %}
-                    <option>{{ option }}</option>
-                    {% endif %}
-                {% endfor %}
-                </select>
-                <span class="nice-input-addon">
-                    -
-                </span>
-                <select class="nice-form-control" name="monster.attacks.{{ i }}.range_max">
-                {% for option in range(5, 100, 5) %}
-                    {% if attack.range_max == option %}
-                    <option selected>{{ option }}</option>
-                    {% else %}
-                    <option>{{ option }}</option>
-                    {% endif %}
-                {% endfor %}
-                </select>
-                <span class="nice-input-addon">
-                    ft.
-                </span>
-            </div>
-
-            <div class="nice-control-group">
-                <span class="nice-input-addon">
-                    On Hit:
-                </span>
-                <input type="text" placeholder="On hit bad stuff..." class="nice-form-control" name="monster.attacks.{{ i }}.on_hit" value="{{ attack.on_hit }}" />
-            </div>
-
-            <div class="nice-control-group">
-                <span class="nice-input-addon">
-                    On Mis:
-                </span>
-                <input type="text" placeholder="On mis still bad stuff..." class="nice-form-control" name="monster.attacks.{{ i }}.in_mis" value="{{ attack.on_mis }}" />
-            </div>
-
-        </div>
-    </div>
+    {% for attack in monster.attacks %}
+    {{ macro_attack(attack, ["monster", "attacks", loop.index0]|join('.')) }}
     {% endfor %}
+    {{ macro_attack({}, ["monster", "attacks", monster.attacks|length]|join('.')) }}
 </div>
 
 <div id="multiattacks" class="nice-panel gray">

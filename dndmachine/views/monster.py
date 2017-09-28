@@ -46,6 +46,12 @@ def show(monster_id):
         monster=m
         )
 
+@monster.route('/raw/<int:monster_id>')
+def raw(monster_id):
+    monster_mapper = get_datamapper('monster')
+    m = monster_mapper.getById(monster_id)
+    return jsonify(m.config)
+
 @monster.route('/edit/<int:monster_id>', methods=['GET', 'POST'])
 def edit(monster_id):
     config = get_config()

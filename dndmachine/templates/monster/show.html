@@ -140,15 +140,21 @@
                 <tbody>
                     {% for rotation in monster.multiattack %}
                     <tr>
-                        <th>
-                            {{ rotation.name }}
+                        <th colspan="2">
+                            <h4>{{ rotation.name }}</h4>
                             {% if rotation.condition %}
-                            {{ ('(' ~ rotation.condition ~ ')')|markdown }}
+                            <i>{{ ('(' ~ rotation.condition ~ ')')|markdown }}</i>
                             {% endif %}
                         </th>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
                         <td>
                             {{ rotation.description|markdown|replace('%average%', rotation.average) }}
                         </td>
+                    </tr>
+                    <tr>
+                        <th>Rotation</th>
                         <td>
                             <div class="nice-tags-container">
                                 {% for attack in rotation.sequence %}
@@ -158,6 +164,29 @@
                                     </span>
                                 </div>
                                 {% endfor %}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Rotation Damage</th>
+                        <td>
+                            <div class="nice-tags-container">
+                                <div class="nice-tag">
+                                    <span class="nice-tag-label">
+                                        Average
+                                    </span>
+                                    <span class="nice-tag-badge">
+                                        {{ rotation.average }}
+                                    <span>
+                                </div>
+                                <div class="nice-tag accent">
+                                    <span class="nice-tag-label">
+                                        Critical average
+                                    </span>
+                                    <span class="nice-tag-badge">
+                                        {{ rotation.critical }}
+                                    <span>
+                                </div>
                             </div>
                         </td>
                     </tr>
