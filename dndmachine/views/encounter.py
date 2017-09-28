@@ -54,6 +54,7 @@ def show(encounter_id, party_id=None):
     combatants = [
         {
             'index': i,
+            'type': 'pc',
             'initiative': 0,
             'name': c.name,
             'hit_points': c.hit_points,
@@ -67,6 +68,7 @@ def show(encounter_id, party_id=None):
     combatants.extend([
         {
             'index': offset + i,
+            'type': 'npc',
             'initiative': 0,
             'name': m.name,
             'hit_points': m.hit_points,
@@ -77,19 +79,25 @@ def show(encounter_id, party_id=None):
             for i, m in enumerate(e.monsters)
         ])
 
+    initiative_dm = 0
+
     if request.method == 'POST':
+        initiative_dm = int(request.form.get('initiative-dm', 0))
         for c in combatants:
-            c['initiative'] = int(request.form.get(
-                'initiative-%d' % c['index'], c['initiative']
-                ))
-            c['current_hit_points'] = c['hit_points']
+            if c['type'] == 'pc':
+                c['initiative'] = int(request.form.get(
+                    'initiative-%d' % c['index'], c['initiative']
+                    ))
+            else:
+                c['initiative'] = initiative_dm
+            c['current_hit_points'] = int(c['hit_points'])
             c['notes'] = request.form.get('notes-%d' % c['index'], u'')
             c['damage_taken'] = request.form.get(
                 'damage-taken-%d' % c['index'], '')
             for m in re.finditer(ur'[+-]?\d+', c['damage_taken']):
                 damage = m.group(0)
                 try:
-                    c['current_hit_points'] += int(damage)
+                    c['current_hit_points'] -= int(damage)
                     if c['current_hit_points'] < 0:
                         c['current_hit_points'] = 0
                 except:
@@ -118,6 +126,7 @@ def show(encounter_id, party_id=None):
         mode=mode,
         user=user,
         party=e.party,
+        initiative_dm=initiative_dm,
         combatants=combatants,
         monsters=info.values()
         )

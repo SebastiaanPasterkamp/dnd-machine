@@ -106,6 +106,7 @@ class CharacterObject(JsonObject):
                 "xp_level": int,
                 "xp_next_level": int,
                 "level": int,
+                "hit_points": int,
                 "hit_dice": int,
                 "proficiency": int,
                 "initiative_bonus": int,

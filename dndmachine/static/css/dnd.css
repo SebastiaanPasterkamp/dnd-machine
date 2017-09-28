@@ -52,12 +52,35 @@ div#view-character {
                          "proficiencies abilities  traits"
                          ". abilities traits"; }
 
+div#view-encounter {
+    display: grid;
+    grid-gap: 1em .5em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "description challenge-rating"
+                         "description modified-rating"
+                         "initiative initiative"
+                         "monsters monsters"; }
+/*    div#view-encounter > #monsters > .monster {
+        display: grid;
+        grid-gap: 0em .5em;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(4, auto);
+        grid-template-areas: "info actions"
+                            "info actions"
+                            "stats actions"
+                            "traits actions"; }*/
+    div#view-encounter > #monsters > .monster {
+        display: grid;
+        grid-gap: 0em .5em;
+        grid-template-columns: 1fr 1fr;}
+
 @media screen and (max-width: 100em) and (orientation: portrait) {
     div#view-campaign {
         grid-template-columns: auto;
         grid-template-rows: repeat(5, auto);
         grid-template-areas: "title"
                             "control"
+
                             "toc"
                             "description"
                             "story"; }
@@ -100,9 +123,21 @@ div#edit-monster > #multiattacks { grid-area: multiattacks; }
 
 div#view-monster > #description { grid-area: description; }
 div#view-monster > #speed { grid-area: speed; }
-div#view-monster > #statistics{ grid-area: statistics; }
+div#view-monster > #statistics { grid-area: statistics; }
 div#view-monster > #attributes { grid-area: attributes; }
 div#view-monster > #actions { grid-area: actions; }
+
+div#view-encounter > #description { grid-area: description; }
+div#view-encounter > #challenge-rating { grid-area: challenge-rating; }
+div#view-encounter > #modified-rating { grid-area: modified-rating; }
+div#view-encounter > #initiative { grid-area: initiative; }
+div#view-encounter > #monsters { grid-area: monsters; }
+
+/*div#view-encounter > #monsters > .monster > .monster-info { grid-area: info; }
+div#view-encounter > #monsters > .monster > .monster-stats { grid-area: stats; }
+div#view-encounter > #monsters > .monster > .monster-traits { grid-area: traits; }
+div#view-encounter > #monsters > .monster > .monster-multiattack { grid-area: actions; }
+div#view-encounter > #monsters > .monster > .monster-attacks { grid-area: actions; }*/
 
 div#view-campaign > #party {
     position: fixed; left: 0; width: 30em; }
