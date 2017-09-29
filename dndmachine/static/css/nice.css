@@ -22,7 +22,7 @@ html {
 
 .nice-header .nice-header-brand, .nice-form-inline .nice-form-group, .nice-form-inline .nice-form-group input.nice-form-control,
 .nice-form-inline .nice-form-group select.nice-form-control, .nice-form-inline .nice-form-group label, .nice-radio label,
-.nice-checkbox label, .nice-tabs > li a .badge, .nice-stacked-list .list-item .item-heading.icon:before, .nice-breadcrumb li, .nice-pagination, .nice-menu.stacked li a.icon:before, .nice-menu.stacked li span.icon:before, .nice-btn, .nice-toggle + .nice-toggle-btn, .nice-dropdown, .nice-dropdown.shown, .nice-dropdown .dropdown-menu li a i, .nice-dropdown .dropdown-menu li span i, .nice-dropdown .dropdown-menu li label i, .nice-alert .nice-alert-dismiss .icon, .nice-tooltip, .nice-popover .nice-popover-title .icon,
+.nice-checkbox label, .nice-tabs > li a .badge, .nice-stacked-list .list-item .item-heading.icon:before, .nice-breadcrumb li, .nice-pagination, .nice-menu.stacked > li a.icon:before, .nice-menu.stacked > li span.icon:before, .nice-btn, .nice-toggle + .nice-toggle-btn, .nice-dropdown, .nice-dropdown.shown, .nice-dropdown .dropdown-menu li a i, .nice-dropdown .dropdown-menu li span i, .nice-dropdown .dropdown-menu li label i, .nice-alert .nice-alert-dismiss .icon, .nice-tooltip, .nice-popover .nice-popover-title .icon,
 .nice-popover .nice-popover-title .product-icon,
 .nice-popover .nice-popover-title .additional-icon, .nice-loading {
   display: -moz-inline-stack;
@@ -118,13 +118,13 @@ h6, .h6 {
   font-size: 12px;
   font-size: 0.75rem; }
 
-.text-align-left, .nice-menu.stacked li a, .nice-menu.stacked li span {
+.text-align-left, .nice-menu.stacked > li a, .nice-menu.stacked > li span {
   text-align: left; }
 
 .text-align-right {
   text-align: right; }
 
-.text-align-center, .nice-menu li a, .nice-menu li span {
+.text-align-center, .nice-menu > li a, .nice-menu > li span {
   text-align: center; }
 
 .text-align-justify {
@@ -6290,10 +6290,10 @@ textarea.nice-form-control {
   display: table;
   table-layout: fixed;
   width: 100%; }
-  .nice-menu li {
+  .nice-menu > li {
     margin: 0;
     display: table-cell; }
-    .nice-menu li a, .nice-menu li span {
+    .nice-menu > li a, .nice-menu > li span {
       display: block;
       padding: 10px 15px;
       -webkit-border-radius: 3px;
@@ -6307,37 +6307,37 @@ textarea.nice-form-control {
       -ms-transition: background-color 0s, color 0s;
       -o-transition: background-color 0s, color 0s;
       transition: background-color 0s, color 0s; }
-      .nice-menu li a.icon:before, .nice-menu li span.icon:before {
+      .nice-menu > li a.icon:before, .nice-menu > li span.icon:before {
         margin-right: 5px; }
-    .nice-menu li a:hover {
+    .nice-menu > li a:hover {
       background-color: #009CC1;
       color: #FFF; }
-    .nice-menu li.current a {
+    .nice-menu > li.current a {
       background-color: #182642;
       color: #FFF; }
-    .nice-menu li.disabled a, .nice-menu li.disabled span {
+    .nice-menu > li.disabled a, .nice-menu > li.disabled span {
       color: #B2B2B2;
       cursor: not-allowed;
       text-shadow: 1px 1px 0 #FFF; }
-      .nice-menu li.disabled a:hover, .nice-menu li.disabled span:hover {
+      .nice-menu > li.disabled a:hover, .nice-menu > li.disabled span:hover {
         background-color: #ECF0F1; }
-    .nice-menu li + li a {
+    .nice-menu > li + li a {
       margin-left: 2px; }
   .nice-menu.stacked {
     display: block;
     table-layout: auto;
     width: auto; }
-    .nice-menu.stacked li {
+    .nice-menu.stacked > li {
       display: block; }
-      .nice-menu.stacked li a.icon:before, .nice-menu.stacked li span.icon:before {
+      .nice-menu.stacked > li a.icon:before, .nice-menu.stacked > li span.icon:before {
         width: 20px;
         text-align: center; }
-      .nice-menu.stacked li ul {
+      .nice-menu.stacked > li ul {
         padding-left: 10px;
         margin-left: 30px; }
-      .nice-menu.stacked li + li {
+      .nice-menu.stacked > li + li {
         margin-top: 2px; }
-        .nice-menu.stacked li + li a {
+        .nice-menu.stacked > li + li a {
           margin-left: 0; }
     .nice-menu.stacked.has-icons > li a:not(.icon) {
       padding-left: 40px; }

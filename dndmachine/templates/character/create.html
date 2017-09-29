@@ -68,7 +68,7 @@
                     "good" if done else "info"
                     ])
                 }|xmlattr }}>
-            <a href="#">{{ tab|capitalize }}</a>
+            <a href="#">{{ character[tab] if done else tab|capitalize }}</a>
         </li>
         {% endfor %}
 
@@ -136,7 +136,8 @@
                             "data-name": data.name
                             }|xmlattr }} >
 
-                            {% for sub in data.sub|default([data]) %}
+                            {% if "sub" in data %}
+                            {% for sub in data.sub %}
                             <label>
                                 <input{{ {
                                     "type": "radio",
@@ -146,6 +147,13 @@
                                 {{ sub.name }}
                             </label>
                             {% endfor %}
+                            {% else %}
+                                <input{{ {
+                                    "type": "hidden",
+                                    "name": "character." + tab,
+                                    "value": data.name
+                                    }|xmlattr }} required />
+                            {% endif %}
 
                             {{ data.description|markdown }}
                         </li>

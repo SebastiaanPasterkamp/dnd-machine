@@ -143,7 +143,10 @@ class JsonObject(object):
         self.setPath(field, value)
 
     def __contains__(self, field):
-        return self.getPath(field) is not None
+        return self.hasPath(field)
+
+    def hasPath(self, path):
+        return self.getPath(path) is not None
 
     def getPath(self, path, default=None, structure=None):
         if not isinstance(path, list):

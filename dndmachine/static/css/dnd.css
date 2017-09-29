@@ -11,6 +11,11 @@
 .disabled {
     color: gray; }
 
+div.widget-grid {
+    display: grid;
+    grid-gap: 1em .5em;
+    grid-template-columns: 1fr 1fr;}
+
 div#edit-monster {
     display: grid;
     grid-gap: 1em .5em;

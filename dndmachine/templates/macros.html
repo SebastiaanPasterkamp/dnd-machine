@@ -1,8 +1,18 @@
+{% set registered_widgets = {} %}
+{% macro register_widget(widget_type, callback) %}
+{% set _ = registered_widgets.update({widget_type: callback}) %}
+{% endmacro %}
+
 {% macro widget_existing(existing, path=[], disabled=False) -%}
-<ul>
+<ul class="nice-menu stacked" style="padding-left: 1em;">
 {%- for field, gift in existing.items() %}
     <li>
-        <strong>{{ field|field_title }}</strong>:
+        <ol class="nice-breadcrumb small">
+            {% for title in field.split('.') -%}
+            <li>{{ title|field_title }}</li>
+            {%- endfor %}
+        </ol>
+
         {% if gift is mapping -%}
         {%- if 'name' in gift -%}
 
@@ -10,16 +20,17 @@
 
         {%- else -%}
 
-        <ul>
-            {%- for name, item in gift.items() %}
-            <li>
-                <strong>{{ name }}</strong>
-                {{ (item.description|default('description') % item)|markdown }}
-            </li>
-            {%- endfor %}
-        </ul>
+        <p>
+        {% if 'description' in gift %}
+        {{ (gift.description % gift)|markdown }}
+        {% else %}
+        {% for chldfield, chlditem in gift.items() -%}
+        <strong>{{ chldfield|field_title }}</strong>: {{ chlditem }}<br/>
+        {% endfor -%}
+        {% endif %}
+        </p>
 
-        {%- endif -%}
+            {%- endif -%}
 
         {%- elif gift is string -%}
 
@@ -34,12 +45,18 @@
 {%- endfor %}
 </ul>
 {%- endmacro %}
+{{ register_widget('existing', widget_existing) }}
 
 {% macro widget_given(given, path=[], disabled=False) -%}
-<ul>
+<ul class="nice-menu stacked" style="padding-left: 1em;">
 {%- for field, gift in given.items() %}
     <li>
-        <strong>{{ field|field_title }}</strong>:
+        <ol class="nice-breadcrumb small">
+            {% for title in field.split('.') -%}
+            <li>{{ title|field_title }}</li>
+            {%- endfor %}
+        </ol>
+
         {% if gift is mapping -%}
         {%- if 'name' in gift -%}
 
@@ -100,6 +117,7 @@
 {%- endfor %}
 </ul>
 {%- endmacro %}
+{{ register_widget('given', widget_given) }}
 
 {% macro widget_group(group, path=[], disabled=False) -%}
 {%- for item in group -%}
@@ -117,6 +135,7 @@
     {{ group|join(', ') }}
 </span>
 {%- endmacro %}
+{{ register_widget('group', widget_group) }}
 
 {% macro widget_select(select, path=[], disabled=False) -%}
 <select{{ {
@@ -133,33 +152,27 @@
     {%- endfor %}
 </select>
 {%- endmacro -%}
+{{ register_widget('select', widget_select) }}
 
-{% macro widgets(config, path=[], disabled=False) -%}
-{% if 'existing' in config -%}
-    {{ widget_existing(config.existing, path, disabled) }}
-{%- endif -%}
-{% if 'given' in config -%}
-    {{ widget_given(config.given, path, disabled) }}
-{%- endif -%}
-{% if 'group' in config -%}
-    {{ widget_group(config.group, path, disabled) }}
-{%- endif -%}
-{% if 'select' in config -%}
-    {{ widget_select(config.select, path, disabled) }}
-{%- endif -%}
-{% if 'options' in config -%}
-    {{ widget_options(config.options, path, disabled) }}
-{%- endif -%}
-{% if 'choose' in config -%}
-    {{ widget_choose(config.choose, path, disabled) }}
-{%- endif -%}
-{% if 'multiple' in config -%}
-    {{ widget_multiple(config.multiple, path, disabled) }}
-{%- endif -%}
-{% if 'tabs' in config -%}
-    {{ widget_tabs(config.tabs, path, disabled) }}
-{%- endif -%}
+{% macro widgets(config, path=[], disabled=False, nested=False) -%}
+{% if not nested %}<div class="widget-grid">{% endif -%}
+{% for widget_type, callback in registered_widgets.items() -%}
+{% if widget_type in config -%}
+<div>
+    <ol class="nice-breadcrumb small">
+        {% for title in path -%}
+        <li>{{ title|field_title }}</li>
+        {%- endfor %}
+    </ol>
+    <ul class="nice-menu stacked" style="padding-left: 1em;">
+        {{ callback(config[widget_type], path, disabled) }}
+    </ul>
+</div>
+{%- endif %}
+{%- endfor %}
+{%- if not nested %}</div>{% endif %}
 {% endmacro %}
+{{ register_widget('widgets', widgets) }}
 
 {% macro widget_choose(choose, path=[], disabled=False) -%}
 <table class="nice-table bordered itemset{% if disabled %} disabled{% endif %}">
@@ -177,46 +190,41 @@
         <td{{ {
             "class": "disabled" if (disabled or not loop.first) else None
             }|xmlattr }}>
-            {{ widgets(choice, path, disabled or not loop.first)|indent(12)|safe }}
+            {{ widgets(choice, path, disabled or not loop.first, nested=True) }}
         </td>
     </tr>
     {%- endfor %}
 </table>
 {% endmacro -%}
+{{ register_widget('choose', widget_choose) }}
 
 {% macro widget_options(options, path=[], disabled=False) -%}
 {% for field, items in options.items() -%}
-<div style="width: 24%; padding: .5em; float: left">
-<ol class="nice-breadcrumb small">
-    {% for title in field.split('.') -%}
-    <li>{{ title|field_title }}</li>
-    {%- endfor %}
-</ol>
-<ul class="nice-menu stacked" style="padding-left: 1em;">
 {% for item in items %}
     <li>
-{{ widgets(item, path + [field], disabled) }}
+{{ widgets(item, path + [field], disabled, nested=True) }}
     </li>
 {% endfor -%}
-</ul>
-</div>
 {% endfor -%}
 {%- endmacro %}
+{{ register_widget('options', widget_options) }}
 
 {% macro widget_multiple(multiple, path=[], disabled=False) -%}
 {% for item in multiple -%}
-{{ widgets(item, path, disabled) }}
+{{ widgets(item, path, disabled, nested=True) }}
 {% endfor -%}
 {%- endmacro %}
+{{ register_widget('multiple', widget_multiple) }}
 
 {% macro widget_tabs(tabs, path=[], disabled=False) -%}
-{%- set tab_name = {"tabs": tabs, "path": path, "disabled": disabled}|md5 -%}
+{% for tab in tabs %}
+{%- set tab_name = {"tabs": tab, "path": path, "disabled": disabled}|md5 -%}
 <div{{ {
         "class": "nice-tabs-wrapper",
         "id": tab_name}|xmlattr }}>
-    {{ tabs.description }}
+    {{ tab.description|default('')|markdown }}
     <ul class="nice-tabs">
-        {%- for option in tabs.options %}
+        {%- for option in tab.options %}
         <li{{ {
                 "data-name": option.name|md5,
                 "class": ' '.join([
@@ -224,21 +232,23 @@
                     "disabled" if disabled else ''
                     ])
                 }|xmlattr }}>
-            <a>
+            <a class="cursor-pointer">
                 {{ option.name|capitalize }}
             </a>
         </li>
         {%- endfor %}
     </ul>
     <ul class="nice-tab-content">
-        {%- for option in tabs.options %}
+        {%- for option in tab.options %}
         <li{{ {
                 "data-name": option.name|md5,
                 "class": "current" if loop.first else None
                 }|xmlattr }}>
-            {{ widgets(option, path, disabled or not loop.first)|indent(12)|safe }}
+            {{ widgets(option, path, disabled or not loop.first, nested=True) }}
         </li>
         {%- endfor %}
     </ul>
 </div>
+{% endfor %}
 {% endmacro -%}
+{{ register_widget('tabs', widget_tabs) }}

@@ -34,6 +34,7 @@ preference to other schemes. Choose a favorite scam or
 roll on the table below.
 
 | d6 | Scam |
+| --- | --- |
 | 1 | I cheat at games of chance. |
 | 2 | I shave coins or forge documents. |
 | 3 | I insinuate myself into people's lives to prey on their weakness and secure their fortunes. |
@@ -60,6 +61,7 @@ selves are sometimes plagued by an uneasy conscience,
 an old enemy, or deep-seated trust issues.
 
 | d8 | Personality Trait |
+| --- | --- |
 | 1 | I fall in and out of love easily, and am always pursuing someone. |
 | 2 | I have a joke for every occasion, especially occasions where humor is inappropriate. |
 | 3 | Flattery is my preferred trick for getting what I want. |
@@ -70,6 +72,7 @@ an old enemy, or deep-seated trust issues.
 | 8 | I pocket anything I see that might have some value. |
 
 | d6 | Ideal |
+| --- | --- |
 | 1 | Independence. I am a free spirit—no one tells me what to do. (Chaotic) |
 | 2 | Fairness. I never target people who can't afford to lose a few coins. (Lawful) |
 | 3 | Charity. I distribute the money I acquire to the people who really need it. (Good) |
@@ -78,6 +81,7 @@ an old enemy, or deep-seated trust issues.
 | 6 | Aspiration. I'm determined to make something of myself. (Any) |
 
 | d6 | Bond |
+| --- | --- |
 | 1 | I fleeced the wrong person and must work to ensure that this individual never crosses paths with me or those I care about. |
 | 2 | I owe everything to my mentor—a horrible person who's probably rotting in jail somewhere. |
 | 3 | Somewhere out there, I have a child who doesn't know me. I'm making the world better for him or her. |
@@ -86,6 +90,7 @@ an old enemy, or deep-seated trust issues.
 | 6 | I swindled and ruined a person who didn't deserve it. I seek to atone for my misdeeds but might never be able to forgive myself |
 
 | d6 | Flaw |
+| --- | --- |
 | 1 | I can't resist a pretty face. |
 | 2 | I'm always in debt. I spend my ill-gotten gains on decadent luxuries faster than I bring them in,. |
 | 3 | I'm convinced that no one could ever fool me the way I fool others. |

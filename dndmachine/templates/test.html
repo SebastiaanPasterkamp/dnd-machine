@@ -19,26 +19,24 @@
                 "Ensnaring Strike",
                 "Speak with Animals"
             ],
-            "abilities": {
-                "Nature's Wrath": {
-                    "description": "You can use your **Channel Divinity** to invoke primeval forces to ensnare a foe. The creature must succeed on a **Strength** or **Dexterity** *Saving Throw* (its choice, `DC %(dc)d`) or be *restrained*.",
-                    "dc": 12
-                },
-                "Turn the Faithless": {
-                    "description": "You can use your **Channel Divinity** to utter ancient. Each fey or fiend within 30 feet of you must make a **Wisdom** *Saving Throw* (`DC %(dc)d`).",
-                    "dc": 12
-                }
+            "abilities.Nature's Wrath": {
+                "description": "You can use your **Channel Divinity** to invoke primeval forces to ensnare a foe. The creature must succeed on a **Strength** or **Dexterity** *Saving Throw* (its choice, `DC %(dc)d`) or be *restrained*.",
+                "dc": 12
+            },
+            "abilities.Turn the Faithless": {
+                "description": "You can use your **Channel Divinity** to utter ancient. Each fey or fiend within 30 feet of you must make a **Wisdom** *Saving Throw* (`DC %(dc)d`).",
+                "dc": 12
             }
         } %}
         <tr>
             <th rowspan="2">Existing</th>
             <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
-            {% set output = macro.widgets({'existing': input}, ["test"]) %}
+            {% set output = macro.widgets({'existing': input}, ["test"], nested=True) %}
             <td>{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         </tr>
         <tr>
-            {% set output = macro.widgets({'existing': input}, ["test"], True) %}
+            {% set output = macro.widgets({'existing': input}, ["test"], True, nested=True) %}
             <td class="disabled">{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         <tr>
@@ -46,12 +44,12 @@
         <tr>
             <th rowspan="2">Given</th>
             <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
-            {% set output = macro.widgets({'given': input}, ["test"]) %}
+            {% set output = macro.widgets({'given': input}, ["test"], nested=True) %}
             <td>{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         </tr>
         <tr>
-            {% set output = macro.widgets({'given': input}, ["test"], True) %}
+            {% set output = macro.widgets({'given': input}, ["test"], True, nested=True) %}
             <td class="disabled">{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         <tr>
@@ -62,12 +60,12 @@
         <tr>
             <th rowspan="2">Group</th>
             <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
-            {% set output = macro.widgets({'group': input}, ["test"]) %}
+            {% set output = macro.widgets({'group': input}, ["test"], nested=True) %}
             <td>{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         </tr>
         <tr>
-            {% set output = macro.widgets({'group': input}, ["test"], True) %}
+            {% set output = macro.widgets({'group': input}, ["test"], True, nested=True) %}
             <td class="disabled">{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         <tr>
@@ -80,12 +78,12 @@
         <tr>
             <th rowspan="2">Select</th>
             <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
-            {% set output = macro.widgets({'select': input}, ["test"]) %}
+            {% set output = macro.widgets({'select': input}, ["test"], nested=True) %}
             <td>{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         </tr>
         <tr>
-            {% set output = macro.widgets({'select': input}, ["test"], True) %}
+            {% set output = macro.widgets({'select': input}, ["test"], True, nested=True) %}
             <td class="disabled">{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         <tr>
@@ -97,12 +95,12 @@
         <tr>
             <th rowspan="2">Multiple</th>
             <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
-            {% set output = macro.widgets({'multiple': input}, ["test"]) %}
+            {% set output = macro.widgets({'multiple': input}, ["test"], nested=True) %}
             <td>{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         </tr>
         <tr>
-            {% set output = macro.widgets({'multiple': input}, ["test"], True) %}
+            {% set output = macro.widgets({'multiple': input}, ["test"], True, nested=True) %}
             <td class="disabled">{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         <tr>
@@ -114,12 +112,12 @@
         <tr>
             <th rowspan="2">Options</th>
             <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
-            {% set output = macro.widgets({'options': input}, ["test"]) %}
+            {% set output = macro.widgets({'options': input}, ["test"], nested=True) %}
             <td>{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         </tr>
         <tr>
-            {% set output = macro.widgets({'options': input}, ["test"], True) %}
+            {% set output = macro.widgets({'options': input}, ["test"], True, nested=True) %}
             <td class="disabled">{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         <tr>
@@ -131,37 +129,43 @@
         <tr>
             <th rowspan="2">Choose</th>
             <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
-            {% set output = macro.widgets({'choose': input}, ["test"]) %}
+            {% set output = macro.widgets({'choose': input}, ["test"], nested=True) %}
             <td>{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         </tr>
         <tr>
-            {% set output = macro.widgets({'choose': input}, ["test"], True) %}
+            {% set output = macro.widgets({'choose': input}, ["test"], True, nested=True) %}
             <td class="disabled">{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         <tr>
 
-        {% set input={
+        {% set input=[{
             "description": "Something profound.",
             "options": [{
                 "name": "One",
                 "description": "Foo",
-                "group": ["Rapier"]
+                "given": {
+                    "equipment[]": ["Rapier"]
+                }
             }, {
                 "name": "Two",
                 "description": "Bar",
-                "select": ["one", "two", {"name": "item name", "label": "Item Label"}]
+                "options": {
+                    "equipment[]": [
+                        {"select": ["one", "two", {"name": "item name", "label": "Item Label"}]}
+                    ]
+                }
             }]
-        } %}
+        }] %}
         <tr>
             <th rowspan="2">Tabs</th>
             <td rowspan="2"><pre><code>{{ input|json }}</code></pre></td>
-            {% set output = macro.widgets({'tabs': input}, ["test"]) %}
+            {% set output = macro.widgets({'tabs': input}, ["test"], nested=True) %}
             <td>{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         </tr>
         <tr>
-            {% set output = macro.widgets({'tabs': input}, ["test"], True) %}
+            {% set output = macro.widgets({'tabs': input}, ["test"], True, nested=True) %}
             <td class="disabled">{{ output }}</td>
             <td><pre><code>{{ output|forceescape }}</code></pre></td>
         <tr>

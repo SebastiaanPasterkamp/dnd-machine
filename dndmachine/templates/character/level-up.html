@@ -5,7 +5,7 @@
 {% import 'macros.html' as macro %}
 
 {% block body %}
-<h1 class="icon fa-level-up">Character Level-Up</h1>
+<h1 class="icon fa-level-up">Character Level-Up: Level {{ level }}</h1>
 
 <form action="{{ url_for('character.level_up', level=level, character_id=character.id) }}" method="post">
     <button name="button" value="save" class="hidden">Save</button>
@@ -16,7 +16,7 @@
     </div>
     <div class="clearfix"></div>
 
-    {{ macro.widgets(phase, ['character'])|indent(4)|safe }}
+    {{ macro.widgets(phase, ['character']) }}
 
     <div class="nice-btn-group pull-right">
         <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
