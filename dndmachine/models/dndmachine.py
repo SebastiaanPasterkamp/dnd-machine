@@ -20,7 +20,8 @@ class DndMachine(object):
     def resolveMath(self, obj, formula):
         replace = {}
         for m in re.finditer(ur'[a-z.]+', formula):
-            replace[m.group(0)] = obj.getPath(m.group(0))
+            if obj.hasPath(m.group(0)):
+                replace[m.group(0)] = obj.getPath(m.group(0))
         for var, val in replace.iteritems():
             formula = formula.replace(var, str(val))
         code = parser.expr(formula).compile()
@@ -68,7 +69,7 @@ class DndMachine(object):
         return '+'.join(notation)
 
     def xpAtLevel(self, level):
-        return self.xp_at_level[str(level)]
+        return self.xp_at_level.get(str(level), None)
 
     def challengeByLevel(self, level, formula=False):
         """Returns the Challenge Rating in XP by level

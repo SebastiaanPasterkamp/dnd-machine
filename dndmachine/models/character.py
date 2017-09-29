@@ -32,6 +32,7 @@ class CharacterObject(JsonObject):
                     "wisdom": 8,
                     "charisma": 8
                     },
+                "ability_improvement": [],
                 "stats_bonus": {
                     "strength": [],
                     "dexterity": [],
@@ -77,6 +78,7 @@ class CharacterObject(JsonObject):
                     "misc": []
                     },
                 "proficiency": 2,
+                "proficiency_alt": 0,
                 "languages": [],
                 "proficiencies": {
                     "armor": [],
@@ -109,6 +111,7 @@ class CharacterObject(JsonObject):
                 "hit_points": int,
                 "hit_dice": int,
                 "proficiency": int,
+                "proficiency_alt": int,
                 "initiative_bonus": int,
                 "passive_perception": int,
                 "spell_safe_dc": int,
@@ -175,7 +178,9 @@ class CharacterObject(JsonObject):
                     },
                 "abilities": {
                     "*": {
-                        "*": unicode
+                        "*": unicode,
+                        "uses": int,
+                        "bonus": int
                         }
                     },
                 "computed": {
@@ -200,6 +205,11 @@ class CharacterObject(JsonObject):
             self.computedHit_points = \
                 self.hit_points
 
+        for ability in self.ability_improvement:
+            if ability in self.stats_bonus:
+                self.stats_bonus[ability].append(1)
+        self.ability_improvement = []
+
         for stat in machine.items.statistics:
             stat = stat["name"]
             self.stats[stat] = self.base_stats[stat] \
@@ -210,6 +220,8 @@ class CharacterObject(JsonObject):
             self.saving_throws[stat] = self.modifiers[stat]
             if stat in self.proficienciesSaving_throws:
                 self.saving_throws[stat] += self.proficiency
+            else:
+                self.saving_throws[stat] += self.proficiency_alt
 
         self.initiative_bonus = self.modifiersDexterity
         self.passive_perception = 10 + self.modifiersWisdom
@@ -219,6 +231,8 @@ class CharacterObject(JsonObject):
             self.skills[skill] = self.modifiers[stat]
             if skill in self.proficienciesSkills:
                 self.skills[skill] += self.proficiency
+            else:
+                self.saving_throws[stat] += self.proficiency_alt
 
         for path, compute in self.computed.iteritems():
             value = machine.resolveMath(
@@ -232,11 +246,14 @@ class CharacterObject(JsonObject):
             self.challenge[rating] = value
 
         self.xp_level = machine.xpAtLevel(self.level)
-        self.xp_next_level = machine.xpAtLevel(self.level + 1)
-        while self.xp_next_level and self.xp >= self.xp_next_level:
+        xp_next_level = machine.xpAtLevel(self.level + 1)
+        while xp_next_level and self.xp >= xp_next_level:
+            self.xp_next_level = xp_next_level
             self.level += 1
             self.xp_level = self.xp_next_level
-            self.xp_next_level = machine.xpAtLevel(self.level + 1)
+            xp_next_level = machine.xpAtLevel(self.level + 1)
+        if self.xp_level >= self.xp_next_level:
+            self.xp_next_level = self.xp_level + 1
 
         self.armor = []
         self.weapons = []
@@ -325,7 +342,8 @@ class CharacterObject(JsonObject):
                     )
                 weapon["bonus_alt"] = attack_modifier + self.proficiency
 
-        self.armor_class = machine.resolveMath(self, "10 + modifiers.dexterity")
+        self.armor_class = machine.resolveMath(
+            self, "10 + modifiers.dexterity")
         self.armor_class_bonus = 0
         for armor in self.armor:
             if "formula" in armor:
@@ -342,7 +360,8 @@ class CharacterObject(JsonObject):
             for ability in self.abilities.values():
                 for key, val in ability.items():
                     if key.endswith('_formula'):
-                        ability[key[:-8]] = machine.resolveMath(self, val)
+                        ability[key[:-8]] = machine.resolveMath(
+                            self, val)
 
 class CharacterMapper(JsonObjectDataMapper):
     obj = CharacterObject

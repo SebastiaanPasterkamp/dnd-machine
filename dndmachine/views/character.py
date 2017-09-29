@@ -461,26 +461,32 @@ def level_up(character_id, level=None):
             phases.update(sub['phases'])
     phases = phases.config
 
-    if level not in phases:
-        phase_names = []
-        for p, phase in phases.iteritems():
-            if p in c.creation:
-                continue
-            cond = phase.get('conditions', {})
-            if 'level' in cond and c.level < cond['level']:
-                continue
-            if 'path' in cond and not all(p in c.path for p in cond['path']):
-                continue
-            if 'creation' in cond and cond['creation'] not in c.creation:
-                continue
+    phase_names = []
+    for p, phase in phases.iteritems():
+        if p in c.creation:
+            continue
+        cond = phase.get('conditions', {})
+        for check in cond:
+            if check == 'level':
+                if c.level < cond[check]:
+                    p = None
+            elif check == 'creation':
+                if cond[check] not in c.creation:
+                    p = None
+            elif not all(checked in (c[check] or []) for checked in cond[check]):
+                p = None
+        if p is not None:
             phase_names.append(p)
-        phase_names = sorted(
-            phase_names,
-            key=lambda p: phases[p].get('level', 99)
-            )
+    phase_names = sorted(
+        phase_names,
+        key=lambda p: phases[p].get('conditions', {}).get('level', 99)
+        )
+    print phase_names
+
+    if level not in phase_names:
         if not len(phase_names):
             return redirect(url_for(
-                'character.edit',
+                'character.show',
                 character_id=character_id
                 ))
         return redirect(url_for(
@@ -494,40 +500,50 @@ def level_up(character_id, level=None):
     def assigning(key, val):
         if isinstance(val, unicode) and '.' in val:
             if val.startswith('character'):
-                return (
-                    key,
-                    c.getPath(val) or val
-                    )
-            if val.endswith('_formula'):
-                return (
-                    key.replace('_formula', ''),
-                    machine.resolveMath(c, val)
-                    )
+                return [
+                    (key, c.getPath(val) or val)
+                    ]
+            if key.endswith('_formula'):
+                return [
+                    (key, val),
+                    (
+                        key.replace('_formula', ''),
+                        machine.resolveMath(c, val)
+                        )
+                    ]
             if any(machine.items.getPath(v) for v in val.split(',')):
-                return (key, [
+                return [(key, [
                     item
                     for v in val.split(',')
                     for item in machine.items.getPath(v) or val
-                    ])
-            return (key, val)
+                    ])]
+            return [
+                (key, val)
+                ]
         if isinstance(val, dict):
-            return (
+            return [(
                 key,
                 dict([
-                    assigning(sub_key, sub_val)
+                    pair
                     for sub_key, sub_val in val.iteritems()
+                    for pair in assigning(sub_key, sub_val)
                     ])
-                )
+                )]
         if isinstance(val, list):
-            return (
+            return [(
                 key,
-                [assigning(key, v)[1] for v in val]
-                )
-        return (key, val)
+                [
+                    pair[1]
+                    for v in val
+                    for pair in assigning(key, v)
+                    ]
+                )]
+        return [(key, val)]
 
     phase = dict([
-        assigning(key, val)
+        pair
         for key, val in phase.iteritems()
+        for pair in assigning(key, val)
         ])
     #return jsonify(phase)
 
@@ -818,3 +834,24 @@ def create(character_id=None):
         items=items,
         options=options
         )
+
+
+@character.route('/copy/<int:character_id>')
+@character.route('/copy/<int:character_id>/<int:target_id>')
+def copy(character_id, target_id=None):
+    config = get_config()
+    character_mapper = get_datamapper('character')
+
+    c = character_mapper.getById(character_id)
+    c = c.clone()
+    c.user_id = request.user.id
+    if target_id != None:
+        c.id = target_id
+    c.name += " (copy)"
+
+    c = character_mapper.save(c)
+
+    return redirect(url_for(
+        'character.edit',
+        character_id=c.id
+        ))
