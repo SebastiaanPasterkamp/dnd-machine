@@ -81,13 +81,13 @@
                     <td>{{ encounter.modifier.monster }}</td>
                     <td>{{ encounter.modifier.party }}</td>
                     <td>{{ encounter.modifier.total }}</td>
-                    {% set class = encounter.xp_modified|classify({
-                        'info': party.challenge.easy,
-                        'good': party.challenge.medium,
-                        'warning': party.challenge.hard,
-                        'bad': party.challenge.deadly
-                    }) %}
-                    <td class="{{ class }}">
+                    <td{{ {
+                            "class": encounter.xp_modified|classify({
+                                'info': party.challenge.easy,
+                                'good': party.challenge.medium,
+                                'warning': party.challenge.hard,
+                                'bad': party.challenge.deadly
+                            }) }|xmlattr }}>
                         {{ encounter.challenge_modified }} / {{ encounter.xp_modified }} XP
                     </td>
                 </tr>

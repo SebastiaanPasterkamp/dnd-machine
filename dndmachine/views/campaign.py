@@ -31,6 +31,8 @@ def overview(campaign_id=None):
 @campaign.route('/show/<int:campaign_id>/<int:party_id>', methods=['GET', 'POST'])
 def show(campaign_id, party_id=None):
     if party_id is None:
+        if request.party:
+            return redirect( url_for('campaign.show', campaign_id=campaign_id, party_id=request.party.id) )
         return redirect( url_for('party.overview', campaign_id=campaign_id) )
 
     campaign_mapper = get_datamapper('campaign')
@@ -75,9 +77,14 @@ def edit(campaign_id):
 
         if request.form.get("button", "save") == "save":
             campaign_mapper.update(c)
+            if request.party:
+                return redirect(url_for(
+                    'campaign.show',
+                    campaign_id=campaign_id,
+                    party_id=request.party.id
+                    ))
             return redirect(url_for(
-                'campaign.overview'
-                ))
+                'campaign.overview'))
 
         if request.form.get("button", "save") == "update":
             campaign_mapper.update(c)

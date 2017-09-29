@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, request, session, g, redirect, url_for, abort, \
-    render_template, flash
+from flask import Blueprint, request, session, g, redirect, url_for, \
+    abort, render_template, jsonify, flash
 import re
 
 from ..models.encounter import EncounterObject
@@ -16,6 +16,7 @@ def overview(encounter_id=None):
 
     search = request.args.get('search', '')
     encounters = encounter_mapper.getList(search)
+    monster_mapper = get_datamapper('monster')
 
     if 'admin' not in request.user['role']:
         encounters = [
@@ -23,6 +24,12 @@ def overview(encounter_id=None):
             for e in encounters
             if e.user_id == request.user.id
             ]
+
+    for e in encounters:
+        e.monsters = monster_mapper.getByEncounterId(e.id)
+    if request.party:
+        for e in encounters:
+            e.party = request.party
 
     return render_template(
         'encounter/overview.html',
@@ -34,6 +41,8 @@ def overview(encounter_id=None):
 @encounter.route('/show/<int:encounter_id>/<int:party_id>', methods=['GET', 'POST'])
 def show(encounter_id, party_id=None):
     if party_id is None:
+        if request.party:
+            return redirect( url_for('encounter.show', encounter_id=encounter_id, party_id=request.party.id) )
         return redirect( url_for('party.overview', encounter_id=encounter_id) )
 
     encounter_mapper = get_datamapper('encounter')
@@ -155,7 +164,8 @@ def edit(encounter_id):
         if request.form.get("button", "save") == "save":
             encounter_mapper.update(e)
             return redirect(url_for(
-                'encounter.overview'
+                'encounter.show',
+                encounter_id=encounter_id
                 ))
 
         if request.form.get("button", "save") == "update":
