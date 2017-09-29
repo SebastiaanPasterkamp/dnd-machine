@@ -49,10 +49,10 @@
     <tbody>
         <tr>
             <td>{{ party.size }}</td>
-            <td class="info">{{ party.easy }}XP</td>
-            <td class="good">{{ party.medium }}XP</td>
-            <td class="warning">{{ party.hard }}XP</td>
-            <td class="bad">{{ party.deadly }}XP</td>
+            <td class="info">{{ party.challenge.easy }}XP</td>
+            <td class="good">{{ party.challenge.medium }}XP</td>
+            <td class="warning">{{ party.challenge.hard }}XP</td>
+            <td class="bad">{{ party.challenge.deadly }}XP</td>
         </tr>
     </tbody>
 </table>
@@ -79,10 +79,10 @@
         <tr>
             <td>{{ character.name }}</td>
             <td>{{ character.level }}</td>
-            <td class="info">{{ character.easy }}XP</td>
-            <td class="good">{{ character.medium }}XP</td>
-            <td class="warning">{{ character.hard }}XP</td>
-            <td class="bad">{{ character.deadly }}XP</td>
+            <td class="info">{{ character.challenge.easy }}XP</td>
+            <td class="good">{{ character.challenge.medium }}XP</td>
+            <td class="warning">{{ character.challenge.hard }}XP</td>
+            <td class="bad">{{ character.challenge.deadly }}XP</td>
             <td>
                 <div class="nice-btn-group pull-right">
                     <a href="{{ url_for('character.show', character_id=character.id, party_id=party.id) }}" class="nice-btn icon fa-eye">View</a>
