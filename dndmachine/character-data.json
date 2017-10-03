@@ -82,7 +82,7 @@
                         "languages[]": [
                             {"select": "languages.common,languages.exotic"}
                         ],
-                        "spells[]": [
+                        "spells.cantrip[]": [
                             {"select": "spells.wizard.cantrip"}
                         ]
                     }
@@ -144,7 +144,7 @@
             "phases": {
                 "1": {
                     "given": {
-                        "spells[]": ["Minor Illusion"]
+                        "spells.cantrip[]": ["Minor Illusion"]
                     }
                 }
             }
@@ -351,7 +351,7 @@
                         {"select": ["animal handling", "athletics", "intimidation", "nature", "perception", "survival"]}
                     ],
                     "equipment[]": [
-                        {"group": ["4 Javalin"]},
+                        {"group": ["4 x Javelin"]},
                         {"choose": [
                             {"group": ["Greataxe"]},
                             {"select": "weapons.martial.melee.items"}
@@ -413,7 +413,7 @@
                         "description": "Yours is a path that seeks attunement with the natural world, giving you a kinship with beasts. When you adopt this path, you gain the ability to cast the *Beast sense* and *Speak with Animals* spells, but only as rituals.\n## Totem Spirit\nWhen you adopt this path, you choose a totem spirit and gain its feature. You must make or acquire a physical totem object -an amulet or similar adornment - that incorporates fur or feathers, claws, teeth, or bones of the totem animal. At your option. you also gain minor physical attributes that are reminiscent of your totem spirit. For example. if you have a hear totem spirit, you might be unusually hairy and thick- skinned, or if your totem is the eagle, your eyes turn bright yellow.",
                         "given": {
                             "path[]": "Totem Warrior",
-                            "spells[]": [
+                            "spells.cantrip[]": [
                                 "Beast Sense",
                                 "Speak With Animals"
                             ],
@@ -435,10 +435,6 @@
                     "options": [{
                         "name": "Totem Spirit: Bear",
                         "given": {
-                            "spells[]": [
-                                "Beast Sense",
-                                "Speak With Animals"
-                            ],
                             "equipment[]": [
                                 "Bear Totem Animal"
                             ],
@@ -449,10 +445,6 @@
                     }, {
                         "name": "Totem Spirit: Eagle",
                         "given": {
-                            "spells[]": [
-                                "Beast Sense",
-                                "Speak With Animals"
-                            ],
                             "equipment[]": [
                                 "Eagle Totem Animal"
                             ],
@@ -463,10 +455,6 @@
                     }, {
                         "name": "Totem Spirit: Wolf",
                         "given": {
-                            "spells[]": [
-                                "Beast Sense",
-                                "Speak With Animals"
-                            ],
                             "equipment[]": [
                                 "Wolf Totem Animal"
                             ],
@@ -953,13 +941,15 @@
                             {"select": "items.musical.items"}
                         ]}
                     ],
-                    "spells[]": [
+                    "spells.cantrip[]": [
                         {"select": "spells.bard.cantrip"},
-                        {"select": "spells.bard.cantrip"},
-                        {"select": "spells.bard.1st"},
-                        {"select": "spells.bard.1st"},
-                        {"select": "spells.bard.1st"},
-                        {"select": "spells.bard.1st"}
+                        {"select": "spells.bard.cantrip"}
+                        ],
+                    "spells.1st_level[]": [
+                        {"select": "spells.bard.1st_level"},
+                        {"select": "spells.bard.1st_level"},
+                        {"select": "spells.bard.1st_level"},
+                        {"select": "spells.bard.1st_level"}
                     ]
                 }
             },
@@ -971,7 +961,9 @@
                 "given": {
                     "proficiency": 2,
                     "computed": {
-                        "proficiency_alt": "int(character.proficiency/2)"
+                        "proficiency_alt": {
+                            "fomula": "int(character.proficiency/2)"
+                        }
                     },
                     "abilities.Jack of All Trades": {
                         "description": "You can add half your **Proficiency Bonus**, rounded down, to any **Ability Check** you make that doesn't already include your proficiency bonus."
@@ -985,8 +977,8 @@
                     "spell_slots.1st_level": 3
                 },
                 "options": {
-                    "spells[]": [
-                        {"select": "spells.bard.1st"}
+                    "spells.1st_level[]": [
+                        {"select": "spells.bard.1st_level"}
                     ]
                 }
             },
@@ -1511,7 +1503,7 @@
                             {"group": "packs.Explorer's Pack.items"}
                         ]}
                     ],
-                    "spells[]": [
+                    "spells.cantrip[]": [
                         {"select": "spells.cleric.cantrip"},
                         {"select": "spells.cleric.cantrip"},
                         {"select": "spells.cleric.cantrip"}
@@ -1650,7 +1642,7 @@
                             ]}
                         ]},
                         {"choose": [
-                            {"select": ["5 Javelins"]},
+                            {"select": ["5 x Javelin"]},
                             {"select": "weapons.simple.melee.items,weapons.simple.ranged.items"}
                         ]},
                         {"choose": [
@@ -1731,7 +1723,7 @@
                         "description": "The Oath of Devotion binds a paladin to the loftiest ideals of justice, virtue, and order. Sometimes called cavaliers, white knights, or holy warriors, these paladins meet the ideal of the knight in shining armor, acting with honor in pursuit of justice and the greater good. They hold themselves to the highest standards of conduct, and some, for better or worse, hold the rest of the world to the same standards. Many who swear this oath are devoted to gods of law and good and use their gods' tenets as the measure of their devotion. They hold angels—the perfect servants of good—as their ideals, and incorporate images of angelic wings into their helmets or coats of arms.\n## Tenets of Devotion\nThough the exact words and strictures of the Oath of Devotion vary, paladins of this oath share these tenets.\n\n* **Honesty.** Don't lie or cheat. Let your word be your promise.\n* **Courage.** Never fear to act, though caution is wise.\n* **Compassion.** Aid others, protect the weak, and punish those who threaten them. Show mercy to your foes, but temper it with wisdom.\n* **Honor.** Treat others with fairness, and let your honorable deeds be an example to them. Do as much good as possible while causing the least amount of harm.\n* **Duty.** Be responsible for your actions and their consequences, protect those entrusted to your care, and obey those who have just authority over you.",
                         "given": {
                             "oath[]": "Devotion",
-                            "spells[]": [
+                            "spells.1st_level[]": [
                                 "Protection From Evil and Good",
                                 "Sanctuary"
                             ],
@@ -1749,7 +1741,7 @@
                         "description": "The Oath of the Ancients is as old as the race of elves and the rituals of the druids. Sometimes called fey knights, green knights, or horned knights, paladins who swear this oath cast their lot with the side of the light in the cosmic struggle against darkness because they love the beautiful and life-giving things of the world, not necessarily because they believe in principles of honor, courage, and justice. They adorn their armor and clothing with images of growing things—leaves, antlers, or flowers—to reflect their commitment to preserving life and light in the world.\n## Tenets of the Ancients\nThe tenets of the Oath of the Ancients have been preserved for uncounted centuries. This oath emphasizes the principles of good above any concerns of taw or chaos. Its four central principles are simple.\n\n* **Kindle the Light.** Through your acts of mercy, kindness, and forgiveness, kindle the light of hope in the world, beating back despair.\n* **Shelter the Light.** Where there is good, beauty, love. and laughter in the world, stand against the wickedness that would swallow it. Where life flourishes, stand against the forces that would render it barren.\n* **Preserve Your Own Light.** Delight in song and laughter, in beauty and art. If you allow the light to die in your own heart, you can't preserve it in the world.\n* **Be the Light.** Be a glorious beacon for all who live in despair. Let the light of your joy and courage shine forth in all your deeds.",
                         "given": {
                             "oath[]": "Ancients",
-                            "spells[]": [
+                            "spells.1st_level[]": [
                                 "Ensnaring Strike",
                                 "Speak with Animals"
                             ],
@@ -1767,7 +1759,7 @@
                         "description": "The Oath of Vengeance is a solemn commitment to punish those who have committed a grievous sin. When evil forces slaughter helpless villagers, when an entire people turns against the will of the gods, when a thieves' guild grows too violent and powerful, when a dragon rampages through the countryside—at times like these, paladins arise and swear an Oath of Vengeance to set right that which has gone wrong. To these paladins— sometimes called avengers or dark knights—their own purity is not as important as delivering justice.\n## Tenets of Vengeance\nThe tenets of the Oath of Vengeance vary by paladin, but all the tenets revolve around punishing wrongdoers by any means necessary. Paladins who uphold these tenets are willing to sacrifice even their own righteousness to mete out justice upon those who do evil, so the paladins are often neutral or lawful neutral in alignment. The core principles of the tenets are brutally simple.\n\n* **Fight the Greater Evil.** Faced with a choice of fighting my sworn foes or combating a lesser evil, I choose the greater evil.\n* **No Mercy for the Wicked.** Ordinary foes might win my mercy, but my sworn enemies do not.\n* **By Any Means Necessary.** My qualms can't get in the way of exterminating my foes.\n* **Restitution.** if my foes wreak ruin on the world, it is because I failed to stop them. I must help those harmed by their misdeeds.",
                         "given": {
                             "oath[]": "Vengeance",
-                            "spells[]": [
+                            "spells.1st_level[]": [
                                 "Bane",
                                 "Hunter's Mark"
                             ],
@@ -1819,7 +1811,7 @@
                     "oath": ["Devotion"]
                 },
                 "given": {
-                    "spells[]": [
+                    "spells.2nd_level[]": [
                         "Lesser Restoration",
                         "Zone of Truth"
                     ]
@@ -1928,7 +1920,7 @@
                     "oath": ["Devotion"]
                 },
                 "given": {
-                    "spells[]": [
+                    "spells.3rd_level[]": [
                         "Beacon of Hope",
                         "Dispel Magic"
                     ]
@@ -2003,7 +1995,7 @@
                     "oath": ["Devotion"]
                 },
                 "given": {
-                    "spells[]": [
+                    "spells.4th_level[]": [
                         "Freedom of Movement",
                         "Guardian of Faith"
                     ]
@@ -2115,7 +2107,7 @@
                     "oath": ["Devotion"]
                 },
                 "given": {
-                    "spells[]": [
+                    "spells.5th_level[]": [
                         "Commune",
                         "Flame Strike"
                     ]
@@ -3100,7 +3092,7 @@
                     "equipment[]": [
                         {"group": [
                             "Holy Symbol",
-                            "5 Sticks of Incense",
+                            "5 x Stick of Incense",
                             "Vestments",
                             "Set of Common Clothes",
                             "Belt Pouch"

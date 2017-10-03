@@ -1,3 +1,5 @@
+import re
+
 from base import JsonObject, JsonObjectDataMapper
 
 from ..config import get_config, get_item_data
@@ -234,7 +236,7 @@ class CharacterObject(JsonObject):
             else:
                 self.saving_throws[stat] += self.proficiency_alt
 
-        for path, compute in self.computed.iteritems():
+        for path, compute in self.computed.items():
             value = machine.resolveMath(
                 self, compute.get("formula", ""))
             for bonus in compute.get("bonus", []):
@@ -291,13 +293,18 @@ class CharacterObject(JsonObject):
                         return dest, desc
             return None, None
 
-        for item in self.equipment:
+        for items in self.equipment:
+            count, item = 1, items
+            matches = re.match(r'^(\d+)\sx\s(.*)$', items)
+            if matches != None:
+                count, items = int(matches.group(1)), \
+                    matches.group(2)
             dest, desc = findDesc(item)
             dest = dest or 'misc'
             if desc:
-                self[dest] = [desc]
+                self[dest] = self[dest] + [desc] * count
             else:
-                self.itemsMisc = [item]
+                self.itemsMisc = self.itemsMisc + [items]
 
         for weapon in self.weapons:
             attack_modifier = "strength"
