@@ -49,6 +49,10 @@ class MonsterObject(JsonObject):
                 'xp': int,
                 'level': int,
                 'challenge': float,
+                'average_damage': int,
+                'critical_damage':int,
+                'attack_bonus': int,
+                'spell_save_dc': int,
                 'motion': {
                     "*": int
                     },
