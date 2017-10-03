@@ -3,7 +3,7 @@ import re
 from subprocess import Popen, PIPE
 from io import BytesIO
 
-def fill_pdf(pdf_file, text, html={}, fdf_file=None):
+def fill_pdf(pdf_file, text, html={}, fdf_file=None, debug=False):
     # Get empty FDF
     args = [
         "pdftk",
@@ -28,7 +28,7 @@ def fill_pdf(pdf_file, text, html={}, fdf_file=None):
         template = """<<\n/V (%(text)s)\n/T (%(field)s)\n>>"""
         params = {
             'field': field,
-            'text': text.get(field, '')
+            'text': text.get(field, field if debug else '')
             }
         if field in html:
             params['html'] = html.get(field)

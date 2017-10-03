@@ -9,6 +9,7 @@ from ..models.base import JsonObject
 from ..models.character import CharacterObject
 from ..config import get_config, get_character_data, get_item_data
 from ..utils import get_datamapper
+from ..filters import filter_bonus, filter_unique
 from . import fill_pdf
 
 character = Blueprint(
@@ -112,11 +113,6 @@ def download(character_id):
     user_mapper = get_datamapper('user')
     machine = get_datamapper('machine')
 
-    def filter_bonus(number):
-        if number > 0:
-            return "+%d" % number
-        return "%d" % number
-
     c = character_mapper.getById(character_id)
     if c['user_id'] != request.user['id'] \
             and not any([role in request.user.role for role in ['admin', 'dm']]):
@@ -146,12 +142,47 @@ def download(character_id):
     fdf_html = {
         "Background": c.background
         }
+
     if c.spell_safe_dc:
         fdf_text.update({
-            "SpellSaveDC  2": c.spell_safe_dc,
+            "SpellSaveDC 2": c.spell_safe_dc,
             "SpellAtkBonus 2": filter_bonus(c.spell_attack_modifier),
-            "Spellcasting Class 2": c.Class
+            "Spellcasting Class 2": c.Class,
+            "Total Prepared Spells": c.known_spells or '',
+            "AttacksSpellcasting": ""
             })
+    if c.spell_slots:
+        fdf_spell_slots = {
+            "1st_level": "SlotsTotal 19",
+            "2nd_level": "SlotsTotal 20",
+            "3rd_level": "SlotsTotal 21",
+            "4th_level": "SlotsTotal 22",
+            "5th_level": "SlotsTotal 23",
+            "6th_level": "SlotsTotal 24",
+            "7th_level": "SlotsTotal 25",
+            "8th_level": "SlotsTotal 26",
+            "9th_level": "SlotsTotal 27"
+            }
+        for level, slots in c.spell_slots.items():
+            fdf_text[ fdf_spell_slots[level] ] = slots
+
+    if c.spells:
+        fdf_spell_lists = {
+            "cantrip": ["1014", "1015", "1016", "1017", "1018", "1019", "1020", "1021"],
+            "1st_level": ["1022", "1023", "1024", "1025", "1026", "1027", "1028", "1029", "1030", "1031", "1032", "1033"],
+            "2nd_level": ["1046", "1034", "1035", "1036", "1037", "1038", "1039", "1040", "1041", "1042", "1043", "1044", "1045"],
+            "3rd_level": ["1048", "1047", "1049", "1050", "1051", "1052", "1053", "1054", "1055", "1056", "1057", "1058", "1059"],
+            "4th_level": ["1061", "1060", "1062", "1063", "1064", "1065", "1066", "1067", "1068", "1069", "1070", "1071", "1072"],
+            "5th_level": ["1074", "1073", "1075", "1076", "1077", "1078", "1079", "1080", "1081"],
+            "6th_level": ["1083", "1082", "1084", "1085", "1086", "1087", "1088", "1089", "1090"],
+            "7th_level": ["1092", "1091", "1093", "1094", "1095", "1096", "1097", "1098", "1099"],
+            "8th_level": ["10101", "10100", "10102", "10103", "10104", "10105", "10106"],
+            "9th_level": ["10108", "10107", "10109", "101010", "101011", "101012", "101013"]
+            }
+        for level, spells in c.spells.items():
+            fdf_spell_list = fdf_spell_lists[ level ]
+            for i, spell in enumerate(spells):
+                fdf_text[ "Spells %s" % fdf_spell_list[i] ] = spell
 
     for stat in items['statistics']:
         stat_prefix = stat['name'][:3].upper()
@@ -168,13 +199,16 @@ def download(character_id):
         if skill['name'] in c.proficienciesSkills:
             fdf_text['ChBx ' + skill['label']] = True
 
-    for i, weapon in enumerate(c.weapons):
-        fdf_text['Wpn Name %d' % (i+1)] = weapon['name']
+    i = 0
+    for count, weapon in filter_unique(c.weapons):
+        fdf_text['Wpn Name %d' % (i+1)] = "%d x %s" % (
+            count, weapon['name']) if count > 1 else weapon['name']
         fdf_text['Wpn%d Damage' % (i+1)] = "%s %s" % (
             weapon['damage'].get('notation', ''),
             weapon['damage'].get('type_short', '')
             )
         fdf_text['Wpn%d AtkBonus' % (i+1)] = filter_bonus(weapon.get('bonus', 0))
+        i += 1
 
     for coin in ['cp', 'sp', 'ep', 'gp', 'pp']:
         fdf_text[coin.upper()] = c.wealth[coin]
@@ -397,9 +431,14 @@ def download(character_id):
     filename = re.sub(ur'^_+|_+$', '', filename)
     filename +=  '.pdf'
     return send_file(
-        fill_pdf(pdf_file, fdf_text, fdf_html, '/tmp/%s.fdf' % c['name']),
+        fill_pdf(
+            pdf_file,
+            fdf_text, fdf_html,
+            '/tmp/%s.fdf' % c['name'],
+            debug=request.args.get('debug', False)
+            ),
         mimetype="application/pdf",
-        as_attachment=True,
+        as_attachment=False if request.args.get('debug', False) else True,
         attachment_filename=filename
         )
 
@@ -846,12 +885,33 @@ def copy(character_id, target_id=None):
     c = c.clone()
     c.user_id = request.user.id
     if target_id != None:
-        c.id = target_id
-    c.name += " (copy)"
+        target = character_mapper.getById(target_id)
+        c.id = target.id
+        c.user_id = target.user_id
+    else:
+        c.name += " (copy)"
 
     c = character_mapper.save(c)
 
     return redirect(url_for(
         'character.edit',
         character_id=c.id
+        ))
+
+@character.route('/xp/<int:character_id>/<int:xp>')
+def xp(character_id, xp):
+    config = get_config()
+    character_mapper = get_datamapper('character')
+
+    if not any([role in request.user.role for role in ['admin', 'dm']]):
+        abort(403)
+
+    c = character_mapper.getById(character_id)
+    c.xp += xp
+
+    c = character_mapper.update(c)
+
+    return redirect(url_for(
+        'character.show',
+        character_id=character_id
         ))

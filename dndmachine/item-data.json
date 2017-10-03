@@ -458,7 +458,7 @@
                 {"name": "Heroism"},
                 {"name": "Identify"},
                 {"name": "Illusory Script"},
-                {"name": "Lon strider"},
+                {"name": "Longstrider"},
                 {"name": "Silent Image"},
                 {"name": "Sleep"},
                 {"name": "Speak with Animals"},
@@ -572,7 +572,7 @@
                 {"name": "True Polymorph"}
             ]
         },
-        "Cleric": {
+        "cleric": {
             "cantrips": [
                 {"name": "Guidance"},
                 {"name": "Light"},
@@ -594,8 +594,7 @@
                 {"name": "Guiding Bolt"},
                 {"name": "Healing Word"},
                 {"name": "Inflict Wounds"},
-                {"name": "Protection from"},
-                {"name": "Evil and Good"},
+                {"name": "Protection from Evil and Good"},
                 {"name": "Purify Food and Drink"},
                 {"name": "Sanctuary"},
                 {"name": "Shield of Faith"}
@@ -701,7 +700,7 @@
                 {"name": "True Resurrection"}
             ]
         },
-        "Druid": {
+        "druid": {
             "cantrips": [
                 {"name": "Druidcraft"},
                 {"name": "Guidance"},
@@ -833,7 +832,7 @@
                 {"name": "True Resurrection"}
             ]
         },
-        "Paladin": {
+        "paladin": {
             "1st_level": [
                 {"name": "Bless"},
                 {"name": "Command"},
@@ -891,7 +890,7 @@
                 {"name": "Raise Dead"}
             ]
         },
-        "Ranger": {
+        "ranger": {
             "1st_level": [
                 {"name": "Alarm"},
                 {"name": "Animal Friendship"},
@@ -949,7 +948,7 @@
                 {"name": "Tree Stride"}
             ]
         },
-        "Sorcerer": {
+        "sorcerer": {
             "cantrips": [
                 {"name": "Acid Splash"},
                 {"name": "Blade Ward"},
@@ -1100,7 +1099,7 @@
                 {"name": "Wish"}
             ]
         },
-        "Warlock": {
+        "warlock": {
             "cantrips": [
                 {"name": "Blade Ward"},
                 {"name": "Chill Touch"},
@@ -1197,7 +1196,7 @@
                 {"name": "True Polymorph"}
             ]
         },
-        "Wizard": {
+        "wizard": {
             "cantrips": [
                 {"name": "Acid Splash"},
                 {"name": "Blade Ward"},

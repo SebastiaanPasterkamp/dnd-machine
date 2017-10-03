@@ -7,12 +7,6 @@
 <ul class="nice-menu stacked" style="padding-left: 1em;">
 {%- for field, gift in existing.items() %}
     <li>
-        <ol class="nice-breadcrumb small">
-            {% for title in field.split('.') -%}
-            <li>{{ title|field_title }}</li>
-            {%- endfor %}
-        </ol>
-
         {% if gift is mapping -%}
         {%- if 'name' in gift -%}
 
@@ -49,13 +43,28 @@
 
 {% macro widget_given(given, path=[], disabled=False) -%}
 <ul class="nice-menu stacked" style="padding-left: 1em;">
-{%- for field, gift in given.items() %}
+{%- for field, gift in given.items()|sort() %}
     <li>
+    {% if 'computed' in field %}
+
+        {% for chldfield, chlditem in gift.items() -%}
+        <input{{ {
+            "type": "hidden",
+            "name": (path + [field, chldfield])|join('.'),
+            "value": chlditem
+            }|xmlattr }}
+        {%- if disabled %} disabled{%- endif -%} />
+        {% endfor -%}
+
+    {% else %}
         <ol class="nice-breadcrumb small">
-            {% for title in field.split('.') -%}
+            {% for title in path[1:]+field.split('.') -%}
             <li>{{ title|field_title }}</li>
             {%- endfor %}
         </ol>
+
+        <ul class="nice-menu stacked" style="padding-left: 1em;">
+            <li>
 
         {% if gift is mapping -%}
         {%- if 'name' in gift -%}
@@ -113,6 +122,9 @@
         {{ gift|join(', ') }}
 
         {%- endif %}
+            </li>
+        </ul>
+    {% endif %}
     </li>
 {%- endfor %}
 </ul>
@@ -159,11 +171,6 @@
 {% for widget_type, callback in registered_widgets.items() -%}
 {% if widget_type in config -%}
 <div>
-    <ol class="nice-breadcrumb small">
-        {% for title in path -%}
-        <li>{{ title|field_title }}</li>
-        {%- endfor %}
-    </ol>
     <ul class="nice-menu stacked" style="padding-left: 1em;">
         {{ callback(config[widget_type], path, disabled) }}
     </ul>
@@ -179,7 +186,7 @@
     {%- set radio_name = {"choose": choose, "path": path, "disabled": disabled}|md5 -%}
     {% for choice in choose %}
     <tr>
-        <th>
+        <th style="width: 3em">
             <input{{ {
                 "type": "radio",
                 "name": radio_name
@@ -199,12 +206,25 @@
 {{ register_widget('choose', widget_choose) }}
 
 {% macro widget_options(options, path=[], disabled=False) -%}
-{% for field, items in options.items() -%}
+{% for field, items in options.items()|sort() -%}
+{% if not loop.first %}
+    </ul>
+</div>
+<div>
+    <ul class="nice-menu stacked" style="padding-left: 1em;">
+{% endif %}
+    <ol class="nice-breadcrumb small">
+        {% for title in path[1:]+field.split('.') -%}
+        <li>{{ title|field_title }}</li>
+        {%- endfor %}
+    </ol>
+    <ul class="nice-menu stacked" style="padding-left: 1em;">
 {% for item in items %}
     <li>
 {{ widgets(item, path + [field], disabled, nested=True) }}
     </li>
 {% endfor -%}
+    </ul>
 {% endfor -%}
 {%- endmacro %}
 {{ register_widget('options', widget_options) }}

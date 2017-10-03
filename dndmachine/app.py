@@ -26,6 +26,7 @@ app.register_blueprint(encounter, url_prefix='/encounter')
 app.register_blueprint(campaign, url_prefix='/campaign')
 
 # Register filters
+app.jinja_env.filters['max'] = filters.filter_max
 app.jinja_env.filters['sanitize'] = filters.filter_sanitize
 app.jinja_env.filters['unique'] = filters.filter_unique
 app.jinja_env.filters['field_title'] = filters.filter_field_title

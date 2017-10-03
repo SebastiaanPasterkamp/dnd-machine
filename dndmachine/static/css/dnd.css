@@ -53,9 +53,19 @@ div#view-character {
     grid-template-rows: repeat(5, auto);
     grid-template-areas: "description description info"
                          "base statistics skills"
-                         "equipment saving-throws skills"
-                         "proficiencies abilities  traits"
-                         ". abilities traits"; }
+                         "equipment saving-throws skills"; }
+/*                          "spells abilities  traits" */
+/*                          "proficiencies abilities  traits" */
+/*                          ". abilities traits"; } */
+
+div#edit-character {
+    display: grid;
+    grid-gap: 1em .5em;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto; }
+    div#edit-character #save {
+        grid-row: -1;
+        grid-column: -1; }
 
 div#view-encounter {
     display: grid;
@@ -107,11 +117,13 @@ div#view-encounter {
 div#view-character > #description { grid-area: description; }
 div#view-character > #info { grid-area: info; }
 div#view-character > #equipment { grid-area: equipment; }
-div#view-character > #proficiencies { grid-area: proficiencies; }
 div#view-character > #skills { grid-area: skills; }
 div#view-character > #statistics { grid-area: statistics; }
 div#view-character > #saving-throws { grid-area: saving-throws; }
-div#view-character > #abilities { grid-area: abilities; }
+/* div#view-character > #traits { grid-area: traits; } */
+/* div#view-character > #spells { grid-area: spells; } */
+/* div#view-character > #proficiencies { grid-area: proficiencies; } */
+/* div#view-character > #abilities { grid-area: abilities; } */
 
 div#view-campaign > #title { grid-area: title; }
 div#view-campaign > #description { grid-area: description; }
