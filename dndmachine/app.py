@@ -3,16 +3,11 @@ import os
 import json
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, jsonify, Markup
-import markdown
-from markdown.util import etree
-from markdown.blockprocessors import BlockProcessor
-from markdown.extensions import Extension
-import re
-import md5
 
 from . import get_db
 from .config import get_config, get_item_data
 from .utils import get_datamapper
+import filters
 from .views.user import user
 from .views.character import character
 from .views.party import party
@@ -21,12 +16,28 @@ from .views.encounter import encounter
 from .views.campaign import campaign
 
 app = Flask(__name__)
+
+# Register blueprints
 app.register_blueprint(user, url_prefix='/user')
 app.register_blueprint(character, url_prefix='/character')
 app.register_blueprint(party, url_prefix='/party')
 app.register_blueprint(monster, url_prefix='/monster')
 app.register_blueprint(encounter, url_prefix='/encounter')
 app.register_blueprint(campaign, url_prefix='/campaign')
+
+# Register filters
+app.jinja_env.filters['sanitize'] = filters.filter_sanitize
+app.jinja_env.filters['unique'] = filters.filter_unique
+app.jinja_env.filters['field_title'] = filters.filter_field_title
+app.jinja_env.filters['bonus'] = filters.filter_bonus
+app.jinja_env.filters['classify'] = filters.filter_classify
+app.jinja_env.filters['completed'] = filters.filter_completed
+app.jinja_env.filters['json'] = filters.filter_json
+app.jinja_env.filters['md5'] = filters.filter_md5
+app.jinja_env.filters['markdown'] = filters.filter_markdown
+app.jinja_env.filters['named_headers'] = filters.filter_named_headers
+app.jinja_env.filters['md_internal_links'] = filters.filter_md_internal_links
+app.jinja_env.filters['linked_objects'] = filters.filter_linked_objects
 
 # Load default config and override config from an environment variable
 app.config.update(get_config())
@@ -136,201 +147,3 @@ def logout():
 @app.route('/test')
 def show_test():
     return render_template('test.html')
-
-@app.template_filter('sanitize')
-def filter_sanitize(text):
-    sanitize = re.compile(ur'[^a-zA-Z0-9]+')
-    cleaned = sanitize.sub(text, '_')
-    return cleaned
-
-@app.template_filter('field_title')
-def filter_field_title(field):
-    replace = {
-        '[]': '',
-        '.+': '',
-        '_': ' '
-        }
-    field = reduce(lambda a, kv: a.replace(*kv), replace.iteritems(), field)
-    field = field.split('.')[-1]
-    return field.capitalize()
-
-@app.template_filter('bonus')
-def filter_bonus(number):
-    if number > 0:
-        return "+%d" % number
-    return "%d" % number
-
-@app.template_filter('classify')
-def filter_classify(number, ranges={}):
-    closest = min(
-        ranges,
-        key=lambda k: abs(ranges[k] - number)
-        )
-    return closest
-
-@app.template_filter('completed')
-def filter_completed(tabs, completed):
-    current = True
-    for tab in tabs:
-        if tab in completed:
-            yield tab, True, False
-        elif current:
-            current = False
-            yield tab, False, True
-        else:
-            yield tab, False, False
-
-@app.template_filter('json')
-def filter_json(structure):
-    return json.dumps(
-        structure,
-        indent=4,
-        separators=(',', ': ')
-        )
-
-@app.template_filter('md5')
-def filter_md5(data):
-    if not isinstance(data, basestring):
-        data = unicode(data)
-    return md5.new(data).hexdigest()
-
-class SpecialBlockQuoteProcessor(BlockProcessor):
-    RE = re.compile(r'(^|\n)[ ]{0,3}\|(?:\(([^)]+)\))?[ ]?(.*)', re.M)
-
-    def test(self, parent, block):
-        return bool(self.RE.search(block))
-
-    def run(self, parent, blocks):
-        block = blocks.pop(0)
-        css = ''
-        m = self.RE.search(block)
-        if m:
-            css = m.group(2) or ''
-            before = block[:m.start()]  # Lines before blockquote
-            # Pass lines before blockquote in recursively for parsing forst.
-            self.parser.parseBlocks(parent, [before])
-            # Remove ``| `` from begining of each line.
-            block = '\n'.join(
-                [self.clean(line) for line in block[m.start():].split('\n')]
-            )
-        sibling = self.lastChild(parent)
-        if sibling is not None \
-                and sibling.tag == "blockquote" \
-                and sibling.get('class') == css:
-            # Previous block was a blockquote with the same class,
-            # so set that as this blocks parent
-            quote = sibling
-        else:
-            # This is a new blockquote. Create a new parent element.
-            quote = etree.SubElement(parent, 'blockquote')
-            quote.set('class', css)
-        # Recursively parse block with blockquote as parent.
-        # change parser state so blockquotes embedded in lists use p tags
-        self.parser.state.set('blockquote')
-        self.parser.parseChunk(quote, block)
-        self.parser.state.reset()
-
-    def clean(self, line):
-        """ Remove ``|`` from beginning of a line. """
-        m = self.RE.match(line)
-        if line.strip() == "|":
-            return ""
-        elif m:
-            return m.group(3)
-        else:
-            return line
-
-class SpecialBlockQuoteExtension(Extension):
-    """ Add configurable blockquotes to Markdown. """
-
-    def extendMarkdown(self, md, md_globals):
-        """ Add an instance of SpecialBlockQuoteProcessor to BlockParser.
-        """
-        if '|' not in md.ESCAPED_CHARS:
-            md.ESCAPED_CHARS.append('|')
-        md.parser.blockprocessors.add(
-            'sbq', SpecialBlockQuoteProcessor(md.parser), '>hashheader'
-            )
-
-@app.template_filter('markdown')
-def filter_markdown(md):
-    html = markdown.markdown(md, extensions=[
-        'markdown.extensions.tables',
-        SpecialBlockQuoteExtension()
-        ])
-    return Markup(html)
-
-@app.template_filter('named_headers')
-def filter_named_headers(html):
-    if isinstance(html, Markup):
-        html = html.unescape()
-    namedHeaders = re.compile(ur'(<(h\d+)>([^<]+)</h\d+>)')
-
-    for match in namedHeaders.finditer(html):
-        full, header, title = match.groups()
-        name = filter_sanitize(title)
-        html = html.replace(
-            full,
-            u'<a name="%(name)s"><%(header)s>%(title)s</%(header)s></a>' % {
-                'name': filter_sanitize(title),
-                'header': header,
-                'title': title
-                }
-            )
-    return Markup(html)
-
-@app.template_filter('md_internal_links')
-def filter_md_internal_links(md):
-    internalLinks = re.compile(
-        ur"^(/(encounter|monster)/(\d+))", re.M)
-
-    mappers = {
-        'encounter': get_datamapper('encounter'),
-        'monster': get_datamapper('monster')
-        }
-
-    for match in internalLinks.finditer(md):
-        full, view, view_id = match.groups()
-        obj = mappers[view].getById(int(view_id))
-
-        if obj is None:
-            continue
-
-        args = {'%s_id'%view: view_id}
-        md = md.replace(
-            full,
-            u"**%(view)s**: [%(title)s](%(url)s)" % {
-                'view': view.capitalize(),
-                'title': obj['name'],
-                'url': url_for('%s.show' % view, **args)
-                }
-            )
-    return Markup(md)
-
-@app.template_filter('linked_objects')
-def filter_linked_objects(md):
-    internalLinks = re.compile(
-        ur"^(/(encounter|monster)/(\d+))", re.M)
-
-    mappers = {
-        'encounter': get_datamapper('encounter'),
-        'monster': get_datamapper('monster')
-        }
-
-    info = []
-    for match in internalLinks.finditer(md):
-        full, view, view_id = match.groups()
-        obj = mappers[view].getById(int(view_id))
-
-        if obj is None:
-            continue
-
-        args = {'%s_id'%view: view_id}
-        info.append({
-            'type': view,
-            'id': view_id,
-            'data': obj,
-            'url': url_for('%s.show' % view, **args)
-            })
-    return info
-
