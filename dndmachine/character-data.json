@@ -52,10 +52,10 @@
         },
         "phases": {
             "1": {
-                "given": {
-                    "languages[]": ["common", "dwarvish"]
-                },
                 "options": {
+                    "languages[]": [
+                        {"group": ["common", "dwarvish"]}
+                    ],
                     "proficiencies.tools[]": [
                         {"select": [
                             "Smith's Tools",
@@ -122,9 +122,13 @@
         },
         "phases": {
             "1": {
-                "given": {
-                    "languages[]": ["common", "elvish"],
-                    "proficiencies.skills[]": ["perception"]
+                "options": {
+                    "languages[]": [
+                        {"group": ["common", "elvish"]}
+                    ],
+                    "proficiencies.skills[]": [
+                        {"group": ["perception"]}
+                    ]
                 }
             }
         }
@@ -143,8 +147,10 @@
             },
             "phases": {
                 "1": {
-                    "given": {
-                        "spells.cantrip[]": ["Minor Illusion"]
+                    "option": {
+                        "spells.cantrip[]": [
+                            {"group": ["Minor Illusion"]}
+                        ]
                     }
                 }
             }
@@ -161,8 +167,10 @@
             },
             "phases": {
                 "1": {
-                    "given": {
-                        "proficiencies.tools[]": ["Tinker's tools"]
+                    "options": {
+                        "proficiencies.tools[]": [
+                            {"group": ["Tinker's tools"]}
+                        ]
                     }
                 }
             }
@@ -180,8 +188,10 @@
         },
         "phases": {
             "1": {
-                "given": {
-                    "languages[]": ["common", "gnomish"]
+                "options": {
+                    "languages[]": [
+                        {"group": ["common", "gnomish"]}
+                    ]
                 }
             }
         }
@@ -204,9 +214,13 @@
         },
         "phases": {
             "1": {
-                "given": {
-                    "proficiencies.skills[]": ["intimidation"],
-                    "languages[]": ["orc", "common"]
+                "options": {
+                    "proficiencies.skills[]": [
+                        {"group": ["intimidation"]}
+                    ],
+                    "languages[]": [
+                        {"group": ["orc", "common"]}
+                    ]
                 }
             }
         }
@@ -248,8 +262,10 @@
         },
         "phases": {
             "1": {
-                "given": {
-                    "languages[]": ["common", "halfing"]
+                "options": {
+                    "languages[]": [
+                        {"group": ["common", "halfing"]}
+                    ]
                 }
             }
         }
@@ -289,12 +305,10 @@
         },
         "phases": {
             "1": {
-                "given": {
-                    "languages[]": ["common"]
-                },
                 "options": {
                     "languages[]": [
-                        {"select": "languages.common,languages.exotic"}
+                        {"select": "languages.common,languages.exotic"},
+                        {"group": ["common"]}
                     ]
                 }
             }
@@ -960,10 +974,8 @@
                 },
                 "given": {
                     "proficiency": 2,
-                    "computed": {
-                        "proficiency_alt": {
-                            "fomula": "int(character.proficiency/2)"
-                        }
+                    "computed.proficiency_alt": {
+                        "formula": "int(character.proficiency/2)"
                     },
                     "abilities.Jack of All Trades": {
                         "description": "You can add half your **Proficiency Bonus**, rounded down, to any **Ability Check** you make that doesn't already include your proficiency bonus."
@@ -1583,7 +1595,7 @@
                 "hit_points": {
                     "formula": "(10 + modifiers.constitution) + (6 + modifiers.constitution) * (level - 1)"
                 },
-                "known_spells": {
+                "spells_known": {
                     "formula": "modifiers.charisma + (level/2)"
                 },
                 "spell_safe_dc": {
@@ -1642,7 +1654,7 @@
                             ]}
                         ]},
                         {"choose": [
-                            {"select": ["5 x Javelin"]},
+                            {"group": ["5 x Javelin"]},
                             {"select": "weapons.simple.melee.items,weapons.simple.ranged.items"}
                         ]},
                         {"choose": [
@@ -2388,6 +2400,12 @@
                     "spells_known": 2,
                     "spell_slots.1st_level": 2
                 },
+                "options": {
+                    "spells.1st_level[]": [
+                        {"select": "spells.ranger.1st_level"},
+                        {"select": "spells.ranger.1st_level"}
+                    ]
+                },
                 "tabs": [{
                     "description": "You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again.",
                     "options": [{
@@ -2436,6 +2454,11 @@
                     "abilities.Primeval Awareness": {},
                     "spells_known": 3,
                     "spell_slots.1st_level": 3
+                },
+                "options": {
+                    "spells.1st_level[]": [
+                        {"select": "spells.ranger.1st_level"}
+                    ]
                 }
             },
             "4": {
@@ -2461,7 +2484,19 @@
                     "spells_known": 4,
                     "spell_slots.1st_level": 4,
                     "spell_slots.2nd_level": 2
-                }
+                },
+                "choose": [
+                    {"options": {
+                        "spells.2nd_level[]": [
+                            {"select": "spells.ranger.2nd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.1st_level[]": [
+                            {"select": "spells.ranger.1st_level"}
+                        ]
+                    }}
+                ]
             },
             "6": {
                 "conditions": {
@@ -2487,7 +2522,19 @@
                     "spells_known": 5,
                     "spell_slots.1st_level": 4,
                     "spell_slots.2nd_level": 3
-                }
+                },
+                "choose": [
+                    {"options": {
+                        "spells.2nd_level[]": [
+                            {"select": "spells.ranger.2nd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.1st_level[]": [
+                            {"select": "spells.ranger.1st_level"}
+                        ]
+                    }}
+                ]
             },
             "8": {
                 "conditions": {
@@ -2514,7 +2561,24 @@
                     "spell_slots.1st_level": 4,
                     "spell_slots.2nd_level": 3,
                     "spell_slots.3rd_level": 2
-                }
+                },
+                "choose": [
+                    {"options": {
+                        "spells.3rd_level[]": [
+                            {"select": "spells.ranger.2rd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.2nd_level[]": [
+                            {"select": "spells.ranger.2nd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.1st_level[]": [
+                            {"select": "spells.ranger.1st_level"}
+                        ]
+                    }}
+                ]
             },
             "10": {
                 "conditions": {
@@ -2543,7 +2607,24 @@
                     "spell_slots.1st_level": 4,
                     "spell_slots.2nd_level": 3,
                     "spell_slots.3rd_level": 3
-                }
+                },
+                "choose": [
+                    {"options": {
+                        "spells.3rd_level[]": [
+                            {"select": "spells.ranger.2rd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.2nd_level[]": [
+                            {"select": "spells.ranger.2nd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.1st_level[]": [
+                            {"select": "spells.ranger.1st_level"}
+                        ]
+                    }}
+                ]
             },
             "12": {
                 "conditions": {
@@ -2571,7 +2652,29 @@
                     "spell_slots.2nd_level": 3,
                     "spell_slots.3rd_level": 3,
                     "spell_slots.4th_level": 1
-                }
+                },
+                "choose": [
+                    {"options": {
+                        "spells.4th_level[]": [
+                            {"select": "spells.ranger.4th_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.3rd_level[]": [
+                            {"select": "spells.ranger.2rd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.2nd_level[]": [
+                            {"select": "spells.ranger.2nd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.1st_level[]": [
+                            {"select": "spells.ranger.1st_level"}
+                        ]
+                    }}
+                ]
             },
             "14": {
                 "conditions": {
@@ -2602,7 +2705,29 @@
                     "spell_slots.2nd_level": 3,
                     "spell_slots.3rd_level": 3,
                     "spell_slots.4th_level": 2
-                }
+                },
+                "choose": [
+                    {"options": {
+                        "spells.4th_level[]": [
+                            {"select": "spells.ranger.4th_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.3rd_level[]": [
+                            {"select": "spells.ranger.2rd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.2nd_level[]": [
+                            {"select": "spells.ranger.2nd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.1st_level[]": [
+                            {"select": "spells.ranger.1st_level"}
+                        ]
+                    }}
+                ]
             },
             "16": {
                 "conditions": {
@@ -2632,7 +2757,34 @@
                     "spell_slots.3rd_level": 3,
                     "spell_slots.4th_level": 3,
                     "spell_slots.5th_level": 1
-                }
+                },
+                "choose": [
+                    {"options": {
+                        "spells.5th_level[]": [
+                            {"select": "spells.ranger.5th_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.4th_level[]": [
+                            {"select": "spells.ranger.4th_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.3rd_level[]": [
+                            {"select": "spells.ranger.2rd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.2nd_level[]": [
+                            {"select": "spells.ranger.2nd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.1st_level[]": [
+                            {"select": "spells.ranger.1st_level"}
+                        ]
+                    }}
+                ]
             },
             "18": {
                 "conditions": {
@@ -2664,7 +2816,34 @@
                     "spell_slots.3rd_level": 3,
                     "spell_slots.4th_level": 3,
                     "spell_slots.5th_level": 2
-                }
+                },
+                "choose": [
+                    {"options": {
+                        "spells.5th_level[]": [
+                            {"select": "spells.ranger.5th_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.4th_level[]": [
+                            {"select": "spells.ranger.4th_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.3rd_level[]": [
+                            {"select": "spells.ranger.2rd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.2nd_level[]": [
+                            {"select": "spells.ranger.2nd_level"}
+                        ]
+                    }},
+                    {"options": {
+                        "spells.1st_level[]": [
+                            {"select": "spells.ranger.1st_level"}
+                        ]
+                    }}
+                ]
             },
             "20": {
                 "conditions": {

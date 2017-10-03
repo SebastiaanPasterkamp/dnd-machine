@@ -91,6 +91,18 @@ class CharacterObject(JsonObject):
                     "expertise": [],
                     "skills": []
                     },
+                "spells": {
+                    "cantrip": [],
+                    "1st_level": [],
+                    "2nd_level": [],
+                    "3rd_level": [],
+                    "4th_level": [],
+                    "5th_level": [],
+                    "6th_level": [],
+                    "7th_level": [],
+                    "8th_level": [],
+                    "9th_level": []
+                    },
                 "computed": {
                     "unarmored": {
                         "formula": "10 + modifiers.dexterity + modifiers.constitution"
@@ -171,6 +183,11 @@ class CharacterObject(JsonObject):
                         "*": int
                         }
                     },
+                "cantrips_known": int,
+                "spells_known": int,
+                "spell_slots": {
+                    "*": int
+                    },
                 "items": {
                     "*": [],
                     "artisan": {
@@ -248,13 +265,12 @@ class CharacterObject(JsonObject):
             self.challenge[rating] = value
 
         self.xp_level = machine.xpAtLevel(self.level)
-        xp_next_level = machine.xpAtLevel(self.level + 1)
-        while xp_next_level and self.xp >= xp_next_level:
-            self.xp_next_level = xp_next_level
-            self.level += 1
+        self.xp_next_level = machine.xpAtLevel(self.level + 1)
+        while self.xp_next_level and self.xp >= self.xp_next_level:
             self.xp_level = self.xp_next_level
-            xp_next_level = machine.xpAtLevel(self.level + 1)
-        if self.xp_level >= self.xp_next_level:
+            self.level += 1
+            self.xp_next_level = machine.xpAtLevel(self.level + 1)
+        if not self.xp_next_level or self.xp_level >= self.xp_next_level:
             self.xp_next_level = self.xp_level + 1
 
         self.armor = []

@@ -7,6 +7,9 @@ from markdown.extensions import Extension
 import re
 import md5
 
+def filter_max(items):
+    return max(items)
+
 def filter_sanitize(text):
     sanitize = re.compile(ur'[^a-zA-Z0-9]+')
     cleaned = sanitize.sub(text, '_')

@@ -174,6 +174,41 @@
         </div>
     </div>
 
+    {% if character.spells %}
+    <div id="spells" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Spells
+        </div>
+        <div class="nice-panel-content">
+            <ul>
+                {% if character.spells['cantrip']|default([]) -%}
+                <li>
+                    <strong>Cantrip</strong>
+                    <ul>
+                        {% for spell in character.spells['cantrip'] -%}
+                        <li>{{ spell }}</li>
+                        {%- endfor %}
+                    </ul>
+                </li>
+                {% endif %}
+                {%- for level, spells in character.spells.items()|sort() %}
+                {%- if level != 'cantrip' and spells -%}
+                <li>
+                    <strong>{{ level|field_title }}</strong>
+                    (Spell slots: {{ character.spell_slots[level] }})
+                    <ul>
+                        {% for spell in spells %}
+                        <li>{{ spell }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {%- endif %}
+                {%- endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
     <div id="equipment" class="nice-panel brand">
         <div class="nice-panel-heading">
             Equipment
@@ -185,8 +220,11 @@
                     <th>Weapons</th>
                     <td>
                         <ul>
-                        {% for weapon in character.weapons %}
+                        {% for count, weapon in character.weapons|unique %}
                             <li>
+                                {% if count > 1 -%}
+                                    {{ count }} x
+                                {% endif -%}
                                 <strong>{{ weapon.name }}:</strong>
                                 {{ weapon.damage.notation }}
                                 {{ weapon.damage.type_label }},
