@@ -86,7 +86,6 @@ class JsonObject(object):
                 value = form.getlist(field)
                 field = field.replace('[]', '')
                 field = field.replace('.+', '')
-                print "Array:", field, value
 
             path = self.splitPath(field, False)
             if path[0] != self._pathPrefix:
@@ -95,15 +94,11 @@ class JsonObject(object):
 
             old_value = self.getPath(path)
             if old_value is not None:
-                if isinstance(value, list):
-                    print "Merge:", path, old_value, value
                 self.setPath(
                     path,
                     self._merge(old_value, value, path)
                     )
             else:
-                if isinstance(value, list):
-                    print "Set:", path, old_value, value
                 self.setPath(path, value)
         self.compute()
 
