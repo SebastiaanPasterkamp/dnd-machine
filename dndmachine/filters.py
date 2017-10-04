@@ -12,7 +12,7 @@ def filter_max(items):
 
 def filter_sanitize(text):
     sanitize = re.compile(ur'[^a-zA-Z0-9]+')
-    cleaned = sanitize.sub(text, '_')
+    cleaned = sanitize.sub('_', text)
     return cleaned
 
 def filter_unique(listing):
@@ -55,11 +55,9 @@ def filter_completed(tabs, completed):
     for tab in tabs:
         if tab in completed:
             yield tab, True, False
-        elif current:
-            current = False
-            yield tab, False, True
         else:
-            yield tab, False, False
+            yield tab, False, current
+            current = False
 
 def filter_json(structure):
     return json.dumps(
