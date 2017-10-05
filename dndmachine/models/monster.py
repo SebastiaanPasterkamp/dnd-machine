@@ -20,12 +20,17 @@ class MonsterObject(JsonObject):
                 "hit_points": 2,
                 "hit_points_notation": u"1d4",
                 "armor_class": 10,
-                "proficiency": 2,
+                "proficiency": 0,
                 "traits": [],
                 "features": [],
                 "languages": [],
                 "multiattack": [],
                 "attacks": [],
+                "attack_modifier": {
+                    "melee": "strength",
+                    "ranged": "dexterity",
+                    "spell": "charisma"
+                },
                 "stats": {
                     "strength": 10,
                     "dexterity": 10,
@@ -64,13 +69,13 @@ class MonsterObject(JsonObject):
                     'critical': int
                     },
                 'attacks': {
-                    'modifier': int,
                     'bonus': int,
                     'spell_save_dc': int,
                     'average': int,
                     'critical': int,
                     'damage': {
                         '*': int,
+                        'mode': unicode,
                         'type': unicode,
                         'notation': unicode
                         }
@@ -86,6 +91,7 @@ class MonsterObject(JsonObject):
                     }
                 }
             )
+        self.compute()
 
     def compute(self):
         config = get_config()
@@ -117,39 +123,44 @@ class MonsterObject(JsonObject):
         self.attacks = [
             attack
             for attack in self.attacks
-            if attack.get("name", "")
+            if attack.get("name", False)
             ]
         for attack in self.attacks:
-            attack_method = attack.get("method", "melee")
-
-            attack["modifier"] = self.modifiers.get(
-                machine.attack_modifier.get(attack_method, "strength"), 0
-                )
-            attack["bonus"] = attack["modifier"] + self.proficiency \
-                if attack_method in ["melee", "ranged"] \
-                else 0
-            attack["spell_save_dc"] = attack["modifier"] \
-                if attack_method not in ["melee", "ranged"] \
-                else 0
-
             attack["damage"] = [
                 damage
                 for damage in attack.get("damage", [])
-                if any(damage.get(n, 0)
-                       for n in ['dice_count', 'bonus']
-                       )
+                if damage.get("type", False)
                 ]
-            default_bonus = attack['modifier']
+
             for damage in attack["damage"]:
+                damage["mode"] = damage.get("mode", "melee")
+                damage["bonus"] = self.modifiers.get(
+                    self.attack_modifier.get(
+                        damage["mode"], "strength"
+                        ), 0
+                    )
                 damage.update(machine.diceCast(
                     damage["dice_size"],
                     damage["dice_count"],
-                    default_bonus \
-                            if default_bonus \
-                            else damage.get('bonus', 0)
+                    damage["bonus"]
                     ))
-                # Primary attack gets stats modifier as bonus
-                default_bonus = 0
+
+            attack["damage"] = sorted(
+                    attack["damage"],
+                    key=lambda d: d["average"],
+                    reverse=True
+                    )
+
+            attack["modifier"] = attack["damage"][0]["bonus"]
+            if attack["damage"][0]["mode"] in ["melee", "ranged"]:
+                attack["bonus"] = \
+                    attack["modifier"] + self.proficiency
+                attack["spell_save_dc"] = 0
+            else:
+                attack["bonus"] = 0
+                attack["spell_save_dc"] = \
+                    attack["modifier"] + self.proficiency
+
             attack["average"] = sum([
                 damage["average"]
                 for damage in attack["damage"]
@@ -160,17 +171,13 @@ class MonsterObject(JsonObject):
                 ])
             attack["notation"] = ' + '.join([
                 "%(notation)s %(type)s" % (damage)
-                for damage in sorted(
-                    attack["damage"],
-                    key=lambda d: d["average"],
-                    reverse=True
-                    )
+                for damage in attack["damage"]
                 ])
             if attack["average"] > self.average_damage:
                 self.average_damage = attack["average"]
-                self.attack_bonus = attack["bonus"]
                 self.critical_damage = attack["critical"]
-                self.spell_save_dc = attack["spell_save_dc"]
+                self.attack_bonus = attack.get("bonus", 0)
+                self.spell_save_dc = attack.get("spell_save_dc", 0)
 
         self.multiattack = [
             rotation
@@ -193,18 +200,6 @@ class MonsterObject(JsonObject):
             if multiattack["average"] > self.average_damage:
                 self.average_damage = multiattack["average"]
                 self.critical_damage = multiattack["critical"]
-                self.attack_bonus = max([
-                    attack["modifier"]
-                    for attack_name in multiattack["sequence"]
-                    for attack in self.attacks
-                    if attack["name"] == attack_name
-                    ])
-                self.spell_save_dc = max([
-                    attack["spell_save_dc"]
-                    for attack_name in multiattack["sequence"]
-                    for attack in self.attacks
-                    if attack["name"] == attack_name
-                    ])
 
         self.traits = [
             trait
@@ -216,7 +211,10 @@ class MonsterObject(JsonObject):
             self.hit_points, self.armor_class,
             self.average_damage, self.attack_bonus, self.spell_save_dc)
 
-        self.config.update(challenge)
+        if challenge['proficiency'] != self.proficiency:
+            self.update(challenge)
+        else:
+            self.config.update(challenge)
 
 
 class MonsterMapper(JsonObjectDataMapper):

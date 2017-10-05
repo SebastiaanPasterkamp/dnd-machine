@@ -1,30 +1,26 @@
 {% extends "layout.html" %}
 
-{% macro macro_damage(damage, attack, path, first=False) %}
+{% macro macro_damage(damage, attack, path) %}
 <div class="nice-control-group">
     <span class="nice-input-addon">
         Damage
     </span>
     <select class="nice-form-control" name="{{ path }}.type">
-    {% if not first %}
-    <option />
-    {% endif %}
+        <option />
     {% for option in data.damage_types %}
-        {% if damage.type == option.name %}
-        <option selected>{{ option.name }}</option>
-        {% else %}
-        <option>{{ option.name }}</option>
-        {% endif %}
+        <option{{ {
+                "selected": "selected" if damage.type == option.name else None,
+                "value": option.name
+                }|xmlattr }}>
+            {{ option.label|default(option.name|capitalize) }}
+        </option>
     {% endfor %}
     </select>
     <span class="nice-input-addon">
         Dice
     </span>
     <select class="nice-form-control" name="{{ path }}.dice_count">
-        {% set dice = range(1, 31) %}
-        {% if not first %}
-            {% set dice = range(0, 31) %}
-        {% endif %}
+        {% set dice = range(0, 31) %}
         {% for option in dice %}
             {% if damage.dice_count == option %}
             <option selected>{{ option }}</option>
@@ -48,11 +44,16 @@
     <span class="nice-input-addon">
         +
     </span>
-    {% if not first %}
-    <input type="text" placeholder="Bonus..." class="nice-form-control" name="{{ path }}.bonus" value="{{ damage.bonus }}" />
-    {% else %}
-    <input type="text" class="nice-form-control" value="{{ attack.modifier }}" disabled />
-    {% endif %}
+    <select class="nice-form-control" name="{{ path }}.mode">
+    {% for option in ["melee", "ranged", "spell"] %}
+        <option{{ {
+                "selected": "selected" if damage.mode == option else None,
+                "value": option
+                }|xmlattr }}>
+            {{ option|capitalize }}
+        </option>
+    {% endfor %}
+    </select>
 </div>
 {% endmacro %}
 
@@ -75,25 +76,10 @@
             <textarea class="nice-form-control" placeholder="Description..." name="{{ path }}.description">{{ attack.description }}</textarea>
         </div>
 
-        <div class="nice-control-group">
-            <span class="nice-input-addon">
-                Mode
-            </span>
-            <select class="nice-form-control" name="{{ path }}.mode">
-            {% for option in ["melee", "ranged", "spell"] %}
-                {% if attack.mode == option %}
-                <option selected>{{ option }}</option>
-                {% else %}
-                <option>{{ option }}</option>
-                {% endif %}
-            {% endfor %}
-            </select>
-        </div>
-
         {% for damage in attack.damage %}
-        {{ macro_damage(damage, attack, [path, "damage", loop.index0]|join('.'), loop.index0==0) }}
+        {{ macro_damage(damage, attack, [path, "damage", loop.index0]|join('.')) }}
         {% endfor %}
-        {{ macro_damage({}, attack, [path, "damage", attack.damage|length]|join('.'), attack.damage|length==0) }}
+        {{ macro_damage({}, attack, [path, "damage", attack.damage|length]|join('.')) }}
 
         <div class="nice-control-group">
             <span class="nice-input-addon">
