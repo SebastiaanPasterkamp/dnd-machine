@@ -55,6 +55,10 @@ class TestJsonObject(JsonObject):
                     }
                 }
             )
+        self.compute()
+
+    def compute(self):
+        pass
 
 class JsonObjectTestCase(unittest.TestCase):
 

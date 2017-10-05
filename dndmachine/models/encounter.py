@@ -38,6 +38,7 @@ class EncounterObject(JsonObject):
                 'xp': int
                 }
             )
+        self.compute()
 
     @property
     def party(self):

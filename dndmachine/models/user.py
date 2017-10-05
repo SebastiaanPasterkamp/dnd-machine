@@ -13,6 +13,7 @@ class UserObject(JsonObject):
                 'role': []
                 }
             )
+        self.compute()
 
     def compute(self):
         self.role = [

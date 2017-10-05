@@ -225,7 +225,7 @@ class JsonObject(object):
         try:
             return cast(value)
         except Exception as error:
-            print error, path, cast, type(value), value
+            print self.id, error, path, cast, type(value), value
         return value
 
     def setPath(self, path, value):

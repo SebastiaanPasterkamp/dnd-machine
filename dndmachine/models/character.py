@@ -7,13 +7,6 @@ from dndmachine import DndMachine
 
 class CharacterObject(JsonObject):
     def __init__(self, config={}):
-
-        if 'stats_bonus' in config:
-            config['stats_bonus'] = dict([
-                (stat, bonus) if isinstance(bonus, list) else (stat, [bonus])
-                for stat, bonus in config['stats_bonus'].iteritems()
-                ])
-
         super(CharacterObject, self).__init__(
             config,
             pathPrefix = "character",
@@ -209,6 +202,7 @@ class CharacterObject(JsonObject):
                     }
                 }
             )
+        self.compute()
 
     def compute(self):
         config = get_config()
