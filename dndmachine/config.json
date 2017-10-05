@@ -224,11 +224,6 @@
             "Plant",
             "Undead"
         ],
-        "attack_modifier": {
-            "melee": "strength",
-            "ranged": "dexterity",
-            "spell": "charisma"
-        },
         "monster_scaling": [
             {
                 "proficiency": 2,
