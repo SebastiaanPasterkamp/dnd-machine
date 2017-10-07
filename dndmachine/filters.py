@@ -7,7 +7,7 @@ from markdown.extensions import Extension
 import re
 import md5
 
-from models import Datamapper
+from . import get_datamapper
 
 def filter_max(items):
     return max(items)
@@ -174,6 +174,8 @@ def filter_named_headers(html):
     return Markup(html)
 
 def filter_md_internal_links(md):
+    datamapper = get_datamapper()
+
     internalLinks = re.compile(
         ur"^(/(encounter|monster)/(\d+))", re.M)
 
@@ -196,6 +198,8 @@ def filter_md_internal_links(md):
     return Markup(md)
 
 def filter_linked_objects(md):
+    datamapper = get_datamapper()
+
     internalLinks = re.compile(
         ur"^(/(encounter|monster)/(\d+))", re.M)
 
