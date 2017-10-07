@@ -13,22 +13,22 @@ def get_datamapper(datamapper):
     return g.datamappers[datamapper]
 
 def markdownToToc(markdown):
-    re_titles = re.compile('^(#+) (.*)', re.M)
+    re_titles = re.compile('^(#+) (.*?)\s*$', re.M)
     root = []
     level = 1
 
     current = root
     for match in re_titles.finditer(markdown):
         depth, title = match.groups()
+
+        if len(depth) < level:
+            current = root
+            level = 0
+
         while len(depth) > level:
-            if 'children' not in current[-1]:
-                current[-1]['children'] = []
+            current[-1]['children'] = current[-1].get('children', [])
             current = current[-1]['children']
             level += 1
-        if len(depth) > level:
-            current = root
-            level = len(depth)
-            for _ in range(level):
-                current = current[-1]['children']
+
         current.append({'title': title})
     return root
