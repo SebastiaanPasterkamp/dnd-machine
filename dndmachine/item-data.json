@@ -85,6 +85,14 @@
         {"name": "Plant", "label": "Plant", "description": "Plant"},
         {"name": "Undead", "label": "Undead", "description": "Undead"}
     ],
+    "size_hit_dice": [
+        {"name": "tiny", "label": "Tiny", "dice_size": 4},
+        {"name": "small", "label": "Small", "dice_size": 6},
+        {"name": "medium", "label": "Medium", "dice_size": 8},
+        {"name": "large", "label": "Large", "dice_size": 10},
+        {"name": "huge", "label": "Huge", "dice_size": 12},
+        {"name": "gargantuan", "label": "Gargantuan", "dice_size": 20}
+    ],
     "armor": {
         "light": {
             "name": "Light Armor",

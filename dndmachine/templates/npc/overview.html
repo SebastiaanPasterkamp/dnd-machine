@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-address-card-o">NPC list</h2>
+
+<table class="nice-table condensed striped bordered hover" id="npc">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Race</th>
+            <th>Class</th>
+            <th>Alignment</th>
+            <th>Location</th>
+            <th>Organization</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for npc in npcs %}
+        <tr>
+            <td>{{ npc.name }}</td>
+            <td>{{ npc.race }}</td>
+            <td>{{ npc.class }}</td>
+            <td>{{ npc.alignment }}</td>
+            <td>{{ npc.location }}</td>
+            <td>{{ npc.organization }}</td>
+
+            <td>
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('npc.show', npc_id=npc.id) }}" class="nice-btn icon fa-eye">View</a>
+                {% if 'dm' in request.user.role %}
+                    <a href="{{ url_for('npc.edit', npc_id=npc.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                {% endif %}
+                {% if 'dm' in request.user.role %}
+                    <a href="{{ url_for('npc.copy', npc_id=npc.id) }}" class="nice-btn icon fa-copy">Copy</a>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfooter>
+        <tr>
+            <td colspan="6"></td>
+            <td>
+                <div class="nice-btn-group pull-right">
+                    <a href="{{ url_for('npc.new') }}" class="nice-btn accent icon fa-plus">Create</a>
+                </div>
+            </td>
+        </tr>
+    </tfooter>
+</table>
+{% endblock %}
