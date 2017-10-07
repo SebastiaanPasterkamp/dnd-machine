@@ -98,27 +98,30 @@
 
         <div class="nice-control-group">
             <span class="nice-input-addon">
-                Range
+                Reach
             </span>
-            <select class="nice-form-control" name="{{ path }}.range.min">
+            {% set reach = attack.reach|default({'min': 5, 'max': 5}) %}
+            <select class="nice-form-control" name="{{ path }}.reach.min">
             {% for option in range(5, 100, 5) %}
-                {% if attack.range.min == option %}
-                <option selected>{{ option }}</option>
-                {% else %}
-                <option>{{ option }}</option>
-                {% endif %}
+                <option{{ {
+                        "selected": "selected" if reach.min == option else None,
+                        "value": option
+                        }|xmlattr }}>
+                    {{ option }}
+                </option>
             {% endfor %}
             </select>
             <span class="nice-input-addon">
-                -
+                /
             </span>
-            <select class="nice-form-control" name="{{ path }}.range.max">
-            {% for option in range(5, 100, 5) %}
-                {% if attack.range.max == option %}
-                <option selected>{{ option }}</option>
-                {% else %}
-                <option>{{ option }}</option>
-                {% endif %}
+            <select class="nice-form-control" name="{{ path }}.reach.max">
+                {% for option in range(5, 100, 5) %}
+                <option{{ {
+                        "selected": "selected" if reach.max == option else None,
+                        "value": option
+                        }|xmlattr }}>
+                    {{ option }}
+                </option>
             {% endfor %}
             </select>
             <span class="nice-input-addon">
@@ -188,7 +191,7 @@
                     Type
                 </span>
                 <select class="nice-form-control" name="monster.type">
-                {% for type in item.monster_types %}
+                {% for type in items.monster_types %}
                     <option{{ {
                         "selected": "selected" if type.name == monster.type else None,
                         "value": type.name

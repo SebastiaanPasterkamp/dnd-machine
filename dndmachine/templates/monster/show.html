@@ -45,7 +45,7 @@
                     <td>
                         {% for mode, speed in monster.motion.iteritems() %}
                         {% if speed %}
-                            <strong>{{ mode }}:</strong> {{ speed }} ft.
+                            <strong>{{ mode }}:</strong> {{ speed|distance }}
                         {% endif %}
                         {% endfor %}
                     </td>
@@ -258,12 +258,9 @@
                         <td>{{ attack.target }}</td>
                     </tr>
                     <tr>
-                        <th>Range</th>
+                        <th>Reach</th>
                         <td>
-                            {% if attack.range_min < attack.range_max %}
-                            {{ attack.range_min }} -
-                            {% endif %}
-                            {{ attack.range_max }} ft.
+                            {{ attack.reach|default({'min': 5, 'max': 5})|distance }}
                         </td>
                     </tr>
                     {% if attack.on_hit %}
