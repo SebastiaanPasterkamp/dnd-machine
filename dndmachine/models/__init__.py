@@ -10,6 +10,7 @@ from character import CharacterMapper
 from dndmachine import DndMachine
 from encounter import EncounterMapper
 from monster import MonsterMapper
+from npc import NpcMapper
 from party import PartyMapper
 from user import UserMapper
 
@@ -24,4 +25,8 @@ class Datamapper(object):
         self.character = CharacterMapper(db)
         self.encounter = EncounterMapper(db)
         self.monster = MonsterMapper(db)
+        self.npc = NpcMapper(db)
         self.campaign = CampaignMapper(db)
+
+    def __getitem__(self, mapper):
+        return self.__dict__[mapper]

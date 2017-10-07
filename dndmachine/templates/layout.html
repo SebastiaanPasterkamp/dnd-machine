@@ -61,6 +61,12 @@
                             </a>
                         </li>
 
+                        <li class="highlight{% if request.path == url_for('npc.overview') %} primary{% endif %}">
+                            <a href="{{ url_for('npc.overview') }}" class="icon fa-address-card-o">
+                                NPCs
+                            </a>
+                        </li>
+
                         <li class="highlight{% if request.path == url_for('encounter.overview') %} primary{% endif %}">
                             <a href="{{ url_for('encounter.overview') }}" class="icon fa-gamepad">
                                 Encounters

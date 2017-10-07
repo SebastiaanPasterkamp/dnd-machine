@@ -1,0 +1,158 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="icon fa-plus">New NPC</h1>
+
+<form action="{{ url_for('npc.new', npc_id=npc.id) }}" method="post">
+    <button name="button" value="save" class="hidden">Hidden</button>
+
+<div id="new-npc">
+
+    <div id="base" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Base
+        </div>
+        <div class="nice-panel-content">
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Name
+                </span>
+                <input class="small nice-form-control" name="npc.name" placeholder="Name...">
+            </div>
+
+            {% for core in ["race", "class"] -%}
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    {{ core|capitalize }}
+                </span>
+                <select class="nice-form-control" name="npc.{{ core }}">
+                    {% for option in npc_data[core] -%}
+                    {% if 'sub' in option -%}
+                    <optgroup label="{{ option.name }}">
+                        {% for sub in option.sub -%}
+                        <option value="{{ sub.name }}">{{ sub.name }}</option>
+                        {%- endfor %}
+                    </optgroup>
+                    {%- else -%}
+                    <option value="{{ option.name }}">{{ option.name }}</option>
+                    {%- endif %}
+                    {%- endfor %}
+                </select>
+            </div>
+            {%- endfor %}
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Gender
+                </span>
+                <select class="nice-form-control" name="npc.gender">
+                    {%- for gender in ['male', 'female', 'genderless'] %}
+                    <option value="{{ gender }}">{{ gender|capitalize }}</option>
+                    {%- endfor %}
+                </select>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Alignment
+                </span>
+                <select class="nice-form-control" name="npc.alignment">
+                    {%- for group, options in {'good': ['lawful good', 'neutral good', 'chaotic good'], 'neutral': ['lawful neutral', 'true neutral', 'chaotic neutral'], 'evil': ['lawful evil', 'neutral evil', 'chaotic evil']}.items() %}
+                    <optgroup label="{{ group|capitalize }}">
+                        {%- for option in options %}
+                        <option value="{{ option }}">{{ option|capitalize }}</option>
+                        {%- endfor %}
+                    </optgroup>
+                    {%- endfor %}
+                </select>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Level
+                </span>
+                <select class="nice-form-control" name="npc.level">
+                {% for level in range(1, 31) %}
+                    {% if level == npc.level %}
+                    <option selected>{{ level }}</option>
+                    {% else %}
+                    <option>{{ level }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Description
+                </span>
+                <textarea rows="10" class="small nice-form-control" name="npc.description" placeholder="Description..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div id="stats" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Stats
+        </div>
+        <table class="nice-panel-content nice-table condensed bordered nice-form-group">
+            <thead>
+                <tr>
+                    <th>Statistic</th>
+                    <th>Base</th>
+                    <th>Bonus</th>
+                    <th>Final</th>
+                    <th>Modifier</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stat in items.statistics %}
+                <tr>
+                    <th>{{ stat.name }}</th>
+                    <td class="{{ class }}">
+                        <select class="small nice-form-control" data-field="base" name="npc.base_stats.{{ stat.name }}">
+                        {% for option in range(8, 16) %}
+                            {% if npc.base_stats[stat.name] == option %}
+                            <option selected>{{ option }}</option>
+                            {% else %}
+                            <option>{{ option }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
+                    </td>
+                    <td class="{{ class }}">
+                        <input type="number" disabled value="{{ npc.stats_bonus[stat.name]|sum }}" data-field="bonus" class="nice-form-control" />
+                    </td>
+                    <td class="{{ class }}">
+                        <input type="number" disabled value="{{ npc.stats[stat.name] }}" data-field="final" class="nice-form-control" />
+                    </td>
+                    <td class="{{ class }}">
+                        <input type="number" disabled value="{{ npc.modifiers[stat.name] }}" data-field="modifier" class="nice-form-control" />
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfooter>
+                <tr>
+                    <th>Budget</th>
+                    <th>
+                        <input type="number" disabled id="budget" data-total="27" value="27" class="nice-form-control" />
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfooter>
+        </table>
+    </div>
+
+    <div id="save">
+        <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+        <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
+        <button name="button" value="save" class="nice-btn primary icon fa-save">Save</button>
+    </div>
+</div>
+
+</form>
+{% endblock body %}

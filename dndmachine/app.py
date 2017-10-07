@@ -11,6 +11,7 @@ from .views.user import user
 from .views.character import character
 from .views.party import party
 from .views.monster import monster
+from .views.npc import npc
 from .views.encounter import encounter
 from .views.campaign import campaign
 
@@ -21,6 +22,7 @@ app.register_blueprint(user, url_prefix='/user')
 app.register_blueprint(character, url_prefix='/character')
 app.register_blueprint(party, url_prefix='/party')
 app.register_blueprint(monster, url_prefix='/monster')
+app.register_blueprint(npc, url_prefix='/npc')
 app.register_blueprint(encounter, url_prefix='/encounter')
 app.register_blueprint(campaign, url_prefix='/campaign')
 

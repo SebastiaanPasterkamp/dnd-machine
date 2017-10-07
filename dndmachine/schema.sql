@@ -75,3 +75,12 @@ CREATE TABLE `campaign` (
   `user_id` INTEGER,
   `config` TEXT
 );
+
+DROP TABLE IF EXISTS `npc`;
+CREATE TABLE `npc` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+  `name` TEXT NOT NULL,
+  `location` TEXT NOT NULL,
+  `organization` TEXT NOT NULL
+  `config` TEXT
+);

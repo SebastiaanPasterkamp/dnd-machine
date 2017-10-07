@@ -17,7 +17,7 @@ class DndMachine(object):
 
     def resolveMath(self, obj, formula):
         replace = {}
-        for m in re.finditer(ur'[a-z.]+', formula):
+        for m in re.finditer(ur'[a-z_.]+', formula):
             if obj.hasPath(m.group(0)):
                 replace[m.group(0)] = obj.getPath(m.group(0))
         for var, val in replace.iteritems():

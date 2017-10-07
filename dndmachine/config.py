@@ -23,6 +23,10 @@ def get_character_data():
                     part['description'] = fh.read()
         return character_data
 
+def get_npc_data():
+    with open(os.path.join('dndmachine', 'npc-data.json')) as cfg:
+        return json.load(cfg)
+
 def get_item_data():
     with open(os.path.join('dndmachine', 'item-data.json')) as cfg:
         return json.load(cfg)

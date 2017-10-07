@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="icon fa-address-card-o">NPC</h1>
+
+<div id="show-npc">
+
+    <div id="base" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Base
+        </div>
+        <table class="nice-panel-content nice-table condensed bordered">
+            <tr>
+                <th>Name</th>
+                <td>{{ npc.name }}</td>
+            </tr>
+
+            {% for core in ["race", "class"] -%}
+            <tr>
+                <th>{{ core|capitalize }}</th>
+                <td>{{ npc[core] }}</td>
+            </tr>
+            {%- endfor %}
+
+            <tr>
+                <th>Gender</th>
+                <td>{{ npc.gender|capitalize }}</td>
+            </tr>
+
+            <tr>
+                <th>Alignment</th>
+                <td>{{ npc.alignment|capitalize }}</td>
+            </tr>
+
+            <tr>
+                <th>Level</th>
+                <td>{{ npc.level }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ npc.description|markdown }}</td>
+            </tr>
+        </table >
+    </div>
+
+    <div id="statistics" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            statistics
+        </div>
+        <table class="nice-panel-content nice-table condensed bordered">
+            <thead>
+                <tr>
+                    {% for stat in items.statistics %}
+                    <th>{{ stat.label }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for stat in items.statistics %}
+                    <td>
+                        {{ npc.stats[stat.name] }}
+                        (
+                            {% if npc.modifiers[stat.name] > 0 %}+{% endif %}
+                            {{ npc.modifiers[stat.name] }}
+                        )
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div id="attributes" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Attributes
+        </div>
+        <table class="nice-panel-content nice-table condensed bordered">
+            <tbody>
+                {% for trait in npc.traits %}
+                <tr>
+                    <th>{{ trait.name }}</th>
+                    <td>{{ trait.description|markdown }}</td>
+                </tr>
+                {% endfor %}
+                {% for feature in npc.features %}
+                <tr>
+                    <th>{{ feature.name }}</th>
+                    <td>{{ feature.description|markdown }}</td>
+                </tr>
+                {% endfor %}
+                {% if npc.languages %}
+                <tr>
+                    <th>Languages</th>
+                    <td>
+                        <div class="nice-tags-container">
+                            {% for language in npc.languages %}
+                            {% if language %}
+                            <div class="nice-tag">
+                                <span class="nice-tag-label">
+                                    {{ language }}
+                                </span>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <th>Challenge Rating</th>
+                    <td>{{ npc.challenge_rating }} ({{ npc.xp }} XP)</td>
+                </tr>
+                <tr>
+                    <th>Proficiency</th>
+                    <td>{{ npc.proficiency }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock body %}
