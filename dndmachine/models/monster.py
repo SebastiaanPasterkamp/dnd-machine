@@ -74,7 +74,7 @@ class MonsterObject(JsonObject):
                     'spell_save_dc': int,
                     'average': int,
                     'critical': int,
-                    'range': {
+                    'reach': {
                         '*': int
                         },
                     'damage': {
@@ -133,12 +133,15 @@ class MonsterObject(JsonObject):
             ]
         for attack in self.attacks:
             if 'range_min' in attack:
-                attack['range'] = {
+                attack['reach'] = {
                     'min': attack['range_min'],
                     'max': attack['range_max']
                     }
                 del(attack['range_min'])
                 del(attack['range_max'])
+            if 'range' in attack:
+                attack['reach'] = attack['range']
+                del(attack['range'])
 
             attack["damage"] = [
                 damage
