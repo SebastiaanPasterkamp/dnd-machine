@@ -4,9 +4,8 @@ import json
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, jsonify, Markup
 
-from . import get_db
+from . import get_db, get_datamapper
 from .config import get_config, get_item_data
-from .utils import get_datamapper
 import filters
 from .views.user import user
 from .views.character import character
@@ -79,21 +78,22 @@ def updatedb_command():
 def get_user():
     """Checks if the user is logged in, and returns the user
     object"""
+    datamapper = get_datamapper()
+
     if session.get('user_id') is None \
             and request.endpoint not in ('login', 'static'):
         request.user = None
         if request.path != url_for('login'):
             return redirect(url_for('login'))
     else:
-        user_mapper = get_datamapper('user')
-        request.user = user_mapper.getById(session.get('user_id'))
+        request.user = datamapper.user.getById(session.get('user_id'))
 
 @app.before_request
 def get_party():
     """Checks if the user is hosting a party"""
     if session.get('party_id'):
-        party_mapper = get_datamapper('party')
-        request.party = party_mapper.getById(session.get('party_id'))
+        datamapper = get_datamapper()
+        request.party = datamapper.party.getById(session.get('party_id'))
     else:
         request.party = None
 
@@ -122,11 +122,9 @@ def home():
 def login():
     error = None
     if request.method == 'POST':
-        user_mapper = get_datamapper('user')
-
         username,password = \
             request.form['username'], request.form['password']
-        user = user_mapper.getByCredentials(username, password)
+        user = datamapper.user.getByCredentials(username, password)
 
         if user is None:
             flash('Login failed', 'error')

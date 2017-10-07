@@ -5,10 +5,10 @@ import os
 import re
 import markdown
 
+from .. import get_datamapper
 from ..models.base import JsonObject
 from ..models.character import CharacterObject
 from ..config import get_config, get_character_data, get_item_data
-from ..utils import get_datamapper
 from ..filters import filter_bonus, filter_unique
 from . import fill_pdf
 
@@ -27,10 +27,10 @@ def find_caracter_field(character_data, field, value):
 @character.route('/list')
 @character.route('/list/<int:party_id>')
 def overview(party_id=None):
-    character_mapper = get_datamapper('character')
+    datamapper = get_datamapper()
 
     search = request.args.get('search', '')
-    characters = character_mapper.getList(search)
+    characters = datamapper.character.getList(search)
     party = None
     members = []
     users = []
@@ -42,9 +42,8 @@ def overview(party_id=None):
             if c['user_id'] == request.user['id']
             ]
     else:
-        user_mapper = get_datamapper('user')
         users = dict([
-            (user_id, user_mapper.getById(user_id))
+            (user_id, datamapper.user.getById(user_id))
             for user_id in set([
                 c.user_id
                 for c in characters if c.user_id
@@ -52,9 +51,8 @@ def overview(party_id=None):
             ])
 
     if party_id is not None:
-        party_mapper = get_datamapper('party')
-        party = party_mapper.getById(party_id)
-        members = [c['id'] for c in character_mapper.getByPartyId(party_id)]
+        party = datamapper.party.getById(party_id)
+        members = [c['id'] for c in datamapper.character.getByPartyId(party_id)]
 
     return render_template(
         'character/overview.html',
@@ -69,24 +67,22 @@ def overview(party_id=None):
 @character.route('/show/<int:party_id>/<int:character_id>')
 def show(character_id, party_id=None):
     items = get_item_data()
-    character_mapper = get_datamapper('character')
-    user_mapper = get_datamapper('user')
-    machine = get_datamapper('machine')
+    datamapper = get_datamapper()
 
     party_members = []
     if party_id:
         party_members = [
             c.id
-            for c in character_mapper.getByPartyId(party_id)
+            for c in datamapper.character.getByPartyId(party_id)
             ]
 
-    c = character_mapper.getById(character_id)
+    c = datamapper.character.getById(character_id)
     if c.user_id != request.user.id \
             and c.id not in party_members \
             and not any([role in request.user.role for role in ['admin', 'dm']]):
         abort(403)
 
-    user = user_mapper.getById(c.user_id)
+    user = datamapper.user.getById(c.user_id)
 
     return render_template(
         'character/show.html',
@@ -97,9 +93,9 @@ def show(character_id, party_id=None):
 
 @character.route('/raw/<int:character_id>')
 def raw(character_id):
-    character_mapper = get_datamapper('character')
+    datamapper = get_datamapper()
 
-    c = character_mapper.getById(character_id)
+    c = datamapper.character.getById(character_id)
 
     if c['user_id'] != request.user['id'] \
             and 'admin' not in request.user['role']:
@@ -109,15 +105,13 @@ def raw(character_id):
 @character.route('/download/<int:character_id>')
 def download(character_id):
     items = get_item_data()
-    character_mapper = get_datamapper('character')
-    user_mapper = get_datamapper('user')
-    machine = get_datamapper('machine')
+    datamapper = get_datamapper()
 
-    c = character_mapper.getById(character_id)
+    c = datamapper.character.getById(character_id)
     if c['user_id'] != request.user['id'] \
             and not any([role in request.user.role for role in ['admin', 'dm']]):
         abort(403)
-    user = user_mapper.getById(c['user_id'])
+    user = datamapper.user.getById(c['user_id'])
 
     fdf_text = {
         "CharacterName": c.name,
@@ -445,10 +439,9 @@ def download(character_id):
 @character.route('/edit/<int:character_id>', methods=['GET', 'POST'])
 def edit(character_id):
     character_data = get_character_data()
-    character_mapper = get_datamapper('character')
-    machine = get_datamapper('machine')
+    datamapper = get_datamapper()
 
-    c = character_mapper.getById(character_id)
+    c = datamapper.character.getById(character_id)
     if c['user_id'] != request.user['id'] \
             and not any([role in request.user.role for role in ['admin', 'dm']]):
         abort(403)
@@ -462,7 +455,7 @@ def edit(character_id):
 
         if request.form.get("button", "save") == "save":
             c.updateFromPost(request.form)
-            c = character_mapper.save(c)
+            c = datamapper.character.save(c)
             return redirect(url_for(
                 'character.show',
                 character_id=c.id
@@ -477,10 +470,9 @@ def edit(character_id):
 @character.route('/level-up/<string:level>/<int:character_id>', methods=['GET', 'POST'])
 def level_up(character_id, level=None):
     character_data = get_character_data()
-    character_mapper = get_datamapper('character')
-    machine = get_datamapper('machine')
+    datamapper = get_datamapper()
 
-    c = character_mapper.getById(character_id)
+    c = datamapper.character.getById(character_id)
     if c['user_id'] != request.user['id'] \
             and not any([role in request.user.role for role in ['admin', 'dm']]):
         abort(403)
@@ -547,14 +539,14 @@ def level_up(character_id, level=None):
                     (key, val),
                     (
                         key.replace('_formula', ''),
-                        machine.resolveMath(c, val)
+                        datamapper.machine.resolveMath(c, val)
                         )
                     ]
-            if any(machine.items.getPath(v) for v in val.split(',')):
+            if any(datamapper.machine.items.getPath(v) for v in val.split(',')):
                 return [(key, [
                     item
                     for v in val.split(',')
-                    for item in machine.items.getPath(v) or val
+                    for item in datamapper.machine.items.getPath(v) or val
                     ])]
             return [
                 (key, val)
@@ -597,7 +589,7 @@ def level_up(character_id, level=None):
 
             c.updateFromPost(request.form)
             c.creation.append(level)
-            c = character_mapper.save(c)
+            c = datamapper.character.save(c)
 
             return redirect(url_for(
                 'character.level_up',
@@ -613,14 +605,14 @@ def level_up(character_id, level=None):
 
 @character.route('/del/<int:character_id>')
 def delete(character_id):
-    character_mapper = get_datamapper('character')
+    datamapper = get_datamapper()
 
-    c = character_mapper.getById(character_id)
+    c = datamapper.character.getById(character_id)
     if c['user_id'] != request.user['id'] \
             and 'admin' not in request.user['role']:
         abort(403)
 
-    character_mapper.delete(c)
+    datamapper.character.delete(c)
 
     return redirect(url_for(
         'character.overview'
@@ -630,14 +622,14 @@ def delete(character_id):
 @character.route('/new/<int:character_id>', methods=['GET', 'POST'])
 def new(character_id=None):
     character_data = get_character_data()
-    character_mapper = get_datamapper('character')
+    datamapper = get_datamapper()
 
     c = CharacterObject({
         'user_id': request.user.id
         })
 
     if character_id:
-        old = character_mapper.getById(character_id)
+        old = datamapper.character.getById(character_id)
         if old.user_id != request.user.id \
                 and not any([role in request.user.role for role in ['admin', 'dm']]):
             abort(403)
@@ -674,7 +666,7 @@ def new(character_id=None):
             )
 
         if completed and request.form.get("button", "save") == "save":
-            c = character_mapper.save(c)
+            c = datamapper.character.save(c)
             return redirect(url_for(
                 'character.level_up',
                 character_id=c.id
@@ -783,13 +775,11 @@ def create(character_id=None):
         return obj
 
 
-    character_mapper = get_datamapper('character')
-    machine = get_datamapper('machine')
     c = CharacterObject({
         'user_id': request.user['id']
         })
     if character_id:
-        c = character_mapper.getById(character_id)
+        c = datamapper.character.getById(character_id)
     options = {}
 
     tabs = ['race', 'class', 'background', 'stats', 'customize']
@@ -836,7 +826,7 @@ def create(character_id=None):
                     setPerks(c, sub[0], options)
 
         if request.form.get("button", "save") == "save":
-            c = character_mapper.save(c)
+            c = datamapper.character.save(c)
             return redirect(url_for(
                 'character.edit',
                 character_id=c['id']
@@ -879,19 +869,19 @@ def create(character_id=None):
 @character.route('/copy/<int:character_id>/<int:target_id>')
 def copy(character_id, target_id=None):
     config = get_config()
-    character_mapper = get_datamapper('character')
+    datamapper = get_datamapper()
 
-    c = character_mapper.getById(character_id)
+    c = datamapper.character.getById(character_id)
     c = c.clone()
     c.user_id = request.user.id
     if target_id != None:
-        target = character_mapper.getById(target_id)
+        target = datamapper.character.getById(target_id)
         c.id = target.id
         c.user_id = target.user_id
     else:
         c.name += " (copy)"
 
-    c = character_mapper.save(c)
+    c = datamapper.character.save(c)
 
     return redirect(url_for(
         'character.edit',
@@ -901,15 +891,15 @@ def copy(character_id, target_id=None):
 @character.route('/xp/<int:character_id>/<int:xp>')
 def xp(character_id, xp):
     config = get_config()
-    character_mapper = get_datamapper('character')
+    datamapper = get_datamapper()
 
     if not any([role in request.user.role for role in ['admin', 'dm']]):
         abort(403)
 
-    c = character_mapper.getById(character_id)
+    c = datamapper.character.getById(character_id)
     c.xp += xp
 
-    c = character_mapper.update(c)
+    c = datamapper.character.update(c)
 
     return redirect(url_for(
         'character.show',

@@ -2,8 +2,8 @@
 from flask import Blueprint, request, session, g, redirect, url_for, abort, \
     render_template, flash
 
+from .. import get_datamapper
 from ..models.party import PartyObject
-from ..utils import get_datamapper
 
 party = Blueprint(
     'party', __name__, template_folder='templates')
@@ -11,24 +11,23 @@ party = Blueprint(
 @party.route('/')
 @party.route('/list')
 def overview():
-    party_mapper = get_datamapper('party')
-    character_mapper = get_datamapper('character')
+    datamapper = get_datamapper()
 
     search = request.args.get('search', '')
-    parties = party_mapper.getList(search)
+    parties = datamapper.party.getList(search)
 
     if 'admin' not in request.user.role:
         visibleParties = set()
         if 'player' in request.user.role:
             visibleParties |= set([
                 party.id
-                for party in party_mapper.getByUserId(request.user.id)
+                for party in datamapper.party.getByUserId(request.user.id)
                 ])
             print 'player', visibleParties
         if 'dm' in request.user.role:
             visibleParties |= set([
                 party.id
-                for party in party_mapper.getByDmUserId(request.user.id)
+                for party in datamapper.party.getByDmUserId(request.user.id)
                 ])
             print 'dm', visibleParties
         parties = [
@@ -38,7 +37,7 @@ def overview():
             ]
 
     for party in parties:
-        party.members = character_mapper.getByPartyId(party.id)
+        party.members = datamapper.character.getByPartyId(party.id)
 
     return render_template(
         'party/overview.html',
@@ -48,16 +47,12 @@ def overview():
 
 @party.route('/show/<int:party_id>')
 def show(party_id):
-    party_mapper = get_datamapper('party')
-    user_mapper = get_datamapper('user')
-    character_mapper = get_datamapper('character')
-    encounter_mapper = get_datamapper('encounter')
-    machine = get_datamapper('machine')
+    datamapper = get_datamapper()
 
-    p = party_mapper.getById(party_id)
-    p.members = character_mapper.getByPartyId(party_id)
+    p = datamapper.party.getById(party_id)
+    p.members = datamapper.character.getByPartyId(party_id)
 
-    user = user_mapper.getById(p['user_id'])
+    user = datamapper.user.getById(p['user_id'])
 
     return render_template(
         'party/show.html',
@@ -68,9 +63,9 @@ def show(party_id):
 
 @party.route('/edit/<int:party_id>', methods=['GET', 'POST'])
 def edit(party_id):
-    party_mapper = get_datamapper('party')
+    datamapper = get_datamapper()
 
-    p = party_mapper.getById(party_id)
+    p = datamapper.party.getById(party_id)
     if p['user_id'] != request.user['id'] \
             and 'admin' not in request.user['role']:
         abort(403)
@@ -85,7 +80,7 @@ def edit(party_id):
         p.updateFromPost(request.form)
 
         if request.form.get("button", "save") == "save":
-            party_mapper.update(p)
+            datamapper.party.update(p)
             return redirect(url_for(
                 'party.show',
                 party_id=party_id
@@ -98,10 +93,10 @@ def edit(party_id):
 
 @party.route('/del/<int:party_id>')
 def delete(party_id):
-    party_mapper = get_datamapper('party')
+    datamapper = get_datamapper()
 
-    p = party_mapper.getById(party_id)
-    party_mapper.delete(p)
+    p = datamapper.party.getById(party_id)
+    datamapper.party.delete(p)
 
     return redirect(url_for(
         'party.overview'
@@ -109,7 +104,7 @@ def delete(party_id):
 
 @party.route('/new', methods=['GET', 'POST'])
 def new():
-    party_mapper = get_datamapper('party')
+    datamapper = get_datamapper()
 
     p = PartyObject({
         'user_id': request.user['id']
@@ -124,7 +119,7 @@ def new():
         p.updateFromPost(request.form)
 
         if request.form.get("button", "save") == "save":
-            p = party_mapper.insert(p)
+            p = datamapper.party.insert(p)
             return redirect(url_for(
                 'party.show',
                 party_id=p['id']
@@ -143,16 +138,13 @@ def host(party_id):
 @party.route('/<int:party_id>/<action>_character/<int:character_id>')
 @party.route('/<int:party_id>/award_<action>/<int:encounter_id>')
 def modify(party_id, action, character_id=None, encounter_id=None):
-    party_mapper = get_datamapper('party')
-    character_mapper = get_datamapper('character')
+    datamapper = get_datamapper()
 
-    print 'modify', party_id, action, character_id, encounter_id
-
-    p = party_mapper.getById(party_id)
-    character = character_mapper.getById(character_id)
+    p = datamapper.party.getById(party_id)
+    character = datamapper.character.getById(character_id)
 
     if action == 'add' and character_id:
-        party_mapper.addCharacter(party_id, character_id)
+        datamapper.party.addCharacter(party_id, character_id)
         flash(
             "The Character '%s' was added to Party '%s'." % (
                 character.name,
@@ -161,7 +153,7 @@ def modify(party_id, action, character_id=None, encounter_id=None):
             'info'
             )
     elif action == 'del' and character_id:
-        party_mapper.delCharacter(party_id, character_id)
+        datamapper.party.delCharacter(party_id, character_id)
         flash(
             "The Character '%s' was removed from Party '%s'." % (
                 character.name,
@@ -170,18 +162,15 @@ def modify(party_id, action, character_id=None, encounter_id=None):
             'info'
             )
     elif action == 'xp' and encounter_id:
-        encounter_mapper = get_datamapper('encounter')
-        monster_mapper = get_datamapper('monster')
+        p.members = datamapper.character.getByPartyId(party_id)
 
-        p.members = character_mapper.getByPartyId(party_id)
-
-        encounter = encounter_mapper.getById(encounter_id)
+        encounter = datamapper.encounter.getById(encounter_id)
         encounter.party = p
-        encounter.monsters = monster_mapper.getByEncounterId(encounter_id)
+        encounter.monsters = datamapper.monster.getByEncounterId(encounter_id)
 
         for character in p.members:
             character.xp += int(encounter.xp / len(p.members))
-            character_mapper.update(character)
+            datamapper.character.update(character)
 
         flash(
             "The Characters have been rewarded %d XP (%d / %d)." % (
@@ -193,8 +182,8 @@ def modify(party_id, action, character_id=None, encounter_id=None):
     else:
         flash("Unknown action '%s' or missing parameter(s)." % action, 'error')
 
-    p.members = character_mapper.getByPartyId(party_id)
+    p.members = datamapper.character.getByPartyId(party_id)
 
-    party_mapper.update(p)
+    datamapper.party.update(p)
 
     return redirect(request.referrer)
