@@ -1,4 +1,4 @@
-from flask import Markup
+from flask import Markup, url_for
 
 import markdown
 from markdown.util import etree
@@ -6,6 +6,8 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 import re
 import md5
+
+from .utils import get_datamapper
 
 def filter_max(items):
     return max(items)
@@ -18,7 +20,7 @@ def filter_sanitize(text):
 def filter_unique(listing):
     unique = dict()
     for item in listing:
-        key = filter_md5(item)
+        key = item['id'] if 'id' in item else filter_md5(item)
         u = unique[key] = unique.get(key, {
             'count': 0,
             'item': item
@@ -43,6 +45,13 @@ def filter_bonus(number):
         return "+%d" % number
     return "%d" % number
 
+def filter_distance(dist):
+    if isinstance(dist, dict):
+        if dist['min'] >= dist['max']:
+            return "%(min)d ft." % dist
+        return "%(min)d/%(max)d ft." % dist
+    return "%d ft." % dist
+
 def filter_classify(number, ranges={}):
     closest = min(
         ranges,
@@ -58,6 +67,16 @@ def filter_completed(tabs, completed):
         else:
             yield tab, False, current
             current = False
+
+def filter_by_name(name, items, default=None):
+    matches = [
+        item
+        for item in items
+        if item['name'] == name
+        ]
+    if matches:
+        return matches[0]
+    return default
 
 def filter_json(structure):
     return json.dumps(
