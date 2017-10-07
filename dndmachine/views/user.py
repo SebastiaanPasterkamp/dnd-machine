@@ -2,9 +2,9 @@
 from flask import Blueprint, request, session, g, redirect, url_for, \
     abort, render_template, flash, jsonify
 
+from .. import get_datamapper
 from ..models.user import UserObject
 from ..config import get_config
-from ..utils import get_datamapper
 
 user = Blueprint(
     'user', __name__, template_folder='templates')
@@ -17,10 +17,10 @@ def overview():
         abort(403)
 
     config = get_config()
-    user_mapper = get_datamapper('user')
+    datamapper = get_datamapper()
 
     search = request.args.get('search', '')
-    users = user_mapper.getList(search)
+    users = datamapper.user.getList(search)
     return render_template(
         'user/overview.html',
         data=config['data'],
@@ -38,9 +38,9 @@ def show(user_id):
         abort(403)
 
     config = get_config()
-    user_mapper = get_datamapper('user')
+    datamapper = get_datamapper()
 
-    u = user_mapper.getById(user_id)
+    u = datamapper.user.getById(user_id)
     return render_template(
         'user/show.html',
         data=config['data'],
@@ -54,9 +54,9 @@ def edit(user_id):
         abort(403)
 
     config = get_config()
-    user_mapper = get_datamapper('user')
+    datamapper = get_datamapper()
 
-    u = user_mapper.getById(user_id)
+    u = datamapper.user.getById(user_id)
 
     if request.method == 'POST':
         if request.form["button"] == "cancel":
@@ -68,7 +68,7 @@ def edit(user_id):
         u.updateFromPost(request.form)
 
         if request.form.get("button", "save") == "save":
-            user_mapper.update(u)
+            datamapper.user.update(u)
             return redirect(url_for(
                 'user.show',
                 user_id=user_id
@@ -86,6 +86,7 @@ def new():
         abort(403)
 
     config = get_config()
+    datamapper = get_datamapper()
 
     u = UserObject()
 
@@ -99,8 +100,7 @@ def new():
         u.updateFromPost(request.form)
 
         if request.form.get("button", "save") == "save":
-            user_mapper = get_datamapper('user')
-            u = user_mapper.insert(u)
+            u = datamapper.user.insert(u)
             return redirect(url_for(
                 'user.show',
                 user_id=u.id

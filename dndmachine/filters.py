@@ -7,7 +7,7 @@ from markdown.extensions import Extension
 import re
 import md5
 
-from .utils import get_datamapper
+from models import Datamapper
 
 def filter_max(items):
     return max(items)
@@ -177,14 +177,9 @@ def filter_md_internal_links(md):
     internalLinks = re.compile(
         ur"^(/(encounter|monster)/(\d+))", re.M)
 
-    mappers = {
-        'encounter': get_datamapper('encounter'),
-        'monster': get_datamapper('monster')
-        }
-
     for match in internalLinks.finditer(md):
         full, view, view_id = match.groups()
-        obj = mappers[view].getById(int(view_id))
+        obj = datamapper[view].getById(int(view_id))
 
         if obj is None:
             continue
@@ -204,15 +199,10 @@ def filter_linked_objects(md):
     internalLinks = re.compile(
         ur"^(/(encounter|monster)/(\d+))", re.M)
 
-    mappers = {
-        'encounter': get_datamapper('encounter'),
-        'monster': get_datamapper('monster')
-        }
-
     info = []
     for match in internalLinks.finditer(md):
         full, view, view_id = match.groups()
-        obj = mappers[view].getById(int(view_id))
+        obj = datamapper[view].getById(int(view_id))
 
         if obj is None:
             continue

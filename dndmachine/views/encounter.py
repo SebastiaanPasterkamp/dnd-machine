@@ -3,8 +3,8 @@ from flask import Blueprint, request, session, g, redirect, url_for, \
     abort, render_template, jsonify, flash
 import re
 
+from .. import get_datamapper
 from ..models.encounter import EncounterObject
-from ..utils import get_datamapper
 
 encounter = Blueprint(
     'encounter', __name__, template_folder='templates')
@@ -12,11 +12,10 @@ encounter = Blueprint(
 @encounter.route('/')
 @encounter.route('/list')
 def overview(encounter_id=None):
-    encounter_mapper = get_datamapper('encounter')
+    datamapper = get_datamapper()
 
     search = request.args.get('search', '')
-    encounters = encounter_mapper.getList(search)
-    monster_mapper = get_datamapper('monster')
+    encounters = datamapper.encounter.getList(search)
 
     if 'admin' not in request.user['role']:
         encounters = [
@@ -26,7 +25,7 @@ def overview(encounter_id=None):
             ]
 
     for e in encounters:
-        e.monsters = monster_mapper.getByEncounterId(e.id)
+        e.monsters = datamapper.monster.getByEncounterId(e.id)
     if request.party:
         for e in encounters:
             e.party = request.party
@@ -45,20 +44,16 @@ def show(encounter_id, party_id=None):
             return redirect( url_for('encounter.show', encounter_id=encounter_id, party_id=request.party.id) )
         return redirect( url_for('party.overview', encounter_id=encounter_id) )
 
-    encounter_mapper = get_datamapper('encounter')
-    user_mapper = get_datamapper('user')
-    party_mapper = get_datamapper('party')
-    character_mapper = get_datamapper('character')
-    monster_mapper = get_datamapper('monster')
+    datamapper = get_datamapper()
 
-    e = encounter_mapper.getById(encounter_id)
-    user = user_mapper.getById(e.user_id)
+    e = datamapper.encounter.getById(encounter_id)
+    user = datamapper.user.getById(e.user_id)
 
-    party = party_mapper.getById(party_id)
-    party.members = character_mapper.getByPartyId(party_id)
+    party = datamapper.party.getById(party_id)
+    party.members = datamapper.character.getByPartyId(party_id)
     e.party = party
 
-    e.monsters = monster_mapper.getByEncounterId(encounter_id)
+    e.monsters = datamapper.monster.getByEncounterId(encounter_id)
 
     combatants = [
         {
@@ -142,15 +137,13 @@ def show(encounter_id, party_id=None):
 
 @encounter.route('/edit/<int:encounter_id>', methods=['GET', 'POST'])
 def edit(encounter_id):
-    encounter_mapper = get_datamapper('encounter')
-    monster_mapper = get_datamapper('monster')
-    machine = get_datamapper('machine')
+    datamapper = get_datamapper()
 
-    e = encounter_mapper.getById(encounter_id)
+    e = datamapper.encounter.getById(encounter_id)
     if e.user_id != request.user.id \
             and 'admin' not in request.user.role:
         abort(403)
-    e.monsters = monster_mapper.getByEncounterId(encounter_id)
+    e.monsters = datamapper.monster.getByEncounterId(encounter_id)
 
     if request.method == 'POST':
         if request.form["button"] == "cancel":
@@ -162,20 +155,20 @@ def edit(encounter_id):
         e.updateFromPost(request.form)
 
         if request.form.get("button", "save") == "save":
-            encounter_mapper.update(e)
+            datamapper.encounter.update(e)
             return redirect(url_for(
                 'encounter.show',
                 encounter_id=encounter_id
                 ))
 
         if request.form.get("button", "save") == "update":
-            encounter_mapper.update(e)
+            datamapper.encounter.update(e)
             return redirect(url_for(
                 'encounter.edit',
                 encounter_id=encounter_id
                 ))
 
-    e.monsters = monster_mapper.getByEncounterId(encounter_id)
+    e.monsters = datamapper.monster.getByEncounterId(encounter_id)
 
     return render_template(
         'encounter/edit.html',
@@ -185,14 +178,14 @@ def edit(encounter_id):
 
 @encounter.route('/del/<int:encounter_id>')
 def delete(encounter_id):
-    encounter_mapper = get_datamapper('encounter')
+    datamapper = get_datamapper()
 
-    e = encounter_mapper.getById(encounter_id)
+    e = datamapper.encounter.getById(encounter_id)
     if e.user_id != request.user.id \
             and 'admin' not in request.user.role:
         abort(403)
 
-    encounter_mapper.delete(e)
+    datamapper.encounter.delete(e)
 
     return redirect(url_for(
         'encounter.overview'
@@ -200,7 +193,7 @@ def delete(encounter_id):
 
 @encounter.route('/new', methods=['GET', 'POST'])
 def new():
-    encounter_mapper = get_datamapper('encounter')
+    datamapper = get_datamapper()
 
     e = EncounterObject({
         'user_id': request.user.id
@@ -215,7 +208,7 @@ def new():
         e.updateFromPost(request.form)
 
         if request.form.get("button", "save") == "save":
-            e = encounter_mapper.insert(e)
+            e = datamapper.encounter.insert(e)
             return redirect(url_for(
                 'encounter.edit',
                 encounter_id=e.id
@@ -228,14 +221,13 @@ def new():
 
 @encounter.route('/<int:encounter_id>/<action>/<int:monster_id>')
 def modify(encounter_id, action, monster_id):
-    encounter_mapper = get_datamapper('encounter')
-    monster_mapper = get_datamapper('monster')
+    datamapper = get_datamapper()
 
-    e = encounter_mapper.getById(encounter_id)
-    monster = monster_mapper.getById(monster_id)
+    e = datamapper.encounter.getById(encounter_id)
+    monster = datamapper.monster.getById(monster_id)
 
     if action == 'add':
-        encounter_mapper.addMonster(encounter_id, monster_id)
+        datamapper.encounter.addMonster(encounter_id, monster_id)
         flash(
             "The Monster '%s' was added to Encounter '%s'." % (
                 monster.name,
@@ -244,7 +236,7 @@ def modify(encounter_id, action, monster_id):
             'info'
             )
     elif action == 'del':
-        encounter_mapper.delMonster(encounter_id, monster_id)
+        datamapper.encounter.delMonster(encounter_id, monster_id)
         flash(
             "The Monster '%s' was removed from Encounter '%s'." % (
                 monster.name,
@@ -255,7 +247,7 @@ def modify(encounter_id, action, monster_id):
     else:
         flash("Unknown action '%s'." % action, 'error')
 
-    e.monsters = monster_mapper.getByEncounterId(encounter_id)
-    encounter_mapper.update(e)
+    e.monsters = datamapper.monster.getByEncounterId(encounter_id)
+    datamapper.encounter.update(e)
 
     return redirect(request.referrer)
