@@ -49,6 +49,11 @@
             {"name": "undercommon", "label": "Undercommon", "speakers": "Underdark traders", "script": "Elvish"}
         ]
     },
+    "target_methods": [
+        {"name": "single", "label": "Single target", "description": "One target is affected."},
+        {"name": "multiple", "label": "Multi-target", "description": "Multiple targets are affected. Usually when clustered together."},
+        {"name": "area", "label": "Area of Effect", "description": "An area of a specific size and shape is affected. Every designated target inside is affected."}
+    ],
     "damage_types": [
         {"name": "acid", "label": "Acid", "short": "Acid", "description": "The corrosive spray of a black dragon's breath and the dissolving enzymes secreted by a black pudding deal acid damage." },
         {"name": "bludgeoning", "label": "Bludgeoning", "short": "Bldgn", "description": "Blunt force attacks—hammers, falling, constriction, and the like—deal bludgeoning damage." },
@@ -63,6 +68,22 @@
         {"name": "radiant", "label": "Radiant", "short": "Radnt", "description": "Radiant damage, dealt by a cleric's flame strike spell or an angel's smiting weapon, sears the flesh like fire and overloads the spirit with power." },
         {"name": "slashing", "label": "Slashing", "short": "Slash", "description": "Swords, axes, and monsters' claws deal slashing damage." },
         {"name": "thunder", "label": "Thunder", "short": "Thndr", "description": "A concussive burst of sound, such as the effect of the Thunderwave spell, deals thunder damage." }
+    ],
+    "monster_types": [
+        {"name": "Aberration", "label": "Aberration", "description": "Aberration"},
+        {"name": "Beast", "label": "Beast", "description": "Beast"},
+        {"name": "Celestial", "label": "Celestial", "description": "Celestial"},
+        {"name": "Construct", "label": "Construct", "description": "Construct"},
+        {"name": "Dragon", "label": "Dragon", "description": "Dragon"},
+        {"name": "Elemental", "label": "Elemental", "description": "Elemental"},
+        {"name": "Fey", "label": "Fey", "description": "Fey"},
+        {"name": "Fiend", "label": "Fiend", "description": "Fiend"},
+        {"name": "Giant", "label": "Giant", "description": "Giant"},
+        {"name": "Humanoid", "label": "Humanoid", "description": "Humanoid"},
+        {"name": "Monstrosity", "label": "Monstrosity", "description": "Monstrosity"},
+        {"name": "Ooze", "label": "Ooze", "description": "Ooze"},
+        {"name": "Plant", "label": "Plant", "description": "Plant"},
+        {"name": "Undead", "label": "Undead", "description": "Undead"}
     ],
     "armor": {
         "light": {
