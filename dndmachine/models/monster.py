@@ -21,6 +21,7 @@ class MonsterObject(JsonObject):
                 "hit_points_notation": u"1d4",
                 "armor_class": 10,
                 "proficiency": 0,
+                "passive_perception": 0,
                 "traits": [],
                 "features": [],
                 "languages": [],
@@ -73,6 +74,9 @@ class MonsterObject(JsonObject):
                     'spell_save_dc': int,
                     'average': int,
                     'critical': int,
+                    'range': {
+                        '*': int
+                        },
                     'damage': {
                         '*': int,
                         'mode': unicode,
@@ -100,6 +104,8 @@ class MonsterObject(JsonObject):
         for stat, value in self.stats.iteritems():
             self.modifiers[stat] = (value - 10) / 2
 
+        self.passive_perception = 10 + self.modifiersWisdom
+
         dice_size = machine.findByName(
             self.size, machine.size_hit_dice)['dice_size']
 
@@ -126,6 +132,14 @@ class MonsterObject(JsonObject):
             if attack.get("name", False)
             ]
         for attack in self.attacks:
+            if 'range_min' in attack:
+                attack['range'] = {
+                    'min': attack['range_min'],
+                    'max': attack['range_max']
+                    }
+                del(attack['range_min'])
+                del(attack['range_max'])
+
             attack["damage"] = [
                 damage
                 for damage in attack.get("damage", [])

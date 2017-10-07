@@ -2,7 +2,10 @@
 from flask import Blueprint, request, session, g, redirect, url_for, abort, \
     render_template, flash, jsonify
 
+import re
+
 from ..utils import get_datamapper, markdownToToc
+from ..filters import filter_unique
 
 campaign = Blueprint(
     'campaign', __name__, template_folder='templates')
@@ -39,12 +42,49 @@ def show(campaign_id, party_id=None):
     user_mapper = get_datamapper('user')
     character_mapper = get_datamapper('character')
     party_mapper = get_datamapper('party')
+    encounter_mapper = get_datamapper('encounter')
+    monster_mapper = get_datamapper('monster')
 
     c = campaign_mapper.getById(campaign_id)
     party = party_mapper.getById(party_id)
     user = user_mapper.getById(c.user_id)
 
     characters = character_mapper.getByPartyId(party_id)
+
+    replace = {}
+    for match in re.finditer(ur"^/encounter/(\d+)\s*$", c.story, re.M):
+        pattern, encounter_id = match.group(0), int(match.group(1))
+        if pattern not in replace:
+            encounter = encounter_mapper.getById(encounter_id)
+            if encounter is None:
+                continue
+            encounter.monsters = \
+                monster_mapper.getByEncounterId(encounter.id)
+
+            replace[pattern] = pattern
+            replace[pattern] += "\n" + render_template(
+                'encounter/show.md',
+                encounter=encounter
+                )
+
+            skip = set()
+            for monster in sorted(encounter.monsters,\
+                    key=lambda m: m.challenge_rating):
+                if monster.id in skip:
+                    continue
+                skip.add(monster.id)
+
+                replace[pattern] += "\n\n" + render_template(
+                    'monster/show.md',
+                    monster=monster
+                    )
+            replace[pattern] += "\n"
+
+    c.story = reduce(
+        lambda a, kv: a.replace(*kv),
+        replace.iteritems(),
+        c.story
+        )
 
     c.toc = markdownToToc(c.story)
 

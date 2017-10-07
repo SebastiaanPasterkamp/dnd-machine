@@ -100,9 +100,9 @@
             <span class="nice-input-addon">
                 Range
             </span>
-            <select class="nice-form-control" name="{{ path }}.range_min">
+            <select class="nice-form-control" name="{{ path }}.range.min">
             {% for option in range(5, 100, 5) %}
-                {% if attack.range_min == option %}
+                {% if attack.range.min == option %}
                 <option selected>{{ option }}</option>
                 {% else %}
                 <option>{{ option }}</option>
@@ -112,9 +112,9 @@
             <span class="nice-input-addon">
                 -
             </span>
-            <select class="nice-form-control" name="{{ path }}.range_max">
+            <select class="nice-form-control" name="{{ path }}.range.max">
             {% for option in range(5, 100, 5) %}
-                {% if attack.range_max == option %}
+                {% if attack.range.max == option %}
                 <option selected>{{ option }}</option>
                 {% else %}
                 <option>{{ option }}</option>
@@ -188,12 +188,12 @@
                     Type
                 </span>
                 <select class="nice-form-control" name="monster.type">
-                {% for type in machine.monster_types %}
-                    {% if type == monster.type %}
-                    <option selected>{{ type }}</option>
-                    {% else %}
-                    <option>{{ type }}</option>
-                    {% endif %}
+                {% for type in item.monster_types %}
+                    <option{{ {
+                        "selected": "selected" if type.name == monster.type else None,
+                        "value": type.name
+                        }|xmlattr }}>{{ type.label }}
+                    </option>
                 {% endfor %}
                 </select>
             </div>
