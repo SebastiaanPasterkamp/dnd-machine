@@ -213,12 +213,13 @@
                         <th>Alignment</th>
                         <td>
                             <select class="nice-form-control" name="character.alignment">
-                            {% for b in ['good', 'neutral', 'evil'] %}
-                            {% for a in ['lawful', 'neutral', 'chaotic'] %}
-                                {% set alignment = ('true' if a == b else a) + ' ' + b %}
-                                <option value="{{ alignment }}">{{ alignment|capitalize }}</option>
-                            {% endfor %}
-                            {% endfor %}
+                                {%- for group, options in {'good': ['lawful good', 'neutral good', 'chaotic good'], 'neutral': ['lawful neutral', 'true neutral', 'chaotic neutral'], 'evil': ['lawful evil', 'neutral evil', 'chaotic evil']}.items() %}
+                                <optgroup label="{{ group|capitalize }}">
+                                    {%- for option in options %}
+                                    <option value="{{ option }}">{{ option|capitalize }}</option>
+                                    {%- endfor %}
+                                </optgroup>
+                                {%- endfor %}
                             </select>
                         </td>
                     </tr>

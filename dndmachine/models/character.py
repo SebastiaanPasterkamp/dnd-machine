@@ -117,6 +117,7 @@ class CharacterObject(JsonObject):
                 "level": int,
                 "hit_points": int,
                 "hit_dice": int,
+                "speed": int,
                 "proficiency": int,
                 "proficiency_alt": int,
                 "initiative_bonus": int,
@@ -207,16 +208,6 @@ class CharacterObject(JsonObject):
     def compute(self):
         config = get_config()
         machine = DndMachine(config["machine"], get_item_data())
-
-        if isinstance(self.spell_attack_modifier, dict):
-            self.computedSpell_attack_modifier = \
-                self.spell_attack_modifier
-        if isinstance(self.spell_safe_dc, dict):
-            self.computedSpell_safe_dc = \
-                self.spell_safe_dc
-        if isinstance(self.hit_points, dict):
-            self.computedHit_points = \
-                self.hit_points
 
         for ability in self.ability_improvement:
             if ability in self.stats_bonus:
