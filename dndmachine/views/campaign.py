@@ -57,10 +57,10 @@ def show(campaign_id, party_id=None):
             encounter.monsters = \
                 datamapper.monster.getByEncounterId(encounter.id)
 
-            replace[pattern] = pattern
-            replace[pattern] += "\n" + render_template(
+            replace[pattern] = "\n" + render_template(
                 'encounter/show.md',
-                encounter=encounter
+                encounter=encounter,
+                indent='##'
                 )
 
             skip = set()
@@ -72,9 +72,23 @@ def show(campaign_id, party_id=None):
 
                 replace[pattern] += "\n\n" + render_template(
                     'monster/show.md',
-                    monster=monster
+                    monster=monster,
+                    indent='###'
                     )
             replace[pattern] += "\n"
+
+    for match in re.finditer(ur"^/npc/(\d+)\s*$", c.story, re.M):
+        pattern, npc_id = match.group(0), int(match.group(1))
+        if pattern not in replace:
+            npc = datamapper.npc.getById(npc_id)
+            if npc is None:
+                continue
+
+            replace[pattern] = "\n" + render_template(
+                'npc/show.md',
+                npc=npc,
+                indent='##'
+                ) + "\n"
 
     c.story = reduce(
         lambda a, kv: a.replace(*kv),
