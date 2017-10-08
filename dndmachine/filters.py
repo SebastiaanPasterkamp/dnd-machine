@@ -173,30 +173,6 @@ def filter_named_headers(html):
             )
     return Markup(html)
 
-def filter_md_internal_links(md):
-    datamapper = get_datamapper()
-
-    internalLinks = re.compile(
-        ur"^(/(encounter|monster)/(\d+))", re.M)
-
-    for match in internalLinks.finditer(md):
-        full, view, view_id = match.groups()
-        obj = datamapper[view].getById(int(view_id))
-
-        if obj is None:
-            continue
-
-        args = {'%s_id'%view: view_id}
-        md = md.replace(
-            full,
-            u"**%(view)s**: [%(title)s](%(url)s)" % {
-                'view': view.capitalize(),
-                'title': obj['name'],
-                'url': url_for('%s.show' % view, **args)
-                }
-            )
-    return Markup(md)
-
 def filter_linked_objects(md):
     datamapper = get_datamapper()
 

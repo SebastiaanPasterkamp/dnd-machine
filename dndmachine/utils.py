@@ -26,6 +26,8 @@ def markdownToToc(markdown):
             level = 0
 
         while len(depth) > level:
+            if not current:
+                current.append({'title': ''})
             current[-1]['children'] = current[-1].get('children', [])
             current = current[-1]['children']
             level += 1

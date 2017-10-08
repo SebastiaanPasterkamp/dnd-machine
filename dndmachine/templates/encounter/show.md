@@ -1,4 +1,4 @@
-### {{ encounter.name }}
+{{ indent }}# [{{ encounter.name }}](/encounter/show/{{ encounter.id }})
 
 {{ encounter.description }}
 
