@@ -1,14 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
-{% if character.id %}
 <h2 class="icon fa-pencil">Character</h2>
 
-<form action="{{ url_for('character.edit', current_phase=current_phase, character_id=character.id) }}" method="post">
-{% else %}
-<h2 class="icon fa-plus">Character</h2>
-
-<form action="{{ url_for('character.new') }}" method="post">
-{% endif %}
+<form action="{{ url_for('character.edit', character_id=character.id) }}" method="post">
     <button name="button" value="save" class="hidden">Hidden</button>
 
 <div id="edit-character">
@@ -28,19 +22,19 @@
 
             <div class="nice-control-group">
                 <span class="nice-input-addon">
-                    Alignment {{ character.alignment }}
+                    Alignment
                 </span>
                 <select class="nice-form-control" name="character.alignment">
-                {% for b in ['good', 'neutral', 'evil'] %}
-                {% for a in ['lawful', 'neutral', 'chaotic'] %}
-                    {% set alignment = ('true' if a == b else a) + ' ' + b %}
-                    {% if alignment == character.alignment %}
-                    <option value="{{ alignment }}" selected>{{ alignment|capitalize }}</option>
-                    {% else %}
-                    <option value="{{ alignment }}">{{ alignment|capitalize }}</option>
-                    {% endif%}
-                {% endfor %}
-                {% endfor %}
+                    {%- for group, options in {'good': ['lawful good', 'neutral good', 'chaotic good'], 'neutral': ['lawful neutral', 'true neutral', 'chaotic neutral'], 'evil': ['lawful evil', 'neutral evil', 'chaotic evil']}.items() %}
+                    <optgroup label="{{ group|capitalize }}">
+                        {%- for option in options %}
+                        <option{{ {
+                                "selected": "selected" if character.alignment == option else None,
+                                "value": option
+                            }|xmlattr }}>{{ option|capitalize }}</option>
+                        {%- endfor %}
+                    </optgroup>
+                    {%- endfor %}
                 </select>
             </div>
         </div>

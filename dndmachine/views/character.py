@@ -512,7 +512,6 @@ def level_up(character_id, level=None):
         phase_names,
         key=lambda p: phases[p].get('conditions', {}).get('level', 99)
         )
-    print phase_names
 
     if level not in phase_names:
         if not len(phase_names):
