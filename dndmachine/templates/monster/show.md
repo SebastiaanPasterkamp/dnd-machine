@@ -1,13 +1,13 @@
-#### {{ monster.name }}
+{{ indent }}# [{{ monster.name }}](/monster/show/{{ monster.id }})
 
 *{{ monster.size|capitalize }} {{ monster.type|capitalize }}, {{ monster.alignment }}*
 
 ---
 
-**Armor Class** {{ monster.armor_class }}
+* **Armor Class** {{ monster.armor_class }}
   {%- if monster.armor_type %}({{ monster.armor_type }}){% endif %}
-**Hit Points** {{ monster.hit_points }} ({{ monster.hit_points_notation }})
-**Speed** {% for method, speed in monster.motion.items() -%}
+* **Hit Points** {{ monster.hit_points }} ({{ monster.hit_points_notation }})
+* **Speed** {% for method, speed in monster.motion.items() -%}
     {% if speed -%}
       {{ joiner(', ') }}{{ method }} {{ speed|distance }}
     {%- endif %}

@@ -40,7 +40,6 @@ app.jinja_env.filters['json'] = filters.filter_json
 app.jinja_env.filters['md5'] = filters.filter_md5
 app.jinja_env.filters['markdown'] = filters.filter_markdown
 app.jinja_env.filters['named_headers'] = filters.filter_named_headers
-app.jinja_env.filters['md_internal_links'] = filters.filter_md_internal_links
 app.jinja_env.filters['linked_objects'] = filters.filter_linked_objects
 
 # Load default config and override config from an environment variable

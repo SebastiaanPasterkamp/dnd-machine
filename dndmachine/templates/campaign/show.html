@@ -19,7 +19,7 @@
             Story
         </div>
         <div class="nice-panel-content">
-            {{ campaign.story|md_internal_links|markdown|named_headers }}
+            {{ campaign.story|markdown|named_headers }}
         </div>
     </div>
 
@@ -42,7 +42,7 @@
         <div class="nice-panel-content">
             <ul class="nice-menu stacked">
             {%- for item in campaign.toc recursive %}
-                <li><a href="#{{ item.title|sanitize }}">{{ item.title }}</a>
+                <li><a href="#{{ item.title|sanitize }}">{{ item.title|markdown|striptags }}</a>
                 {%- if item.children -%}
                     <ul>{{ loop(item.children) }}</ul>
                 {%- endif %}</li>
