@@ -21,6 +21,20 @@
                 <input class="small nice-form-control" name="npc.name" placeholder="Name...">
             </div>
 
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Location
+                </span>
+                <input class="small nice-form-control" name="npc.location" placeholder="Location...">
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Organization
+                </span>
+                <input class="small nice-form-control" name="npc.organization" placeholder="Organization...">
+            </div>
+
             {% for core in ["race", "class"] -%}
             <div class="nice-control-group">
                 <span class="nice-input-addon">
@@ -96,7 +110,7 @@
         <div class="nice-panel-heading">
             Stats
         </div>
-        <table class="nice-panel-content nice-table condensed bordered nice-form-group">
+        <table class="nice-panel-content nice-table condensed bordered nice-form-group" id="statsblockeditor">
             <thead>
                 <tr>
                     <th>Statistic</th>
