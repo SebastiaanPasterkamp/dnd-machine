@@ -92,6 +92,8 @@ def get_user():
 @app.before_request
 def get_party():
     """Checks if the user is hosting a party"""
+    datamapper = get_datamapper()
+
     if session.get('party_id'):
         datamapper = get_datamapper()
         request.party = datamapper.party.getById(session.get('party_id'))
@@ -121,6 +123,8 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    datamapper = get_datamapper()
+
     error = None
     if request.method == 'POST':
         username,password = \
