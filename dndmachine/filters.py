@@ -151,6 +151,7 @@ class SpecialBlockQuoteExtension(Extension):
 def filter_markdown(md):
     html = markdown.markdown(md, extensions=[
         'markdown.extensions.tables',
+        'markdown.extensions.admonition',
         SpecialBlockQuoteExtension()
         ])
     return Markup(html)

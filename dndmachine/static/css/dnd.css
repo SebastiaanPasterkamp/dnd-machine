@@ -44,6 +44,19 @@ div#view-campaign {
                          "description description control"
                          "toc story story"
                          ". story story"; }
+    div#view-campaign div.admonition {
+        border: 1px dashed #75cce2;
+        page-break-inside: avoid;
+        width: 48%;
+        min-width: 22em;
+        padding: .5%;
+        margin: .5%;
+        float: left; }
+    div#view-campaign div.admonition .admonition-title {
+        display: none; }
+    div#view-campaign div.admonition + *:not(.admonition) {
+        display: block;
+        clear: both; }
 
 div#view-character {
     display: grid;
