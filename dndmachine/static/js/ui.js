@@ -13,6 +13,38 @@ function switchNiceTab(parent, name) {
         });
 };
 
+function statsBLockEdit() {
+    var budget = $("#statsblockeditor #budget").attr('data-total');
+
+    $('#statsblockeditor select').each(function(){
+        var row = $(this).closest('tr'),
+            base_val = parseInt($(this).find('option:selected').val()),
+            cost = (base_val-8) + Math.max(0, base_val-13),
+            bonus = $(row).find('input[data-field="bonus"]'),
+            bonus_val = parseInt($(bonus).val()),
+            final = $(row).find('input[data-field="final"]'),
+            modifier = $(row).find('input[data-field="modifier"]');
+
+        budget -= cost;
+        $(final).val(base_val + bonus_val);
+        $(modifier).val(Math.floor(((base_val + bonus_val) - 10) / 2) );
+    });
+
+    $('#statsblockeditor select').each(function(){
+        var base_val = parseInt($(this).find('option:selected').val()),
+            cost = (base_val-8) + Math.max(0, base_val-13)
+
+        $(this).find('option').each(function(){
+            var optval = parseInt($(this).val()),
+                optcost = (optval-8) + Math.max(0, optval-13);
+
+            $(this).attr('disabled', optval > base_val && optcost > budget + cost);
+        });
+    });
+
+    $('#budget').val(budget);
+};
+
 $(function() {
     $('#messages').on('click', '.nice-alert-button.dismiss', function() {
         $('#message-' + $(this).attr('data-id')).remove();
@@ -83,36 +115,8 @@ $(function() {
         }
         switchNiceTab(parent, name);
     });
-    $('#statsblockeditor select').on('change', function(e) {
-        var budget = $("#statsblockeditor #budget").attr('data-total');
-
-        $('#statsblockeditor select').each(function(){
-            var row = $(this).closest('tr'),
-                base_val = parseInt($(this).find('option:selected').val()),
-                cost = (base_val-8) + Math.max(0, base_val-13),
-                bonus = $(row).find('input[data-field="bonus"]'),
-                bonus_val = parseInt($(bonus).val()),
-                final = $(row).find('input[data-field="final"]'),
-                modifier = $(row).find('input[data-field="modifier"]');
-
-            budget -= cost;
-            $(final).val(base_val + bonus_val);
-            $(modifier).val(Math.floor(((base_val + bonus_val) - 10) / 2) );
-        });
-
-        $('#statsblockeditor select').each(function(){
-            var base_val = parseInt($(this).find('option:selected').val()),
-                cost = (base_val-8) + Math.max(0, base_val-13)
-
-            $(this).find('option').each(function(){
-                var optval = parseInt($(this).val()),
-                    optcost = (optval-8) + Math.max(0, optval-13);
-
-                $(this).attr('disabled', optval > base_val && optcost > budget + cost);
-            });
-        });
-
-        $('#budget').val(budget);
+    $('#statsblockeditor select').on('change', function(e){
+        statsBLockEdit();
     });
     $('table.itemset input[type="radio"]').on('change', function() {
         var name = $(this).attr('name'),
@@ -165,4 +169,6 @@ $(function() {
                 .toggleClass('hiding');
         });
     });
+
+    statsBLockEdit();
 });

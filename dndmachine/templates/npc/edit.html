@@ -17,7 +17,21 @@
                 <span class="nice-input-addon">
                     Name
                 </span>
-                <input type="text" class="nice-form-control" name="npc.name" value="{{ npc.name }}" />
+                <input type="text" class="nice-form-control" name="npc.name" placeholder="Name..." value="{{ npc.name }}" />
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Location
+                </span>
+                <input class="small nice-form-control" name="npc.location" placeholder="Location..." value="{{ npc.location }}" >
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Organization
+                </span>
+                <input class="small nice-form-control" name="npc.organization" placeholder="Organization..." value="{{ npc.organization }}" >
             </div>
 
             <div class="nice-control-group">
@@ -87,6 +101,62 @@
                 <textarea rows="10" class="small nice-form-control" name="npc.description" placeholder="Description...">{{ npc.description }}</textarea>
             </div>
         </div>
+    </div>
+
+    <div id="stats" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Stats
+        </div>
+        <table class="nice-panel-content nice-table condensed bordered nice-form-group" id="statsblockeditor">
+            <thead>
+                <tr>
+                    <th>Statistic</th>
+                    <th>Base</th>
+                    <th>Bonus</th>
+                    <th>Final</th>
+                    <th>Modifier</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stat in items.statistics %}
+                <tr>
+                    <th>{{ stat.name }}</th>
+                    <td class="{{ class }}">
+                        <select class="small nice-form-control" data-field="base" name="npc.base_stats.{{ stat.name }}">
+                        {% for option in range(8, 16) %}
+                            <option{{ {
+                                    "selected": "selected" if npc.base_stats[stat.name] == option,
+                                    "value": option
+                                    }|xmlattr }} >
+                                {{ option }}
+                            </option>
+                        {% endfor %}
+                        </select>
+                    </td>
+                    <td class="{{ class }}">
+                        <input type="number" disabled value="{{ npc.stats_bonus[stat.name]|sum }}" data-field="bonus" class="nice-form-control" />
+                    </td>
+                    <td class="{{ class }}">
+                        <input type="number" disabled value="{{ npc.stats[stat.name] }}" data-field="final" class="nice-form-control" />
+                    </td>
+                    <td class="{{ class }}">
+                        <input type="number" disabled value="{{ npc.modifiers[stat.name] }}" data-field="modifier" class="nice-form-control" />
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfooter>
+                <tr>
+                    <th>Budget</th>
+                    <th>
+                        <input type="number" disabled id="budget" data-total="27" value="27" class="nice-form-control" />
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfooter>
+        </table>
     </div>
 
     <div id="save">
