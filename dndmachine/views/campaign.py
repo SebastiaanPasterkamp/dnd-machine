@@ -5,7 +5,7 @@ from flask import Blueprint, request, session, g, redirect, url_for, abort, \
 import re
 
 from .. import get_datamapper
-from ..utils import markdownToToc
+from ..utils import markdownToToc, indent
 from ..filters import filter_unique
 
 campaign = Blueprint(
@@ -70,10 +70,12 @@ def show(campaign_id, party_id=None):
                     continue
                 skip.add(monster.id)
 
-                replace[pattern] += "\n\n" + render_template(
-                    'monster/show.md',
-                    monster=monster,
-                    indent='###'
+                replace[pattern] += "\n\n!!! monster\n" + indent(
+                    render_template(
+                        'monster/show.md',
+                        monster=monster,
+                        indent='###'
+                        )
                     )
             replace[pattern] += "\n"
 
@@ -84,10 +86,12 @@ def show(campaign_id, party_id=None):
             if npc is None:
                 continue
 
-            replace[pattern] = "\n" + render_template(
-                'npc/show.md',
-                npc=npc,
-                indent='##'
+            replace[pattern] = "\n!!! npc\n" + indent(
+                render_template(
+                    'npc/show.md',
+                    npc=npc,
+                    indent='##'
+                    )
                 ) + "\n"
 
     c.story = reduce(

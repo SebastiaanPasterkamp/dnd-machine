@@ -31,7 +31,9 @@
   * **Challenge** {{ npc.challenge_rating|round(3) }} ({{ npc.xp }} XP)
 {% endif %}
 
+{% if npc.traits or npc.weapons %}
 ---
+{% endif %}
 
 {% for trait in npc.traits -%}
 * **{{ trait.name }}** {{ trait.description }}

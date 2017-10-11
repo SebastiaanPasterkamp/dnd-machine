@@ -34,3 +34,10 @@ def markdownToToc(markdown):
 
         current.append({'title': title})
     return root
+
+def indent(text, level=4):
+    indent = " " * level
+    return "\n".join([
+        indent + line
+        for line in text.split("\n")
+        ])
