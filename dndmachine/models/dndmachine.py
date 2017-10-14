@@ -13,7 +13,7 @@ class DndMachine(object):
         self.challenge_rating = config["challenge_rating"]
         self.monster_scaling = config["monster_scaling"]
         self.size_hit_dice = config["size_hit_dice"]
-        self.items = JsonObject(items)
+        self.items = JsonObject(items, pathPrefix='items')
 
     def resolveMath(self, obj, formula):
         replace = {}

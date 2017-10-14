@@ -2,172 +2,280 @@
 {% block body %}
 {% if encounter.id %}
 <h2 class="icon fa-pencil">Encounter</h2>
+{% else %}
+<h2 class="icon fa-pencil">Encounter</h2>
+{% endif %}
 
+
+{% if encounter.id %}
 <form action="{{ url_for('encounter.edit', encounter_id=encounter.id) }}" method="post">
 {% else %}
-<h2 class="icon fa-plus">Encounter</h2>
-
 <form action="{{ url_for('encounter.new') }}" method="post">
 {% endif %}
-    <button name="button" value="save" class="hidden">Hidden</button>
+    <button name="button" value="update" class="hidden">Hidden</button>
 
-<div class="nice-row">
-    <div class="nice-col-6 nice-col-mobile-12">
+<div id="edit-encounter">
 
-<div class="nice-panel gray">
-    <div class="nice-panel-heading">
-        Description
-    </div>
-    <div class="nice-panel-content">
-        <div class="nice-form-group">
+    <div id="description" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Description
+        </div>
+        <div class="nice-panel-content">
+            <div class="nice-form-group">
 
-            <div class="nice-control-group">
-                <span class="nice-input-addon">
-                    Name
-                </span>
-                <input type="text" class="nice-form-control" name="encounter.name" value="{{ encounter.name }}" />
-            </div>
+                <div class="nice-control-group">
+                    <span class="nice-input-addon">
+                        Name
+                    </span>
+                    <input type="text" class="nice-form-control" name="encounter.name" value="{{ encounter.name }}" />
+                </div>
 
-            <div class="nice-control-group">
-                <span class="nice-input-addon">
-                    Description
-                </span>
-                <textarea class="nice-form-control" name="encounter.description">{{ encounter.description }}</textarea>
+                <div class="nice-control-group">
+                    <span class="nice-input-addon">
+                        Description
+                    </span>
+                    <textarea class="nice-form-control" name="encounter.description">{{ encounter.description }}</textarea>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="nice-panel-heading">
-        <div class="nice-btn-group pull-right" style="z-index: 1000">
-            <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
-            <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
-            <button name="button" value="save" class="nice-btn primary icon fa-save">Save</button>
+        <div class="nice-panel-content">
+            <div class="nice-btn-group pull-right" style="z-index: 1000">
+                <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+                <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
+                <button name="button" value="save" class="nice-btn primary icon fa-save">Save</button>
+            </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
     </div>
+
+{% if encounter.id %}
+    <div id="rating" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Expected Encounter Challenge Rating
+        </div>
+        <table class="nice-panel-content nice-table condensed striped bordered">
+            <thead>
+                <tr>
+                    <th>Encounter Rating</th>
+                    <th>Monster Modifier</th>
+                    <th>Party Modifier</th>
+                    <th>Final Modifier</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ encounter.challenge_rating }} / {{ encounter.xp_rating|int }} XP</td>
+                    <td>{{ encounter.modifier.monster }}</td>
+                    <td>{{ encounter.modifier.party }}</td>
+                    <td>{{ encounter.modifier.total }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="monsters" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Monsters
+        </div>
+        <table class="nice-panel-content nice-table condensed striped bordered" id="challenge">
+            <thead>
+                <tr>
+                    <th rowspan="2">Monster Name</th>
+                    <th colspan="3">Monser Stats</th>
+                    <th colspan="2">Defensive</th>
+                    <th colspan="3">Offensive</th>
+                    <th rowspan="2"></th>
+                </tr>
+                <tr>
+                    <th>Challenge Rating</th>
+                    <th>Challenge XP</th>
+                    <th>Proficiency Bonus</th>
+                    <th>Hit Points</th>
+                    <th>Armor Class</th>
+                    <th>Damage / Round</th>
+                    <th>Attack Bonus</th>
+                    <th>Spell Save DC</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for count, monster in monsters|unique %}
+                <tr>
+                    <th>{{ count }} x {{ monster.name }}</th>
+                    <td>{{ monster.challenge_rating }}</td>
+                    <td>{{ monster.xp|default('?') }} XP</td>
+                    <td>{{ monster.proficiency|default('?') }}</td>
+                    <td>{{ monster.hit_points|default('?') }}</td>
+                    <td>{{ monster.armor_class|default('?') }}</td>
+                    <td>{{ monster.average_damage|default('?') }}</td>
+                    <td>
+                        {% if monster.attack_bonus is defined %}
+                            {% if monster.attack_bonus > 0 %}+{% endif %}{{ monster.attack_bonus}}
+                        {% else %}
+                        ?
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if monster.spell_save is defined %}
+                            &ge;{{ monster.spell_save}}
+                        {% else %}
+                        ?
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="nice-btn-group pull-right">
+                            <a href="{{ url_for('monster.show', monster_id=monster.id) }}" class="nice-btn icon fa-eye">
+                                View
+                            </a>
+                            <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='del', monster_id=monster.id) }}" class="nice-btn icon fa-minus"></a>
+                            <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='add', monster_id=monster.id) }}" class="nice-btn icon fa-plus"></a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfooter>
+                <tr>
+                    <th>Total</th>
+                    <td>{{ encounter.challenge_rating }}</td>
+                    <td>{{ encounter.xp }} XP</td>
+                    <td rowspan="3" colspan="6"></td>
+                    <td rowspan="3">
+                        <div class="nice-btn-group pull-right">
+                            <a href="{{ url_for('monster.overview', encounter_id=encounter.id) }}" class="nice-btn good icon fa-plus">Add more</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Modified</th>
+                    <td>{{ encounter.challenge_modified }}</td>
+                    <td>{{ encounter.challenge_modified|int }} XP</td>
+                </tr>
+                <tr>
+                {% if party %}
+                    <th colspan="2">XP Gain per Character</th>
+                    <td>{{ (encounter.xp / party.size)|int }} XP</td>
+                {% endif %}
+                </tr>
+            </tfooter>
+        </table>
+    </div>
+
+    <div id="loot" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Loot
+        </div>
+        <table class="nice-panel-content nice-table condensed striped bordered" id="challenge">
+            <thead>
+                <tr>
+                    <th>Count</th>
+                    <th>Item name</th>
+                    <th>Description</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in encounter.loot %}
+                <tr>
+                    <th>
+                        <select{{ {
+                                "name": ['encounter', 'loot', loop.index0, 'count']|join('.'),
+                                "class": "nice-form-control"
+                                }|xmlattr }}>
+                            {%- for number in range(1, 21) %}
+                            <option{{ {
+                                    "value": number,
+                                    "selected": "selected" if number == item.count else None
+                                    }|xmlattr }}>
+                                {{ number }}
+                            </option>
+                        {% endfor -%}
+                        </select>
+                    </th>
+                    <th>
+                        <input{{ {
+                                "type": "text",
+                                "value": item.name,
+                                "placeholder": "Name...",
+                                "name": ['encounter', 'loot', loop.index0, 'name']|join('.'),
+                                "class": "nice-form-control"
+                                }|xmlattr }} />
+                    </th>
+                    <th>
+                        <textarea{{ {
+                                "rows": "5",
+                                "placeholder": "Description...",
+                                "name": ['encounter', 'loot', loop.index0, 'description']|join('.'),
+                                "class": "nice-form-control"
+                                }|xmlattr }}>{{ item.description }}</textarea>
+                    </th>
+                    <th>
+                        <input{{ {
+                                "type": "text",
+                                "value": item.location,
+                                "placeholder": "Location...",
+                                "name": ['encounter', 'loot', loop.index0, 'location']|join('.'),
+                                "class": "nice-form-control"
+                                }|xmlattr }} />
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfooter>
+                <tr>
+                    <th>
+                        <select{{ {
+                                "name": ['encounter', 'loot', encounter.loot|length, 'count']|join('.'),
+                                "class": "nice-form-control"
+                                }|xmlattr }}>
+                            {%- for number in range(1, 21) %}
+                            <option{{ {
+                                    "value": number
+                                    }|xmlattr }}>
+                                {{ number }}
+                            </option>
+                        {% endfor -%}
+                        </select>
+                    </th>
+                    <th>
+                        <input{{ {
+                                "type": "text",
+                                "placeholder": "Name...",
+                                "name": ['encounter', 'loot', encounter.loot|length, 'name']|join('.'),
+                                "class": "nice-form-control"
+                                }|xmlattr }} />
+                    </th>
+                    <th>
+                        <textarea{{ {
+                                "rows": "5",
+                                "placeholder": "Description...",
+                                "name": ['encounter', 'loot', encounter.loot|length, 'description']|join('.'),
+                                "class": "nice-form-control"
+                                }|xmlattr }}></textarea>
+                    </th>
+                    <th>
+                        <input{{ {
+                                "type": "text",
+                                "placeholder": "Location...",
+                                "name": ['encounter', 'loot', encounter.loot|length, 'location']|join('.'),
+                                "class": "nice-form-control"
+                                }|xmlattr }} />
+                    </th>
+                </tr>
+            </tfooter>
+        </table>
+        <div class="nice-panel-content">
+            <div class="nice-btn-group pull-right" style="z-index: 1000">
+                <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
+                <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
+                <button name="button" value="save" class="nice-btn primary icon fa-save">Save</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+{% endif %}
+
 </div>
-
 
 </form>
-
-    </div>
-    <div class="nice-col-6 nice-col-mobile-12">
-
-{% if encounter.id %}
-
-<h3>Expected Encounter Challenge Rating</h3>
-
-<table class="nice-table condensed striped bordered" id="modifier">
-    <thead>
-        <tr>
-            <th>Encounter Rating</th>
-            <th>Monster Modifier</th>
-            <th>Party Modifier</th>
-            <th>Final Modifier</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{ encounter.challenge_rating }} / {{ encounter.xp_rating|int }} XP</td>
-            <td>{{ encounter.modifier.monster }}</td>
-            <td>{{ encounter.modifier.party }}</td>
-            <td>{{ encounter.modifier.total }}</td>
-        </tr>
-    </tbody>
-</table>
-
-{% endif %}
-
-    </div>
-</div>
-
-
-{% if encounter.id %}
-<h3>Monsters</h3>
-
-<table class="nice-table condensed striped bordered" id="challenge">
-    <thead>
-        <tr>
-            <th rowspan="2">Monster Name</th>
-            <th colspan="3">Monser Stats</th>
-            <th colspan="2">Defensive</th>
-            <th colspan="3">Offensive</th>
-            <th rowspan="2"></th>
-        </tr>
-        <tr>
-            <th>Challenge Rating</th>
-            <th>Challenge XP</th>
-            <th>Proficiency Bonus</th>
-            <th>Hit Points</th>
-            <th>Armor Class</th>
-            <th>Damage / Round</th>
-            <th>Attack Bonus</th>
-            <th>Spell Save DC</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for monster in monsters %}
-        <tr>
-            <th>{{ monster.name }}</th>
-            <td>{{ monster.challenge_rating }}</td>
-            <td>{{ monster.xp|default('?') }} XP</td>
-            <td>{{ monster.proficiency|default('?') }}</td>
-            <td>{{ monster.hit_points|default('?') }}</td>
-            <td>{{ monster.armor_class|default('?') }}</td>
-            <td>{{ monster.average_damage|default('?') }}</td>
-            <td>
-                {% if monster.attack_bonus is defined %}
-                    {% if monster.attack_bonus > 0 %}+{% endif %}{{ monster.attack_bonus}}
-                {% else %}
-                ?
-                {% endif %}
-            </td>
-            <td>
-                {% if monster.spell_save is defined %}
-                    &ge;{{ monster.spell_save}}
-                {% else %}
-                ?
-                {% endif %}
-            </td>
-            <td>
-                <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('monster.show', monster_id=monster.id) }}" class="nice-btn icon fa-eye">
-                        View
-                    </a>
-                    <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='del', monster_id=monster.id) }}" class="nice-btn bad icon fa-times">
-                        Remove
-                    </a>
-                    <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='add', monster_id=monster.id) }}" class="nice-btn icon fa-clone">
-                        Copy
-                    </a>
-                </div>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-    <tfooter>
-        <tr>
-            <th>Total</th>
-            <td>{{ encounter.challenge_rating }}</td>
-            <td>{{ encounter.xp }} XP</td>
-            <td rowspan="3" colspan="6"></td>
-            <td rowspan="3">
-                <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('monster.overview', encounter_id=encounter.id) }}" class="nice-btn good icon fa-plus">Add</a>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <th>Modified</th>
-            <td>{{ encounter.challenge_modified }}</td>
-            <td>{{ encounter.challenge_modified|int }} XP</td>
-        </tr>
-        <tr>
-        {% if party %}
-            <th colspan="2">XP Gain per Character</th>
-            <td>{{ (encounter.xp / party.size)|int }} XP</td>
-        {% endif %}
-        </tr>
-    </tfooter>
-</table>
-{% endif %}
 {% endblock %}

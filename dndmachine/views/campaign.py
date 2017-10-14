@@ -57,11 +57,13 @@ def show(campaign_id, party_id=None):
             encounter.monsters = \
                 datamapper.monster.getByEncounterId(encounter.id)
 
-            replace[pattern] = "\n" + render_template(
-                'encounter/show.md',
-                encounter=encounter,
-                indent='##'
-                )
+            replace[pattern] = "\n\n!!! encounter\n" + indent(
+                    render_template(
+                        'encounter/show.md',
+                        encounter=encounter,
+                        indent='##'
+                        )
+                    )
 
             skip = set()
             for monster in sorted(encounter.monsters,\

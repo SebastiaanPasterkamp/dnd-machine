@@ -103,8 +103,6 @@ def new(monster_id=None):
     config = get_config()
     datamapper = get_datamapper()
 
-    datamapper.monster = get_datamapper('monster')
-
     if monster_id is None:
         m = MonsterObject()
     else:

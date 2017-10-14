@@ -529,10 +529,6 @@ def level_up(character_id, level=None):
 
     def assigning(key, val):
         if isinstance(val, unicode) and '.' in val:
-            if val.startswith('character'):
-                return [
-                    (key, c.getPath(val) or val)
-                    ]
             if key.endswith('_formula'):
                 return [
                     (key, val),
@@ -540,6 +536,10 @@ def level_up(character_id, level=None):
                         key.replace('_formula', ''),
                         datamapper.machine.resolveMath(c, val)
                         )
+                    ]
+            if val.startswith('character'):
+                return [
+                    (key, c.getPath(val) or val)
                     ]
             if any(datamapper.machine.items.getPath(v) for v in val.split(',')):
                 return [(key, [

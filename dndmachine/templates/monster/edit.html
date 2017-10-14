@@ -7,7 +7,7 @@
     </span>
     <select class="nice-form-control" name="{{ path }}.type">
         <option />
-    {% for option in data.damage_types %}
+    {% for option in items.damage_types %}
         <option{{ {
                 "selected": "selected" if damage.type == option.name else None,
                 "value": option.name

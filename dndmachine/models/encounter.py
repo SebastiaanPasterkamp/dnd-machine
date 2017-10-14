@@ -24,7 +24,8 @@ class EncounterObject(JsonObject):
             config,
             pathPrefix = "encounter",
             defaultConfig = {
-                'size': 0
+                'size': 0,
+                'loot': []
                 },
             fieldTypes = {
                 'user_id': int,
@@ -35,7 +36,10 @@ class EncounterObject(JsonObject):
                     '*': int
                     },
                 'xp_rating': float,
-                'xp': int
+                'xp': int,
+                'loot': {
+                    'count': int
+                    }
                 }
             )
         self.compute()
@@ -71,6 +75,12 @@ class EncounterObject(JsonObject):
         return 1.0
 
     def compute(self):
+        self.loot = [
+            item
+            for item in self.loot
+            if item['name']
+            ]
+
         if not len(self._monsters):
             return
 

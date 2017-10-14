@@ -75,6 +75,7 @@ class CharacterObject(JsonObject):
                 "proficiency": 2,
                 "proficiency_alt": 0,
                 "languages": [],
+                "abilities": {},
                 "proficiencies": {
                     "armor": [],
                     "weapons": [],
@@ -280,10 +281,10 @@ class CharacterObject(JsonObject):
                 "weapons.martial.melee.items",
                 "weapons.martial.ranged.items"
                 ],
-            "itemsArtisan": ["items.artisan.items"],
-            "itemsKits": ["items.kits.items"],
-            "itemsGaming": ["items.gaming.items"],
-            "itemsMusical": ["items.musical.items"]
+            "itemsArtisan": ["tools.artisan.items"],
+            "itemsKits": ["tools.kits.items"],
+            "itemsGaming": ["tools.gaming.items"],
+            "itemsMusical": ["tools.musical.items"]
             }
         def findDesc(item):
             for dest, paths in search.items():

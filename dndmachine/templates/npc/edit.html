@@ -159,6 +159,63 @@
         </table>
     </div>
 
+    <div id="traits" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Traits
+        </div>
+        <table class="nice-panel-content nice-table condensed striped bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trait in npc.traits %}
+                <tr>
+                    <th>
+                        <input{{ {
+                                "type": "text",
+                                "value": trait.name,
+                                "placeholder": "Name...",
+                                "name": ['npc', 'traits', loop.index0, 'name']|join('.'),
+                                "class": "nice-form-control"
+                                }|xmlattr }} />
+                    </th>
+                    <th>
+                        <textarea{{ {
+                                "rows": "5",
+                                "placeholder": "Description...",
+                                "name": ['npc', 'traits', loop.index0, 'description']|join('.'),
+                                "class": "nice-form-control"
+                                }|xmlattr }}>{{ trait.description }}</textarea>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfooter>
+                <tr>
+                    <th>
+                        <input{{ {
+                                "type": "text",
+                                "placeholder": "Name...",
+                                "name": ['npc', 'traits', npc.traits|length, 'name']|join('.'),
+                                "class": "nice-form-control"
+                                }|xmlattr }} />
+                    </th>
+                    <th>
+                        <textarea{{ {
+                                "rows": "5",
+                                "placeholder": "Description...",
+                                "name": ['npc', 'traits', npc.traits|length, 'description']|join('.'),
+                                "class": "nice-form-control"
+                                }|xmlattr }}></textarea>
+                    </th>
+                </tr>
+            </tfooter>
+        </table>
+    </div>
+
     <div id="save">
         <button name="button" value="cancel" class="nice-btn muted icon fa-ban">Cancel</button>
         <button name="button" value="update" class="nice-btn info icon fa-refresh">Update</button>
