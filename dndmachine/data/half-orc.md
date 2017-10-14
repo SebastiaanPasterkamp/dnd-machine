@@ -68,7 +68,7 @@ slums of larger Cities, half-ores get by on their physical
 might, their endurance, and the sheer determination
 they inherit from their human ancestry.
 
-# Half-Orc Traits
+## Half-Orc Traits
 Your half-orc character has certain traits deriving from
 your orc ancestry.
 
