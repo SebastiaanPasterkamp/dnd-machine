@@ -415,10 +415,7 @@
             <tr>
                 <th>Range</th>
                 <td>
-                    {% if attack.range_min < attack.range_max %}
-                    {{ attack.range_min }} -
-                    {% endif %}
-                    {{ attack.range_max }} ft.
+                    {{ attack.reach|distance }}
                 </td>
             </tr>
             {% if attack.on_hit %}

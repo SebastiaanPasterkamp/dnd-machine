@@ -15,9 +15,9 @@
 
 | Item | Location | Information |
 | --- | --- | --- |
-{% for loot in encounter.loot -%}
+{% for loot in encounter.loot|sort(attribute='location') -%}
 | {% if loot.count > 1 %}{{ loot.count }} x {% endif -%}
-  {{ loot.item.label }} | {{ loot.location }} | {{ loot.description }} |
-{%- endfor %}
+  {{ loot.name }} | {{ loot.location }} | {{ loot.description }} |
+{% endfor %}
 
 {% endif %}

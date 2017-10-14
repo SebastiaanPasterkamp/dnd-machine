@@ -296,7 +296,7 @@
             ]
         }
     },
-    "items": {
+    "tools": {
         "artisan": {
             "name": "Artisan's Tools",
             "items": [

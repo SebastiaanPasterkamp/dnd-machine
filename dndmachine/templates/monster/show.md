@@ -73,6 +73,6 @@
     reach {{ attack.reach|distance }},
     {{ (attack.target|by_name(items.target_methods)).label }}.
     *Hit: {{ attack.notation }}.
-    {%- if attack.on_hit %} {{ attack.on_hit }}{% endif %}.
+    {%- if attack.on_hit %} {{ attack.on_hit }}.{% endif %}
     {%- if attack.on_mis %} Mis: {{ attack.on_mis }}.{% endif %}*
-{%- endfor %}
+{% endfor %}

@@ -56,7 +56,7 @@
         "class": "nice-form-control",
         "name": ['character', 'spells', 'cantrip', i]|join('.')
         }|xmlattr }}>
-    {% for option in items.spells[character.class|lower]['cantrip'] %}
+    {% for option in items.spells[character.class|lower]['cantrips'] %}
         <option{{ {
                 "selected": "selected" if character.spells.cantrip[i] == option.name else None,
                 "value": option.name

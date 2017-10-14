@@ -63,7 +63,7 @@ def raw(npc_id):
 def edit(npc_id):
     datamapper = get_datamapper()
 
-    n = datamapper.npc.getById(npc_id)
+    obj = datamapper.npc.getById(npc_id)
 
     if request.method == 'POST':
         if request.form["button"] == "cancel":
@@ -72,17 +72,18 @@ def edit(npc_id):
                 npc_id=npc_id
                 ))
 
+        obj.updateFromPost(request.form)
+
         if request.form.get("button", "save") == "save":
-            n.updateFromPost(request.form)
-            m = datamapper.npc.save(n)
+            obj = datamapper.npc.save(obj)
             return redirect(url_for(
                 'npc.show',
-                npc_id=n.id
+                npc_id=obj.id
                 ))
 
     return render_template(
         'npc/edit.html',
-        npc=n
+        npc=obj
         )
 
 @npc.route('/del/<int:npc_id>')
