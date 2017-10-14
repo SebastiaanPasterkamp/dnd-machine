@@ -196,6 +196,38 @@
             }
         }
     }, {
+        "name": "Half-Elf",
+        "filename": "half-elf.md",
+        "config": {
+            "stats_bonus": {
+                "charisma": [2]
+            },
+            "size": "medium",
+            "speed": 30,
+            "info": {
+                "Darkvision": "Thanks to your elf blood, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
+                "Fey Ancestry": "You have **Advantage** on *Saving Throws* against being *charmed*, and magic can't put you to *sleep*."
+            }
+        },
+        "phases": {
+            "1": {
+                "options": {
+                    "ability_improvement": {
+                        "stats": ["strength", "dexterity", "constitution", "intelligence", "wisdom"],
+                        "stats": ["strength", "dexterity", "constitution", "intelligence", "wisdom"]
+                    },
+                    "languages[]": [
+                        {"group": ["elvish", "common"]},
+                        {"select": "languages.common,languages.exotic"}
+                    ],
+                    "proficiencies.skills[]": [
+                        {"select": "items.skills"},
+                        {"select": "items.skills"}
+                    ]
+                }
+            }
+        }
+    }, {
         "name": "Half-Orc",
         "filename": "half-orc.md",
         "config": {
@@ -941,9 +973,9 @@
                         {"select": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleight of hand", "stealth"]}
                     ],
                     "proficiencies.tools[]": [
-                        {"select": "items.musical.items"},
-                        {"select": "items.musical.items"},
-                        {"select": "items.musical.items"}
+                        {"select": "tools.musical.items"},
+                        {"select": "tools.musical.items"},
+                        {"select": "tools.musical.items"}
                     ],
                     "equipment[]": [
                         {"choose": [
@@ -952,7 +984,7 @@
                         ]},
                         {"choose": [
                             {"group": ["Lute"]},
-                            {"select": "items.musical.items"}
+                            {"select": "tools.musical.items"}
                         ]}
                     ],
                     "spells.cantrip[]": [
@@ -974,9 +1006,7 @@
                 },
                 "given": {
                     "proficiency": 2,
-                    "computed.proficiency_alt": {
-                        "formula": "int(character.proficiency/2)"
-                    },
+                    "computed.proficiency_alt.formula": "int(character.proficiency/2)",
                     "abilities.Jack of All Trades": {
                         "description": "You can add half your **Proficiency Bonus**, rounded down, to any **Ability Check** you make that doesn't already include your proficiency bonus."
                     },
@@ -2026,7 +2056,7 @@
                     "spell_slots.4th": 1,
                     "abilities.Cleansing Touch": {
                         "description": "You can use your action to end one spell on yourself or on one willing creature that you touch. You can use this feature %(uses)s of times. You regain expended uses when you finish a long rest.",
-                        "uses_formula": "max(1,modifiers.charisma)"
+                        "uses_formula": "max(1, modifiers.charisma)"
                     }
                 }
             },
@@ -3246,6 +3276,843 @@
                 }
             }
         }
+    }, {
+        "name": "Sorcerer",
+        "filename": "sorcerer.md",
+        "config": {
+            "hit_dice": 6,
+            "spell_stat": "charisma",
+            "origin": [],
+            "computed": {
+                "hit_points": {
+                    "formula": "(6 + modifiers.constitution) + (4 + modifiers.constitution) * (level - 1)"
+                },
+                "spell_safe_dc": {
+                    "formula": "8 + proficiency + modifiers.charisma"
+                },
+                "spell_attack_modifier": {
+                    "formula": "proficiency + modifiers.charisma"
+                },
+                "sorcery_points": {
+                    "formula": "level"
+                }
+            },
+            "proficiencies": {
+                "saving_throws": [
+                    "constitution",
+                    "charisma"
+                ],
+                "weapons": [
+                    "Daggers",
+                    "Darts",
+                    "Slings",
+                    "Quarterstaffs",
+                    "Light Crossbows"
+                ]
+            }
+        },
+        "phases": {
+            "1": {
+                "given": {
+                    "proficiency": 2,
+                    "cantrips_known": 4,
+                    "spells_known": 2,
+                    "spell_slots.1st_level": 2
+                },
+                "tabs": [{
+                    "description": "#Sorcerous Origin\n\nDifferent sorcerers claim different origins for their innate magic. Although many variations exist, most of these origins fall into two categories: a draconic bloodline and wild magic.",
+                    "options": [{
+                        "name": "Draconic Bloodline",
+                        "description": "Your innate magic comes from draconic magic that was mingled with your blood or that of your ancestors. Most often, sorcerers with this origin trace their descent back to a mighty sorcerer of ancient times who made a bargain with a dragon or who might even have claimed a dragon parent. Some of these bloodlines are well established in the world, hut most are obscure. Any given sorcerer could be the first of a new bloodline, as a result of a pact or some other exceptional circumstance.",
+                        "given": {
+                            "origin[]": "Draconic Bloodline",
+                            "languages[]": "draconic",
+                            "computed":  {
+                                "hit_points.bonus[]": "1 * level",
+                                "unarmored.formula": "13 + modifiers.dexterity"
+                            },
+                            "info.Draconic Bloodline": "Whenever you make a **Charisma** check when interacting with dragons, your *proficiency bonus* is doubled if it applies to the check.",
+                            "abilities.Draconic Resilience": {
+                                "description": "As magic flows through your body, it causes physical traits of your dragon ancestors to emerge. Parts of your skin are covered by a thin sheen of dragon-like scales. When you aren't wearing armor, your AC equals %(ac)s.",
+                                "ac_formula": "13 + modifiers.dexterity"
+                            }
+                        },
+                        "tabs": [{
+                            "description": "## Dragon Ancestor\n\nChoose one type of dragon as your ancestor. The damage type associated with each dragon is used by features you gain later.",
+                            "options": [{
+                                "name": "Black",
+                                "given": {
+                                    "Draconic.Ancestor": "Black",
+                                    "Draconic.Damage Type": "Acid"
+                                }
+                            }, {
+                                "name": "Blue",
+                                "given": {
+                                    "Draconic.Ancestor": "Blue",
+                                    "Draconic.Damage Type": "Lightning"
+                                }
+                            }, {
+                                "name": "Brass",
+                                "given": {
+                                    "Draconic.Ancestor": "Brass",
+                                    "Draconic.Damage Type": "Fire"
+                                }
+                            }, {
+                                "name": "Bronze",
+                                "given": {
+                                    "Draconic.Ancestor": "Bronze",
+                                    "Draconic.Damage Type": "Lightning"
+                                }
+                            }, {
+                                "name": "Copper",
+                                "given": {
+                                    "Draconic.Ancestor": "Copper",
+                                    "Draconic.Damage Type": "Acid"
+                                }
+                            }, {
+                                "name": "Gold",
+                                "given": {
+                                    "Draconic.Ancestor": "Gold",
+                                    "Draconic.Damage Type": "Fire"
+                                }
+                            }, {
+                                "name": "Green",
+                                "given": {
+                                    "Draconic.Ancestor": "Green",
+                                    "Draconic.Damage Type": "Poison"
+                                }
+                            }, {
+                                "name": "Red",
+                                "given": {
+                                    "Draconic.Ancestor": "Red",
+                                    "Draconic.Damage Type": "Fire"
+                                }
+                            }, {
+                                "name": "Silver",
+                                "given": {
+                                    "Draconic.Ancestor": "Silver",
+                                    "Draconic.Damage Type": "Cold"
+                                }
+                            }, {
+                                "name": "White",
+                                "given": {
+                                    "Draconic.Ancestor": "White",
+                                    "Draconic.Damage Type": "Cold"
+                                }
+                            }]
+                        }]
+                    }, {
+                        "name": "Wild Magic",
+                        "description": "Your innate magic comes from the wild forces of chaos that underlie the order of creation, You might have endured exposure to some form of raw magic, perhaps through a planar portal leading to _Limbo_, the _Elemental Planes_, or the mysterious _Far Realm_. Perhaps you were blessed by a powerful fey creature or marked by a demon. Or your magic could be a fluke of your birth, with no apparent cause or reason. However it came to be, this chaotic magic churns within you, waiting for any outlet.",
+                        "given": {
+                            "origin[]": "Wild Magic",
+                            "info.Wild Magic Surge": "Your spellcasting can unleash surges of untamed magic. Immediately after you cast a *sorcerer spell* of 1st level or higher, the DM can have you roll a `d20`. If you roll a 1. roll on the *Wild Magic Surge* table to create a random magical effect.",
+                            "abilities.Tides of Chaos": {
+                                "description": "You can manipulate the forces of chance and chaos to gain **Advantage** on one attack roll, ability check, or saving throw. Once you do so. you must finish a long rest before you can use this feature again.\nAny time before you regain the use of this feature, the DM can have you roll on the **Wild Magic Surge** table immediately after you cast a *sorcerer spell* of 1st level or higher. You then regain the use of this feature."
+                            }
+                        }
+                    }]
+                }]
+            },
+            "2": {
+                "conditions": {
+                    "level": 2,
+                    "creation": "1"
+                },
+                "given": {
+                    "proficiency": 2,
+                    "abilities.Sorcery Points": {
+                        "description": "You have %(uses)d *sorcery points*, and you gain more as you reach higher levels. You can never have more *sorcery points* than this. You regain all spent *sorcery points* when you finish a long rest.",
+                        "uses_formula": "character.sorcery_points"
+                    },
+                    "abilities.Creating Spell Slots": {
+                        "description": "You can transform unexpended *sorcery points* into one *spell slot* as a *bonus action* on your turn. The table shows the cost of creating a *spell slot* of a given level. You can create *spell slots* no higher in level than 5th.\n\n| Spell Slot Level | Sorcery Point Cost |\n|:---:|:---:|\n| 1st | 2 |\n| 2nd | 3 |\n| 3rd | 5 |\n| 4th | 6 |\n| 5th | 7 |"
+                    },
+                    "abilities.Converting Spell Slot to Sorcery Points": {
+                        "description": "As a *bonus action* on your turn, you can expend one *spell slot* and gain a number of *sorcery points* equal to the slot's level."
+                    },
+                    "cantrips_known": 4,
+                    "spells_known": 3,
+                    "spell_slots.1st_level": 3
+                }
+            },
+            "3": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2"
+                },
+                "given": {
+                    "proficiency": 2,
+                    "abilities.Metamagic": {
+                        "description": "You have the ability to twist your spells to suit your needs. You can use only one Metamagic option on a spell when you cast it, unless otherwise noted."
+                    },
+                    "cantrips_known": 4,
+                    "spells_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 2
+                },
+                "tabs": [{
+                    "description": "You have the ability to twist your spells to suit your needs. You can use only one Metamagic option on a spell when you cast it, unless otherwise noted.",
+                    "options": [{
+                        "name": "Careful Spell",
+                        "given": {
+                            "abilities.Metamagic: Careful Spell": {
+                                "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)d. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
+                                "uses_formula": "min(1, character.modifiers.charisma)"
+                            }
+                        }
+                    }, {
+                        "name": "Distant Spell",
+                        "given": {
+                            "abilities.Metamagic: Distant Spell": {
+                                "description": "When you cast a spell that has a range of 5 feet or greater. you can spend 1 *sorcery point* to double the range of the spell. When you cast a spell that has a range of touch, you can spend 1 *sorcery point* to make the range of the spell 30 feet."
+                            }
+                        }
+                    }, {
+                        "name": "Empowered Spell",
+                        "given": {
+                            "abilities.Metamagic: Empowered Spell": {
+                                "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)d. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
+                                "uses_formula": "min(1, character.modifiers.charisma)"
+                            }
+                        }
+                    }, {
+                        "name": "Extended Spell",
+                        "given": {
+                            "abilities.Metamagic: Extended Spell": {
+                                "description": "When you cast a spell that has a duration of 1 minute or longer, you can spend 1 sorcery point to double its duration, to a maximum duration of 24 hours."
+                            }
+                        }
+                    }, {
+                        "name": "Heightened Spell",
+                        "given": {
+                            "abilities.Metamagic: Heightened Spell": {
+                                "description": "When you cast a spell that forces a creature to make a *Saving Throw* to resist its effects, you can spend 3 *sorcery points* to give one target of the spell **Disadvantage** on its first *Saving Throw* made against the spell."
+                            }
+                        }
+                    }, {
+                        "name": "Quickened Spell",
+                        "given": {
+                            "abilities.Metamagic: Quickened Spell": {
+                                "description": "When you cast a spell that has a casting time of 1 *action*, you can spend 2 *sorcery points* to change the casting time to 1 *bonus action* for this casting."
+                            }
+                        }
+                    }, {
+                        "name": "Subtle Spell",
+                        "given": {
+                            "abilities.Metamagic: Subtle Spell": {
+                                "description": "When you cast a spell, you can spend 1 *sorcery point* to cast it without any somatic or verbal components."
+                            }
+                        }
+                    }, {
+                        "name": "Twined Spell",
+                        "given": {
+                            "abilities.Metamagic: Twined Spell": {
+                                "description": "When you cast a spell that targets only one creature and doesn't have a range of self, you can spend a number of sorcery points equal to the spell's level to target a second creature in range with the same spell (1 sorcery point if the spell is a cantrip)."
+                            }
+                        }
+                    }]
+                }, {
+                    "description": "You have the ability to twist your spells to suit your needs. You can use only one Metamagic option on a spell when you cast it, unless otherwise noted.",
+                    "options": [{
+                        "name": "Careful Spell",
+                        "given": {
+                            "abilities.Metamagic: Careful Spell": {
+                                "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)d. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
+                                "uses_formula": "min(1, character.modifiers.charisma)"
+                            }
+                        }
+                    }, {
+                        "name": "Distant Spell",
+                        "given": {
+                            "abilities.Metamagic: Distant Spell": {
+                                "description": "When you cast a spell that has a range of 5 feet or greater. you can spend 1 *sorcery point* to double the range of the spell. When you cast a spell that has a range of touch, you can spend 1 *sorcery point* to make the range of the spell 30 feet."
+                            }
+                        }
+                    }, {
+                        "name": "Empowered Spell",
+                        "given": {
+                            "abilities.Metamagic: Empowered Spell": {
+                                "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)d. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
+                                "uses_formula": "min(1, character.modifiers.charisma)"
+                            }
+                        }
+                    }, {
+                        "name": "Extended Spell",
+                        "given": {
+                            "abilities.Metamagic: Extended Spell": {
+                                "description": "When you cast a spell that has a duration of 1 minute or longer, you can spend 1 sorcery point to double its duration, to a maximum duration of 24 hours."
+                            }
+                        }
+                    }, {
+                        "name": "Heightened Spell",
+                        "given": {
+                            "abilities.Metamagic: Heightened Spell": {
+                                "description": "When you cast a spell that forces a creature to make a *Saving Throw* to resist its effects, you can spend 3 *sorcery points* to give one target of the spell **Disadvantage** on its first *Saving Throw* made against the spell."
+                            }
+                        }
+                    }, {
+                        "name": "Quickened Spell",
+                        "given": {
+                            "abilities.Metamagic: Quickened Spell": {
+                                "description": "When you cast a spell that has a casting time of 1 *action*, you can spend 2 *sorcery points* to change the casting time to 1 *bonus action* for this casting."
+                            }
+                        }
+                    }, {
+                        "name": "Subtle Spell",
+                        "given": {
+                            "abilities.Metamagic: Subtle Spell": {
+                                "description": "When you cast a spell, you can spend 1 *sorcery point* to cast it without any somatic or verbal components."
+                            }
+                        }
+                    }, {
+                        "name": "Twined Spell",
+                        "given": {
+                            "abilities.Metamagic: Twined Spell": {
+                                "description": "When you cast a spell that targets only one creature and doesn't have a range of self, you can spend a number of sorcery points equal to the spell's level to target a second creature in range with the same spell (1 sorcery point if the spell is a cantrip)."
+                            }
+                        }
+                    }]
+                }]
+            },
+            "4": {
+                "conditions": {
+                    "level": 4,
+                    "creation": "3"
+                },
+                "given": {
+                    "proficiency": 2,
+                    "cantrips_known": 5,
+                    "spells_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "5": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "cantrips_known": 5,
+                    "spells_known": 6,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 2
+                }
+            },
+            "6": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "cantrips_known": 5,
+                    "spells_known": 7,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3
+                },
+                "tabs": [{
+                    "description": "Sorcerous Origin",
+                    "options": []
+                }]
+            },
+            "6-draconic": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5",
+                    "origin": ["Draconic Bloodline"]
+                },
+                "given": {
+                    "abilities.Elemental Affinity": {
+                        "descent": "When you cast a spell that deals %(type)s damage, add your *Charisma modifier* to that damage. At the same time, you can spend 1 *sorcery point* to gain *resistance* to %(type)s damage for 1 hour.",
+                        "type_formula": "character.Draconic.Damage Type"
+                    }
+                }
+            },
+            "6-wild": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5",
+                    "origin": ["Wild Magic"]
+                },
+                "given": {
+                    "abilities.Bend Luck": {
+                        "description": "You have the ability to twist fate using your wild magic. When another creature you can see makes an attack roll, an ability check, or a saving throw. you can use your *reaction* and spend 2 *sorcery points* to roll `1d4` and apply the number rolled as a *bonus* or *penalty* (your choice) to the creature's roll. You can do so after the creature rolls but before any effects of the roll occur."
+                    }
+                }
+            },
+            "7": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "cantrips_known": 5,
+                    "spells_known": 8,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 1
+                }
+            },
+            "8": {
+                "conditions": {
+                    "level": 8,
+                    "creation": "7"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "cantrips_known": 5,
+                    "spells_known": 9,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 2
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "9": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "cantrips_known": 5,
+                    "spells_known": 10,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 1
+                }
+            },
+            "10": {
+                "conditions": {
+                    "level": 10,
+                    "creation": "9"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "cantrips_known": 6,
+                    "spells_known": 11,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2
+                },
+                "tabs": [{
+                    "description": "You have the ability to twist your spells to suit your needs. You can use only one Metamagic option on a spell when you cast it, unless otherwise noted.",
+                    "options": [{
+                        "name": "Careful Spell",
+                        "given": {
+                            "abilities.Metamagic: Careful Spell": {
+                                "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)d. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
+                                "uses_formula": "min(1, character.modifiers.charisma)"
+                            }
+                        }
+                    }, {
+                        "name": "Distant Spell",
+                        "given": {
+                            "abilities.Metamagic: Distant Spell": {
+                                "description": "When you cast a spell that has a range of 5 feet or greater. you can spend 1 *sorcery point* to double the range of the spell. When you cast a spell that has a range of touch, you can spend 1 *sorcery point* to make the range of the spell 30 feet."
+                            }
+                        }
+                    }, {
+                        "name": "Empowered Spell",
+                        "given": {
+                            "abilities.Metamagic: Empowered Spell": {
+                                "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)d. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
+                                "uses_formula": "min(1, character.modifiers.charisma)"
+                            }
+                        }
+                    }, {
+                        "name": "Extended Spell",
+                        "given": {
+                            "abilities.Metamagic: Extended Spell": {
+                                "description": "When you cast a spell that has a duration of 1 minute or longer, you can spend 1 sorcery point to double its duration, to a maximum duration of 24 hours."
+                            }
+                        }
+                    }, {
+                        "name": "Heightened Spell",
+                        "given": {
+                            "abilities.Metamagic: Heightened Spell": {
+                                "description": "When you cast a spell that forces a creature to make a *Saving Throw* to resist its effects, you can spend 3 *sorcery points* to give one target of the spell **Disadvantage** on its first *Saving Throw* made against the spell."
+                            }
+                        }
+                    }, {
+                        "name": "Quickened Spell",
+                        "given": {
+                            "abilities.Metamagic: Quickened Spell": {
+                                "description": "When you cast a spell that has a casting time of 1 *action*, you can spend 2 *sorcery points* to change the casting time to 1 *bonus action* for this casting."
+                            }
+                        }
+                    }, {
+                        "name": "Subtle Spell",
+                        "given": {
+                            "abilities.Metamagic: Subtle Spell": {
+                                "description": "When you cast a spell, you can spend 1 *sorcery point* to cast it without any somatic or verbal components."
+                            }
+                        }
+                    }, {
+                        "name": "Twined Spell",
+                        "given": {
+                            "abilities.Metamagic: Twined Spell": {
+                                "description": "When you cast a spell that targets only one creature and doesn't have a range of self, you can spend a number of sorcery points equal to the spell's level to target a second creature in range with the same spell (1 sorcery point if the spell is a cantrip)."
+                            }
+                        }
+                    }]
+                }]
+            },
+            "11": {
+                "conditions": {
+                    "level": 11,
+                    "creation": "10"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "cantrips_known": 6,
+                    "spells_known": 12,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1
+                }
+            },
+            "12": {
+                "conditions": {
+                    "level": 12,
+                    "creation": "11"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "cantrips_known": 6,
+                    "spells_known": 12,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "13": {
+                "conditions": {
+                    "level": 13,
+                    "creation": "12"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "cantrips_known": 6,
+                    "spells_known": 13,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1
+                }
+            },
+            "14": {
+                "conditions": {
+                    "level": 14,
+                    "creation": "13"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "cantrips_known": 6,
+                    "spells_known": 13,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1
+                },
+                "tabs": [{
+                    "description": "Sorcerous Origin",
+                    "options": []
+                }]
+            },
+            "14-draconic": {
+                "conditions": {
+                    "level": 14,
+                    "creation": "13",
+                    "origin": ["Draconic Bloodline"]
+                },
+                "given": {
+                    "abilities.Dragon Wings": {
+                        "descent": "You have the ability to sprout a pair of dragon wings from your back, gaining a flying speed equal of %(speed)s. You can create these wings as a *bonus action* on your turn. They last until you dismiss them as a *bonus action* on your turn. You can't manifest your wings while wearing armor unless the armor is made to accommodate them, and clothing not made to accommodate your wings might be destroyed when you manifest them.",
+                        "speed_formula": "character.speed"
+                    }
+                }
+            },
+            "14-wild": {
+                "conditions": {
+                    "level": 14,
+                    "creation": "13",
+                    "origin": ["Wild Magic"]
+                },
+                "given": {
+                    "abilities.Controlled Chaos": {
+                        "descent": "You have a modicum of control over the surges of your **Wild Magic**. Whenever you roll on the **Wild Magic Surge** table, you can roll twice and use either number."
+                    }
+                }
+            },
+            "15": {
+                "conditions": {
+                    "level": 15,
+                    "creation": "14"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "cantrips_known": 6,
+                    "spells_known": 14,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1
+                }
+            },
+            "16": {
+                "conditions": {
+                    "level": 16,
+                    "creation": "15"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "cantrips_known": 6,
+                    "spells_known": 14,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "17": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "abilities.Metamagic": {
+                        "description": ""
+                    },
+                    "cantrips_known": 6,
+                    "spells_known": 15,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1,
+                    "spell_slots.9th_level": 1
+                },
+                "tabs": [{
+                    "description": "You have the ability to twist your spells to suit your needs. You can use only one Metamagic option on a spell when you cast it, unless otherwise noted.",
+                    "options": [{
+                        "name": "Careful Spell",
+                        "given": {
+                            "abilities.Metamagic: Careful Spell": {
+                                "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)d. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
+                                "uses_formula": "min(1, character.modifiers.charisma)"
+                            }
+                        }
+                    }, {
+                        "name": "Distant Spell",
+                        "given": {
+                            "abilities.Metamagic: Distant Spell": {
+                                "description": "When you cast a spell that has a range of 5 feet or greater. you can spend 1 *sorcery point* to double the range of the spell. When you cast a spell that has a range of touch, you can spend 1 *sorcery point* to make the range of the spell 30 feet."
+                            }
+                        }
+                    }, {
+                        "name": "Empowered Spell",
+                        "given": {
+                            "abilities.Metamagic: Empowered Spell": {
+                                "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)d. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
+                                "uses_formula": "min(1, character.modifiers.charisma)"
+                            }
+                        }
+                    }, {
+                        "name": "Extended Spell",
+                        "given": {
+                            "abilities.Metamagic: Extended Spell": {
+                                "description": "When you cast a spell that has a duration of 1 minute or longer, you can spend 1 sorcery point to double its duration, to a maximum duration of 24 hours."
+                            }
+                        }
+                    }, {
+                        "name": "Heightened Spell",
+                        "given": {
+                            "abilities.Metamagic: Heightened Spell": {
+                                "description": "When you cast a spell that forces a creature to make a *Saving Throw* to resist its effects, you can spend 3 *sorcery points* to give one target of the spell **Disadvantage** on its first *Saving Throw* made against the spell."
+                            }
+                        }
+                    }, {
+                        "name": "Quickened Spell",
+                        "given": {
+                            "abilities.Metamagic: Quickened Spell": {
+                                "description": "When you cast a spell that has a casting time of 1 *action*, you can spend 2 *sorcery points* to change the casting time to 1 *bonus action* for this casting."
+                            }
+                        }
+                    }, {
+                        "name": "Subtle Spell",
+                        "given": {
+                            "abilities.Metamagic: Subtle Spell": {
+                                "description": "When you cast a spell, you can spend 1 *sorcery point* to cast it without any somatic or verbal components."
+                            }
+                        }
+                    }, {
+                        "name": "Twined Spell",
+                        "given": {
+                            "abilities.Metamagic: Twined Spell": {
+                                "description": "When you cast a spell that targets only one creature and doesn't have a range of self, you can spend a number of sorcery points equal to the spell's level to target a second creature in range with the same spell (1 sorcery point if the spell is a cantrip)."
+                            }
+                        }
+                    }]
+                }]
+            },
+            "18": {
+                "conditions": {
+                    "level": 18,
+                    "creation": "17"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "cantrips_known": 6,
+                    "spells_known": 15,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 3,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1,
+                    "spell_slots.9th_level": 1
+                },
+                "tabs": [{
+                    "description": "Sorcerous Origin",
+                    "options": []
+                }]
+            },
+            "18-draconic": {
+                "conditions": {
+                    "level": 18,
+                    "creation": "17",
+                    "origin": ["Draconic Bloodline"]
+                },
+                "given": {
+                    "abilities.Dragonic Presence": {
+                        "descent": "You can channel the dread presence of your dragon ancestor, causing those around you to become awestruck or frightened. As an *action*, you can spend 5 *sorcery points* to draw on this power and exude an aura of *awe* or *fear* (your choice) to a distance of 60 feet. For 1 minute or until you lose your *concentration* (as if you were casting a concentration spell), each hostile creature that starts its turn in this aura must succeed on a **Wisdom** *Saving Throw* or be *charmed* (if you chose *awe*) or *frightened* (if you chose *fear*) until the aura ends. A creature that succeeds on this *Saving Throw* is *immune* to your aura for 24 hours."
+                    }
+                }
+            },
+            "18-wild": {
+                "conditions": {
+                    "level": 18,
+                    "creation": "17",
+                    "origin": ["Wild Magic"]
+                },
+                "given": {
+                    "abilities.Spell Bombardment": {
+                        "descent": "The harmful energy of your spells intensifies. When you roll damage for a spell and roll the highest number possible on any of the dice, choose one of those dice, roll it again and add that roll to the damage. You can use the feature only once per turn."
+                    }
+                }
+            },
+            "19": {
+                "conditions": {
+                    "level": 19,
+                    "creation": "18"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "cantrips_known": 6,
+                    "spells_known": 15,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 3,
+                    "spell_slots.6th_level": 2,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1,
+                    "spell_slots.9th_level": 1
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "20": {
+                "conditions": {
+                    "level": 20,
+                    "creation": "19"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "abilities.Sorcerous Restoration": {
+                        "description": "You regain 4 expended *sorcery points* whenever you finish a short rest."
+                    },
+                    "cantrips_known": 6,
+                    "spells_known": 15,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 3,
+                    "spell_slots.6th_level": 2,
+                    "spell_slots.7th_level": 2,
+                    "spell_slots.8th_level": 1,
+                    "spell_slots.9th_level": 1
+                }
+            }
+         }
     }],
     "background": [{
         "name": "Acolyte",
@@ -3360,7 +4227,7 @@
                     ],
                     "proficiencies.tools[]": [
                         {"group": ["Disguise Kit"]},
-                        {"select": "items.musical.items"}
+                        {"select": "tools.musical.items"}
                     ],
                     "equipment[]": [
                         {"group": [
@@ -3368,11 +4235,11 @@
                             "Belt Pouch"
                         ]},
                         {"choose": [
-                            {"select": "items.musical.items"},
+                            {"select": "tools.musical.items"},
                             {"select": ["Spear", "Trident", "Whip", "Net"]}
                         ]},
                         {"choose": [
-                            {"select": "items.trinket"},
+                            {"select": "tools.trinket.items"},
                             {"select": ["Love Letter; the Favor of an Admirer", "Lock of Hair; the Favor of an Admirer"]}
                         ]}
                     ]
@@ -3397,7 +4264,7 @@
                         {"group": ["animal handling", "survival"]}
                     ],
                     "proficiencies.tools[]": [
-                        {"select": "items.artisan.items"}
+                        {"select": "tools.artisan.items"}
                     ],
                     "equipment[]": [
                         {"group": [
@@ -3409,7 +4276,7 @@
                             "Set of Common Clothes",
                             "Pouch"
                         ]},
-                        {"select": "items.artisan.items"}
+                        {"select": "tools.artisan.items"}
                     ]
                 }
             }
@@ -3466,7 +4333,7 @@
                         {"group": ["history", "persuasion"]}
                     ],
                     "proficiencies.tools[]": [
-                        {"select": "items.gaming.items"}
+                        {"select": "tools.gaming.items"}
                     ],
                     "equipment[]": [
                         {"group": [
@@ -3536,7 +4403,7 @@
                     ],
                     "proficiencies.tools[]": [
                         {"group": ["Vehicles (land)"]},
-                        {"select": "items.gaming.items"}
+                        {"select": "tools.gaming.items"}
                     ],
                     "equipment[]": [
                         {"group": ["Insignia of Rank", "Set of Common Clothes", "Pouch"]},
