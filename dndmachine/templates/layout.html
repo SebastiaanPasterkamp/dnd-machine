@@ -55,29 +55,36 @@
                         </li>
 
                         {% if 'dm' in request.user.role %}
-                        <li class="highlight{% if request.path == url_for('monster.overview') %} primary{% endif %}">
-                            <a href="{{ url_for('monster.overview') }}" class="icon fa-paw">
-                                Monsters
-                            </a>
-                        </li>
+                        <li>
+                            <span class="icon fa-gavel">
+                                Dungeon Master
+                            </span>
+                            <ul>
 
-                        <li class="highlight{% if request.path == url_for('npc.overview') %} primary{% endif %}">
-                            <a href="{{ url_for('npc.overview') }}" class="icon fa-address-card-o">
-                                NPCs
-                            </a>
-                        </li>
+                            <li class="highlight{% if request.path == url_for('monster.overview') %} primary{% endif %}">
+                                <a href="{{ url_for('monster.overview') }}" class="icon fa-paw">
+                                    Monsters
+                                </a>
+                            </li>
 
-                        <li class="highlight{% if request.path == url_for('encounter.overview') %} primary{% endif %}">
-                            <a href="{{ url_for('encounter.overview') }}" class="icon fa-gamepad">
-                                Encounters
-                            </a>
-                        </li>
+                            <li class="highlight{% if request.path == url_for('npc.overview') %} primary{% endif %}">
+                                <a href="{{ url_for('npc.overview') }}" class="icon fa-commenting-o">
+                                    NPCs
+                                </a>
+                            </li>
 
-                        <li class="highlight{% if request.path == url_for('campaign.overview') %} primary{% endif %}">
-                            <a href="{{ url_for('campaign.overview') }}" class="icon fa-book">
-                                Campaigns
-                            </a>
-                        </li>
+                            <li class="highlight{% if request.path == url_for('encounter.overview') %} primary{% endif %}">
+                                <a href="{{ url_for('encounter.overview') }}" class="icon fa-gamepad">
+                                    Encounters
+                                </a>
+                            </li>
+
+                            <li class="highlight{% if request.path == url_for('campaign.overview') %} primary{% endif %}">
+                                <a href="{{ url_for('campaign.overview') }}" class="icon fa-book">
+                                    Campaigns
+                                </a>
+                            </li>
+                        </ul>
                         {% endif %}
 
                         <li>
