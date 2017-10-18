@@ -7,6 +7,7 @@ from . import get_db, get_datamapper
 from .config import get_config, get_item_data
 import filters
 from .views.user import user
+from .views.items import items
 from .views.character import character
 from .views.party import party
 from .views.monster import monster
@@ -18,6 +19,7 @@ app = Flask(__name__)
 
 # Register blueprints
 app.register_blueprint(user, url_prefix='/user')
+app.register_blueprint(items, url_prefix='/items')
 app.register_blueprint(character, url_prefix='/character')
 app.register_blueprint(party, url_prefix='/party')
 app.register_blueprint(monster, url_prefix='/monster')

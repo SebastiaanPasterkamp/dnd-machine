@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-shield">Armor</h2>
+
+<table class="nice-table condensed bordered">
+    {% for armor_type in ['light', 'medium', 'heavy', 'shield'] %}
+    {% set armor = armors[armor_type] %}
+    <thead>
+        <tr>
+            <th>{{ armor.name }}</th>
+            <th>Armor</th>
+            <th>Cost</th>
+            <th>Requirement</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in armor['items'] %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>
+                {{ item.value|default('') }}
+                {{ item.formula|replace('modifiers.', '') }}
+                {{ item.bonus|bonus if item.bonus else '' }}
+            </td>
+            <td>{{ item.cost|coinage(True) }}</td>
+            <td>{% if item.strength %}{{ item.strength }} strength{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    {% endfor %}
+</table>
+
+{% endblock %}

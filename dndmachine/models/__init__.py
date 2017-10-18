@@ -1,5 +1,7 @@
 from flask import g
 import json
+import os
+import sys
 
 from flask import g
 
@@ -13,6 +15,7 @@ from monster import MonsterMapper
 from npc import NpcMapper
 from party import PartyMapper
 from user import UserMapper
+from items import ItemsObject
 
 class Datamapper(object):
     """Contains instances for each type.
@@ -27,6 +30,15 @@ class Datamapper(object):
         self.monster = MonsterMapper(db)
         self.npc = NpcMapper(db)
         self.campaign = CampaignMapper(db)
+        self.items = ItemsObject(
+            os.path.abspath(
+                os.path.join(
+                    os.path.dirname(__file__),
+                    '..',
+                    'item-data.json'
+                    )
+                )
+            )
 
     def __getitem__(self, mapper):
         return self.__dict__[mapper]
