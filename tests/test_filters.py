@@ -78,6 +78,32 @@ class FiltersTestCase(unittest.TestCase):
             '+1'
             )
 
+    def testFilterCoinage(self):
+        self.assertEquals(
+            filters.filter_coinage({'cp': 1}),
+            '1 cp'
+            )
+        self.assertEquals(
+            filters.filter_coinage({'sp': 2, 'gp': 3}),
+            '3 gp, 2 sp'
+            )
+        self.assertEquals(
+            filters.filter_coinage({'sp': 2, 'cp': 8, 'gp': 3}),
+            '3 gp, 2 sp, 8 cp'
+            )
+        self.assertEquals(
+            filters.filter_coinage({'ep': 1}, True),
+            '1 Electrum'
+            )
+        self.assertEquals(
+            filters.filter_coinage({'cp': 5, 'pp': 3}, True),
+            '3 Platinum and 5 Copper'
+            )
+        self.assertEquals(
+            filters.filter_coinage({'ep': 3, 'cp': 5, 'pp': 3}, True),
+            '3 Platinum, 3 Electrum and 5 Copper'
+            )
+
     def testFilterClassify(self):
         self.assertEquals(
             filters.filter_classify(1, {'one': 1, 'two': 2, 'three': 3}),

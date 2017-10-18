@@ -45,12 +45,51 @@ def filter_bonus(number):
         return "+%d" % number
     return "%d" % number
 
+def filter_coinage(value, extended=False):
+    coinage = {
+        'cp': 'Copper',
+        'sp': 'Silver',
+        'ep': 'Electrum',
+        'gp': 'Gold',
+        'pp': 'Platinum'
+        }
+    amount = []
+    for coin in ['pp', 'gp', 'ep', 'sp', 'cp']:
+        if coin in value:
+            amount.append("%d %s" % (
+                value[coin],
+                coinage[coin] if extended else coin
+                ))
+    if not extended or len(amount) <= 1:
+        return ', '.join(amount)
+    return "%s and %s" % (
+        ', '.join(amount[:-1]),
+        amount[-1]
+        )
+
 def filter_distance(dist):
     if isinstance(dist, dict):
         if dist['min'] >= dist['max']:
             return "%(min)d ft." % dist
         return "%(min)d/%(max)d ft." % dist
-    return "%d ft." % dist
+    if isinstance(dist, int):
+        return "%d ft." % dist
+    return dist
+
+def filter_damage(damage):
+    datamapper = get_datamapper()
+    notation = ''
+    if 'value' in damage:
+        notation = "%d" % damage['value']
+    else:
+        notation = datamapper.machine.diceNotation(
+            damage['dice_size'],
+            damage['dice_count'],
+            damage.get('dice_bonus', 0))
+    return "%s %s" % (
+        notation,
+        damage.get('type', '').capitalize()
+        )
 
 def filter_classify(number, ranges={}):
     closest = min(

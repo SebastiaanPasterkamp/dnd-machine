@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-import json
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, jsonify, Markup
 
@@ -32,6 +31,8 @@ app.jinja_env.filters['sanitize'] = filters.filter_sanitize
 app.jinja_env.filters['unique'] = filters.filter_unique
 app.jinja_env.filters['field_title'] = filters.filter_field_title
 app.jinja_env.filters['bonus'] = filters.filter_bonus
+app.jinja_env.filters['damage'] = filters.filter_damage
+app.jinja_env.filters['coinage'] = filters.filter_coinage
 app.jinja_env.filters['distance'] = filters.filter_distance
 app.jinja_env.filters['classify'] = filters.filter_classify
 app.jinja_env.filters['completed'] = filters.filter_completed
