@@ -32,6 +32,7 @@ When you attempt to learn or recall a piece of lore, if you do not know that inf
 Sages are defined by their extensive studies, and their characteristics reflect this life of study. Devoted to scholarly pursuits, a sage values knowledge highly—sometimes in its own right, sometimes as a means toward other ideals.
 
 | d8 | Personality Trait |
+| --- | --- |
 | 1 | I use polysyllabic words that convey the impression of great erudition. |
 | 2 | I’ve read every book in the world’s greatest libraries—or I like to boast that I have. |
 | 3 | I’m used to helping out those who aren’t as smart as I am, and I patiently explain anything and everything to others. |
@@ -42,6 +43,7 @@ Sages are defined by their extensive studies, and their characteristics reflect 
 | 8 | I’m convinced that people are always trying to steal my secrets. |
 
 | d6 | Ideal |
+| --- | --- |
 | 1 | Knowledge. The path to power and self-improvement is through knowledge. (Neutral) |
 | 2 | Beauty. What is beautiful points us beyond itself toward what is true. (Good) |
 | 3 | Logic. Emotions must not cloud our logical thinking. (Lawful) |
@@ -49,7 +51,8 @@ Sages are defined by their extensive studies, and their characteristics reflect 
 | 5 | Power. Knowledge is the path to power and domination. (Evil) |
 | 6 | Self-Improvement. The goal of a life of study is the betterment of oneself. (Any) |
 
-d6Bond
+| d6 | Bond |
+| --- | --- |
 | 1 | It is my duty to protect my students. |
 | 2 | I have an ancient text that holds terrible secrets that must not fall into the wrong hands. |
 | 3 | I work to preserve a library, university, scriptorium, or monastery. |
@@ -57,7 +60,8 @@ d6Bond
 | 5 | I’ve been searching my whole life for the answer to a certain question. |
 | 6 | I sold my soul for knowledge. I hope to do great deeds and win it back. |
 
-d6Flaw
+| d6| Flaw |
+| --- | --- |
 | 1 | I am easily distracted by the promise of information. |
 | 2 | Most people scream and run when they see a demon. I stop and take notes on its anatomy. |
 | 3 | Unlocking an ancient mystery is worth the price of a civilization. |

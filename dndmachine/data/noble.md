@@ -14,7 +14,7 @@ These details help establish your family and your title as features of the world
 
 * **Skill Proficiencies:** History, Persuasion
 
-* **Tool Proficiencies:* One type of gaming set
+* **Tool Proficiencies:** One type of gaming set
 
 * **Language:** One of your choice
 
