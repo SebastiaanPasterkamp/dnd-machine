@@ -196,11 +196,6 @@ class CharacterObject(JsonObject):
                         "uses": int,
                         "bonus": int
                         }
-                    },
-                "computed": {
-                    "*": {
-                        "bonus": int
-                        }
                     }
                 }
             )
