@@ -80,9 +80,29 @@
                         </li>
                         {% endif %}
 
+                        <li>
+                            <span class="icon fa-list">
+                                Items
+                            </span>
+                            <ul>
+                                <li>
+                                    <a href="{{ url_for('items.spells') }}" class="icon fa-magic">Spells</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('items.languages') }}" class="icon fa-language">Languages</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('items.weapons') }}" class="icon fa-cutlery">Weapons</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('items.armor') }}" class="icon fa-shield">Armor</a>
+                                </li>
+                            </ul>
+                        </li>
+
                         {% if 'admin' in request.user.role %}
                         <li>
-                            <span class="icon fa-book">
+                            <span class="icon fa-address-book">
                                 Admin
                             </span>
                             <ul>

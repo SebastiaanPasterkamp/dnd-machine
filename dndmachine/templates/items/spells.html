@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2 class="icon fa-magic">Spells</h2>
+
+<form class="nice-form-horizontal nice-col-4">
+    <div class="nice-form-group">
+        <label for="name" class="nice-col-3 nice-control-label">
+            Name
+        </label>
+        <div class="nice-col-9">
+            <input{{ {
+                "type": "text",
+                "class": "nice-form-control",
+                "placeholder": "Spell name...",
+                "id": "name",
+                "name": "name",
+                "value": name
+                }|xmlattr }}/>
+        </div>
+    </div>
+    <div class="nice-form-group">
+        <label for="level" class="nice-col-3 nice-control-label">
+            Level
+        </label>
+        <div class="nice-col-9">
+            <select {{ {
+                    "class": "nice-form-control",
+                    "id": "level",
+                    "name": "level"
+                    }|xmlattr }} >
+                <option></option>
+                {% for lvl in ["Cantrip", "1","2","3","4","5","6","7","8","9"] %}
+                <option{{ {
+                    "selected": "selected" if lvl == level else None,
+                    "value": lvl,
+                    }|xmlattr }}>{{ lvl }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="nice-form-group">
+        <label for="class" class="nice-col-3 nice-control-label">
+            Class
+        </label>
+        <div class="nice-col-9">
+            <select {{ {
+                    "class": "nice-form-control",
+                    "id": "classes",
+                    "name": "classes"
+                    }|xmlattr }} >
+                <option></option>
+                {% for cls in ["Bard", "Cleric", "Druid", "Paladin", "Ranger", "Sorcerer", "Warlock", "Wizard"] %}
+                <option{{ {
+                    "selected": "selected" if cls == classes else None,
+                    "value": cls,
+                    }|xmlattr }}>{{ cls }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="nice-form-group">
+        <div class="nice-col-9 nice-shift-3">
+            <button type="submit" value="search" class="nice-btn primary pull-right">
+                <i class="icon fa-search"></i>
+                Filter
+            </button>
+        </div>
+    </div>
+</form>
+
+<table class="nice-table condensed bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Information</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for spell in spell_list %}
+        <tr>
+            <th>{{ spell.name }}</th>
+            <td>{{ spell.description|markdown }}</td>
+            <td>
+                <ul class="nice-menu stacked">
+                    <li>
+                        <strong>Level:</strong>
+                        {{ spell.level }}
+                    </li>
+                    <li>
+                        <strong>Classes:</strong>
+                        {{ spell.classes|join(', ') }}
+                    </li>
+                    <li>
+                        <strong>School:</strong>
+                        {{ spell.school }}
+                    </li>
+                    <li>
+                        <strong>Range:</strong>
+                        {{ spell.range|distance }}
+                    </li>
+                    <li>
+                        <strong>Casting Time:</strong>
+                        {{ spell.casting_time }}
+                    </li>
+                    <li>
+                        <strong>Duration:</strong>
+                        {{ spell.duration }}
+                    </li>
+                    <li>
+                        <strong>Components:</strong>
+                        {{ spell.components|join(', ') }}
+                    </li>
+                    {% if spell.cost -%}
+                    <li>
+                        <strong>Cost:</strong>
+                        {{ spell.cost }}
+                    </li>
+                {% endif -%}
+                </ul>
+            </td>
+        </tr>
+        {%- endfor %}
+    </tbody>
+</table>
+{% endblock %}
