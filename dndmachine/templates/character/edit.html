@@ -51,12 +51,15 @@
                     <ul>
                         {% for i in range([character.cantrips_known, character.spells.cantrip|length]|max) %}
                         <li>
+                            {% if character.spells.cantrip[i] -%}
+                                <span class="nice-form-control">{{ character.spells.cantrip[i] }}</span>
+                            {%- else -%}
 
 <select{{ {
         "class": "nice-form-control",
         "name": ['character', 'spells', 'cantrip', i]|join('.')
         }|xmlattr }}>
-    {% for option in items.spells[character.class|lower]['cantrips'] %}
+    {% for option in items.spells[character.class|lower]['cantrip'] %}
         <option{{ {
                 "selected": "selected" if character.spells.cantrip[i] == option.name else None,
                 "value": option.name
@@ -66,6 +69,7 @@
     {% endfor %}
 </select>
 
+                            {%- endif %}
                         </li>
                         {% endfor %}
                     </ul>
@@ -77,6 +81,9 @@
                     <ul>
                         {% for i in range([character.spell_slots[level], spells|length]|max) %}
                         <li>
+                            {% if spells[i] -%}
+                                <span class="nice-form-control">{{ spells[i] }}</span>
+                            {%- else -%}
 
 <select{{ {
         "class": "nice-form-control",
@@ -91,7 +98,7 @@
         </option>
     {% endfor %}
 </select>
-
+                            {%- endif %}
                         </li>
                         {% endfor %}
                     </ul>
