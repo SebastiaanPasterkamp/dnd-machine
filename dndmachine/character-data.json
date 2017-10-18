@@ -477,7 +477,7 @@
                     "path": ["Totem Warrior"]
                 },
                 "tabs": [{
-                    "description": "You chose a totem spirit and gain its feature. You must make or acquire a physical totem object -an amulet or similar adornment—that incorporates fur or feathers, claws, teeth, or bones of the totem animal. At your option. you also gain minor physical attributes that are reminiscent of your totem spirit. For example. if you have a hear totem spirit, you might be unusually hairy and thick- skinned, or if your totem is the eagle, your eyes turn bright yellow.",
+                    "description": "You chose a totem spirit and gain its feature. You must make or acquire a physical totem object -an amulet or similar adornment-that incorporates fur or feathers, claws, teeth, or bones of the totem animal. At your option. you also gain minor physical attributes that are reminiscent of your totem spirit. For example. if you have a hear totem spirit, you might be unusually hairy and thick- skinned, or if your totem is the eagle, your eyes turn bright yellow.",
                     "options": [{
                         "name": "Totem Spirit: Bear",
                         "given": {
@@ -1496,6 +1496,7 @@
         "config": {
             "hit_dice": 8,
             "spell_stat": "wisdom",
+            "domain": [],
             "computed": {
                 "hit_points": {
                     "formula": "(8 + modifiers.constitution) + (5 + modifiers.constitution) * (level - 1)"
@@ -1505,6 +1506,9 @@
                 },
                 "spell_attack_modifier": {
                     "formula": "proficiency + modifiers.wisdom"
+                },
+                "spell_prepared": {
+                    "formula": "max(1, level + modifiers.wisdom)"
                 }
             },
             "proficiencies": {
@@ -1549,7 +1553,1042 @@
                         {"select": "spells.cleric.cantrip"},
                         {"select": "spells.cleric.cantrip"},
                         {"select": "spells.cleric.cantrip"}
+                    ],
+                    "spells.1st_level[]": [
+                        {"select": "spells.cleric.1st_level"},
+                        {"select": "spells.cleric.1st_level"}
                     ]
+                },
+                "tabs": [{
+                    "name": "Divine Domain",
+                    "description": "Choose one domain related to your deity. Your choice grants you domain spells and other features. It also grants you additional ways to use Channel Divinity, and additional benefits at higher levels.",
+                    "options": [{
+                        "name": "Knowledge",
+                        "description": "The gods of knowledge value learning and understanding above all. Some teach that knowledge is to be gathered and shared in libraries and universities, or promote the practical knowledge of craft and invention. Some deities hoard knowledge and keep its secrets to themselves. And some promise their followers that they will gain tremendous power if they unlock the secrets of the multiverse. Followers of these gods study esoteric lore, collect old tomes, delve into the secret places of the earth, and learn all they can. Some gods of knowledge promote the practical knowledge of craft and invention.",
+                        "given": {
+                            "domain[]": "Knowledge",
+                            "spell_list[]": ["Command", "Identify"]
+                        },
+                        "options": {
+                            "languages[]": [
+                                {"select": "languages.common,languages.exotic"},
+                                {"select": "languages.common,languages.exotic"}
+                            ],
+                            "proficiencies.expertise[]": [
+                                {"multiple": [
+                                    {"select": ["arcana", "history", "nature", "religion"]},
+                                    {"select": ["arcana", "history", "nature", "religion"]}
+                                ]}
+                            ]
+                        }
+                    }, {
+                        "name": "Life",
+                        "description": "The Life domain focuses on the vibrant positive energy-one of the fundamental forces of the universe- that sustains all life. The gods of life promote vitality and health through healing the sick and wounded, caring for those in need, and driving away the forces of death and undeath. Almost any non-evil deity can claim influence over this domain",
+                        "given": {
+                            "domain[]": "Life",
+                            "spell_list[]": ["Bless", "Cure Wounds"],
+                            "proficiencies.armor[]": "Heavy Armor",
+                            "abilities.Disciple of Life": "Your healing spells are more effective. Whenever you use a spell of 1st level or higher to restore hit points to a creature. the creature regains additional hit points equal to 2 + the spell's level."
+                        }
+                    }, {
+                        "name": "Light",
+                        "description": "Gods of light promote the ideals of rebirth and renewal, truth, vigilance, and beauty, often using the symbol of the sun. Some of these gods are portrayed as the sun itself or as a charioteer who guides the sun across the sky. Others are tireless sentinels whose eyes pierce every shadow and see through every deception. Some are deities of beauty and artistry, who teach that art is a vehicle for the soul's improvement. Clerics of a god of light are enlightened souls infused with radiance and the power of their gods' discerning vision, charged with chasing away lies and burning away darkness.",
+                        "given": {
+                            "domain[]": "Light",
+                            "spell_list[]": ["Burning Hands", "Faerie Fire", "Light"],
+                            "abilities.Warding Flare": {
+                                "description": "You can interpose divine light between yourself and an attacking enemy. When you are attacked by a creature within 30 feet of you that you can see, you can use your reaction to impose **Disadvantage** on the attack roll, causing light to flare before the attacker before it hits or misses. An attacker that can't be blinded is immune to this feature. You can use this feature %(uses)d times. You regain all expended uses when you finish a long rest.",
+                                "uses_formula": "max(1, character.modifiers.wisdom)"
+                            }
+                        }
+                    }, {
+                        "name": "Nature",
+                        "description": "Gods of nature are as varied as the natural world itself. from inscrutable gods of the deep forests to friendly deities associated with particular springs and groves. Druids revere nature as a whole and might serve one of these deities, practicing mysterious rites and reciting all-but-forgotten prayers in their own secret tongue. But many of these gods have clerics as well, champions who take a more active role in advancing the interests of a particular nature god. These clerics might hunt the evil monstrosities that despoil the woodlands, bless the harvest of the faithful, or wither the crops of those who anger their gods.",
+                        "given": {
+                            "domain[]": "Nature",
+                            "spell_list[]": ["Animal Friendship", "Speak with Animals"],
+                            "proficiencies.armor[]": "Heavy Armor"
+                        },
+                        "options": {
+                            "spell_list[]": [
+                                {"select": "spells.druid.cantrip"}
+                            ],
+                            "proficiencies.skill[]": [
+                                {"multiple": [
+                                    {"select": ["animal handling", "nature", "survival"]}
+                                ]}
+                            ]
+                        }
+                    }, {
+                        "name": "Tempest",
+                        "description": "Gods whose portfolios include the Tempest domain govern storms, sea, and sky. They include gods of lightning and thunder, gods of earthquakes, some fire gods, and certain gods of violence, physical strength, and courage. In some pantheons, a god of this domain rules over other deities and is known for swift justice delivered by thunderbolts. In the pantheons of seafaring people, gods of this domain are ocean deities and the patrons of sailors. Tempest gods send their clerics to inspire fear in the common folk, either to keep those folk on the path of righteousness or to encourage them to offer sacrifices of propitiation to ward off divine wrath.",
+                        "given": {
+                            "domain[]": "Tempest",
+                            "spell_list[]": ["Fog Cloud", "Thunderwave"],
+                            "proficiencies.armor[]": "Heavy Armor",
+                            "proficiencies.weapons[]": "Martial Weapons",
+                            "abilities.Wrath of the Storm": {
+                                "description": "You can thunderously rebuke attackers. When a creature within 5 feet of you that you can see hits you with an attack, you can use your *reaction* to cause the creature to make a **Dexterity** saving throw. The creature takes `2d8` lightning or thunder damage (your choice) on a failed saving throw, and half as much damage on a successful one. You can use this feature %(uses)d times. You regain all expended uses when you finish a long rest.",
+                                "uses_formula": "max(1, character.modifiers.wisdom)"
+                            }
+                        }
+                    }, {
+                        "name": "Trickery",
+                        "description": "Gods of trickery are mischief-makers and instigators who stand as a constant challenge to the accepted order among both gods and mortals. They're patrons of thieves, scoundrels, gamblers, rebels, and liberators. Their clerics are a disruptive force in the world, puncturing pride, mocking tyrants, stealing from the rich, freeing captives, and flouting hollow traditions. They prefer subterfuge. pranks, deception, and theft rather than direct confrontation.",
+                        "given": {
+                            "domain[]": "Trickery",
+                            "spell_list[]": ["Charm Person", "Disguise Self"],
+                            "abilities.Blessing of the Trickster": {
+                                "description": "You can use your *action* to touch a willing creature other than yourself to give it **Advantage** on **Dexterity (Stealth)** checks. This blessing lasts for 1 hour or until you use this feature again."
+                            }
+                        }
+                    }, {
+                        "name": "War",
+                        "description": "War has many manifestations. It can make heroes of ordinary people. It can be desperate and horrific, with acts of cruelty and cowardice eclipsing instances of excellence and courage. In either case, the gods of war watch over warriors and reward them for their great deeds. The clerics of such gods excel in battle, inspiring others to fight the good fight or offering acts of violence as prayers. Gods of war include champions of honor and chivalry as well as gods of destruction and pillage and gods of conquest and domination. Other war gods take a more neutral stance, promoting war in all its manifestations and supporting warriors in any circumstance.",
+                        "given": {
+                            "domain[]": "War",
+                            "spell_list[]": ["Divine Favor", "Shield of Faith"],
+                            "proficiencies.armor[]": "Heavy Armor",
+                            "proficiencies.weapons[]": "Martial Weapons",
+                            "abilities.War Priest": {
+                                "description": "Your god delivers bolts of inspiration to you while you are engaged in battle. When you use the **Attack** action, you can make one weapon attack as a *bonus action*. You can use this feature %(uses)d times. You regain all expended uses when you finish a long rest.",
+                                "uses_formula": "max(1, character.modifiers.wisdom)"
+                            }
+                        }
+                    }]
+                }]
+            },
+            "2": {
+                "conditions": {
+                    "level": 2,
+                    "creation": "1"
+                },
+                "given": {
+                    "proficiency": 2,
+                    "abilities.Channel Divinity": {
+                        "description": "You have the ability to channel divine energy directly from your deity, using that energy to fuel magical effects. You start with two such effects: **Turn Undead** and an effect determined by your domain. When you use your **Channel Divinity**, you choose which effect to create. You must then finish a short or long rest after %(uses)s uses to use your Channel Divinity again. Some Channel Divinity effects require *Saving Throws*. When you use such an effect from this class, the DC equals %(dc)s.",
+                        "dc_formula": "character.spell_safe_dc",
+                        "uses": 1
+
+                    },
+                    "abilities.Channel Divinity: Turn Undead": {
+                        "description": "As an *action*, you present your holy symbol and speak a prayer censuring the undead. Each undead that can see or hear you within 30 feet of you must make a **Wisdom** saving throw. If the creature fails its saving throw, it is turned for 1 minute or until it takes any damage. A turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take *reactions*. For its *action*, it can use only the **Dash** action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the **Dodge** action."
+                    },
+                    "cantrips_known": 3,
+                    "spell_slots.1st_level": 3
+                }
+            },
+            "2-knowledge": {
+                "conditions": {
+                    "level": 2,
+                    "creation": "1",
+                    "domain": ["Knowledge"]
+                },
+                "given": {
+                    "abilities.Channel Divinity: Knowledge of the Ages": {
+                        "description": "You can use your **Channel Divinity** to tap into a divine well of knowledge. As an *action*, you choose one skill or tool. For 10 minutes, you have proficiency with the chosen skill or tool."
+                    }
+                }
+            },
+            "2-life": {
+                "conditions": {
+                    "level": 2,
+                    "creation": "1",
+                    "domain": ["Life"]
+                },
+                "given": {
+                    "abilities.Channel Divinity: Preserve Life": {
+                        "description": "You can use your **Channel Divinity** to heal the badly injured. As an *action*, you present your holy symbol and evoke healing energy that can restore %(hit_points)s hit points. Choose any creatures within 30 feet of you, and divide those hit points among them. This feature can restore a creature to no more than half of its hit point maximum. You can't use this feature on an undead or a construct.",
+                        "hit_points_formula": "5 * character.level"
+                    }
+                }
+            },
+            "2-light": {
+                "conditions": {
+                    "level": 2,
+                    "creation": "1",
+                    "domain": ["Light"]
+                },
+                "given": {
+                    "abilities.Channel Divinity: Radiance of the Dawn": {
+                        "description": "You can use your **Channel Divinity** to harness sunlight, banishing darkness and dealing radiant damage to your foes. As an *action*, you present your holy symbol, and any magical darkness within 30 feet of you is dispelled. Additionally, each hostile creature within 30 feet of you must make a **Constitution** saving throw. A creature takes radiant damage equal to `2d10` + %(bonus)d on a failed saving throw, and half as much damage on a successful one. A creature that has total cover from you is not affected.",
+                        "bonus_formula": "character.level"
+                    }
+                }
+            },
+            "2-nature": {
+                "conditions": {
+                    "level": 2,
+                    "creation": "1",
+                    "domain": ["Nature"]
+                },
+                "given": {
+                    "abilities.Channel Divinity: Charm Animals and Plants": {
+                        "description": "You can use your **Channel Divinity** to charm animals and plants. As an *action*, you present your holy symbol and invoke the name of your deity. Each beast or plant creature that can see you within 30 feet of you must make a **Wisdom** saving throw. If the creature fails its saving throw, it is charmed by you for 1 minute or until it takes damage. While it is charmed by you, it is friendly to you and other creatures you designate."
+                    }
+                }
+            },
+            "2-tempest": {
+                "conditions": {
+                    "level": 2,
+                    "creation": "1",
+                    "domain": ["Tempest"]
+                },
+                "given": {
+                    "abilities.Channel Divinity: Destructive Wrath": {
+                        "description": "You can use your **Channel Divinity** to wield the power of the storm with unchecked ferocity. When you roll *lightning* or *thunder* damage, you can use your **Channel Divinity** to deal maximum damage, instead of rolling."
+                    }
+                }
+            },
+            "2-trickery": {
+                "conditions": {
+                    "level": 2,
+                    "creation": "1",
+                    "domain": ["Trickery"]
+                },
+                "given": {
+                    "abilities.Channel Divinity: Invoke Duplicity": {
+                        "description": "You can use your **Channel Divinity** to create an illusory duplicate of yourself. As an *action*, you create a perfect illusion of yourself that lasts for 1 minute, or until you lose your concentration (as if you were concentrating on a spell). The illusion appears in an unoccupied space that you can see within 30 feet of you. As a *bonus action* on your turn, you can move the illusion up to 30 feet to a space you can see, but it must remain within 120 feet of you. For the duration, you can cast spells as though you were in the illusion's space, but you must use your own senses. Additionally, when both you and your illusion are within 5 feet of a creature that can see the illusion, you have **Advantage** on attack rolls against that creature, given how distracting the illusion is to the target."
+                    }
+                }
+            },
+            "2-war": {
+                "conditions": {
+                    "level": 2,
+                    "creation": "1",
+                    "domain": ["War"]
+                },
+                "given": {
+                    "abilities.Channel Divinity: Guided Strike": {
+                        "description": "You can use your **Channel Divinity** to strike with supernatural accuracy. When you make an attack roll, you can use your **Channel Divinity** to gain a `+10` bonus to the roll. You make this choice after you see the roll, but before the DM says whether the attack hits or misses."
+                    }
+                }
+            },
+            "3": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2"
+                },
+                "given": {
+                    "proficiency": 2,
+                    "cantrips_known": 3,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 2
+                }
+            },
+            "3-knowledge": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2",
+                    "domain": ["Knowledge"]
+                },
+                "given": {
+                    "spell_list[]": ["Augury", "Suggestion"]
+                }
+            },
+            "3-life": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2",
+                    "domain": ["Life"]
+                },
+                "given": {
+                    "spell_list[]": ["Lesser Restoration", "Spiritual Weapon"]
+                }
+            },
+            "3-light": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2",
+                    "domain": ["Light"]
+                },
+                "given": {
+                    "spell_list[]": ["Flaming Sphere", "Scorching Ray"]
+                }
+            },
+            "3-nature": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2",
+                    "domain": ["Nature"]
+                },
+                "given": {
+                    "spell_list[]": ["Barkskin", "Spike Growth"]
+                }
+            },
+            "3-tempest": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2",
+                    "domain": ["Tempest"]
+                },
+                "given": {
+                    "spell_list[]": ["Gust of Wind", "Shatter"]
+                }
+            },
+            "3-trickery": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2",
+                    "domain": ["Trickery"]
+                },
+                "given": {
+                    "spell_list[]": ["Mirror Image", "Pass Without Trace"]
+                }
+            },
+            "3-war": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2",
+                    "domain": ["War"]
+                },
+                "given": {
+                    "spell_list[]": ["Magic Weapon", "Spiritual Weapon"]
+                }
+            },
+            "4": {
+                "conditions": {
+                    "level": 4,
+                    "creation": "3"
+                },
+                "given": {
+                    "proficiency": 2,
+                    "cantrips_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "5": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "cantrips_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 2,
+                    "abilities.Destroy Undead": {
+                        "description": "When an undead fails its *Saving Throw* against your **Turn Undead** feature, the creature is instantly destroyed if its challenge rating is at or below a %(challenge_rating)s.",
+                        "challenge_rating": "1/2"
+                    }
+                }
+            },
+            "5-knowledge": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4",
+                    "domain": ["Knowledge"]
+                },
+                "given": {
+                    "spell_list[]": ["Nondetection", "Speak with Dead"]
+                }
+            },
+            "5-life": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4",
+                    "domain": ["Life"]
+                },
+                "given": {
+                    "spell_list[]": ["Beacon of Hope", "Revivify"]
+                }
+            },
+            "5-light": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4",
+                    "domain": ["Light"]
+                },
+                "given": {
+                    "spell_list[]": ["Daylight", "Fireball"]
+                }
+            },
+            "5-nature": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4",
+                    "domain": ["Nature"]
+                },
+                "given": {
+                    "spell_list[]": ["Plant Growth", "Wind Wall"]
+                }
+            },
+            "5-tempest": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4",
+                    "domain": ["Tempest"]
+                },
+                "given": {
+                    "spell_list[]": ["Call Lightning", "Sleet Storm"]
+                }
+            },
+            "5-trickery": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4",
+                    "domain": ["Trickery"]
+                },
+                "given": {
+                    "spell_list[]": ["Blink", "Dispel Magic"]
+                }
+            },
+            "5-war": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4",
+                    "domain": ["War"]
+                },
+                "given": {
+                    "spell_list[]": ["Crusader's Mantle", "Spirit Guardians"]
+                }
+            },
+            "6": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "cantrips_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "abilities.Channel Divinity (2/rest)": {
+                        "uses": 2
+                    },
+                    "abilities.Divine Domain": {
+                    }
+                }
+            },
+            "6-knowledge": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5",
+                    "domain": ["Knowledge"]
+                },
+                "given": {
+                    "abilities.Channel Divinity: Read Thougts": {
+                        "description": "You can use your **Channel Divinity** to read a creature's thoughts. You can then use your access to the creature's mind to command it. As an *action*, choose one creature that you can see within 60 feet of you. That creaturc must make a **Wisdom** saving throw. If the creature succeeds on the saving throw. you can't use this feature on it again until you finish a long rest. If the creature fails its save, you can read its surface thoughts (those foremost in its mind, reflecting its current emotions and what it is actively thinking about) when it is within 60 feet of you. This effect lasts for 1 minute. During that time, you can use your *action* to end this effect and cast the **Suggestion** spell on the creature without expending a spell slot. The target automatically fails its saving throw against the spell."
+                    }
+                }
+            },
+            "6-life": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5",
+                    "domain": ["Life"]
+                },
+                "given": {
+                    "abilities.Blessed Healer": {
+                        "description": "The healing spells you cast on others heal you as well. When you cast a spell of 1st level or higher that restores hit points to a creature other than you, you regain hit points equal to 2 + the spell's level."
+                    }
+                }
+            },
+            "6-light": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5",
+                    "domain": ["Light"]
+                },
+                "given": {
+                    "abilities.Blessed Healer": {
+                        "description": "You can interpose divine light between yourself and an attacking enemy. When you, or a creature you see are attacked by a creature within 30 feet of you that you can see, you can use your reaction to impose **Disadvantage** on the attack roll, causing light to flare before the attacker before it hits or misses. An attacker that can't be blinded is immune to this feature. You can use this feature %(uses)d times. You regain all expended uses when you finish a long rest."
+                    }
+                }
+            },
+            "6-nature": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5",
+                    "domain": ["Nature"]
+                },
+                "given": {
+                    "abilities.Dampen Elements": {
+                        "description": "When you or a creature within 30 feet of you takes *acid, cold, fire, lightning*, or *thunder* damage, you can use your *reaction* to grant resistance to the creature against that instance of the damage."
+                    }
+                }
+            },
+            "6-tempest": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5",
+                    "domain": ["Tempest"]
+                },
+                "given": {
+                    "abilities.Thunderbolt Strike": {
+                        "description": "When you deal *lightning* damage to a Large or smaller creature, you can also push it up to 10 feet away from you."
+                    }
+                }
+            },
+            "6-trickery": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5",
+                    "domain": ["Trickery"]
+                },
+                "given": {
+                    "abilities.Channel Divinity: Cloak of Shadows": {
+                        "description": "You can use your *Channel Divinity* to vanish. As an *action*, you become invisible until the end of your next turn. You become visible if you attack or cast a spell."
+                    }
+                }
+            },
+            "6-war": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5",
+                    "domain": ["War"]
+                },
+                "given": {
+                    "abilities.Channel Divinity: War God's Blessing": {
+                        "description": "When a creature within 30 feet of you makes an attack roll, you can use your *reaction* to grant that creature a `+10` bonus to the roll, using your **Channel Divinity**. You make this choice after you see the roll, but before the DM says whether the attack hits or misses."
+                    }
+                }
+            },
+            "7": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "cantrips_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 1
+                }
+            },
+            "7-knowledge": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6",
+                    "domain": ["Knowledge"]
+                },
+                "given": {
+                    "spell_list[]": ["Arcane Eye", "Confusion"]
+                }
+            },
+            "7-life": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6",
+                    "domain": ["Life"]
+                },
+                "given": {
+                    "spell_list[]": ["Death Word", "Guardian of Faith"]
+                }
+            },
+            "7-light": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6",
+                    "domain": ["Light"]
+                },
+                "given": {
+                    "spell_list[]": ["Guardian of Faith", "Wall of Fire"]
+                }
+            },
+            "7-nature": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6",
+                    "domain": ["Nature"]
+                },
+                "given": {
+                    "spell_list[]": ["Dominate Beast", "Grasping Vine"]
+                }
+            },
+            "7-tempest": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6",
+                    "domain": ["Tempest"]
+                },
+                "given": {
+                    "spell_list[]": ["Control Water", "Ice Storm"]
+                }
+            },
+            "7-trickery": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6",
+                    "domain": ["Trickery"]
+                },
+                "given": {
+                    "spell_list[]": ["Dimension Door", "Polymorph"]
+                }
+            },
+            "7-war": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6",
+                    "domain": ["War"]
+                },
+                "given": {
+                    "spell_list[]": ["Freedom of Movement", "Stoneskin"]
+                }
+            },
+            "8": {
+                "conditions": {
+                    "level": 8,
+                    "creation": "7"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "cantrips_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 2,
+                    "abilities.Destroy Undead": {
+                        "challenge_rating": 1
+                    },
+                    "abilities.Divine Domain": {
+                    }
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "8-knowledge-light": {
+                "conditions": {
+                    "level": 8,
+                    "creation": "7",
+                    "domain": ["Knowledge", "Light"]
+                },
+                "given": {
+                    "abilities.Potent Spellcasting": {
+                        "description": "You add your **Wisdom modifier** to the damage you deal with any cleric cantrip."
+                    }
+                }
+            },
+            "8-life-nature-tempest-trickery-war": {
+                "conditions": {
+                    "level": 8,
+                    "creation": "7",
+                    "domain": ["Life", "Nature", "Tempest", "Trickery", "War"]
+                },
+                "given": {
+                    "abilities.Divine Strike": {
+                        "description": "You gain the ability to infuse your weapon strikes with divine energy. Once on each of your turns when you hit a creature with a weapon attack. you can cause the attack to deal an extra %(damage)s radiant damage to the target.",
+                        "damage": "1d8"
+                    }
+                }
+            },
+            "9": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "cantrips_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 1
+                }
+            },
+            "9-knowledge": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8",
+                    "domain": ["Knowledge"]
+                },
+                "given": {
+                    "spell_list[]": ["Legend Lore", "Scrying"]
+                }
+            },
+            "9-life": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8",
+                    "domain": ["Life"]
+                },
+                "given": {
+                    "spell_list[]": ["Mass Cure Wounds", "Raise Dead"]
+                }
+            },
+            "9-light": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8",
+                    "domain": ["Light"]
+                },
+                "given": {
+                    "spell_list[]": ["Flame Strike", "Scrying"]
+                }
+            },
+            "9-nature": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8",
+                    "domain": ["Nature"]
+                },
+                "given": {
+                    "spell_list[]": ["Insect Plague", "Tree Stride"]
+                }
+            },
+            "9-tempest": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8",
+                    "domain": ["Tempest"]
+                },
+                "given": {
+                    "spell_list[]": ["Destructive Wave", "Insect Plague"]
+                }
+            },
+            "9-trickery": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8",
+                    "domain": ["Trickery"]
+                },
+                "given": {
+                    "spell_list[]": ["Dominate Person", "Modify Memory"]
+                }
+            },
+            "9-war": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8",
+                    "domain": ["War"]
+                },
+                "given": {
+                    "spell_list[]": ["Flame Strike", "Hold Monster"]
+                }
+            },
+            "10": {
+                "conditions": {
+                    "level": 10,
+                    "creation": "9"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "abilities.Divine Intervention": {
+                        "description": "You can call on your deity to intervene on your behalf when your need is great. Imploring your deity's aid requires you to use your *action*. Describe the assistance you seek, and roll percentile dice. If you roll a number equal to or lower than %(level)s, your deity intervenes. The. DM chooses the nature of the intervention; the effect of any cleric spell or cleric domain spell would be appropriate. If your deity intervenes, you can't use this feature again for 7 days. Otherwise, you can use it again after you finish a long rest.",
+                        "level": "character.level"
+                    }
+                }
+            },
+            "11": {
+                "conditions": {
+                    "level": 11,
+                    "creation": "10"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "abilities.Destroy Undead": {
+                        "challenge_rating": 2
+                    }
+                }
+            },
+            "12": {
+                "conditions": {
+                    "level": 12,
+                    "creation": "11"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "13": {
+                "conditions": {
+                    "level": 13,
+                    "creation": "12"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1
+                }
+            },
+            "14": {
+                "conditions": {
+                    "level": 14,
+                    "creation": "13"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "abilities.Destroy Undead": {
+                        "challenge_rating": 3
+                    }
+                }
+            },
+            "14-life-nature-tempest-war": {
+                "conditions": {
+                    "level": 14,
+                    "creation": "13",
+                    "domain": ["Life", "Nature", "Tempest", "War"]
+                },
+                "given": {
+                    "abilities.Divine Strike": {
+                        "damage": "2d8"
+                    }
+                }
+            },
+            "15": {
+                "conditions": {
+                    "level": 15,
+                    "creation": "14"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1
+                }
+            },
+            "16": {
+                "conditions": {
+                    "level": 16,
+                    "creation": "15"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "17": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1,
+                    "abilities.Destroy Undead": {
+                        "challenge_rating": 4
+                    },
+                    "abilities.Divine Domain": {
+                    }
+                }
+            },
+            "17-knowledge": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16",
+                    "domain": ["Knowledge"]
+                },
+                "given": {
+                    "abilities.Visions of the Past": {
+                        "description": "You can call up visions of the past that relate to an object you hold or your immediate surroundings. You spend at least 1 minute in meditation and prayer, then receive dreamlike, shadowy glimpses of recent events. You can meditate in this way for a number of minutes equal to your **Wisdom score** and must maintain concentration during that time, as if you were casting a spell. Once you use this feature, you can't use it again until you finish a short or long rest.\n\n**Object Reading.** Holding an object as you meditate, you can see visions of the object's previous owner. After meditating for 1 minute, you learn how the owner acquired and lost the object, as well as the most recent significant event involving the object and that owner. If the object was owned by another creature in the recent past (within a number of days equal to your Wisdom score), you can spend 1 additional minute for each owner to learn the same information about that creature.\n\n**Area Reading.** As you meditate, you see visions of recent events in your immediate vicinity (a room, street, tunnel, clearing, or the like, up to a 50-foot cube), going back a number of days equal to your Wisdom score. For each minute you meditate, you learn about one significant event, beginning with the most recent. Significant events typically involve powerful emotions, such as battles and betrayals, marriages and murders, births and funerals. However, they might also include more mundane events that are nevertheless important in your current situation."
+                    }
+                }
+            },
+            "17-life": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16",
+                    "domain": ["Life"]
+                },
+                "given": {
+                    "abilities.Supreme Healing": {
+                        "description": "When you would normally roll one or more dice to restore hit points with a spell, you instead use the highest number possible for each die. For example, instead of restoring `2d6` hit points to a creature, you restore 12."
+                    }
+                }
+            },
+            "17-light": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16",
+                    "domain": ["Light"]
+                },
+                "given": {
+                    "abilities.Corona of Light": {
+                        "description": "You can use your *action* to activate an aura of sunlight that lasts for 1 minute or until you dismiss it using another *action*. You emit bright light in a 60-foot radius and dim light 30 feet beyond that. Your enemies in the bright light have **Disadvantage** on *Saving Throws* against any spell that deals **fire** or **radiant** damage."
+                    }
+                }
+            },
+            "17-nature": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16",
+                    "domain": ["Nature"]
+                },
+                "given": {
+                    "abilities.Master of Nature": {
+                        "description": "You gain the ability to command animals and plant creatures. While creatures are charmed by your **Charm Animals and Plants** feature, you can take a *bonus action* on your turn to verbally command what each of those creatures will do on its next turn."
+                    }
+                }
+            },
+            "17-tempest": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16",
+                    "domain": ["Tempest"]
+                },
+                "given": {
+                    "abilities.Stormborn": {
+                        "description": "You have a flying speed of %(speed)s whenever you are not underground or indoors.",
+                        "speed_formula": "character.speed"
+                    }
+                }
+            },
+            "17-trickery": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16",
+                    "domain": ["Trickery"]
+                },
+                "given": {
+                    "abilities.Channel Divinity: Invoke Duplicity": {
+                        "description": "You can use your **Channel Divinity** to create up to fourillusory duplicates of yourself. As an *action*, you create a perfect illusion of yourself that lasts for 1 minute, or until you lose your concentration (as if you were concentrating on a spell). The illusions appears in an unoccupied space that you can see within 30 feet of you. As a *bonus action* on your turn, you can move any number of them up to 30 feet to a space you can see, but they must remain within 120 feet of you. For the duration, you can cast spells as though you were in the illusion's space, but you must use your own senses. Additionally, when both you and any of your illusions are within 5 feet of a creature that can see the illusion, you have **Advantage** on attack rolls against that creature, given how distracting the illusion is to the target."
+                    }
+                }
+            },
+            "17-war": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16",
+                    "domain": ["War"]
+                },
+                "given": {
+                    "abilities.Channel Divinity: Avatar of Battle": {
+                        "description": "You gain *resistance* to *bludgeoning*, *piercing*, and *slashing* damage from nonmagical weapons."
+                    }
+                }
+            },
+            "18": {
+                "conditions": {
+                    "level": 18,
+                    "creation": "17"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 3,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1,
+                    "abilities.Channel Divinity": {
+                        "uses": 3
+                    }
+                }
+            },
+            "19": {
+                "conditions": {
+                    "level": 19,
+                    "creation": "18"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 3,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "20": {
+                "conditions": {
+                    "level": 20,
+                    "creation": "19"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 3,
+                    "spell_slots.6th_level": 2,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1,
+                    "abilities.Divine Intervention": {
+                        "description": "You can call on your deity to intervene on your behalf when your need is great. Imploring your deity's aid requires you to use your *action*. Describe the assistance you seek, and the DM chooses the nature of the intervention; the effect of any cleric spell or cleric domain spell would be appropriate. If your deity intervenes, you can't use this feature again for 7 days. Otherwise, you can use it again after you finish a long rest."
+                    }
                 }
             }
         }
@@ -1762,7 +2801,7 @@
                     "description": "Becoming a paladin involves taking vows that commit the paladin to the cause of righteousness, an active path of fighting wickedness. The final oath, taken when he or she reaches 3rd level, is the culmination of all the paladin's training. Some characters with this class don't consider themselves true paladins until they have reached 3rd level and made this oath. For others, the actual swearing of the oath is a formality, an official stamp on what has always been true in the paladin's heart.",
                     "options": [{
                         "name": "Oath of Devotion",
-                        "description": "The Oath of Devotion binds a paladin to the loftiest ideals of justice, virtue, and order. Sometimes called cavaliers, white knights, or holy warriors, these paladins meet the ideal of the knight in shining armor, acting with honor in pursuit of justice and the greater good. They hold themselves to the highest standards of conduct, and some, for better or worse, hold the rest of the world to the same standards. Many who swear this oath are devoted to gods of law and good and use their gods' tenets as the measure of their devotion. They hold angels—the perfect servants of good—as their ideals, and incorporate images of angelic wings into their helmets or coats of arms.\n## Tenets of Devotion\nThough the exact words and strictures of the Oath of Devotion vary, paladins of this oath share these tenets.\n\n* **Honesty.** Don't lie or cheat. Let your word be your promise.\n* **Courage.** Never fear to act, though caution is wise.\n* **Compassion.** Aid others, protect the weak, and punish those who threaten them. Show mercy to your foes, but temper it with wisdom.\n* **Honor.** Treat others with fairness, and let your honorable deeds be an example to them. Do as much good as possible while causing the least amount of harm.\n* **Duty.** Be responsible for your actions and their consequences, protect those entrusted to your care, and obey those who have just authority over you.",
+                        "description": "The Oath of Devotion binds a paladin to the loftiest ideals of justice, virtue, and order. Sometimes called cavaliers, white knights, or holy warriors, these paladins meet the ideal of the knight in shining armor, acting with honor in pursuit of justice and the greater good. They hold themselves to the highest standards of conduct, and some, for better or worse, hold the rest of the world to the same standards. Many who swear this oath are devoted to gods of law and good and use their gods' tenets as the measure of their devotion. They hold angels-the perfect servants of good-as their ideals, and incorporate images of angelic wings into their helmets or coats of arms.\n## Tenets of Devotion\nThough the exact words and strictures of the Oath of Devotion vary, paladins of this oath share these tenets.\n\n* **Honesty.** Don't lie or cheat. Let your word be your promise.\n* **Courage.** Never fear to act, though caution is wise.\n* **Compassion.** Aid others, protect the weak, and punish those who threaten them. Show mercy to your foes, but temper it with wisdom.\n* **Honor.** Treat others with fairness, and let your honorable deeds be an example to them. Do as much good as possible while causing the least amount of harm.\n* **Duty.** Be responsible for your actions and their consequences, protect those entrusted to your care, and obey those who have just authority over you.",
                         "given": {
                             "oath[]": "Devotion",
                             "spells.1st_level[]": [
@@ -1780,7 +2819,7 @@
                         }
                     }, {
                         "name": "Oath of the Ancients",
-                        "description": "The Oath of the Ancients is as old as the race of elves and the rituals of the druids. Sometimes called fey knights, green knights, or horned knights, paladins who swear this oath cast their lot with the side of the light in the cosmic struggle against darkness because they love the beautiful and life-giving things of the world, not necessarily because they believe in principles of honor, courage, and justice. They adorn their armor and clothing with images of growing things—leaves, antlers, or flowers—to reflect their commitment to preserving life and light in the world.\n## Tenets of the Ancients\nThe tenets of the Oath of the Ancients have been preserved for uncounted centuries. This oath emphasizes the principles of good above any concerns of taw or chaos. Its four central principles are simple.\n\n* **Kindle the Light.** Through your acts of mercy, kindness, and forgiveness, kindle the light of hope in the world, beating back despair.\n* **Shelter the Light.** Where there is good, beauty, love. and laughter in the world, stand against the wickedness that would swallow it. Where life flourishes, stand against the forces that would render it barren.\n* **Preserve Your Own Light.** Delight in song and laughter, in beauty and art. If you allow the light to die in your own heart, you can't preserve it in the world.\n* **Be the Light.** Be a glorious beacon for all who live in despair. Let the light of your joy and courage shine forth in all your deeds.",
+                        "description": "The Oath of the Ancients is as old as the race of elves and the rituals of the druids. Sometimes called fey knights, green knights, or horned knights, paladins who swear this oath cast their lot with the side of the light in the cosmic struggle against darkness because they love the beautiful and life-giving things of the world, not necessarily because they believe in principles of honor, courage, and justice. They adorn their armor and clothing with images of growing things-leaves, antlers, or flowers-to reflect their commitment to preserving life and light in the world.\n## Tenets of the Ancients\nThe tenets of the Oath of the Ancients have been preserved for uncounted centuries. This oath emphasizes the principles of good above any concerns of taw or chaos. Its four central principles are simple.\n\n* **Kindle the Light.** Through your acts of mercy, kindness, and forgiveness, kindle the light of hope in the world, beating back despair.\n* **Shelter the Light.** Where there is good, beauty, love. and laughter in the world, stand against the wickedness that would swallow it. Where life flourishes, stand against the forces that would render it barren.\n* **Preserve Your Own Light.** Delight in song and laughter, in beauty and art. If you allow the light to die in your own heart, you can't preserve it in the world.\n* **Be the Light.** Be a glorious beacon for all who live in despair. Let the light of your joy and courage shine forth in all your deeds.",
                         "given": {
                             "oath[]": "Ancients",
                             "spells.1st_level[]": [
@@ -1798,7 +2837,7 @@
                         }
                     }, {
                         "name": "Oath of Vengeance",
-                        "description": "The Oath of Vengeance is a solemn commitment to punish those who have committed a grievous sin. When evil forces slaughter helpless villagers, when an entire people turns against the will of the gods, when a thieves' guild grows too violent and powerful, when a dragon rampages through the countryside—at times like these, paladins arise and swear an Oath of Vengeance to set right that which has gone wrong. To these paladins— sometimes called avengers or dark knights—their own purity is not as important as delivering justice.\n## Tenets of Vengeance\nThe tenets of the Oath of Vengeance vary by paladin, but all the tenets revolve around punishing wrongdoers by any means necessary. Paladins who uphold these tenets are willing to sacrifice even their own righteousness to mete out justice upon those who do evil, so the paladins are often neutral or lawful neutral in alignment. The core principles of the tenets are brutally simple.\n\n* **Fight the Greater Evil.** Faced with a choice of fighting my sworn foes or combating a lesser evil, I choose the greater evil.\n* **No Mercy for the Wicked.** Ordinary foes might win my mercy, but my sworn enemies do not.\n* **By Any Means Necessary.** My qualms can't get in the way of exterminating my foes.\n* **Restitution.** if my foes wreak ruin on the world, it is because I failed to stop them. I must help those harmed by their misdeeds.",
+                        "description": "The Oath of Vengeance is a solemn commitment to punish those who have committed a grievous sin. When evil forces slaughter helpless villagers, when an entire people turns against the will of the gods, when a thieves' guild grows too violent and powerful, when a dragon rampages through the countryside-at times like these, paladins arise and swear an Oath of Vengeance to set right that which has gone wrong. To these paladins- sometimes called avengers or dark knights-their own purity is not as important as delivering justice.\n## Tenets of Vengeance\nThe tenets of the Oath of Vengeance vary by paladin, but all the tenets revolve around punishing wrongdoers by any means necessary. Paladins who uphold these tenets are willing to sacrifice even their own righteousness to mete out justice upon those who do evil, so the paladins are often neutral or lawful neutral in alignment. The core principles of the tenets are brutally simple.\n\n* **Fight the Greater Evil.** Faced with a choice of fighting my sworn foes or combating a lesser evil, I choose the greater evil.\n* **No Mercy for the Wicked.** Ordinary foes might win my mercy, but my sworn enemies do not.\n* **By Any Means Necessary.** My qualms can't get in the way of exterminating my foes.\n* **Restitution.** if my foes wreak ruin on the world, it is because I failed to stop them. I must help those harmed by their misdeeds.",
                         "given": {
                             "oath[]": "Vengeance",
                             "spells.1st_level[]": [
@@ -4113,6 +5152,426 @@
                 }
             }
          }
+    }, {
+        "name": "Wizard",
+        "filename": "wizard.md",
+        "config": {
+            "hit_dice": 6,
+            "spell_stat": "intelligence",
+            "computed": {
+                "hit_points": {
+                    "formula": "(6 + modifiers.constitution) + (4 + modifiers.constitution) * (level - 1)"
+                },
+                "spell_safe_dc": {
+                    "formula": "8 + proficiency + modifiers.intelligence"
+                },
+                "spell_attack_modifier": {
+                    "formula": "proficiency + modifiers.intelligence"
+                },
+                "spells_known": {
+                    "formula": "4 + 2 * character.level"
+                }
+            },
+            "proficiencies": {
+                "saving_throws": [
+                    "intelligence",
+                    "wisdom"
+                ],
+                "weapons": [
+                    "Daggers",
+                    "Darts",
+                    "Slings",
+                    "Quarterstaffs",
+                    "Light Crossbows"
+                ]
+            }
+        },
+        "phases": {
+            "1": {
+                "given": {
+                    "proficiency": 2,
+                    "cantrips_known": 3,
+                    "spell_slots.1st_level": 2
+                },
+                "options": {
+                    "proficiencies.skills[]": [
+                        {"select": ["arcana", "history", "insight", "investigation", "medicine", "religion"]},
+                        {"select": ["arcana", "history", "insight", "investigation", "medicine", "religion"]}
+                    ],
+                    "equipment[]": [
+                        {"choose": [
+                            {"group": ["Quarterstaff"]},
+                            {"group": ["Dagger"]}
+                        ]},
+                        {"choose": [
+                            {"group": ["Component Pouch"]},
+                            {"group": ["Arcane Focus"]}
+                        ]},
+                        {"choose": [
+                            {"group": "packs.Scholar's Pack.items"},
+                            {"group": "packs.Explorer's Pack.items"}
+                        ]},
+                        {"group": ["Spellbook"]}
+                    ],
+                    "spell_list[]": [
+                        {"select": "spells.wizard.cantrip"},
+                        {"select": "spells.wizard.cantrip"},
+                        {"select": "spells.wizard.cantrip"},
+                        {"select": "spells.wizard.1st_level"},
+                        {"select": "spells.wizard.1st_level"},
+                        {"select": "spells.wizard.1st_level"},
+                        {"select": "spells.wizard.1st_level"},
+                        {"select": "spells.wizard.1st_level"},
+                        {"select": "spells.wizard.1st_level"}
+                    ],
+                    "abilities.Arcane Recovery": {
+                        "description": "You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than %(recovery)s, and none of the slots can be 6th level or higher. For example, if you're a 4th-level wizard, you can recover up to two levels worth of spell slots. You can recover either a 2nd-level spell slot or two 1st-level spell slots.",
+                        "recovery_formula": "int(0.5 + character.level / 2.0)"
+                    }
+                }
+            },
+            "2": {
+                "conditions": {
+                    "level": 2,
+                    "creation": "1"
+                },
+                "given": {
+                    "proficiency": 2,
+                    "cantrips_known": 3,
+                    "spell_slots.1st_level": 2
+                },
+                "tabs": [{
+                    "name": "Arcane Tradition",
+                    "description": "",
+                    "options": [{
+                    }]
+                }]
+            },
+            "3": {
+                "conditions": {
+                    "level": 3,
+                    "creation": "2"
+                },
+                "given": {
+                    "proficiency": 2,
+                    "cantrips_known": 3,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 2
+                }
+            },
+            "4": {
+                "conditions": {
+                    "level": 4,
+                    "creation": "3"
+                },
+                "given": {
+                    "proficiency": 2,
+                    "cantrips_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "5": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "4"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "cantrips_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 2
+                }
+            },
+            "6": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "5"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "cantrips_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3
+                },
+                "Arcane Tradition feature": ""
+            },
+            "7": {
+                "conditions": {
+                    "level": 7,
+                    "creation": "6"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "cantrips_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 1
+                }
+            },
+            "8": {
+                "conditions": {
+                    "level": 8,
+                    "creation": "7"
+                },
+                "given": {
+                    "proficiency": 3,
+                    "cantrips_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 2
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "9": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "8"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "cantrips_known": 4,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 1
+                }
+            },
+            "10": {
+                "conditions": {
+                    "level": 10,
+                    "creation": "9"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2
+                },
+                "Arcane Tradition feature": ""
+            },
+            "11": {
+                "conditions": {
+                    "level": 11,
+                    "creation": "10"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1
+                }
+            },
+            "12": {
+                "conditions": {
+                    "level": 12,
+                    "creation": "11"
+                },
+                "given": {
+                    "proficiency": 4,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "13": {
+                "conditions": {
+                    "level": 13,
+                    "creation": "12"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1
+                }
+            },
+            "14": {
+                "conditions": {
+                    "level": 14,
+                    "creation": "13"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1
+                },
+                "Arcane Tradition feature": ""
+            },
+            "15": {
+                "conditions": {
+                    "level": 15,
+                    "creation": "14"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1
+                }
+            },
+            "16": {
+                "conditions": {
+                    "level": 16,
+                    "creation": "15"
+                },
+                "given": {
+                    "proficiency": 5,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "17": {
+                "conditions": {
+                    "level": 17,
+                    "creation": "16"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 2,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1,
+                    "spell_slots.9th_level": 1
+                }
+            },
+            "18": {
+                "conditions": {
+                    "level": 18,
+                    "creation": "17"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 3,
+                    "spell_slots.6th_level": 1,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1,
+                    "spell_slots.9th_level": 1
+                },
+                "abilities.Spell Mastery": {
+                }
+            },
+            "19": {
+                "conditions": {
+                    "level": 19,
+                    "creation": "18"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 3,
+                    "spell_slots.6th_level": 2,
+                    "spell_slots.7th_level": 1,
+                    "spell_slots.8th_level": 1,
+                    "spell_slots.9th_level": 1
+                },
+                "options": {
+                    "ability_improvement[]": [
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
+                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
+                    ]
+                }
+            },
+            "20": {
+                "conditions": {
+                    "level": 20,
+                    "creation": "19"
+                },
+                "given": {
+                    "proficiency": 6,
+                    "abilities.Signature Spell": {
+                        "description": ""
+                    },
+                    "cantrips_known": 5,
+                    "spell_slots.1st_level": 4,
+                    "spell_slots.2nd_level": 3,
+                    "spell_slots.3rd_level": 3,
+                    "spell_slots.4th_level": 3,
+                    "spell_slots.5th_level": 3,
+                    "spell_slots.6th_level": 2,
+                    "spell_slots.7th_level": 2,
+                    "spell_slots.8th_level": 1,
+                    "spell_slots.9th_level": 1
+                }
+            }
+        }
     }],
     "background": [{
         "name": "Acolyte",
