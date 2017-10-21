@@ -175,7 +175,7 @@ class MonsterObject(JsonObject):
                 attack["spell_save_dc"] = 0
             else:
                 attack["bonus"] = 0
-                attack["spell_save_dc"] = \
+                attack["spell_save_dc"] = 8 + \
                     attack["modifier"] + self.proficiency
 
             attack["average"] = sum([
