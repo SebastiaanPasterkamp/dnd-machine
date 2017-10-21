@@ -35,7 +35,7 @@ class FiltersTestCase(unittest.TestCase):
                 'bar',
                 'foo'
                 ])),
-            [(1, 'bar'), (2, 'foo')]
+            [(2, 'foo'), (1, 'bar')]
             )
         self.assertEquals(
             list(filters.filter_unique([
