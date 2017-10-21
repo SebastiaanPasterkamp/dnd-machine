@@ -2,7 +2,7 @@
 {% block body %}
 <h2 class="icon fa-commenting-o">NPC list</h2>
 
-<table class="nice-table condensed striped bordered hover" id="npc">
+<table class="nice-table condensed bordered responsive" id="npc">
     <thead>
         <tr>
             <th>Name</th>
@@ -20,7 +20,7 @@
             <td>{{ npc.name }}</td>
             <td>{{ npc.race }}</td>
             <td>{{ npc.class }}</td>
-            <td>{{ npc.alignment }}</td>
+            <td>{{ npc.alignment|capitalize }}</td>
             <td>{{ npc.location }}</td>
             <td>{{ npc.organization }}</td>
 
@@ -34,6 +34,7 @@
                     <a href="{{ url_for('npc.copy', npc_id=npc.id) }}" class="nice-btn icon fa-copy">Copy</a>
                 {% endif %}
                 </div>
+                <div class="clearfix"></div>
             </td>
         </tr>
         {% endfor %}

@@ -2,7 +2,7 @@
 {% block body %}
 <h2 class="icon fa-book">Campaign list</h2>
 
-<table class="nice-table condensed striped bordered hover" id="campaign">
+<table class="nice-table condensed bordered responsive" id="campaign">
     <thead>
         <tr>
             <th>Name</th>
@@ -26,6 +26,7 @@
                     <a href="{{ url_for('campaign.edit', campaign_id=campaign.id, action='edit') }}" class="nice-btn icon fa-cog">Edit</a>
                 {% endif %}
                 </div>
+                <div class="clearfix"></div>
             </td>
         </tr>
         {% endfor %}

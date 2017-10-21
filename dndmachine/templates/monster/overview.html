@@ -2,7 +2,7 @@
 {% block body %}
 <h2 class="icon fa-paw">Monster list</h2>
 
-<table class="nice-table condensed striped bordered hover" id="monsterlist">
+<table class="nice-table condensed bordered responsive" id="monsterlist">
     <thead>
         <tr>
             <th>Name</th>
@@ -26,12 +26,14 @@
                     <a href="{{ url_for('monster.edit', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
                     <a href="{{ url_for('monster.new', monster_id=monster.id) }}" class="nice-btn icon fa-copy">Copy</a>
                 </div>
+                <div class="clearfix"></div>
                 {% if encounter %}
                 <div class="nice-btn-group pull-right">
                     <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='add', monster_id=monster.id) }}" class="nice-btn good icon fa-plus">Add to {{ encounter.name }}</a>
                     {% if monster.id in members %}
                     <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='del', monster_id=monster.id) }}" class="nice-btn bad icon fa-times">Remove from {{ encounter.name }}</a>
                     {% endif %}
+                <div class="clearfix"></div>
                 </div>
                 {% endif %}
             </td>
