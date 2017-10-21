@@ -80,7 +80,9 @@ def edit(monster_id):
 
     return render_template(
         'monster/edit.html',
-        data=config['data'],
+        languages=datamapper.items.getList(
+            'languages.common,languages.exotic'
+            ),
         machine=config['machine'],
         monster=m
         )
@@ -126,7 +128,9 @@ def new(monster_id=None):
 
     return render_template(
         'monster/edit.html',
-        data=config['data'],
+        languages=datamapper.items.getList(
+            'languages.common,languages.exotic'
+            ),
         machine=config['machine'],
         monster=m
         )

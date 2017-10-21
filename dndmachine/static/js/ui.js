@@ -59,6 +59,7 @@ $(function() {
         var target = $(this).attr('data-target'),
             name = $(this).attr('data-name'),
             value = $(this).val(),
+            label = $(this).find('option:selected').text(),
             next =  $(this).attr('data-next'),
             tag = $('<div class="nice-tag muted"><input type="hidden" /><span class="nice-tag-label"></span><button class="nice-tag-btn"><i class="icon fa-trash-o"></i></button></div>');
         if (value == "") {
@@ -69,7 +70,7 @@ $(function() {
             .attr('value', value)
             .attr('name', name + next);
         $(tag).find('span')
-            .text(value);
+            .text(label);
         $('#'+target)
             .append($(tag));
         $(this)
@@ -114,6 +115,7 @@ $(function() {
             return false;
         }
         switchNiceTab(parent, name);
+        return false;
     });
     $('#statsblockeditor select').on('change', function(e){
         statsBLockEdit();
