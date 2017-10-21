@@ -81,9 +81,9 @@
             <thead>
                 <tr>
                     <th rowspan="2">Monster Name</th>
-                    <th colspan="3">Monser Stats</th>
-                    <th colspan="2">Defensive</th>
-                    <th colspan="3">Offensive</th>
+                    <th colspan="3" class="text-align-center">Monser Stats</th>
+                    <th colspan="2" class="text-align-center">Defensive</th>
+                    <th colspan="2" class="text-align-center">Offensive</th>
                     <th rowspan="2"></th>
                 </tr>
                 <tr>
@@ -93,12 +93,11 @@
                     <th>Hit Points</th>
                     <th>Armor Class</th>
                     <th>Damage / Round</th>
-                    <th>Attack Bonus</th>
-                    <th>Spell Save DC</th>
+                    <th>Attack Bonus / Spell Save DC</th>
                 </tr>
             </thead>
             <tbody>
-                {% for count, monster in monsters|unique %}
+                {% for count, monster in monsters|sort(attribute='challenge_rating', reverse=True)|unique %}
                 <tr>
                     <th>{{ count }} x {{ monster.name }}</th>
                     <td>{{ monster.challenge_rating }}</td>
@@ -108,17 +107,11 @@
                     <td>{{ monster.armor_class|default('?') }}</td>
                     <td>{{ monster.average_damage|default('?') }}</td>
                     <td>
-                        {% if monster.attack_bonus is defined %}
-                            {% if monster.attack_bonus > 0 %}+{% endif %}{{ monster.attack_bonus}}
-                        {% else %}
-                        ?
+                        {% if monster.attack_bonus %}
+                            Hit {{ monster.attack_bonus|bonus }}
                         {% endif %}
-                    </td>
-                    <td>
-                        {% if monster.spell_save is defined %}
-                            &ge;{{ monster.spell_save}}
-                        {% else %}
-                        ?
+                        {% if monster.spell_save_dc %}
+                            DC &ge;{{ monster.spell_save_dc}}
                         {% endif %}
                     </td>
                     <td>
@@ -138,7 +131,7 @@
                     <th>Total</th>
                     <td>{{ encounter.challenge_rating }}</td>
                     <td>{{ encounter.xp }} XP</td>
-                    <td rowspan="3" colspan="6"></td>
+                    <td rowspan="3" colspan="5"></td>
                     <td rowspan="3">
                         <div class="nice-btn-group pull-right">
                             <a href="{{ url_for('monster.overview', encounter_id=encounter.id) }}" class="nice-btn good icon fa-plus">Add more</a>
@@ -148,7 +141,7 @@
                 <tr>
                     <th>Modified</th>
                     <td>{{ encounter.challenge_modified }}</td>
-                    <td>{{ encounter.challenge_modified|int }} XP</td>
+                    <td>{{ encounter.xp_modified|int }} XP</td>
                 </tr>
                 <tr>
                 {% if party %}

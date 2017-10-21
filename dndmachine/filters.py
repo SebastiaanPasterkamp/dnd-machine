@@ -19,16 +19,19 @@ def filter_sanitize(text):
 
 def filter_unique(listing):
     unique = dict()
+    order = []
     for item in listing:
         key = item['id'] if 'id' in item else filter_md5(item)
+        if key not in order:
+            order.append(key)
         u = unique[key] = unique.get(key, {
             'count': 0,
             'item': item
             })
         u['count'] += 1
 
-    for u in unique.values():
-        yield u['count'], u['item']
+    for key in order:
+        yield unique[key]['count'], unique[key]['item']
 
 def filter_field_title(field):
     replace = {

@@ -82,10 +82,15 @@ div#view-encounter {
                          "description modified-rating"
                          "initiative initiative"
                          "monsters monsters"; }
-    div#view-encounter > #monsters > .monster {
+    div#view-encounter #monsters .monster {
         display: grid;
         grid-gap: 0em .5em;
-        grid-template-columns: 50% 50%;}
+        grid-template-columns: 50% 50%;
+        grid-template-areas: "info stats"
+                            "info actions"
+                            "traits actions"
+                            "multiattacks actions"
+                            ". actions"; }
 
 div#edit-encounter {
     display: grid;
@@ -186,7 +191,7 @@ div#new-npc, div#edit-npc, div#view-npc {
 
     div#view-encounter {
         display: block; }
-    div#view-encounter > #monsters > .monster {
+    div#view-encounter #monsters .monster {
         display: block; }
     }
 
@@ -241,11 +246,11 @@ div#edit-encounter > #rating { grid-area: rating; }
 div#edit-encounter > #monsters { grid-area: monsters; }
 div#edit-encounter > #loot { grid-area: loot; }
 
-/*div#view-encounter > #monsters > .monster > .monster-info { grid-area: info; }
-div#view-encounter > #monsters > .monster > .monster-stats { grid-area: stats; }
-div#view-encounter > #monsters > .monster > .monster-traits { grid-area: traits; }
-div#view-encounter > #monsters > .monster > .monster-multiattack { grid-area: actions; }
-div#view-encounter > #monsters > .monster > .monster-attacks { grid-area: actions; }*/
+div#view-encounter #monsters .monster > .monster-info { grid-area: info; }
+div#view-encounter #monsters .monster > .monster-stats { grid-area: stats; }
+div#view-encounter #monsters .monster > .monster-traits { grid-area: traits; }
+div#view-encounter #monsters .monster > .monster-multiattack { grid-area: multiattacks; }
+div#view-encounter #monsters .monster > .monster-attacks { grid-area: actions; }
 
 div#view-campaign > #party {
     position: fixed; left: 0; width: 30em; }

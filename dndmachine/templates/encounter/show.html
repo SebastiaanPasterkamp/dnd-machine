@@ -173,8 +173,30 @@
     <div id="monsters">
         <h3>Monsters</h3>
 
+<div class="nice-tabs-wrapper" id="tabs">
+    <ul class="nice-tabs">
+
+{% for info in monsters|sort(attribute='monster.challenge_rating', reverse=True) %}
+{% set monster = info.monster %}
+        <li{{ {
+                "data-name": monster.id,
+                "class": "current" if loop.first else None
+                }|xmlattr }}>
+            <a href="#">{{ monster.name }}</a>
+        </li>
+{% endfor %}
+    </ul>
+
+    <ul class="nice-tab-content">
+
 {% for info in monsters %}
 {% set monster = info.monster %}
+
+        <li{{ {
+            "data-name": monster.id,
+            "class": "current" if loop.first else None
+            }|xmlattr }} >
+
 <div class="monster">
     <div class="monster-info nice-panel brand">
         <div class="nice-panel-heading">
@@ -435,7 +457,10 @@
     </div>
 
 </div>
+        </li>
 {% endfor %}
+    </ul>
+</div>
 </div>
 
 {% endblock %}
