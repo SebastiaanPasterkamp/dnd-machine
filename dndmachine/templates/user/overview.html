@@ -2,7 +2,7 @@
 {% block body %}
 <h2 class="icon fa-user">User list</h2>
 
-<table class="nice-table condensed striped bordered hover" id="character">
+<table class="nice-table condensed bordered responsive" id="character">
     <thead>
         <tr>
             <th>Name</th>
@@ -14,7 +14,7 @@
     <tbody>
         {% for user in users %}
         <tr>
-            <td>{{ user.username }}</td>
+            <td>{{ user.name }}</td>
             <td class="nice-tags-container">
                 {% for role in data.roles %}
                 {% if role.name in user.role %}
@@ -32,6 +32,7 @@
                     <a href="{{ url_for('user.show', user_id=user.id) }}" class="nice-btn icon fa-eye">View</a>
                     <a href="{{ url_for('user.edit', user_id=user.id, action='edit') }}" class="nice-btn icon fa-cog">Edit</a>
                 </div>
+                <div class="clearfix"></div>
             </td>
         </tr>
         {% endfor %}

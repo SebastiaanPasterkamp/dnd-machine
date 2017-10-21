@@ -28,12 +28,7 @@ div#edit-monster {
 div#view-monster {
     display: grid;
     grid-gap: 1em .5em;
-    grid-template-columns: 60% 40%;
-    grid-template-rows: repeat(4, min-content);
-    grid-template-areas: "description actions"
-                         "statistics actions"
-                         "attributes actions"
-                         "multiattacks actions"; }
+    grid-template-columns: 33% 34% 33%; }
 
 div#view-campaign {
     display: grid;
@@ -78,9 +73,6 @@ div#edit-character {
     grid-gap: 1em .5em;
     grid-template-columns: 50% 50%;
     grid-auto-rows: auto; }
-    div#edit-character #save {
-        grid-row: -1;
-        grid-column: -1; }
 
 div#view-encounter {
     display: grid;
@@ -103,7 +95,59 @@ div#edit-encounter {
                          "monsters monsters"
                          "loot loot"; }
 
+div#new-npc, div#edit-npc, div#view-npc {
+    display: grid;
+    grid-gap: 1em .5em;
+    grid-template-columns: 50% 50%;
+    grid-auto-rows: auto; }
+    div#view-npc {
+        grid-template-areas: "statistics statistics"
+                            "base attributes"; }
+    div#view-npc > #base { grid-area: base; }
+    div#view-npc > #statistics { grid-area: statistics; }
+    div#view-npc > #attributes { grid-area: attributes; }
+
 @media screen and (max-width: 100em) and (orientation: portrait) {
+    table.responsive {
+        border: 0;
+    }
+    table.responsive caption {
+        font-size: 1.3em;
+    }
+    table.responsive thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+    table.responsive tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+    table.responsive td, table.responsive th {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+    }
+    table.responsive td:before, table.responsive th:before {
+        /*
+        * aria-label has no advantage, it won't be read inside a table
+        content: attr(aria-label);
+        */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    table.responsive td:last-child, table.responsive th:last-child {
+        border-bottom: 0;
+    }
+
     div#view-campaign {
         grid-template-columns: auto;
         grid-template-rows: repeat(5, auto);
@@ -119,25 +163,32 @@ div#edit-encounter {
                             "statistics attributes"
                             "actions actions"; }
 
-    div#view-monster {
-        grid-template-columns: 50% 50%;
-        grid-template-rows: repeat(3, min-content);
-        grid-template-areas: "description attributes"
-                            "statistics statistics"
-                            "actions actions"; }
-    }
+    div#edit-monster {
+        display: block; }
 
-div#new-npc, div#edit-npc, div#show-npc {
-    display: grid;
-    grid-gap: 1em .5em;
-    grid-template-columns: 50% 50%;
-    grid-auto-rows: auto; }
-    div#show-npc {
-        grid-template-areas: "statistics statistics"
-                            "base attributes"; }
-    div#show-npc > #base { grid-area: base; }
-    div#show-npc > #statistics { grid-area: statistics; }
-    div#show-npc > #attributes { grid-area: attributes; }
+    div#view-monster {
+        display: block; }
+
+    div#edit-character {
+        display: block; }
+
+    div#view-character {
+        display: block; }
+
+    div#edit-npc {
+        display: block; }
+
+    div#view-npc {
+        display: block; }
+
+    div#edit-encounter {
+        display: block; }
+
+    div#view-encounter {
+        display: block; }
+    div#view-encounter > #monsters > .monster {
+        display: block; }
+    }
 
 div#view-character > #description { grid-area: description; }
 div#view-character > #info { grid-area: info; }
@@ -171,11 +222,13 @@ div#edit-monster > #attributes { grid-area: attributes; }
 div#edit-monster > #actions { grid-area: actions; }
 div#edit-monster > #multiattacks { grid-area: multiattacks; }
 
-div#view-monster > #description { grid-area: description; }
+/*
+ * div#view-monster > #description { grid-area: description; }
 div#view-monster > #speed { grid-area: speed; }
 div#view-monster > #statistics { grid-area: statistics; }
 div#view-monster > #attributes { grid-area: attributes; }
 div#view-monster > #actions { grid-area: actions; }
+*/
 
 div#view-encounter > #description { grid-area: description; }
 div#view-encounter > #challenge-rating { grid-area: challenge-rating; }

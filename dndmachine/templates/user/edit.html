@@ -23,13 +23,20 @@
 
             <div class="nice-control-group">
                 <span class="nice-input-addon">
-                    Name
+                    Userame
                 </span>
                 {% if 'admin' in request.user.role %}
                 <input type="text" class="nice-form-control" name="user.username" value="{{ user.username }}" />
                 {% else %}
                 <input type="text" disabled class="nice-form-control" value="{{ user.username }}" />
                 {% endif %}
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Full name
+                </span>
+                <input type="text" placeholder="Full name..." class="nice-form-control" name="user.name" />
             </div>
 
             <div class="nice-control-group">

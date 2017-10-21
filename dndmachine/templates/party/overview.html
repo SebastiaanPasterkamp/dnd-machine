@@ -2,7 +2,7 @@
 {% block body %}
 <h2 class="icon fa-users">Part list</h2>
 
-<table class="nice-table condensed striped bordered hover" id="party">
+<table class="nice-table condensed bordered responsive" id="party">
     <thead>
         <tr>
             <th>Name</th>
@@ -13,7 +13,7 @@
     <tbody>
         {% for party in parties %}
         <tr>
-            <td>{{ party.name }}</td>
+            <th>{{ party.name }}</th>
             <td>
                 <ul class="text-align-left">
                 {% for character in party.members %}
@@ -21,7 +21,7 @@
                         {{ character.name }}, Level {{ character.level }} {{ character.race }} {{ character.class }} ({{ character.alignment }})
                         <div class="nice-progress good">
                             {% set percent = (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) %}
-                            <div class="nice-progress-fill" style="width: {{ percent }}%;">
+                            <div class="nice-progress-fill" style="width: {{ percent }}%; height: 1.25rem;">
                                 {%- if percent > 33.0 -%}
                                 Level {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
                                 {%- elif percent > 10.0 -%}
@@ -49,6 +49,7 @@
                         <a href="{{ url_for('party.delete', party_id=party.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
                     {% endif %}
                 </div>
+                <div class="clearfix"></div>
             </td>
         </tr>
         {% endfor %}

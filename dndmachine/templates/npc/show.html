@@ -3,7 +3,7 @@
 {% block body %}
 <h1 class="icon fa-commenting-o">NPC</h1>
 
-<div id="show-npc">
+<div id="view-npc">
 
     <div id="base" class="nice-panel brand">
         <div class="nice-panel-heading">
@@ -49,24 +49,15 @@
         </div>
         <table class="nice-panel-content nice-table condensed bordered">
             <thead>
+                {% for stat in items.statistics %}
                 <tr>
-                    {% for stat in items.statistics %}
                     <th>{{ stat.label }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    {% for stat in items.statistics %}
                     <td>
                         {{ npc.stats[stat.name] }}
-                        (
-                            {% if npc.modifiers[stat.name] > 0 %}+{% endif %}
-                            {{ npc.modifiers[stat.name] }}
-                        )
+                        ({{ npc.modifiers[stat.name]|bonus }})
                     </td>
-                    {% endfor %}
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

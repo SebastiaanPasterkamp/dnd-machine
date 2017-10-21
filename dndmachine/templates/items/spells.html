@@ -2,7 +2,7 @@
 {% block body %}
 <h2 class="icon fa-magic">Spells</h2>
 
-<form class="nice-form-horizontal nice-col-4">
+<form class="nice-form-horizontal nice-col-4 nice-col-mobile-12">
     <div class="nice-form-group">
         <label for="name" class="nice-col-3 nice-control-label">
             Name
@@ -68,19 +68,18 @@
     </div>
 </form>
 
-<table class="nice-table condensed bordered">
+<table class="nice-table condensed bordered responsive">
     <thead>
         <tr>
             <th>Name</th>
-            <th>Description</th>
             <th>Information</th>
+            <th>Description</th>
         </tr>
     </thead>
     <tbody>
         {% for spell in spell_list %}
         <tr>
             <th>{{ spell.name }}</th>
-            <td>{{ spell.description|markdown }}</td>
             <td>
                 <ul class="nice-menu stacked">
                     <li>
@@ -119,6 +118,7 @@
                 {% endif -%}
                 </ul>
             </td>
+            <td>{{ spell.description|markdown }}</td>
         </tr>
         {%- endfor %}
     </tbody>
