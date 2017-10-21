@@ -395,8 +395,8 @@
                         data-name="monster.languages."
                         data-target="languages">
                         <option value="">Add language...</option>
-                    {% for language in data.languages %}
-                        <option>{{ language.name }}</option>
+                    {% for language in languages %}
+                        <option value="{{ language.name }}">{{ language.label }}</option>
                     {% endfor %}
                     </select>
                 </div>
