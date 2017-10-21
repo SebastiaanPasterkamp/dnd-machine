@@ -146,7 +146,7 @@ class TestMonsterObject(unittest.TestCase):
             monster.attacks0notation, '3d6+3 Fire + 2d8 Bludgeoning')
         self.assertEquals(monster.proficiency, 2)
         self.assertEquals(monster.attack_bonus, 0)
-        self.assertEquals(monster.spell_save_dc, 5)
+        self.assertEquals(monster.spell_save_dc, 13)
         self.assertEquals(monster.average_damage, 22)
         self.assertEquals(monster.critical_damage, 42)
 
@@ -272,9 +272,9 @@ class TestMonsterObject(unittest.TestCase):
                 }
             })
         self.assertAlmostEqual(
-            monster.challenge_rating, 1.8, delta=0.02)
-        self.assertEquals(monster.xp, 450)
-        self.assertAlmostEqual(monster.xp_rating, 450., delta=1.0)
+            monster.challenge_rating, 2.55, delta=0.02)
+        self.assertEquals(monster.xp, 700)
+        self.assertAlmostEqual(monster.xp_rating, 700., delta=1.0)
         self.assertEquals(monster.proficiency, 2)
 
 
