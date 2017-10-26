@@ -11,8 +11,14 @@
         </div>
         <table class="nice-panel-content nice-table condensed bordered">
             <tr>
-                <th>Name</th>
-                <td>{{ npc.name }}</td>
+                <th colspan="2" class="control-wrapper">
+                    <h3>{{ npc.name }}</h3>
+
+                    <div class="nice-btn-group object-control">
+                        <a href="{{ url_for('npc.edit', npc_id=npc.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                        <a href="{{ url_for('npc.delete', npc_id=npc.id) }}" class="nice-btn bad icon fa-trash">Delete</a>
+                    </div>
+                </th>
             </tr>
 
             {% for core in ["race", "class"] -%}

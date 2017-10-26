@@ -190,6 +190,11 @@ class NpcObject(JsonObject):
             self.modifiersConstitution * self.level
             )
 
+        self.traits = [
+            trait
+            for trait in self.traits
+            if trait['name']
+            ]
 
         self.armor = []
         self.weapons = []

@@ -21,7 +21,7 @@ function statsBLockEdit() {
             base_val = parseInt($(this).find('option:selected').val()),
             cost = (base_val-8) + Math.max(0, base_val-13),
             bonus = $(row).find('input[data-field="bonus"]'),
-            bonus_val = parseInt($(bonus).val()),
+            bonus_val = parseInt($(bonus).length ? $(bonus).val() : 0),
             final = $(row).find('input[data-field="final"]'),
             modifier = $(row).find('input[data-field="modifier"]');
 

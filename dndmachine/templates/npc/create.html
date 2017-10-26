@@ -126,7 +126,7 @@
                     <th>{{ stat.name }}</th>
                     <td class="{{ class }}">
                         <select class="small nice-form-control" data-field="base" name="npc.base_stats.{{ stat.name }}">
-                        {% for option in range(8, 16) %}
+                        {% for option in range(1, 21) %}
                             {% if npc.base_stats[stat.name] == option %}
                             <option selected>{{ option }}</option>
                             {% else %}
@@ -134,9 +134,6 @@
                             {% endif %}
                         {% endfor %}
                         </select>
-                    </td>
-                    <td class="{{ class }}">
-                        <input type="number" disabled value="{{ npc.stats_bonus[stat.name]|sum }}" data-field="bonus" class="nice-form-control" />
                     </td>
                     <td class="{{ class }}">
                         <input type="number" disabled value="{{ npc.stats[stat.name] }}" data-field="final" class="nice-form-control" />
@@ -151,7 +148,7 @@
                 <tr>
                     <th>Budget</th>
                     <th>
-                        <input type="number" disabled id="budget" data-total="27" value="27" class="nice-form-control" />
+                        <input type="number" disabled id="budget" data-total="50" class="nice-form-control" />
                     </th>
                     <th></th>
                     <th></th>

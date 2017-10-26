@@ -36,8 +36,9 @@
 {% endif %}
 
 {% for trait in npc.traits -%}
-* **{{ trait.name }}** {{ trait.description }}
-{%- endfor %}
+* **{{ trait.name }}** {{ trait.description|indent(4) }}
+
+{% endfor %}
 
 {% if npc.weapons %}
 **Weapons**
