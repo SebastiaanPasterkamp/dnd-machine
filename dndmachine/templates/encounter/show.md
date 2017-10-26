@@ -5,7 +5,7 @@
 **Encounter Rating** {{ encounter.challenge_rating|round(3) }}
     ({{- encounter.xp }} XP)
 
-{% for count, monster in encounter.monsters|unique -%}
+{% for count, monster in encounter.monsters|sort(attribute='challenge_rating', reverse=True)|unique -%}
 * {% if count > 1 %}{{ count }} x {% endif -%}
     **{{ monster.name }}**
 {% endfor %}
