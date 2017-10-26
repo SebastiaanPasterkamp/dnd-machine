@@ -97,6 +97,13 @@ class CharacterObject(JsonObject):
                     "8th_level": [],
                     "9th_level": []
                     },
+                "personality": {
+                    "traits": "",
+                    "ideals": "",
+                    "bonds": "",
+                    "flaws": ""
+                    },
+                "appearance": "",
                 "computed": {
                     "unarmored": {
                         "formula": "10 + modifiers.dexterity + modifiers.constitution"

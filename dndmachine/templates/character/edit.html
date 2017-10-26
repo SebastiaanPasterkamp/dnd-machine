@@ -22,6 +22,52 @@
 
             <div class="nice-control-group">
                 <span class="nice-input-addon">
+                    Height
+                </span>
+                <input type="text" class="nice-form-control" name="character.height" value="{{ character.height }}" />
+                <span class="nice-input-addon">
+                    ft.
+                </span>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Weight
+                </span>
+                <input type="text" class="nice-form-control" name="character.weight" value="{{ character.weight }}" />
+                <span class="nice-input-addon">
+                    lb.
+                </span>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Age
+                </span>
+                <input type="text" class="nice-form-control" name="character.age" value="{{ character.age }}" />
+                <span class="nice-input-addon">
+                    years old
+                </span>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Appearance
+                </span>
+                <textarea class="nice-form-control" name="character.personality.appearance" rows="5">{{ character.personality.appearance }}</textarea>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="personality" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Personality
+        </div>
+        <div class="nice-panel-content">
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
                     Alignment
                 </span>
                 <select class="nice-form-control" name="character.alignment">
@@ -37,6 +83,46 @@
                     {%- endfor %}
                 </select>
             </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Traits
+                </span>
+                <textarea class="nice-form-control" name="character.personality.traits" rows="2">{{ character.personality.traits }}</textarea>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Ideals
+                </span>
+                <textarea class="nice-form-control" name="character.personality.ideals" rows="2">{{ character.personality.ideals }}</textarea>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Bonds
+                </span>
+                <textarea class="nice-form-control" name="character.personality.bonds" rows="2">{{ character.personality.bonds }}</textarea>
+            </div>
+
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Flaws
+                </span>
+                <textarea class="nice-form-control" name="character.personality.flaws" rows="2">{{ character.personality.flaws }}</textarea>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="background" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Backstory
+        </div>
+        <div class="nice-panel-content">
+
+            <textarea class="nice-form-control" name="character.personality.backstory" rows="15">{{ character.personality.backstory }}</textarea>
+
         </div>
     </div>
 

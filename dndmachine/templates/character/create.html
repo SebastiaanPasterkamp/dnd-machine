@@ -205,24 +205,80 @@
                 {{ buttons(False) }}
 
                 <table class="nice-table condensed bordered nice-form-group">
-                    <tr>
-                        <th>Name</th>
-                        <td><input class="small nice-form-control" name="character.name" placeholder="Name..."></td>
-                    </tr>
-                    <tr>
-                        <th>Alignment</th>
-                        <td>
-                            <select class="nice-form-control" name="character.alignment">
-                                {%- for group, options in {'good': ['lawful good', 'neutral good', 'chaotic good'], 'neutral': ['lawful neutral', 'true neutral', 'chaotic neutral'], 'evil': ['lawful evil', 'neutral evil', 'chaotic evil']}.items() %}
-                                <optgroup label="{{ group|capitalize }}">
-                                    {%- for option in options %}
-                                    <option value="{{ option }}">{{ option|capitalize }}</option>
+                    <thead>
+                        <tr>
+                            <th colspan="2">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td><input class="small nice-form-control" name="character.name" placeholder="Name..."></td>
+                        </tr>
+                        <tr>
+                            <th>Height</th>
+                            <td><input type="text" class="nice-form-control" name="character.height" placeholder="Height..." /> ft.</td>
+                        </tr>
+
+                        <tr>
+                            <th>Weight</th>
+                            <td><input type="text" class="nice-form-control" name="character.weight"  placeholder="Weight..." /> lb.</td>
+                        </tr>
+
+                        <tr>
+                            <th>Age</th>
+                            <td><input type="text" class="nice-form-control" name="character.age" placeholder="Age..." /> years old</td>
+                        </tr>
+
+                        <tr>
+                            <th>Appearance</th>
+                            <td><textarea class="nice-form-control" name="character.personality.appearance" rows="5">{{ character.personality.appearance }}</textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="nice-table condensed bordered nice-form-group">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Personality</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Alignment</th>
+                            <td>
+                                <select class="nice-form-control" name="character.alignment">
+                                    {%- for group, options in {'good': ['lawful good', 'neutral good', 'chaotic good'], 'neutral': ['lawful neutral', 'true neutral', 'chaotic neutral'], 'evil': ['lawful evil', 'neutral evil', 'chaotic evil']}.items() %}
+                                    <optgroup label="{{ group|capitalize }}">
+                                        {%- for option in options %}
+                                        <option value="{{ option }}">{{ option|capitalize }}</option>
+                                        {%- endfor %}
+                                    </optgroup>
                                     {%- endfor %}
-                                </optgroup>
-                                {%- endfor %}
-                            </select>
-                        </td>
-                    </tr>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Traits</th>
+                            <td><textarea class="nice-form-control" name="character.personality.traits" rows="2">{{ character.personality.traits }}</textarea></td>
+                        </tr>
+
+                        <tr>
+                            <th>Ideals</th>
+                            <td><textarea class="nice-form-control" name="character.personality.ideals" rows="2">{{ character.personality.ideals }}</textarea></td>
+                        </tr>
+
+                        <tr>
+                            <th>Bonds</th>
+                            <td><textarea class="nice-form-control" name="character.personality.bonds" rows="2">{{ character.personality.bonds }}</textarea></td>
+                        </tr>
+
+                        <tr>
+                            <th>Flaws</th>
+                            <td><textarea class="nice-form-control" name="character.personality.flaws" rows="2">{{ character.personality.flaws }}</textarea></td>
+                        </tr>
+                    </tbody>
                 </table>
 
                 {{ buttons(False) }}
@@ -230,14 +286,64 @@
             </form>
     {% else %}
             <table class="nice-table condensed bordered">
+                <thead>
+                    <tr>
+                        <th colspan="2">Description</th>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr>
                         <th>Name</th>
                         <td>{{ character.name }}</td>
                     </tr>
                     <tr>
+                        <th>Height</th>
+                        <td>{{ character.height }} ft.</td>
+                    </tr>
+                    <tr>
+                        <th>Weight</th>
+                        <td>{{ character.weight }}</td>
+                    </tr>
+                    <tr>
+                        <th>Age</th>
+                        <td>{{ character.age }}</td>
+                    </tr>
+                    <tr>
+                        <th>Appearance</th>
+                        <td>{{ character.appearance|default('')|markdown }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="nice-table condensed bordered">
+                <thead>
+                    <tr>
+                        <th colspan="2">Personality</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
                         <th>Alignment</th>
                         <td>{{ character.alignment }}</td>
+                    </tr>
+                    <tr>
+                        <th>Traits</th>
+                        <td>{{ character.personality.traits }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ideals</th>
+                        <td>{{ character.personality.ideals }}</td>
+                    </tr>
+                    <tr>
+                        <th>Bonds</th>
+                        <td>{{ character.personality.bonds }}</td>
+                    </tr>
+                    <tr>
+                        <th>Flaws</th>
+                        <td>{{ character.personality.flaws }}</td>
+                    </tr>
+                    <tr>
+                        <th>Backstory</th>
+                        <td>{{ character.personality.backstory }}</td>
                     </tr>
                 </tbody>
             </table>

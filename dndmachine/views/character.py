@@ -131,7 +131,16 @@ def download(character_id):
         "Alignment": c.alignment,
         "ProBonus": filter_bonus(c.proficiency),
         "Initiative": filter_bonus(c.initiative_bonus),
-        "Passive": filter_bonus(c.passive_perception)
+        "Passive": filter_bonus(c.passive_perception),
+        "Age": c.age,
+        "Height": c.height,
+        "Weight": c.weight,
+        "Current Weight": c.weight,
+        #"Appearance": c.appearance,
+        "PersonalityTraits ": c.personalityTraits,
+        "Ideals": c.personalityIdeals,
+        "Bonds": c.personalityBonds,
+        "Flaws": c.personalityFlaws
         }
     fdf_html = {
         "Background": c.background
