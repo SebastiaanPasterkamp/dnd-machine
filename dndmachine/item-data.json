@@ -69,6 +69,16 @@
         {"name": "slashing", "label": "Slashing", "short": "Slash", "description": "Swords, axes, and monsters' claws deal slashing damage." },
         {"name": "thunder", "label": "Thunder", "short": "Thndr", "description": "A concussive burst of sound, such as the effect of the Thunderwave spell, deals thunder damage." }
     ],
+    "magic_schools": [
+        {"name": "abjuration", "label": "Abjuration", "description": "Magic that blocks, banishes, or protects. Detractors of this school say that its tradition is about denial, negation rather than positive assertion. Others say that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void."},
+        {"name": "conjuration", "label": "Conjuration", "description": "Spells that produce objects and creatures out of thin air. Ranging from billowing clouds of killing fog or summon creatures from elsewhere to fight on your behalf."},
+        {"name": "divination", "label": "Divination", "description": "Spells of discernment, remote viewing, supernatural knowledge, and foresight."},
+        {"name": "enchantment", "label": "Enchantment", "description": "Abilities to magically entrance and beguile people and monsters."},
+        {"name": "evocation", "label": "Evocation", "description": "Magic that creates powerful elemental effects such as bitter cold, searing flame, rolling thunder, crackling lightning, and burning acid."},
+        {"name": "illusion", "label": "Illusion", "description": "Magic that dazzles the senses, befuddles the mind, and tricks even the wisest folk."},
+        {"name": "necromancy", "label": "Necromancy", "description": "Concerns the cosmic forces of life, death, and undeath. Manipulates the energy that animates all living things."},
+        {"name": "transmutation", "label": "Transmutation", "description": "Spells that modify energy and matter."}
+    ],
     "monster_types": [
         {"name": "Aberration", "label": "Aberration", "description": "Aberration"},
         {"name": "Beast", "label": "Beast", "description": "Beast"},
@@ -872,8 +882,7 @@
                 {"name": "Detect Poison and Disease"},
                 {"name": "Divine Favor"},
                 {"name": "Heroism"},
-                {"name": "Protection from"},
-                {"name": "Evil and Good"},
+                {"name": "Protection from Evil and Good"},
                 {"name": "Purify Food and Drink"},
                 {"name": "Searing Smite"},
                 {"name": "Shield of Faith"},

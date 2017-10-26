@@ -29,11 +29,11 @@
                     "name": "level"
                     }|xmlattr }} >
                 <option></option>
-                {% for lvl in ["Cantrip", "1","2","3","4","5","6","7","8","9"] %}
+                {% for option in ["Cantrip", "1","2","3","4","5","6","7","8","9"] %}
                 <option{{ {
-                    "selected": "selected" if lvl == level else None,
-                    "value": lvl,
-                    }|xmlattr }}>{{ lvl }}</option>
+                    "selected": "selected" if option == level else None,
+                    "value": option,
+                    }|xmlattr }}>{{ option }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -49,11 +49,31 @@
                     "name": "classes"
                     }|xmlattr }} >
                 <option></option>
-                {% for cls in ["Bard", "Cleric", "Druid", "Paladin", "Ranger", "Sorcerer", "Warlock", "Wizard"] %}
+                {% for option in ["Bard", "Cleric", "Druid", "Paladin", "Ranger", "Sorcerer", "Warlock", "Wizard"] %}
                 <option{{ {
-                    "selected": "selected" if cls == classes else None,
-                    "value": cls,
-                    }|xmlattr }}>{{ cls }}</option>
+                    "selected": "selected" if option == classes else None,
+                    "value": option,
+                    }|xmlattr }}>{{ option }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="nice-form-group">
+        <label for="class" class="nice-col-3 nice-control-label">
+            School
+        </label>
+        <div class="nice-col-9">
+            <select {{ {
+                    "class": "nice-form-control",
+                    "id": "school",
+                    "name": "school"
+                    }|xmlattr }} >
+                <option></option>
+                {% for option in items.magic_schools %}
+                <option{{ {
+                    "selected": "selected" if option.name == school else None,
+                    "value": option.name,
+                    }|xmlattr }}>{{ option.label }}</option>
                 {% endfor %}
             </select>
         </div>
