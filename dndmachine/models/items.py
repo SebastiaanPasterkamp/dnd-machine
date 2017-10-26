@@ -1,4 +1,5 @@
 import json
+import re
 
 from base import JsonObject
 
@@ -88,12 +89,16 @@ class ItemsObject(JsonObject):
             matches.extend(data)
         return matches
 
+
     def listByName(self, name, paths):
+        def _tokens(name):
+            return set(re.split(r'/\s*,\s*/', name.lower()))
+        name = _tokens(name)
         matches = []
         for item in self.getList(paths):
             if isinstance(item, dict) \
                     and 'name' in data \
-                    and data['name'] == name:
+                    and _tokens(data['name']) == name:
                 matches.append(data)
         return matches[0]
 

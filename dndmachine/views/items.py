@@ -16,11 +16,14 @@ def spells():
     name = request.args.get('name', '').lower()
     level = request.args.get('level', '')
     classes = request.args.get('classes', '')
+    school = request.args.get('school', '')
 
     def matches(spell):
         if level and level != spell['level']:
             return False
         if classes and classes not in spell['classes']:
+            return False
+        if school and school != spell['school'].lower():
             return False
         if name and name not in spell['name'].lower():
             return False
@@ -37,6 +40,7 @@ def spells():
         name=name,
         level=level,
         classes=classes,
+        school=school,
         spell_list=spell_list
         )
 
