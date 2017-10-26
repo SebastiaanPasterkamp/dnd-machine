@@ -16,6 +16,13 @@ export FLASK_DEBUG=true
 flask initdb
 ```
 
+## Building
+
+```bash
+npm install
+rpm run build
+```
+
 ## Running D&D machine
 
 ```bash
