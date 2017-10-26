@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-<h1 class="icon fa-paw">{{ monster.name }}</h1>
+<h1 class="icon fa-paw">Monster</h1>
 
 <div id="view-monster">
 
@@ -11,16 +11,19 @@
         <table class="nice-panel-content nice-table condensed bordered" id="monsterstats">
             <thead>
                 <tr>
-                    <th colspan="2">
+                    <th colspan="2" class="control-wrapper">
+                        <h3>{{ monster.name }}</h3>
+
                         <i>
                             {{ monster.size }}
                             {{ monster.type }},
                             {{ monster.alignment }}
                         </i>
-                        <span class="badge pull-right">
+
+                        <div class="nice-btn-group object-control">
                             <a href="{{ url_for('monster.edit', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
                             <a href="{{ url_for('monster.delete', monster_id=monster.id) }}" class="nice-btn bad icon fa-trash">Delete</a>
-                        </span>
+                        </div>
                     </th>
                 </tr>
             </thead>
@@ -198,7 +201,7 @@
                 </tr>
                 <tr>
                     <th>Mode</th>
-                    <td>{{ attack.mode }}</td>
+                    <td>{{ attack.damage[0].mode|default('')|capitalize }}</td>
                 </tr>
                 <tr>
                     <th>Attack Notation</th>
@@ -230,13 +233,13 @@
                 {% if attack.bonus %}
                 <tr>
                     <th>Attack Bonus</th>
-                    <td>{% if attack.bonus > 0 %}+{% endif %}{{ attack.bonus }}</td>
+                    <td>Hit {{ attack.bonus|bonus }}</td>
                 </tr>
                 {% endif %}
                 {% if attack.spell_save_dc %}
                 <tr>
                     <th>Attack Save DC</th>
-                    <td>&ge; {{ attack.spell_save_dc }}</td>
+                    <td>DC &ge; {{ attack.spell_save_dc }}</td>
                 </tr>
                 {% endif %}
                 <tr>

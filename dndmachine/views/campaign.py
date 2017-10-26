@@ -32,20 +32,11 @@ def overview(campaign_id=None):
         )
 
 @campaign.route('/show/<int:campaign_id>')
-@campaign.route('/show/<int:campaign_id>/<int:party_id>', methods=['GET', 'POST'])
-def show(campaign_id, party_id=None):
-    if party_id is None:
-        if request.party:
-            return redirect( url_for('campaign.show', campaign_id=campaign_id, party_id=request.party.id) )
-        return redirect( url_for('party.overview', campaign_id=campaign_id) )
-
+def show(campaign_id):
     datamapper = get_datamapper()
 
     c = datamapper.campaign.getById(campaign_id)
-    party = datamapper.party.getById(party_id)
     user = datamapper.user.getById(c.user_id)
-
-    characters = datamapper.character.getByPartyId(party_id)
 
     replace = {}
     for match in re.finditer(ur"^/encounter/(\d+)\s*$", c.story, re.M):
@@ -67,7 +58,8 @@ def show(campaign_id, party_id=None):
 
             skip = set()
             for monster in sorted(encounter.monsters,\
-                    key=lambda m: m.challenge_rating):
+                    key=lambda m: m.challenge_rating,
+                    reverse=True):
                 if monster.id in skip:
                     continue
                 skip.add(monster.id)
@@ -107,8 +99,6 @@ def show(campaign_id, party_id=None):
     return render_template(
         'campaign/show.html',
         campaign=c,
-        party=party,
-        characters=characters,
         user=user
         )
 

@@ -8,10 +8,11 @@
 <table class="nice-table condensed striped bordered hover">
     <thead>
         <tr>
-            <th colspan="2">
+            <th colspan="2" class="control-wrapper">
                 <h3>{{ party.name }}</h3>
+
                 {% if 'dm' in request.user.role and party.user_id == request.user.id %}
-                <div class="nice-btn-group pull-right">
+                <div class="nice-btn-group object-control">
                     <a href="{{ url_for('party.edit', party_id=party.id) }}" class="nice-btn icon fa-cog">Edit</a>
                     <a href="{{ url_for('party.delete', party_id=party.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
                 </div>

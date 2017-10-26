@@ -10,10 +10,8 @@
         <tr>
             <th colspan="2">
                 <h3>{{ user.name }}</h3>
-                {% if user.role %}
-                {% endif %}
                 {% if user.id == request.user.id or 'admin' in request.user.role %}
-                <span class="badge pull-right">
+                <span class="nice-btn-group pull-right">
                     <a href="{{ url_for('user.edit', user_id=user.id, action='edit') }}" class="nice-btn icon fa-cog">Edit</a>
                 </span>
                 {% endif %}
