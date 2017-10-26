@@ -35,7 +35,7 @@ def overview(encounter_id=None):
         search=search
         )
 
-@monster.route('/<int:monster_id>')
+@monster.route('/show/<int:monster_id>')
 def show(monster_id):
     datamapper = get_datamapper()
 

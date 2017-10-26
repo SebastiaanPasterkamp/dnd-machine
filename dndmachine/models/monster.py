@@ -101,6 +101,11 @@ class MonsterObject(JsonObject):
         config = get_config()
         machine = DndMachine(config['machine'], get_item_data())
 
+        self.languages = [
+            l for l in list(set(self.languages))
+            if l != u"None"
+            ]
+
         for stat, value in self.stats.iteritems():
             self.modifiers[stat] = (value - 10) / 2
 

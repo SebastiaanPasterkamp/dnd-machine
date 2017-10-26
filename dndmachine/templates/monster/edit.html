@@ -249,6 +249,20 @@
                 </select>
             </div>
 
+            <div class="nice-control-group">
+                <span class="nice-input-addon">
+                    Spell Statistic
+                </span>
+                <select class="nice-form-control" name="monster.attack_modifier.spell">
+                {% for stat in items.statistics %}
+                    <option{{ {
+                        "selected": "selected" if monster.attack_modifier.spell == stat.name else None,
+                        "value": stat.name
+                        }|xmlattr }}>{{ stat.label }}</option>
+                {% endfor %}
+                </select>
+            </div>
+
         </div>
     </div>
 </div>

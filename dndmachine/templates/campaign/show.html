@@ -1,15 +1,20 @@
 {% extends "layout.html" %}
 {% block body %}
-<div id="view-campaign">
-    <div id="title">
-        <h1 class="icon fa-book">{{ campaign.name }}</h1>
-    </div>
+<h1 class="icon fa-book">Campaign</h1>
 
+<div id="view-campaign">
     <div id="description" class="nice-panel brand">
         <div class="nice-panel-heading">
             Description
         </div>
-        <div class="nice-panel-content">
+        <div class="nice-panel-content control-wrapper">
+            <h3>{{ campaign.name }}</h3>
+
+            <div class="nice-panel-content object-control">
+                <a href="{{ url_for('campaign.edit', campaign_id=campaign.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                <a href="{{ url_for('campaign.delete', campaign_id=campaign.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+            </div>
+
             {{ campaign.description|markdown }}
         </div>
     </div>
@@ -22,18 +27,6 @@
             {{ campaign.story|markdown|named_headers }}
         </div>
     </div>
-
-    {% if campaign.user_id == request.user.id or 'admin' in request.user.role %}
-    <div id="control" class="nice-panel brand">
-        <div class="nice-panel-heading">
-                Control
-        </div>
-        <div class="nice-panel-content">
-            <a href="{{ url_for('campaign.edit', campaign_id=campaign.id) }}" class="nice-btn icon fa-cog">Edit</a>
-            <a href="{{ url_for('campaign.delete', campaign_id=campaign.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
-        </div>
-    </div>
-    {% endif %}
 
     <div id="toc" class="nice-panel brand">
         <div class="nice-panel-heading">
@@ -51,48 +44,5 @@
         </div>
     </div>
 
-    <div id="party" class="nice-panel brand hiding">
-        <div class="nice-panel-heading">
-            <span class="icon fa-beer">&nbsp;</span>
-            Party
-        </div>
-        <div class="nice-panel-content">
-        {% for character in characters %}
-
-            <div class="nice-panel info">
-                <div class="nice-panel-heading">
-                    {{ character.name }}
-                </div>
-                <div class="nice-panel-content">
-                    Level {{ character.level}} {{ character.race }} {{ character.class }}
-                </div>
-            </div>
-
-        {% endfor %}
-        </div>
-    </div>
-
-    <div id="npc" class="nice-panel brand hiding">
-        <div class="nice-panel-heading">
-            <span class="icon fa-gamepad">&nbsp;</span>
-            NPCs
-        </div>
-        <div class="nice-panel-content">
-            <div class="nice-menu">
-        {% for item in campaign.story|linked_objects %}
-
-<div id="{{ item.type }}-{{ item.id }}" data-link="{{ item.url }}" class="nice-panel info hidden">
-    <div class="nice-panel-heading">
-        {{ item.data.name }}
-    </div>
-    <div class="nice-panel-content">
-        Hello
-    </div>
-</div>
-
-        {% endfor %}
-            </div>
-        </div>
-    </div>
 </div>
 {% endblock %}
