@@ -11,6 +11,14 @@
 .disabled {
     color: gray; }
 
+.control-wrapper {
+    position: relative; }
+div.object-control {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    }
+
 div.widget-grid {
     display: grid;
     grid-gap: 1em .5em;
@@ -34,9 +42,8 @@ div#view-campaign {
     display: grid;
     grid-gap: 1em .5em;
     grid-template-columns: 25% auto 25%;
-    grid-template-rows: repeat(4, max-content) min-content;
-    grid-template-areas: "title title title"
-                         "description description control"
+    grid-template-rows: repeat(3, max-content) min-content;
+    grid-template-areas: "description description description"
                          "toc story story"
                          ". story story"; }
     div#view-campaign div.admonition {
@@ -106,8 +113,8 @@ div#new-npc, div#edit-npc, div#view-npc {
     grid-template-columns: 50% 50%;
     grid-auto-rows: auto; }
     div#view-npc {
-        grid-template-areas: "statistics statistics"
-                            "base attributes"; }
+        grid-template-areas: "base statistics"
+                            "attributes attributes"; }
     div#view-npc > #base { grid-area: base; }
     div#view-npc > #statistics { grid-area: statistics; }
     div#view-npc > #attributes { grid-area: attributes; }
@@ -252,28 +259,10 @@ div#view-encounter #monsters .monster > .monster-traits { grid-area: traits; }
 div#view-encounter #monsters .monster > .monster-multiattack { grid-area: multiattacks; }
 div#view-encounter #monsters .monster > .monster-attacks { grid-area: actions; }
 
-div#view-campaign > #party {
-    position: fixed; left: 0; width: 30em; }
-div#view-campaign > #party.hiding {
-    left: -29.5em; }
-    div#view-campaign > #party.hiding > div.nice-panel-heading {
-        position: relative; left: 3em; }
-    div#view-campaign > #party.hiding div.nice-panel-heading {
-        text-align: right; }
-    div#view-campaign > #party.hiding div.nice-panel-heading span.icon {
-        float: right; margin-left: 1em; }
-
-div#view-campaign > #npc {
-    position: fixed; right: 0; width: 30em; }
-div#view-campaign > #npc.hiding {
-    right: -29.5em; }
-    div#view-campaign > #npc.hiding > div.nice-panel-heading {
-        position: relative; right: 3em; }
-    div#view-campaign > #npc.hiding > div.nice-panel-heading span.icon {
-        float: left; margin-right: 1em; }
-
 @media print {
-    body > header, div#messages, div#view-campaign > #party, div#view-campaign > #npc {
+    html body {
+        margin: 0px; }
+    body > header, body > footer, div#messages, .nice-btn-group {
         display: none; }
     body.nice-fixed-header {
         padding-top: 0px; }
