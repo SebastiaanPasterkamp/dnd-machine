@@ -8,13 +8,14 @@
         <div class="nice-panel-heading">
             Description
         </div>
-        <table class="nice-panel-content nice-table condensed striped bordered">
+        <table class="nice-panel-content nice-table condensed bordered">
             <thead>
                 <tr>
-                    <th colspan="2">
+                    <th colspan="2" class="control-wrapper">
                         <h3>{{ encounter.name }}</h3>
+
                         {% if encounter.user_id == request.user.id or 'admin' in request.user.role %}
-                        <div class="nice-btn-group pull-right">
+                        <div class="nice-btn-group object-control">
                             <a href="{{ url_for('encounter.edit', encounter_id=encounter.id) }}" class="nice-btn icon fa-cog">Edit</a>
                             <a href="{{ url_for('encounter.delete', encounter_id=encounter.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
                         </div>

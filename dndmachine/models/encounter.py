@@ -16,7 +16,8 @@ class EncounterObject(JsonObject):
                 {"min": 3, "max": 6, "modifier": 2.0},
                 {"min": 7, "max": 10, "modifier": 2.5},
                 {"min": 11, "max": 14, "modifier": 3.0},
-                {"min": 15, "max": 20, "modifier": 4.0}
+                {"min": 15, "max": 20, "modifier": 4.0},
+                {"min": 21, "max": 30, "modifier": 5.0}
                 ]
             }
 
