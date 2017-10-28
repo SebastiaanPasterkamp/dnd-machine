@@ -1,17 +1,31 @@
+"use strict";
+
 import React from 'react';
-import {render} from 'react-dom';
+import ReactDom from 'react-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
-import AwesomeComponent from './components/AwesomeComponent.jsx';
+import LanguageTable from './views/Languages.jsx';
+import WeaponsTable from './views/Weapons.jsx';
+import DefaultFilter from './views/DefaultFilter.jsx';
 
-class App extends React.Component {
-  render () {
-    return (
-      <div>
-        <p> Hello React!</p>
-        <AwesomeComponent />
-      </div>
+let app = document.getElementById('app'),
+    filter = document.getElementById('default-filter');
+
+if (app) {
+    ReactDom.render(
+        <Router>
+            <Switch>
+                <Route path="/items/languages" component={LanguageTable} />
+                <Route path="/items/weapons" component={WeaponsTable} />
+            </Switch>
+        </Router>,
+        app
     );
-  }
 }
 
-render(<App/>, document.getElementById('app'));
+if (filter) {
+    ReactDom.render(
+        <DefaultFilter/>,
+        filter
+    );
+}

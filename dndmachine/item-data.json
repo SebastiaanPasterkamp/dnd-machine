@@ -192,7 +192,7 @@
                 ]
             },
             "ranged": {
-                "name": "Martial Melee Weapons",
+                "name": "Martial Ranged Weapons",
                 "items": [
                     {"name": "Blowgun", "cost": {"gp": 10}, "damage": {"value": 1, "type": "piercing"}, "range": {"min": 25, "max": 100}, "property": ["ammunition", "loading"]},
                     {"name": "Crossbow, hand", "cost": {"gp": 75}, "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "range": {"min": 30, "max": 120}, "property": ["ammunition", "light", "loading"]},
