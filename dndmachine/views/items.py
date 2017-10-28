@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, request, session, g, redirect, url_for, abort, \
-    render_template, flash
+from flask import Blueprint, request, session, g, redirect, url_for, \
+    abort, render_template, flash, jsonify
 
 from .. import get_datamapper
 
@@ -51,6 +51,9 @@ def languages():
         'languages.common,languages.exotic'
         )
 
+    if request.is_xhr:
+        return jsonify(languages)
+
     search = request.args.get('search', '').lower()
     if search:
         languages = [
@@ -61,17 +64,31 @@ def languages():
 
     return render_template(
         'items/languages.html',
+        reactjs=True,
+        search=search,
         languages=languages
         )
 
 @items.route('/weapons')
 def weapons():
     datamapper = get_datamapper()
-    weapons = datamapper.items.weapons
+    weaponsets = [
+        datamapper.items.weaponsSimpleMelee,
+        datamapper.items.weaponsSimpleRanged,
+        datamapper.items.weaponsMartialMelee,
+        datamapper.items.weaponsMartialRanged
+        ]
+
+    if request.is_xhr:
+        return jsonify(weaponsets)
+
+    search = request.args.get('search', '').lower()
 
     return render_template(
         'items/weapons.html',
-        weapons=weapons
+        reactjs=True,
+        search=search,
+        weaponsets=weaponsets
         )
 
 @items.route('/armor')

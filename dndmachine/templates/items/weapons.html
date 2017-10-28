@@ -3,12 +3,10 @@
 <h2 class="icon fa-cutlery">Weapons</h2>
 
 <table class="nice-table condensed bordered responsive">
-    {% for weapon_type in ['simple', 'martial'] %}
-    {% for weapon_mode in ['melee', 'ranged'] %}
-    {% set weapon = weapons[weapon_type][weapon_mode] %}
+    {% for weaponset in weaponsets %}
     <thead>
         <tr>
-            <th>{{ weapon.name }}</th>
+            <th>{{ weaponset.name }}</th>
             <th>Damage</th>
             <th>Range</th>
             <th>Cost</th>
@@ -16,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for item in weapon['items'] %}
+        {% for item in weaponset['items'] %}
         <tr>
             <td>{{ item.name }}</td>
             <td>
@@ -35,7 +33,6 @@
         </tr>
         {% endfor %}
     </tbody>
-    {% endfor %}
     {% endfor %}
 </table>
 
