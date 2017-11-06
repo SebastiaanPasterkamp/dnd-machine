@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Coinage should show a human readable gold price 1`] = `
+<div
+  className="damage capitalize"
+>
+  10 Gold
+</div>
+`;
+
+exports[`Component: Coinage should show an ordered list of coins 1`] = `
+<div
+  className="damage capitalize"
+>
+  1pp 2gp 3ep 4sp 5cp
+</div>
+`;
+
+exports[`Component: Coinage should show an ordered list of human readable coins 1`] = `
+<div
+  className="damage capitalize"
+>
+  1 Platinum, 2 Gold, 3 Electrum, 4 Silver, 5 Copper
+</div>
+`;
+
+exports[`Component: Coinage should show simple gold price 1`] = `
+<div
+  className="damage capitalize"
+>
+  10gp
+</div>
+`;

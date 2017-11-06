@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Damage should show dice notation with bonus 1`] = `
+<div
+  className="damage inline capitalize"
+>
+  2d6+3
+</div>
+`;
+
+exports[`Component: Damage should show dice notation with bonus and type 1`] = `
+<div
+  className="damage inline capitalize"
+>
+  4d10+6 piercing
+</div>
+`;
+
+exports[`Component: Damage should show dice notation with type 1`] = `
+<div
+  className="damage inline capitalize"
+>
+  3d8 fire
+</div>
+`;
+
+exports[`Component: Damage should show simple dice notation 1`] = `
+<div
+  className="damage inline capitalize"
+>
+  1d4
+</div>
+`;
