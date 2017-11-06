@@ -1,5 +1,5 @@
 import React from 'react';
-import Coinage from '../../jsx/components/Coinage.jsx';
+import Coinage from '../../src/jsx/components/Coinage.jsx';
 import renderer from 'react-test-renderer';
 
 describe('Component: Coinage', () => {

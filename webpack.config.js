@@ -1,8 +1,8 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'dndmachine/static/js');
-var APP_DIR = path.resolve(__dirname, 'dndmachine/source/jsx');
+var BUILD_DIR = path.resolve(__dirname, 'app/static/js');
+var APP_DIR = path.resolve(__dirname, 'ui/src/jsx');
 
 var config = {
   entry: APP_DIR + '/index.jsx',

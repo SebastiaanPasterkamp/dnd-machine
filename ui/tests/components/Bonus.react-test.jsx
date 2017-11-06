@@ -1,5 +1,5 @@
 import React from 'react';
-import Bonus from '../../jsx/components/Bonus.jsx';
+import Bonus from '../../src/jsx/components/Bonus.jsx';
 import renderer from 'react-test-renderer';
 
 describe('Component: Bonus', () => {

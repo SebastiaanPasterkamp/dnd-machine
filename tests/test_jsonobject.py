@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..'
     )))
 
-from dndmachine.models.base import JsonObject
+from app.models.base import JsonObject
 
 class TestJsonObject(JsonObject):
     def __init__(self, config={}):

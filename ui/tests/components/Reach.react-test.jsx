@@ -1,5 +1,5 @@
 import React from 'react';
-import Reach from '../../jsx/components/Reach.jsx';
+import Reach from '../../src/jsx/components/Reach.jsx';
 import renderer from 'react-test-renderer';
 
 describe('Component: Reach', () => {

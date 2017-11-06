@@ -28,7 +28,7 @@
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p",
-    "test": "node_modules/.bin/jest --roots dndmachine/source/tests/ --testMatch '**/tests/**/*.js?(x)'"
+    "test": "node_modules/.bin/jest --roots ui/tests/ --testMatch '**/tests/**/*.js?(x)'"
   },
   "repository": {
     "type": "git",

@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..'
     )))
 
-from dndmachine.utils import markdownToToc
+from app.utils import markdownToToc
 
 class UtilsTestCase(unittest.TestCase):
 
