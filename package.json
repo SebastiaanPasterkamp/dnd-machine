@@ -9,8 +9,6 @@
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
     "lodash": "^4.17.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -20,11 +18,17 @@
     "reflux": "^6.4.1",
     "webpack": "^3.8.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-jest": "^21.2.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "jest": "^21.2.1",
+    "react-test-renderer": "^16.0.0"
+  },
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/jest --roots dndmachine/source/tests/ --testMatch '**/tests/**/*.js?(x)'"
   },
   "repository": {
     "type": "git",
