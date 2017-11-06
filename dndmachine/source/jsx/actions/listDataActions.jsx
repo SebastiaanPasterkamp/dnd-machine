@@ -3,41 +3,25 @@ import Reflux from 'reflux';
 
 var listDataActions = Reflux.createActions({
     "setState": {},
-    "fetchLanguages": {children: ['completed', 'failed']},
-    "fetchWeapons": {children: ['completed', 'failed']}
+    "fetchItems": {children: ['completed', 'failed']}
 });
 
-listDataActions.fetchLanguages.listen( function() {
-    fetch('/items/languages', {
+listDataActions.fetchItems.listen( function(type) {
+    fetch('/items/' + type, {
         credentials: 'same-origin',
         'headers': {
             'X-Requested-With': 'XMLHttpRequest'
         }
     })
     .then((response) => response.json())
-    .then((languages) => {
-        this.completed({languages: languages});
+    .then((data) => {
+        let update = [];
+        update[type] = data;
+        this.completed(update);
     })
     .catch((error) => {
         console.error(error);
-        this.failed(error);
-    });
-});
-
-listDataActions.fetchWeapons.listen( function() {
-    fetch('/items/weapons', {
-        credentials: 'same-origin',
-        'headers': {
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    })
-    .then((response) => response.json())
-    .then((weapons) => {
-        this.completed({weapons: weapons});
-    })
-    .catch((error) => {
-        console.error(error);
-        this.failed(error);
+        this.failed(type, error);
     });
 });
 
