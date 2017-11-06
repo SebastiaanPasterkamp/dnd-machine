@@ -83,6 +83,7 @@ def edit(npc_id):
 
     return render_template(
         'npc/edit.html',
+        reactjs=True,
         npc=obj
         )
 
