@@ -1,11 +1,36 @@
 {
     "statistics": [
-        {"name": "strength", "label": "Strength"},
-        {"name": "dexterity", "label": "Dexterity"},
-        {"name": "constitution", "label": "Constitution"},
-        {"name": "intelligence", "label": "Intelligence"},
-        {"name": "wisdom", "label": "Wisdom"},
-        {"name": "charisma", "label": "Charisma"}
+        {
+            "name": "strength",
+            "label": "Strength",
+            "description": "Strength is being able to crush a tomato."
+        },
+        {
+            "name": "dexterity",
+            "label": "Dexterity",
+            "description": "Dexterity is being able to dodge a tomato."
+
+        },
+        {
+            "name": "constitution",
+            "label": "Constitution",
+            "description": "Constitution is being able to eat a bad tomato."
+        },
+        {
+            "name": "intelligence",
+            "label": "Intelligence",
+            "description": "Intelligence is knowing a tomato is a fruit."
+        },
+        {
+            "name": "wisdom",
+            "label": "Wisdom",
+            "description": "Wisdom is knowing not to put a tomato in a fruit salad."
+        },
+        {
+            "name": "charisma",
+            "label": "Charisma",
+            "description": "Charisma is being able to sell a tomato based fruit salad."
+        }
     ],
     "skills": [
         {"name": "athletics", "label": "Athletics", "stat": "strength"},
