@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Reach should show a simple number for min==max with unit 1`] = `
+<div
+  className="reach inline"
+>
+  5 ft.
+</div>
+`;
+
+exports[`Component: Reach should show just a text label for a non-numeric distance 1`] = `
+<div
+  className="reach inline"
+>
+  touch
+</div>
+`;
+
+exports[`Component: Reach should show min<max range with unit 1`] = `
+<div
+  className="reach inline"
+>
+  10/20 ft.
+</div>
+`;
+
+exports[`Component: Reach should show simple number with unit 1`] = `
+<div
+  className="reach inline"
+>
+  10 ft.
+</div>
+`;
