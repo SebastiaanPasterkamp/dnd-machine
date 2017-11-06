@@ -1,5 +1,5 @@
 import React from 'react';
-import Damage from '../../jsx/components/Damage.jsx';
+import Damage from '../../src/jsx/components/Damage.jsx';
 import renderer from 'react-test-renderer';
 
 describe('Component: Damage', () => {

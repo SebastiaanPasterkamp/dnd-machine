@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..'
     )))
 
-from dndmachine.models.monster import MonsterObject
+from app.models.monster import MonsterObject
 
 class TestMonsterObject(unittest.TestCase):
 

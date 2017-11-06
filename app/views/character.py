@@ -428,7 +428,7 @@ def download(character_id):
         fdf_html[field] = """<?xml version="1.0"?><body>%s</body>""" % (
             markdown.markdown(fdf_html[field]))
 
-    pdf_file = os.path.join('dndmachine', 'static', 'pdf', 'Current Standard v1.4.pdf')
+    pdf_file = os.path.join('app', 'static', 'pdf', 'Current Standard v1.4.pdf')
 
     filename = re.sub(ur'[^\w\d]+', '_', c['name'])
     filename = re.sub(ur'^_+|_+$', '', filename)

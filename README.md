@@ -11,7 +11,7 @@ pip install -r requirements.txt
 ## Initial setup
 
 ```bash
-export FLASK_APP=dndmachine/app.py
+export FLASK_APP=app/app.py
 export FLASK_DEBUG=true
 flask initdb
 ```
@@ -23,10 +23,17 @@ npm install
 rpm run build
 ```
 
+## Testing
+
+```bash
+python tests/run_tests.py
+npm test
+```
+
 ## Running D&D machine
 
 ```bash
-export FLASK_APP=dndmachine/app.py
+export FLASK_APP=app/app.py
 export FLASK_DEBUG=true
 flask run
 ```
