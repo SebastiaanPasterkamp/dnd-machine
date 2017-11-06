@@ -11,6 +11,12 @@
 .disabled {
     color: gray; }
 
+.capitalize {
+    text-transform: capitalize; }
+
+.inline {
+    display: inline; }
+
 .control-wrapper {
     position: relative; }
 div.object-control {
