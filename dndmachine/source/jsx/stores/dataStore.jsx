@@ -10,8 +10,11 @@ class DataStore extends Reflux.Store
         super();
         this.state = {
             search: '',
-            weapons: [],
-            languages: []
+            armor: [],
+            languages: [],
+            spells: [],
+            statistics: [],
+            weapons: []
         };
         this.listenables = listDataActions;
     }
@@ -21,24 +24,16 @@ class DataStore extends Reflux.Store
         this.setState(data);
     }
 
-    onFetchLanguagesCompleted(data)
+    onFetchItemsCompleted(data)
     {
-        this.setState({languages: data.languages});
+        this.setState(data);
     }
 
-    onFetchLanguagesFailed(error)
+    onFetchItemsFailed(type, error)
     {
-        this.setState({languages: []});
-    }
-
-    onFetchWeaponsCompleted(data)
-    {
-        this.setState({weapons: data.weapons});
-    }
-
-    onFetchWeaponsFailed(error)
-    {
-        this.setState({weapons: []});
+        let update = [];
+        update[type] = [];
+        this.setState(update);
     }
 }
 
