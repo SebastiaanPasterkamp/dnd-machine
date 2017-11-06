@@ -3,100 +3,79 @@ from flask import Blueprint, request, session, g, redirect, url_for, \
     abort, render_template, flash, jsonify
 
 from .. import get_datamapper
+from ..filters import filter_markdown
 
 items = Blueprint(
     'items', __name__, template_folder='templates')
 
-@items.route('/')
+@items.route('/statistics')
+def statistics():
+    datamapper = get_datamapper()
+    return jsonify(datamapper.items.statistics)
+
 @items.route('/spells')
 def spells():
-    datamapper = get_datamapper()
-    spell_list = datamapper.items.spell_list
-
-    name = request.args.get('name', '').lower()
-    level = request.args.get('level', '')
-    classes = request.args.get('classes', '')
-    school = request.args.get('school', '')
-
-    def matches(spell):
-        if level and level != spell['level']:
-            return False
-        if classes and classes not in spell['classes']:
-            return False
-        if school and school != spell['school'].lower():
-            return False
-        if name and name not in spell['name'].lower():
-            return False
-        return True
-
-    spell_list = [
-        spell
-        for spell in spell_list
-        if matches(spell)
-        ]
+    if request.is_xhr:
+        datamapper = get_datamapper()
+        spell_list = datamapper.items.spell_list
+        for spell in spell_list:
+            spell['description'] = filter_markdown(spell['description'])
+        return jsonify(spell_list)
 
     return render_template(
         'items/spells.html',
-        name=name,
-        level=level,
-        classes=classes,
-        school=school,
-        spell_list=spell_list
+        search='',
+        reactjs=True
         )
 
 @items.route('/languages')
 def languages():
-    datamapper = get_datamapper()
-    languages = datamapper.items.getList(
-        'languages.common,languages.exotic'
-        )
-
     if request.is_xhr:
+        datamapper = get_datamapper()
+        languages = datamapper.items.getList(
+            'languages.common,languages.exotic'
+            )
         return jsonify(languages)
-
-    search = request.args.get('search', '').lower()
-    if search:
-        languages = [
-            language
-            for language in languages
-            if search in language['name']
-            ]
 
     return render_template(
         'items/languages.html',
-        reactjs=True,
-        search=search,
-        languages=languages
+        search='',
+        reactjs=True
         )
 
 @items.route('/weapons')
 def weapons():
-    datamapper = get_datamapper()
-    weaponsets = [
-        datamapper.items.weaponsSimpleMelee,
-        datamapper.items.weaponsSimpleRanged,
-        datamapper.items.weaponsMartialMelee,
-        datamapper.items.weaponsMartialRanged
-        ]
-
     if request.is_xhr:
+        datamapper = get_datamapper()
+        weaponsets = [
+            datamapper.items.weaponsSimpleMelee,
+            datamapper.items.weaponsSimpleRanged,
+            datamapper.items.weaponsMartialMelee,
+            datamapper.items.weaponsMartialRanged
+            ]
         return jsonify(weaponsets)
-
-    search = request.args.get('search', '').lower()
 
     return render_template(
         'items/weapons.html',
-        reactjs=True,
-        search=search,
-        weaponsets=weaponsets
-        )
+        search='',
+        reactjs=True        )
 
 @items.route('/armor')
 def armor():
     datamapper = get_datamapper()
-    armors = datamapper.items.armor
+    armor = datamapper.items.armor
+    armorsets = [
+        datamapper.items.armorLight,
+        datamapper.items.armorMedium,
+        datamapper.items.armorHeavy,
+        datamapper.items.armorShield
+        ]
+    if request.is_xhr:
+        return jsonify(armorsets)
 
     return render_template(
         'items/armor.html',
-        armors=armors
+        search='',
+        armors=armor,
+        reactjs=True
         )
