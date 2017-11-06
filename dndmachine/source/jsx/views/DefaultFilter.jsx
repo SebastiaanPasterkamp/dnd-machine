@@ -8,9 +8,6 @@ class DefaultFilter extends Reflux.Component
 {
     constructor(props) {
         super(props);
-        this.state = {
-            search: ''
-        };
         this.store = DataStore;
         this.storeKeys = ['search'];
     }
@@ -28,7 +25,7 @@ class DefaultFilter extends Reflux.Component
                 className="nice-form-control"
                 type="text"
                 name="search"
-                value={this.state.search}
+                value={this.state.search.text}
                 placeholder="Search..."
                 onChange={(event) => this.onChange(event)}
                 />
