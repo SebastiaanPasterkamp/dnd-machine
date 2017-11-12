@@ -22,13 +22,22 @@
     "babel-jest": "^21.2.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.1.1",
+    "enzyme-adapter-react-16": "^1.0.4",
     "jest": "^21.2.1",
+    "jest-enzyme": "^4.0.1",
     "react-test-renderer": "^16.0.0"
   },
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p",
     "test": "node_modules/.bin/jest --roots ui/tests/ --testMatch '**/tests/**/*.js?(x)'"
+  },
+  "jest": {
+        "setupFiles": [
+            "./ui/shim.js",
+            "./ui/setupTests.js"
+        ]
   },
   "repository": {
     "type": "git",
