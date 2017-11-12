@@ -26,7 +26,8 @@
     "enzyme-adapter-react-16": "^1.0.4",
     "jest": "^21.2.1",
     "jest-enzyme": "^4.0.1",
-    "react-test-renderer": "^16.0.0"
+    "react-test-renderer": "^16.0.0",
+    "sinon": "^4.1.2"
   },
   "scripts": {
     "dev": "webpack -d --watch",
@@ -34,10 +35,10 @@
     "test": "node_modules/.bin/jest --roots ui/tests/ --testMatch '**/tests/**/*.js?(x)'"
   },
   "jest": {
-        "setupFiles": [
-            "./ui/shim.js",
-            "./ui/setupTests.js"
-        ]
+    "setupFiles": [
+      "./ui/shim.js",
+      "./ui/setupTests.js"
+    ]
   },
   "repository": {
     "type": "git",
