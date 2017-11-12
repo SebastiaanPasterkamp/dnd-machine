@@ -1,7 +1,5 @@
 import React from 'react';
 
-import _ from 'lodash';
-
 class LazyComponent extends React.Component
 {
     shouldComponentUpdate(nextProps, nextState) {

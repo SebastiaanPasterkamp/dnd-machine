@@ -156,7 +156,11 @@ class StatsBlock extends Reflux.Component
         return <tr key="budget" className="text-align-center">
             <th>Budget</th>
             <td>{this.props.budget - this._spent()}</td>
-            <td colSpan={2 + (this.props.bonus ? 1 : 0)}></td>
+            <td colSpan={
+                2
+                + (this.props.bonus ? 1 : 0)
+                + this.props.increase
+            }></td>
         </tr>
     }
 
