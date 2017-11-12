@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import BaseSelect from './BaseSelect.jsx';
 
-class SingleSelect extends React.Component
+class SingleSelect extends LazyComponent
 {
     constructor(props) {
         super(props);
@@ -20,7 +20,7 @@ class SingleSelect extends React.Component
     }
 
     getLabel() {
-        let label = this.props.label;
+        let label = this.props.emptyLabel;
         let item = _.find(this.props.items, {
             code: this.props.selected
         });
@@ -31,14 +31,19 @@ class SingleSelect extends React.Component
     }
 
     renderItem(item) {
+        let isDisabled = this.props.isDisabled(item);
         let style = [
             item.code == this.props.selected ? "info" : null,
-            this.props.isDisabled(item) ? "disabled" : null
+            isDisabled ? "disabled" : null
             ];
         return <li
                 key={item.code}
-                className={style.join(' ')}
-                onClick={() => this.onClick(item)}
+                className={_.filter(style).join(' ')}
+                data-value={item.code}
+                onClick={isDisabled
+                    ? null
+                    : () => this.onClick(item)
+                }
                 >
             <a>{item.label}</a>
         </li>
@@ -56,8 +61,12 @@ class SingleSelect extends React.Component
 }
 
 SingleSelect.defaultProps = {
+    emptyLabel: "",
     isDisabled: (item) => {
-        return item.disabled;
+        return (
+            'disabled' in item
+            && item.disabled
+        );
     },
     setState: (selected) => {
         console.log(['SingleSelect', selected]);
