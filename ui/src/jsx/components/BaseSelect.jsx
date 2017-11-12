@@ -1,10 +1,10 @@
 import React from 'react';
 import LazyComponent from '../components/LazyComponent.jsx';
-import onClickOutside from 'react-onclickoutside'
+import onClickOutside from 'react-onclickoutside';
 
 import _ from 'lodash';
 
-class BaseSelect extends LazyComponent
+export class BaseSelect extends LazyComponent
 {
     constructor(props) {
         super(props);
@@ -71,7 +71,7 @@ class BaseSelect extends LazyComponent
 }
 
 BaseSelect.defaultProps = {
-    closeOnClick: true
+    closeOnClick: true,
 };
 
 export default onClickOutside(BaseSelect);
