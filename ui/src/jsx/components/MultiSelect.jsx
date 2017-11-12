@@ -9,9 +9,6 @@ class MultiSelect extends LazyComponent
 {
     constructor(props) {
         super(props);
-        this.state = {
-            selected: []
-        };
     }
 
     onChange(item, checked) {
@@ -19,44 +16,49 @@ class MultiSelect extends LazyComponent
             return;
         }
 
-        let selected = this.state.selected;
+        let selected = this.props.selected;
         if (checked) {
             selected = _.concat(selected, [item.code]);
         } else {
             selected = _.difference(selected, [item.code]);
         }
-        this.setState({
-            selected: selected
-        }, () => {
-            this.props.setState(this.state.selected);
-        });
+
+        this.props.setState(selected);
     }
 
     getLabel() {
-        let label = this.props.label;
-        if (this.state.selected.length == 1) {
+        let label = this.props.emptyLabel;
+        if (this.props.selected.length == 1) {
             let item = _.find(this.props.items, {
-                code: this.state.selected[0]
+                code: this.props.selected[0]
             });
             label = item.label;
-        } else if (this.state.selected.length > 1) {
-            label = this.state.selected.length + ' selected';
+        } else if (this.props.selected.length > 1) {
+            label = this.props.selected.length + ' selected';
         }
         return label;
     }
 
     renderItem(item) {
-        let checked = _.includes(this.state.selected, item.code);
+        let isChecked = _.includes(this.props.selected, item.code);
+        let isDisabled = this.props.isDisabled(item)
         let style = [
-            checked ? "info" : null,
-            this.props.isDisabled(item) ? "disabled" : null
+            isChecked ? "info" : null,
+            isDisabled ? "disabled" : null
             ];
-        return <li key={item.code}>
+        return <li
+                key={item.code}
+                data-value={item.code}
+                className={_.filter(style).join(' ')}
+                >
             <label><input
-                    className={style.join(' ')}
                     type="checkbox"
-                    defaultChecked={checked}
-                    onChange={() => this.onChange(item, !checked)}
+                    checked={isChecked}
+                    disabled={isDisabled}
+                    onChange={
+                        isDisabled
+                            ? null
+                            : () => this.onChange(item, !isChecked)}
                     />
                 {item.label}
             </label>
@@ -76,6 +78,7 @@ class MultiSelect extends LazyComponent
 }
 
 MultiSelect.defaultProps = {
+    emptyLabel: "0 selected",
     isDisabled: (item) => {
         return item.disabled;
     },
