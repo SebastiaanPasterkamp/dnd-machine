@@ -114,6 +114,19 @@ class JsonObject(object):
         except AttributeError:
             return self.getPath(field)
 
+    def __delattr__(self, field):
+        try:
+            return object.__delattr__(self, field)
+        except AttributeError:
+            path = field
+            if not isinstance(path, list):
+                path = self.splitPath(path)
+            if len(path) > 1:
+                parent = self.getPath(path[:-1])
+                del parent[path[-1]]
+            else:
+                del self._config[path[0]]
+
     def __getitem__(self, field):
         try:
             return self.__dict__[field]
