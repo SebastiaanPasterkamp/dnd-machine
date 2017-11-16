@@ -97,7 +97,9 @@ $(function() {
         toggle.toggleClass('collapsed', !state);
         $('body').toggleClass('expanded', state);
     });
-    $('.nice-dropdown').on('click', '.nice-btn', function(){
+    $('.nice-dropdown')
+        .not('.reactjs .nice-dropdown')
+        .on('click', '.nice-btn', function(){
         var btn = $(this),
             dd = btn.closest('.nice-dropdown');
         var isShown = dd.is('.shown');
