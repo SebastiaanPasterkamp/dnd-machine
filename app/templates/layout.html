@@ -181,7 +181,14 @@
             {% endfor %}
         {% endfor %}
         </div>
-        <section class="nice-fluid-container grid" id="app">
+        <section{{ {
+            "id": "app",
+            "class": [
+                "nice-fluid-container",
+                "grid",
+                "reactjs" if reactjs|default(False) else "jquery"
+            ]|join(' ')
+        }|xmlattr }}>
 {% block body %}{% endblock %}
         </section>
         <footer>
