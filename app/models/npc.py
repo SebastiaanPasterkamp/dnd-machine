@@ -25,37 +25,39 @@ class NpcObject(JsonObject):
                 "hit_points_notation": u"1d4",
                 "hit_points": 2,
                 "spell_stat": "intelligence",
-                "base_stats": {
-                    "strength": 8,
-                    "dexterity": 8,
-                    "constitution": 8,
-                    "intelligence": 8,
-                    "wisdom": 8,
-                    "charisma": 8
-                    },
-                "stats_bonus": {
-                    "strength": [],
-                    "dexterity": [],
-                    "constitution": [],
-                    "intelligence": [],
-                    "wisdom": [],
-                    "charisma": []
-                    },
-                "stats": {
-                    "strength": 8,
-                    "dexterity": 8,
-                    "constitution": 8,
-                    "intelligence": 8,
-                    "wisdom": 8,
-                    "charisma": 8
-                    },
-                "modifiers": {
-                    "strength": 0,
-                    "dexterity": 0,
-                    "constitution": 0,
-                    "intelligence": 0,
-                    "wisdom": 0,
-                    "charisma": 0
+                "statistics": {
+                    "bare": {
+                        "strength": 8,
+                        "dexterity": 8,
+                        "constitution": 8,
+                        "intelligence": 8,
+                        "wisdom": 8,
+                        "charisma": 8
+                        },
+                    "bonus": {
+                        "strength": [],
+                        "dexterity": [],
+                        "constitution": [],
+                        "intelligence": [],
+                        "wisdom": [],
+                        "charisma": []
+                        },
+                    "base": {
+                        "strength": 8,
+                        "dexterity": 8,
+                        "constitution": 8,
+                        "intelligence": 8,
+                        "wisdom": 8,
+                        "charisma": 8
+                        },
+                    "modifiers": {
+                        "strength": 0,
+                        "dexterity": 0,
+                        "constitution": 0,
+                        "intelligence": 0,
+                        "wisdom": 0,
+                        "charisma": 0
+                        }
                     },
                 "saving_throws": {
                     "strength": 0,
@@ -74,14 +76,14 @@ class NpcObject(JsonObject):
                 "languages": [],
                 "computed": {
                     "unarmored": {
-                        "formula": "10 + modifiers.dexterity + modifiers.constitution"
+                        "formula": "10 + statistics.modifiers.dexterity"
                         }
                     },
                     "spell_safe_dc": {
-                        "formula": "8 + proficiency + modifiers['spell_stat']"
+                        "formula": "8 + npc.proficiency + statistics.modifiers['npc.spell_stat']"
                     },
                     "spell_attack_modifier": {
-                        "formula": "proficiency + modifiers.wisdom"
+                        "formula": "npc.proficiency + statistics.modifiers.wisdom"
                     },
                 },
             fieldTypes = {
@@ -95,17 +97,10 @@ class NpcObject(JsonObject):
                 "spell_attack_modifier": int,
                 "armor_class": int,
                 "armor_class_bonus": int,
-                "base_stats": {
-                    "*": int
-                    },
-                "stats_bonus": {
-                    "*": int
-                    },
-                "stats": {
-                    "*": int
-                    },
-                "modifiers": {
-                    "*": int
+                "statistics": {
+                    "*": {
+                        "*": int
+                        }
                     },
                 "saving_throws": {
                     "*": int
@@ -153,20 +148,41 @@ class NpcObject(JsonObject):
             )
         self.compute()
 
+    def update(self, update):
+        if "base_stats" in update:
+            for path, compute in update['computed'].items():
+                if 'formula' not in compute:
+                    continue
+                compute['formula'] = compute['formula'].replace(
+                    ' modifiers', ' statistics.modifiers')
+            update['statistics'] = {
+                "bare": update['base_stats'],
+                "bonus": update['stats_bonus'],
+                "base": update['stats'],
+                "modifiers": update['modifiers']
+                }
+            del update['base_stats']
+            del update['stats_bonus']
+            del update['stats']
+            del update['modifiers']
+        self._config = self._merge(self._config, update)
+        self.compute()
+
     def compute(self):
         config = get_config()
         machine = DndMachine(config["machine"], get_item_data())
 
         for stat in machine.items.statistics:
             stat = stat["name"]
-            self.stats[stat] = self.base_stats[stat] \
-                + sum(self.stats_bonus[stat])
-            self.modifiers[stat] = int(
-                (self.stats[stat] - 10) / 2
+            self.statisticsBase[stat] = self.statisticsBare[stat] \
+                + sum(self.statisticsBonus[stat])
+            self.statisticsModifiers[stat] = int(
+                (self.statisticsBase[stat] - 10.0) / 2.0
                 )
+            self.saving_throws[stat] = self.statisticsModifiers[stat]
 
-        self.initiative_bonus = self.modifiersDexterity
-        self.passive_perception = 10 + self.modifiersWisdom
+        self.initiative_bonus = self.statisticsModifiersDexterity
+        self.passive_perception = 10 + self.statisticsModifiersWisdom
 
         for path, compute in self.computed.items():
             value = machine.resolveMath(
@@ -181,13 +197,13 @@ class NpcObject(JsonObject):
         self.hit_points = machine.diceAverage(
                 self.hit_dice or dice_size,
                 self.level,
-                self.modifiersConstitution * self.level
+                self.statisticsModifiersConstitution * self.level
                 )
 
         self.hit_points_notation = machine.diceNotation(
             self.hit_dice,
             self.level,
-            self.modifiersConstitution * self.level
+            self.statisticsModifiersConstitution * self.level
             )
 
         self.traits = [
@@ -246,7 +262,7 @@ class NpcObject(JsonObject):
             weapon["damage"]["type_label"] = dmg["label"]
             weapon["damage"]["type_short"] = dmg["short"]
 
-            attack_modifier = self.modifiers[attack_modifier]
+            attack_modifier = self.statisticsModifiers[attack_modifier]
 
             weapon["damage"]["notation"] = machine.diceNotation(
                 weapon["damage"]["dice_size"],
@@ -257,7 +273,7 @@ class NpcObject(JsonObject):
 
             if "thrown" in weapon.get("property", []) \
                     and "ranged" not in weapon["path"]:
-                attack_modifier = self.modifiers["dexterity"]
+                attack_modifier = self.statisticsModifiers["dexterity"]
 
                 weapon["use_alt"] = "Thrown"
                 weapon["damage"]["notation_alt"] = machine.diceNotation(
@@ -277,8 +293,7 @@ class NpcObject(JsonObject):
                     )
                 weapon["bonus_alt"] = attack_modifier + self.proficiency
 
-        self.armor_class = machine.resolveMath(
-            self, "10 + modifiers.dexterity")
+        self.armor_class = self.unarmored
         self.armor_class_bonus = 0
         for armor in self.armor:
             if "formula" in armor:
