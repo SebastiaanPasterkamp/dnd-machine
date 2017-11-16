@@ -11,7 +11,7 @@ from .views.items import items
 from .views.character import character
 from .views.party import party
 from .views.monster import monster
-from .views.npc import npc
+from .views.npc import blueprint as npc
 from .views.encounter import encounter
 from .views.campaign import campaign
 
