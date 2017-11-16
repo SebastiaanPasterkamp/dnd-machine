@@ -125,7 +125,7 @@ div#new-npc, div#edit-npc, div#view-npc {
     div#view-npc > #statistics { grid-area: statistics; }
     div#view-npc > #attributes { grid-area: attributes; }
 
-@media screen and (max-width: 100em) and (orientation: portrait) {
+@media screen and (max-width: 1025px) {
     table.responsive {
         border: 0;
     }
