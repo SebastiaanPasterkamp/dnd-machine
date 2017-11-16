@@ -14,7 +14,7 @@ exports[`Component: SingleSelect should show a dropdown with 3 items disabled by
     />
   </button>
   <ul
-    className="dropdown-menu "
+    className="dropdown-menu"
     onClick={[Function]}
   >
     <li
@@ -27,7 +27,7 @@ exports[`Component: SingleSelect should show a dropdown with 3 items disabled by
       </a>
     </li>
     <li
-      className=""
+      className={null}
       data-value={2}
       onClick={[Function]}
     >
@@ -62,11 +62,11 @@ exports[`Component: SingleSelect should show a dropdown with 3 items in various 
     />
   </button>
   <ul
-    className="dropdown-menu "
+    className="dropdown-menu"
     onClick={[Function]}
   >
     <li
-      className=""
+      className={null}
       data-value={1}
       onClick={[Function]}
     >
@@ -110,11 +110,11 @@ exports[`Component: SingleSelect should show a simple dropdown with 3 items 1`] 
     />
   </button>
   <ul
-    className="dropdown-menu "
+    className="dropdown-menu"
     onClick={[Function]}
   >
     <li
-      className=""
+      className={null}
       data-value={1}
       onClick={[Function]}
     >
@@ -123,7 +123,7 @@ exports[`Component: SingleSelect should show a simple dropdown with 3 items 1`] 
       </a>
     </li>
     <li
-      className=""
+      className={null}
       data-value={2}
       onClick={[Function]}
     >
@@ -132,7 +132,7 @@ exports[`Component: SingleSelect should show a simple dropdown with 3 items 1`] 
       </a>
     </li>
     <li
-      className=""
+      className={null}
       data-value={3}
       onClick={[Function]}
     >

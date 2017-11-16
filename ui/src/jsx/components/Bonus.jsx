@@ -6,8 +6,7 @@ import _ from 'lodash';
 class Bonus extends LazyComponent
 {
     render() {
-        return <div
-                className="bonus inline">
+        return <div className="bonus inline">
             {this.props.bonus > 0
                 ? '+'
                 : null

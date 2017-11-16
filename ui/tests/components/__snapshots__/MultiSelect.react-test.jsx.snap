@@ -14,11 +14,11 @@ exports[`Component: MultiSelect should show a dropdown with 4 items disabled by 
     />
   </button>
   <ul
-    className="dropdown-menu "
+    className="dropdown-menu"
     onClick={[Function]}
   >
     <li
-      className=""
+      className={null}
       data-value={1}
     >
       <label>
@@ -91,11 +91,11 @@ exports[`Component: MultiSelect should show a dropdown with 4 items in various s
     />
   </button>
   <ul
-    className="dropdown-menu "
+    className="dropdown-menu"
     onClick={[Function]}
   >
     <li
-      className=""
+      className={null}
       data-value={1}
     >
       <label>
@@ -168,11 +168,11 @@ exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] =
     />
   </button>
   <ul
-    className="dropdown-menu "
+    className="dropdown-menu"
     onClick={[Function]}
   >
     <li
-      className=""
+      className={null}
       data-value={1}
     >
       <label>
@@ -186,7 +186,7 @@ exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] =
       </label>
     </li>
     <li
-      className=""
+      className={null}
       data-value={2}
     >
       <label>
@@ -200,7 +200,7 @@ exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] =
       </label>
     </li>
     <li
-      className=""
+      className={null}
       data-value={3}
     >
       <label>
@@ -214,7 +214,7 @@ exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] =
       </label>
     </li>
     <li
-      className=""
+      className={null}
       data-value={4}
     >
       <label>
