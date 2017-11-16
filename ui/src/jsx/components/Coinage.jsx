@@ -28,8 +28,7 @@ class Coinage extends LazyComponent
             .map((coin) => this.renderCoin(coin, this.props[coin]));
         const separator = this.props.extended ? ', ' : ' ';
 
-        return <div
-                className="damage capitalize">
+        return <div className="damage capitalize">
             {coins.join(separator)}
         </div>
     }

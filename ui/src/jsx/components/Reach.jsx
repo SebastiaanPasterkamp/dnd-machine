@@ -7,8 +7,7 @@ import LazyComponent from '../components/LazyComponent.jsx';
 class Reach extends LazyComponent
 {
     renderMinMax() {
-        return <div
-                className="reach inline">
+        return <div className="reach inline">
             {this.props.min >= this.props.max
                 ? this.props.min + " ft."
                 : this.props.min + "/" + this.props.max + " ft."
@@ -17,8 +16,7 @@ class Reach extends LazyComponent
     }
 
     renderSimple() {
-        return <div
-                className="reach inline">
+        return <div className="reach inline">
             {_.isNumber(this.props.distance)
                 ? this.props.distance + " ft."
                 : this.props.distance

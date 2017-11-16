@@ -17,8 +17,7 @@ class Damage extends LazyComponent
                 ? " " + this.props.type
                 : null
             ].filter((item) => !_.isNull(item));
-        return <div
-                className="damage inline capitalize">
+        return <div className="damage inline capitalize">
             {notation.join('')}
         </div>;
     }

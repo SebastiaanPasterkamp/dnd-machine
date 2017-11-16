@@ -43,14 +43,15 @@ export class BaseSelect extends LazyComponent
     }
 
     render() {
-        let style = [
+        let style = _.filter([
             "dropdown-menu",
             this.state.shown ? "shown" : null
-        ];
+        ]);
+
         return <div className="nice-dropdown">
             {this.renderButton()}
             <ul
-                    className={style.join(' ')}
+                    className={style.length ? style.join(' ') : null}
                     onClick={() => this.onClick()}>
                 {this.props.heading
                     ? <li className="heading">

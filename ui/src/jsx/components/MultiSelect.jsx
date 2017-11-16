@@ -7,10 +7,6 @@ import BaseSelect from './BaseSelect.jsx';
 
 class MultiSelect extends LazyComponent
 {
-    constructor(props) {
-        super(props);
-    }
-
     onChange(item, checked) {
         if (this.props.isDisabled(item)) {
             return;
@@ -42,14 +38,14 @@ class MultiSelect extends LazyComponent
     renderItem(item) {
         let isChecked = _.includes(this.props.selected, item.code);
         let isDisabled = this.props.isDisabled(item)
-        let style = [
+        let style = _.filter([
             isChecked ? "info" : null,
             isDisabled ? "disabled" : null
-            ];
+            ]);
         return <li
                 key={item.code}
                 data-value={item.code}
-                className={_.filter(style).join(' ')}
+                className={style.length ? style.join(' ') : null}
                 >
             <label><input
                     type="checkbox"

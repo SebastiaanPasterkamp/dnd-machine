@@ -7,10 +7,6 @@ import BaseSelect from './BaseSelect.jsx';
 
 class SingleSelect extends LazyComponent
 {
-    constructor(props) {
-        super(props);
-    }
-
     onClick(item) {
         if (this.props.isDisabled(item)) {
             return;
@@ -32,13 +28,13 @@ class SingleSelect extends LazyComponent
 
     renderItem(item) {
         let isDisabled = this.props.isDisabled(item);
-        let style = [
+        let style = _.filter([
             item.code == this.props.selected ? "info" : null,
             isDisabled ? "disabled" : null
-            ];
+            ]);
         return <li
                 key={item.code}
-                className={_.filter(style).join(' ')}
+                className={style.length ? style.join(' ') : null}
                 data-value={item.code}
                 onClick={isDisabled
                     ? null

@@ -14,7 +14,7 @@ exports[`Component: BaseSelect should show a dropdown with heading and descripti
     />
   </button>
   <ul
-    className="dropdown-menu "
+    className="dropdown-menu"
     onClick={[Function]}
   >
     <li
@@ -52,7 +52,7 @@ exports[`Component: BaseSelect should show a simple dropdown with one button and
     />
   </button>
   <ul
-    className="dropdown-menu "
+    className="dropdown-menu"
     onClick={[Function]}
   >
     <li>
