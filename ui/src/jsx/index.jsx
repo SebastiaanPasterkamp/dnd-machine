@@ -22,7 +22,7 @@ if (app) {
                 <Route path="/items/languages" component={LanguageTable} />
                 <Route path="/items/spells" component={SpellsTable} />
                 <Route path="/items/weapons" component={WeaponsTable} />
-                <Route path="/npc/edit" component={NpcEdit} />
+                <Route path="/npc/edit/:id" component={NpcEdit} />
             </Switch>
         </Router>,
         app
