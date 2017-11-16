@@ -2,38 +2,28 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import listDataActions from '../actions/listDataActions.jsx';
-import DataStore from '../stores/dataStore.jsx';
+import ItemStore from '../mixins/ItemStore.jsx';
 
 import Bonus from '../components/Bonus.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 
-class StatsBlock extends Reflux.Component
+export class StatsBlock extends Reflux.Component
 {
     constructor(props) {
         super(props);
-        this.store = DataStore;
-        this.storeKeys = ['statistics'];
-
         this.range = _.range(8, 16)
             .map((i) => {
                 return {code: i, label: i}
             });
     }
 
-    componentDidMount() {
-        if (!this.state.statistics.length) {
-            listDataActions.fetchItems('statistics');
-        }
-    }
-
     sendUpdate(update) {
         let props = _.merge(this.props, update);
 
-        this.state.statistics.map((stat) => {
+        this.props.statistics.map((stat) => {
             stat = stat.name;
             props['base'][stat] = props['bare'][stat]
-                + (props['bonus'][stat] || 0)
+                + (_.sum(props['bonus'][stat] || [0]))
                 + _.reduce(
                     props.improvement,
                     (total, increase) => {
@@ -117,7 +107,7 @@ class StatsBlock extends Reflux.Component
             <input
                 type="radio"
                 name={'radio-' + index}
-                defaultChecked={selected}
+                checked={selected}
                 disabled={disabled}
                 onChange={() => this.increaseStat(index, stat)}
                 />
@@ -138,7 +128,7 @@ class StatsBlock extends Reflux.Component
             </td>
             {this.props.bonus
                 ? <td>
-                    <Bonus bonus={this.props.bonus[stat.name]} />
+                    <Bonus bonus={_.sum(this.props.bonus[stat.name])} />
                 </td>
                 : null
             }
@@ -159,16 +149,16 @@ class StatsBlock extends Reflux.Component
             <td colSpan={
                 2
                 + (this.props.bonus ? 1 : 0)
-                + this.props.increase
+                + (this.props.increase || 0)
             }></td>
         </tr>
     }
 
     render() {
-        return <table className="nice-table condensed bordered responsive">
+        return <table className="nice-table condensed bordered">
             {this.renderHeader()}
             <tbody>
-                {this.state.statistics
+                {this.props.statistics
                     .map((stat) => this.renderRow(stat))
                 }
                 {this.props.budget
@@ -191,4 +181,15 @@ StatsBlock.defaultProps = {
     }
 };
 
-export default StatsBlock;
+class ItemStoreStatsBlock extends React.Component
+{
+    render() {
+        return <ItemStore
+            component={StatsBlock}
+            itemStoreProps={['statistics']}
+            {...this.props}
+            />;
+    }
+}
+
+export default ItemStoreStatsBlock;
