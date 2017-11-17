@@ -15,9 +15,10 @@ class ItemStore extends Reflux.Component
 
     componentDidMount() {
         this.props.itemStoreProps.map((item) => {
-            if (_.isEmpty(this.state[item])) {
-                listDataActions.fetchItems(item);
+            if (item == 'search') {
+                return;
             }
+            listDataActions.fetchItems(item);
         });
     }
 

@@ -171,13 +171,24 @@ def copy(npc_id, target_id=None):
         ))
 
 @blueprint.route('/api/<int:npc_id>', methods=['GET'])
-def api_get(npc_id):
+def api_get(item_id):
+    datamapper = get_datamapper()
+
+    npc = datamapper.npc.getById(npc_id)
+
+    return jsonify(npc.config)
+
+@blueprint.route('/api', methods=['POST'])
+def api_post():
     if 'dm' not in request.user['role']:
         abort(403)
 
     datamapper = get_datamapper()
 
-    npc = datamapper.npc.getById(npc_id)
+    npc = datamapper.npc.create(request.get_json())
+    if 'id' in npc and npc.id:
+        abort(409, "Cannot create with existing ID")
+    npc = datamapper.npc.insert(npc)
 
     return jsonify(npc.config)
 
@@ -188,8 +199,9 @@ def api_patch(npc_id):
 
     datamapper = get_datamapper()
 
-    npc = datamapper.npc.getById(npc_id)
-    npc.update(request.get_json())
-    npc = datamapper.npc.save(npc)
+    npc = datamapper.npc.create(request.get_json())
+    if 'id' not in npc or npc.id != npc_id:
+        abort(409, "Cannot change ID")
+    npc = datamapper.npc.update(npc)
 
     return jsonify(npc.config)
