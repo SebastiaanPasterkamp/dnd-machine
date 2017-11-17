@@ -312,11 +312,6 @@ exports[`Component: NpcEdit should show an npc editor 1`] = `
               </li>
             </ul>
           </div>
-          <span
-            className="nice-input-addon"
-          >
-            ft.
-          </span>
         </div>
         <div
           className="nice-control-group"
