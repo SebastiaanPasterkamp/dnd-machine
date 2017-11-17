@@ -12,7 +12,7 @@ from ..config import get_config, get_character_data, get_item_data
 from ..filters import filter_bonus, filter_unique
 from . import fill_pdf
 
-character = Blueprint(
+blueprint = Blueprint(
     'character', __name__, template_folder='templates')
 
 def find_caracter_field(character_data, field, value):
@@ -23,9 +23,9 @@ def find_caracter_field(character_data, field, value):
         if data['name'] == value:
             return data, None
 
-@character.route('/')
-@character.route('/list')
-@character.route('/list/<int:party_id>')
+@blueprint.route('/')
+@blueprint.route('/list')
+@blueprint.route('/list/<int:party_id>')
 def overview(party_id=None):
     datamapper = get_datamapper()
 
@@ -63,8 +63,8 @@ def overview(party_id=None):
         search=search
         )
 
-@character.route('/show/<int:character_id>')
-@character.route('/show/<int:party_id>/<int:character_id>')
+@blueprint.route('/show/<int:character_id>')
+@blueprint.route('/show/<int:party_id>/<int:character_id>')
 def show(character_id, party_id=None):
     items = get_item_data()
     datamapper = get_datamapper()
@@ -91,7 +91,7 @@ def show(character_id, party_id=None):
         user=user
         )
 
-@character.route('/raw/<int:character_id>')
+@blueprint.route('/raw/<int:character_id>')
 def raw(character_id):
     datamapper = get_datamapper()
 
@@ -102,7 +102,7 @@ def raw(character_id):
         abort(403)
     return jsonify(c.config)
 
-@character.route('/download/<int:character_id>')
+@blueprint.route('/download/<int:character_id>')
 def download(character_id):
     items = get_item_data()
     datamapper = get_datamapper()
@@ -445,7 +445,7 @@ def download(character_id):
         attachment_filename=filename
         )
 
-@character.route('/edit/<int:character_id>', methods=['GET', 'POST'])
+@blueprint.route('/edit/<int:character_id>', methods=['GET', 'POST'])
 def edit(character_id):
     character_data = get_character_data()
     datamapper = get_datamapper()
@@ -472,11 +472,12 @@ def edit(character_id):
 
     return render_template(
         'character/edit.html',
+        reactjs=True,
         character=c
         )
 
-@character.route('/level-up/<int:character_id>')
-@character.route('/level-up/<string:level>/<int:character_id>', methods=['GET', 'POST'])
+@blueprint.route('/level-up/<int:character_id>')
+@blueprint.route('/level-up/<string:level>/<int:character_id>', methods=['GET', 'POST'])
 def level_up(character_id, level=None):
     character_data = get_character_data()
     datamapper = get_datamapper()
@@ -611,7 +612,7 @@ def level_up(character_id, level=None):
         character=c
         )
 
-@character.route('/del/<int:character_id>')
+@blueprint.route('/del/<int:character_id>')
 def delete(character_id):
     datamapper = get_datamapper()
 
@@ -626,8 +627,8 @@ def delete(character_id):
         'character.overview'
         ))
 
-@character.route('/new', methods=['GET', 'POST'])
-@character.route('/new/<int:character_id>', methods=['GET', 'POST'])
+@blueprint.route('/new', methods=['GET', 'POST'])
+@blueprint.route('/new/<int:character_id>', methods=['GET', 'POST'])
 def new(character_id=None):
     character_data = get_character_data()
     datamapper = get_datamapper()
@@ -686,7 +687,7 @@ def new(character_id=None):
         character=c
         )
 
-@character.route('/create/<int:character_id>', methods=['GET', 'POST'])
+@blueprint.route('/create/<int:character_id>', methods=['GET', 'POST'])
 def create(character_id=None):
     config = get_config()
     cdata = get_character_data()
@@ -873,8 +874,8 @@ def create(character_id=None):
         )
 
 
-@character.route('/copy/<int:character_id>')
-@character.route('/copy/<int:character_id>/<int:target_id>')
+@blueprint.route('/copy/<int:character_id>')
+@blueprint.route('/copy/<int:character_id>/<int:target_id>')
 def copy(character_id, target_id=None):
     config = get_config()
     datamapper = get_datamapper()
@@ -896,7 +897,7 @@ def copy(character_id, target_id=None):
         character_id=c.id
         ))
 
-@character.route('/xp/<int:character_id>/<int:xp>')
+@blueprint.route('/xp/<int:character_id>/<int:xp>')
 def xp(character_id, xp):
     config = get_config()
     datamapper = get_datamapper()
@@ -913,3 +914,39 @@ def xp(character_id, xp):
         'character.show',
         character_id=character_id
         ))
+
+@blueprint.route('/api/<int:character_id>', methods=['GET'])
+def api_get(character_id):
+    datamapper = get_datamapper()
+
+    character = datamapper.character.getById(character_id)
+
+    return jsonify(character.config)
+
+@blueprint.route('/api', methods=['POST'])
+def api_post():
+    if 'dm' not in request.user['role']:
+        abort(403)
+
+    datamapper = get_datamapper()
+
+    character = datamapper.character.create(request.get_json())
+    if 'id' in character and character.id:
+        abort(409, "Cannot create with existing ID")
+    character = datamapper.character.insert(character)
+
+    return jsonify(character.config)
+
+@blueprint.route('/api/<int:character_id>', methods=['PATCH'])
+def api_patch(character_id):
+    if 'dm' not in request.user['role']:
+        abort(403)
+
+    datamapper = get_datamapper()
+
+    character = datamapper.character.create(request.get_json())
+    if 'id' not in character or character.id != character_id:
+        abort(409, "Cannot change ID")
+    character = datamapper.character.update(character)
+
+    return jsonify(character.config)

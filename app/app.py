@@ -8,7 +8,7 @@ from .config import get_config, get_item_data
 import filters
 from .views.user import user
 from .views.items import blueprint as items
-from .views.character import character
+from .views.character import blueprint as character
 from .views.party import party
 from .views.monster import monster
 from .views.npc import blueprint as npc
