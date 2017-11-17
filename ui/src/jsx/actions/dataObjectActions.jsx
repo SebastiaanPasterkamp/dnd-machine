@@ -8,8 +8,9 @@ var dataObjectActions = Reflux.createActions({
     "deleteObject": {asyncResult: true},
 });
 
-dataObjectActions.getObject.listen((type, id) => {
-    fetch('/' + type + '/api/' + id, {
+dataObjectActions.getObject.listen((type, id, path=null) => {
+    path = (path || '/' + type + '/api') + '/' + id;
+    fetch(path, {
         credentials: 'same-origin',
         method: 'GET',
         'headers': {
@@ -26,8 +27,9 @@ dataObjectActions.getObject.listen((type, id) => {
     });
 });
 
-dataObjectActions.postObject.listen((type, id, data) => {
-    fetch('/' + type + '/api/' + id, {
+dataObjectActions.postObject.listen((type, data, path=null) => {
+    path = path || '/' + type + '/api';
+    fetch(path, {
         credentials: 'same-origin',
         method: 'POST',
         'headers': {
@@ -38,16 +40,17 @@ dataObjectActions.postObject.listen((type, id, data) => {
     })
     .then((response) => response.json())
     .then((result) => {
-        this.completed(type, id, result);
+        dataObjectActions.postObject.completed(type, result.id, result);
     })
     .catch((error) => {
         console.error(error);
-        this.failed(type, id, error);
+        dataObjectActions.postObject.failed(type, error);
     });
 });
 
-dataObjectActions.patchObject.listen((type, id, data) => {
-    fetch('/' + type + '/api/' + id, {
+dataObjectActions.patchObject.listen((type, id, data, path=null) => {
+    path = (path || '/' + type + '/api') + '/' + id;
+    fetch(path, {
         credentials: 'same-origin',
         method: 'PATCH',
         'headers': {
@@ -58,16 +61,17 @@ dataObjectActions.patchObject.listen((type, id, data) => {
     })
     .then((response) => response.json())
     .then((result) => {
-        this.completed(type, id, result);
+        dataObjectActions.patchObject.completed(type, id, result);
     })
     .catch((error) => {
         console.error(error);
-        this.failed(type, id, error);
+        dataObjectActions.patchObject.failed(type, id, error);
     });
 });
 
-dataObjectActions.deleteObject.listen((type, id) => {
-    fetch('/' + type + '/api/' + id, {
+dataObjectActions.deleteObject.listen((type, id, path=null) => {
+    path = (path || '/' + type + '/api') + '/' + id;
+    fetch(path, {
         credentials: 'same-origin',
         method: 'DELETE',
         'headers': {
@@ -76,11 +80,11 @@ dataObjectActions.deleteObject.listen((type, id) => {
     })
     .then((response) => response.json())
     .then((result) => {
-        this.completed(type, id, result);
+        dataObjectActions.deleteObject.completed(type, id, result);
     })
     .catch((error) => {
         console.error(error);
-        this.failed(type, id, error);
+        dataObjectActions.deleteObject.failed(type, id, error);
     });
 });
 
