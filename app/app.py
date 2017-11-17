@@ -7,7 +7,7 @@ from . import get_db, get_datamapper
 from .config import get_config, get_item_data
 import filters
 from .views.user import user
-from .views.items import items
+from .views.items import blueprint as items
 from .views.character import character
 from .views.party import party
 from .views.monster import monster

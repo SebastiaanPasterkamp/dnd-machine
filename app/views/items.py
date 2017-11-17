@@ -5,15 +5,15 @@ from flask import Blueprint, request, session, g, redirect, url_for, \
 from .. import get_datamapper
 from ..filters import filter_markdown
 
-items = Blueprint(
+blueprint = Blueprint(
     'items', __name__, template_folder='templates')
 
-@items.route('/statistics')
+@blueprint.route('/statistics')
 def statistics():
     datamapper = get_datamapper()
     return jsonify(datamapper.items.statistics)
 
-@items.route('/spells')
+@blueprint.route('/spells')
 def spells():
     if request.is_xhr:
         datamapper = get_datamapper()
@@ -28,7 +28,7 @@ def spells():
         reactjs=True
         )
 
-@items.route('/languages')
+@blueprint.route('/languages')
 def languages():
     if request.is_xhr:
         datamapper = get_datamapper()
@@ -43,7 +43,7 @@ def languages():
         reactjs=True
         )
 
-@items.route('/weapons')
+@blueprint.route('/weapons')
 def weapons():
     if request.is_xhr:
         datamapper = get_datamapper()
@@ -58,9 +58,24 @@ def weapons():
     return render_template(
         'items/weapons.html',
         search='',
-        reactjs=True        )
+        reactjs=True
+        )
 
-@items.route('/armor')
+@blueprint.route('/weapons/new')
+def weapon_new():
+    return render_template(
+        'items/weapons.html',
+        reactjs=True
+        )
+
+@blueprint.route('/weapons/<int:item_id>')
+def weapon_edit(item_id):
+    return render_template(
+        'items/weapons.html',
+        reactjs=True
+        )
+
+@blueprint.route('/armor')
 def armor():
     datamapper = get_datamapper()
     armor = datamapper.items.armor
@@ -79,3 +94,40 @@ def armor():
         armors=armor,
         reactjs=True
         )
+
+@blueprint.route('/api/<int:item_id>', methods=['GET'])
+def api_get(item_id):
+    datamapper = get_datamapper()
+
+    item = datamapper.weapon.getById(item_id)
+
+    return jsonify(item.config)
+
+@blueprint.route('/api', methods=['POST'])
+def api_post():
+    if 'dm' not in request.user['role']:
+        abort(403)
+
+    datamapper = get_datamapper()
+
+    item = datamapper.weapon.create(request.get_json())
+    if 'id' in item and item.id:
+        abort(409, "Cannot create with existing ID")
+    item = datamapper.weapon.insert(item)
+
+    return jsonify(item.config)
+
+@blueprint.route('/api/<int:item_id>', methods=['PATCH'])
+def api_patch(item_id):
+    if 'dm' not in request.user['role']:
+        abort(403)
+
+    datamapper = get_datamapper()
+
+    item = datamapper.weapon.getById(item_id)
+    item.config = request.get_json()
+    if item.id != item_id:
+        abort(409, "Cannot change ID")
+    item = datamapper.weapon.update(item)
+
+    return jsonify(item.config)

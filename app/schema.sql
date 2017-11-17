@@ -84,3 +84,11 @@ CREATE TABLE `npc` (
   `organization` TEXT NOT NULL
   `config` TEXT
 );
+
+DROP TABLE IF EXISTS `item`;
+CREATE TABLE `item` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+  `type` TEXT NOT NULL,
+  `name` TEXT NOT NULL,
+  `config` TEXT
+);

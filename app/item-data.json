@@ -90,7 +90,7 @@
         {"name": "piercing", "label": "Piercing", "short": "Prcng", "description": "Puncturing and impaling attacks, including spears and monsters' bites, deal piercing damage." },
         {"name": "poison", "label": "Poison", "short": "Poisn", "description": "Venomous stings and the toxic gas of a green dragon's breath deal poison damage." },
         {"name": "psychic", "label": "Psychic", "short": "Psych", "description": "Mental abilities such as a mind flayer's psionic blast deal psychic damage." },
-        {"name": "radiant", "label": "Radiant", "short": "Radnt", "description": "Radiant damage, dealt by a cleric's flame strike spell or an angel's smiting weapon, sears the flesh like fire and overloads the spirit with power." },
+        {"name": "radiant", "label": "Radiant", "short": "Radint", "description": "Radiant damage, dealt by a cleric's flame strike spell or an angel's smiting weapon, sears the flesh like fire and overloads the spirit with power." },
         {"name": "slashing", "label": "Slashing", "short": "Slash", "description": "Swords, axes, and monsters' claws deal slashing damage." },
         {"name": "thunder", "label": "Thunder", "short": "Thndr", "description": "A concussive burst of sound, such as the effect of the Thunderwave spell, deals thunder damage." }
     ],
