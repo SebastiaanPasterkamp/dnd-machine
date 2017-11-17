@@ -313,6 +313,13 @@ class JsonObjectDataMapper(object):
         dbrow['config'] = json.dumps(dbrow['config'])
         return dbrow
 
+    def create(self, config):
+        """Creates an object from config"""
+        if config is None \
+                or not isinstance(config, dict):
+            raise ValueError("Invalid config: %r" % config)
+        return self.obj(config)
+
     def getById(self, obj_id):
         """Returns an object from table by obj_id"""
         cur = self.db.execute("""
@@ -350,6 +357,8 @@ class JsonObjectDataMapper(object):
     def insert(self, obj):
         """Insert a new obj"""
         new_obj = self._write(obj)
+        if 'id' in new_obj:
+            del new_obj['id']
 
         cur = self.db.execute("""
             INSERT INTO `%s`

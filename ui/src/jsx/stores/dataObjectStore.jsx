@@ -11,7 +11,8 @@ class dataObjectStore extends Reflux.Store
     {
         super();
         this.state = {
-            npc: {}
+            npc: {},
+            weapon: {}
         };
         this.listenables = dataObjectActions;
     }
@@ -25,6 +26,14 @@ class dataObjectStore extends Reflux.Store
     }
 
     onPatchObjectCompleted(type, id, result)
+    {
+        let update = {};
+        update[type] = {};
+        update[type][id] = result;
+        this.setState(update);
+    }
+
+    onPostObjectCompleted(type, id, result)
     {
         let update = {};
         update[type] = {};
@@ -70,6 +79,27 @@ dataObjectStore.initial = {
                 modifiers: {}
             }
         )
+    },
+    weapon: {
+        id: null,
+        type: '',
+        name: '',
+        cost: {},
+        damage: {
+            dice_count: 1,
+            dice_size: 4,
+            type: ''
+        },
+        versatile: {
+            dice_count: 1,
+            dice_size: 4,
+            type: ''
+        },
+        property: [],
+        range: {
+            min: 5,
+            max: 5
+        }
     }
 };
 

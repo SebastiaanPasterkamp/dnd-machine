@@ -15,6 +15,7 @@ from monster import MonsterMapper
 from npc import NpcMapper
 from party import PartyMapper
 from user import UserMapper
+from item.weapons import WeaponMapper
 from items import ItemsObject
 
 class Datamapper(object):
@@ -29,6 +30,7 @@ class Datamapper(object):
         self.encounter = EncounterMapper(db)
         self.monster = MonsterMapper(db)
         self.npc = NpcMapper(db)
+        self.weapon = WeaponMapper(db)
         self.campaign = CampaignMapper(db)
         self.items = ItemsObject(
             os.path.abspath(
