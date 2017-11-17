@@ -107,7 +107,7 @@ export class NpcEdit extends React.Component
                             (value) => this.onFieldChange('alignment', value)
                         } />
                 </ControlGroup>
-                <ControlGroup labels={["Size", "ft."]}>
+                <ControlGroup label="Size">
                     <SingleSelect
                         emptyLabel="Size..."
                         selected={this.props.size}
