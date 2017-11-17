@@ -6,17 +6,19 @@ import _ from 'lodash';
 class Damage extends LazyComponent
 {
     render() {
-        const notation = [
-            this.props.dice_count,
-            'd',
-            this.props.dice_size,
-            'dice_bonus' in this.props && this.props.dice_bonus
-                ? "+" + this.props.dice_bonus
-                : null,
-            'type' in this.props && this.props.type
-                ? " " + this.props.type
-                : null
-            ].filter((item) => !_.isNull(item));
+        const notation = [].concat(
+            this.props.dice_count
+            ? [this.props.dice_count, 'd', this.props.dice_size]
+            : []
+        ).concat(
+            this.props.dice_bonus || null
+            ? ["+", this.props.dice_bonus]
+            : []
+        ).concat(
+            this.props.type || null
+            ? [" ", this.props.type]
+            : []
+        );
         return <div className="damage inline capitalize">
             {notation.join('')}
         </div>;
