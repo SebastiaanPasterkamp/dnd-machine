@@ -12,7 +12,7 @@ class dataObjectStore extends Reflux.Store
         super();
         this.state = {
             npc: {},
-            weapon: {}
+            weapons: {}
         };
         this.listenables = dataObjectActions;
     }
@@ -80,26 +80,17 @@ dataObjectStore.initial = {
             }
         )
     },
-    weapon: {
+    weapons: {
         id: null,
-        type: '',
+        type: 'simple melee weapon',
         name: '',
         cost: {},
         damage: {
             dice_count: 1,
             dice_size: 4,
-            type: ''
+            type: 'bludgeoning'
         },
-        versatile: {
-            dice_count: 1,
-            dice_size: 4,
-            type: ''
-        },
-        property: [],
-        range: {
-            min: 5,
-            max: 5
-        }
+        property: []
     }
 };
 

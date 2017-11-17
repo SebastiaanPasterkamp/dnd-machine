@@ -9,20 +9,20 @@ class WeaponObject(JsonObject):
                 "type": u"Melee Weapon",
                 "name": u"",
                 "cost": {},
+                "weight": {},
                 "damage": {
                     "dice_count": 1,
                     "dice_size": 4,
                     "type": u"slashing"
                     },
-                "property": [],
-                "range": {
-                    "min": 5,
-                    "max": 5
-                    }
+                "property": []
                 },
             fieldTypes = {
                 "cost": {
                     "*": int
+                    },
+                "weight": {
+                    "*": float
                     },
                 "damage": {
                     "dice_count": int,
@@ -46,7 +46,8 @@ class WeaponMapper(JsonObjectDataMapper):
     fields = ["type", "name"]
 
     def getMultiple(self, where="1", values={}):
+        where = "(%s) AND `type` LIKE :extra" % where
+        values.update({"extra": "%weapon"})
         return super(WeaponMapper, self).getMultiple(
-            where="(%s) AND type like :type" % where,
-            values=values.update({":type": "%weapon"})
+            where=where, values=values
             )

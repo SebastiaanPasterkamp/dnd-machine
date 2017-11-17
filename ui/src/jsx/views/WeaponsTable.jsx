@@ -1,10 +1,11 @@
 import React from 'react';
 import Reflux from 'reflux';
+import {Link} from 'react-router-dom';
 
-import listDataActions from '../actions/listDataActions.jsx';
-import DataStore from '../stores/dataStore.jsx';
+import ItemStore from '../mixins/ItemStore.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
+import ButtonField from '../components/ButtonField.jsx';
 import Damage from '../components/Damage.jsx';
 import Reach from '../components/Reach.jsx';
 import Coinage from '../components/Coinage.jsx';
@@ -19,6 +20,7 @@ class WeaponsHeader extends LazyComponent
                 <th>Range</th>
                 <th>Cost</th>
                 <th>Properties</th>
+                <th>Actions</th>
             </tr>
         </thead>
     }
@@ -26,6 +28,22 @@ class WeaponsHeader extends LazyComponent
 
 class WeaponsRow extends LazyComponent
 {
+    constructor(props) {
+        super(props);
+        this.properties = [
+            {'code': 'ammunition', 'label': 'Ammunition'},
+            {'code': 'finesse', 'label': 'Finesse'},
+            {'code': 'heavy', 'label': 'Heavy'},
+            {'code': 'light', 'label': 'Light'},
+            {'code': 'loading', 'label': 'Loading'},
+            {'code': 'reach', 'label': 'Reach'},
+            {'code': 'special', 'label': 'Special'},
+            {'code': 'thrown', 'label': 'Thrown'},
+            {'code': 'two-handed', 'label': 'Two-Handed'},
+            {'code': 'versatile', 'label': 'Versatile'},
+        ];
+    }
+
     render() {
         return <tr
                 data-name={this.props.name}>
@@ -39,7 +57,21 @@ class WeaponsRow extends LazyComponent
                 ? <Coinage {...this.props.cost} extended="1" />
                 : null
             }</td>
-            <td></td>
+            <td>{this.props.property
+                ? <ul>{this.properties.map((prop) => {
+                    return _.indexOf(this.props.property, prop.code) >= 0
+                        ? <li key={prop.code}>{prop.label}</li>
+                        : null
+                })}</ul>
+                : null
+            }</td>
+            <td>{this.props.id != null ?
+                <Link
+                    to={"/items/weapons/edit/" + this.props.id}
+                    className="nice-btn-alt icon fa-pencil">
+                    Edit
+                </Link> : null
+            }</td>
         </tr>
     }
 };
@@ -72,26 +104,14 @@ class WeaponsBody extends LazyComponent
     }
 };
 
-class WeaponsTable extends Reflux.Component
+class WeaponsTable extends LazyComponent
 {
-    constructor(props) {
-        super(props);
-        this.store = DataStore;
-        this.storeKeys = ['weapons', 'search'];
-    }
-
-    componentDidMount() {
-        if (!this.state.weapons.length) {
-            listDataActions.fetchItems('weapons');
-        }
-    }
-
     render() {
-        let pattern = new RegExp(this.state.search, "i");
+        let pattern = new RegExp(this.props.search, "i");
         return <div>
             <h2 className="icon fa-cutlery">Weapons</h2>
             <table className="nice-table condensed bordered responsive">
-                {this.state.weapons
+                {this.props.weapons
                     .map((set, key) => {
                         return <WeaponsBody
                             key={key}
@@ -104,4 +124,15 @@ class WeaponsTable extends Reflux.Component
     }
 }
 
-export default WeaponsTable;
+class ItemStoreWeaponsTable extends LazyComponent
+{
+    render() {
+        return <ItemStore
+            component={WeaponsTable}
+            itemStoreProps={['weapons', 'search']}
+            {...this.props}
+            />;
+    }
+}
+
+export default ItemStoreWeaponsTable;

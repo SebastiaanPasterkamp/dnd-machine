@@ -48,11 +48,48 @@ def weapons():
     if request.is_xhr:
         datamapper = get_datamapper()
         weaponsets = [
-            datamapper.items.weaponsSimpleMelee,
-            datamapper.items.weaponsSimpleRanged,
-            datamapper.items.weaponsMartialMelee,
-            datamapper.items.weaponsMartialRanged
+            {
+                "name": u"Simple Melee Weapons",
+                "items": [
+                    item.config
+                    for item in datamapper.weapon.getMultiple(
+                        "`type` = :weapon",
+                        {"weapon": "simple melee weapon"}
+                        )
+                    ]
+                },
+            {
+                "name": u"Simple Ranged Weapons",
+                "items": [
+                    item.config
+                    for item in datamapper.weapon.getMultiple(
+                        "`type` = :weapon",
+                        {"weapon": "simple ranged weapon"}
+                        )
+                    ]
+                },
+            {
+                "name": u"Martial Melee Weapons",
+                "items": [
+                    item.config
+                    for item in datamapper.weapon.getMultiple(
+                        "`type` = :weapon",
+                        {"weapon": "martial melee weapon"}
+                        )
+                    ]
+                },
+            {
+                "name": u"Martial Ranged Weapons",
+                "items": [
+                    item.config
+                    for item in datamapper.weapon.getMultiple(
+                        "`type` = :weapon",
+                        {"weapon": "martial ranged weapon"}
+                        )
+                    ]
+                }
             ]
+
         return jsonify(weaponsets)
 
     return render_template(
@@ -68,7 +105,7 @@ def weapon_new():
         reactjs=True
         )
 
-@blueprint.route('/weapons/<int:item_id>')
+@blueprint.route('/weapons/edit/<int:item_id>')
 def weapon_edit(item_id):
     return render_template(
         'items/weapons.html',
@@ -124,9 +161,8 @@ def api_patch(item_id):
 
     datamapper = get_datamapper()
 
-    item = datamapper.weapon.getById(item_id)
-    item.config = request.get_json()
-    if item.id != item_id:
+    item = datamapper.weapon.create(request.get_json())
+    if 'id' not in item or item.id != item_id:
         abort(409, "Cannot change ID")
     item = datamapper.weapon.update(item)
 

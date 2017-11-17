@@ -27,7 +27,7 @@ dataObjectActions.getObject.listen((type, id, path=null) => {
     });
 });
 
-dataObjectActions.postObject.listen((type, data, path=null) => {
+dataObjectActions.postObject.listen((type, data, path=null, callback=null) => {
     path = path || '/' + type + '/api';
     fetch(path, {
         credentials: 'same-origin',
@@ -41,6 +41,9 @@ dataObjectActions.postObject.listen((type, data, path=null) => {
     .then((response) => response.json())
     .then((result) => {
         dataObjectActions.postObject.completed(type, result.id, result);
+        if (callback) {
+            (callback)();
+        }
     })
     .catch((error) => {
         console.error(error);
@@ -48,7 +51,7 @@ dataObjectActions.postObject.listen((type, data, path=null) => {
     });
 });
 
-dataObjectActions.patchObject.listen((type, id, data, path=null) => {
+dataObjectActions.patchObject.listen((type, id, data, path=null, callback=null) => {
     path = (path || '/' + type + '/api') + '/' + id;
     fetch(path, {
         credentials: 'same-origin',
@@ -62,6 +65,9 @@ dataObjectActions.patchObject.listen((type, id, data, path=null) => {
     .then((response) => response.json())
     .then((result) => {
         dataObjectActions.patchObject.completed(type, id, result);
+        if (callback) {
+            (callback)();
+        }
     })
     .catch((error) => {
         console.error(error);
@@ -69,7 +75,7 @@ dataObjectActions.patchObject.listen((type, id, data, path=null) => {
     });
 });
 
-dataObjectActions.deleteObject.listen((type, id, path=null) => {
+dataObjectActions.deleteObject.listen((type, id, path=null, callback=null) => {
     path = (path || '/' + type + '/api') + '/' + id;
     fetch(path, {
         credentials: 'same-origin',
@@ -81,6 +87,9 @@ dataObjectActions.deleteObject.listen((type, id, path=null) => {
     .then((response) => response.json())
     .then((result) => {
         dataObjectActions.deleteObject.completed(type, id, result);
+        if (callback) {
+            (callback)();
+        }
     })
     .catch((error) => {
         console.error(error);
