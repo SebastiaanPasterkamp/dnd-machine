@@ -1,9 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 
-import dataObjectActions from '../actions/dataObjectActions.jsx';
-import dataObjectStore from '../stores/dataObjectStore.jsx';
-
 import LoadableContainer from '../mixins/LoadableContainer.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';

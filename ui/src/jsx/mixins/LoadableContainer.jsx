@@ -31,18 +31,25 @@ class LoadableContainer extends Reflux.Component
 
     onReload() {
         dataObjectActions.getObject(
-            this.props.loadableType, this.state.id
+            this.props.loadableType,
+            this.state.id,
+            this.props.loadableAPI
         );
     }
 
     onSave() {
         if (this.state.id == null) {
-            dataObjectActions.patchObject(
-                this.props.loadableType, this.state
+            dataObjectActions.postObject(
+                this.props.loadableType,
+                this.state,
+                this.props.loadableAPI
             );
         } else {
-            dataObjectActions.postObject(
-                this.props.loadableType, this.state
+            dataObjectActions.patchObject(
+                this.props.loadableType,
+                this.state.id,
+                this.state,
+                this.props.loadableAPI
             );
         }
     }
@@ -50,8 +57,11 @@ class LoadableContainer extends Reflux.Component
     render() {
         return <this.props.component
             setState={(state) => this.setState(state)}
-            reload={() => this.onReload}
-            save={() => this.onSave}
+            reload={this.state.id != null
+                ? () => this.onReload()
+                : null
+            }
+            save={() => this.onSave()}
             {...this.props}
             {...this.state}
             />
