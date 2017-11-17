@@ -10,7 +10,7 @@ export class TextField extends LazyComponent
     render() {
         return <textarea
             className="nice-form-control"
-            value={this.props.value}
+            value={this.props.value || ''}
             rows={this.props.rows}
             placeholder={this.props.placeholder}
             onChange={(e) => this.onChange(e.target.value)}
