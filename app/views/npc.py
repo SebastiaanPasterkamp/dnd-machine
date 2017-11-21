@@ -59,42 +59,20 @@ def raw(npc_id):
         abort(403)
     return jsonify(npc.config)
 
-@blueprint.route('/edit/<int:npc_id>', methods=['GET', 'POST'])
+
+@blueprint.route('/edit/<int:npc_id>')
 def edit(npc_id):
-    datamapper = get_datamapper()
-
-    npc = datamapper.npc.getById(npc_id)
-
-    if request.method == 'POST':
-        if request.form["button"] == "cancel":
-            return redirect(url_for(
-                'npc.show',
-                npc_id=npc_id
-                ))
-
-        npc.updateFromPost(request.form)
-
-        if request.form.get("button", "save") == "save":
-            npc = datamapper.npc.save(npc)
-            return redirect(url_for(
-                'npc.show',
-                npc_id=npc.id
-                ))
-
     return render_template(
-        'npc/edit.html',
-        reactjs=True,
-        npc=npc
+        'reactjs-layout.html'
         )
 
 @blueprint.route('/del/<int:npc_id>')
 def delete(npc_id):
-    datamapper = get_datamapper()
-
-    npc = datamapper.npc.getById(npc_id)
     if 'admin' not in request.user['role']:
         abort(403)
 
+    datamapper = get_datamapper()
+    npc = datamapper.npc.getById(npc_id)
     datamapper.npc.delete(npc)
 
     return redirect(url_for(
@@ -170,13 +148,16 @@ def copy(npc_id, target_id=None):
         npc_id=npc.id
         ))
 
+
 @blueprint.route('/api/<int:npc_id>', methods=['GET'])
-def api_get(item_id):
+def api_get(npc_id):
+    if 'dm' not in request.user['role']:
+        abort(403)
+
     datamapper = get_datamapper()
-
     npc = datamapper.npc.getById(npc_id)
-
     return jsonify(npc.config)
+
 
 @blueprint.route('/api', methods=['POST'])
 def api_post():
@@ -191,6 +172,7 @@ def api_post():
     npc = datamapper.npc.insert(npc)
 
     return jsonify(npc.config)
+
 
 @blueprint.route('/api/<int:npc_id>', methods=['PATCH'])
 def api_patch(npc_id):

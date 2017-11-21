@@ -445,35 +445,10 @@ def download(character_id):
         attachment_filename=filename
         )
 
-@blueprint.route('/edit/<int:character_id>', methods=['GET', 'POST'])
+@blueprint.route('/edit/<int:character_id>', methods=['GET'])
 def edit(character_id):
-    character_data = get_character_data()
-    datamapper = get_datamapper()
-
-    c = datamapper.character.getById(character_id)
-    if c['user_id'] != request.user['id'] \
-            and not any([role in request.user.role for role in ['admin', 'dm']]):
-        abort(403)
-
-    if request.method == 'POST':
-        if request.form["button"] == "cancel":
-            return redirect(url_for(
-                'character.show',
-                character_id=character_id
-                ))
-
-        if request.form.get("button", "save") == "save":
-            c.updateFromPost(request.form)
-            c = datamapper.character.save(c)
-            return redirect(url_for(
-                'character.show',
-                character_id=c.id
-                ))
-
     return render_template(
-        'character/edit.html',
-        reactjs=True,
-        character=c
+        'reactjs-layout.html'
         )
 
 @blueprint.route('/level-up/<int:character_id>')
