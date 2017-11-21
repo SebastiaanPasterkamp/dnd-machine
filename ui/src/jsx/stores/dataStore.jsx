@@ -10,6 +10,7 @@ class DataStore extends Reflux.Store
         super();
         this.state = {
             search: '',
+            navigation: [],
             armor: [],
             languages: [],
             spells: [],
