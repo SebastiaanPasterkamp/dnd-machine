@@ -181,15 +181,4 @@ StatsBlock.defaultProps = {
     }
 };
 
-class ItemStoreStatsBlock extends React.Component
-{
-    render() {
-        return <ItemStore
-            component={StatsBlock}
-            itemStoreProps={['statistics']}
-            {...this.props}
-            />;
-    }
-}
-
-export default ItemStoreStatsBlock;
+export default ItemStore(StatsBlock, ['statistics']);

@@ -177,15 +177,4 @@ export class CharacterEdit extends React.Component
     }
 }
 
-class LoadableCharacterEdit extends React.Component
-{
-    render() {
-        return <LoadableContainer
-            loadableType="character"
-            component={CharacterEdit}
-            {...this.props}
-            />;
-    }
-}
-
-export default LoadableCharacterEdit;
+export default LoadableContainer(CharacterEdit, "character");

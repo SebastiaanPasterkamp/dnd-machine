@@ -1,9 +1,7 @@
 import React from 'react';
-import Reflux from 'reflux';
 import _ from 'lodash';
 
-import listDataActions from '../actions/listDataActions.jsx';
-import DataStore from '../stores/dataStore.jsx';
+import ItemStore from '../mixins/ItemStore.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
 import MultiSelect from '../components/MultiSelect.jsx';
@@ -27,8 +25,7 @@ class SpellsHeader extends React.Component
 class SpellRow extends LazyComponent
 {
     render() {
-        return <tr
-                data-name={this.props.name}>
+        return <tr data-name={this.props.name}>
             <td>{this.props.name}</td>
             <td>
                 <ul className="nice-menu stacked">
@@ -72,22 +69,17 @@ class SpellRow extends LazyComponent
     }
 };
 
-class SpellsTable extends Reflux.Component
+class SpellsTable extends React.Component
 {
     constructor(props) {
         super(props);
-        this.store = DataStore;
-        this.storeKeys = ['spells'];
-        this.levels = [{
-            code: 'cantrip',
-            label: 'Cantrip'
-        }];
-        for (let level=1; level<10; level++) {
-            this.levels.push({
-                code: level.toString(),
-                label: 'Level ' + level
+        this.levels = _.range(1, 11)
+            .map((level) => {
+                return {
+                    code: level ? level.toString() : 'cantrip',
+                    label: level ? 'Level ' + level : 'Cantrip'
+                };
             });
-        }
         this.state = {
             name: '',
             levels: []
@@ -106,66 +98,69 @@ class SpellsTable extends Reflux.Component
         });
     }
 
-    componentDidMount() {
-        if (!this.state.spells.length) {
-            listDataActions.fetchItems('spells');
-        }
-    }
-
     filterRow(pattern, row) {
         return (
             (row.name && row.name.search(pattern) >= 0)
             && (
                 this.state.levels.length <= 0
-                || (row.level && _.includes(this.state.levels, row.level))
+                || (
+                    row.level
+                    && _.includes(this.state.levels, row.level)
+                )
             )
         );
     }
 
-    render() {
-        let pattern = new RegExp(this.state.name, "i");
-        return <div>
-            <h2 className="icon fa-magic">Spells</h2>
-            <div className="nice-form-horizontal nice-col-4 nice-col-mobile-12">
-                <div className="nice-form-group">
-                    <label
-                            htmlFor="name"
-                            className="nice-col-3 nice-control-label">
-                        Name
-                    </label>
-                    <div className="nice-col-9">
-                        <input
-                            id="name"
-                            className="nice-form-control"
-                            type="text"
-                            value={this.state.name}
-                            placeholder="Name..."
-                            onChange={
-                                (event) => this.filterName(event.target.value)
-                            } />
-                    </div>
-                </div>
-                <div className="nice-form-group">
-                    <label
-                            htmlFor="level"
-                            className="nice-col-3 nice-control-label">
-                        Level
-                    </label>
-                    <div className="nice-col-9">
-                        <MultiSelect
-                            id="level"
-                            items={this.levels}
-                            label="All levels"
-                            callback={
-                                (levels) => this.filterLevels(levels)
-                            } />
-                    </div>
+    renderFilters() {
+        return <div className="nice-form-horizontal nice-col-4 nice-col-mobile-12">
+            <div className="nice-form-group">
+                <label
+                        htmlFor="name"
+                        className="nice-col-3 nice-control-label">
+                    Name
+                </label>
+                <div className="nice-col-9">
+                    <input
+                        id="name"
+                        className="nice-form-control"
+                        type="text"
+                        value={this.state.name}
+                        placeholder="Name..."
+                        onChange={
+                            (event) => this.filterName(event.target.value)
+                        } />
                 </div>
             </div>
+            <div className="nice-form-group">
+                <label
+                        htmlFor="level"
+                        className="nice-col-3 nice-control-label">
+                    Level
+                </label>
+                <div className="nice-col-9">
+                    <MultiSelect
+                        id="level"
+                        items={this.levels}
+                        selected={this.state.levels}
+                        label="All levels"
+                        callback={
+                            (levels) => this.filterLevels(levels)
+                        } />
+                </div>
+            </div>
+        </div>;
+    }
+
+    render() {
+        let pattern = new RegExp(this.state.name, "i");
+
+        return <div>
+            <h2 className="icon fa-magic">Spells</h2>
+            {this.renderFilters()}
             <table className="nice-table condensed bordered responsive">
                 <thead key="thead"><SpellsHeader/></thead>
                 <tbody key="tbody">
-                    {this.state.spells
+                    {this.props.spells
                         .filter((row) => this.filterRow(pattern, row))
                         .map((row, key) => {
                             return <SpellRow key={key} {...row}/>
@@ -177,4 +172,4 @@ class SpellsTable extends Reflux.Component
     }
 }
 
-export default SpellsTable;
+export default ItemStore(SpellsTable, ['spells']);
