@@ -124,6 +124,168 @@ def home():
         return redirect(url_for('login'))
     return redirect(url_for('character.overview'))
 
+@app.route('/navigation')
+def navigation():
+    navigation = []
+    datamapper = get_datamapper()
+
+    if session.get('user_id') is None:
+        return jsonify(navigation)
+
+    navigation.append({
+        'label': 'Characters',
+        'icon': 'user-secret',
+        'path': url_for('character.overview'),
+        })
+
+    navigation.append({
+        'label': 'Parties',
+        'icon': 'users',
+        'path': url_for('party.overview'),
+        })
+
+    dm_group = {
+        'label': 'Dungeon Master',
+        'roles': ['dm'],
+        'icon': 'gavel',
+        'items': [],
+        }
+
+    dm_group['items'].append({
+        'label': 'Monsters',
+        'roles': ['dm'],
+        'icon': 'paw',
+        'path': url_for('monster.overview'),
+        })
+
+    dm_group['items'].append({
+        'label': 'NPCs',
+        'roles': ['dm'],
+        'icon': 'commenting-o',
+        'path': url_for('npc.overview'),
+        })
+
+    dm_group['items'].append({
+        'label': 'Encounters',
+        'roles': ['dm'],
+        'icon': 'gamepad',
+        'path': url_for('encounter.overview'),
+        })
+
+    dm_group['items'].append({
+        'label': 'Campaigns',
+        'roles': ['dm'],
+        'icon': 'book',
+        'path': url_for('campaign.overview'),
+        })
+
+    navigation.append(dm_group)
+
+    items_group = {
+        'label': 'Items',
+        'icon': 'list',
+        'items': [],
+        }
+
+    items_group['items'].append({
+        'label': 'Spells',
+        'icon': 'magic',
+        'path': url_for('items.spells'),
+        })
+
+    items_group['items'].append({
+        'label': 'Languages',
+        'icon': 'language',
+        'path': url_for('items.languages'),
+        })
+
+    items_group['items'].append({
+        'label': 'Weapons',
+        'icon': 'cutlery',
+        'path': url_for('items.weapons'),
+        })
+
+    items_group['items'].append({
+        'label': 'Armor',
+        'icon': 'shield',
+        'path': url_for('items.armor'),
+        })
+
+    navigation.append(items_group)
+
+    admin_group = {
+        'label': 'Admin',
+        'roles': ['admin'],
+        'icon': 'address-book',
+        'items': [],
+        }
+
+    admin_group['items'].append({
+        'label': 'Users',
+        'roles': ['admin'],
+        'icon': 'address-book-o',
+        'path': url_for('user.overview'),
+        })
+
+    navigation.append(admin_group)
+
+    user_group = {
+        'label': request.user.username,
+        'icon': 'user-circle',
+        'items': [],
+        }
+
+    user_group['items'].append({
+        'label': 'View profile',
+        'icon': 'address-card-o',
+        'path': url_for('user.show', user_id=request.user.id),
+        })
+
+    if request.party:
+        user_group['items'].append({
+            'label': "Hosting %s" % request.party.name,
+            'icon': 'beer',
+            'path': url_for('party.show', party_id=request.party.id),
+            })
+        user_group['items'].append({
+            'label': "Stop hosting",
+            'icon': 'times',
+            'path': url_for('party.host', party_id=0),
+            })
+
+    user_group['items'].append({
+        'label': "Logout %s" % request.user.username,
+        'icon': 'sign-out',
+        'path': url_for('logout'),
+        })
+
+    navigation.append(user_group)
+
+    def authorized(item):
+        if 'items' in item:
+            item['items'] = [
+                nav
+                for nav in item['items']
+                if authorized(nav)
+                ]
+        if 'items' in item and not len(item['items']):
+            return False
+        if 'roles' not in item:
+            return True
+        if any([role in item['roles'] for role in request.user['role']]):
+            return True
+        return False
+
+    navigation = [
+        nav
+        for nav in navigation
+        if authorized(nav)
+        ]
+
+    return jsonify(navigation)
+
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     datamapper = get_datamapper()

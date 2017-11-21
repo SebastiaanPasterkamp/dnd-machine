@@ -19,16 +19,18 @@ class DefaultFilter extends Reflux.Component
     }
 
     render() {
-        return <div className="nice-header-input-wrapper">
-            <input
-                id="search"
-                className="nice-form-control"
-                type="text"
-                name="search"
-                value={this.state.search.text}
-                placeholder="Search..."
-                onChange={(event) => this.onChange(event)}
-                />
+        return <div className="nice-header-form">
+            <div className="nice-header-input-wrapper">
+                <input
+                    id="search"
+                    className="nice-form-control"
+                    type="text"
+                    name="search"
+                    value={this.state.search.text}
+                    placeholder="Search..."
+                    onChange={(event) => this.onChange(event)}
+                    />
+            </div>
         </div>;
     }
 }
