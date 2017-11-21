@@ -23,6 +23,24 @@ class ArmorHeader extends LazyComponent
     }
 };
 
+class ArmorFooter extends LazyComponent
+{
+    render() {
+        return <tbody>
+            <tr>
+                <td colSpan="4"></td>
+                <td>
+                    <Link
+                        to={"/items/armor/new"}
+                        className="nice-btn-alt icon fa-plus">
+                        New
+                    </Link>
+                </td>
+            </tr>
+        </tbody>
+    }
+};
+
 class ArmorRow extends LazyComponent
 {
     render() {
@@ -93,16 +111,11 @@ class ArmorBody extends LazyComponent
             return null
         }
 
-        return [
-            <ArmorHeader
-                    key="header"
-                    name={this.props.name}/>,
-            <tbody key="body">
+        return <tbody key="body">
             {items.map((item, key) => {
                 return <ArmorRow key={key} {...item}/>
             })}
-            </tbody>
-        ];
+        </tbody>;
     }
 };
 
@@ -112,15 +125,22 @@ class ArmorTable extends LazyComponent
         let pattern = new RegExp(this.props.search, "i");
         return <div>
             <h2 className="icon fa-shield">Armor</h2>
+
             <table className="nice-table condensed bordered responsive">
                 {this.props.armor
                     .map((set, key) => {
-                        return <ArmorBody
-                            key={key}
-                            pattern={pattern}
-                            {...set}/>
+                        return [
+                            <ArmorHeader
+                                key="header"
+                                name={set.name}/>,
+                            <ArmorBody
+                                key={key}
+                                pattern={pattern}
+                                {...set}/>
+                        ];
                     })
                 }
+                <ArmorFooter />
             </table>
         </div>
     }

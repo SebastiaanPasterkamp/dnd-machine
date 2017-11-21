@@ -25,6 +25,24 @@ class WeaponsHeader extends LazyComponent
     }
 };
 
+class WeaponsFooter extends LazyComponent
+{
+    render() {
+        return <tbody>
+            <tr>
+                <td colSpan="5"></td>
+                <td>
+                    <Link
+                        to={"/items/weapons/new"}
+                        className="nice-btn-alt icon fa-plus">
+                        New
+                    </Link>
+                </td>
+            </tr>
+        </tbody>
+    }
+};
+
 class WeaponsRow extends LazyComponent
 {
     constructor(props) {
@@ -90,16 +108,11 @@ class WeaponsBody extends LazyComponent
             return null
         }
 
-        return [
-            <WeaponsHeader
-                    key="header"
-                    name={this.props.name}/>,
-            <tbody key="body">
+        return <tbody key="body">
             {items.map((item, key) => {
                 return <WeaponsRow key={key} {...item}/>
             })}
-            </tbody>
-        ];
+        </tbody>;
     }
 };
 
@@ -113,12 +126,18 @@ class WeaponsTable extends LazyComponent
             <table className="nice-table condensed bordered responsive">
                 {this.props.weapons
                     .map((set, key) => {
-                        return <WeaponsBody
-                            key={key}
-                            pattern={pattern}
-                            {...set}/>
+                        return [
+                            <WeaponsHeader
+                                key="header"
+                                name={this.props.name}/>,
+                            <WeaponsBody
+                                key={key}
+                                pattern={pattern}
+                                {...set}/>
+                        ];
                     })
                 }
+                <WeaponsFooter />
             </table>
         </div>
     }
