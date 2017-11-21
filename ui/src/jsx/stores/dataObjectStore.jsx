@@ -11,6 +11,7 @@ class dataObjectStore extends Reflux.Store
     {
         super();
         this.state = {
+            armor: {},
             npc: {},
             weapons: {}
         };
@@ -51,6 +52,7 @@ class dataObjectStore extends Reflux.Store
 }
 
 dataObjectStore.initial = {
+    navigation: [],
     npc: {
         id: null,
         name: "",
@@ -91,7 +93,14 @@ dataObjectStore.initial = {
             type: 'bludgeoning'
         },
         property: []
-    }
+    },
+    armor: {
+        id: null,
+        type: 'light armor',
+        name: '',
+        cost: {},
+        requirements: {},
+    },
 };
 
 dataObjectStore.getInitial = (type) => {

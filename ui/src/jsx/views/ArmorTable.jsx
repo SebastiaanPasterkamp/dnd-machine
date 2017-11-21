@@ -1,8 +1,7 @@
 import React from 'react';
-import Reflux from 'reflux';
+import {Link} from 'react-router-dom';
 
-import listDataActions from '../actions/listDataActions.jsx';
-import DataStore from '../stores/dataStore.jsx';
+import ItemStore from '../mixins/ItemStore.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
 import Damage from '../components/Damage.jsx';
@@ -17,7 +16,8 @@ class ArmorHeader extends LazyComponent
                 <th>{this.props.name}</th>
                 <th>Armor</th>
                 <th>Cost</th>
-                <th>Requirement</th>
+                <th>Properties</th>
+                <th>Actions</th>
             </tr>
         </thead>
     }
@@ -38,10 +38,41 @@ class ArmorRow extends LazyComponent
                 ? <Coinage {...this.props.cost} extended="1" />
                 : null
             }</td>
-            <td>{
-                this.props.strength
-                ? 'Strength: ' + this.props.strength
-                : null
+            <td>
+                <ul>
+                    {this.props.weight || null
+                        ? <li key="weight">
+                            <strong>Weight:</strong>
+                            &nbsp;
+                            {this.props.weight.lb}
+                            lb.
+                            </li>
+                        : null
+                    }
+                    {this.props.requirements && this.props.requirements.strength || null
+                        ? <li key="requirements">
+                            <strong>Strength:</strong>
+                            &nbsp;
+                            {this.props.requirements.strength}
+                            </li>
+                        : null
+                    }
+                    {this.props.disadvantage || false
+                        ? <li key="disadvantage">
+                            <strong>Stealth:</strong>
+                            &nbsp;
+                            Disadvantage
+                            </li>
+                        : null
+                    }
+                </ul>
+            </td>
+            <td>{this.props.id != null ?
+                <Link
+                    to={"/items/armor/edit/" + this.props.id}
+                    className="nice-btn-alt icon fa-pencil">
+                    Edit
+                </Link> : null
             }</td>
         </tr>
     }
@@ -75,26 +106,14 @@ class ArmorBody extends LazyComponent
     }
 };
 
-class ArmorTable extends Reflux.Component
+class ArmorTable extends LazyComponent
 {
-    constructor(props) {
-        super(props);
-        this.store = DataStore;
-        this.storeKeys = ['armor', 'search'];
-    }
-
-    componentDidMount() {
-        if (!this.state.armor.length) {
-            listDataActions.fetchItems('armor');
-        }
-    }
-
     render() {
-        let pattern = new RegExp(this.state.search, "i");
+        let pattern = new RegExp(this.props.search, "i");
         return <div>
             <h2 className="icon fa-shield">Armor</h2>
             <table className="nice-table condensed bordered responsive">
-                {this.state.armor
+                {this.props.armor
                     .map((set, key) => {
                         return <ArmorBody
                             key={key}
@@ -107,4 +126,4 @@ class ArmorTable extends Reflux.Component
     }
 }
 
-export default ArmorTable;
+export default ItemStore(ArmorTable, ['armor', 'search']);
