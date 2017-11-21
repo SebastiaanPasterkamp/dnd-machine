@@ -1,9 +1,7 @@
 import React from 'react';
-import Reflux from 'reflux';
 
 import LazyComponent from '../components/LazyComponent.jsx';
-import listDataActions from '../actions/listDataActions.jsx';
-import DataStore from '../stores/dataStore.jsx';
+import ItemStore from '../mixins/ItemStore.jsx';
 
 class LanguageHeader extends React.Component
 {
@@ -32,20 +30,8 @@ class LanguageRow extends LazyComponent
     }
 };
 
-class LanguageTable extends Reflux.Component
+class LanguageTable extends LazyComponent
 {
-    constructor(props) {
-        super(props);
-        this.store = DataStore;
-        this.storeKeys = ['languages', 'search'];
-    }
-
-    componentDidMount() {
-        if (!this.state.languages.length) {
-            listDataActions.fetchItems('languages');
-        }
-    }
-
     filterRow(pattern, row) {
         return (
             (row.label && row.label.search(pattern) >= 0)
@@ -55,13 +41,13 @@ class LanguageTable extends Reflux.Component
     }
 
     render() {
-        let pattern = new RegExp(this.state.search, "i");
+        let pattern = new RegExp(this.props.search, "i");
         return <div>
             <h2 className="icon fa-language">Languages</h2>
             <table className="nice-table condensed bordered responsive">
                 <thead key="thead"><LanguageHeader/></thead>
                 <tbody key="tbody">
-                    {this.state.languages
+                    {this.props.languages
                         .filter((row) => this.filterRow(pattern, row))
                         .map((row, key) => {
                             return <LanguageRow key={key} {...row}/>
@@ -73,4 +59,4 @@ class LanguageTable extends Reflux.Component
     }
 }
 
-export default LanguageTable;
+export default ItemStore(LanguageTable, ['languages', 'search']);

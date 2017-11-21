@@ -5,9 +5,11 @@ import LoadableContainer from '../mixins/LoadableContainer.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
+import DamageEdit from '../components/DamageEdit.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
 import MultiSelect from '../components/MultiSelect.jsx';
+import ReachEdit from '../components/ReachEdit.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
 import TextField from '../components/TextField.jsx';
@@ -22,26 +24,6 @@ export class WeaponEdit extends React.Component
             {code: "simple ranged weapon", label: "Simple Ranged Weapon"},
             {code: "martial melee weapon", label: "Martial Melee Weapon"},
             {code: "martial ranged weapon", label: "Martial Ranged Weapon"},
-        ];
-        this.dice_count = _.range(0, 20)
-            .map((count) => {
-                return {
-                    code: count,
-                    label: count
-                };
-            });
-        this.dice_size = [4, 6, 8, 10, 12].map((size) => {
-            return {
-                code: size,
-                label: size
-            };
-        });
-        this.damage_type = [
-            {code: "", label: ""},
-            {code: "bludgeoning", label: "Bludgeoning"},
-            {code: "force", label: "Force"},
-            {code: "piercing", label: "Piercing"},
-            {code: "slashing", label: "Slashing"}
         ];
         this.properties = [
             {'code': 'ammunition', 'label': 'Ammunition'},
@@ -64,58 +46,6 @@ export class WeaponEdit extends React.Component
         ];
     }
 
-    onChangeType(value) {
-        let update = {type: value};
-
-        if (
-            update.type.match('ranged')
-            || _.indexOf(this.props.property, 'thrown') >= 0
-        ) {
-            if (!('range' in this.props)) {
-                update.range = {
-                    min: 5,
-                    max: 5
-                };
-            }
-        } else if ('range' in this.props) {
-            update.range = undefined;
-        }
-
-        this.props.setState(update);
-    }
-
-    onChangeProperty(value) {
-        let update = {property: value};
-
-        if (_.indexOf(update.property, 'versatile') >= 0) {
-            if (!('versatile' in this.props)) {
-                update.versatile = {
-                    dice_count: 1,
-                    dice_size: 4,
-                    type: 'bludgeoning'
-                };
-            }
-        } else if ('versatile' in this.props) {
-            update.versatile = undefined;
-        }
-
-        if (
-            this.props.type.match('ranged')
-            || _.indexOf(update.property, 'thrown') >= 0
-        ) {
-            if (!('range' in this.props)) {
-                update.range = {
-                    min: 5,
-                    max: 5
-                };
-            }
-        } else if ('range' in this.props) {
-            update.range = undefined;
-        }
-
-        this.props.setState(update);
-    }
-
     onFieldChange(field, value) {
         let update = [];
         update[field] = value;
@@ -123,6 +53,27 @@ export class WeaponEdit extends React.Component
     }
 
     render() {
+        let range = null,
+            versatile = null;
+
+        if (
+            this.props.type.match('ranged')
+            || _.indexOf(this.props.property, 'thrown') >= 0
+        ) {
+            range = this.props.range || {
+                min: 5,
+                max: 5
+            };
+        }
+
+        if (_.indexOf(this.props.property, 'versatile') >= 0) {
+            versatile = this.props.versatile || {
+                dice_count: 1,
+                dice_size: 4,
+                type: 'bludgeoning'
+            };
+        }
+
         return <div>
         <h2 className="icon fa-cutlery">Weapon</h2>
 
@@ -133,7 +84,7 @@ export class WeaponEdit extends React.Component
                         selected={this.props.type || this.types[0].code}
                         items={this.types}
                         setState={(value) =>
-                            this.onChangeType(value)
+                            this.onFieldChange('type', value)
                         } />
                 </ControlGroup>
                 <ControlGroup label="Name">
@@ -144,105 +95,21 @@ export class WeaponEdit extends React.Component
                             this.onFieldChange('name', value)
                         } />
                 </ControlGroup>
-                <ControlGroup labels={["Damage", "d", "+", "Type"]}>
-                    <SingleSelect
-                        header="Dice count"
-                        selected={this.props.damage.dice_count}
-                        items={this.dice_count}
-                        setState={(value) => {
-                            let damage = Object.assign(
-                                {}, this.props.damage,
-                                {dice_count: value}
-                            );
-                            this.onFieldChange('damage', damage)
-                        }} />
-                    <SingleSelect
-                        header="Dice size"
-                        selected={this.props.damage.dice_size}
-                        items={this.dice_size}
-                        setState={(value) => {
-                            let damage = Object.assign(
-                                {}, this.props.damage,
-                                {dice_size: value}
-                            );
-                            this.onFieldChange('damage', damage)
-                        }} />
-                    <InputField
-                        placeholder="Bonus..."
-                        value={this.props.damage.dice_bonus || null}
-                        setState={(value) => {
-                            value = parseInt(value);
-                            let damage = Object.assign(
-                                {}, this.props.damage,
-                                {dice_bonus: value}
-                            );
-                            if (!value) {
-                                delete damage.dice_bonus;
-                            }
-                            this.onFieldChange('damage', damage)
-                        }} />
-                    <SingleSelect
-                        header="Damage type"
-                        selected={this.props.damage.type}
-                        items={this.damage_type}
-                        setState={(value) => {
-                            let damage = Object.assign(
-                                {}, this.props.damage,
-                                {type: value}
-                            );
-                            this.onFieldChange('damage', damage)
-                        }} />
-                </ControlGroup>
-                {this.props.versatile || null ?
-                <ControlGroup labels={["Versatile", "d", "+", "Type"]}>
-                    <SingleSelect
-                        header="Dice count"
-                        selected={this.props.versatile.dice_count}
-                        items={this.dice_count}
-                        setState={(value) => {
-                            let versatile = Object.assign(
-                                {}, this.props.versatile,
-                                {dice_count: value}
-                            );
-                            this.onFieldChange('versatile', versatile)
-                        }} />
-                    <SingleSelect
-                        header="Dice size"
-                        selected={this.props.versatile.dice_size}
-                        items={this.dice_size}
-                        setState={(value) => {
-                            let versatile = Object.assign(
-                                {}, this.props.versatile,
-                                {dice_size: value}
-                            );
-                            this.onFieldChange('versatile', versatile)
-                        }} />
-                    <InputField
-                        placeholder="Bonus..."
-                        value={this.props.versatile.dice_bonus || null}
-                        setState={(value) => {
-                            value = parseInt(value);
-                            let versatile = Object.assign(
-                                {}, this.props.versatile,
-                                {dice_bonus: value}
-                            );
-                            if (!value) {
-                                delete versatile.dice_bonus;
-                            }
-                            this.onFieldChange('versatile', versatile)
-                        }} />
-                    <SingleSelect
-                        header="Damage type"
-                        selected={this.props.versatile.type}
-                        items={this.damage_type}
-                        setState={(value) => {
-                            let versatile = Object.assign(
-                                {}, this.props.versatile,
-                                {type: value}
-                            );
-                            this.onFieldChange('versatile', versatile)
-                        }} />
-                </ControlGroup> : null}
+                <DamageEdit
+                    {...this.props.damage}
+                    setState={(damage) => {
+                        this.onFieldChange('damage', damage);
+                    }}
+                    />
+                {versatile || null
+                    ? <DamageEdit
+                        {...versatile}
+                        setState={(versatile) => {
+                            this.onFieldChange('versatile', versatile);
+                        }}
+                        />
+                    : null
+                }
             </Panel>
 
             <Panel id="properties" header="Properties">
@@ -252,38 +119,18 @@ export class WeaponEdit extends React.Component
                         selected={this.props.property}
                         items={this.properties}
                         setState={(value) => {
-                            this.onChangeProperty(value)
+                            this.onFieldChange('property', value);
                         }} />
                 </ControlGroup>
-                {this.props.range || null ?
-                <ControlGroup labels={["Range", "ft.", "ft."]}>
-                    <InputField
-                        placeholder="Normal..."
-                        value={'range' in this.props
-                            ? this.props.range.min || ''
-                            : ''
-                        }
-                        setState={(value) => {
-                            let range = Object.assign({},
-                                this.props.range,
-                                {min: parseInt(value) || null}
-                            );
+                {range || null
+                    ? <ReachEdit
+                        {...range}
+                        setState={(range) => {
                             this.onFieldChange('range', range);
-                        }} />
-                    <InputField
-                        placeholder="Disadvantage..."
-                        value={'range' in this.props
-                            ? this.props.range.max || ''
-                            : ''
-                        }
-                        setState={(value) => {
-                            let range = Object.assign({},
-                                this.props.range,
-                                {max: parseInt(value) || null}
-                            );
-                            this.onFieldChange('range', range);
-                        }} />
-                </ControlGroup> : null}
+                        }}
+                        />
+                    : null
+                }
                 <ControlGroup labels={["Weight", "lb."]}>
                     <InputField
                         placeholder="Pounds..."
@@ -352,16 +199,4 @@ export class WeaponEdit extends React.Component
     }
 }
 
-class LoadableWeaponEdit extends React.Component
-{
-    render() {
-        return <LoadableContainer
-            loadableType="weapons"
-            loadableGroup="items"
-            component={WeaponEdit}
-            {...this.props}
-            />;
-    }
-}
-
-export default LoadableWeaponEdit;
+export default LoadableContainer(WeaponEdit, "weapons", "items");

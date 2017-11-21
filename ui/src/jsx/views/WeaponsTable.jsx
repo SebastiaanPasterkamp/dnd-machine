@@ -1,5 +1,4 @@
 import React from 'react';
-import Reflux from 'reflux';
 import {Link} from 'react-router-dom';
 
 import ItemStore from '../mixins/ItemStore.jsx';
@@ -108,6 +107,7 @@ class WeaponsTable extends LazyComponent
 {
     render() {
         let pattern = new RegExp(this.props.search, "i");
+
         return <div>
             <h2 className="icon fa-cutlery">Weapons</h2>
             <table className="nice-table condensed bordered responsive">
@@ -124,15 +124,4 @@ class WeaponsTable extends LazyComponent
     }
 }
 
-class ItemStoreWeaponsTable extends LazyComponent
-{
-    render() {
-        return <ItemStore
-            component={WeaponsTable}
-            itemStoreProps={['weapons', 'search']}
-            {...this.props}
-            />;
-    }
-}
-
-export default ItemStoreWeaponsTable;
+export default ItemStore(WeaponsTable, ['weapons', 'search']);

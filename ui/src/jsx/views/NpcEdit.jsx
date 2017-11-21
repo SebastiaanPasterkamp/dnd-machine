@@ -146,12 +146,16 @@ export class NpcEdit extends React.Component
             </Panel>
 
             <Panel id="save" header="Save">
-                <ButtonField
-                    name="button"
-                    value="cancel"
-                    color="muted"
-                    icon="ban"
-                    label="Cancel" />
+                {this.props.cancel
+                    ? <ButtonField
+                        name="button"
+                        value="cancel"
+                        color="muted"
+                        icon="ban"
+                        onClick={() => this.props.cancel()}
+                        label="Cancel" />
+                    : null
+                }
                 {this.props.reload
                     ? <ButtonField
                         name="button"
@@ -159,7 +163,7 @@ export class NpcEdit extends React.Component
                         color="info"
                         icon="refresh"
                         onClick={() => this.props.reload()}
-                        label="Update" />
+                        label="Reload" />
                     : null
                 }
                 {this.props.save
@@ -178,15 +182,4 @@ export class NpcEdit extends React.Component
     }
 }
 
-class LoadableNpcEdit extends React.Component
-{
-    render() {
-        return <LoadableContainer
-            loadableType="npc"
-            component={NpcEdit}
-            {...this.props}
-            />;
-    }
-}
-
-export default LoadableNpcEdit;
+export default LoadableContainer(NpcEdit, "npc");
