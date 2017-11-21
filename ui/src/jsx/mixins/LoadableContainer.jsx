@@ -4,136 +4,102 @@ import Reflux from 'reflux';
 import dataObjectActions from '../actions/dataObjectActions.jsx';
 import dataObjectStore from '../stores/dataObjectStore.jsx';
 
-class LoadableContainer extends Reflux.Component
-{
-    constructor(props) {
-        super(props);
-        this.store = dataObjectStore;
 
-        this.mapStoreToState(dataObjectStore, (store) => {
-            return _.get(
-                store,
-                [this.props.loadableType, this.state.id]
-            );
-        });
-        this.state = dataObjectStore.getInitial(this.props.loadableType);
-    }
+function LoadableContainer(WrappedComponent, loadableType, loadableGroup=null) {
 
-    getApiPrefix() {
-        return '/' + [
-            this.props.loadableGroup || this.props.loadableType,
-            'api'
-            ].join('/');
-    }
+    let initialState = dataObjectStore.getInitial(loadableType),
+        pathPrefix = (loadableGroup ? '/' + loadableGroup : '') + '/' + loadableType,
+        apiPrefix = pathPrefix + '/api',
+        showPrefix = pathPrefix + '/show/';
 
-    nextView(id=null) {
-        let path = '/' + [
-            this.props.loadableGroup,
-            this.props.loadableType
-            ].join('/');
+    return class extends Reflux.Component {
+        constructor(props) {
+            super(props);
+            this.store = dataObjectStore;
 
-        if (id != null) {
-            path = '/' + [
-                this.props.loadableGroup,
-                'show',
-                id
-            ].join('/');
+            this.mapStoreToState(dataObjectStore, (store) => {
+                return _.get(
+                    store,
+                    [loadableType, this.state.id]
+                );
+            });
+
+            this.state = initialState;
         }
 
-        this.props.history.push(path);
-    }
-
-    componentWillMount() {
-        let objectId = _.get(this.props, 'match.params.id');
-        if (_.isUndefined(objectId)) {
-            return;
-        }
-
-        this.setState({
-            id: objectId
-        }, () => this.onReload());
-    }
-
-    onReload() {
-        dataObjectActions.getObject(
-            this.props.loadableType,
-            this.state.id,
-            this.getApiPrefix()
-        );
-    }
-
-    onSave() {
-        if (this.state.id == null) {
-            dataObjectActions.postObject(
-                this.props.loadableType,
-                this.state,
-                this.getApiPrefix(),
-                () => this.nextView()
-            );
-        } else {
-            dataObjectActions.patchObject(
-                this.props.loadableType,
-                this.state.id,
-                this.state,
-                this.getApiPrefix(),
-                () => this.nextView()
-           );
-        }
-    }
-
-    onPostObjectCompleted(type, id, result) {
-        if (
-            type != this.props.loadableType
-            || this.state.id != null
-        ) {
-            return;
-        }
-        this.nextView(id);
-    }
-
-    onPostObjectFailed(type, id, error) {
-        if (
-            type != this.props.loadableType
-            || id != this.state.id
-        ) {
-            return;
-        }
-        alert(error);
-    }
-
-    onPatchObjectCompleted(type, id, result) {
-        if (
-            type != this.props.loadableType
-            || id != this.state.id
-        ) {
-            return;
-        }
-        this.nextView(id);
-    }
-
-    onPatchObjectFailed(type, id, error) {
-        if (
-            type != this.props.loadableType
-            || id != this.state.id
-        ) {
-            return;
-        }
-        alert(error);
-    }
-
-    render() {
-        return <this.props.component
-            setState={(state) => this.setState(state)}
-            cancel={() => this.nextView()}
-            reload={this.state.id != null
-                ? () => this.onReload()
-                : null
+        componentWillMount() {
+            let objectId = _.get(this.props, 'match.params.id');
+            if (_.isUndefined(objectId)) {
+                return;
             }
-            save={() => this.onSave()}
-            {...this.props}
-            {...this.state}
-            />
-    }
+
+            this.setState({
+                id: objectId
+            }, () => this.onReload());
+        }
+
+        nextView(id=null) {
+            this.props.history.push(id == null
+                ? pathPrefix
+                : showPrefix + id
+            );
+        }
+
+        onReload() {
+            dataObjectActions.getObject(
+                loadableType,
+                this.state.id,
+                apiPrefix
+            );
+        }
+
+        onSave() {
+            if (this.state.id == null) {
+                dataObjectActions.postObject(
+                    loadableType,
+                    this.state,
+                    apiPrefix,
+                    () => this.nextView()
+                );
+            } else {
+                dataObjectActions.patchObject(
+                    loadableType,
+                    this.state.id,
+                    this.state,
+                    apiPrefix,
+                    () => this.nextView()
+            );
+            }
+        }
+
+        onPostObjectFailed(type, id, error) {
+            if (type != loadableType || id != this.state.id) {
+                return;
+            }
+            alert(error);
+        }
+
+        onPatchObjectFailed(type, id, error) {
+            if (type != loadableType || id != this.state.id) {
+                return;
+            }
+            alert(error);
+        }
+
+        render() {
+            return <WrappedComponent
+                setState={(state) => this.setState(state)}
+                cancel={() => this.nextView()}
+                reload={this.state.id != null
+                    ? () => this.onReload()
+                    : null
+                }
+                save={() => this.onSave()}
+                {...this.props}
+                {...this.state}
+                />
+        }
+    };
 }
 
 export default LoadableContainer;

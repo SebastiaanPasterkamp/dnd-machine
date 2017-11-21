@@ -6,8 +6,8 @@ var listDataActions = Reflux.createActions({
     "fetchItems": {children: ['completed', 'failed']}
 });
 
-listDataActions.fetchItems.listen( function(type) {
-    fetch('/items/' + type, {
+listDataActions.fetchItems.listen( function(type, category='items') {
+    fetch('/' + _.filter([category, type]).join('/'), {
         credentials: 'same-origin',
         'headers': {
             'X-Requested-With': 'XMLHttpRequest'
