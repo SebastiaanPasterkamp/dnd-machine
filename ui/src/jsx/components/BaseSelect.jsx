@@ -26,11 +26,9 @@ export class BaseSelect extends LazyComponent
     }
 
     onClick() {
-        if (this.props.closeOnClick) {
-            this.setState({
-                shown: false
-            });
-        }
+        this.setState({
+            shown: false
+        });
     }
 
     renderButton() {
@@ -48,11 +46,14 @@ export class BaseSelect extends LazyComponent
             this.state.shown ? "shown" : null
         ]);
 
-        return <div className="nice-dropdown">
+        return <div className="nice-dropdown nice-form-control">
             {this.renderButton()}
             <ul
                     className={style.length ? style.join(' ') : null}
-                    onClick={() => this.onClick()}>
+                    onClick={this.props.closeOnClick
+                        ? () => this.onClick()
+                        : null
+                    }>
                 {this.props.heading
                     ? <li className="heading">
                         <span>{this.props.heading}</span>
