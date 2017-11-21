@@ -1,8 +1,6 @@
 import React from 'react';
 import LazyComponent from '../components/LazyComponent.jsx';
 
-import _ from 'lodash';
-
 class Damage extends LazyComponent
 {
     render() {

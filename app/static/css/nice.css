@@ -4844,7 +4844,7 @@ html {
 /**
  * Module placeholders
  **/
-input.nice-form-control, select.nice-form-control, textarea.nice-form-control {
+input.nice-form-control, select.nice-form-control, textarea.nice-form-control, div.nice-form-control > button.nice-btn {
   border: 1px solid #D0D1D5;
   outline: none;
   padding: 5px;
@@ -4973,8 +4973,7 @@ textarea.nice-form-control {
   .nice-control-group > .nice-form-control {
     position: relative;
     float: left;
-    width: 100%;
-    z-index: 2; }
+    width: 100%;}
     .nice-control-group > .nice-form-control:focus {
       z-index: 3; }
   .nice-control-group > .nice-input-addon,
