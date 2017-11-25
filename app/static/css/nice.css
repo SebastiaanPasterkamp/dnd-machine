@@ -8178,19 +8178,19 @@ summary.nice-card {
     -o-transition: width 0.3s ease-in-out;
     transition: width 0.3s ease-in-out;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5); }
-  .nice-progress.brand .nice-progress-fill {
+  .nice-progress.brand .nice-progress-fill, .nice-progress.stacked .nice-progress-fill.brand {
     background-color: #009CC1; }
-  .nice-progress.primary .nice-progress-fill {
+  .nice-progress.primary .nice-progress-fill, .nice-progress.stacked .nice-progress-fill.primary {
     background-color: #F18700; }
-  .nice-progress.accent .nice-progress-fill {
+  .nice-progress.accent .nice-progress-fill, .nice-progress.stacked .nice-progress-fill.accent {
     background-color: #182642; }
-  .nice-progress.info .nice-progress-fill, .nice-control-group.info .nice-progress.nice-form-control .nice-progress-fill, .nice-control-group.info .nice-progress.nice-btn .nice-progress-fill {
+  .nice-progress.info .nice-progress-fill, .nice-progress.stacked .nice-progress-fill.info, .nice-control-group.info .nice-progress.nice-form-control .nice-progress-fill, .nice-control-group.info .nice-progress.nice-btn .nice-progress-fill {
     background-color: #60C4DE; }
-  .nice-progress.good .nice-progress-fill, .nice-control-group.good .nice-progress.nice-form-control .nice-progress-fill, .nice-control-group.good .nice-progress.nice-btn .nice-progress-fill {
+  .nice-progress.good .nice-progress-fill, .nice-progress.stacked .nice-progress-fill.good, .nice-control-group.good .nice-progress.nice-form-control .nice-progress-fill, .nice-control-group.good .nice-progress.nice-btn .nice-progress-fill {
     background-color: #5CB85C; }
-  .nice-progress.warning .nice-progress-fill, .nice-control-group.warning .nice-progress.nice-form-control .nice-progress-fill, .nice-control-group.warning .nice-progress.nice-btn .nice-progress-fill {
+  .nice-progress.warning .nice-progress-fill, .nice-progress.stacked .nice-progress-fill.warning, .nice-control-group.warning .nice-progress.nice-form-control .nice-progress-fill, .nice-control-group.warning .nice-progress.nice-btn .nice-progress-fill {
     background-color: #FFB819; }
-  .nice-progress.bad .nice-progress-fill, .nice-control-group.bad .nice-progress.nice-form-control .nice-progress-fill, .nice-control-group.bad .nice-progress.nice-btn .nice-progress-fill {
+  .nice-progress.bad .nice-progress-fill, .nice-progress.stacked .nice-progress-fill.bad, .nice-control-group.bad .nice-progress.nice-form-control .nice-progress-fill, .nice-control-group.bad .nice-progress.nice-btn .nice-progress-fill {
     background-color: #F42534; }
   .nice-progress.pulse .nice-progress-fill {
     -webkit-animation: pulse 1.5s ease-out;
@@ -8199,6 +8199,22 @@ summary.nice-card {
     -webkit-animation-iteration-count: infinite;
     -moz-animation-iteration-count: infinite;
     animation-iteration-count: infinite; }
+  .nice-progress.stacked .nice-progress-fill {
+      display: inline-block; }
+  .nice-progress.stacked .nice-progress-fill {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+      display: inline-block; }
+  .nice-progress.stacked .nice-progress-fill:first-child {
+    -webkit-border-radius: 25px 0 0 25px;
+    -moz-border-radius: 25px 0 0 25px;
+    border-radius: 25px 0 0 25px; }
+  .nice-progress.stacked .nice-progress-fill:last-child {
+    -webkit-border-radius: 0 25px 25px 0;
+    -moz-border-radius: 0 25px 25px 0;
+    border-radius: 0 25px 25px 0; }
+
 
 code {
   padding: 3px 3px;
