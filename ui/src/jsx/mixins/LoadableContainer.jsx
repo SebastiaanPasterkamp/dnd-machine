@@ -1,14 +1,20 @@
 import React from 'react';
 import Reflux from 'reflux';
+import _ from 'lodash';
 
 import dataObjectActions from '../actions/dataObjectActions.jsx';
 import dataObjectStore from '../stores/dataObjectStore.jsx';
 
 
-function LoadableContainer(WrappedComponent, loadableType, loadableGroup=null) {
+function LoadableContainer(
+    WrappedComponent, loadableType, loadableGroup=null
+) {
 
     let initialState = dataObjectStore.getInitial(loadableType),
-        pathPrefix = (loadableGroup ? '/' + loadableGroup : '') + '/' + loadableType,
+        pathPrefix = '/' + _.filter([
+            loadableGroup,
+            loadableType
+            ]).join('/'),
         apiPrefix = pathPrefix + '/api',
         showPrefix = pathPrefix + '/show/';
 
