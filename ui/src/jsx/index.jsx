@@ -8,11 +8,13 @@ import ItemStore from './mixins/ItemStore.jsx';
 
 import ArmorEdit from './views/ArmorEdit.jsx';
 import ArmorTable from './views/ArmorTable.jsx';
-import LanguageTable from './views/LanguagesTable.jsx';
 import CharacterEdit from './views/CharacterEdit.jsx';
+import CharactersTable from './views/CharactersTable.jsx';
+import PartyTable from './views/PartyTable.jsx';
+import LanguageTable from './views/LanguagesTable.jsx';
 import NpcEdit from './views/NpcEdit.jsx';
-import WeaponEdit from './views/WeaponEdit.jsx';
 import SpellsTable from './views/SpellsTable.jsx';
+import WeaponEdit from './views/WeaponEdit.jsx';
 import WeaponsTable from './views/WeaponsTable.jsx';
 
 import DefaultFilter from './views/DefaultFilter.jsx';
@@ -51,16 +53,65 @@ ReactDom.render(
         </header>
         <section className="nice-fluid-container grid">
             <Switch>
-                <Route path="/items/armor/new" component={ArmorEdit} />
-                <Route path="/items/armor/edit/:id" component={ArmorEdit} />
-                <Route path="/items/armor" component={ArmorTable} />
-                <Route path="/items/languages" component={LanguageTable} />
-                <Route path="/items/spells" component={SpellsTable} />
-                <Route path="/items/weapons/new" component={WeaponEdit} />
-                <Route path="/items/weapons/edit/:id" component={WeaponEdit} />
-                <Route exact path="/items/weapons" component={WeaponsTable} />
-                <Route path="/npc/edit/:id" component={NpcEdit} />
-                <Route path="/character/edit/:id" component={CharacterEdit} />
+                <Route
+                    path="/items/armor/new"
+                    component={ArmorEdit}
+                    />
+                <Route
+                    path="/items/armor/edit/:id"
+                    component={ArmorEdit}
+                    />
+                <Route
+                    exact path="/items/armor"
+                    component={ArmorTable}
+                    />
+
+                <Route
+                    path="/character/edit/:id"
+                    component={CharacterEdit}
+                    />
+                <Route
+                    path="/character/new"
+                    component={CharacterEdit}
+                    />
+                <Route
+                    exact path="/character/"
+                    component={CharactersTable}
+                    />
+
+                <Route
+                    exact path="/party"
+                    component={PartyTable}
+                    />
+
+                <Route
+                    path="/items/languages"
+                    component={LanguageTable}
+                    />
+                <Route
+                    path="/items/spells"
+                    component={SpellsTable}
+                    />
+
+                <Route
+                    path="/items/weapons/new"
+                    component={WeaponEdit}
+                    />
+
+                <Route
+                    path="/items/weapons/edit/:id"
+                    component={WeaponEdit}
+                    />
+                <Route
+                    exact path="/items/weapons"
+                    component={WeaponsTable}
+                    />
+
+                <Route
+                    path="/npc/edit/:id"
+                    component={NpcEdit}
+                    />
+
                 <Route render={({location}) => {
                     window.location.href = location.pathname;
                     return <div className="nice-modal info viewport-center">
