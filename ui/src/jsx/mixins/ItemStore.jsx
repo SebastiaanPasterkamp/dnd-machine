@@ -5,7 +5,7 @@ import _ from 'lodash';
 import listDataActions from '../actions/listDataActions.jsx';
 import DataStore from '../stores/dataStore.jsx';
 
-function ItemStore(WrappedComponent, storeKeys, storeCategory='items') {
+function ItemStore(WrappedComponent, storeKeys, storeCategory=null) {
 
     return class extends Reflux.Component {
         constructor(props) {
