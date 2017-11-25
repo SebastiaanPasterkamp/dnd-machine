@@ -15,9 +15,9 @@
                         <h3>{{ character.name }}</h3>
 
                         <div class="nice-progress good">
-                            {%- set percent = (character.xp - character.xp_level) * 100.0 / (character.xp_next_level - character.xp_level) -%}
+                            {%- set percent = character.xp_progress * 100.0 / character.xp_level -%}
                             <div class="nice-progress-fill" style="width: {{ percent }}%; height: 1.25rem;">
-                                {{ character.level }} ({{ character.xp }} / {{ character.xp_next_level }})
+                                {{ character.level }} ({{ character.xp_progress }} / {{ character.xp_level }})
                             </div>
                         </div>
 

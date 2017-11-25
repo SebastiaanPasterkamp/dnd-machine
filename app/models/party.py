@@ -81,6 +81,22 @@ class PartyMapper(JsonObjectDataMapper):
             if party
             ]
 
+    def getMemberIds(self, party_id):
+        """Returns all character IDs in a party by party_id"""
+        cur = self.db.execute("""
+            SELECT pc.character_id AS id
+            FROM `party_characters` AS pc
+            JOIN `character` AS c ON (pc.character_id=c.id)
+            WHERE `party_id` = ?
+            """,
+            [party_id]
+            )
+        characters = cur.fetchall() or []
+        return [
+            character['id']
+            for character in characters
+            ]
+
     def addCharacter(self, party_id, character_id):
         """Add character to party"""
         cur = self.db.execute("""

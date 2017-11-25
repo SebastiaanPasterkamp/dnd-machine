@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, request, session, g, redirect, url_for, abort, \
-    render_template, flash
+from flask import Blueprint, request, session, g, redirect, url_for, \
+    abort, render_template, flash, jsonify
 
 from .. import get_datamapper
 from ..models.party import PartyObject
 
-party = Blueprint(
+blueprint = Blueprint(
     'party', __name__, template_folder='templates')
 
-@party.route('/')
-@party.route('/list')
+@blueprint.route('/')
 def overview():
-    datamapper = get_datamapper()
+    if not request.is_xhr:
+        return render_template(
+            'reactjs-layout.html'
+            )
 
-    search = request.args.get('search', '')
-    parties = datamapper.party.getList(search)
+    datamapper = get_datamapper()
+    parties = datamapper.party.getMultiple()
 
     if 'admin' not in request.user.role:
         visibleParties = set()
@@ -23,29 +25,37 @@ def overview():
                 party.id
                 for party in datamapper.party.getByUserId(request.user.id)
                 ])
-            print 'player', visibleParties
+
         if 'dm' in request.user.role:
             visibleParties |= set([
                 party.id
                 for party in datamapper.party.getByDmUserId(request.user.id)
                 ])
-            print 'dm', visibleParties
+
         parties = [
             party
             for party in parties
             if party.id in visibleParties
             ]
 
+    members = {}
     for party in parties:
-        party.members = datamapper.character.getByPartyId(party.id)
+        members[party.id] = datamapper.party.getMemberIds(party.id)
 
-    return render_template(
-        'party/overview.html',
-        parties=parties,
-        search=search
-        )
+    fields = [
+        'id', 'name', 'challenge'
+        ]
 
-@party.route('/show/<int:party_id>')
+    return jsonify([
+        dict(
+            [('members', members[party.id])]
+            + [(key, party[key]) for key in fields]
+            )
+        for party in parties
+        ])
+
+
+@blueprint.route('/show/<int:party_id>')
 def show(party_id):
     datamapper = get_datamapper()
 
@@ -61,7 +71,7 @@ def show(party_id):
         characters=p.members
         )
 
-@party.route('/edit/<int:party_id>', methods=['GET', 'POST'])
+@blueprint.route('/edit/<int:party_id>', methods=['GET', 'POST'])
 def edit(party_id):
     datamapper = get_datamapper()
 
@@ -91,7 +101,7 @@ def edit(party_id):
         party=p
         )
 
-@party.route('/del/<int:party_id>')
+@blueprint.route('/del/<int:party_id>')
 def delete(party_id):
     datamapper = get_datamapper()
 
@@ -102,7 +112,7 @@ def delete(party_id):
         'party.overview'
         ))
 
-@party.route('/new', methods=['GET', 'POST'])
+@blueprint.route('/new', methods=['GET', 'POST'])
 def new():
     datamapper = get_datamapper()
 
@@ -130,13 +140,13 @@ def new():
         party=p
         )
 
-@party.route('/host/<int:party_id>')
+@blueprint.route('/host/<int:party_id>')
 def host(party_id):
     session['party_id'] = party_id
     return redirect(request.referrer)
 
-@party.route('/<int:party_id>/<action>_character/<int:character_id>')
-@party.route('/<int:party_id>/award_<action>/<int:encounter_id>')
+@blueprint.route('/<int:party_id>/<action>_character/<int:character_id>')
+@blueprint.route('/<int:party_id>/award_<action>/<int:encounter_id>')
 def modify(party_id, action, character_id=None, encounter_id=None):
     datamapper = get_datamapper()
 
@@ -187,3 +197,59 @@ def modify(party_id, action, character_id=None, encounter_id=None):
     datamapper.party.update(p)
 
     return redirect(request.referrer)
+
+
+@blueprint.route('/api/<int:party_id>', methods=['GET'])
+def api_get(party_id):
+    datamapper = get_datamapper()
+
+    party = datamapper.party.getById(party_id)
+    party.members = datamapper.character.getByPartyId(party_id)
+
+    fields = ['id', 'user_id', 'name', 'challenge']
+    if 'dm' not in request.user.role \
+            or party.user_id != request.user.id:
+        fields = ['id', 'user_id', 'name']
+
+    result = dict([
+        (key, party[key])
+        for key in fields
+        ])
+    result['members'] = [
+        character.id
+        for character in party.members
+        ]
+
+    return jsonify(result)
+
+
+@blueprint.route('/api', methods=['POST'])
+def api_post():
+    if not any([role in request.user.role for role in ['dm']]):
+        abort(403)
+
+    datamapper = get_datamapper()
+    party = datamapper.party.create(request.get_json())
+
+    if 'id' in party and party.id:
+        abort(409, "Cannot create with existing ID")
+
+    party = datamapper.party.insert(party)
+
+    return jsonify(party.config)
+
+
+@blueprint.route('/api/<int:party_id>', methods=['PATCH'])
+def api_patch(party_id):
+    if not any([role in request.user.role for role in ['dm']]):
+        abort(403)
+
+    datamapper = get_datamapper()
+    party = datamapper.party.create(request.get_json())
+
+    if 'id' not in party or party.id != party_id:
+        abort(409, "Cannot change ID")
+
+    party = datamapper.party.update(party)
+
+    return jsonify(party.config)

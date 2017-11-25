@@ -6,11 +6,11 @@ from .. import get_datamapper
 from ..models.user import UserObject
 from ..config import get_config
 
-user = Blueprint(
+blueprint = Blueprint(
     'user', __name__, template_folder='templates')
 
-@user.route('/')
-@user.route('/list')
+@blueprint.route('/')
+@blueprint.route('/list')
 def overview():
     if 'role' not in request.user \
             or 'admin' not in request.user['role']:
@@ -28,7 +28,7 @@ def overview():
         search=search
         )
 
-@user.route('/show/<int:user_id>')
+@blueprint.route('/show/<int:user_id>')
 def show(user_id):
     if user_id != request.user['id'] \
             and (
@@ -47,7 +47,7 @@ def show(user_id):
         user=u
         )
 
-@user.route('/edit/<int:user_id>', methods=['GET', 'POST'])
+@blueprint.route('/edit/<int:user_id>', methods=['GET', 'POST'])
 def edit(user_id):
     if user_id != request.user['id'] \
             and 'admin' not in request.user['role']:
@@ -79,7 +79,7 @@ def edit(user_id):
         data=config['data'],
         user=u
         )
-@user.route('/new', methods=['GET', 'POST'])
+@blueprint.route('/new', methods=['GET', 'POST'])
 def new():
     if 'role' not in request.user \
             or 'admin' not in request.user['role']:
@@ -111,3 +111,55 @@ def new():
         data=config['data'],
         user=u
         )
+
+
+@blueprint.route('/api/<int:user_id>', methods=['GET'])
+def api_get(user_id):
+    datamapper = get_datamapper()
+
+    user = datamapper.user.getById(user_id)
+
+    fields = ['id', 'username', 'name', 'email', 'role']
+    if 'admin' not in request.user.role \
+            and user.id != request.user.id:
+        fields = ['id', 'name', 'role']
+
+    result = dict([
+        (key, user[key])
+        for key in fields
+        ])
+
+    return jsonify(result)
+
+
+@blueprint.route('/api', methods=['POST'])
+def api_post():
+    if 'admin' not in request.user['role']:
+        abort(403)
+
+    datamapper = get_datamapper()
+    user = datamapper.user.create(request.get_json())
+
+    if 'id' in user and user.id:
+        abort(409, "Cannot create with existing ID")
+
+    user = datamapper.user.insert(user)
+
+    return jsonify(user.config)
+
+
+@blueprint.route('/api/<int:user_id>', methods=['PATCH'])
+def api_patch(user_id):
+    datamapper = get_datamapper()
+    user = datamapper.user.create(request.get_json())
+
+    if 'id' not in user or user.id != user_id:
+        abort(409, "Cannot change ID")
+
+    if 'admin' not in request.user.role \
+            and user.id != request.user.id:
+        abort(409, "User must be owned by User")
+
+    user = datamapper.user.update(user)
+
+    return jsonify(user.config)

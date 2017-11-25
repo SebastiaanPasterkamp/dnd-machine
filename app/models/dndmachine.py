@@ -66,8 +66,14 @@ class DndMachine(object):
             notation.append("%d" % bonus)
         return '+'.join(notation)
 
-    def xpAtLevel(self, level):
-        return self.xp_at_level.get(str(level), None)
+    def xpToLevel(self, xp):
+        xp_level, xp_offset = 0, 0
+        for level in range(1, 21):
+            xp_level = self.xp_at_level.get(str(level), None)
+            if xp < xp_level:
+                break
+            xp_offset = xp_level
+        return level, xp - xp_offset, xp_level
 
     def challengeByLevel(self, level, formula=False):
         """Returns the Challenge Rating in XP by level
