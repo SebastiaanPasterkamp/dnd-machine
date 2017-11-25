@@ -49,8 +49,8 @@ class LanguageTable extends LazyComponent
                 <tbody key="tbody">
                     {this.props.languages
                         .filter((row) => this.filterRow(pattern, row))
-                        .map((row, key) => {
-                            return <LanguageRow key={key} {...row}/>
+                        .map((row) => {
+                            return <LanguageRow key={row.id} {...row}/>
                         })
                     }
                 </tbody>
@@ -59,4 +59,4 @@ class LanguageTable extends LazyComponent
     }
 }
 
-export default ItemStore(LanguageTable, ['languages', 'search']);
+export default ItemStore(LanguageTable, ['languages', 'search'], 'items');

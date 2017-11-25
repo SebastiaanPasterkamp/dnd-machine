@@ -162,8 +162,8 @@ class SpellsTable extends React.Component
                 <tbody key="tbody">
                     {this.props.spells
                         .filter((row) => this.filterRow(pattern, row))
-                        .map((row, key) => {
-                            return <SpellRow key={key} {...row}/>
+                        .map((row) => {
+                            return <SpellRow key={row.id} {...row}/>
                         })
                     }
                 </tbody>
@@ -172,4 +172,4 @@ class SpellsTable extends React.Component
     }
 }
 
-export default ItemStore(SpellsTable, ['spells']);
+export default ItemStore(SpellsTable, ['spells'], 'items');

@@ -4,10 +4,10 @@ import {Link} from 'react-router-dom';
 import ItemStore from '../mixins/ItemStore.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
-import ButtonField from '../components/ButtonField.jsx';
+import Coinage from '../components/Coinage.jsx';
 import Damage from '../components/Damage.jsx';
 import Reach from '../components/Reach.jsx';
-import Coinage from '../components/Coinage.jsx';
+import WeaponLinks from '../components/WeaponLinks.jsx';
 
 class WeaponsHeader extends LazyComponent
 {
@@ -32,11 +32,10 @@ class WeaponsFooter extends LazyComponent
             <tr>
                 <td colSpan="5"></td>
                 <td>
-                    <Link
-                        to={"/items/weapons/new"}
-                        className="nice-btn-alt icon fa-plus">
-                        New
-                    </Link>
+                    <WeaponLinks
+                        buttons={['new']}
+                        weapon_id={this.props.id}
+                        />
                 </td>
             </tr>
         </tbody>
@@ -83,11 +82,11 @@ class WeaponsRow extends LazyComponent
                 : null
             }</td>
             <td>{this.props.id != null ?
-                <Link
-                    to={"/items/weapons/edit/" + this.props.id}
-                    className="nice-btn-alt icon fa-pencil">
-                    Edit
-                </Link> : null
+                <WeaponLinks
+                    buttons={['view', 'edit']}
+                    weapon_id={this.props.id}
+                    />
+                : null
             }</td>
         </tr>
     }
@@ -109,8 +108,8 @@ class WeaponsBody extends LazyComponent
         }
 
         return <tbody key="body">
-            {items.map((item, key) => {
-                return <WeaponsRow key={key} {...item}/>
+            {items.map((item) => {
+                return <WeaponsRow key={item.id} {...item}/>
             })}
         </tbody>;
     }
@@ -128,10 +127,10 @@ class WeaponsTable extends LazyComponent
                     .map((set, key) => {
                         return [
                             <WeaponsHeader
-                                key="header"
-                                name={this.props.name}/>,
+                                key={"header-" + set.name}
+                                name={set.name}/>,
                             <WeaponsBody
-                                key={key}
+                                key={"body-" + set.name}
                                 pattern={pattern}
                                 {...set}/>
                         ];
@@ -143,4 +142,4 @@ class WeaponsTable extends LazyComponent
     }
 }
 
-export default ItemStore(WeaponsTable, ['weapons', 'search']);
+export default ItemStore(WeaponsTable, ['weapons', 'search'], 'items');

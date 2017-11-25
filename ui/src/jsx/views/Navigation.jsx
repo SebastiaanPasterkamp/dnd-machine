@@ -42,4 +42,4 @@ class Navigation extends LazyComponent
     }
 }
 
-export default ItemStore(Navigation, ['navigation'], '.');
+export default ItemStore(Navigation, ['navigation']);

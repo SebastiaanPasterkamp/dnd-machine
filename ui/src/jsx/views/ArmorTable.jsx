@@ -112,8 +112,8 @@ class ArmorBody extends LazyComponent
         }
 
         return <tbody key="body">
-            {items.map((item, key) => {
-                return <ArmorRow key={key} {...item}/>
+            {items.map((item) => {
+                return <ArmorRow key={item.id} {...item}/>
             })}
         </tbody>;
     }
@@ -134,7 +134,7 @@ class ArmorTable extends LazyComponent
                                 key="header"
                                 name={set.name}/>,
                             <ArmorBody
-                                key={key}
+                                key={set.name}
                                 pattern={pattern}
                                 {...set}/>
                         ];
@@ -146,4 +146,4 @@ class ArmorTable extends LazyComponent
     }
 }
 
-export default ItemStore(ArmorTable, ['armor', 'search']);
+export default ItemStore(ArmorTable, ['armor', 'search'], 'items');
