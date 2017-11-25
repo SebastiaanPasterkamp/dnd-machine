@@ -12,38 +12,38 @@ class dataObjectStore extends Reflux.Store
         super();
         this.state = {
             armor: {},
+            characters: {},
             npc: {},
-            weapons: {}
+            weapons: {},
         };
         this.listenables = dataObjectActions;
     }
 
-    onGetObjectCompleted(type, id, result)
-    {
+    updateObject(type, id, data) {
         let update = {};
         update[type] = {};
-        update[type][id] = result;
-        this.setState(update);
+        update[type][id] = data;
+        let state = _.merge(
+            {},
+            this.state,
+            update
+        );
+        this.setState(state);
+    };
+
+    onGetObjectCompleted(type, id, result) {
+        this.updateObject(type, id, result);
     }
 
-    onPatchObjectCompleted(type, id, result)
-    {
-        let update = {};
-        update[type] = {};
-        update[type][id] = result;
-        this.setState(update);
+    onPatchObjectCompleted(type, id, result) {
+        this.updateObject(type, id, result);
     }
 
-    onPostObjectCompleted(type, id, result)
-    {
-        let update = {};
-        update[type] = {};
-        update[type][id] = result;
-        this.setState(update);
+    onPostObjectCompleted(type, id, result) {
+        this.updateObject(type, id, result);
     }
 
-    onDeleteObjectCompleted(type, id)
-    {
+    onDeleteObjectCompleted(type, id) {
         let update = {};
         update[type] = _.copy(this.state[type]);
         delete update[type][id];
@@ -52,6 +52,24 @@ class dataObjectStore extends Reflux.Store
 }
 
 dataObjectStore.initial = {
+    armor: {
+        id: null,
+        type: 'light armor',
+        name: '',
+        cost: {},
+        requirements: {},
+    },
+    characters: {
+        id: null,
+        name: '',
+        'class': '',
+        race: '',
+        alignment: 'true neutral',
+        level: 1,
+        xp: 0,
+        xp_progress: 0,
+        xp_level: 0,
+    },
     navigation: [],
     npc: {
         id: null,
@@ -82,6 +100,11 @@ dataObjectStore.initial = {
             }
         )
     },
+    party: {
+        id: null,
+        name: '',
+        members: [],
+    },
     weapons: {
         id: null,
         type: 'simple melee weapon',
@@ -93,13 +116,6 @@ dataObjectStore.initial = {
             type: 'bludgeoning'
         },
         property: []
-    },
-    armor: {
-        id: null,
-        type: 'light armor',
-        name: '',
-        cost: {},
-        requirements: {},
     },
 };
 
