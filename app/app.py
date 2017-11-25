@@ -6,10 +6,10 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 from . import get_db, get_datamapper
 from .config import get_config, get_item_data
 import filters
-from .views.user import user
+from .views.user import blueprint as user
 from .views.items import blueprint as items
 from .views.character import blueprint as character
-from .views.party import party
+from .views.party import blueprint as party
 from .views.monster import monster
 from .views.npc import blueprint as npc
 from .views.encounter import encounter
@@ -124,13 +124,22 @@ def home():
         return redirect(url_for('login'))
     return redirect(url_for('character.overview'))
 
+@app.route('/current_user')
+def current_user():
+    if session.get('user_id') is None:
+        abort(404)
+    return redirect(url_for(
+        'user.api_get',
+        user_id=session.get('user_id')
+        ))
+
 @app.route('/navigation')
 def navigation():
     navigation = []
     datamapper = get_datamapper()
 
     if session.get('user_id') is None:
-        return jsonify(navigation)
+        abort(404)
 
     navigation.append({
         'label': 'Characters',

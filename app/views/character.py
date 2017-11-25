@@ -24,44 +24,35 @@ def find_caracter_field(character_data, field, value):
             return data, None
 
 @blueprint.route('/')
-@blueprint.route('/list')
-@blueprint.route('/list/<int:party_id>')
-def overview(party_id=None):
-    datamapper = get_datamapper()
+def overview():
+    if not request.is_xhr:
+        return render_template(
+            'reactjs-layout.html'
+            )
 
-    search = request.args.get('search', '')
-    characters = datamapper.character.getList(search)
-    party = None
-    members = []
-    users = []
+    datamapper = get_datamapper()
+    characters = datamapper.character.getMultiple()
 
     if not any(role in request.user['role'] for role in ['admin', 'dm']):
         characters = [
-            c
-            for c in characters
-            if c['user_id'] == request.user['id']
+            character
+            for character in characters
+            if character.user_id == request.user.id
             ]
-    else:
-        users = dict([
-            (user_id, datamapper.user.getById(user_id))
-            for user_id in set([
-                c.user_id
-                for c in characters if c.user_id
-                ])
+
+    fields = [
+        'id', 'name', 'gender', 'race', 'class', 'alignment',
+        'background', 'level', 'xp', 'xp_progress', 'xp_level'
+        ]
+
+    return jsonify([
+        dict([
+            (key, character[key])
+            for key in fields
             ])
+        for character in characters
+        ])
 
-    if party_id is not None:
-        party = datamapper.party.getById(party_id)
-        members = [c['id'] for c in datamapper.character.getByPartyId(party_id)]
-
-    return render_template(
-        'character/overview.html',
-        characters=characters,
-        users=users,
-        party=party,
-        members=members,
-        search=search
-        )
 
 @blueprint.route('/show/<int:character_id>')
 @blueprint.route('/show/<int:party_id>/<int:character_id>')
@@ -890,38 +881,62 @@ def xp(character_id, xp):
         character_id=character_id
         ))
 
+
 @blueprint.route('/api/<int:character_id>', methods=['GET'])
 def api_get(character_id):
     datamapper = get_datamapper()
-
     character = datamapper.character.getById(character_id)
 
-    return jsonify(character.config)
+    result = character.config
+    if 'dm' not in request.user.role \
+            and character.user_id != request.user.id:
+        fields = [
+            'id', 'name', 'gender', 'race', 'class', 'alignment',
+            'background', 'level', 'xp', 'xp_progress', 'xp_level'
+            ]
+        result = dict([
+            (key, character[key])
+            for key in fields
+            ])
+
+    return jsonify(result)
+
 
 @blueprint.route('/api', methods=['POST'])
 def api_post():
-    if 'dm' not in request.user['role']:
+    if not any([role in request.user.role for role in ['user', 'dm']]):
         abort(403)
 
     datamapper = get_datamapper()
-
     character = datamapper.character.create(request.get_json())
+
     if 'id' in character and character.id:
         abort(409, "Cannot create with existing ID")
+
+    if 'dm' not in request.user.role \
+            and character.user_id != request.user.id:
+        abort(409, "Character must be owned by User")
+
     character = datamapper.character.insert(character)
 
     return jsonify(character.config)
 
+
 @blueprint.route('/api/<int:character_id>', methods=['PATCH'])
 def api_patch(character_id):
-    if 'dm' not in request.user['role']:
+    if not any([role in request.user.role for role in ['user', 'dm']]):
         abort(403)
 
     datamapper = get_datamapper()
-
     character = datamapper.character.create(request.get_json())
+
     if 'id' not in character or character.id != character_id:
         abort(409, "Cannot change ID")
+
+    if 'dm' not in request.user.role \
+            and character.user_id != request.user.id:
+        abort(409, "Character must be owned by User")
+
     character = datamapper.character.update(character)
 
     return jsonify(character.config)

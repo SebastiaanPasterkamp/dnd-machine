@@ -120,8 +120,8 @@ class CharacterObject(JsonObject):
             fieldTypes = {
                 "user_id": int,
                 "xp": int,
+                "xp_progress": int,
                 "xp_level": int,
-                "xp_next_level": int,
                 "level": int,
                 "hit_points": int,
                 "hit_dice": int,
@@ -255,14 +255,8 @@ class CharacterObject(JsonObject):
         for rating, value in cr.iteritems():
             self.challenge[rating] = value
 
-        self.xp_level = machine.xpAtLevel(self.level)
-        self.xp_next_level = machine.xpAtLevel(self.level + 1)
-        while self.xp_next_level and self.xp >= self.xp_next_level:
-            self.xp_level = self.xp_next_level
-            self.level += 1
-            self.xp_next_level = machine.xpAtLevel(self.level + 1)
-        if not self.xp_next_level or self.xp_level >= self.xp_next_level:
-            self.xp_next_level = self.xp_level + 1
+        self.level, self.xp_progress, self.xp_level = \
+            machine.xpToLevel(self.xp)
 
         self.armor = []
         self.weapons = []
