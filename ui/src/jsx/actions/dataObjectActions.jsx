@@ -1,5 +1,6 @@
 import React from 'react';
 import Reflux from 'reflux';
+import _ from 'lodash';
 
 var dataObjectActions = Reflux.createActions({
     "getObject": {asyncResult: true},
@@ -8,23 +9,33 @@ var dataObjectActions = Reflux.createActions({
     "deleteObject": {asyncResult: true},
 });
 
+let debouncedGet = {};
 dataObjectActions.getObject.listen((type, id, path=null) => {
     path = (path || '/' + type + '/api') + '/' + id;
-    fetch(path, {
-        credentials: 'same-origin',
-        method: 'GET',
-        'headers': {
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    })
-    .then((response) => response.json())
-    .then((result) => {
-        dataObjectActions.getObject.completed(type, id, result);
-    })
-    .catch((error) => {
-        console.error(error);
-        dataObjectActions.getObject.failed(type, id, error);
-    });
+
+    if (!(path in debouncedGet)) {
+        debouncedGet[path] = _.debounce((path, type, id) => {
+
+            fetch(path, {
+                credentials: 'same-origin',
+                method: 'GET',
+                'headers': {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                dataObjectActions.getObject.completed(type, id, result);
+            })
+            .catch((error) => {
+                console.error(error);
+                dataObjectActions.getObject.failed(type, id, error);
+            });
+
+        }, 1000, {leading: true, trailing: false});
+    }
+
+    debouncedGet[path](path, type, id);
 });
 
 dataObjectActions.postObject.listen((type, data, path=null, callback=null) => {
