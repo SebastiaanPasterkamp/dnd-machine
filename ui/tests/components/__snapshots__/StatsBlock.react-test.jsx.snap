@@ -32,7 +32,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
       </th>
       <td>
         <div
-          className="nice-dropdown"
+          className="nice-dropdown nice-form-control"
         >
           <button
             className="nice-btn"
@@ -163,7 +163,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
       </th>
       <td>
         <div
-          className="nice-dropdown"
+          className="nice-dropdown nice-form-control"
         >
           <button
             className="nice-btn"
@@ -294,7 +294,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
       </th>
       <td>
         <div
-          className="nice-dropdown"
+          className="nice-dropdown nice-form-control"
         >
           <button
             className="nice-btn"
@@ -425,7 +425,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
       </th>
       <td>
         <div
-          className="nice-dropdown"
+          className="nice-dropdown nice-form-control"
         >
           <button
             className="nice-btn"
@@ -556,7 +556,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
       </th>
       <td>
         <div
-          className="nice-dropdown"
+          className="nice-dropdown nice-form-control"
         >
           <button
             className="nice-btn"
@@ -687,7 +687,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
       </th>
       <td>
         <div
-          className="nice-dropdown"
+          className="nice-dropdown nice-form-control"
         >
           <button
             className="nice-btn"

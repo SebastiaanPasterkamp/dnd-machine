@@ -2,7 +2,7 @@
 
 exports[`Component: BaseSelect should show a dropdown with heading and description 1`] = `
 <div
-  className="nice-dropdown"
+  className="nice-dropdown nice-form-control"
 >
   <button
     className="nice-btn"
@@ -40,7 +40,7 @@ exports[`Component: BaseSelect should show a dropdown with heading and descripti
 
 exports[`Component: BaseSelect should show a simple dropdown with one button and item 1`] = `
 <div
-  className="nice-dropdown"
+  className="nice-dropdown nice-form-control"
 >
   <button
     className="nice-btn"
