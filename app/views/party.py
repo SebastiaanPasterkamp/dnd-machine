@@ -8,7 +8,25 @@ from ..models.party import PartyObject
 blueprint = Blueprint(
     'party', __name__, template_folder='templates')
 
-@blueprint.route('/')
+def exposeAttributes(party):
+    fields = ['id', 'user_id', 'name']
+    if 'dm' in request.user.role \
+            and party.user_id == request.user.id:
+        fields = ['id', 'user_id', 'name', 'challenge']
+
+    result = dict([
+        (key, party[key])
+        for key in fields
+        ])
+    result['members'] = [
+        character.id
+        for character in party.members
+        ]
+
+    return result
+
+
+@blueprint.route('/list')
 def overview():
     if not request.is_xhr:
         return render_template(
@@ -38,19 +56,11 @@ def overview():
             if party.id in visibleParties
             ]
 
-    members = {}
     for party in parties:
-        members[party.id] = datamapper.party.getMemberIds(party.id)
-
-    fields = [
-        'id', 'name', 'challenge'
-        ]
+        party.members = datamapper.character.getByPartyId(party.id)
 
     return jsonify([
-        dict(
-            [('members', members[party.id])]
-            + [(key, party[key]) for key in fields]
-            )
+        exposeAttributes(party)
         for party in parties
         ])
 
@@ -206,19 +216,7 @@ def api_get(party_id):
     party = datamapper.party.getById(party_id)
     party.members = datamapper.character.getByPartyId(party_id)
 
-    fields = ['id', 'user_id', 'name', 'challenge']
-    if 'dm' not in request.user.role \
-            or party.user_id != request.user.id:
-        fields = ['id', 'user_id', 'name']
-
-    result = dict([
-        (key, party[key])
-        for key in fields
-        ])
-    result['members'] = [
-        character.id
-        for character in party.members
-        ]
+    result = exposeAttributes(party)
 
     return jsonify(result)
 

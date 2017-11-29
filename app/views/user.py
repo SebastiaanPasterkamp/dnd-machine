@@ -9,11 +9,23 @@ from ..config import get_config
 blueprint = Blueprint(
     'user', __name__, template_folder='templates')
 
+def exposeAttributes(user):
+    fields = ['id', 'name', 'role']
+    if 'admin' in request.user.role \
+            or user.id == request.user.id:
+        fields = ['id', 'username', 'name', 'email', 'role']
+
+    result = dict([
+        (key, user[key])
+        for key in fields
+        ])
+
+    return result
+
 @blueprint.route('/')
 @blueprint.route('/list')
 def overview():
-    if 'role' not in request.user \
-            or 'admin' not in request.user['role']:
+    if 'admin' not in request.user['role']:
         abort(403)
 
     config = get_config()
@@ -79,6 +91,8 @@ def edit(user_id):
         data=config['data'],
         user=u
         )
+
+
 @blueprint.route('/new', methods=['GET', 'POST'])
 def new():
     if 'role' not in request.user \
@@ -119,15 +133,7 @@ def api_get(user_id):
 
     user = datamapper.user.getById(user_id)
 
-    fields = ['id', 'username', 'name', 'email', 'role']
-    if 'admin' not in request.user.role \
-            and user.id != request.user.id:
-        fields = ['id', 'name', 'role']
-
-    result = dict([
-        (key, user[key])
-        for key in fields
-        ])
+    result = exposeAttributes(user)
 
     return jsonify(result)
 
