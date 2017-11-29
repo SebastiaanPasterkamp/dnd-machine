@@ -1,7 +1,7 @@
 import React from 'react';
 import LazyComponent from '../components/LazyComponent.jsx';
 
-import ObjectLoader from '../mixins/ObjectLoader.jsx';
+import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
 class UserLabel extends LazyComponent
 {
@@ -15,6 +15,6 @@ class UserLabel extends LazyComponent
     }
 }
 
-export default ObjectLoader(UserLabel, [
+export default ObjectDataWrapper(UserLabel, [
     {type: 'user', id: 'user_id'}
 ]);

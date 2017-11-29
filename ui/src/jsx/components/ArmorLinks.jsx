@@ -4,7 +4,7 @@ import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
-class PartyLinks extends BaseLinkGroup
+class ArmorLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
@@ -12,28 +12,21 @@ class PartyLinks extends BaseLinkGroup
             'view': () => {
                 return {
                     label: 'View',
-                    link: "/party/show/" + this.props.party.id,
+                    link: "/items/armor/show/" + this.props.armor.id,
                     icon: 'eye',
                 };
             },
             'edit': () => {
                 return {
                     label: 'Edit',
-                    link: "/party/edit/" + this.props.party.id,
+                    link: "/items/armor/edit/" + this.props.armor.id,
                     icon: 'pencil',
-                };
-            },
-            'host': () => {
-                return {
-                    label: 'Host',
-                    link: "/party/host/" + this.props.party.id,
-                    icon: 'beer',
                 };
             },
             'new': () => {
                 return {
                     label: 'New',
-                    link: "/party/new",
+                    link: "/items/armor/new",
                     icon: 'plus',
                 };
             }
@@ -50,22 +43,30 @@ class PartyLinks extends BaseLinkGroup
                 ['dm']
             ).length
         ) {
-            if (this.props.party == null) {
+            if (this.props.armor == null) {
                 return ['new'];
             }
-            return ['host', 'edit', 'new', 'view'];
+            return ['edit', 'new', 'view'];
+        }
+        if (
+            _.intersection(
+                this.props.current_user.role || [],
+                'player'
+            ).length
+        ) {
+            return ['view'];
         }
         return [];
     }
 }
 
-PartyLinks.defaultProps = {
-    buttons: ['view', 'edit', 'host'],
+ArmorLinks.defaultProps = {
+    buttons: ['view', 'edit'],
 };
 
 export default ListDataWrapper(
-    ObjectDataWrapper(PartyLinks, [
-        {type: 'party', id: 'party_id'}
+    ObjectDataWrapper(ArmorLinks, [
+        {group: 'items', type: 'armor', id: 'armor_id'}
     ]),
     ['current_user']
 );
