@@ -22,6 +22,9 @@ describe('Component: NpcEdit', () => {
                 'strength', 'dexterity', 'constitution',
                 'intelligence', 'wisdom', 'charisma'
             ], (stats, stat) => {
+                stats['statistics'].push({
+                    name: stat, label: stat, description: stat
+                });
                 stats['bare'][stat] = 12;
                 stats['bonus'][stat] = [1, 2];
                 stats['base'][stat] = 12;
@@ -29,6 +32,7 @@ describe('Component: NpcEdit', () => {
                 return stats;
             },
             {
+                statistics: [],
                 bare: {},
                 bonus: {},
                 base: {},

@@ -2,7 +2,7 @@
 
 exports[`Component: SingleSelect should show a dropdown with 3 items disabled by callback 1`] = `
 <div
-  className="nice-dropdown"
+  className="nice-dropdown nice-form-control"
 >
   <button
     className="nice-btn"
@@ -50,7 +50,7 @@ exports[`Component: SingleSelect should show a dropdown with 3 items disabled by
 
 exports[`Component: SingleSelect should show a dropdown with 3 items in various states 1`] = `
 <div
-  className="nice-dropdown"
+  className="nice-dropdown nice-form-control"
 >
   <button
     className="nice-btn"
@@ -98,7 +98,7 @@ exports[`Component: SingleSelect should show a dropdown with 3 items in various 
 
 exports[`Component: SingleSelect should show a simple dropdown with 3 items 1`] = `
 <div
-  className="nice-dropdown"
+  className="nice-dropdown nice-form-control"
 >
   <button
     className="nice-btn"

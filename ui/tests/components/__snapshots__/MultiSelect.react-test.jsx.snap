@@ -2,7 +2,7 @@
 
 exports[`Component: MultiSelect should show a dropdown with 4 items disabled by callback 1`] = `
 <div
-  className="nice-dropdown"
+  className="nice-dropdown nice-form-control"
 >
   <button
     className="nice-btn"
@@ -15,7 +15,7 @@ exports[`Component: MultiSelect should show a dropdown with 4 items disabled by 
   </button>
   <ul
     className="dropdown-menu"
-    onClick={[Function]}
+    onClick={null}
   >
     <li
       className={null}
@@ -79,7 +79,7 @@ exports[`Component: MultiSelect should show a dropdown with 4 items disabled by 
 
 exports[`Component: MultiSelect should show a dropdown with 4 items in various states 1`] = `
 <div
-  className="nice-dropdown"
+  className="nice-dropdown nice-form-control"
 >
   <button
     className="nice-btn"
@@ -92,7 +92,7 @@ exports[`Component: MultiSelect should show a dropdown with 4 items in various s
   </button>
   <ul
     className="dropdown-menu"
-    onClick={[Function]}
+    onClick={null}
   >
     <li
       className={null}
@@ -156,7 +156,7 @@ exports[`Component: MultiSelect should show a dropdown with 4 items in various s
 
 exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] = `
 <div
-  className="nice-dropdown"
+  className="nice-dropdown nice-form-control"
 >
   <button
     className="nice-btn"
@@ -169,7 +169,7 @@ exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] =
   </button>
   <ul
     className="dropdown-menu"
-    onClick={[Function]}
+    onClick={null}
   >
     <li
       className={null}
