@@ -43,58 +43,21 @@ def languages():
     return jsonify(languages)
 
 
-@blueprint.route('/weapons')
-def weapons():
+@blueprint.route('/<string:item_type>/list')
+def get_list(item_type):
     if not request.is_xhr:
         return render_template(
             'reactjs-layout.html'
             )
 
     datamapper = get_datamapper()
-    weaponsets = [
-        {
-            "name": u"Simple Melee Weapons",
-            "items": [
-                item.config
-                for item in datamapper.weapons.getMultiple(
-                    "`type` = :weapon",
-                    {"weapon": "simple melee weapon"}
-                    )
-                ]
-            },
-        {
-            "name": u"Simple Ranged Weapons",
-            "items": [
-                item.config
-                for item in datamapper.weapons.getMultiple(
-                    "`type` = :weapon",
-                    {"weapon": "simple ranged weapon"}
-                    )
-                ]
-            },
-        {
-            "name": u"Martial Melee Weapons",
-            "items": [
-                item.config
-                for item in datamapper.weapons.getMultiple(
-                    "`type` = :weapon",
-                    {"weapon": "martial melee weapon"}
-                    )
-                ]
-            },
-        {
-            "name": u"Martial Ranged Weapons",
-            "items": [
-                item.config
-                for item in datamapper.weapons.getMultiple(
-                    "`type` = :weapon",
-                    {"weapon": "martial ranged weapon"}
-                    )
-                ]
-            }
-        ]
 
-    return jsonify(weaponsets)
+    items = datamapper[item_type].getMultiple()
+
+    return jsonify([
+        item.config
+        for item in items
+        ])
 
 
 @blueprint.route('/<string:item_type>/new')
@@ -103,61 +66,6 @@ def weapon_edit(item_type, item_id=None):
     return render_template(
         'reactjs-layout.html'
         )
-
-
-@blueprint.route('/armor')
-def armor():
-    if not request.is_xhr:
-        return render_template(
-            'reactjs-layout.html'
-            )
-
-    datamapper = get_datamapper()
-    armor = datamapper.items.armor
-    armorsets = [
-        {
-            "name": u"Light Armor",
-            "items": [
-                item.config
-                for item in datamapper.armor.getMultiple(
-                    "`type` = :armor",
-                    {"armor": "light armor"}
-                    )
-                ]
-            },
-        {
-            "name": u"Medium Armor",
-            "items": [
-                item.config
-                for item in datamapper.armor.getMultiple(
-                    "`type` = :armor",
-                    {"armor": "medium armor"}
-                    )
-                ]
-            },
-        {
-            "name": u"Heavy Armor",
-            "items": [
-                item.config
-                for item in datamapper.armor.getMultiple(
-                    "`type` = :armor",
-                    {"armor": "heavy armor"}
-                    )
-                ]
-            },
-        {
-            "name": u"Shields",
-            "items": [
-                item.config
-                for item in datamapper.armor.getMultiple(
-                    "`type` = :armor",
-                    {"armor": "shield armor"}
-                    )
-                ]
-            },
-        ]
-    return jsonify(armorsets)
-
 
 @blueprint.route('/<string:item_type>/api/<int:item_id>', methods=['GET'])
 def api_get(item_type, item_id):

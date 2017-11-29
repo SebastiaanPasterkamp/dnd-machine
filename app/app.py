@@ -211,13 +211,13 @@ def navigation():
     items_group['items'].append({
         'label': 'Weapons',
         'icon': 'cutlery',
-        'path': url_for('items.weapons'),
+        'path': url_for('items.get_list', item_type='weapons'),
         })
 
     items_group['items'].append({
         'label': 'Armor',
         'icon': 'shield',
-        'path': url_for('items.armor'),
+        'path': url_for('items.get_list', item_type='armor'),
         })
 
     navigation.append(items_group)
