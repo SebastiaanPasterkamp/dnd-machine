@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-import LoadableContainer from '../mixins/LoadableContainer.jsx';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
@@ -220,4 +220,6 @@ export class ArmorEdit extends React.Component
     }
 }
 
-export default LoadableContainer(ArmorEdit, "armor", "items");
+export default RoutedObjectDataWrapper(
+    ArmorEdit, "armor", "items"
+);

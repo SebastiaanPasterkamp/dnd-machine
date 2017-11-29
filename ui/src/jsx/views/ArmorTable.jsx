@@ -1,9 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import ItemStore from '../mixins/ItemStore.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
+import ArmorLinks from '../components/ArmorLinks.jsx';
+import Bonus from '../components/Bonus.jsx';
 import Damage from '../components/Damage.jsx';
 import Reach from '../components/Reach.jsx';
 import Coinage from '../components/Coinage.jsx';
@@ -30,11 +33,9 @@ class ArmorFooter extends LazyComponent
             <tr>
                 <td colSpan="4"></td>
                 <td>
-                    <Link
-                        to={"/items/armor/new"}
-                        className="nice-btn-alt icon fa-plus">
-                        New
-                    </Link>
+                    <ArmorLinks
+                        buttons={['new']}
+                        />
                 </td>
             </tr>
         </tbody>
@@ -46,11 +47,17 @@ class ArmorRow extends LazyComponent
     render() {
         return <tr
                 data-name={this.props.name}>
-            <td>{this.props.name}</td>
+            <td>
+                {this.props.name}<br/>
+                <i>({this.props.type})</i>
+            </td>
             <td>
                 {this.props.value}
                 {this.props.formula}
-                {this.bonus}
+                {this.props.bonus || null
+                    ? <Bonus bonus={this.props.bonus} />
+                    : null
+                }
             </td>
             <td>{this.props.cost
                 ? <Coinage {...this.props.cost} extended="1" />
@@ -86,64 +93,55 @@ class ArmorRow extends LazyComponent
                 </ul>
             </td>
             <td>{this.props.id != null ?
-                <Link
-                    to={"/items/armor/edit/" + this.props.id}
-                    className="nice-btn-alt icon fa-pencil">
-                    Edit
-                </Link> : null
+                <ArmorLinks
+                    buttons={['view', 'edit']}
+                    armor_id={this.props.id}
+                    />
+                : null
             }</td>
         </tr>
     }
 };
 
-class ArmorBody extends LazyComponent
+class ArmorTable extends LazyComponent
 {
-    filterItem(item) {
+    shouldDisplayRow(pattern, weapon) {
         return (
-            (item.name && item.name.search(this.props.pattern) >= 0)
+            (weapon.name && weapon.name.search(pattern) >= 0)
         );
     }
 
     render() {
-        let items = this.props.items
-            .filter((item, key) => this.filterItem(item));
-        if (!items.length) {
-            return null
+        if (this.props.armor == null) {
+            return null;
         }
+        let pattern = new RegExp(this.props.search || '', "i");
 
-        return <tbody key="body">
-            {items.map((item) => {
-                return <ArmorRow key={item.id} {...item}/>
-            })}
-        </tbody>;
-    }
-};
-
-class ArmorTable extends LazyComponent
-{
-    render() {
-        let pattern = new RegExp(this.props.search, "i");
         return <div>
             <h2 className="icon fa-shield">Armor</h2>
 
             <table className="nice-table condensed bordered responsive">
-                {this.props.armor
-                    .map((set, key) => {
-                        return [
-                            <ArmorHeader
-                                key="header"
-                                name={set.name}/>,
-                            <ArmorBody
-                                key={set.name}
-                                pattern={pattern}
-                                {...set}/>
-                        ];
-                    })
-                }
+                <ArmorHeader />
+                <tbody key="tbody">
+                    {_.map(this.props.armor, (armor) => {
+                        return this.shouldDisplayRow(pattern, armor)
+                            ? <ArmorRow
+                                key={armor.id}
+                                {...armor}
+                                />
+                            : null;
+                    })}
+                </tbody>
                 <ArmorFooter />
             </table>
         </div>
     }
 }
 
-export default ItemStore(ArmorTable, ['armor', 'search'], 'items');
+export default ListDataWrapper(
+    ObjectDataListWrapper(
+        ArmorTable,
+        {armor: {group: 'items', type: 'armor'}}
+    ),
+    ['search']
+);

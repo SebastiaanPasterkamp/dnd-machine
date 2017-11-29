@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-import LoadableContainer from '../mixins/LoadableContainer.jsx';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
@@ -199,4 +199,6 @@ export class WeaponEdit extends React.Component
     }
 }
 
-export default LoadableContainer(WeaponEdit, "weapons", "items");
+export default RoutedObjectDataWrapper(
+    WeaponEdit, "weapons", "items"
+);

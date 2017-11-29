@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-import LoadableContainer from '../mixins/LoadableContainer.jsx';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
@@ -177,4 +177,6 @@ export class CharacterEdit extends React.Component
     }
 }
 
-export default LoadableContainer(CharacterEdit, "character");
+export default RoutedObjectDataWrapper(
+    CharacterEdit, "character"
+);

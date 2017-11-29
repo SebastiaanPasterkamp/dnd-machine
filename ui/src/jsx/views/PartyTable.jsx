@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import ItemStore from '../mixins/ItemStore.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
 import CharacterLabel from '../components/CharacterLabel.jsx';
@@ -73,7 +74,7 @@ class PartyRow extends LazyComponent
             <td>
                 <div className="nice-progress stacked">
                     <div
-                        className="nice-progress-fill muted"
+                        className="nice-progress-fill accent"
                         style={{
                             width: (ratio.easy * 100.0) + '%',
                             height: '1.25rem'
@@ -119,26 +120,31 @@ class PartyRow extends LazyComponent
 
 class PartyTable extends LazyComponent
 {
-    filterRow(pattern, row) {
+    shouldDisplayRow(pattern, row) {
         return (
             (row.name && row.name.search(pattern) >= 0)
         );
     }
 
     render() {
-        let pattern = new RegExp(this.props.search, "i");
+        if (this.props.parties == null) {
+            return null;
+        }
+        let pattern = new RegExp(this.props.search || '', "i");
 
         return <div>
             <h2 className="icon fa-users">Party</h2>
             <table className="nice-table condensed bordered responsive">
                 <PartyHeader />
                 <tbody key="tbody">
-                    {this.props.party
-                        .filter((row) => this.filterRow(pattern, row))
-                        .map((row) => {
-                            return <PartyRow key={row.id} {...row}/>
-                        })
-                    }
+                    {_.map(this.props.parties, (party) => {
+                        return this.shouldDisplayRow(pattern, party)
+                            ? <PartyRow
+                                key={party.id}
+                                {...party}
+                                />
+                            : null;
+                    })}
                 </tbody>
                 <PartyFooter />
             </table>
@@ -146,4 +152,10 @@ class PartyTable extends LazyComponent
     }
 }
 
-export default ItemStore(PartyTable, ['party', 'search']);
+export default ListDataWrapper(
+    ObjectDataListWrapper(
+        PartyTable,
+        {parties: {type: 'party'}}
+    ),
+    ['search']
+);
