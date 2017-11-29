@@ -23,7 +23,23 @@ def find_caracter_field(character_data, field, value):
         if data['name'] == value:
             return data, None
 
-@blueprint.route('/')
+def exposeAttributes(character):
+    result = character.config
+
+    if 'dm' not in request.user.role \
+            and character.user_id != request.user.id:
+        fields = [
+            'id', 'name', 'gender', 'race', 'class', 'alignment',
+            'background', 'level', 'xp', 'xp_progress', 'xp_level'
+            ]
+        result = dict([
+            (key, character[key])
+            for key in fields
+            ])
+
+    return result
+
+@blueprint.route('/list')
 def overview():
     if not request.is_xhr:
         return render_template(
@@ -40,16 +56,8 @@ def overview():
             if character.user_id == request.user.id
             ]
 
-    fields = [
-        'id', 'name', 'gender', 'race', 'class', 'alignment',
-        'background', 'level', 'xp', 'xp_progress', 'xp_level'
-        ]
-
     return jsonify([
-        dict([
-            (key, character[key])
-            for key in fields
-            ])
+        exposeAttributes(character)
         for character in characters
         ])
 
@@ -887,17 +895,7 @@ def api_get(character_id):
     datamapper = get_datamapper()
     character = datamapper.character.getById(character_id)
 
-    result = character.config
-    if 'dm' not in request.user.role \
-            and character.user_id != request.user.id:
-        fields = [
-            'id', 'name', 'gender', 'race', 'class', 'alignment',
-            'background', 'level', 'xp', 'xp_progress', 'xp_level'
-            ]
-        result = dict([
-            (key, character[key])
-            for key in fields
-            ])
+    result = exposeAttributes(character)
 
     return jsonify(result)
 
