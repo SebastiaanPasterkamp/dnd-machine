@@ -2,38 +2,28 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import dataObjectActions from '../actions/dataObjectActions.jsx';
-import dataObjectStore from '../stores/dataObjectStore.jsx';
+import ObjectDataActions from '../actions/ObjectDataActions.jsx';
+import ObjectDataStore from '../stores/ObjectDataStore.jsx';
 
 
-function LoadableContainer(
+function RoutedObjectDataWrapper(
     WrappedComponent, loadableType, loadableGroup=null
 ) {
-
-    let initialState = dataObjectStore.getInitial(loadableType),
-        pathPrefix = '/' + _.filter([
+    let pathPrefix = '/' + _.filter([
             loadableGroup,
             loadableType
-            ]).join('/'),
-        apiPrefix = pathPrefix + '/api',
-        showPrefix = pathPrefix + '/show/';
+            ]).join('/');
 
     return class extends Reflux.Component {
         constructor(props) {
             super(props);
-            this.store = dataObjectStore;
-
-            this.mapStoreToState(dataObjectStore, (store) => {
-                return _.get(
-                    store,
-                    [loadableType, this.state.id]
-                );
-            });
-
-            this.state = initialState;
+            this.store = ObjectDataStore;
+            this.storeKeys = [loadableType];
         }
 
         componentWillMount() {
+            super.componentWillMount.call(this);
+
             let objectId = _.get(this.props, 'match.params.id');
             if (_.isUndefined(objectId)) {
                 return;
@@ -44,37 +34,58 @@ function LoadableContainer(
             }, () => this.onReload());
         }
 
+        getStateProps(state) {
+            return _.get(
+                state, [loadableType, this.state.id]
+            ) || ObjectDataStore.getInitial(loadableType);
+        }
+
+        shouldComponentUpdate(nextProps, nextState) {
+            if (!_.isEqual(this.props, nextProps)) {
+                return true;
+            }
+
+            let old_data = this.getStateProps(this.state),
+                new_data = this.getStateProps(nextState);
+
+            if (!_.isEqual(old_data, new_data)) {
+                return true;
+            }
+
+            return false;
+        }
+
         nextView(id=null) {
             this.props.history.push(id == null
                 ? pathPrefix
-                : showPrefix + id
+                : pathPrefix + '/show/' + id
             );
         }
 
         onReload() {
-            dataObjectActions.getObject(
+            ObjectDataActions.getObject(
                 loadableType,
                 this.state.id,
-                apiPrefix
+                loadableGroup
             );
         }
 
         onSave() {
             if (this.state.id == null) {
-                dataObjectActions.postObject(
+                ObjectDataActions.postObject(
                     loadableType,
                     this.state,
-                    apiPrefix,
+                    loadableGroup,
                     () => this.nextView()
                 );
             } else {
-                dataObjectActions.patchObject(
+                ObjectDataActions.patchObject(
                     loadableType,
                     this.state.id,
                     this.state,
-                    apiPrefix,
+                    loadableGroup,
                     () => this.nextView()
-            );
+                );
             }
         }
 
@@ -93,6 +104,8 @@ function LoadableContainer(
         }
 
         render() {
+            let data = this.getStateProps(this.state);
+
             return <WrappedComponent
                 setState={(state) => this.setState(state)}
                 cancel={() => this.nextView()}
@@ -102,10 +115,10 @@ function LoadableContainer(
                 }
                 save={() => this.onSave()}
                 {...this.props}
-                {...this.state}
+                {...data}
                 />
         }
     };
 }
 
-export default LoadableContainer;
+export default RoutedObjectDataWrapper;
