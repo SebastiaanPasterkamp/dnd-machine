@@ -1,8 +1,8 @@
 import React from 'react';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
-import ItemStore from '../mixins/ItemStore.jsx';
-import ObjectLoader from '../mixins/ObjectLoader.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
 class CharacterLinks extends BaseLinkGroup
 {
@@ -41,28 +41,32 @@ class CharacterLinks extends BaseLinkGroup
     }
 
     getAllowed() {
-        if (
-            this.props.character == null
-            || this.props.current_user == null
-        ) {
+        if (this.props.current_user == null) {
             return [];
         }
         if (
-            _.indexOf(
+            this.props.character == null
+            && _.intersection(
                 this.props.current_user.role || [],
-                'dm'
-            ) >= 0
+                ['dm', 'player']
+            ).length
+        ) {
+            return ['new'];
+        }
+        if (
+            _.intersection(
+                this.props.current_user.role || [],
+                ['dm']
+            ).length
+            || this.props.character.user_id == this.props.current_user.id
         ) {
             return ['download', 'edit', 'new', 'view'];
         }
-        if (this.props.character.user_id == this.props.current_user.id) {
-            return ['download', 'edit', 'new', 'view'];
-        }
         if (
-            _.indexOf(
+            _.intersection(
                 this.props.current_user.role || [],
-                'player'
-            ) >= 0
+                ['player']
+            ).length
         ) {
             return ['download', 'new', 'view'];
         }
@@ -74,8 +78,8 @@ CharacterLinks.defaultProps = {
     buttons: ['view', 'edit', 'pdf'],
 };
 
-export default ItemStore(
-        ObjectLoader(CharacterLinks, [
+export default ListDataWrapper(
+    ObjectDataWrapper(CharacterLinks, [
         {type: 'character', id: 'character_id'}
     ]),
     ['current_user']

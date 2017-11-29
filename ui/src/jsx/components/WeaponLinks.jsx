@@ -1,8 +1,8 @@
 import React from 'react';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
-import ItemStore from '../mixins/ItemStore.jsx';
-import ObjectLoader from '../mixins/ObjectLoader.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
 class WeaponLinks extends BaseLinkGroup
 {
@@ -34,25 +34,25 @@ class WeaponLinks extends BaseLinkGroup
     }
 
     getAllowed() {
-        if (
-            this.props.weapons == null
-            || this.props.current_user == null
-        ) {
+        if (this.props.current_user == null) {
             return [];
         }
         if (
-            _.indexOf(
+            _.intersection(
                 this.props.current_user.role || [],
-                'dm'
-            ) >= 0
+                ['dm']
+            ).length
         ) {
+            if (this.props.weapons == null) {
+                return ['new'];
+            }
             return ['edit', 'new', 'view'];
         }
         if (
-            _.indexOf(
+            _.intersection(
                 this.props.current_user.role || [],
-                'player'
-            ) >= 0
+                ['player']
+            ).length
         ) {
             return ['view'];
         }
@@ -64,8 +64,8 @@ WeaponLinks.defaultProps = {
     buttons: ['view', 'edit'],
 };
 
-export default ItemStore(
-        ObjectLoader(WeaponLinks, [
+export default ListDataWrapper(
+    ObjectDataWrapper(WeaponLinks, [
         {group: 'items', type: 'weapons', id: 'weapon_id'}
     ]),
     ['current_user']

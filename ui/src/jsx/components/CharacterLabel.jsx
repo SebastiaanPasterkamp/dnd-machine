@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ObjectLoader from '../mixins/ObjectLoader.jsx';
+import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
 import Progress from '../components/Progress.jsx';
@@ -49,6 +49,6 @@ class CharacterLabel extends LazyComponent
     }
 }
 
-export default ObjectLoader(CharacterLabel, [
+export default ObjectDataWrapper(CharacterLabel, [
     {type: 'character', id: 'character_id'}
 ]);
