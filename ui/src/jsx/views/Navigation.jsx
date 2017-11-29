@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+
 import LazyComponent from '../components/LazyComponent.jsx';
-import ItemStore from '../mixins/ItemStore.jsx';
 
 class Navigation extends LazyComponent
 {
@@ -42,4 +43,7 @@ class Navigation extends LazyComponent
     }
 }
 
-export default ItemStore(Navigation, ['navigation']);
+export default ListDataWrapper(
+    Navigation,
+    ['navigation']
+);

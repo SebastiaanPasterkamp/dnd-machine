@@ -1,7 +1,8 @@
 import React from 'react';
 
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+
 import LazyComponent from '../components/LazyComponent.jsx';
-import ItemStore from '../mixins/ItemStore.jsx';
 
 class LanguageHeader extends React.Component
 {
@@ -41,7 +42,11 @@ class LanguageTable extends LazyComponent
     }
 
     render() {
-        let pattern = new RegExp(this.props.search, "i");
+        if (this.props.languages == null) {
+            return null;
+        }
+        let pattern = new RegExp(this.props.search || '', "i");
+
         return <div>
             <h2 className="icon fa-language">Languages</h2>
             <table className="nice-table condensed bordered responsive">
@@ -50,7 +55,7 @@ class LanguageTable extends LazyComponent
                     {this.props.languages
                         .filter((row) => this.filterRow(pattern, row))
                         .map((row) => {
-                            return <LanguageRow key={row.id} {...row}/>
+                            return <LanguageRow key={row.name} {...row}/>
                         })
                     }
                 </tbody>
@@ -59,4 +64,8 @@ class LanguageTable extends LazyComponent
     }
 }
 
-export default ItemStore(LanguageTable, ['languages', 'search'], 'items');
+export default ListDataWrapper(
+    LanguageTable,
+    ['languages', 'search'],
+    'items'
+);

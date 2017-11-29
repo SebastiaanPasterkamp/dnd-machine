@@ -4,8 +4,6 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import {BrowserRouter as Router, Switch, Route, Link, Redirect} from 'react-router-dom';
 
-import ItemStore from './mixins/ItemStore.jsx';
-
 import ArmorEdit from './views/ArmorEdit.jsx';
 import ArmorTable from './views/ArmorTable.jsx';
 import CharacterEdit from './views/CharacterEdit.jsx';
@@ -62,10 +60,14 @@ ReactDom.render(
                     component={ArmorEdit}
                     />
                 <Route
-                    exact path="/items/armor"
+                    path="/items/armor/list"
                     component={ArmorTable}
                     />
 
+                <Route
+                    path="/character/list"
+                    component={CharactersTable}
+                    />
                 <Route
                     path="/character/edit/:id"
                     component={CharacterEdit}
@@ -74,13 +76,9 @@ ReactDom.render(
                     path="/character/new"
                     component={CharacterEdit}
                     />
-                <Route
-                    exact path="/character/"
-                    component={CharactersTable}
-                    />
 
                 <Route
-                    exact path="/party"
+                    path="/party/list"
                     component={PartyTable}
                     />
 
@@ -103,7 +101,7 @@ ReactDom.render(
                     component={WeaponEdit}
                     />
                 <Route
-                    exact path="/items/weapons"
+                    path="/items/weapons/list"
                     component={WeaponsTable}
                     />
 

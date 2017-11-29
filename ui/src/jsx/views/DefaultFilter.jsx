@@ -1,19 +1,20 @@
 import React from 'react';
 import Reflux from 'reflux';
 
-import listDataActions from '../actions/listDataActions.jsx';
-import DataStore from '../stores/dataStore.jsx';
+import ListDataStore from '../stores/ListDataStore.jsx';
+
+import ListDataActions from '../actions/ListDataActions.jsx';
 
 class DefaultFilter extends Reflux.Component
 {
     constructor(props) {
         super(props);
-        this.store = DataStore;
+        this.store = ListDataStore;
         this.storeKeys = ['search'];
     }
 
     onChange(event) {
-        listDataActions.setState({
+        ListDataActions.setState({
             search: event.target.value
         });
     }
@@ -26,7 +27,7 @@ class DefaultFilter extends Reflux.Component
                     className="nice-form-control"
                     type="text"
                     name="search"
-                    value={this.state.search.text}
+                    value={this.state.search}
                     placeholder="Search..."
                     onChange={(event) => this.onChange(event)}
                     />

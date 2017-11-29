@@ -1,6 +1,7 @@
 import React from 'react';
 
-import ItemStore from '../mixins/ItemStore.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
 import CharacterLinks from '../components/CharacterLinks.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
@@ -94,28 +95,33 @@ class CharactersRow extends LazyComponent
 
 class CharactersTable extends LazyComponent
 {
-    filterRow(pattern, row) {
+    shouldDisplayRow(pattern, character) {
         return (
-            (row.name && row.name.search(pattern) >= 0)
-            || (row.class && row.class.search(pattern) >= 0)
-            || (row.race && row.race.search(pattern) >= 0)
+            (character.name && character.name.search(pattern) >= 0)
+            || (character.class && character.class.search(pattern) >= 0)
+            || (character.race && character.race.search(pattern) >= 0)
         );
     }
 
     render() {
-        let pattern = new RegExp(this.props.search, "i");
+        if (this.props.characters == null) {
+            return null;
+        }
+        let pattern = new RegExp(this.props.search || '', "i");
 
         return <div>
             <h2 className="icon fa-user-secret">Characters</h2>
             <table className="nice-table condensed bordered responsive">
                 <CharactersHeader />
                 <tbody key="tbody">
-                    {this.props.character
-                        .filter((row) => this.filterRow(pattern, row))
-                        .map((row) => {
-                            return <CharactersRow key={row.id} {...row}/>
-                        })
-                    }
+                    {_.map(this.props.characters, (character) => {
+                        return this.shouldDisplayRow(pattern, character)
+                            ? <CharactersRow
+                                key={character.id}
+                                {...character}
+                                />
+                            : null;
+                    })}
                 </tbody>
                 <CharactersFooter />
             </table>
@@ -123,4 +129,10 @@ class CharactersTable extends LazyComponent
     }
 }
 
-export default ItemStore(CharactersTable, ['character', 'search']);
+export default ListDataWrapper(
+    ObjectDataListWrapper(
+        CharactersTable,
+        {characters: {type: 'character'}}
+    ),
+    ['search']
+);

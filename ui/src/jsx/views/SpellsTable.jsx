@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-import ItemStore from '../mixins/ItemStore.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
 import MultiSelect from '../components/MultiSelect.jsx';
@@ -152,6 +152,9 @@ class SpellsTable extends React.Component
     }
 
     render() {
+        if (this.props.spells == null) {
+            return null;
+        }
         let pattern = new RegExp(this.state.name, "i");
 
         return <div>
@@ -163,7 +166,7 @@ class SpellsTable extends React.Component
                     {this.props.spells
                         .filter((row) => this.filterRow(pattern, row))
                         .map((row) => {
-                            return <SpellRow key={row.id} {...row}/>
+                            return <SpellRow key={row.name} {...row}/>
                         })
                     }
                 </tbody>
@@ -172,4 +175,6 @@ class SpellsTable extends React.Component
     }
 }
 
-export default ItemStore(SpellsTable, ['spells'], 'items');
+export default ListDataWrapper(
+    SpellsTable, ['spells'], 'items'
+);

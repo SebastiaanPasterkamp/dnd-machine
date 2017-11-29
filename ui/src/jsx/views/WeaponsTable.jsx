@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import ItemStore from '../mixins/ItemStore.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
 import Coinage from '../components/Coinage.jsx';
@@ -9,12 +10,16 @@ import Damage from '../components/Damage.jsx';
 import Reach from '../components/Reach.jsx';
 import WeaponLinks from '../components/WeaponLinks.jsx';
 
-class WeaponsHeader extends LazyComponent
+class WeaponsHeader extends React.Component
 {
+    shouldComponentUpdate() {
+        return false;
+    }
+
     render() {
-        return <thead>
+        return <thead key="thead">
             <tr>
-                <th>{this.props.name}</th>
+                <th>Name</th>
                 <th>Damage</th>
                 <th>Range</th>
                 <th>Cost</th>
@@ -34,7 +39,6 @@ class WeaponsFooter extends LazyComponent
                 <td>
                     <WeaponLinks
                         buttons={['new']}
-                        weapon_id={this.props.id}
                         />
                 </td>
             </tr>
@@ -63,7 +67,10 @@ class WeaponsRow extends LazyComponent
     render() {
         return <tr
                 data-name={this.props.name}>
-            <td>{this.props.name}</td>
+            <td>
+                {this.props.name}<br/>
+                <i>({this.props.type})</i>
+            </td>
             <td><Damage {...this.props.damage}/></td>
             <td>{this.props.range
                 ? <Reach {...this.props.range}/>
@@ -92,54 +99,44 @@ class WeaponsRow extends LazyComponent
     }
 };
 
-class WeaponsBody extends LazyComponent
+class WeaponsTable extends LazyComponent
 {
-    filterItem(item) {
+    shouldDisplayRow(pattern, weapon) {
         return (
-            (item.name && item.name.search(this.props.pattern) >= 0)
+            (weapon.name && weapon.name.search(pattern) >= 0)
         );
     }
 
     render() {
-        let items = this.props.items
-            .filter((item, key) => this.filterItem(item));
-        if (!items.length) {
-            return null
+        if (this.props.weapons == null) {
+            return null;
         }
-
-        return <tbody key="body">
-            {items.map((item) => {
-                return <WeaponsRow key={item.id} {...item}/>
-            })}
-        </tbody>;
-    }
-};
-
-class WeaponsTable extends LazyComponent
-{
-    render() {
-        let pattern = new RegExp(this.props.search, "i");
+        let pattern = new RegExp(this.props.search || '', "i");
 
         return <div>
             <h2 className="icon fa-cutlery">Weapons</h2>
             <table className="nice-table condensed bordered responsive">
-                {this.props.weapons
-                    .map((set, key) => {
-                        return [
-                            <WeaponsHeader
-                                key={"header-" + set.name}
-                                name={set.name}/>,
-                            <WeaponsBody
-                                key={"body-" + set.name}
-                                pattern={pattern}
-                                {...set}/>
-                        ];
-                    })
-                }
+                <WeaponsHeader />
+                <tbody key="tbody">
+                    {_.map(this.props.weapons, (weapon) => {
+                        return this.shouldDisplayRow(pattern, weapon)
+                            ? <WeaponsRow
+                                key={weapon.id}
+                                {...weapon}
+                                />
+                            : null;
+                    })}
+                </tbody>
                 <WeaponsFooter />
             </table>
         </div>
     }
 }
 
-export default ItemStore(WeaponsTable, ['weapons', 'search'], 'items');
+export default ListDataWrapper(
+    ObjectDataListWrapper(
+        WeaponsTable,
+        {weapons: {group: 'items', type: 'weapons'}}
+    ),
+    ['search']
+);

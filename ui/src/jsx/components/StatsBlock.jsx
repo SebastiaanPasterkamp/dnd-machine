@@ -2,7 +2,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import ItemStore from '../mixins/ItemStore.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 
 import Bonus from '../components/Bonus.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
@@ -181,4 +181,4 @@ StatsBlock.defaultProps = {
     }
 };
 
-export default ItemStore(StatsBlock, ['statistics']);
+export default ListDataWrapper(StatsBlock, ['statistics']);
