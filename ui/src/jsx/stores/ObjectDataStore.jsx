@@ -3,44 +3,64 @@ import Reflux from 'reflux';
 
 import _ from 'lodash';
 
-import dataObjectActions from '../actions/dataObjectActions.jsx';
+import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
-class dataObjectStore extends Reflux.Store
+class ObjectDataStore extends Reflux.Store
 {
     constructor()
     {
         super();
-        this.state = {
-            armor: {},
-            characters: {},
-            npc: {},
-            weapons: {},
-        };
-        this.listenables = dataObjectActions;
+        this.state = {};
+        this.listenables = ObjectDataActions;
     }
 
     updateObject(type, id, data) {
+        if (_.isEqual(data, _.get(this.state, [type, id]))) {
+            return;
+        }
         let update = {};
+
         update[type] = {};
         update[type][id] = data;
-        let state = _.merge(
+        update[type] = _.merge(
             {},
-            this.state,
-            update
+            this.state[type],
+            update[type]
         );
-        this.setState(state);
+
+        this.setState(update);
     };
 
-    onGetObjectCompleted(type, id, result) {
-        this.updateObject(type, id, result);
+    onListObjectsCompleted(type, objects) {
+        let update = {};
+
+        update[type] = _.reduce(objects, (mapped, object) => {
+            let old_object = _.get(this.state, [type, object.id]);
+            if (_.isEqual(object, old_object)) {
+                mapped[object.id] = old_object;
+            } else {
+                mapped[object.id] = object;
+            }
+            return mapped;
+        }, {});
+
+        if (_.isEqual(update, _.get(this.state, type))) {
+            return;
+        }
+
+        this.setState(update);
     }
 
-    onPatchObjectCompleted(type, id, result) {
-        this.updateObject(type, id, result);
+    onGetObjectCompleted(type, id, object) {
+        this.updateObject(type, id, object);
     }
 
-    onPostObjectCompleted(type, id, result) {
-        this.updateObject(type, id, result);
+    onPatchObjectCompleted(type, id, object) {
+        this.updateObject(type, id, object);
+    }
+
+    onPostObjectCompleted(type, id, object) {
+        this.updateObject(type, id, object);
     }
 
     onDeleteObjectCompleted(type, id) {
@@ -51,7 +71,7 @@ class dataObjectStore extends Reflux.Store
     }
 }
 
-dataObjectStore.initial = {
+ObjectDataStore.initial = {
     armor: {
         id: null,
         type: 'light armor',
@@ -119,13 +139,13 @@ dataObjectStore.initial = {
     },
 };
 
-dataObjectStore.getInitial = (type) => {
-    if (!(type in dataObjectStore.initial)) {
+ObjectDataStore.getInitial = (type) => {
+    if (!(type in ObjectDataStore.initial)) {
         return {
             id: null
         }
     }
-    return dataObjectStore.initial[type];
+    return ObjectDataStore.initial[type];
 };
 
-export default dataObjectStore;
+export default ObjectDataStore;

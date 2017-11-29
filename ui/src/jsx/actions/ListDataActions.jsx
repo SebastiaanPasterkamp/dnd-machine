@@ -2,17 +2,17 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-var listDataActions = Reflux.createActions({
+var ListDataActions = Reflux.createActions({
     "setState": {},
     "fetchItems": {children: ['completed', 'failed']}
 });
+let throttledGet = {};
 
-let debouncedGet = {};
-listDataActions.fetchItems.listen((type, category=null) => {
+ListDataActions.fetchItems.listen((type, category=null) => {
     let path = '/' + _.filter([category, type]).join('/');
 
-    if (!(path in debouncedGet)) {
-        debouncedGet[path] = _.debounce((path, type) => {
+    if (!(path in throttledGet)) {
+        throttledGet[path] = _.throttle((path, type) => {
 
             fetch(path, {
                 credentials: 'same-origin',
@@ -24,16 +24,16 @@ listDataActions.fetchItems.listen((type, category=null) => {
             .then((data) => {
                 let update = [];
                 update[type] = data;
-                listDataActions.fetchItems.completed(update);
+                ListDataActions.fetchItems.completed(update);
             })
             .catch((error) => {
                 console.error(error);
-                listDataActions.fetchItems.failed(type, error);
+                ListDataActions.fetchItems.failed(type, error);
             });
         }, 1000, {leading: true, trailing: false});
     }
 
-    debouncedGet[path](path, type);
+    throttledGet[path](path, type);
 });
 
-export default listDataActions;
+export default ListDataActions;
