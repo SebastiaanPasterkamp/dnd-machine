@@ -99,10 +99,10 @@
                                     <a href="{{ url_for('items.languages') }}" class="icon fa-language">Languages</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url_for('items.weapons') }}" class="icon fa-cutlery">Weapons</a>
+                                    <a href="{{ url_for('items.get_list', item_type='weapons') }}" class="icon fa-cutlery">Weapons</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url_for('items.armor') }}" class="icon fa-shield">Armor</a>
+                                    <a href="{{ url_for('items.get_list', item_type='armor') }}" class="icon fa-shield">Armor</a>
                                 </li>
                             </ul>
                         </li>
