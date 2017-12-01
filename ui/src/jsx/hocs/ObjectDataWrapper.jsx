@@ -16,27 +16,30 @@ function ObjectDataWrapper(
             this.store = ObjectDataStore;
             this.storeKeys = _.map(loadables, (loadable) => {
                 return loadable.type;
-            });
+            }).concat(['timestamp']);
         }
 
         componentDidMount() {
             _.map(loadables, (loadable) => {
-                let prop_id = this.props[loadable.id] || undefined,
-                    object = _.get(this.state, [loadable.type, prop_id]);
+                let prop_id = this.props[loadable.id] || undefined;
 
-                if (prop_id == undefined) {
+                if (prop_id == undefined || prop_id == null) {
                     return;
                 }
 
-                if (object != null) {
-                    return;
-                }
+                let timestamp = _.get(
+                        this.state.timestamp,
+                        [loadable.type, prop_id]
+                    ),
+                    max_age = Date.now() - 60.0 * 1000.0;
 
-                ObjectDataActions.getObject(
-                    loadable.type,
-                    prop_id,
-                    loadable.group || null
-                );
+                if (!timestamp || timestamp < max_age) {
+                    ObjectDataActions.getObject(
+                        loadable.type,
+                        prop_id,
+                        loadable.group || null
+                    );
+                }
             });
         }
 
