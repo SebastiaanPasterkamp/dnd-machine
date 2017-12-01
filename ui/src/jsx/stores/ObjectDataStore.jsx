@@ -10,7 +10,9 @@ class ObjectDataStore extends Reflux.Store
     constructor()
     {
         super();
-        this.state = {};
+        this.state = {
+            timestamp: {}
+        };
         this.listenables = ObjectDataActions;
     }
 
@@ -18,35 +20,65 @@ class ObjectDataStore extends Reflux.Store
         if (_.isEqual(data, _.get(this.state, [type, id]))) {
             return;
         }
-        let update = {};
 
-        update[type] = {};
-        update[type][id] = data;
-        update[type] = _.merge(
-            {},
-            this.state[type],
-            update[type]
-        );
+        let update = {
+            timestamp: _.merge(
+                {},
+                this.state.timestamp,
+                {[type]: _.merge(
+                    {},
+                    this.state.timestamp[type],
+                    {[id]: Date.now()}
+                )}
+            ),
+            [type]: _.merge(
+                {},
+                this.state[type],
+                {[id]: data}
+            )
+        };
 
         this.setState(update);
     };
 
     onListObjectsCompleted(type, objects) {
-        let update = {};
+        let update = {
+            timestamp: {}
+        };
 
-        update[type] = _.reduce(objects, (mapped, object) => {
-            let old_object = _.get(this.state, [type, object.id]);
-            if (_.isEqual(object, old_object)) {
-                mapped[object.id] = old_object;
+        update = _.reduce(objects, (mapped, object) => {
+            let old_object = _.get(
+                    this.state,
+                    [type, object.id]
+                ),
+                old_timestamp = _.get(
+                    this.state.timestamp,
+                    [type, object.id]
+                );
+
+            if (old_object && _.isEqual(object, old_object)) {
+                mapped[type][object.id] = old_object;
+                mapped.timestamp[type][object.id] = old_timestamp;
             } else {
-                mapped[object.id] = object;
+                mapped[type][object.id] = object;
+                mapped.timestamp[type][object.id] = Date.now();
             }
-            return mapped;
-        }, {});
 
-        if (_.isEqual(update, _.get(this.state, type))) {
+            return mapped;
+        }, {
+            timestamp: {[type]: {}},
+            [type]: {}
+        });
+
+        if (_.isEqual(update[type], _.get(this.state, type))) {
             return;
         }
+
+        update.timestamp = _.merge(
+            {},
+            this.state.timestamp,
+            update.timestamp
+        );
 
         this.setState(update);
     }
