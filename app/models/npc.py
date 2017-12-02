@@ -146,26 +146,25 @@ class NpcObject(JsonObject):
                     }
                 }
             )
-        self.compute()
+        self.update()
 
-    def update(self, update):
-        if "base_stats" in update:
-            for path, compute in update['computed'].items():
+    def update(self):
+        if "base_stats" in self._config:
+            for path, compute in self._config['computed'].items():
                 if 'formula' not in compute:
                     continue
                 compute['formula'] = compute['formula'].replace(
                     ' modifiers', ' statistics.modifiers')
-            update['statistics'] = {
-                "bare": update['base_stats'],
-                "bonus": update['stats_bonus'],
-                "base": update['stats'],
-                "modifiers": update['modifiers']
+            self._config['statistics'] = {
+                "bare": self._config['base_stats'],
+                "bonus": self._config['stats_bonus'],
+                "base": self._config['stats'],
+                "modifiers": self._config['modifiers']
                 }
-            del update['base_stats']
-            del update['stats_bonus']
-            del update['stats']
-            del update['modifiers']
-        self._config = self._merge(self._config, update)
+            del self._config['base_stats']
+            del self._config['stats_bonus']
+            del self._config['stats']
+            del self._config['modifiers']
         self.compute()
 
     def compute(self):

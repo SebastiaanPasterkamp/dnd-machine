@@ -10,7 +10,6 @@ class CampaignObject(JsonObject):
                 'toc': {}
                 }
             )
-        self.compute()
 
 class CampaignMapper(JsonObjectDataMapper):
     obj = CampaignObject

@@ -16,7 +16,6 @@ class PartyObject(JsonObject):
                 'challenge': {}
                 }
             )
-        self.compute()
 
     @property
     def members(self):

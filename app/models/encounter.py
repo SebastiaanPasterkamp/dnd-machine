@@ -43,7 +43,6 @@ class EncounterObject(JsonObject):
                     }
                 }
             )
-        self.compute()
 
     @property
     def party(self):

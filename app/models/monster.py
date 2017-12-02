@@ -95,7 +95,6 @@ class MonsterObject(JsonObject):
                     }
                 }
             )
-        self.compute()
 
     def compute(self):
         config = get_config()

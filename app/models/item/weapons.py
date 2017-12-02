@@ -38,7 +38,6 @@ class WeaponObject(JsonObject):
                     }
                 }
             )
-        self.compute()
 
 class WeaponMapper(JsonObjectDataMapper):
     obj = WeaponObject
