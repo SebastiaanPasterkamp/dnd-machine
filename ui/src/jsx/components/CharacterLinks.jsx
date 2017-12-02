@@ -44,14 +44,16 @@ class CharacterLinks extends BaseLinkGroup
         if (this.props.current_user == null) {
             return [];
         }
-        if (
-            this.props.character == null
-            && _.intersection(
-                this.props.current_user.role || [],
-                ['dm', 'player']
-            ).length
-        ) {
-            return ['new'];
+        if (this.props.character == null) {
+            if (
+                _.intersection(
+                    this.props.current_user.role || [],
+                    ['dm', 'player']
+                ).length
+            ) {
+                return ['new'];
+            }
+            return [];
         }
         if (
             _.intersection(
