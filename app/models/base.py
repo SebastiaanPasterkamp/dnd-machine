@@ -16,8 +16,9 @@ class JsonObject(object):
         self._fieldTypes = kwargs.get('fieldTypes', {})
         self._fieldTypes['id'] = int
 
-        self._config = self._merge({}, self._defaultConfig)
-        self.update(config)
+        #self._config = self._merge({}, self._defaultConfig)
+        #self.update(config)
+        self._config = config
 
     @property
     def config(self):
@@ -53,36 +54,26 @@ class JsonObject(object):
     def update(self, update):
         self._config = self._merge(self._config, update)
 
-    def _merge(self, a, b, path=None, cast=None):
-        path = path or []
+    def _merge(self, a, b, cast=None):
         cast = cast or self._fieldTypes
 
         if isinstance(a, dict) and isinstance(b, dict):
             for key in b:
                 _cast = self._defaultFieldType
                 if isinstance(cast, dict):
-                    _cast = cast.get(
-                        key,
-                        cast.get('*', self._defaultFieldType)
-                        )
+                    _cast = cast.get(key, cast.get('*', self._defaultFieldType))
                 if key not in a:
                     a[key] = b[key]
-                a[key] = self._merge(
-                    a[key], b[key],
-                    path + [key],
-                    _cast
-                    )
+                a[key] = self._merge(a[key], b[key], _cast)
             return a
 
         if isinstance(a, list) and isinstance(b, list):
-            return [
-                self._merge(
-                    a[i] if i < len(a) else b[i], b[i],
-                    path + [i],
-                    cast
-                    )
-                for i in range(len(b))
-                ]
+            for i in range(len(b)):
+                if i < len(a):
+                    a[i] = self._merge(a[i], b[i], cast)
+                else:
+                    a.append(self._merge(b[i], b[i], cast))
+            return a
 
         if cast == int and b in [None, '']:
             return 0
@@ -204,28 +195,12 @@ class JsonObject(object):
             rv = rv[step]
         return rv
 
-    def castFieldType(self, path, value):
+    def castFieldType(self, path, value, cast=None):
         if not isinstance(path, list):
             path = self.splitPath(path)
-
-        if isinstance(value, list):
-            return [
-                self.castFieldType(path, v)
-                for v in value
-                ]
-
-        if isinstance(value, dict):
-            return dict([
-                (step, self.castFieldType(path + [step], v))
-                for step, v in value.iteritems()
-                ])
-
-        if len(path) == 1 and path[0] == 'id':
-            cast = int
-        else:
+        if cast is None:
             path = [
-                step
-                for step in path
+                step for step in path
                 if not isinstance(step, int) and step != '+'
                 ]
             cast = self.getPath(
@@ -234,9 +209,25 @@ class JsonObject(object):
                 structure=self._fieldTypes
                 )
 
-        if cast in [dict, list]:
-            raise Exception("Invalid type for %s. Expected %s, received %s (%r)" % (
-                path, cast, type(value), value))
+        if isinstance(value, list):
+            return [
+                self.castFieldType(path, v, cast)
+                for v in value
+                ]
+
+        if isinstance(value, dict):
+            def _getCast(cast, key):
+                if isinstance(cast, dict):
+                    return cast.get(
+                        key,
+                        cast.get('*', self._defaultFieldType)
+                        )
+                return self._defaultFieldType
+
+            return dict([
+                (step, self.castFieldType(path + [step], v, _getCast(cast, step)))
+                for step, v in value.iteritems()
+                ])
 
         if cast == int and value in [None, '']:
             return 0
@@ -245,7 +236,7 @@ class JsonObject(object):
             return cast(value)
         except Exception as error:
             print self.id, error, path, cast, type(value), value
-        return value
+
 
     def setPath(self, path, value):
         if not isinstance(path, list):

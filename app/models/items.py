@@ -74,7 +74,6 @@ class ItemsObject(JsonObject):
                     }
                 }
             )
-        self.compute()
 
     def getList(self, paths):
         paths = paths.split(',')

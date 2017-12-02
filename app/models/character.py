@@ -209,7 +209,6 @@ class CharacterObject(JsonObject):
                     }
                 }
             )
-        self.compute()
 
     def compute(self):
         config = get_config()
