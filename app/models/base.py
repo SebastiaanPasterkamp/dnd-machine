@@ -14,6 +14,7 @@ class JsonObject(object):
         self._defaultConfig = kwargs.get('defaultConfig', {})
         self._defaultFieldType = kwargs.get('defaultFieldType', unicode)
         self._fieldTypes = kwargs.get('fieldTypes', {})
+        self._fieldTypes['id'] = int
 
         self._config = self._merge({}, self._defaultConfig)
         self.update(config)
@@ -51,34 +52,42 @@ class JsonObject(object):
 
     def update(self, update):
         self._config = self._merge(self._config, update)
-        self.compute()
 
-    def _merge(self, a, b, path=None):
-        if path is None:
-            path = []
-            b = self.castFieldType(path, b)
+    def _merge(self, a, b, path=None, cast=None):
+        path = path or []
+        cast = cast or self._fieldTypes
 
         if isinstance(a, dict) and isinstance(b, dict):
             for key in b:
-                if key in a:
-                    a[key] = self._merge(a[key], b[key], path + [key])
-                else:
+                _cast = self._defaultFieldType
+                if isinstance(cast, dict):
+                    _cast = cast.get(
+                        key,
+                        cast.get('*', self._defaultFieldType)
+                        )
+                if key not in a:
                     a[key] = b[key]
-        elif isinstance(a, list) and isinstance(b, list):
-            a.extend([
-                self.castFieldType(path, value)
-                for value in b
-                ])
-        else:
-            b = self.castFieldType(path, b)
-            if type(a) == type(b):
-                return b
-            raise Exception('Conflict at %r: %s vs %s (%r vs %r)' % (
-                path,
-                type(a), type(b),
-                a, b
-                ))
-        return a
+                a[key] = self._merge(
+                    a[key], b[key],
+                    path + [key],
+                    _cast
+                    )
+            return a
+
+        if isinstance(a, list) and isinstance(b, list):
+            return [
+                self._merge(
+                    a[i] if i < len(a) else b[i], b[i],
+                    path + [i],
+                    cast
+                    )
+                for i in range(len(b))
+                ]
+
+        if cast == int and b in [None, '']:
+            return 0
+
+        return cast(b)
 
     def updateFromPost(self, form):
         for field, value in form.iteritems():
@@ -198,9 +207,6 @@ class JsonObject(object):
     def castFieldType(self, path, value):
         if not isinstance(path, list):
             path = self.splitPath(path)
-
-        if path and path[-1] == u'cost' and isinstance(value, list):
-            return {value[1]: int(value[0])}
 
         if isinstance(value, list):
             return [
