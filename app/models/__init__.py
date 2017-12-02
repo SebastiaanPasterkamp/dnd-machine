@@ -23,26 +23,36 @@ class Datamapper(object):
     """Contains instances for each type.
     """
     def __init__(self, db):
-        config = get_config()
-        self.machine = DndMachine(config['machine'], get_item_data())
-        self.user = UserMapper(db)
-        self.party = PartyMapper(db)
-        self.character = CharacterMapper(db)
-        self.encounter = EncounterMapper(db)
-        self.monster = MonsterMapper(db)
-        self.npc = NpcMapper(db)
-        self.armor = ArmorMapper(db)
-        self.weapons = WeaponMapper(db)
-        self.campaign = CampaignMapper(db)
-        self.items = ItemsObject(
-            os.path.abspath(
-                os.path.join(
-                    os.path.dirname(__file__),
-                    '..',
-                    'item-data.json'
+        self.db = db
+        self._creators = {
+            'machine': lambda: DndMachine(
+                get_config()['machine'], get_item_data()),
+            'user': lambda: UserMapper(self.db),
+            'party': lambda: PartyMapper(db),
+            'character': lambda: CharacterMapper(db),
+            'encounter': lambda: EncounterMapper(db),
+            'monster': lambda: MonsterMapper(db),
+            'npc': lambda: NpcMapper(db),
+            'armor': lambda: ArmorMapper(db),
+            'weapons': lambda: WeaponMapper(db),
+            'campaign': lambda: CampaignMapper(db),
+            'items': lambda: ItemsObject(
+                os.path.abspath(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        '..',
+                        'item-data.json'
+                        )
                     )
                 )
-            )
+            }
 
     def __getitem__(self, mapper):
+        if mapper not in self.__dict__:
+            self.__dict__[mapper] = self._creators[mapper]()
+        return self.__dict__[mapper]
+
+    def __getattr__(self, mapper):
+        if mapper not in self.__dict__:
+            self.__dict__[mapper] = self._creators[mapper]()
         return self.__dict__[mapper]
