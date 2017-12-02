@@ -35,7 +35,7 @@ class CharacterLabel extends LazyComponent
                         },
                         {
                             value: 0.33,
-                            label: char.xp
+                            label: char.xp_progress
                         },
                         {
                             value: 0.10,

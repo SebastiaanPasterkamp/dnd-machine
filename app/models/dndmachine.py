@@ -73,7 +73,7 @@ class DndMachine(object):
             if xp < xp_level:
                 break
             xp_offset = xp_level
-        return level, xp - xp_offset, xp_level
+        return level, xp - xp_offset, xp_level - xp_offset
 
     def challengeByLevel(self, level, formula=False):
         """Returns the Challenge Rating in XP by level
