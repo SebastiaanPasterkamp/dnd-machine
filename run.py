@@ -3,7 +3,7 @@
 
 import os
 
-from dndmachine.app import app
+from app.app import app
 from optparse import OptionParser
 
 parser = OptionParser("""D&D Machine Web App""")
