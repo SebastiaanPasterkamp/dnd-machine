@@ -73,7 +73,7 @@ class CharactersRow extends LazyComponent
                         },
                         {
                             value: 0.33,
-                            label: this.props.xp
+                            label: this.props.xp_progress
                         },
                         {
                             value: 0.10,
