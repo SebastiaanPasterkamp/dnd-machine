@@ -127,10 +127,19 @@ def home():
 @app.route('/current_user')
 def current_user():
     if session.get('user_id') is None:
-        abort(404)
+        return jsonify(None)
     return redirect(url_for(
         'user.api_get',
         user_id=session.get('user_id')
+        ))
+
+@app.route('/hosted_party')
+def hosted_party():
+    if session.get('party_id') is None:
+        return jsonify(None)
+    return redirect(url_for(
+        'party.api_get',
+        party_id=session.get('party_id')
         ))
 
 @app.route('/navigation')

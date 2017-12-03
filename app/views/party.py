@@ -152,8 +152,13 @@ def new():
 
 @blueprint.route('/host/<int:party_id>')
 def host(party_id):
-    session['party_id'] = party_id
-    return redirect(request.referrer)
+    session['party_id'] = party_id or None
+    if session['party_id'] is None:
+        return jsonify(None)
+    return redirect(url_for(
+        'party.api_get',
+        party_id=party_id
+        ))
 
 @blueprint.route('/<int:party_id>/<action>_character/<int:character_id>')
 @blueprint.route('/<int:party_id>/award_<action>/<int:encounter_id>')
@@ -214,6 +219,9 @@ def api_get(party_id):
     datamapper = get_datamapper()
 
     party = datamapper.party.getById(party_id)
+    if not party:
+        return jsonify(None)
+
     party.members = datamapper.character.getByPartyId(party_id)
 
     result = exposeAttributes(party)
