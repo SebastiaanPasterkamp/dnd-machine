@@ -26,6 +26,14 @@ class BaseLinkGroup extends LazyComponent
                     return null;
                 }
                 let props = func();
+                if ('action' in props) {
+                    return <a
+                        key={button}
+                        onClick={props.action}
+                        className={"nice-btn-alt cursor-pointer icon fa-" + props.icon}>
+                        {props.label}
+                    </a>;
+                }
                 return <Link
                     key={button}
                     to={props.link}
