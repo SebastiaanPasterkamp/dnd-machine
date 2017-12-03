@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 var ListDataActions = Reflux.createActions({
     "setState": {},
-    "fetchItems": {children: ['completed', 'failed']}
+    "fetchItems": {children: ['completed', 'failed']},
 });
 let throttledGet = {};
 

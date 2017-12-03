@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ListDataActions from '../actions/ListDataActions.jsx';
+
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
@@ -24,9 +26,45 @@ class PartyLinks extends BaseLinkGroup
                 };
             },
             'host': () => {
+                if (
+                    this.props.hosted_party
+                    && this.props.party.id == this.props.hosted_party.id
+                ) {
+                    return {
+                        label: 'Stop',
+                        action: () => {
+                            fetch("/party/host/0", {
+                                credentials: 'same-origin',
+                                'headers': {
+                                    'X-Requested-With': 'XMLHttpRequest'
+                                }
+                            })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                ListDataActions.fetchItems.completed({
+                                    hosted_party: data
+                                });
+                            });
+                        },
+                        icon: 'ban',
+                    };
+                }
                 return {
                     label: 'Host',
-                    link: "/party/host/" + this.props.party.id,
+                    action: () => {
+                        fetch("/party/host/" + this.props.party.id, {
+                            credentials: 'same-origin',
+                            'headers': {
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            ListDataActions.fetchItems.completed({
+                                hosted_party: data
+                            });
+                        });
+                    },
                     icon: 'beer',
                 };
             },
@@ -67,5 +105,5 @@ export default ListDataWrapper(
     ObjectDataWrapper(PartyLinks, [
         {type: 'party', id: 'party_id'}
     ]),
-    ['current_user']
+    ['current_user', 'hosted_party']
 );

@@ -15,7 +15,6 @@ function ListDataWrapper(WrappedComponent, storeKeys, storeCategory=null) {
             };
             this.store = ListDataStore;
             this.storeKeys = storeKeys;
-
         }
 
         componentDidMount() {
