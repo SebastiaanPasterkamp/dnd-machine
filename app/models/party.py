@@ -10,7 +10,8 @@ class PartyObject(JsonObject):
                 'user_id': int,
                 'challenge': {
                     "*": int
-                    }
+                    },
+                'members': int
                 },
             defaultConfig = {
                 'challenge': {}
