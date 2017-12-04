@@ -88,7 +88,7 @@
                 <div class="nice-btn-group pull-right">
                     <a href="{{ url_for('character.show', character_id=character.id, party_id=party.id) }}" class="nice-btn icon fa-eye">View</a>
                     {% if 'dm' in request.user.role and party.user_id == request.user.id %}
-                    <a href="{{ url_for('party.modify', party_id=party.id, action='del', character_id=character.id) }}" class="nice-btn bad icon fa-times">Remove</a>
+                    <a href="{{ url_for('party.modify_members', party_id=party.id, action='del', character_id=character.id) }}" class="nice-btn bad icon fa-times">Remove</a>
                     {% endif %}
                 </div>
             </td>
