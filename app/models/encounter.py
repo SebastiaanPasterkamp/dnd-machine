@@ -1,6 +1,8 @@
 from base import JsonObject, JsonObjectDataMapper
 
 class EncounterObject(JsonObject):
+    _version = '1.0'
+
     def __init__(self, config={}):
         self._party = None
         self._monsters = []
@@ -43,6 +45,9 @@ class EncounterObject(JsonObject):
                     }
                 }
             )
+        if self.version is None \
+                or self.version != EncounterObject._version:
+            self.compute()
 
     @property
     def party(self):
@@ -111,6 +116,7 @@ class EncounterObject(JsonObject):
             m.xp_rating
             for m in self._monsters
             ]) * self.modifierTotal
+        self.version = EncounterObject._version
 
 
 class EncounterMapper(JsonObjectDataMapper):
