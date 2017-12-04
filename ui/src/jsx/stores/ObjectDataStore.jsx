@@ -84,7 +84,6 @@ class ObjectDataStore extends Reflux.Store
     }
 
     onGetObjectCompleted(type, id, object) {
-        console.log(['ObjectDataStore', 'onGetObjectCompleted', type, id, object]);
         this.updateObject(type, id, object);
     }
 
