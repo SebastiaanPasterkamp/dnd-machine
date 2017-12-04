@@ -16,6 +16,13 @@ class CharacterLinks extends BaseLinkGroup
                     icon: 'eye',
                 };
             },
+            'raw': () => {
+                return {
+                    label: 'Raw',
+                    link: "/character/raw/" + this.props.character.id,
+                    icon: 'cogs',
+                };
+            },
             'edit': () => {
                 return {
                     label: 'Edit',
@@ -54,6 +61,14 @@ class CharacterLinks extends BaseLinkGroup
                 return ['new'];
             }
             return [];
+        }
+        if (
+            _.intersection(
+                this.props.current_user.role || [],
+                ['admin']
+            ).length
+        ) {
+            return ['download', 'raw', 'new', 'view'];
         }
         if (
             _.intersection(
