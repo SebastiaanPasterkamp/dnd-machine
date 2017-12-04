@@ -8,6 +8,7 @@ import ArmorEdit from './views/ArmorEdit.jsx';
 import ArmorTable from './views/ArmorTable.jsx';
 import CharacterEdit from './views/CharacterEdit.jsx';
 import CharactersTable from './views/CharactersTable.jsx';
+import PartyEdit from './views/PartyEdit.jsx';
 import PartyTable from './views/PartyTable.jsx';
 import LanguageTable from './views/LanguagesTable.jsx';
 import NpcEdit from './views/NpcEdit.jsx';
@@ -80,6 +81,10 @@ ReactDom.render(
                 <Route
                     path="/party/list"
                     component={PartyTable}
+                    />
+                <Route
+                    path="/party/edit/:id"
+                    component={PartyEdit}
                     />
 
                 <Route
