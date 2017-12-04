@@ -15,19 +15,26 @@ class BaseLinkGroup extends LazyComponent
         return [];
     }
 
-    renderButton(props) {
+    renderButton(button, props) {
+        let classNames = ['nice-btn-alt', 'cursor-pointer'];
+        if ('icon' in props) {
+            classNames = classNames.concat(['icon', 'fa-' + props.icon]);
+        }
+        if ('className' in props) {
+            classNames = classNames.concat([props.className]);
+        }
         if ('action' in props) {
             return <a
                 key={button}
                 onClick={props.action}
-                className={"nice-btn-alt cursor-pointer icon fa-" + props.icon}>
+                className={classNames.join(' ')}>
                 {props.label}
             </a>;
         }
         return <Link
             key={button}
             to={props.link}
-            className={"nice-btn-alt icon fa-" + props.icon}>
+            className={classNames.join(' ')}>
             {props.label}
         </Link>;
     }
@@ -43,10 +50,10 @@ class BaseLinkGroup extends LazyComponent
                     return null;
                 }
                 let props = func();
-                return self.renderButton(props);
+                return this.renderButton(button, props);
             })}
-            {_.map(this.props.extra, (props) => {
-                return self.renderButton(props);
+            {_.map(this.props.extra, (props, button) => {
+                return this.renderButton(button, props);
             })}
         </div>;
     }
