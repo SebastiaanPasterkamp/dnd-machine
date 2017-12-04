@@ -12,7 +12,7 @@ def exposeAttributes(party):
     fields = ['id', 'user_id', 'name']
     if 'dm' in request.user.role \
             and party.user_id == request.user.id:
-        fields = ['id', 'user_id', 'name', 'challenge']
+        fields = ['id', 'user_id', 'name', 'description', 'challenge']
 
     result = dict([
         (key, party[key])
@@ -281,12 +281,22 @@ def api_patch(party_id):
     if not any([role in request.user.role for role in ['dm']]):
         abort(403)
 
+
+    update = request.get_json()
+    members = update['members']
+    del update['members']
+
     datamapper = get_datamapper()
     party = datamapper.party.getById(party_id)
-    party.update(request.get_json())
+    party.update(update)
 
     if 'id' not in party or party.id != party_id:
         abort(409, "Cannot change ID")
+
+    party.members = [
+        datamapper.character.getById(character_id)
+        for character_id in members
+        ]
 
     party = datamapper.party.update(party)
     party.members = datamapper.character.getByPartyId(party_id)

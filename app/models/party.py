@@ -2,7 +2,7 @@ from base import JsonObject, JsonObjectDataMapper
 
 class PartyObject(JsonObject):
     def __init__(self, config={}):
-        self._members = []
+        self._members = None
         super(PartyObject, self).__init__(
             config,
             pathPrefix = "party",
@@ -28,7 +28,7 @@ class PartyObject(JsonObject):
         self.compute()
 
     def compute(self):
-        if self._members:
+        if self._members is not None:
             self.size = len(self._members)
             for cr in ['easy', 'medium', 'hard', 'deadly']:
                 self.challenge[cr] = sum([c.challenge[cr] for c in self._members])
@@ -96,6 +96,54 @@ class PartyMapper(JsonObjectDataMapper):
             character['id']
             for character in characters
             ]
+
+    def insert(self, obj):
+        """Insert a new party; updates party_characters table"""
+        result = super(PartyMapper, self).insert(obj)
+
+        if obj.members is None:
+            return result
+
+        members = [m.id for m in obj.members]
+
+        self.db.executemany("""
+            INSERT INTO `party_characters`
+                (party_id, character_id)
+            VALUES (?, ?)
+            """, [
+                (result.id, member)
+                for member in members
+                ])
+        self.db.commit()
+
+        return result
+
+    def update(self, obj):
+        """Insert a new party; updates party_characters table"""
+        result = super(PartyMapper, self).update(obj)
+
+        if obj.members is None:
+            return result
+
+        members = [m.id for m in obj.members]
+
+        self.db.execute("""
+            DELETE FROM `party_characters`
+            WHERE `party_id` = ?
+            """,
+            [result.id]
+            )
+        self.db.executemany("""
+            INSERT INTO `party_characters`
+                (party_id, character_id)
+            VALUES (?, ?)
+            """, [
+                (result.id, member)
+                for member in members
+                ])
+        self.db.commit()
+
+        return result
 
     def addCharacter(self, party_id, character_id):
         """Add character to party"""
