@@ -6,6 +6,8 @@ from ..config import get_config, get_item_data
 from dndmachine import DndMachine
 
 class NpcObject(JsonObject):
+    _version = '1.0'
+
     def __init__(self, config={}):
         super(NpcObject, self).__init__(
             config,
@@ -147,6 +149,9 @@ class NpcObject(JsonObject):
                 }
             )
         self.update()
+        if self.version is None \
+                or self.version != NpcObject._version:
+            self.compute()
 
     def update(self):
         if "base_stats" in self._config:
@@ -311,6 +316,7 @@ class NpcObject(JsonObject):
                     if key.endswith('_formula'):
                         ability[key[:-8]] = machine.resolveMath(
                             self, val)
+        self.version = NpcObject._version
 
 class NpcMapper(JsonObjectDataMapper):
     obj = NpcObject

@@ -4,6 +4,8 @@ from ..config import get_config, get_item_data
 from dndmachine import DndMachine
 
 class MonsterObject(JsonObject):
+    _version = '1.0'
+
     def __init__(self, config={}):
         super(MonsterObject, self).__init__(
             config,
@@ -95,6 +97,9 @@ class MonsterObject(JsonObject):
                     }
                 }
             )
+        if self.version is None \
+                or self.version != MonsterObject._version:
+            self.compute()
 
     def compute(self):
         config = get_config()
@@ -236,6 +241,7 @@ class MonsterObject(JsonObject):
             self.update(challenge)
         else:
             self.config.update(challenge)
+        self.version = MonsterObject._version
 
 
 class MonsterMapper(JsonObjectDataMapper):

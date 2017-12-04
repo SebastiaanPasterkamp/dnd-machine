@@ -6,6 +6,8 @@ from ..config import get_config, get_item_data
 from dndmachine import DndMachine
 
 class CharacterObject(JsonObject):
+    _version = '1.0'
+
     def __init__(self, config={}):
         super(CharacterObject, self).__init__(
             config,
@@ -209,15 +211,19 @@ class CharacterObject(JsonObject):
                     }
                 }
             )
+        if self.version is None \
+                or self.version != CharacterObject._version:
+            self.compute()
 
     def compute(self):
         config = get_config()
         machine = DndMachine(config["machine"], get_item_data())
 
-        for ability in self.ability_improvement:
-            if ability in self.stats_bonus:
-                self.stats_bonus[ability].append(1)
-        self.ability_improvement = []
+        if 'ability_improvement' in self:
+            for ability in self.ability_improvement:
+                if ability in self.stats_bonus:
+                    self.stats_bonus[ability].append(1)
+            del self.ability_improvement
 
         for stat in machine.items.statistics:
             stat = stat["name"]
@@ -369,6 +375,7 @@ class CharacterObject(JsonObject):
                     if key.endswith('_formula'):
                         ability[key[:-8]] = machine.resolveMath(
                             self, val)
+        self.version = CharacterObject._version
 
 class CharacterMapper(JsonObjectDataMapper):
     obj = CharacterObject
@@ -435,6 +442,6 @@ class CharacterMapper(JsonObjectDataMapper):
             )
         characters = cur.fetchall() or []
         return [
-            self.setDefaults(self._read(dict(character)))
+            self._read(dict(character))
             for character in characters
             ]
