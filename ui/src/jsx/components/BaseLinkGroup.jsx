@@ -9,6 +9,7 @@ class BaseLinkGroup extends LazyComponent
     constructor(props) {
         super(props);
         this.buttonList = {};
+        this.altStyle = false;
     }
 
     getAllowed() {
@@ -16,7 +17,7 @@ class BaseLinkGroup extends LazyComponent
     }
 
     renderButton(button, props) {
-        let classNames = ['nice-btn-alt', 'cursor-pointer'];
+        let classNames = [this.altStyle ? 'nice-btn-alt' : 'nice-btn', 'cursor-pointer'];
         if ('icon' in props) {
             classNames = classNames.concat(['icon', 'fa-' + props.icon]);
         }
@@ -40,11 +41,20 @@ class BaseLinkGroup extends LazyComponent
     }
 
     render() {
-        let buttons = _.intersection(
-            this.props.buttons,
-            this.getAllowed()
-        );
-        return <div className="nice-btn-group">
+        let buttons = this.getAllowed();
+        if ('buttons' in this.props) {
+            buttons = _.intersection(
+                this.props.buttons,
+                buttons
+            );
+        }
+
+        let classNames = ['nice-btn-group'];
+        if ('className' in this.props) {
+            classNames = classNames.concat([this.props.className]);
+        }
+
+        return <div className={classNames.join(' ')}>
             {_.map(this.buttonList, (func, button) => {
                 if (_.indexOf(buttons, button) < 0) {
                     return null;
@@ -58,9 +68,5 @@ class BaseLinkGroup extends LazyComponent
         </div>;
     }
 }
-
-BaseLinkGroup.defaultProps = {
-    buttons: ['view', 'edit', 'host'],
-};
 
 export default BaseLinkGroup;

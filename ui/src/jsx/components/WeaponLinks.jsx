@@ -31,6 +31,7 @@ class WeaponLinks extends BaseLinkGroup
                 };
             }
         };
+        this.altStyle = true;
     }
 
     getAllowed() {
