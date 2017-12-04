@@ -37,9 +37,9 @@ export class CharacterEdit extends React.Component
     }
 
     onFieldChange(field, value) {
-        let update = [];
-        update[field] = value;
-        this.props.setState(update);
+        this.props.setState({
+            [field]: value
+        });
     }
 
     render() {

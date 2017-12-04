@@ -57,9 +57,26 @@ function RoutedObjectDataWrapper(
 
         nextView(id=null) {
             this.props.history.push(id == null
-                ? pathPrefix
+                ? pathPrefix + '/list'
                 : pathPrefix + '/show/' + id
             );
+        }
+
+        onSetState(update) {
+            let loadable = _.merge(
+                {},
+                _.get(this.state, [loadableType, this.state.id]),
+                update
+                );
+            let loaded = _.merge(
+                {},
+                this.state[loadableType],
+                {[this.state.id]: loadable}
+                );
+
+            this.setState({
+                [loadableType]: loaded
+            });
         }
 
         onReload() {
@@ -74,7 +91,7 @@ function RoutedObjectDataWrapper(
             if (this.state.id == null) {
                 ObjectDataActions.postObject(
                     loadableType,
-                    this.state,
+                    _.get(this.state, [loadableType, this.state.id]),
                     loadableGroup,
                     () => this.nextView()
                 );
@@ -82,7 +99,7 @@ function RoutedObjectDataWrapper(
                 ObjectDataActions.patchObject(
                     loadableType,
                     this.state.id,
-                    this.state,
+                    _.get(this.state, [loadableType, this.state.id]),
                     loadableGroup,
                     () => this.nextView()
                 );
@@ -107,7 +124,7 @@ function RoutedObjectDataWrapper(
             let data = this.getStateProps(this.state);
 
             return <WrappedComponent
-                setState={(state) => this.setState(state)}
+                setState={(state) => this.onSetState(state)}
                 cancel={() => this.nextView()}
                 reload={this.state.id != null
                     ? () => this.onReload()
