@@ -27,7 +27,6 @@ export class PartyEdit extends React.Component
     }
 
     onFieldChange(field, value) {
-        console.log(field, value);
         this.props.setState({
             [field]: value
         });
@@ -39,7 +38,6 @@ export class PartyEdit extends React.Component
         this.props.setState({
             members: members
         }, () => {
-            console.log(['recompute', this.props]);
             this.props.recompute();
         });
 
@@ -57,7 +55,6 @@ export class PartyEdit extends React.Component
         this.props.setState({
             members: members
         }, () => {
-            console.log(['recompute', this.props]);
             this.props.recompute();
         });
 
