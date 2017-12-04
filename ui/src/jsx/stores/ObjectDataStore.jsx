@@ -22,16 +22,16 @@ class ObjectDataStore extends Reflux.Store
         }
 
         let update = {
-            timestamp: _.merge(
+            timestamp: _.assign(
                 {},
                 this.state.timestamp,
-                {[type]: _.merge(
+                {[type]: _.assign(
                     {},
                     this.state.timestamp[type],
                     {[id]: Date.now()}
                 )}
             ),
-            [type]: _.merge(
+            [type]: _.assign(
                 {},
                 this.state[type],
                 {[id]: data}
@@ -74,7 +74,7 @@ class ObjectDataStore extends Reflux.Store
             return;
         }
 
-        update.timestamp = _.merge(
+        update.timestamp = _.assign(
             {},
             this.state.timestamp,
             update.timestamp
@@ -84,6 +84,7 @@ class ObjectDataStore extends Reflux.Store
     }
 
     onGetObjectCompleted(type, id, object) {
+        console.log(['ObjectDataStore', 'onGetObjectCompleted', type, id, object]);
         this.updateObject(type, id, object);
     }
 
@@ -92,6 +93,10 @@ class ObjectDataStore extends Reflux.Store
     }
 
     onPostObjectCompleted(type, id, object) {
+        this.updateObject(type, id, object);
+    }
+
+    onRecomputeObjectCompleted(type, id, object) {
         this.updateObject(type, id, object);
     }
 
@@ -155,6 +160,7 @@ ObjectDataStore.initial = {
     party: {
         id: null,
         name: '',
+        challenge: {},
         members: [],
     },
     weapons: {

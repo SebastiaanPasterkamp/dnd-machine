@@ -8,6 +8,7 @@ let ObjectDataActions = Reflux.createActions({
     "postObject": {asyncResult: true},
     "patchObject": {asyncResult: true},
     "deleteObject": {asyncResult: true},
+    "recomputeObject": {asyncResult: true},
 });
 let throttledGet = {};
 
@@ -151,6 +152,31 @@ ObjectDataActions.deleteObject.listen((type, id, group=null, callback=null) => {
     .catch((error) => {
         console.error(error);
         ObjectDataActions.deleteObject.failed(type, id, error);
+    });
+});
+
+ObjectDataActions.recomputeObject.listen((type, id, data, group=null, callback=null) => {
+    let path = '/' + _.filter([group, type, 'recompute', id]).join('/')
+
+    fetch(path, {
+        credentials: 'same-origin',
+        method: 'POST',
+        'headers': {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then((response) => response.json())
+    .then((result) => {
+        ObjectDataActions.postObject.completed(type, result.id, result);
+        if (callback) {
+            (callback)();
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+        ObjectDataActions.postObject.failed(type, error);
     });
 });
 
