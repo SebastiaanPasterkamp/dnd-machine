@@ -83,6 +83,11 @@ def show(party_id):
 
 @blueprint.route('/edit/<int:party_id>', methods=['GET', 'POST'])
 def edit(party_id):
+    if not request.is_xhr:
+        return render_template(
+            'reactjs-layout.html'
+            )
+
     datamapper = get_datamapper()
 
     p = datamapper.party.getById(party_id)
@@ -160,59 +165,59 @@ def host(party_id):
         party_id=party_id
         ))
 
-@blueprint.route('/<int:party_id>/<action>_character/<int:character_id>')
-@blueprint.route('/<int:party_id>/award_<action>/<int:encounter_id>')
-def modify(party_id, action, character_id=None, encounter_id=None):
+@blueprint.route('/<int:party_id>/<action>/<int:character_id>')
+def modify_members(party_id, action, character_id=None):
     datamapper = get_datamapper()
 
-    p = datamapper.party.getById(party_id)
+    party = datamapper.party.getById(party_id)
+    if party is None:
+        return jsonify(None)
+
     character = datamapper.character.getById(character_id)
+    if character is None:
+        return jsonify(None)
 
-    if action == 'add' and character_id:
+    if action == 'add':
         datamapper.party.addCharacter(party_id, character_id)
-        flash(
-            "The Character '%s' was added to Party '%s'." % (
-                character.name,
-                p.name
-                ),
-            'info'
-            )
-    elif action == 'del' and character_id:
-        datamapper.party.delCharacter(party_id, character_id)
-        flash(
-            "The Character '%s' was removed from Party '%s'." % (
-                character.name,
-                p.name
-                ),
-            'info'
-            )
-    elif action == 'xp' and encounter_id:
-        p.members = datamapper.character.getByPartyId(party_id)
-
-        encounter = datamapper.encounter.getById(encounter_id)
-        encounter.party = p
-        encounter.monsters = datamapper.monster.getByEncounterId(encounter_id)
-
-        for character in p.members:
-            character.xp += int(encounter.xp / len(p.members))
-            datamapper.character.update(character)
-
-        flash(
-            "The Characters have been rewarded %d XP (%d / %d)." % (
-                int(encounter.xp / len(p.members)),
-                encounter.xp, len(p.members)
-                ),
-            'info'
-            )
     else:
-        flash("Unknown action '%s' or missing parameter(s)." % action, 'error')
+        datamapper.party.delCharacter(party_id, character_id)
 
-    p.members = datamapper.character.getByPartyId(party_id)
+    datamapper.party.update(party)
 
-    datamapper.party.update(p)
+    return redirect(url_for(
+        'party.api_get',
+        party_id=party_id
+        ))
 
-    return redirect(request.referrer)
+@blueprint.route('/<int:party_id>/award_xp/<int:encounter_id>')
+def award_xp(party_id, encounter_id=None):
+    datamapper = get_datamapper()
 
+    party = datamapper.party.getById(party_id)
+    if party is None:
+        return jsonify(None)
+
+    encounter = datamapper.encounter.getById(encounter_id)
+    if encounter is None:
+        return jsonify(None)
+
+    party.members = datamapper.character.getByPartyId(party_id)
+
+    encounter.party = party
+    encounter.monsters = \
+        datamapper.monster.getByEncounterId(encounter_id)
+
+    for character in party.members:
+        character.xp += int(encounter.xp / len(party.members))
+        datamapper.character.update(character)
+
+    party.members = datamapper.character.getByPartyId(party_id)
+    datamapper.party.update(party)
+
+    return redirect(url_for(
+        'party.api_get',
+        party_id=party_id
+        ))
 
 @blueprint.route('/api/<int:party_id>', methods=['GET'])
 def api_get(party_id):
@@ -225,7 +230,6 @@ def api_get(party_id):
     party.members = datamapper.character.getByPartyId(party_id)
 
     result = exposeAttributes(party)
-
     return jsonify(result)
 
 
@@ -241,8 +245,35 @@ def api_post():
         abort(409, "Cannot create with existing ID")
 
     party = datamapper.party.insert(party)
+    party.members = datamapper.character.getByPartyId(party_id)
 
-    return jsonify(party.config)
+    result = exposeAttributes(party)
+    return jsonify(result)
+
+
+@blueprint.route('/recompute/<int:party_id>', methods=['POST'])
+def recompute(party_id=None):
+    if not any([role in request.user.role for role in ['dm']]):
+        abort(403)
+
+    datamapper = get_datamapper()
+    update = request.get_json()
+    members = update['members']
+    del update['members']
+
+    if party_id is None:
+        party = datamapper.party.create(request.get_json())
+    else:
+        party = datamapper.party.getById(party_id)
+        party.update(update)
+
+    party.members = [
+        datamapper.character.getById(character_id)
+        for character_id in members
+        ]
+
+    result = exposeAttributes(party)
+    return jsonify(result)
 
 
 @blueprint.route('/api/<int:party_id>', methods=['PATCH'])
@@ -258,5 +289,7 @@ def api_patch(party_id):
         abort(409, "Cannot change ID")
 
     party = datamapper.party.update(party)
+    party.members = datamapper.character.getByPartyId(party_id)
 
-    return jsonify(party.config)
+    result = exposeAttributes(party)
+    return jsonify(result)
