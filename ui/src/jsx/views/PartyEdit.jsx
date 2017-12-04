@@ -6,17 +6,24 @@ import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
+import CharacterLabel from '../components/CharacterLabel.jsx';
 import CharacterLinks from '../components/CharacterLinks.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import TextField from '../components/TextField.jsx';
+import UserLabel from '../components/UserLabel.jsx';
+
+import ModalDialog from '../components/ModalDialog.jsx';
 
 export class PartyEdit extends React.Component
 {
     constructor(props) {
         super(props);
+        this.state = {
+            dialog: false
+        };
     }
 
     onFieldChange(field, value) {
@@ -36,6 +43,72 @@ export class PartyEdit extends React.Component
             this.props.recompute();
         });
 
+    }
+
+    toggleDialog() {
+        this.setState({
+            dialog: !this.state.dialog
+        });
+    }
+
+    onAddMemberButton(id) {
+        let members = _.union(this.props.members, [id]);
+
+        this.props.setState({
+            members: members
+        }, () => {
+            console.log(['recompute', this.props]);
+            this.props.recompute();
+        });
+
+    }
+
+    renderDialog() {
+        if (!this.state.dialog) {
+            return null;
+        }
+
+        return <ModalDialog
+            label="Add members"
+            onCancel={() => this.toggleDialog()}
+            onDone={() => this.toggleDialog()}
+            >
+            <table className="nice-table condensed bordered">
+                <thead>
+                    <tr>
+                        <td>Player</td>
+                        <td>Character</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>{_.map(this.props.characters, (character) => {
+                    if (_.indexOf(this.props.members, character.id) >= 0) {
+                        return null;
+                    }
+                    return <tr key={character.id}>
+                        <td>
+                            <UserLabel
+                                user_id={character.user_id}
+                                />
+                        </td>
+                        <td>
+                            <CharacterLabel
+                                character_id={character.id}
+                                progress={true}
+                                />
+                        </td>
+                        <td>
+                            <a
+                                className="nice-btn-alt cursor-pointer icon fa-plus"
+                                onClick={() => this.onAddMemberButton(character.id)}
+                                >
+                                Add
+                            </a>
+                        </td>
+                    </tr>;
+                })}</tbody>
+            </table>
+        </ModalDialog>;
     }
 
     render() {
@@ -149,6 +222,19 @@ export class PartyEdit extends React.Component
                             </td>
                         </tr>;
                     })}</tbody>
+                    <tbody>
+                        <tr>
+                            <td colSpan="6"></td>
+                            <td>
+                                <a
+                                    className="nice-btn-alt cursor-pointer icon fa-plus"
+                                    onClick={() => this.toggleDialog()}
+                                    >
+                                    Add
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </Panel>
 
@@ -185,6 +271,9 @@ export class PartyEdit extends React.Component
                 }
             </Panel>
         </div>
+
+        {this.renderDialog()}
+
     </div>;
     }
 }
