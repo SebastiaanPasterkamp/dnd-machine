@@ -77,6 +77,7 @@ class PartyLinks extends BaseLinkGroup
                 };
             }
         };
+        this.altStyle = true;
     }
 
     getAllowed() {
