@@ -18,7 +18,7 @@ export class StatsBlock extends Reflux.Component
     }
 
     sendUpdate(update) {
-        let props = _.merge(this.props, update);
+        let props = _.assign(this.props, update);
 
         this.props.statistics.map((stat) => {
             stat = stat.name;

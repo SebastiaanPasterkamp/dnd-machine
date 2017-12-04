@@ -55,7 +55,7 @@ export class NpcEdit extends React.Component
     }
 
     onStatisticsChange(update) {
-        let statistics = _.merge(this.props.statistics, update);
+        let statistics = _.assign(this.props.statistics, update);
         this.props.setState({statistics: statistics});
     }
 
