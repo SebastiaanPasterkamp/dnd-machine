@@ -53,6 +53,7 @@ class JsonObject(object):
 
     def update(self, update):
         self._config = self._merge(self._config, update)
+        self.compute()
 
     def _merge(self, a, b, cast=None):
         cast = cast or self._fieldTypes
@@ -91,15 +92,8 @@ class JsonObject(object):
             if path[0] != self._pathPrefix:
                 continue
             path = path[1:]
+            self.setPath(path, value)
 
-            old_value = self.getPath(path)
-            if old_value is not None:
-                self.setPath(
-                    path,
-                    self._merge(old_value, value, path)
-                    )
-            else:
-                self.setPath(path, value)
         self.compute()
 
     def compute(self):
