@@ -69,12 +69,10 @@ class JsonObject(object):
             return a
 
         if isinstance(a, list) and isinstance(b, list):
-            for i in range(len(b)):
-                if i < len(a):
-                    a[i] = self._merge(a[i], b[i], cast)
-                else:
-                    a.append(self._merge(b[i], b[i], cast))
-            return a
+            return [
+                self._merge(_b, _b, cast)
+                for _b in b
+                ]
 
         if cast == int and b in [None, '']:
             return 0
