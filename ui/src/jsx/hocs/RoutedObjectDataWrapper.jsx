@@ -62,13 +62,13 @@ function RoutedObjectDataWrapper(
             );
         }
 
-        onSetState(update) {
-            let loadable = _.merge(
+        onSetState(update, callback=null) {
+            let loadable = _.assign(
                 {},
                 _.get(this.state, [loadableType, this.state.id]),
                 update
                 );
-            let loaded = _.merge(
+            let loaded = _.assign(
                 {},
                 this.state[loadableType],
                 {[this.state.id]: loadable}
@@ -76,13 +76,22 @@ function RoutedObjectDataWrapper(
 
             this.setState({
                 [loadableType]: loaded
-            });
+            }, callback);
         }
 
         onReload() {
             ObjectDataActions.getObject(
                 loadableType,
                 this.state.id,
+                loadableGroup
+            );
+        }
+
+        onRecompute() {
+            ObjectDataActions.recomputeObject(
+                loadableType,
+                this.state.id,
+                _.get(this.state, [loadableType, this.state.id]),
                 loadableGroup
             );
         }
@@ -120,16 +129,24 @@ function RoutedObjectDataWrapper(
             alert(error);
         }
 
+        onRecomputeObjectFailed(type, id, error) {
+            if (type != loadableType || id != this.state.id) {
+                return;
+            }
+            alert(error);
+        }
+
         render() {
             let data = this.getStateProps(this.state);
 
             return <WrappedComponent
-                setState={(state) => this.onSetState(state)}
+                setState={(state, callback=null) => this.onSetState(state, callback)}
                 cancel={() => this.nextView()}
                 reload={this.state.id != null
                     ? () => this.onReload()
                     : null
                 }
+                recompute={() => this.onRecompute()}
                 save={() => this.onSave()}
                 {...this.props}
                 {...data}
