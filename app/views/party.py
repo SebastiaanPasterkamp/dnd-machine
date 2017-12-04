@@ -251,7 +251,8 @@ def api_patch(party_id):
         abort(403)
 
     datamapper = get_datamapper()
-    party = datamapper.party.create(request.get_json())
+    party = datamapper.party.getById(party_id)
+    party.update(request.get_json())
 
     if 'id' not in party or party.id != party_id:
         abort(409, "Cannot change ID")

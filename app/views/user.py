@@ -132,6 +132,8 @@ def api_get(user_id):
     datamapper = get_datamapper()
 
     user = datamapper.user.getById(user_id)
+    if not user:
+        return jsonify(user)
 
     result = exposeAttributes(user)
 
@@ -157,7 +159,8 @@ def api_post():
 @blueprint.route('/api/<int:user_id>', methods=['PATCH'])
 def api_patch(user_id):
     datamapper = get_datamapper()
-    user = datamapper.user.create(request.get_json())
+    user = datamapper.user.getById(user_id)
+    user.update(request.get_json())
 
     if 'id' not in user or user.id != user_id:
         abort(409, "Cannot change ID")
