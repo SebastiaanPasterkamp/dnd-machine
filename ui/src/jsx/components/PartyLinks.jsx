@@ -47,6 +47,7 @@ class PartyLinks extends BaseLinkGroup
                             });
                         },
                         icon: 'ban',
+                        className: 'info'
                     };
                 }
                 return {

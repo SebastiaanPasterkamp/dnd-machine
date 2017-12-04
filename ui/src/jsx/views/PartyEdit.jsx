@@ -1,16 +1,16 @@
 import React from 'react';
 import _ from 'lodash';
 
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
+import CharacterLinks from '../components/CharacterLinks.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
-import MultiSelect from '../components/MultiSelect.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
-import StatsBlock from '../components/StatsBlock.jsx';
 import TextField from '../components/TextField.jsx';
 
 export class PartyEdit extends React.Component
@@ -27,16 +27,15 @@ export class PartyEdit extends React.Component
     }
 
     onRemoveMemberButton(id) {
-        fetch('/' + ['party', this.party.id, 'del_character', id].join('/'), {
-            credentials: 'same-origin',
-            'headers': {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            ObjectDataActions.getObject.completed('party', self.party.id, data);
+        let members = _.without(this.props.members, id);
+
+        this.props.setState({
+            members: members
+        }, () => {
+            console.log(['recompute', this.props]);
+            this.props.recompute();
         });
+
     }
 
     render() {
@@ -77,18 +76,26 @@ export class PartyEdit extends React.Component
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{self.party.members.length}</td>
-                            <td className="info">{self.party.challenge.easy}</td>
-                            <td className="good">{self.party.challenge.medium}</td>
-                            <td className="warning">{self.party.challenge.hard}</td>
-                            <td className="bad">{self.party.challenge.deadly}</td>
+                            <td>{this.props.members.length}</td>
+                            <td className="info">
+                                {this.props.challenge.easy}XP
+                            </td>
+                            <td className="good">
+                                {this.props.challenge.medium}XP
+                            </td>
+                            <td className="warning">
+                                {this.props.challenge.hard}XP
+                            </td>
+                            <td className="bad">
+                                {this.props.challenge.deadly}XP
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </Panel>
 
             <Panel id="members" header="Party Members">
-                <table className="nice-table condensed striped bordered hover" id="character">
+                <table className="nice-table condensed bordered" id="character">
                     <thead>
                         <tr>
                             <th>Character Level</th>
@@ -100,38 +107,91 @@ export class PartyEdit extends React.Component
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>{_.map(self.party.members.map, (id) => {
-                        const character = _.get(this.characters, {id: id});
+                    <tbody>{_.map(this.props.members, (id) => {
+                        const character = _.get(
+                            this.props.characters, id
+                        );
 
-                        return <tr key={character.id}>
+                        if (!character) {
+                            return null;
+                        }
+
+                        return <tr key={id}>
                             <td>{character.name}</td>
                             <td>{character.level}</td>
-                            <td className="info">{character.challenge.easy}</td>
-                            <td className="good">{character.challenge.medium}</td>
-                            <td className="warning">{character.challenge.hard}</td>
-                            <td className="bad">{character.challenge.deadly}</td>
+                            <td className="info">
+                                {character.challenge.easy}XP
+                            </td>
+                            <td className="good">
+                                {character.challenge.medium}XP
+                            </td>
+                            <td className="warning">
+                                {character.challenge.hard}XP
+                            </td>
+                            <td className="bad">
+                                {character.challenge.deadly}XP
+                            </td>
                             <td>
                                 <CharacterLinks
                                     buttons={['view']}
                                     character_id={character.id}
-                                    extra={[{
-                                        label: 'Remove',
-                                        action: () => {
-                                            self.onRemoveMemberButton(character.id);
-                                        },
-                                        icon: 'times',
-                                    }]}
+                                    extra={{
+                                        remove: {
+                                            label: 'Remove',
+                                            action: () => {
+                                                this.onRemoveMemberButton(character.id);
+                                            },
+                                            icon: 'times',
+                                            className: 'warning'
+                                        }
+                                    }}
                                     />
                             </td>
                         </tr>;
-                    })}</body>
+                    })}</tbody>
                 </table>
+            </Panel>
+
+            <Panel id="save" header="Save">
+                {this.props.cancel
+                    ? <ButtonField
+                        name="button"
+                        value="cancel"
+                        color="muted"
+                        icon="ban"
+                        onClick={() => this.props.cancel()}
+                        label="Cancel" />
+                    : null
+                }
+                {this.props.reload
+                    ? <ButtonField
+                        name="button"
+                        value="reload"
+                        color="info"
+                        icon="refresh"
+                        onClick={() => this.props.reload()}
+                        label="Reload" />
+                    : null
+                }
+                {this.props.save
+                    ? <ButtonField
+                        name="button"
+                        value="cancel"
+                        color="primary"
+                        icon="save"
+                        onClick={() => this.props.save()}
+                        label="Save" />
+                    : null
+                }
             </Panel>
         </div>
     </div>;
     }
 }
 
-export default RoutedObjectDataWrapper(
-    PartyEdit, "character"
+export default ObjectDataListWrapper(
+    RoutedObjectDataWrapper(
+        PartyEdit, "party"
+    ),
+    {characters: {type: 'character'}}
 );
