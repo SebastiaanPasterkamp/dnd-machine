@@ -30,7 +30,7 @@ def exposeAttributes(character):
             and character.user_id != request.user.id:
         fields = [
             'id', 'name', 'gender', 'race', 'class', 'alignment',
-            'background', 'level', 'xp', 'xp_progress', 'xp_level'
+            'background', 'level', 'xp', 'xp_progress', 'xp_level', 'challenge'
             ]
         result = dict([
             (key, character[key])
@@ -94,12 +94,12 @@ def show(character_id, party_id=None):
 def raw(character_id):
     datamapper = get_datamapper()
 
-    c = datamapper.character.getById(character_id)
+    character = datamapper.character.getById(character_id)
 
-    if c['user_id'] != request.user['id'] \
-            and 'admin' not in request.user['role']:
+    if character.user_id != request.user.id \
+            and 'admin' not in request.user.role:
         abort(403)
-    return jsonify(c.config)
+    return jsonify(character.config)
 
 @blueprint.route('/download/<int:character_id>')
 def download(character_id):
@@ -110,7 +110,8 @@ def download(character_id):
     if c['user_id'] != request.user['id'] \
             and not any([role in request.user.role for role in ['admin', 'dm']]):
         abort(403)
-    user = datamapper.user.getById(c['user_id'])
+
+    user = datamapper.user.getById(c.user_id)
 
     fdf_text = {
         "CharacterName": c.name,
@@ -893,7 +894,10 @@ def xp(character_id, xp):
 @blueprint.route('/api/<int:character_id>', methods=['GET'])
 def api_get(character_id):
     datamapper = get_datamapper()
+
     character = datamapper.character.getById(character_id)
+    if not character:
+        return jsonify(character)
 
     result = exposeAttributes(character)
 
@@ -926,7 +930,8 @@ def api_patch(character_id):
         abort(403)
 
     datamapper = get_datamapper()
-    character = datamapper.character.create(request.get_json())
+    character = datamapper.character.getById(character_id)
+    character.update(request.get_json())
 
     if 'id' not in character or character.id != character_id:
         abort(409, "Cannot change ID")

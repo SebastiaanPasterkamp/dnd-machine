@@ -155,7 +155,11 @@ def api_get(npc_id):
         abort(403)
 
     datamapper = get_datamapper()
+
     npc = datamapper.npc.getById(npc_id)
+    if not npc:
+        return jsonify(npc)
+
     return jsonify(npc.config)
 
 
@@ -180,10 +184,12 @@ def api_patch(npc_id):
         abort(403)
 
     datamapper = get_datamapper()
+    npc = datamapper.npc.getById(npc_id)
+    npc.update(request.get_json())
 
-    npc = datamapper.npc.create(request.get_json())
     if 'id' not in npc or npc.id != npc_id:
         abort(409, "Cannot change ID")
-    npc = datamapper.npc.update(npc)
 
+    npc = datamapper.npc.update(npc)
+    
     return jsonify(npc.config)

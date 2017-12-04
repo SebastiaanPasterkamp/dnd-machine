@@ -97,10 +97,12 @@ def api_patch(item_type, item_id):
         abort(403)
 
     datamapper = get_datamapper()
+    item = datamapper[item_type].getById(item_id)
+    item.update(request.get_json())
 
-    item = datamapper[item_type].create(request.get_json())
     if 'id' not in item or item.id != item_id:
         abort(409, "Cannot change ID")
+
     item = datamapper[item_type].update(item)
 
     return jsonify(item.config)
