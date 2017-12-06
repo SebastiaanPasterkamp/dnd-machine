@@ -37,6 +37,7 @@ class PartyFooter extends LazyComponent
                 }></td>
                 <td>
                     <PartyLinks
+                        altStyle={true}
                         buttons={['new']}
                         />
                 </td>
@@ -115,6 +116,7 @@ class PartyRow extends LazyComponent
             </td> : null}
             <td>{this.props.id != null
                 ? <PartyLinks
+                    altStyle={true}
                     buttons={['view', 'edit', 'host']}
                     party_id={this.props.id}
                     />

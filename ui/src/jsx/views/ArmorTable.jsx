@@ -34,6 +34,7 @@ class ArmorFooter extends LazyComponent
                 <td colSpan="4"></td>
                 <td>
                     <ArmorLinks
+                        altStyle={true}
                         buttons={['new']}
                         />
                 </td>
@@ -94,6 +95,7 @@ class ArmorRow extends LazyComponent
             </td>
             <td>{this.props.id != null ?
                 <ArmorLinks
+                    altStyle={true}
                     buttons={['view', 'edit']}
                     armor_id={this.props.id}
                     />

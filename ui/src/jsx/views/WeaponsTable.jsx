@@ -38,6 +38,7 @@ class WeaponsFooter extends LazyComponent
                 <td colSpan="5"></td>
                 <td>
                     <WeaponLinks
+                        altStyle={true}
                         buttons={['new']}
                         />
                 </td>
@@ -90,6 +91,7 @@ class WeaponsRow extends LazyComponent
             }</td>
             <td>{this.props.id != null ?
                 <WeaponLinks
+                    altStyle={true}
                     buttons={['view', 'edit']}
                     weapon_id={this.props.id}
                     />

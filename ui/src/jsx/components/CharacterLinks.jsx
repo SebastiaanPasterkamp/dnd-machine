@@ -45,7 +45,6 @@ class CharacterLinks extends BaseLinkGroup
                 };
             }
         };
-        this.altStyle = true;
     }
 
     getAllowed() {
