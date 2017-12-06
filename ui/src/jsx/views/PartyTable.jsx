@@ -9,18 +9,17 @@ import CharacterLabel from '../components/CharacterLabel.jsx';
 import PartyLinks from '../components/PartyLinks.jsx';
 import Progress from '../components/Progress.jsx';
 
-class PartyHeader extends React.Component
+class PartyHeader extends LazyComponent
 {
-    shouldComponentUpdate() {
-        return false;
-    }
-
     render() {
         return <thead key="thead">
             <tr>
                 <th>Name</th>
                 <th>Members</th>
-                <th>Challenge</th>
+                {this.props.challenge
+                    ? <th>Challenge</th>
+                    : null
+                }
                 <th>Actions</th>
             </tr>
         </thead>;
@@ -32,7 +31,10 @@ class PartyFooter extends LazyComponent
     render() {
         return <tbody>
             <tr>
-                <td colSpan="3"></td>
+                <td colSpan={this.props.challenge
+                    ? 3
+                    : 2
+                }></td>
                 <td>
                     <PartyLinks
                         buttons={['new']}
@@ -46,13 +48,17 @@ class PartyFooter extends LazyComponent
 class PartyRow extends LazyComponent
 {
     render() {
-        let cr = this.props.challenge,
+        let cr = null,
+            ratio = null;
+        if (this.props.challenge) {
+            cr = this.props.challenge;
             ratio = {
                 easy: cr.easy / cr.deadly,
                 medium: (cr.medium - cr.easy) / cr.deadly,
                 hard: (cr.hard - cr.medium) / cr.deadly,
                 deadly: (cr.deadly - cr.hard) / cr.deadly
             };
+        }
 
         return <tr
                 data-name={this.props.name}>
@@ -71,7 +77,7 @@ class PartyRow extends LazyComponent
                 })}
                 </ul>
             </td>
-            <td>
+            {this.props.challenge ? <td>
                 <div className="nice-progress stacked">
                     <div
                         className="nice-progress-fill accent"
@@ -106,7 +112,7 @@ class PartyRow extends LazyComponent
                         {cr.deadly}
                     </div>
                 </div>
-            </td>
+            </td> : null}
             <td>{this.props.id != null
                 ? <PartyLinks
                     buttons={['view', 'edit', 'host']}
@@ -131,11 +137,16 @@ class PartyTable extends LazyComponent
             return null;
         }
         let pattern = new RegExp(this.props.search || '', "i");
+        let has_challenge = 'challenge' in (
+            _.first(_.values(this.props.parties)) || {}
+        );
 
         return <div>
             <h2 className="icon fa-users">Party</h2>
+
             <table className="nice-table condensed bordered responsive">
-                <PartyHeader />
+                <PartyHeader
+                    challenge={has_challenge} />
                 <tbody key="tbody">
                     {_.map(this.props.parties, (party) => {
                         return this.shouldDisplayRow(pattern, party)
@@ -146,7 +157,8 @@ class PartyTable extends LazyComponent
                             : null;
                     })}
                 </tbody>
-                <PartyFooter />
+                <PartyFooter
+                    challenge={has_challenge} />
             </table>
         </div>;
     }
