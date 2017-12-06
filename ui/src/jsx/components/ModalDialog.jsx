@@ -1,4 +1,7 @@
 import React from 'react';
+
+import '../../sass/_modal-dialog.scss';
+
 import LazyComponent from '../components/LazyComponent.jsx';
 
 import BaseLinkGroup from './BaseLinkGroup.jsx';
@@ -75,7 +78,7 @@ export class ModalDialog extends LazyComponent
                         {this.props.subheading}
                     </div> : null
                 }
-                <div className="nice-modal-body overflow-x-scroll" style={{maxHeight: '490px'}}>
+                <div className="nice-modal-body overflow-x-scroll">
                     {this.props.children}
                 </div>
                 <div className="nice-modal-footer">

@@ -75,9 +75,9 @@ export class PartyEdit extends React.Component
             <table className="nice-table condensed bordered">
                 <thead>
                     <tr>
-                        <td>Player</td>
-                        <td>Character</td>
-                        <td>Action</td>
+                        <th>Player</th>
+                        <th>Character</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>{_.map(this.props.characters, (character) => {

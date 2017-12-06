@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import '../../sass/_edit-armor.scss';
+
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
@@ -71,7 +73,7 @@ export class ArmorEdit extends React.Component
         return <div>
         <h2 className="icon fa-shield">Armor</h2>
 
-        <div id="edit-armor" className="widget-grid">
+        <div id="edit-armor">
             <Panel id="description" header="Description">
                 <ControlGroup label="Type">
                     <SingleSelect
