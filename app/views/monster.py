@@ -6,36 +6,37 @@ from .. import get_datamapper
 from ..models.monster import MonsterObject
 from ..config import get_config
 
-monster = Blueprint(
+blueprint = Blueprint(
     'monster', __name__, template_folder='templates')
 
-@monster.route('/')
-@monster.route('/list')
-@monster.route('/list/<int:encounter_id>')
+def exposeAttributes(monster):
+    fields = ['id', 'name', 'challenge_rating', 'xp', 'xp_rating']
+
+    result = dict([
+        (key, monster[key])
+        for key in fields
+        ])
+
+    return result
+
+
+@blueprint.route('/list')
 def overview(encounter_id=None):
+    if not request.is_xhr:
+        return render_template(
+            'reactjs-layout.html'
+            )
+
     datamapper = get_datamapper()
 
-    encounter = None
-    members = []
-    if encounter_id is not None:
-        encounter = datamapper.encounter.getById(encounter_id)
-        members = [
-            m.id
-            for m in datamapper.monster.getByEncounterId(encounter_id)
-            ]
+    monsters = datamapper.monster.getMultiple()
 
-    search = request.args.get('search', '')
-    monsters = datamapper.monster.getList(search)
+    return jsonify([
+        exposeAttributes(monster)
+        for monster in monsters
+        ])
 
-    return render_template(
-        'monster/overview.html',
-        monsters=monsters,
-        encounter=encounter,
-        members=members,
-        search=search
-        )
-
-@monster.route('/show/<int:monster_id>')
+@blueprint.route('/show/<int:monster_id>')
 def show(monster_id):
     datamapper = get_datamapper()
 
@@ -45,14 +46,14 @@ def show(monster_id):
         monster=m
         )
 
-@monster.route('/raw/<int:monster_id>')
+@blueprint.route('/raw/<int:monster_id>')
 def raw(monster_id):
     datamapper = get_datamapper()
 
     m = datamapper.monster.getById(monster_id)
     return jsonify(m.config)
 
-@monster.route('/edit/<int:monster_id>', methods=['GET', 'POST'])
+@blueprint.route('/edit/<int:monster_id>', methods=['GET', 'POST'])
 def edit(monster_id):
     config = get_config()
     datamapper = get_datamapper()
@@ -87,7 +88,7 @@ def edit(monster_id):
         monster=m
         )
 
-@monster.route('/del/<int:monster_id>')
+@blueprint.route('/del/<int:monster_id>')
 def delete(monster_id):
     datamapper = get_datamapper()
 
@@ -99,8 +100,8 @@ def delete(monster_id):
         'monster.overview'
         ))
 
-@monster.route('/new', methods=['GET', 'POST'])
-@monster.route('/copy/<int:monster_id>')
+@blueprint.route('/new', methods=['GET', 'POST'])
+@blueprint.route('/copy/<int:monster_id>')
 def new(monster_id=None):
     config = get_config()
     datamapper = get_datamapper()
@@ -134,3 +135,72 @@ def new(monster_id=None):
         machine=config['machine'],
         monster=m
         )
+
+
+@blueprint.route('/api/<int:monster_id>', methods=['GET'])
+def api_get(monster_id):
+    datamapper = get_datamapper()
+
+    monster = datamapper.monster.getById(monster_id)
+    if not monster:
+        return jsonify(None)
+
+    result = exposeAttributes(monster)
+    return jsonify(result)
+
+
+@blueprint.route('/api', methods=['POST'])
+def api_post():
+    if not any([role in request.user.role for role in ['dm']]):
+        abort(403)
+
+    datamapper = get_datamapper()
+    monster = datamapper.monster.create(request.get_json())
+
+    if 'id' in monster and monster.id:
+        abort(409, "Cannot create with existing ID")
+
+    monster = datamapper.monster.insert(monster)
+
+    result = exposeAttributes(monster)
+    return jsonify(result)
+
+
+@blueprint.route('/recompute/<int:monster_id>', methods=['POST'])
+def recompute(monster_id=None):
+    if not any([role in request.user.role for role in ['dm']]):
+        abort(403)
+
+    datamapper = get_datamapper()
+
+    if monster_id is None:
+        monster = datamapper.monster.create(request.get_json())
+    else:
+        monster = datamapper.monster.getById(monster_id)
+        monster.update(request.get_json())
+
+    result = exposeAttributes(monster)
+    return jsonify(result)
+
+
+@blueprint.route('/api/<int:monster_id>', methods=['PATCH'])
+def api_patch(monster_id):
+    if not any([role in request.user.role for role in ['dm']]):
+        abort(403)
+
+
+    update = request.get_json()
+    members = update['members']
+    del update['members']
+
+    datamapper = get_datamapper()
+    monster = datamapper.monster.getById(monster_id)
+    monster.update(update)
+
+    if 'id' not in monster or monster.id != monster_id:
+        abort(409, "Cannot change ID")
+
+    monster = datamapper.monster.update(monster)
+
+    result = exposeAttributes(monster)
+    return jsonify(result)
