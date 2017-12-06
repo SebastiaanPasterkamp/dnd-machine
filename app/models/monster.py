@@ -105,6 +105,9 @@ class MonsterObject(JsonObject):
         config = get_config()
         machine = DndMachine(config['machine'], get_item_data())
 
+        _config = self._merge({}, self._defaultConfig)
+        self._config = self._merge(_config, self._config)
+
         self.languages = [
             l for l in list(set(self.languages))
             if l != u"None"

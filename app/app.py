@@ -10,7 +10,7 @@ from .views.user import blueprint as user
 from .views.items import blueprint as items
 from .views.character import blueprint as character
 from .views.party import blueprint as party
-from .views.monster import monster
+from .views.monster import blueprint as monster
 from .views.npc import blueprint as npc
 from .views.encounter import encounter
 from .views.campaign import campaign
