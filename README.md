@@ -20,7 +20,7 @@ flask initdb
 
 ```bash
 npm install
-rpm run build
+npm run build
 ```
 
 ## Testing
