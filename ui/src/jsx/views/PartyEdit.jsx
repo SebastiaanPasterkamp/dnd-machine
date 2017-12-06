@@ -203,6 +203,7 @@ export class PartyEdit extends React.Component
                             </td>
                             <td>
                                 <CharacterLinks
+                                    altStyle={true}
                                     buttons={['view']}
                                     character_id={character.id}
                                     extra={{

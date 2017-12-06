@@ -33,7 +33,6 @@ class MonsterLinks extends BaseLinkGroup
                 };
             }
         };
-        this.altStyle = true;
     }
 
     getAllowed() {

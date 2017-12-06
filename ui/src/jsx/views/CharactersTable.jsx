@@ -37,6 +37,7 @@ class CharactersFooter extends LazyComponent
                 <td colSpan="6"></td>
                 <td>
                     <CharacterLinks
+                        altStyle={true}
                         buttons={['new']}
                         />
                 </td>
@@ -84,6 +85,7 @@ class CharactersRow extends LazyComponent
             </td>
             <td>{this.props.id != null
                 ? <CharacterLinks
+                    altStyle={true}
                     buttons={['view', 'edit', 'download']}
                     character_id={this.props.id}
                     />

@@ -31,6 +31,7 @@ class MonstersFooter extends LazyComponent
                 <td colSpan="2"></td>
                 <td>
                     <MonsterLinks
+                        altStyle={true}
                         buttons={['new']}
                         />
                 </td>
@@ -48,6 +49,7 @@ class MonstersRow extends LazyComponent
             <td>{this.props.challenge_rating} / {this.props.xp_rating}XP</td>
             <td>{this.props.id != null
                 ? <MonsterLinks
+                    altStyle={true}
                     buttons={['view', 'edit']}
                     monster_id={this.props.id}
                     />
