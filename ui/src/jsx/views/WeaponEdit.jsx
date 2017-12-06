@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import '../../sass/_edit-weapon.scss';
+
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
@@ -77,7 +79,7 @@ export class WeaponEdit extends React.Component
         return <div>
         <h2 className="icon fa-cutlery">Weapon</h2>
 
-        <div id="edit-weapon" className="widget-grid">
+        <div id="edit-weapon">
             <Panel id="description" header="Description">
                 <ControlGroup label="Type">
                     <SingleSelect

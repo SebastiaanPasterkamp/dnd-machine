@@ -1,4 +1,7 @@
 import React from 'react';
+
+import '../../sass/_panel.scss';
+
 import LazyComponent from '../components/LazyComponent.jsx';
 
 export class Panel extends LazyComponent
