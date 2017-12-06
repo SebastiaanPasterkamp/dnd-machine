@@ -1,4 +1,5 @@
 *~
 *pyc
 node_modules/
-bundle*.js
+dnd-machine.js
+dnd-machine.css

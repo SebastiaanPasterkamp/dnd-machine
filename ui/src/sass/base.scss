@@ -1,0 +1,36 @@
+// base.sass
+@charset "UTF-8";
+
+@import 'table-responsive';
+@import 'media-print';
+
+.product-icon.d20:before {
+    background: transparent url('../img/d20.png') no-repeat center center;
+    background-size: auto 2em;
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    content: "";
+}
+
+.disabled {
+    color: gray;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.inline {
+    display: inline;
+}
+
+.control-wrapper {
+    position: relative;
+}
+
+div.object-control {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+}

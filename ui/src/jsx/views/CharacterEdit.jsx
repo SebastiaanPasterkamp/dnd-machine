@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import '../../sass/_edit-character.scss';
+
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
