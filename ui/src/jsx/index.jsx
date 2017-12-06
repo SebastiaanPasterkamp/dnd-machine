@@ -11,6 +11,7 @@ import CharactersTable from './views/CharactersTable.jsx';
 import PartyEdit from './views/PartyEdit.jsx';
 import PartyTable from './views/PartyTable.jsx';
 import LanguageTable from './views/LanguagesTable.jsx';
+import MonstersTable from './views/MonstersTable.jsx';
 import NpcEdit from './views/NpcEdit.jsx';
 import SpellsTable from './views/SpellsTable.jsx';
 import WeaponEdit from './views/WeaponEdit.jsx';
@@ -76,6 +77,11 @@ ReactDom.render(
                 <Route
                     path="/character/new"
                     component={CharacterEdit}
+                    />
+
+                <Route
+                    path="/monster/list"
+                    component={MonstersTable}
                     />
 
                 <Route
