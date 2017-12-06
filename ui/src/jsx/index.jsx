@@ -1,5 +1,7 @@
 "use strict";
 
+import '../sass/base.scss';
+
 import React from 'react';
 import ReactDom from 'react-dom';
 import {BrowserRouter as Router, Switch, Route, Link, Redirect} from 'react-router-dom';

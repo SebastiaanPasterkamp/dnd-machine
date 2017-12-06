@@ -81,16 +81,6 @@ div#view-character {
                          "base statistics skills"
                          "equipment saving-throws skills"; }
 
-div#edit-character, div#edit-party {
-    display: grid;
-    grid-gap: 1em .5em;
-    grid-template-columns: 50% 50%;
-    grid-auto-rows: auto; }
-
-div#edit-party #members {
-    grid-column-end: span 2;
-}
-
 div#view-encounter {
     display: grid;
     grid-gap: 1em .5em;
@@ -191,13 +181,7 @@ div#new-npc, div#edit-npc, div#view-npc {
     div#edit-monster {
         display: block; }
 
-    div#edit-party {
-        display: block; }
-
     div#view-monster {
-        display: block; }
-
-    div#edit-character {
         display: block; }
 
     div#view-character {

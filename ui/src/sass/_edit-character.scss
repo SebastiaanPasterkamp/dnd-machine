@@ -1,0 +1,18 @@
+// _edit-character.scss
+
+@import 'widget-grid';
+@import 'media-values';
+
+div#edit-character {
+    @extend .widget-grid;
+
+    grid-auto-rows: auto;
+}
+
+@media #{$media} and ($feature: $value) {
+
+    div#edit-character {
+        display: block;
+    }
+
+}

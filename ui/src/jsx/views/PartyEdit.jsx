@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import '../../sass/_edit-party.scss';
+
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';

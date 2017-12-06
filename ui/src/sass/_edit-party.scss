@@ -1,0 +1,22 @@
+// _edit-party.scss
+
+@import 'widget-grid';
+@import 'media-values';
+
+div#edit-party {
+    @extend .widget-grid;
+
+    grid-auto-rows: auto;
+
+    #members {
+        grid-column-end: span 2;
+    }
+}
+
+@media #{$media} and ($feature: $value) {
+
+    div#edit-party {
+        display: block;
+    }
+
+}
