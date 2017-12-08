@@ -28,41 +28,9 @@ def exposeAttributes(party):
 
 @blueprint.route('/list')
 def overview():
-    if not request.is_xhr:
-        return render_template(
-            'reactjs-layout.html'
-            )
-
-    datamapper = get_datamapper()
-    parties = datamapper.party.getMultiple()
-
-    if 'admin' not in request.user.role:
-        visibleParties = set()
-        if 'player' in request.user.role:
-            visibleParties |= set([
-                party.id
-                for party in datamapper.party.getByUserId(request.user.id)
-                ])
-
-        if 'dm' in request.user.role:
-            visibleParties |= set([
-                party.id
-                for party in datamapper.party.getByDmUserId(request.user.id)
-                ])
-
-        parties = [
-            party
-            for party in parties
-            if party.id in visibleParties
-            ]
-
-    for party in parties:
-        party.members = datamapper.character.getByPartyId(party.id)
-
-    return jsonify([
-        exposeAttributes(party)
-        for party in parties
-        ])
+    return render_template(
+        'reactjs-layout.html'
+        )
 
 
 @blueprint.route('/show/<int:party_id>')
@@ -218,6 +186,41 @@ def award_xp(party_id, encounter_id=None):
         'party.api_get',
         party_id=party_id
         ))
+
+
+@blueprint.route('/api', methods=['GET'])
+def api_list():
+    datamapper = get_datamapper()
+    parties = datamapper.party.getMultiple()
+
+    if 'admin' not in request.user.role:
+        visibleParties = set()
+        if 'player' in request.user.role:
+            visibleParties |= set([
+                party.id
+                for party in datamapper.party.getByUserId(request.user.id)
+                ])
+
+        if 'dm' in request.user.role:
+            visibleParties |= set([
+                party.id
+                for party in datamapper.party.getByDmUserId(request.user.id)
+                ])
+
+        parties = [
+            party
+            for party in parties
+            if party.id in visibleParties
+            ]
+
+    for party in parties:
+        party.members = datamapper.character.getByPartyId(party.id)
+
+    return jsonify([
+        exposeAttributes(party)
+        for party in parties
+        ])
+
 
 @blueprint.route('/api/<int:party_id>', methods=['GET'])
 def api_get(party_id):

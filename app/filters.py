@@ -73,8 +73,8 @@ def filter_coinage(value, extended=False):
 def filter_distance(dist):
     if isinstance(dist, dict):
         if dist['min'] >= dist['max']:
-            return "%(min)d ft." % dist
-        return "%(min)d/%(max)d ft." % dist
+            return "%(min)s ft." % dist
+        return "%(min)s/%(max)s ft." % dist
     if isinstance(dist, int):
         return "%d ft." % dist
     return dist
