@@ -15,6 +15,7 @@ import PartyTable from './views/PartyTable.jsx';
 import LanguageTable from './views/LanguagesTable.jsx';
 import MonstersTable from './views/MonstersTable.jsx';
 import NpcEdit from './views/NpcEdit.jsx';
+import NpcTable from './views/NpcTable.jsx';
 import SpellsTable from './views/SpellsTable.jsx';
 import WeaponEdit from './views/WeaponEdit.jsx';
 import WeaponsTable from './views/WeaponsTable.jsx';
@@ -118,6 +119,10 @@ ReactDom.render(
                     component={WeaponsTable}
                     />
 
+                <Route
+                    path="/npc/list"
+                    component={NpcTable}
+                    />
                 <Route
                     path="/npc/edit/:id"
                     component={NpcEdit}
