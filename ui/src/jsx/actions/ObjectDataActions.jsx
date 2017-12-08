@@ -13,7 +13,7 @@ let ObjectDataActions = Reflux.createActions({
 let throttledGet = {};
 
 ObjectDataActions.listObjects.listen((type, group=null) => {
-    let path = '/' + _.filter([group, type, 'list']).join('/')
+    let path = '/' + _.filter([group, type, 'api']).join('/')
 
     if (!(path in throttledGet)) {
         throttledGet[path] = {
@@ -48,7 +48,7 @@ ObjectDataActions.listObjects.listen((type, group=null) => {
 
 ObjectDataActions.getObject.listen((type, id, group=null) => {
     let path = '/' + _.filter([group, type, 'api', id]).join('/'),
-        list = '/' + _.filter([group, type, 'list']).join('/')
+        list = '/' + _.filter([group, type, 'api']).join('/')
 
     if (
         list in throttledGet
