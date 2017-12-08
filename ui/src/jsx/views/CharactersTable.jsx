@@ -112,7 +112,7 @@ class CharactersTable extends LazyComponent
         let pattern = new RegExp(this.props.search || '', "i");
 
         return <div>
-            <h2 className="icon fa-user-secret">Characters</h2>
+            <h2 className="icon fa-user-secret">Character list</h2>
             <table className="nice-table condensed bordered responsive">
                 <CharactersHeader />
                 <tbody key="tbody">

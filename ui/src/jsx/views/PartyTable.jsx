@@ -144,7 +144,7 @@ class PartyTable extends LazyComponent
         );
 
         return <div>
-            <h2 className="icon fa-users">Party</h2>
+            <h2 className="icon fa-users">Party list</h2>
 
             <table className="nice-table condensed bordered responsive">
                 <PartyHeader

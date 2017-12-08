@@ -74,7 +74,7 @@ class MonstersTable extends LazyComponent
         let pattern = new RegExp(this.props.search || '', "i");
 
         return <div>
-            <h2 className="icon fa-paw">Monsters</h2>
+            <h2 className="icon fa-paw">Monster list</h2>
             <table className="nice-table condensed bordered responsive">
                 <MonstersHeader />
                 <tbody key="tbody">
