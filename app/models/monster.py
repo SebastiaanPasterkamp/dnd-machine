@@ -100,6 +100,7 @@ class MonsterObject(JsonObject):
         if self.version is None \
                 or self.version != MonsterObject._version:
             self.compute()
+            self.version = MonsterObject._version
 
     def compute(self):
         config = get_config()
@@ -244,7 +245,6 @@ class MonsterObject(JsonObject):
             self.update(challenge)
         else:
             self.config.update(challenge)
-        self.version = MonsterObject._version
 
 
 class MonsterMapper(JsonObjectDataMapper):

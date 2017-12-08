@@ -214,6 +214,7 @@ class CharacterObject(JsonObject):
         if self.version is None \
                 or self.version != CharacterObject._version:
             self.compute()
+            self.version = CharacterObject._version
 
     def compute(self):
         config = get_config()
@@ -375,7 +376,6 @@ class CharacterObject(JsonObject):
                     if key.endswith('_formula'):
                         ability[key[:-8]] = machine.resolveMath(
                             self, val)
-        self.version = CharacterObject._version
 
 class CharacterMapper(JsonObjectDataMapper):
     obj = CharacterObject
@@ -444,4 +444,28 @@ class CharacterMapper(JsonObjectDataMapper):
         return [
             self._read(dict(character))
             for character in characters
+            ]
+
+    def getExtendedIds(self, user_id):
+        """Returns all character IDs from parties the user has
+        characters in
+        """
+        cur = self.db.execute("""
+            SELECT
+                DISTINCT epc.character_id
+            FROM
+                `user_characters` AS uc
+                LEFT JOIN `party_characters` AS pc
+                    ON (pc.character_id = uc.character_id)
+                LEFT JOIN `party_characters` AS epc
+                    ON (epc.party_id = pc.party_id)
+            WHERE
+                uc.`user_id` = ?
+            """,
+            [user_id]
+            )
+        character_ids = cur.fetchall() or []
+        return [
+            character['character_id']
+            for character in character_ids
             ]

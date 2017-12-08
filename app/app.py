@@ -103,12 +103,6 @@ def get_party():
     else:
         request.party = None
 
-@app.teardown_appcontext
-def close_db(error):
-    """Closes the database again at the end of the request."""
-    if hasattr(g, 'sqlite_db'):
-        g.sqlite_db.close()
-
 @app.context_processor
 def inject_metadata():
     config = get_config()
