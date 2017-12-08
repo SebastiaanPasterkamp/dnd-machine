@@ -26,12 +26,9 @@
 
             <td>
                 <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('npc.show', npc_id=npc.id) }}" class="nice-btn icon fa-eye">View</a>
+                    <a href="{{ url_for('npc.show', obj_id=npc.id) }}" class="nice-btn icon fa-eye">View</a>
                 {% if 'dm' in request.user.role %}
-                    <a href="{{ url_for('npc.edit', npc_id=npc.id) }}" class="nice-btn icon fa-cog">Edit</a>
-                {% endif %}
-                {% if 'dm' in request.user.role %}
-                    <a href="{{ url_for('npc.copy', npc_id=npc.id) }}" class="nice-btn icon fa-copy">Copy</a>
+                    <a href="{{ url_for('npc.edit', obj_id=npc.id) }}" class="nice-btn icon fa-cog">Edit</a>
                 {% endif %}
                 </div>
                 <div class="clearfix"></div>

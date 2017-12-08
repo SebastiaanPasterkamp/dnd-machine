@@ -151,7 +151,7 @@
 {% if monster.id %}
 <h2 class="icon fa-pencil">Monster</h2>
 
-<form action="{{ url_for('monster.edit', monster_id=monster.id) }}" method="post">
+<form action="{{ url_for('monster.edit', obj_id=monster.id) }}" method="post">
 {% else %}
 <h2 class="icon fa-user-plus">Monster</h2>
 

@@ -23,13 +23,13 @@
 
                         {% if character.user_id == request.user.id or 'admin' in request.user.role or 'dm' in request.user.role %}
                         <div class="nice-btn-group object-control">
-                            <a href="{{ url_for('character.edit', character_id=character.id) }}" class="nice-btn icon fa-cog">Edit</a>
-                            <a href="{{ url_for('character.download', character_id=character.id) }}" class="nice-btn icon fa-download">Download</a>
+                            <a href="{{ url_for('character.edit', obj_id=character.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                            <a href="{{ url_for('character.download', obj_id=character.id) }}" class="nice-btn icon fa-download">Download</a>
                             {% if 'admin' in request.user.role %}
-                            <a href="{{ url_for('character.raw', character_id=character.id) }}" class="nice-btn icon fa-database">Raw</a>
+                            <a href="{{ url_for('character.raw', obj_id=character.id) }}" class="nice-btn icon fa-database">Raw</a>
                             {% endif %}
                             {% if character.user_id == request.user.id %}
-                            <a href="{{ url_for('character.delete', character_id=character.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+                            <a href="{{ url_for('character.api_delete', obj_id=character.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
                             {% endif %}
                         </div>
                         {% endif %}

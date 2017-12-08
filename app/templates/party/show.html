@@ -86,26 +86,11 @@
             <td class="bad">{{ character.challenge.deadly }}XP</td>
             <td>
                 <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('character.show', character_id=character.id, party_id=party.id) }}" class="nice-btn icon fa-eye">View</a>
-                    {% if 'dm' in request.user.role and party.user_id == request.user.id %}
-                    <a href="{{ url_for('party.modify_members', party_id=party.id, action='del', character_id=character.id) }}" class="nice-btn bad icon fa-times">Remove</a>
-                    {% endif %}
+                    <a href="{{ url_for('character.show', obj_id=character.id) }}" class="nice-btn icon fa-eye">View</a>
                 </div>
             </td>
         </tr>
         {% endfor %}
     </tbody>
-    {% if 'dm' in request.user.role and party.user_id == request.user.id %}
-    <tfooter>
-        <tr>
-            <td colspan="6"></td>
-            <td>
-                <div class="nice-btn-group pull-right">
-                    <a href="{{ url_for('character.overview', party_id=party.id) }}" class="nice-btn accent icon fa-plus">Add Character</a>
-                </div>
-            </td>
-        </tr>
-    </tfooter>
-    {% endif %}
 </table>
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block body %}
 <h1 class="icon fa-plus">New NPC</h1>
 
-<form action="{{ url_for('npc.new', npc_id=npc.id) }}" method="post">
+<form action="{{ url_for('npc.new', obj_id=npc.id) }}" method="post">
     <button name="button" value="save" class="hidden">Hidden</button>
 
 <div id="new-npc">

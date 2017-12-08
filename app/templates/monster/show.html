@@ -21,8 +21,8 @@
                         </i>
 
                         <div class="nice-btn-group object-control">
-                            <a href="{{ url_for('monster.edit', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
-                            <a href="{{ url_for('monster.delete', monster_id=monster.id) }}" class="nice-btn bad icon fa-trash">Delete</a>
+                            <a href="{{ url_for('monster.edit', obj_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                            <a href="{{ url_for('monster.api_delete', obj_id=monster.id) }}" class="nice-btn bad icon fa-trash">Delete</a>
                         </div>
                     </th>
                 </tr>
