@@ -155,6 +155,10 @@ export class StatsBlock extends Reflux.Component
     }
 
     render() {
+        if (!this.props.statistics) {
+            return null;
+        }
+
         return <table className="nice-table condensed bordered">
             {this.renderHeader()}
             <tbody>
@@ -181,4 +185,8 @@ StatsBlock.defaultProps = {
     }
 };
 
-export default ListDataWrapper(StatsBlock, ['statistics']);
+export default ListDataWrapper(
+    StatsBlock,
+    ['statistics'],
+    'items'
+);
