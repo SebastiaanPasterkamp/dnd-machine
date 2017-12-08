@@ -15,8 +15,7 @@
                     <h3>{{ npc.name }}</h3>
 
                     <div class="nice-btn-group object-control">
-                        <a href="{{ url_for('npc.edit', npc_id=npc.id) }}" class="nice-btn icon fa-cog">Edit</a>
-                        <a href="{{ url_for('npc.delete', npc_id=npc.id) }}" class="nice-btn bad icon fa-trash">Delete</a>
+                        <a href="{{ url_for('npc.edit', obj_id=npc.id) }}" class="nice-btn icon fa-cog">Edit</a>
                     </div>
                 </th>
             </tr>
@@ -59,8 +58,8 @@
                 <tr>
                     <th>{{ stat.label }}</th>
                     <td>
-                        {{ npc.stats[stat.name] }}
-                        ({{ npc.modifiers[stat.name]|bonus }})
+                        {{ npc.statistics.bare[stat.name] }}
+                        ({{ npc.statistics.modifiers[stat.name]|bonus }})
                     </td>
                 </tr>
                 {% endfor %}

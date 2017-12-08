@@ -2,7 +2,7 @@
 {% block body %}
 <h2 class="icon fa-pencil">NPC</h2>
 
-<form action="{{ url_for('npc.edit', npc_id=npc.id) }}" method="post">
+<form action="{{ url_for('npc.edit', obj_id=npc.id) }}" method="post">
     <button name="button" value="save" class="hidden">Hidden</button>
 
 <div id="edit-npc">
