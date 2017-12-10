@@ -16,8 +16,7 @@
 
                         {% if encounter.user_id == request.user.id or 'admin' in request.user.role %}
                         <div class="nice-btn-group object-control">
-                            <a href="{{ url_for('encounter.edit', encounter_id=encounter.id) }}" class="nice-btn icon fa-cog">Edit</a>
-                            <a href="{{ url_for('encounter.delete', encounter_id=encounter.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+                            <a href="{{ url_for('encounter.edit', obj_id=encounter.id) }}" class="nice-btn icon fa-cog">Edit</a>
                         </div>
                         {% endif %}
                     </th>
@@ -78,7 +77,7 @@
             <tbody>
                 <tr>
                     <td>{{ encounter.challenge_rating|round(3) }} / {{ encounter.xp_rating|int }} XP</td>
-                    <td><a href="{{ url_for('party.modify', action='xp', party_id=party.id, encounter_id=encounter.id) }}" class="nice-btn icon fa-trophy">Award XP</a></td>
+                    <td><a href="{{ url_for('party.award_xp', party_id=party.id, encounter_id=encounter.id) }}" class="nice-btn icon fa-trophy">Award XP</a></td>
                     <td>{{ encounter.modifier.monster }}</td>
                     <td>{{ encounter.modifier.party }}</td>
                     <td>{{ encounter.modifier.total }}</td>
@@ -214,7 +213,7 @@
                             {{ monster.alignment }}
                         </i>
                         <span class="badge pull-right">
-                            <a href="{{ url_for('monster.edit', monster_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                            <a href="{{ url_for('monster.edit', obj_id=monster.id) }}" class="nice-btn icon fa-cog">Edit</a>
                         </span>
                     </th>
                 </tr>
