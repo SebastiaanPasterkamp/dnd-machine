@@ -1,13 +1,16 @@
 from base import JsonObject, JsonObjectDataMapper
 
 class PartyObject(JsonObject):
+    _version = '1.0'
+
     def __init__(self, config={}):
-        self._members = None
+        self._members = []
         super(PartyObject, self).__init__(
             config,
             pathPrefix = "party",
             fieldTypes = {
                 'user_id': int,
+                'size': int,
                 'challenge': {
                     "*": int
                     },
@@ -17,6 +20,11 @@ class PartyObject(JsonObject):
                 'challenge': {}
                 }
             )
+
+        if self.version is None \
+                or self.version != PartyObject._version:
+            self.compute()
+            self.version = PartyObject._version
 
     @property
     def members(self):
@@ -28,8 +36,9 @@ class PartyObject(JsonObject):
         self.compute()
 
     def compute(self):
-        if self._members is not None:
+        if len(self._members):
             self.size = len(self._members)
+            self.challenge = {}
             for cr in ['easy', 'medium', 'hard', 'deadly']:
                 self.challenge[cr] = sum([c.challenge[cr] for c in self._members])
 
