@@ -13,6 +13,7 @@ import ArmorEdit from './views/ArmorEdit.jsx';
 import ArmorTable from './views/ArmorTable.jsx';
 import CharacterEdit from './views/CharacterEdit.jsx';
 import CharactersTable from './views/CharactersTable.jsx';
+import EncounterTable from './views/EncounterTable.jsx';
 import PartyEdit from './views/PartyEdit.jsx';
 import PartyTable from './views/PartyTable.jsx';
 import LanguageTable from './views/LanguagesTable.jsx';
@@ -87,6 +88,11 @@ ReactDom.render(
                 <Route
                     path="/character/new"
                     component={CharacterEdit}
+                    />
+
+                <Route
+                    path="/encounter/list"
+                    component={EncounterTable}
                     />
 
                 <Route
