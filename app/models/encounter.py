@@ -33,12 +33,15 @@ class EncounterObject(JsonObject):
             fieldTypes = {
                 'user_id': int,
                 'size': int,
+                'challenge_rating_sum': float,
                 'challenge_rating': float,
-                'xp_modified': int,
+                'challenge_modified': float,
                 'modifier': {
-                    '*': int
+                    '*': float
                     },
+                'xp_rating_sum': int,
                 'xp_rating': float,
+                'xp_modified': int,
                 'xp': int,
                 'loot': {
                     'count': int
@@ -48,6 +51,7 @@ class EncounterObject(JsonObject):
         if self.version is None \
                 or self.version != EncounterObject._version:
             self.compute()
+            self.version = EncounterObject._version
 
     @property
     def party(self):
@@ -82,41 +86,43 @@ class EncounterObject(JsonObject):
     def compute(self):
         self.loot = [
             item
-            for item in self.loot
+            for item in self.loot or []
             if item['name']
             ]
 
-        if not len(self._monsters):
-            return
+        if self._party is not None:
+            self.modifierParty = self.modifierByPartySize(self._party.size)
+        else:
+            self.modifierParty = 0.0
 
-        self.size = len(self._monsters)
-        self.modifierMonster = self.modifierByEncounterSize(self.size)
-        self.modifierParty = self.modifierByPartySize(self._party.size) \
-            if self._party else 0.0
-        self.modifierTotal = 0
-        self.modifierTotal = sum(self.modifier.values())
+        if len(self._monsters):
+            self.size = len(self._monsters)
+            self.modifierMonster = self.modifierByEncounterSize(self.size)
 
-        self.challenge_rating = sum([
-            m.challenge_rating
-            for m in self._monsters
-            ]) * self.modifierMonster
-        self.challenge_modified = sum([
-            m.challenge_rating
-            for m in self._monsters
-            ]) * self.modifierTotal
-        self.xp = sum([
-            m.xp
-            for m in self._monsters
-            ])
-        self.xp_rating = sum([
-            m.xp_rating
-            for m in self._monsters
-            ]) * self.modifierMonster
-        self.xp_modified = sum([
-            m.xp_rating
-            for m in self._monsters
-            ]) * self.modifierTotal
-        self.version = EncounterObject._version
+            self.xp = sum([
+                m.xp
+                for m in self._monsters
+                ])
+            self.challenge_rating_sum = sum([
+                m.challenge_rating
+                for m in self._monsters
+                ])
+            self.xp_rating_sum = sum([
+                m.xp_rating
+                for m in self._monsters
+                ])
+
+        challenge_rating_sum = self.challenge_rating_sum or 0.0
+        xp_rating_sum = self.xp_rating_sum or 0
+        modifierMonster = self.modifierMonster or 0
+        modifierParty = self.modifierParty or 0
+
+        self.challenge_rating = challenge_rating_sum * modifierMonster
+        self.xp_rating = xp_rating_sum * modifierMonster
+
+        self.modifierTotal = modifierMonster + modifierParty
+        self.challenge_modified = challenge_rating_sum * self.modifierTotal
+        self.xp_modified = xp_rating_sum * self.modifierTotal
 
 
 class EncounterMapper(JsonObjectDataMapper):
