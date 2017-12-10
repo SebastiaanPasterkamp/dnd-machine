@@ -43,12 +43,12 @@
             <td>
                 <div class="nice-btn-group pull-right">
                 {% if request.party %}
-                    <a href="{{ url_for('encounter.show', encounter_id=encounter.id, party_id=request.party.id) }}" class="nice-btn icon fa-eye">View</a>
+                    <a href="{{ url_for('encounter.show', obj_id=encounter.id, party_id=request.party.id) }}" class="nice-btn icon fa-eye">View</a>
                 {% else %}
                     <a href="{{ url_for('party.overview') }}" class="nice-btn icon warning fa-beer">Host a party</a>
                 {% endif %}
                 {% if 'dm' in request.user.role %}
-                    <a href="{{ url_for('encounter.edit', encounter_id=encounter.id, action='edit') }}" class="nice-btn icon fa-cog">Edit</a>
+                    <a href="{{ url_for('encounter.edit', obj_id=encounter.id, action='edit') }}" class="nice-btn icon fa-cog">Edit</a>
                 {% endif %}
                 </div>
                 <div class="clearfix"></div>
