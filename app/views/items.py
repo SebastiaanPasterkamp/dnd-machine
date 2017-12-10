@@ -15,13 +15,14 @@ def statistics():
     return jsonify(datamapper.items.statistics)
 
 
-@blueprint.route('/spells')
-def spells():
-    if not request.is_xhr:
-        return render_template(
-            'reactjs-layout.html'
-            )
+@blueprint.route('/<string:objects>/list')
+def get_list(objects):
+    return render_template(
+        'reactjs-layout.html'
+        )
 
+@blueprint.route('/spells', methods=['GET'])
+def api_list_spells():
     datamapper = get_datamapper()
     spells = datamapper.items.spell_list
     for spell in spells:
@@ -29,36 +30,22 @@ def spells():
     return jsonify(spells)
 
 
-@blueprint.route('/languages')
-def languages():
-    if not request.is_xhr:
-        return render_template(
-            'reactjs-layout.html'
-            )
-
+@blueprint.route('/languages', methods=['GET'])
+def api_list_languages():
     datamapper = get_datamapper()
     languages = datamapper.items.getList(
         'languages.common,languages.exotic'
         )
     return jsonify(languages)
 
-
-@blueprint.route('/<string:item_type>/list')
-def get_list(item_type):
-    if not request.is_xhr:
-        return render_template(
-            'reactjs-layout.html'
-            )
-
+@blueprint.route('/<string:item_type>/api', methods=['GET'])
+def api_list(item_type):
     datamapper = get_datamapper()
-
     items = datamapper[item_type].getMultiple()
-
     return jsonify([
         item.config
         for item in items
         ])
-
 
 @blueprint.route('/<string:item_type>/new')
 @blueprint.route('/<string:item_type>/edit/<int:item_id>')

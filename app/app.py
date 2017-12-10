@@ -202,25 +202,25 @@ def navigation():
     items_group['items'].append({
         'label': 'Spells',
         'icon': 'magic',
-        'path': url_for('items.spells'),
+        'path': url_for('items.get_list', objects='spells'),
         })
 
     items_group['items'].append({
         'label': 'Languages',
         'icon': 'language',
-        'path': url_for('items.languages'),
+        'path': url_for('items.get_list', objects='languages'),
         })
 
     items_group['items'].append({
         'label': 'Weapons',
         'icon': 'cutlery',
-        'path': url_for('items.get_list', item_type='weapons'),
+        'path': url_for('items.get_list', objects='weapons'),
         })
 
     items_group['items'].append({
         'label': 'Armor',
         'icon': 'shield',
-        'path': url_for('items.get_list', item_type='armor'),
+        'path': url_for('items.get_list', objects='armor'),
         })
 
     navigation.append(items_group)
