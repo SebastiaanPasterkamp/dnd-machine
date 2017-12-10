@@ -100,6 +100,7 @@ def get_party():
     if session.get('party_id'):
         datamapper = get_datamapper()
         request.party = datamapper.party.getById(session.get('party_id'))
+        request.party.members = datamapper.character.getByPartyId(session.get('party_id'))
     else:
         request.party = None
 
