@@ -6,6 +6,9 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import {BrowserRouter as Router, Switch, Route, Link, Redirect} from 'react-router-dom';
 
+import UiActions from './actions/UiActions.jsx';
+
+
 import ArmorEdit from './views/ArmorEdit.jsx';
 import ArmorTable from './views/ArmorTable.jsx';
 import CharacterEdit from './views/CharacterEdit.jsx';
@@ -46,7 +49,11 @@ ReactDom.render(
                     <Navigation />
                 </div>
 
-                <button type="button" className="nice-header-toggle collapsed">
+                <button
+                        type="button"
+                        className="nice-header-toggle collapsed"
+                        onClick={UiActions.toggleMenu}
+                        >
                     <span className="icon-bar top-bar"></span>
                     <span className="icon-bar middle-bar"></span>
                     <span className="icon-bar bottom-bar"></span>

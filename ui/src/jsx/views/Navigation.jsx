@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 
+import UiActions from '../actions/UiActions.jsx';
+
 import LazyComponent from '../components/LazyComponent.jsx';
 
 class Navigation extends LazyComponent
@@ -11,6 +13,7 @@ class Navigation extends LazyComponent
         return <li key={item.label} className="highlight">
             <Link
                 to={item.path}
+                onClick={UiActions.toggleMenu}
                 className={"icon fa-" + item.icon}>
                 {item.label}
             </Link>
