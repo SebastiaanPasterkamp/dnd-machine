@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 
@@ -9,8 +9,14 @@ import LazyComponent from '../components/LazyComponent.jsx';
 
 class Navigation extends LazyComponent
 {
-    renderItem(item) {
-        return <li key={item.label} className="highlight">
+    renderItem(item, location) {
+        const classNames = ["highlight"];
+
+        if (location.pathname == item.path) {
+            classNames.push("primary");
+        }
+
+        return <li key={item.label} className={classNames.join(' ')}>
             <Link
                 to={item.path}
                 onClick={UiActions.toggleMenu}
@@ -20,14 +26,22 @@ class Navigation extends LazyComponent
         </li>;
     }
 
-    renderItemGroup(group) {
-        return <li key={group.label}>
+    renderItemGroup(group, location) {
+        const classNames = ["highlight"];
+
+        group.items.map((item) => {
+            if (location.pathname == item.path) {
+                classNames.push("primary");
+            }
+        });
+
+        return <li key={group.label} className={classNames.join(' ')}>
             <span className={"icon fa-" + group.icon}>
                 {group.label}
             </span>
             <ul>
                 {group.items.map((item) => {
-                    return this.renderItem(item);
+                    return this.renderItem(item, location);
                 })}
             </ul>
         </li>;
@@ -39,14 +53,14 @@ class Navigation extends LazyComponent
         return <ul className="nice-header-menu menu-pills">
             {navigation.map((nav) => {
                 return 'items' in nav
-                    ? this.renderItemGroup(nav)
-                    : this.renderItem(nav);
+                    ? this.renderItemGroup(nav, this.props.location)
+                    : this.renderItem(nav, this.props.location);
             })}
         </ul>;
     }
 }
 
-export default ListDataWrapper(
+export default withRouter(ListDataWrapper(
     Navigation,
     ['navigation']
-);
+));
