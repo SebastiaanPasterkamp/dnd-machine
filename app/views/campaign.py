@@ -1,198 +1,178 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, request, session, g, redirect, url_for, abort, \
-    render_template, flash, jsonify
+from flask import request, abort, render_template, url_for, redirect
 
 import re
 
+from .baseapi import BaseApiBlueprint
 from .. import get_datamapper
 from ..utils import markdownToToc, indent
 from ..filters import filter_unique
 
-campaign = Blueprint(
-    'campaign', __name__, template_folder='templates')
+class CampaignBlueprint(BaseApiBlueprint):
 
-@campaign.route('/')
-@campaign.route('/list')
-def overview(campaign_id=None):
-    datamapper = get_datamapper()
+    @property
+    def datamapper(self):
+        if not self._datamapper:
+            datamapper = get_datamapper()
+            self._datamapper = datamapper.campaign
+        return self._datamapper
 
-    search = request.args.get('search', '')
-    campaigns = datamapper.campaign.getList(search)
-    if 'admin' not in request.user.role:
-        campaigns = [
-            c
-            for c in campaigns
-            if c.user_id == request.user.id
-            ]
+    @property
+    def encountermapper(self):
+        if '_encountermapper' not in self.__dict__:
+            datamapper = get_datamapper()
+            self._encountermapper = datamapper.encounter
+        return self._encountermapper
 
-    return render_template(
-        'campaign/overview.html',
-        campaigns=campaigns,
-        search=search
-        )
+    @property
+    def monstermapper(self):
+        if '_monstermapper' not in self.__dict__:
+            datamapper = get_datamapper()
+            self._monstermapper = datamapper.monster
+        return self._monstermapper
 
-@campaign.route('/show/<int:campaign_id>')
-def show(campaign_id):
-    datamapper = get_datamapper()
+    @property
+    def npcmapper(self):
+        if '_npcmapper' not in self.__dict__:
+            datamapper = get_datamapper()
+            self._npcmapper = datamapper.npc
+        return self._npcmapper
 
-    c = datamapper.campaign.getById(campaign_id)
-    user = datamapper.user.getById(c.user_id)
+    @property
+    def usermapper(self):
+        if '_usermapper' not in self.__dict__:
+            datamapper = get_datamapper()
+            self._usermapper = datamapper.user
+        return self._usermapper
 
-    replace = {}
-    for match in re.finditer(ur"^/encounter/(\d+)\s*$", c.story, re.M):
-        pattern, encounter_id = match.group(0), int(match.group(1))
-        if pattern not in replace:
-            encounter = datamapper.encounter.getById(encounter_id)
-            if encounter is None:
-                continue
-            encounter.monsters = \
-                datamapper.monster.getByEncounterId(encounter.id)
+    def _exposeAttributes(self, campaign):
+        return campaign.config
 
-            replace[pattern] = "\n\n!!! encounter\n" + indent(
+    def _api_list_filter(self, campaigns):
+        if not self.checkRole(['admin', 'dm']):
+            abort(403)
+
+        if not self.checkRole(['admin']):
+            campaigns = [
+                campaign
+                for campaign in campaigns
+                if campaign.user_id == request.user.id
+                ]
+
+        return campaigns
+
+    def show(self, obj_id):
+        campaign = self.datamapper.getById(obj_id)
+        user = self.usermapper.getById(campaign.user_id)
+
+        replace = {}
+        for match in re.finditer(
+                ur"^/encounter/(\d+)\s*$", campaign.story, re.M):
+
+            pattern, encounter_id = match.group(0), int(match.group(1))
+            if pattern not in replace:
+                encounter = self.encountermapper.getById(encounter_id)
+                if encounter is None:
+                    continue
+                encounter.monsters = \
+                    self.monstermapper.getByEncounterId(encounter.id)
+
+                replace[pattern] = "\n\n!!! encounter\n" + indent(
+                        render_template(
+                            'encounter/show.md',
+                            encounter=encounter,
+                            indent='##'
+                            )
+                        )
+
+                skip = set()
+                for monster in sorted(encounter.monsters,\
+                        key=lambda m: m.challenge_rating,
+                        reverse=True):
+                    if monster.id in skip:
+                        continue
+                    skip.add(monster.id)
+
+                    replace[pattern] += "\n\n!!! monster\n" + indent(
+                        render_template(
+                            'monster/show.md',
+                            monster=monster,
+                            indent='###'
+                            )
+                        )
+                replace[pattern] += "\n"
+
+        for match in re.finditer(
+                ur"^/npc/(\d+)\s*$", campaign.story, re.M):
+
+            pattern, npc_id = match.group(0), int(match.group(1))
+            if pattern not in replace:
+                npc = self.npcmapper.getById(npc_id)
+                if npc is None:
+                    continue
+
+                replace[pattern] = "\n!!! npc\n" + indent(
                     render_template(
-                        'encounter/show.md',
-                        encounter=encounter,
+                        'npc/show.md',
+                        npc=npc,
                         indent='##'
                         )
-                    )
+                    ) + "\n"
 
-            skip = set()
-            for monster in sorted(encounter.monsters,\
-                    key=lambda m: m.challenge_rating,
-                    reverse=True):
-                if monster.id in skip:
-                    continue
-                skip.add(monster.id)
+        campaign.story = reduce(
+            lambda a, kv: a.replace(*kv),
+            replace.iteritems(),
+            campaign.story
+            )
 
-                replace[pattern] += "\n\n!!! monster\n" + indent(
-                    render_template(
-                        'monster/show.md',
-                        monster=monster,
-                        indent='###'
-                        )
-                    )
-            replace[pattern] += "\n"
+        campaign.toc = markdownToToc(campaign.story)
 
-    for match in re.finditer(ur"^/npc/(\d+)\s*$", c.story, re.M):
-        pattern, npc_id = match.group(0), int(match.group(1))
-        if pattern not in replace:
-            npc = datamapper.npc.getById(npc_id)
-            if npc is None:
-                continue
+        return render_template(
+            'campaign/show.html',
+            campaign=campaign,
+            user=user
+            )
 
-            replace[pattern] = "\n!!! npc\n" + indent(
-                render_template(
-                    'npc/show.md',
-                    npc=npc,
-                    indent='##'
-                    )
-                ) + "\n"
+    def edit(self, obj_id):
+        datamapper = get_datamapper()
 
-    c.story = reduce(
-        lambda a, kv: a.replace(*kv),
-        replace.iteritems(),
-        c.story
-        )
+        campaign = self.datamapper.getById(obj_id)
+        if campaign.user_id != request.user['id'] \
+                and not self.checkRole(['admin']):
+            abort(403)
 
-    c.toc = markdownToToc(c.story)
-
-    return render_template(
-        'campaign/show.html',
-        campaign=c,
-        user=user
-        )
-
-@campaign.route('/edit/<int:campaign_id>', methods=['GET', 'POST'])
-def edit(campaign_id):
-    datamapper = get_datamapper()
-
-    c = datamapper.campaign.getById(campaign_id)
-    if c['user_id'] != request.user['id'] \
-            and 'admin' not in request.user['role']:
-        abort(403)
-
-    if request.method == 'POST':
-        if request.form["button"] == "cancel":
-            return redirect(url_for(
-                'campaign.show',
-                campaign_id=campaign_id
-                ))
-
-        c.updateFromPost(request.form)
-        c['toc'] = markdownToToc(c['story'])
-
-        if request.form.get("button", "save") == "save":
-            datamapper.campaign.update(c)
-            if request.party:
+        if request.method == 'POST':
+            if request.form["button"] == "cancel":
                 return redirect(url_for(
                     'campaign.show',
-                    campaign_id=campaign_id,
-                    party_id=request.party.id
+                    obj_id=obj_id
                     ))
-            return redirect(url_for(
-                'campaign.overview'))
 
-        if request.form.get("button", "save") == "update":
-            datamapper.campaign.update(c)
-            return redirect(url_for(
-                'campaign.edit',
-                campaign_id=campaign_id
-                ))
+            campaign.updateFromPost(request.form)
+            campaign.toc = markdownToToc(campaign.story)
 
-    return render_template(
-        'campaign/edit.html',
-        campaign=c
-        )
+            if request.form.get("button", "save") == "save":
+                datamapper.campaign.update(campaign)
+                if request.party:
+                    return redirect(url_for(
+                        'campaign.show',
+                        obj_id=obj_id,
+                        party_id=request.party.id
+                        ))
+                return redirect(url_for(
+                    'campaign.overview'))
 
-@campaign.route('/del/<int:campaign_id>')
-def delete(campaign_id):
-    datamapper = get_datamapper()
+            if request.form.get("button", "save") == "update":
+                datamapper.campaign.update(c)
+                return redirect(url_for(
+                    'campaign.edit',
+                    obj_id=obj_id
+                    ))
 
-    c = datamapper.campaign.getById(campaign_id)
-    if c['user_id'] != request.user['id'] \
-            and 'admin' not in request.user['role']:
-        abort(403)
+        return render_template(
+            'campaign/edit.html',
+            campaign=campaign
+            )
 
-    datamapper.campaign.delete(c)
-
-    return redirect(url_for(
-        'campaign.overview'
-        ))
-
-@campaign.route('/new', methods=['GET', 'POST'])
-def new():
-    datamapper = get_datamapper()
-
-    if request.method == 'POST':
-        if request.form["button"] == "cancel":
-            return redirect(url_for(
-                'campaign.overview'
-                ))
-
-        c.updateFromPost(request.form)
-        c['user_id'] = request.user['id']
-
-        if request.form.get("button", "save") == "save":
-            c = datamapper.campaign.insert(c)
-            return redirect(url_for(
-                'campaign.edit',
-                campaign_id=c['id']
-                ))
-    else:
-        c = {}
-
-    return render_template(
-        'campaign/edit.html',
-        campaign=c
-        )
-
-@campaign.route('/raw/<int:campaign_id>')
-def raw(campaign_id):
-    datamapper = get_datamapper()
-
-    c = datamapper.campaign.getById(campaign_id)
-    if c['user_id'] != request.user['id'] \
-            and 'admin' not in request.user['role']:
-        abort(403)
-
-    return jsonify(c)
+blueprint = CampaignBlueprint(
+    'campaign', __name__, template_folder='templates')
