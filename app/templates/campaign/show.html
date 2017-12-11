@@ -11,8 +11,8 @@
             <h3>{{ campaign.name }}</h3>
 
             <div class="nice-panel-content object-control">
-                <a href="{{ url_for('campaign.edit', campaign_id=campaign.id) }}" class="nice-btn icon fa-cog">Edit</a>
-                <a href="{{ url_for('campaign.delete', campaign_id=campaign.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+                <a href="{{ url_for('campaign.edit', obj_id=campaign.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                <a href="{{ url_for('campaign.api_delete', obj_id=campaign.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
             </div>
 
             {{ campaign.description|markdown }}

@@ -3,7 +3,7 @@
 {% if campaign.id %}
 <h2 class="icon fa-pencil">Campaign</h2>
 
-<form action="{{ url_for('campaign.edit', campaign_id=campaign.id) }}" method="post">
+<form action="{{ url_for('campaign.edit', obj_id=campaign.id) }}" method="post">
 {% else %}
 <h2 class="icon fa-plus">Campaign</h2>
 

@@ -12,8 +12,8 @@ from .views.character import blueprint as character
 from .views.party import blueprint as party
 from .views.monster import blueprint as monster
 from .views.npc import blueprint as npc
-from .views.encounter import encounter
-from .views.campaign import campaign
+from .views.encounter import blueprint as encounter
+from .views.campaign import blueprint as campaign
 
 app = Flask(__name__)
 
