@@ -11,6 +11,7 @@ import UiActions from './actions/UiActions.jsx';
 
 import ArmorEdit from './views/ArmorEdit.jsx';
 import ArmorTable from './views/ArmorTable.jsx';
+import CampaignTable from './views/CampaignTable.jsx';
 import CharacterEdit from './views/CharacterEdit.jsx';
 import CharactersTable from './views/CharactersTable.jsx';
 import EncounterTable from './views/EncounterTable.jsx';
@@ -75,6 +76,11 @@ ReactDom.render(
                 <Route
                     path="/items/armor/list"
                     component={ArmorTable}
+                    />
+
+                <Route
+                    path="/campaign/list"
+                    component={CampaignTable}
                     />
 
                 <Route
