@@ -17,7 +17,7 @@
   {% if not loop.first %} | {% endif %}---
 {%- endfor %} |
 | {% for stat in items.statistics -%}
-  {% if not loop.first %} | {% endif %}{{ npc.stats[stat.name] }} ({{ npc.modifiers[stat.name]|bonus }})
+  {% if not loop.first %} | {% endif %}{{ npc.statisticsBase[stat.name] }} ({{ npc.statisticsModifiers[stat.name]|bonus }})
 {%- endfor %} |
 
 ---
