@@ -53,14 +53,6 @@ class EncounterBlueprint(BaseApiBlueprint):
 
     def _exposeAttributes(self, encounter):
         return encounter.config
-        fields = ['id', 'name', 'challenge_rating', 'xp', 'xp_rating']
-
-        result = dict([
-            (key, monster[key])
-            for key in fields
-            ])
-
-        return result
 
     def _api_list_filter(self, encounters):
         if not self.checkRole(['admin', 'dm']):
@@ -288,5 +280,5 @@ class EncounterBlueprint(BaseApiBlueprint):
 
         return redirect(request.referrer)
 
-encounter = EncounterBlueprint(
+blueprint = EncounterBlueprint(
     'encounter', __name__, template_folder='templates')
