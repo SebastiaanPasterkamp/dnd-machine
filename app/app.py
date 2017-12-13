@@ -84,13 +84,12 @@ def get_user():
     object"""
     datamapper = get_datamapper()
 
-    if session.get('user_id') is None \
-            and request.endpoint not in ('login', 'static'):
-        request.user = None
-        if request.path != url_for('login'):
-            return redirect(url_for('login'))
-    else:
+    if session.get('user_id') is not None:
         request.user = datamapper.user.getById(session.get('user_id'))
+    elif request.endpoint not in ('login', 'doLogin', 'static', 'authenticate'):
+        if request.is_xhr:
+            return jsonify({'error': 'Not logged in'})
+        return redirect(url_for('login'))
 
 @app.before_request
 def get_party():
@@ -106,10 +105,9 @@ def get_party():
 
 @app.context_processor
 def inject_metadata():
-    config = get_config()
     items = get_item_data()
     return dict(
-        info=config['info'],
+        info=app.config.get('info', {}),
         items=items
         )
 
@@ -118,6 +116,10 @@ def home():
     if session.get('user_id') is None:
         return redirect(url_for('login'))
     return redirect(url_for('character.overview'))
+
+@app.route('/authenticate')
+def authenticate():
+    return jsonify(app.config.get('info', {}))
 
 @app.route('/current_user')
 def current_user():
@@ -297,28 +299,34 @@ def navigation():
 
     return jsonify(navigation)
 
-
-
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET'])
 def login():
+    return render_template(
+        'reactjs-layout.html'
+        )
+
+@app.route('/login', methods=['POST'])
+def doLogin():
     datamapper = get_datamapper()
 
-    error = None
-    if request.method == 'POST':
-        username,password = \
-            request.form['username'], request.form['password']
-        user = datamapper.user.getByCredentials(username, password)
+    credentials = request.get_json()
+    user = datamapper.user.getByCredentials(
+        credentials.get('username'),
+        credentials.get('password')
+        )
 
-        if user is None:
-            flash('Login failed', 'error')
-        else:
-            session['user_id'] = user.id
-            flash(
-                'You are now logged in, %s' % user.username,
-                'info'
-                )
-            return redirect('/')
-    return render_template('login.html')
+    if user is None:
+        return jsonify({
+            'error': 'Login failed'
+            })
+    else:
+        session['user_id'] = user.id
+        flash(
+            'You are now logged in, %s' % user.username,
+            'info'
+            )
+        return redirect(url_for('current_user'))
+
 
 @app.route('/logout')
 def logout():
@@ -326,7 +334,7 @@ def logout():
     session.pop('user', None)
     session.pop('party_id', None)
     flash('You were logged out', 'info')
-    return redirect(url_for('home'))
+    return redirect(url_for('current_user'))
 
 @app.route('/test')
 def show_test():
