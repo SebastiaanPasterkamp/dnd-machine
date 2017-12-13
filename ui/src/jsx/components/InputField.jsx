@@ -7,13 +7,23 @@ export class InputField extends LazyComponent
         this.props.setState(value);
     }
 
+    onKeyPress(key) {
+        if (key === 'Enter') {
+            this.props.onEnter();
+        }
+    }
+
     render() {
         return <input
-            type="text"
             className="nice-form-control"
+            type={this.props.type || "text"}
             value={this.props.value || ''}
-            placeholder={this.props.placeholder}
+            placeholder={this.props.placeholder || ''}
             onChange={(e) => this.onChange(e.target.value)}
+            onKeyPress={(this.props.onEnter || false)
+                ? (e) => this.onKeyPress(e.key)
+                : null
+            }
             />;
     }
 }
