@@ -5,21 +5,19 @@ import LazyComponent from './LazyComponent.jsx';
 
 export class ButtonField extends LazyComponent
 {
-    onChange(value) {
-        this.props.setState(value);
-    }
-
     render() {
         let style = _.filter([
             'nice-btn',
             'color' in this.props ? this.props.color : null,
             'icon' in this.props ? "icon" : null,
-            'icon' in this.props ? "fa-" + this.props.icon : null
+            'icon' in this.props ? "fa-" + this.props.icon : null,
+            this.props.className,
             ]);
 
         return <button
-                className={style.length ? style.join(' ') : null}
-                {...this.props}>
+                {...this.props}
+                className={style.join(' ')}
+                >
             {this.props.label || "Button"}
         </button>
     }
