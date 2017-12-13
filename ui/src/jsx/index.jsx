@@ -7,7 +7,7 @@ import ReactDom from 'react-dom';
 import {BrowserRouter as Router, Switch, Route, Link, Redirect} from 'react-router-dom';
 
 import UiActions from './actions/UiActions.jsx';
-
+import ListDataWrapper from './hocs/ListDataWrapper.jsx';
 
 import ArmorEdit from './views/ArmorEdit.jsx';
 import ArmorTable from './views/ArmorTable.jsx';
@@ -18,6 +18,7 @@ import EncounterTable from './views/EncounterTable.jsx';
 import PartyEdit from './views/PartyEdit.jsx';
 import PartyTable from './views/PartyTable.jsx';
 import LanguageTable from './views/LanguagesTable.jsx';
+import LoginDialog from './views/LoginDialog.jsx';
 import MonstersTable from './views/MonstersTable.jsx';
 import NpcEdit from './views/NpcEdit.jsx';
 import NpcTable from './views/NpcTable.jsx';
@@ -28,12 +29,44 @@ import WeaponsTable from './views/WeaponsTable.jsx';
 import DefaultFilter from './views/DefaultFilter.jsx';
 import Navigation from './views/Navigation.jsx';
 
-let app = document.getElementById('app'),
-    filter = document.getElementById('default-filter'),
-    navigation = document.getElementById('navigation');
+class DndMachine extends React.Component
+{
+    renderLogin() {
+        return <Router><div>
+        <header className="nice-header fixed">
+            <div className="nice-header-container">
+                <h1 className="nice-header-brand">
+                    <Link to="/login">
+                        <img
+                            src="/static/img/dungeons-and-dragons-logo.png"
+                            height="35"
+                            />
+                    </Link>
+                </h1>
 
-ReactDom.render(
-    <Router><div>
+                <button
+                        type="button"
+                        className="nice-header-toggle collapsed"
+                        onClick={UiActions.toggleMenu}
+                        >
+                    <span className="icon-bar top-bar"></span>
+                    <span className="icon-bar middle-bar"></span>
+                    <span className="icon-bar bottom-bar"></span>
+                </button>
+
+            </div>
+        </header>
+        <section className="nice-fluid-container grid">
+            <LoginDialog
+                message="Welcome to D&amp;D Machine. Please log in using your credentials to access this website."
+                icon="d20"
+                />
+        </section>
+    </div></Router>;
+    }
+
+    renderApp() {
+        return <Router><div>
         <header className="nice-header fixed">
             <div className="nice-header-container">
                 <h1 className="nice-header-brand">
@@ -77,6 +110,7 @@ ReactDom.render(
                     path="/items/armor/list"
                     component={ArmorTable}
                     />
+
 
                 <Route
                     path="/campaign/list"
@@ -147,21 +181,29 @@ ReactDom.render(
                     component={NpcEdit}
                     />
 
-                <Route render={({location}) => {
-                    window.location.href = location.pathname;
-                    return <div className="nice-modal info viewport-center">
-                        <div className="nice-modal-content">
-                            <div className="nice-modal-header">
-                                <h4>Redirecting</h4>
-                            </div>
-                            <div className="nice-modal-body">
-                                Redirecting to <code>{location.pathname}</code>.
-                            </div>
-                        </div>
-                    </div>;
+                <Redirect path="/login" to="/" />
+
+                <Route path="*" render={props => {
+                    window.location.href = props.location.pathname;
+                    return '';
                 }} />
             </Switch>
         </section>
-    </div></Router>,
+    </div></Router>;
+    }
+
+    render() {
+        if (!this.props.current_user) {
+            return this.renderLogin();
+        }
+
+        return this.renderApp();
+    }
+}
+
+const App = ListDataWrapper(DndMachine, ['current_user']);
+
+ReactDom.render(
+    <App />,
     document.getElementById('app')
 );
