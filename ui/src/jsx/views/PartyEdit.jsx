@@ -14,7 +14,7 @@ import ControlGroup from '../components/ControlGroup.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
-import TextField from '../components/TextField.jsx';
+import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import UserLabel from '../components/UserLabel.jsx';
 
 import ModalDialog from '../components/ModalDialog.jsx';
@@ -125,7 +125,7 @@ export class PartyEdit extends React.Component
                         } />
                 </ControlGroup>
                 <ControlGroup label="Description">
-                    <TextField
+                    <MarkdownTextField
                         placeholder="Description..."
                         value={this.props.description}
                         rows={5}
