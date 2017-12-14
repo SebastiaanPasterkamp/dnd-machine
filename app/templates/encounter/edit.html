@@ -8,7 +8,7 @@
 
 
 {% if encounter.id %}
-<form action="{{ url_for('encounter.edit', encounter_id=encounter.id) }}" method="post">
+<form action="{{ url_for('encounter.edit', obj_id=encounter.id) }}" method="post">
 {% else %}
 <form action="{{ url_for('encounter.new') }}" method="post">
 {% endif %}
@@ -116,11 +116,11 @@
                     </td>
                     <td>
                         <div class="nice-btn-group pull-right">
-                            <a href="{{ url_for('monster.show', monster_id=monster.id) }}" class="nice-btn icon fa-eye">
+                            <a href="{{ url_for('monster.show', obj_id=monster.id) }}" class="nice-btn icon fa-eye">
                                 View
                             </a>
-                            <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='del', monster_id=monster.id) }}" class="nice-btn icon fa-minus"></a>
-                            <a href="{{ url_for('encounter.modify', encounter_id=encounter.id, action='add', monster_id=monster.id) }}" class="nice-btn icon fa-plus"></a>
+                            <a href="{{ url_for('encounter.modify', obj_id=encounter.id, action='del', monster_id=monster.id) }}" class="nice-btn icon fa-minus"></a>
+                            <a href="{{ url_for('encounter.modify', obj_id=encounter.id, action='add', monster_id=monster.id) }}" class="nice-btn icon fa-plus"></a>
                         </div>
                     </td>
                 </tr>
