@@ -1,0 +1,18 @@
+// _edit-npc.scss
+
+@import 'widget-grid';
+@import 'media-values';
+
+.edit-npc {
+    @extend .widget-grid;
+
+    grid-auto-rows: auto;
+}
+
+@media #{$media} and ($feature: $value) {
+
+    .edit-npc {
+        display: block;
+    }
+
+}

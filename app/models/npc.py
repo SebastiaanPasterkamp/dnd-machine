@@ -148,13 +148,13 @@ class NpcObject(JsonObject):
                     }
                 }
             )
-        self.update()
+        self.upgrade()
         if self.version is None \
                 or self.version != NpcObject._version:
             self.compute()
             self.version = NpcObject._version
 
-    def update(self):
+    def upgrade(self):
         if "base_stats" in self._config:
             for path, compute in self._config['computed'].items():
                 if 'formula' not in compute:
