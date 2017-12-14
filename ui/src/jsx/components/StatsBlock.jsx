@@ -18,7 +18,13 @@ export class StatsBlock extends Reflux.Component
     }
 
     sendUpdate(update) {
-        let props = _.assign(this.props, update);
+        let props = _.assign({
+            bare: this.props.bare,
+            bonus: this.props.bonus,
+            improvement: this.props.improvement,
+            base: this.props.base,
+            modifiers: this.props.modifiers,
+        }, update);
 
         this.props.statistics.map((stat) => {
             stat = stat.name;
@@ -39,7 +45,7 @@ export class StatsBlock extends Reflux.Component
             );
         });
 
-        this.props.setState(update);
+        this.props.setState(props);
     }
 
     changeBareStat(stat, value) {
