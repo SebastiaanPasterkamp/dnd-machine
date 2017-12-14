@@ -1,0 +1,25 @@
+// _markdown-textedit.scss
+
+.markdown-textedit {
+    position: relative;
+    white-space: initial;
+
+    .markdown-textedit--button {
+        position: absolute;
+        bottom: 1px;
+        right: 1px;
+        margin-right: 0;
+    }
+
+    .markdown-textedit--preview {
+        display: block;
+        border: 1px solid #D0D1D5;
+        padding: 5px;
+        width: 100%;
+        background-color: #FFF;
+    }
+
+    .nice-btn.icon::before {
+        margin-right: 0px;
+    }
+}
