@@ -4,15 +4,19 @@
     position: relative;
     white-space: initial;
 
-    .markdown-textedit--button {
+    .markdown-textedit--placeholder {
         position: absolute;
-        bottom: 1px;
-        right: 1px;
-        margin-right: 0;
+        color: gray;
+        margin: 4px 6px;
+    }
+
+    textarea {
+        min-height: 8em;
     }
 
     .markdown-textedit--preview {
         display: block;
+        min-height: 8em;
         border: 1px solid #D0D1D5;
         padding: 5px;
         width: 100%;
