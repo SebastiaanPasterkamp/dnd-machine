@@ -12,7 +12,7 @@ import Panel from '../components/Panel.jsx';
 import MultiSelect from '../components/MultiSelect.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
-import TextField from '../components/TextField.jsx';
+import MarkdownTextField from '../components/MarkdownTextField.jsx';
 
 export class CharacterEdit extends React.Component
 {
@@ -86,7 +86,7 @@ export class CharacterEdit extends React.Component
                         }} />
                 </ControlGroup>
                 <ControlGroup label="Appearance">
-                    <TextField
+                    <MarkdownTextField
                         placeholder="Appearance..."
                         value={this.props.appearance}
                         rows={5}
@@ -122,7 +122,7 @@ export class CharacterEdit extends React.Component
                     'flaws': 'Flaws'
                 }, (label, field) => {
                     return <ControlGroup key={label} label={label}>
-                    <TextField
+                    <MarkdownTextField
                         placeholder={label + "..."}
                         value={this.props[field]}
                         rows={5}
@@ -133,7 +133,7 @@ export class CharacterEdit extends React.Component
             </Panel>
 
             <Panel id="background" header="Backstory">
-                <TextField
+                <MarkdownTextField
                     placeholder="Backstory..."
                     value={this.props.backstory}
                     rows={15}
