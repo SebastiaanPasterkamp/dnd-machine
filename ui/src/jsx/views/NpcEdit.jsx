@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import '../../sass/_edit-npc.scss';
+
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
@@ -9,7 +11,7 @@ import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
-import TextField from '../components/TextField.jsx';
+import MarkdownTextField from '../components/MarkdownTextField.jsx';
 
 export class NpcEdit extends React.Component
 {
@@ -49,22 +51,24 @@ export class NpcEdit extends React.Component
     }
 
     onFieldChange(field, value) {
-        let update = [];
-        update[field] = value;
-        this.props.setState(update);
+        this.props.setState({
+            [field]: value
+        });
     }
 
-    onStatisticsChange(update) {
-        let statistics = _.assign(this.props.statistics, update);
-        this.props.setState({statistics: statistics});
+    onStatisticsChange(value) {
+        let update = Object.assign({}, this.props.statistics, value);
+        this.props.setState({
+            statistics: update
+        });
     }
 
     render() {
         return <div>
         <h2 className="icon fa-commenting-o">NPC</h2>
 
-        <div id="edit-npc">
-            <Panel id="description" header="Description">
+        <div className="edit-npc">
+            <Panel className="edit-npc--description" header="Description">
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
@@ -126,7 +130,7 @@ export class NpcEdit extends React.Component
                         } />
                 </ControlGroup>
                 <ControlGroup label="Description">
-                    <TextField
+                    <MarkdownTextField
                         placeholder="Description..."
                         value={this.props.description}
                         rows={5}
@@ -136,7 +140,7 @@ export class NpcEdit extends React.Component
                 </ControlGroup>
             </Panel>
 
-            <Panel id="statistics" header="Statistics">
+            <Panel className="edit-npc--statistics" header="Statistics">
                 <StatsBlock
                     {...this.props.statistics}
                     budget={50}
@@ -145,7 +149,7 @@ export class NpcEdit extends React.Component
                     } />
             </Panel>
 
-            <Panel id="save" header="Save">
+            <Panel className="edit-npc--save" header="Save">
                 {this.props.cancel
                     ? <ButtonField
                         name="button"
