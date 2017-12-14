@@ -7,7 +7,12 @@ import LazyComponent from '../components/LazyComponent.jsx';
 export class Panel extends LazyComponent
 {
     render() {
-        return <div className="nice-panel" id={this.props.id}>
+        let style = _.filter([
+            'nice-panel',
+            this.props.className,
+            ]);
+
+        return <div className={style.join(' ')} id={this.props.id}>
             {this.props.header
                 ? <div className="nice-panel-heading">
                     {this.props.header}
