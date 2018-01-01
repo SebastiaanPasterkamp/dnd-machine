@@ -3,7 +3,7 @@
 @import 'widget-grid';
 @import 'media-values';
 
-div#edit-monster {
+.edit-monster {
     @extend .widget-grid;
 
     grid-auto-rows: auto;
@@ -11,7 +11,7 @@ div#edit-monster {
 
 @media #{$media} and ($feature: $value) {
 
-    div#edit-monster {
+    .edit-monster {
         display: block;
     }
 
