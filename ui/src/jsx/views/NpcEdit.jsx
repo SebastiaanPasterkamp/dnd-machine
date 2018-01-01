@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 import '../../sass/_edit-npc.scss';
 
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
@@ -22,27 +23,6 @@ export class NpcEdit extends React.Component
             {code: "male", label: "Male"},
             {code: "female", label: "Female"},
             {code: "genderless", label: "genderless"},
-        ];
-        this.alignments = [
-            {code: "lawful good", label: "Lawful good"},
-            {code: "neutral good", label: "Neutral good"},
-            {code: "chaotic good", label: "Chaotic good"},
-
-            {code: "lawful neutral", label: "Lawful neutral"},
-            {code: "true neutral", label: "True neutral"},
-            {code: "chaotic neutral", label: "Chaotic neutral"},
-
-            {code: "lawful evil", label: "Lawful evil"},
-            {code: "neutral evil", label: "Neutral evil"},
-            {code: "chaotic evil", label: "Chaotic evil"},
-        ];
-        this.sizes = [
-            {"code": "tiny", "label": "Tiny", "dice_size": 4},
-            {"code": "small", "label": "Small", "dice_size": 6},
-            {"code": "medium", "label": "Medium", "dice_size": 8},
-            {"code": "large", "label": "Large", "dice_size": 10},
-            {"code": "huge", "label": "Huge", "dice_size": 12},
-            {"code": "gargantuan", "label": "Gargantuan", "dice_size": 20}
         ];
         this.levels = _.range(1, 30)
             .map((i) => {
@@ -106,7 +86,7 @@ export class NpcEdit extends React.Component
                     <SingleSelect
                         emptyLabel="Alignment..."
                         selected={this.props.alignment}
-                        items={this.alignments}
+                        items={this.props.alignments}
                         setState={
                             (value) => this.onFieldChange('alignment', value)
                         } />
@@ -115,7 +95,7 @@ export class NpcEdit extends React.Component
                     <SingleSelect
                         emptyLabel="Size..."
                         selected={this.props.size}
-                        items={this.sizes}
+                        items={this.props.size_hit_dice}
                         setState={
                             (value) => this.onFieldChange('size', value)
                         } />
@@ -186,6 +166,10 @@ export class NpcEdit extends React.Component
     }
 }
 
-export default RoutedObjectDataWrapper(
-    NpcEdit, "npc"
+export default ListDataWrapper(
+    RoutedObjectDataWrapper(
+        NpcEdit, "npc"
+    ),
+    ['alignments', 'size_hit_dice'],
+    'items'
 );
