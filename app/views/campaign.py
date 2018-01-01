@@ -133,46 +133,5 @@ class CampaignBlueprint(BaseApiBlueprint):
             user=user
             )
 
-    def edit(self, obj_id):
-        datamapper = get_datamapper()
-
-        campaign = self.datamapper.getById(obj_id)
-        if campaign.user_id != request.user['id'] \
-                and not self.checkRole(['admin']):
-            abort(403)
-
-        if request.method == 'POST':
-            if request.form["button"] == "cancel":
-                return redirect(url_for(
-                    'campaign.show',
-                    obj_id=obj_id
-                    ))
-
-            campaign.updateFromPost(request.form)
-            campaign.toc = markdownToToc(campaign.story)
-
-            if request.form.get("button", "save") == "save":
-                datamapper.campaign.update(campaign)
-                if request.party:
-                    return redirect(url_for(
-                        'campaign.show',
-                        obj_id=obj_id,
-                        party_id=request.party.id
-                        ))
-                return redirect(url_for(
-                    'campaign.overview'))
-
-            if request.form.get("button", "save") == "update":
-                datamapper.campaign.update(c)
-                return redirect(url_for(
-                    'campaign.edit',
-                    obj_id=obj_id
-                    ))
-
-        return render_template(
-            'campaign/edit.html',
-            campaign=campaign
-            )
-
 blueprint = CampaignBlueprint(
     'campaign', __name__, template_folder='templates')
