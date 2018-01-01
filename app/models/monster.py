@@ -34,21 +34,39 @@ class MonsterObject(JsonObject):
                     "ranged": "dexterity",
                     "spell": "charisma"
                 },
-                "stats": {
-                    "strength": 10,
-                    "dexterity": 10,
-                    "constitution": 10,
-                    "intelligence": 10,
-                    "wisdom": 10,
-                    "charisma": 10
-                    },
-                "modifiers": {
-                    "strength": 0,
-                    "dexterity": 0,
-                    "constitution": 0,
-                    "intelligence": 0,
-                    "wisdom": 0,
-                    "charisma": 0
+                "statistics": {
+                    "bare": {
+                        "strength": 10,
+                        "dexterity": 10,
+                        "constitution": 10,
+                        "intelligence": 10,
+                        "wisdom": 10,
+                        "charisma": 10
+                        },
+                    "bonus": {
+                        "strength": [],
+                        "dexterity": [],
+                        "constitution": [],
+                        "intelligence": [],
+                        "wisdom": [],
+                        "charisma": []
+                        },
+                    "base": {
+                        "strength": 8,
+                        "dexterity": 8,
+                        "constitution": 8,
+                        "intelligence": 8,
+                        "wisdom": 8,
+                        "charisma": 8
+                        },
+                    "modifiers": {
+                        "strength": 0,
+                        "dexterity": 0,
+                        "constitution": 0,
+                        "intelligence": 0,
+                        "wisdom": 0,
+                        "charisma": 0
+                        }
                     },
                 "challenge": 0.0,
                 "xp": 10
@@ -56,6 +74,7 @@ class MonsterObject(JsonObject):
             fieldTypes = {
                 'xp': int,
                 'level': int,
+                'dice_size': int,
                 'challenge': float,
                 'average_damage': int,
                 'critical_damage':int,
@@ -89,49 +108,62 @@ class MonsterObject(JsonObject):
                 'hit_points': int,
                 'armor_class': int,
                 'proficiency': int,
-                'stats': {
-                    "*": int
+                "statistics": {
+                    "*": {
+                        "*": int
+                        }
                     },
-                'modifiers': {
-                    "*": int
-                    }
                 }
             )
+        self.upgrade()
         if self.version is None \
                 or self.version != MonsterObject._version:
             self.compute()
             self.version = MonsterObject._version
 
+    def upgrade(self):
+        if "stats" in self._config:
+            self.update({
+                'statistics': {
+                    "bare": self._config['stats'],
+                    "base": self._config['stats'],
+                    "modifiers": self._config['modifiers']
+                    }
+                })
+            del self._config['stats']
+            del self._config['modifiers']
+
     def compute(self):
         config = get_config()
         machine = DndMachine(config['machine'], get_item_data())
-
-        _config = self._merge({}, self._defaultConfig)
-        self._config = self._merge(_config, self._config)
 
         self.languages = [
             l for l in list(set(self.languages))
             if l != u"None"
             ]
 
-        for stat, value in self.stats.iteritems():
-            self.modifiers[stat] = (value - 10) / 2
+        for stat in machine.items.statistics:
+            stat = stat["name"]
+            self.statisticsBase[stat] = self.statisticsBare[stat]
+            self.statisticsModifiers[stat] = int(
+                (self.statisticsBase[stat] - 10.0) / 2.0
+                )
 
-        self.passive_perception = 10 + self.modifiersWisdom
+        self.passive_perception = 10 + self.statisticsModifiersWisdom
 
-        dice_size = machine.findByName(
+        self.dice_size = machine.findByName(
             self.size, machine.size_hit_dice)['dice_size']
 
         self.hit_points = machine.diceAverage(
-                dice_size,
+                self.dice_size,
                 self.level,
-                self.modifiersConstitution * self.level
+                self.statisticsModifiersConstitution * self.level
                 )
 
         self.hit_points_notation = machine.diceNotation(
-            dice_size,
+            self.dice_size,
             self.level,
-            self.modifiersConstitution * self.level
+            self.statisticsModifiersConstitution * self.level
             )
 
         self.average_damage = 0
@@ -164,7 +196,7 @@ class MonsterObject(JsonObject):
 
             for damage in attack["damage"]:
                 damage["mode"] = damage.get("mode", "melee")
-                damage["bonus"] = self.modifiers.get(
+                damage["bonus"] = self.statisticsModifiers.get(
                     self.attack_modifier.get(
                         damage["mode"], "strength"
                         ), 0
@@ -181,8 +213,9 @@ class MonsterObject(JsonObject):
                     reverse=True
                     )
 
-            attack["modifier"] = attack["damage"][0]["bonus"]
-            if attack["damage"][0]["mode"] in ["melee", "ranged"]:
+            attack["mode"] = attack["damage"][0].get("mode", "melee")
+            attack["modifier"] = attack["damage"][0].get("bonus", 0)
+            if attack["mode"] in ["melee", "ranged"]:
                 attack["bonus"] = \
                     attack["modifier"] + self.proficiency
                 attack["spell_save_dc"] = 0
