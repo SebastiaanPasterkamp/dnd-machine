@@ -4,23 +4,47 @@
     position: relative;
     white-space: initial;
 
-    .markdown-textedit--placeholder {
+    .markdown-textedit__placeholder {
         position: absolute;
         color: gray;
         margin: 4px 6px;
     }
 
-    textarea {
-        min-height: 8em;
+    &.preview:not(.splitview) textarea {
+        visibility: hidden;
     }
 
-    .markdown-textedit--preview {
+    textarea {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-height: 8em;
+        height: 100%;
+    }
+
+    &.edit:not(.splitview) .markdown-textedit__preview {
+        visibility: hidden;
+    }
+
+    .markdown-textedit__preview {
         display: block;
         min-height: 8em;
+        height: 100%;
         border: 1px solid #D0D1D5;
         padding: 5px;
         width: 100%;
         background-color: #FFF;
+    }
+
+    &.splitview {
+        .markdown-textedit__preview,
+        textarea {
+            width: 50%;
+        }
+    }
+
+    &.small .markdown-textedit__preview {
+        min-height: 2em;
     }
 
     .nice-btn.icon::before {

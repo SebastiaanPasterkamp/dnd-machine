@@ -252,11 +252,19 @@ export class PartyEdit extends React.Component
                 {this.props.reload
                     ? <ButtonField
                         name="button"
-                        value="reload"
                         color="info"
                         icon="refresh"
                         onClick={() => this.props.reload()}
                         label="Reload" />
+                    : null
+                }
+                {this.props.recompute
+                    ? <ButtonField
+                        name="button"
+                        color="accent"
+                        icon="calculator"
+                        onClick={() => this.props.recompute()}
+                        label="Recompute" />
                     : null
                 }
                 {this.props.save
