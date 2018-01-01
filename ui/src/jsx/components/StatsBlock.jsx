@@ -11,7 +11,7 @@ export class StatsBlock extends Reflux.Component
 {
     constructor(props) {
         super(props);
-        this.range = _.range(8, 16)
+        this.range = _.range(1, 31)
             .map((i) => {
                 return {code: i, label: i}
             });

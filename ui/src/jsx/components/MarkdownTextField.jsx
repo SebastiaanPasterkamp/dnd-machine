@@ -23,10 +23,15 @@ export class MarkdownTextField extends LazyComponent
     }
 
     render() {
-        const editing = this.state.editing;
+        const editing = this.state.editing,
+            style = [
+                "markdown-textedit",
+                editing ? "edit" : "preview",
+                this.props.className,
+            ];
 
         return <div
-                className="markdown-textedit"
+                className={style.join(' ')}
                 onClick={!editing
                     ? () => this.setEditing(true)
                     : null
@@ -38,25 +43,23 @@ export class MarkdownTextField extends LazyComponent
                     && _.isEmpty(this.props.value)
                     && !_.isEmpty(this.props.placeholder)
                 ) ?
-                <span className="markdown-textedit--placeholder">
+                <span className="markdown-textedit__placeholder">
                     {this.props.placeholder}
                 </span>
                 : null
             }
-            {editing ?
-                <textarea
-                    className="nice-form-control"
-                    autoFocus={true}
-                    value={this.props.value || ''}
-                    rows={this.props.rows}
-                    placeholder={this.props.placeholder || ''}
-                    onChange={(e) => this.onChange(e.target.value)}
-                    onBlur={() => this.setEditing(false)}
-                    />
-                : <MDReactComponent
-                    className="markdown-textedit--preview"
-                    text={this.props.value || ''} />
-            }
+            <textarea
+                className="nice-form-control"
+                autoFocus={true}
+                value={this.props.value || ''}
+                rows={this.props.rows}
+                placeholder={this.props.placeholder || ''}
+                onChange={(e) => this.onChange(e.target.value)}
+                onBlur={() => this.setEditing(false)}
+                />
+            <MDReactComponent
+                className="markdown-textedit__preview"
+                text={this.props.value || ''} />
         </div>;
     }
 }

@@ -17,16 +17,22 @@ class SingleSelect extends LazyComponent
 
     getLabel() {
         let label = this.props.emptyLabel;
-        let item = _.find(this.props.items, {
+        let item = _.find(this.props.items || [], {
             code: this.props.selected
         });
-        if (!_.isUndefined(item)) {
+        if (
+            !_.isNil(item)
+            && !_.isNil(item.code)
+        ) {
             label = item.label;
         }
         return label;
     }
 
     renderItem(item) {
+        if (_.isNil(item.code)) {
+            return null;
+        }
         let isDisabled = this.props.isDisabled(item);
         let style = _.filter([
             item.code == this.props.selected ? "info" : null,
@@ -49,7 +55,7 @@ class SingleSelect extends LazyComponent
         return <BaseSelect
                 label={this.getLabel()}
                 {...this.props}>
-            {this.props.items
+            {(this.props.items || [])
                 .map((item) => this.renderItem(item))
             }
         </BaseSelect>;
