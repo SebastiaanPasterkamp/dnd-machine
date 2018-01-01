@@ -18,6 +18,7 @@ export class InputField extends LazyComponent
             className="nice-form-control"
             type={this.props.type || "text"}
             value={this.props.value || ''}
+            disabled={this.props.disabled || false}
             placeholder={this.props.placeholder || ''}
             onChange={(e) => this.onChange(e.target.value)}
             onKeyPress={(this.props.onEnter || false)

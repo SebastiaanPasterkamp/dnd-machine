@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+
 import LazyComponent from './LazyComponent.jsx';
 
 import ControlGroup from './ControlGroup.jsx';
@@ -25,13 +27,6 @@ export class DamageEdit extends LazyComponent
                 label: size
             };
         });
-        this.damage_type = [
-            {code: "", label: ""},
-            {code: "bludgeoning", label: "Bludgeoning"},
-            {code: "force", label: "Force"},
-            {code: "piercing", label: "Piercing"},
-            {code: "slashing", label: "Slashing"}
-        ];
     }
 
     onFieldChange(field, value) {
@@ -43,6 +38,17 @@ export class DamageEdit extends LazyComponent
         };
         state[field] = value;
         this.props.setState(state);
+    }
+
+    dmgTypeIsDisabled(item) {
+        const disabled = this.props.disabledTypes || [];
+        if (this.props.type == item.code) {
+            return false;
+        }
+        if (_.includes(disabled, item.code) >= 0) {
+            return true;
+        }
+        return false;
     }
 
     render() {
@@ -69,14 +75,17 @@ export class DamageEdit extends LazyComponent
                         'bonus',
                         value ? parseInt(value) : undefined
                     );
-                }} />
+                }}
+                />
             <SingleSelect
                 header="Damage type"
                 selected={this.props.type}
-                items={this.damage_type}
+                items={this.props.damage_types}
                 setState={(value) => {
-                    this.onFieldChange('type', damage)
-                }} />
+                    this.onFieldChange('type', value)
+                }}
+                isDisabled={(item) => this.dmgTypeIsDisabled(item)}
+                />
         </ControlGroup>;
     }
 }
@@ -87,4 +96,8 @@ DamageEdit.defaultProps = {
     }
 };
 
-export default DamageEdit;
+export default ListDataWrapper(
+    DamageEdit,
+    ['damage_types'],
+    'items'
+);
