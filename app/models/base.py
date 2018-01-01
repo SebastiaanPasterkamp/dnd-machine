@@ -2,6 +2,8 @@ import json
 import re
 
 class JsonObject(object):
+    version = '0.0.0'
+
     def __init__(self, config={}, **kwargs):
         self._camelCaseRe = re.compile(ur""".+?(?<!^)(?:
             (?<=[a-z])(?=[A-Z])
@@ -16,8 +18,13 @@ class JsonObject(object):
         self._fieldTypes = kwargs.get('fieldTypes', {})
         self._fieldTypes['id'] = int
 
-        #self._config = self._merge({}, self._defaultConfig)
-        #self.update(config)
+        if not len(config.keys()):
+            config = self._merge({}, self._defaultConfig)
+        elif 'version' not in config:
+            config = self._merge(
+                self._merge({}, self._defaultConfig),
+                config
+                )
         self._config = config
 
     @property
@@ -314,7 +321,9 @@ class JsonObjectDataMapper(object):
         if config is None \
                 or not isinstance(config, dict):
             raise ValueError("Invalid config: %r" % config)
-        return self.obj(config)
+        obj = self.obj()
+        obj.update(obj.config)
+        return obj
 
     def getById(self, obj_id):
         """Returns an object from table by obj_id"""
