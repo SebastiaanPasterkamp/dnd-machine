@@ -18,14 +18,19 @@ export class LoginDialog extends React.Component
         this.state = {
             username: '',
             password: '',
-            error: null
+            error: null,
+            processing: false
         };
     }
 
     doLogin() {
-        ListDataActions.doLogin({
-            username: this.state.username,
-            password: this.state.password
+        this.setState({
+            processing: true
+        }, () => {
+            ListDataActions.doLogin({
+                username: this.state.username,
+                password: this.state.password
+            });
         });
     }
 
@@ -38,9 +43,13 @@ export class LoginDialog extends React.Component
 
     render() {
         let logoStyle = ["product-icon"];
+        let loadingStyle = ["nice-login-loading"];
         if (this.props.icon) {
             logoStyle.push("icon");
             logoStyle.push(this.props.icon);
+        }
+        if (this.state.processing) {
+            loadingStyle.push("shown");
         }
 
         return <div className="nice-login">
@@ -55,7 +64,7 @@ export class LoginDialog extends React.Component
                 <div className="nice-login-intro-content">
                    {this.props.message || 'Please log in '}
                 </div>
-                <div className="nice-login-loading"></div>
+                <div className={loadingStyle.join(' ')}></div>
             </div>
 
             <div className="nice-login-content">
@@ -109,7 +118,7 @@ export class LoginDialog extends React.Component
             <div className="nice-login-version">
                 {this.props.title || ''} {this.props.version || ''}
                 <span className="text-brand pull-right">
-                    by {this.props.author || ''} © {this.props.date || ''}
+                    by {this.props.author || ''} &copy; {this.props.date || ''}
                 </span>
             </div>
         </div>;
