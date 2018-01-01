@@ -15,7 +15,15 @@ class MonsterBlueprint(BaseApiBlueprint):
         return self._datamapper
 
     def _exposeAttributes(self, monster):
-        fields = ['id', 'name', 'challenge_rating', 'xp', 'xp_rating']
+        fields = [
+            'id', 'name', 'type', 'size', 'alignment', 'level',
+            'statistics', 'armor_class', 'description',
+            'proficiency', 'attack_modifier',
+            'passive_perception', 'hit_points', 'dice_size',
+            'attacks', 'multiattack', 'traits',
+            'languages', 'motion',
+            'challenge_rating', 'xp', 'xp_rating'
+            ]
 
         result = dict([
             (key, monster[key])
@@ -29,39 +37,6 @@ class MonsterBlueprint(BaseApiBlueprint):
 
         return render_template(
             'monster/show.html',
-            monster=monster
-            )
-
-    def edit(self, obj_id):
-        monster = self.datamapper.getById(obj_id)
-
-        if request.method == 'POST':
-            if request.form["button"] == "cancel":
-                return redirect(url_for(
-                    'monster.show',
-                    obj_id=obj_id
-                    ))
-
-            monster.updateFromPost(request.form)
-
-            if request.form.get("button", "save") == "save":
-                monster = self.datamapper.update(monster)
-                return redirect(url_for(
-                    'monster.show',
-                    obj_id=obj_id
-                    ))
-
-            if request.form.get("button", "save") == "update":
-                monster = self.datamapper.update(monster)
-
-        config = get_config()
-        datamapper = get_datamapper()
-        return render_template(
-            'monster/edit.html',
-            languages=datamapper.items.getList(
-                'languages.common,languages.exotic'
-                ),
-            machine=config['machine'],
             monster=monster
             )
 
@@ -99,12 +74,12 @@ class MonsterBlueprint(BaseApiBlueprint):
             abort(403)
         return obj
 
-    def _api_patch_filter(obj):
+    def _api_patch_filter(self, obj):
         if not self.checkRole(['dm']):
             abort(403)
         return obj
 
-    def _api_delete_filter(obj):
+    def _api_delete_filter(self, obj):
         if not self.checkRole(['dm']):
             abort(403)
         return obj
