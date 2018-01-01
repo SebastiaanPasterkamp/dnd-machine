@@ -1,0 +1,25 @@
+// _markdown-textedit.scss
+
+ul.list-component {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    >li {
+        position: relative;
+        min-height: 2.25em;
+        padding-right: 2.5em;
+    }
+
+    > li > .list-component__delete,
+    > li > .list-component__add {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        margin-right: 0;
+    }
+
+    > li > .nice-btn.icon::before {
+        margin-right: 0px;
+    }
+}
