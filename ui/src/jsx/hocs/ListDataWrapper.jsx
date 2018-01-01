@@ -5,7 +5,9 @@ import _ from 'lodash';
 import ListDataActions from '../actions/ListDataActions.jsx';
 import ListDataStore from '../stores/ListDataStore.jsx';
 
-function ListDataWrapper(WrappedComponent, storeKeys, storeCategory=null) {
+function ListDataWrapper(
+    WrappedComponent, storeKeys, storeCategory=null, mapping={}
+) {
 
     return class extends Reflux.Component {
         constructor(props) {
@@ -45,9 +47,13 @@ function ListDataWrapper(WrappedComponent, storeKeys, storeCategory=null) {
         }
 
         render() {
+            const data = _.reduce(this.state, (data, value, key) => {
+                data[ mapping[key] || key ] = value;
+                return data;
+            }, {});
             return <WrappedComponent
                 {...this.props}
-                {...this.state}
+                {...data}
                 />
         }
     };
