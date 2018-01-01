@@ -11,6 +11,7 @@ import ListDataWrapper from './hocs/ListDataWrapper.jsx';
 
 import ArmorEdit from './views/ArmorEdit.jsx';
 import ArmorTable from './views/ArmorTable.jsx';
+import CampaignEdit from './views/CampaignEdit.jsx';
 import CampaignTable from './views/CampaignTable.jsx';
 import CharacterEdit from './views/CharacterEdit.jsx';
 import CharactersTable from './views/CharactersTable.jsx';
@@ -19,6 +20,7 @@ import PartyEdit from './views/PartyEdit.jsx';
 import PartyTable from './views/PartyTable.jsx';
 import LanguageTable from './views/LanguagesTable.jsx';
 import LoginDialog from './views/LoginDialog.jsx';
+import MonsterEdit from './views/MonsterEdit.jsx';
 import MonstersTable from './views/MonstersTable.jsx';
 import NpcEdit from './views/NpcEdit.jsx';
 import NpcTable from './views/NpcTable.jsx';
@@ -111,7 +113,14 @@ class DndMachine extends React.Component
                     component={ArmorTable}
                     />
 
-
+                <Route
+                    path="/campaign/new"
+                    component={CampaignEdit}
+                    />
+                <Route
+                    path="/campaign/edit/:id"
+                    component={CampaignEdit}
+                    />
                 <Route
                     path="/campaign/list"
                     component={CampaignTable}
@@ -138,6 +147,14 @@ class DndMachine extends React.Component
                 <Route
                     path="/monster/list"
                     component={MonstersTable}
+                    />
+                <Route
+                    path="/monster/edit/:id"
+                    component={MonsterEdit}
+                    />
+                <Route
+                    path="/monster/new"
+                    component={MonsterEdit}
                     />
 
                 <Route
@@ -175,6 +192,10 @@ class DndMachine extends React.Component
                 <Route
                     path="/npc/list"
                     component={NpcTable}
+                    />
+                <Route
+                    path="/npc/new"
+                    component={NpcEdit}
                     />
                 <Route
                     path="/npc/edit/:id"
