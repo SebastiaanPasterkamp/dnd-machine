@@ -19,62 +19,79 @@ class TestMonsterObject(unittest.TestCase):
     def testHitPoints(self):
         monster = MonsterObject({
             'size': 'tiny',
-            'stats': {
-                'constitution': 10
-                },
             'level': 1
             })
-        self.assertEquals(monster.statsConstitution, 10)
-        self.assertEquals(monster.modifiersConstitution, 0)
-        self.assertEquals(monster.hit_points_notation, '1d4')
-        self.assertEquals(monster.hit_points, 2, 'Half of 1d4')
+        self.assertDictContainsSubset({
+            'hit_points_notation': u'1d4',
+            'hit_points': 2
+            }, monster.config)
 
         monster.update({
-            'stats': {'constitution': 14}
+            'statistics': {'bare': {'constitution': 14}}
             })
-        self.assertEquals(monster.statsConstitution, 14)
-        self.assertEquals(monster.modifiersConstitution, 2)
-        self.assertEquals(monster.hit_points_notation, '1d4+2')
-        self.assertEquals(monster.hit_points, 4)
+        self.assertDictContainsSubset({
+            'dexterity': 10,
+            'strength': 10,
+            'constitution': 14,
+            'intelligence': 10,
+            'wisdom': 10,
+            'charisma': 10
+            }, monster.statisticsBare)
+        self.assertDictContainsSubset({
+            'dexterity': 0,
+            'strength': 0,
+            'constitution': 2,
+            'intelligence': 0,
+            'wisdom': 0,
+            'charisma': 0
+            }, monster.statisticsModifiers)
+        self.assertDictContainsSubset({
+            'hit_points_notation': u'1d4+2',
+            'hit_points': 4
+            }, monster.config)
 
         monster = MonsterObject({
             'size': 'medium',
-            'stats': {
-                'constitution': 11
+            'statistics': {
+                'bare': {
+                    'constitution': 11
+                    }
                 },
             'level': 4
             })
-        self.assertEquals(monster.statsConstitution, 11)
-        self.assertEquals(monster.modifiersConstitution, 0)
+        self.assertEquals(monster.statisticsBareConstitution, 11)
+        self.assertEquals(monster.statisticsModifiersConstitution, 0)
         self.assertEquals(monster.hit_points_notation, '4d8')
         self.assertEquals(monster.hit_points, 18)
 
         monster.update({
-            'stats': {'constitution': 15}
+            'statistics': {'bare': {'constitution': 15}}
             })
-        self.assertEquals(monster.statsConstitution, 15)
-        self.assertEquals(monster.modifiersConstitution, 2)
+        self.assertEquals(monster.statisticsBareConstitution, 15)
+        self.assertEquals(monster.statisticsModifiersConstitution, 2)
         self.assertEquals(monster.hit_points_notation, '4d8+8')
         self.assertEquals(monster.hit_points, 26)
 
 
         monster = MonsterObject({
             'size': 'huge',
-            'stats': {
-                'constitution': 18
+            'statistics': {
+                'bare': {
+                    'constitution': 18
+                    }
                 },
             'level': 10
             })
-        self.assertEquals(monster.statsConstitution, 18)
-        self.assertEquals(monster.modifiersConstitution, 4)
+        self.assertEquals(monster.statisticsBareConstitution, 18)
+        self.assertEquals(monster.statisticsModifiersConstitution, 4)
         self.assertEquals(monster.hit_points_notation, '10d12+40')
         self.assertEquals(monster.hit_points, 105)
 
         monster.update({
-            'stats': {'constitution': 19}
+            'statistics': {'bare': {'constitution': 19}}
             })
-        self.assertEquals(monster.statsConstitution, 19)
-        self.assertEquals(monster.modifiersConstitution, 4)
+        self.assertEquals(monster.statisticsBareConstitution, 19)
+        self.assertEquals(monster.statisticsModifiersConstitution, 4)
         self.assertEquals(monster.hit_points_notation, '10d12+40')
         self.assertEquals(monster.hit_points, 105)
 
@@ -98,7 +115,7 @@ class TestMonsterObject(unittest.TestCase):
         self.assertEquals(monster.critical_damage, 5)
 
         monster.update({
-            'stats': {'strength': 12}
+            'statistics': {'bare': {'strength': 12}}
             })
         self.assertEquals(monster.attacks0notation, '1d4+1 Force')
         self.assertEquals(monster.proficiency, 2)
@@ -108,10 +125,12 @@ class TestMonsterObject(unittest.TestCase):
         self.assertEquals(monster.critical_damage, 6)
 
         monster = MonsterObject({
-            'stats': {
-                'strength': 18,
-                'dexterity': 12,
-                'charisma': 10
+            'statistics': {
+                'bare': {
+                    'strength': 18,
+                    'dexterity': 12,
+                    'charisma': 10
+                    }
                 },
             'attacks': [{
                 'name': 'Torch Slam',
@@ -128,33 +147,43 @@ class TestMonsterObject(unittest.TestCase):
                     }]
                 }]
             })
-        self.assertEquals(
-            monster.attacks0notation, '2d8+4 Bludgeoning + 3d6 Fire')
-        self.assertEquals(monster.proficiency, 2)
-        self.assertEquals(monster.attack_bonus, 6)
-        self.assertEquals(monster.spell_save_dc, 0)
-        self.assertEquals(monster.average_damage, 23)
-        self.assertEquals(monster.critical_damage, 43)
+        self.assertDictContainsSubset({
+            'proficiency': 2,
+            'attack_bonus': 6,
+            'spell_save_dc': 0,
+            'average_damage': 23,
+            'critical_damage': 43
+            }, monster.config)
+        self.assertDictContainsSubset({
+            'notation': u'2d8+4 Bludgeoning + 3d6 Fire'
+            }, monster.attacks0)
 
         monster.update({
-            'stats': {
-                'strength': 10,
-                'charisma': 16
+            'statistics': {
+                'bare': {
+                    'strength': 10,
+                    'charisma': 16
+                    }
                 }
             })
-        self.assertEquals(
-            monster.attacks0notation, '3d6+3 Fire + 2d8 Bludgeoning')
-        self.assertEquals(monster.proficiency, 2)
-        self.assertEquals(monster.attack_bonus, 0)
-        self.assertEquals(monster.spell_save_dc, 13)
-        self.assertEquals(monster.average_damage, 22)
-        self.assertEquals(monster.critical_damage, 42)
+        self.assertDictContainsSubset({
+            'notation': '3d6+3 Fire + 2d8 Bludgeoning'
+            }, monster.attacks0)
+        self.assertDictContainsSubset({
+            'proficiency': 2,
+            'attack_bonus': 0,
+            'spell_save_dc': 13,
+            'average_damage': 22,
+            'critical_damage': 42
+            }, monster.config)
 
         monster = MonsterObject({
-            'stats': {
-                'strength': 15,
-                'dexterity': 17,
-                'charisma': 13
+            'statistics': {
+                'bare': {
+                    'strength': 15,
+                    'dexterity': 17,
+                    'charisma': 13
+                    }
                 },
             'attacks': [{
                 'name': 'Poisoned Axe',
@@ -175,16 +204,22 @@ class TestMonsterObject(unittest.TestCase):
                 'sequence': ['Poisoned Axe', 'Poisoned Axe']
                 }]
             })
-        self.assertEquals(monster.attacks0notation, '3d8+3 Piercing + 2d6+1 Poison')
-        self.assertEquals(monster.proficiency, 2)
-        self.assertEquals(monster.attack_bonus, 5)
-        self.assertEquals(monster.spell_save_dc, 0)
-        self.assertEquals(monster.average_damage, 48)
-        self.assertEquals(monster.critical_damage, 90)
+        self.assertDictContainsSubset({
+            'notation': '3d8+3 Piercing + 2d6+1 Poison'
+            }, monster.attacks0)
+        self.assertDictContainsSubset({
+            'proficiency': 2,
+            'attack_bonus': 5,
+            'spell_save_dc': 0,
+            'average_damage': 48,
+            'critical_damage': 90
+            }, monster.config)
 
         monster.update({
-            'stats': {
-                'dexterity': 15
+            'statistics': {
+                'bare': {
+                    'dexterity': 15
+                    }
                 }
             })
         self.assertEquals(monster.attacks0notation, '3d8+2 Piercing + 2d6+1 Poison')
@@ -199,9 +234,11 @@ class TestMonsterObject(unittest.TestCase):
         monster = MonsterObject({
             'size': 'tiny',
             'level': 1,
-            'stats': {
-                'constitution': 10,
-                'strength': 10
+            'statistics': {
+                'bare': {
+                    'constitution': 10,
+                    'strength': 10
+                    }
                 },
             'armor_class': 10,
             'attacks': [{
@@ -221,9 +258,11 @@ class TestMonsterObject(unittest.TestCase):
 
         monster.update({
             'armor_class': 11,
-            'stats': {
-                'constitution': 14,
-                'strength': 12
+            'statistics': {
+                'bare': {
+                    'constitution': 14,
+                    'strength': 12
+                    }
                 }
             })
         self.assertAlmostEqual(
@@ -235,11 +274,13 @@ class TestMonsterObject(unittest.TestCase):
         monster = MonsterObject({
             'size': 'medium',
             'level': 4,
-            'stats': {
-                'constitution': 11,
-                'strength': 18,
-                'dexterity': 12,
-                'charisma': 10
+            'statistics': {
+                'bare': {
+                    'constitution': 11,
+                    'strength': 18,
+                    'dexterity': 12,
+                    'charisma': 10
+                    }
                 },
             'armor_class': 13,
             'attacks': [{
@@ -265,10 +306,12 @@ class TestMonsterObject(unittest.TestCase):
 
         monster.update({
             'armor_class': 14,
-            'stats': {
-                'constitution': 15,
-                'strength': 10,
-                'charisma': 16
+            'statistics': {
+                'bare': {
+                    'constitution': 15,
+                    'strength': 10,
+                    'charisma': 16
+                    }
                 }
             })
         self.assertAlmostEqual(
@@ -281,11 +324,13 @@ class TestMonsterObject(unittest.TestCase):
         monster = MonsterObject({
             'size': 'huge',
             'level': 10,
-            'stats': {
-                'constitution': 18,
-                'strength': 15,
-                'dexterity': 17,
-                'charisma': 13
+            'statistics': {
+                'bare': {
+                    'constitution': 18,
+                    'strength': 15,
+                    'dexterity': 17,
+                    'charisma': 13
+                    }
                 },
             'armor_class': 16,
             'attacks': [{
@@ -315,9 +360,11 @@ class TestMonsterObject(unittest.TestCase):
 
         monster.update({
             'armor_class': 17,
-            'stats': {
-                'constitution': 19,
-                'strength': 12
+            'statistics': {
+                'bare': {
+                    'constitution': 19,
+                    'strength': 12
+                    }
                 }
             })
 
