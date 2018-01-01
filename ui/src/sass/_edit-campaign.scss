@@ -1,0 +1,22 @@
+// _edit-campaign.scss
+
+@import 'widget-grid';
+@import 'media-values';
+
+.edit-campaign {
+    @extend .widget-grid;
+
+    grid-auto-rows: auto;
+
+    .edit-campaign__story {
+        grid-column-end: span 2;
+    }
+}
+
+@media #{$media} and ($feature: $value) {
+
+    .edit-campaign {
+        display: block;
+    }
+
+}
