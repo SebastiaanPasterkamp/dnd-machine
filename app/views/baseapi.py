@@ -41,7 +41,7 @@ class BaseApiBlueprint(Blueprint):
             '/api/<int:obj_id>', 'api_get',
             self.api_get, methods=['GET'])
         self.add_url_rule(
-            '/api/<int:obj_id>', 'api_post',
+            '/api', 'api_post',
             self.api_post, methods=['POST'])
         self.add_url_rule(
             '/api/<int:obj_id>', 'api_patch',

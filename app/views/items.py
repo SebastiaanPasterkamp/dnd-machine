@@ -14,6 +14,31 @@ def statistics():
     datamapper = get_datamapper()
     return jsonify(datamapper.items.statistics)
 
+@blueprint.route('/alignments')
+def alignments():
+    datamapper = get_datamapper()
+    return jsonify(datamapper.items.alignments)
+
+@blueprint.route('/size_hit_dice')
+def size_hit_dice():
+    datamapper = get_datamapper()
+    return jsonify(datamapper.items.size_hit_dice)
+
+@blueprint.route('/monster_types')
+def monster_types():
+    datamapper = get_datamapper()
+    return jsonify(datamapper.items.monster_types)
+
+@blueprint.route('/target_methods')
+def target_methods():
+    datamapper = get_datamapper()
+    return jsonify(datamapper.items.target_methods)
+
+@blueprint.route('/damage_types')
+def damage_types():
+    datamapper = get_datamapper()
+    return jsonify(datamapper.items.damage_types)
+
 
 @blueprint.route('/<string:objects>/list')
 def get_list(objects):
