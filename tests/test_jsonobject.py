@@ -190,9 +190,7 @@ class JsonObjectTestCase(unittest.TestCase):
             'test.default.float': "3.0",
             'test.default.new': "hello",
             'test.int.list': ["5"],
-            'test.int.list.1': "10",
-            'test.string.list': ["new"],
-            'test.string.list.1': "changed",
+            'test.string.list': ["changed"],
             'test.int.dict.add': "5",
             'test.int.dict.two': "10",
             'test.string.dict.add': "new",
@@ -202,8 +200,8 @@ class JsonObjectTestCase(unittest.TestCase):
         self.assertEquals(obj.config['new_field'], u"foo bar")
         self.assertEquals(obj.config['default']['float'], 3.0)
         self.assertEquals(obj.config['default']['new'], u"hello")
-        self.assertEquals(obj.config['int']['list'], [1, 10, 5])
-        self.assertEquals(obj.config['string']['list'], [u"foo", u"changed", u"new"])
+        self.assertEquals(obj.config['int']['list'], [5])
+        self.assertEquals(obj.config['string']['list'], [u"changed"])
         self.assertEquals(obj.config['int']['dict']["add"], 5)
         self.assertEquals(obj.config['int']['dict']["two"], 10)
         self.assertEquals(obj.config['string']['dict']["add"], u"new")
@@ -236,12 +234,58 @@ class JsonObjectTestCase(unittest.TestCase):
         self.assertEquals(obj.config['new_field'], u"foo bar")
         self.assertEquals(obj.config['default']['float'], 3.0)
         self.assertEquals(obj.config['default']['new'], u"hello")
-        self.assertEquals(obj.config['int']['list'], [1, 2, 5])
-        self.assertEquals(obj.config['string']['list'], [u"foo", u"bar", u"new"])
+        self.assertEquals(obj.config['int']['list'], [5])
+        self.assertEquals(obj.config['string']['list'], [u"new"])
         self.assertEquals(obj.config['int']['dict']["add"], 5)
         self.assertEquals(obj.config['int']['dict']["two"], 10)
         self.assertEquals(obj.config['string']['dict']["add"], u"new")
         self.assertEquals(obj.config['string']['dict']["two"], u"changed")
+
+    def test_create(self):
+        obj = TestJsonObject({
+            'new_field': "foo bar",
+            'default': {
+                'new': "hello",
+                'float': "3.0",
+                },
+            'int': {
+                'list': ["5"],
+                },
+            'string': {
+                'dict': {
+                    'add': "new",
+                    'two': "changed"
+                    }
+                }
+            })
+
+        self.assertEquals(obj.config, {
+            'new_field': u"foo bar",
+            "default": {
+                'new': u"hello",
+                "unicode": u"Unicode string",
+                "float": 3.0,
+                "int": 7
+                },
+            "int": {
+                "list": [5],
+                "dict": {
+                    "one": 1,
+                    "two": 2
+                    }
+                },
+            "string": {
+                "list": [
+                    u"foo",
+                    u"bar"
+                ],
+                "dict": {
+                    "add": u"new",
+                    "one": u"foo",
+                    "two": u"changed"
+                    }
+                }
+            })
 
 if __name__ == '__main__':
     unittest.main()
