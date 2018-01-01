@@ -17,6 +17,9 @@ function RoutedObjectDataWrapper(
     return class extends Reflux.Component {
         constructor(props) {
             super(props);
+            this.state = {
+                id: null
+            };
             this.store = ObjectDataStore;
             this.storeKeys = [loadableType];
         }
@@ -65,7 +68,7 @@ function RoutedObjectDataWrapper(
         onSetState(update, callback=null) {
             let loadable = _.assign(
                 {},
-                _.get(this.state, [loadableType, this.state.id]),
+                this.getStateProps(this.state),
                 update
                 );
             let loaded = _.assign(
@@ -140,7 +143,9 @@ function RoutedObjectDataWrapper(
             let data = this.getStateProps(this.state);
 
             return <WrappedComponent
-                setState={(state, callback=null) => this.onSetState(state, callback)}
+                setState={(state, callback=null) => {
+                    this.onSetState(state, callback)
+                }}
                 cancel={() => this.nextView()}
                 reload={this.state.id != null
                     ? () => this.onReload()
