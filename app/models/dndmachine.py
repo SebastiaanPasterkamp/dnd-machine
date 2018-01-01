@@ -36,7 +36,7 @@ class DndMachine(object):
         matches = [
             item
             for item in items
-            if item['name'] == name
+            if item.get('name', item.get('code')) == name
             ]
         if matches:
             return matches[0]
@@ -46,7 +46,7 @@ class DndMachine(object):
         matches = [
             item
             for item in self.items.getPath(path)
-            if item['name'] == name
+            if item.get('name', item.get('code')) == name
             ]
         if matches:
             return matches[0]
