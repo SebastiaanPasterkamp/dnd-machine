@@ -51,7 +51,7 @@ class BaseApiBlueprint(Blueprint):
             self.api_delete, methods=['DELETE'])
         self.add_url_rule(
             '/recompute/<int:obj_id>', 'recompute',
-            self.api_recompute)
+            self.api_recompute, methods=['POST'])
 
     def checkRole(self, roles):
         if request.user is None:
@@ -60,8 +60,11 @@ class BaseApiBlueprint(Blueprint):
             return True
         return False
 
-    def _exposeFields(self, obj):
+    def _exposeAttributes(self, obj):
         return result.config
+
+    def _mutableAttributes(self, config, obj=None):
+        return config
 
     def index(self):
         return redirect(url_for('%s.overview' % self.name))
@@ -129,7 +132,13 @@ class BaseApiBlueprint(Blueprint):
         return obj
 
     def api_post(self):
-        obj = self.datamapper.create(request.get_json())
+        update = request.get_json()
+        update = dict(
+            (key, value)
+            for key, value in self._mutableAttributes(update).items()
+            )
+
+        obj = self.datamapper.create(update)
 
         if 'id' in obj and obj.id:
             abort(409, "Cannot create with existing ID")
@@ -148,7 +157,16 @@ class BaseApiBlueprint(Blueprint):
 
     def api_patch(self, obj_id):
         obj = self.datamapper.getById(obj_id)
-        obj.update(request.get_json())
+        if not obj:
+            abort(404, "Object not found")
+
+        update = request.get_json()
+        update = dict(
+            (key, value)
+            for key, value in self._mutableAttributes(update, obj).items()
+            )
+
+        obj.update(update)
 
         if 'id' not in obj or obj.id != obj_id:
             abort(409, "Cannot change ID")
@@ -167,6 +185,8 @@ class BaseApiBlueprint(Blueprint):
 
     def api_delete(self, obj_id):
         obj = self.datamapper.getById(obj_id)
+        if not obj:
+            abort(404, "Object not found")
 
         obj = self._api_delete_filter(obj)
 
@@ -182,6 +202,10 @@ class BaseApiBlueprint(Blueprint):
             obj = self.datamapper.create(request.get_json())
         else:
             obj = self.datamapper.getById(obj_id)
+
+            if not obj:
+                abort(404, "Object not found")
+
             obj.update(request.get_json())
 
         return jsonify(self._exposeAttributes(obj))

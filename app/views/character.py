@@ -57,8 +57,21 @@ class CharacterBlueprint(BaseApiBlueprint):
                 (key, character[key])
                 for key in fields
                 ])
-
         return result
+
+    def _mutableAttributes(self, update, obj=None):
+        if obj is None and not self.checkRole(['dm']):
+            fields = [
+                'creation', 'background', 'personality', 'statistics',
+                'skills', 'equipment', 'languages', 'proficiencies',
+                'spells', 'appearance', 'wealth'
+                ]
+            update = dict(
+                (key, value)
+                for key, value in update.items()
+                if key in fields
+                )
+        return update
 
     def find_caracter_field(self, field, value):
         for data in self.character_data[field]:

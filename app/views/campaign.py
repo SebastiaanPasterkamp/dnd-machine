@@ -45,9 +45,6 @@ class CampaignBlueprint(BaseApiBlueprint):
             self._usermapper = datamapper.user
         return self._usermapper
 
-    def _exposeAttributes(self, campaign):
-        return campaign.config
-
     def _api_list_filter(self, campaigns):
         if not self.checkRole(['admin', 'dm']):
             abort(403)
