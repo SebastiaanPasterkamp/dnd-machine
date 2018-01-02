@@ -158,26 +158,38 @@ ObjectDataActions.deleteObject.listen((type, id, group=null, callback=null) => {
 ObjectDataActions.recomputeObject.listen((type, id, data, group=null, callback=null) => {
     let path = '/' + _.filter([group, type, 'recompute', id]).join('/')
 
-    fetch(path, {
-        credentials: 'same-origin',
-        method: 'POST',
-        'headers': {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-    .then((response) => response.json())
-    .then((result) => {
-        ObjectDataActions.postObject.completed(type, result.id, result);
-        if (callback) {
-            (callback)();
-        }
-    })
-    .catch((error) => {
-        console.error(error);
-        ObjectDataActions.postObject.failed(type, error);
-    });
+    if (!(path in throttledGet)) {
+        throttledGet[path] = {
+            running: false,
+            call: _.throttle((path, type, data) => {
+                throttledGet[path].running = true;
+
+                fetch(path, {
+                    credentials: 'same-origin',
+                    method: 'POST',
+                    'headers': {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then((response) => response.json())
+                .then((result) => {
+                    ObjectDataActions.postObject.completed(
+                        type, result.id, result);
+                    if (callback) {
+                        (callback)();
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                    ObjectDataActions.postObject.failed(type, error);
+                });
+            }, 5000, {leading: true, trailing: true})
+        };
+    }
+
+    throttledGet[path].call(path, type, data);
 });
 
 export default ObjectDataActions;
