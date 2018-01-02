@@ -192,12 +192,29 @@ export class MonsterEdit extends React.Component
             .map((i) => {
                 return {code: i, label: i}
             });
+        this.affects_rating = [
+            'level',
+            'armor_class',
+            'attacks',
+            'multiattack',
+            'statistics'
+        ];
     }
 
     onFieldChange(field, value, callback=null) {
         this.props.setState({
             [field]: value
-        }, callback);
+        }, () => {
+            if (callback) {
+                callback();
+            }
+            if (
+                this.props.recompute
+                && _.includes(this.affects_rating, field)
+            ) {
+                this.props.recompute();
+            }
+        });
     }
 
     onStatisticsChange(value) {
