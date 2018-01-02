@@ -59,7 +59,9 @@ class JsonObject(object):
         return steps
 
     def update(self, update):
-        self._config = self._merge(self._config, update)
+        self._config.update(
+            self.castFieldType(update)
+            )
         self.compute()
 
     def _merge(self, a, b, cast=None):
@@ -194,7 +196,7 @@ class JsonObject(object):
             rv = rv[step]
         return rv
 
-    def castFieldType(self, path, value, cast=None):
+    def castFieldType(self, value, path=[], cast=None):
         if not isinstance(path, list):
             path = self.splitPath(path)
         if cast is None:
@@ -210,7 +212,7 @@ class JsonObject(object):
 
         if isinstance(value, list):
             return [
-                self.castFieldType(path, v, cast)
+                self.castFieldType(v, path, cast)
                 for v in value
                 ]
 
@@ -224,7 +226,14 @@ class JsonObject(object):
                 return self._defaultFieldType
 
             return dict([
-                (step, self.castFieldType(path + [step], v, _getCast(cast, step)))
+                (
+                    step,
+                    self.castFieldType(
+                        v,
+                        path + [step],
+                        _getCast(cast, step)
+                        )
+                    )
                 for step, v in value.iteritems()
                 ])
 
@@ -241,7 +250,7 @@ class JsonObject(object):
         if not isinstance(path, list):
             path = self.splitPath(path)
 
-        value = self.castFieldType(path, value)
+        value = self.castFieldType(value, path)
 
         rv = self._config
         for i in range(len(path)):
