@@ -51,9 +51,6 @@ class EncounterBlueprint(BaseApiBlueprint):
             self._partymapper = datamapper.party
         return self._partymapper
 
-    def _exposeAttributes(self, encounter):
-        return encounter.config
-
     def _api_list_filter(self, encounters):
         if not self.checkRole(['admin', 'dm']):
             abort(403)
