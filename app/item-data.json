@@ -107,6 +107,11 @@
         {"code": "slashing", "label": "Slashing", "short": "Slash", "description": "Swords, axes, and monsters' claws deal slashing damage." },
         {"code": "thunder", "label": "Thunder", "short": "Thndr", "description": "A concussive burst of sound, such as the effect of the Thunderwave spell, deals thunder damage." }
     ],
+    "genders": [
+        {"code": "genderless", "label": "Genderless"},
+        {"code": "male", "label": "Male"},
+        {"code": "female", "label": "Female"}
+    ],
     "magic_schools": [
         {"name": "abjuration", "label": "Abjuration", "description": "Magic that blocks, banishes, or protects. Detractors of this school say that its tradition is about denial, negation rather than positive assertion. Others say that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void."},
         {"name": "conjuration", "label": "Conjuration", "description": "Spells that produce objects and creatures out of thin air. Ranging from billowing clouds of killing fog or summon creatures from elsewhere to fight on your behalf."},

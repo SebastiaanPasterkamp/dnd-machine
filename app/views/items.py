@@ -44,6 +44,10 @@ def damage_types():
     datamapper = get_datamapper()
     return jsonify(datamapper.items.damage_types)
 
+@blueprint.route('/genders')
+def genders():
+    datamapper = get_datamapper()
+    return jsonify(datamapper.items.genders)
 
 @blueprint.route('/<string:objects>/list')
 def get_list(objects):
