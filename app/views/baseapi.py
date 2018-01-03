@@ -61,7 +61,7 @@ class BaseApiBlueprint(Blueprint):
         return False
 
     def _exposeAttributes(self, obj):
-        return result.config
+        return obj.config
 
     def _mutableAttributes(self, config, obj=None):
         return config

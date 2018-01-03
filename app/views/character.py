@@ -44,17 +44,17 @@ class CharacterBlueprint(BaseApiBlueprint):
             sef._character_data = get_character_data()
         return self._character_data
 
-    def _exposeAttributes(self, character):
-        result = character.config
+    def _exposeAttributes(self, obj):
+        result = obj.config
 
         if not self.checkRole(['dm']) \
-                and character.user_id != request.user.id:
+                and obj.user_id != request.user.id:
             fields = [
                 'id', 'name', 'gender', 'race', 'class', 'alignment',
                 'background', 'level', 'xp', 'xp_progress', 'xp_level', 'challenge'
                 ]
             result = dict([
-                (key, character[key])
+                (key, obj[key])
                 for key in fields
                 ])
         return result

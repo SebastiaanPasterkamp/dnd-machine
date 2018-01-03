@@ -15,7 +15,7 @@ class NpcBlueprint(BaseApiBlueprint):
             self._datamapper = datamapper.npc
         return self._datamapper
 
-    def _exposeAttributes(self, npc):
+    def _exposeAttributes(self, obj):
         fields = [
             'id', 'name', 'race', 'class', 'gender',
             'level', 'size', 'alignment', 'statistics',
@@ -23,7 +23,7 @@ class NpcBlueprint(BaseApiBlueprint):
             ]
 
         result = dict([
-            (key, npc[key])
+            (key, obj[key])
             for key in fields
             ])
 
