@@ -14,6 +14,11 @@ def statistics():
     datamapper = get_datamapper()
     return jsonify(datamapper.items.statistics)
 
+@blueprint.route('/skills')
+def skills():
+    datamapper = get_datamapper()
+    return jsonify(datamapper.items.skills)
+
 @blueprint.route('/alignments')
 def alignments():
     datamapper = get_datamapper()
