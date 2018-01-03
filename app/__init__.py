@@ -9,7 +9,7 @@ def connect_db():
     """Connects to the specific database.
     """
     config = get_config()
-    rv = sqlite3.connect(config['DATABASE'])
+    rv = sqlite3.connect(config['DATABASE'], check_same_thread=False)
     rv.row_factory = sqlite3.Row
     return rv
 
