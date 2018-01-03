@@ -1,33 +1,33 @@
 {
     "statistics": [
         {
-            "name": "strength",
+            "code": "strength",
             "label": "Strength",
             "description": "Strength is being able to crush a tomato."
         },
         {
-            "name": "dexterity",
+            "code": "dexterity",
             "label": "Dexterity",
             "description": "Dexterity is being able to dodge a tomato."
 
         },
         {
-            "name": "constitution",
+            "code": "constitution",
             "label": "Constitution",
             "description": "Constitution is being able to eat a bad tomato."
         },
         {
-            "name": "intelligence",
+            "code": "intelligence",
             "label": "Intelligence",
             "description": "Intelligence is knowing a tomato is a fruit."
         },
         {
-            "name": "wisdom",
+            "code": "wisdom",
             "label": "Wisdom",
             "description": "Wisdom is knowing not to put a tomato in a fruit salad."
         },
         {
-            "name": "charisma",
+            "code": "charisma",
             "label": "Charisma",
             "description": "Charisma is being able to sell a tomato based fruit salad."
         }
@@ -46,24 +46,24 @@
         {"code": "chaotic evil", "label": "Chaotic evil"}
     ],
     "skills": [
-        {"name": "athletics", "label": "Athletics", "stat": "strength"},
-        {"name": "acrobatics", "label": "Acrobatics", "stat": "dexterity"},
-        {"name": "sleight of hand", "label": "Sleight of Hand", "stat": "dexterity"},
-        {"name": "stealth", "label": "Stealth", "stat": "dexterity"},
-        {"name": "arcana", "label": "Arcana", "stat": "intelligence"},
-        {"name": "history", "label": "History", "stat": "intelligence"},
-        {"name": "investigation", "label": "Investigation", "stat": "intelligence"},
-        {"name": "nature", "label": "Nature", "stat": "intelligence"},
-        {"name": "religion", "label": "Religion", "stat": "intelligence"},
-        {"name": "animal handling", "label": "Animal Handling", "stat": "wisdom"},
-        {"name": "insight", "label": "Insight", "stat": "wisdom"},
-        {"name": "medicine", "label": "Medicine", "stat": "wisdom"},
-        {"name": "perception", "label": "Perception", "stat": "wisdom"},
-        {"name": "survival", "label": "Survival", "stat": "wisdom"},
-        {"name": "deception", "label": "Deception", "stat": "charisma"},
-        {"name": "intimidation", "label": "Intimidation", "stat": "charisma"},
-        {"name": "performance", "label": "Performance", "stat": "charisma"},
-        {"name": "persuasion", "label": "Persuasion", "stat": "charisma"}
+        {"code": "athletics", "label": "Athletics", "stat": "strength"},
+        {"code": "acrobatics", "label": "Acrobatics", "stat": "dexterity"},
+        {"code": "sleight of hand", "label": "Sleight of Hand", "stat": "dexterity"},
+        {"code": "stealth", "label": "Stealth", "stat": "dexterity"},
+        {"code": "arcana", "label": "Arcana", "stat": "intelligence"},
+        {"code": "history", "label": "History", "stat": "intelligence"},
+        {"code": "investigation", "label": "Investigation", "stat": "intelligence"},
+        {"code": "nature", "label": "Nature", "stat": "intelligence"},
+        {"code": "religion", "label": "Religion", "stat": "intelligence"},
+        {"code": "animal handling", "label": "Animal Handling", "stat": "wisdom"},
+        {"code": "insight", "label": "Insight", "stat": "wisdom"},
+        {"code": "medicine", "label": "Medicine", "stat": "wisdom"},
+        {"code": "perception", "label": "Perception", "stat": "wisdom"},
+        {"code": "survival", "label": "Survival", "stat": "wisdom"},
+        {"code": "deception", "label": "Deception", "stat": "charisma"},
+        {"code": "intimidation", "label": "Intimidation", "stat": "charisma"},
+        {"code": "performance", "label": "Performance", "stat": "charisma"},
+        {"code": "persuasion", "label": "Persuasion", "stat": "charisma"}
     ],
     "languages": {
         "common": [
