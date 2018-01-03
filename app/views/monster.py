@@ -14,7 +14,7 @@ class MonsterBlueprint(BaseApiBlueprint):
             self._datamapper = datamapper.monster
         return self._datamapper
 
-    def _exposeAttributes(self, monster):
+    def _exposeAttributes(self, obj):
         fields = [
             'id', 'name', 'type', 'size', 'alignment', 'level',
             'statistics', 'armor_class', 'description',
@@ -26,7 +26,7 @@ class MonsterBlueprint(BaseApiBlueprint):
             ]
 
         result = dict([
-            (key, monster[key])
+            (key, obj[key])
             for key in fields
             ])
 
