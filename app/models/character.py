@@ -220,6 +220,8 @@ class CharacterObject(JsonObject):
         config = get_config()
         machine = DndMachine(config["machine"], get_item_data())
 
+        self.config = self.castFieldType(self.config)
+
         if 'ability_improvement' in self:
             for ability in self.ability_improvement:
                 if ability in self.stats_bonus:
@@ -236,8 +238,6 @@ class CharacterObject(JsonObject):
             self.saving_throws[stat] = self.modifiers[stat]
             if stat in self.proficienciesSaving_throws:
                 self.saving_throws[stat] += self.proficiency
-            else:
-                self.saving_throws[stat] += self.proficiency_alt
 
         self.initiative_bonus = self.modifiersDexterity
         self.passive_perception = 10 + self.modifiersWisdom
@@ -248,7 +248,7 @@ class CharacterObject(JsonObject):
             if skill in self.proficienciesSkills:
                 self.skills[skill] += self.proficiency
             else:
-                self.saving_throws[stat] += self.proficiency_alt
+                self.skills[skill] += self.proficiency_alt
 
         for path, compute in self.computed.items():
             value = machine.resolveMath(

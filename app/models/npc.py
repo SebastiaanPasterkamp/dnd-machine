@@ -177,6 +177,8 @@ class NpcObject(JsonObject):
         config = get_config()
         machine = DndMachine(config["machine"], get_item_data())
 
+        self.config = self.castFieldType(self.config)
+
         for stat in machine.items.statistics:
             stat = stat["code"]
             self.statisticsBase[stat] = self.statisticsBare[stat] \
