@@ -81,23 +81,6 @@ class CharacterBlueprint(BaseApiBlueprint):
             if data['name'] == value:
                 return data, None
 
-    def show(self, obj_id):
-        character = self.datamapper.getById(obj_id)
-        if character.user_id != request.user.id \
-                and not self.checkRole(['admin', 'dm']):
-
-            extended_ids = self.datamapper.getExtendedIds(request.user.id)
-            if obj_id not in extended_ids:
-                abort(403)
-
-        user = get_datamapper().user.getById(character.user_id)
-
-        return render_template(
-            'character/show.html',
-            character=character,
-            user=user
-            )
-
     def download(self, obj_id):
         items = get_item_data()
 
