@@ -143,7 +143,7 @@ class MonsterObject(JsonObject):
             ]
 
         for stat in machine.items.statistics:
-            stat = stat["name"]
+            stat = stat["code"]
             self.statisticsBase[stat] = self.statisticsBare[stat]
             self.statisticsModifiers[stat] = int(
                 (self.statisticsBase[stat] - 10.0) / 2.0

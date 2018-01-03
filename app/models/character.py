@@ -227,7 +227,7 @@ class CharacterObject(JsonObject):
             del self.ability_improvement
 
         for stat in machine.items.statistics:
-            stat = stat["name"]
+            stat = stat["code"]
             self.stats[stat] = self.base_stats[stat] \
                 + sum(self.stats_bonus[stat])
             self.modifiers[stat] = int(
@@ -243,7 +243,7 @@ class CharacterObject(JsonObject):
         self.passive_perception = 10 + self.modifiersWisdom
 
         for skill in machine.items.skills:
-            stat, skill = skill["stat"], skill["name"]
+            stat, skill = skill["stat"], skill["code"]
             self.skills[skill] = self.modifiers[stat]
             if skill in self.proficienciesSkills:
                 self.skills[skill] += self.proficiency

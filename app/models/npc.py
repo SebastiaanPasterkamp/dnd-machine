@@ -178,7 +178,7 @@ class NpcObject(JsonObject):
         machine = DndMachine(config["machine"], get_item_data())
 
         for stat in machine.items.statistics:
-            stat = stat["name"]
+            stat = stat["code"]
             self.statisticsBase[stat] = self.statisticsBare[stat] \
                 + sum(self.statisticsBonus[stat])
             self.statisticsModifiers[stat] = int(
