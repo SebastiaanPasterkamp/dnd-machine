@@ -17,8 +17,12 @@ parser.add_option("--port", dest="port", default=8080,
                   help="Use this port [default %default]")
 
 parser.add_option("--debug", dest="debug", default=False,
-                  action="store_false",
+                  action="store_true",
                   help="Enable debugging [default: %default]")
+
+parser.add_option("--threaded", dest="threaded", default=False,
+                  action="store_true",
+                  help="Enable multithreading [default: %default]")
 
 parser.add_option("--ssl-key", dest="ssl_key", default=None,
                   help="Enable SSL using this key [default: %default]")
@@ -31,7 +35,7 @@ args = {
     "host": options.host,
     "port": options.port,
     "debug": options.debug,
-    "threaded": not options.debug
+    "threaded": options.threaded
     }
 context = (options.ssl_crt, options.ssl_key)
 if all(context):
