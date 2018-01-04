@@ -14,7 +14,8 @@ import MultiSelect from '../components/MultiSelect.jsx';
 import ReachEdit from '../components/ReachEdit.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
-import TextField from '../components/TextField.jsx';
+import TagContainer from '../components/TagContainer.jsx';
+import TagValueContainer from '../components/TagValueContainer.jsx';
 
 export class WeaponEdit extends React.Component
 {
@@ -46,36 +47,57 @@ export class WeaponEdit extends React.Component
             {'code': 'gp', 'label': 'Gold'},
             {'code': 'pp', 'label': 'Platinum'}
         ];
+        this.coins = _.range(1, 100)
+            .map((i) => {
+                return {code: i, label: i}
+            });
+    }
+
+    onComponentDidMount() {
+        this.fixConditionalFields();
+    }
+
+    fixConditionalFields() {
+        let fix = [];
+        if (
+            this.props.type.match('ranged')
+            || _.includes(this.props.property, 'thrown')
+        ) {
+            if (!this.props.range) {
+                fix.range = {
+                    min: 5,
+                    max: 5
+                };
+            }
+        } else if ('range' in this.props) {
+            fix.range = null;
+        }
+
+        if (_.includes(this.props.property, 'versatile')) {
+            if (!this.props.versatile) {
+                fix.versatile = this.props.damage;
+            }
+        } else if ('versatile' in this.props) {
+            fix.versatile = null;
+        }
+
+        console.log(fix);
+
+        if (fix) {
+            this.props.setState(fix);
+        }
     }
 
     onFieldChange(field, value) {
         let update = [];
         update[field] = value;
-        this.props.setState(update);
+        this.props.setState(
+            update,
+            () => this.fixConditionalFields()
+        );
     }
 
     render() {
-        let range = null,
-            versatile = null;
-
-        if (
-            this.props.type.match('ranged')
-            || _.indexOf(this.props.property, 'thrown') >= 0
-        ) {
-            range = this.props.range || {
-                min: 5,
-                max: 5
-            };
-        }
-
-        if (_.indexOf(this.props.property, 'versatile') >= 0) {
-            versatile = this.props.versatile || {
-                dice_count: 1,
-                dice_size: 4,
-                type: 'bludgeoning'
-            };
-        }
-
         return <div>
         <h2 className="icon fa-cutlery">Weapon</h2>
 
@@ -99,15 +121,16 @@ export class WeaponEdit extends React.Component
                 </ControlGroup>
                 <DamageEdit
                     {...this.props.damage}
-                    setState={(damage) => {
-                        this.onFieldChange('damage', damage);
+                    setState={(value) => {
+                        this.onFieldChange('damage', value);
                     }}
                     />
-                {versatile || null
+                {this.props.versatile
                     ? <DamageEdit
-                        {...versatile}
-                        setState={(versatile) => {
-                            this.onFieldChange('versatile', versatile);
+                        label="Versatile"
+                        {...this.props.versatile}
+                        setState={(value) => {
+                            this.onFieldChange('versatile', value);
                         }}
                         />
                     : null
@@ -116,17 +139,16 @@ export class WeaponEdit extends React.Component
 
             <Panel id="properties" header="Properties">
                 <ControlGroup label="Properties">
-                    <MultiSelect
-                        header="Property"
-                        selected={this.props.property}
-                        items={this.properties}
+                    <TagContainer
+                        tags={this.props.property || []}
+                        tagOptions={this.properties || []}
                         setState={(value) => {
                             this.onFieldChange('property', value);
                         }} />
                 </ControlGroup>
-                {range || null
+                {this.props.range
                     ? <ReachEdit
-                        {...range}
+                        {...this.props.range}
                         setState={(range) => {
                             this.onFieldChange('range', range);
                         }}
@@ -145,23 +167,16 @@ export class WeaponEdit extends React.Component
                             this.onFieldChange('weight', {lb: value});
                         }} />
                 </ControlGroup>
-                {_.map(this.coinage, (coinage) => {
-                    return <ControlGroup
-                        key={coinage.code} label={coinage.label}>
-                    <InputField
-                        type="number"
-                        placeholder="Amount..."
-                        value={this.props.cost[coinage.code] || ''}
+
+                <ControlGroup label="Value">
+                    <TagValueContainer
+                        tags={this.props.cost}
+                        tagOptions={this.coinage}
+                        tagValues={this.coins}
                         setState={(value) => {
-                            let update = {};
-                            update[coinage.code] = parseInt(value) || null;
-                            let cost = Object.assign({},
-                                this.props.cost,
-                                update
-                            );
-                            this.onFieldChange('cost', cost);
+                            this.onFieldChange('cost', value);
                         }} />
-                </ControlGroup>})}
+                </ControlGroup>
             </Panel>
 
             <Panel id="save" header="Save">
