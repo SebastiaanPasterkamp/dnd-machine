@@ -41,7 +41,7 @@ class CharacterBlueprint(BaseApiBlueprint):
     @property
     def character_data(self):
         if not self._character_data:
-            sef._character_data = get_character_data()
+            self._character_data = get_character_data()
         return self._character_data
 
     def _exposeAttributes(self, obj):
