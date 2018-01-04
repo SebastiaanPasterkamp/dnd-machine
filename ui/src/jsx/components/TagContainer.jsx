@@ -31,7 +31,10 @@ export class TagContainer extends LazyComponent
     }
 
     isDisabled(item) {
-        if (_.has(this.props.tags, item.code)) {
+        if (this.props.multiple || false) {
+            return false;
+        }
+        if (_.includes(this.props.tags, item.code)) {
             return true;
         }
         return false;
@@ -76,6 +79,7 @@ export class TagContainer extends LazyComponent
 }
 
 TagContainer.defaultProps = {
+    multiple: false,
     setState: (value) => {
         console.log(['TagContainer', value]);
     }
