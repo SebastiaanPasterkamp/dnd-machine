@@ -7,7 +7,6 @@ import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import ArmorLinks from '../components/ArmorLinks.jsx';
 import Bonus from '../components/Bonus.jsx';
-import Damage from '../components/Damage.jsx';
 import Reach from '../components/Reach.jsx';
 import Coinage from '../components/Coinage.jsx';
 

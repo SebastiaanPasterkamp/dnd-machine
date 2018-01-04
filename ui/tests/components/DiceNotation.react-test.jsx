@@ -1,15 +1,15 @@
 import React from 'react';
-import Damage from '../../src/jsx/components/Damage.jsx';
+import DiceNotation from '../../src/jsx/components/DiceNotation.jsx';
 import renderer from 'react-test-renderer';
 
-describe('Component: Damage', () => {
+describe('Component: DiceNotation', () => {
     it('should show simple dice notation', () => {
         const props = {
             dice_count: 1,
             dice_size: 4
         };
         const tree = renderer.create(
-            <Damage {...props} />
+            <DiceNotation {...props} />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -22,7 +22,7 @@ describe('Component: Damage', () => {
             dice_bonus: 3
         };
         const tree = renderer.create(
-            <Damage {...props} />
+            <DiceNotation {...props} />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -35,7 +35,7 @@ describe('Component: Damage', () => {
             type: 'fire'
         };
         const tree = renderer.create(
-            <Damage {...props} />
+            <DiceNotation {...props} />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -49,7 +49,7 @@ describe('Component: Damage', () => {
             type: 'piercing'
         };
         const tree = renderer.create(
-            <Damage {...props} />
+            <DiceNotation {...props} />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
