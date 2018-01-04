@@ -27,7 +27,7 @@ export class StatsBlock extends Reflux.Component
         }, update);
 
         this.props.statistics.map((stat) => {
-            stat = stat.name;
+            stat = stat.code;
             props['base'][stat] = props['bare'][stat]
                 + (_.sum(props['bonus'][stat] || [0]))
                 + _.reduce(
@@ -121,29 +121,30 @@ export class StatsBlock extends Reflux.Component
     }
 
     renderRow(stat) {
-        return <tr key={stat.name} className="text-align-center">
+        const code = stat.code;
+        return <tr key={code} className="text-align-center">
             <th>{stat.label}</th>
             <td>
                 <SingleSelect
                     heading={stat.label}
                     description={stat.description}
                     items={this.range}
-                    setState={(value) => this.changeBareStat(stat.name, value)}
-                    isDisabled={(item) => this.isDisabled(stat.name, item)}
-                    selected={this.props.bare[stat.name]} />
+                    setState={(value) => this.changeBareStat(code, value)}
+                    isDisabled={(item) => this.isDisabled(code, item)}
+                    selected={this.props.bare[code]} />
             </td>
             {this.props.bonus
                 ? <td>
-                    <Bonus bonus={_.sum(this.props.bonus[stat.name])} />
+                    <Bonus bonus={_.sum(this.props.bonus[code])} />
                 </td>
                 : null
             }
             {_.times(this.props.increase,
-                (index) => this.renderIncrease(index, stat.name)
+                (index) => this.renderIncrease(index, code)
             )}
-            <td>{this.props.base[stat.name]}</td>
+            <td>{this.props.base[code]}</td>
             <td>
-                <Bonus bonus={this.props.modifiers[stat.name]} />
+                <Bonus bonus={this.props.modifiers[code]} />
             </td>
         </tr>
     }
