@@ -45,14 +45,14 @@ export class DamageEdit extends LazyComponent
         if (this.props.type == item.code) {
             return false;
         }
-        if (_.includes(disabled, item.code) >= 0) {
+        if (_.includes(disabled, item.code)) {
             return true;
         }
         return false;
     }
 
     render() {
-        return <ControlGroup labels={["Damage", "d", "+", "Type"]}>
+        return <ControlGroup labels={[this.props.label, "d", "+", "Type"]}>
             <SingleSelect
                 header="Dice count"
                 selected={this.props.dice_count}
@@ -91,6 +91,7 @@ export class DamageEdit extends LazyComponent
 }
 
 DamageEdit.defaultProps = {
+    label: 'Damage',
     setState: (value) => {
         console.log(['DamageEdit', value]);
     }
