@@ -1,7 +1,7 @@
 import React from 'react';
 import LazyComponent from '../components/LazyComponent.jsx';
 
-class Damage extends LazyComponent
+class DiceNotation extends LazyComponent
 {
     render() {
         const notation = [].concat(
@@ -17,10 +17,10 @@ class Damage extends LazyComponent
             ? [" ", this.props.type]
             : []
         );
-        return <div className="damage inline capitalize">
+        return <div className="dice-notation inline capitalize">
             {notation.join('')}
         </div>;
     }
 }
 
-export default Damage;
+export default DiceNotation;

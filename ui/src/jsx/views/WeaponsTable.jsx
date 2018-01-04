@@ -6,7 +6,7 @@ import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
 import Coinage from '../components/Coinage.jsx';
-import Damage from '../components/Damage.jsx';
+import DiceNotation from '../components/DiceNotation.jsx';
 import Reach from '../components/Reach.jsx';
 import WeaponLinks from '../components/WeaponLinks.jsx';
 
@@ -72,7 +72,7 @@ class WeaponsRow extends LazyComponent
                 {this.props.name}<br/>
                 <i>({this.props.type})</i>
             </td>
-            <td><Damage {...this.props.damage}/></td>
+            <td><DiceNotation {...this.props.damage}/></td>
             <td>{this.props.range
                 ? <Reach {...this.props.range}/>
                 : null
