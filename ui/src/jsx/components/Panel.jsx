@@ -11,6 +11,24 @@ export class Panel extends LazyComponent
             'nice-panel',
             this.props.className,
             ]);
+        let ContentComponent = 'div';
+        let contentStyle = ["nice-panel-content"];
+        React.Children.map(this.props.children, (child) => {
+            if (
+                child
+                && _.includes(
+                    ['tr', 'tbody', 'thead', 'tfoot'],
+                    child.type
+                )
+            ) {
+                ContentComponent = 'table';
+            }
+        });
+        if (ContentComponent == 'table') {
+            contentStyle = contentStyle.concat([
+                "nice-table", "bordered"
+            ]);
+        }
 
         return <div className={style.join(' ')} id={this.props.id}>
             {this.props.header
@@ -18,9 +36,9 @@ export class Panel extends LazyComponent
                     {this.props.header}
                 </div> : null
             }
-            <div className="nice-panel-content">
+            <ContentComponent className={contentStyle.join(' ')}>
                 {this.props.children}
-            </div>
+            </ContentComponent>
             {this.props.footer
                 ? <div className="nice-panel-heading">
                     {this.props.header}
