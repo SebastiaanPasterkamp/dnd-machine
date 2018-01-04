@@ -62,6 +62,9 @@ class JsonObject(object):
         self._config.update(
             self.castFieldType(update)
             )
+        for field in self._config.keys():
+            if self._config[field] is None:
+                del self._config[field]
         self.compute()
 
     def _merge(self, a, b, cast=None):
@@ -85,6 +88,9 @@ class JsonObject(object):
 
         if cast == int and b in [None, '']:
             return 0
+
+        if b is None:
+            return b
 
         return cast(b)
 
@@ -239,6 +245,9 @@ class JsonObject(object):
 
         if cast == int and value in [None, '']:
             return 0
+
+        if value is None:
+            return value
 
         try:
             return cast(value)
