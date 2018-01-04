@@ -11,7 +11,7 @@ describe('Component: StatsBlock', () => {
             'intelligence', 'wisdom', 'charisma'
         ], (stats, stat) => {
             stats['statistics'].push({
-                name: stat, label: stat, description: stat
+                code: stat, label: stat, description: stat
             });
             stats['bare'][stat] = 12;
             stats['bonus'][stat] = [1, 2];
