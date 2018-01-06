@@ -1,0 +1,26 @@
+// _view-character.scss
+
+@import 'view-grid';
+
+.view-character {
+    @extend .view-grid;
+
+    grid-template-areas:
+        "head head head head head head"
+        "desc desc desc desc info info"
+        "base base stat stat skil skil"
+        "base base equi equi skil skil"
+        "bckg bckg spel spel skil skil"
+        "trai trai trai abil abil abil";
+
+    > h2 { grid-area: head; }
+    > .view-character__description { grid-area: desc; }
+    > .view-character__info { grid-area: info; }
+    > .view-character__base { grid-area: base; }
+    > .view-character__statistics { grid-area: stat; }
+    > .view-character__skills { grid-area: skil; }
+    > .view-character__equipment { grid-area: equi; }
+    > .view-character__traits { grid-area: trai; }
+    > .view-character__abilities { grid-area: abil; }
+    > .view-character__spells { grid-area: spel; }
+}

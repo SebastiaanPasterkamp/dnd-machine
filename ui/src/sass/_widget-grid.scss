@@ -2,7 +2,7 @@
 
 @import 'media-values';
 
-div.widget-grid {
+.widget-grid {
     display: grid;
     grid-gap: 1em .5em;
     grid-template-columns: 50% 50%;
@@ -10,7 +10,7 @@ div.widget-grid {
 
 @media #{$media} and ($feature: $value) {
 
-    div.widget-grid {
+    .widget-grid {
         display: block;
     }
 
