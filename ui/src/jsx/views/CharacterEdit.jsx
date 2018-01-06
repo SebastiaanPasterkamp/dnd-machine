@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 import '../../sass/_edit-character.scss';
 
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
@@ -13,31 +14,10 @@ import MultiSelect from '../components/MultiSelect.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
+import Progress from '../components/Progress.jsx';
 
 export class CharacterEdit extends React.Component
 {
-    constructor(props) {
-        super(props);
-        this.genders = [
-            {code: "male", label: "Male"},
-            {code: "female", label: "Female"},
-            {code: "genderless", label: "genderless"},
-        ];
-        this.alignments = [
-            {code: "lawful good", label: "Lawful good"},
-            {code: "neutral good", label: "Neutral good"},
-            {code: "chaotic good", label: "Chaotic good"},
-
-            {code: "lawful neutral", label: "Lawful neutral"},
-            {code: "true neutral", label: "True neutral"},
-            {code: "chaotic neutral", label: "Chaotic neutral"},
-
-            {code: "lawful evil", label: "Lawful evil"},
-            {code: "neutral evil", label: "Neutral evil"},
-            {code: "chaotic evil", label: "Chaotic evil"},
-        ];
-    }
-
     onFieldChange(field, value) {
         this.props.setState({
             [field]: value
@@ -50,12 +30,52 @@ export class CharacterEdit extends React.Component
 
         <div id="edit-character">
             <Panel id="description" header="Description">
+                Level {this.props.level} {this.props.class} {this.props.race} ({this.props.background})
+                <Progress
+                    value={this.props.xp_progress}
+                    total={this.props.xp_level}
+                    color={"good"}
+                    labels={[
+                        {
+                            value: 0.30,
+                            label: this.props.xp_progress
+                                + " / "
+                                + this.props.xp_level
+                        },
+                        {
+                            value: 0.20,
+                            label: this.props.xp_progress
+                        },
+                        {
+                            value: 0.10,
+                            label: this.props.level
+                        }
+                    ]}
+                    />
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
                         value={this.props.name}
                         setState={
                             (value) => this.onFieldChange('name', value)
+                        } />
+                </ControlGroup>
+                <ControlGroup label="Alignment">
+                    <SingleSelect
+                        emptyLabel="Alignment..."
+                        selected={this.props.alignment}
+                        items={this.props.alignments}
+                        setState={
+                            (value) => this.onFieldChange('alignment', value)
+                        } />
+                </ControlGroup>
+                <ControlGroup label="Gender">
+                    <SingleSelect
+                        emptyLabel="Gender..."
+                        selected={this.props.gender}
+                        items={this.props.genders}
+                        setState={
+                            (value) => this.onFieldChange('gender', value)
                         } />
                 </ControlGroup>
                 <ControlGroup labels={["Height", "ft."]}>
@@ -97,24 +117,6 @@ export class CharacterEdit extends React.Component
             </Panel>
 
             <Panel id="personality" header="Personality">
-                <ControlGroup label="Gender">
-                    <SingleSelect
-                        emptyLabel="Gender..."
-                        selected={this.props.gender}
-                        items={this.genders}
-                        setState={
-                            (value) => this.onFieldChange('gender', value)
-                        } />
-                </ControlGroup>
-                <ControlGroup label="Alignment">
-                    <SingleSelect
-                        emptyLabel="Alignment..."
-                        selected={this.props.alignment}
-                        items={this.alignments}
-                        setState={
-                            (value) => this.onFieldChange('alignment', value)
-                        } />
-                </ControlGroup>
                 {_.map({
                     'traits': 'Traits',
                     'ideals': 'Ideals',
@@ -179,6 +181,10 @@ export class CharacterEdit extends React.Component
     }
 }
 
-export default RoutedObjectDataWrapper(
-    CharacterEdit, "character"
+export default ListDataWrapper(
+    RoutedObjectDataWrapper(
+        CharacterEdit, "character"
+    ),
+    ['alignments', 'genders'],
+    'items'
 );
