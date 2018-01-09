@@ -1,22 +1,11 @@
 // _edit-campaign.scss
 
 @import 'widget-grid';
-@import 'media-values';
 
-.edit-campaign {
+.campaign-edit {
     @extend .widget-grid;
 
-    grid-auto-rows: auto;
-
-    .edit-campaign__story {
+    > .campaign-edit__story {
         grid-column-end: span 2;
     }
-}
-
-@media #{$media} and ($feature: $value) {
-
-    .edit-campaign {
-        display: block;
-    }
-
 }

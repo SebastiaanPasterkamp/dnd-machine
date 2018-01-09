@@ -1,18 +1,7 @@
 // _edit-monster.scss
 
 @import 'widget-grid';
-@import 'media-values';
 
-.edit-monster {
+.monster-edit {
     @extend .widget-grid;
-
-    grid-auto-rows: auto;
-}
-
-@media #{$media} and ($feature: $value) {
-
-    .edit-monster {
-        display: block;
-    }
-
 }

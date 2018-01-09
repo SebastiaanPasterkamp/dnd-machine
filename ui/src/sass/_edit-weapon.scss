@@ -1,18 +1,7 @@
 // _edit-weapon.scss
 
 @import 'widget-grid';
-@import 'media-values';
 
-div#edit-weapon {
+.weapon-edit {
     @extend .widget-grid;
-
-    grid-auto-rows: auto;
-}
-
-@media #{$media} and ($feature: $value) {
-
-    div#edit-weapon {
-        display: block;
-    }
-
 }

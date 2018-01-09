@@ -1,18 +1,7 @@
 // _edit-armor.scss
 
 @import 'widget-grid';
-@import 'media-values';
 
-div#edit-armor {
+.armor-edit {
     @extend .widget-grid;
-
-    grid-auto-rows: auto;
-}
-
-@media #{$media} and ($feature: $value) {
-
-    div#edit-armor {
-        display: block;
-    }
-
 }
