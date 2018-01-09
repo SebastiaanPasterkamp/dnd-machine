@@ -1,31 +1,39 @@
 import json
 import re
+from copy import deepcopy
 
 class JsonObject(object):
-    version = '0.0.0'
+    _version = '0.0.0'
+    _pathPrefix = 'obj'
+    _defaultConfig = {}
+    _defaultFieldType = unicode
+    _fieldTypes = {
+        'id': int
+        }
+    _camelCaseRe = re.compile(ur""".+?(?<!^)(?:
+        (?<=[a-z])(?=[A-Z])
+        |(?<=[0-9])(?=[a-zA-Z])
+        |(?<=[a-zA-Z])(?=[0-9])
+        |$
+        )""", re.X)
 
-    def __init__(self, config={}, **kwargs):
-        self._camelCaseRe = re.compile(ur""".+?(?<!^)(?:
-            (?<=[a-z])(?=[A-Z])
-            |(?<=[0-9])(?=[a-zA-Z])
-            |(?<=[a-zA-Z])(?=[0-9])
-            |$
-            )""", re.X)
-
-        self._pathPrefix = kwargs.get('pathPrefix', 'obj')
-        self._defaultConfig = kwargs.get('defaultConfig', {})
-        self._defaultFieldType = kwargs.get('defaultFieldType', unicode)
-        self._fieldTypes = kwargs.get('fieldTypes', {})
-        self._fieldTypes['id'] = int
-
-        if not len(config.keys()):
-            config = self._merge({}, self._defaultConfig)
-        elif 'version' not in config:
-            config = self._merge(
-                self._merge({}, self._defaultConfig),
+    def __init__(self, config={}):
+        _config = self._merge(
+            {},
+            deepcopy(self._defaultConfig)
+            )
+        if config.get('id') is None:
+            self._config = self._merge(
+                _config,
+                self.castFieldType(config)
+                )
+        else:
+            self._config = self._merge(
+                _config,
                 config
                 )
-        self._config = config
+        if 'config' in self._config:
+            del(self._config['config'])
 
     @property
     def config(self):
@@ -144,6 +152,8 @@ class JsonObject(object):
                 return self.getPath(field)
 
     def __setattr__(self, field, value):
+        if field == 'config':
+            field = '_config'
         if field.startswith('_') \
                 or field in self.__dict__ \
                 or field in self.__class__.__dict__:
@@ -334,13 +344,9 @@ class JsonObjectDataMapper(object):
         dbrow['config'] = json.dumps(dbrow['config'])
         return dbrow
 
-    def create(self, config):
+    def create(self, config=None):
         """Creates an object from config"""
-        if config is None \
-                or not isinstance(config, dict):
-            raise ValueError("Invalid config: %r" % config)
-        obj = self.obj()
-        obj.update(obj.config)
+        obj = self.obj(config)
         return obj
 
     def getById(self, obj_id):
