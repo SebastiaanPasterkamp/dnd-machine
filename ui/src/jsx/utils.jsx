@@ -10,6 +10,19 @@ let utils = {
         return color;
     },
 
+    makeStyle(styles) {
+        const active = _.reduce(
+            styles, (active, use, style) => {
+                if (use) {
+                    active.push(style);
+                }
+                return active;
+            },
+            []
+        );
+        return _.join(active, ' ');
+    },
+
     closestStyle(styles, target, defaultStyle=null) {
         let matched = _.reduce(
             styles,
