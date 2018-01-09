@@ -115,11 +115,22 @@ ObjectDataStore.initial = {
         cost: {},
         requirements: {},
     },
-    characters: {
+    character: {
         id: null,
         name: '',
-        'class': '',
-        race: '',
+        'class': null,
+        race: null,
+        background: null,
+        statistics: {
+            bare: {
+                strength: 8,
+                dexterity: 8,
+                constitution: 8,
+                intelligence: 8,
+                wisdom: 8,
+                charisma: 8,
+            }
+        },
         alignment: 'true neutral',
         level: 1,
         xp: 0,
