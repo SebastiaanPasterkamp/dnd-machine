@@ -50,6 +50,9 @@ class BaseApiBlueprint(Blueprint):
             '/api/<int:obj_id>', 'api_delete',
             self.api_delete, methods=['DELETE'])
         self.add_url_rule(
+            '/recompute', 'recompute',
+            self.api_recompute, methods=['POST'])
+        self.add_url_rule(
             '/recompute/<int:obj_id>', 'recompute',
             self.api_recompute, methods=['POST'])
 
@@ -198,14 +201,17 @@ class BaseApiBlueprint(Blueprint):
         return jsonify(self._exposeAttributes(obj))
 
     def api_recompute(self, obj_id=None):
+        update = request.get_json()
+
         if obj_id is None:
-            obj = self.datamapper.create(request.get_json())
+            obj = self.datamapper.create(update)
+            obj = self._api_post_filter(obj)
         else:
             obj = self.datamapper.getById(obj_id)
-
             if not obj:
                 abort(404, "Object not found")
 
-            obj.update(request.get_json())
+            obj.update(update)
+            obj = self._api_patch_filter(obj)
 
         return jsonify(self._exposeAttributes(obj))
