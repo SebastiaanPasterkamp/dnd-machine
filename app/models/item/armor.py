@@ -1,27 +1,23 @@
 from ..base import JsonObject, JsonObjectDataMapper
 
 class ArmorObject(JsonObject):
-    def __init__(self, config={}):
-        super(ArmorObject, self).__init__(
-            config,
-            pathPrefix = "armor",
-            defaultConfig = {
-                "type": u"light armor",
-                "name": u"",
-                "cost": {},
-                "disadvantage": False,
-                "requirements": {}
-                },
-            fieldTypes = {
-                "cost": {
-                    "*": int
-                    },
-                "disadvantage": bool,
-                "value": int,
-                "bonus": int
-                }
-            )
-        self.compute()
+    _pathPrefix = "armor"
+    _defaultConfig = {
+        "type": u"light armor",
+        "name": u"",
+        "cost": {},
+        "disadvantage": False,
+        "requirements": {}
+        }
+    _fieldTypes = {
+        "id": int,
+        "cost": {
+            "*": int
+            },
+        "disadvantage": bool,
+        "value": int,
+        "bonus": int
+        }
 
 class ArmorMapper(JsonObjectDataMapper):
     obj = ArmorObject

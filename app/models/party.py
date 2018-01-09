@@ -2,29 +2,25 @@ from base import JsonObject, JsonObjectDataMapper
 
 class PartyObject(JsonObject):
     _version = '1.0'
+    _pathPrefix = "party"
+    _fieldTypes = {
+        'user_id': int,
+        'size': int,
+        'challenge': {
+            "*": int
+            },
+        'members': int
+        }
+    _defaultConfig = {
+        'challenge': {}
+        }
 
     def __init__(self, config={}):
         self._members = []
-        super(PartyObject, self).__init__(
-            config,
-            pathPrefix = "party",
-            fieldTypes = {
-                'user_id': int,
-                'size': int,
-                'challenge': {
-                    "*": int
-                    },
-                'members': int
-                },
-            defaultConfig = {
-                'challenge': {}
-                }
-            )
+        super(PartyObject, self).__init__(config)
 
-        if self.version is None \
-                or self.version != PartyObject._version:
+        if self.version != self._version:
             self.compute()
-            self.version = PartyObject._version
 
     @property
     def members(self):

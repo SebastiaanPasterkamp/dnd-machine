@@ -4,76 +4,75 @@ import re
 from base import JsonObject
 
 class ItemsObject(JsonObject):
+    _pathPrefix = "items"
+    _fieldTypes = {
+        'size_hit_dice': {
+            'dice_size': int
+            },
+        'armor': {
+            '*': {
+                'items': {
+                    'cost': {
+                        "*": int
+                        }
+                    }
+                },
+            'shield': {
+                'items': {
+                    'bonus': int,
+                    'cost': {
+                        "*": int
+                        }
+                    }
+                }
+            },
+        'weapons': {
+            'name': unicode,
+            '*': {
+                'name': unicode,
+                '*': {
+                    'items': {
+                        'cost': {
+                            "*": int
+                            },
+                        'damage': {
+                            'value': int,
+                            'dice_count': int,
+                            'dice_size': int
+                            },
+                        'versatile': {
+                            'value': int,
+                            'dice_count': int,
+                            'dice_size': int
+                            },
+                        'range': {
+                            '*': int
+                            }
+                        }
+                    }
+                }
+            },
+        'tools': {
+            '*': {
+                'items': {
+                    'weight': {
+                        '*': float
+                        },
+                    'worth': {
+                        '*': int
+                        }
+                    }
+                },
+            'trinket': unicode
+            }
+        }
+
     def __init__(self, path):
         items = {}
         with open(path) as fh:
             items = json.load(fh)
 
-        super(ItemsObject, self).__init__(
-            items,
-            pathPrefix = "items",
-            fieldTypes = {
-                'size_hit_dice': {
-                    'dice_size': int
-                    },
-                'armor': {
-                    '*': {
-                        'items': {
-                            'cost': {
-                                "*": int
-                                }
-                            }
-                        },
-                    'shield': {
-                        'items': {
-                            'bonus': int,
-                            'cost': {
-                                "*": int
-                                }
-                            }
-                        }
-                    },
-                'weapons': {
-                    'name': unicode,
-                    '*': {
-                        'name': unicode,
-                        '*': {
-                            'items': {
-                                'cost': {
-                                    "*": int
-                                    },
-                                'damage': {
-                                    'value': int,
-                                    'dice_count': int,
-                                    'dice_size': int
-                                    },
-                                'versatile': {
-                                    'value': int,
-                                    'dice_count': int,
-                                    'dice_size': int
-                                    },
-                                'range': {
-                                    '*': int
-                                    }
-                                }
-                            }
-                        }
-                    },
-                'tools': {
-                    '*': {
-                        'items': {
-                            'weight': {
-                                '*': float
-                                },
-                            'worth': {
-                                '*': int
-                                }
-                            }
-                        },
-                    'trinket': unicode
-                    }
-                }
-            )
+        super(ItemsObject, self).__init__(items)
 
     def getList(self, paths):
         paths = paths.split(',')

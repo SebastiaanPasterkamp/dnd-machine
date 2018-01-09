@@ -7,166 +7,169 @@ from dndmachine import DndMachine
 
 class NpcObject(JsonObject):
     _version = '1.0'
+    _pathPrefix = "npc"
+    _defaultConfig = {
+        "name": u"",
+        "race": u"",
+        "size": u"medium",
+        "gender": u"",
+        "class": u"",
+        "description": u"",
+        "location": u"",
+        "organization": u"",
+        "alignment": u"true neutral",
+        "level": 1,
+        "hit_dice": 8,
+        "hit_points_notation": u"1d4",
+        "hit_points": 2,
+        "spell_stat": "intelligence",
+        "statistics": {
+            "bare": {
+                "strength": 8,
+                "dexterity": 8,
+                "constitution": 8,
+                "intelligence": 8,
+                "wisdom": 8,
+                "charisma": 8
+                },
+            "bonus": {
+                "strength": [],
+                "dexterity": [],
+                "constitution": [],
+                "intelligence": [],
+                "wisdom": [],
+                "charisma": []
+                },
+            "base": {
+                "strength": 8,
+                "dexterity": 8,
+                "constitution": 8,
+                "intelligence": 8,
+                "wisdom": 8,
+                "charisma": 8
+                },
+            "modifiers": {
+                "strength": 0,
+                "dexterity": 0,
+                "constitution": 0,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 0
+                }
+            },
+        "saving_throws": {
+            "strength": 0,
+            "dexterity": 0,
+            "constitution": 0,
+            "intelligence": 0,
+            "wisdom": 0,
+            "charisma": 0
+            },
+        "equipment": [],
+        "weapon": [],
+        "armor": [],
+        "proficiency": 2,
+        "traits": [],
+        "features": [],
+        "languages": [],
+        "computed": {
+            "unarmored": {
+                "formula": "10 + statistics.modifiers.dexterity"
+                }
+            },
+            "spell_safe_dc": {
+                "formula": "8 + npc.proficiency + statistics.modifiers['npc.spell_stat']"
+            },
+            "spell_attack_modifier": {
+                "formula": "npc.proficiency + statistics.modifiers.wisdom"
+            },
+        }
+    _fieldTypes = {
+        "level": int,
+        "hit_dice": int,
+        "hit_points": int,
+        "speed": int,
+        "proficiency": int,
+        "passive_perception": int,
+        "spell_safe_dc": int,
+        "spell_attack_modifier": int,
+        "armor_class": int,
+        "armor_class_bonus": int,
+        "statistics": {
+            "*": {
+                "*": int
+                }
+            },
+        "saving_throws": {
+            "*": int
+            },
+        "armor": {
+            "value": int,
+            "bonus": int,
+            "strength": int,
+            "cost": {
+                "*": int
+                }
+            },
+        "weapons": {
+            "damage": {
+                "dice_count": int,
+                "dice_size": int
+                },
+            "range": {
+                "min": int,
+                "max": int
+                },
+            "versatile": {
+                "dice_count": int,
+                "dice_size": int
+                },
+            "bonus": int,
+            "bonus_alt": int,
+            "cost": {
+                "*": int
+                }
+            },
+        "abilities": {
+            "*": {
+                "*": unicode,
+                "uses": int,
+                "bonus": int
+                }
+            },
+        "computed": {
+            "*": {
+                "bonus": int
+                }
+            }
+        }
 
     def __init__(self, config={}):
-        super(NpcObject, self).__init__(
-            config,
-            pathPrefix = "npc",
-            defaultConfig = {
-                "name": u"",
-                "race": u"",
-                "size": u"medium",
-                "gender": u"",
-                "class": u"",
-                "description": u"",
-                "location": u"",
-                "organization": u"",
-                "alignment": u"true neutral",
-                "level": 1,
-                "hit_dice": 8,
-                "hit_points_notation": u"1d4",
-                "hit_points": 2,
-                "spell_stat": "intelligence",
-                "statistics": {
-                    "bare": {
-                        "strength": 8,
-                        "dexterity": 8,
-                        "constitution": 8,
-                        "intelligence": 8,
-                        "wisdom": 8,
-                        "charisma": 8
-                        },
-                    "bonus": {
-                        "strength": [],
-                        "dexterity": [],
-                        "constitution": [],
-                        "intelligence": [],
-                        "wisdom": [],
-                        "charisma": []
-                        },
-                    "base": {
-                        "strength": 8,
-                        "dexterity": 8,
-                        "constitution": 8,
-                        "intelligence": 8,
-                        "wisdom": 8,
-                        "charisma": 8
-                        },
-                    "modifiers": {
-                        "strength": 0,
-                        "dexterity": 0,
-                        "constitution": 0,
-                        "intelligence": 0,
-                        "wisdom": 0,
-                        "charisma": 0
-                        }
-                    },
-                "saving_throws": {
-                    "strength": 0,
-                    "dexterity": 0,
-                    "constitution": 0,
-                    "intelligence": 0,
-                    "wisdom": 0,
-                    "charisma": 0
-                    },
-                "equipment": [],
-                "weapon": [],
-                "armor": [],
-                "proficiency": 2,
-                "traits": [],
-                "features": [],
-                "languages": [],
-                "computed": {
-                    "unarmored": {
-                        "formula": "10 + statistics.modifiers.dexterity"
-                        }
-                    },
-                    "spell_safe_dc": {
-                        "formula": "8 + npc.proficiency + statistics.modifiers['npc.spell_stat']"
-                    },
-                    "spell_attack_modifier": {
-                        "formula": "npc.proficiency + statistics.modifiers.wisdom"
-                    },
-                },
-            fieldTypes = {
-                "level": int,
-                "hit_dice": int,
-                "hit_points": int,
-                "speed": int,
-                "proficiency": int,
-                "passive_perception": int,
-                "spell_safe_dc": int,
-                "spell_attack_modifier": int,
-                "armor_class": int,
-                "armor_class_bonus": int,
-                "statistics": {
-                    "*": {
-                        "*": int
-                        }
-                    },
-                "saving_throws": {
-                    "*": int
-                    },
-                "armor": {
-                    "value": int,
-                    "bonus": int,
-                    "strength": int,
-                    "cost": {
-                        "*": int
-                        }
-                    },
-                "weapons": {
-                    "damage": {
-                        "dice_count": int,
-                        "dice_size": int
-                        },
-                    "range": {
-                        "min": int,
-                        "max": int
-                        },
-                    "versatile": {
-                        "dice_count": int,
-                        "dice_size": int
-                        },
-                    "bonus": int,
-                    "bonus_alt": int,
-                    "cost": {
-                        "*": int
-                        }
-                    },
-                "abilities": {
-                    "*": {
-                        "*": unicode,
-                        "uses": int,
-                        "bonus": int
-                        }
-                    },
-                "computed": {
-                    "*": {
-                        "bonus": int
-                        }
-                    }
-                }
-            )
+        super(NpcObject, self).__init__(config)
         self.upgrade()
-        if self.version is None \
-                or self.version != NpcObject._version:
+        if self.version != self._version:
             self.compute()
-            self.version = NpcObject._version
 
     def upgrade(self):
         if "base_stats" in self._config:
+            re_mod = re.compile(r"(?<!statistics\.)modifiers")
+
             for path, compute in self._config['computed'].items():
                 if 'formula' not in compute:
                     continue
-                compute['formula'] = compute['formula'].replace(
-                    ' modifiers', ' statistics.modifiers')
-            self._config['statistics'] = {
-                "bare": self._config['base_stats'],
-                "bonus": self._config['stats_bonus'],
-                "base": self._config['stats'],
-                "modifiers": self._config['modifiers']
-                }
+                compute['formula'] = re_mod.sub(
+                    "statistics.modifiers",
+                    compute['formula']
+                    )
+
+            self.update({
+                'statistics':{
+                    "bare": self._config['base_stats'],
+                    "bonus": self._config['stats_bonus'],
+                    "base": self._config['stats'],
+                    "modifiers": self._config['modifiers']
+                    }
+                })
             del self._config['base_stats']
             del self._config['stats_bonus']
             del self._config['stats']
@@ -178,7 +181,10 @@ class NpcObject(JsonObject):
         machine = DndMachine(config["machine"], get_item_data())
 
         self.config = self.castFieldType(self.config)
+        self.version = self._version
 
+        self.statisticsBase = {}
+        self.statisticsModifiers = {}
         for stat in machine.items.statistics:
             stat = stat["code"]
             self.statisticsBase[stat] = self.statisticsBare[stat] \
