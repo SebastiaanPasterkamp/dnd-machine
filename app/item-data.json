@@ -150,19 +150,19 @@
         "light": {
             "name": "Light Armor",
             "items": [
-                {"name": "Padded Armor", "cost": {"gp": 5}, "formula": "11 + modifiers.dexterity"},
-                {"name": "Leather Armor", "cost": {"gp": 10}, "formula": "11 + modifiers.dexterity"},
-                {"name": "Studded Leather", "cost": {"gp": 45}, "formula": "12 + modifiers.dexterity"}
+                {"name": "Padded Armor", "cost": {"gp": 5}, "formula": "11 + statistics.modifiers.dexterity"},
+                {"name": "Leather Armor", "cost": {"gp": 10}, "formula": "11 + statistics.modifiers.dexterity"},
+                {"name": "Studded Leather", "cost": {"gp": 45}, "formula": "12 + statistics.modifiers.dexterity"}
             ]
         },
         "medium": {
             "name": "Medium Armor",
             "items": [
-                {"name": "Hide Armor", "cost": {"gp": 10}, "formula": "12 + min(2, modifiers.dexterity)"},
-                {"name": "Chain Shirt", "cost": {"gp": 50}, "formula": "13 + min(2, modifiers.dexterity)"},
-                {"name": "Scale Mail", "cost": {"gp": 50}, "formula": "14 + min(2, modifiers.dexterity)"},
-                {"name": "Breastplate", "cost": {"gp": 400}, "formula": "14 + min(2, modifiers.dexterity)"},
-                {"name": "Half Plate", "cost": {"gp": 750}, "formula": "15 + min(2, modifiers.dexterity)"}
+                {"name": "Hide Armor", "cost": {"gp": 10}, "formula": "12 + min(2, statistics.modifiers.dexterity)"},
+                {"name": "Chain Shirt", "cost": {"gp": 50}, "formula": "13 + min(2, statistics.modifiers.dexterity)"},
+                {"name": "Scale Mail", "cost": {"gp": 50}, "formula": "14 + min(2, statistics.modifiers.dexterity)"},
+                {"name": "Breastplate", "cost": {"gp": 400}, "formula": "14 + min(2, statistics.modifiers.dexterity)"},
+                {"name": "Half Plate", "cost": {"gp": 750}, "formula": "15 + min(2, statistics.modifiers.dexterity)"}
             ]
         },
         "heavy": {
