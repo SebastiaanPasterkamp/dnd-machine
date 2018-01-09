@@ -156,7 +156,7 @@
                 "hit_dice": 12,
                 "computed": {
                     "unarmored": {
-                        "formula": "10 + modifiers.dexterity + modifiers.constitution"
+                        "formula": "10 + statistics.modifiers.dexterity + statistics.modifiers.constitution"
                     }
                 }
             }
