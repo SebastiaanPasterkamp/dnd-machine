@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import request, abort, render_template, send_file
+from flask import request, abort, render_template, send_file, jsonify
 import os
 import sys
 import re
@@ -18,6 +18,15 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         self._character_data = None
 
+        self.add_url_rule(
+            '/races', 'get_races',
+            self.get_races, methods=['GET'])
+        self.add_url_rule(
+            '/classes', 'get_classes',
+            self.get_classes, methods=['GET'])
+        self.add_url_rule(
+            '/backgrounds', 'get_backgrounds',
+            self.get_backgrounds, methods=['GET'])
         self.add_url_rule(
             '/download/<int:obj_id>', 'download',
             self.download)
@@ -41,7 +50,7 @@ class CharacterBlueprint(BaseApiBlueprint):
     @property
     def character_data(self):
         if not self._character_data:
-            self._character_data = get_character_data()
+            self._character_data = get_character_data(True)
         return self._character_data
 
     def _exposeAttributes(self, obj):
@@ -80,6 +89,27 @@ class CharacterBlueprint(BaseApiBlueprint):
                     return data, sub
             if data['name'] == value:
                 return data, None
+
+    def get_races(self):
+        def _race_attribs(race):
+            return dict(
+                (attrib, race.get(attrib))
+                for attrib in [
+                    'name', 'sub', 'config', 'description'
+                    ]
+                )
+        races = [
+            _race_attribs(race)
+            for race in self.character_data['race']
+            ]
+        return jsonify(races)
+
+
+    def get_classes(self):
+        return jsonify(self.character_data['class'])
+
+    def get_backgrounds(self):
+        return jsonify(self.character_data['background'])
 
     def download(self, obj_id):
         items = get_item_data()
@@ -554,10 +584,10 @@ class CharacterBlueprint(BaseApiBlueprint):
             character=c
             )
 
-    def new(self):
-        c = self.datamapper.create({
-            'user_id': request.user.id
-            })
+    def api_level(self, obj_id, level):
+        abort(501)
+
+        c = self.datamapper.getById(obj_id)
 
         last = False
         if request.method == 'POST':
