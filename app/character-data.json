@@ -5,8 +5,10 @@
         "sub": [{
             "name": "Hill Dwarf",
             "config": {
-                "stats_bonus": {
-                    "wisdom": [1]
+                "statistics": {
+                    "bonus": {
+                        "wisdom": [1]
+                    }
                 },
                 "computed": {
                     "hit_points": {
@@ -19,8 +21,10 @@
         }, {
             "name": "Mountain Dwarf",
             "config": {
-                "stats_bonus": {
-                    "strength": [1]
+                "statistics": {
+                    "bonus": {
+                        "strength": [1]
+                    }
                 },
                 "proficiencies": {
                     "armor": [
@@ -31,8 +35,10 @@
             }
         }],
         "config": {
-            "stats_bonus": {
-                "constitution": [2]
+            "statistics": {
+                "bonus": {
+                    "constitution": [2]
+                }
             },
             "size": "medium",
             "speed": 25,
@@ -72,8 +78,10 @@
         "sub": [{
             "name": "High Elf",
             "config": {
-                "stats_bonus": {
-                    "intelligence": [1]
+                "statistics": {
+                    "bonus": {
+                        "intelligence": [1]
+                    }
                 }
             },
             "phases": {
@@ -91,8 +99,10 @@
         }, {
             "name": "Wood Elf",
             "config": {
-                "stats_bonus": {
-                    "wisdom": [1]
+                "statistics": {
+                    "bonus": {
+                        "wisdom": [1]
+                    }
                 },
                 "speed": 35,
                 "info": {
@@ -101,8 +111,10 @@
             }
         }],
         "config": {
-            "stats_bonus": {
-                "dexterity": [2]
+            "statistics": {
+                "bonus": {
+                    "dexterity": [2]
+                }
             },
             "size": "medium",
             "speed": 30,
@@ -138,8 +150,10 @@
         "sub": [{
             "name": "Forrest Gnome",
             "config": {
-                "stats_bonus": {
-                    "dexterity": [1]
+                "statistics": {
+                    "bonus": {
+                        "dexterity": [1]
+                    }
                 },
                 "info": {
                     "Speak with Small Beasts": "Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts. Forest gnomes love animals and often keep squirrels, badgers, rabbits, moles, woodpeckers, and other creatures as beloved pets."
@@ -157,8 +171,10 @@
         }, {
             "name": "Rock Gnome",
             "config": {
-                "stats_bonus": {
-                    "constitution": [1]
+                "statistics": {
+                    "bonus": {
+                        "constitution": [1]
+                    }
                 },
                 "info": {
                     "Artificer's Lore": "Whenever you make an **Intelligence** (**History**) check related to magic items, alchemical objects, or technological devices, you can add twice your proficiency bonus, instead of any proficiency bonus you normally apply.",
@@ -176,8 +192,10 @@
             }
         }],
         "config": {
-            "stats_bonus": {
-                "intelligence": [2]
+            "statistics": {
+                "bonus": {
+                    "intelligence": [2]
+                }
             },
             "size": "small",
             "speed": 25,
@@ -199,8 +217,10 @@
         "name": "Half-Elf",
         "filename": "half-elf.md",
         "config": {
-            "stats_bonus": {
-                "charisma": [2]
+            "statistics": {
+                "bonus": {
+                    "charisma": [2]
+                }
             },
             "size": "medium",
             "speed": 30,
@@ -231,9 +251,11 @@
         "name": "Half-Orc",
         "filename": "half-orc.md",
         "config": {
-            "stats_bonus": {
-                "strength": [2],
-                "constitution": [1]
+            "statistics": {
+                "bonus": {
+                    "strength": [2],
+                    "constitution": [1]
+                }
             },
             "size": "medium",
             "speed": 30,
@@ -262,8 +284,10 @@
         "sub": [{
             "name": "Lightfoot Halfing",
             "config": {
-                "stats_bonus": {
-                    "charisma": [1]
+                "statistics": {
+                    "bonus": {
+                        "charisma": [1]
+                    }
                 },
                 "info": {
                     "Naturally Stealthy": "You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you."
@@ -272,8 +296,10 @@
         }, {
             "name": "Stout Halfing",
             "config": {
-                "stats_bonus": {
-                    "constitution": [1]
+                "statistics": {
+                    "bonus": {
+                        "constitution": [1]
+                    }
                 },
                 "info": {
                     "Stout Resilience": "You have **Advantage** on *Saving Throws* against **Poison**, and you have *Resistance* against **Poison Damage**."
@@ -281,8 +307,10 @@
             }
         }],
         "config": {
-            "stats_bonus": {
-                "dexterity": [2]
+            "statistics": {
+                "bonus": {
+                    "dexterity": [2]
+                }
             },
             "size": "small",
             "speed": 25,
@@ -324,13 +352,15 @@
             "name": "Turami Human"
         }],
         "config": {
-            "stats_bonus": {
-                "strength": [1],
-                "dexterity": [1],
-                "constitution": [1],
-                "intelligence": [1],
-                "wisdom": [1],
-                "charisma": [1]
+            "statistics": {
+                "bonus": {
+                    "strength": [1],
+                    "dexterity": [1],
+                    "constitution": [1],
+                    "intelligence": [1],
+                    "wisdom": [1],
+                    "charisma": [1]
+                }
             },
             "size": "medium",
             "speed": 30
@@ -354,10 +384,10 @@
             "hit_dice": 12,
             "computed": {
                 "hit_points": {
-                    "formula": "(12 + modifiers.constitution) + (7 + modifiers.constitution) * (level - 1)"
+                    "formula": "(12 + statistics.modifiers.constitution) + (7 + statistics.modifiers.constitution) * (level - 1)"
                 },
                 "unarmored": {
-                    "formula": "10 + modifiers.dexterity + modifiers.constitution"
+                    "formula": "10 + statistics.modifiers.dexterity + statistics.modifiers.constitution"
                 }
             },
             "proficiencies": {
@@ -677,7 +707,7 @@
                 "given": {
                     "abilities.Intimidating Presence": {
                         "description": "You can use your *action* to *frighten* someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a **Wisdom** *Saving Throw* (DC equal to %(dc)s) or be *frightened* of you until the end of your next turn. On subsequent turns, you can use your *action* to extend the duration of this effect on the frightened creature until the end of your next turn. This effect ends if the creature ends its turn out of line of sight or more than 60 feet away from you. If the creature succeeds on its saving throw, you can't use this feature on that creature again for 24 hours.",
-                        "dc_formula": "8 + character.proficiency + character.modifiers.charisma"
+                        "dc_formula": "8 + character.proficiency + character.statistics.modifiers.charisma"
                     }
                 }
             },
@@ -895,9 +925,11 @@
                 },
                 "given": {
                     "proficiency": 6,
-                    "stats_bonus": {
-                        "strength[]": 4,
-                        "constitution[]": 4
+                    "statistics": {
+                        "bonus": {
+                            "strength[]": 4,
+                            "constitution[]": 4
+                        }
                     },
                     "abilities.Rage": {
                         "bonus_damage": 4,
@@ -918,13 +950,13 @@
             "spell_stat": "charisma",
             "computed": {
                 "hit_points": {
-                    "formula": "(8 + modifiers.constitution) + (5 + modifiers.constitution) * (level - 1)"
+                    "formula": "(8 + statistics.modifiers.constitution) + (5 + statistics.modifiers.constitution) * (level - 1)"
                 },
                 "spell_safe_dc": {
-                    "formula": "8 + proficiency + modifiers.charisma"
+                    "formula": "8 + proficiency + statistics.modifiers.charisma"
                 },
                 "spell_attack_modifier": {
-                    "formula": "proficiency + modifiers.charisma"
+                    "formula": "proficiency + statistics.modifiers.charisma"
                 }
             },
             "proficiencies": {
@@ -960,7 +992,7 @@
                     "abilities.Bardic Inspiration": {
                         "description": "You can inspire others through stirring words or music. To do so, you use a *bonus action* on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one **Bardic Inspiration** die, a %(dice_size)s.\nOnce within the next 10 minutes, the creature can roll the die and add the number rolled to one *Ability Check*, *Attack Roll*, or *Saving Throw* it makes. The creature can wait until after it rolls the d20 before deciding to use the **Bardic Inspiration** die, but must decide before the DM says whether the roll succeeds or fails. Once the **Bardic Inspiration** die is rolled, it is lost. A creature can have only one **Bardic Inspiration** die at a time.\nYou can use this feature a %(uses)s times. You regain any expended uses when you finish a *long* rest.",
                         "dice_size": "d6",
-                        "uses_formula": "max(1,character.modifiers.charisma)"
+                        "uses_formula": "max(1, character.statistics.modifiers.charisma)"
                     },
                     "cantrips_known": 2,
                     "spells_known": 4,
@@ -1106,7 +1138,7 @@
                     "abilities.Bardic Inspiration": {
                         "description": "You can inspire others through stirring words or music. To do so, you use a *bonus action* on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one **Bardic Inspiration** die, a %(dice_size)s.\nOnce within the next 10 minutes, the creature can roll the die and add the number rolled to one *Ability Check*, *Attack Roll*, or *Saving Throw* it makes. The creature can wait until after it rolls the d20 before deciding to use the **Bardic Inspiration** die, but must decide before the DM says whether the roll succeeds or fails. Once the **Bardic Inspiration** die is rolled, it is lost. A creature can have only one **Bardic Inspiration** die at a time.\nYou can use this feature a %(uses)s times. You regain any expended uses when you finish a *short* rest.",
                         "dice_size": "d8",
-                        "uses_formula": "max(1,character.modifiers.charisma)"
+                        "uses_formula": "max(1, character.statistics.modifiers.charisma)"
                     },
                     "cantrips_known": 3,
                     "spells_known": 8,
@@ -1499,16 +1531,16 @@
             "domain": [],
             "computed": {
                 "hit_points": {
-                    "formula": "(8 + modifiers.constitution) + (5 + modifiers.constitution) * (level - 1)"
+                    "formula": "(8 + statistics.modifiers.constitution) + (5 + statistics.modifiers.constitution) * (level - 1)"
                 },
                 "spell_safe_dc": {
-                    "formula": "8 + proficiency + modifiers.wisdom"
+                    "formula": "8 + proficiency + statistics.modifiers.wisdom"
                 },
                 "spell_attack_modifier": {
-                    "formula": "proficiency + modifiers.wisdom"
+                    "formula": "proficiency + statistics.modifiers.wisdom"
                 },
                 "spell_prepared": {
-                    "formula": "max(1, level + modifiers.wisdom)"
+                    "formula": "max(1, level + statistics.modifiers.wisdom)"
                 }
             },
             "proficiencies": {
@@ -1598,7 +1630,7 @@
                             "spell_list[]": ["Burning Hands", "Faerie Fire", "Light"],
                             "abilities.Warding Flare": {
                                 "description": "You can interpose divine light between yourself and an attacking enemy. When you are attacked by a creature within 30 feet of you that you can see, you can use your reaction to impose **Disadvantage** on the attack roll, causing light to flare before the attacker before it hits or misses. An attacker that can't be blinded is immune to this feature. You can use this feature %(uses)d times. You regain all expended uses when you finish a long rest.",
-                                "uses_formula": "max(1, character.modifiers.wisdom)"
+                                "uses_formula": "max(1, character.statistics.modifiers.wisdom)"
                             }
                         }
                     }, {
@@ -1629,7 +1661,7 @@
                             "proficiencies.weapons[]": "Martial Weapons",
                             "abilities.Wrath of the Storm": {
                                 "description": "You can thunderously rebuke attackers. When a creature within 5 feet of you that you can see hits you with an attack, you can use your *reaction* to cause the creature to make a **Dexterity** saving throw. The creature takes `2d8` lightning or thunder damage (your choice) on a failed saving throw, and half as much damage on a successful one. You can use this feature %(uses)d times. You regain all expended uses when you finish a long rest.",
-                                "uses_formula": "max(1, character.modifiers.wisdom)"
+                                "uses_formula": "max(1, character.statistics.modifiers.wisdom)"
                             }
                         }
                     }, {
@@ -1652,7 +1684,7 @@
                             "proficiencies.weapons[]": "Martial Weapons",
                             "abilities.War Priest": {
                                 "description": "Your god delivers bolts of inspiration to you while you are engaged in battle. When you use the **Attack** action, you can make one weapon attack as a *bonus action*. You can use this feature %(uses)d times. You regain all expended uses when you finish a long rest.",
-                                "uses_formula": "max(1, character.modifiers.wisdom)"
+                                "uses_formula": "max(1, character.statistics.modifiers.wisdom)"
                             }
                         }
                     }]
@@ -2599,7 +2631,7 @@
             "hit_dice": 10,
             "computed": {
                 "hit_points": {
-                    "formula": "(10 + modifiers.constitution) + (6 + modifiers.constitution) * (level - 1)"
+                    "formula": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
                 }
             },
             "proficiencies": {
@@ -2662,16 +2694,16 @@
             "spell_stat": "charisma",
             "computed": {
                 "hit_points": {
-                    "formula": "(10 + modifiers.constitution) + (6 + modifiers.constitution) * (level - 1)"
+                    "formula": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
                 },
                 "spells_known": {
                     "formula": "modifiers.charisma + (level/2)"
                 },
                 "spell_safe_dc": {
-                    "formula": "8 + proficiency + modifiers.charisma"
+                    "formula": "8 + proficiency + statistics.modifiers.charisma"
                 },
                 "spell_attack_modifier": {
-                    "formula": "proficiency + modifiers.charisma"
+                    "formula": "proficiency + statistics.modifiers.charisma"
                 }
             },
             "proficiencies": {
@@ -2696,7 +2728,7 @@
             "abilities": {
                 "Divine Sense": {
                     "description": "The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strand von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the hallow spell. You can use this feature %(uses)s times. When you finish a long rest, you regain all expended uses.",
-                    "uses_formula": "1 + modifiers.charisma"
+                    "uses_formula": "1 + statistics.modifiers.charisma"
                 },
                 "Lay on Hands": {
                     "description": "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total of %(pool_size)s hit points. As an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool. Alternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one. This feature has no effect on undead and constructs.",
@@ -2810,7 +2842,7 @@
                             ],
                             "abilities.Sacred Weapon": {
                                 "description": "As an action, you can imbue one weapon that you are holding with positive energy, using your Channel Divinity. For 1 minute, you add +%(bonus)s to attack rolls made with that weapon. The weapon also emits bright light in a 20-foot radius and dim light 20 feet beyond that. lithe weapon is not already magical, it becomes magical for the duration.\nYou can end this effect on your turn as part of any other action. If you are no longer holding or carrying this weapon, or if you fall unconscious, this effect ends.",
-                                "bonus_formula": "max(1, modifiers.charisma)"
+                                "bonus_formula": "max(1, statistics.modifiers.charisma)"
                             },
                             "abilities.Turn the Unholy": {
                                 "description": "As an action, you present your holy symbol and speak a prayer censuring fiends and undead, using your Channel Divinity. Each fiend or undead that can see or hear you within 30 feet of you must make a Wisdom saving throw (DC %(dc)s. lithe creature fails its saving throw, it is turned for 1 minute or until it takes damage.\nA turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action.",
@@ -3095,7 +3127,7 @@
                     "spell_slots.4th": 1,
                     "abilities.Cleansing Touch": {
                         "description": "You can use your action to end one spell on yourself or on one willing creature that you touch. You can use this feature %(uses)s of times. You regain expended uses when you finish a long rest.",
-                        "uses_formula": "max(1, modifiers.charisma)"
+                        "uses_formula": "max(1, statistics.modifiers.charisma)"
                     }
                 }
             },
@@ -3292,13 +3324,13 @@
             },
             "computed": {
                 "hit_points": {
-                    "formula": "(10 + modifiers.constitution) + (6 + modifiers.constitution) * (level - 1)"
+                    "formula": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
                 },
                 "spell_safe_dc": {
-                    "formula": "8 + proficiency + modifiers.wisdom"
+                    "formula": "8 + proficiency + statistics.modifiers.wisdom"
                 },
                 "spell_attack_modifier": {
-                    "formula": "proficiency + modifiers.wisdom"
+                    "formula": "proficiency + statistics.modifiers.wisdom"
                 }
             },
             "proficiencies": {
@@ -3939,13 +3971,13 @@
             "spell_stat": "intelligence",
             "computed": {
                 "hit_points": {
-                    "formula": "(8 + modifiers.constitution) + (5 + modifiers.constitution) * (level - 1)"
+                    "formula": "(8 + statistics.modifiers.constitution) + (5 + statistics.modifiers.constitution) * (level - 1)"
                 },
                 "spell_safe_dc": {
-                    "formula": "8 + proficiency + modifiers.intelligence"
+                    "formula": "8 + proficiency + statistics.modifiers.intelligence"
                 },
                 "spell_attack_modifier": {
-                    "formula": "proficiency + modifiers.intelligence"
+                    "formula": "proficiency + statistics.modifiers.intelligence"
                 }
             },
             "proficiencies": {
@@ -4324,13 +4356,13 @@
             "origin": [],
             "computed": {
                 "hit_points": {
-                    "formula": "(6 + modifiers.constitution) + (4 + modifiers.constitution) * (level - 1)"
+                    "formula": "(6 + statistics.modifiers.constitution) + (4 + statistics.modifiers.constitution) * (level - 1)"
                 },
                 "spell_safe_dc": {
-                    "formula": "8 + proficiency + modifiers.charisma"
+                    "formula": "8 + proficiency + statistics.modifiers.charisma"
                 },
                 "spell_attack_modifier": {
-                    "formula": "proficiency + modifiers.charisma"
+                    "formula": "proficiency + statistics.modifiers.charisma"
                 },
                 "sorcery_points": {
                     "formula": "level"
@@ -4368,12 +4400,12 @@
                             "languages[]": "draconic",
                             "computed":  {
                                 "hit_points.bonus[]": "1 * level",
-                                "unarmored.formula": "13 + modifiers.dexterity"
+                                "unarmored.formula": "13 + statistics.modifiers.dexterity"
                             },
                             "info.Draconic Bloodline": "Whenever you make a **Charisma** check when interacting with dragons, your *proficiency bonus* is doubled if it applies to the check.",
                             "abilities.Draconic Resilience": {
                                 "description": "As magic flows through your body, it causes physical traits of your dragon ancestors to emerge. Parts of your skin are covered by a thin sheen of dragon-like scales. When you aren't wearing armor, your AC equals %(ac)s.",
-                                "ac_formula": "13 + modifiers.dexterity"
+                                "ac_formula": "13 + statistics.modifiers.dexterity"
                             }
                         },
                         "tabs": [{
@@ -4497,7 +4529,7 @@
                         "given": {
                             "abilities.Metamagic: Careful Spell": {
                                 "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)d. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
-                                "uses_formula": "min(1, character.modifiers.charisma)"
+                                "uses_formula": "min(1, character.statistics.modifiers.charisma)"
                             }
                         }
                     }, {
@@ -4512,7 +4544,7 @@
                         "given": {
                             "abilities.Metamagic: Empowered Spell": {
                                 "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)d. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
-                                "uses_formula": "min(1, character.modifiers.charisma)"
+                                "uses_formula": "min(1, character.statistics.modifiers.charisma)"
                             }
                         }
                     }, {
@@ -4558,7 +4590,7 @@
                         "given": {
                             "abilities.Metamagic: Careful Spell": {
                                 "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)d. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
-                                "uses_formula": "min(1, character.modifiers.charisma)"
+                                "uses_formula": "min(1, character.statistics.modifiers.charisma)"
                             }
                         }
                     }, {
@@ -4573,7 +4605,7 @@
                         "given": {
                             "abilities.Metamagic: Empowered Spell": {
                                 "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)d. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
-                                "uses_formula": "min(1, character.modifiers.charisma)"
+                                "uses_formula": "min(1, character.statistics.modifiers.charisma)"
                             }
                         }
                     }, {
@@ -4764,7 +4796,7 @@
                         "given": {
                             "abilities.Metamagic: Careful Spell": {
                                 "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)d. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
-                                "uses_formula": "min(1, character.modifiers.charisma)"
+                                "uses_formula": "min(1, character.statistics.modifiers.charisma)"
                             }
                         }
                     }, {
@@ -4779,7 +4811,7 @@
                         "given": {
                             "abilities.Metamagic: Empowered Spell": {
                                 "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)d. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
-                                "uses_formula": "min(1, character.modifiers.charisma)"
+                                "uses_formula": "min(1, character.statistics.modifiers.charisma)"
                             }
                         }
                     }, {
@@ -4998,7 +5030,7 @@
                         "given": {
                             "abilities.Metamagic: Careful Spell": {
                                 "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)d. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
-                                "uses_formula": "min(1, character.modifiers.charisma)"
+                                "uses_formula": "min(1, character.statistics.modifiers.charisma)"
                             }
                         }
                     }, {
@@ -5013,7 +5045,7 @@
                         "given": {
                             "abilities.Metamagic: Empowered Spell": {
                                 "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)d. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
-                                "uses_formula": "min(1, character.modifiers.charisma)"
+                                "uses_formula": "min(1, character.statistics.modifiers.charisma)"
                             }
                         }
                     }, {
@@ -5161,13 +5193,13 @@
             "spell_stat": "intelligence",
             "computed": {
                 "hit_points": {
-                    "formula": "(6 + modifiers.constitution) + (4 + modifiers.constitution) * (level - 1)"
+                    "formula": "(6 + statistics.modifiers.constitution) + (4 + statistics.modifiers.constitution) * (level - 1)"
                 },
                 "spell_safe_dc": {
-                    "formula": "8 + proficiency + modifiers.intelligence"
+                    "formula": "8 + proficiency + statistics.modifiers.intelligence"
                 },
                 "spell_attack_modifier": {
-                    "formula": "proficiency + modifiers.intelligence"
+                    "formula": "proficiency + statistics.modifiers.intelligence"
                 },
                 "spells_known": {
                     "formula": "4 + 2 * character.level"
@@ -5254,7 +5286,7 @@
                             },
                             "abilities.Arcane Ward": {
                                 "description": "You can weave magic around yourself for protection. When you cast an *abjuration* spell of 1st level or higher, you can simultaneously use a strand of the spell's magic to create a magical ward on yourself that lasts until you finish a long rest. The ward has hit points equal to %(bonus)d. Whenever you take damage, the ward takes the damage instead. If this damage reduces the ward to 0 hit points, you take any remaining damage. While the ward has 0 hit points, it can't absorb damage, but its magic remains. Whenever you cast an abjuration spell of 1st level or higher, the ward regains a number of hit points equal to twice the level of the spell. Once you create the ward, you can't create it again until you finish a long rest.",
-                                "bonus_formula": "2 * level + modifiers.intelligence"
+                                "bonus_formula": "2 * level + statistics.modifiers.intelligence"
                             }
                         }
                     }, {
@@ -5777,7 +5809,7 @@
                     "abilities.Alter Memories": {
                         "description": "You have the ability to make a creature unaware of your magical influence on it. When you cast an enchantment spell to charm one or more creatures, you can alter one creature's understanding so that it remains unaware of being charmed.\nAdditionally, once before the spell expires, you can use your action to try to make the chosen creature forget some of the time it spent charmed. The creature must succeed on an **Intelligence** *Saving Throw* against your wizard spell save DC (%(dc)s) or lose a number of hours of its memories equal %(hours)s. You can make the creature forget less time, and the amount of time can't exceed the duration of your enchantment spell.",
                         "dc": "character.spell_safe_dc",
-                        "hours": "max(1 + character.modifiers.charisma)"
+                        "hours": "max(1 + character.statistics.modifiers.charisma)"
                     }
                 }
             },
