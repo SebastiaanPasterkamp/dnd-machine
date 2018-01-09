@@ -13,6 +13,7 @@ import ArmorEdit from './views/ArmorEdit.jsx';
 import ArmorTable from './views/ArmorTable.jsx';
 import CampaignEdit from './views/CampaignEdit.jsx';
 import CampaignTable from './views/CampaignTable.jsx';
+import CharacterCreate from './views/CharacterCreate.jsx';
 import CharacterEdit from './views/CharacterEdit.jsx';
 import CharactersTable from './views/CharactersTable.jsx';
 import CharactersView from './views/CharactersView.jsx';
@@ -141,7 +142,7 @@ class DndMachine extends React.Component
                     />
                 <Route
                     path="/character/new"
-                    component={CharacterEdit}
+                    component={CharacterCreate}
                     />
 
                 <Route
