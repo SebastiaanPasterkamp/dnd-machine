@@ -7,244 +7,269 @@ from dndmachine import DndMachine
 
 class CharacterObject(JsonObject):
     _version = '1.0'
+    _pathPrefix = "character"
+    _defaultConfig = {
+        "name": u"",
+        "creation": [],
+        "race": u"",
+        "class": u"",
+        "background": u"",
+        "alignment": u"true neutral",
+        "level": 1,
+        "xp": 0,
+        "statistics": {
+            "bare": {
+                "strength": 8,
+                "dexterity": 8,
+                "constitution": 8,
+                "intelligence": 8,
+                "wisdom": 8,
+                "charisma": 8
+                },
+            "bonus": {
+                "strength": [],
+                "dexterity": [],
+                "constitution": [],
+                "intelligence": [],
+                "wisdom": [],
+                "charisma": []
+                },
+            "base": {
+                "strength": 8,
+                "dexterity": 8,
+                "constitution": 8,
+                "intelligence": 8,
+                "wisdom": 8,
+                "charisma": 8
+                },
+            "modifiers": {
+                "strength": 0,
+                "dexterity": 0,
+                "constitution": 0,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 0
+                }
+            },
+        "saving_throws": {
+            "strength": 0,
+            "dexterity": 0,
+            "constitution": 0,
+            "intelligence": 0,
+            "wisdom": 0,
+            "charisma": 0
+            },
+        "challenge": {},
+        "skills": {},
+        "equipment": [],
+        "weapon": [],
+        "armor": [],
+        "items": {
+            "artisan": [],
+            "kits": [],
+            "gaming": [],
+            "musical": [],
+            "misc": []
+            },
+        "proficiency": 2,
+        "proficiency_alt": 0,
+        "languages": [],
+        "abilities": {},
+        "proficiencies": {
+            "armor": [],
+            "weapons": [],
+            "tools": [],
+            "saving_throws": [],
+            "advantages": [],
+            "expertise": [],
+            "skills": []
+            },
+        "spells": {
+            "cantrip": [],
+            "1st_level": [],
+            "2nd_level": [],
+            "3rd_level": [],
+            "4th_level": [],
+            "5th_level": [],
+            "6th_level": [],
+            "7th_level": [],
+            "8th_level": [],
+            "9th_level": []
+            },
+        "personality": {
+            "traits": "",
+            "ideals": "",
+            "bonds": "",
+            "flaws": ""
+            },
+        "appearance": "",
+        "computed": {
+            "unarmored": {
+                "formula": "10 + statistics.modifiers.dexterity + statistics.modifiers.constitution"
+            }
+        },
+        "wealth": {
+            "cp": 0,
+            "sp": 0,
+            "ep": 0,
+            "gp": 0,
+            "pp": 0
+            }
+        }
+    _fieldTypes = {
+        'id': int,
+        "user_id": int,
+        "xp": int,
+        "xp_progress": int,
+        "xp_level": int,
+        "level": int,
+        "hit_points": int,
+        "hit_dice": int,
+        "speed": int,
+        "age": int,
+        "weight": float,
+        "height": float,
+        "proficiency": int,
+        "proficiency_alt": int,
+        "initiative_bonus": int,
+        "passive_perception": int,
+        "spell_safe_dc": int,
+        "spell_attack_modifier": int,
+        "armor_class": int,
+        "armor_class_bonus": int,
+        "challenge": {
+            "*": int
+            },
+        "statistics": {
+            "*": {
+                "*": int
+                }
+            },
+        "saving_throws": {
+            "*": int
+            },
+        "skills": {
+            "*": int
+            },
+        "wealth": {
+            "*": int
+            },
+        "armor": {
+            "value": int,
+            "bonus": int,
+            "strength": int,
+            "cost": {
+                "*": int
+                }
+            },
+        "weapons": {
+            "damage": {
+                "dice_count": int,
+                "dice_size": int
+                },
+            "range": {
+                "min": int,
+                "max": int
+                },
+            "versatile": {
+                "dice_count": int,
+                "dice_size": int
+                },
+            "bonus": int,
+            "bonus_alt": int,
+            "cost": {
+                "*": int
+                }
+            },
+        "cantrips_known": int,
+        "spells_known": int,
+        "spell_slots": {
+            "*": int
+            },
+        "items": {
+            "*": [],
+            "artisan": {
+                "*": unicode
+                },
+            "misc": unicode
+            },
+        "abilities": {
+            "*": {
+                "*": unicode,
+                "uses": int,
+                "bonus": int
+                }
+            }
+        }
 
     def __init__(self, config={}):
-        super(CharacterObject, self).__init__(
-            config,
-            pathPrefix = "character",
-            defaultConfig = {
-                "name": u"",
-                "creation": [],
-                "race": u"",
-                "class": u"",
-                "background": u"",
-                "alignment": u"true neutral",
-                "level": 1,
-                "xp": 0,
-                "base_stats": {
-                    "strength": 8,
-                    "dexterity": 8,
-                    "constitution": 8,
-                    "intelligence": 8,
-                    "wisdom": 8,
-                    "charisma": 8
-                    },
-                "ability_improvement": [],
-                "stats_bonus": {
-                    "strength": [],
-                    "dexterity": [],
-                    "constitution": [],
-                    "intelligence": [],
-                    "wisdom": [],
-                    "charisma": []
-                    },
-                "stats": {
-                    "strength": 8,
-                    "dexterity": 8,
-                    "constitution": 8,
-                    "intelligence": 8,
-                    "wisdom": 8,
-                    "charisma": 8
-                    },
-                "modifiers": {
-                    "strength": 0,
-                    "dexterity": 0,
-                    "constitution": 0,
-                    "intelligence": 0,
-                    "wisdom": 0,
-                    "charisma": 0
-                    },
-                "saving_throws": {
-                    "strength": 0,
-                    "dexterity": 0,
-                    "constitution": 0,
-                    "intelligence": 0,
-                    "wisdom": 0,
-                    "charisma": 0
-                    },
-                "challenge": {},
-                "skills": {},
-                "equipment": [],
-                "weapon": [],
-                "armor": [],
-                "items": {
-                    "artisan": [],
-                    "kits": [],
-                    "gaming": [],
-                    "musical": [],
-                    "misc": []
-                    },
-                "proficiency": 2,
-                "proficiency_alt": 0,
-                "languages": [],
-                "abilities": {},
-                "proficiencies": {
-                    "armor": [],
-                    "weapons": [],
-                    "tools": [],
-                    "saving_throws": [],
-                    "advantages": [],
-                    "expertise": [],
-                    "skills": []
-                    },
-                "spells": {
-                    "cantrip": [],
-                    "1st_level": [],
-                    "2nd_level": [],
-                    "3rd_level": [],
-                    "4th_level": [],
-                    "5th_level": [],
-                    "6th_level": [],
-                    "7th_level": [],
-                    "8th_level": [],
-                    "9th_level": []
-                    },
-                "personality": {
-                    "traits": "",
-                    "ideals": "",
-                    "bonds": "",
-                    "flaws": ""
-                    },
-                "appearance": "",
-                "computed": {
-                    "unarmored": {
-                        "formula": "10 + modifiers.dexterity + modifiers.constitution"
-                    }
-                },
-                "wealth": {
-                    "cp": 0,
-                    "sp": 0,
-                    "ep": 0,
-                    "gp": 0,
-                    "pp": 0
-                    }
-                },
-            fieldTypes = {
-                "user_id": int,
-                "xp": int,
-                "xp_progress": int,
-                "xp_level": int,
-                "level": int,
-                "hit_points": int,
-                "hit_dice": int,
-                "speed": int,
-                "age": int,
-                "weight": float,
-                "height": float,
-                "proficiency": int,
-                "proficiency_alt": int,
-                "initiative_bonus": int,
-                "passive_perception": int,
-                "spell_safe_dc": int,
-                "spell_attack_modifier": int,
-                "armor_class": int,
-                "armor_class_bonus": int,
-                "challenge": {
-                    "*": int
-                    },
-                "base_stats": {
-                    "*": int
-                    },
-                "stats_bonus": {
-                    "*": int
-                    },
-                "stats": {
-                    "*": int
-                    },
-                "modifiers": {
-                    "*": int
-                    },
-                "saving_throws": {
-                    "*": int
-                    },
-                "skills": {
-                    "*": int
-                    },
-                "wealth": {
-                    "*": int
-                    },
-                "armor": {
-                    "value": int,
-                    "bonus": int,
-                    "strength": int,
-                    "cost": {
-                        "*": int
-                        }
-                    },
-                "weapons": {
-                    "damage": {
-                        "dice_count": int,
-                        "dice_size": int
-                        },
-                    "range": {
-                        "min": int,
-                        "max": int
-                        },
-                    "versatile": {
-                        "dice_count": int,
-                        "dice_size": int
-                        },
-                    "bonus": int,
-                    "bonus_alt": int,
-                    "cost": {
-                        "*": int
-                        }
-                    },
-                "cantrips_known": int,
-                "spells_known": int,
-                "spell_slots": {
-                    "*": int
-                    },
-                "items": {
-                    "*": [],
-                    "artisan": {
-                        "*": unicode
-                        },
-                    "misc": unicode
-                    },
-                "abilities": {
-                    "*": {
-                        "*": unicode,
-                        "uses": int,
-                        "bonus": int
-                        }
-                    }
-                }
-            )
-        if self.version is None \
-                or self.version != CharacterObject._version:
+        super(CharacterObject, self).__init__(config)
+
+        self.upgrade()
+        if self.version != self._version:
             self.compute()
-            self.version = CharacterObject._version
+
+    def upgrade(self):
+        if "base_stats" in self._config:
+            re_mod = re.compile(r"(?<!statistics\.)modifiers")
+
+            for path, compute in self._config['computed'].items():
+                if 'formula' not in compute:
+                    continue
+                compute['formula'] = re_mod.sub(
+                    "statistics.modifiers",
+                    compute['formula']
+                    )
+
+            for ability in self.abilities.values():
+                for key, val in ability.items():
+                    if key.endswith('_formula'):
+                        ability[key] = re_mod.sub(
+                            "statistics.modifiers",
+                            val
+                            )
+
+            self.update({
+                'statistics':{
+                    "bare": self._config['base_stats'],
+                    "bonus": self._config['stats_bonus'],
+                    "base": self._config['stats'],
+                    "modifiers": self._config['modifiers']
+                    }
+                })
+            del self._config['base_stats']
+            del self._config['stats_bonus']
+            del self._config['stats']
+            del self._config['modifiers']
+        self.compute()
 
     def compute(self):
         config = get_config()
         machine = DndMachine(config["machine"], get_item_data())
 
         self.config = self.castFieldType(self.config)
+        self.version = self._version
 
-        if 'ability_improvement' in self:
-            for ability in self.ability_improvement:
-                if ability in self.stats_bonus:
-                    self.stats_bonus[ability].append(1)
-            del self.ability_improvement
+        self.statisticsBase = {}
+        self.statisticsModifiers = {}
 
         for stat in machine.items.statistics:
             stat = stat["code"]
-            self.stats[stat] = self.base_stats[stat] \
-                + sum(self.stats_bonus[stat])
-            self.modifiers[stat] = int(
-                (self.stats[stat] - 10) / 2
+            self.statisticsBase[stat] = self.statisticsBare[stat] \
+                + sum(self.statisticsBonus.get(stat, []))
+            self.statisticsModifiers[stat] = int(
+                (self.statisticsBase[stat] - 10.0) / 2.0
                 )
-            self.saving_throws[stat] = self.modifiers[stat]
+            self.saving_throws[stat] = self.statisticsModifiers[stat]
             if stat in self.proficienciesSaving_throws:
                 self.saving_throws[stat] += self.proficiency
 
-        self.initiative_bonus = self.modifiersDexterity
-        self.passive_perception = 10 + self.modifiersWisdom
+        self.initiative_bonus = self.statisticsModifiersDexterity
+        self.passive_perception = 10 + self.statisticsModifiersWisdom
 
         for skill in machine.items.skills:
             stat, skill = skill["stat"], skill["code"]
-            self.skills[skill] = self.modifiers[stat]
+            self.skills[skill] = self.statisticsModifiers[stat]
             if skill in self.proficienciesSkills:
                 self.skills[skill] += self.proficiency
             else:
@@ -325,7 +350,7 @@ class CharacterObject(JsonObject):
             weapon["damage"]["type_label"] = dmg["label"]
             weapon["damage"]["type_short"] = dmg["short"]
 
-            attack_modifier = self.modifiers[attack_modifier]
+            attack_modifier = self.statisticsModifiers[attack_modifier]
 
             weapon["damage"]["notation"] = machine.diceNotation(
                 weapon["damage"]["dice_size"],
@@ -336,7 +361,7 @@ class CharacterObject(JsonObject):
 
             if "thrown" in weapon.get("property", []) \
                     and "ranged" not in weapon["path"]:
-                attack_modifier = self.modifiers["dexterity"]
+                attack_modifier = self.statisticsModifiers["dexterity"]
 
                 weapon["use_alt"] = "Thrown"
                 weapon["damage"]["notation_alt"] = machine.diceNotation(
@@ -357,7 +382,7 @@ class CharacterObject(JsonObject):
                 weapon["bonus_alt"] = attack_modifier + self.proficiency
 
         self.armor_class = machine.resolveMath(
-            self, "10 + modifiers.dexterity")
+            self, "10 + statistics.modifiers.dexterity")
         self.armor_class_bonus = 0
         for armor in self.armor:
             if "formula" in armor:
