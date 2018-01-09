@@ -1,8 +1,10 @@
 import React from 'react';
 
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
+import ListLabel from '../components/ListLabel.jsx';
 import Progress from '../components/Progress.jsx';
 
 class CharacterLabel extends LazyComponent
@@ -14,13 +16,22 @@ class CharacterLabel extends LazyComponent
 
         const char = this.props.character;
         return <div className="character inline">
-            {[
-                `${char.name},`,
-                "Level", char.level,
-                char.race,
-                char.class,
-                `(${char.alignment})`
-            ].join(' ')}
+            {char.name},
+            Level {char.level}
+            &nbsp;
+            <ListLabel
+                    items={this.props.genders}
+                    value={char.gender}
+                    />
+            &nbsp;
+            {char.race}
+            &nbsp;
+            {char.class}
+            &nbsp;
+            (<ListLabel
+                    items={this.props.alignments}
+                    value={char.alignment}
+                    />)
             {this.props.progress || false
                 ? <Progress
                     value={char.xp_progress}
@@ -49,6 +60,11 @@ class CharacterLabel extends LazyComponent
     }
 }
 
-export default ObjectDataWrapper(CharacterLabel, [
-    {type: 'character', id: 'character_id'}
-]);
+export default ListDataWrapper(
+    ObjectDataWrapper(
+        CharacterLabel,
+        [{type: 'character', id: 'character_id'}]
+    ),
+    ['alignments', 'genders'],
+    'items'
+);

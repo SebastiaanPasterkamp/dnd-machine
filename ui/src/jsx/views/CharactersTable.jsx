@@ -5,6 +5,7 @@ import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
 import CharacterLinks from '../components/CharacterLinks.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
+import ListLabel from '../components/ListLabel.jsx';
 import UserLabel from '../components/UserLabel.jsx';
 import Progress from '../components/Progress.jsx';
 
@@ -52,9 +53,21 @@ class CharactersRow extends LazyComponent
         return <tr
                 data-name={this.props.name}>
             <td>{this.props.name}</td>
-            <td>{this.props.gender} {this.props.race}</td>
+            <td>
+                <ListLabel
+                    items={this.props.genders}
+                    value={this.props.gender}
+                    />
+                    &nbsp;
+                    {this.props.race}
+            </td>
             <td>Level {this.props.level} {this.props.class}</td>
-            <td>{this.props.alignment}</td>
+            <td>
+                <ListLabel
+                        items={this.props.alignments}
+                        value={this.props.alignment}
+                        />
+            </td>
             <td>
                 <UserLabel
                     user_id={this.props.user_id}
@@ -121,6 +134,7 @@ class CharactersTable extends LazyComponent
                             ? <CharactersRow
                                 key={character.id}
                                 {...character}
+                                {...this.props}
                                 />
                             : null;
                     })}
@@ -136,5 +150,6 @@ export default ListDataWrapper(
         CharactersTable,
         {characters: {type: 'character'}}
     ),
-    ['search']
+    ['search', 'alignments', 'genders'],
+    'items'
 );

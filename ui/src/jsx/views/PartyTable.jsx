@@ -68,7 +68,6 @@ class PartyRow extends LazyComponent
                 <i>{this.props.description}</i>
             </td>
             <td>
-                <ul>
                 {this.props.members.map((member) => {
                     return <CharacterLabel
                         key={member}
@@ -76,7 +75,6 @@ class PartyRow extends LazyComponent
                         progress={true}
                         />;
                 })}
-                </ul>
             </td>
             {this.props.challenge ? <td>
                 <div className="nice-progress stacked">
