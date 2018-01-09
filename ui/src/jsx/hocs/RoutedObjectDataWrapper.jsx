@@ -5,9 +5,11 @@ import _ from 'lodash';
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 import ObjectDataStore from '../stores/ObjectDataStore.jsx';
 
+import ButtonField from '../components/ButtonField.jsx';
+import Panel from '../components/Panel.jsx';
 
 function RoutedObjectDataWrapper(
-    WrappedComponent, loadableType, loadableGroup=null
+    WrappedComponent, config, loadableType, loadableGroup=null
 ) {
     let pathPrefix = '/' + _.filter([
             loadableGroup,
@@ -37,10 +39,16 @@ function RoutedObjectDataWrapper(
             }, () => this.onReload());
         }
 
-        getStateProps(state) {
-            return _.get(
+        getStateProps(state=null) {
+            state = state || this.state;
+
+            const stored = _.get(
                 state, [loadableType, this.state.id]
-            ) || ObjectDataStore.getInitial(loadableType);
+            );
+            if (!stored || _.isEqual(stored, {id: null})) {
+                return ObjectDataStore.getInitial(loadableType);
+            }
+            return stored;
         }
 
         shouldComponentUpdate(nextProps, nextState) {
@@ -48,7 +56,7 @@ function RoutedObjectDataWrapper(
                 return true;
             }
 
-            let old_data = this.getStateProps(this.state),
+            let old_data = this.getStateProps(),
                 new_data = this.getStateProps(nextState);
 
             if (!_.isEqual(old_data, new_data)) {
@@ -68,18 +76,15 @@ function RoutedObjectDataWrapper(
         onSetState(update, callback=null) {
             let loadable = _.assign(
                 {},
-                this.getStateProps(this.state),
+                this.getStateProps(),
                 update
                 );
-            let loaded = _.assign(
-                {},
-                this.state[loadableType],
-                {[this.state.id]: loadable}
-                );
 
-            this.setState({
-                [loadableType]: loaded
-            }, callback);
+            ObjectDataActions.getObject.completed(
+                loadableType,
+                this.state.id,
+                loadable
+            );
         }
 
         onReload() {
@@ -94,7 +99,7 @@ function RoutedObjectDataWrapper(
             ObjectDataActions.recomputeObject(
                 loadableType,
                 this.state.id,
-                _.get(this.state, [loadableType, this.state.id]),
+                this.getStateProps(),
                 loadableGroup
             );
         }
@@ -103,7 +108,7 @@ function RoutedObjectDataWrapper(
             if (this.state.id == null) {
                 ObjectDataActions.postObject(
                     loadableType,
-                    _.get(this.state, [loadableType, this.state.id]),
+                    this.getStateProps(),
                     loadableGroup,
                     () => this.nextView()
                 );
@@ -111,7 +116,7 @@ function RoutedObjectDataWrapper(
                 ObjectDataActions.patchObject(
                     loadableType,
                     this.state.id,
-                    _.get(this.state, [loadableType, this.state.id]),
+                    this.getStateProps(),
                     loadableGroup,
                     () => this.nextView()
                 );
@@ -139,23 +144,90 @@ function RoutedObjectDataWrapper(
             alert(error);
         }
 
-        render() {
-            let data = this.getStateProps(this.state);
+        renderButtons() {
+            if (
+                !('buttons' in config)
+                || !config.buttons.length
+            ) {
+                return null;
+            }
 
-            return <WrappedComponent
-                setState={(state, callback=null) => {
-                    this.onSetState(state, callback)
-                }}
-                cancel={() => this.nextView()}
-                reload={this.state.id != null
-                    ? () => this.onReload()
+            return <Panel
+                    className={config.className + "__save"}
+                    header="Save"
+                    >
+                {_.includes(config.buttons, "cancel")
+                    ? <ButtonField
+                        name="button"
+                        value="cancel"
+                        color="muted"
+                        icon="ban"
+                        onClick={() => this.nextView()}
+                        label="Cancel" />
                     : null
                 }
-                recompute={() => this.onRecompute()}
-                save={() => this.onSave()}
-                {...this.props}
-                {...data}
-                />
+                {_.includes(config.buttons, "reload")
+                        && this.state.id != null
+                    ? <ButtonField
+                        name="button"
+                        value="reload"
+                        color="info"
+                        icon="refresh"
+                        onClick={() => this.onReload()}
+                        label="Reload" />
+                    : null
+                }
+                {_.includes(config.buttons, "recompute")
+                    ? <ButtonField
+                        name="button"
+                        color="accent"
+                        icon="calculator"
+                        onClick={() => this.onRecompute()}
+                        label="Recompute" />
+                    : null
+                }
+                {_.includes(config.buttons, "save")
+                    ? <ButtonField
+                        name="button"
+                        value="cancel"
+                        color="primary"
+                        icon="save"
+                        onClick={() => this.onSave()}
+                        label="Save" />
+                    : null
+                }
+            </Panel>;
+        }
+
+        render() {
+            let data = this.getStateProps();
+
+            return <div>
+                <h2 className={["icon", config.icon].join(' ')}>
+                    {config.label}
+                </h2>
+
+                <div
+                    className={config.className}
+                    >
+                    <WrappedComponent
+                        setState={(state, callback=null) => {
+                            this.onSetState(state, callback)
+                        }}
+                        cancel={() => this.nextView()}
+                        reload={this.state.id != null
+                            ? () => this.onReload()
+                            : null
+                        }
+                        recompute={() => this.onRecompute()}
+                        save={() => this.onSave()}
+                        {...this.props}
+                        {...data}
+                        />
+
+                    {this.renderButtons()}
+                </div>
+            </div>;
         }
     };
 }
