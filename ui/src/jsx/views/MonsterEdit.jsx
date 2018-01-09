@@ -225,11 +225,12 @@ export class MonsterEdit extends React.Component
     }
 
     render() {
-        return <div>
-        <h2 className="icon fa-paw">Monster</h2>
-
-        <div className="edit-monster">
-            <Panel className="edit-monster--description" header="Description">
+        return [
+            <Panel
+                    key="description"
+                    className="monster-edit__description"
+                    header="Description"
+                >
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
@@ -290,9 +291,12 @@ export class MonsterEdit extends React.Component
                             this.onFieldChange('description', value);
                         }} />
                 </ControlGroup>
-            </Panel>
+            </Panel>,
 
-            <Panel className="edit-monster--properties" header="Properties">
+            <Panel
+                    key="properties"
+                    className="monster-edit__properties" header="Properties"
+                >
                 <ControlGroup labels={["Challenge Rating", "/", "XP"]}>
                     <InputField
                         value={this.props.challenge_rating}
@@ -342,17 +346,25 @@ export class MonsterEdit extends React.Component
                         }}
                         />
                 </FormGroup>
-            </Panel>
+            </Panel>,
 
-            <Panel className="edit-monster--statistics" header="Statistics">
+            <Panel
+                    key="statistics"
+                    className="monster-edit__statistics"
+                    header="Statistics"
+                >
                 <StatsBlock
                     {...this.props.statistics}
                     setState={
                         (update) => this.onStatisticsChange(update)
                     } />
-            </Panel>
+            </Panel>,
 
-            <Panel className="edit-monster--attacks" header="Attacks">
+            <Panel
+                    key="attacks"
+                    className="monster-edit__attacks"
+                    header="Attacks"
+                >
                 <ListComponent
                     component={AttackEditor}
                     list={this.props.attacks || [{}]}
@@ -418,12 +430,13 @@ export class MonsterEdit extends React.Component
                         this.onFieldChange('multiattack', mas);
                     }}
                     />
-            </Panel>
+            </Panel>,
 
             <Panel
-                    className="edit-monster--multiattacks"
+                    key="multiattack"
+                    className="monster-edit__multiattacks"
                     header="Multi Attack"
-                    >
+                >
                 <ListComponent
                     component={MultiAttackEditor}
                     list={this.props.multiattack || [{}]}
@@ -435,53 +448,18 @@ export class MonsterEdit extends React.Component
                     }}
                     />
             </Panel>
-
-            <Panel className="edit-monster--save" header="Save">
-                {this.props.cancel
-                    ? <ButtonField
-                        name="button"
-                        color="muted"
-                        icon="ban"
-                        onClick={() => this.props.cancel()}
-                        label="Cancel" />
-                    : null
-                }
-                {this.props.reload
-                    ? <ButtonField
-                        name="button"
-                        color="info"
-                        icon="refresh"
-                        onClick={() => this.props.reload()}
-                        label="Reload" />
-                    : null
-                }
-                {this.props.recompute
-                    ? <ButtonField
-                        name="button"
-                        color="accent"
-                        icon="calculator"
-                        onClick={() => this.props.recompute()}
-                        label="Recompute" />
-                    : null
-                }
-                {this.props.save
-                    ? <ButtonField
-                        name="button"
-                        color="primary"
-                        icon="save"
-                        onClick={() => this.props.save()}
-                        label="Save" />
-                    : null
-                }
-            </Panel>
-        </div>
-    </div>;
+        ];
     }
 }
 
 export default ListDataWrapper(
     RoutedObjectDataWrapper(
-        MonsterEdit, "monster"
+        MonsterEdit, {
+            className: 'monster-edit',
+            icon: 'fa-paw',
+            label: 'Monster',
+            buttons: ['cancel', 'reload', 'recompute', 'save']
+        }, "monster"
     ),
     ['alignments', 'size_hit_dice', 'monster_types', 'languages'],
     'items',
