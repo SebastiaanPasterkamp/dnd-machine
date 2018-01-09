@@ -98,11 +98,12 @@ export class WeaponEdit extends React.Component
     }
 
     render() {
-        return <div>
-        <h2 className="icon fa-cutlery">Weapon</h2>
-
-        <div id="edit-weapon">
-            <Panel id="description" header="Description">
+        return [
+            <Panel
+                    key="description"
+                    className="weapon-edit__description"
+                    header="Description"
+                >
                 <ControlGroup label="Type">
                     <SingleSelect
                         selected={this.props.type || this.types[0].code}
@@ -135,10 +136,14 @@ export class WeaponEdit extends React.Component
                         />
                     : null
                 }
-            </Panel>
+            </Panel>,
 
-            <Panel id="properties" header="Properties">
-                <ControlGroup label="Properties">
+            <Panel
+                    key="properties"
+                    className="weapon-edit__properties"
+                    header="Properties"
+                >
+                <ControlGroup label="Attributes">
                     <TagContainer
                         tags={this.props.property || []}
                         tagOptions={this.properties || []}
@@ -178,44 +183,15 @@ export class WeaponEdit extends React.Component
                         }} />
                 </ControlGroup>
             </Panel>
-
-            <Panel id="save" header="Save">
-                {this.props.cancel
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="muted"
-                        icon="ban"
-                        onClick={() => this.props.cancel()}
-                        label="Cancel" />
-                    : null
-                }
-                {this.props.reload
-                    ? <ButtonField
-                        name="button"
-                        value="reload"
-                        color="info"
-                        icon="refresh"
-                        onClick={() => this.props.reload()}
-                        label="Reload" />
-                    : null
-                }
-                {this.props.save
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="primary"
-                        icon="save"
-                        onClick={() => this.props.save()}
-                        label="Save" />
-                    : null
-                }
-            </Panel>
-        </div>
-    </div>;
+        ];
     }
 }
 
 export default RoutedObjectDataWrapper(
-    WeaponEdit, "weapons", "items"
+    WeaponEdit, {
+        className: 'weapon-edit',
+        icon: 'fa-cutlery',
+        label: 'Weapon',
+        buttons: ['cancel', 'reload', 'recompute', 'save']
+    }, "weapons", "items"
 );

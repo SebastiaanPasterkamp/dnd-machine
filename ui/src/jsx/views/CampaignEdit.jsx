@@ -24,11 +24,12 @@ export class CampaignEdit extends React.Component
     }
 
     render() {
-        return <div>
-        <h2 className="icon fa-book">campaign</h2>
-
-        <div className="edit-campaign">
-            <Panel id="description" header="Description">
+        return [
+            <Panel
+                    key="description"
+                    className="campaign-edit__description"
+                    header="Description"
+                >
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
@@ -46,54 +47,26 @@ export class CampaignEdit extends React.Component
                             this.onFieldChange('description', value);
                         }} />
                 </ControlGroup>
-            </Panel>
-
-            <Panel id="save" header="Save">
-                {this.props.cancel
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="muted"
-                        icon="ban"
-                        onClick={() => this.props.cancel()}
-                        label="Cancel" />
-                    : null
-                }
-                {this.props.reload
-                    ? <ButtonField
-                        name="button"
-                        value="reload"
-                        color="info"
-                        icon="refresh"
-                        onClick={() => this.props.reload()}
-                        label="Reload" />
-                    : null
-                }
-                {this.props.save
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="primary"
-                        icon="save"
-                        onClick={() => this.props.save()}
-                        label="Save" />
-                    : null
-                }
-            </Panel>
+            </Panel>,
 
             <MarkdownTextField
-                className="splitview edit-campaign__story"
+                key="story"
+                className="splitview campaign-edit__story"
                 placeholder="Story..."
                 value={this.props.story}
                 rows={5}
                 setState={(value) => {
                     this.onFieldChange('story', value);
                 }} />
-        </div>
-    </div>;
+        ];
     }
 }
 
 export default RoutedObjectDataWrapper(
-    CampaignEdit, "campaign"
+    CampaignEdit, {
+        className: 'campaign-edit',
+        icon: 'fa-book',
+        label: 'Campaign',
+        buttons: ['cancel', 'reload', 'save']
+    }, "campaign"
 );

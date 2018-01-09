@@ -44,11 +44,12 @@ export class NpcEdit extends React.Component
     }
 
     render() {
-        return <div>
-        <h2 className="icon fa-commenting-o">NPC</h2>
-
-        <div className="edit-npc">
-            <Panel className="edit-npc--description" header="Description">
+        return [
+            <Panel
+                    key="description"
+                    className="npc-edit__description"
+                    header="Description"
+                >
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
@@ -118,9 +119,12 @@ export class NpcEdit extends React.Component
                             (value) => this.onFieldChange('description', value)
                         } />
                 </ControlGroup>
-            </Panel>
+            </Panel>,
 
-            <Panel className="edit-npc--statistics" header="Statistics">
+            <Panel
+                    key="statistics"
+                    className="npc-edit__statistics" header="Statistics"
+                >
                 <StatsBlock
                     {...this.props.statistics}
                     budget={50}
@@ -128,47 +132,18 @@ export class NpcEdit extends React.Component
                         (update) => this.onStatisticsChange(update)
                     } />
             </Panel>
-
-            <Panel className="edit-npc--save" header="Save">
-                {this.props.cancel
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="muted"
-                        icon="ban"
-                        onClick={() => this.props.cancel()}
-                        label="Cancel" />
-                    : null
-                }
-                {this.props.reload
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="info"
-                        icon="refresh"
-                        onClick={() => this.props.reload()}
-                        label="Reload" />
-                    : null
-                }
-                {this.props.save
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="primary"
-                        icon="save"
-                        onClick={() => this.props.save()}
-                        label="Save" />
-                    : null
-                }
-            </Panel>
-        </div>
-    </div>;
+        ];
     }
 }
 
 export default ListDataWrapper(
     RoutedObjectDataWrapper(
-        NpcEdit, "npc"
+        NpcEdit, {
+            className: 'npc-edit',
+            icon: 'fa-commenting-o',
+            label: 'NPC',
+            buttons: ['cancel', 'reload', 'recompute', 'save']
+        }, "npc"
     ),
     ['alignments', 'size_hit_dice'],
     'items'

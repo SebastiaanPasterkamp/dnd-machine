@@ -68,10 +68,11 @@ export class PartyEdit extends React.Component
         }
 
         return <ModalDialog
-            label="Add members"
-            onCancel={() => this.toggleDialog()}
-            onDone={() => this.toggleDialog()}
-            >
+                key="dialog"
+                label="Add members"
+                onCancel={() => this.toggleDialog()}
+                onDone={() => this.toggleDialog()}
+                >
             <table className="nice-table condensed bordered">
                 <thead>
                     <tr>
@@ -111,11 +112,12 @@ export class PartyEdit extends React.Component
     }
 
     render() {
-        return <div>
-        <h2 className="icon fa-users">Party</h2>
-
-        <div id="edit-party">
-            <Panel id="description" header="Description">
+        return [
+            <Panel
+                    key="description"
+                    className="party-edit__description"
+                    header="Description"
+                    >
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
@@ -133,162 +135,128 @@ export class PartyEdit extends React.Component
                             (value) => this.onFieldChange('description', value)
                         } />
                 </ControlGroup>
-            </Panel>
+            </Panel>,
 
-            <Panel id="challenge" header="Challenge Rating">
-                <table className="nice-table condensed bordered" id="party">
-                    <thead>
-                        <tr>
-                            <th>Party size</th>
-                            <th className="info">Easy</th>
-                            <th className="good">Medium</th>
-                            <th className="warning">Hard</th>
-                            <th className="bad">Deadly</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{this.props.members.length}</td>
-                            <td className="info">
-                                {this.props.challenge.easy}XP
-                            </td>
-                            <td className="good">
-                                {this.props.challenge.medium}XP
-                            </td>
-                            <td className="warning">
-                                {this.props.challenge.hard}XP
-                            </td>
-                            <td className="bad">
-                                {this.props.challenge.deadly}XP
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </Panel>
+            <Panel
+                    key="challenge"
+                    className="party-edit__challenge"
+                    header="Challenge Rating"
+                    >
+                <thead>
+                    <tr>
+                        <th>Party size</th>
+                        <th className="info">Easy</th>
+                        <th className="good">Medium</th>
+                        <th className="warning">Hard</th>
+                        <th className="bad">Deadly</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{this.props.members.length}</td>
+                        <td className="info">
+                            {this.props.challenge.easy}XP
+                        </td>
+                        <td className="good">
+                            {this.props.challenge.medium}XP
+                        </td>
+                        <td className="warning">
+                            {this.props.challenge.hard}XP
+                        </td>
+                        <td className="bad">
+                            {this.props.challenge.deadly}XP
+                        </td>
+                    </tr>
+                </tbody>
+            </Panel>,
 
-            <Panel id="members" header="Party Members">
-                <table className="nice-table condensed bordered" id="character">
-                    <thead>
-                        <tr>
-                            <th>Character Level</th>
-                            <th>Level</th>
-                            <th>Easy</th>
-                            <th>Medium</th>
-                            <th>Hard</th>
-                            <th>Deadly</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>{_.map(this.props.members, (id) => {
-                        const character = _.get(
-                            this.props.characters, id
-                        );
+            <Panel
+                    key="members"
+                    className="party-edit__members"
+                    header="Party Members"
+                    >
+                <thead>
+                    <tr>
+                        <th>Character Level</th>
+                        <th>Level</th>
+                        <th>Easy</th>
+                        <th>Medium</th>
+                        <th>Hard</th>
+                        <th>Deadly</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>{_.map(this.props.members, (id) => {
+                    const character = _.get(
+                        this.props.characters, id
+                    );
 
-                        if (!character) {
-                            return null;
-                        }
+                    if (!character) {
+                        return null;
+                    }
 
-                        return <tr key={id}>
-                            <td>{character.name}</td>
-                            <td>{character.level}</td>
-                            <td className="info">
-                                {character.challenge.easy}XP
-                            </td>
-                            <td className="good">
-                                {character.challenge.medium}XP
-                            </td>
-                            <td className="warning">
-                                {character.challenge.hard}XP
-                            </td>
-                            <td className="bad">
-                                {character.challenge.deadly}XP
-                            </td>
-                            <td>
-                                <CharacterLinks
-                                    altStyle={true}
-                                    buttons={['view']}
-                                    character_id={character.id}
-                                    extra={{
-                                        remove: {
-                                            label: 'Remove',
-                                            action: () => {
-                                                this.onRemoveMemberButton(character.id);
-                                            },
-                                            icon: 'times',
-                                            className: 'warning'
-                                        }
-                                    }}
-                                    />
-                            </td>
-                        </tr>;
-                    })}</tbody>
-                    <tbody>
-                        <tr>
-                            <td colSpan="6"></td>
-                            <td>
-                                <a
-                                    className="nice-btn-alt cursor-pointer icon fa-plus"
-                                    onClick={() => this.toggleDialog()}
-                                    >
-                                    Add
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </Panel>
+                    return <tr key={id}>
+                        <td>{character.name}</td>
+                        <td>{character.level}</td>
+                        <td className="info">
+                            {character.challenge.easy}XP
+                        </td>
+                        <td className="good">
+                            {character.challenge.medium}XP
+                        </td>
+                        <td className="warning">
+                            {character.challenge.hard}XP
+                        </td>
+                        <td className="bad">
+                            {character.challenge.deadly}XP
+                        </td>
+                        <td>
+                            <CharacterLinks
+                                altStyle={true}
+                                buttons={['view']}
+                                character_id={character.id}
+                                extra={{
+                                    remove: {
+                                        label: 'Remove',
+                                        action: () => {
+                                            this.onRemoveMemberButton(character.id);
+                                        },
+                                        icon: 'times',
+                                        className: 'warning'
+                                    }
+                                }}
+                                />
+                        </td>
+                    </tr>;
+                })}</tbody>
+                <tbody>
+                    <tr>
+                        <td colSpan="6"></td>
+                        <td>
+                            <a
+                                className="nice-btn-alt cursor-pointer icon fa-plus"
+                                onClick={() => this.toggleDialog()}
+                                >
+                                Add
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </Panel>,
 
-            <Panel id="save" header="Save">
-                {this.props.cancel
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="muted"
-                        icon="ban"
-                        onClick={() => this.props.cancel()}
-                        label="Cancel" />
-                    : null
-                }
-                {this.props.reload
-                    ? <ButtonField
-                        name="button"
-                        color="info"
-                        icon="refresh"
-                        onClick={() => this.props.reload()}
-                        label="Reload" />
-                    : null
-                }
-                {this.props.recompute
-                    ? <ButtonField
-                        name="button"
-                        color="accent"
-                        icon="calculator"
-                        onClick={() => this.props.recompute()}
-                        label="Recompute" />
-                    : null
-                }
-                {this.props.save
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="primary"
-                        icon="save"
-                        onClick={() => this.props.save()}
-                        label="Save" />
-                    : null
-                }
-            </Panel>
-        </div>
-
-        {this.renderDialog()}
-
-    </div>;
+            this.renderDialog()
+        ];
     }
 }
 
 export default ObjectDataListWrapper(
     RoutedObjectDataWrapper(
-        PartyEdit, "party"
+        PartyEdit, {
+            className: 'party-edit',
+            icon: 'fa-users',
+            label: 'Party',
+            buttons: ['cancel', 'reload', 'recompute', 'save']
+        }, "party"
     ),
     {characters: {type: 'character'}}
 );

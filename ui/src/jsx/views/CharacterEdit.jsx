@@ -25,11 +25,12 @@ export class CharacterEdit extends React.Component
     }
 
     render() {
-        return <div>
-        <h2 className="icon fa-user-secret">Character</h2>
-
-        <div id="edit-character">
-            <Panel id="description" header="Description">
+        return [
+            <Panel
+                    key="description"
+                    className="character-edit__description"
+                    header="Description"
+                >
                 Level {this.props.level} {this.props.class} {this.props.race} ({this.props.background})
                 <Progress
                     value={this.props.xp_progress}
@@ -93,7 +94,7 @@ export class CharacterEdit extends React.Component
                         value={this.props.weight}
                         setState={(value) => {
                             value = parseFloat(value)
-                            this.onFieldChange('height', value);
+                            this.onFieldChange('weight', value);
                         }} />
                 </ControlGroup>
                 <ControlGroup labels={["Age", "years old"]}>
@@ -114,9 +115,13 @@ export class CharacterEdit extends React.Component
                             (value) => this.onFieldChange('appearance', value)
                         } />
                 </ControlGroup>
-            </Panel>
+            </Panel>,
 
-            <Panel id="personality" header="Personality">
+            <Panel
+                    key="personality"
+                    className="character-edit__personality"
+                    header="Personality"
+                >
                 {_.map({
                     'traits': 'Traits',
                     'ideals': 'Ideals',
@@ -132,9 +137,13 @@ export class CharacterEdit extends React.Component
                             (value) => this.onFieldChange(field, value)
                         } />
                 </ControlGroup>})}
-            </Panel>
+            </Panel>,
 
-            <Panel id="background" header="Backstory">
+            <Panel
+                    key="backstory"
+                    className="character-edit__backstory"
+                    header="Backstory"
+                >
                 <MarkdownTextField
                     placeholder="Backstory..."
                     value={this.props.backstory}
@@ -143,47 +152,18 @@ export class CharacterEdit extends React.Component
                         (value) => this.onFieldChange('backstory', value)
                     } />
             </Panel>
-
-            <Panel id="save" header="Save">
-                {this.props.cancel
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="muted"
-                        icon="ban"
-                        onClick={() => this.props.cancel()}
-                        label="Cancel" />
-                    : null
-                }
-                {this.props.reload
-                    ? <ButtonField
-                        name="button"
-                        value="reload"
-                        color="info"
-                        icon="refresh"
-                        onClick={() => this.props.reload()}
-                        label="Reload" />
-                    : null
-                }
-                {this.props.save
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="primary"
-                        icon="save"
-                        onClick={() => this.props.save()}
-                        label="Save" />
-                    : null
-                }
-            </Panel>
-        </div>
-    </div>;
+        ];
     }
 }
 
 export default ListDataWrapper(
     RoutedObjectDataWrapper(
-        CharacterEdit, "character"
+        CharacterEdit, {
+            className: 'character-edit',
+            icon: 'fa-user-secret',
+            label: 'Character',
+            buttons: ['cancel', 'reload', 'save']
+        }, "character"
     ),
     ['alignments', 'genders'],
     'items'

@@ -70,11 +70,12 @@ export class ArmorEdit extends React.Component
             }
         });
 
-        return <div>
-        <h2 className="icon fa-shield">Armor</h2>
-
-        <div id="edit-armor">
-            <Panel id="description" header="Description">
+        return [
+            <Panel
+                    key="description"
+                    className="armor-edit__description"
+                    header="Description"
+                >
                 <ControlGroup label="Type">
                     <SingleSelect
                         selected={this.props.type || this.types[0].code}
@@ -132,9 +133,13 @@ export class ArmorEdit extends React.Component
                         : null
                     }
                 </ControlGroup>
-            </Panel>
+            </Panel>,
 
-            <Panel id="properties" header="Properties">
+            <Panel
+                    key="properties"
+                    className="armor-edit__properties"
+                    header="Properties"
+                >
                 <ControlGroup labels={["Requires", "Strength"]}>
                     <InputField
                         placeholder="Strength..."
@@ -184,44 +189,16 @@ export class ArmorEdit extends React.Component
                         }} />
                 </ControlGroup>})}
             </Panel>
-
-            <Panel id="save" header="Save">
-                {this.props.cancel
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="muted"
-                        icon="ban"
-                        onClick={() => this.props.cancel()}
-                        label="Cancel" />
-                    : null
-                }
-                {this.props.reload
-                    ? <ButtonField
-                        name="button"
-                        value="reload"
-                        color="info"
-                        icon="refresh"
-                        onClick={() => this.props.reload()}
-                        label="Reload" />
-                    : null
-                }
-                {this.props.save
-                    ? <ButtonField
-                        name="button"
-                        value="cancel"
-                        color="primary"
-                        icon="save"
-                        onClick={() => this.props.save()}
-                        label="Save" />
-                    : null
-                }
-            </Panel>
-        </div>
-    </div>;
+        ];
     }
 }
 
 export default RoutedObjectDataWrapper(
-    ArmorEdit, "armor", "items"
+    ArmorEdit, {
+        className: 'armor-edit',
+        icon: 'fa-shield',
+        label: 'Armor',
+        buttons: ['cancel', 'reload', 'recompute', 'save']
+    },
+    "armor", "items"
 );
