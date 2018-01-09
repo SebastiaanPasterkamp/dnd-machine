@@ -105,20 +105,20 @@ export class ArmorEdit extends React.Component
                         }} />
                     {armor_method == 'bonus'
                         ? <InputField
+                            type="number"
                             placeholder="Bonus..."
                             value={this.props.bonus || null}
                             setState={(value) => {
-                                value = parseInt(value);
                                 this.onFieldChange('bonus', value)
                             }} />
                         : null
                     }
                     {armor_method == 'value'
                         ? <InputField
+                            type="number"
                             placeholder="Value..."
                             value={this.props.value || null}
                             setState={(value) => {
-                                value = parseInt(value);
                                 this.onFieldChange('value', value)
                             }} />
                         : null
@@ -142,10 +142,10 @@ export class ArmorEdit extends React.Component
                 >
                 <ControlGroup labels={["Requires", "Strength"]}>
                     <InputField
+                        type="number"
                         placeholder="Strength..."
                         value={this.props.requirements.strength || null}
                         setState={(value) => {
-                            value = parseInt(value);
                             this.onFieldChange('requirements', {
                                 strength: value || undefined
                             })
@@ -153,13 +153,13 @@ export class ArmorEdit extends React.Component
                 </ControlGroup>
                 <ControlGroup labels={["Weight", "lb."]}>
                     <InputField
+                        type="float"
                         placeholder="Pounds..."
                         value={'weight' in this.props
                             ? this.props.weight.lb
                             : ''
                         }
                         setState={(value) => {
-                            value = parseFloat(value) || null;
                             this.onFieldChange('weight', {lb: value});
                         }} />
                 </ControlGroup>
@@ -180,7 +180,7 @@ export class ArmorEdit extends React.Component
                         value={this.props.cost[coinage.code] || ''}
                         setState={(value) => {
                             let update = {};
-                            update[coinage.code] = parseInt(value) || null;
+                            update[coinage.code] = value || null;
                             let cost = Object.assign({},
                                 this.props.cost,
                                 update
