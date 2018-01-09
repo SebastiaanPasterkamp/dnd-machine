@@ -176,7 +176,7 @@ ObjectDataActions.recomputeObject.listen((type, id, data, group=null, callback=n
                 .then((response) => response.json())
                 .then((result) => {
                     ObjectDataActions.postObject.completed(
-                        type, result.id, result);
+                        type, id, result);
                     if (callback) {
                         (callback)();
                     }
@@ -185,7 +185,7 @@ ObjectDataActions.recomputeObject.listen((type, id, data, group=null, callback=n
                     console.error(error);
                     ObjectDataActions.postObject.failed(type, error);
                 });
-            }, 5000, {leading: true, trailing: true})
+            }, 1000, {leading: true, trailing: true})
         };
     }
 
