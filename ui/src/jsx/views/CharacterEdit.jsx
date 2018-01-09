@@ -81,28 +81,29 @@ export class CharacterEdit extends React.Component
                 </ControlGroup>
                 <ControlGroup labels={["Height", "ft."]}>
                     <InputField
+                        type="float"
                         placeholder="Height..."
                         value={this.props.height}
                         setState={(value) => {
-                            value = parseFloat(value)
                             this.onFieldChange('height', value);
                         }} />
                 </ControlGroup>
                 <ControlGroup labels={["Weight", "lb."]}>
                     <InputField
+                        type="float"
                         placeholder="Weight..."
                         value={this.props.weight}
                         setState={(value) => {
-                            value = parseFloat(value)
                             this.onFieldChange('weight', value);
                         }} />
                 </ControlGroup>
                 <ControlGroup labels={["Age", "years old"]}>
                     <InputField
+                        type="number"
                         placeholder="Age..."
                         value={this.props.age}
                         setState={(value) => {
-                            value = parseInt(value) || null;
+                            value = value || null;
                             this.onFieldChange('age', value);
                         }} />
                 </ControlGroup>

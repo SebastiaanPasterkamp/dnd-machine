@@ -162,13 +162,13 @@ export class WeaponEdit extends React.Component
                 }
                 <ControlGroup labels={["Weight", "lb."]}>
                     <InputField
+                        type="float"
                         placeholder="Pounds..."
                         value={'weight' in this.props
                             ? this.props.weight.lb
                             : ''
                         }
                         setState={(value) => {
-                            value = parseFloat(value) || null;
                             this.onFieldChange('weight', {lb: value});
                         }} />
                 </ControlGroup>

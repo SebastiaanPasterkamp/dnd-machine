@@ -24,16 +24,18 @@ export class ReachEdit extends LazyComponent
     render() {
         return <ControlGroup labels={["Reach", "ft.", "ft."]}>
             <InputField
+                type="number"
                 placeholder="Normal..."
                 value={this.props.min || ''}
                 setState={(value) => {
-                    this.onFieldChange('min', parseInt(value));
+                    this.onFieldChange('min', value);
                 }} />
             <InputField
+                type="number"
                 placeholder="Disadvantage..."
                 value={this.props.max || ''}
                 setState={(value) => {
-                    this.onFieldChange('max', parseInt(value));
+                    this.onFieldChange('max', value);
                 }} />
         </ControlGroup>;
     }
