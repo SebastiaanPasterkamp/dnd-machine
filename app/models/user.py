@@ -2,17 +2,17 @@ from passlib.hash import pbkdf2_sha256
 from base import JsonObject, JsonObjectDataMapper
 
 class UserObject(JsonObject):
+    _pathPrefix = "user"
+    _defaultConfig = {
+        'username': u'',
+        'password': u'',
+        'email': u'',
+        'role': []
+        }
+
     def __init__(self, config={}):
-        super(UserObject, self).__init__(
-            config,
-            pathPrefix = "user",
-            defaultConfig = {
-                'username': u'',
-                'password': u'',
-                'email': u'',
-                'role': []
-                }
-            )
+        super(UserObject, self).__init__(config)
+        self.compute()
 
     def compute(self):
         self.role = [

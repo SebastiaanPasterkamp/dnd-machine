@@ -5,121 +5,118 @@ from dndmachine import DndMachine
 
 class MonsterObject(JsonObject):
     _version = '1.0'
+    _pathPrefix = "monster"
+    _defaultConfig = {
+        "name": u"",
+        "size": u"small",
+        "type": u"beast",
+        "level": 1,
+        "motion": {
+            "walk": 20
+            },
+        "alignment": u"Neutral Evil",
+        "hit_points": 2,
+        "hit_points_notation": u"1d4",
+        "armor_class": 10,
+        "proficiency": 0,
+        "passive_perception": 0,
+        "traits": [],
+        "features": [],
+        "languages": [],
+        "multiattack": [],
+        "attacks": [],
+        "attack_modifier": {
+            "melee": "strength",
+            "ranged": "dexterity",
+            "spell": "charisma"
+        },
+        "statistics": {
+            "bare": {
+                "strength": 10,
+                "dexterity": 10,
+                "constitution": 10,
+                "intelligence": 10,
+                "wisdom": 10,
+                "charisma": 10
+                },
+            "bonus": {
+                "strength": [],
+                "dexterity": [],
+                "constitution": [],
+                "intelligence": [],
+                "wisdom": [],
+                "charisma": []
+                },
+            "base": {
+                "strength": 8,
+                "dexterity": 8,
+                "constitution": 8,
+                "intelligence": 8,
+                "wisdom": 8,
+                "charisma": 8
+                },
+            "modifiers": {
+                "strength": 0,
+                "dexterity": 0,
+                "constitution": 0,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 0
+                }
+            },
+        "challenge": 0.0,
+        "xp": 10
+        }
+    _fieldTypes = {
+        'xp': int,
+        'level': int,
+        'dice_size': int,
+        'challenge': float,
+        'average_damage': int,
+        'critical_damage':int,
+        'attack_bonus': int,
+        'spell_save_dc': int,
+        'motion': {
+            "*": int
+            },
+        'traits': {
+            '*': unicode
+            },
+        'multiattack': {
+            'average': int,
+            'critical': int
+            },
+        'attacks': {
+            'bonus': int,
+            'spell_save_dc': int,
+            'average': int,
+            'critical': int,
+            'reach': {
+                '*': int
+                },
+            'damage': {
+                '*': int,
+                'mode': unicode,
+                'type': unicode,
+                'notation': unicode
+                }
+            },
+        'hit_points': int,
+        'armor_class': int,
+        'proficiency': int,
+        "statistics": {
+            "*": {
+                "*": int
+                }
+            },
+        }
 
     def __init__(self, config={}):
-        super(MonsterObject, self).__init__(
-            config,
-            pathPrefix = "monster",
-            defaultConfig = {
-                "name": u"",
-                "size": u"small",
-                "type": u"beast",
-                "level": 1,
-                "motion": {
-                    "walk": 20
-                    },
-                "alignment": u"Neutral Evil",
-                "hit_points": 2,
-                "hit_points_notation": u"1d4",
-                "armor_class": 10,
-                "proficiency": 0,
-                "passive_perception": 0,
-                "traits": [],
-                "features": [],
-                "languages": [],
-                "multiattack": [],
-                "attacks": [],
-                "attack_modifier": {
-                    "melee": "strength",
-                    "ranged": "dexterity",
-                    "spell": "charisma"
-                },
-                "statistics": {
-                    "bare": {
-                        "strength": 10,
-                        "dexterity": 10,
-                        "constitution": 10,
-                        "intelligence": 10,
-                        "wisdom": 10,
-                        "charisma": 10
-                        },
-                    "bonus": {
-                        "strength": [],
-                        "dexterity": [],
-                        "constitution": [],
-                        "intelligence": [],
-                        "wisdom": [],
-                        "charisma": []
-                        },
-                    "base": {
-                        "strength": 8,
-                        "dexterity": 8,
-                        "constitution": 8,
-                        "intelligence": 8,
-                        "wisdom": 8,
-                        "charisma": 8
-                        },
-                    "modifiers": {
-                        "strength": 0,
-                        "dexterity": 0,
-                        "constitution": 0,
-                        "intelligence": 0,
-                        "wisdom": 0,
-                        "charisma": 0
-                        }
-                    },
-                "challenge": 0.0,
-                "xp": 10
-                },
-            fieldTypes = {
-                'xp': int,
-                'level': int,
-                'dice_size': int,
-                'challenge': float,
-                'average_damage': int,
-                'critical_damage':int,
-                'attack_bonus': int,
-                'spell_save_dc': int,
-                'motion': {
-                    "*": int
-                    },
-                'traits': {
-                    '*': unicode
-                    },
-                'multiattack': {
-                    'average': int,
-                    'critical': int
-                    },
-                'attacks': {
-                    'bonus': int,
-                    'spell_save_dc': int,
-                    'average': int,
-                    'critical': int,
-                    'reach': {
-                        '*': int
-                        },
-                    'damage': {
-                        '*': int,
-                        'mode': unicode,
-                        'type': unicode,
-                        'notation': unicode
-                        }
-                    },
-                'hit_points': int,
-                'armor_class': int,
-                'proficiency': int,
-                "statistics": {
-                    "*": {
-                        "*": int
-                        }
-                    },
-                }
-            )
+        super(MonsterObject, self).__init__(config)
+
         self.upgrade()
-        if self.version is None \
-                or self.version != MonsterObject._version:
+        if self.version != self._version:
             self.compute()
-            self.version = MonsterObject._version
 
     def upgrade(self):
         if "stats" in self._config:
@@ -136,6 +133,9 @@ class MonsterObject(JsonObject):
     def compute(self):
         config = get_config()
         machine = DndMachine(config['machine'], get_item_data())
+
+        self.config = self.castFieldType(self.config)
+        self.version = self._version
 
         self.languages = [
             l for l in list(set(self.languages))

@@ -2,6 +2,28 @@ from base import JsonObject, JsonObjectDataMapper
 
 class EncounterObject(JsonObject):
     _version = '1.0'
+    _pathPrefix = "encounter"
+    _defaultConfig = {
+        'size': 0,
+        'loot': []
+        }
+    _fieldTypes = {
+        'user_id': int,
+        'size': int,
+        'challenge_rating_sum': float,
+        'challenge_rating': float,
+        'challenge_modified': float,
+        'modifier': {
+            '*': float
+            },
+        'xp_rating_sum': int,
+        'xp_rating': float,
+        'xp_modified': int,
+        'xp': int,
+        'loot': {
+            'count': int
+            }
+        }
 
     def __init__(self, config={}):
         self._party = None
@@ -22,36 +44,10 @@ class EncounterObject(JsonObject):
                 {"min": 21, "max": 30, "modifier": 5.0}
                 ]
             }
+        super(EncounterObject, self).__init__(config)
 
-        super(EncounterObject, self).__init__(
-            config,
-            pathPrefix = "encounter",
-            defaultConfig = {
-                'size': 0,
-                'loot': []
-                },
-            fieldTypes = {
-                'user_id': int,
-                'size': int,
-                'challenge_rating_sum': float,
-                'challenge_rating': float,
-                'challenge_modified': float,
-                'modifier': {
-                    '*': float
-                    },
-                'xp_rating_sum': int,
-                'xp_rating': float,
-                'xp_modified': int,
-                'xp': int,
-                'loot': {
-                    'count': int
-                    }
-                }
-            )
-        if self.version is None \
-                or self.version != EncounterObject._version:
+        if self.version != self._version:
             self.compute()
-            self.version = EncounterObject._version
 
     @property
     def party(self):
@@ -84,6 +80,9 @@ class EncounterObject(JsonObject):
         return 1.0
 
     def compute(self):
+        self.config = self.castFieldType(self.config)
+        self.version = self._version
+
         self.loot = [
             item
             for item in self.loot or []

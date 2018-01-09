@@ -1,15 +1,13 @@
 from base import JsonObject, JsonObjectDataMapper
 
 class CampaignObject(JsonObject):
-    def __init__(self, config={}):
-        super(CampaignObject, self).__init__(
-            config,
-            pathPrefix = "campaign",
-            fieldTypes = {
-                'user_id': int,
-                'toc': {}
-                }
-            )
+    _pathPrefix = "campaign"
+    _fieldTypes = {
+        'id': int,
+        'user_id': int,
+        'toc': {}
+        }
+
 
 class CampaignMapper(JsonObjectDataMapper):
     obj = CampaignObject
