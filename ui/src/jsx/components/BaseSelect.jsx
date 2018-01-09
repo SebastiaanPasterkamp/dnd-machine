@@ -1,8 +1,10 @@
 import React from 'react';
-import LazyComponent from '../components/LazyComponent.jsx';
+import _ from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 
-import _ from 'lodash';
+import '../../sass/_base-select.scss';
+
+import LazyComponent from '../components/LazyComponent.jsx';
 
 export class BaseSelect extends LazyComponent
 {
