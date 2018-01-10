@@ -46,9 +46,6 @@ class EncounterObject(JsonObject):
             }
         super(EncounterObject, self).__init__(config)
 
-        if self.version != self._version:
-            self.compute()
-
     @property
     def party(self):
         return self._party

@@ -111,24 +111,17 @@ class MonsterObject(JsonObject):
             },
         }
 
-    def __init__(self, config={}):
-        super(MonsterObject, self).__init__(config)
-
-        self.upgrade()
-        if self.version != self._version:
-            self.compute()
-
-    def upgrade(self):
+    def migrate(self):
         if "stats" in self._config:
-            self.update({
-                'statistics': {
-                    "bare": self._config['stats'],
-                    "base": self._config['stats'],
-                    "modifiers": self._config['modifiers']
-                    }
-                })
+            self.statistics = {
+                "bare": self._config['stats'],
+                "base": self._config['stats'],
+                "modifiers": self._config['modifiers']
+                }
             del self._config['stats']
             del self._config['modifiers']
+
+        super(MonsterObject, self).migrate()
 
     def compute(self):
         config = get_config()

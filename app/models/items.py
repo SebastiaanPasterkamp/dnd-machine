@@ -71,7 +71,6 @@ class ItemsObject(JsonObject):
         items = {}
         with open(path) as fh:
             items = json.load(fh)
-
         super(ItemsObject, self).__init__(items)
 
     def getList(self, paths):
