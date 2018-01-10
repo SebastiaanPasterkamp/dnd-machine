@@ -18,26 +18,26 @@ class JsonObject(object):
         )""", re.X)
 
     def __init__(self, config={}):
-        _config = self._merge(
-            {},
-            deepcopy(self._defaultConfig)
-            )
         if config.get('id') is None:
             self._config = self._merge(
-                _config,
+                deepcopy(self._defaultConfig),
                 self.castFieldType(config)
                 )
         else:
-            self._config = self._merge(
-                _config,
-                config
-                )
+            self._config = config
         if 'config' in self._config:
             del(self._config['config'])
 
     @property
     def config(self):
         return self._config
+
+    def migrate(self):
+        self._config = self._merge(
+            deepcopy(self._defaultConfig),
+            self.castFieldType(self._config)
+            )
+        self.compute()
 
     def clone(self):
         clone = self.__class__(self.config)
