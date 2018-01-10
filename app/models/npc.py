@@ -173,7 +173,6 @@ class NpcObject(JsonObject):
         config = get_config()
         machine = DndMachine(config["machine"], get_item_data())
 
-        self.config = self.castFieldType(self.config)
         self.version = self._version
 
         self.statisticsBase = {}
