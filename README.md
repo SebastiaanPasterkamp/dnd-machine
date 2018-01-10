@@ -29,6 +29,14 @@ npm run build
 python tests/run_tests.py
 npm test
 ```
+## Upgrading
+
+```bash
+export FLASK_APP=app/app.py
+export FLASK_DEBUG=true
+flask updatedb
+flask migrate
+```
 
 ## Running D&D machine
 
