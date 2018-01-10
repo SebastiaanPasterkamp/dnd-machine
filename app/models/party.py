@@ -19,9 +19,6 @@ class PartyObject(JsonObject):
         self._members = []
         super(PartyObject, self).__init__(config)
 
-        if self.version != self._version:
-            self.compute()
-
     @property
     def members(self):
         return self._members

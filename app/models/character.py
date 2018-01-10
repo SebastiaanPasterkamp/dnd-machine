@@ -202,14 +202,7 @@ class CharacterObject(JsonObject):
             }
         }
 
-    def __init__(self, config={}):
-        super(CharacterObject, self).__init__(config)
-
-        self.upgrade()
-        if self.version != self._version:
-            self.compute()
-
-    def upgrade(self):
+    def migrate(self):
         if "base_stats" in self._config:
             re_mod = re.compile(r"(?<!statistics\.)modifiers")
 
@@ -229,19 +222,18 @@ class CharacterObject(JsonObject):
                             val
                             )
 
-            self.update({
-                'statistics':{
-                    "bare": self._config['base_stats'],
-                    "bonus": self._config['stats_bonus'],
-                    "base": self._config['stats'],
-                    "modifiers": self._config['modifiers']
-                    }
-                })
+            self.statistics = {
+                "bare": self._config['base_stats'],
+                "bonus": self._config['stats_bonus'],
+                "base": self._config['stats'],
+                "modifiers": self._config['modifiers']
+                }
             del self._config['base_stats']
             del self._config['stats_bonus']
             del self._config['stats']
             del self._config['modifiers']
-        self.compute()
+
+        super(CharacterObject, self).migrate()
 
     def compute(self):
         config = get_config()

@@ -10,10 +10,6 @@ class UserObject(JsonObject):
         'role': []
         }
 
-    def __init__(self, config={}):
-        super(UserObject, self).__init__(config)
-        self.compute()
-
     def compute(self):
         self.role = [
             role
