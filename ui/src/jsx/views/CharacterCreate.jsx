@@ -8,8 +8,8 @@ import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
-import {CharactersView} from './CharactersView.jsx';
-import {CharacterEdit} from './CharacterEdit.jsx';
+import {CharacterView} from './CharactersView.jsx';
+import {CharacterEditView} from './CharacterEdit.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
@@ -144,8 +144,6 @@ export class CharacterCreate extends LazyComponent
                 newState,
                 config
             );
-
-            console.log(newState);
         });
 
         this.props.setState(newState);
@@ -235,10 +233,10 @@ export class CharacterCreate extends LazyComponent
                 setState={
                     (update) => this.onStatisticsChange(update)
                 } />
-            <CharacterEdit
+            <CharacterEditView
                 {...this.props}
                 />
-            <CharactersView
+            <CharacterView
                 {...this.props}
                 />
         </TabComponent>;

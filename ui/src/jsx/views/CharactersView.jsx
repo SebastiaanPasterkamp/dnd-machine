@@ -5,6 +5,7 @@ import {sprintf} from 'sprintf-js';
 
 import '../../sass/_view-character.scss';
 
+import BaseViewWrapper from '../hocs/BaseViewWrapper.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
@@ -17,6 +18,12 @@ import Progress from '../components/Progress.jsx';
 import Reach from '../components/Reach.jsx';
 import UserLabel from '../components/UserLabel.jsx';
 import WeaponLabel from '../components/WeaponLabel.jsx';
+
+const viewConfig = {
+    className: 'character-view',
+    icon: 'fa-user-secret',
+    label: 'Character'
+};
 
 export class CharactersView extends React.Component
 {
@@ -378,13 +385,13 @@ export class CharactersView extends React.Component
     }
 }
 
+export const CharacterView = BaseViewWrapper(
+    CharactersView, viewConfig
+);
+
 export default ListDataWrapper(
     RoutedObjectDataWrapper(
-        CharactersView, {
-            className: 'character-view',
-            icon: 'fa-user-secret',
-            label: 'Character'
-        }, "character"
+        CharactersView, viewConfig, "character"
     ),
     ['alignments', 'languages', 'statistics', 'skills', 'genders'],
     'items',
