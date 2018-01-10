@@ -3,6 +3,7 @@ import os
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, jsonify, Markup
 
+from .models.base import JsonObjectDataMapper
 from . import get_db, get_datamapper
 from .config import get_config, get_item_data
 import filters
@@ -66,17 +67,34 @@ def initdb_command():
     init_db()
     print('Initialized the database.')
 
-def update_db():
+@app.cli.command('updatedb')
+def updatedb_command():
+    """Updates the database."""
     db = get_db()
     with app.open_resource('update.sql', mode='r') as f:
         db.cursor().executescript(f.read())
     db.commit()
-
-@app.cli.command('updatedb')
-def updatedb_command():
-    """Updates the database."""
-    update_db()
     print('Updated the database.')
+
+@app.cli.command('migrate')
+def migrate_command():
+    """Migrate all Objects to any new configuration."""
+    datamapper = get_datamapper()
+
+    for mapperType in datamapper._creators:
+        dataMapper = datamapper[mapperType]
+        if not isinstance(dataMapper, JsonObjectDataMapper):
+            continue
+        objs = dataMapper.getMultiple()
+        print "Converting '%s': %d" % (
+            mapperType, len(objs)
+            )
+        for obj in objs:
+            print "- %d" % obj.id
+            obj.migrate()
+            dataMapper.update(obj)
+
+    print "Done"
 
 @app.before_request
 def get_user():
