@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 import '../../sass/_edit-character.scss';
 
+import BaseViewWrapper from '../hocs/BaseViewWrapper.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
@@ -15,6 +16,13 @@ import SingleSelect from '../components/SingleSelect.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import Progress from '../components/Progress.jsx';
+
+const viewConfig = {
+    className: 'character-edit',
+    icon: 'fa-user-secret',
+    label: 'Character',
+    buttons: ['cancel', 'reload', 'save']
+};
 
 export class CharacterEdit extends React.Component
 {
@@ -155,16 +163,15 @@ export class CharacterEdit extends React.Component
             </Panel>
         ];
     }
-}
+};
+
+export const CharacterEditView = BaseViewWrapper(
+    CharacterEdit, viewConfig
+);
 
 export default ListDataWrapper(
     RoutedObjectDataWrapper(
-        CharacterEdit, {
-            className: 'character-edit',
-            icon: 'fa-user-secret',
-            label: 'Character',
-            buttons: ['cancel', 'reload', 'save']
-        }, "character"
+        CharacterEdit, viewConfig, "character"
     ),
     ['alignments', 'genders'],
     'items'
