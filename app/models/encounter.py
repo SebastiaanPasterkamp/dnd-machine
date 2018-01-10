@@ -77,7 +77,6 @@ class EncounterObject(JsonObject):
         return 1.0
 
     def compute(self):
-        self.config = self.castFieldType(self.config)
         self.version = self._version
 
         self.loot = [
