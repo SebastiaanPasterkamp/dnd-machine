@@ -34,6 +34,14 @@ class BaseLinkGroup extends LazyComponent
                 {props.label}
             </a>;
         }
+        if ('download' in props) {
+            return <a
+                key={button}
+                href={props.download}
+                className={classNames.join(' ')}>
+                {props.label}
+            </a>;
+        }
         return <Link
             key={button}
             to={props.link}
