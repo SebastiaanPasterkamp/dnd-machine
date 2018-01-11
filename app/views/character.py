@@ -144,14 +144,19 @@ class CharacterBlueprint(BaseApiBlueprint):
             "Height": c.height,
             "Weight": c.weight,
             "Current Weight": c.weight,
-            #"Appearance": c.appearance,
+            "Appearance": c.appearance,
             "PersonalityTraits ": c.personalityTraits,
             "Ideals": c.personalityIdeals,
             "Bonds": c.personalityBonds,
             "Flaws": c.personalityFlaws
             }
         fdf_html = {
-            "Background": c.background
+            "Appearance": c.appearance or "",
+            "Background": c.backstory or "",
+            "PersonalityTraits ": c.personalityTraits,
+            "Ideals": c.personalityIdeals,
+            "Bonds": c.personalityBonds,
+            "Flaws": c.personalityFlaws
             }
 
         if c.spell_safe_dc:
@@ -196,18 +201,18 @@ class CharacterBlueprint(BaseApiBlueprint):
                     fdf_text[ "Spells %s" % fdf_spell_list[i] ] = spell
 
         for stat in items['statistics']:
-            stat_prefix = stat['name'][:3].upper()
-            fdf_text[stat_prefix] = c.stats[stat['name']]
-            fdf_text[stat_prefix + 'mod'] = filter_bonus(c.modifiers[stat['name']])
-            fdf_text['SavingThrow ' + stat['label']] = filter_bonus(c.saving_throws[stat['name']])
-            if stat['name'] in c.proficienciesAdvantages:
+            stat_prefix = stat['code'][:3].upper()
+            fdf_text[stat_prefix] = c.statisticsBase[stat['code']]
+            fdf_text[stat_prefix + 'mod'] = filter_bonus(c.statisticsModifiers[stat['code']])
+            fdf_text['SavingThrow ' + stat['label']] = filter_bonus(c.saving_throws[stat['code']])
+            if stat['code'] in c.proficienciesAdvantages:
                 fdf_text['SavingThrow ' + stat['label']] += 'A'
-            if stat['name'] in c.proficienciesSaving_throws:
+            if stat['code'] in c.proficienciesSaving_throws:
                 fdf_text['ST ' + stat['label']] = True
 
         for skill in items['skills']:
-            fdf_text[skill['label']] = filter_bonus(c.skills[skill['name']])
-            if skill['name'] in c.proficienciesSkills:
+            fdf_text[skill['label']] = filter_bonus(c.skills[skill['code']])
+            if skill['code'] in c.proficienciesSkills:
                 fdf_text['ChBx ' + skill['label']] = True
 
         i = 0
