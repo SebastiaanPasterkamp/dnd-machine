@@ -33,7 +33,7 @@ class CharacterLinks extends BaseLinkGroup
             'download': () => {
                 return {
                     label: 'Download',
-                    link: "/character/download/" + this.props.character.id,
+                    download: "/character/download/" + this.props.character.id,
                     icon: 'pdf',
                 };
             },
