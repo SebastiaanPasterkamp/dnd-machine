@@ -21,6 +21,9 @@
         min-height: 8em;
         height: 100%;
     }
+    &.small textarea {
+        min-height: 1em;
+    }
 
     &.edit:not(.splitview) .markdown-textedit__preview {
         visibility: hidden;
@@ -34,6 +37,9 @@
         padding: 5px;
         width: 100%;
         background-color: #FFF;
+    }
+    &.small .markdown-textedit__preview {
+        min-height: 1em;
     }
 
     &.splitview {
