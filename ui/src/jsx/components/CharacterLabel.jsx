@@ -7,7 +7,7 @@ import LazyComponent from '../components/LazyComponent.jsx';
 import ListLabel from '../components/ListLabel.jsx';
 import Progress from '../components/Progress.jsx';
 
-class CharacterLabel extends LazyComponent
+export class CharacterLabel extends LazyComponent
 {
     render() {
         if (!this.props.character) {
