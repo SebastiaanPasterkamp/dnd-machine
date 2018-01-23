@@ -5,7 +5,10 @@ import '../../sass/_edit-character.scss';
 
 import BaseViewWrapper from '../hocs/BaseViewWrapper.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
+
+import {CharacterLevel} from './CharacterLevel.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
@@ -34,6 +37,12 @@ export class CharacterEdit extends React.Component
 
     render() {
         return [
+            <CharacterLevel
+                key="level-up"
+                {...this.props}
+                />
+            ,
+
             <Panel
                     key="description"
                     className="character-edit__description"
@@ -171,8 +180,30 @@ export const CharacterEditView = BaseViewWrapper(
 
 export default ListDataWrapper(
     RoutedObjectDataWrapper(
-        CharacterEdit, viewConfig, "character"
+        ObjectDataWrapper(
+            CharacterEdit,
+            [{type: 'character', id: 'id'}]
+        ), viewConfig, "character"
     ),
-    ['alignments', 'genders'],
-    'items'
+    [
+        'alignments',
+        'genders',
+        'languages',
+        'skills',
+        'spells',
+        'statistics',
+        'tools',
+        'weapon_types',
+        'weapons',
+        'armor_types',
+        'armor'
+    ],
+    'items',
+    {
+        'languages': '_languages',
+        'skills': '_skills',
+        'spells': '_spells',
+        'statistics': '_statistics',
+        'weapons': '_weapons',
+    }
 );
