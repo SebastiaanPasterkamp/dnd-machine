@@ -99,7 +99,7 @@ class CharactersRow extends LazyComponent
             <td>{this.props.id != null
                 ? <CharacterLinks
                     altStyle={true}
-                    buttons={['view', 'edit', 'download']}
+                    buttons={['view', 'edit', 'delete', 'download']}
                     character_id={this.props.id}
                     />
                 : null
