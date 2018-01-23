@@ -8,7 +8,10 @@ class WeaponLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
-        this.buttonList = {
+    }
+
+    buttonList() {
+        return {
             'view': () => {
                 return {
                     label: 'View',

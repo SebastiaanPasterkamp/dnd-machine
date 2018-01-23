@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ObjectDataActions from '../actions/ObjectDataActions.jsx';
+
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
@@ -8,7 +10,13 @@ class CharacterLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
-        this.buttonList = {
+    }
+
+    buttonList() {
+        const levelUp = this.props.character
+            && this.props.character.level_up.config.length  > 0;
+
+        return {
             'view': () => {
                 return {
                     label: 'View',
@@ -25,16 +33,17 @@ class CharacterLinks extends BaseLinkGroup
             },
             'edit': () => {
                 return {
-                    label: 'Edit',
+                    label: levelUp ? 'Level Up' : 'Edit',
                     link: "/character/edit/" + this.props.character.id,
-                    icon: 'pencil',
+                    icon: levelUp ? 'level-up' : 'pencil',
+                    color: levelUp ? 'primary' : null,
                 };
             },
             'download': () => {
                 return {
                     label: 'Download',
                     download: "/character/download/" + this.props.character.id,
-                    icon: 'pdf',
+                    icon: 'file-pdf-o',
                 };
             },
             'new': () => {
@@ -43,7 +52,19 @@ class CharacterLinks extends BaseLinkGroup
                     link: "/character/new",
                     icon: 'plus',
                 };
-            }
+            },
+            'delete': () => {
+                return {
+                    label: 'Delete',
+                    action: () => {
+                        ObjectDataActions.deleteObject(
+                            "character", this.props.character.id
+                        );
+                    },
+                    icon: 'trash-o',
+                    color: 'bad'
+                };
+            },
         };
     }
 
@@ -68,14 +89,18 @@ class CharacterLinks extends BaseLinkGroup
                 ['admin']
             ).length
         ) {
-            return ['download', 'raw', 'new', 'view'];
+            return ['download', 'delete', 'raw', 'new', 'view'];
+        }
+        if (
+            this.props.character.user_id == this.props.current_user.id
+        ) {
+            return ['download', 'delete',, 'edit', 'new', 'view'];
         }
         if (
             _.intersection(
                 this.props.current_user.role || [],
                 ['dm']
             ).length
-            || this.props.character.user_id == this.props.current_user.id
         ) {
             return ['download', 'edit', 'new', 'view'];
         }

@@ -10,7 +10,10 @@ class ModalDialogLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
-        this.buttonList = {
+    }
+
+    buttonList() {
+        return {
             'cancel': () => {
                 return {
                     label: 'Cancel',
