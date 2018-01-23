@@ -1,26 +1,23 @@
 import React from 'react';
 import _ from 'lodash';
 
-import '../../sass/_list-component.scss';
+import BaseTagContainer from './BaseTagContainer.jsx';
 
-import LazyComponent from './LazyComponent.jsx';
-import SingleSelect from '../components/SingleSelect.jsx';
-
-export class TagContainer extends LazyComponent
+export class TagContainer extends BaseTagContainer
 {
-    onChange(index, value) {
+    onChange(key, value) {
         let head = _.take(
-                this.props.tags, index),
+                this.props.tags, key),
             tail = _.takeRight(
-                this.props.tags, this.props.tags.length - index - 1);
+                this.props.tags, this.props.tags.length - key - 1);
         this.props.setState(head.concat([value]).concat(tail));
     }
 
-    onDelete(index) {
+    onDelete(key, value) {
         let head = _.take(
-                this.props.tags, index),
+                this.props.tags, key),
             tail = _.takeRight(
-                this.props.tags, this.props.tags.length - index - 1);
+                this.props.tags, this.props.tags.length - key - 1);
         this.props.setState(head.concat(tail));
     }
 
@@ -30,56 +27,15 @@ export class TagContainer extends LazyComponent
         this.props.setState(head.concat([value]));
     }
 
-    isDisabled(item) {
-        if (this.props.multiple || false) {
-            return false;
-        }
-        if (_.includes(this.props.tags, item.code)) {
-            return true;
-        }
-        return false;
-    }
-
-    renderTag(index, value) {
-        const item = _.find(this.props.tagOptions, {code: value})
-            || {label: value, color: 'bad'};
-        var style = ["nice-tag"];
-        if ('color' in item) {
-            style.push(item.color);
-        }
-
-        return <div key={index} className={style.join(' ')}>
-            <span className="nice-tag-label">
-                {item.label}
-            </span>
-            <button
-                    className="nice-tag-btn"
-                    onClick={() => this.onDelete(index)}
-                    >
-                <i className="icon fa-trash-o"></i>
-            </button>
-        </div>;
-    }
-
-    render() {
-        return <div className="nice-tags-container">
-            {_.map(this.props.tags, (value, index) => {
-                return this.renderTag(index, value);
-            })}
-            <SingleSelect
-                emptyLabel="Add..."
-                items={this.props.tagOptions}
-                setState={
-                    (value) => this.onAdd(value)
-                }
-                isDisabled={(item) => this.isDisabled(item)}
-                />
-        </div>
+    getItem(key, value) {
+        return _.find(this.props.tagOptions, {code: value})
+            || _.find(this.props.tagOptions, {name: value})
     }
 }
 
 TagContainer.defaultProps = {
     multiple: false,
+    showSelect: true,
     setState: (value) => {
         console.log(['TagContainer', value]);
     }
