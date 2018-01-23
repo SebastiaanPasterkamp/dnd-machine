@@ -8,18 +8,20 @@ import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
-import {CharacterView} from './CharactersView.jsx';
 import {CharacterEditView} from './CharacterEdit.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
 import InputField from '../components/InputField.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
+import ListLabel from '../components/ListLabel.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import Panel from '../components/Panel.jsx';
+import Progress from '../components/Progress.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
 import TabComponent from '../components/TabComponent.jsx';
+
 
 export class CharacterPickAttribute extends LazyComponent
 {
@@ -90,74 +92,57 @@ export class CharacterPickAttribute extends LazyComponent
 
 export class CharacterCreate extends LazyComponent
 {
-    onFieldChange(field, value) {
-        let newState = {
-            race: this.props.race,
-            'class': this.props.class,
-            background: this.props.background,
-            statistics: {
-                bare: this.props.statistics.bare,
-            }
+    constructor(props) {
+        super(props);
+        this.state = {
+            doneInit: false,
+            doneStats: false,
+            doneDescr: false,
         };
-        newState[field] = value;
+    }
 
-        _.forEach({
-            races: newState.race,
-            classes: newState.class,
-            backgrounds: newState.background
-        }, (value, prop) => {
-            const config = _.reduce(
-                this.props[prop],
-                (config, attrib) => {
-                    const sub = _.find(attrib.sub || [], sub => {
-                        return sub.name == value;
-                    });
-
-                    if (
-                        attrib.name != value
-                        && sub == null
-                    ) {
-                        return config;
-                    }
-
-                    config = _.merge(
-                        {},
-                        config,
-                        attrib.config
-                    );
-
-                    if (sub) {
-                        config = _.merge(
-                            {},
-                            config,
-                            sub.config
-                        );
-                    }
-
-                    return config;
-                },
-                {}
-            );
-
-            newState = _.merge(
-                {},
-                newState,
-                config
-            );
+    onFieldChange(field, value) {
+        const base = _.assign(
+            {},
+            {
+                race: this.props.race,
+                'class': this.props.class,
+                background: this.props.background,
+            },
+            {[field]: value}
+        );
+        this.setState({
+            doneInit: (
+                base.race
+                && base.class
+                && base.background
+            )
+        }, () => {
+            this.props.setState(base)
         });
-
-        this.props.setState(newState);
     }
 
     onStatisticsChange(value) {
-        let update = _.assign({}, this.props.statistics, value);
-        this.props.setState({
-            statistics: update
-        });
+        let statistics = _.assign({}, this.props.statistics, value);
+
+        this.setState(
+            {
+                doneStats: (
+                    this.state.doneInit
+                    && _.sum(_.values(statistics.bare)) >= 60
+                )
+            },
+            () => this.props.setState({statistics})
+        );
     }
 
     onTabChange(index) {
         this.props.recompute();
+        if (index == 5) {
+            this.props.setButtons(['save']);
+        } else {
+            this.props.setButtons([]);
+        }
     }
 
     tabConfig(index) {
@@ -176,24 +161,18 @@ export class CharacterCreate extends LazyComponent
             },
             {
                 label: 'Statistics',
-                color: 'info',
-                disabled: !this.props.race
-                    || !this.props.class
-                    || !this.props.background
+                color: this.state.doneStats ? 'good' : 'info',
+                disabled: !this.state.doneInit
             },
             {
                 label: 'Description',
-                color: 'info',
-                disabled: !this.props.race
-                    || !this.props.class
-                    || !this.props.background
+                color: this.state.doneDescr ? 'good' : 'info',
+                disabled: !this.state.doneStats
             },
             {
                 label: 'Result',
                 color: 'info',
-                disabled: !this.props.race
-                    || !this.props.class
-                    || !this.props.background
+                disabled: !this.state.doneDescr
             }
         ];
 
@@ -235,10 +214,55 @@ export class CharacterCreate extends LazyComponent
                 } />
             <CharacterEditView
                 {...this.props}
+                setState={(update) => {
+                    this.setState(
+                        {
+                            doneDescr: (
+                                this.state.doneStats
+                                && update.name
+                            )
+                        },
+                        () => this.props.setState(update)
+                    );
+                }}
                 />
-            <CharacterView
-                {...this.props}
-                />
+            <Panel
+                header="Result"
+                >
+                <h3>{this.props.name}</h3>
+
+                <h4>
+                    Level {this.props.level}
+                    &nbsp;
+                    <ListLabel
+                        items={this.props.genders}
+                        value={this.props.gender}
+                        />
+                    &nbsp;
+                    {this.props.race}
+                    &nbsp;
+                    {this.props.class}
+                    &nbsp;
+                    (<ListLabel
+                        items={this.props.alignments}
+                        value={this.props.alignment}
+                        />)
+                </h4>
+
+                <Progress
+                    value={this.props.xp_progress}
+                    total={this.props.xp_level}
+                    color={"good"}
+                    label={
+                        this.props.level
+                        + ' ('
+                        + this.props.xp_progress
+                        + " / "
+                        + this.props.xp_level
+                        + ')'
+                    }
+                    />
+            </Panel>
         </TabComponent>;
     }
 }
@@ -250,16 +274,11 @@ export default ListDataWrapper(
                 className: 'character-create',
                 icon: 'fa-user-secret',
                 label: 'Create Character',
-                buttons: ['cancel', 'recompute', 'save']
             }, "character"
         ),
-        ['alignments', 'languages', 'statistics', 'skills', 'genders'],
+        ['alignments', 'genders', 'statistics'],
         'items',
-        {
-            'languages': '_languages',
-            'skills': '_skills',
-            'statistics': '_statistics',
-        }
+        {'statistics': '_statistics'}
     ),
     ['races', 'classes', 'backgrounds'],
     'character'
