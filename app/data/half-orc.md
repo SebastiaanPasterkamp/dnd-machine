@@ -91,7 +91,7 @@ Your size is Medium.
 
 * **Speed.** Your base walking speed is 30 feet.
 
-* **Darkvision.** Thanks to your ore blood, you have
+* **Darkvision.** Thanks to your orc blood, you have
 superior vision in dark and dim conditions. You can
 see in dim light within 60 feet of you as if it were bright
 light, and in darkness as if it were dim light. You can't
