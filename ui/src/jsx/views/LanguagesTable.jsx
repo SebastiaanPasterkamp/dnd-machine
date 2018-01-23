@@ -23,7 +23,7 @@ class LanguageRow extends LazyComponent
 {
     render() {
         return <tr
-                data-name={this.props.name}>
+                data-name={this.props.code}>
             <td>{this.props.label}</td>
             <td>{this.props.speakers}</td>
             <td>{this.props.script}</td>
@@ -55,7 +55,7 @@ class LanguageTable extends LazyComponent
                     {this.props.languages
                         .filter((row) => this.filterRow(pattern, row))
                         .map((row) => {
-                            return <LanguageRow key={row.name} {...row}/>
+                            return <LanguageRow key={row.code} {...row}/>
                         })
                     }
                 </tbody>
