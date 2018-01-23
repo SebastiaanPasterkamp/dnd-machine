@@ -18,7 +18,7 @@ class JsonObject(object):
         )""", re.X)
 
     def __init__(self, config={}):
-        if config.get('id') is None:
+        if not config.get('id'):
             self._config = self._merge(
                 deepcopy(self._defaultConfig),
                 self.castFieldType(config)
