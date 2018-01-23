@@ -9,42 +9,47 @@ blueprint = Blueprint(
     'items', __name__, template_folder='templates')
 
 
-@blueprint.route('/statistics')
+@blueprint.route('/statistics/api')
 def statistics():
     datamapper = get_datamapper()
     return jsonify(datamapper.items.statistics)
 
-@blueprint.route('/skills')
+@blueprint.route('/skills/api')
 def skills():
     datamapper = get_datamapper()
     return jsonify(datamapper.items.skills)
 
-@blueprint.route('/alignments')
+@blueprint.route('/alignments/api')
 def alignments():
     datamapper = get_datamapper()
     return jsonify(datamapper.items.alignments)
 
-@blueprint.route('/size_hit_dice')
+@blueprint.route('/size_hit_dice/api')
 def size_hit_dice():
     datamapper = get_datamapper()
     return jsonify(datamapper.items.size_hit_dice)
 
-@blueprint.route('/monster_types')
+@blueprint.route('/monster_types/api')
 def monster_types():
     datamapper = get_datamapper()
     return jsonify(datamapper.items.monster_types)
 
-@blueprint.route('/target_methods')
+@blueprint.route('/target_methods/api')
 def target_methods():
     datamapper = get_datamapper()
     return jsonify(datamapper.items.target_methods)
 
-@blueprint.route('/damage_types')
+@blueprint.route('/damage_types/api')
 def damage_types():
     datamapper = get_datamapper()
     return jsonify(datamapper.items.damage_types)
 
-@blueprint.route('/genders')
+@blueprint.route('/tools/api')
+def tools():
+    datamapper = get_datamapper()
+    return jsonify(datamapper.items.tools)
+
+@blueprint.route('/genders/api')
 def genders():
     datamapper = get_datamapper()
     return jsonify(datamapper.items.genders)
@@ -55,16 +60,17 @@ def get_list(objects):
         'reactjs-layout.html'
         )
 
-@blueprint.route('/spells', methods=['GET'])
+@blueprint.route('/spells/api', methods=['GET'])
 def api_list_spells():
     datamapper = get_datamapper()
     spells = datamapper.items.spell_list
     for spell in spells:
-        spell['description'] = filter_markdown(spell['description'])
+        spell['code'] = spell['name'].lower()
+        spell['label'] = spell['name']
     return jsonify(spells)
 
 
-@blueprint.route('/languages', methods=['GET'])
+@blueprint.route('/languages/api', methods=['GET'])
 def api_list_languages():
     datamapper = get_datamapper()
     languages = datamapper.items.getList(
@@ -75,11 +81,16 @@ def api_list_languages():
 @blueprint.route('/<string:item_type>/api', methods=['GET'])
 def api_list(item_type):
     datamapper = get_datamapper()
+
+    if item_type not in datamapper:
+        return jsonify(datamapper.items[item_type])
+
     items = datamapper[item_type].getMultiple()
     return jsonify([
         item.config
         for item in items
         ])
+
 
 @blueprint.route('/<string:item_type>/new')
 @blueprint.route('/<string:item_type>/edit/<int:item_id>')
