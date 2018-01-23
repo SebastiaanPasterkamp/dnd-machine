@@ -8,7 +8,10 @@ class BaseLinkGroup extends LazyComponent
 {
     constructor(props) {
         super(props);
-        this.buttonList = {};
+    }
+
+    buttonList() {
+        return {};
     }
 
     getAllowed() {
@@ -65,7 +68,7 @@ class BaseLinkGroup extends LazyComponent
         }
 
         return <div className={classNames.join(' ')}>
-            {_.map(this.buttonList, (func, button) => {
+            {_.map(this.buttonList(), (func, button) => {
                 if (_.indexOf(buttons, button) < 0) {
                     return null;
                 }
