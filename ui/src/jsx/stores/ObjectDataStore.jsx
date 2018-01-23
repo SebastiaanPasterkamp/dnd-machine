@@ -1,19 +1,18 @@
 import React from 'react';
 import Reflux from 'reflux';
-
 import _ from 'lodash';
 
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
 class ObjectDataStore extends Reflux.Store
 {
-    constructor()
+    constructor(listenables=null)
     {
         super();
         this.state = {
             timestamp: {}
         };
-        this.listenables = ObjectDataActions;
+        this.listenables = listenables || ObjectDataActions;
     }
 
     updateObject(type, id, data) {

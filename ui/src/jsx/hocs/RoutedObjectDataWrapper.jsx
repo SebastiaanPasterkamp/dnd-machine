@@ -2,7 +2,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import ObjectDataActions from '../actions/ObjectDataActions.jsx';
+import {makeObjectDataActions} from '../actions/ObjectDataActions.jsx';
 import ObjectDataStore from '../stores/ObjectDataStore.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
@@ -20,35 +20,34 @@ function RoutedObjectDataWrapper(
         constructor(props) {
             super(props);
             this.state = {
-                id: null
+                buttons: config.buttons || [],
             };
-            this.store = ObjectDataStore;
+            this.actions = makeObjectDataActions();
+            this.store = new ObjectDataStore(this.actions);
             this.storeKeys = [loadableType];
+        }
+
+        setButtons(buttons) {
+            this.setState({buttons});
         }
 
         componentWillMount() {
             super.componentWillMount.call(this);
 
-            let objectId = _.get(this.props, 'match.params.id');
-            if (_.isUndefined(objectId)) {
-                return;
-            }
-
             this.setState({
-                id: objectId
+                id: _.get(this.props, 'match.params.id') || null
             }, () => this.onReload());
         }
 
-        getStateProps(state=null) {
-            state = state || this.state;
-
-            const stored = _.get(
-                state, [loadableType, this.state.id]
+        getStateProps(state) {
+            const stateProps = _.get(
+                state || this.state,
+                [loadableType, this.state.id]
             );
-            if (!stored || _.isEqual(stored, {id: null})) {
+            if (_.isNil(this.state.id) && _.isNil(stateProps)) {
                 return ObjectDataStore.getInitial(loadableType);
             }
-            return stored;
+            return stateProps;
         }
 
         shouldComponentUpdate(nextProps, nextState) {
@@ -63,11 +62,16 @@ function RoutedObjectDataWrapper(
                 return true;
             }
 
+            if (!_.isEqual(this.state.buttons, nextState.buttons)) {
+                return true;
+            }
+
             return false;
         }
 
         nextView(id=null) {
-            this.props.history.push(id == null
+            this.props.history.push(
+                id == null
                 ? pathPrefix + '/list'
                 : pathPrefix + '/show/' + id
             );
@@ -80,7 +84,7 @@ function RoutedObjectDataWrapper(
                 update
                 );
 
-            ObjectDataActions.getObject.completed(
+            this.actions.getObject.completed(
                 loadableType,
                 this.state.id,
                 loadable
@@ -88,7 +92,10 @@ function RoutedObjectDataWrapper(
         }
 
         onReload() {
-            ObjectDataActions.getObject(
+            if (!this.state.id) {
+                return;
+            }
+            this.actions.getObject(
                 loadableType,
                 this.state.id,
                 loadableGroup
@@ -96,7 +103,7 @@ function RoutedObjectDataWrapper(
         }
 
         onRecompute() {
-            ObjectDataActions.recomputeObject(
+            this.actions.recomputeObject(
                 loadableType,
                 this.state.id,
                 this.getStateProps(),
@@ -106,14 +113,14 @@ function RoutedObjectDataWrapper(
 
         onSave() {
             if (this.state.id == null) {
-                ObjectDataActions.postObject(
+                this.actions.postObject(
                     loadableType,
                     this.getStateProps(),
                     loadableGroup,
                     () => this.nextView()
                 );
             } else {
-                ObjectDataActions.patchObject(
+                this.actions.patchObject(
                     loadableType,
                     this.state.id,
                     this.getStateProps(),
@@ -123,32 +130,31 @@ function RoutedObjectDataWrapper(
             }
         }
 
-        onPostObjectFailed(type, id, error) {
-            if (type != loadableType || id != this.state.id) {
+        handleFailed(type, id, error) {
+            if (
+                type != loadableType
+                || id != this.state.id
+            ) {
                 return;
             }
+            this.state({error});
             alert(error);
+        }
+
+        onPostObjectFailed(type, id, error) {
+            this.handleFailed(type, id, error);
         }
 
         onPatchObjectFailed(type, id, error) {
-            if (type != loadableType || id != this.state.id) {
-                return;
-            }
-            alert(error);
+            this.handleFailed(type, id, error);
         }
 
         onRecomputeObjectFailed(type, id, error) {
-            if (type != loadableType || id != this.state.id) {
-                return;
-            }
-            alert(error);
+            this.handleFailed(type, id, error);
         }
 
         renderButtons() {
-            if (
-                !('buttons' in config)
-                || !config.buttons.length
-            ) {
+            if(!this.state.buttons.length) {
                 return null;
             }
 
@@ -156,44 +162,45 @@ function RoutedObjectDataWrapper(
                     className={config.className + "__save"}
                     header="Save"
                     >
-                {_.includes(config.buttons, "cancel")
+                {_.includes(this.state.buttons, "cancel")
                     ? <ButtonField
                         name="button"
-                        value="cancel"
                         color="muted"
                         icon="ban"
                         onClick={() => this.nextView()}
-                        label="Cancel" />
+                        label="Cancel"
+                        />
                     : null
                 }
-                {_.includes(config.buttons, "reload")
+                {_.includes(this.state.buttons, "reload")
                         && this.state.id != null
                     ? <ButtonField
                         name="button"
-                        value="reload"
                         color="info"
                         icon="refresh"
                         onClick={() => this.onReload()}
-                        label="Reload" />
+                        label="Reload"
+                        />
                     : null
                 }
-                {_.includes(config.buttons, "recompute")
+                {_.includes(this.state.buttons, "recompute")
                     ? <ButtonField
                         name="button"
                         color="accent"
                         icon="calculator"
                         onClick={() => this.onRecompute()}
-                        label="Recompute" />
+                        label="Recompute"
+                        />
                     : null
                 }
-                {_.includes(config.buttons, "save")
+                {_.includes(this.state.buttons, "save")
                     ? <ButtonField
                         name="button"
-                        value="cancel"
                         color="primary"
                         icon="save"
                         onClick={() => this.onSave()}
-                        label="Save" />
+                        label="Save"
+                        />
                     : null
                 }
             </Panel>;
@@ -201,6 +208,10 @@ function RoutedObjectDataWrapper(
 
         render() {
             let data = this.getStateProps();
+
+            if(!data) {
+                return null;
+            }
 
             return <div>
                 <h2 className={["icon", config.icon].join(' ')}>
@@ -214,6 +225,7 @@ function RoutedObjectDataWrapper(
                         setState={(state, callback=null) => {
                             this.onSetState(state, callback)
                         }}
+                        setButtons={(b) => this.setButtons(b)}
                         cancel={() => this.nextView()}
                         reload={this.state.id != null
                             ? () => this.onReload()
@@ -223,6 +235,7 @@ function RoutedObjectDataWrapper(
                         save={() => this.onSave()}
                         {...this.props}
                         {...data}
+                        error={this.state.error || null}
                         />
 
                     {this.renderButtons()}
