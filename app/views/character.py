@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from flask import request, abort, render_template, send_file, jsonify
+from flask import (
+    request, abort, render_template, send_file, jsonify, redirect,
+    url_for
+    )
 import os
 import sys
 import re
@@ -19,23 +22,17 @@ class CharacterBlueprint(BaseApiBlueprint):
         self._character_data = None
 
         self.add_url_rule(
-            '/races', 'get_races',
+            '/races/api', 'get_races',
             self.get_races, methods=['GET'])
         self.add_url_rule(
-            '/classes', 'get_classes',
+            '/classes/api', 'get_classes',
             self.get_classes, methods=['GET'])
         self.add_url_rule(
-            '/backgrounds', 'get_backgrounds',
+            '/backgrounds/api', 'get_backgrounds',
             self.get_backgrounds, methods=['GET'])
         self.add_url_rule(
             '/download/<int:obj_id>', 'download',
             self.download)
-        self.add_url_rule(
-            '/level-up/<int:obj_id>', 'level_up',
-            self.level_up, methods=['GET', 'POST'])
-        self.add_url_rule(
-            '/level-up/<string:level>/<int:obj_id>', 'level_up',
-            self.level_up, methods=['GET', 'POST'])
         self.add_url_rule(
             '/xp/<int:obj_id>/<int:xp>', 'xp',
             self.xp, methods=['GET', 'POST'])
@@ -69,17 +66,31 @@ class CharacterBlueprint(BaseApiBlueprint):
         return result
 
     def _mutableAttributes(self, update, obj=None):
-        if obj is None and not self.checkRole(['dm']):
-            fields = [
-                'creation', 'background', 'personality', 'statistics',
-                'skills', 'equipment', 'languages', 'proficiencies',
-                'spells', 'appearance', 'wealth'
-                ]
-            update = dict(
-                (key, value)
-                for key, value in update.items()
-                if key in fields
-                )
+        if self.checkRole(['dm']):
+            return update
+
+        immutable = [
+            'id', 'user_id', 'xp',
+            ]
+
+        if obj is not None:
+            immutable.extend([
+                'race', 'class', 'background', 'alignment',
+                'hit_dice', 'speed', 'size',
+                ])
+            if not len(obj.level_upCreation):
+                immutable.extend([
+                    'statistics', 'abilities', 'info', 'computed',
+                    'creation', 'level_up', 'equipment', 'spell',
+                    'languages', 'proficiencies', 'proficiency',
+                    'saving_throws',
+                    ])
+
+        update = dict(
+            (key, value)
+            for key, value in update.items()
+            if key not in immutable
+            )
         return update
 
     def find_caracter_field(self, field, value):
@@ -458,188 +469,19 @@ class CharacterBlueprint(BaseApiBlueprint):
             attachment_filename=filename
             )
 
-    def level_up(self, obj_id, level=None):
-        datamapper = get_datamapper()
-
-        c = self.datamapper.getById(obj_id)
-        if c.user_id != request.user.id \
-                and not self.checkRole(['admin', 'dm']):
-            abort(403)
-
-        phases = JsonObject(
-            fieldTypes = {
-                '*': { 'conditions': { 'level': int } }
-            })
-
-        for field in ['race', 'class', 'background']:
-            data, sub = self.find_caracter_field(field, c[field])
-            if 'phases' in data:
-                phases.update(data['phases'])
-            if sub and 'phases' in sub:
-                phases.update(sub['phases'])
-        phases = phases.config
-
-        phase_names = []
-        for p, phase in phases.iteritems():
-            if p in c.creation:
-                continue
-            cond = phase.get('conditions', {})
-            for check in cond:
-                if check == 'level':
-                    if c.level < cond[check]:
-                        p = None
-                elif check == 'creation':
-                    if cond[check] not in c.creation:
-                        p = None
-                elif not all(checked in (c[check] or []) for checked in cond[check]):
-                    p = None
-            if p is not None:
-                phase_names.append(p)
-        phase_names = sorted(
-            phase_names,
-            key=lambda p: phases[p].get('conditions', {}).get('level', 99)
-            )
-
-        if level not in phase_names:
-            if not len(phase_names):
-                return redirect(url_for(
-                    'character.show',
-                    character_id=obj_id
-                    ))
-            return redirect(url_for(
-                'character.level_up',
-                character_id=obj_id,
-                level=phase_names[0]
-                ))
-
-        phase = phases[level]
-
-        def assigning(key, val):
-            if isinstance(val, unicode) and '.' in val:
-                if key.endswith('_formula'):
-                    return [
-                        (key, val),
-                        (
-                            key.replace('_formula', ''),
-                            datamapper.machine.resolveMath(c, val)
-                            )
-                        ]
-                if val.startswith('character'):
-                    return [
-                        (key, c.getPath(val) or val)
-                        ]
-                if any(datamapper.machine.items.getPath(v) for v in val.split(',')):
-                    return [(key, [
-                        item
-                        for v in val.split(',')
-                        for item in datamapper.machine.items.getPath(v) or val
-                        ])]
-                return [
-                    (key, val)
-                    ]
-            if isinstance(val, dict):
-                return [(
-                    key,
-                    dict([
-                        pair
-                        for sub_key, sub_val in val.iteritems()
-                        for pair in assigning(sub_key, sub_val)
-                        ])
-                    )]
-            if isinstance(val, list):
-                return [(
-                    key,
-                    [
-                        pair[1]
-                        for v in val
-                        for pair in assigning(key, v)
-                        ]
-                    )]
-            return [(key, val)]
-
-        phase = dict([
-            pair
-            for key, val in phase.iteritems()
-            for pair in assigning(key, val)
-            ])
-        #return jsonify(phase)
-
-        if request.method == 'POST':
-            if request.form["button"] == "cancel":
-                return redirect(url_for(
-                    'character.show',
-                    character_id=obj_id
-                    ))
-
-            if request.form.get("button", "save") == "save":
-
-                c.updateFromPost(request.form)
-                c.creation.append(level)
-                c = self.datamapper.save(c)
-
-                return redirect(url_for(
-                    'character.level_up',
-                    character_id=c.id
-                    ))
-
-        return render_template(
-            phase.get('template', 'character/level-up.html'),
-            level=level,
-            phase=phase,
-            character=c
-            )
-
-    def api_level(self, obj_id, level):
-        abort(501)
-
-        c = self.datamapper.getById(obj_id)
-
-        last = False
-        if request.method == 'POST':
-            if request.form["button"] == "cancel":
-                return redirect(url_for(
-                    'character.overview'
-                    ))
-
-            c.updateFromPost(request.form)
-
-            for step in ["race", "class", "background"]:
-                if step in c.creation:
-                    data, sub = self.find_caracter_field(step, c[step])
-                    c.update(data.get('config', {}))
-                    if sub:
-                        c.update(sub.get('config', {}))
-
-            completed = all(
-                step in c.creation
-                for step in ["race", "class", "background", "core", "stats"]
-                )
-
-            if completed and request.form.get("button", "save") == "save":
-                c = self.datamapper.save(c)
-                return redirect(url_for(
-                    'character.level_up',
-                    character_id=c.id
-                    ))
-
-        return render_template(
-            'character/create.html',
-            character_data=self.character_data,
-            character=c
-            )
-
     def xp(self, obj_id, xp):
         if not self.checkRole(['admin', 'dm']):
             abort(403)
 
         character = self.datamapper.getById(obj_id)
         character.xp += xp
+        character.compute()
 
         character = self.datamapper.update(character)
 
         return redirect(url_for(
             'character.show',
-            character_id=obj_id
+            obj_id=obj_id
             ))
 
     def _api_list_filter(self, objects):
@@ -667,31 +509,30 @@ class CharacterBlueprint(BaseApiBlueprint):
 
     def _api_post_filter(self, obj):
         if not self.checkRole(['player', 'dm']):
-            abort(403)
+            print request.user.config
+            abort(403, "Invalid role")
 
-        if obj.user_id != request.user.id \
-                and not self.checkRole(['admin', 'dm']):
-            abort(403)
+        obj.user_id = request.user.id
 
         return obj
 
     def _api_patch_filter(self, obj):
         if not self.checkRole(['player', 'dm']):
-            abort(403)
+            abort(403, "Invalid role")
 
         if obj.user_id != request.user.id \
                 and not self.checkRole(['admin', 'dm']):
-            abort(403)
+            abort(403, "Not owned")
 
         return obj
 
     def _api_delete_filter(self, obj):
         if not self.checkRole(['player', 'dm']):
-            abort(403)
+            abort(403, "Invalid role")
 
         if obj.user_id != request.user.id \
                 and not self.checkRole(['admin', 'dm']):
-            abort(403)
+            abort(403, "Not owned")
 
         return obj
 
