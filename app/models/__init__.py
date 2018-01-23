@@ -47,6 +47,9 @@ class Datamapper(object):
                 )
             }
 
+    def __contains__(self, mapper):
+        return mapper in self._creators
+
     def __getitem__(self, mapper):
         if mapper not in self.__dict__:
             self.__dict__[mapper] = self._creators[mapper]()
