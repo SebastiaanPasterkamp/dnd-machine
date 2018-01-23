@@ -327,12 +327,7 @@ export class MonsterEdit extends React.Component
                 <ControlGroup label="Languages">
                     <TagContainer
                         tags={this.props.languages || []}
-                        tagOptions={_.map(this.props._languages, (lang) => {
-                            return {
-                                code: lang.name,
-                                label: lang.label
-                            };
-                        })}
+                        tagOptions={this.props._languages}
                         setState={(value) => {
                             this.onFieldChange('languages', value);
                         }}
