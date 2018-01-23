@@ -23,7 +23,7 @@ function ObjectDataWrapper(
             _.map(loadables, (loadable) => {
                 let prop_id = this.props[loadable.id] || undefined;
 
-                if (prop_id == undefined || prop_id == null) {
+                if (_.isNil(prop_id)) {
                     return;
                 }
 
