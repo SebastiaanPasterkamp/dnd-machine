@@ -32,7 +32,7 @@ export class MarkdownTextField extends LazyComponent
 
         return <div
                 className={style.join(' ')}
-                onClick={!editing
+                onClick={!editing && !this.props.disabled
                     ? () => this.setEditing(true)
                     : null
                 }
@@ -65,6 +65,8 @@ export class MarkdownTextField extends LazyComponent
 }
 
 MarkdownTextField.defaultProps = {
+    disabled: false,
+    rows: 1,
     setState: (value) => {
         console.log(['TextField', value]);
     }
