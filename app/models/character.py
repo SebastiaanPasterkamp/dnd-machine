@@ -2,7 +2,7 @@ import re
 
 from base import JsonObject, JsonObjectDataMapper
 
-from ..config import get_config, get_item_data
+from ..config import get_config, get_item_data, get_character_data
 from dndmachine import DndMachine
 
 class CharacterObject(JsonObject):
@@ -84,6 +84,11 @@ class CharacterObject(JsonObject):
             "expertise": [],
             "skills": []
             },
+        "spell": {
+            "list": [],
+            "prepared": [],
+            "slots": {}
+            },
         "spells": {
             "cantrip": [],
             "1st_level": [],
@@ -104,16 +109,20 @@ class CharacterObject(JsonObject):
             },
         "appearance": "",
         "computed": {
-            "unarmored": {
-                "formula": "10 + statistics.modifiers.dexterity + statistics.modifiers.constitution"
-            }
-        },
+            "armor_class": {
+                "formula": "10 + statistics.modifiers.dexterity"
+                }
+            },
         "wealth": {
             "cp": 0,
             "sp": 0,
             "ep": 0,
             "gp": 0,
             "pp": 0
+            },
+        "level_up": {
+            "creation": [],
+            "config": []
             }
         }
     _fieldTypes = {
@@ -135,6 +144,7 @@ class CharacterObject(JsonObject):
         "passive_perception": int,
         "spell_safe_dc": int,
         "spell_attack_modifier": int,
+        "unarmored": int,
         "armor_class": int,
         "armor_class_bonus": int,
         "challenge": {
@@ -199,10 +209,73 @@ class CharacterObject(JsonObject):
                 "uses": int,
                 "bonus": int
                 }
+            },
+        "level_up": {
+            "config": {
+                "hidden": bool,
+                "multiple": bool,
+                "limit": int,
+                "options": {
+                    "hidden": bool,
+                    "multiple": bool,
+                    "limit": int,
+                    "options": {
+                        "hidden": bool,
+                        "multiple": bool,
+                        "limit": int,
+                        },
+                    "config": {
+                        "hidden": bool,
+                        "multiple": bool,
+                        "limit": int,
+                        },
+                    },
+                "config": {
+                    "hidden": bool,
+                    "multiple": bool,
+                    "limit": int,
+                    "options": {
+                        "hidden": bool,
+                        "multiple": bool,
+                        "limit": int,
+                        },
+                    "config": {
+                        "hidden": bool,
+                        "multiple": bool,
+                        "limit": int,
+                        },
+                    },
+                },
             }
         }
 
+    def __init__(self, *args, **kwargs):
+        super(CharacterObject, self).__init__(*args, **kwargs)
+
+        self._character_data = None
+        self._machine_mapper = None
+
+    @property
+    def character_data(self):
+        if not self._character_data:
+            self._character_data = get_character_data(True)
+        return self._character_data
+
+    @property
+    def machine(self):
+        if not self._machine_mapper:
+            config = get_config()
+            item_data = get_item_data()
+            self._machine_mapper = DndMachine(
+                config["machine"],
+                item_data
+                )
+        return self._machine_mapper
+
     def migrate(self):
+        if self.race == "Stout Halfing":
+            self.race = "Stout Halfling"
+
         if "base_stats" in self._config:
             re_mod = re.compile(r"(?<!statistics\.)modifiers")
 
@@ -237,7 +310,7 @@ class CharacterObject(JsonObject):
 
     def compute(self):
         config = get_config()
-        machine = DndMachine(config["machine"], get_item_data())
+        machine = self.machine
 
         self.version = self._version
 
@@ -302,10 +375,10 @@ class CharacterObject(JsonObject):
                 "weapons.martial.melee.items",
                 "weapons.martial.ranged.items"
                 ],
-            "itemsArtisan": ["tools.artisan.items"],
-            "itemsKits": ["tools.kits.items"],
-            "itemsGaming": ["tools.gaming.items"],
-            "itemsMusical": ["tools.musical.items"]
+            "itemsArtisan": ["tools"],
+            "itemsKits": ["tools"],
+            "itemsGaming": ["tools"],
+            "itemsMusical": ["tools"]
             }
         def findDesc(item):
             for dest, paths in search.items():
@@ -316,9 +389,10 @@ class CharacterObject(JsonObject):
                         return dest, desc
             return None, None
 
+        re_cnt_item = re.compile(ur"^(\d+)\sx\s(.*)$")
         for items in self.equipment:
             count, item = 1, items
-            matches = re.match(r'^(\d+)\sx\s(.*)$', items)
+            matches = re_cnt_item.match(items)
             if matches != None:
                 count, items = int(matches.group(1)), \
                     matches.group(2)
@@ -372,8 +446,6 @@ class CharacterObject(JsonObject):
                     )
                 weapon["bonus_alt"] = attack_modifier + self.proficiency
 
-        self.armor_class = machine.resolveMath(
-            self, "10 + statistics.modifiers.dexterity")
         self.armor_class_bonus = 0
         for armor in self.armor:
             if "formula" in armor:
@@ -386,12 +458,79 @@ class CharacterObject(JsonObject):
                 if armor["bonus"] > self.armor_class_bonus:
                     self.armor_class_bonus = armor["bonus"]
 
-        if 'abilities' in self:
-            for ability in self.abilities.values():
-                for key, val in ability.items():
-                    if key.endswith('_formula'):
-                        ability[key[:-8]] = machine.resolveMath(
-                            self, val)
+        self.abilities = self._expandFormulas(self.abilities)
+        self.level_up = self.getLevelUp()
+
+    def _meetsCondition(self, creation, phase):
+        if creation in self.creation:
+            return False
+        if not len(phase.get('config', [])):
+            return False
+        conditions = phase.get('conditions', {})
+        for check, condition in conditions.items():
+            if check == 'level':
+                if self.level < condition:
+                    return False
+                continue
+
+            if check == 'creation':
+                if condition not in self.creation:
+                    return False
+                continue
+
+            attrib = self[check] or []
+            if not all(c in attrib for c in condition):
+                return False
+        return True
+
+    def _expandFormulas(self, obj):
+        if isinstance(obj, dict):
+            for key, val in obj.items():
+                if key.endswith('_formula'):
+                    _key = key.replace('_formula', '')
+                    obj[_key] = self.machine.resolveMath(self, val)
+                else:
+                    obj[key] = self._expandFormulas(val)
+        elif isinstance(obj, list):
+            obj = [
+                self._expandFormulas(child)
+                for child in obj
+                ]
+        return obj
+
+
+    def getLevelUp(self):
+        levelUp = {
+            "creation": set(),
+            "config": []
+            }
+
+        for field in ['race', 'class', 'background']:
+            data, sub = self._find_caracter_field(field, self[field])
+            for creation, phase in data.get('phases', {}).items():
+                if self._meetsCondition(creation, phase):
+                    levelUp["creation"].add(creation)
+                    levelUp["config"] += phase["config"]
+            if sub is None:
+                continue
+            for creation, phase in sub.get('phases', {}).items():
+                if self._meetsCondition(creation, phase):
+                    levelUp["creation"].add(creation)
+                    levelUp["config"] += phase["config"]
+
+        levelUp['creation'] = list(levelUp['creation'])
+        levelUp['config'] = self._expandFormulas(levelUp['config'])
+
+        return levelUp
+
+    def _find_caracter_field(self, field, value):
+        for data in self.character_data[field]:
+            for sub in data.get('sub', []):
+                if sub['name'] == value:
+                    return data, sub
+            if data['name'] == value:
+                return data, None
+        return {}, None
 
 class CharacterMapper(JsonObjectDataMapper):
     obj = CharacterObject
