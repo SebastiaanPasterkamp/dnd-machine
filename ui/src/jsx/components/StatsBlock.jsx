@@ -11,10 +11,15 @@ export class StatsBlock extends Reflux.Component
 {
     constructor(props) {
         super(props);
-        this.range = _.range(1, 31)
-            .map((i) => {
-                return {code: i, label: i}
-            });
+    }
+
+    getRange() {
+        return _.map(
+            _.range(1, this.props.maxBare || 31),
+            (i) => {
+                return {code: i, label: i};
+            }
+        );
     }
 
     sendUpdate(update) {
@@ -128,7 +133,7 @@ export class StatsBlock extends Reflux.Component
                 <SingleSelect
                     heading={stat.label}
                     description={stat.description}
-                    items={this.range}
+                    items={this.getRange()}
                     setState={(value) => this.changeBareStat(code, value)}
                     isDisabled={(item) => this.isDisabled(code, item)}
                     selected={this.props.bare[code]} />
