@@ -53,17 +53,12 @@ class ItemsObject(JsonObject):
                 }
             },
         'tools': {
-            '*': {
-                'items': {
-                    'weight': {
-                        '*': float
-                        },
-                    'worth': {
-                        '*': int
-                        }
-                    }
+            'weight': {
+                '*': float
                 },
-            'trinket': unicode
+            'worth': {
+                '*': int
+                }
             }
         }
 
