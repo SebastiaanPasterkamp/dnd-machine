@@ -12,42 +12,50 @@ class SingleSelect extends LazyComponent
             return;
         }
 
-        this.props.setState(item.code);
+        this.props.setState(item.code || item.name);
     }
 
     getLabel() {
         let label = this.props.emptyLabel;
-        let item = _.find(this.props.items || [], {
-            code: this.props.selected
-        });
+        let item = _.find(
+            this.props.items || [],
+            {code: this.props.selected}
+        ) || _.find(
+            this.props.items || [],
+            {name: this.props.selected}
+        );
         if (
             !_.isNil(item)
-            && !_.isNil(item.code)
+            && !_.isNil(item.code || item.name)
         ) {
-            label = item.label;
+            label = item.label || item.name;
         }
         return label;
     }
 
     renderItem(item) {
-        if (_.isNil(item.code)) {
+        if (_.isNil(item.code || item.name)) {
             return null;
         }
         let isDisabled = this.props.isDisabled(item);
         let style = _.filter([
-            item.code == this.props.selected ? "info" : null,
-            isDisabled ? "disabled" : null
+            (item.code || item.name) == this.props.selected
+                ? "info"
+                : null,
+            isDisabled
+                ? "disabled"
+                : null
             ]);
         return <li
-                key={item.code}
+                key={item.code || item.name}
                 className={style.length ? style.join(' ') : null}
-                data-value={item.code}
+                data-value={item.code || item.name}
                 onClick={isDisabled
                     ? null
                     : () => this.onClick(item)
                 }
                 >
-            <a>{item.label}</a>
+            <a>{item.label || item.name}</a>
         </li>
     }
 
