@@ -11,7 +11,8 @@ var ListDataActions = Reflux.createActions({
 let throttledGet = {};
 
 ListDataActions.fetchItems.listen((type, category=null) => {
-    let path = '/' + _.filter([category, type]).join('/');
+    let path = '/' + _.filter([
+        category, type, category ? 'api' : null]).join('/');
 
     if (!(path in throttledGet)) {
         throttledGet[path] = _.throttle((path, type) => {
