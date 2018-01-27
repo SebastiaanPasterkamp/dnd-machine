@@ -68,6 +68,7 @@ class MonsterObject(JsonObject):
         "xp": 10
         }
     _fieldTypes = {
+        'id': int,
         'xp': int,
         'level': int,
         'dice_size': int,
@@ -111,7 +112,7 @@ class MonsterObject(JsonObject):
             },
         }
 
-    def migrate(self):
+    def migrate(self, mapper=None):
         if "stats" in self._config:
             self.statistics = {
                 "bare": self._config['stats'],
