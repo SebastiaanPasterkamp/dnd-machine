@@ -1,5 +1,6 @@
 import React from 'react';
 import Reflux from 'reflux';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
@@ -11,62 +12,92 @@ export class StatsBlock extends Reflux.Component
 {
     constructor(props) {
         super(props);
+        this.state = {
+            improvement: []
+        };
+    }
+
+    componentWillUnmount() {
+        if (this.state.improvement.length) {
+            let bare = _.assign({}, this.props.bare);
+            _.map(
+                this.state.improvement,
+                inc => {
+                    bare[inc] -= 1;
+                }
+            );
+            this.sendUpdate({bare});
+        }
     }
 
     getRange() {
         return _.map(
-            _.range(1, this.props.maxBare || 31),
+            _.range(1, this.props.maxBare + 1),
             (i) => {
                 return {code: i, label: i};
             }
         );
     }
 
-    sendUpdate(update) {
-        let props = _.assign({
-            bare: this.props.bare,
-            bonus: this.props.bonus,
-            improvement: this.props.improvement,
-            base: this.props.base,
-            modifiers: this.props.modifiers,
-        }, update);
+    sendUpdate(update={}) {
+        const {
+            bare, bonus, base, modifiers,
+            statistics,
+            setState
+            } = this.props;
+        let props = _.assign(
+            {},
+            {
+                bare: bare,
+                bonus: bonus,
+                base: _.assign({}, base),
+                modifiers: _.assign({}, modifiers),
+            },
+            update
+        );
 
         this.props.statistics.map((stat) => {
             stat = stat.code;
-            props['base'][stat] = props['bare'][stat]
-                + (_.sum(props['bonus'][stat] || [0]))
-                + _.reduce(
-                    props.improvement,
-                    (total, increase) => {
-                        if (increase == stat) {
-                            total += 1;
-                        }
-                        return total;
-                    }, 0
-                );
+            props.base[stat] = props.bare[stat]
+                + (_.sum(props.bonus[stat] || [0]));
 
-            props['modifiers'][stat] = Math.floor(
-                (props['base'][stat] - 10) / 2
+            props.modifiers[stat] = Math.floor(
+                (props.base[stat] - 10) / 2
             );
         });
 
-        this.props.setState(props);
+        if (!_.isEqual(props.base, base)) {
+            this.props.setState(props);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const {bare, bonus, base, modifiers} = nextProps;
+        this.sendUpdate({bare, bonus, base, modifiers});
     }
 
     changeBareStat(stat, value) {
-        let update = _.extend({}, this.props.bare);
-        update[stat] = value;
-        this.sendUpdate({
-            bare: update
-            });
+        let bare = _.assign(
+            {},
+            this.props.bare,
+            {[stat]: value}
+        );
+        this.sendUpdate({bare});
     }
 
     increaseStat(index, stat) {
-        let update = _.extend([], this.props.improvement);
-        update[index] = stat;
-        this.sendUpdate({
-            improvement: update
-        });
+        let improvement = _.extend([], this.state.improvement);
+        let bare = _.assign({}, this.props.bare);
+        if (improvement[index]) {
+            bare[ improvement[index] ] -= 1;
+        }
+        bare[ stat ] += 1;
+        improvement[index] = stat;
+
+        this.setState(
+            {improvement},
+            () => this.sendUpdate({bare})
+        );
     }
 
     _cost(value) {
@@ -112,7 +143,7 @@ export class StatsBlock extends Reflux.Component
     }
 
     renderIncrease(index, stat) {
-        const selected = this.props.improvement[index] == stat;
+        const selected = this.state.improvement[index] == stat;
         const disabled = !selected && this.props.base[stat] >= 20;
         return <td key={stat + '-' + index}>
             <input
@@ -130,13 +161,16 @@ export class StatsBlock extends Reflux.Component
         return <tr key={code} className="text-align-center">
             <th>{stat.label}</th>
             <td>
-                <SingleSelect
-                    heading={stat.label}
-                    description={stat.description}
-                    items={this.getRange()}
-                    setState={(value) => this.changeBareStat(code, value)}
-                    isDisabled={(item) => this.isDisabled(code, item)}
-                    selected={this.props.bare[code]} />
+                {this.props.editBase
+                    ? <SingleSelect
+                        heading={stat.label}
+                        description={stat.description}
+                        items={this.getRange()}
+                        setState={(value) => this.changeBareStat(code, value)}
+                        isDisabled={(item) => this.isDisabled(code, item)}
+                        selected={this.props.bare[code]} />
+                    : this.props.bare[code]
+                }
             </td>
             {this.props.bonus
                 ? <td>
@@ -187,14 +221,33 @@ export class StatsBlock extends Reflux.Component
 }
 
 StatsBlock.defaultProps = {
+    maxBare: 30,
+    budget: 0,
+    editBase: true,
+    increase: 0,
     bare: {},
     bonus: {},
-    improvement: [],
     base: {},
     modifiers: {},
     setState: (selected) => {
         console.log(['StatsBlock', selected]);
     }
+};
+
+StatsBlock.propTypes = {
+    bare: PropTypes.objectOf(PropTypes.number).isRequired,
+    bonus: PropTypes.objectOf(
+        PropTypes.arrayOf(PropTypes.number)
+    ).isRequired,
+    base: PropTypes.objectOf(PropTypes.number).isRequired,
+    modifiers: PropTypes.objectOf(PropTypes.number).isRequired,
+
+    maxBare: PropTypes.number,
+    budget: PropTypes.number,
+    editBase: PropTypes.bool,
+    increase: PropTypes.number,
+
+    setState: PropTypes.func.isRequired,
 };
 
 export default ListDataWrapper(
