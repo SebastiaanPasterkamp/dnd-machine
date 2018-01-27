@@ -2,7 +2,9 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-export function makeObjectDataActions() {
+export function ObjectDataActionsFactory(id)
+{
+
     let ObjectDataActions = Reflux.createActions({
         "listObjects": {asyncResult: true},
         "getObject": {asyncResult: true},
@@ -193,7 +195,9 @@ export function makeObjectDataActions() {
         ObjectDataActions.throttledGet[path].call(path, type, data);
     });
 
+    ObjectDataActions.id = id;
+
     return ObjectDataActions;
 }
 
-export default makeObjectDataActions();
+export default ObjectDataActionsFactory('default');
