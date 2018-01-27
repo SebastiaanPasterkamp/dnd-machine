@@ -13,8 +13,8 @@
 
                 {% if 'dm' in request.user.role and party.user_id == request.user.id %}
                 <div class="nice-btn-group object-control">
-                    <a href="{{ url_for('party.edit', party_id=party.id) }}" class="nice-btn icon fa-cog">Edit</a>
-                    <a href="{{ url_for('party.delete', party_id=party.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+                    <a href="{{ url_for('party.edit', obj_id=party.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                    <a href="{{ url_for('party.api_delete', obj_id=party.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
                 </div>
                 {% endif %}
             </th>

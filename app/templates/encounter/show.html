@@ -77,7 +77,7 @@
             <tbody>
                 <tr>
                     <td>{{ encounter.challenge_rating|round(3) }} / {{ encounter.xp_rating|int }} XP</td>
-                    <td><a href="{{ url_for('party.award_xp', party_id=party.id, encounter_id=encounter.id) }}" class="nice-btn icon fa-trophy">Award XP</a></td>
+                    <td><a href="{{ url_for('party.xp', obj_id=party.id, xp=encounter.xp) }}" class="nice-btn icon fa-trophy">Award XP</a></td>
                     <td>{{ encounter.modifier.monster }}</td>
                     <td>{{ encounter.modifier.party }}</td>
                     <td>{{ encounter.modifier.total }}</td>
