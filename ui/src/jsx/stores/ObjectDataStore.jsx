@@ -4,109 +4,7 @@ import _ from 'lodash';
 
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
-class ObjectDataStore extends Reflux.Store
-{
-    constructor(listenables=null)
-    {
-        super();
-        this.state = {
-            timestamp: {}
-        };
-        this.listenables = listenables || ObjectDataActions;
-    }
-
-    updateObject(type, id, data) {
-        if (_.isEqual(data, _.get(this.state, [type, id]))) {
-            return;
-        }
-
-        let update = {
-            timestamp: _.assign(
-                {},
-                this.state.timestamp,
-                {[type]: _.assign(
-                    {},
-                    this.state.timestamp[type],
-                    {[id]: Date.now()}
-                )}
-            ),
-            [type]: _.assign(
-                {},
-                this.state[type],
-                {[id]: data}
-            )
-        };
-
-        this.setState(update);
-    };
-
-    onListObjectsCompleted(type, objects) {
-        let update = {
-            timestamp: {}
-        };
-
-        update = _.reduce(objects, (mapped, object) => {
-            let old_object = _.get(
-                    this.state,
-                    [type, object.id]
-                ),
-                old_timestamp = _.get(
-                    this.state.timestamp,
-                    [type, object.id]
-                );
-
-            if (old_object && _.isEqual(object, old_object)) {
-                mapped[type][object.id] = old_object;
-                mapped.timestamp[type][object.id] = old_timestamp;
-            } else {
-                mapped[type][object.id] = object;
-                mapped.timestamp[type][object.id] = Date.now();
-            }
-
-            return mapped;
-        }, {
-            timestamp: {[type]: {}},
-            [type]: {}
-        });
-
-        if (_.isEqual(update[type], _.get(this.state, type))) {
-            return;
-        }
-
-        update.timestamp = _.assign(
-            {},
-            this.state.timestamp,
-            update.timestamp
-        );
-
-        this.setState(update);
-    }
-
-    onGetObjectCompleted(type, id, object) {
-        this.updateObject(type, id, object);
-    }
-
-    onPatchObjectCompleted(type, id, object) {
-        this.updateObject(type, id, object);
-    }
-
-    onPostObjectCompleted(type, id, object) {
-        this.updateObject(type, id, object);
-    }
-
-    onRecomputeObjectCompleted(type, id, object) {
-        this.updateObject(type, id, object);
-    }
-
-    onDeleteObjectCompleted(type, id) {
-        let update = {};
-        update[type] = _.copy(this.state[type]);
-        delete update[type][id];
-        this.setState(update);
-    }
-}
-
-ObjectDataStore.initial = {
+const initial = {
     armor: {
         id: null,
         type: 'light armor',
@@ -186,13 +84,123 @@ ObjectDataStore.initial = {
     },
 };
 
-ObjectDataStore.getInitial = (type) => {
-    if (!(type in ObjectDataStore.initial)) {
-        return {
-            id: null
+export function ObjectDataStoreFactory(id, listenables = null)
+{
+
+    class ObjectDataStore extends Reflux.Store
+    {
+        constructor()
+        {
+            super();
+            this.state = {
+                timestamp: {}
+            };
+            this.listenables = listenables || ObjectDataActions;
+        }
+
+        updateObject(type, id, data) {
+            if (_.isEqual(data, _.get(this.state, [type, id]))) {
+                return;
+            }
+
+            let update = {
+                timestamp: _.assign(
+                    {},
+                    this.state.timestamp,
+                    {[type]: _.assign(
+                        {},
+                        this.state.timestamp[type],
+                        {[id]: Date.now()}
+                    )}
+                ),
+                [type]: _.assign(
+                    {},
+                    this.state[type],
+                    {[id]: data}
+                )
+            };
+
+            this.setState(update);
+        };
+
+        onListObjectsCompleted(type, objects) {
+            let update = {
+                timestamp: {}
+            };
+
+            update = _.reduce(objects, (mapped, object) => {
+                let old_object = _.get(
+                        this.state,
+                        [type, object.id]
+                    ),
+                    old_timestamp = _.get(
+                        this.state.timestamp,
+                        [type, object.id]
+                    );
+
+                if (old_object && _.isEqual(object, old_object)) {
+                    mapped[type][object.id] = old_object;
+                    mapped.timestamp[type][object.id] = old_timestamp;
+                } else {
+                    mapped[type][object.id] = object;
+                    mapped.timestamp[type][object.id] = Date.now();
+                }
+
+                return mapped;
+            }, {
+                timestamp: {[type]: {}},
+                [type]: {}
+            });
+
+            if (_.isEqual(update[type], _.get(this.state, type))) {
+                return;
+            }
+
+            update.timestamp = _.assign(
+                {},
+                this.state.timestamp,
+                update.timestamp
+            );
+
+            this.setState(update);
+        }
+
+        onGetObjectCompleted(type, id, object) {
+            this.updateObject(type, id, object);
+        }
+
+        onPatchObjectCompleted(type, id, object) {
+            this.updateObject(type, id, object);
+        }
+
+        onPostObjectCompleted(type, id, object) {
+            this.updateObject(type, id, object);
+        }
+
+        onRecomputeObjectCompleted(type, id, object) {
+            this.updateObject(type, id, object);
+        }
+
+        onDeleteObjectCompleted(type, id) {
+            let update = {};
+            update[type] = _.copy(this.state[type]);
+            delete update[type][id];
+            this.setState(update);
         }
     }
-    return ObjectDataStore.initial[type];
+
+    ObjectDataStore.getInitial = (type) => {
+        if (!(type in initial)) {
+            return {
+                id: null
+            }
+        }
+        return initial[type];
+    };
+
+    ObjectDataStore.id = id;
+
+    return ObjectDataStore;
 };
 
-export default ObjectDataStore;
+export default ObjectDataStoreFactory('default');
