@@ -35,14 +35,12 @@ export class PartyEdit extends React.Component
     }
 
     onRemoveMemberButton(id) {
-        let members = _.without(this.props.members, id);
+        let member_ids = _.without(this.props.member_ids, id);
 
-        this.props.setState({
-            members: members
-        }, () => {
-            this.props.recompute();
-        });
-
+        this.props.setState(
+            {member_ids},
+            () => this.props.recompute()
+        );
     }
 
     toggleDialog() {
@@ -52,20 +50,20 @@ export class PartyEdit extends React.Component
     }
 
     onAddMemberButton(id) {
-        let members = _.union(this.props.members, [id]);
+        let member_ids = _.union(this.props.member_ids, [id]);
 
-        this.props.setState({
-            members: members
-        }, () => {
-            this.props.recompute();
-        });
-
+        this.props.setState(
+            {member_ids},
+            () => this.props.recompute()
+        );
     }
 
     renderDialog() {
         if (!this.state.dialog) {
             return null;
         }
+
+        const {characters, member_ids} = this.props;
 
         return <ModalDialog
                 key="dialog"
@@ -81,8 +79,8 @@ export class PartyEdit extends React.Component
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>{_.map(this.props.characters, (character) => {
-                    if (_.indexOf(this.props.members, character.id) >= 0) {
+                <tbody>{_.map(characters, (character) => {
+                    if (_.includes(member_ids, character.id)) {
                         return null;
                     }
                     return <tr key={character.id}>
@@ -112,6 +110,9 @@ export class PartyEdit extends React.Component
     }
 
     render() {
+        const {
+            name, description, member_ids, challenge
+        } = this.props;
         return [
             <Panel
                     key="description"
@@ -121,7 +122,7 @@ export class PartyEdit extends React.Component
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
-                        value={this.props.name}
+                        value={name}
                         setState={
                             (value) => this.onFieldChange('name', value)
                         } />
@@ -129,7 +130,7 @@ export class PartyEdit extends React.Component
                 <ControlGroup label="Description">
                     <MarkdownTextField
                         placeholder="Description..."
-                        value={this.props.description}
+                        value={description}
                         rows={5}
                         setState={
                             (value) => this.onFieldChange('description', value)
@@ -153,18 +154,18 @@ export class PartyEdit extends React.Component
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{this.props.members.length}</td>
+                        <td>{member_ids.length}</td>
                         <td className="info">
-                            {this.props.challenge.easy}XP
+                            {challenge.easy}XP
                         </td>
                         <td className="good">
-                            {this.props.challenge.medium}XP
+                            {challenge.medium}XP
                         </td>
                         <td className="warning">
-                            {this.props.challenge.hard}XP
+                            {challenge.hard}XP
                         </td>
                         <td className="bad">
-                            {this.props.challenge.deadly}XP
+                            {challenge.deadly}XP
                         </td>
                     </tr>
                 </tbody>
@@ -186,7 +187,7 @@ export class PartyEdit extends React.Component
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>{_.map(this.props.members, (id) => {
+                <tbody>{_.map(member_ids, (id) => {
                     const character = _.get(
                         this.props.characters, id
                     );
@@ -251,12 +252,14 @@ export class PartyEdit extends React.Component
 
 export default ObjectDataListWrapper(
     RoutedObjectDataWrapper(
-        PartyEdit, {
+        PartyEdit,
+        {
             className: 'party-edit',
             icon: 'fa-users',
             label: 'Party',
             buttons: ['cancel', 'reload', 'recompute', 'save']
-        }, "party"
+        },
+        "party"
     ),
     {characters: {type: 'character'}}
 );

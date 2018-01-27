@@ -68,10 +68,10 @@ class PartyRow extends LazyComponent
                 <i>{this.props.description}</i>
             </td>
             <td>
-                {this.props.members.map((member) => {
+                {this.props.member_ids.map((id) => {
                     return <CharacterLabel
-                        key={member}
-                        character_id={member}
+                        key={id}
+                        character_id={id}
                         progress={true}
                         />;
                 })}
