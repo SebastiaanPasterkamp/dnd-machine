@@ -19,7 +19,7 @@ import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import Panel from '../components/Panel.jsx';
 import Progress from '../components/Progress.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
-import StatsBlock from '../components/StatsBlock.jsx';
+import {StatsBlock} from '../components/StatsBlock.jsx';
 import TabComponent from '../components/TabComponent.jsx';
 
 
@@ -208,10 +208,12 @@ export class CharacterCreate extends LazyComponent
             <StatsBlock
                 {...this.props.statistics}
                 budget={27}
-                maxBare={16}
+                maxBare={15}
+                statistics={this.props._statistics}
                 setState={
                     (update) => this.onStatisticsChange(update)
-                } />
+                }
+                />
             <CharacterEditView
                 {...this.props}
                 setState={(update) => {
@@ -219,7 +221,11 @@ export class CharacterCreate extends LazyComponent
                         {
                             doneDescr: (
                                 this.state.doneStats
-                                && update.name
+                                && (
+                                    'name' in update
+                                    ? update.name
+                                    : this.props.name
+                                )
                             )
                         },
                         () => this.props.setState(update)
