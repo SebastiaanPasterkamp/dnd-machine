@@ -102,7 +102,7 @@ class ValuePropertySelect extends LazyComponent
         return <MarkdownTextField
             className="small"
             disabled={true}
-            value={this.props.value || ''}
+            value={(this.props.value || '').toString()}
             />;
     }
 };
@@ -253,10 +253,10 @@ class ListPropertySelect extends BaseTagContainer
         return value;
     }
 
-    findItem(value) {
+    findItem(value, _default={label: value, color: 'bad'}) {
         return _.find(this.props.items, {code: value})
             || _.find(this.props.items, {name: value})
-            || {label: value, color: 'bad'};
+            || _default;
     }
 
     getTags() {
@@ -290,9 +290,13 @@ class ListPropertySelect extends BaseTagContainer
                     upgrade[code] -= 1;
                     return null;
                 }
+                const current = this.findItem(code, null);
+                if (!current) {
+                    return null;
+                }
                 return _.assign(
                     {},
-                    this.findItem(code),
+                    current,
                     {
                         immutable: true,
                     }
@@ -547,7 +551,7 @@ export class CharacterLevel extends React.Component
                             value
                         );
                         if (!(option.duplicates || false)) {
-                            update = _.uniq(value);
+                            update = _.uniq(update);
                         }
                     } else {
                         console.log([
