@@ -68,7 +68,7 @@ const initial = {
         id: null,
         name: '',
         challenge: {},
-        members: [],
+        member_ids: [],
     },
     weapons: {
         id: null,
