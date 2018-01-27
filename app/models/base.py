@@ -32,7 +32,7 @@ class JsonObject(object):
     def config(self):
         return self._config
 
-    def migrate(self):
+    def migrate(self, mapper=None):
         self._config = self._merge(
             deepcopy(self._defaultConfig),
             self.castFieldType(self._config)
