@@ -133,12 +133,12 @@
                                 </li>
                                 {% if request.party %}
                                 <li>
-                                    <a href="{{ url_for('party.show', party_id=request.party.id) }}" class="icon fa-beer">
+                                    <a href="{{ url_for('party.show', obj_id=request.party.id) }}" class="icon fa-beer">
                                        {{ request.party.name }}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ url_for('party.host', party_id=0) }}" class="icon fa-ban">
+                                    <a href="{{ url_for('party.host', obj_id=0) }}" class="icon fa-ban">
                                        Stop hosting
                                     </a>
                                 </li>
