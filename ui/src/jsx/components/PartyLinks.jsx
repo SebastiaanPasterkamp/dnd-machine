@@ -37,6 +37,7 @@ class PartyLinks extends BaseLinkGroup
                         label: 'Stop',
                         action: () => {
                             fetch("/party/host/0", {
+                            method: "POST",
                                 credentials: 'same-origin',
                                 'headers': {
                                     'X-Requested-With': 'XMLHttpRequest'
@@ -57,6 +58,7 @@ class PartyLinks extends BaseLinkGroup
                     label: 'Host',
                     action: () => {
                         fetch("/party/host/" + this.props.party.id, {
+                            method: "POST",
                             credentials: 'same-origin',
                             'headers': {
                                 'X-Requested-With': 'XMLHttpRequest'
