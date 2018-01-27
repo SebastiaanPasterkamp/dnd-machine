@@ -22,7 +22,7 @@ import MultiSelect from '../components/MultiSelect.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import Progress from '../components/Progress.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
-import StatsBlock from '../components/StatsBlock.jsx';
+import {StatsBlock} from '../components/StatsBlock.jsx';
 import TabComponent from '../components/TabComponent.jsx';
 import TagContainer from '../components/TagContainer.jsx';
 
@@ -50,6 +50,32 @@ const propsMap = {
     'spells': '_spells',
     'statistics': '_statistics',
     'weapons': '_weapons',
+};
+
+class AbilityScoreSelect extends LazyComponent
+{
+    componentDidMount() {
+        this.props.onChange(
+            null,
+            this.props.limit
+        );
+    }
+
+    componentWillUnmount() {
+        this.props.onChange(
+            null,
+            null
+        );
+    }
+
+    render() {
+        return null;
+    }
+};
+
+AbilityScoreSelect.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    limit: PropTypes.number.isRequired,
 };
 
 class ValuePropertySelect extends LazyComponent
@@ -330,7 +356,12 @@ ListPropertySelect.propTypes = {
     path: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
-    given: PropTypes.arrayOf(PropTypes.string),
+    given: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
+        ])
+    ),
     current: PropTypes.array,
     limit: PropTypes.number,
     filter: PropTypes.object,
@@ -388,10 +419,11 @@ class CharacterConfig extends LazyComponent
     constructor(props) {
         super(props);
         this.components = {
-            list: ListPropertySelect,
-            dict: DictPropertySelect,
+            ability_score: AbilityScoreSelect,
             choice: ChoiceSelect,
             config: CharacterConfig,
+            dict: DictPropertySelect,
+            list: ListPropertySelect,
             value: ValuePropertySelect,
         };
     }
@@ -428,7 +460,7 @@ class CharacterConfig extends LazyComponent
                 }
 
                 if (option.label) {
-                    return <ControlGroup
+                    return <FormGroup
                             label={option.label}
                             key={index}
                             >
@@ -437,7 +469,7 @@ class CharacterConfig extends LazyComponent
                             {...props}
                             {...option}
                             />
-                    </ControlGroup>;
+                    </FormGroup>;
                 }
 
                 return <ConfigComponent
@@ -463,7 +495,91 @@ export class CharacterLevel extends React.Component
 {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            abilityScore: 0,
+        };
+
+        this.computeProps = _.debounce(() => {
+            const change = _.reduce(
+                this.state,
+                (change, {path, value, option}) => {
+                    if (_.isNil(option)) {
+                        return change;
+                    }
+
+                    if (option.type == 'ability_score') {
+                        change.state.abilityScore = (
+                            change.state.abilityScore || 0
+                        ) + (value || 0);
+                        return change;
+                    }
+
+                    const root = _.split(path, '.')[0];
+                    if (value == null) {
+                        if (!(root in change.props)) {
+                            change.props[root] = undefined;
+                        }
+                        return change;
+                    }
+
+                    if (_.isNil(change.props[root])) {
+                        change.props[root] = _.cloneDeep(
+                            this.props.character[root]
+                        );
+                    }
+
+                    const current = _.get(
+                        change.props,
+                        path
+                    );
+                    let update = null;
+
+                    if (option.type == 'value') {
+                        update = value;
+                    } else if (option.type == 'dict') {
+                        update = _.assign(
+                            {},
+                            current || {},
+                            value
+                        );
+                    } else if (option.type == 'list') {
+                        update = (current || []).concat(
+                            value
+                        );
+                        if (!(option.duplicates || false)) {
+                            update = _.uniq(value);
+                        }
+                    } else {
+                        console.log([
+                            "Unknown option type",
+                            option
+                        ]);
+                    }
+
+                    change.props = _.set(
+                        change.props,
+                        path,
+                        update
+                    );
+
+                    return change;
+                },
+                {props: {}, state: {}}
+            );
+
+            console.log(change);
+
+            if (!_.isEqual(change.state, {})) {
+                this.setState(
+                    change.state,
+                    () => {
+                        this.props.setState(change.props);
+                    }
+                );
+            } else {
+                this.props.setState(change.props);
+            }
+        }, 10);
     }
 
     getItems(lists) {
@@ -487,53 +603,9 @@ export class CharacterLevel extends React.Component
     onChange(path, value, index, option) {
         this.setState(
             {
-                [index]: {path, option, value}
+                [index.join('.')]: {path, value, option}
             },
-            () => {
-                const props = _.reduce(
-                    this.state,
-                    (props, state) => {
-                        if (state.value == null) {
-                            return props;
-                        }
-
-                        const root = state.path.split('.')[0];
-                        if (!(root in props)) {
-                            props[root] = _.cloneDeep(
-                                this.props.character[root]
-                            );
-                        }
-
-                        const current = _.get(props, state.path);
-                        let value = null;
-
-                        if ('value' in state.option) {
-                            value = state.value;
-                        } else if ('dict' in state.option) {
-                            value = _.assign(
-                                {},
-                                current || {},
-                                value
-                            );
-                        } else {
-                            value = (current || []).concat(
-                                state.value
-                            );
-                            if (!(state.option.duplicates || false)) {
-                                value = _.uniq(value);
-                            }
-                        }
-
-                        return _.set(
-                            props,
-                            state.path,
-                            value
-                        );
-                    },
-                    {}
-                );
-                this.props.setState(props);
-            }
+            () => this.computeProps()
         );
     }
 
@@ -544,6 +616,7 @@ export class CharacterLevel extends React.Component
         ) {
             return null;
         }
+
         return [
             <Panel
                     key="level-up"
@@ -559,7 +632,40 @@ export class CharacterLevel extends React.Component
                         this.onChange(path, value, index, option)
                     }}
                     />
-            </Panel>
+            </Panel>,
+
+            this.state.abilityScore ? <Panel
+                    key="statistics"
+                    className="character-level__statistics"
+                    header="Ability Score increase"
+                >
+                <StatsBlock
+                    {...this.props.statistics}
+                    statistics={this.props._statistics}
+                    increase={this.state.abilityScore}
+                    editBase={false}
+                    setState={(statistics) => {
+                        this.onChange(
+                            'statistics.bare',
+                            statistics.bare,
+                            ['statistics','bare'],
+                            {type: 'dict'}
+                        );
+                        this.onChange(
+                            'statistics.base',
+                            statistics.base,
+                            ['statistics','base'],
+                            {type: 'dict'}
+                        );
+                        this.onChange(
+                            'statistics.modifiers',
+                            statistics.modifiers,
+                            ['statistics','modifiers'],
+                            {type: 'dict'}
+                        );
+                    }}
+                    />
+            </Panel> : null
         ];
     }
 };
