@@ -5,7 +5,8 @@ from flask import (
     request,
     jsonify,
     redirect,
-    url_for
+    url_for,
+    abort
     )
 
 class BaseApiBlueprint(Blueprint):
@@ -105,8 +106,8 @@ class BaseApiBlueprint(Blueprint):
 
         return jsonify(obj.config)
 
-    def _api_list_filter(self, obj):
-        return obj
+    def _api_list_filter(self, objs):
+        return objs
 
     def api_list(self):
         objects = self.datamapper.getMultiple()
@@ -173,14 +174,11 @@ class BaseApiBlueprint(Blueprint):
                 ).items()
             )
         obj.update(update)
-        obj.creation += obj.level_upCreation
-        obj.compute()
 
         if 'id' not in obj or obj.id != obj_id:
             abort(409, "Cannot change ID")
 
         obj = self._api_patch_filter(obj)
-
         if not obj:
             return jsonify(None)
 
@@ -210,15 +208,19 @@ class BaseApiBlueprint(Blueprint):
 
     def api_recompute(self, obj_id=None):
         update = request.get_json()
+        obj = self.datamapper.getById(obj_id)
+        update = dict(
+            (key, value)
+            for key, value in self._mutableAttributes(
+                update, obj
+                ).items()
+            )
 
-        if obj_id is None:
+        if obj is None:
             obj = self.datamapper.create(update)
             obj.compute()
             obj = self._api_post_filter(obj)
         else:
-            obj = self.datamapper.getById(obj_id)
-            if not obj:
-                abort(404, "Object not found")
             obj.update(update)
             obj.compute()
             if 'id' not in obj or obj.id != obj_id:

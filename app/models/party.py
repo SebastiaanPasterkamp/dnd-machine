@@ -4,12 +4,13 @@ class PartyObject(JsonObject):
     _version = '1.0'
     _pathPrefix = "party"
     _fieldTypes = {
+        'id': int,
         'user_id': int,
         'size': int,
         'challenge': {
             "*": int
             },
-        'members': int
+        'member_ids': int
         }
     _defaultConfig = {
         'challenge': {}
@@ -26,14 +27,29 @@ class PartyObject(JsonObject):
     @members.setter
     def members(self, members):
         self._members = members
+        self.member_ids = [
+            member.id
+            for member in members
+            ]
         self.compute()
 
+    def migrate(self, mapper):
+        self.members = mapper.character.getByPartyId(self.id)
+        for member in self.members:
+            member.migrate()
+        super(PartyObject, self).migrate()
+
     def compute(self):
-        if len(self._members):
-            self.size = len(self._members)
+        if len(self.member_ids):
+            self.size = len(self.member_ids)
+        if len(self.members):
+            self.size = len(self.members)
             self.challenge = {}
             for cr in ['easy', 'medium', 'hard', 'deadly']:
-                self.challenge[cr] = sum([c.challenge[cr] for c in self._members])
+                self.challenge[cr] = sum([
+                    member.challenge[cr]
+                    for member in self.members
+                    ])
 
 
 class PartyMapper(JsonObjectDataMapper):
@@ -64,6 +80,21 @@ class PartyMapper(JsonObjectDataMapper):
             if party
             ]
 
+    def getIdsByDmUserId(self, user_id):
+        """Returns all party IDs run by the DM by user_id"""
+        cur = self.db.execute("""
+            SELECT id
+            FROM `%s`
+            WHERE `user_id` = ?
+            """ % self.table,
+            [user_id]
+            )
+        parties = cur.fetchall() or []
+        return [
+            party['id']
+            for party in parties
+            ]
+
     def getByUserId(self, user_id):
         """Returns all parties where a user by user_id
         has characters involved"""
@@ -81,6 +112,23 @@ class PartyMapper(JsonObjectDataMapper):
             self._read(dict(party))
             for party in parties
             if party
+            ]
+
+    def getIdsByUserId(self, user_id):
+        """Returns all party IDs where a user by user_id
+        has characters involved"""
+        cur = self.db.execute("""
+            SELECT pc.party_id as id
+            FROM `party_characters` AS pc
+            JOIN `user_characters` AS uc USING (character_id)
+            WHERE uc.`user_id` = ?
+            """,
+            [user_id]
+            )
+        parties = cur.fetchall() or []
+        return [
+            party['id']
+            for party in parties
             ]
 
     def getMemberIds(self, party_id):
@@ -103,31 +151,26 @@ class PartyMapper(JsonObjectDataMapper):
         """Insert a new party; updates party_characters table"""
         result = super(PartyMapper, self).insert(obj)
 
-        if obj.members is None:
+        if not obj.members:
             return result
-
-        members = [m.id for m in obj.members]
 
         self.db.executemany("""
             INSERT INTO `party_characters`
                 (party_id, character_id)
             VALUES (?, ?)
             """, [
-                (result.id, member)
-                for member in members
+                (result.id, member.id)
+                for member in obj.members
                 ])
         self.db.commit()
-
         return result
 
     def update(self, obj):
         """Insert a new party; updates party_characters table"""
         result = super(PartyMapper, self).update(obj)
 
-        if obj.members is None:
+        if not obj.members:
             return result
-
-        members = [m.id for m in obj.members]
 
         self.db.execute("""
             DELETE FROM `party_characters`
@@ -140,11 +183,10 @@ class PartyMapper(JsonObjectDataMapper):
                 (party_id, character_id)
             VALUES (?, ?)
             """, [
-                (result.id, member)
-                for member in members
+                (result.id, member.id)
+                for member in obj.members
                 ])
         self.db.commit()
-
         return result
 
     def addCharacter(self, party_id, character_id):

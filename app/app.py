@@ -82,17 +82,17 @@ def migrate_command():
     datamapper = get_datamapper()
 
     for mapperType in datamapper._creators:
-        dataMapper = datamapper[mapperType]
-        if not isinstance(dataMapper, JsonObjectDataMapper):
+        mapper = datamapper[mapperType]
+        if not isinstance(mapper, JsonObjectDataMapper):
             continue
-        objs = dataMapper.getMultiple()
+        objs = mapper.getMultiple()
         print "Converting '%s': %d" % (
             mapperType, len(objs)
             )
         for obj in objs:
             print "- %d" % obj.id
-            obj.migrate()
-            dataMapper.update(obj)
+            obj.migrate(datamapper)
+            mapper.update(obj)
 
     print "Done"
 
@@ -150,11 +150,8 @@ def current_user():
 
 @app.route('/hosted_party')
 def hosted_party():
-    if session.get('party_id') is None:
-        return jsonify(None)
     return redirect(url_for(
-        'party.api_get',
-        party_id=session.get('party_id')
+        'party.hosting'
         ))
 
 @app.route('/navigation')
@@ -273,18 +270,6 @@ def navigation():
         'icon': 'address-card-o',
         'path': url_for('user.show', user_id=request.user.id),
         })
-
-    if request.party:
-        user_group['items'].append({
-            'label': "Hosting %s" % request.party.name,
-            'icon': 'beer',
-            'path': url_for('party.show', party_id=request.party.id),
-            })
-        user_group['items'].append({
-            'label': "Stop hosting",
-            'icon': 'times',
-            'path': url_for('party.host', party_id=0),
-            })
 
     user_group['items'].append({
         'label': "Logout %s" % request.user.username,
