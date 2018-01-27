@@ -209,43 +209,6 @@ class CharacterObject(JsonObject):
                 "uses": int,
                 "bonus": int
                 }
-            },
-        "level_up": {
-            "config": {
-                "hidden": bool,
-                "multiple": bool,
-                "limit": int,
-                "options": {
-                    "hidden": bool,
-                    "multiple": bool,
-                    "limit": int,
-                    "options": {
-                        "hidden": bool,
-                        "multiple": bool,
-                        "limit": int,
-                        },
-                    "config": {
-                        "hidden": bool,
-                        "multiple": bool,
-                        "limit": int,
-                        },
-                    },
-                "config": {
-                    "hidden": bool,
-                    "multiple": bool,
-                    "limit": int,
-                    "options": {
-                        "hidden": bool,
-                        "multiple": bool,
-                        "limit": int,
-                        },
-                    "config": {
-                        "hidden": bool,
-                        "multiple": bool,
-                        "limit": int,
-                        },
-                    },
-                },
             }
         }
 
@@ -459,7 +422,8 @@ class CharacterObject(JsonObject):
                     self.armor_class_bonus = armor["bonus"]
 
         self.abilities = self._expandFormulas(self.abilities)
-        self.level_up = self.getLevelUp()
+        # No type-casting
+        self._config['level_up'] = self.getLevelUp()
 
     def _meetsCondition(self, creation, phase):
         if creation in self.creation:
