@@ -524,6 +524,9 @@ class CharacterBlueprint(BaseApiBlueprint):
                 and not self.checkRole(['admin', 'dm']):
             abort(403, "Not owned")
 
+        obj.creation += obj.level_upCreation
+        obj.compute()
+
         return obj
 
     def _api_delete_filter(self, obj):
