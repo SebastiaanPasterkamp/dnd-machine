@@ -2,8 +2,8 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import {makeObjectDataActions} from '../actions/ObjectDataActions.jsx';
-import ObjectDataStore from '../stores/ObjectDataStore.jsx';
+import {ObjectDataActionsFactory} from '../actions/ObjectDataActions.jsx';
+import {ObjectDataStoreFactory} from '../stores/ObjectDataStore.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
 import Panel from '../components/Panel.jsx';
@@ -22,8 +22,10 @@ function RoutedObjectDataWrapper(
             this.state = {
                 buttons: config.buttons || [],
             };
-            this.actions = makeObjectDataActions();
-            this.store = new ObjectDataStore(this.actions);
+            this.actions = ObjectDataActionsFactory('routed');
+            this.store = ObjectDataStoreFactory(
+                'routed', this.actions
+            );
             this.storeKeys = [loadableType];
         }
 
@@ -45,7 +47,7 @@ function RoutedObjectDataWrapper(
                 [loadableType, this.state.id]
             );
             if (_.isNil(this.state.id) && _.isNil(stateProps)) {
-                return ObjectDataStore.getInitial(loadableType);
+                return this.store.getInitial(loadableType);
             }
             return stateProps;
         }
