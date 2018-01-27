@@ -85,6 +85,7 @@ class NpcObject(JsonObject):
             },
         }
     _fieldTypes = {
+        'id': int,
         "level": int,
         "hit_dice": int,
         "hit_points": int,
@@ -144,7 +145,7 @@ class NpcObject(JsonObject):
             }
         }
 
-    def migrate(self):
+    def migrate(self, mapper=None):
         if "base_stats" in self._config:
             re_mod = re.compile(r"(?<!statistics\.)modifiers")
 

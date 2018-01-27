@@ -8,6 +8,7 @@ class EncounterObject(JsonObject):
         'loot': []
         }
     _fieldTypes = {
+        'id': int,
         'user_id': int,
         'size': int,
         'challenge_rating_sum': float,
@@ -45,6 +46,12 @@ class EncounterObject(JsonObject):
                 ]
             }
         super(EncounterObject, self).__init__(config)
+
+    def migrate(self, mapper):
+        self.monsters = mapper.monster.getByEncounterId(self.id)
+        for monster in self.monsters:
+            monster.migrate()
+        super(EncounterObject, self).migrate()
 
     @property
     def party(self):
@@ -85,26 +92,26 @@ class EncounterObject(JsonObject):
             if item['name']
             ]
 
-        if self._party is not None:
+        if self.party is not None:
             self.modifierParty = self.modifierByPartySize(self._party.size)
         else:
             self.modifierParty = 0.0
 
-        if len(self._monsters):
-            self.size = len(self._monsters)
+        if len(self.monsters):
+            self.size = len(self.monsters)
             self.modifierMonster = self.modifierByEncounterSize(self.size)
 
             self.xp = sum([
-                m.xp
-                for m in self._monsters
+                monster.xp
+                for monster in self.monsters
                 ])
             self.challenge_rating_sum = sum([
-                m.challenge_rating
-                for m in self._monsters
+                monster.challenge_rating
+                for monster in self._monsters
                 ])
             self.xp_rating_sum = sum([
-                m.xp_rating
-                for m in self._monsters
+                monster.xp_rating
+                for monster in self._monsters
                 ])
 
         challenge_rating_sum = self.challenge_rating_sum or 0.0
@@ -149,6 +156,48 @@ class EncounterMapper(JsonObjectDataMapper):
             for encounter in encounters
             if encounter is not None
             ]
+
+    def insert(self, obj):
+        """Insert a new encounter; updates encounter_monsters table"""
+        result = super(EncounterMapper, self).insert(obj)
+
+        if not obj.monsters:
+            return result
+
+        self.db.executemany("""
+            INSERT INTO `encounter_monsters`
+                (`encounter_id`, `monster_id`)
+            VALUES (?, ?)
+            """, [
+                (result.id, monster.id)
+                for monster in obj.monsters
+                ])
+        self.db.commit()
+        return result
+
+    def update(self, obj):
+        """Insert a new encounter; updates encounter_monsters table"""
+        result = super(EncounterMapper, self).update(obj)
+
+        if not obj.monsters:
+            return result
+
+        self.db.execute("""
+            DELETE FROM `encounter_monsters`
+            WHERE `encounter_id` = ?
+            """,
+            [result.id]
+            )
+        self.db.executemany("""
+            INSERT INTO `encounter_monsters`
+                (`encounter_id`, `monster_id`)
+            VALUES (?, ?)
+            """, [
+                (result.id, monster.id)
+                for monster in obj.monsters
+                ])
+        self.db.commit()
+        return result
 
     def addMonster(self, encounter_id, monster_id):
         """Add monster to encounter"""

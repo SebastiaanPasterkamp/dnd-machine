@@ -6,6 +6,7 @@ from base import JsonObject
 class ItemsObject(JsonObject):
     _pathPrefix = "items"
     _fieldTypes = {
+        'id': int,
         'size_hit_dice': {
             'dice_size': int
             },
