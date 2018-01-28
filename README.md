@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ```bash
 export FLASK_APP=app/app.py
 export FLASK_DEBUG=true
-flask initdb
+./run.py --initdb
 ```
 
 ## Building
@@ -34,8 +34,8 @@ npm test
 ```bash
 export FLASK_APP=app/app.py
 export FLASK_DEBUG=true
-flask updatedb
-flask migrate
+./run.py --updatedb
+./run.py --migrate
 ```
 
 ## Running D&D machine
@@ -43,7 +43,7 @@ flask migrate
 ```bash
 export FLASK_APP=app/app.py
 export FLASK_DEBUG=true
-flask run
+./run.py
 ```
 
 Visit [D&D Machine](http://localhost:5000)
