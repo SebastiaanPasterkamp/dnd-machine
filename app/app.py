@@ -51,7 +51,13 @@ app.config.update(get_config())
 
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
-def init_db():
+@app.cli.command('initdb')
+def initdb_command():
+    initdb()
+
+def initdb():
+    """Initializes the database."""
+    print('Initializing the database.')
     db = get_db()
     with app.open_resource('schema.sql', mode='r') as f:
         db.cursor().executescript(f.read())
@@ -60,15 +66,13 @@ def init_db():
         VALUES (1,'admin','$pbkdf2-sha256$6400$/N87Z6w1xjgHwPifs3buPQ$7k8ZnhgsKVR0BW5mpwgro50PlGKBcWilBXIZyHHGddg','','{"role": ["admin", "dm"]}')
         """);
     db.commit()
-
-@app.cli.command('initdb')
-def initdb_command():
-    """Initializes the database."""
-    init_db()
     print('Initialized the database.')
 
 @app.cli.command('updatedb')
 def updatedb_command():
+    updatedb()
+
+def updatedb():
     """Updates the database."""
     db = get_db()
     with app.open_resource('update.sql', mode='r') as f:
@@ -76,8 +80,62 @@ def updatedb_command():
     db.commit()
     print('Updated the database.')
 
+@app.cli.command('dump-table')
+def dump_table_command(table):
+    dump_table(table)
+
+def dump_table(table):
+    """Dump database content to console."""
+    db = None
+    with app.app_context():
+        db = get_db().cursor()
+
+    yield('BEGIN TRANSACTION;')
+
+    # sqlite_master table contains the SQL CREATE statements for the database.
+    schema = """
+        SELECT `name`, `sql`
+        FROM `sqlite_master`
+            WHERE `sql` NOT NULL AND
+            `type` == 'table' AND
+            name == :table
+        """
+    result = db.execute(schema, {'table': table})
+    for name, sql in result.fetchall():
+        if name == 'sqlite_sequence':
+            yield '-- '  + sql
+            yield('DELETE FROM sqlite_sequence;')
+        elif name == 'sqlite_stat1':
+            yield '-- '  + sql
+            yield('ANALYZE sqlite_master;')
+        elif name.startswith('sqlite_'):
+            yield '-- '  + sql
+            continue
+        else:
+            yield(sql + ';')
+
+        # Build the insert statement for each row of the current table
+        pragma = db.execute("PRAGMA table_info('%s')" % name)
+        columns = [
+            str(table_info[1])
+            for table_info in pragma.fetchall()
+            ]
+        values = "SELECT 'INSERT INTO `%(table)s` (%(columns)s) VALUES(%(values)s);' FROM `%(table)s`;" % {
+            'table': table,
+            'columns': ', '.join(columns),
+            'values': ', '.join([
+                "'||quote(`%s`)||'" % col
+                for col in columns
+                ])
+            }
+        values_res = db.execute(values)
+        for row in values_res:
+            yield(row[0])
+    yield('COMMIT;')
+
+
 @app.cli.command('migrate')
-def migrate_command():
+def migrate():
     """Migrate all Objects to any new configuration."""
     datamapper = get_datamapper()
 
@@ -93,7 +151,6 @@ def migrate_command():
             print "- %d" % obj.id
             obj.migrate(datamapper)
             mapper.update(obj)
-
     print "Done"
 
 @app.before_request
