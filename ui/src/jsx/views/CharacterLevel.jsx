@@ -394,9 +394,9 @@ class ChoiceSelect extends LazyComponent
                 };
 
                 return <div key={index}>
-                    {this.props.description
+                    {option.description
                         ? <MDReactComponent
-                            text={this.props.description}
+                            text={option.description}
                             />
                         : null
                     }
