@@ -1,4 +1,5 @@
 import re
+from math import ceil
 
 from base import JsonObject, JsonObjectDataMapper
 
@@ -72,7 +73,6 @@ class CharacterObject(JsonObject):
             "trinket": []
             },
         "proficiency": 2,
-        "proficiency_alt": 0,
         "languages": [],
         "abilities": {},
         "proficiencies": {
@@ -82,7 +82,8 @@ class CharacterObject(JsonObject):
             "saving_throws": [],
             "advantages": [],
             "expertise": [],
-            "skills": []
+            "skills": [],
+            "talent": []
             },
         "spell": {
             "safe_dc": 0,
@@ -132,7 +133,6 @@ class CharacterObject(JsonObject):
         "weight": float,
         "height": float,
         "proficiency": int,
-        "proficiency_alt": int,
         "initiative_bonus": int,
         "passive_perception": int,
         "unarmored": int,
@@ -333,8 +333,12 @@ class CharacterObject(JsonObject):
                 (self.statisticsBase[stat] - 10.0) / 2.0
                 )
             self.saving_throws[stat] = self.statisticsModifiers[stat]
-            if stat in self.proficienciesSaving_throws:
+            if stat in self.proficienciesExpertise:
+                self.saving_throws[stat] += self.proficiency * 2
+            elif stat in self.proficienciesSkills:
                 self.saving_throws[stat] += self.proficiency
+            elif stat in self.proficienciesTalent:
+                self.saving_throws[stat] += ceil(self.proficiency / 2.0)
 
         self.initiative_bonus = self.statisticsModifiersDexterity
         self.passive_perception = 10 + self.statisticsModifiersWisdom
@@ -346,8 +350,8 @@ class CharacterObject(JsonObject):
                 self.skills[skill] += self.proficiency * 2
             elif skill in self.proficienciesSkills:
                 self.skills[skill] += self.proficiency
-            else:
-                self.skills[skill] += self.proficiency_alt
+            elif skill in self.proficienciesTalent:
+                self.skills[skill] += ceil(self.proficiency / 2.0)
 
         for path, compute in self.computed.items():
             value = machine.resolveMath(
