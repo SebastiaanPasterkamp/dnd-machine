@@ -90,6 +90,7 @@ class CharacterObject(JsonObject):
             "attack_modifier": 0,
             "max_cantrips": 0,
             "max_known": 0,
+            "max_prepared": 0,
             "list": [],
             "prepared": [],
             "slots": {},
@@ -187,6 +188,7 @@ class CharacterObject(JsonObject):
             "attack_modifier": int,
             "max_cantrips": int,
             "max_known": int,
+            "max_prepared": int,
             "slots": {
                 "*": int
                 }
@@ -207,12 +209,6 @@ class CharacterObject(JsonObject):
             }
         }
 
-    def __init__(self, *args, **kwargs):
-        super(CharacterObject, self).__init__(*args, **kwargs)
-
-        self._character_data = None
-        self._machine_mapper = None
-
     @property
     def character_data(self):
         if not self._character_data:
@@ -221,7 +217,7 @@ class CharacterObject(JsonObject):
 
     @property
     def machine(self):
-        if not self._machine_mapper:
+        if '_machine_mapper' not in self.__dict__:
             config = get_config()
             item_data = get_item_data()
             self._machine_mapper = DndMachine(
@@ -229,6 +225,17 @@ class CharacterObject(JsonObject):
                 item_data
                 )
         return self._machine_mapper
+
+    @property
+    def weaponMapper(self):
+        if '_weapon_mapper' not in self.__dict__:
+            config = get_config()
+            item_data = get_item_data()
+            self._weapon_mapper = DndMachine(
+                config["machine"],
+                item_data
+                )
+        return self._weapon_mapper
 
     def migrate(self, mapper=None):
         if self.race == "Stout Halfing":
@@ -335,7 +342,7 @@ class CharacterObject(JsonObject):
             self.saving_throws[stat] = self.statisticsModifiers[stat]
             if stat in self.proficienciesExpertise:
                 self.saving_throws[stat] += self.proficiency * 2
-            elif stat in self.proficienciesSkills:
+            elif stat in self.proficienciesSaving_throws:
                 self.saving_throws[stat] += self.proficiency
             elif stat in self.proficienciesTalent:
                 self.saving_throws[stat] += ceil(self.proficiency / 2.0)
