@@ -36,6 +36,9 @@ class CharacterBlueprint(BaseApiBlueprint):
         self.add_url_rule(
             '/xp/<int:obj_id>/<int:xp>', 'xp',
             self.xp, methods=['GET', 'POST'])
+        self.add_url_rule(
+            '/reset/<int:obj_id>', 'reset',
+            self.reset, methods=['GET', 'POST'])
 
     @property
     def datamapper(self):
@@ -245,7 +248,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             proficiencies["Languages"] = []
             languages = items['languages']
             for lang in languages['common'] + languages['exotic']:
-                if lang['name'] in c.languages:
+                if lang['code'] in c.languages:
                     proficiencies["Languages"].append(lang['label'])
 
         if c.proficienciesArmor:
@@ -481,6 +484,26 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         return redirect(url_for(
             'character.show',
+            obj_id=obj_id
+            ))
+
+    def reset(self, obj_id):
+        if not self.checkRole(['admin', 'dm']):
+            abort(403)
+        keeping = ['user_id', 'class', 'race', 'background', 'xp', 'name']
+
+        character = self.datamapper.getById(obj_id)
+        character = self.datamapper.create(dict([
+            (keep, character[keep])
+            for keep in keeping
+            ]))
+        character.id = obj_id
+        character.compute()
+
+        character = self.datamapper.update(character)
+
+        return redirect(url_for(
+            'character.edit',
             obj_id=obj_id
             ))
 
