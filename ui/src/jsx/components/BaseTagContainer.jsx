@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import '../../sass/_base-tag-container.scss';
@@ -27,7 +28,7 @@ export class BaseTagContainer extends LazyComponent
     }
 
     showSelect() {
-        this.props.showSelect;
+        return this.props.showSelect;
     }
 
     getSelectOptions() {
@@ -111,6 +112,14 @@ BaseTagContainer.defaultProps = {
     setState: (value) => {
         console.log(['BaseTagContainer', value]);
     }
+};
+
+BaseTagContainer.propTypes = {
+    setState: PropTypes.func.isRequired,
+    tagOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    showSelect: PropTypes.bool,
+    multiple: PropTypes.bool,
 };
 
 export default BaseTagContainer;
