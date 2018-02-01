@@ -82,7 +82,7 @@ export class CharacterEdit extends React.Component
                     <SingleSelect
                         emptyLabel="Alignment..."
                         selected={this.props.alignment}
-                        items={this.props.alignments}
+                        items={this.props.alignments || []}
                         setState={
                             (value) => this.onFieldChange('alignment', value)
                         } />
@@ -91,7 +91,7 @@ export class CharacterEdit extends React.Component
                     <SingleSelect
                         emptyLabel="Gender..."
                         selected={this.props.gender}
-                        items={this.props.genders}
+                        items={this.props.genders || []}
                         setState={
                             (value) => this.onFieldChange('gender', value)
                         } />
@@ -200,6 +200,7 @@ export default ListDataWrapper(
     ],
     'items',
     {
+        'armor': '_armor',
         'languages': '_languages',
         'skills': '_skills',
         'spells': '_spells',
