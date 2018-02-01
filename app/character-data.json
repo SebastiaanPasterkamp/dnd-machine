@@ -1130,7 +1130,7 @@
                     "path": "abilities.Intimidating Presence",
                     "type": "dict",
                     "dict": {
-                        "description": "You can use your *action* to *frighten* someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a **Wisdom** *Saving Throw* (DC equal to %(dc)s) or be *frightened* of you until the end of your next turn. On subsequent turns, you can use your *action* to extend the duration of this effect on the frightened creature until the end of your next turn. This effect ends if the creature ends its turn out of line of sight or more than 60 feet away from you. If the creature succeeds on its saving throw, you can't use this feature on that creature again for 24 hours.",
+                        "description": "You can use your *action* to *frighten* someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a **Wisdom** *Saving Throw* (DC equal to `%(dc)s`) or be *frightened* of you until the end of your next turn. On subsequent turns, you can use your *action* to extend the duration of this effect on the frightened creature until the end of your next turn. This effect ends if the creature ends its turn out of line of sight or more than 60 feet away from you. If the creature succeeds on its saving throw, you can't use this feature on that creature again for 24 hours.",
                         "dc_formula": "8 + character.proficiency + statistics.modifiers.charisma"
                     }
                 }]
@@ -1516,12 +1516,12 @@
                     }
                 }, {
                     "hidden": true,
-                    "path": "computed.spell_safe_dc.formula",
+                    "path": "computed.spell.safe_dc.formula",
                     "type": "value",
                     "value": "8 + character.proficiency + statistics.modifiers.charisma"
                 }, {
                     "hidden": true,
-                    "path": "computed.spell_attack_modifier.formula",
+                    "path": "computed.spell.attack_modifier.formula",
                     "type": "value",
                     "value": "character.proficiency + statistics.modifiers.charisma"
                 }, {
@@ -2997,17 +2997,17 @@
                     "value": "wisdom"
                 }, {
                     "hidden": true,
-                    "path": "computed.spell_safe_dc.formula",
+                    "path": "computed.spell.safe_dc.formula",
                     "type": "value",
                     "value": "8 + character.proficiency + statistics.modifiers.wisdom"
                 }, {
                     "hidden": true,
-                    "path": "computed.spell_attack_modifier.formula",
+                    "path": "computed.spell.attack_modifier.formula",
                     "type": "value",
                     "value": "character.proficiency + statistics.modifiers.wisdom"
                 }, {
                     "hidden": true,
-                    "path": "computed.spell_prepared.formula",
+                    "path": "computed.spell.max_prepared.formula",
                     "type": "value",
                     "value": "max(1, character.level + statistics.modifiers.wisdom)"
                 }, {
@@ -3171,7 +3171,8 @@
                     "path": "equipment",
                     "multiple": true,
                     "given": [
-                        "Shield", "Holy Symbol"
+                        "Shield",
+                        "Holy Symbol"
                     ]
                 }, {
                     "hidden": true,
@@ -3472,8 +3473,8 @@
                     "path": "abilities.Channel Divinity",
                     "type": "dict",
                     "dict": {
-                        "description": "You have the ability to channel divine energy directly from your deity, using that energy to fuel magical effects. You start with two such effects: **Turn Undead** and an effect determined by your domain. When you use your **Channel Divinity**, you choose which effect to create. You must then finish a short or long rest after %(uses)s uses to use your Channel Divinity again. Some Channel Divinity effects require *Saving Throws*. When you use such an effect from this class, the DC equals %(dc)s.",
-                        "dc_formula": "character.spell_safe_dc",
+                        "description": "You have the ability to channel divine energy directly from your deity, using that energy to fuel magical effects. You start with two such effects: **Turn Undead** and an effect determined by your domain. When you use your **Channel Divinity**, you choose which effect to create. You must then finish a short or long rest after %(uses)s uses to use your Channel Divinity again. Some Channel Divinity effects require *Saving Throws*. When you use such an effect from this class, the DC equals `%(dc)s`.",
+                        "dc_formula": "character.spell.safe_dc",
                         "uses": 1
                     }
                 }, {
@@ -3529,7 +3530,7 @@
                     "path": "abilities.Channel Divinity: Radiance of the Dawn",
                     "type": "dict",
                     "dict": {
-                        "description": "You can use your **Channel Divinity** to harness sunlight, banishing darkness and dealing radiant damage to your foes. As an *action*, you present your holy symbol, and any magical darkness within 30 feet of you is dispelled. Additionally, each hostile creature within 30 feet of you must make a **Constitution** saving throw. A creature takes radiant damage equal to `2d10` + %(bonus)d on a failed saving throw, and half as much damage on a successful one. A creature that has total cover from you is not affected.",
+                        "description": "You can use your **Channel Divinity** to harness sunlight, banishing darkness and dealing radiant damage to your foes. As an *action*, you present your holy symbol, and any magical darkness within 30 feet of you is dispelled. Additionally, each hostile creature within 30 feet of you must make a **Constitution** saving throw. A creature takes radiant damage equal to `2d10 + %(bonus)d` on a failed saving throw, and half as much damage on a successful one. A creature that has total cover from you is not affected.",
                         "bonus_formula": "character.level"
                     }
                 }]
@@ -5117,7 +5118,7 @@
                             "label": "Weapon",
                             "path": "equipment",
                             "type": "list",
-                            "list": ["weapons", "armor"],
+                            "list": "weapons",
                             "multiple": true,
                             "limit": 1,
                             "filter": {
@@ -5130,7 +5131,7 @@
                             "label": "Shield",
                             "path": "equipment",
                             "type": "list",
-                            "list": ["weapons", "armor"],
+                            "list": "armor",
                             "multiple": true,
                             "limit": 1,
                             "filter": {
@@ -5141,6 +5142,7 @@
                         "label": "Dual Wield",
                         "config": [{
                             "label": "Weapons",
+                            "path": "equipment",
                             "type": "list",
                             "list": "weapons",
                             "multiple": true,
@@ -5217,7 +5219,8 @@
                 }, {
                     "label": "Fighting Style",
                     "description": "You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a **Fighting Style** option more than once, even if you later get to choose again.",
-                    "type": "choice",
+                    "type": "multichoice",
+                    "limit": 1,
                     "options": [{
                         "label": "Archery",
                         "hidden_formula": "'Archery' in character.abilities",
@@ -5272,7 +5275,7 @@
                     "path": "abilities.Second Wind",
                     "type": "dict",
                     "dict": {
-                        "description": "You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to `1d10` + %(bonus)s. Once you use this feature, you must finish a short or long rest before you can use it again.",
+                        "description": "You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to `1d10 + %(bonus)d`. Once you use this feature, you must finish a short or long rest before you can use it again.",
                         "bonus_formula": "character.level"
                     }
                 }]
@@ -5349,7 +5352,7 @@
                             "path": "abilities.Improved Critical",
                             "type": "dict",
                             "dict": {
-                                "description": "You know **maneuvers** that are fueled by special dice called **superiority dice**.\n* **Maneuvers.** Many maneuvers enhance an attack in some way. You can use only one maneuver per attack.\n* **Superiority Dice**. You have %(uses)s superiority dice which are `%(dice_size)s`s. A superiority die is expended when you use it. You regain all of your expended superiority dice when you finish a short or long rest.\n* **Saving Throws.** Some of your maneuvers require your target to make a saving throw to resist the maneuver's effects. The saving throw DC is %(dc)s.",
+                                "description": "You know **maneuvers** that are fueled by special dice called **superiority dice**.\n* **Maneuvers.** Many maneuvers enhance an attack in some way. You can use only one maneuver per attack.\n* **Superiority Dice**. You have *%(uses)s* superiority dice which are `%(dice_size)s`s. A superiority die is expended when you use it. You regain all of your expended superiority dice when you finish a short or long rest.\n* **Saving Throws.** Some of your maneuvers require your target to make a saving throw to resist the maneuver's effects. The saving throw DC is `%(dc)s`.",
                                 "dice_size": "d8",
                                 "dc_formula": "8 + character.proficiency + max(statistics.modifiers.strength, statistics.modifiers.dexterity)",
                                 "uses": "four"
@@ -5357,171 +5360,123 @@
                         }, {
                             "label": "Maneuvers",
                             "description": "The maneuvers are presented in alphabetical order.",
-                            "type": "choice",
+                            "type": "multichoice",
                             "limit": 3,
                             "replace": 1,
                             "options": [{
                                 "label": "Commander's Strike",
-                                "config": [{
-                                    "label": "Commander's Strike",
-                                    "path": "abilities.Commander's Strike",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When you take the **Attack** action on your turn, you can forgo one of your attacks and use a *bonus action* to direct one of your companions to strike. When you do so, choose a friendly creature who can see or hear you and expend one superiority die. That creature can immediately use its *reaction* to make one weapon attack, adding the superiority die to the attack's damage roll."
-                                    }
-                                }]
+                                "path": "abilities.Commander's Strike",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you take the **Attack** action on your turn, you can forgo one of your attacks and use a *bonus action* to direct one of your companions to strike. When you do so, choose a friendly creature who can see or hear you and expend one superiority die. That creature can immediately use its *reaction* to make one weapon attack, adding the superiority die to the attack's damage roll."
+                                }
                             }, {
                                 "label": "Disarming Attack",
-                                "config": [{
-                                    "label": "Disarming Attack",
-                                    "path": "abilities.Disarming Attack",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to disarm the target, forcing it to drop one item of your choice that it's holding. You add the superiority die to the attack's damage roll, and the target must make a *Strength saving throw*. On a failed save, it drops the object you choose. The object lands at its feet."
-                                    }
-                                }]
+                                "path": "abilities.Disarming Attack",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to disarm the target, forcing it to drop one item of your choice that it's holding. You add the superiority die to the attack's damage roll, and the target must make a *Strength saving throw*. On a failed save, it drops the object you choose. The object lands at its feet."
+                                }
                             }, {
                                 "label": "Distracting Strike",
-                                "config": [{
-                                    "label": "Distracting Strike",
-                                    "path": "abilities.Distracting Strike",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When you hit a creature with a weapon attack, you can expend one superiority die to distract the creature, giving your allies an opening. You add the superiority die to the attack's damage roll. The next attack roll against the target by an attacker other than you has **Advantage** if the attack is made before the start of your next turn."
-                                    }
-                                }]
+                                "path": "abilities.Distracting Strike",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you hit a creature with a weapon attack, you can expend one superiority die to distract the creature, giving your allies an opening. You add the superiority die to the attack's damage roll. The next attack roll against the target by an attacker other than you has **Advantage** if the attack is made before the start of your next turn."
+                                }
                             }, {
                                 "label": "Evasive Footwork",
-                                "config": [{
-                                    "label": "Evasive Footwork",
-                                    "path": "abilities.Evasive Footwork",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When you move, you can expend one superiority die, rolling the die and adding the number rolled to your AC until you stop moving."
-                                    }
-                                }]
+                                "path": "abilities.Evasive Footwork",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you move, you can expend one superiority die, rolling the die and adding the number rolled to your AC until you stop moving."
+                                }
                             }, {
                                 "label": "Feinting Attack",
-                                "config": [{
-                                    "label": "Feinting Attack",
-                                    "path": "abilities.Feinting Attack",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "You can expend one superiority die and use a *bonus action* on your turn to feint, choosing one creature within 5 feet of you as your target. You have **Advantage** on your next attack roll against that creature. if that attack hits. add the superiority die to the attack's damage roll."
-                                    }
-                                }]
+                                "path": "abilities.Feinting Attack",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "You can expend one superiority die and use a *bonus action* on your turn to feint, choosing one creature within 5 feet of you as your target. You have **Advantage** on your next attack roll against that creature. if that attack hits. add the superiority die to the attack's damage roll."
+                                }
                             }, {
                                 "label": "Goading Attack",
-                                "config": [{
-                                    "label": "Goading Attack",
-                                    "path": "abilities.Goading Attack",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When you hit a creature with a weapon attack. you can expend one superiority die to attempt to goad the target into attacking you. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, the target has **Disadvantage** on all attack rolls against targets other than you until the end of your next turn."
-                                    }
-                                }]
+                                "path": "abilities.Goading Attack",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you hit a creature with a weapon attack. you can expend one superiority die to attempt to goad the target into attacking you. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, the target has **Disadvantage** on all attack rolls against targets other than you until the end of your next turn."
+                                }
                             }, {
                                 "label": "Lunging Attack",
-                                "config": [{
-                                    "label": "Lunging Attack",
-                                    "path": "abilities.Lunging Attack",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When you make a melee weapon attack on your turn, you can expend one superiority die to increase your reach for that attack by 5 feet. If you hit, you add the superiority die to the attack's damage roll."
-                                    }
-                                }]
+                                "path": "abilities.Lunging Attack",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you make a melee weapon attack on your turn, you can expend one superiority die to increase your reach for that attack by 5 feet. If you hit, you add the superiority die to the attack's damage roll."
+                                }
                             }, {
                                 "label": "Maneuvering Attack",
-                                "config": [{
-                                    "label": "Maneuvering Attack",
-                                    "path": "abilities.Maneuvering Attack",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When you hit a creature with a weapon attack, you can expend one superiority die to maneuver one of your comrades into a more advantageous position. You add the superiority die to the attack's damage roll, and you choose a friendly creature who can see or hear you. That creature can use its *reaction* to move up to half its speed without provoking opportunity attacks from the target of your attack."
-                                    }
-                                }]
+                                "path": "abilities.Maneuvering Attack",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you hit a creature with a weapon attack, you can expend one superiority die to maneuver one of your comrades into a more advantageous position. You add the superiority die to the attack's damage roll, and you choose a friendly creature who can see or hear you. That creature can use its *reaction* to move up to half its speed without provoking opportunity attacks from the target of your attack."
+                                }
                             }, {
                                 "label": "Menacing Attack",
-                                "config": [{
-                                    "label": "Menacing Attack",
-                                    "path": "abilities.Menacing Attack",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to frighten the target. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, it is *frightened* of you until the end of your next turn."
-                                    }
-                                }]
+                                "path": "abilities.Menacing Attack",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to frighten the target. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, it is *frightened* of you until the end of your next turn."
+                                }
                             }, {
                                 "label": "Parry",
-                                "config": [{
-                                    "label": "Parry",
-                                    "path": "abilities.Parry",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When another creature damages you with a melee attack. you can use your *reaction* and expend one superiority die to reduce the damage by the number you roll on your superiority die + %(modifier)s.",
-                                        "modifier_formula": "statistics.modifiers.dexterity"
-                                    }
-                                }]
+                                "path": "abilities.Parry",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When another creature damages you with a melee attack. you can use your *reaction* and expend one superiority die to reduce the damage by the number you roll on your superiority die + %(modifier)s.",
+                                    "modifier_formula": "statistics.modifiers.dexterity"
+                                }
                             }, {
                                 "label": "Precision Attack",
-                                "config": [{
-                                    "label": "Precision Attack",
-                                    "path": "abilities.Precision Attack",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When you make a weapon attack roll against a creature, you can expend one superiority die to add it to the roll. You can use this maneuver before or after making the attack roll, but before any effects of the attack are applied."
-                                    }
-                                }]
+                                "path": "abilities.Precision Attack",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you make a weapon attack roll against a creature, you can expend one superiority die to add it to the roll. You can use this maneuver before or after making the attack roll, but before any effects of the attack are applied."
+                                }
                             }, {
                                 "label": "Pushing Attack",
-                                "config": [{
-                                    "label": "Pushing Attack",
-                                    "path": "abilities.Pushing Attack",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to drive the target back. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you push the target up to 15 feet away from you."
-                                    }
-                                }]
+                                "path": "abilities.Pushing Attack",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to drive the target back. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you push the target up to 15 feet away from you."
+                                }
                             }, {
                                 "label": "Rally",
-                                "config": [{
-                                    "label": "Rally",
-                                    "path": "abilities.Rally",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "On your turn, you can use a *bonus action* and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + %(modifier)s.",
-                                        "modifier_formula": "statistics.modifiers.charisma"
-                                    }
-                                }]
+                                "path": "abilities.Rally",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "On your turn, you can use a *bonus action* and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + %(modifier)s.",
+                                    "modifier_formula": "statistics.modifiers.charisma"
+                                }
                             }, {
                                 "label": "Riposte",
-                                "config": [{
-                                    "label": "Riposte",
-                                    "path": "abilities.Riposte",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When a creature misses you with a melee attack, you can use your *reaction* and expend one superiority die to make a melee weapon attack against the creature. If you hit, you add the superiority die to the attack's damage roll."
-                                    }
-                                }]
+                                "path": "abilities.Riposte",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When a creature misses you with a melee attack, you can use your *reaction* and expend one superiority die to make a melee weapon attack against the creature. If you hit, you add the superiority die to the attack's damage roll."
+                                }
                             }, {
                                 "label": "Sweeping Attack",
-                                "config": [{
-                                    "label": "Sweeping Attack",
-                                    "path": "abilities.Sweeping Attack",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When you hit a creature with a melee weapon attack, you can expend one superiority die to attempt to damage another creature with the same attack. Choose another creature within 5 feet of the original target and within your reach. If the original attack roll would hit the second creature, it takes damage equal to the number you roll on your superiority die. The damage is of the same type dealt by the original attack."
-                                    }
-                                }]
+                                "path": "abilities.Sweeping Attack",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you hit a creature with a melee weapon attack, you can expend one superiority die to attempt to damage another creature with the same attack. Choose another creature within 5 feet of the original target and within your reach. If the original attack roll would hit the second creature, it takes damage equal to the number you roll on your superiority die. The damage is of the same type dealt by the original attack."
+                                }
                             }, {
                                 "label": "Trip Attack",
-                                "config": [{
-                                    "label": "Trip Attack",
-                                    "path": "abilities.Trip Attack",
-                                    "type": "dict",
-                                    "dict": {
-                                        "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to knock the target down. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you knock the target prone."
-                                    }
-                                }]
+                                "path": "abilities.Trip Attack",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to knock the target down. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you knock the target prone."
+                                }
                             }]
                         }]
                     }, {
@@ -5566,12 +5521,12 @@
                                 "value": "intelligence"
                             }, {
                                 "hidden": true,
-                                "path": "computed.spell_safe_dc.formula",
+                                "path": "computed.spell.safe_dc.formula",
                                 "type": "value",
                                 "value": "8 + character.proficiency + statistics.modifiers.intelligence"
                             }, {
                                 "hidden": true,
-                                "path": "computed.spell_attack_modifier.formula",
+                                "path": "computed.spell.attack_modifier.formula",
                                 "type": "value",
                                 "value": "character.proficiency + statistics.modifiers.intelligence"
                             }, {
@@ -5789,171 +5744,123 @@
                 }, {
                     "label": "Maneuvers",
                     "description": "The maneuvers are presented in alphabetical order.",
-                    "type": "choice",
+                    "type": "multichoice",
                     "limit": 2,
                     "replace": 1,
                     "options": [{
                         "label": "Commander's Strike",
-                        "config": [{
-                            "label": "Commander's Strike",
-                            "path": "abilities.Commander's Strike",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you take the **Attack** action on your turn, you can forgo one of your attacks and use a *bonus action* to direct one of your companions to strike. When you do so, choose a friendly creature who can see or hear you and expend one superiority die. That creature can immediately use its *reaction* to make one weapon attack, adding the superiority die to the attack's damage roll."
-                            }
-                        }]
+                        "path": "abilities.Commander's Strike",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you take the **Attack** action on your turn, you can forgo one of your attacks and use a *bonus action* to direct one of your companions to strike. When you do so, choose a friendly creature who can see or hear you and expend one superiority die. That creature can immediately use its *reaction* to make one weapon attack, adding the superiority die to the attack's damage roll."
+                        }
                     }, {
                         "label": "Disarming Attack",
-                        "config": [{
-                            "label": "Disarming Attack",
-                            "path": "abilities.Disarming Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to disarm the target, forcing it to drop one item of your choice that it's holding. You add the superiority die to the attack's damage roll, and the target must make a *Strength saving throw*. On a failed save, it drops the object you choose. The object lands at its feet."
-                            }
-                        }]
+                        "path": "abilities.Disarming Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to disarm the target, forcing it to drop one item of your choice that it's holding. You add the superiority die to the attack's damage roll, and the target must make a *Strength saving throw*. On a failed save, it drops the object you choose. The object lands at its feet."
+                        }
                     }, {
                         "label": "Distracting Strike",
-                        "config": [{
-                            "label": "Distracting Strike",
-                            "path": "abilities.Distracting Strike",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to distract the creature, giving your allies an opening. You add the superiority die to the attack's damage roll. The next attack roll against the target by an attacker other than you has **Advantage** if the attack is made before the start of your next turn."
-                            }
-                        }]
+                        "path": "abilities.Distracting Strike",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to distract the creature, giving your allies an opening. You add the superiority die to the attack's damage roll. The next attack roll against the target by an attacker other than you has **Advantage** if the attack is made before the start of your next turn."
+                        }
                     }, {
                         "label": "Evasive Footwork",
-                        "config": [{
-                            "label": "Evasive Footwork",
-                            "path": "abilities.Evasive Footwork",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you move, you can expend one superiority die, rolling the die and adding the number rolled to your AC until you stop moving."
-                            }
-                        }]
+                        "path": "abilities.Evasive Footwork",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you move, you can expend one superiority die, rolling the die and adding the number rolled to your AC until you stop moving."
+                        }
                     }, {
                         "label": "Feinting Attack",
-                        "config": [{
-                            "label": "Feinting Attack",
-                            "path": "abilities.Feinting Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "You can expend one superiority die and use a *bonus action* on your turn to feint, choosing one creature within 5 feet of you as your target. You have **Advantage** on your next attack roll against that creature. if that attack hits. add the superiority die to the attack's damage roll."
-                            }
-                        }]
+                        "path": "abilities.Feinting Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "You can expend one superiority die and use a *bonus action* on your turn to feint, choosing one creature within 5 feet of you as your target. You have **Advantage** on your next attack roll against that creature. if that attack hits. add the superiority die to the attack's damage roll."
+                        }
                     }, {
                         "label": "Goading Attack",
-                        "config": [{
-                            "label": "Goading Attack",
-                            "path": "abilities.Goading Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack. you can expend one superiority die to attempt to goad the target into attacking you. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, the target has **Disadvantage** on all attack rolls against targets other than you until the end of your next turn."
-                            }
-                        }]
+                        "path": "abilities.Goading Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack. you can expend one superiority die to attempt to goad the target into attacking you. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, the target has **Disadvantage** on all attack rolls against targets other than you until the end of your next turn."
+                        }
                     }, {
                         "label": "Lunging Attack",
-                        "config": [{
-                            "label": "Lunging Attack",
-                            "path": "abilities.Lunging Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you make a melee weapon attack on your turn, you can expend one superiority die to increase your reach for that attack by 5 feet. If you hit, you add the superiority die to the attack's damage roll."
-                            }
-                        }]
+                        "path": "abilities.Lunging Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you make a melee weapon attack on your turn, you can expend one superiority die to increase your reach for that attack by 5 feet. If you hit, you add the superiority die to the attack's damage roll."
+                        }
                     }, {
                         "label": "Maneuvering Attack",
-                        "config": [{
-                            "label": "Maneuvering Attack",
-                            "path": "abilities.Maneuvering Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to maneuver one of your comrades into a more advantageous position. You add the superiority die to the attack's damage roll, and you choose a friendly creature who can see or hear you. That creature can use its *reaction* to move up to half its speed without provoking opportunity attacks from the target of your attack."
-                            }
-                        }]
+                        "path": "abilities.Maneuvering Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to maneuver one of your comrades into a more advantageous position. You add the superiority die to the attack's damage roll, and you choose a friendly creature who can see or hear you. That creature can use its *reaction* to move up to half its speed without provoking opportunity attacks from the target of your attack."
+                        }
                     }, {
                         "label": "Menacing Attack",
-                        "config": [{
-                            "label": "Menacing Attack",
-                            "path": "abilities.Menacing Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to frighten the target. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, it is *frightened* of you until the end of your next turn."
-                            }
-                        }]
+                        "path": "abilities.Menacing Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to frighten the target. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, it is *frightened* of you until the end of your next turn."
+                        }
                     }, {
                         "label": "Parry",
-                        "config": [{
-                            "label": "Parry",
-                            "path": "abilities.Parry",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When another creature damages you with a melee attack. you can use your *reaction* and expend one superiority die to reduce the damage by the number you roll on your superiority die + %(modifier)s.",
-                                "modifier_formula": "statistics.modifiers.dexterity"
-                            }
-                        }]
+                        "path": "abilities.Parry",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When another creature damages you with a melee attack. you can use your *reaction* and expend one superiority die to reduce the damage by the number you roll on your superiority die + %(modifier)s.",
+                            "modifier_formula": "statistics.modifiers.dexterity"
+                        }
                     }, {
                         "label": "Precision Attack",
-                        "config": [{
-                            "label": "Precision Attack",
-                            "path": "abilities.Precision Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you make a weapon attack roll against a creature, you can expend one superiority die to add it to the roll. You can use this maneuver before or after making the attack roll, but before any effects of the attack are applied."
-                            }
-                        }]
+                        "path": "abilities.Precision Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you make a weapon attack roll against a creature, you can expend one superiority die to add it to the roll. You can use this maneuver before or after making the attack roll, but before any effects of the attack are applied."
+                        }
                     }, {
                         "label": "Pushing Attack",
-                        "config": [{
-                            "label": "Pushing Attack",
-                            "path": "abilities.Pushing Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to drive the target back. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you push the target up to 15 feet away from you."
-                            }
-                        }]
+                        "path": "abilities.Pushing Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to drive the target back. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you push the target up to 15 feet away from you."
+                        }
                     }, {
                         "label": "Rally",
-                        "config": [{
-                            "label": "Rally",
-                            "path": "abilities.Rally",
-                            "type": "dict",
-                            "dict": {
-                                "description": "On your turn, you can use a *bonus action* and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + %(modifier)s.",
-                                "modifier_formula": "statistics.modifiers.charisma"
-                            }
-                        }]
+                        "path": "abilities.Rally",
+                        "type": "dict",
+                        "dict": {
+                            "description": "On your turn, you can use a *bonus action* and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + %(modifier)s.",
+                            "modifier_formula": "statistics.modifiers.charisma"
+                        }
                     }, {
                         "label": "Riposte",
-                        "config": [{
-                            "label": "Riposte",
-                            "path": "abilities.Riposte",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When a creature misses you with a melee attack, you can use your *reaction* and expend one superiority die to make a melee weapon attack against the creature. If you hit, you add the superiority die to the attack's damage roll."
-                            }
-                        }]
+                        "path": "abilities.Riposte",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When a creature misses you with a melee attack, you can use your *reaction* and expend one superiority die to make a melee weapon attack against the creature. If you hit, you add the superiority die to the attack's damage roll."
+                        }
                     }, {
                         "label": "Sweeping Attack",
-                        "config": [{
-                            "label": "Sweeping Attack",
-                            "path": "abilities.Sweeping Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a melee weapon attack, you can expend one superiority die to attempt to damage another creature with the same attack. Choose another creature within 5 feet of the original target and within your reach. If the original attack roll would hit the second creature, it takes damage equal to the number you roll on your superiority die. The damage is of the same type dealt by the original attack."
-                            }
-                        }]
+                        "path": "abilities.Sweeping Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a melee weapon attack, you can expend one superiority die to attempt to damage another creature with the same attack. Choose another creature within 5 feet of the original target and within your reach. If the original attack roll would hit the second creature, it takes damage equal to the number you roll on your superiority die. The damage is of the same type dealt by the original attack."
+                        }
                     }, {
                         "label": "Trip Attack",
-                        "config": [{
-                            "label": "Trip Attack",
-                            "path": "abilities.Trip Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to knock the target down. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you knock the target prone."
-                            }
-                        }]
+                        "path": "abilities.Trip Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to knock the target down. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you knock the target prone."
+                        }
                     }]
                 }]
             },
@@ -6104,7 +6011,8 @@
                 "config": [{
                     "label": "Fighting Style",
                     "description": "You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a **Fighting Style** option more than once, even if you later get to choose again.",
-                    "type": "choice",
+                    "type": "multichoice",
+                    "limit": 1,
                     "options": [{
                         "label": "Archery",
                         "hidden_formula": "'Archery' in character.abilities",
@@ -6172,171 +6080,123 @@
                 }, {
                     "label": "Maneuvers",
                     "description": "The maneuvers are presented in alphabetical order.",
-                    "type": "choice",
+                    "type": "multichoice",
                     "limit": 2,
                     "replace": 1,
                     "options": [{
                         "label": "Commander's Strike",
-                        "config": [{
-                            "label": "Commander's Strike",
-                            "path": "abilities.Commander's Strike",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you take the **Attack** action on your turn, you can forgo one of your attacks and use a *bonus action* to direct one of your companions to strike. When you do so, choose a friendly creature who can see or hear you and expend one superiority die. That creature can immediately use its *reaction* to make one weapon attack, adding the superiority die to the attack's damage roll."
-                            }
-                        }]
+                        "path": "abilities.Commander's Strike",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you take the **Attack** action on your turn, you can forgo one of your attacks and use a *bonus action* to direct one of your companions to strike. When you do so, choose a friendly creature who can see or hear you and expend one superiority die. That creature can immediately use its *reaction* to make one weapon attack, adding the superiority die to the attack's damage roll."
+                        }
                     }, {
                         "label": "Disarming Attack",
-                        "config": [{
-                            "label": "Disarming Attack",
-                            "path": "abilities.Disarming Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to disarm the target, forcing it to drop one item of your choice that it's holding. You add the superiority die to the attack's damage roll, and the target must make a *Strength saving throw*. On a failed save, it drops the object you choose. The object lands at its feet."
-                            }
-                        }]
+                        "path": "abilities.Disarming Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to disarm the target, forcing it to drop one item of your choice that it's holding. You add the superiority die to the attack's damage roll, and the target must make a *Strength saving throw*. On a failed save, it drops the object you choose. The object lands at its feet."
+                        }
                     }, {
                         "label": "Distracting Strike",
-                        "config": [{
-                            "label": "Distracting Strike",
-                            "path": "abilities.Distracting Strike",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to distract the creature, giving your allies an opening. You add the superiority die to the attack's damage roll. The next attack roll against the target by an attacker other than you has **Advantage** if the attack is made before the start of your next turn."
-                            }
-                        }]
+                        "path": "abilities.Distracting Strike",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to distract the creature, giving your allies an opening. You add the superiority die to the attack's damage roll. The next attack roll against the target by an attacker other than you has **Advantage** if the attack is made before the start of your next turn."
+                        }
                     }, {
                         "label": "Evasive Footwork",
-                        "config": [{
-                            "label": "Evasive Footwork",
-                            "path": "abilities.Evasive Footwork",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you move, you can expend one superiority die, rolling the die and adding the number rolled to your AC until you stop moving."
-                            }
-                        }]
+                        "path": "abilities.Evasive Footwork",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you move, you can expend one superiority die, rolling the die and adding the number rolled to your AC until you stop moving."
+                        }
                     }, {
                         "label": "Feinting Attack",
-                        "config": [{
-                            "label": "Feinting Attack",
-                            "path": "abilities.Feinting Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "You can expend one superiority die and use a *bonus action* on your turn to feint, choosing one creature within 5 feet of you as your target. You have **Advantage** on your next attack roll against that creature. if that attack hits. add the superiority die to the attack's damage roll."
-                            }
-                        }]
+                        "path": "abilities.Feinting Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "You can expend one superiority die and use a *bonus action* on your turn to feint, choosing one creature within 5 feet of you as your target. You have **Advantage** on your next attack roll against that creature. if that attack hits. add the superiority die to the attack's damage roll."
+                        }
                     }, {
                         "label": "Goading Attack",
-                        "config": [{
-                            "label": "Goading Attack",
-                            "path": "abilities.Goading Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack. you can expend one superiority die to attempt to goad the target into attacking you. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, the target has **Disadvantage** on all attack rolls against targets other than you until the end of your next turn."
-                            }
-                        }]
+                        "path": "abilities.Goading Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack. you can expend one superiority die to attempt to goad the target into attacking you. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, the target has **Disadvantage** on all attack rolls against targets other than you until the end of your next turn."
+                        }
                     }, {
                         "label": "Lunging Attack",
-                        "config": [{
-                            "label": "Lunging Attack",
-                            "path": "abilities.Lunging Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you make a melee weapon attack on your turn, you can expend one superiority die to increase your reach for that attack by 5 feet. If you hit, you add the superiority die to the attack's damage roll."
-                            }
-                        }]
+                        "path": "abilities.Lunging Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you make a melee weapon attack on your turn, you can expend one superiority die to increase your reach for that attack by 5 feet. If you hit, you add the superiority die to the attack's damage roll."
+                        }
                     }, {
                         "label": "Maneuvering Attack",
-                        "config": [{
-                            "label": "Maneuvering Attack",
-                            "path": "abilities.Maneuvering Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to maneuver one of your comrades into a more advantageous position. You add the superiority die to the attack's damage roll, and you choose a friendly creature who can see or hear you. That creature can use its *reaction* to move up to half its speed without provoking opportunity attacks from the target of your attack."
-                            }
-                        }]
+                        "path": "abilities.Maneuvering Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to maneuver one of your comrades into a more advantageous position. You add the superiority die to the attack's damage roll, and you choose a friendly creature who can see or hear you. That creature can use its *reaction* to move up to half its speed without provoking opportunity attacks from the target of your attack."
+                        }
                     }, {
                         "label": "Menacing Attack",
-                        "config": [{
-                            "label": "Menacing Attack",
-                            "path": "abilities.Menacing Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to frighten the target. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, it is *frightened* of you until the end of your next turn."
-                            }
-                        }]
+                        "path": "abilities.Menacing Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to frighten the target. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, it is *frightened* of you until the end of your next turn."
+                        }
                     }, {
                         "label": "Parry",
-                        "config": [{
-                            "label": "Parry",
-                            "path": "abilities.Parry",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When another creature damages you with a melee attack. you can use your *reaction* and expend one superiority die to reduce the damage by the number you roll on your superiority die + %(modifier)s.",
-                                "modifier_formula": "statistics.modifiers.dexterity"
-                            }
-                        }]
+                        "path": "abilities.Parry",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When another creature damages you with a melee attack. you can use your *reaction* and expend one superiority die to reduce the damage by the number you roll on your superiority die + %(modifier)s.",
+                            "modifier_formula": "statistics.modifiers.dexterity"
+                        }
                     }, {
                         "label": "Precision Attack",
-                        "config": [{
-                            "label": "Precision Attack",
-                            "path": "abilities.Precision Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you make a weapon attack roll against a creature, you can expend one superiority die to add it to the roll. You can use this maneuver before or after making the attack roll, but before any effects of the attack are applied."
-                            }
-                        }]
+                        "path": "abilities.Precision Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you make a weapon attack roll against a creature, you can expend one superiority die to add it to the roll. You can use this maneuver before or after making the attack roll, but before any effects of the attack are applied."
+                        }
                     }, {
                         "label": "Pushing Attack",
-                        "config": [{
-                            "label": "Pushing Attack",
-                            "path": "abilities.Pushing Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to drive the target back. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you push the target up to 15 feet away from you."
-                            }
-                        }]
+                        "path": "abilities.Pushing Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to drive the target back. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you push the target up to 15 feet away from you."
+                        }
                     }, {
                         "label": "Rally",
-                        "config": [{
-                            "label": "Rally",
-                            "path": "abilities.Rally",
-                            "type": "dict",
-                            "dict": {
-                                "description": "On your turn, you can use a *bonus action* and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + %(modifier)s.",
-                                "modifier_formula": "statistics.modifiers.charisma"
-                            }
-                        }]
+                        "path": "abilities.Rally",
+                        "type": "dict",
+                        "dict": {
+                            "description": "On your turn, you can use a *bonus action* and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + %(modifier)s.",
+                            "modifier_formula": "statistics.modifiers.charisma"
+                        }
                     }, {
                         "label": "Riposte",
-                        "config": [{
-                            "label": "Riposte",
-                            "path": "abilities.Riposte",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When a creature misses you with a melee attack, you can use your *reaction* and expend one superiority die to make a melee weapon attack against the creature. If you hit, you add the superiority die to the attack's damage roll."
-                            }
-                        }]
+                        "path": "abilities.Riposte",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When a creature misses you with a melee attack, you can use your *reaction* and expend one superiority die to make a melee weapon attack against the creature. If you hit, you add the superiority die to the attack's damage roll."
+                        }
                     }, {
                         "label": "Sweeping Attack",
-                        "config": [{
-                            "label": "Sweeping Attack",
-                            "path": "abilities.Sweeping Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a melee weapon attack, you can expend one superiority die to attempt to damage another creature with the same attack. Choose another creature within 5 feet of the original target and within your reach. If the original attack roll would hit the second creature, it takes damage equal to the number you roll on your superiority die. The damage is of the same type dealt by the original attack."
-                            }
-                        }]
+                        "path": "abilities.Sweeping Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a melee weapon attack, you can expend one superiority die to attempt to damage another creature with the same attack. Choose another creature within 5 feet of the original target and within your reach. If the original attack roll would hit the second creature, it takes damage equal to the number you roll on your superiority die. The damage is of the same type dealt by the original attack."
+                        }
                     }, {
                         "label": "Trip Attack",
-                        "config": [{
-                            "label": "Trip Attack",
-                            "path": "abilities.Trip Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to knock the target down. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you knock the target prone."
-                            }
-                        }]
+                        "path": "abilities.Trip Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to knock the target down. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you knock the target prone."
+                        }
                     }]
                 }]
             },
@@ -6633,171 +6493,123 @@
                 }, {
                     "label": "Maneuvers",
                     "description": "The maneuvers are presented in alphabetical order.",
-                    "type": "select",
+                    "type": "multichoice",
                     "limit": 2,
                     "replace": 1,
                     "options": [{
                         "label": "Commander's Strike",
-                        "config": [{
-                            "label": "Commander's Strike",
-                            "path": "abilities.Commander's Strike",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you take the **Attack** action on your turn, you can forgo one of your attacks and use a *bonus action* to direct one of your companions to strike. When you do so, choose a friendly creature who can see or hear you and expend one superiority die. That creature can immediately use its *reaction* to make one weapon attack, adding the superiority die to the attack's damage roll."
-                            }
-                        }]
+                        "path": "abilities.Commander's Strike",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you take the **Attack** action on your turn, you can forgo one of your attacks and use a *bonus action* to direct one of your companions to strike. When you do so, choose a friendly creature who can see or hear you and expend one superiority die. That creature can immediately use its *reaction* to make one weapon attack, adding the superiority die to the attack's damage roll."
+                        }
                     }, {
                         "label": "Disarming Attack",
-                        "config": [{
-                            "label": "Disarming Attack",
-                            "path": "abilities.Disarming Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to disarm the target, forcing it to drop one item of your choice that it's holding. You add the superiority die to the attack's damage roll, and the target must make a *Strength saving throw*. On a failed save, it drops the object you choose. The object lands at its feet."
-                            }
-                        }]
+                        "path": "abilities.Disarming Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to disarm the target, forcing it to drop one item of your choice that it's holding. You add the superiority die to the attack's damage roll, and the target must make a *Strength saving throw*. On a failed save, it drops the object you choose. The object lands at its feet."
+                        }
                     }, {
                         "label": "Distracting Strike",
-                        "config": [{
-                            "label": "Distracting Strike",
-                            "path": "abilities.Distracting Strike",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to distract the creature, giving your allies an opening. You add the superiority die to the attack's damage roll. The next attack roll against the target by an attacker other than you has **Advantage** if the attack is made before the start of your next turn."
-                            }
-                        }]
+                        "path": "abilities.Distracting Strike",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to distract the creature, giving your allies an opening. You add the superiority die to the attack's damage roll. The next attack roll against the target by an attacker other than you has **Advantage** if the attack is made before the start of your next turn."
+                        }
                     }, {
                         "label": "Evasive Footwork",
-                        "config": [{
-                            "label": "Evasive Footwork",
-                            "path": "abilities.Evasive Footwork",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you move, you can expend one superiority die, rolling the die and adding the number rolled to your AC until you stop moving."
-                            }
-                        }]
+                        "path": "abilities.Evasive Footwork",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you move, you can expend one superiority die, rolling the die and adding the number rolled to your AC until you stop moving."
+                        }
                     }, {
                         "label": "Feinting Attack",
-                        "config": [{
-                            "label": "Feinting Attack",
-                            "path": "abilities.Feinting Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "You can expend one superiority die and use a *bonus action* on your turn to feint, choosing one creature within 5 feet of you as your target. You have **Advantage** on your next attack roll against that creature. if that attack hits. add the superiority die to the attack's damage roll."
-                            }
-                        }]
+                        "path": "abilities.Feinting Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "You can expend one superiority die and use a *bonus action* on your turn to feint, choosing one creature within 5 feet of you as your target. You have **Advantage** on your next attack roll against that creature. if that attack hits. add the superiority die to the attack's damage roll."
+                        }
                     }, {
                         "label": "Goading Attack",
-                        "config": [{
-                            "label": "Goading Attack",
-                            "path": "abilities.Goading Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack. you can expend one superiority die to attempt to goad the target into attacking you. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, the target has **Disadvantage** on all attack rolls against targets other than you until the end of your next turn."
-                            }
-                        }]
+                        "path": "abilities.Goading Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack. you can expend one superiority die to attempt to goad the target into attacking you. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, the target has **Disadvantage** on all attack rolls against targets other than you until the end of your next turn."
+                        }
                     }, {
                         "label": "Lunging Attack",
-                        "config": [{
-                            "label": "Lunging Attack",
-                            "path": "abilities.Lunging Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you make a melee weapon attack on your turn, you can expend one superiority die to increase your reach for that attack by 5 feet. If you hit, you add the superiority die to the attack's damage roll."
-                            }
-                        }]
+                        "path": "abilities.Lunging Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you make a melee weapon attack on your turn, you can expend one superiority die to increase your reach for that attack by 5 feet. If you hit, you add the superiority die to the attack's damage roll."
+                        }
                     }, {
                         "label": "Maneuvering Attack",
-                        "config": [{
-                            "label": "Maneuvering Attack",
-                            "path": "abilities.Maneuvering Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to maneuver one of your comrades into a more advantageous position. You add the superiority die to the attack's damage roll, and you choose a friendly creature who can see or hear you. That creature can use its *reaction* to move up to half its speed without provoking opportunity attacks from the target of your attack."
-                            }
-                        }]
+                        "path": "abilities.Maneuvering Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to maneuver one of your comrades into a more advantageous position. You add the superiority die to the attack's damage roll, and you choose a friendly creature who can see or hear you. That creature can use its *reaction* to move up to half its speed without provoking opportunity attacks from the target of your attack."
+                        }
                     }, {
                         "label": "Menacing Attack",
-                        "config": [{
-                            "label": "Menacing Attack",
-                            "path": "abilities.Menacing Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to frighten the target. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, it is *frightened* of you until the end of your next turn."
-                            }
-                        }]
+                        "path": "abilities.Menacing Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to frighten the target. You add the superiority die to the attack's damage roll, and the target must make a **Wisdom** saving throw. On a failed save, it is *frightened* of you until the end of your next turn."
+                        }
                     }, {
                         "label": "Parry",
-                        "config": [{
-                            "label": "Parry",
-                            "path": "abilities.Parry",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When another creature damages you with a melee attack. you can use your *reaction* and expend one superiority die to reduce the damage by the number you roll on your superiority die + %(modifier)s.",
-                                "modifier_formula": "statistics.modifiers.dexterity"
-                            }
-                        }]
+                        "path": "abilities.Parry",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When another creature damages you with a melee attack. you can use your *reaction* and expend one superiority die to reduce the damage by the number you roll on your superiority die + %(modifier)s.",
+                            "modifier_formula": "statistics.modifiers.dexterity"
+                        }
                     }, {
                         "label": "Precision Attack",
-                        "config": [{
-                            "label": "Precision Attack",
-                            "path": "abilities.Precision Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you make a weapon attack roll against a creature, you can expend one superiority die to add it to the roll. You can use this maneuver before or after making the attack roll, but before any effects of the attack are applied."
-                            }
-                        }]
+                        "path": "abilities.Precision Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you make a weapon attack roll against a creature, you can expend one superiority die to add it to the roll. You can use this maneuver before or after making the attack roll, but before any effects of the attack are applied."
+                        }
                     }, {
                         "label": "Pushing Attack",
-                        "config": [{
-                            "label": "Pushing Attack",
-                            "path": "abilities.Pushing Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to drive the target back. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you push the target up to 15 feet away from you."
-                            }
-                        }]
+                        "path": "abilities.Pushing Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to drive the target back. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you push the target up to 15 feet away from you."
+                        }
                     }, {
                         "label": "Rally",
-                        "config": [{
-                            "label": "Rally",
-                            "path": "abilities.Rally",
-                            "type": "dict",
-                            "dict": {
-                                "description": "On your turn, you can use a *bonus action* and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + %(modifier)s.",
-                                "modifier_formula": "statistics.modifiers.charisma"
-                            }
-                        }]
+                        "path": "abilities.Rally",
+                        "type": "dict",
+                        "dict": {
+                            "description": "On your turn, you can use a *bonus action* and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + %(modifier)s.",
+                            "modifier_formula": "statistics.modifiers.charisma"
+                        }
                     }, {
                         "label": "Riposte",
-                        "config": [{
-                            "label": "Riposte",
-                            "path": "abilities.Riposte",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When a creature misses you with a melee attack, you can use your *reaction* and expend one superiority die to make a melee weapon attack against the creature. If you hit, you add the superiority die to the attack's damage roll."
-                            }
-                        }]
+                        "path": "abilities.Riposte",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When a creature misses you with a melee attack, you can use your *reaction* and expend one superiority die to make a melee weapon attack against the creature. If you hit, you add the superiority die to the attack's damage roll."
+                        }
                     }, {
                         "label": "Sweeping Attack",
-                        "config": [{
-                            "label": "Sweeping Attack",
-                            "path": "abilities.Sweeping Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a melee weapon attack, you can expend one superiority die to attempt to damage another creature with the same attack. Choose another creature within 5 feet of the original target and within your reach. If the original attack roll would hit the second creature, it takes damage equal to the number you roll on your superiority die. The damage is of the same type dealt by the original attack."
-                            }
-                        }]
+                        "path": "abilities.Sweeping Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a melee weapon attack, you can expend one superiority die to attempt to damage another creature with the same attack. Choose another creature within 5 feet of the original target and within your reach. If the original attack roll would hit the second creature, it takes damage equal to the number you roll on your superiority die. The damage is of the same type dealt by the original attack."
+                        }
                     }, {
                         "label": "Trip Attack",
-                        "config": [{
-                            "label": "Trip Attack",
-                            "path": "abilities.Trip Attack",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to knock the target down. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you knock the target prone."
-                            }
-                        }]
+                        "path": "abilities.Trip Attack",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to knock the target down. You add the superiority die to the attack's damage roll, and if the target is Large or smaller, it must make a **Strength** saving throw. On a failed save, you knock the target prone."
+                        }
                     }]
                 }]
             },
@@ -7084,628 +6896,1202 @@
     }, {
         "name": "Paladin",
         "filename": "paladin.md",
-        "config": {
-            "oath": [],
-            "hit_dice": 10,
-            "spell.stat": "charisma",
-            "computed": {
-                "hit_points": {
-                    "formula": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
-                },
-                "spell.max_known": {
-                    "formula": "statistics.modifiers.charisma + (level/2)"
-                },
-                "spell_safe_dc": {
-                    "formula": "8 + proficiency + statistics.modifiers.charisma"
-                },
-                "spell_attack_modifier": {
-                    "formula": "proficiency + statistics.modifiers.charisma"
-                }
-            },
-            "proficiencies": {
-                "saving_throws": [
-                    "wisdom",
-                    "charisma"
-                ],
-                "armor": [
-                    "Light Armor",
-                    "Heavy Armor",
-                    "Shields"
-                ],
-                "weapons": [
-                    "Simple Weapons",
-                    "Martial Weapons"
-                ]
-            },
-            "equipment": [
-                "Chain Mail",
-                "Holy Symbol"
-            ],
-            "abilities": {
-                "Divine Sense": {
-                    "description": "The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strand von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the hallow spell. You can use this feature %(uses)s times. When you finish a long rest, you regain all expended uses.",
-                    "uses_formula": "1 + statistics.modifiers.charisma"
-                },
-                "Lay on Hands": {
-                    "description": "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total of %(pool_size)s hit points. As an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool. Alternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one. This feature has no effect on undead and constructs.",
-                    "pool_size_formula": "5 * level"
-                }
-            }
-        },
         "phases": {
-            "1": {
-                "options": {
-                    "proficiencies.skills[]": [
-                        {"select": ["athletics", "insight", "intimidation", "medicine", "persuasion", "religion"]},
-                        {"select": ["athletics", "insight", "intimidation", "medicine", "persuasion", "religion"]}
-                    ],
-                    "equipment[]": [
-                        {"choose": [
-                            {"multiple": [
-                                {"select": "weapons.martial.melee.items,weapons.martial.ranged.items"},
-                                {"select": "armor.shield.items"}
-                            ]},
-                            {"multiple": [
-                                {"select": "weapons.martial.melee.items,weapons.martial.ranged.items"},
-                                {"select": "weapons.martial.melee.items,weapons.martial.ranged.items"}
-                            ]}
-                        ]},
-                        {"choose": [
-                            {"group": ["5 x Javelin"]},
-                            {"select": "weapons.simple.melee.items,weapons.simple.ranged.items"}
-                        ]},
-                        {"choose": [
-                            {"group": "packs.Priest's Pack.items"},
-                            {"group": "packs.Explorer's Pack.items"}
-                        ]}
+            "paladin-1": {
+                "config": [{
+                    "hidden": true,
+                    "path": "oath",
+                    "type": "value",
+                    "value": []
+                }, {
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 2
+                }, {
+                    "hidden": true,
+                    "path": "hit_dice",
+                    "type": "value",
+                    "value": 10
+                }, {
+                    "hidden": true,
+                    "path": "computed.hit_points.formula",
+                    "type": "value",
+                    "value": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
+                }, {
+                    "label": "Class Armor Proficiencies",
+                    "path": "proficiencies.armor",
+                    "type": "list",
+                    "list": ["armor_types", "armor"],
+                    "given": ["light", "medium", "heavy", "shield"]
+                }, {
+                    "label": "Class Weapon Proficiencies",
+                    "path": "proficiencies.weapons",
+                    "type": "list",
+                    "list": ["weapon_types", "weapons"],
+                    "given": [
+                        "simple melee",
+                        "simple ranged",
+                        "martial melee",
+                        "martial ranged"
                     ]
-                }
+                }, {
+                    "label": "Class Saving Throws",
+                    "path": "proficiencies.saving_throws",
+                    "type": "list",
+                    "list": "statistics",
+                    "given": ["wisdom", "charisma"]
+                }, {
+                    "label": "Class Skill Proficiencies",
+                    "path": "proficiencies.skills",
+                    "type": "list",
+                    "list": "skills",
+                    "limit": 2,
+                    "filter": {
+                        "code": [
+                            "athletics",
+                            "insight",
+                            "intimidation",
+                            "medicine",
+                            "persuasion",
+                            "religion"
+                        ]
+                    }
+                }, {
+                    "type": "choice",
+                    "options": [{
+                        "label": "Sword & Board",
+                        "config": [{
+                            "label": "Weapon",
+                            "path": "equipment",
+                            "type": "list",
+                            "list": "weapons",
+                            "multiple": true,
+                            "limit": 1,
+                            "filter": {
+                                "type": [
+                                    "martial melee",
+                                    "martial ranged"
+                                ]
+                            }
+                        }, {
+                            "label": "Shield",
+                            "path": "equipment",
+                            "type": "list",
+                            "list": "armor",
+                            "multiple": true,
+                            "limit": 1,
+                            "filter": {
+                                "type": ["shield"]
+                            }
+                        }]
+                    }, {
+                        "label": "Dual Wield",
+                        "config": [{
+                            "label": "Weapons",
+                            "path": "equipment",
+                            "type": "list",
+                            "list": "weapons",
+                            "multiple": true,
+                            "limit": 2,
+                            "filter": {
+                                "type": [
+                                    "martial melee",
+                                    "martial ranged"
+                                ]
+                            }
+                        }]
+                    }]
+                }, {
+                    "type": "choice",
+                    "options": [{
+                        "label": "5 Javelins",
+                        "config": [{
+                            "type": "list",
+                            "list": "weapons",
+                            "path": "equipment",
+                            "multiple": true,
+                            "given": [
+                                "Javelin",
+                                "Javelin",
+                                "Javelin",
+                                "Javelin",
+                                "Javelin"
+                            ]
+                        }]
+                    }, {
+                        "label": "Simple Melee",
+                        "config": [{
+                            "path": "equipment",
+                            "type": "list",
+                            "list": "weapons",
+                            "multiple": true,
+                            "limit": 1,
+                            "filter": {
+                                "type": ["simple melee"]
+                            }
+                        }]
+                    }]
+                }, {
+                    "type": "choice",
+                    "options": [{
+                        "label": "Priest's Pack",
+                        "config": [{
+                            "type": "list",
+                            "list": "items",
+                            "path": "equipment",
+                            "multiple": true,
+                            "given": [
+                                "Backpack",
+                                "Blanket",
+                                "10 x Candle",
+                                "Tinderbox",
+                                "Alms Box",
+                                "2 x Block of Incense",
+                                "Censer",
+                                "Vestments",
+                                "2 x Day of Rations",
+                                "Waterskin"
+                            ]
+                        }]
+                    }, {
+                        "label": "Explorer's Pack",
+                        "config": [{
+                            "type": "list",
+                            "list": "items",
+                            "path": "equipment",
+                            "multiple": true,
+                            "given": [
+                                "Backpack",
+                                "Bedroll",
+                                "Mess Kit",
+                                "Tinderbox",
+                                "10 x Torch",
+                                "10 x Day of Rations",
+                                "Waterskin",
+                                "50 Feet of Hempen Rope"
+                            ]
+                        }]
+                    }]
+                }, {
+                    "label": "Class Equipment",
+                    "type": "list",
+                    "list": ["armor", "items"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": [
+                        "Chain Mail",
+                        "Holy Symbol"
+                    ]
+                }, {
+                    "label": "Divine Sense",
+                    "path": "abilities.Divine Sense",
+                    "type": "dict",
+                    "dict": {
+                        "description": "The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strand von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the hallow spell. You can use this feature %(uses)s times. When you finish a long rest, you regain all expended uses.",
+                        "uses_formula": "1 + statistics.modifiers.charisma"
+                    }
+                }, {
+                    "label": "Lay on Hands",
+                    "path": "abilities.Lay on Hands",
+                    "type": "dict",
+                    "dict": {
+                        "description": "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total of %(pool_size)s hit points. As an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool. Alternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one. This feature has no effect on undead and constructs.",
+                        "pool_size_formula": "5 * level"
+                    }
+                }]
             },
-            "2": {
+            "paladin-2": {
                 "conditions": {
                     "level": 2,
-                    "creation": "1"
+                    "creation": "paladin-1"
                 },
-                "given": {
-                    "proficiency": 2,
-                    "spell.slots.level_1": 2,
-                    "abilities.Divine Smite": {
-                        "description": "When you hit a creature with a melee weapon attack, you can expend one paladin spell slot to deal radiant damage to the target, in addition to the weapon's damage. The extra damage is 2d8 for a 1st-level spell slot, plus 1d8 for each spell level higher than 1st, to a maximum of 5d8. The damage increases by 1d8 if the target is an undead or a fiend."
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 2
+                }, {
+                    "hidden": true,
+                    "path": "spell.stat",
+                    "type": "value",
+                    "value": "charisma"
+                }, {
+                    "hidden": true,
+                    "path": "computed.spell.max_prepared.formula",
+                    "type": "value",
+                    "value": "max(1, statistics.modifiers.charisma + int(character.level / 2.0))"
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 2
                     }
-                },
-                "tabs": [{
-                    "description": "You adopt a style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again.",
+                }, {
+                    "hidden": true,
+                    "path": "computed.spell.safe_dc.formula",
+                    "type": "value",
+                    "value": "8 + character.proficiency + statistics.modifiers.charisma"
+                }, {
+                    "hidden": true,
+                    "path": "computed.spell.attack_modifier.formula",
+                    "type": "value",
+                    "value": "character.proficiency + statistics.modifiers.charisma"
+                }, {
+                    "label": "Spellcasting Focus",
+                    "path": "info.Paladin Spellcasting Focus",
+                    "type": "value",
+                    "value": "You can use a Holy Symbol as a spellcasting focus for your Paladin spells."
+                }, {
+                    "label": "Fighting Style",
+                    "description": "You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a **Fighting Style** option more than once, even if you later get to choose again.",
+                    "type": "multichoice",
+                    "limit": 1,
                     "options": [{
-                        "name": "Defense",
-                        "given": {
-                            "fighting_style[]": "Defense",
-                            "abilities.Defense": {
-                                "description": "While you are wearing armor, you gain a +1 bonus to AC."
-                            }
+                        "label": "Defense",
+                        "hidden_formula": "'Defense' in character.abilities",
+                        "path": "abilities.Defense",
+                        "type": "dict",
+                        "dict": {
+                            "description": "While you are wearing armor, you gain a `+1` bonus to AC."
                         }
                     }, {
-                        "name": "Dueling",
-                        "given": {
-                            "fighting_style[]": "Dueling",
-                            "abilities.Dueling": {
-                                "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon."
-                            }
+                        "label": "Dueling",
+                        "hidden_formula": "'Dueling' in character.abilities",
+                        "path": "abilities.Dueling",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a `+2` bonus to damage rolls with that weapon."
                         }
                     }, {
-                        "name": "Great Weapon Fighting",
-                        "given": {
-                            "fighting_style[]": "Great Weapon Fighting",
-                            "abilities.Great Weapon Fighting": {
-                                "description": "When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll. The weapon must have the two-handed or versatile property for you to gain this benefit."
-                            }
+                        "label": "Great Weapon Fighting",
+                        "hidden_formula": "'Great Weapon Fighting' in character.abilities",
+                        "path": "abilities.Great Weapon Fighting",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2. The weapon must have the *two-handed* or *versatile* property for you to gain this benefit."
                         }
                     }, {
-                        "name": "Protection",
-                        "given": {
-                            "abilities.Protection": {
-                                "description": "When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield."
-                            }
+                        "label": "Protection",
+                        "hidden_formula": "'Protection' in character.abilities",
+                        "path": "abilities.Protection",
+                        "type": "dict",
+                        "dict": {
+                            "description": "When a creature you can see attacks a target other than you that is within 5 feet of you. you can use your reaction to impose **Disadvantage** on the attack roll. You must be wielding a shield."
                         }
                     }]
+                }, {
+                    "label": "Divine Smite",
+                    "path": "abilities.Divine Smite",
+                    "type": "dict",
+                    "dict": {
+                        "description": "When you hit a creature with a melee weapon attack, you can expend one paladin spell slot to deal radiant damage to the target, in addition to the weapon's damage. The extra damage is `2d8` for a 1st-level spell slot, plus `1d8` for each spell level higher than 1st, to a maximum of `5d8`. The damage increases by `1d8` if the target is an undead or a fiend."
+                    }
                 }]
             },
-            "3": {
+            "paladin-3": {
                 "conditions": {
                     "level": 3,
-                    "creation": "2"
+                    "creation": "paladin-2"
                 },
-                "given": {
-                    "proficiency": 2,
-                    "spell.slots.level_1": 3,
-                    "abilities.Divine Health": {
-                        "description": "The divine magic flowing through you makes you immune to disease."
-                    },
-                    "abilities.Channel Divinity": {
-                        "description": "Your oath allows you to channel divine energy to fuel magical effects. Each Channel Divinity option provided by your oath explains how to use it. When you use your Channel Divinity, you choose which option to use. You must then finish a short or long rest to use your Channel Divinity again. Some Channel Divinity effects require saving throws. When you use such an effect from this class, the DC equals %(dc)s.",
-                        "dc_formula": "spell_safe_dc"
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 2
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 3
                     }
-                },
-                "tabs": [{
-                    "description": "Becoming a paladin involves taking vows that commit the paladin to the cause of righteousness, an active path of fighting wickedness. The final oath, taken when he or she reaches 3rd level, is the culmination of all the paladin's training. Some characters with this class don't consider themselves true paladins until they have reached 3rd level and made this oath. For others, the actual swearing of the oath is a formality, an official stamp on what has always been true in the paladin's heart.",
+                }, {
+                    "label": "Divine Health",
+                    "path": "abilities.Divine Health",
+                    "type": "dict",
+                    "dict": {
+                        "description": "The divine magic flowing through you makes you *immune* to *disease*."
+                    }
+                }, {
+                    "label": "Channel Divinity",
+                    "path": "abilities.Channel Divinity",
+                    "type": "dict",
+                    "dict": {
+                        "description": "Your oath allows you to channel divine energy to fuel magical effects. Each Channel Divinity option provided by your oath explains how to use it. When you use your Channel Divinity, you choose which option to use. You must then finish a short or long rest to use your Channel Divinity again. Some Channel Divinity effects require saving throws. When you use such an effect from this class, the DC equals `%(dc)s`.",
+                        "dc_formula": "spell.safe_dc"
+                    }
+                }, {
+                    "label": "Sacred Oath",
+                    "type": "choice",
+                    "description": "Becoming a paladin involves taking vows that commit the paladin to the cause of righteousness, an active path of fighting wickedness. The final oath is the culmination of all the paladin's training. Some characters with this class don't consider themselves true paladins until they have made this oath. For others, the actual swearing of the oath is a formality, an official stamp on what has always been true in the paladin's heart.",
                     "options": [{
-                        "name": "Oath of Devotion",
+                        "label": "Oath of Devotion",
                         "description": "The Oath of Devotion binds a paladin to the loftiest ideals of justice, virtue, and order. Sometimes called cavaliers, white knights, or holy warriors, these paladins meet the ideal of the knight in shining armor, acting with honor in pursuit of justice and the greater good. They hold themselves to the highest standards of conduct, and some, for better or worse, hold the rest of the world to the same standards. Many who swear this oath are devoted to gods of law and good and use their gods' tenets as the measure of their devotion. They hold angels-the perfect servants of good-as their ideals, and incorporate images of angelic wings into their helmets or coats of arms.\n## Tenets of Devotion\nThough the exact words and strictures of the Oath of Devotion vary, paladins of this oath share these tenets.\n\n* **Honesty.** Don't lie or cheat. Let your word be your promise.\n* **Courage.** Never fear to act, though caution is wise.\n* **Compassion.** Aid others, protect the weak, and punish those who threaten them. Show mercy to your foes, but temper it with wisdom.\n* **Honor.** Treat others with fairness, and let your honorable deeds be an example to them. Do as much good as possible while causing the least amount of harm.\n* **Duty.** Be responsible for your actions and their consequences, protect those entrusted to your care, and obey those who have just authority over you.",
-                        "given": {
-                            "oath[]": "Devotion",
-                            "spells.level_1[]": [
+                        "config": [{
+                            "path": "oath",
+                            "type": "list",
+                            "given": ["Devotion"]
+                        }, {
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": "spells",
+                            "given": [
                                 "Protection From Evil and Good",
                                 "Sanctuary"
-                            ],
-                            "abilities.Sacred Weapon": {
+                            ]
+                        }, {
+                            "label": "Sacred Weapon",
+                            "path": "abilities.Sacred Weapon",
+                            "type": "dict",
+                            "dict": {
                                 "description": "As an action, you can imbue one weapon that you are holding with positive energy, using your Channel Divinity. For 1 minute, you add +%(bonus)s to attack rolls made with that weapon. The weapon also emits bright light in a 20-foot radius and dim light 20 feet beyond that. lithe weapon is not already magical, it becomes magical for the duration.\nYou can end this effect on your turn as part of any other action. If you are no longer holding or carrying this weapon, or if you fall unconscious, this effect ends.",
                                 "bonus_formula": "max(1, statistics.modifiers.charisma)"
-                            },
-                            "abilities.Turn the Unholy": {
-                                "description": "As an action, you present your holy symbol and speak a prayer censuring fiends and undead, using your Channel Divinity. Each fiend or undead that can see or hear you within 30 feet of you must make a Wisdom saving throw (DC %(dc)s. lithe creature fails its saving throw, it is turned for 1 minute or until it takes damage.\nA turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action.",
-                                "dc_formula": "spell_safe_dc"
                             }
-                        }
+                        }, {
+                            "label": "Turn the Unholy",
+                            "path": "abilities.Turn the Unholy",
+                            "type": "dict",
+                            "dict": {
+                                "description": "As an action, you present your holy symbol and speak a prayer censuring fiends and undead, using your Channel Divinity. Each fiend or undead that can see or hear you within 30 feet of you must make a Wisdom saving throw (DC `%(dc)s`. lithe creature fails its saving throw, it is turned for 1 minute or until it takes damage.\nA turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action.",
+                                "dc_formula": "spell.safe_dc"
+                            }
+                        }]
                     }, {
-                        "name": "Oath of the Ancients",
+                        "label": "Oath of the Ancients",
                         "description": "The Oath of the Ancients is as old as the race of elves and the rituals of the druids. Sometimes called fey knights, green knights, or horned knights, paladins who swear this oath cast their lot with the side of the light in the cosmic struggle against darkness because they love the beautiful and life-giving things of the world, not necessarily because they believe in principles of honor, courage, and justice. They adorn their armor and clothing with images of growing things-leaves, antlers, or flowers-to reflect their commitment to preserving life and light in the world.\n## Tenets of the Ancients\nThe tenets of the Oath of the Ancients have been preserved for uncounted centuries. This oath emphasizes the principles of good above any concerns of taw or chaos. Its four central principles are simple.\n\n* **Kindle the Light.** Through your acts of mercy, kindness, and forgiveness, kindle the light of hope in the world, beating back despair.\n* **Shelter the Light.** Where there is good, beauty, love. and laughter in the world, stand against the wickedness that would swallow it. Where life flourishes, stand against the forces that would render it barren.\n* **Preserve Your Own Light.** Delight in song and laughter, in beauty and art. If you allow the light to die in your own heart, you can't preserve it in the world.\n* **Be the Light.** Be a glorious beacon for all who live in despair. Let the light of your joy and courage shine forth in all your deeds.",
-                        "given": {
-                            "oath[]": "Ancients",
-                            "spells.level_1[]": [
+                        "config": [{
+                            "path": "oath",
+                            "type": "list",
+                            "given": ["Ancients"]
+                        }, {
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": "spells",
+                            "given": [
                                 "Ensnaring Strike",
                                 "Speak with Animals"
-                            ],
-                            "abilities.Nature's Wrath": {
-                                "description": "You can use your Channel Divinity to invoke primeval forces to ensnare a foe. As an action, you can cause spectral vines to spring up and reach for a creature within 10 feet of you that you can see. The creature must succeed on a Strength or Dexterity saving throw (its choice, DC %(dc)s) or be restrained, While restrained by the vines, the creature repeats the saving throw at the end of each of its turns. On a success, it frees itself and the vines vanish.",
-                                "dc_formula": "spell_safe_dc"
-                            },
-                            "abilities.Turn the Faithless": {
-                                "description": "You can use your Channel Divinity to utter ancient words that are painful for fey and fiends to hear. As an action, you present your holy symbol, and each fey or fiend within 30 feet of you that can hear you must make a Wisdom saving throw (DC %(dc)s). On a failed save, the creature is turned for 1 minute or until it takes damage.\nA turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action. If the creature's true form is concealed by an illusion, shapeshifting, or other effect, that form is revealed while it is turned.",
-                                "dc_formula": "spell_safe_dc"
+                            ]
+                        }, {
+                            "label": "Nature's Wrath",
+                            "path": "abilities.Nature's Wrath",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You can use your Channel Divinity to invoke primeval forces to ensnare a foe. As an action, you can cause spectral vines to spring up and reach for a creature within 10 feet of you that you can see. The creature must succeed on a Strength or Dexterity saving throw (its choice, DC `%(dc)s`) or be restrained, While restrained by the vines, the creature repeats the saving throw at the end of each of its turns. On a success, it frees itself and the vines vanish.",
+                                "dc_formula": "spell.safe_dc"
                             }
-                        }
+                        }, {
+                            "label": "Turn the Faithless",
+                            "path": "abilities.Turn the Faithless",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You can use your Channel Divinity to utter ancient words that are painful for fey and fiends to hear. As an action, you present your holy symbol, and each fey or fiend within 30 feet of you that can hear you must make a Wisdom saving throw (DC `%(dc)s`). On a failed save, the creature is turned for 1 minute or until it takes damage.\nA turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action. If the creature's true form is concealed by an illusion, shapeshifting, or other effect, that form is revealed while it is turned.",
+                                "dc_formula": "spell.safe_dc"
+                            }
+                        }]
                     }, {
-                        "name": "Oath of Vengeance",
+                        "label": "Oath of Vengeance",
                         "description": "The Oath of Vengeance is a solemn commitment to punish those who have committed a grievous sin. When evil forces slaughter helpless villagers, when an entire people turns against the will of the gods, when a thieves' guild grows too violent and powerful, when a dragon rampages through the countryside-at times like these, paladins arise and swear an Oath of Vengeance to set right that which has gone wrong. To these paladins- sometimes called avengers or dark knights-their own purity is not as important as delivering justice.\n## Tenets of Vengeance\nThe tenets of the Oath of Vengeance vary by paladin, but all the tenets revolve around punishing wrongdoers by any means necessary. Paladins who uphold these tenets are willing to sacrifice even their own righteousness to mete out justice upon those who do evil, so the paladins are often neutral or lawful neutral in alignment. The core principles of the tenets are brutally simple.\n\n* **Fight the Greater Evil.** Faced with a choice of fighting my sworn foes or combating a lesser evil, I choose the greater evil.\n* **No Mercy for the Wicked.** Ordinary foes might win my mercy, but my sworn enemies do not.\n* **By Any Means Necessary.** My qualms can't get in the way of exterminating my foes.\n* **Restitution.** if my foes wreak ruin on the world, it is because I failed to stop them. I must help those harmed by their misdeeds.",
-                        "given": {
-                            "oath[]": "Vengeance",
-                            "spells.level_1[]": [
+                        "config": [{
+                            "path": "oath",
+                            "type": "list",
+                            "given": ["Vengeance"]
+                        }, {
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": "spells",
+                            "given": [
                                 "Bane",
                                 "Hunter's Mark"
-                            ],
-                            "abilities.Abjure Enemy.": {
-                                "description": "As an action, you present your holy symbol and speak a prayer of denunciation, using your Channel Divinity. Choose one creature within 60 feet of you that you can see. That creature must make a Wisdom saving throw (DC %(dc)s), unless it is immune to being frightened. Fiends and undead have disadvantage on this saving throw.\nOn a failed save, the creature is frightened for 1 minute or until it takes any damage. While frightened, the creature's speed is 0. and it can't benefit from any bonus to its speed.\n On a successful save, the creature's speed is halved for 1 minute or until the creature takes any damage.",
-                                "dc_formula": "spell_safe_dc"
-                            },
-                            "abilities.Vow of Enmity.": {
+                            ]
+                        }, {
+                            "label": "Nature's Wrath",
+                            "path": "abilities.Nature's Wrath",
+                            "type": "dict",
+                            "dict": {
+                                "description": "As an action, you present your holy symbol and speak a prayer of denunciation, using your Channel Divinity. Choose one creature within 60 feet of you that you can see. That creature must make a Wisdom saving throw (DC `%(dc)s`), unless it is immune to being frightened. Fiends and undead have disadvantage on this saving throw.\nOn a failed save, the creature is frightened for 1 minute or until it takes any damage. While frightened, the creature's speed is 0. and it can't benefit from any bonus to its speed.\n On a successful save, the creature's speed is halved for 1 minute or until the creature takes any damage.",
+                                "dc_formula": "spell.safe_dc"
+                            }
+                        }, {
+                            "label": "Turn the Faithless",
+                            "path": "abilities.Turn the Faithless",
+                            "type": "dict",
+                            "dict": {
                                 "description": "As a bonus action, you can utter a vow of enmity against a creature you can see within 10 feet of you, using your Channel Divinity. You gain advantage on attack rolls against the creature for 1 minute or until it drops to 0 hit points or falls unconscious."
                             }
-                        }
+                        }]
                     }]
                 }]
             },
-            "4": {
+            "paladin-4": {
                 "conditions": {
                     "level": 4,
-                    "creation": "3"
+                    "creation": "paladin-3"
                 },
-                "given": {
-                    "proficiency": 2,
-                    "spell.slots.level_1": 3
-                },
-                "options": {
-                    "ability_improvement[]": [
-                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
-                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
-                    ]
-                }
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 2
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 3
+                    }
+                }, {
+                    "hidden": true,
+                    "type": "ability_score",
+                    "limit": 2
+                }]
             },
-            "5": {
+            "paladin-5": {
                 "conditions": {
                     "level": 5,
-                    "creation": "4"
+                    "creation": "paladin-4"
                 },
-                "given": {
-                    "proficiency": 3,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 2,
-                    "abilities.Extra Attack": {
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 3
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 2
+                    }
+                }, {
+                    "label": "Extra Attack",
+                    "path": "abilities.Extra Attack",
+                    "type": "dict",
+                    "dict": {
                         "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
                     }
-                }
+                }]
             },
-            "5-devotion": {
+            "paladin-5-devotion": {
                 "conditions": {
                     "level": 5,
-                    "creation": "4",
+                    "creation": "paladin-4",
                     "oath": ["Devotion"]
                 },
-                "given": {
-                    "spells.level_2[]": [
+                "config": [{
+                    "label": "Oath Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": "spells",
+                    "given": [
                         "Lesser Restoration",
                         "Zone of Truth"
                     ]
-                }
+                }]
             },
-            "6": {
+            "paladin-5-ancients": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "paladin-4",
+                    "oath": ["Ancients"]
+                },
+                "config": [{
+                    "label": "Oath Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": "spells",
+                    "given": [
+                        "Moonbeam",
+                        "Misty Step"
+                    ]
+                }]
+            },
+            "paladin-5-vengeance": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "paladin-4",
+                    "oath": ["Vengeance"]
+                },
+                "config": [{
+                    "label": "Oath Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": "spells",
+                    "given": [
+                        "Hold Person",
+                        "Misty Step"
+                    ]
+                }]
+            },
+            "paladin-6": {
                 "conditions": {
                     "level": 6,
-                    "creation": "5"
+                    "creation": "paladin-5"
                 },
-                "given": {
-                    "proficiency": 3,
-                    "aura_range": 10,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 2,
-                    "abilities.Aura of Protection": {
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 3
+                }, {
+                    "hidden": true,
+                    "path": "aura_range",
+                    "type": "value",
+                    "value": 10
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 2
+                    }
+                }, {
+                    "label": "Aura of Protection",
+                    "path": "abilities.Aura of Protection",
+                    "type": "dict",
+                    "dict": {
                         "description": "Whenever you or a friendly creature within %(range)s feet of you must make a saving throw, the creature gains a bonus to the saving throw equal to %(bonus)s. You must be conscious to grant this bonus.",
                         "bonus_formula": "statistics.modifiers.charisma",
                         "range_formula": "aura_range"
                     }
-                }
+                }]
             },
-            "7": {
+            "paladin-7": {
                 "conditions": {
                     "level": 7,
-                    "creation": "6"
+                    "creation": "paladin-6"
                 },
-                "given": {
-                    "proficiency": 3,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3
-                }
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 3
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3
+                    }
+                }]
             },
-            "7-devotion": {
+            "paladin-7-devotion": {
                 "conditions": {
                     "level": 7,
-                    "creation": "6",
+                    "creation": "paladin-6",
                     "oath": ["Devotion"]
                 },
-                "given": {
-                    "abilities.Aura of Devotion": {
-                        "description": "You and friendly creatures within %(range)s feet of you can't be charmed while you are conscious. At 18th level, the range of this aura increases to 30 feet.",
+                "config": [{
+                    "label": "Aura of Devotion",
+                    "path": "abilities.Aura of Devotion",
+                    "type": "dict",
+                    "dict": {
+                        "description": "You and friendly creatures within %(range)s feet of you can't be charmed while you are conscious.",
                         "range_formula": "aura_range"
                     }
-                }
+                }]
             },
-            "7-ancients": {
+            "paladin-7-ancients": {
                 "conditions": {
                     "level": 7,
-                    "creation": "6",
+                    "creation": "paladin-6",
                     "oath": ["Ancients"]
                 },
-                "given": {
-                    "abilities.Aura of Warding": {
+                "config": [{
+                    "label": "Aura of Warding",
+                    "path": "abilities.Aura of Warding",
+                    "type": "dict",
+                    "dict": {
                         "description": "Ancient magic lies so heavily upon you that it forms an eldritch ward. You and friendly creatures within %(range)s feet of you have resistance to damage from spells.",
                         "range_formula": "aura_range"
                     }
-                }
+                }]
             },
-            "7-vengeance": {
+            "paladin-7-vengeance": {
                 "conditions": {
                     "level": 7,
-                    "creation": "6",
+                    "creation": "paladin-6",
                     "oath": ["Vengeance"]
                 },
-                "given": {
-                    "abilities.Relentless Avenger": {
+                "config": [{
+                    "label": "Relentless Avenger",
+                    "path": "abilities.Relentless Avenger",
+                    "type": "dict",
+                    "dict": {
                         "description": "Your supernatural focus helps you close off a foe's retreat. When you hit a creature with an opportunity attack, you can move up to %(distance)s feet immediately after the attack and as part of the same reaction. This movement doesn't provoke opportunity attacks.",
                         "distance_formula": "speed/2"
                     }
-                }
+                }]
             },
-            "8": {
+            "paladin-8": {
                 "conditions": {
                     "level": 8,
-                    "creation": "7"
+                    "creation": "paladin-7"
                 },
-                "given": {
-                    "proficiency": 3,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3
-                },
-                "options": {
-                    "ability_improvement[]": [
-                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
-                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
-                    ]
-                }
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 3
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3
+                    }
+                }, {
+                    "hidden": true,
+                    "type": "ability_score",
+                    "limit": 2
+                }]
             },
-            "9": {
+            "paladin-9": {
                 "conditions": {
                     "level": 9,
-                    "creation": "8"
+                    "creation": "paladin-8"
                 },
-                "given": {
-                    "proficiency": 4,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3,
-                    "spell.slots.level_3": 2
-                }
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 4
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3,
+                        "level_3": 2
+                    }
+                }]
             },
-            "9-devotion": {
+            "paladin-9-devotion": {
                 "conditions": {
                     "level": 9,
-                    "creation": "8",
+                    "creation": "paladin-8",
                     "oath": ["Devotion"]
                 },
-                "given": {
-                    "spells.level_3[]": [
+                "config": [{
+                    "label": "Oath Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": "spells",
+                    "given": [
                         "Beacon of Hope",
                         "Dispel Magic"
                     ]
-                }
+                }]
             },
-            "10": {
+            "paladin-9-ancients": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "paladin-8",
+                    "oath": ["Ancients"]
+                },
+                "config": [{
+                    "label": "Oath Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": "spells",
+                    "given": [
+                        "Plant Growth",
+                        "Protection From Energy"
+                    ]
+                }]
+            },
+            "paladin-9-vengeance": {
+                "conditions": {
+                    "level": 9,
+                    "creation": "paladin-8",
+                    "oath": ["Vengeance"]
+                },
+                "config": [{
+                    "label": "Oath Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": "spells",
+                    "given": [
+                        "Haste",
+                        "Protection From Energy"
+                    ]
+                }]
+            },
+            "paladin-10": {
                 "conditions": {
                     "level": 10,
-                    "creation": "9"
+                    "creation": "paladin-9"
                 },
-                "given": {
-                    "proficiency": 4,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3,
-                    "spell.slots.level_3": 2,
-                    "abilities.Aura of Courage": {
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 4
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3,
+                        "level_3": 2
+                    }
+                }, {
+                    "label": "Aura of Courage",
+                    "path": "abilities.Aura of Courage",
+                    "type": "dict",
+                    "dict": {
                         "description": "You and friendly creatures within %(range)s feet of you can't be frightened while you are conscious.",
                         "range_formula": "aura_range"
                     }
-                }
+                }]
             },
-            "11": {
+            "paladin-11": {
                 "conditions": {
                     "level": 11,
-                    "creation": "10"
+                    "creation": "paladin-10"
                 },
-                "given": {
-                    "proficiency": 4,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3,
-                    "spell.slots.level_3": 3,
-                    "abilities.Improved Divine Smite": {
-                        "description": "You are so suffused with righteous might that all your melee weapon strikes carry divine power with them. Whenever you hit a creature with a melee weapon, the creature takes an extra 1d8 radiant damage. If you also use your Divine Smite with an attack, you add this damage to the extra damage of your Divine Smite."
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 4
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3,
+                        "level_3": 3
                     }
-                }
+                }, {
+                    "label": "Improved Divine Smite",
+                    "path": "abilities.Improved Divine Smite",
+                    "type": "dict",
+                    "dict": {
+                        "description": "You are so suffused with righteous might that all your melee weapon strikes carry divine power with them. Whenever you hit a creature with a melee weapon, the creature takes an extra `1d8` radiant damage. If you also use your **Divine Smite** with an attack, you add this damage to the extra damage of your **Divine Smite**."
+                    }
+                }]
             },
-            "12": {
+            "paladin-12": {
                 "conditions": {
                     "level": 12,
-                    "creation": "11"
+                    "creation": "paladin-11"
                 },
-                "given": {
-                    "proficiency": 4,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3,
-                    "spell.slots.level_3": 3
-                },
-                "options": {
-                    "ability_improvement[]": [
-                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
-                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
-                    ]
-                }
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 4
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3,
+                        "level_3": 3
+                    }
+                }, {
+                    "hidden": true,
+                    "type": "ability_score",
+                    "limit": 2
+                }]
             },
-            "13": {
+            "paladin-13": {
                 "conditions": {
                     "level": 13,
-                    "creation": "12"
+                    "creation": "paladin-12"
                 },
-                "given": {
-                    "proficiency": 5,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3,
-                    "spell.slots.level_3": 3,
-                    "spell.slots.level_4": 1
-                }
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 5
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3,
+                        "level_3": 3,
+                        "level_4": 1
+                    }
+                }]
             },
-            "13-devotion": {
+            "paladin-13-devotion": {
                 "conditions": {
                     "level": 13,
-                    "creation": "12",
+                    "creation": "paladin-12",
                     "oath": ["Devotion"]
                 },
-                "given": {
-                    "spells.level_4[]": [
+                "config": [{
+                    "label": "Oath Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": "spells",
+                    "given": [
                         "Freedom of Movement",
                         "Guardian of Faith"
                     ]
-                }
+                }]
             },
-            "14": {
+            "paladin-13-ancients": {
+                "conditions": {
+                    "level": 13,
+                    "creation": "paladin-12",
+                    "oath": ["Ancients"]
+                },
+                "config": [{
+                    "label": "Oath Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": "spells",
+                    "given": [
+                        "Ice Storm",
+                        "Stoneskin"
+                    ]
+                }]
+            },
+            "paladin-13-vengeance": {
+                "conditions": {
+                    "level": 13,
+                    "creation": "paladin-12",
+                    "oath": ["Vengeance"]
+                },
+                "config": [{
+                    "label": "Oath Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": "spells",
+                    "given": [
+                        "Banishment",
+                        "Dimension Door"
+                    ]
+                }]
+            },
+            "paladin-14": {
                 "conditions": {
                     "level": 14,
-                    "creation": "13"
+                    "creation": "paladin-13"
                 },
-                "given": {
-                    "proficiency": 5,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3,
-                    "spell.slots.level_3": 3,
-                    "spell.slots.4th": 1,
-                    "abilities.Cleansing Touch": {
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 5
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3,
+                        "level_3": 3,
+                        "level_4": 1
+                    }
+                }, {
+                    "label": "Cleansing Touch",
+                    "path": "abilities.Cleansing Touch",
+                    "type": "dict",
+                    "dict": {
                         "description": "You can use your action to end one spell on yourself or on one willing creature that you touch. You can use this feature %(uses)s of times. You regain expended uses when you finish a long rest.",
                         "uses_formula": "max(1, statistics.modifiers.charisma)"
                     }
-                }
+                }]
             },
-            "15": {
+            "paladin-15": {
                 "conditions": {
                     "level": 15,
-                    "creation": "14"
+                    "creation": "paladin-14"
                 },
-                "given": {
-                    "proficiency": 5,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3,
-                    "spell.slots.level_3": 3,
-                    "spell.slots.level_4": 2
-                }
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 5
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3,
+                        "level_3": 3,
+                        "level_4": 2
+                    }
+                }]
             },
-            "15-devotion": {
+            "paladin-15-devotion": {
                 "conditions": {
                     "level": 15,
-                    "creation": "14",
+                    "creation": "paladin-14",
                     "oath": ["Devotion"]
                 },
-                "given": {
-                    "abilities.Purity of Spirit": {
-                        "description": "You are always under the effects of a Protection From Evil and Good spell."
+                "config": [{
+                    "label": "Purity of Spirit",
+                    "path": "abilities.Purity of Spirit",
+                    "type": "dict",
+                    "dict": {
+                        "description": "You are always under the effects of a **Protection From Evil and Good** spell."
                     }
-                }
+                }]
             },
-            "15-ancients": {
+            "paladin-15-ancients": {
                 "conditions": {
                     "level": 15,
-                    "creation": "14",
+                    "creation": "paladin-14",
                     "oath": ["Ancients"]
                 },
-                "given": {
-                    "abilities.Undying Sentinel": {
+                "config": [{
+                    "label": "Undying Sentinel",
+                    "path": "abilities.Undying Sentinel",
+                    "type": "dict",
+                    "dict": {
                         "description": "When you are reduced to 0 hit points and are not killed outright, you can choose to drop to 1 hit point instead. Once you use this ability, you can't use it again until you finish a long rest. Additionally, you suffer none of the drawbacks of old age, and you can't be aged magically."
                     }
-                }
+                }]
             },
-            "15-vengeance": {
+            "paladin-15-vengeance": {
                 "conditions": {
                     "level": 15,
-                    "creation": "14",
+                    "creation": "paladin-14",
                     "oath": ["Vengeance"]
                 },
-                "given": {
-                    "abilities.Soul of Vengeance": {
-                        "description": "The authority with which you speak your Vow of Enmity gives you greater power over your foe. When a creature under the effect of your Vow of Enmity makes an attack, you can use your reaction to make a melee weapon attack against that creature if it is within range."
+                "config": [{
+                    "label": "Soul of Vengeance",
+                    "path": "abilities.Soul of Vengeance",
+                    "type": "dict",
+                    "dict": {
+                        "description": "The authority with which you speak your **Vow of Enmity** gives you greater power over your foe. When a creature under the effect of your **Vow of Enmity** makes an attack, you can use your *reaction* to make a melee weapon attack against that creature if it is within range."
                     }
-                }
+                }]
             },
-            "16": {
+            "paladin-16": {
                 "conditions": {
                     "level": 16,
-                    "creation": "15"
+                    "creation": "paladin-15"
                 },
-                "given": {
-                    "proficiency": 5,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3,
-                    "spell.slots.level_3": 3,
-                    "spell.slots.level_4": 1
-                },
-                "options": {
-                    "ability_improvement[]": [
-                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
-                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
-                    ]
-                }
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 5
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3,
+                        "level_3": 3,
+                        "level_4": 2
+                    }
+                }, {
+                    "hidden": true,
+                    "type": "ability_score",
+                    "limit": 2
+                }]
             },
-            "17": {
+            "paladin-17": {
                 "conditions": {
                     "level": 17,
-                    "creation": "16"
+                    "creation": "paladin-16"
                 },
-                "given": {
-                    "proficiency": 6,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3,
-                    "spell.slots.level_3": 3,
-                    "spell.slots.level_4": 3,
-                    "spell.slots.level_5": 1
-                }
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 6
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3,
+                        "level_3": 3,
+                        "level_4": 3,
+                        "level_5": 1
+                    }
+                }]
             },
-            "17-devotion": {
+            "paladin-17-devotion": {
                 "conditions": {
                     "level": 17,
-                    "creation": "16",
+                    "creation": "paladin-16",
                     "oath": ["Devotion"]
                 },
-                "given": {
-                    "spells.level_5[]": [
+                "config": [{
+                    "label": "Oath Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": "spells",
+                    "given": [
                         "Commune",
                         "Flame Strike"
                     ]
-                }
+                }]
             },
-            "18": {
+            "paladin-17-ancients": {
                 "conditions": {
-                    "level": 18,
-                    "creation": "17"
-                },
-                "given": {
-                    "proficiency": 6,
-                    "aura_range": 30,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3,
-                    "spell.slots.level_3": 3,
-                    "spell.slots.level_4": 3,
-                    "spell.slots.level_5": 1
-                }
-            },
-            "19": {
-                "conditions": {
-                    "level": 19,
-                    "creation": "18"
-                },
-                "given": {
-                    "proficiency": 6,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3,
-                    "spell.slots.level_3": 3,
-                    "spell.slots.level_4": 3,
-                    "spell.slots.level_5": 2
-                },
-                "options": {
-                    "ability_improvement[]": [
-                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"},
-                        {"select_formula": "[stat for stat in character.stats if character.stats[stat] <= 18]"}
-                    ]
-                }
-            },
-            "20": {
-                "conditions": {
-                    "level": 20,
-                    "creation": "19"
-                },
-                "given": {
-                    "proficiency": 6,
-                    "spell.slots.level_1": 4,
-                    "spell.slots.level_2": 3,
-                    "spell.slots.level_3": 3,
-                    "spell.slots.level_4": 3,
-                    "spell.slots.level_5": 2
-                }
-            },
-            "20-devotion": {
-                "conditions": {
-                    "level": 20,
-                    "creation": "19",
-                    "oath": ["Devotion"]
-                },
-                "given": {
-                    "abilities.Holy Nimbus": {
-                        "description": "As an action, you can emanate an aura of sunlight. For 1 minute. bright light shines from you in a 30-foot radius, and dim light shines 30 feet beyond that. Whenever an enemy creature starts its turn in the bright light, the creature takes 10 radiant damage. In addition, for the duration, you have advantage on saving throws against spells cast by fiends or undead. Once you use this feature, you can't use it again until you finish a long rest."
-                    }
-                }
-            },
-            "20-ancients": {
-                "conditions": {
-                    "level": 20,
-                    "creation": "19",
+                    "level": 17,
+                    "creation": "paladin-16",
                     "oath": ["Ancients"]
                 },
-                "given": {
-                    "abilities.Elder Champion": {
-                        "description": "You can assume the form of an ancient force of nature, taking on an appearance you choose. For example, your skin might turn green or take on a bark-like texture, your hair might become leafy or moss- like, or you might sprout antlers or a lion-like mane. Using your action, you undergo a transformation. For 1 minute, you gain the following benefits:\n* At the start of each of your turns, you regain 10 hit points.\n* Whenever you cast a paladin spell that has a casting time of 1 action, you can cast it using a bonus action instead.\n* Enemy creatures within 10 feet of you have disadvantage on saving throws against your paladin spells and Channel Divinity options.\nOnce you use this feature you can't use it again until you finish a long rest."
-                    }
-                }
+                "config": [{
+                    "label": "Oath Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": "spells",
+                    "given": [
+                        "Commune with Nature",
+                        "Tree Stride"
+                    ]
+                }]
             },
-            "20-vengeance": {
+            "paladin-17-vengeance": {
                 "conditions": {
-                    "level": 20,
-                    "creation": "19",
+                    "level": 17,
+                    "creation": "paladin-16",
                     "oath": ["Vengeance"]
                 },
-                "given": {
-                    "abilities.Avenging Angel": {
-                        "description": "You can assume the form of an angelic avenger. Using your action, you undergo a transformation. For 1 hour, you gain the following benefits:\n\n* Wings sprout from your back and grant you a flying speed of 60 feet.\n* You emanate an aura of menace in a 30-foot radius. The first time any enemy creature enters the aura or starts its turn there during a battle, the creature must succeed on a Wisdom saving throw or become frightened of you for 1 minute or until it takes any damage. Attack rolls against the frightened creature have advantage.\nOnce you use this feature, you can't use it again until you finish a long rest."
+                "config": [{
+                    "label": "Oath Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": "spells",
+                    "given": [
+                        "Hold Monster",
+                        "Scrying"
+                    ]
+                }]
+            },
+            "paladin-18": {
+                "conditions": {
+                    "level": 18,
+                    "creation": "paladin-17"
+                },
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 6
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3,
+                        "level_3": 3,
+                        "level_4": 3,
+                        "level_5": 1
                     }
-                }
+                }]
+            },
+            "paladin-19": {
+                "conditions": {
+                    "level": 19,
+                    "creation": "paladin-18"
+                },
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 6
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3,
+                        "level_3": 3,
+                        "level_4": 3,
+                        "level_5": 2
+                    }
+                }, {
+                    "hidden": true,
+                    "type": "ability_score",
+                    "limit": 2
+                }]
+            },
+            "paladin-20": {
+                "conditions": {
+                    "level": 20,
+                    "creation": "paladin-19"
+                },
+                "config": [{
+                    "hidden": true,
+                    "path": "proficiency",
+                    "type": "value",
+                    "value": 6
+                }, {
+                    "hidden": true,
+                    "path": "spell.slots",
+                    "type": "dict",
+                    "dict": {
+                        "level_1": 4,
+                        "level_2": 3,
+                        "level_3": 3,
+                        "level_4": 3,
+                        "level_5": 2
+                    }
+                }]
+            },
+            "paladin-20-devotion": {
+                "conditions": {
+                    "level": 20,
+                    "creation": "paladin-19",
+                    "oath": ["Devotion"]
+                },
+                "config": [{
+                    "label": "Holy Nimbus",
+                    "path": "abilities.Holy Nimbus",
+                    "type": "dict",
+                    "dict": {
+                        "description": "As an action, you can emanate an aura of sunlight. For 1 minute. bright light shines from you in a 30-foot radius, and dim light shines 30 feet beyond that. Whenever an enemy creature starts its turn in the bright light, the creature takes `10` radiant damage. In addition, for the duration, you have **Advantage** on saving throws against spells cast by fiends or undead. Once you use this feature, you can't use it again until you finish a long rest."
+                    }
+                }]
+            },
+            "paladin-20-ancients": {
+                "conditions": {
+                    "level": 20,
+                    "creation": "paladin-19",
+                    "oath": ["Ancients"]
+                },
+                "config": [{
+                    "label": "Elder Champion",
+                    "path": "abilities.Elder Champion",
+                    "type": "dict",
+                    "dict": {
+                        "description": "You can assume the form of an ancient force of nature, taking on an appearance you choose. For example, your skin might turn green or take on a bark-like texture, your hair might become leafy or moss- like, or you might sprout antlers or a lion-like mane. Using your action, you undergo a transformation. For 1 minute, you gain the following benefits:\n* At the start of each of your turns, you regain 10 hit points.\n* Whenever you cast a paladin spell that has a casting time of 1 action, you can cast it using a bonus action instead.\n* Enemy creatures within 10 feet of you have disadvantage on saving throws against your paladin spells and Channel Divinity options.\nOnce you use this feature you can't use it again until you finish a long rest."
+                    }
+                }]
+            },
+            "paladin-20-vengeance": {
+                "conditions": {
+                    "level": 20,
+                    "creation": "paladin-19",
+                    "oath": ["Vengeance"]
+                },
+                "config": [{
+                    "label": "Avenging Angel",
+                    "path": "abilities.Avenging Angel",
+                    "type": "dict",
+                    "dict": {
+                        "description": "You can assume the form of an angelic avenger. Using your action, you undergo a transformation. For 1 hour, you gain the following benefits:\n\n* Wings sprout from your back and grant you a flying speed of 60 feet.\n* You emanate an aura of menace in a 30-foot radius. The first time any enemy creature enters the aura or starts its turn there during a battle, the creature must succeed on a **Wisdom** saving throw or become frightened of you for 1 minute or until it takes any damage. Attack rolls against the frightened creature have **Advantage**.\nOnce you use this feature, you can't use it again until you finish a long rest."
+                    }
+                }]
             }
         }
     }, {
@@ -7722,10 +8108,10 @@
                 "hit_points": {
                     "formula": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
                 },
-                "spell_safe_dc": {
+                "spell.safe_dc": {
                     "formula": "8 + proficiency + statistics.modifiers.wisdom"
                 },
-                "spell_attack_modifier": {
+                "spell.attack_modifier": {
                     "formula": "proficiency + statistics.modifiers.wisdom"
                 }
             },
@@ -7735,9 +8121,9 @@
                     "strength"
                 ],
                 "armor": [
-                    "Light Armor",
-                    "Medium Armor",
-                    "Shield"
+                    "light",
+                    "medium",
+                    "shield"
                 ],
                 "weapons": [
                     "Simple Weapons",
@@ -8369,10 +8755,10 @@
                 "hit_points": {
                     "formula": "(8 + statistics.modifiers.constitution) + (5 + statistics.modifiers.constitution) * (level - 1)"
                 },
-                "spell_safe_dc": {
+                "spell.safe_dc": {
                     "formula": "8 + proficiency + statistics.modifiers.intelligence"
                 },
-                "spell_attack_modifier": {
+                "spell.attack_modifier": {
                     "formula": "proficiency + statistics.modifiers.intelligence"
                 }
             },
@@ -8382,7 +8768,7 @@
                     "intelligence"
                 ],
                 "armor": [
-                    "Light Armor"
+                    "light"
                 ],
                 "weapons": [
                     "Simple Weapons",
@@ -8754,10 +9140,10 @@
                 "hit_points": {
                     "formula": "(6 + statistics.modifiers.constitution) + (4 + statistics.modifiers.constitution) * (level - 1)"
                 },
-                "spell_safe_dc": {
+                "spell.safe_dc": {
                     "formula": "8 + proficiency + statistics.modifiers.charisma"
                 },
-                "spell_attack_modifier": {
+                "spell.attack_modifier": {
                     "formula": "proficiency + statistics.modifiers.charisma"
                 },
                 "sorcery_points": {
@@ -9591,10 +9977,10 @@
                 "hit_points": {
                     "formula": "(6 + statistics.modifiers.constitution) + (4 + statistics.modifiers.constitution) * (level - 1)"
                 },
-                "spell_safe_dc": {
+                "spell.safe_dc": {
                     "formula": "8 + proficiency + statistics.modifiers.intelligence"
                 },
-                "spell_attack_modifier": {
+                "spell.attack_modifier": {
                     "formula": "proficiency + statistics.modifiers.intelligence"
                 },
                 "spell.max_known": {
@@ -9719,8 +10105,8 @@
                                 "description": "The gold and time you must spend to copy an enchantment spell into your spellbook is halved."
                             },
                             "abilities.Hypnotic Gaze": {
-                                "description": "Your soft words and enchanting gaze can magically enthrall another creature. As an **action**. choose one creature that you can see within 5 feet of you. if the target can see or hear you, it must succeed on a **Wisdom** *Saving Throw* against your wizard spell save DC (%(dc)s) or be *charmed* by you until the end of your next turn. The charmed creature's speed drops to 0, and the creature is incapacitated and visibly dazed.\nOn subsequent turns, you can use your **action** to maintain this effect, extending its duration until the end of your next turn. However, the effect ends if you move more than 5 feet away from the creature, if the creature can neither see nor hear you, or if the creature takes damage.\n\nOnce the effect ends, or if the creature succeeds on its initial saving throw against this effect, you can't use this feature on that creature again until you finish a long rest.",
-                                "dc": "character.spell_safe_dc"
+                                "description": "Your soft words and enchanting gaze can magically enthrall another creature. As an **action**. choose one creature that you can see within 5 feet of you. if the target can see or hear you, it must succeed on a **Wisdom** *Saving Throw* against your wizard spell save DC (`%(dc)s`) or be *charmed* by you until the end of your next turn. The charmed creature's speed drops to 0, and the creature is incapacitated and visibly dazed.\nOn subsequent turns, you can use your **action** to maintain this effect, extending its duration until the end of your next turn. However, the effect ends if you move more than 5 feet away from the creature, if the creature can neither see nor hear you, or if the creature takes damage.\n\nOnce the effect ends, or if the creature succeeds on its initial saving throw against this effect, you can't use this feature on that creature again until you finish a long rest.",
+                                "dc": "character.spell.safe_dc"
                             }
                         }
                     }, {
@@ -9874,8 +10260,8 @@
                 },
                 "given": {
                     "abilities.Instinctive Charm": {
-                        "description": "When a creature you can see within 30 feet of you makes an attack roll against you, you can use your *reaction* to divert the attack, provided that another creature is within the attack's range. The attacker must make a **Wisdom** *Saving Throw* against your wizard spell save DC (%(dc)s). On a failed save, the attacker must target the creature that is closest to it, not including you or itself. If multiple creatures are closest, the attacker chooses which one to target. On a successful save, you can't use this feature on the attacker again until you finish a long rest. You must choose to use this feature before knowing whether the attack hits or misses. Creatures that can't be charmed are immune to this effect.",
-                        "dc": "character.spell_safe_dc"
+                        "description": "When a creature you can see within 30 feet of you makes an attack roll against you, you can use your *reaction* to divert the attack, provided that another creature is within the attack's range. The attacker must make a **Wisdom** *Saving Throw* against your wizard spell save DC (`%(dc)s`). On a failed save, the attacker must target the creature that is closest to it, not including you or itself. If multiple creatures are closest, the attacker chooses which one to target. On a successful save, you can't use this feature on the attacker again until you finish a long rest. You must choose to use this feature before knowing whether the attack hits or misses. Creatures that can't be charmed are immune to this effect.",
+                        "dc": "character.spell.safe_dc"
                     }
                 }
             },
@@ -10203,8 +10589,8 @@
                 },
                 "given": {
                     "abilities.Alter Memories": {
-                        "description": "You have the ability to make a creature unaware of your magical influence on it. When you cast an enchantment spell to charm one or more creatures, you can alter one creature's understanding so that it remains unaware of being charmed.\nAdditionally, once before the spell expires, you can use your action to try to make the chosen creature forget some of the time it spent charmed. The creature must succeed on an **Intelligence** *Saving Throw* against your wizard spell save DC (%(dc)s) or lose a number of hours of its memories equal %(hours)s. You can make the creature forget less time, and the amount of time can't exceed the duration of your enchantment spell.",
-                        "dc": "character.spell_safe_dc",
+                        "description": "You have the ability to make a creature unaware of your magical influence on it. When you cast an enchantment spell to charm one or more creatures, you can alter one creature's understanding so that it remains unaware of being charmed.\nAdditionally, once before the spell expires, you can use your action to try to make the chosen creature forget some of the time it spent charmed. The creature must succeed on an **Intelligence** *Saving Throw* against your wizard spell save DC (`%(dc)s`) or lose a number of hours of its memories equal %(hours)s. You can make the creature forget less time, and the amount of time can't exceed the duration of your enchantment spell.",
+                        "dc": "character.spell.safe_dc",
                         "hours": "max(1 + statistics.modifiers.charisma)"
                     }
                 }
@@ -10241,8 +10627,8 @@
                 },
                 "given": {
                     "abilities.Command Undead": {
-                        "description": "You can use magic to bring undead under your control, even those created by other wizards. As an action, you can choose one undead that you can see within 60 feet of you. That creature must make a **Charisma** *Saving Throw* against your wizard spell save DC (%(dc)s). If it succeeds, you can't use this feature on it again. If it fails, it becomes friendly to you and obeys your commands until you use this feature again. Intelligent undead are harder to control in this way. If the target has an **Intelligence** of 8 or higher, it has **Advantage** on the *Saving Throw*. If it fails the *Saving Throw* and has an **Intelligence** of 12 or higher, it can repeat the saving throw at the end of every hour until it succeeds and breaks free.",
-                        "dc_formula": "character.spell_safe_dc"
+                        "description": "You can use magic to bring undead under your control, even those created by other wizards. As an action, you can choose one undead that you can see within 60 feet of you. That creature must make a **Charisma** *Saving Throw* against your wizard spell save DC (`%(dc)s`). If it succeeds, you can't use this feature on it again. If it fails, it becomes friendly to you and obeys your commands until you use this feature again. Intelligent undead are harder to control in this way. If the target has an **Intelligence** of 8 or higher, it has **Advantage** on the *Saving Throw*. If it fails the *Saving Throw* and has an **Intelligence** of 12 or higher, it can repeat the saving throw at the end of every hour until it succeeds and breaks free.",
+                        "dc_formula": "character.spell.safe_dc"
                     }
                 }
             },
@@ -10681,28 +11067,83 @@
             }
         },
         "phases": {
-            "1": {
-                "given": {
-                    "info.Military Rank": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized."
-                },
-                "options": {
-                    "proficiencies.skills[]": [
-                        {"group": ["athletics", "intimidation"]}
-                    ],
-                    "proficiencies.tools[]": [
-                        {"group": ["Vehicles (land)"]},
-                        {"select": "tools.gaming.items"}
-                    ],
-                    "equipment[]": [
-                        {"group": ["Insignia of Rank", "Set of Common Clothes", "Pouch"]},
-                        {"select": ["Set of Bone Dice", "Deck of cards"]},
-                        {"select": [
-                            "Dagger taken as a Trophy from a Fallen Enemy",
-                            "Broken Blade taken as a Trophy from a Fallen Enemy",
-                            "Piece of a Banner taken as a Trophy from a Fallen Enemy"
-                        ]}
+            "soldier": {
+                "config": [{
+                    "hidden": true,
+                    "path": "wealth.gp",
+                    "type": "value",
+                    "value": 10
+                }, {
+                    "label": "Military Rank",
+                    "path": "info.Military Rank",
+                    "type": "value",
+                    "value": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized."
+                }, {
+                    "label": "Specialty",
+                    "path": "info.Specialty",
+                    "type": "select",
+                    "limit": 1,
+                    "items": [
+                        "Officer",
+                        "Scout",
+                        "Infantry",
+                        "Cavalry",
+                        "Healerd",
+                        "Quartermaster",
+                        "Standard bearer",
+                        "Support staff (cook, blacksmith, or the like)"
                     ]
-                }
+                }, {
+                    "label": "Background Skill Proficiencies",
+                    "path": "proficiencies.skills",
+                    "type": "list",
+                    "list": "skills",
+                    "given": ["athletics", "intimidation"]
+                }, {
+                    "label": "Background Tool Proficiencies",
+                    "path": "proficiencies.tools",
+                    "type": "list",
+                    "list": "tools",
+                    "limit": 1,
+                    "given": ["Vehicles (land)"],
+                    "filter": {
+                        "type": "gaming"
+                    }
+                }, {
+                    "label": "Background Equipment",
+                    "type": "config",
+                    "config": [{
+                        "type": "list",
+                        "path": "equipment",
+                        "multiple": true,
+                        "items": [],
+                        "given": [
+                            "Insignia of Rank",
+                            "Set of Common Clothes",
+                            "Pouch"
+                        ]
+                    }, {
+                        "type": "list",
+                        "path": "equipment",
+                        "multiple": true,
+                        "limit": 1,
+                        "items": [
+                            "Set of Bone Dice",
+                            "Deck of cards"
+                        ]
+                    }, {
+                        "type": "list",
+                        "description": "A trophy taken from a fallen enemy.",
+                        "path": "equipment",
+                        "multiple": true,
+                        "limit": 1,
+                        "items": [
+                            "Dagger",
+                            "Broken Blade",
+                            "Piece of a Banner"
+                        ]
+                    }]
+                }]
             }
         }
     }]
