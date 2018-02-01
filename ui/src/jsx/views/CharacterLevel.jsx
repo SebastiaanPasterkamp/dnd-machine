@@ -735,7 +735,7 @@ export class CharacterLevel extends React.Component
                         update = (current || []).concat(
                             value
                         );
-                        if (!(option.duplicates || false)) {
+                        if (!(option.multiple || false)) {
                             update = _.uniq(update);
                         }
                     } else {
