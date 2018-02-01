@@ -45,6 +45,7 @@ const propsList = [
     'armor'
 ];
 const propsMap = {
+    'armor': '_armor',
     'languages': '_languages',
     'skills': '_skills',
     'spells': '_spells',
@@ -64,7 +65,7 @@ class AbilityScoreSelect extends LazyComponent
     componentWillUnmount() {
         this.props.onChange(
             null,
-            null
+            undefined
         );
     }
 
@@ -90,7 +91,7 @@ class ValuePropertySelect extends LazyComponent
     componentWillUnmount() {
         this.props.onChange(
             this.props.path,
-            null
+            undefined
         );
     }
 
@@ -115,6 +116,46 @@ ValuePropertySelect.propTypes = {
 };
 
 
+class SelectPropertySelect extends LazyComponent
+{
+    componentWillUnmount() {
+        this.props.onChange(
+            this.props.path,
+            undefined
+        );
+    }
+
+    onChange(value) {
+        this.props.onChange(
+            this.props.path,
+            value
+        );
+    }
+
+    render() {
+        if (this.props.hidden) {
+            return null;
+        }
+
+        return <SingleSelect
+            className="small"
+            items={this.props.items}
+            setState={(value) => this.onChange(value)}
+            selected={this.props.current}
+            emptyLabel="Please select"
+            />;
+    }
+};
+
+SelectPropertySelect.propTypes = {
+    path: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    value: PropTypes.any,
+    hidden: PropTypes.bool,
+};
+
+
 class DictPropertySelect extends LazyComponent
 {
     componentDidMount() {
@@ -127,7 +168,7 @@ class DictPropertySelect extends LazyComponent
     componentWillUnmount() {
         this.props.onChange(
             this.props.path,
-            null
+            undefined
         );
     }
 
@@ -178,7 +219,7 @@ class ListPropertySelect extends BaseTagContainer
     componentWillUnmount() {
         this.props.onChange(
             this.props.path,
-            null
+            undefined
         );
     }
 
@@ -343,6 +384,7 @@ class ListPropertySelect extends BaseTagContainer
                 }
             )
         );
+
         return filtered;
     }
 
@@ -359,7 +401,7 @@ class ListPropertySelect extends BaseTagContainer
 ListPropertySelect.propTypes = {
     path: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    items: PropTypes.arrayOf(PropTypes.object),
     given: PropTypes.arrayOf(
         PropTypes.oneOfType([
             PropTypes.string,
@@ -371,6 +413,127 @@ ListPropertySelect.propTypes = {
     filter: PropTypes.object,
     multiple: PropTypes.bool,
     hidden: PropTypes.bool,
+};
+
+
+class MultipleChoiceSelect extends LazyComponent
+{
+    constructor(props) {
+        super(props);
+        this.state = {
+            used: [],
+            removed: []
+        };
+    }
+
+    componentWillUnmount() {
+        _.forEach(
+            this.state.replace,
+            path => this.props.onChange(path, undefined)
+        );
+    }
+
+    onAdd(value) {
+        const limit = this.props.limit
+                    + this.state.removed.length;
+        if (_.includes(this.state.removed, value)) {
+            let removed = _.without(this.state.used, value);
+            this.setState({removed}, () => {
+                this.props.onChange(value, undefined)
+            });
+        } else if (this.state.used.length < limit) {
+            let used = _.union(this.state.used, [value]);
+            this.setState({used});
+        }
+    }
+
+    onDelete(key, value) {
+        const limit = this.props.replace;
+        if (_.includes(this.state.used, value)) {
+            let used = _.without(this.state.used, value);
+            this.setState({used});
+        } else if (this.state.removed.length < limit) {
+            let removed = _.union(this.state.removed, [value]);
+            this.setState({removed}, () => {
+                this.props.onChange(value, null)
+            });
+        }
+    }
+
+    renderTags() {
+        const {getCurrent, limit, replace} = this.props;
+        const {used, removed} = this.state;
+        const showSelect = used.length < limit;
+        const currentImmutable = removed.length >= replace;
+        const current = _.reduce(
+            this.props.options,
+            (current, option) => {
+                if (getCurrent(option.path)) {
+                    current.push(option.path);
+                }
+                return current;
+            },
+            []
+        );
+        const tagOptions = _.map(this.props.options, option => {
+            const isNew = _.includes(used, option.path);
+            return {
+                code: option.path,
+                label: option.label,
+                immutable: currentImmutable && !isNew,
+                color: isNew ? 'info' : 'warning'
+            };
+        });
+
+        return <TagContainer
+            tags={current}
+            tagOptions={tagOptions}
+            onAdd={(value) => this.onAdd(value)}
+            onDelete={(key, value) => this.onDelete(key, value)}
+            showSelect={showSelect}
+            />;
+    }
+
+    render() {
+        const {used, removed} = this.state;
+        const changes = _.union(used, removed);
+
+        return <div>
+            {this.renderTags()}
+            {_.map(this.props.options, (option, index) => {
+                if (!_.includes(changes, option.path)) {
+                    return null;
+                }
+                const props = {
+                    index: this.props.index.concat([index]),
+                    getCurrent: this.props.getCurrent,
+                    getItems: this.props.getItems,
+                    onChange: this.props.onChange,
+                    config: [option],
+                    disabled: _.includes(removed, option.path)
+                };
+
+                return <CharacterConfig
+                    key={index}
+                    {...props}
+                    />;
+            })}
+        </div>;
+    }
+};
+
+MultipleChoiceSelect.defaultTypes = {
+    replace: 0
+};
+
+MultipleChoiceSelect.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    getCurrent: PropTypes.func.isRequired,
+    getItems: PropTypes.func.isRequired,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    description: PropTypes.string,
+    limit: PropTypes.number.isRequired,
+    replace: PropTypes.number,
 };
 
 
@@ -428,13 +591,19 @@ class CharacterConfig extends LazyComponent
             config: CharacterConfig,
             dict: DictPropertySelect,
             list: ListPropertySelect,
+            multichoice: MultipleChoiceSelect,
+            select: SelectPropertySelect,
             value: ValuePropertySelect,
         };
     }
 
     render() {
+        const {
+            config, onChange, getCurrent, getItems
+        } = this.props;
+
         return <div>
-            {_.map(this.props.config, (option, index) => {
+            {_.map(config, (option, index) => {
                 const ConfigComponent = this.components[option.type];
 
                 if (ConfigComponent == undefined) {
@@ -444,23 +613,38 @@ class CharacterConfig extends LazyComponent
 
                 const props = {
                     index: this.props.index.concat([index]),
-                    getCurrent: this.props.getCurrent,
-                    getItems: this.props.getItems,
-                    onChange: (path, value, idx=null, opt=null) => {
-                        this.props.onChange(
-                            path,
-                            value,
-                            idx || this.props.index.concat([index]),
-                            opt || option,
-                        );
-                    },
                 };
+                props.onChange = (
+                    path, value, idx=null, opt=null
+                ) => onChange(
+                    path,
+                    value,
+                    idx || props.index,
+                    opt || option,
+                );
 
-                if (option.type == 'list') {
-                    props.items = props.getItems(option.list);
+                if (_.includes(
+                    ['choice', 'config', 'multichoice'],
+                    option.type
+                )) {
+                    props.getCurrent = getCurrent;
+                    props.getItems = getItems;
+                }
+
+                if ('list' in option) {
+                    props.items = getItems(option.list);
+                } else if ('items' in option) {
+                    if (_.isArray(option.items)) {
+                        props.items = _.map(option.items, i => ({
+                            code: i,
+                            label: i
+                        }));
+                    } else {
+                        props.items = option.items;
+                    }
                 }
                 if ('path' in option) {
-                    props.current = props.getCurrent(option.path);
+                    props.current = getCurrent(option.path);
                 }
 
                 if (option.label) {
@@ -469,17 +653,16 @@ class CharacterConfig extends LazyComponent
                             key={index}
                             >
                         <ConfigComponent
-                            key={index}
-                            {...props}
                             {...option}
+                            {...props}
                             />
                     </FormGroup>;
                 }
 
                 return <ConfigComponent
                         key={index}
-                        {...props}
                         {...option}
+                        {...props}
                         />;
             })}
         </div>
@@ -519,17 +702,13 @@ export class CharacterLevel extends React.Component
                     }
 
                     const root = _.split(path, '.')[0];
-                    if (value == null) {
-                        if (!(root in change.props)) {
-                            change.props[root] = undefined;
-                        }
-                        return change;
-                    }
-
                     if (_.isNil(change.props[root])) {
                         change.props[root] = _.cloneDeep(
                             this.props.character[root]
                         );
+                    }
+                    if (value == undefined) {
+                        return change;
                     }
 
                     const current = _.get(
@@ -538,7 +717,13 @@ export class CharacterLevel extends React.Component
                     );
                     let update = null;
 
-                    if (option.type == 'value') {
+                    if (
+                        value == null
+                        || _.includes(
+                            ['value', 'select'],
+                            option.type
+                        )
+                    ) {
                         update = value;
                     } else if (option.type == 'dict') {
                         update = _.assign(
@@ -570,8 +755,6 @@ export class CharacterLevel extends React.Component
                 },
                 {props: {}, state: {}}
             );
-
-            console.log(change);
 
             if (!_.isEqual(change.state, {})) {
                 this.setState(
