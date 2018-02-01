@@ -42,8 +42,7 @@ class WeaponMapper(JsonObjectDataMapper):
     fields = ["type", "name"]
 
     def getMultiple(self, where="1", values={}):
-        where = "(%s) AND `type` LIKE :extra" % where
-        values.update({"extra": "%weapon"})
+        where = "(%s) AND `type` IN ('simple melee', 'simple ranged', 'martial melee', 'martial ranged')" % where
         return super(WeaponMapper, self).getMultiple(
             where=where, values=values
             )
