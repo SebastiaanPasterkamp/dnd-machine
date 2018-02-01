@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import LazyComponent from '../components/LazyComponent.jsx';
 
 import _ from 'lodash';
@@ -18,10 +19,10 @@ class SingleSelect extends LazyComponent
     getLabel() {
         let label = this.props.emptyLabel;
         let item = _.find(
-            this.props.items || [],
+            this.props.items,
             {code: this.props.selected}
         ) || _.find(
-            this.props.items || [],
+            this.props.items,
             {name: this.props.selected}
         );
         if (
@@ -63,15 +64,15 @@ class SingleSelect extends LazyComponent
         return <BaseSelect
                 label={this.getLabel()}
                 {...this.props}>
-            {(this.props.items || [])
-                .map((item) => this.renderItem(item))
-            }
+            {_.map(
+                this.props.items,
+                item => this.renderItem(item)
+            )}
         </BaseSelect>;
     }
 }
 
 SingleSelect.defaultProps = {
-    emptyLabel: "",
     isDisabled: (item) => {
         return (
             'disabled' in item
@@ -81,6 +82,18 @@ SingleSelect.defaultProps = {
     setState: (selected) => {
         console.log(['SingleSelect', selected]);
     }
+};
+
+SingleSelect.propTypes = {
+    isDisabled: PropTypes.func.isRequired,
+    setState: PropTypes.func.isRequired,
+    emptyLabel: PropTypes.string,
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    selected: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+
 };
 
 export default SingleSelect;
