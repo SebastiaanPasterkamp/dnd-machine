@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import (
-    request, abort, redirect, url_for, render_template, session
+    request, abort, redirect, url_for, render_template, session, jsonify
     )
 
 from .baseapi import BaseApiBlueprint
@@ -14,6 +14,9 @@ class PartyBlueprint(BaseApiBlueprint):
         self.add_url_rule(
             '/hosting', 'hosting',
             self.get_hosting, methods=['GET'])
+        self.add_url_rule(
+            '/host', 'host',
+            self.set_hosting, methods=['POST'])
         self.add_url_rule(
             '/host/<int:obj_id>', 'host',
             self.set_hosting, methods=['POST'])
@@ -139,10 +142,12 @@ class PartyBlueprint(BaseApiBlueprint):
             obj_id=session.get('party_id')
             ))
 
-    def set_hosting(self, obj_id):
+    def set_hosting(self, obj_id=None):
         if not self.checkRole(['dm']):
             abort(403)
         session['party_id'] = obj_id
+        if not obj_id:
+            return jsonify(None)
         return redirect(url_for(
             '%s.api_get' % self.name,
             obj_id=obj_id

@@ -36,7 +36,7 @@ class PartyLinks extends BaseLinkGroup
                     return {
                         label: 'Stop',
                         action: () => {
-                            fetch("/party/host/0", {
+                            fetch("/party/host", {
                             method: "POST",
                                 credentials: 'same-origin',
                                 'headers': {
