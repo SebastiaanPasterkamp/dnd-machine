@@ -8,42 +8,54 @@ virtualenv <path/to/python-env>/dndmachine
 pip install -r requirements.txt
 ```
 
-## Initial setup
+### Initial setup
 
 ```bash
 export FLASK_APP=app/app.py
-export FLASK_DEBUG=true
-./run.py --initdb
+./run.py --debug --initdb
 ```
 
-## Building
+### Building
 
 ```bash
 npm install
 npm run build
 ```
 
-## Testing
+### Testing
 
 ```bash
 python tests/run_tests.py
 npm test
 ```
+
+## Running in a Development setup
+
+### NPM
+
+```bash
+npm run dev
+```
+
+### Server
+```bash
+export FLASK_APP=app/app.py
+./run.py --debug
+```
+
 ## Upgrading
 
 ```bash
 export FLASK_APP=app/app.py
-export FLASK_DEBUG=true
-./run.py --updatedb
-./run.py --migrate
+./run.py --debug --updatedb
+./run.py --debug --migrate
 ```
 
 ## Running D&D machine
 
 ```bash
 export FLASK_APP=app/app.py
-export FLASK_DEBUG=true
-./run.py
+./run.py --threaded
 ```
 
 Visit [D&D Machine](http://localhost:5000)
