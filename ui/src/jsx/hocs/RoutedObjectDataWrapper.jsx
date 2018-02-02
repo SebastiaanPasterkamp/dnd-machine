@@ -91,6 +91,10 @@ function RoutedObjectDataWrapper(
                 this.state.id,
                 loadable
             );
+
+            if (callback) {
+                callback();
+            }
         }
 
         onReload() {

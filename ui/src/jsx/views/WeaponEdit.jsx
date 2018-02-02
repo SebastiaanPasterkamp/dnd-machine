@@ -3,101 +3,88 @@ import _ from 'lodash';
 
 import '../../sass/_edit-weapon.scss';
 
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
+import CostEditor from '../components/CostEditor.jsx';
 import DamageEdit from '../components/DamageEdit.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
+import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import MultiSelect from '../components/MultiSelect.jsx';
 import ReachEdit from '../components/ReachEdit.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
 import TagContainer from '../components/TagContainer.jsx';
-import TagValueContainer from '../components/TagValueContainer.jsx';
 
 export class WeaponEdit extends React.Component
 {
-    constructor(props) {
-        super(props);
-
-        this.types = [
-            {code: "simple melee weapon", label: "Simple Melee Weapon"},
-            {code: "simple ranged weapon", label: "Simple Ranged Weapon"},
-            {code: "martial melee weapon", label: "Martial Melee Weapon"},
-            {code: "martial ranged weapon", label: "Martial Ranged Weapon"},
-        ];
-        this.properties = [
-            {'code': 'ammunition', 'label': 'Ammunition'},
-            {'code': 'finesse', 'label': 'Finesse'},
-            {'code': 'heavy', 'label': 'Heavy'},
-            {'code': 'light', 'label': 'Light'},
-            {'code': 'loading', 'label': 'Loading'},
-            {'code': 'reach', 'label': 'Reach'},
-            {'code': 'special', 'label': 'Special'},
-            {'code': 'thrown', 'label': 'Thrown'},
-            {'code': 'two-handed', 'label': 'Two-Handed'},
-            {'code': 'versatile', 'label': 'Versatile'},
-        ];
-        this.coinage = [
-            {'code': 'cp', 'label': 'Copper'},
-            {'code': 'sp', 'label': 'Silver'},
-            {'code': 'ep', 'label': 'Electrum'},
-            {'code': 'gp', 'label': 'Gold'},
-            {'code': 'pp', 'label': 'Platinum'}
-        ];
-        this.coins = _.range(1, 100)
-            .map((i) => {
-                return {code: i, label: i}
-            });
-    }
-
     onComponentDidMount() {
-        this.fixConditionalFields();
-    }
-
-    fixConditionalFields() {
-        let fix = [];
-        if (
-            this.props.type.match('ranged')
-            || _.includes(this.props.property, 'thrown')
-        ) {
-            if (!this.props.range) {
-                fix.range = {
-                    min: 5,
-                    max: 5
-                };
-            }
-        } else if ('range' in this.props) {
-            fix.range = null;
-        }
-
-        if (_.includes(this.props.property, 'versatile')) {
-            if (!this.props.versatile) {
-                fix.versatile = this.props.damage;
-            }
-        } else if ('versatile' in this.props) {
-            fix.versatile = null;
-        }
-
-        console.log(fix);
-
-        if (fix) {
+        let fix = this.fixConditionalFields();
+        if (!_.isEmpty(fix)) {
             this.props.setState(fix);
         }
     }
 
+    fixConditionalFields(update={}) {
+        const {
+            property, type, range, versatile, damage, description
+        } = _.assign({}, this.props, update);
+        let state = {};
+        if (
+            type.match('ranged')
+            || _.includes(property, 'thrown')
+        ) {
+            if (range == null) {
+                update.range = this.state.range || {
+                    min: 5,
+                    max: 5
+                };
+            }
+        } else if (range != null) {
+            state.range = range;
+            update.range = undefined;
+        }
+
+        if (_.includes(property, 'versatile')) {
+            if (versatile == null) {
+                update.versatile = this.state.versatile || _.cloneDeep(damage);
+            }
+        } else if (versatile != null) {
+            state.versatile = versatile;
+            update.versatile = undefined;
+        }
+
+        if (_.includes(property, 'special')) {
+            if (description == null) {
+                update.description = this.state.description || '';
+            }
+        } else if (description != null) {
+            state.description = description;
+            update.description = undefined;
+        }
+
+        console.log(state);
+        if (!_.isEmpty(state)) {
+            this.setState(state);
+        }
+        return update;
+    }
+
     onFieldChange(field, value) {
-        let update = [];
-        update[field] = value;
-        this.props.setState(
-            update,
-            () => this.fixConditionalFields()
-        );
+        const update = this.fixConditionalFields({
+            [field]: value
+        });
+        this.props.setState(update);
     }
 
     render() {
+        const {
+            name, damage, versatile, type, weapon_types, property,
+            range, weight, cost, description, weapon_properties
+        } = this.props;
         return [
             <Panel
                     key="description"
@@ -106,8 +93,8 @@ export class WeaponEdit extends React.Component
                 >
                 <ControlGroup label="Type">
                     <SingleSelect
-                        selected={this.props.type || this.types[0].code}
-                        items={this.types}
+                        selected={type || weapon_types[0].code}
+                        items={weapon_types || []}
                         setState={(value) =>
                             this.onFieldChange('type', value)
                         } />
@@ -115,21 +102,21 @@ export class WeaponEdit extends React.Component
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
-                        value={this.props.name}
+                        value={name}
                         setState={(value) =>
                             this.onFieldChange('name', value)
                         } />
                 </ControlGroup>
                 <DamageEdit
-                    {...this.props.damage}
+                    {...damage}
                     setState={(value) => {
                         this.onFieldChange('damage', value);
                     }}
                     />
-                {this.props.versatile
+                {versatile
                     ? <DamageEdit
                         label="Versatile"
-                        {...this.props.versatile}
+                        {...versatile}
                         setState={(value) => {
                             this.onFieldChange('versatile', value);
                         }}
@@ -145,15 +132,15 @@ export class WeaponEdit extends React.Component
                 >
                 <ControlGroup label="Attributes">
                     <TagContainer
-                        tags={this.props.property || []}
-                        tagOptions={this.properties || []}
+                        tags={property || []}
+                        tagOptions={weapon_properties || []}
                         setState={(value) => {
                             this.onFieldChange('property', value);
                         }} />
                 </ControlGroup>
-                {this.props.range
+                {range
                     ? <ReachEdit
-                        {...this.props.range}
+                        {...range}
                         setState={(range) => {
                             this.onFieldChange('range', range);
                         }}
@@ -164,34 +151,55 @@ export class WeaponEdit extends React.Component
                     <InputField
                         type="float"
                         placeholder="Pounds..."
-                        value={'weight' in this.props
-                            ? this.props.weight.lb
-                            : ''
-                        }
+                        value={weight.lb || ''}
                         setState={(value) => {
                             this.onFieldChange('weight', {lb: value});
                         }} />
                 </ControlGroup>
 
                 <ControlGroup label="Value">
-                    <TagValueContainer
-                        tags={this.props.cost}
-                        tagOptions={this.coinage}
-                        tagValues={this.coins}
+                    <CostEditor
+                        value={cost}
                         setState={(value) => {
                             this.onFieldChange('cost', value);
                         }} />
                 </ControlGroup>
-            </Panel>
+            </Panel>,
+
+            description != null ? <Panel
+                    key="special"
+                    className="weapon-edit__special"
+                    header="Special"
+                >
+                <ControlGroup label="Description">
+                    <MarkdownTextField
+                        placeholder="Description..."
+                        value={description}
+                        rows={5}
+                        setState={(value) => {
+                            this.onFieldChange('description', value);
+                        }} />
+                </ControlGroup>
+            </Panel> : null
         ];
     }
 }
 
-export default RoutedObjectDataWrapper(
-    WeaponEdit, {
-        className: 'weapon-edit',
-        icon: 'fa-cutlery',
-        label: 'Weapon',
-        buttons: ['cancel', 'reload', 'recompute', 'save']
-    }, "weapons", "items"
+export default ListDataWrapper(
+    RoutedObjectDataWrapper(
+        WeaponEdit, {
+            className: 'weapon-edit',
+            icon: 'fa-cutlery',
+            label: 'Weapon',
+            buttons: ['cancel', 'reload', 'save']
+        },
+        "weapons",
+        "items"
+    ),
+    [
+        "weapon_types",
+        "weapon_properties",
+        "damage_types",
+    ],
+    'items'
 );
