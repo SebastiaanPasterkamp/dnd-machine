@@ -80,7 +80,7 @@ export class DamageEdit extends LazyComponent
             <SingleSelect
                 header="Damage type"
                 selected={this.props.type}
-                items={this.props.damage_types}
+                items={this.props.damage_types || []}
                 setState={(value) => {
                     this.onFieldChange('type', value)
                 }}
