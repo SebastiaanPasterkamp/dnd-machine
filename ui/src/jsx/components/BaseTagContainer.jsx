@@ -10,12 +10,6 @@ import SingleSelect from '../components/SingleSelect.jsx';
 export class BaseTagContainer extends LazyComponent
 {
     isDisabled(item) {
-        if (this.props.multiple || false) {
-            return false;
-        }
-        if (_.includes(this.getTags(), item.code || item.name)) {
-            return true;
-        }
         return false;
     }
 
@@ -66,7 +60,7 @@ export class BaseTagContainer extends LazyComponent
                 {item.label || item.name}
             </span>
             {_.map(this.getBadges(key, value, item), (badge) => {
-                <span key={badge.key} className="nice-tag-badge">
+                return <span key={badge.key} className="nice-tag-badge">
                     {badge.label}
                     {badge.content}
                 </span>
@@ -117,7 +111,6 @@ BaseTagContainer.defaultProps = {
 BaseTagContainer.propTypes = {
     setState: PropTypes.func.isRequired,
     tagOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
-    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
     showSelect: PropTypes.bool,
     multiple: PropTypes.bool,
 };
