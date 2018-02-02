@@ -13,7 +13,7 @@ parser.add_option("--host", dest="host", default="127.0.0.1",
                   metavar="HOST",
                   help="Bind to IP or Host [default %default]")
 
-parser.add_option("--port", dest="port", default=8080,
+parser.add_option("--port", dest="port", default=5000,
                   metavar="PORT", type=int,
                   help="Use this port [default %default]")
 
