@@ -34,7 +34,7 @@ ListDataActions.fetchItems.listen((type, category=null) => {
                 ListDataActions.fetchItems.completed(update);
             })
             .catch((error) => {
-                console.error(error);
+                console.log(error);
                 ListDataActions.fetchItems.failed(type, error);
             });
         }, 1000, {leading: true, trailing: false});
@@ -65,7 +65,7 @@ ListDataActions.doLogin.listen((credentials, success, failure) => {
         }
     })
     .catch((error) => {
-        console.error(error);
+        console.log(error);
         ListDataActions.doLogin.failed(error);
         if (failure) {
             failure(error);
@@ -89,7 +89,7 @@ ListDataActions.doLogout.listen(() => {
         ListDataActions.fetchItems.completed({'current_user': response});
     })
     .catch((error) => {
-        console.error(error);
+        console.log(error);
         ListDataActions.doLogout.failed(error);
     });
 });

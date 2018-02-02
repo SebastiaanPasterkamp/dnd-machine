@@ -192,6 +192,11 @@ def home():
         return redirect(url_for('login'))
     return redirect(url_for('character.overview'))
 
+@app.route('/error', methods=["POST"])
+def error():
+    data = request.get_json()
+    print data
+
 @app.route('/authenticate')
 def authenticate():
     return jsonify(app.config.get('info', {}))
