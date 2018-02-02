@@ -10,10 +10,7 @@ class ListLabel extends LazyComponent
         let item = _.find(this.props.items || [], {
             code: this.props.value
         });
-        if (
-            !_.isNil(item)
-            && !_.isNil(item.code)
-        ) {
+        if (!_.isNil(item)) {
             label = item.label;
         }
         return label;
