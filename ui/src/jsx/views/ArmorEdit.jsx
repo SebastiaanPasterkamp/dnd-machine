@@ -3,10 +3,12 @@ import _ from 'lodash';
 
 import '../../sass/_edit-armor.scss';
 
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
+import CostEditor from '../components/CostEditor.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
 import MultiSelect from '../components/MultiSelect.jsx';
@@ -19,12 +21,6 @@ export class ArmorEdit extends React.Component
     constructor(props) {
         super(props);
 
-        this.types = [
-            {code: "light armor", label: "Light Armor"},
-            {code: "medium armor", label: "Medium Armor"},
-            {code: "heavy armor", label: "Heavy Armor"},
-            {code: "shield armor", label: "Shields"},
-        ];
         this.armor_method = [
             {code: "value", label: "Flat value"},
             {code: "bonus", label: "Bonus armor"},
@@ -34,41 +30,45 @@ export class ArmorEdit extends React.Component
             {code: false, label: "Unhindered"},
             {code: true, label: "Disadvantage"}
         ];
-        this.coinage = [
-            {'code': 'cp', 'label': 'Copper'},
-            {'code': 'sp', 'label': 'Silver'},
-            {'code': 'ep', 'label': 'Electrum'},
-            {'code': 'gp', 'label': 'Gold'},
-            {'code': 'pp', 'label': 'Platinum'}
-        ];
 
-        this.state = {};
+        this.state = {
+            armor_method: null
+        };
     }
 
     onArmorMethod(from, to) {
-        let update = [];
-        update[from] = undefined;
-        update[to] = this.state[to] || null;
-        this.props.setState(update);
+        this.setState(
+            {
+                armor_method: to,
+                [from]: this.props[from]
+            },
+            () => this.props.setState({
+                [from]: undefined,
+                [to]: this.state[to]
+            })
+        );
     }
 
     onFieldChange(field, value) {
-        let update = [];
-        update[field] = value;
-        this.setState(update);
-        this.props.setState(update);
+        this.props.setState({[field]: value});
     }
 
     render() {
-        let armor_method = this.armor_method[0].code;
-        this.armor_method.map((method) => {
-            if (
-                method.code in this.props
-                && this.props[method.code] !== undefined
-            ) {
-                armor_method = method.code;
-            }
-        });
+        let armor_method = this.state.armor_method || _.reduce(
+            this.armor_method,
+            (armor_method, method) => {
+                if (!_.isNil(this.props[method.code])) {
+                    armor_method = method.code;
+                }
+                return armor_method;
+            },
+            this.armor_method[0].code
+        );
+
+        const {
+            type, armor_types, name, bonus, value, formula,
+            requirements, weight, disadvantage, cost
+        } = this.props;
 
         return [
             <Panel
@@ -78,8 +78,8 @@ export class ArmorEdit extends React.Component
                 >
                 <ControlGroup label="Type">
                     <SingleSelect
-                        selected={this.props.type || this.types[0].code}
-                        items={this.types}
+                        selected={type || armor_types[0].code}
+                        items={armor_types || []}
                         setState={(value) =>
                             this.onFieldChange('type', value)
                         } />
@@ -87,7 +87,7 @@ export class ArmorEdit extends React.Component
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
-                        value={this.props.name}
+                        value={name}
                         setState={(value) =>
                             this.onFieldChange('name', value)
                         } />
@@ -107,9 +107,12 @@ export class ArmorEdit extends React.Component
                         ? <InputField
                             type="number"
                             placeholder="Bonus..."
-                            value={this.props.bonus || null}
+                            value={bonus}
                             setState={(value) => {
-                                this.onFieldChange('bonus', value)
+                                this.onFieldChange(
+                                    'bonus',
+                                    value || undefined
+                                )
                             }} />
                         : null
                     }
@@ -117,7 +120,7 @@ export class ArmorEdit extends React.Component
                         ? <InputField
                             type="number"
                             placeholder="Value..."
-                            value={this.props.value || null}
+                            value={value}
                             setState={(value) => {
                                 this.onFieldChange('value', value)
                             }} />
@@ -126,7 +129,7 @@ export class ArmorEdit extends React.Component
                     {armor_method == 'formula'
                         ? <InputField
                             placeholder="Formula..."
-                            value={this.props.formula || null}
+                            value={formula}
                             setState={(value) => {
                                 this.onFieldChange('formula', value)
                             }} />
@@ -144,7 +147,7 @@ export class ArmorEdit extends React.Component
                     <InputField
                         type="number"
                         placeholder="Strength..."
-                        value={this.props.requirements.strength || null}
+                        value={requirements.strength || null}
                         setState={(value) => {
                             this.onFieldChange('requirements', {
                                 strength: value || undefined
@@ -155,50 +158,44 @@ export class ArmorEdit extends React.Component
                     <InputField
                         type="float"
                         placeholder="Pounds..."
-                        value={'weight' in this.props
-                            ? this.props.weight.lb
-                            : ''
-                        }
+                        value={weight.lb || ''}
                         setState={(value) => {
                             this.onFieldChange('weight', {lb: value});
                         }} />
                 </ControlGroup>
                 <ControlGroup label="Stealth">
                     <SingleSelect
-                        selected={this.props.disadvantage || false}
+                        selected={disadvantage || false}
                         items={this.stealth}
                         setState={(value) => {
                             this.onFieldChange('disadvantage', value);
                         }} />
                 </ControlGroup>
-                {_.map(this.coinage, (coinage) => {
-                    return <ControlGroup
-                        key={coinage.code} label={coinage.label}>
-                    <InputField
-                        type="number"
-                        placeholder="Amount..."
-                        value={this.props.cost[coinage.code] || ''}
+                <ControlGroup label="Value">
+                    <CostEditor
+                        value={cost}
                         setState={(value) => {
-                            let update = {};
-                            update[coinage.code] = value || null;
-                            let cost = Object.assign({},
-                                this.props.cost,
-                                update
-                            );
-                            this.onFieldChange('cost', cost);
+                            this.onFieldChange('cost', value);
                         }} />
-                </ControlGroup>})}
+                </ControlGroup>
             </Panel>
         ];
     }
 }
 
-export default RoutedObjectDataWrapper(
-    ArmorEdit, {
-        className: 'armor-edit',
-        icon: 'fa-shield',
-        label: 'Armor',
-        buttons: ['cancel', 'reload', 'recompute', 'save']
-    },
-    "armor", "items"
+export default ListDataWrapper(
+    RoutedObjectDataWrapper(
+        ArmorEdit, {
+            className: 'armor-edit',
+            icon: 'fa-shield',
+            label: 'Armor',
+            buttons: ['cancel', 'reload', 'save']
+        },
+        "armor",
+        "items"
+    ),
+    [
+        "armor_types"
+    ],
+    'items'
 );
