@@ -8,12 +8,26 @@ import BaseSelect from './BaseSelect.jsx';
 
 class SingleSelect extends LazyComponent
 {
+    getId(item) {
+        if ('code' in item) {
+            return item.code;
+        }
+        return item.name;
+    }
+
+    getName(item) {
+        if ('label' in item) {
+            return item.label;
+        }
+        return item.name;
+    }
+
     onClick(item) {
         if (this.props.isDisabled(item)) {
             return;
         }
 
-        this.props.setState(item.code || item.name);
+        this.props.setState(this.getId(item));
     }
 
     getLabel() {
@@ -27,20 +41,20 @@ class SingleSelect extends LazyComponent
         );
         if (
             !_.isNil(item)
-            && !_.isNil(item.code || item.name)
+            && !_.isNil(this.getId(item))
         ) {
-            label = item.label || item.name;
+            label = this.getName(item);
         }
         return label;
     }
 
     renderItem(item) {
-        if (_.isNil(item.code || item.name)) {
+        if (_.isNil(this.getId(item))) {
             return null;
         }
         let isDisabled = this.props.isDisabled(item);
         let style = _.filter([
-            (item.code || item.name) == this.props.selected
+            this.getId(item) == this.props.selected
                 ? "info"
                 : null,
             isDisabled
@@ -48,15 +62,15 @@ class SingleSelect extends LazyComponent
                 : null
             ]);
         return <li
-                key={item.code || item.name}
+                key={this.getId(item)}
                 className={style.length ? style.join(' ') : null}
-                data-value={item.code || item.name}
+                data-value={this.getId(item)}
                 onClick={isDisabled
                     ? null
                     : () => this.onClick(item)
                 }
                 >
-            <a>{item.label || item.name}</a>
+            <a>{this.getName(item)}</a>
         </li>
     }
 
@@ -89,10 +103,7 @@ SingleSelect.propTypes = {
     setState: PropTypes.func.isRequired,
     emptyLabel: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
-    selected: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    selected: PropTypes.any,
 
 };
 
