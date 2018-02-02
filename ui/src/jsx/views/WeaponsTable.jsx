@@ -7,6 +7,7 @@ import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import Coinage from '../components/Coinage.jsx';
 import DiceNotation from '../components/DiceNotation.jsx';
+import ListLabel from '../components/ListLabel.jsx';
 import Reach from '../components/Reach.jsx';
 import WeaponLinks from '../components/WeaponLinks.jsx';
 
@@ -49,51 +50,39 @@ class WeaponsFooter extends LazyComponent
 
 class WeaponsRow extends LazyComponent
 {
-    constructor(props) {
-        super(props);
-        this.properties = [
-            {'code': 'ammunition', 'label': 'Ammunition'},
-            {'code': 'finesse', 'label': 'Finesse'},
-            {'code': 'heavy', 'label': 'Heavy'},
-            {'code': 'light', 'label': 'Light'},
-            {'code': 'loading', 'label': 'Loading'},
-            {'code': 'reach', 'label': 'Reach'},
-            {'code': 'special', 'label': 'Special'},
-            {'code': 'thrown', 'label': 'Thrown'},
-            {'code': 'two-handed', 'label': 'Two-Handed'},
-            {'code': 'versatile', 'label': 'Versatile'},
-        ];
-    }
-
     render() {
+        const {
+            name, type, damage, range, cost, property,
+            weapon_properties, id
+        } = this.props;
         return <tr
-                data-name={this.props.name}>
+                data-name={name}>
             <td>
-                {this.props.name}<br/>
-                <i>({this.props.type})</i>
+                {name}<br/>
+                <i>({type})</i>
             </td>
-            <td><DiceNotation {...this.props.damage}/></td>
-            <td>{this.props.range
-                ? <Reach {...this.props.range}/>
+            <td><DiceNotation {...damage}/></td>
+            <td>{range
+                ? <Reach {...range}/>
                 : null
             }</td>
-            <td>{this.props.cost
-                ? <Coinage {...this.props.cost} extended="1" />
+            <td>{cost
+                ? <Coinage {...cost} extended="1" />
                 : null
             }</td>
-            <td>{this.props.property
-                ? <ul>{this.properties.map((prop) => {
-                    return _.indexOf(this.props.property, prop.code) >= 0
-                        ? <li key={prop.code}>{prop.label}</li>
-                        : null
-                })}</ul>
-                : null
-            }</td>
-            <td>{this.props.id != null ?
+            <td><ul>{_.map(property || [], prop => {
+                return <li key={prop}>
+                    <ListLabel
+                    items={weapon_properties}
+                    value={prop}
+                    />
+                </li>;
+            })}</ul></td>
+            <td>{id != null ?
                 <WeaponLinks
                     altStyle={true}
                     buttons={['view', 'edit']}
-                    weapon_id={this.props.id}
+                    weapon_id={id}
                     />
                 : null
             }</td>
@@ -110,23 +99,28 @@ class WeaponsTable extends LazyComponent
     }
 
     render() {
-        if (this.props.weapons == null) {
+        const {weapons, weapon_properties} = this.props;
+        if (!weapons) {
             return null;
         }
+
         let pattern = new RegExp(this.props.search || '', "i");
+        const filtered = _.filter(
+            weapons,
+            (weapon) => this.shouldDisplayRow(pattern, weapon)
+        );
 
         return <div>
             <h2 className="icon fa-cutlery">Weapons</h2>
             <table className="nice-table condensed bordered responsive">
                 <WeaponsHeader />
                 <tbody key="tbody">
-                    {_.map(this.props.weapons, (weapon) => {
-                        return this.shouldDisplayRow(pattern, weapon)
-                            ? <WeaponsRow
-                                key={weapon.id}
-                                {...weapon}
-                                />
-                            : null;
+                    {_.map(filtered, (weapon) => {
+                        return <WeaponsRow
+                            key={weapon.id}
+                            {...weapon}
+                            weapon_properties={weapon_properties}
+                            />;
                     })}
                 </tbody>
                 <WeaponsFooter />
@@ -140,5 +134,6 @@ export default ListDataWrapper(
         WeaponsTable,
         {weapons: {group: 'items', type: 'weapons'}}
     ),
-    ['search']
+    ['search', 'weapon_properties'],
+    'items'
 );
