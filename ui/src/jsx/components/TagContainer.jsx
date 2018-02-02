@@ -45,21 +45,32 @@ export class TagContainer extends BaseTagContainer
         return _.find(this.props.tagOptions, {code: value})
             || _.find(this.props.tagOptions, {name: value})
     }
+
+    isDisabled(item) {
+        if (this.props.multiple || false) {
+            return false;
+        }
+        const tags = this.getTags();
+        const tag = (item.code || item.name)
+        if (_.includes(tags, tag)) {
+            return true;
+        }
+        return false;
+    }
+
 }
 
-TagContainer.defaultProps = {
-    multiple: false,
-    showSelect: true,
+TagContainer.defaultProps = _.assign({}, BaseTagContainer.defaultProps, {
     setState: (value) => {
         console.log(['TagContainer', value]);
     }
-};
+});
 
-TagContainer.propTypes = {
-    tagOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
+TagContainer.propTypes = _.assign({}, BaseTagContainer.propTypes, {
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onDelete: PropTypes.func,
-};
+});
 
 export default TagContainer;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import '../../sass/_list-component.scss';
@@ -38,6 +39,18 @@ export class TagValueContainer extends BaseTagContainer
             || _.find(this.props.tagOptions, {name: key})
     }
 
+    isDisabled(item) {
+        if (this.props.multiple || false) {
+            return false;
+        }
+        const tags = this.getTags();
+        const tag = (item.code || item.name)
+        if (tag in tags) {
+            return true;
+        }
+        return false;
+    }
+
     getBadges(key, value, item) {
         return [
             {
@@ -61,11 +74,17 @@ export class TagValueContainer extends BaseTagContainer
     }
 }
 
-TagValueContainer.defaultProps = {
-    multiple: false,
+TagValueContainer.defaultProps = _.assign({}, BaseTagContainer.defaultProps, {
     setState: (value) => {
         console.log(['TagValueContainer', value]);
     }
-};
+});
+
+TagValueContainer.propTypes = _.assign({}, BaseTagContainer.propTypes, {
+    tags: PropTypes.object.isRequired,
+    onAdd: PropTypes.func,
+    onChange: PropTypes.func,
+    onDelete: PropTypes.func,
+});
 
 export default TagValueContainer;
