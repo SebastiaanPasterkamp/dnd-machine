@@ -18,6 +18,7 @@ import CharacterEdit from './views/CharacterEdit.jsx';
 import CharactersTable from './views/CharactersTable.jsx';
 import CharactersView from './views/CharactersView.jsx';
 import EncounterTable from './views/EncounterTable.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
 import PartyEdit from './views/PartyEdit.jsx';
 import PartyTable from './views/PartyTable.jsx';
 import LanguageTable from './views/LanguagesTable.jsx';
@@ -35,46 +36,14 @@ import Navigation from './views/Navigation.jsx';
 
 class DndMachine extends React.Component
 {
-    renderLogin() {
+    render() {
+        const auth = !!this.props.current_user;
+
         return <Router><div>
         <header className="nice-header fixed">
             <div className="nice-header-container">
                 <h1 className="nice-header-brand">
-                    <Link to="/login">
-                        <img
-                            src="/static/img/dungeons-and-dragons-logo.png"
-                            height="35"
-                            />
-                    </Link>
-                </h1>
-
-                <button
-                        type="button"
-                        className="nice-header-toggle collapsed"
-                        onClick={UiActions.toggleMenu}
-                        >
-                    <span className="icon-bar top-bar"></span>
-                    <span className="icon-bar middle-bar"></span>
-                    <span className="icon-bar bottom-bar"></span>
-                </button>
-
-            </div>
-        </header>
-        <section className="nice-fluid-container grid">
-            <LoginDialog
-                message="Welcome to D&amp;D Machine. Please log in using your credentials to access this website."
-                icon="d20"
-                />
-        </section>
-    </div></Router>;
-    }
-
-    renderApp() {
-        return <Router><div>
-        <header className="nice-header fixed">
-            <div className="nice-header-container">
-                <h1 className="nice-header-brand">
-                    <Link to="/">
+                    <Link to={auth ? "/login" : "/"}>
                         <img
                             src="/static/img/dungeons-and-dragons-logo.png"
                             height="35"
@@ -82,13 +51,11 @@ class DndMachine extends React.Component
                     </Link>
                 </h1>
                 <div className="nice-header-collapse">
-
-                    <DefaultFilter/>
-
-                    <Navigation />
+                    {auth ? <DefaultFilter/> : null }
+                    {auth ? <Navigation /> : null }
                 </div>
 
-                <button
+                {auth ? <button
                         type="button"
                         className="nice-header-toggle collapsed"
                         onClick={UiActions.toggleMenu}
@@ -96,12 +63,12 @@ class DndMachine extends React.Component
                     <span className="icon-bar top-bar"></span>
                     <span className="icon-bar middle-bar"></span>
                     <span className="icon-bar bottom-bar"></span>
-                </button>
+                </button> : null }
 
             </div>
         </header>
         <section className="nice-fluid-container grid">
-            <Switch>
+            <ErrorBoundary>{ auth ? <Switch>
                 <Route
                     path="/items/armor/new"
                     component={ArmorEdit}
@@ -208,23 +175,24 @@ class DndMachine extends React.Component
                     component={NpcEdit}
                     />
 
-                <Redirect path="/login" to="/" />
+                <Redirect path="/login" to="/character/list" />
 
                 <Route path="*" render={props => {
                     window.location.href = props.location.pathname;
                     return '';
                 }} />
-            </Switch>
+            </Switch> : <Switch>
+
+                <Route path="*" render={props => {
+                    return <LoginDialog
+                        message="Welcome to D&amp;D Machine. Please log in using your credentials to access this website."
+                        icon="d20"
+                        />;
+                }} />
+
+            </Switch> }</ErrorBoundary>
         </section>
     </div></Router>;
-    }
-
-    render() {
-        if (!this.props.current_user) {
-            return this.renderLogin();
-        }
-
-        return this.renderApp();
     }
 }
 
