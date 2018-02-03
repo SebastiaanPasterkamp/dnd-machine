@@ -60,16 +60,6 @@ def get_list(objects):
         'reactjs-layout.html'
         )
 
-@blueprint.route('/spells/api', methods=['GET'])
-def api_list_spells():
-    datamapper = get_datamapper()
-    spells = datamapper.items.spell_list
-    for spell in spells:
-        spell['code'] = spell['name'].lower()
-        spell['label'] = spell['name']
-    return jsonify(spells)
-
-
 @blueprint.route('/languages/api', methods=['GET'])
 def api_list_languages():
     datamapper = get_datamapper()
@@ -90,7 +80,6 @@ def api_list(item_type):
         item.config
         for item in items
         ])
-
 
 @blueprint.route('/<string:item_type>/new')
 @blueprint.route('/<string:item_type>/edit/<int:item_id>')
