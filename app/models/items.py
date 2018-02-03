@@ -82,21 +82,25 @@ class ItemsObject(JsonObject):
             matches.extend(data)
         return matches
 
-
-    def listByName(self, name, paths):
+    def listByNameOrCode(self, name, paths):
         def _tokens(name):
             return set(re.split(r'/\s*,\s*/', name.lower()))
         name = _tokens(name)
         matches = []
         for item in self.getList(paths):
-            if isinstance(item, dict) \
-                    and 'name' in data \
-                    and _tokens(data['name']) == name:
-                matches.append(data)
-        return matches[0]
+            if not isinstance(item, dict):
+                continue
+            options = [
+                _tokens(item.get('code', '')),
+                _tokens(item.get('name', '')),
+                _tokens(item.get('label', '')),
+                ]
+            if name in options:
+                matches.append(item)
+        return matches
 
-    def itemByName(self, name, paths, default=None):
-        matches = self.listByName(name, paths, default)
+    def itemByNameOrCode(self, name, paths, default=None):
+        matches = self.listByNameOrCode(name, paths)
         if matches:
             return matches[0]
         return default

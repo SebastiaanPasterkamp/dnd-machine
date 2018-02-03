@@ -92,3 +92,12 @@ CREATE TABLE `item` (
   `name` TEXT NOT NULL,
   `config` TEXT
 );
+
+DROP TABLE IF EXISTS `spell`;
+CREATE TABLE `spell` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+  `name` TEXT NOT NULL,
+  `school` TEXT NOT NULL,
+  `level` TEXT NOT NULL,
+  `config` TEXT
+);

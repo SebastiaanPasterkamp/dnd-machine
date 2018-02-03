@@ -17,6 +17,7 @@ from party import PartyMapper
 from user import UserMapper
 from item.armor import ArmorMapper
 from item.weapons import WeaponMapper
+from item.spell import SpellMapper
 from items import ItemsObject
 
 class Datamapper(object):
@@ -35,6 +36,7 @@ class Datamapper(object):
             'npc': lambda: NpcMapper(db),
             'armor': lambda: ArmorMapper(db),
             'weapons': lambda: WeaponMapper(db),
+            'spells': lambda: SpellMapper(db),
             'campaign': lambda: CampaignMapper(db),
             'items': lambda: ItemsObject(
                 os.path.abspath(
@@ -44,7 +46,7 @@ class Datamapper(object):
                         'item-data.json'
                         )
                     )
-                )
+                ),
             }
 
     def __contains__(self, mapper):
