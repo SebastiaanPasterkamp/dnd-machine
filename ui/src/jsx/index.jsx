@@ -144,7 +144,7 @@ class DndMachine extends React.Component
                     component={LanguageTable}
                     />
                 <Route
-                    path="/items/spells"
+                    path="/items/spells/list"
                     component={SpellsTable}
                     />
 

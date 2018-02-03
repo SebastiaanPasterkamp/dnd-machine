@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
 import MultiSelect from '../components/MultiSelect.jsx';
@@ -98,7 +99,7 @@ class SpellsTable extends React.Component
         });
     }
 
-    filterRow(pattern, row) {
+    shouldDisplayRow(pattern, row) {
         return (
             (row.name && row.name.search(pattern) >= 0)
             && (
@@ -152,10 +153,19 @@ class SpellsTable extends React.Component
     }
 
     render() {
-        if (this.props.spells == null) {
+        const { search, spells } = this.props;
+        if (!spells) {
             return null;
         }
-        let pattern = new RegExp(this.state.name, "i");
+
+        let pattern = new RegExp(
+            this.state.name || search || '',
+            "i"
+        );
+        const filtered = _.filter(
+            spells,
+            (spell) => this.shouldDisplayRow(pattern, spell)
+        );
 
         return <div>
             <h2 className="icon fa-magic">Spells</h2>
@@ -163,12 +173,12 @@ class SpellsTable extends React.Component
             <table className="nice-table condensed bordered responsive">
                 <thead key="thead"><SpellsHeader/></thead>
                 <tbody key="tbody">
-                    {this.props.spells
-                        .filter((row) => this.filterRow(pattern, row))
-                        .map((row) => {
-                            return <SpellRow key={row.name} {...row}/>
-                        })
-                    }
+                    {_.map(filtered, (spell) => {
+                        return <SpellRow
+                            key={spell.name}
+                            {...spell}
+                            />;
+                    })}
                 </tbody>
             </table>
         </div>;
@@ -176,5 +186,10 @@ class SpellsTable extends React.Component
 }
 
 export default ListDataWrapper(
-    SpellsTable, ['spells'], 'items'
+    ObjectDataListWrapper(
+        SpellsTable,
+        {spells: {group: 'items', type: 'spells'}}
+    ),
+    ['search', 'magic_schools', 'magic_components'],
+    'items'
 );
