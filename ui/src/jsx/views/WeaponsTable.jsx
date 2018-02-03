@@ -99,12 +99,12 @@ class WeaponsTable extends LazyComponent
     }
 
     render() {
-        const {weapons, weapon_properties} = this.props;
+        const { search, weapons, weapon_properties } = this.props;
         if (!weapons) {
             return null;
         }
 
-        let pattern = new RegExp(this.props.search || '', "i");
+        let pattern = new RegExp(search || '', "i");
         const filtered = _.filter(
             weapons,
             (weapon) => this.shouldDisplayRow(pattern, weapon)
