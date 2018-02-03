@@ -24,9 +24,12 @@ class DndMachine(object):
 
     def resolveMath(self, obj, formula):
         replace = {}
-        for m in re.finditer(ur'[a-z_.]+', formula):
-            if obj.hasPath(m.group(0)):
-                replace[m.group(0)] = obj.getPath(m.group(0))
+        for m in re.finditer(ur'\b[a-z_.]+\b', formula):
+            path = m.group(0)
+            if obj.hasPath(path):
+                replace[path] = obj.getPath(path)
+            elif path.startswith(obj._pathPrefix):
+                replace[path] = None
         for var, val in replace.iteritems():
             formula = formula.replace(var, str(val))
         code = parser.expr(formula).compile()
