@@ -116,15 +116,29 @@
         {"code": "male", "label": "Male"},
         {"code": "female", "label": "Female"}
     ],
+    "magic_components": [
+        {
+            "code": "verbal", "label": "Verbal", "short": "V",
+            "description": "Most spells require the chanting of mystic words. The words themselves aren't the source of the spell's power; rather, the particular combination of sounds, with specific pitch and resonance, sets the threads of magic in motion. Thus, a character who is gagged or in an area of silence, such as one created by the **Silence** spell, can't cast a spell with a **Verbal** component."
+        },
+        {
+            "code": "somatic", "label": "Somatic", "short": "S",
+            "description": "Spellcasting gestures might include a forceful gesticulation or an intricate set of gestures. If a spell requires a **Somatic** component, the caster must have free use of at least one hand to perform these gestures."
+        },
+        {
+            "code": "somatic", "label": "Somatic", "short": "S",
+            "description": "Casting some spells requires particular objects, specified in the component entry. A character can use a *Component pouch *or a *Spellcasting focus* in place of the components specified for a spell. But if a cost is indicated for a component, a character must have that specific component before he or she can cast the spell.\n\nIf a spell states that a material component is consumed by the spell, the caster must provide this component for each casting of the spell.\nA spellcaster must have a hand free to access a spell's material components - or to hold a spellcasting focus - but it can be the same hand that he or she uses to perform somatic components."
+        }
+    ],
     "magic_schools": [
-        {"name": "abjuration", "label": "Abjuration", "description": "Magic that blocks, banishes, or protects. Detractors of this school say that its tradition is about denial, negation rather than positive assertion. Others say that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void."},
-        {"name": "conjuration", "label": "Conjuration", "description": "Spells that produce objects and creatures out of thin air. Ranging from billowing clouds of killing fog or summon creatures from elsewhere to fight on your behalf."},
-        {"name": "divination", "label": "Divination", "description": "Spells of discernment, remote viewing, supernatural knowledge, and foresight."},
-        {"name": "enchantment", "label": "Enchantment", "description": "Abilities to magically entrance and beguile people and monsters."},
-        {"name": "evocation", "label": "Evocation", "description": "Magic that creates powerful elemental effects such as bitter cold, searing flame, rolling thunder, crackling lightning, and burning acid."},
-        {"name": "illusion", "label": "Illusion", "description": "Magic that dazzles the senses, befuddles the mind, and tricks even the wisest folk."},
-        {"name": "necromancy", "label": "Necromancy", "description": "Concerns the cosmic forces of life, death, and undeath. Manipulates the energy that animates all living things."},
-        {"name": "transmutation", "label": "Transmutation", "description": "Spells that modify energy and matter."}
+        {"code": "abjuration", "label": "Abjuration", "description": "Magic that blocks, banishes, or protects. Detractors of this school say that its tradition is about denial, negation rather than positive assertion. Others say that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void."},
+        {"code": "conjuration", "label": "Conjuration", "description": "Spells that produce objects and creatures out of thin air. Ranging from billowing clouds of killing fog or summon creatures from elsewhere to fight on your behalf."},
+        {"code": "divination", "label": "Divination", "description": "Spells of discernment, remote viewing, supernatural knowledge, and foresight."},
+        {"code": "enchantment", "label": "Enchantment", "description": "Abilities to magically entrance and beguile people and monsters."},
+        {"code": "evocation", "label": "Evocation", "description": "Magic that creates powerful elemental effects such as bitter cold, searing flame, rolling thunder, crackling lightning, and burning acid."},
+        {"code": "illusion", "label": "Illusion", "description": "Magic that dazzles the senses, befuddles the mind, and tricks even the wisest folk."},
+        {"code": "necromancy", "label": "Necromancy", "description": "Concerns the cosmic forces of life, death, and undeath. Manipulates the energy that animates all living things."},
+        {"code": "transmutation", "label": "Transmutation", "description": "Spells that modify energy and matter."}
     ],
     "humanoid_types": [
         {"code": "Aasimar", "label": "Aasimar"},
