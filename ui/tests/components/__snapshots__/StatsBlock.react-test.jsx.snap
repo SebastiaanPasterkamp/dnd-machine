@@ -151,7 +151,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
         <div
           className="bonus inline"
         >
-          —
+          -1
         </div>
       </td>
     </tr>
@@ -282,7 +282,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
         <div
           className="bonus inline"
         >
-          —
+          -1
         </div>
       </td>
     </tr>
@@ -413,7 +413,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
         <div
           className="bonus inline"
         >
-          —
+          -1
         </div>
       </td>
     </tr>
@@ -544,7 +544,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
         <div
           className="bonus inline"
         >
-          —
+          -1
         </div>
       </td>
     </tr>
@@ -675,7 +675,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
         <div
           className="bonus inline"
         >
-          —
+          -1
         </div>
       </td>
     </tr>
@@ -806,7 +806,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
         <div
           className="bonus inline"
         >
-          —
+          -1
         </div>
       </td>
     </tr>
