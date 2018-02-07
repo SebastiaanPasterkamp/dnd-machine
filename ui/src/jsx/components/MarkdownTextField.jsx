@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import MDReactComponent from 'markdown-react-js';
 
 import LazyComponent from './LazyComponent.jsx';
