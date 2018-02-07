@@ -425,3 +425,16 @@ def logout():
 @app.route('/test')
 def show_test():
     return render_template('test.html')
+
+@app.after_request
+def add_header(r):
+    """
+    Add headers to force reloading resources during development
+    """
+    if not app.debug:
+        return r
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
