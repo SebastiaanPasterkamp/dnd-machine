@@ -1,0 +1,34 @@
+// _weapon-label.scss
+
+.weapon-label{
+    .weapon-label--properties {
+        padding-left: 0;
+    }
+
+    > strong:before {
+        content: ', ';
+    }
+    > strong:first-child:before {
+        content: normal;
+    }
+
+    .weapon-label--properties {
+        &:before {
+            content: '[';
+        }
+        &:after {
+            content: ']';
+        }
+
+        > li {
+            display: inline;
+        }
+
+        > li:before {
+            content: ', ';
+        }
+        > li:first-child:before {
+            content: normal;
+        }
+    }
+}

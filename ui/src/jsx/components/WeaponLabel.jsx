@@ -2,104 +2,104 @@ import React from 'react';
 import _ from 'lodash';
 import MDReactComponent from 'markdown-react-js';
 
+import '../../sass/_weapon-label.scss';
+
+import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
 import Bonus from '../components/Bonus.jsx';
-import Coinage from '../components/Coinage.jsx';
 import DiceNotation from '../components/DiceNotation.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import ListLabel from '../components/ListLabel.jsx';
 import Reach from '../components/Reach.jsx';
 
-class WeaponLabel extends LazyComponent
+export class WeaponLabel extends LazyComponent
 {
-    constructor(props) {
-        super(props);
-
-        this.types = [
-            {code: "simple melee weapon", label: "Simple Melee Weapon"},
-            {code: "simple ranged weapon", label: "Simple Ranged Weapon"},
-            {code: "martial melee weapon", label: "Martial Melee Weapon"},
-            {code: "martial ranged weapon", label: "Martial Ranged Weapon"},
-        ];
-        this.properties = [
-            {'code': 'ammunition', 'label': 'Ammunition'},
-            {'code': 'finesse', 'label': 'Finesse'},
-            {'code': 'heavy', 'label': 'Heavy'},
-            {'code': 'light', 'label': 'Light'},
-            {'code': 'loading', 'label': 'Loading'},
-            {'code': 'reach', 'label': 'Reach'},
-            {'code': 'special', 'label': 'Special'},
-            {'code': 'thrown', 'label': 'Thrown'},
-            {'code': 'two-handed', 'label': 'Two-Handed'},
-            {'code': 'versatile', 'label': 'Versatile'},
-        ];
-    }
-
     renderInfo(weapon) {
-        return <div>
-            <DiceNotation
-                {...weapon.damage}
-                />
+        const { showInfo, weapon_properties } = this.props;
+
+        if (!showInfo) {
+            return null;
+        }
+
+        return <div className="weapon-label">
+            <code>
+                <DiceNotation
+                    {...weapon.damage}
+                    />
+            </code>
             {weapon.bonus
-                ? <span>
-                    , Hit: <Bonus
+                ? <React.Fragment>
+                    <strong>Hit:</strong>&nbsp;<Bonus
                         bonus={weapon.bonus}
                         />
-                    </span>
+                </React.Fragment>
                 : null
             }
-            {weapon.versatile
-                ? <span>
-                    , Versatile: <DiceNotation
-                        {...weapon.versatile}
-                        />
-                    </span>
+            {weapon.type.match('ranged')
+                ? <React.Fragment>
+                    <strong>Range:</strong>&nbsp;<Reach {...weapon.range}/>
+                </React.Fragment>
                 : null
             }
-            {weapon.range
-                ? <span>
-                    , <Reach {...weapon.range}/>
-                    </span>
+            {weapon.property
+                ? <ul className="weapon-label--properties">
+                    {_.map(weapon.property || [], (prop) => {
+                        return <li key={prop}>
+                            <ListLabel
+                                items={weapon_properties || []}
+                                value={prop}
+                                tooltip={true}
+                                />
+                            {prop == 'thrown'
+                                ? <i>(<Reach {...weapon.range}/>)</i>
+                                : null
+                            }
+                            {prop == 'versatile'
+                                ? <i>(<DiceNotation
+                                    {...weapon.versatile}
+                                    />)</i>
+                                : null
+                            }
+                        </li>;
+                    })}
+                </ul>
                 : null
             }
-            &nbsp;
-            ({_.map(weapon.property || [], (prop, i) => {
-                return [
-                    (i > 0 ? ', ' : null),
-                    <ListLabel
-                        key={prop}
-                        items={this.properties}
-                        value={prop}
-                        />
-                ];
-            })})
         </div>;
     }
 
-    render() {
-        if (!this.props.weapons) {
+    renderDescription(weapon) {
+        const { showDescription } = this.props;
+
+        if (!showDescription) {
             return null;
         }
-        const weapon = this.props.weapons;
+
+        return <MDReactComponent
+            text={weapon.description || ''}
+            />;
+    }
+
+    render() {
+        const {
+            weapon, weapon_types, showDescription, showInfo
+        } = this.props;
+        if (!weapon) {
+            return null;
+        }
 
         return <div className="weapon-label inline">
-            {weapon.name}
+            <strong>{weapon.name}</strong>
             &nbsp;
-            (<ListLabel
-                items={this.types}
-                value={weapon.type}
-                />)
-            {this.props.showDescription
-                ? <MDReactComponent
-                    text={weapon.description || ''}
-                    />
-                : null
-            }
-            {this.props.showInfo
-                ? this.renderInfo(weapon)
-                : null
-            }
+            <i>
+                (<ListLabel
+                    items={weapon_types || []}
+                    value={weapon.type}
+                    />)
+            </i>
+            {this.renderDescription(weapon)}
+            {this.renderInfo(weapon)}
         </div>;
     }
 }
@@ -109,7 +109,19 @@ WeaponLabel.defaultProps = {
     showInfo: true
 };
 
-export default ObjectDataWrapper(
-    WeaponLabel,
-    [{type: 'weapons', id: 'weapon_id', group: 'items'}]
+export default ListDataWrapper(
+    ObjectDataWrapper(
+        WeaponLabel,
+        [{
+            type: 'weapons',
+            id: 'weapon_id',
+            group: 'items',
+            prop: 'weapon',
+        }]
+    ),
+    [
+        "weapon_types",
+        "weapon_properties",
+    ],
+    'items'
 );
