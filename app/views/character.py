@@ -11,7 +11,7 @@ import markdown
 from .baseapi import BaseApiBlueprint
 from .. import get_datamapper
 from ..config import get_character_data, get_item_data
-from ..filters import filter_bonus, filter_unique
+from ..filters import filter_bonus, filter_distance, filter_damage, filter_unique
 from . import fill_pdf
 
 class CharacterBlueprint(BaseApiBlueprint):
@@ -46,6 +46,27 @@ class CharacterBlueprint(BaseApiBlueprint):
             datamapper = get_datamapper()
             self._datamapper = datamapper.character
         return self._datamapper
+
+    @property
+    def armormapper(self):
+        if '_armormapper' not in self.__dict__:
+            datamapper = get_datamapper()
+            self._armormapper = datamapper.armor
+        return self._armormapper
+
+    @property
+    def weaponmapper(self):
+        if '_weaponmapper' not in self.__dict__:
+            datamapper = get_datamapper()
+            self._weaponmapper = datamapper.weapons
+        return self._weaponmapper
+
+    @property
+    def itemmapper(self):
+        if '_itemmapper' not in self.__dict__:
+            datamapper = get_datamapper()
+            self._itemmapper = datamapper.items
+        return self._itemmapper
 
     @property
     def character_data(self):
@@ -126,7 +147,7 @@ class CharacterBlueprint(BaseApiBlueprint):
         return jsonify(self.character_data['background'])
 
     def download(self, obj_id):
-        items = get_item_data()
+        items = self.itemmapper
 
         c = self.datamapper.getById(obj_id)
         if c.user_id != request.user.id \
@@ -214,7 +235,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                 for i, spell in enumerate(spells):
                     fdf_text[ "Spells %s" % fdf_spell_list[i] ] = spell
 
-        for stat in items['statistics']:
+        for stat in items.statistics:
             stat_prefix = stat['code'][:3].upper()
             fdf_text[stat_prefix] = c.statisticsBase[stat['code']]
             fdf_text[stat_prefix + 'mod'] = filter_bonus(c.statisticsModifiers[stat['code']])
@@ -224,7 +245,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             if stat['code'] in c.proficienciesSaving_throws:
                 fdf_text['ST ' + stat['label']] = True
 
-        for skill in items['skills']:
+        for skill in items.skills:
             fdf_text[skill['label']] = filter_bonus(c.skills[skill['code']])
             if skill['code'] in c.proficienciesSkills:
                 fdf_text['ChBx ' + skill['label']] = True
@@ -246,24 +267,37 @@ class CharacterBlueprint(BaseApiBlueprint):
         proficiencies = {}
         if c.languages:
             proficiencies["Languages"] = []
-            languages = items['languages']
-            for lang in languages['common'] + languages['exotic']:
-                if lang['code'] in c.languages:
-                    proficiencies["Languages"].append(lang['label'])
+            for prof in c.languages:
+                lang = items.itemByNameOrCode(prof, 'languages')
+                proficiencies["Languages"].append(
+                    lang['label'] if lang else prof
+                    )
 
         if c.proficienciesArmor:
             proficiencies["Armor"] = []
             for prof in c.proficienciesArmor:
-                if prof is None:
-                    continue
-                proficiencies["Armor"].append(prof)
+                armor = items.itemByNameOrCode(prof, 'armor_types')
+                if armor is None:
+                    armor = self.armormapper.getMultiple(
+                        'name COLLATE nocase = :name',
+                        {'name': prof}
+                        )[0] or None
+                proficiencies["Armor"].append(
+                    armor['label'] if armor else prof
+                    )
 
         if c.proficienciesWeapons:
             proficiencies["Weapons"] = []
             for prof in c.proficienciesWeapons:
-                if prof is None:
-                    continue
-                proficiencies["Weapons"].append(prof)
+                weapon = items.itemByNameOrCode(prof, 'weapon_types')
+                if weapon is None:
+                    weapon = self.weaponmapper.getMultiple(
+                        'name COLLATE nocase = :name',
+                        {'name': prof}
+                        )[0] or None
+                proficiencies["Weapons"].append(
+                    weapon['label'] if weapon else prof
+                    )
 
         if c.proficienciesTools:
             proficiencies["Tools"] = []
@@ -307,49 +341,35 @@ class CharacterBlueprint(BaseApiBlueprint):
         equipment = []
         if c.weapons:
             equipment.append(["Weapons:"])
-            for weapon in c.weapons:
+            for count, weapon in filter_unique(c.weapons):
                 desc = [
                     "-",
-                    weapon['name'],
-                    weapon['damage']['notation'],
-                    weapon['damage']['type_label'],
-                    "Hit: %s" % filter_bonus(weapon['bonus'])
+                    "%s x %s" % (count, weapon['name']) \
+                        if count > 1 \
+                        else weapon['name'],
+                    filter_damage(weapon['damage']),
+                    ", **Hit:** %s" % filter_bonus(weapon['bonus'])
                     ]
+                if 'ranged' in weapon['type']:
+                    desc.append(
+                        " (%s)" % filter_distance(weapon['range'])
+                        )
                 equipment[-1].append(" ".join(desc))
 
                 desc = []
-                props = {
-                    'two-handed': '2H',
-                    'versatile': 'Vers.',
-                    'light': 'Light',
-                    'finesse': 'Fin.',
-                    'ammunition': 'Ammo',
-                    'loading': 'Load',
-                    'thrown': 'Throw'
-                    }
-                for prop, label in props.iteritems():
-                    if prop in weapon.get("property", []):
-                        desc.append(label)
-                if "range" in weapon:
-                    desc.append(
-                        "Range: %d/%d" % (
-                            weapon["range"]["min"],
-                            weapon["range"]["max"]
-                            )
+                for prop in weapon.get("property", []):
+                    tag = items.itemByNameOrCode(
+                        prop, 'weapon_properties'
                         )
-                if desc:
+                    tag = tag['short']
+                    if prop == 'thrown':
+                        tag += " (%s)" % filter_distance(weapon['range'])
+                    if prop == 'versatile':
+                        tag += " (%s)" % filter_damage(weapon['versatile']),
+                    desc.append(tag)
+                if len(desc):
                     equipment[-1].append("  " + ", ".join(desc))
 
-                if "notation_alt" in weapon["damage"]:
-                    desc = [
-                        " ",
-                        weapon["use_alt"],
-                        ":",
-                        weapon["damage"]["notation_alt"],
-                        weapon["damage"]["type_label"],
-                        "Hit: %s" % filter_bonus(weapon["bonus_alt"])
-                        ]
-                    equipment[-1].append(" ".join(desc))
 
         if c.armor:
             equipment.append(["Armor:"])
@@ -366,54 +386,31 @@ class CharacterBlueprint(BaseApiBlueprint):
                         armor['name'],
                         "AC: %s" % filter_bonus(armor["bonus"])
                         ]
-                if "Strength" in armor:
+                if "requirements" in armor \
+                        and "strength" in armor["requirements"]:
                     desc.extend([
-                        "(Str: %d)" % armor["Strength"]
+                        "(Str: %s)" % armor["requirements"]["strength"]
+                        ])
+                if armor.get('disadvantage', False):
+                    desc.extend([
+                        "(Stealth: disadv.)"
                         ])
                 equipment[-1].append(" ".join(desc))
 
-        if c.itemsArtisan:
-            equipment.append(["Artisan:"])
-            for item in c.itemsArtisan:
-                desc = [
-                    "-",
-                    item["name"]
-                    ]
-                equipment[-1].append(" ".join(desc))
+        for toolType, tools in c.items.items():
+            if not len(tools):
+                continue
+            _type = items.itemByNameOrCode(
+                toolType, 'tool_types'
+                )
+            equipment.append([_type['label'] + ":"])
 
-        if c.itemsKits:
-            equipment.append(["Kits:"])
-            for item in c.itemsKits:
+            for count, item in filter_unique(tools):
                 desc = [
                     "-",
-                    item["name"]
-                    ]
-                equipment[-1].append(" ".join(desc))
-
-        if c.itemsGaming:
-            equipment.append(["Gaming:"])
-            for item in c.itemsGaming:
-                desc = [
-                    "-",
-                    item["name"]
-                    ]
-                equipment[-1].append(" ".join(desc))
-
-        if c.itemsMusical:
-            equipment.append(["Musical:"])
-            for item in c.itemsMusical:
-                desc = [
-                    "-",
-                    item["name"]
-                    ]
-                equipment[-1].append(" ".join(desc))
-
-        if c.itemsMisc:
-            equipment.append(["Misc:"])
-            for item in c.itemsMisc:
-                desc = [
-                    "-",
-                    item
+                    "%d x %s" % (count, item) \
+                        if count > 1 \
+                        else item
                     ]
                 equipment[-1].append(" ".join(desc))
 
@@ -490,17 +487,19 @@ class CharacterBlueprint(BaseApiBlueprint):
     def reset(self, obj_id):
         if not self.checkRole(['admin', 'dm']):
             abort(403)
-        keeping = ['user_id', 'class', 'race', 'background', 'xp', 'name']
+        keeping = ['user_id', 'class', 'race', 'background', 'xp', 'name', 'personality', 'appearance', 'alignment', 'backstory']
 
         character = self.datamapper.getById(obj_id)
-        character = self.datamapper.create(dict([
+        reset = self.datamapper.create(dict([
             (keep, character[keep])
             for keep in keeping
             ]))
-        character.id = obj_id
-        character.compute()
+        reset.id = obj_id
+        reset.user_id = request.user.id
+        reset.statisticsBase = character.statisticsBase
+        reset.compute()
 
-        character = self.datamapper.update(character)
+        character = self.datamapper.update(reset)
 
         return redirect(url_for(
             'character.edit',
