@@ -9,15 +9,17 @@ describe('Component: StatsBlock', () => {
         [
             'strength', 'dexterity', 'constitution',
             'intelligence', 'wisdom', 'charisma'
-        ], (stats, stat) => {
-            stats['statistics'].push({
-                code: stat, label: stat, description: stat
+        ], (props, stat) => {
+            props.statistics.push({
+                code: stat,
+                label: stat,
+                description: stat
             });
-            stats['bare'][stat] = 12;
-            stats['bonus'][stat] = [1, 2];
-            stats['base'][stat] = 12;
-            stats['modifiers'] = -1;
-            return stats;
+            props.bare[stat] = 12;
+            props.bonus[stat] = [1, 2];
+            props.base[stat] = 12;
+            props.modifiers[stat] = -1;
+            return props;
         },
         {
             statistics: [],
