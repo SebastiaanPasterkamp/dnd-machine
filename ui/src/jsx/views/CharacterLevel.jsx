@@ -490,6 +490,7 @@ class MultipleChoiceSelect extends LazyComponent
             tagOptions={tagOptions}
             onAdd={(value) => this.onAdd(value)}
             onDelete={(key, value) => this.onDelete(key, value)}
+            onChange={() => { return null; }}
             showSelect={showSelect}
             />;
     }
