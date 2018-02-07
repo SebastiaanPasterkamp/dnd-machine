@@ -67,7 +67,7 @@ class CharacterObject(JsonObject):
         "armor": [],
         "items": {
             "artisan": [],
-            "kits": [],
+            "kit": [],
             "gaming": [],
             "musical": [],
             "trinket": []
@@ -139,6 +139,7 @@ class CharacterObject(JsonObject):
         "unarmored": int,
         "armor_class": int,
         "armor_class_bonus": int,
+        "equipment": 'auto',
         "challenge": {
             "*": int
             },
@@ -157,17 +158,24 @@ class CharacterObject(JsonObject):
             "*": int
             },
         "armor": {
+            "id": int,
             "value": int,
             "bonus": int,
+            "disadvantage": bool,
             "strength": int,
             "cost": {
                 "*": int
+                },
+            "weight": {
+                "*": float
                 }
             },
         "weapons": {
+            "id": int,
             "damage": {
                 "dice_count": int,
-                "dice_size": int
+                "dice_size": int,
+                "bonus": int,
                 },
             "range": {
                 "min": int,
@@ -178,9 +186,11 @@ class CharacterObject(JsonObject):
                 "dice_size": int
                 },
             "bonus": int,
-            "bonus_alt": int,
             "cost": {
                 "*": int
+                },
+            "weight": {
+                "*": float
                 }
             },
         "spell": {
@@ -208,6 +218,18 @@ class CharacterObject(JsonObject):
                 }
             }
         }
+
+    def __init__(self, config={}):
+        super(CharacterObject, self).__init__(config)
+
+    @property
+    def mapper(self):
+        return self._mapper
+
+    @mapper.setter
+    def mapper(self, mapper):
+        self._mapper = mapper
+        return self._mapper
 
     @property
     def character_data(self):
@@ -325,14 +347,14 @@ class CharacterObject(JsonObject):
 
     def compute(self):
         config = get_config()
-        machine = self.machine
+        machine = self.mapper.machine
 
         self.version = self._version
 
         self.statisticsBase = {}
         self.statisticsModifiers = {}
 
-        for stat in machine.items.statistics:
+        for stat in self.mapper.items.statistics:
             stat = stat["code"]
             self.statisticsBase[stat] = self.statisticsBare[stat] \
                 + sum(self.statisticsBonus.get(stat, []))
@@ -350,7 +372,7 @@ class CharacterObject(JsonObject):
         self.initiative_bonus = self.statisticsModifiersDexterity
         self.passive_perception = 10 + self.statisticsModifiersWisdom
 
-        for skill in machine.items.skills:
+        for skill in self.mapper.items.skills:
             stat, skill = skill["stat"], skill["code"]
             self.skills[skill] = self.statisticsModifiers[stat]
             if skill in self.proficienciesExpertise:
@@ -378,106 +400,124 @@ class CharacterObject(JsonObject):
         self.weapons = []
         self.items = {
             "artisan": [],
-            "kits": [],
+            "kit": [],
             "gaming": [],
             "musical": [],
             "trinket": []
             }
-        search = {
-            "armor": [
-                "armor.light.items",
-                "armor.medium.items",
-                "armor.heavy.items",
-                "armor.shield.items"
-                ],
-            "weapons": [
-                "weapons.simple.melee.items",
-                "weapons.simple.ranged.items",
-                "weapons.martial.melee.items",
-                "weapons.martial.ranged.items"
-                ],
-            "itemsArtisan": ["tools"],
-            "itemsKits": ["tools"],
-            "itemsGaming": ["tools"],
-            "itemsMusical": ["tools"],
-            }
-        def findDesc(item):
-            for dest, paths in search.items():
-                for path in paths:
-                    desc = machine.itemByName(item, path)
-                    if desc:
-                        desc["path"] = path
-                        return dest, desc
+
+        def findObj(item):
+            objs = self.mapper.weapons.getMultiple(
+                'name COLLATE nocase = :name',
+                {'name': item}
+                )
+            if len(objs):
+                return 'weapons', objs[0]._config
+            objs = self.mapper.armor.getMultiple(
+                'name COLLATE nocase = :name',
+                {'name': item}
+                )
+            if len(objs):
+                return 'armor', objs[0]._config
+
+            obj = self.mapper.items.itemByNameOrCode(item, 'tools')
+            if obj is not None:
+                return 'items%s' % obj['type'].capitalize(), obj
             return None, None
 
-        re_cnt_item = re.compile(ur"^(\d+)\sx\s(.*)$")
-        for items in self.equipment:
-            count, item = 1, items
-            matches = re_cnt_item.match(items)
-            if matches != None:
-                count, items = int(matches.group(1)), \
-                    matches.group(2)
-            dest, desc = findDesc(item)
-            dest = dest or 'trinket'
-            if desc:
-                self[dest] = self[dest] + [desc] * count
-            else:
-                self.itemsTrinket = self.itemsTrinket + [items]
+        re_cnt_item = re.compile(ur"^(\d+)\s+x\s+(.*)$")
+        equipment = []
+        for item in self.equipment:
+            obj = None
+            if isinstance(item, dict) and 'id' in item:
+                #item['id'] = int(item['id'])
+                if item['path'] in ['armor', 'weapons']:
+                    obj = self.mapper[ item['path'] ].getById(
+                        item['id']
+                        )
+                else:
+                    item['path'], obj = findObj(item['name'])
+
+            #if isinstance(item, dict) and 'count' in item:
+                #item['count'] = int(item['count'])
+
+            if obj is None:
+                if not isinstance(item, dict):
+                    item = {
+                        'name': item,
+                        'count': 1,
+                        'path': 'itemsTrinket',
+                        }
+
+                    matches = re_cnt_item.match(item['name'])
+                    if matches != None:
+                        item['count'] = int(matches.group(1))
+                        item['name'] = matches.group(2)
+
+                path, obj = findObj(item['name'])
+                item['path'] = path or item['path']
+                if obj is None:
+                    obj = item['name']
+                elif 'id' in obj:
+                    item['id'] = obj['id']
+
+            equipment.append(item)
+            if isinstance(obj, JsonObject):
+                obj = obj._config
+
+            print item
+            self[ item['path'] ] += [obj] * item['count']
+
+        self.equipment = equipment
 
         for weapon in self.weapons:
             attack_modifier = "strength"
-            if "finesse" in weapon.get("property", []):
+            if "ranged" in weapon["property"]:
                 attack_modifier = "dexterity"
-            if "ranged" in weapon["path"]:
-                attack_modifier = "dexterity"
+            if "finesse" in weapon['property']:
+                attack_modifier = max({
+                    "strength": self.statisticsModifiersStrength,
+                    "dexterity": self.statisticsModifiersDexterity,
+                    })
 
-            dmg = machine.itemByName(
+            dmg = self.mapper.items.itemByNameOrCode(
                 weapon["damage"]["type"], 'damage_types')
             weapon["damage"]["type_label"] = dmg["label"]
             weapon["damage"]["type_short"] = dmg["short"]
 
-            attack_modifier = self.statisticsModifiers[attack_modifier]
+            weapon["bonus"] = weapon["damage"]["bonus"] \
+                = self.statisticsModifiers[attack_modifier]
+            if weapon['type'] in self.proficienciesWeapons \
+                    or weapon['name'] in self.proficienciesWeapons:
+                weapon["bonus"] += self.proficiency
 
             weapon["damage"]["notation"] = machine.diceNotation(
                 weapon["damage"]["dice_size"],
                 weapon["damage"]["dice_count"],
-                attack_modifier
+                weapon["damage"]["bonus"]
                 )
-            weapon["bonus"] = attack_modifier + self.proficiency
 
-            if "thrown" in weapon.get("property", []) \
-                    and "ranged" not in weapon["path"]:
-                attack_modifier = self.statisticsModifiers["dexterity"]
-
-                weapon["use_alt"] = "Thrown"
-                weapon["damage"]["notation_alt"] = machine.diceNotation(
-                    weapon["damage"]["dice_size"],
-                    weapon["damage"]["dice_count"],
-                    attack_modifier
-                    )
-                weapon["bonus_alt"] = attack_modifier + self.proficiency
-
-            if "versatile" in weapon.get("property", []):
-                weapon["use_alt"] = "Two-Handed"
-
-                weapon["damage"]["notation_alt"] = machine.diceNotation(
+            if "versatile" in weapon["property"]:
+                weapon["versatile"]["bonus"] = weapon["damage"]["bonus"]
+                weapon["versatile"]["notation"] = machine.diceNotation(
                     weapon["versatile"]["dice_size"],
                     weapon["versatile"]["dice_count"],
-                    attack_modifier
+                    weapon["versatile"]["bonus"]
                     )
-                weapon["bonus_alt"] = attack_modifier + self.proficiency
 
         self.armor_class_bonus = 0
         for armor in self.armor:
+            value = 0
+            if "value" in armor \
+                    and armor["value"] > self.armor_class:
+                self.armor_class = armor["value"]
             if "formula" in armor:
-                armor["value"] = machine.resolveMath(
-                    self, armor["formula"])
-            if "value" in armor:
-                if armor["value"] > self.armor_class:
-                    self.armor_class = armor["value"]
-            elif "bonus" in armor:
-                if armor["bonus"] > self.armor_class_bonus:
-                    self.armor_class_bonus = armor["bonus"]
+                value = machine.resolveMath(self, armor["formula"])
+                if value > self.armor_class:
+                    self.armor_class = value
+            if "bonus" in armor \
+                    and armor["bonus"] > self.armor_class_bonus:
+                self.armor_class_bonus = armor["bonus"]
 
         self.abilities = self._expandFormulas(self.abilities)
         # No type-casting
@@ -506,11 +546,12 @@ class CharacterObject(JsonObject):
         return True
 
     def _expandFormulas(self, obj):
+        machine = self.mapper.machine
         if isinstance(obj, dict):
             for key, val in obj.items():
                 if key.endswith('_formula'):
                     _key = key.replace('_formula', '')
-                    obj[_key] = self.machine.resolveMath(self, val)
+                    obj[_key] = machine.resolveMath(self, val)
                 else:
                     obj[key] = self._expandFormulas(val)
         elif isinstance(obj, list):
@@ -558,6 +599,20 @@ class CharacterMapper(JsonObjectDataMapper):
     obj = CharacterObject
     table = "character"
     fields = ["name", "level"]
+
+    def __init__(self, db, mapper, config={}):
+        self.mapper = mapper
+        super(CharacterMapper, self).__init__(db)
+
+    def _read(self, dbrow):
+        obj = super(CharacterMapper, self)._read(dbrow)
+        obj.mapper = self.mapper
+        return obj
+
+    def create(self, config=None):
+        obj = super(CharacterMapper, self).create(config)
+        obj.mapper = self.mapper
+        return obj
 
     def getList(self, search=None):
         """Returns a list of characters matching the search parameter"""

@@ -5,8 +5,6 @@ from passlib.hash import pbkdf2_sha256 as password
 import parser
 import re
 
-from base import JsonObject
-
 class DndMachine(object):
     _instance = None
     def __new__(cls, *args, **kwargs):
@@ -15,12 +13,12 @@ class DndMachine(object):
                                 cls, *args, **kwargs)
         return cls._instance
 
-    def __init__(self, config, items):
+    def __init__(self, config, mapper):
         self.xp_at_level = config['xp_at_level']
         self.challenge_rating = config["challenge_rating"]
         self.monster_scaling = config["monster_scaling"]
         self.size_hit_dice = config["size_hit_dice"]
-        self.items = JsonObject(items)
+        self.mapper = mapper
 
     def resolveMath(self, obj, formula):
         replace = {}
@@ -44,16 +42,6 @@ class DndMachine(object):
         if matches:
             return matches[0]
         return default
-
-    def itemByName(self, name, path=[]):
-        matches = [
-            item
-            for item in self.items.getPath(path)
-            if item.get('name', item.get('code')) == name
-            ]
-        if matches:
-            return matches[0]
-        return None
 
     def diceCast(self, size, number=1, bonus=0):
         return {
