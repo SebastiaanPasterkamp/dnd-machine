@@ -30,7 +30,7 @@ class Datamapper(object):
                 get_config()['machine'], get_item_data()),
             'user': lambda: UserMapper(self.db),
             'party': lambda: PartyMapper(db),
-            'character': lambda: CharacterMapper(db),
+            'character': lambda: CharacterMapper(db, self),
             'encounter': lambda: EncounterMapper(db),
             'monster': lambda: MonsterMapper(db),
             'npc': lambda: NpcMapper(db),
