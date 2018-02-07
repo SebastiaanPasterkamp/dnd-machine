@@ -10,16 +10,22 @@ let utils = {
         return color;
     },
 
-    makeStyle(styles) {
-        const active = _.reduce(
-            styles, (active, use, style) => {
-                if (use) {
-                    active.push(style);
-                }
-                return active;
-            },
-            []
+    makeStyle(conditionals, styles=[]) {
+        const active = _.filter(
+            _.reduce(
+                conditionals,
+                (active, use, style) => {
+                    if (use) {
+                        active.push(style);
+                    }
+                    return active;
+                },
+                styles
+            )
         );
+        if (!active.length) {
+            return null;
+        }
         return _.join(active, ' ');
     },
 
