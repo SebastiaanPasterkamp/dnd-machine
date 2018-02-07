@@ -1,0 +1,10 @@
+// _armor-label.scss
+
+.armor-label{
+    > strong:before {
+        content: ', ';
+    }
+    > strong:first-child:before {
+        content: normal;
+    }
+}
