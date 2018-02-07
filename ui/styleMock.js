@@ -1,0 +1,3 @@
+// styleMock.js
+
+export default {};
