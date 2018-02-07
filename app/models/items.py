@@ -101,6 +101,6 @@ class ItemsObject(JsonObject):
 
     def itemByNameOrCode(self, name, paths, default=None):
         matches = self.listByNameOrCode(name, paths)
-        if matches:
+        if len(matches):
             return matches[0]
         return default

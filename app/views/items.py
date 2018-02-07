@@ -64,7 +64,7 @@ def get_list(objects):
 def api_list_languages():
     datamapper = get_datamapper()
     languages = datamapper.items.getList(
-        'languages.common,languages.exotic'
+        'languages'
         )
     return jsonify(languages)
 
