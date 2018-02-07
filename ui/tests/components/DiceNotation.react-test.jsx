@@ -19,7 +19,7 @@ describe('Component: DiceNotation', () => {
         const props = {
             dice_count: 2,
             dice_size: 6,
-            dice_bonus: 3
+            bonus: 3
         };
         const tree = renderer.create(
             <DiceNotation {...props} />
@@ -45,7 +45,7 @@ describe('Component: DiceNotation', () => {
         const props = {
             dice_count: 4,
             dice_size: 10,
-            dice_bonus: 6,
+            bonus: 6,
             type: 'piercing'
         };
         const tree = renderer.create(
