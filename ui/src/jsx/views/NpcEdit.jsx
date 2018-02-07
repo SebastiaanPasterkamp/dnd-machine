@@ -19,11 +19,6 @@ export class NpcEdit extends React.Component
     constructor(props) {
         super(props);
 
-        this.genders = [
-            {code: "male", label: "Male"},
-            {code: "female", label: "Female"},
-            {code: "genderless", label: "genderless"},
-        ];
         this.levels = _.range(1, 30)
             .map((i) => {
                 return {code: i, label: i}
@@ -44,6 +39,11 @@ export class NpcEdit extends React.Component
     }
 
     render() {
+        const {
+            name, location, organization, gender, genders,
+            alignment, alignments, size, size_hit_dice, level
+        } = this.props;
+
         return [
             <Panel
                     key="description"
@@ -53,7 +53,7 @@ export class NpcEdit extends React.Component
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
-                        value={this.props.name}
+                        value={name}
                         setState={
                             (value) => this.onFieldChange('name', value)
                         } />
@@ -61,7 +61,7 @@ export class NpcEdit extends React.Component
                 <ControlGroup label="Location">
                     <InputField
                         placeholder="Location..."
-                        value={this.props.location}
+                        value={location}
                         setState={
                             (value) => this.onFieldChange('location', value)
                         } />
@@ -69,7 +69,7 @@ export class NpcEdit extends React.Component
                 <ControlGroup label="Organization">
                     <InputField
                         placeholder="Organization..."
-                        value={this.props.organization}
+                        value={organization}
                         setState={
                             (value) => this.onFieldChange('organization', value)
                         } />
@@ -77,8 +77,8 @@ export class NpcEdit extends React.Component
                 <ControlGroup label="Gender">
                     <SingleSelect
                         emptyLabel="Gender..."
-                        selected={this.props.gender}
-                        items={this.genders}
+                        selected={gender}
+                        items={genders || []}
                         setState={
                             (value) => this.onFieldChange('gender', value)
                         } />
@@ -86,8 +86,8 @@ export class NpcEdit extends React.Component
                 <ControlGroup label="Alignment">
                     <SingleSelect
                         emptyLabel="Alignment..."
-                        selected={this.props.alignment}
-                        items={this.props.alignments}
+                        selected={alignment}
+                        items={alignments || []}
                         setState={
                             (value) => this.onFieldChange('alignment', value)
                         } />
@@ -95,8 +95,8 @@ export class NpcEdit extends React.Component
                 <ControlGroup label="Size">
                     <SingleSelect
                         emptyLabel="Size..."
-                        selected={this.props.size}
-                        items={this.props.size_hit_dice}
+                        selected={size}
+                        items={size_hit_dice || []}
                         setState={
                             (value) => this.onFieldChange('size', value)
                         } />
@@ -104,7 +104,7 @@ export class NpcEdit extends React.Component
                 <ControlGroup label="Level">
                     <SingleSelect
                         emptyLabel="Level..."
-                        selected={this.props.level}
+                        selected={level}
                         items={this.levels}
                         setState={
                             (value) => this.onFieldChange('level', value)
@@ -145,6 +145,10 @@ export default ListDataWrapper(
             buttons: ['cancel', 'reload', 'recompute', 'save']
         }, "npc"
     ),
-    ['alignments', 'size_hit_dice'],
+    [
+        'alignments',
+        'genders',
+        'size_hit_dice',
+    ],
     'items'
 );
