@@ -5,6 +5,7 @@ import onClickOutside from 'react-onclickoutside';
 import '../../sass/_base-select.scss';
 
 import LazyComponent from '../components/LazyComponent.jsx';
+import utils from '../utils.jsx';
 
 export class BaseSelect extends LazyComponent
 {
@@ -43,15 +44,14 @@ export class BaseSelect extends LazyComponent
     }
 
     render() {
-        let style = _.filter([
-            "dropdown-menu",
-            this.state.shown ? "shown" : null
-        ]);
+        let style = utils.makeStyle({
+            "shown": this.state.shown,
+        }, ["dropdown-menu"]);
 
         return <div className="nice-dropdown nice-form-control">
             {this.renderButton()}
             <ul
-                    className={style.length ? style.join(' ') : null}
+                    className={style}
                     onClick={this.props.closeOnClick
                         ? () => this.onClick()
                         : null
