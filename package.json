@@ -41,9 +41,12 @@
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p",
-    "test": "node_modules/.bin/jest --roots ui/tests/ --testMatch '**/tests/**/*.js?(x)'"
+    "test": "node_modules/.bin/jest --roots ui/tests/"
   },
   "jest": {
+    "testMatch": [
+        "**/tests/**/*.js?(x)"
+    ],
     "setupFiles": [
       "<rootDir>/ui/shim.js",
       "<rootDir>/ui/setupTests.js"
