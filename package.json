@@ -47,6 +47,9 @@
     "testMatch": [
         "**/tests/**/*.js?(x)"
     ],
+    "testPathIgnorePatterns": [
+        "__mocks__"
+    ],
     "setupFiles": [
       "<rootDir>/ui/shim.js",
       "<rootDir>/ui/setupTests.js"
