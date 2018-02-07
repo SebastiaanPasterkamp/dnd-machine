@@ -45,9 +45,12 @@
   },
   "jest": {
     "setupFiles": [
-      "./ui/shim.js",
-      "./ui/setupTests.js"
-    ]
+      "<rootDir>/ui/shim.js",
+      "<rootDir>/ui/setupTests.js"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|scss)$": "<rootDir>/ui/styleMock.js"
+    }
   },
   "repository": {
     "type": "git",
