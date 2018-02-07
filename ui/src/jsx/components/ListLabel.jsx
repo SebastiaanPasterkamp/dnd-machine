@@ -1,26 +1,50 @@
 import React from 'react';
-import LazyComponent from '../components/LazyComponent.jsx';
-
+import PropTypes from 'prop-types';
 import _ from 'lodash';
+
+import LazyComponent from '../components/LazyComponent.jsx';
+import ToolTip from '../components/ToolTip.jsx';
 
 class ListLabel extends LazyComponent
 {
-    getLabel() {
-        let label = this.props.emptyLabel;
-        let item = _.find(this.props.items || [], {
-            code: this.props.value
-        });
-        if (!_.isNil(item)) {
-            label = item.label;
-        }
-        return label;
-    }
-
     render() {
+        const {
+            emptyLabel, items, value, short, tooltip
+        } = this.props;
+        if (value == null) {
+            return null;
+        }
+
+        let label = emptyLabel;
+        let description = null;
+
+        let item = _.find(items || [], {code: value});
+        if (item) {
+            label = (short && 'short' in item)
+                ? item.short
+                : item.label;
+            description = (tooltip && 'description' in item)
+                ? item.description
+                : null;
+        }
+
         return <div className="list-label inline">
-            {this.getLabel()}
+            <ToolTip content={description}>
+            {label}
+            </ToolTip>
         </div>;
     }
 }
+
+ListLabel.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+    emptyLabel: PropTypes.string,
+    short: PropTypes.bool,
+    tooltip: PropTypes.bool,
+};
 
 export default ListLabel;
