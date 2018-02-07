@@ -57,7 +57,11 @@ export class StatsBlock extends Reflux.Component
             update
         );
 
-        this.props.statistics.map((stat) => {
+        if (!statistics) {
+            return;
+        }
+
+        statistics.map((stat) => {
             stat = stat.code;
             props.base[stat] = props.bare[stat]
                 + (_.sum(props.bonus[stat] || [0]));
@@ -68,7 +72,7 @@ export class StatsBlock extends Reflux.Component
         });
 
         if (!_.isEqual(props.base, base)) {
-            this.props.setState(props);
+            setState(props);
         }
     }
 
