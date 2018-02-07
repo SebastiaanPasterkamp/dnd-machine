@@ -18,6 +18,9 @@ class ArmorObject(JsonObject):
             "*": float
             },
         "disadvantage": bool,
+        "requirements": {
+            '*': int
+            },
         "value": int,
         "bonus": int
         }
