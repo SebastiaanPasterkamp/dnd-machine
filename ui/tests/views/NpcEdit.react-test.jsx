@@ -21,18 +21,14 @@ describe('Component: NpcEdit', () => {
             [
                 'strength', 'dexterity', 'constitution',
                 'intelligence', 'wisdom', 'charisma'
-            ], (stats, stat) => {
-                stats['statistics'].push({
-                    code: stat, label: stat, description: stat
-                });
-                stats['bare'][stat] = 12;
-                stats['bonus'][stat] = [1, 2];
-                stats['base'][stat] = 12;
-                stats['modifiers'] = -1;
-                return stats;
+            ], (statistics, stat) => {
+                statistics.bare[stat] = 12;
+                statistics.bonus[stat] = [1, 2];
+                statistics.base[stat] = 12;
+                statistics.modifiers[stat] = -1;
+                return statistics;
             },
             {
-                statistics: [],
                 bare: {},
                 bonus: {},
                 base: {},
@@ -47,27 +43,27 @@ describe('Component: NpcEdit', () => {
             {
                 "description": "Str",
                 "label": "Strength",
-                "name": "strength"
+                "code": "strength"
             }, {
                 "description": "Dex",
                 "label": "Dexterity",
-                "name": "dexterity"
+                "code": "dexterity"
             }, {
                 "description": "Con",
                 "label": "Constitution",
-                "name": "constitution"
+                "code": "constitution"
             }, {
                 "description": "Int",
                 "label": "Intelligence",
-                "name": "intelligence"
+                "code": "intelligence"
             }, {
                 "description": "Wis",
                 "label": "Wisdom",
-                "name": "wisdom"
+                "code": "wisdom"
             }, {
                 "description": "Char",
                 "label": "Charisma",
-                "name": "charisma"
+                "code": "charisma"
             }
         ]));
 
