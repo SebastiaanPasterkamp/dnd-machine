@@ -4,17 +4,21 @@ import LazyComponent from '../components/LazyComponent.jsx';
 class DiceNotation extends LazyComponent
 {
     render() {
+        const {
+            dice_count, dice_size, bonus, type
+        } = this.props;
+
         const notation = [].concat(
-            this.props.dice_count
-            ? [this.props.dice_count, 'd', this.props.dice_size]
+            dice_count
+            ? [dice_count, 'd', dice_size]
             : []
         ).concat(
-            this.props.dice_bonus || null
-            ? ["+", this.props.dice_bonus]
+            bonus
+            ? [(bonus > 0 ? '+' : ''), bonus]
             : []
         ).concat(
-            this.props.type || null
-            ? [" ", this.props.type]
+            type || null
+            ? [" ", type]
             : []
         );
         return <div className="dice-notation inline capitalize">
