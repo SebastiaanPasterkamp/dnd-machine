@@ -69,28 +69,25 @@
         {"code": "common", "label": "Common"},
         {"code": "exotic", "label": "Exotic"}
     ],
-    "languages": {
-        "common": [
-            {"code": "common", "label": "Common", "speakers": "Humans", "script": "Common"},
-            {"code": "dwarvish", "label": "Dwarvish", "speakers": "Dwarves", "script": "Dwarvish"},
-            {"code": "elvish", "label": "Elvish", "speakers": "Elves", "script": "Elvish"},
-            {"code": "giant", "label": "Giant", "speakers": "Ogres, Giants", "script": "Dwarvish"},
-            {"code": "gnomish", "label": "Gnomish", "speakers": "Gnomes", "script": "Dwarvish"},
-            {"code": "goblin", "label": "Goblin", "speakers": "Goblinoids", "script": "Dwarvish"},
-            {"code": "halfling", "label": "Halfling", "speakers": "Halflings", "script": "Common"},
-            {"code": "orc", "label": "Orc", "speakers": "Orcs", "script": "Dwarvish"}
-        ],
-        "exotic": [
-            {"code": "abyssal", "label": "Abyssal", "speakers": "Demons", "script": "Infernal"},
-            {"code": "celestial", "label": "Celestial", "speakers": "Celestials", "script": "Celestial"},
-            {"code": "draconic", "label": "Draconic", "speakers": "Dragons, Dragonborn", "script": "Draconic"},
-            {"code": "deep speech", "label": "Deep Speech", "speakers": "Mind flayers, Beholders"},
-            {"code": "infernal", "label": "Infernal", "speakers": "Devils", "script": "Infernal"},
-            {"code": "primordial", "label": "Primordial", "speakers": "Elementals", "script": "Dwarvish"},
-            {"code": "sylvan", "label": "Sylvan", "speakers": "Fey creatures", "script": "Elvish"},
-            {"code": "undercommon", "label": "Undercommon", "speakers": "Underdark traders", "script": "Elvish"}
-        ]
-    },
+    "languages": [
+        {"code": "common", "label": "Common", "speakers": "Humans", "script": "Common", "type": "common"},
+        {"code": "dwarvish", "label": "Dwarvish", "speakers": "Dwarves", "script": "Dwarvish", "type": "common"},
+        {"code": "elvish", "label": "Elvish", "speakers": "Elves", "script": "Elvish", "type": "common"},
+        {"code": "giant", "label": "Giant", "speakers": "Ogres, Giants", "script": "Dwarvish", "type": "common"},
+        {"code": "gnomish", "label": "Gnomish", "speakers": "Gnomes", "script": "Dwarvish", "type": "common"},
+        {"code": "goblin", "label": "Goblin", "speakers": "Goblinoids", "script": "Dwarvish", "type": "common"},
+        {"code": "halfling", "label": "Halfling", "speakers": "Halflings", "script": "Common", "type": "common"},
+        {"code": "orc", "label": "Orc", "speakers": "Orcs", "script": "Dwarvish", "type": "common"},
+
+        {"code": "abyssal", "label": "Abyssal", "speakers": "Demons", "script": "Infernal", "type": "exotic"},
+        {"code": "celestial", "label": "Celestial", "speakers": "Celestials", "script": "Celestial", "type": "exotic"},
+        {"code": "draconic", "label": "Draconic", "speakers": "Dragons, Dragonborn", "script": "Draconic", "type": "exotic"},
+        {"code": "deep speech", "label": "Deep Speech", "speakers": "Mind flayers, Beholders", "type": "exotic"},
+        {"code": "infernal", "label": "Infernal", "speakers": "Devils", "script": "Infernal", "type": "exotic"},
+        {"code": "primordial", "label": "Primordial", "speakers": "Elementals", "script": "Dwarvish", "type": "exotic"},
+        {"code": "sylvan", "label": "Sylvan", "speakers": "Fey creatures", "script": "Elvish", "type": "exotic"},
+        {"code": "undercommon", "label": "Undercommon", "speakers": "Underdark traders", "script": "Elvish", "type": "exotic"}
+    ],
     "target_methods": [
         {"code": "single", "label": "Single target", "short": "ST", "description": "One target is affected."},
         {"code": "multiple", "label": "Multi-target", "short": "MT", "description": "Multiple targets are affected. Usually when clustered together."},
@@ -263,10 +260,10 @@
         }
     },
     "weapon_types": [
-        {"code": "simple melee", "label": "Simple Melee Weapons"},
-        {"code": "simple ranged", "label": "Simple Ranged Weapons"},
-        {"code": "martial melee", "label": "Martial Melee Weapons"},
-        {"code": "martial ranged", "label": "Martial Ranged Weapons"}
+        {"code": "simple melee", "label": "Simple Melee Weapon", "short": "Melee"},
+        {"code": "simple ranged", "label": "Simple Ranged Weapon", "short": "Ranged"},
+        {"code": "martial melee", "label": "Martial Melee Weapon", "short": "Melee"},
+        {"code": "martial ranged", "label": "Martial Ranged Weapon", "short": "Ranged"}
     ],
     "weapon_properties": [
         {
@@ -303,7 +300,7 @@
         },
         {
             "code": "thrown", "label": "Thrown", "short": "Trwn",
-            "description": "If a weapon has the thrown property, you can throw the weapon to make a ranged attack. If the weapon is a melee weapon, you use the same ability modifier for that attack roll and damage roll that you would use for a melee attack with the weapon. For example, if you throw a handaxe, you use your **Strength**, but if you throw a dagger, you can use either your **Strength or your **Dexterity, since the dagger has the **Finesse** property."
+            "description": "If a weapon has the thrown property, you can throw the weapon to make a ranged attack. If the weapon is a melee weapon, you use the same ability modifier for that attack roll and damage roll that you would use for a melee attack with the weapon. For example, if you throw a handaxe, you use your **Strength**, but if you throw a dagger, you can use either your **Strength** or your **Dexterity**, since the dagger has the **Finesse** property."
         },
         {
             "code": "two-handed", "label": "Two-Handed", "short": "2H",
@@ -487,6 +484,7 @@
         {"code": "gaming", "label": "Gaming Set"},
         {"code": "kit", "label": "Kits"},
         {"code": "musical", "label": "Musical Instrument"},
+        {"code": "gear", "label": "Adventuring Gear"},
         {"code": "trinket", "label": "Trinkets"}
     ],
     "tools": [
