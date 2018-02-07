@@ -4,6 +4,8 @@ import {shallow, mount} from 'enzyme';
 import 'jest-enzyme';
 import renderer from 'react-test-renderer';
 
+import {statistics, alignments, genders, size_hit_dice} from '../__mocks__/apiCalls.js';
+
 import {NpcEdit} from '../../src/jsx/views/NpcEdit.jsx';
 
 describe('Component: NpcEdit', () => {
@@ -13,8 +15,11 @@ describe('Component: NpcEdit', () => {
         location: "Somewhere",
         organization: "D&D Machine, Inc.",
         gender: "male",
+        genders,
         alignment: "chaotic neutral",
+        alignments,
         size: "huge",
+        size_hit_dice,
         level: 10,
         description: "Example NPC here",
         statistics: _.reduce(

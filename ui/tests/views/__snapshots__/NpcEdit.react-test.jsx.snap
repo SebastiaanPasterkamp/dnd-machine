@@ -83,7 +83,7 @@ Array [
             className="nice-btn"
             onClick={[Function]}
           >
-            Gender...
+            Male
             <i
               className="icon fa-angle-down"
             />
@@ -91,7 +91,35 @@ Array [
           <ul
             className="dropdown-menu"
             onClick={[Function]}
-          />
+          >
+            <li
+              className={null}
+              data-value="genderless"
+              onClick={[Function]}
+            >
+              <a>
+                Genderless
+              </a>
+            </li>
+            <li
+              className="info"
+              data-value="male"
+              onClick={[Function]}
+            >
+              <a>
+                Male
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="female"
+              onClick={[Function]}
+            >
+              <a>
+                Female
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
       <div
@@ -109,7 +137,7 @@ Array [
             className="nice-btn"
             onClick={[Function]}
           >
-            Alignment...
+            Chaotic neutral
             <i
               className="icon fa-angle-down"
             />
@@ -117,7 +145,89 @@ Array [
           <ul
             className="dropdown-menu"
             onClick={[Function]}
-          />
+          >
+            <li
+              className={null}
+              data-value="lawful good"
+              onClick={[Function]}
+            >
+              <a>
+                Lawful good
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="neutral good"
+              onClick={[Function]}
+            >
+              <a>
+                Neutral good
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="chaotic good"
+              onClick={[Function]}
+            >
+              <a>
+                Chaotic good
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="lawful neutral"
+              onClick={[Function]}
+            >
+              <a>
+                Lawful neutral
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="true neutral"
+              onClick={[Function]}
+            >
+              <a>
+                True neutral
+              </a>
+            </li>
+            <li
+              className="info"
+              data-value="chaotic neutral"
+              onClick={[Function]}
+            >
+              <a>
+                Chaotic neutral
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="lawful evil"
+              onClick={[Function]}
+            >
+              <a>
+                Lawful evil
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="neutral evil"
+              onClick={[Function]}
+            >
+              <a>
+                Neutral evil
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="chaotic evil"
+              onClick={[Function]}
+            >
+              <a>
+                Chaotic evil
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
       <div
@@ -135,7 +245,7 @@ Array [
             className="nice-btn"
             onClick={[Function]}
           >
-            Size...
+            Huge
             <i
               className="icon fa-angle-down"
             />
@@ -143,7 +253,62 @@ Array [
           <ul
             className="dropdown-menu"
             onClick={[Function]}
-          />
+          >
+            <li
+              className={null}
+              data-value="tiny"
+              onClick={[Function]}
+            >
+              <a>
+                Tiny
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="small"
+              onClick={[Function]}
+            >
+              <a>
+                Small
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="medium"
+              onClick={[Function]}
+            >
+              <a>
+                Medium
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="large"
+              onClick={[Function]}
+            >
+              <a>
+                Large
+              </a>
+            </li>
+            <li
+              className="info"
+              data-value="huge"
+              onClick={[Function]}
+            >
+              <a>
+                Huge
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="gargantuan"
+              onClick={[Function]}
+            >
+              <a>
+                Gargantuan
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
       <div
