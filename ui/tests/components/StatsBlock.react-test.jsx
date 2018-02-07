@@ -30,7 +30,10 @@ describe('Component: StatsBlock', () => {
 
     it('should show stat block editor', () => {
         const tree = renderer.create(
-            <StatsBlock {...props} />
+            <StatsBlock
+                {...props}
+                maxBare={15}
+                />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
