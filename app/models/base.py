@@ -75,17 +75,28 @@ class JsonObject(object):
                 del self._config[field]
         self.compute()
 
+    def _getCast(self, cast, key):
+        if isinstance(cast, dict):
+            return cast.get(
+                key,
+                cast.get('*', self._defaultFieldType)
+                )
+        if cast == 'auto':
+            return cast
+        return self._defaultFieldType
+
     def _merge(self, a, b, cast=None):
         cast = cast or self._fieldTypes
 
         if isinstance(a, dict) and isinstance(b, dict):
             for key in b:
-                _cast = self._defaultFieldType
-                if isinstance(cast, dict):
-                    _cast = cast.get(key, cast.get('*', self._defaultFieldType))
                 if key not in a:
                     a[key] = b[key]
-                a[key] = self._merge(a[key], b[key], _cast)
+                a[key] = self._merge(
+                    a[key],
+                    b[key],
+                    self._getCast(cast, key)
+                    )
             return a
 
         if isinstance(a, list) and isinstance(b, list):
@@ -97,7 +108,7 @@ class JsonObject(object):
         if cast == int and b in [None, '']:
             return 0
 
-        if b is None:
+        if b is None or cast == 'auto':
             return b
 
         return cast(b)
@@ -233,21 +244,13 @@ class JsonObject(object):
                 ]
 
         if isinstance(value, dict):
-            def _getCast(cast, key):
-                if isinstance(cast, dict):
-                    return cast.get(
-                        key,
-                        cast.get('*', self._defaultFieldType)
-                        )
-                return self._defaultFieldType
-
             return dict([
                 (
                     step,
                     self.castFieldType(
                         v,
                         path + [step],
-                        _getCast(cast, step)
+                        self._getCast(cast, step)
                         )
                     )
                 for step, v in value.iteritems()
@@ -256,7 +259,7 @@ class JsonObject(object):
         if cast == int and value in [None, '']:
             return 0
 
-        if value is None:
+        if value is None or cast == 'auto':
             return value
 
         try:
