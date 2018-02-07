@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import os
 import sys
 from optparse import OptionParser, OptionGroup
@@ -36,7 +35,7 @@ group = OptionGroup(parser, "Optional arguments")
 group.add_option("--migrate", dest="migrate", default=False,
                  action="store_true",
                  help="Migrate Objects to new version. Then exit.")
-group.add_option("--update-db", dest="update_db", default=False,
+group.add_option("--updatedb", dest="updatedb", default=False,
                  action="store_true",
                  help="Update database schema. Then exit.")
 group.add_option("--dump-table", dest="dump_table", default=None,
@@ -44,13 +43,12 @@ group.add_option("--dump-table", dest="dump_table", default=None,
 parser.add_option_group(group)
 
 (options, args) = parser.parse_args()
-sys.argv = [sys.argv[0]] + args
 
 args = {
     "host": options.host,
     "port": options.port,
     "debug": options.debug,
-    "threaded": options.threaded
+    "threaded": options.threaded,
     }
 context = (options.ssl_crt, options.ssl_key)
 if all(context):
@@ -60,7 +58,7 @@ if options.migrate:
     migrate()
     exit()
 
-if options.update_db:
+if options.updatedb:
     updatedb()
     exit()
 

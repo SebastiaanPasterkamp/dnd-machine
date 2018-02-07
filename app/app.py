@@ -51,11 +51,15 @@ app.config.update(get_config())
 
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
+def initdb():
+    with app.app_context():
+        _initdb()
+
 @app.cli.command('initdb')
 def initdb_command():
-    initdb()
+    _initdb()
 
-def initdb():
+def _initdb():
     """Initializes the database."""
     print('Initializing the database.')
     db = get_db()
@@ -68,11 +72,16 @@ def initdb():
     db.commit()
     print('Initialized the database.')
 
-@app.cli.command('updatedb')
-def updatedb_command():
-    updatedb()
 
 def updatedb():
+    with app.app_context():
+        _updatedb()
+
+@app.cli.command('updatedb')
+def updatedb_command():
+    _updatedb()
+
+def _updatedb():
     """Updates the database."""
     db = get_db()
     with app.open_resource('update.sql', mode='r') as f:
@@ -80,11 +89,16 @@ def updatedb():
     db.commit()
     print('Updated the database.')
 
-@app.cli.command('dump-table')
-def dump_table_command(table):
-    dump_table(table)
 
 def dump_table(table):
+    with app.app_context():
+        _dump_table()
+
+@app.cli.command('dump-table')
+def dump_table_command(table):
+    _dump_table()
+
+def _dump_table():
     """Dump database content to console."""
     db = None
     with app.app_context():
@@ -134,8 +148,15 @@ def dump_table(table):
     yield('COMMIT;')
 
 
-@app.cli.command('migrate')
 def migrate():
+    with app.app_context():
+        _migrate()
+
+@app.cli.command('migrate')
+def migrate_command():
+    _migrate()
+
+def _migrate():
     """Migrate all Objects to any new configuration."""
     datamapper = get_datamapper()
 
