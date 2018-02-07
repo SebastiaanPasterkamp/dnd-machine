@@ -31,8 +31,9 @@ export class StatsBlock extends Reflux.Component
     }
 
     getRange() {
+        const { minBare, maxBare } = this.props;
         return _.map(
-            _.range(1, this.props.maxBare + 1),
+            _.range(minBare, maxBare + 1),
             (i) => {
                 return {code: i, label: i};
             }
@@ -115,6 +116,9 @@ export class StatsBlock extends Reflux.Component
     }
 
     isDisabled(stat, item) {
+        if (!this.props.budget) {
+            return false;
+        }
         let spent = this._spent();
         spent -= this._cost(this.props.bare[stat]);
         spent += this._cost(item.code);
@@ -221,6 +225,7 @@ export class StatsBlock extends Reflux.Component
 }
 
 StatsBlock.defaultProps = {
+    minBare: 8,
     maxBare: 30,
     budget: 0,
     editBase: true,
@@ -242,6 +247,7 @@ StatsBlock.propTypes = {
     base: PropTypes.objectOf(PropTypes.number).isRequired,
     modifiers: PropTypes.objectOf(PropTypes.number).isRequired,
 
+    minBare: PropTypes.number,
     maxBare: PropTypes.number,
     budget: PropTypes.number,
     editBase: PropTypes.bool,
