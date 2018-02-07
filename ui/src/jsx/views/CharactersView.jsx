@@ -9,6 +9,7 @@ import BaseViewWrapper from '../hocs/BaseViewWrapper.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
+import {ArmorLabel} from '../components/ArmorLabel.jsx';
 import Bonus from '../components/Bonus.jsx';
 import CharacterLinks from '../components/CharacterLinks.jsx';
 import DiceNotation from '../components/DiceNotation.jsx';
@@ -17,7 +18,7 @@ import Panel from '../components/Panel.jsx';
 import Progress from '../components/Progress.jsx';
 import Reach from '../components/Reach.jsx';
 import UserLabel from '../components/UserLabel.jsx';
-import WeaponLabel from '../components/WeaponLabel.jsx';
+import {WeaponLabel} from '../components/WeaponLabel.jsx';
 
 const viewConfig = {
     className: 'character-view',
@@ -120,6 +121,65 @@ export class CharactersView extends React.Component
         </Panel>;
     }
 
+    renderEquipment() {
+        const {
+            weapons, weapon_properties, weapon_types,
+            armor, armor_types, items
+        } = this.props;
+        return <Panel
+                key="equipment"
+                className="character-view__equipment info"
+                header="Equipment"
+            >
+            {weapons.length
+                ? <strong>Weapons</strong>
+                : null
+            }
+            <ul>{_.map(weapons, (weapon, i) => {
+                return <li key={'weapon-' + i}>
+                    {weapon.count > 1
+                        ? `{weapon.count} x `
+                        : null
+                    }
+                    <WeaponLabel
+                        weapon_properties={weapon_properties}
+                        weapon_types={weapon_types}
+                        weapon_id={weapon.id}
+                        weapon={weapon}
+                        />
+                </li>;
+            })}</ul>
+
+            {armor.length
+                ? <strong>Armor</strong>
+                : null
+            }
+            <ul>{_.map(armor, (_armor, i) => {
+                return <li key={'armor-' + i}>
+                    {_armor.count > 1
+                        ? `{_armor.count} x `
+                        : null
+                    }
+                    <ArmorLabel
+                        armor_types={armor_types}
+                        armor_id={_armor.id}
+                        armor={_armor}
+                        />
+                </li>;
+            })}</ul>
+
+
+            <strong>Gear</strong> :
+            <ul>{_.map(items, (itemset, set) => {
+                return _.map(itemset, (item, i) => {
+                    return <li key={'item-' + set + '-' + i}>
+                        {item}
+                    </li>;
+                });
+            })}</ul>
+        </Panel>;
+    }
+
     render() {
         return [
             <Panel
@@ -139,7 +199,7 @@ export class CharactersView extends React.Component
                     Level {this.props.level}
                     &nbsp;
                     <ListLabel
-                        items={this.props.genders}
+                        items={this.props.genders || []}
                         value={this.props.gender}
                         />
                     &nbsp;
@@ -148,7 +208,7 @@ export class CharactersView extends React.Component
                     {this.props.class}
                     &nbsp;
                     (<ListLabel
-                        items={this.props.alignments}
+                        items={this.props.alignments || []}
                         value={this.props.alignment}
                         />)
                 </h4>
@@ -203,7 +263,7 @@ export class CharactersView extends React.Component
                         <td>{this.props.race}</td>
                         <td>
                             <ListLabel
-                                items={this.props.alignments}
+                                items={this.props.alignments || []}
                                 value={this.props.alignment}
                                 />
                         </td>
@@ -279,10 +339,6 @@ export class CharactersView extends React.Component
                                 />
                         </td>
                     </tr>
-                    <tr>
-                        <th>Expertise Bonus</th>
-                        <td>+4</td>
-                    </tr>
 
                     <tr>
                         <th>Spells</th>
@@ -295,7 +351,7 @@ export class CharactersView extends React.Component
                                 <li>
                                     <strong>Ability:</strong>
                                     <ListLabel
-                                        items={this.props.statistics}
+                                        items={this.props._statistics || []}
                                         value={this.props.spell_stat}
                                         />
                                 </li>
@@ -319,15 +375,7 @@ export class CharactersView extends React.Component
 
             this.renderSkills(),
 
-            <Panel
-                    key="equipment"
-                    className="character-view__equipment info"
-                    header="Equipment"
-                >
-                <WeaponLabel
-                    weapon_id={1}
-                    />
-            </Panel>,
+            this.renderEquipment(),
 
             <Panel
                     key="backstory"
@@ -393,7 +441,16 @@ export default ListDataWrapper(
     RoutedObjectDataWrapper(
         CharactersView, viewConfig, "character"
     ),
-    ['alignments', 'languages', 'statistics', 'skills', 'genders'],
+    [
+        'alignments',
+        'armor_types',
+        'genders',
+        'languages',
+        'skills',
+        'statistics',
+        'weapon_properties',
+        "weapon_types",
+    ],
     'items',
     {
         'languages': '_languages',
