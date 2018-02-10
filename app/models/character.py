@@ -3,8 +3,7 @@ from math import ceil
 
 from base import JsonObject, JsonObjectDataMapper
 
-from ..config import get_config, get_item_data, get_character_data
-from dndmachine import DndMachine
+from ..config import get_character_data
 
 class CharacterObject(JsonObject):
     _version = '1.0'
@@ -219,9 +218,6 @@ class CharacterObject(JsonObject):
             }
         }
 
-    def __init__(self, config={}):
-        super(CharacterObject, self).__init__(config)
-
     @property
     def mapper(self):
         return self._mapper
@@ -236,28 +232,6 @@ class CharacterObject(JsonObject):
         if not self._character_data:
             self._character_data = get_character_data(True)
         return self._character_data
-
-    @property
-    def machine(self):
-        if '_machine_mapper' not in self.__dict__:
-            config = get_config()
-            item_data = get_item_data()
-            self._machine_mapper = DndMachine(
-                config["machine"],
-                item_data
-                )
-        return self._machine_mapper
-
-    @property
-    def weaponMapper(self):
-        if '_weapon_mapper' not in self.__dict__:
-            config = get_config()
-            item_data = get_item_data()
-            self._weapon_mapper = DndMachine(
-                config["machine"],
-                item_data
-                )
-        return self._weapon_mapper
 
     def migrate(self, mapper=None):
         if self.race == "Stout Halfing":
@@ -346,15 +320,15 @@ class CharacterObject(JsonObject):
         super(CharacterObject, self).migrate()
 
     def compute(self):
-        config = get_config()
         machine = self.mapper.machine
+        itemMapper = self.mapper.items
 
         self.version = self._version
 
         self.statisticsBase = {}
         self.statisticsModifiers = {}
 
-        for stat in self.mapper.items.statistics:
+        for stat in itemMapper.statistics:
             stat = stat["code"]
             self.statisticsBase[stat] = self.statisticsBare[stat] \
                 + sum(self.statisticsBonus.get(stat, []))
@@ -372,7 +346,7 @@ class CharacterObject(JsonObject):
         self.initiative_bonus = self.statisticsModifiersDexterity
         self.passive_perception = 10 + self.statisticsModifiersWisdom
 
-        for skill in self.mapper.items.skills:
+        for skill in itemMapper.skills:
             stat, skill = skill["stat"], skill["code"]
             self.skills[skill] = self.statisticsModifiers[stat]
             if skill in self.proficienciesExpertise:
@@ -420,7 +394,7 @@ class CharacterObject(JsonObject):
             if len(objs):
                 return 'armor', objs[0]._config
 
-            obj = self.mapper.items.itemByNameOrCode(item, 'tools')
+            obj = itemMapper.itemByNameOrCode(item, 'tools')
             if obj is not None:
                 return 'items%s' % obj['type'].capitalize(), obj
             return None, None
@@ -465,7 +439,6 @@ class CharacterObject(JsonObject):
             if isinstance(obj, JsonObject):
                 obj = obj._config
 
-            print item
             self[ item['path'] ] += [obj] * item['count']
 
         self.equipment = equipment
@@ -480,7 +453,7 @@ class CharacterObject(JsonObject):
                     "dexterity": self.statisticsModifiersDexterity,
                     })
 
-            dmg = self.mapper.items.itemByNameOrCode(
+            dmg = itemMapper.itemByNameOrCode(
                 weapon["damage"]["type"], 'damage_types')
             weapon["damage"]["type_label"] = dmg["label"]
             weapon["damage"]["type_short"] = dmg["short"]
