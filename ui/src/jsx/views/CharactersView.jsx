@@ -173,7 +173,10 @@ export class CharactersView extends React.Component
             <ul>{_.map(items, (itemset, set) => {
                 return _.map(itemset, (item, i) => {
                     return <li key={'item-' + set + '-' + i}>
-                        {item}
+                        {_.isObject(item)
+                            ? item.label
+                            : item
+                        }
                     </li>;
                 });
             })}</ul>
