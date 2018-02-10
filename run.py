@@ -63,8 +63,7 @@ if options.updatedb:
     exit()
 
 if options.dump_table:
-    for line in dump_table(options.dump_table):
-        print line
+    dump_table(options.dump_table)
     exit()
 
 app.run(**args)
