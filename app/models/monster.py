@@ -1,8 +1,5 @@
 from base import JsonObject, JsonObjectDataMapper
 
-from ..config import get_config, get_item_data
-from dndmachine import DndMachine
-
 class MonsterObject(JsonObject):
     _version = '1.0'
     _pathPrefix = "monster"
@@ -112,6 +109,15 @@ class MonsterObject(JsonObject):
             },
         }
 
+    @property
+    def mapper(self):
+        return self._mapper
+
+    @mapper.setter
+    def mapper(self, mapper):
+        self._mapper = mapper
+        return self._mapper
+
     def migrate(self, mapper=None):
         if "stats" in self._config:
             self.statistics = {
@@ -125,8 +131,8 @@ class MonsterObject(JsonObject):
         super(MonsterObject, self).migrate()
 
     def compute(self):
-        config = get_config()
-        machine = DndMachine(config['machine'], get_item_data())
+        machine = self.mapper.machine
+        itemMapper = self.mapper.items
 
         self.version = self._version
 
@@ -135,7 +141,7 @@ class MonsterObject(JsonObject):
             if l != u"None"
             ]
 
-        for stat in machine.items.statistics:
+        for stat in itemMapper.statistics:
             stat = stat["code"]
             self.statisticsBase[stat] = self.statisticsBare[stat]
             self.statisticsModifiers[stat] = int(
@@ -145,7 +151,9 @@ class MonsterObject(JsonObject):
         self.passive_perception = 10 + self.statisticsModifiersWisdom
 
         self.dice_size = machine.findByName(
-            self.size, machine.size_hit_dice)['dice_size']
+            self.size,
+            machine.size_hit_dice
+            )['dice_size']
 
         self.hit_points = machine.diceAverage(
                 self.dice_size,
@@ -277,6 +285,20 @@ class MonsterMapper(JsonObjectDataMapper):
     obj = MonsterObject
     table = "monster"
     fields = ['name', 'challenge_rating', 'xp_rating', 'xp']
+
+    def __init__(self, db, mapper, config={}):
+        self.mapper = mapper
+        super(MonsterMapper, self).__init__(db)
+
+    def _read(self, dbrow):
+        obj = super(MonsterMapper, self)._read(dbrow)
+        obj.mapper = self.mapper
+        return obj
+
+    def create(self, config=None):
+        obj = super(MonsterMapper, self).create(config)
+        obj.mapper = self.mapper
+        return obj
 
     def getList(self, search=None):
         """Returns a list of parties matching the search parameter"""
