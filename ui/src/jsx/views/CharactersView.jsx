@@ -18,6 +18,7 @@ import Panel from '../components/Panel.jsx';
 import Progress from '../components/Progress.jsx';
 import Reach from '../components/Reach.jsx';
 import UserLabel from '../components/UserLabel.jsx';
+import {SpellLabel} from '../components/SpellLabel.jsx';
 import {WeaponLabel} from '../components/WeaponLabel.jsx';
 
 const viewConfig = {
@@ -126,6 +127,7 @@ export class CharactersView extends React.Component
             weapons, weapon_properties, weapon_types,
             armor, armor_types, items
         } = this.props;
+
         return <Panel
                 key="equipment"
                 className="character-view__equipment info"
@@ -168,19 +170,55 @@ export class CharactersView extends React.Component
                 </li>;
             })}</ul>
 
-
             <strong>Gear</strong> :
             <ul>{_.map(items, (itemset, set) => {
-                return _.map(itemset, (item, i) => {
-                    return <li key={'item-' + set + '-' + i}>
-                        {_.isObject(item)
-                            ? item.label
-                            : item
-                        }
+                let gear = _.countBy(itemset, (item) => {
+                    if (_.isObject(item)) {
+                        return item.label || item.name;
+                    }
+                    return item;
+                });
+                return _.map(gear, (cnt, item) => {
+                    return <li key={'item-' + item}>
+                        {cnt > 1 ? cnt + ' x ' : null}
+                        {item}
                     </li>;
                 });
             })}</ul>
         </Panel>;
+    }
+
+    renderSpells() {
+        const {
+            spell, magic_components, magic_schools
+        } = this.props;
+
+        if (
+            !spell.list.length
+            && !spell.prepared.length
+        ) {
+            return null;
+        }
+
+        return <Panel
+            key="equipmspellsent"
+            className="character-view__equipment info"
+            header="Spells"
+        >{_.map(spell.level, (spells, level) => {
+            if (!spells.length) {
+                return null;
+            }
+            return _.map(spells, (spell, i) => {
+                return <SpellLabel
+                    key={spell.id}
+                    magic_components={magic_components}
+                    magic_schools={magic_schools}
+                    spell_id={spell.id}
+                    spell={spell}
+                    tooltip={true}
+                    />
+            });
+        })}</Panel>;
     }
 
     render() {
@@ -390,12 +428,7 @@ export class CharactersView extends React.Component
                     />
             </Panel>,
 
-            <Panel
-                    key="spells"
-                    className="character-view__spells info"
-                    header="Spells"
-                >
-            </Panel>,
+            this.renderSpells(),
 
             <Panel
                     key="traits"
@@ -449,6 +482,8 @@ export default ListDataWrapper(
         'armor_types',
         'genders',
         'languages',
+        "magic_components",
+        "magic_schools",
         'skills',
         'statistics',
         'weapon_properties',
