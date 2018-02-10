@@ -239,6 +239,10 @@ class CharacterObject(JsonObject):
 
         def fixComputed(old, new, pattern=None):
             re_mod = re.compile(pattern or re.escape(old))
+            if old in self._config['computed']:
+                if new not in self._config['computed']:
+                    self._config['computed'][new] = self._config['computed'][old]
+                del self._config['computed'][old]
             for path, compute in self._config['computed'].items():
                 if 'formula' not in compute:
                     continue
@@ -274,6 +278,8 @@ class CharacterObject(JsonObject):
             "spell_stat": "spell.stat",
             "cantrips_known": "spell.max_cantrips",
             "spells_known": "spell.max_known",
+            "spell_attack_modifier": "spell.attack_modifier",
+            "spell_safe_dc": "spell.safe_dc",
             }
         for old, new in migrate.items():
             fixComputed(old, new)
@@ -283,16 +289,15 @@ class CharacterObject(JsonObject):
         if "spell_slots" in self._config:
             slots = self.spell_slots
             self.spellSlots = {
-                "cantrip": slots.get("cantrip", []),
-                "level_1": slots.get("1st_level", []),
-                "level_2": slots.get("2nd_level", []),
-                "level_3": slots.get("3rd_level", []),
-                "level_4": slots.get("4th_level", []),
-                "level_5": slots.get("5th_level", []),
-                "level_6": slots.get("6th_level", []),
-                "level_7": slots.get("7th_level", []),
-                "level_8": slots.get("8th_level", []),
-                "level_9": slots.get("9th_level", []),
+                "level_1": slots.get("1st_level", 0),
+                "level_2": slots.get("2nd_level", 0),
+                "level_3": slots.get("3rd_level", 0),
+                "level_4": slots.get("4th_level", 0),
+                "level_5": slots.get("5th_level", 0),
+                "level_6": slots.get("6th_level", 0),
+                "level_7": slots.get("7th_level", 0),
+                "level_8": slots.get("8th_level", 0),
+                "level_9": slots.get("9th_level", 0),
                 }
             del self._config["spell_slots"]
         if "spells" in self._config:
@@ -435,7 +440,17 @@ class CharacterObject(JsonObject):
                 elif 'id' in obj:
                     item['id'] = obj['id']
 
-            equipment.append(item)
+            existing = None
+            for old in equipment:
+                if old['path'] == item['path'] \
+                        and old['name'] == item['name']:
+                    existing = old
+                    break
+            if existing is not None:
+                existing['count'] += item['count']
+            else:
+                equipment.append(item)
+
             if isinstance(obj, JsonObject):
                 obj = obj._config
 
@@ -445,13 +460,14 @@ class CharacterObject(JsonObject):
 
         for weapon in self.weapons:
             attack_modifier = "strength"
-            if "ranged" in weapon["type"]:
+            if u"ranged" in weapon["type"]:
                 attack_modifier = "dexterity"
-            if "finesse" in weapon['property']:
-                attack_modifier = max({
+            if u"finesse" in weapon['property']:
+                finesse = {
                     "strength": self.statisticsModifiersStrength,
                     "dexterity": self.statisticsModifiersDexterity,
-                    })
+                    }
+                attack_modifier = max(finesse, key=finesse.get)
 
             dmg = itemMapper.itemByNameOrCode(
                 weapon["damage"]["type"],
@@ -493,6 +509,21 @@ class CharacterObject(JsonObject):
             if "bonus" in armor \
                     and armor["bonus"] > self.armor_class_bonus:
                 self.armor_class_bonus = armor["bonus"]
+
+        self.spellLevel = {}
+        for spell in set(self.spellList).union(self.spellPrepared):
+            objs = self.mapper.spells.getMultiple(
+                'name COLLATE nocase = :name',
+                {'name': spell}
+                )
+            if not len(objs):
+                continue
+            spell = objs[0]
+            level = "cantrip" \
+                if spell.level == "Cantrip" \
+                else "level_" + spell.level
+            self.spellLevel[level] = self.spellLevel.get(level, [])
+            self.spellLevel[level].append(spell._config)
 
         self.abilities = self._expandFormulas(self.abilities)
         # No type-casting

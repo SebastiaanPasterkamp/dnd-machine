@@ -194,46 +194,46 @@ class CharacterBlueprint(BaseApiBlueprint):
             "Flaws": c.personalityFlaws
             }
 
-        if c.spell_safe_dc:
+        if c.spellSafe_dc:
             fdf_text.update({
-                "SpellSaveDC 2": c.spell_safe_dc,
-                "SpellAtkBonus 2": filter_bonus(c.spell_attack_modifier),
+                "SpellSaveDC 2": c.spellSafe_dc,
+                "SpellAtkBonus 2": filter_bonus(c.spellAttack_modifier),
                 "Spellcasting Class 2": c.Class,
-                "Total Prepared Spells": c.known_spells or '',
-                "AttacksSpellcasting": ""
+                "Total Prepared Spells": c.spellMax_prepared or '',
+                #"AttacksSpellcasting": "",
                 })
-        if c.spell_slots:
+        if c.spellSlots:
             fdf_spell_slots = {
-                "1st_level": "SlotsTotal 19",
-                "2nd_level": "SlotsTotal 20",
-                "3rd_level": "SlotsTotal 21",
-                "4th_level": "SlotsTotal 22",
-                "5th_level": "SlotsTotal 23",
-                "6th_level": "SlotsTotal 24",
-                "7th_level": "SlotsTotal 25",
-                "8th_level": "SlotsTotal 26",
-                "9th_level": "SlotsTotal 27"
+                "level_1": "SlotsTotal 19",
+                "level_2": "SlotsTotal 20",
+                "level_3": "SlotsTotal 21",
+                "level_4": "SlotsTotal 22",
+                "level_5": "SlotsTotal 23",
+                "level_6": "SlotsTotal 24",
+                "level_7": "SlotsTotal 25",
+                "level_8": "SlotsTotal 26",
+                "level_9": "SlotsTotal 27"
                 }
-            for level, slots in c.spell_slots.items():
+            for level, slots in c.spellSlots.items():
                 fdf_text[ fdf_spell_slots[level] ] = slots
 
-        if c.spells:
+        if c.spellList:
             fdf_spell_lists = {
                 "cantrip": ["1014", "1015", "1016", "1017", "1018", "1019", "1020", "1021"],
-                "1st_level": ["1022", "1023", "1024", "1025", "1026", "1027", "1028", "1029", "1030", "1031", "1032", "1033"],
-                "2nd_level": ["1046", "1034", "1035", "1036", "1037", "1038", "1039", "1040", "1041", "1042", "1043", "1044", "1045"],
-                "3rd_level": ["1048", "1047", "1049", "1050", "1051", "1052", "1053", "1054", "1055", "1056", "1057", "1058", "1059"],
-                "4th_level": ["1061", "1060", "1062", "1063", "1064", "1065", "1066", "1067", "1068", "1069", "1070", "1071", "1072"],
-                "5th_level": ["1074", "1073", "1075", "1076", "1077", "1078", "1079", "1080", "1081"],
-                "6th_level": ["1083", "1082", "1084", "1085", "1086", "1087", "1088", "1089", "1090"],
-                "7th_level": ["1092", "1091", "1093", "1094", "1095", "1096", "1097", "1098", "1099"],
-                "8th_level": ["10101", "10100", "10102", "10103", "10104", "10105", "10106"],
-                "9th_level": ["10108", "10107", "10109", "101010", "101011", "101012", "101013"]
+                "level_1": ["1022", "1023", "1024", "1025", "1026", "1027", "1028", "1029", "1030", "1031", "1032", "1033"],
+                "level_2": ["1046", "1034", "1035", "1036", "1037", "1038", "1039", "1040", "1041", "1042", "1043", "1044", "1045"],
+                "level_3": ["1048", "1047", "1049", "1050", "1051", "1052", "1053", "1054", "1055", "1056", "1057", "1058", "1059"],
+                "level_4": ["1061", "1060", "1062", "1063", "1064", "1065", "1066", "1067", "1068", "1069", "1070", "1071", "1072"],
+                "level_5": ["1074", "1073", "1075", "1076", "1077", "1078", "1079", "1080", "1081"],
+                "level_6": ["1083", "1082", "1084", "1085", "1086", "1087", "1088", "1089", "1090"],
+                "level_7": ["1092", "1091", "1093", "1094", "1095", "1096", "1097", "1098", "1099"],
+                "level_8": ["10101", "10100", "10102", "10103", "10104", "10105", "10106"],
+                "level_9": ["10108", "10107", "10109", "101010", "101011", "101012", "101013"]
                 }
-            for level, spells in c.spells.items():
+            for level, spells in c.spellLevel.items():
                 fdf_spell_list = fdf_spell_lists[ level ]
                 for i, spell in enumerate(spells):
-                    fdf_text[ "Spells %s" % fdf_spell_list[i] ] = spell
+                    fdf_text[ "Spells %s" % fdf_spell_list[i] ] = spell['name']
 
         for stat in items.statistics:
             stat_prefix = stat['code'][:3].upper()
@@ -262,6 +262,8 @@ class CharacterBlueprint(BaseApiBlueprint):
             i += 1
 
         for coin in ['cp', 'sp', 'ep', 'gp', 'pp']:
+            if coin not in c.wealth:
+                continue
             fdf_text[coin.upper()] = c.wealth[coin]
 
         proficiencies = {}
@@ -276,28 +278,34 @@ class CharacterBlueprint(BaseApiBlueprint):
         if c.proficienciesArmor:
             proficiencies["Armor"] = []
             for prof in c.proficienciesArmor:
+                label = prof
                 armor = items.itemByNameOrCode(prof, 'armor_types')
-                if armor is None:
-                    armor = self.armormapper.getMultiple(
+                if armor is not None:
+                    label = armor['label']
+                else:
+                    objs = self.armormapper.getMultiple(
                         'name COLLATE nocase = :name',
                         {'name': prof}
-                        )[0] or None
-                proficiencies["Armor"].append(
-                    armor['label'] if armor else prof
-                    )
+                        )
+                    if objs:
+                        label = objs[0].name
+                proficiencies["Armor"].append(label)
 
         if c.proficienciesWeapons:
             proficiencies["Weapons"] = []
             for prof in c.proficienciesWeapons:
+                label = prof
                 weapon = items.itemByNameOrCode(prof, 'weapon_types')
-                if weapon is None:
-                    weapon = self.weaponmapper.getMultiple(
+                if weapon is not None:
+                    label = weapon['label']
+                else:
+                    objs = self.weaponmapper.getMultiple(
                         'name COLLATE nocase = :name',
                         {'name': prof}
-                        )[0] or None
-                proficiencies["Weapons"].append(
-                    weapon['label'] if weapon else prof
-                    )
+                        )
+                    if objs:
+                        label = objs[0].name
+                proficiencies["Weapons"].append(label)
 
         if c.proficienciesTools:
             proficiencies["Tools"] = []
@@ -406,11 +414,14 @@ class CharacterBlueprint(BaseApiBlueprint):
             equipment.append([_type['label'] + ":"])
 
             for count, item in filter_unique(tools):
+                label = item['label'] \
+                    if isinstance(item, dict) \
+                    else item
                 desc = [
                     "-",
-                    "%d x %s" % (count, item) \
+                    "%d x %s" % (count, label) \
                         if count > 1 \
-                        else item
+                        else label
                     ]
                 equipment[-1].append(" ".join(desc))
 
@@ -487,7 +498,11 @@ class CharacterBlueprint(BaseApiBlueprint):
     def reset(self, obj_id):
         if not self.checkRole(['admin', 'dm']):
             abort(403)
-        keeping = ['user_id', 'class', 'race', 'background', 'xp', 'name', 'personality', 'appearance', 'alignment', 'backstory']
+        keeping = [
+            'user_id', 'class', 'race', 'background', 'xp', 'name',
+            'personality', 'gender', 'appearance', 'alignment',
+            'backstory'
+            ]
 
         character = self.datamapper.getById(obj_id)
         reset = self.datamapper.create(dict([
@@ -495,8 +510,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             for keep in keeping
             ]))
         reset.id = obj_id
-        reset.user_id = request.user.id
-        reset.statisticsBase = character.statisticsBase
+        reset.user_id = character.user_id
         reset.compute()
 
         character = self.datamapper.update(reset)

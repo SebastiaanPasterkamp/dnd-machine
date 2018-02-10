@@ -248,7 +248,7 @@
                         "path": "spell.list",
                         "type": "list",
                         "list": "spells",
-                        "given": ["minor illusion"]
+                        "given": ["Minor Illusion"]
                     }, {
                         "label": "Speak with Small Beasts",
                         "path": "info.Speak with Small Beasts",
@@ -1519,12 +1519,12 @@
                     }
                 }, {
                     "hidden": true,
-                    "path": "computed.spell.safe_dc.formula",
+                    "path": "computed.spellSafe_dc.formula",
                     "type": "value",
                     "value": "8 + character.proficiency + statistics.modifiers.charisma"
                 }, {
                     "hidden": true,
-                    "path": "computed.spell.attack_modifier.formula",
+                    "path": "computed.spellAttack_modifier.formula",
                     "type": "value",
                     "value": "character.proficiency + statistics.modifiers.charisma"
                 }, {
@@ -3000,17 +3000,17 @@
                     "value": "wisdom"
                 }, {
                     "hidden": true,
-                    "path": "computed.spell.safe_dc.formula",
+                    "path": "computed.spellSafe_dc.formula",
                     "type": "value",
                     "value": "8 + character.proficiency + statistics.modifiers.wisdom"
                 }, {
                     "hidden": true,
-                    "path": "computed.spell.attack_modifier.formula",
+                    "path": "computed.spellAttack_modifier.formula",
                     "type": "value",
                     "value": "character.proficiency + statistics.modifiers.wisdom"
                 }, {
                     "hidden": true,
-                    "path": "computed.spell.max_prepared.formula",
+                    "path": "computed.spellMax_prepared.formula",
                     "type": "value",
                     "value": "max(1, character.level + statistics.modifiers.wisdom)"
                 }, {
@@ -3209,7 +3209,7 @@
                             "path": "spell.list",
                             "type": "list",
                             "list": "spells",
-                            "given": ["command", "identify"]
+                            "given": ["Command", "Identify"]
                         }, {
                             "label": "Blessing of Knowledge",
                             "type": "config",
@@ -3248,7 +3248,7 @@
                             "path": "spell.list",
                             "type": "list",
                             "list": "spells",
-                            "given": ["bless", "cure wounds"]
+                            "given": ["Bless", "Cure Wounds"]
                         }, {
                             "label": "Bonus Proficiency",
                             "path": "proficiencies.armor",
@@ -3276,7 +3276,7 @@
                             "path": "spell.list",
                             "type": "list",
                             "list": "spells",
-                            "given": ["burning hands", "faerie fire", "light"]
+                            "given": ["Burning Hands", "Faerie Fire", "Light"]
                         }, {
                             "label": "Warding Flare",
                             "path": "abilities.Warding Flare",
@@ -3299,7 +3299,7 @@
                             "path": "spell.list",
                             "type": "list",
                             "list": "spells",
-                            "given": ["animal friendship", "speak with animals"]
+                            "given": ["Animal Friendship", "Speak with Animals"]
                         }, {
                             "label": "Acolyt of Nature",
                             "type": "config",
@@ -3343,7 +3343,7 @@
                             "path": "spell.list",
                             "type": "list",
                             "list": "spells",
-                            "given": ["fog cloud", "thunderwave"]
+                            "given": ["Fog Cloud", "Thunderwave"]
                         }, {
                             "label": "Bonus Proficiency",
                             "type": "config",
@@ -3385,7 +3385,7 @@
                             "path": "spell.list",
                             "type": "list",
                             "list": "spells",
-                            "given": ["charm person", "disguise self"]
+                            "given": ["Charm Person", "Disguise Self"]
                         }, {
                             "label": "Blessing of the Trickster",
                             "path": "abilities.Blessing of the Trickster",
@@ -3407,7 +3407,7 @@
                             "path": "spell.list",
                             "type": "list",
                             "list": "spells",
-                            "given": ["divine favor", "shield of faith"]
+                            "given": ["Divine Favor", "Shield of Faith"]
                         }, {
                             "label": "Bonus Proficiency",
                             "type": "config",
@@ -3658,7 +3658,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["lesser restoration", "spiritual weapon"]
+                    "given": ["Lesser Restoration", "Spiritual Weapon"]
                 }]
             },
             "cleric-3-light": {
@@ -3672,7 +3672,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["flaming sphere", "scorching ray"]
+                    "given": ["Flaming Sphere", "Scorching Ray"]
                 }]
             },
             "cleric-3-nature": {
@@ -3686,7 +3686,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["barkskin", "spike growth"]
+                    "given": ["Barkskin", "Spike Growth"]
                 }]
             },
             "cleric-3-tempest": {
@@ -3700,7 +3700,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["gust of wind", "shatter"]
+                    "given": ["Gust of Wind", "Shatter"]
                 }]
             },
             "cleric-3-trickery": {
@@ -3714,7 +3714,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["mirror image", "pass without trace"]
+                    "given": ["Mirror Image", "Pass without Trace"]
                 }]
             },
             "cleric-3-war": {
@@ -3728,7 +3728,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["magic weapon", "spiritual weapon"]
+                    "given": ["Magic Weapon", "Spiritual Weapon"]
                 }]
             },
             "cleric-4": {
@@ -3825,7 +3825,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["nondetection", "speak with dead"]
+                    "given": ["Nondetection", "Speak with Dead"]
                 }]
             },
             "cleric-5-life": {
@@ -3839,7 +3839,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["beacon of hope", "revivify"]
+                    "given": ["Beacon of Hope", "Revivify"]
                 }]
             },
             "cleric-5-light": {
@@ -3853,7 +3853,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["daylight", "fireball"]
+                    "given": ["Daylight", "Fireball"]
                 }]
             },
             "cleric-5-nature": {
@@ -3867,7 +3867,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["plant growth", "wind wall"]
+                    "given": ["Plant Growth", "Wind Wall"]
                 }]
             },
             "cleric-5-tempest": {
@@ -3881,7 +3881,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["call lightning", "sleet storm"]
+                    "given": ["Call Lightning", "Sleet Storm"]
                 }]
             },
             "cleric-5-trickery": {
@@ -3895,7 +3895,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["blink", "dispel magic"]
+                    "given": ["Blink", "Dispel Magic"]
                 }]
             },
             "cleric-5-war": {
@@ -3909,7 +3909,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["crusader's mantle", "spirit guardians"]
+                    "given": ["Crusader's Mantle", "Spirit Guardians"]
                 }]
             },
             "cleric-6": {
@@ -4108,7 +4108,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["arcane eye", "confusion"]
+                    "given": ["Arcane Eye", "Confusion"]
                 }]
             },
             "cleric-7-life": {
@@ -4122,7 +4122,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["death word", "guardian of faith"]
+                    "given": ["Death Word", "Guardian of Faith"]
                 }]
             },
             "cleric-7-light": {
@@ -4136,7 +4136,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["guardian of faith", "wall of fire"]
+                    "given": ["Guardian of Faith", "Wall of Fire"]
                 }]
             },
             "cleric-7-nature": {
@@ -4150,7 +4150,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["dominate beast", "grasping vine"]
+                    "given": ["Dominate Beast", "Grasping Vine"]
                 }]
             },
             "cleric-7-tempest": {
@@ -4164,7 +4164,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["control water", "ice storm"]
+                    "given": ["Control Water", "Ice Storm"]
                 }]
             },
             "cleric-7-trickery": {
@@ -4178,7 +4178,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["dimension door", "polymorph"]
+                    "given": ["Dimension Door", "Polymorph"]
                 }]
             },
             "cleric-7-war": {
@@ -4192,7 +4192,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["freedom of movement", "stoneskin"]
+                    "given": ["Freedom of Movement", "Stoneskin"]
                 }]
             },
             "cleric-8": {
@@ -4323,7 +4323,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["legend lore", "scrying"]
+                    "given": ["Legend Lore", "Scrying"]
                 }]
             },
             "cleric-9-life": {
@@ -4337,7 +4337,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["mass cure wounds", "raise dead"]
+                    "given": ["Mass Cure Wounds", "Raise Dead"]
                 }]
             },
             "cleric-9-light": {
@@ -4351,7 +4351,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "spell_list[]": ["flame strike", "scrying"]
+                    "spell_list[]": ["Flame Strike", "Scrying"]
                 }]
             },
             "cleric-9-nature": {
@@ -4365,7 +4365,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["insect plague", "tree stride"]
+                    "given": ["Insect Plague", "Tree Stride"]
                 }]
             },
             "cleric-9-tempest": {
@@ -4379,7 +4379,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["destructive wave", "insect plague"]
+                    "given": ["Destructive Wave", "Insect Plague"]
                 }]
             },
             "cleric-9-trickery": {
@@ -4393,7 +4393,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["dominate person", "modify memory"]
+                    "given": ["Dominate Person", "Modify Memory"]
                 }]
             },
             "cleric-9-war": {
@@ -4407,7 +4407,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": "spells",
-                    "given": ["flame strike", "hold monster"]
+                    "given": ["Flame Strike", "Hold Monster"]
                 }]
             },
             "cleric-10": {
@@ -5524,12 +5524,12 @@
                                 "value": "intelligence"
                             }, {
                                 "hidden": true,
-                                "path": "computed.spell.safe_dc.formula",
+                                "path": "computed.spellSafe_dc.formula",
                                 "type": "value",
                                 "value": "8 + character.proficiency + statistics.modifiers.intelligence"
                             }, {
                                 "hidden": true,
-                                "path": "computed.spell.attack_modifier.formula",
+                                "path": "computed.spellAttack_modifier.formula",
                                 "type": "value",
                                 "value": "character.proficiency + statistics.modifiers.intelligence"
                             }, {
@@ -7121,7 +7121,7 @@
                     "value": "charisma"
                 }, {
                     "hidden": true,
-                    "path": "computed.spell.max_prepared.formula",
+                    "path": "computed.spellMax_prepared.formula",
                     "type": "value",
                     "value": "max(1, statistics.modifiers.charisma + int(character.level / 2.0))"
                 }, {
@@ -7133,12 +7133,12 @@
                     }
                 }, {
                     "hidden": true,
-                    "path": "computed.spell.safe_dc.formula",
+                    "path": "computed.spellSafe_dc.formula",
                     "type": "value",
                     "value": "8 + character.proficiency + statistics.modifiers.charisma"
                 }, {
                     "hidden": true,
-                    "path": "computed.spell.attack_modifier.formula",
+                    "path": "computed.spellAttack_modifier.formula",
                     "type": "value",
                     "value": "character.proficiency + statistics.modifiers.charisma"
                 }, {
@@ -8417,12 +8417,12 @@
                     }
                 }, {
                     "hidden": true,
-                    "path": "computed.spell_safe_dc.formula",
+                    "path": "computed.spellSafe_dc.formula",
                     "type": "value",
                     "value": "8 + character.proficiency + statistics.modifiers.wisdom"
                 }, {
                     "hidden": true,
-                    "path": "computed.spell_attack_modifier.formula",
+                    "path": "computed.spellAttack_modifier.formula",
                     "type": "value",
                     "value": "character.proficiency + statistics.modifiers.wisdom"
                 }, {
@@ -10014,12 +10014,12 @@
                     }
                 }, {
                     "hidden": true,
-                    "path": "computed.spell_safe_dc.formula",
+                    "path": "computed.spellSafe_dc.formula",
                     "type": "value",
                     "value": "8 + character.proficiency + statistics.modifiers.charisma"
                 }, {
                     "hidden": true,
-                    "path": "computed.spell_attack_modifier.formula",
+                    "path": "computed.spellAttack_modifier.formula",
                     "type": "value",
                     "value": "character.proficiency + statistics.modifiers.charisma"
                 }, {
@@ -12768,8 +12768,7 @@
                     "options": [{
                         "label": "Favor of an Admirer",
                         "config": [{
-                            "type": "list",
-                            "list": "trinket",
+                            "type": "select",
                             "path": "equipment",
                             "multiple": true,
                             "limit": 1,
@@ -12782,10 +12781,13 @@
                         "label": "Trinket",
                         "config": [{
                             "type": "list",
-                            "list": "trinket",
+                            "list": "tools",
                             "path": "equipment",
                             "multiple": true,
-                            "limit": 1
+                            "limit": 1,
+                            "filter": {
+                                "type": "trinket"
+                            }
                         }]
                     }]
                 }]
