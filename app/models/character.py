@@ -316,6 +316,8 @@ class CharacterObject(JsonObject):
                 self.spellList = []
                 for spells in level.values():
                     self.spellList.extend(spells)
+        if 'misc' in self.items:
+            del self.items['misc']
 
         super(CharacterObject, self).migrate()
 
