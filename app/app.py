@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
+import glob
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, jsonify, Markup
+
 
 from .models.base import JsonObjectDataMapper
 from . import get_db, get_datamapper
@@ -63,14 +65,12 @@ def _initdb():
     """Initializes the database."""
     print('Initializing the database.')
     db = get_db()
-    with app.open_resource('schema.sql', mode='r') as f:
+    fn = os.path.join('schema', '0.0.0.baseline.sql')
+    with app.open_resource(fn, mode='r') as f:
         db.cursor().executescript(f.read())
-    db.execute("""
-        INSERT INTO `users`
-        VALUES (1,'admin','$pbkdf2-sha256$6400$/N87Z6w1xjgHwPifs3buPQ$7k8ZnhgsKVR0BW5mpwgro50PlGKBcWilBXIZyHHGddg','','{"role": ["admin", "dm"]}')
-        """);
     db.commit()
     print('Initialized the database.')
+    _updatedb()
 
 
 def updatedb():
@@ -83,22 +83,88 @@ def updatedb_command():
 
 def _updatedb():
     """Updates the database."""
+    print('Updating the database.')
     db = get_db()
-    with app.open_resource('update.sql', mode='r') as f:
-        db.cursor().executescript(f.read())
-    db.commit()
+
+    record_schema = """
+        INSERT INTO `schema` (`version`, `path`, `comment`)
+        VALUES (:version, :path, :comment)
+        """
+
+    def get_version(path):
+        name = os.path.basename(path)
+        return list(map(int, name.split('.')[:3]))
+
+    def newer_version(a, b):
+        if not isinstance(a, list):
+            a = get_version(a)
+        if not isinstance(b, list):
+            b = get_version(b)
+        return a < b
+
+    def version_string(version):
+        return u'.'.join(list(map(unicode, version)))
+
+    latest = {'version': '0.0.0'}
+    try:
+        cur = db.execute("""
+            SELECT *
+            FROM `schema`
+            ORDER BY `id` DESC
+            LIMIT 1
+            """)
+        latest = cur.fetchone()
+    except:
+        db.execute("""
+            CREATE TABLE `schema` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+                `version` VARCHAR(10) NOT NULL,
+                `path` VARCHAR(64) NOT NULL,
+                `comment` TEXT NOT NULL,
+                `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+            )""")
+        db.execute(record_schema, {
+            'version': '0.0.0',
+            'path': 'app/schema/0.0.0.baseline.sql',
+            'comment': 'Initial database'
+            })
+        db.commit()
+
+    changes = sorted(
+        glob.glob(os.path.join('app', 'schema', '*.sql')),
+        key=lambda change: get_version(change)
+        )
+    for change in changes:
+        version = get_version(change)
+
+        if not newer_version(latest['version'], version):
+            continue
+
+        with app.open_resource(os.path.abspath(change), mode='r') as f:
+            comment = f.readline().strip("\n\t\r- ")
+            print version_string(version), change, comment
+            db.cursor().executescript(f.read())
+            db.execute(record_schema, {
+                'version': version_string(version),
+                'path': change,
+                'comment': comment
+                })
+            db.commit()
+
     print('Updated the database.')
 
 
 def dump_table(table):
     with app.app_context():
-        _dump_table()
+        for line in _dump_table(table):
+            print line
 
 @app.cli.command('dump-table')
 def dump_table_command(table):
-    _dump_table()
+    for line in _dump_table(table):
+        print line
 
-def _dump_table():
+def _dump_table(table):
     """Dump database content to console."""
     db = None
     with app.app_context():
@@ -134,7 +200,7 @@ def _dump_table():
             str(table_info[1])
             for table_info in pragma.fetchall()
             ]
-        values = "SELECT 'INSERT INTO `%(table)s` (%(columns)s) VALUES(%(values)s);' FROM `%(table)s`;" % {
+        values = "SELECT 'INSERT INTO `%(table)s` (%(columns)s)\n    VALUES (%(values)s);' FROM `%(table)s`;" % {
             'table': table,
             'columns': ', '.join(columns),
             'values': ', '.join([

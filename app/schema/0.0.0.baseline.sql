@@ -1,3 +1,5 @@
+-- Initial database
+
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -6,6 +8,9 @@ CREATE TABLE `users` (
   `email` TEXT,
   `config` TEXT
 );
+
+INSERT INTO `users` (`id`, `username`, `password`, `config`)
+    VALUES (1, 'admin', '$pbkdf2-sha256$6400$/N87Z6w1xjgHwPifs3buPQ$7k8ZnhgsKVR0BW5mpwgro50PlGKBcWilBXIZyHHGddg','{"role": ["admin", "dm"]}')
 
 DROP TABLE IF EXISTS `character`;
 CREATE TABLE `character` (
@@ -82,22 +87,5 @@ CREATE TABLE `npc` (
   `name` TEXT NOT NULL,
   `location` TEXT NOT NULL,
   `organization` TEXT NOT NULL
-  `config` TEXT
-);
-
-DROP TABLE IF EXISTS `item`;
-CREATE TABLE `item` (
-  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-  `type` TEXT NOT NULL,
-  `name` TEXT NOT NULL,
-  `config` TEXT
-);
-
-DROP TABLE IF EXISTS `spell`;
-CREATE TABLE `spell` (
-  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-  `name` TEXT NOT NULL,
-  `school` TEXT NOT NULL,
-  `level` TEXT NOT NULL,
   `config` TEXT
 );
