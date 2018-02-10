@@ -798,11 +798,24 @@ export class CharacterLevel extends React.Component
     }
 
     render() {
+        const {
+            character, level_up, statistics, _statistics
+        } = this.props;
+
         if (
-            !this.props.character
-            || !this.props.level_up.creation.length
+            !character
+            || !level_up.creation.length
         ) {
             return null;
+        }
+
+        let statsBlock = {
+            increase: this.state.abilityScore,
+            editBase: false,
+        };
+        if (!character.creation.length) {
+            statsBlock.editBase = true;
+            statsBlock.budget = 27;
         }
 
         return [
@@ -812,7 +825,7 @@ export class CharacterLevel extends React.Component
                     header="Level-up"
                 >
                 <CharacterConfig
-                    config={this.props.level_up.config}
+                    config={level_up.config}
                     index={[]}
                     getCurrent={(path) => _.get(this.props, path)}
                     getItems={(lists) => this.getItems(lists)}
@@ -822,16 +835,15 @@ export class CharacterLevel extends React.Component
                     />
             </Panel>,
 
-            this.state.abilityScore ? <Panel
+            statsBlock.increase || statsBlock.editBase ? <Panel
                     key="statistics"
                     className="character-level__statistics"
                     header="Ability Score increase"
                 >
                 <StatsBlock
-                    {...this.props.statistics}
-                    statistics={this.props._statistics}
-                    increase={this.state.abilityScore}
-                    editBase={false}
+                    {...statistics}
+                    statistics={_statistics}
+                    {...statsBlock}
                     setState={(statistics) => {
                         this.onChange(
                             'statistics.bare',
