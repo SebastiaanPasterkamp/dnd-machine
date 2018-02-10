@@ -9,56 +9,49 @@ sys.path.append(os.path.abspath(os.path.join(
 from app.models.base import JsonObject
 
 class TestJsonObject(JsonObject):
-    def __init__(self, config={}):
-        super(TestJsonObject, self).__init__(
-            config,
-            pathPrefix = "test",
-            defaultConfig = {
-                "default": {
-                    "unicode": u"Unicode string",
-                    "float": 1.5,
-                    "int": 7
-                    },
-                "int": {
-                    "list": [1, 2],
-                    "dict": {
-                        "one": 1,
-                        "two": 2
-                        }
-                    },
-                "string": {
-                    "list": [
-                        u"foo",
-                        u"bar"
-                    ],
-                    "dict": {
-                        "one": u"foo",
-                        "two": u"bar"
-                        }
-                    }
-                },
-            fieldTypes = {
-                "default": {
-                    # unicode through default type
-                    "float": float,
-                    "int": int
-                    },
-                "int": {
-                    "list": int,
-                    "dict": {
-                        "*": int
-                        }
-                    },
-                "string": {
-                    "list": unicode,
-                    "dict": unicode
-                    }
+    _pathPrefix = "test"
+    _defaultConfig = {
+        "default": {
+            "unicode": u"Unicode string",
+            "float": 1.5,
+            "int": 7
+            },
+        "int": {
+            "list": [1, 2],
+            "dict": {
+                "one": 1,
+                "two": 2
                 }
-            )
-        self.compute()
+            },
+        "string": {
+            "list": [
+                u"foo",
+                u"bar"
+            ],
+            "dict": {
+                "one": u"foo",
+                "two": u"bar"
+                }
+            }
+        }
 
-    def compute(self):
-        pass
+    _fieldTypes = {
+        "default": {
+            # unicode through default type
+            "float": float,
+            "int": int
+            },
+        "int": {
+            "list": int,
+            "dict": {
+                "*": int
+                }
+            },
+        "string": {
+            "list": unicode,
+            "dict": unicode
+            }
+        }
 
 class JsonObjectTestCase(unittest.TestCase):
 
