@@ -12726,10 +12726,26 @@
                 }, {
                     "type": "choice",
                     "options": [{
-                        "label": "Entertainer equipment",
+                        "label": "Musical equipment",
                         "config": [{
                             "type": "list",
                             "list": "tools",
+                            "path": "equipment",
+                            "multiple": true,
+                            "given": [
+                                "Costume",
+                                "Belt Pouch"
+                            ],
+                            "limit": 1,
+                            "filter": {
+                                "type": "musical"
+                            }
+                        }]
+                    }, {
+                        "label": "Gladiator equipment",
+                        "config": [{
+                            "type": "list",
+                            "list": "weapons",
                             "path": "equipment",
                             "multiple": true,
                             "given": [
@@ -12746,37 +12762,32 @@
                                 ]
                             }
                         }]
-                    }, {
-                        "label": "Gladiator equipment",
+                    }]
+                }, {
+                    "type": "choice",
+                    "options": [{
+                        "label": "Favor of an Admirer",
                         "config": [{
                             "type": "list",
-                            "list": "weapons",
+                            "list": "trinket",
                             "path": "equipment",
                             "multiple": true,
                             "limit": 1,
-                            "filter": {
-                                "type": "martial melee"
-                            }
+                            "items": [
+                                "Love Letter; the Favor of an Admirer",
+                                "Lock of Hair; the Favor of an Admirer"
+                            ]
+                        }]
+                    }, {
+                        "label": "Trinket",
+                        "config": [{
+                            "type": "list",
+                            "list": "trinket",
+                            "path": "equipment",
+                            "multiple": true,
+                            "limit": 1
                         }]
                     }]
-                }, {
-                    "label": "Trinket",
-                    "type": "list",
-                    "list": "trinket",
-                    "path": "equipment",
-                    "multiple": true,
-                    "limit": 1
-                }, {
-                    "label": "Favor of an Admirer",
-                    "type": "list",
-                    "list": "trinket",
-                    "path": "equipment",
-                    "multiple": true,
-                    "limit": 1,
-                    "items": [
-                        "Love Letter; the Favor of an Admirer",
-                        "Lock of Hair; the Favor of an Admirer"
-                    ]
                 }]
             }
         }
