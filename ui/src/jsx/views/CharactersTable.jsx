@@ -55,7 +55,7 @@ class CharactersRow extends LazyComponent
             <td>{this.props.name}</td>
             <td>
                 <ListLabel
-                    items={this.props.genders}
+                    items={this.props.genders || []}
                     value={this.props.gender}
                     />
                     &nbsp;
@@ -64,7 +64,7 @@ class CharactersRow extends LazyComponent
             <td>Level {this.props.level} {this.props.class}</td>
             <td>
                 <ListLabel
-                        items={this.props.alignments}
+                        items={this.props.alignments || []}
                         value={this.props.alignment}
                         />
             </td>
