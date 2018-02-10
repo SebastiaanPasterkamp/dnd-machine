@@ -22,7 +22,7 @@ export class WeaponLabel extends LazyComponent
             return null;
         }
 
-        return <div className="weapon-label">
+        return <div className="weapon-label--info">
             <code>
                 <DiceNotation
                     {...weapon.damage}
