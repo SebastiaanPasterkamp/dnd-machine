@@ -316,6 +316,8 @@ class CharacterObject(JsonObject):
                 self.spellList = []
                 for spells in level.values():
                     self.spellList.extend(spells)
+        if 'weapon' in self._config:
+            del self._config['weapon']
         if 'misc' in self.items:
             del self.items['misc']
 
@@ -406,16 +408,12 @@ class CharacterObject(JsonObject):
         for item in self.equipment:
             obj = None
             if isinstance(item, dict) and 'id' in item:
-                #item['id'] = int(item['id'])
                 if item['path'] in ['armor', 'weapons']:
                     obj = self.mapper[ item['path'] ].getById(
                         item['id']
                         )
                 else:
                     item['path'], obj = findObj(item['name'])
-
-            #if isinstance(item, dict) and 'count' in item:
-                #item['count'] = int(item['count'])
 
             if obj is None:
                 if not isinstance(item, dict):
@@ -447,7 +445,7 @@ class CharacterObject(JsonObject):
 
         for weapon in self.weapons:
             attack_modifier = "strength"
-            if "ranged" in weapon["property"]:
+            if "ranged" in weapon["type"]:
                 attack_modifier = "dexterity"
             if "finesse" in weapon['property']:
                 attack_modifier = max({
@@ -456,12 +454,14 @@ class CharacterObject(JsonObject):
                     })
 
             dmg = itemMapper.itemByNameOrCode(
-                weapon["damage"]["type"], 'damage_types')
+                weapon["damage"]["type"],
+                'damage_types'
+                )
             weapon["damage"]["type_label"] = dmg["label"]
             weapon["damage"]["type_short"] = dmg["short"]
 
-            weapon["bonus"] = weapon["damage"]["bonus"] \
-                = self.statisticsModifiers[attack_modifier]
+            weapon["bonus"] = weapon["damage"]["bonus"] = \
+                self.statisticsModifiers[attack_modifier]
             if weapon['type'] in self.proficienciesWeapons \
                     or weapon['name'] in self.proficienciesWeapons:
                 weapon["bonus"] += self.proficiency
