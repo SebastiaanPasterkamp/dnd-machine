@@ -72,7 +72,7 @@ class PartyRow extends LazyComponent
                     return <CharacterLabel
                         key={id}
                         character_id={id}
-                        progress={true}
+                        showProgress={true}
                         />;
                 })}
             </td>
