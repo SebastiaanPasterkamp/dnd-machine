@@ -18,11 +18,11 @@ ErrorActions.reportError.listen((error, info) => {
         body: JSON.stringify({error, info})
     })
     .then(() => {
-        this.reportError.completed();
+        ErrorActions.reportError.completed();
     })
     .catch((error) => {
         console.error(error);
-        this.reportError.failed();
+        ErrorActions.reportError.failed();
     });
 });
 
