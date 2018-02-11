@@ -1,0 +1,12 @@
+// _spells-table.scss
+
+.spells-table {
+    .spells-table--properties {
+        > div:before {
+            content: ', ';
+        }
+        > div:first-of-type:before {
+            content: normal;
+        }
+    }
+}
