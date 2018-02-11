@@ -20,7 +20,7 @@ export class BaseTagContainer extends LazyComponent
         if ('isSelectable' in this.props) {
             return this.props.isSelectable(item);
         }
-        return item.hidden || false;
+        return !(item.hidden || false);
     }
 
     isImmutable(item) {
