@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 
@@ -22,11 +23,14 @@ class LanguageHeader extends React.Component
 class LanguageRow extends LazyComponent
 {
     render() {
-        return <tr
-                data-name={this.props.code}>
-            <td>{this.props.label}</td>
-            <td>{this.props.speakers}</td>
-            <td>{this.props.script}</td>
+        const {
+            code, label, speakers, script
+        } = this.props;
+
+        return <tr data-name={code}>
+            <td>{label}</td>
+            <td>{speakers}</td>
+            <td>{script}</td>
         </tr>
     }
 };
@@ -35,29 +39,39 @@ class LanguageTable extends LazyComponent
 {
     filterRow(pattern, row) {
         return (
-            (row.label && row.label.search(pattern) >= 0)
-            || (row.speakers && row.speakers.search(pattern) >= 0)
-            || (row.script && row.script.search(pattern) >= 0)
+            (row.label && row.label.match(pattern))
+            || (row.speakers && row.speakers.match(pattern))
+            || (row.script && row.script.match(pattern))
         );
     }
 
     render() {
-        if (this.props.languages == null) {
+        const {
+            languages, search
+        } = this.props;
+        const pattern = new RegExp(search || '', "i");
+
+        if (!languages) {
             return null;
         }
-        let pattern = new RegExp(this.props.search || '', "i");
 
-        return <div>
+        const filtered = _.filter(
+            languages, (lang) => this.filterRow(pattern, lang)
+        );
+
+        return <div className="languages-table">
             <h2 className="icon fa-language">Languages</h2>
             <table className="nice-table condensed bordered responsive">
-                <thead key="thead"><LanguageHeader/></thead>
+                <thead key="thead">
+                    <LanguageHeader/>
+                </thead>
                 <tbody key="tbody">
-                    {this.props.languages
-                        .filter((row) => this.filterRow(pattern, row))
-                        .map((row) => {
-                            return <LanguageRow key={row.code} {...row}/>
-                        })
-                    }
+                    {_.map(filtered, (lang) => {
+                        return <LanguageRow
+                            key={lang.code}
+                            {...lang}
+                            />;
+                    })}
                 </tbody>
             </table>
         </div>;
