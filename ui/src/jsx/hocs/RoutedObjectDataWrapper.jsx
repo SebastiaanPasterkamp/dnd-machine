@@ -89,31 +89,30 @@ function RoutedObjectDataWrapper(
             this.actions.getObject.completed(
                 loadableType,
                 this.state.id,
-                loadable
+                loadable,
+                callback
             );
-
-            if (callback) {
-                callback();
-            }
         }
 
-        onReload() {
+        onReload(callback=null) {
             if (!this.state.id) {
                 return;
             }
             this.actions.getObject(
                 loadableType,
                 this.state.id,
-                loadableGroup
+                loadableGroup,
+                callback
             );
         }
 
-        onRecompute() {
+        onRecompute(callback=null) {
             this.actions.recomputeObject(
                 loadableType,
                 this.state.id,
                 this.getStateProps(),
-                loadableGroup
+                loadableGroup,
+                callback
             );
         }
 
@@ -234,10 +233,12 @@ function RoutedObjectDataWrapper(
                         setButtons={(b) => this.setButtons(b)}
                         cancel={() => this.nextView()}
                         reload={this.state.id != null
-                            ? () => this.onReload()
+                            ? (callback=null) => this.onReload(callback)
                             : null
                         }
-                        recompute={() => this.onRecompute()}
+                        recompute={() => {
+                            this.onRecompute(callback=null);
+                        }}
                         save={() => this.onSave()}
                         {...this.props}
                         {...data}
