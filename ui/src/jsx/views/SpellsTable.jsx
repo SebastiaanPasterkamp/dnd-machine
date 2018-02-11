@@ -12,6 +12,7 @@ import DiceNotation from '../components/DiceNotation.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import ListLabel from '../components/ListLabel.jsx';
 import MultiSelect from '../components/MultiSelect.jsx';
+import Pagination from '../components/Pagination.jsx';
 import SpellLinks from '../components/SpellLinks.jsx';
 import Reach from '../components/Reach.jsx';
 
@@ -162,6 +163,8 @@ class SpellsTable extends React.Component
             classes: [],
             levels: [],
             name: '',
+            offset: 0,
+            limit: 10,
         };
     }
 
@@ -191,7 +194,23 @@ class SpellsTable extends React.Component
         );
     }
 
+    renderPager(total) {
+        const {
+            offset, limit
+        } = this.state;
+
+        return <Pagination
+            offset={offset}
+            limit={limit}
+            total={total}
+            setOffset={(offset) => this.setState({offset})}
+            />;
+    }
+
     renderFilters() {
+        const {
+            _classes
+        } = this.props;
         const {
             classes, levels, name
         } = this.state;
@@ -211,7 +230,7 @@ class SpellsTable extends React.Component
             <ControlGroup label="Class">
                 <MultiSelect
                     id="classes"
-                    items={this.props.classes || []}
+                    items={_classes || []}
                     selected={classes}
                     label="All classes"
                     setState={
@@ -235,7 +254,9 @@ class SpellsTable extends React.Component
         const {
             search, spells, magic_components, magic_schools, _classes
         } = this.props;
-        const { classes, levels, name } = this.state;
+        const {
+            classes, levels, name, offset, limit
+        } = this.state;
 
         if (!spells) {
             return null;
@@ -250,14 +271,16 @@ class SpellsTable extends React.Component
             spells,
             (spell) => this.shouldDisplayRow(spell, filter)
         );
+        const paged = _.slice(filtered, offset, offset + limit);
 
         return <div className="spells-table">
             <h2 className="icon fa-magic">Spells</h2>
             {this.renderFilters()}
+            {this.renderPager(filtered.length)}
             <table className="nice-table condensed bordered responsive">
                 <SpellsHeader/>
                 <tbody key="tbody">
-                    {_.map(filtered, (spell) => {
+                    {_.map(paged, (spell) => {
                         return <SpellRow
                             key={spell.name}
                             magic_components={magic_components}
@@ -269,6 +292,7 @@ class SpellsTable extends React.Component
                 </tbody>
                 <SpellsFooter />
             </table>
+            {this.renderPager(filtered.length)}
         </div>;
     }
 }
