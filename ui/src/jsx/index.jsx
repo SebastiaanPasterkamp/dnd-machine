@@ -27,6 +27,7 @@ import MonsterEdit from './views/MonsterEdit.jsx';
 import MonstersTable from './views/MonstersTable.jsx';
 import NpcEdit from './views/NpcEdit.jsx';
 import NpcTable from './views/NpcTable.jsx';
+import SpellEdit from './views/SpellEdit.jsx';
 import SpellsTable from './views/SpellsTable.jsx';
 import WeaponEdit from './views/WeaponEdit.jsx';
 import WeaponsTable from './views/WeaponsTable.jsx';
@@ -143,6 +144,15 @@ class DndMachine extends React.Component
                     path="/items/languages"
                     component={LanguageTable}
                     />
+
+                <Route
+                    path="/items/spells/new"
+                    component={SpellEdit}
+                    />
+                <Route
+                    path="/items/spells/edit/:id"
+                    component={SpellEdit}
+                    />
                 <Route
                     path="/items/spells/list"
                     component={SpellsTable}
@@ -152,7 +162,6 @@ class DndMachine extends React.Component
                     path="/items/weapons/new"
                     component={WeaponEdit}
                     />
-
                 <Route
                     path="/items/weapons/edit/:id"
                     component={WeaponEdit}

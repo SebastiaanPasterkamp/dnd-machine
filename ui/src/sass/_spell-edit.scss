@@ -1,0 +1,7 @@
+// _spell-edit.scss
+
+@import 'widget-grid';
+
+.spell-edit {
+    @extend .widget-grid;
+}
