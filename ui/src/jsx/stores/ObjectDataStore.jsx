@@ -100,6 +100,9 @@ export function ObjectDataStoreFactory(id, listenables = null)
 
         updateObject(type, id, data, callback=null) {
             if (_.isEqual(data, _.get(this.state, [type, id]))) {
+                if (callback) {
+                    callback();
+                }
                 return;
             }
 
