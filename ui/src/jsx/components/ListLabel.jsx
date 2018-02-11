@@ -15,10 +15,10 @@ class ListLabel extends LazyComponent
             return null;
         }
 
-        let label = emptyLabel;
+        let label = emptyLabel || value;
         let description = null;
 
-        let item = _.find(items || [], {code: value});
+        let item = _.find(items, {code: value});
         if (item) {
             label = (short && 'short' in item)
                 ? item.short
