@@ -122,7 +122,7 @@ function RoutedObjectDataWrapper(
                     loadableType,
                     this.getStateProps(),
                     loadableGroup,
-                    () => this.nextView()
+                    () => this.nextView(this.state.id)
                 );
             } else {
                 this.actions.patchObject(
@@ -130,7 +130,7 @@ function RoutedObjectDataWrapper(
                     this.state.id,
                     this.getStateProps(),
                     loadableGroup,
-                    () => this.nextView()
+                    () => this.nextView(this.state.id)
                 );
             }
         }
