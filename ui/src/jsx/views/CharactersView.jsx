@@ -321,7 +321,18 @@ export class CharactersView extends React.Component
                 <tbody>
                     <tr>
                         <th>Armor Class</th>
-                        <td>{this.props.armor_class}</td>
+                        <td>
+                            {this.props.armor_class}
+                            {this.props.armor_class_bonus
+                                ? <React.Fragment>
+                                    &nbsp;/&nbsp;
+                                    <Bonus
+                                        bonus={this.props.armor_class_bonus}
+                                        />
+                                    </React.Fragment>
+                                : null
+                            }
+                        </td>
                     </tr>
                     <tr>
                         <th>Hit Points</th>
