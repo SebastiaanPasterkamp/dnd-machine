@@ -15,6 +15,11 @@ class SpellObject(JsonObject):
         }
     _fieldTypes = {
         "id": int,
+        "damage": {
+            "bonus": int,
+            "dice_count": int,
+            "dice_size": int
+            },
         }
 
     def migrate(self, mapper):
