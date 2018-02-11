@@ -319,6 +319,12 @@ class CharacterBlueprint(BaseApiBlueprint):
                 )
             for key, lines in proficiencies.iteritems()
             ])
+        fdf_html["ProficienciesLang"] = "\n\n".join([
+            "**%s:**\n    %s" % (
+                key, ", ".join(lines)
+                )
+            for key, lines in proficiencies.iteritems()
+            ])
 
         fdf_text["Features and Traits"] = "\n\n".join([
             "* %s: %s" % (
@@ -431,11 +437,12 @@ class CharacterBlueprint(BaseApiBlueprint):
             reverse=True
             )
         key = ["Equipment", "Equipment2"]
-        fdf_text["Equipment"] = "\n".join([
+        fdf_text["Equipment"] = fdf_html["Equipment"] = "\n".join([
             "\n".join(equipment[i])
             for i in range(0, len(equipment), 2)
             ])
-        fdf_text["Equipment2"] = "\n".join([
+
+        fdf_text["Equipment2"] = fdf_html["Equipment2"] = "\n".join([
             "\n".join(equipment[i])
             for i in range(1, len(equipment), 2)
             ])
@@ -461,7 +468,8 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         for field in fdf_html:
             fdf_html[field] = """<?xml version="1.0"?><body>%s</body>""" % (
-                markdown.markdown(fdf_html[field]))
+                markdown.markdown(fdf_html[field])
+                )
 
         pdf_file = os.path.join('app', 'static', 'pdf', 'Current Standard v1.4.pdf')
 
