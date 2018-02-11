@@ -40,6 +40,9 @@ export class TagValueContainer extends BaseTagContainer
     }
 
     isDisabled(item) {
+        if ('isDisabled' in this.props) {
+            return this.props.isDisabled(item);
+        }
         if (this.props.multiple || false) {
             return false;
         }
