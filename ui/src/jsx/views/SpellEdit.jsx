@@ -67,9 +67,9 @@ export class SpellEdit extends React.Component
 
     render() {
         const {
-            casting_time, classes, components, magic_components,
-            cost, damage, description, duration, level, name, range,
-            school, magic_schools
+            casting_time, classes, _classes, components,
+            magic_components, cost, damage, description, duration,
+            level, name, range, school, magic_schools
         } = this.props;
 
         return <React.Fragment>
@@ -93,6 +93,15 @@ export class SpellEdit extends React.Component
                         setState={(value) =>
                             this.onFieldChange('level', value)
                         } />
+                </ControlGroup>
+                <ControlGroup label="Classes">
+                    <TagContainer
+                        tags={classes || []}
+                        tagOptions={_classes || []}
+                        setState={(value) => {
+                            this.onFieldChange('classes', value);
+                        }}
+                        />
                 </ControlGroup>
                 <ControlGroup label="School">
                     <SingleSelect
@@ -130,13 +139,15 @@ export class SpellEdit extends React.Component
                         this.onFieldChange('damage', value);
                     }}
                     />
-                <TagContainer
-                    tags={components || []}
-                    tagOptions={magic_components || []}
-                    setState={(value) => {
-                        this.onFieldChange('components', value);
-                    }}
-                    />
+                <ControlGroup label="Components">
+                    <TagContainer
+                        tags={components || []}
+                        tagOptions={magic_components || []}
+                        setState={(value) => {
+                            this.onFieldChange('components', value);
+                        }}
+                        />
+                </ControlGroup>
                 {cost != undefined
                     ? <ControlGroup label="Cost">
                         <InputField
@@ -183,6 +194,10 @@ export default ListDataWrapper(
     [
         "magic_components",
         "magic_schools",
+        "classes",
     ],
-    'items'
+    'items',
+    {
+        'classes': '_classes'
+    }
 );
