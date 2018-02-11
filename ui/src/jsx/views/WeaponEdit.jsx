@@ -6,21 +6,23 @@ import '../../sass/_edit-weapon.scss';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
-import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
 import CostEditor from '../components/CostEditor.jsx';
 import DamageEdit from '../components/DamageEdit.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
-import MultiSelect from '../components/MultiSelect.jsx';
 import ReachEdit from '../components/ReachEdit.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
-import StatsBlock from '../components/StatsBlock.jsx';
 import TagContainer from '../components/TagContainer.jsx';
 
 export class WeaponEdit extends React.Component
 {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
     onComponentDidMount() {
         let fix = this.fixConditionalFields();
         if (!_.isEmpty(fix)) {
@@ -66,7 +68,6 @@ export class WeaponEdit extends React.Component
             update.description = undefined;
         }
 
-        console.log(state);
         if (!_.isEmpty(state)) {
             this.setState(state);
         }
