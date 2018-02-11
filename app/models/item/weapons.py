@@ -23,6 +23,7 @@ class WeaponObject(JsonObject):
             "*": float
             },
         "damage": {
+            "bonus": int,
             "dice_count": int,
             "dice_size": int
             },
