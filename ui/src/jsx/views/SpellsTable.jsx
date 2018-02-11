@@ -7,6 +7,7 @@ import '../../sass/_spells-table.scss';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
+import ControlGroup from '../components/ControlGroup.jsx';
 import DiceNotation from '../components/DiceNotation.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import ListLabel from '../components/ListLabel.jsx';
@@ -195,59 +196,38 @@ class SpellsTable extends React.Component
             classes, levels, name
         } = this.state;
 
-        return <div className="nice-form-horizontal nice-col-4 nice-col-mobile-12">
-            <div className="nice-form-group">
-                <label
-                        htmlFor="name"
-                        className="nice-col-3 nice-control-label">
-                    Name
-                </label>
-                <div className="nice-col-9">
-                    <input
-                        id="name"
-                        className="nice-form-control"
-                        type="text"
-                        value={name}
-                        placeholder="Name..."
-                        onChange={
-                            (e) => this.filterName(e.target.value)
-                        } />
-                </div>
-            </div>
-            <div className="nice-form-group">
-                <label
-                        htmlFor="classes"
-                        className="nice-col-3 nice-control-label">
-                    Level
-                </label>
-                <div className="nice-col-9">
-                    <MultiSelect
-                        id="classes"
-                        items={this.props.classes || []}
-                        selected={classes}
-                        label="All classes"
-                        setState={
-                            (classes) => this.filterClasses(classes)
-                        } />
-                </div>
-            </div>
-            <div className="nice-form-group">
-                <label
-                        htmlFor="levels"
-                        className="nice-col-3 nice-control-label">
-                    Level
-                </label>
-                <div className="nice-col-9">
-                    <MultiSelect
-                        id="levels"
-                        items={this.levels}
-                        selected={levels}
-                        label="All levels"
-                        setState={
-                            (levels) => this.filterLevels(levels)
-                        } />
-                </div>
-            </div>
+        return <div className="spells-table--search">
+            <ControlGroup label="Name">
+                <input
+                    id="name"
+                    className="nice-form-control"
+                    type="text"
+                    value={name}
+                    placeholder="Name..."
+                    onChange={
+                        (e) => this.filterName(e.target.value)
+                    } />
+            </ControlGroup>
+            <ControlGroup label="Class">
+                <MultiSelect
+                    id="classes"
+                    items={this.props.classes || []}
+                    selected={classes}
+                    label="All classes"
+                    setState={
+                        (classes) => this.filterClasses(classes)
+                    } />
+            </ControlGroup>
+            <ControlGroup label="Level">
+                <MultiSelect
+                    id="levels"
+                    items={this.levels}
+                    selected={levels}
+                    label="All levels"
+                    setState={
+                        (levels) => this.filterLevels(levels)
+                    } />
+            </ControlGroup>
         </div>;
     }
 
@@ -271,10 +251,10 @@ class SpellsTable extends React.Component
             (spell) => this.shouldDisplayRow(spell, filter)
         );
 
-        return <div>
+        return <div className="spells-table">
             <h2 className="icon fa-magic">Spells</h2>
             {this.renderFilters()}
-            <table className="nice-table spells-table condensed bordered responsive">
+            <table className="nice-table condensed bordered responsive">
                 <SpellsHeader/>
                 <tbody key="tbody">
                     {_.map(filtered, (spell) => {
