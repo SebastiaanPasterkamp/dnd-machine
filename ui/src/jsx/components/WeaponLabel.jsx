@@ -42,7 +42,7 @@ export class WeaponLabel extends LazyComponent
                 </React.Fragment>
                 : null
             }
-            {weapon.property
+            {weapon.property.length
                 ? <ul className="weapon-label--properties">
                     {_.map(weapon.property || [], (prop) => {
                         return <li key={prop}>
@@ -52,11 +52,11 @@ export class WeaponLabel extends LazyComponent
                                 tooltip={true}
                                 />
                             {prop == 'thrown'
-                                ? <i>(<Reach {...weapon.range}/>)</i>
+                                ? <i> (<Reach {...weapon.range}/>)</i>
                                 : null
                             }
                             {prop == 'versatile'
-                                ? <i>(<DiceNotation
+                                ? <i> (<DiceNotation
                                     {...weapon.versatile}
                                     />)</i>
                                 : null
