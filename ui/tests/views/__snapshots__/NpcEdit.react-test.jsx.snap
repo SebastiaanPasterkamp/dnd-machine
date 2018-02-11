@@ -608,14 +608,15 @@ Array [
           Description
         </span>
         <div
-          className="markdown-textedit preview "
-          onClick={[Function]}
+          className="markdown-textedit preview"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <textarea
-            autoFocus={true}
             className="nice-form-control"
             onBlur={[Function]}
             onChange={[Function]}
+            onFocus={[Function]}
             placeholder="Description..."
             rows={5}
             value="Example NPC here"
