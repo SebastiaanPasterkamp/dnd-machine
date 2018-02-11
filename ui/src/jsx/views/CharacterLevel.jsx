@@ -816,6 +816,7 @@ export class CharacterLevel extends React.Component
         if (!character.creation.length) {
             statsBlock.editBase = true;
             statsBlock.budget = 27;
+            statsBlock.maxBare = 15;
         }
 
         return [
@@ -838,7 +839,7 @@ export class CharacterLevel extends React.Component
             statsBlock.increase || statsBlock.editBase ? <Panel
                     key="statistics"
                     className="character-level__statistics"
-                    header="Ability Score increase"
+                    header="Ability Score"
                 >
                 <StatsBlock
                     {...statistics}
