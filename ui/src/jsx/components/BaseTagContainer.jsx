@@ -10,7 +10,24 @@ import SingleSelect from '../components/SingleSelect.jsx';
 export class BaseTagContainer extends LazyComponent
 {
     isDisabled(item) {
+        if ('isDisabled' in this.props) {
+            return this.props.isDisabled(item);
+        }
         return false;
+    }
+
+    isSelectable(item) {
+        if ('isSelectable' in this.props) {
+            return this.props.isSelectable(item);
+        }
+        return item.hidden || false;
+    }
+
+    isImmutable(item) {
+        if ('isImmutable' in this.props) {
+            return this.props.isImmutable(item);
+        }
+        return item.immutable || false;
     }
 
     getTags() {
@@ -28,12 +45,12 @@ export class BaseTagContainer extends LazyComponent
     getSelectOptions() {
         return _.reject(
             this.props.tagOptions,
-            'hidden'
+            (item) => !this.isSelectable(item)
         );
     }
 
     renderDeleteButton(key, value, item) {
-        if (item.immutable || false) {
+        if (this.isImmutable(item)) {
             return null;
         }
 
@@ -51,7 +68,7 @@ export class BaseTagContainer extends LazyComponent
         var style = ["nice-tag"];
         if (item.color) {
             style.push(item.color);
-        } else if (item.immutable) {
+        } else if (this.isImmutable(item)) {
             style.push('muted');
         }
 
@@ -113,6 +130,9 @@ BaseTagContainer.propTypes = {
     tagOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
     showSelect: PropTypes.bool,
     multiple: PropTypes.bool,
+    isDisabled: PropTypes.func,
+    isImmutable: PropTypes.func,
+    isSelectable: PropTypes.func,
 };
 
 export default BaseTagContainer;
