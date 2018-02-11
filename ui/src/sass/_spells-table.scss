@@ -3,6 +3,10 @@
 @import 'view-grid';
 
 .spells-table {
+    nav {
+        text-align: center;
+    }
+
     .spells-table--properties {
         > div:before {
             content: ', ';
