@@ -34,14 +34,14 @@ export class ReachEdit extends LazyComponent
             <InputField
                 type="number"
                 placeholder="Normal..."
-                value={min || ''}
+                value={min == null ? '' : min}
                 setState={(value) => {
                     this.onFieldMinMax('min', value);
                 }} />
             <InputField
                 type="number"
                 placeholder="Disadvantage..."
-                value={max || ''}
+                value={max == null ? '' : max}
                 setState={(value) => {
                     this.onFieldMinMax('max', value);
                 }} />
@@ -51,9 +51,8 @@ export class ReachEdit extends LazyComponent
     renderSingle(distance) {
         return <ControlGroup labels={["Reach", "ft."]}>
             <InputField
-                type="number"
                 placeholder="Distance..."
-                value={distance || ''}
+                value={distance == null ? '' : distance}
                 setState={(value) => {
                     this.onFieldSingle(value);
                 }} />
