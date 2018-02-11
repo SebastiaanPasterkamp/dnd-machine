@@ -13,28 +13,35 @@ class CharacterLinks extends BaseLinkGroup
     }
 
     buttonList() {
-        const levelUp = this.props.character
-            && this.props.character.level_up.config.length  > 0;
+        const {
+            character, character_id
+        } = this.props;
+
+        const levelUp = (
+            character
+            && character.level_up
+            && character.level_up.config.length
+        );
 
         return {
             'view': () => {
                 return {
                     label: 'View',
-                    link: "/character/show/" + this.props.character.id,
+                    link: "/character/show/" + character_id,
                     icon: 'eye',
                 };
             },
             'raw': () => {
                 return {
                     label: 'Raw',
-                    link: "/character/raw/" + this.props.character.id,
+                    link: "/character/raw/" + character_id,
                     icon: 'cogs',
                 };
             },
             'edit': () => {
                 return {
                     label: levelUp ? 'Level Up' : 'Edit',
-                    link: "/character/edit/" + this.props.character.id,
+                    link: "/character/edit/" + character_id,
                     icon: levelUp ? 'level-up' : 'pencil',
                     color: levelUp ? 'primary' : null,
                 };
@@ -42,7 +49,7 @@ class CharacterLinks extends BaseLinkGroup
             'download': () => {
                 return {
                     label: 'Download',
-                    download: "/character/download/" + this.props.character.id,
+                    download: "/character/download/" + character_id,
                     icon: 'file-pdf-o',
                 };
             },
@@ -58,7 +65,7 @@ class CharacterLinks extends BaseLinkGroup
                     label: 'Delete',
                     action: () => {
                         ObjectDataActions.deleteObject(
-                            "character", this.props.character.id
+                            "character", character_id
                         );
                     },
                     icon: 'trash-o',
@@ -69,13 +76,18 @@ class CharacterLinks extends BaseLinkGroup
     }
 
     getAllowed() {
-        if (this.props.current_user == null) {
+        const {
+            current_user, character, character_id
+        } = this.props;
+
+        if (!current_user) {
             return [];
         }
-        if (this.props.character == null) {
+
+        if (!character) {
             if (
                 _.intersection(
-                    this.props.current_user.role || [],
+                    current_user.role || [],
                     ['dm', 'player']
                 ).length
             ) {
@@ -83,35 +95,41 @@ class CharacterLinks extends BaseLinkGroup
             }
             return [];
         }
+
         if (
             _.intersection(
-                this.props.current_user.role || [],
+                current_user.role || [],
                 ['admin']
             ).length
         ) {
             return ['download', 'delete', 'raw', 'new', 'view'];
         }
+
         if (
-            this.props.character.user_id == this.props.current_user.id
+            character
+            && character.user_id == current_user.id
         ) {
-            return ['download', 'delete',, 'edit', 'new', 'view'];
+            return ['download', 'delete', 'edit', 'new', 'view'];
         }
+
         if (
             _.intersection(
-                this.props.current_user.role || [],
+                current_user.role || [],
                 ['dm']
             ).length
         ) {
             return ['download', 'edit', 'new', 'view'];
         }
+
         if (
             _.intersection(
-                this.props.current_user.role || [],
+                current_user.role || [],
                 ['player']
             ).length
         ) {
             return ['download', 'new', 'view'];
         }
+
         return [];
     }
 }
