@@ -1,5 +1,7 @@
 // _spells-table.scss
 
+@import 'view-grid';
+
 .spells-table {
     .spells-table--properties {
         > div:before {
@@ -7,6 +9,14 @@
         }
         > div:first-of-type:before {
             content: normal;
+        }
+    }
+
+    .spells-table--search {
+        @extend .view-grid;
+
+        > * {
+            grid-column-end: span 2;
         }
     }
 }
