@@ -42,6 +42,10 @@ class SpellObject(JsonObject):
             re_dmg = re.compile(r"^(?P<dice_count>\d+)d(?P<dice_size>\d+)(?:\s*\+\s*(?P<bonus>\d+))?\s+(?P<type>.*)$")
             match = re_dmg.match(self.damage)
             self.damage = match.groupdict()
+        if self.damageType:
+            self.damageType = self.damageType.lower()
+
+        super(SpellObject, self).migrate()
 
 
 class SpellMapper(JsonObjectDataMapper):
