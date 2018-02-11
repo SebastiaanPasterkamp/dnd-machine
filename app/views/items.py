@@ -83,7 +83,7 @@ def api_list(item_type):
 
 @blueprint.route('/<string:item_type>/new')
 @blueprint.route('/<string:item_type>/edit/<int:item_id>')
-def weapon_edit(item_type, item_id=None):
+def item_edit(item_type, item_id=None):
     return render_template(
         'reactjs-layout.html'
         )
