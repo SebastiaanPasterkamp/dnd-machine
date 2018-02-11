@@ -98,7 +98,7 @@ export function ObjectDataStoreFactory(id, listenables = null)
             this.listenables = listenables || ObjectDataActions;
         }
 
-        updateObject(type, id, data) {
+        updateObject(type, id, data, callback=null) {
             if (_.isEqual(data, _.get(this.state, [type, id]))) {
                 return;
             }
@@ -120,10 +120,10 @@ export function ObjectDataStoreFactory(id, listenables = null)
                 )
             };
 
-            this.setState(update);
+            this.setState(update, callback);
         };
 
-        onListObjectsCompleted(type, objects) {
+        onListObjectsCompleted(type, objects, callback=null) {
             let update = {
                 timestamp: {}
             };
@@ -162,30 +162,30 @@ export function ObjectDataStoreFactory(id, listenables = null)
                 update.timestamp
             );
 
-            this.setState(update);
+            this.setState(update, callback);
         }
 
-        onGetObjectCompleted(type, id, object) {
-            this.updateObject(type, id, object);
+        onGetObjectCompleted(type, id, object, callback=null) {
+            this.updateObject(type, id, object, callback);
         }
 
-        onPatchObjectCompleted(type, id, object) {
-            this.updateObject(type, id, object);
+        onPatchObjectCompleted(type, id, object, callback=null) {
+            this.updateObject(type, id, object, callback);
         }
 
-        onPostObjectCompleted(type, id, object) {
-            this.updateObject(type, id, object);
+        onPostObjectCompleted(type, id, object, callback=null) {
+            this.updateObject(type, id, object, callback);
         }
 
-        onRecomputeObjectCompleted(type, id, object) {
-            this.updateObject(type, id, object);
+        onRecomputeObjectCompleted(type, id, object, callback=null) {
+            this.updateObject(type, id, object, callback);
         }
 
-        onDeleteObjectCompleted(type, id) {
+        onDeleteObjectCompleted(type, id, callback=null) {
             let update = {};
             update[type] = _.copy(this.state[type]);
             delete update[type][id];
-            this.setState(update);
+            this.setState(update, callback);
         }
     }
 

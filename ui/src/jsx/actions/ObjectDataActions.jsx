@@ -5,7 +5,7 @@ import _ from 'lodash';
 export function ObjectDataActionsFactory(id)
 {
 
-    let ObjectDataActions = Reflux.createActions({
+    let oda = Reflux.createActions({
         "listObjects": {asyncResult: true},
         "getObject": {asyncResult: true},
         "postObject": {asyncResult: true},
@@ -13,16 +13,16 @@ export function ObjectDataActionsFactory(id)
         "deleteObject": {asyncResult: true},
         "recomputeObject": {asyncResult: true},
     });
-    ObjectDataActions.throttledGet = {};
+    oda.throttledGet = {};
 
-    ObjectDataActions.listObjects.listen((type, group=null) => {
+    oda.listObjects.listen((type, group=null, callback=null) => {
         let path = '/' + _.filter([group, type, 'api']).join('/')
 
-        if (!(path in ObjectDataActions.throttledGet)) {
-            ObjectDataActions.throttledGet[path] = {
+        if (!(path in oda.throttledGet)) {
+            oda.throttledGet[path] = {
                 running: false,
-                call: _.throttle((path, type) => {
-                    ObjectDataActions.throttledGet[path].running = true;
+                call: _.throttle((path, type, callback) => {
+                    oda.throttledGet[path].running = true;
 
                     fetch(path, {
                         credentials: 'same-origin',
@@ -33,35 +33,39 @@ export function ObjectDataActionsFactory(id)
                     })
                     .then((response) => response.json())
                     .then((result) => {
-                        ObjectDataActions.throttledGet[path].running = false;
-                        ObjectDataActions.listObjects.completed(type, result);
+                        oda.listObjects.completed(
+                            type, result, callback
+                        );
                     })
                     .catch((error) => {
-                        ObjectDataActions.throttledGet[path].running = false;
                         console.log(error);
-                        ObjectDataActions.listObjects.failed(type, error);
+                        oda.listObjects.failed(
+                            type, error
+                        );
+                    }).finally(() => {
+                        oda.throttledGet[path].running = false;
                     });
 
                 }, 1000, {leading: true, trailing: false})
             };
         }
 
-        ObjectDataActions.throttledGet[path].call(path, type);
+        oda.throttledGet[path].call(path, type, callback);
     });
 
-    ObjectDataActions.getObject.listen((type, id, group=null) => {
+    oda.getObject.listen((type, id, group=null, callback=null) => {
         let path = '/' + _.filter([group, type, 'api', id]).join('/'),
             list = '/' + _.filter([group, type, 'api']).join('/')
 
         if (
-            list in ObjectDataActions.throttledGet
-            && ObjectDataActions.throttledGet[list].running
+            list in oda.throttledGet
+            && oda.throttledGet[list].running
         ) {
             return;
         }
 
-        if (!(path in ObjectDataActions.throttledGet)) {
-            ObjectDataActions.throttledGet[path] = _.throttle((path, type, id) => {
+        if (!(path in oda.throttledGet)) {
+            oda.throttledGet[path] = _.throttle((path, type, id, callback) => {
 
                 fetch(path, {
                     credentials: 'same-origin',
@@ -72,20 +76,24 @@ export function ObjectDataActionsFactory(id)
                 })
                 .then((response) => response.json())
                 .then((result) => {
-                    ObjectDataActions.getObject.completed(type, id, result);
+                    oda.getObject.completed(
+                        type, id, result, callback
+                    );
                 })
                 .catch((error) => {
                     console.log(error);
-                    ObjectDataActions.getObject.failed(type, id, error);
+                    oda.getObject.failed(
+                        type, id, error
+                    );
                 });
 
             }, 1000, {leading: true, trailing: false});
         }
 
-        ObjectDataActions.throttledGet[path](path, type, id);
+        oda.throttledGet[path](path, type, id, callback);
     });
 
-    ObjectDataActions.postObject.listen((type, data, group=null, callback=null) => {
+    oda.postObject.listen((type, data, group=null, callback=null) => {
         let path = '/' + _.filter([group, type, 'api']).join('/')
 
         fetch(path, {
@@ -99,18 +107,19 @@ export function ObjectDataActionsFactory(id)
         })
         .then((response) => response.json())
         .then((result) => {
-            ObjectDataActions.postObject.completed(type, result.id, result);
-            if (callback) {
-                (callback)();
-            }
+            oda.postObject.completed(
+                type, result.id, result, callback
+            );
         })
         .catch((error) => {
             console.log(error);
-            ObjectDataActions.postObject.failed(type, error);
+            oda.postObject.failed(
+                type, error
+            );
         });
     });
 
-    ObjectDataActions.patchObject.listen((type, id, data, group=null, callback=null) => {
+    oda.patchObject.listen((type, id, data, group=null, callback=null) => {
         let path = '/' + _.filter([group, type, 'api', id]).join('/')
 
         fetch(path, {
@@ -124,18 +133,19 @@ export function ObjectDataActionsFactory(id)
         })
         .then((response) => response.json())
         .then((result) => {
-            ObjectDataActions.patchObject.completed(type, id, result);
-            if (callback) {
-                (callback)();
-            }
+            oda.patchObject.completed(
+                type, id, result, callback
+            );
         })
         .catch((error) => {
             console.log(error);
-            ObjectDataActions.patchObject.failed(type, id, error);
+            oda.patchObject.failed(
+                type, id, error
+            );
         });
     });
 
-    ObjectDataActions.deleteObject.listen((type, id, group=null, callback=null) => {
+    oda.deleteObject.listen((type, id, group=null, callback=null) => {
         let path = '/' + _.filter([group, type, 'api', id]).join('/')
 
         fetch(path, {
@@ -147,25 +157,26 @@ export function ObjectDataActionsFactory(id)
         })
         .then((response) => response.json())
         .then((result) => {
-            ObjectDataActions.deleteObject.completed(type, id, result);
-            if (callback) {
-                (callback)();
-            }
+            oda.deleteObject.completed(
+                type, id, result, callback
+            );
         })
         .catch((error) => {
             console.log(error);
-            ObjectDataActions.deleteObject.failed(type, id, error);
+            oda.deleteObject.failed(
+                type, id, error
+            );
         });
     });
 
-    ObjectDataActions.recomputeObject.listen((type, id, data, group=null, callback=null) => {
+    oda.recomputeObject.listen((type, id, data, group=null, callback=null) => {
         let path = '/' + _.filter([group, type, 'recompute', id]).join('/')
 
-        if (!(path in ObjectDataActions.throttledGet)) {
-            ObjectDataActions.throttledGet[path] = {
+        if (!(path in oda.throttledGet)) {
+            oda.throttledGet[path] = {
                 running: false,
                 call: _.throttle((path, type, data) => {
-                    ObjectDataActions.throttledGet[path].running = true;
+                    oda.throttledGet[path].running = true;
 
                     fetch(path, {
                         credentials: 'same-origin',
@@ -178,26 +189,28 @@ export function ObjectDataActionsFactory(id)
                     })
                     .then((response) => response.json())
                     .then((result) => {
-                        ObjectDataActions.postObject.completed(
-                            type, id, result);
-                        if (callback) {
-                            (callback)();
-                        }
+                        oda.postObject.completed(
+                            type, id, result, callback
+                        );
                     })
                     .catch((error) => {
                         console.log(error);
-                        ObjectDataActions.postObject.failed(type, error);
+                        oda.postObject.failed(
+                            type, error
+                        );
+                    }).finally(() => {
+                        oda.throttledGet[path].running = false;
                     });
                 }, 1000, {leading: true, trailing: true})
             };
         }
 
-        ObjectDataActions.throttledGet[path].call(path, type, data);
+        oda.throttledGet[path].call(path, type, data);
     });
 
-    ObjectDataActions.id = id;
+    oda.id = id;
 
-    return ObjectDataActions;
+    return oda;
 }
 
 export default ObjectDataActionsFactory('default');
