@@ -27,7 +27,7 @@ class WeaponsHeader extends React.Component
                 <th>Properties</th>
                 <th>Actions</th>
             </tr>
-        </thead>
+        </thead>;
     }
 };
 
@@ -73,9 +73,9 @@ class WeaponsRow extends LazyComponent
             <td><ul>{_.map(property || [], prop => {
                 return <li key={prop}>
                     <ListLabel
-                    items={weapon_properties}
-                    value={prop}
-                    />
+                        items={weapon_properties || []}
+                        value={prop}
+                        />
                 </li>;
             })}</ul></td>
             <td>{id != null ?

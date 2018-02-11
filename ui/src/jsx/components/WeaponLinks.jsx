@@ -8,21 +8,26 @@ class WeaponLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
+        this.altStyle = true;
     }
 
     buttonList() {
+        const {
+            weapon_id
+        } = this.props;
+
         return {
             'view': () => {
                 return {
                     label: 'View',
-                    link: "/items/weapons/show/" + this.props.weapons.id,
+                    link: "/items/weapons/show/" + weapon_id,
                     icon: 'eye',
                 };
             },
             'edit': () => {
                 return {
                     label: 'Edit',
-                    link: "/items/weapons/edit/" + this.props.weapons.id,
+                    link: "/items/weapons/edit/" + weapon_id,
                     icon: 'pencil',
                 };
             },
@@ -34,32 +39,38 @@ class WeaponLinks extends BaseLinkGroup
                 };
             }
         };
-        this.altStyle = true;
     }
 
     getAllowed() {
-        if (this.props.current_user == null) {
+        const {
+            weapon_id, current_user
+        } = this.props;
+
+        if (current_user == null) {
             return [];
         }
+
         if (
             _.intersection(
-                this.props.current_user.role || [],
+                current_user.role || [],
                 ['dm']
             ).length
         ) {
-            if (this.props.weapons == null) {
+            if (weapon_id == null) {
                 return ['new'];
             }
             return ['edit', 'new', 'view'];
         }
+
         if (
             _.intersection(
-                this.props.current_user.role || [],
+                current_user.role || [],
                 ['player']
             ).length
         ) {
             return ['view'];
         }
+
         return [];
     }
 }
@@ -69,8 +80,6 @@ WeaponLinks.defaultProps = {
 };
 
 export default ListDataWrapper(
-    ObjectDataWrapper(WeaponLinks, [
-        {group: 'items', type: 'weapons', id: 'weapon_id'}
-    ]),
+    WeaponLinks,
     ['current_user']
 );
