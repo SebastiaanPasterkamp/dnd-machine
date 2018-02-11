@@ -19,6 +19,7 @@ import SingleSelect from '../components/SingleSelect.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import Progress from '../components/Progress.jsx';
+import TagContainer from '../components/TagContainer.jsx';
 
 const viewConfig = {
     className: 'character-edit',
@@ -36,71 +37,90 @@ export class CharacterEdit extends React.Component
     }
 
     render() {
-        return [
+        const {
+            level, 'class': _class, race, background, xp_progress, xp_level,
+            name, alignment, alignments, gender, genders, height,
+            weight, age, appearance, spell, spells, backstory
+        } = this.props;
+
+        const isSelectable = (item) => {
+            const level = 'level_' + item.level;
+            if (!_.includes(item.classes, _class)) {
+                return false;
+            }
+            if (item.level == 'Cantrip') {
+                return true;
+            }
+            if (level in spell.slots && spell.slots[level]) {
+                return true;
+            }
+            return false;
+        };
+
+        return <React.Fragment>
             <CharacterLevel
                 key="level-up"
                 {...this.props}
                 />
-            ,
 
             <Panel
                     key="description"
                     className="character-edit__description"
                     header="Description"
                 >
-                Level {this.props.level} {this.props.class} {this.props.race} ({this.props.background})
+                Level {level} {_class} {race} ({background})
                 <Progress
-                    value={this.props.xp_progress}
-                    total={this.props.xp_level}
+                    value={xp_progress}
+                    total={xp_level}
                     color={"good"}
                     labels={[
                         {
                             value: 0.30,
-                            label: this.props.xp_progress
+                            label: xp_progress
                                 + " / "
-                                + this.props.xp_level
+                                + xp_level
                         },
                         {
                             value: 0.20,
-                            label: this.props.xp_progress
+                            label: xp_progress
                         },
                         {
                             value: 0.10,
-                            label: this.props.level
+                            label: level
                         }
                     ]}
                     />
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
-                        value={this.props.name}
-                        setState={
-                            (value) => this.onFieldChange('name', value)
-                        } />
+                        value={name}
+                        setState={(value) => {
+                            this.onFieldChange('name', value);
+                        }} />
                 </ControlGroup>
                 <ControlGroup label="Alignment">
                     <SingleSelect
                         emptyLabel="Alignment..."
-                        selected={this.props.alignment}
-                        items={this.props.alignments || []}
-                        setState={
-                            (value) => this.onFieldChange('alignment', value)
-                        } />
+                        selected={alignment}
+                        items={alignments || []}
+                        setState={(value) => {
+                            this.onFieldChange('alignment', value);
+                        }} />
                 </ControlGroup>
                 <ControlGroup label="Gender">
                     <SingleSelect
                         emptyLabel="Gender..."
-                        selected={this.props.gender}
-                        items={this.props.genders || []}
-                        setState={
-                            (value) => this.onFieldChange('gender', value)
-                        } />
+                        selected={gender}
+                        items={genders || []}
+                        setState={(value) => {
+                            this.onFieldChange('gender', value);
+                        }} />
                 </ControlGroup>
                 <ControlGroup labels={["Height", "ft."]}>
                     <InputField
                         type="float"
                         placeholder="Height..."
-                        value={this.props.height}
+                        value={height}
                         setState={(value) => {
                             this.onFieldChange('height', value);
                         }} />
@@ -109,7 +129,7 @@ export class CharacterEdit extends React.Component
                     <InputField
                         type="float"
                         placeholder="Weight..."
-                        value={this.props.weight}
+                        value={weight}
                         setState={(value) => {
                             this.onFieldChange('weight', value);
                         }} />
@@ -118,22 +138,47 @@ export class CharacterEdit extends React.Component
                     <InputField
                         type="number"
                         placeholder="Age..."
-                        value={this.props.age}
+                        value={age}
                         setState={(value) => {
-                            value = value || null;
                             this.onFieldChange('age', value);
                         }} />
                 </ControlGroup>
                 <ControlGroup label="Appearance">
                     <MarkdownTextField
                         placeholder="Appearance..."
-                        value={this.props.appearance}
+                        value={appearance}
                         rows={5}
-                        setState={
-                            (value) => this.onFieldChange('appearance', value)
-                        } />
+                        setState={(value) => {
+                            this.onFieldChange('appearance', value);
+                        }} />
                 </ControlGroup>
-            </Panel>,
+                {spell.max_prepared
+                    ? <ControlGroup label="Prepared Spells">
+                        <TagContainer
+                            tags={spell.list.concat(spell.prepared)}
+                            tagOptions={spells || []}
+                            setState={(value) => {
+                                const prepared = _.difference(
+                                    value, spell.list
+                                );
+                                const update = _.assign(
+                                    {}, spell, {prepared}
+                                );
+                                this.onFieldChange('spell', update);
+                            }}
+                            showSelect={
+                                spell.prepared.length < spell.max_prepared
+                            }
+                            isSelectable={isSelectable}                            isImmutable={(item) => {
+                                return !_.includes(
+                                    spell.prepared, item.name
+                                );
+                            }}
+                            />
+                    </ControlGroup>
+                    : null
+                }
+            </Panel>
 
             <Panel
                     key="personality"
@@ -151,11 +196,11 @@ export class CharacterEdit extends React.Component
                         placeholder={label + "..."}
                         value={this.props[field]}
                         rows={5}
-                        setState={
-                            (value) => this.onFieldChange(field, value)
-                        } />
+                        setState={(value) => {
+                            this.onFieldChange(field, value);
+                        }} />
                 </ControlGroup>})}
-            </Panel>,
+            </Panel>
 
             <Panel
                     key="backstory"
@@ -164,13 +209,13 @@ export class CharacterEdit extends React.Component
                 >
                 <MarkdownTextField
                     placeholder="Backstory..."
-                    value={this.props.backstory}
+                    value={backstory}
                     rows={15}
-                    setState={
-                        (value) => this.onFieldChange('backstory', value)
-                    } />
+                    setState={(value) => {
+                        this.onFieldChange('backstory', value);
+                    }} />
             </Panel>
-        ];
+        </React.Fragment>;
     }
 };
 
@@ -203,7 +248,6 @@ export default ListDataWrapper(
         'armor': '_armor',
         'languages': '_languages',
         'skills': '_skills',
-        'spells': '_spells',
         'statistics': '_statistics',
         'weapons': '_weapons',
     }
