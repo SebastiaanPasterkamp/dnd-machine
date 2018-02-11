@@ -10,47 +10,50 @@ import Progress from '../components/Progress.jsx';
 export class CharacterLabel extends LazyComponent
 {
     render() {
-        if (!this.props.character) {
-            return '';
+        const {
+            character, genders, alignments, showProgress
+        } = this.props;
+
+        if (!character) {
+            return null;
         }
 
-        const char = this.props.character;
         return <div className="character inline">
-            {char.name},
-            Level {char.level}
+            {character.name},
+            Level {character.level}
             &nbsp;
             <ListLabel
-                    items={this.props.genders}
-                    value={char.gender}
+                    items={genders || []}
+                    value={character.gender}
                     />
             &nbsp;
-            {char.race}
+            {character.race}
             &nbsp;
-            {char.class}
+            {character.class}
             &nbsp;
             (<ListLabel
-                    items={this.props.alignments}
-                    value={char.alignment}
+                    items={alignments || []}
+                    value={character.alignment}
                     />)
-            {this.props.progress || false
+            {showProgress
                 ? <Progress
-                    value={char.xp_progress}
-                    total={char.xp_level}
+                    value={character.xp_progress}
+                    total={character.xp_level}
                     color={"good"}
                     labels={[
                         {
                             value: 0.75,
-                            label: char.xp_progress
+                            label: character.xp_progress
                                 + " / "
-                                + char.xp_level
+                                + character.xp_level
                         },
                         {
                             value: 0.33,
-                            label: char.xp_progress
+                            label: character.xp_progress
                         },
                         {
                             value: 0.10,
-                            label: char.level
+                            label: character.level
                         }
                     ]}
                     />

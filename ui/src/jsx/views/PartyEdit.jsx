@@ -28,6 +28,12 @@ export class PartyEdit extends React.Component
         };
     }
 
+    toggleDialog() {
+        this.setState({
+            dialog: !this.state.dialog
+        });
+    }
+
     onFieldChange(field, value) {
         this.props.setState({
             [field]: value
@@ -35,26 +41,26 @@ export class PartyEdit extends React.Component
     }
 
     onRemoveMemberButton(id) {
-        let member_ids = _.without(this.props.member_ids, id);
+        const {
+            member_ids, setState, recompute
+        } = this.props;
+        let update = _.without(member_ids, id);
 
-        this.props.setState(
-            {member_ids},
-            () => this.props.recompute()
+        setState(
+            {member_ids: update},
+            () => recompute()
         );
     }
 
-    toggleDialog() {
-        this.setState({
-            dialog: !this.state.dialog
-        });
-    }
-
     onAddMemberButton(id) {
-        let member_ids = _.union(this.props.member_ids, [id]);
+        const {
+            member_ids, setState, recompute
+        } = this.props;
+        let update = _.union(member_ids, [id]);
 
-        this.props.setState(
-            {member_ids},
-            () => this.props.recompute()
+        setState(
+            {member_ids: update},
+            () => recompute()
         );
     }
 
@@ -63,7 +69,13 @@ export class PartyEdit extends React.Component
             return null;
         }
 
-        const {characters, member_ids} = this.props;
+        const {
+            characters, member_ids
+        } = this.props;
+        const filtered = _.filter(
+            characters,
+            (character) => !_.includes(member_ids, character.id)
+        );
 
         return <ModalDialog
                 key="dialog"
@@ -79,10 +91,7 @@ export class PartyEdit extends React.Component
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>{_.map(characters, (character) => {
-                    if (_.includes(member_ids, character.id)) {
-                        return null;
-                    }
+                <tbody>{_.map(filtered, (character) => {
                     return <tr key={character.id}>
                         <td>
                             <UserLabel
@@ -92,7 +101,7 @@ export class PartyEdit extends React.Component
                         <td>
                             <CharacterLabel
                                 character_id={character.id}
-                                progress={true}
+                                showProgress={true}
                                 />
                         </td>
                         <td>
