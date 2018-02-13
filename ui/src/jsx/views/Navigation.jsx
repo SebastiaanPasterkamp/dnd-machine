@@ -1,6 +1,8 @@
 import React from 'react';
 import {withRouter, Link} from 'react-router-dom';
 
+import utils from '../utils.jsx';
+
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 
 import UiActions from '../actions/UiActions.jsx';
@@ -10,13 +12,11 @@ import LazyComponent from '../components/LazyComponent.jsx';
 class Navigation extends LazyComponent
 {
     renderItem(item, location) {
-        const classNames = ["highlight"];
+        const style = utils.makeStyle({
+            primary: location.pathname == item.path
+        }, ["highlight"]);
 
-        if (location.pathname == item.path) {
-            classNames.push("primary");
-        }
-
-        return <li key={item.label} className={classNames.join(' ')}>
+        return <li key={item.label} className={style}>
             <Link
                 to={item.path}
                 onClick={UiActions.toggleMenu}
@@ -27,35 +27,35 @@ class Navigation extends LazyComponent
     }
 
     renderItemGroup(group, location) {
-        const classNames = ["highlight"];
+        const style = utils.makeStyle({
+            primary: _.reduce(group.items, (same, item) => {
+                return same || location.pathname == item.path;
+            }, false),
+        }, ["highlight"]);
 
-        group.items.map((item) => {
-            if (location.pathname == item.path) {
-                classNames.push("primary");
-            }
-        });
-
-        return <li key={group.label} className={classNames.join(' ')}>
+        return <li key={group.label} className={style}>
             <span className={"icon fa-" + group.icon}>
                 {group.label}
             </span>
             <ul>
-                {group.items.map((item) => {
-                    return this.renderItem(item, location);
-                })}
+                {_.map(group.items, item => (
+                    this.renderItem(item, location)
+                ))}
             </ul>
         </li>;
     }
 
     render() {
-        const navigation = this.props.navigation || [];
+        const {
+            navigation = [], location
+        } = this.props;
 
         return <ul className="nice-header-menu menu-pills">
-            {navigation.map((nav) => {
-                return 'items' in nav
-                    ? this.renderItemGroup(nav, this.props.location)
-                    : this.renderItem(nav, this.props.location);
-            })}
+            {_.map(navigation, nav => (
+                'items' in nav
+                ? this.renderItemGroup(nav, location)
+                : this.renderItem(nav, location)
+            ))}
         </ul>;
     }
 }
