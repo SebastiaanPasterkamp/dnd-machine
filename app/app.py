@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
 import glob
-from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash, jsonify, Markup
+from flask import Flask, request, session, g, redirect, url_for, \
+    abort, render_template, jsonify, Markup
 
 
 from .models.base import JsonObjectDataMapper
@@ -246,11 +246,21 @@ def get_user():
     object"""
     datamapper = get_datamapper()
 
+    publicPages = (
+        'login',
+        'doLogin',
+        'static',
+        'authenticate',
+        'current_user'
+        )
+
     if session.get('user_id') is not None:
         request.user = datamapper.user.getById(session.get('user_id'))
-    elif request.endpoint not in ('login', 'doLogin', 'static', 'authenticate'):
+    elif request.endpoint not in publicPages:
         if request.is_xhr:
-            return jsonify({'error': 'Not logged in'})
+            response = jsonify({'message': 'Not logged in'})
+            response.status_code = 401
+            return response
         return redirect(url_for('login'))
 
 @app.before_request
@@ -291,7 +301,8 @@ def authenticate():
 @app.route('/current_user')
 def current_user():
     if session.get('user_id') is None:
-        return jsonify(None)
+        abort(404)
+
     return redirect(url_for(
         'user.api_get',
         user_id=session.get('user_id')
@@ -468,15 +479,13 @@ def doLogin():
         )
 
     if user is None:
-        return jsonify({
-            'error': 'Login failed'
+        response = jsonify({
+            'message': 'Login failed'
             })
+        response.status_code = 400
+        return response
     else:
         session['user_id'] = user.id
-        flash(
-            'You are now logged in, %s' % user.username,
-            'info'
-            )
         return redirect(url_for('current_user'))
 
 
@@ -485,8 +494,7 @@ def logout():
     session.pop('user_id', None)
     session.pop('user', None)
     session.pop('party_id', None)
-    flash('You were logged out', 'info')
-    return redirect(url_for('current_user'))
+    return redirect(url_for('login'))
 
 @app.route('/test')
 def show_test():
