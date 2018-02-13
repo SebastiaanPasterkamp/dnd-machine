@@ -2,6 +2,15 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
+import ReportingActions from './ReportingActions.jsx';
+
+function jsonOrBust(response) {
+    if (response.ok) {
+        return response.json();
+    }
+    throw response.statusText;
+};
+
 var ListDataActions = Reflux.createActions({
     "setState": {},
     "doLogin": {children: ['completed', 'failed']},
@@ -23,15 +32,11 @@ ListDataActions.fetchItems.listen((type, category=null) => {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             })
-            .then((response) => response.json())
+            .then(jsonOrBust)
             .then((response) => {
-                if (response && 'error' in response) {
-                    ListDataActions.fetchItems.failed(response.error);
-                    return false;
-                }
-                let update = [];
-                update[type] = response;
-                ListDataActions.fetchItems.completed(update);
+                ListDataActions.fetchItems.completed({
+                    [type]: response
+                });
             })
             .catch((error) => {
                 console.log(error);
@@ -53,22 +58,38 @@ ListDataActions.doLogin.listen((credentials, success, failure) => {
         },
         body: JSON.stringify(credentials)
     })
-    .then((response) => response.json())
+    .then(jsonOrBust)
     .then((response) => {
-        if (response && 'error' in response) {
-            ListDataActions.doLogin.failed(response.error);
-            return false;
-        }
-        ListDataActions.fetchItems.completed({'current_user': response});
+        ListDataActions.doLogin.completed(response);
+        ListDataActions.fetchItems.completed({
+            current_user: response
+        });
+
+        ReportingActions.showMessage(
+            'good',
+            'Login successful',
+            'Login',
+            5
+        );
+
         if (success) {
-            success(response);
+            success(content);
         }
     })
     .catch((error) => {
         console.log(error);
+
+        ReportingActions.showMessage(
+            'bad',
+            'Login failed',
+            'Login',
+            10
+        );
+
         ListDataActions.doLogin.failed(error);
+
         if (failure) {
-            failure(error);
+            failure();
         }
     });
 });
@@ -80,16 +101,30 @@ ListDataActions.doLogout.listen(() => {
             'X-Requested-With': 'XMLHttpRequest'
         }
     })
-    .then((response) => response.json())
+    .then(jsonOrBust)
     .then((response) => {
-        if (response && 'error' in response) {
-            ListDataActions.doLogout.failed(response.error);
-            return false;
-        }
-        ListDataActions.fetchItems.completed({'current_user': response});
+        ListDataActions.doLogout.completed(response);
+        ListDataActions.fetchItems.completed({
+            current_user: null
+        });
+
+        ReportingActions.showMessage(
+            'good',
+            'Logout successful',
+            'Logout',
+            5
+        );
     })
     .catch((error) => {
         console.log(error);
+
+        ReportingActions.showMessage(
+            'bad',
+            'Logout failed',
+            'Logout',
+            10
+        );
+
         ListDataActions.doLogout.failed(error);
     });
 });
