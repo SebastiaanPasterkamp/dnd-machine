@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ErrorActions from '../actions/ErrorActions.jsx';
+import ReportingActions from '../actions/ReportingActions.jsx';
 
 export class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ export class ErrorBoundary extends React.Component {
 
     componentDidCatch(error, info) {
         this.setState({ hasError: true });
-        ErrorActions.reportError(error, info);
+        ReportingActions.reportError(error, info);
         console.log({error, info});
     }
 
