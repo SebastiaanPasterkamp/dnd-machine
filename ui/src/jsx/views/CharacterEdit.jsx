@@ -38,9 +38,10 @@ export class CharacterEdit extends React.Component
 
     render() {
         const {
-            level, 'class': _class, race, background, xp_progress, xp_level,
-            name, alignment, alignments, gender, genders, height,
-            weight, age, appearance, spell, spells, backstory
+            level, 'class': _class, race, background, xp_progress,
+            xp_level, name, alignment, alignments, gender, genders,
+            height, weight, age, appearance, spell, spells, backstory,
+            personality
         } = this.props;
 
         const isSelectable = (item) => {
@@ -194,10 +195,15 @@ export class CharacterEdit extends React.Component
                     return <ControlGroup key={label} label={label}>
                     <MarkdownTextField
                         placeholder={label + "..."}
-                        value={this.props[field]}
+                        value={personality[field]}
                         rows={5}
                         setState={(value) => {
-                            this.onFieldChange(field, value);
+                            const update = _.assign(
+                                {},
+                                personality,
+                                {[field]: value}
+                            );
+                            this.onFieldChange('personality', update);
                         }} />
                 </ControlGroup>})}
             </Panel>
