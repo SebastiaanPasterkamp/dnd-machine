@@ -23,6 +23,7 @@ import PartyEdit from './views/PartyEdit.jsx';
 import PartyTable from './views/PartyTable.jsx';
 import LanguageTable from './views/LanguagesTable.jsx';
 import LoginDialog from './views/LoginDialog.jsx';
+import MessageStack from './components/MessageStack.jsx';
 import MonsterEdit from './views/MonsterEdit.jsx';
 import MonstersTable from './views/MonstersTable.jsx';
 import NpcEdit from './views/NpcEdit.jsx';
@@ -201,6 +202,11 @@ class DndMachine extends React.Component
 
             </Switch> }</ErrorBoundary>
         </section>
+        <MessageStack
+            messages={[
+                {id: 'abc', message: 'test', title: 'foo'}
+                ]}
+            />
     </div></Router>;
     }
 }
