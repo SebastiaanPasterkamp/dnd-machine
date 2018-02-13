@@ -2,12 +2,13 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-var ErrorActions = Reflux.createActions({
+var ReportingActions = Reflux.createActions({
     "reportError": {children: ['completed', 'failed']},
     "showMessage": {children: ['completed', 'failed']},
+    "hideMessage": {children: ['completed', 'failed']},
 });
 
-ErrorActions.reportError.listen((error, info) => {
+ReportingActions.reportError.listen((error, info) => {
     fetch('/error', {
         credentials: 'same-origin',
         method: 'POST',
@@ -18,15 +19,12 @@ ErrorActions.reportError.listen((error, info) => {
         body: JSON.stringify({error, info})
     })
     .then(() => {
-        ErrorActions.reportError.completed();
+        ReportingActions.reportError.completed();
     })
     .catch((error) => {
         console.error(error);
-        ErrorActions.reportError.failed();
+        ReportingActions.reportError.failed();
     });
 });
 
-ErrorActions.showMessage.listen((type, message, timeout=0) => {
-});
-
-export default ErrorActions;
+export default ReportingActions;
