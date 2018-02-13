@@ -1,0 +1,11 @@
+// _message-stack.scss
+
+@import 'view-grid';
+
+.message-stack {
+    min-width: 30%;
+    z-index: 1000;
+    position: fixed;
+    bottom: 0.1em;
+    right: 1em;
+}
