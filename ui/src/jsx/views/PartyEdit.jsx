@@ -70,8 +70,9 @@ export class PartyEdit extends React.Component
         }
 
         const {
-            characters, member_ids
+            characters, member_ids, reload
         } = this.props;
+
         const filtered = _.filter(
             characters,
             (character) => !_.includes(member_ids, character.id)
@@ -80,7 +81,7 @@ export class PartyEdit extends React.Component
         return <ModalDialog
                 key="dialog"
                 label="Add members"
-                onCancel={() => this.toggleDialog()}
+                onCancel={() => reload(() => this.toggleDialog())}
                 onDone={() => this.toggleDialog()}
                 >
             <table className="nice-table condensed bordered">
@@ -120,7 +121,7 @@ export class PartyEdit extends React.Component
 
     render() {
         const {
-            name, description, member_ids, challenge
+            name, description, member_ids, challenge, characters
         } = this.props;
         return [
             <Panel
@@ -198,7 +199,7 @@ export class PartyEdit extends React.Component
                 </thead>
                 <tbody>{_.map(member_ids, (id) => {
                     const character = _.get(
-                        this.props.characters, id
+                        characters, id
                     );
 
                     if (!character) {
