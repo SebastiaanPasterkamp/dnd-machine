@@ -2,6 +2,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
+import ReportingActions from '../actions/ReportingActions.jsx';
 import {ObjectDataActionsFactory} from '../actions/ObjectDataActions.jsx';
 import {ObjectDataStoreFactory} from '../stores/ObjectDataStore.jsx';
 
@@ -116,13 +117,24 @@ function RoutedObjectDataWrapper(
             );
         }
 
-        onSave() {
+        onSave(callback=null) {
             if (this.state.id == null) {
                 this.actions.postObject(
                     loadableType,
                     this.getStateProps(),
                     loadableGroup,
-                    () => this.nextView(this.state.id)
+                    () => {
+                        ReportingActions.showMessage(
+                            'good',
+                            'Created',
+                            config.label,
+                            10
+                        );
+                        if (callback) {
+                            callback();
+                        }
+                        this.nextView(this.state.id);
+                    }
                 );
             } else {
                 this.actions.patchObject(
@@ -130,7 +142,18 @@ function RoutedObjectDataWrapper(
                     this.state.id,
                     this.getStateProps(),
                     loadableGroup,
-                    () => this.nextView(this.state.id)
+                    () => {
+                        ReportingActions.showMessage(
+                            'good',
+                            'Updated',
+                            config.label,
+                            10
+                        );
+                        if (callback) {
+                            callback();
+                        }
+                        this.nextView(this.state.id);
+                    }
                 );
             }
         }
@@ -143,7 +166,12 @@ function RoutedObjectDataWrapper(
                 return;
             }
             this.state({error});
-            alert(error);
+            ReportingActions.showMessage(
+                'bad',
+                config.label,
+                error,
+                10
+            );
         }
 
         onPostObjectFailed(type, id, error) {
@@ -183,7 +211,14 @@ function RoutedObjectDataWrapper(
                         name="button"
                         color="info"
                         icon="refresh"
-                        onClick={() => this.onReload()}
+                        onClick={() => this.onReload(() => {
+                            ReportingActions.showMessage(
+                                'info',
+                                'Reloaded',
+                                config.label,
+                                5
+                            );
+                        })}
                         label="Reload"
                         />
                     : null
@@ -193,7 +228,14 @@ function RoutedObjectDataWrapper(
                         name="button"
                         color="accent"
                         icon="calculator"
-                        onClick={() => this.onRecompute()}
+                        onClick={() => this.onRecompute(() => {
+                            ReportingActions.showMessage(
+                                'info',
+                                'Recomputed',
+                                config.label,
+                                5
+                            );
+                        })}
                         label="Recompute"
                         />
                     : null
@@ -236,10 +278,12 @@ function RoutedObjectDataWrapper(
                             ? (callback=null) => this.onReload(callback)
                             : null
                         }
-                        recompute={() => {
-                            this.onRecompute(callback=null);
+                        recompute={(callback=null) => {
+                            this.onRecompute(callback);
                         }}
-                        save={() => this.onSave()}
+                        save={(callback=null) => {
+                            this.onSave(callback);
+                        }}
                         {...this.props}
                         {...data}
                         error={this.state.error || null}

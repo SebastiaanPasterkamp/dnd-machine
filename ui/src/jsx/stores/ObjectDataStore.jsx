@@ -123,7 +123,8 @@ export function ObjectDataStoreFactory(id, listenables = null)
                 )
             };
 
-            this.setState(update, callback);
+            this.setState(update);
+            _.defer(callback);
         };
 
         onListObjectsCompleted(type, objects, callback=null) {

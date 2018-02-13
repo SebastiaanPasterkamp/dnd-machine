@@ -175,7 +175,7 @@ export function ObjectDataActionsFactory(id)
         if (!(path in oda.throttledGet)) {
             oda.throttledGet[path] = {
                 running: false,
-                call: _.throttle((path, type, data) => {
+                call: _.throttle((path, type, data, callback) => {
                     oda.throttledGet[path].running = true;
 
                     fetch(path, {
@@ -205,7 +205,7 @@ export function ObjectDataActionsFactory(id)
             };
         }
 
-        oda.throttledGet[path].call(path, type, data);
+        oda.throttledGet[path].call(path, type, data, callback);
     });
 
     oda.id = id;
