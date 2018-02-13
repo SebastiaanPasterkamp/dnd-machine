@@ -274,6 +274,12 @@ class CharacterObject(JsonObject):
             del self._config['stats']
             del self._config['modifiers']
 
+        for key, value in self.personality.items():
+            if key in self._config:
+                if not len(value):
+                    self.personality[key] = self._config[key]
+                del self._config[key]
+
         migrate = {
             "spell_stat": "spell.stat",
             "cantrips_known": "spell.max_cantrips",
