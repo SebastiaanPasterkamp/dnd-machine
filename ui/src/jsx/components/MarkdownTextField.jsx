@@ -23,7 +23,11 @@ export class MarkdownTextField extends LazyComponent
     }
 
     setEditing(editing) {
-        this.setState({editing});
+        let autofocus = null;
+        if (!this.state.editing) {
+            autofocus = () => this.textarea.focus();
+        }
+        this.setState({editing}, autofocus);
     }
 
     setHovering(hovering) {
@@ -50,6 +54,7 @@ export class MarkdownTextField extends LazyComponent
 
         return <div
                 className={style}
+                onClick={editing ? null : () => this.setEditing(true)}
                 onMouseEnter={() => this.setHovering(true)}
                 onMouseLeave={() => this.setHovering(false)}
                 >
@@ -68,6 +73,9 @@ export class MarkdownTextField extends LazyComponent
                 className="nice-form-control"
                 value={value || ''}
                 rows={rows || 1}
+                ref={(textarea) => {
+                    this.textarea = textarea;
+                }}
                 placeholder={placeholder || ''}
                 onChange={(e) => this.onChange(e.target.value)}
                 onFocus={() => this.setEditing(true)}
