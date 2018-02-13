@@ -3,6 +3,8 @@ import _ from 'lodash';
 
 // import '../../sass/_login-dialog.scss';
 
+import utils from '../utils.jsx';
+
 import ListDataActions from '../actions/ListDataActions.jsx';
 import UiActions from '../actions/UiActions.jsx';
 import InlineDataWrapper from '../hocs/InlineDataWrapper.jsx';
@@ -18,53 +20,68 @@ export class LoginDialog extends React.Component
         this.state = {
             username: '',
             password: '',
-            error: null,
+            error: false,
             processing: false
         };
     }
 
     doLogin() {
+        const {
+            username, password
+        } = this.state;
+
         this.setState({
-            processing: true
-        }, () => {
-            ListDataActions.doLogin({
-                username: this.state.username,
-                password: this.state.password
-            });
-        });
+            processing: true,
+            error: false,
+        }, () => ListDataActions.doLogin(
+            {username, password},
+            null,
+            () => this.setState({
+                processing: false,
+                error: true,
+            })
+        ));
     }
 
     onFieldChange(field, value) {
         this.setState({
             [field]: value,
-            error: null
+            error: false,
         });
     }
 
     render() {
-        let logoStyle = ["product-icon"];
-        let loadingStyle = ["nice-login-loading"];
-        if (this.props.icon) {
-            logoStyle.push("icon");
-            logoStyle.push(this.props.icon);
-        }
-        if (this.state.processing) {
-            loadingStyle.push("shown");
-        }
+        const {
+            processing, username, password, error
+        } = this.state;
+        const {
+            icon, recoverAction, title = 'Login',
+            message = 'Please log in', version = '', author = '',
+            date = ''
+        } = this.props;
+
+        const logoStyle = utils.makeStyle({
+            'icon': icon,
+            [icon]: icon
+        }, ["product-icon"]);
+
+        const loadingStyle = utils.makeStyle({
+            'show': processing
+        }, ["nice-login-loading"]);
 
         return <div className="nice-login">
             <div className="nice-login-brand">
-                <span className="text-brand">{this.props.title || 'Login'}</span>
+                <span className="text-brand">{title}</span>
             </div>
 
             <div className="nice-login-intro">
                 <div className="nice-login-intro-logo">
-                    <i className={logoStyle.join(' ')}></i>
+                    <i className={logoStyle}></i>
                 </div>
                 <div className="nice-login-intro-content">
-                   {this.props.message || 'Please log in '}
+                   {message}
                 </div>
-                <div className={loadingStyle.join(' ')}></div>
+                <div className={loadingStyle}></div>
             </div>
 
             <div className="nice-login-content">
@@ -73,8 +90,9 @@ export class LoginDialog extends React.Component
                     <div className="nice-form-group">
                         <label>Username</label>
                         <InputField
+                            className={error ? 'bad': null}
                             placeholder="Username..."
-                            value={this.state.username}
+                            value={username}
                             onEnter={() => this.doLogin()}
                             setState={(value) => {
                                 this.onFieldChange('username', value);
@@ -84,9 +102,10 @@ export class LoginDialog extends React.Component
                     <div className="nice-form-group">
                         <label>Password</label>
                         <InputField
+                            className={error ? 'bad': null}
                             type="password"
                             placeholder="Password..."
-                            value={this.state.password}
+                            value={password}
                             onEnter={() => this.doLogin()}
                             setState={(value) => {
                                 this.onFieldChange('password', value);
@@ -97,12 +116,13 @@ export class LoginDialog extends React.Component
             </div>
 
             <div className="nice-login-footer">
-                {this.props.recoverAction
+                {recoverAction
                     ? <a
-                            onClick={this.props.recoverAction}
+                            onClick={recoverAction}
                             className="nice-btn link icon fa-question">
                         Lost your credentials?
-                    </a> : null
+                    </a>
+                    : null
                 }
 
                 <div className="nice-btn-group pull-right">
@@ -116,9 +136,9 @@ export class LoginDialog extends React.Component
             </div>
 
             <div className="nice-login-version">
-                {this.props.title || ''} {this.props.version || ''}
+                {title} {version}
                 <span className="text-brand pull-right">
-                    by {this.props.author || ''} &copy; {this.props.date || ''}
+                    by {author} &copy; {date}
                 </span>
             </div>
         </div>;
