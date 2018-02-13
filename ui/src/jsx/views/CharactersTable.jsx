@@ -50,57 +50,63 @@ class CharactersFooter extends LazyComponent
 class CharactersRow extends LazyComponent
 {
     render() {
+        const {
+            name, gender, genders = [], race, level, 'class': _class,
+            alignment, alignments = [], user_id, xp_progress,
+            xp_level, id
+        } = this.props;
+
         return <tr
-                data-name={this.props.name}>
-            <td>{this.props.name}</td>
+                data-name={name}>
+            <td>{name}</td>
             <td>
                 <ListLabel
-                    items={this.props.genders || []}
-                    value={this.props.gender}
+                    items={genders}
+                    value={gender}
                     />
                     &nbsp;
-                    {this.props.race}
+                    {race}
             </td>
-            <td>Level {this.props.level} {this.props.class}</td>
+            <td>Level {level} {_class}</td>
             <td>
                 <ListLabel
-                        items={this.props.alignments || []}
-                        value={this.props.alignment}
+                        items={alignments}
+                        value={alignment}
                         />
             </td>
             <td>
                 <UserLabel
-                    user_id={this.props.user_id}
+                    user_id={user_id}
                     />
             </td>
             <td>
                 <Progress
-                    value={this.props.xp_progress}
-                    total={this.props.xp_level}
+                    value={xp_progress}
+                    total={xp_level}
                     color={"good"}
                     labels={[
                         {
                             value: 0.75,
-                            label: this.props.xp_progress
+                            label: xp_progress
                                 + " / "
-                                + this.props.xp_level
+                                + xp_level
                         },
                         {
                             value: 0.33,
-                            label: this.props.xp_progress
+                            label: xp_progress
                         },
                         {
                             value: 0.10,
-                            label: this.props.level
+                            label: level
                         }
                     ]}
                     />
             </td>
-            <td>{this.props.id != null
+            <td>{id != null
                 ? <CharacterLinks
                     altStyle={true}
                     buttons={['view', 'edit', 'delete', 'download']}
-                    character_id={this.props.id}
+                    character_id={id}
                     />
                 : null
             }</td>
@@ -112,32 +118,40 @@ class CharactersTable extends LazyComponent
 {
     shouldDisplayRow(pattern, character) {
         return (
-            (character.name && character.name.search(pattern) >= 0)
-            || (character.class && character.class.search(pattern) >= 0)
-            || (character.race && character.race.search(pattern) >= 0)
+            (character.name && character.name.match(pattern))
+            || (character.class && character.class.match(pattern))
+            || (character.race && character.race.match(pattern))
         );
     }
 
     render() {
-        if (this.props.characters == null) {
+        const {
+            characters, search = ''
+        } = this.props;
+
+        if (!characters) {
             return null;
         }
-        let pattern = new RegExp(this.props.search || '', "i");
+
+        let pattern = new RegExp(search, "i");
+
+        const filtered = _.filter(
+            characters,
+            (character) => this.shouldDisplayRow(pattern, character)
+        );
 
         return <div>
             <h2 className="icon fa-user-secret">Character list</h2>
             <table className="nice-table condensed bordered responsive">
                 <CharactersHeader />
                 <tbody key="tbody">
-                    {_.map(this.props.characters, (character) => {
-                        return this.shouldDisplayRow(pattern, character)
-                            ? <CharactersRow
-                                key={character.id}
-                                {...character}
-                                {...this.props}
-                                />
-                            : null;
-                    })}
+                    {_.map(filtered, (character) => (
+                        <CharactersRow
+                            key={character.id}
+                            {...character}
+                            {...this.props}
+                            />
+                    ))}
                 </tbody>
                 <CharactersFooter />
             </table>
