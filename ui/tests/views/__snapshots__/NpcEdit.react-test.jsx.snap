@@ -609,6 +609,7 @@ Array [
         </span>
         <div
           className="markdown-textedit preview"
+          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
