@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import utils from '../utils.jsx';
+
 import LazyComponent from './LazyComponent.jsx';
 
 export class InputField extends LazyComponent
@@ -6,25 +10,28 @@ export class InputField extends LazyComponent
     constructor(props) {
         super(props);
         this.state = {
-            float: false
+            isFloat: false
         };
     }
 
     onChange(value) {
-        if (this.props.type == 'float') {
+        const { type = 'text', setState } = this.props;
+        const { isFloat } = this.state;
+
+        if (type == 'float') {
             let float = (
                 value.length
                 && value.indexOf('.') == (value.length - 1)
             );
-            if (float != this.state.float) {
-                this.setState({float});
+            if (float != isFloat) {
+                this.setState({isFloat: float});
             }
             value = parseFloat(value) || null;
         }
-        if (this.props.type == 'number') {
+        if (type == 'number') {
             value = parseInt(value) || null;
         }
-        this.props.setState(value);
+        setState(value);
     }
 
     onKeyPress(key) {
@@ -34,17 +41,24 @@ export class InputField extends LazyComponent
     }
 
     render() {
+        const {
+            value = '', type = 'text', className, disabled = false,
+            placeholder = '', onEnter = null
+        } = this.props;
+        const { isFloat } = this.state;
+        const style = utils.makeStyle({
+            [className]: className
+        }, ['nice-form-control']);
+
         return <input
-            className="nice-form-control"
-            type={this.props.type || "text"}
-            value={
-                (this.props.value || '')
-                + (this.state.float ? '.' : '')
-            }
-            disabled={this.props.disabled || false}
-            placeholder={this.props.placeholder || ''}
+            className={style}
+            type={type}
+            value={value + (isFloat ? '.' : '')}
+            disabled={disabled}
+            placeholder={placeholder}
             onChange={(e) => this.onChange(e.target.value)}
-            onKeyPress={(this.props.onEnter || false)
+            onKeyPress={
+                onEnter
                 ? (e) => this.onKeyPress(e.key)
                 : null
             }
@@ -56,6 +70,19 @@ InputField.defaultProps = {
     setState: (value) => {
         console.log(['InputField', value]);
     }
+};
+
+InputField.propTypes = {
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+    setState: PropTypes.func,
+    type: PropTypes.string,
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
+    onEnter: PropTypes.func,
+    placeholder: PropTypes.string,
 };
 
 export default InputField;
