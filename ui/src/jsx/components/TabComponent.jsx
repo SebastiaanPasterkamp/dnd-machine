@@ -1,7 +1,9 @@
 import React from 'react';
-import LazyComponent from '../components/LazyComponent.jsx';
-
 import _ from 'lodash';
+
+import '../../sass/_tab-component.scss';
+
+import LazyComponent from '../components/LazyComponent.jsx';
 import utils from '../utils.jsx';
 
 export class TabComponent extends LazyComponent
@@ -41,21 +43,21 @@ export class TabComponent extends LazyComponent
     }
 
     renderTab(index) {
-        const tabcfg = _.isFunction(this.props.tabConfig)
-            ? this.props.tabConfig(index)
-            : this.props.tabConfig[index];
+        const tabConfig = this.props.tabConfig;
+        const isActive = (index == this.state.activeTab);
+        const tabcfg = _.isFunction(tabConfig)
+            ? tabConfig(index)
+            : tabConfig[index];
         const tabStyle = utils.makeStyle({
-                [tabcfg.color || '']: (tabcfg.color || false)
-                    && !tabcfg.disabled || false,
-                muted: tabcfg.disabled || false,
-                current: index == this.state.activeTab,
-            }
-        );
+            [tabcfg.color || '']: tabcfg.color && !tabcfg.disabled,
+            muted: tabcfg.disabled,
+            current: isActive,
+        });
         const linkStyle = utils.makeStyle({
                 icon: 'icon' in tabcfg,
                 [tabcfg.icon || '']: 'icon' in tabcfg,
                 'cursor-not-allowed': tabcfg.disabled || false,
-                'cursor-pointer': !(tabcfg.disabled || false),
+                'cursor-pointer': !tabcfg.disabled,
             }
         );
 
@@ -65,14 +67,13 @@ export class TabComponent extends LazyComponent
                 >
             <a
                     className={linkStyle}
-                    onClick={
-                        (
-                            index == this.state.activeTab
-                            || (tabcfg.disabled || false)
-                        )
-                        ? null
-                        : () => this.switchTab(index)
-                    }
+                    onClick={(e) => {
+                        e.preventDefault();
+                        if (isActive || tabcfg.disabled) {
+                            return;
+                        }
+                        this.switchTab(index);
+                    }}
                     >
                 {tabcfg.label}
             </a>
@@ -80,7 +81,7 @@ export class TabComponent extends LazyComponent
     }
 
     render() {
-        return <div className="nice-tabs-wrapper">
+        return <div className="nice-tabs-wrapper tab-component">
             <ul className="nice-tabs bold">
                 {React.Children.map(
                     this.props.children, (child, index) => {
