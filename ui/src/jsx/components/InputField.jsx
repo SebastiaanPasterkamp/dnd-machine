@@ -34,16 +34,16 @@ export class InputField extends LazyComponent
         setState(value);
     }
 
-    onKeyPress(key) {
-        if (key === 'Enter') {
-            this.props.onEnter();
+    onKeyPress(e) {
+        if (e.key === 'Enter') {
+            this.props.onEnter(e);
         }
     }
 
     render() {
         const {
-            value = '', type = 'text', className, disabled = false,
-            placeholder = '', onEnter = null
+            value, type, className, disabled, placeholder, onEnter,
+            setState, ...props
         } = this.props;
         const { isFloat } = this.state;
         const style = utils.makeStyle({
@@ -59,14 +59,19 @@ export class InputField extends LazyComponent
             onChange={(e) => this.onChange(e.target.value)}
             onKeyPress={
                 onEnter
-                ? (e) => this.onKeyPress(e.key)
+                ? (e) => this.onKeyPress(e)
                 : null
             }
+            {...props}
             />;
     }
 }
 
 InputField.defaultProps = {
+    value: '',
+    type: 'text',
+    disabled: false,
+    placeholder: '',
     setState: (value) => {
         console.log(['InputField', value]);
     }
