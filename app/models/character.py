@@ -274,9 +274,10 @@ class CharacterObject(JsonObject):
             del self._config['stats']
             del self._config['modifiers']
 
-        for key, value in self.personality.items():
+        self.personality = self.personality or {}
+        for key in ["traits", "ideals", "bonds", "flaws"]:
             if key in self._config:
-                if not len(value):
+                if not self.personality.get(key):
                     self.personality[key] = self._config[key]
                 del self._config[key]
 
@@ -331,6 +332,16 @@ class CharacterObject(JsonObject):
             del self._config['weapon']
         if 'misc' in self.items:
             del self.items['misc']
+
+        self.armor = []
+        self.weapons = []
+        self.items = {
+            "artisan": [],
+            "kit": [],
+            "gaming": [],
+            "musical": [],
+            "trinket": []
+            }
 
         super(CharacterObject, self).migrate()
 
