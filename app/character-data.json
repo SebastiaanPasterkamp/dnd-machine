@@ -5298,8 +5298,8 @@
                     "path": "abilities.Action Surge",
                     "type": "dict",
                     "dict": {
-                        "description": "You can push yourself beyond your normal limits for a moment. On your turn, you can take one additional **action** on top of your regular action and a possible **bonus action**. You can use this feature %(uses)s before you must finish a short or long rest.",
-                        "uses": "once"
+                        "description": "You can push yourself beyond your normal limits for a moment. On your turn, you can take one additional **action** on top of your regular action and a possible **bonus action**. You can use this feature %(uses)sx before you must finish a short or long rest.",
+                        "uses": 1
                     }
                 }]
             },
@@ -5352,13 +5352,13 @@
                             }
                         }, {
                             "label": "Combat Superiority",
-                            "path": "abilities.Improved Critical",
+                            "path": "abilities.Combat Superiority",
                             "type": "dict",
                             "dict": {
                                 "description": "You know **maneuvers** that are fueled by special dice called **superiority dice**.\n* **Maneuvers.** Many maneuvers enhance an attack in some way. You can use only one maneuver per attack.\n* **Superiority Dice**. You have *%(uses)s* superiority dice which are `%(dice_size)s`s. A superiority die is expended when you use it. You regain all of your expended superiority dice when you finish a short or long rest.\n* **Saving Throws.** Some of your maneuvers require your target to make a saving throw to resist the maneuver's effects. The saving throw DC is `%(dc)s`.",
                                 "dice_size": "d8",
                                 "dc_formula": "8 + character.proficiency + max(statistics.modifiers.strength, statistics.modifiers.dexterity)",
-                                "uses": "four"
+                                "uses": 4
                             }
                         }, {
                             "label": "Maneuvers",
@@ -5738,6 +5738,13 @@
                     "archetype": ["Battle Master"]
                 },
                 "config": [{
+                    "label": "Combat Superiority",
+                    "path": "abilities.Combat Superiority",
+                    "type": "dict",
+                    "dict": {
+                        "uses": 5
+                    }
+                }, {
                     "label": "Know Your Enemy",
                     "path": "abilities.Know Your Enemy",
                     "type": "dict",
@@ -5969,8 +5976,8 @@
                     "path": "abilities.Indomitable",
                     "type": "dict",
                     "dict": {
-                        "description": "You can reroll a *saving throw* that you fail. If you do so, you must use the new roll. You can use this feature %(uses) before you finish a long rest.",
-                        "uses": "once"
+                        "description": "You can reroll a *saving throw* that you fail. If you do so, you must use the new roll. You can use this feature %(uses)sx before you finish a long rest.",
+                        "uses": 1
                     }
                 }]
             },
@@ -6370,7 +6377,7 @@
                     "path": "abilities.Indomitable",
                     "type": "dict",
                     "dict": {
-                        "uses": "twice"
+                        "uses": 2
                     }
                 }]
             },
@@ -6487,6 +6494,13 @@
                     "archetype": ["Battle Master"]
                 },
                 "config": [{
+                    "label": "Combat Superiority",
+                    "path": "abilities.Combat Superiority",
+                    "type": "dict",
+                    "dict": {
+                        "uses": 6
+                    }
+                }, {
                     "label": "Relentless",
                     "path": "abilities.Relentless",
                     "type": "dict",
@@ -6707,14 +6721,14 @@
                     "path": "abilities.Action Surge",
                     "type": "dict",
                     "dict": {
-                        "uses": "twice"
+                        "uses": 2
                     }
                 }, {
                     "label": "Indomitable",
                     "path": "abilities.Indomitable",
                     "type": "dict",
                     "dict": {
-                        "uses": "three times"
+                        "uses": 3
                     }
                 }]
             },
@@ -8286,8 +8300,10 @@
                     "type": "choice",
                     "options": [{
                         "label": "Monsters",
+                        "type": "config",
                         "config": [{
                             "label": "Favored Enemy",
+                            "type": "config",
                             "type": "list",
                             "list": "monster_types",
                             "path": "favored.enemy",
@@ -8297,6 +8313,7 @@
                             }
                         }, {
                             "label": "Celestial",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "type": "list",
@@ -8312,6 +8329,7 @@
                             }]
                         }, {
                             "label": "Dragons",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "type": "list",
@@ -8327,6 +8345,7 @@
                             }]
                         }, {
                             "label": "Fey",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "type": "list",
@@ -8342,6 +8361,7 @@
                             }]
                         }, {
                             "label": "Giants",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "type": "list",
@@ -8357,6 +8377,7 @@
                             }]
                         }, {
                             "label": "Humanoids",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "path": "favored.enemy",
@@ -8689,6 +8710,7 @@
                     "type": "choice",
                     "options": [{
                         "label": "Monsters",
+                        "type": "config",
                         "config": [{
                             "label": "Favored Enemy",
                             "type": "list",
@@ -8700,6 +8722,7 @@
                             }
                         }, {
                             "label": "Celestial",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "type": "list",
@@ -8715,6 +8738,7 @@
                             }]
                         }, {
                             "label": "Dragons",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "type": "list",
@@ -8730,6 +8754,7 @@
                             }]
                         }, {
                             "label": "Fey",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "type": "list",
@@ -8745,6 +8770,7 @@
                             }]
                         }, {
                             "label": "Giants",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "type": "list",
@@ -8760,6 +8786,7 @@
                             }]
                         }, {
                             "label": "Humanoids",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "path": "favored.enemy",
@@ -9194,6 +9221,7 @@
                     "type": "choice",
                     "options": [{
                         "label": "Monsters",
+                        "type": "config",
                         "config": [{
                             "label": "Favored Enemy",
                             "type": "list",
@@ -9205,6 +9233,7 @@
                             }
                         }, {
                             "label": "Celestial",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "type": "list",
@@ -9220,6 +9249,7 @@
                             }]
                         }, {
                             "label": "Dragons",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "type": "list",
@@ -9235,6 +9265,7 @@
                             }]
                         }, {
                             "label": "Fey",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "type": "list",
@@ -9250,6 +9281,7 @@
                             }]
                         }, {
                             "label": "Giants",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "type": "list",
@@ -9265,6 +9297,7 @@
                             }]
                         }, {
                             "label": "Humanoids",
+                            "type": "config",
                             "config": [{
                                 "label": "Favored Enemy",
                                 "path": "favored.enemy",
@@ -10032,7 +10065,7 @@
                         "Dart",
                         "Sling",
                         "Quarterstaff",
-                        "Crossbow, Light"
+                        "Crossbow, light"
                     ]
                 }, {
                     "label": "Class Skill Proficiencies",
@@ -10109,7 +10142,6 @@
                         "label": "Component Pouch",
                         "config": [{
                             "type": "list",
-                            "list": "gear",
                             "path": "equipment",
                             "multiple": true,
                             "given": ["Component Pouch"]
@@ -10118,13 +10150,18 @@
                         "label": "Arcane Focus",
                         "config": [{
                             "type": "list",
-                            "list": "gear",
                             "path": "equipment",
                             "multiple": true,
-                            "limit": 1,
                             "given": ["Arcane Focus"]
                         }]
                     }]
+                }, {
+                    "label": "Two daggers",
+                    "type": "list",
+                    "list": "weapons",
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": ["Dagger", "Dagger"]
                 }, {
                     "type": "choice",
                     "options": [{
@@ -10168,8 +10205,7 @@
                 }, {
                     "label": "Sorcerous Origin",
                     "description": "Different sorcerers claim different origins for their innate magic. Although many variations exist, most of these origins fall into two categories: a draconic bloodline and wild magic.",
-                    "type": "multichoice",
-                    "limit": 1,
+                    "type": "choice",
                     "options": [{
                         "label": "Draconic Bloodline",
                         "description": "Your innate magic comes from draconic magic that was mingled with your blood or that of your ancestors. Most often, sorcerers with this origin trace their descent back to a mighty sorcerer of ancient times who made a bargain with a dragon or who might even have claimed a dragon parent. Some of these bloodlines are well established in the world, hut most are obscure. Any given sorcerer could be the first of a new bloodline, as a result of a pact or some other exceptional circumstance.",
