@@ -12,7 +12,9 @@ import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 import {ArmorLabel} from '../components/ArmorLabel.jsx';
 import Bonus from '../components/Bonus.jsx';
 import CharacterLinks from '../components/CharacterLinks.jsx';
+import CheckBox from '../components/CheckBox.jsx';
 import DiceNotation from '../components/DiceNotation.jsx';
+import LazyComponent from '../components/LazyComponent.jsx';
 import ListLabel from '../components/ListLabel.jsx';
 import Panel from '../components/Panel.jsx';
 import Progress from '../components/Progress.jsx';
@@ -27,15 +29,249 @@ const viewConfig = {
     label: 'Character'
 };
 
-export class CharactersView extends React.Component
+
+export class CharacterDescription extends LazyComponent
 {
-    renderStatistics() {
-        if (_.isNil(this.props._statistics)) {
+    render() {
+        const {
+            id, name, race, 'class': _class, level, genders = [],
+            gender, alignments = [], alignment, xp_progress,
+            xp_level
+        } = this.props;
+
+        return <Panel
+                key="description"
+                className="character-view__description info"
+                header="Description"
+            >
+            <CharacterLinks
+                buttons={['edit', 'download']}
+                className="pull-right"
+                character_id={id}
+                />
+
+            <h3>{name}</h3>
+
+            <h4>
+                Level {level}
+                &nbsp;
+                <ListLabel
+                    items={genders}
+                    value={gender}
+                    />
+                &nbsp;
+                {race}
+                &nbsp;
+                {_class}
+                &nbsp;
+                (<ListLabel
+                    items={alignments}
+                    value={alignment}
+                    />)
+            </h4>
+
+            <Progress
+                value={xp_progress}
+                total={xp_level}
+                color={"good"}
+                label={`${level} (${xp_progress} / ${xp_level})`}
+                />
+        </Panel>;
+    }
+};
+
+
+export class CharacterInformation extends LazyComponent
+{
+    render() {
+        const {
+            'class': _class, race, background, alignment,
+            alignments = [], xp, user_id
+        } = this.props;
+
+        return <Panel
+                key="info"
+                className="character-view__info info"
+                header="Info"
+            >
+            <thead>
+                <tr>
+                    <th>Class</th>
+                    <th>Background</th>
+                    <th>Player</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{_class}</td>
+                    <td>{background}</td>
+                    <td>
+                        <UserLabel
+                            user_id={user_id}
+                            />
+                    </td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th>Race</th>
+                    <th>Alignment</th>
+                    <th>XP</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{race}</td>
+                    <td>
+                        <ListLabel
+                            items={alignments}
+                            value={alignment}
+                            />
+                    </td>
+                    <td>{xp} XP</td>
+                </tr>
+            </tbody>
+        </Panel>;
+    }
+}
+
+
+export class CharacterBasics extends LazyComponent
+{
+    render() {
+        const {
+            armor_class, armor_class_bonus, hit_points, level,
+            hit_dice, speed, height, weight, age, initiative_bonus,
+            passive_perception, proficiency, spell, _statistics
+        } = this.props;
+
+        return <Panel
+                key="base"
+                className="character-view__base info"
+                header="Base"
+            >
+            <tbody>
+                <tr>
+                    <th>Armor Class</th>
+                    <td>
+                        {armor_class}
+                        {armor_class_bonus
+                            ? <React.Fragment>
+                                &nbsp;/&nbsp;
+                                <Bonus
+                                    bonus={armor_class_bonus}
+                                    />
+                                </React.Fragment>
+                            : null
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Hit Points</th>
+                    <td>{hit_points}</td>
+                </tr>
+                <tr>
+                    <th>Hit Dice</th>
+                    <td>
+                        <DiceNotation
+                            dice_count={level}
+                            dice_size={hit_dice}
+                            />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Speed</th>
+                    <td>
+                        <Reach
+                            distance={speed}
+                            />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Height</th>
+                    <td>
+                        <Reach
+                            distance={height}
+                            />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Weight</th>
+                    <td>{weight} lb.</td>
+                </tr>
+                <tr>
+                    <th>Age</th>
+                    <td>{age} years</td>
+                </tr>
+                <tr>
+                    <th>Initiative Modifier</th>
+                    <td>
+                        <Bonus
+                            bonus={initiative_bonus}
+                            />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Passive Perception</th>
+                    <td>{passive_perception}</td>
+                </tr>
+                <tr>
+                    <th>Proficiency Bonus</th>
+                    <td>
+                        <Bonus
+                            bonus={proficiency}
+                            />
+                    </td>
+                </tr>
+
+                {spell.safe_dc
+                    ? <tr>
+                        <th>Spells</th>
+                        <td>
+                            <ul>
+                                <li>
+                                    <strong>Class:</strong>
+                                    {spell.class}
+                                </li>
+                                <li>
+                                    <strong>Ability:</strong>
+                                    <ListLabel
+                                        items={_statistics || []}
+                                        value={spell.stat}
+                                        />
+                                </li>
+                                <li>
+                                    <strong>DC:</strong>
+                                    {spell.safe_dc}
+                                </li>
+                                <li>
+                                    <strong>Attack Modifier:</strong>
+                                    <Bonus
+                                        bonus={spell.attack_modifier}
+                                        />
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    : null
+                }
+            </tbody>
+        </Panel>;
+    }
+};
+
+export class CharacterStatistics extends LazyComponent
+{
+    render() {
+        const {
+            statistics, _statistics, proficiencies, saving_throws
+        } = this.props;
+
+        if (!_statistics) {
             return null;
         }
 
         return <Panel
-                key="statistic"
                 className="character-view__statistics info"
                 header="Statistics"
             >
@@ -47,82 +283,89 @@ export class CharactersView extends React.Component
                     <th>Saving Throw</th>
                 </tr>
             </thead>
-            <tbody>{_.map(this.props._statistics, stat => {
-                return <tr key={stat.code}>
+            <tbody>{_.map(_statistics, stat => (
+                <tr key={stat.code}>
                     <th>{stat.label}</th>
-                    <td>{this.props.statistics.base[stat.code]}</td>
+                    <td>{statistics.base[stat.code]}</td>
                     <td>
                         <Bonus
-                            bonus={this.props.statistics.modifiers[stat.code]}
+                            bonus={statistics.modifiers[stat.code]}
                             />
                     </td>
                     <td>
-                    {_.includes(
-                        this.props.proficiencies.saving_throws,
-                        stat.code
-                        )
-                        ? <span className="icon fa-check-square-o">&nbsp;</span>
-                        : <span className="icon fa-square-o">&nbsp;</span>
-                    }
+                    <CheckBox isChecked={_.includes(
+                            proficiencies.saving_throws,
+                            stat.code
+                        )} />
                     <Bonus
-                        bonus={this.props.saving_throws[stat.code]}
+                        bonus={saving_throws[stat.code]}
                         />
                     </td>
-                </tr>;
-            })}</tbody>
+                </tr>
+            ))}</tbody>
         </Panel>;
     }
+};
 
-    renderSkills() {
-        if (_.isNil(this.props.proficiencies)) {
+export class CharacterSkills extends LazyComponent
+{
+    render() {
+        const {
+            _statistics, _skills, skills, proficiencies,
+        } = this.props;
+
+        if (_.isNil(proficiencies)) {
             return null;
         }
 
         return <Panel
-                key="skills"
-                className="character-view__skills info"
-                header="Skills"
-            >
-            {_.map(this.props._statistics, stat => [
-                <thead key={'head-' + stat.code}>
+            className="character-view__skills info"
+            header="Skills" contentComponent="table"
+        >
+        {_.map(_statistics, stat => (
+            <React.Fragment  key={'stat-' + stat.code}>
+                <thead>
                     <tr>
                         <th colSpan="2" className="text-align-center">{stat.label}</th>
                     </tr>
-                </thead>,
-                <tbody key={'body-' + stat.code}>{_.map(this.props._skills, skill => {
+                </thead>
+
+                <tbody>
+                {_.map(_skills, skill => {
                     if (skill.stat != stat.code) {
                         return null;
                     }
+
                     return <tr key={skill.code}>
                         <th>{skill.label}</th>
                         <td>
-                            {_.includes(
-                                this.props.proficiencies.skills,
-                                skill.code
-                                )
-                                ? <span className="icon fa-check-square-o">&nbsp;</span>
-                                : <span className="icon fa-square-o">&nbsp;</span>
-                            }
-                            {(this.props.proficiencies.expertise || []).length ? (
-                                _.includes(
-                                    this.props.proficiencies.expertise,
+                            <CheckBox isChecked={_.includes(
+                                    proficiencies.skills,
                                     skill.code
-                                    )
-                                    ? <span className="icon fa-check-square-o">&nbsp;</span>
-                                    : <span className="icon fa-square-o">&nbsp;</span>
-                                ) : null
+                                )} />
+                            {proficiencies.expertise.length
+                                ? <CheckBox isChecked={_.includes(
+                                        proficiencies.expertise,
+                                        skill.code
+                                    )} />
+                                : null
                             }
                             <Bonus
-                                bonus={this.props.skills[skill.code]}
+                                bonus={skills[skill.code]}
                                 />
                         </td>
                     </tr>;
-                })}</tbody>
-            ])}
+                })}
+                </tbody>
+            </React.Fragment>
+        ))}
         </Panel>;
     }
+};
 
-    renderEquipment() {
+export class CharacterEquipment extends LazyComponent
+{
+    render() {
         const {
             weapons, weapon_properties, weapon_types,
             armor, armor_types, items
@@ -134,61 +377,130 @@ export class CharactersView extends React.Component
                 header="Equipment"
             >
             {weapons.length
-                ? <strong>Weapons</strong>
+                ? <React.Fragment>
+                    <strong>Weapons</strong>
+
+                    <ul>
+                    {_.map(weapons, (weapon, i) => (
+                        <li key={'weapon-' + i}>
+                            {weapon.count > 1
+                                ? `${weapon.count} x `
+                                : null
+                            }
+                            <WeaponLabel
+                                weapon_properties={weapon_properties}
+                                weapon_types={weapon_types}
+                                weapon_id={weapon.id}
+                                weapon={weapon}
+                                />
+                        </li>
+                    ))}
+                    </ul>
+                </React.Fragment>
                 : null
             }
-            <ul>{_.map(weapons, (weapon, i) => {
-                return <li key={'weapon-' + i}>
-                    {weapon.count > 1
-                        ? `{weapon.count} x `
-                        : null
-                    }
-                    <WeaponLabel
-                        weapon_properties={weapon_properties}
-                        weapon_types={weapon_types}
-                        weapon_id={weapon.id}
-                        weapon={weapon}
-                        />
-                </li>;
-            })}</ul>
 
             {armor.length
-                ? <strong>Armor</strong>
+                ? <React.Fragment>
+                    <strong>Armor</strong>
+
+                    <ul>
+                    {_.map(armor, (_armor, i) => (
+                        <li key={'armor-' + i}>
+                            {_armor.count > 1
+                                ? `${_armor.count} x `
+                                : null
+                            }
+                            <ArmorLabel
+                                armor_types={armor_types}
+                                armor_id={_armor.id}
+                                armor={_armor}
+                                />
+                        </li>
+                    ))}
+                    </ul>
+                </React.Fragment>
                 : null
             }
-            <ul>{_.map(armor, (_armor, i) => {
-                return <li key={'armor-' + i}>
-                    {_armor.count > 1
-                        ? `{_armor.count} x `
-                        : null
-                    }
-                    <ArmorLabel
-                        armor_types={armor_types}
-                        armor_id={_armor.id}
-                        armor={_armor}
-                        />
-                </li>;
-            })}</ul>
 
             <strong>Gear</strong> :
-            <ul>{_.map(items, (itemset, set) => {
+
+            <ul>
+            {_.map(items, (itemset, set) => {
                 let gear = _.countBy(itemset, (item) => {
                     if (_.isObject(item)) {
                         return item.label || item.name;
                     }
                     return item;
                 });
-                return _.map(gear, (cnt, item) => {
-                    return <li key={'item-' + item}>
-                        {cnt > 1 ? cnt + ' x ' : null}
+
+                return _.map(gear, (cnt, item) => (
+                    <li key={'item-' + item}>
+                        {cnt > 1
+                            ? `${cnt} x `
+                            : null
+                        }
                         {item}
-                    </li>;
-                });
-            })}</ul>
+                    </li>
+                ));
+            })}
+            </ul>
         </Panel>;
     }
+};
 
-    renderSpells() {
+export class CharacterBackstory extends LazyComponent
+{
+    render() {
+        const {
+            backstory = ''
+        } = this.props;
+
+        return <Panel
+                key="backstory"
+                className="character-view__backstory info"
+                header="Backstory"
+            >
+            <MDReactComponent
+                text={backstory}
+                />
+        </Panel>;
+    }
+};
+
+export class CharacterPersonality extends LazyComponent
+{
+    render() {
+        const {
+            personality
+        } = this.props;
+
+        return <Panel
+                key="personality"
+                className="character-view__personality info"
+                header="Personality"
+            >
+            {_.map({
+                'traits': 'Traits',
+                'ideals': 'Ideals',
+                'bonds': 'Bonds',
+                'flaws': 'Flaws'
+            }, (label, field) => (
+                <React.Fragment key={field}>
+                    <strong>{label}</strong>
+
+                    <MDReactComponent
+                        text={personality[field]}
+                        />
+                </React.Fragment>
+            ))}
+        </Panel>;
+    }
+};
+
+export class CharacterSpells extends LazyComponent
+{
+    render() {
         const {
             spell, magic_components, magic_schools
         } = this.props;
@@ -201,282 +513,133 @@ export class CharactersView extends React.Component
         }
 
         return <Panel
-            key="equipmspellsent"
-            className="character-view__equipment info"
-            header="Spells"
-        >{_.map(spell.level, (spells, level) => {
-            if (!spells.length) {
-                return null;
-            }
-            return _.map(spells, (spell, i) => {
-                return <SpellLabel
-                    key={spell.id}
-                    magic_components={magic_components}
-                    magic_schools={magic_schools}
-                    spell_id={spell.id}
-                    spell={spell}
-                    tooltip={true}
-                    />
-            });
-        })}</Panel>;
-    }
-
-    render() {
-        return [
-            <Panel
-                    key="description"
-                    className="character-view__description info"
-                    header="Description"
-                >
-                <CharacterLinks
-                    buttons={['edit', 'download']}
-                    className="pull-right"
-                    character_id={this.props.id}
-                    />
-
-                <h3>{this.props.name}</h3>
-
-                <h4>
-                    Level {this.props.level}
-                    &nbsp;
-                    <ListLabel
-                        items={this.props.genders || []}
-                        value={this.props.gender}
+                key="equipment"
+                className="character-view__spells info"
+                header="Spells"
+            >
+            {_.map(spell.level, (spells, level) => {
+                if (!spells.length) {
+                    return null;
+                }
+                return _.map(spells, (spell, i) => (
+                    <SpellLabel
+                        key={spell.id}
+                        magic_components={magic_components}
+                        magic_schools={magic_schools}
+                        spell_id={spell.id}
+                        spell={spell}
+                        tooltip={true}
                         />
-                    &nbsp;
-                    {this.props.race}
-                    &nbsp;
-                    {this.props.class}
-                    &nbsp;
-                    (<ListLabel
-                        items={this.props.alignments || []}
-                        value={this.props.alignment}
-                        />)
-                </h4>
+                ));
+            })}
+        </Panel>;
+    }
+};
 
-                <Progress
-                    value={this.props.xp_progress}
-                    total={this.props.xp_level}
-                    color={"good"}
-                    label={
-                        this.props.level
-                        + ' ('
-                        + this.props.xp_progress
-                        + " / "
-                        + this.props.xp_level
-                        + ')'
-                    }
-                    />
-            </Panel>,
+export class CharacterAbilities extends LazyComponent
+{
+    render() {
+        const {
+            abilities
+        } = this.props;
 
-            <Panel
-                    key="info"
-                    className="character-view__info info"
-                    header="Info"
-                >
-                <thead>
-                    <tr>
-                        <th>Class</th>
-                        <th>Background</th>
-                        <th>Player</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{this.props.class}</td>
-                        <td>{this.props.background}</td>
-                        <td>
-                            <UserLabel
-                                user_id={this.props.user_id}
-                                />
-                        </td>
-                    </tr>
-                </tbody>
-                <thead>
-                    <tr>
-                        <th>Race</th>
-                        <th>Alignment</th>
-                        <th>XP</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{this.props.race}</td>
-                        <td>
-                            <ListLabel
-                                items={this.props.alignments || []}
-                                value={this.props.alignment}
-                                />
-                        </td>
-                        <td>{this.props.xp} XP</td>
-                    </tr>
-                </tbody>
-            </Panel>,
+        return <Panel
+                key="abilities"
+                className="character-view__abilities info"
+                header="Abilities"
+            >
+            <ul>
+            {_.map(abilities, (data, label) => (
+                <li key={label}>
+                    <strong>{label}</strong>
+                    <MDReactComponent
+                        text={sprintf(
+                            data.description,
+                            data
+                        )}
+                        />
+                </li>
+            ))}
+            </ul>
+        </Panel>;
+    }
+};
 
-            <Panel
-                    key="base"
-                    className="character-view__base info"
-                    header="Base"
-                >
-                <tbody>
-                    <tr>
-                        <th>Armor Class</th>
-                        <td>
-                            {this.props.armor_class}
-                            {this.props.armor_class_bonus
-                                ? <React.Fragment>
-                                    &nbsp;/&nbsp;
-                                    <Bonus
-                                        bonus={this.props.armor_class_bonus}
-                                        />
-                                    </React.Fragment>
-                                : null
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Hit Points</th>
-                        <td>{this.props.hit_points}</td>
-                    </tr>
-                    <tr>
-                        <th>Hit Dice</th>
-                        <td>
-                            <DiceNotation
-                                dice_count={this.props.level}
-                                dice_size={this.props.hit_dice}
-                                />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Speed</th>
-                        <td>
-                            <Reach
-                                distance={this.props.speed}
-                                />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Height</th>
-                        <td>
-                            <Reach
-                                distance={this.props.height}
-                                />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Weight</th>
-                        <td>{this.props.weight} lb.</td>
-                    </tr>
-                    <tr>
-                        <th>Age</th>
-                        <td>{this.props.age} years</td>
-                    </tr>
-                    <tr>
-                        <th>Initiative Modifier</th>
-                        <td>
-                            <Bonus
-                                bonus={this.props.initiative_bonus}
-                                />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Passive Perception</th>
-                        <td>{this.props.passive_perception}</td>
-                    </tr>
-                    <tr>
-                        <th>Proficiency Bonus</th>
-                        <td>
-                            <Bonus
-                                bonus={this.props.proficiency}
-                                />
-                        </td>
-                    </tr>
+export class CharacterTraits extends LazyComponent
+{
+    render() {
+        const {
+            info
+        } = this.props;
 
-                    <tr>
-                        <th>Spells</th>
-                        <td>
-                            <ul>
-                                <li>
-                                    <strong>Class:</strong>
-                                    {this.props.class}
-                                </li>
-                                <li>
-                                    <strong>Ability:</strong>
-                                    <ListLabel
-                                        items={this.props._statistics || []}
-                                        value={this.props.spell_stat}
-                                        />
-                                </li>
-                                <li>
-                                    <strong>DC:</strong>
-                                    {this.props.spell_safe_dc}
-                                </li>
-                                <li>
-                                    <strong>Attack Modifier:</strong>
-                                    <Bonus
-                                        bonus={this.props.spell_attack_modifier}
-                                        />
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                </tbody>
-            </Panel>,
+        return <Panel
+                key="traits"
+                className="character-view__traits info"
+                header="Traits"
+            >
+            <ul>
+            {_.map(info, (description, label) => (
+                <li key={label}>
+                    <strong>{label}</strong>
+                    <MDReactComponent
+                        text={description || ''}
+                        />
+                </li>
+            ))}
+            </ul>
+        </Panel>;
+    }
+};
 
-            this.renderStatistics(),
 
-            this.renderSkills(),
+export class CharactersView extends React.Component
+{
+    render() {
+        return <React.Fragment>
+            <CharacterDescription
+                {...this.props}
+                />
 
-            this.renderEquipment(),
+            <CharacterInformation
+                {...this.props}
+                />
 
-            <Panel
-                    key="backstory"
-                    className="character-view__backstory info"
-                    header="Backstory"
-                >
-                <MDReactComponent
-                    text={this.props.backstory || ''}
-                    />
-            </Panel>,
+            <CharacterBasics
+                {...this.props}
+                />
 
-            this.renderSpells(),
+            <CharacterEquipment
+                {...this.props}
+                />
 
-            <Panel
-                    key="traits"
-                    className="character-view__traits info"
-                    header="Traits"
-                >
-                <ul>{_.map(this.props.info, (description, label) => {
-                    return <li key={label}>
-                        <strong>{label}</strong>
-                        <MDReactComponent
-                            text={description || ''}
-                            />
-                    </li>;
-                })}
-                </ul>
-            </Panel>,
+            <CharacterSkills
+                {...this.props}
+                />
 
-            <Panel
-                    key="abilities"
-                    className="character-view__abilities info"
-                    header="Abilities"
-                >
-                <ul>{_.map(this.props.abilities, (data, label) => {
-                    const description = sprintf(
-                        data.description,
-                        data
-                    );
-                    return <li key={label}>
-                        <strong>{label}</strong>
-                        <MDReactComponent
-                            text={description || ''}
-                            />
-                    </li>;
-                })}
-                </ul>
-            </Panel>
-        ];
+            <CharacterStatistics
+                {...this.props}
+                />
+
+            <CharacterBackstory
+                {...this.props}
+                />
+
+            <CharacterPersonality
+                {...this.props}
+                />
+
+            <CharacterSpells
+                {...this.props}
+                />
+
+            <CharacterAbilities
+                {...this.props}
+                />
+
+            <CharacterTraits
+                {...this.props}
+                />
+        </React.Fragment>;
     }
 }
 
