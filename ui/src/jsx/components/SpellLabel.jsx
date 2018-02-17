@@ -1,8 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import MDReactComponent from 'markdown-react-js';
 
 import '../../sass/_spell-label.scss';
+
+import utils from '../utils.jsx';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
@@ -18,7 +21,7 @@ export class SpellLabel extends LazyComponent
 {
     renderInfo(spell) {
         const {
-            showInfo, magic_components, magic_schools
+            showInfo, magic_components, magic_schools, tooltip
         } = this.props;
 
         if (!showInfo) {
@@ -39,7 +42,7 @@ export class SpellLabel extends LazyComponent
                                 <ListLabel
                                     items={magic_components || []}
                                     value={component}
-                                    tooltip={true}
+                                    tooltip={tooltip}
                                     />
                             </li>;
                         })}
@@ -65,7 +68,7 @@ export class SpellLabel extends LazyComponent
             <ListLabel
                 items={magic_schools || []}
                 value={spell.school}
-                tooltip={true}
+                tooltip={tooltip}
                 />
         </div>;
     }
@@ -78,24 +81,29 @@ export class SpellLabel extends LazyComponent
         }
 
         return <MDReactComponent
+            className="spell-label--description"
             text={spell.description || ''}
             />;
     }
 
     render() {
         const {
-            spell, magic_components, magic_schools, tooltip
+            spell, tooltip
         } = this.props;
+
         if (!spell) {
             return null;
         }
 
         return <div className="spell-label inline">
-            <ToolTip content={tooltip ? spell.description : null}>
-                <strong>{spell.name}</strong>
-            </ToolTip>
-            {this.renderDescription(spell)}
+            {tooltip
+                ? <ToolTip content={spell.description}>
+                    <strong>{spell.name}</strong>
+                </ToolTip>
+                : <strong>{spell.name}</strong>
+            }
             {this.renderInfo(spell)}
+            {this.renderDescription(spell)}
         </div>;
     }
 }
@@ -104,6 +112,16 @@ SpellLabel.defaultProps = {
     showDescription: false,
     showInfo: true
 };
+
+SpellLabel.propTypes = {
+    showInfo: PropTypes.bool,
+    showDescription: PropTypes.bool,
+    tooltip: PropTypes.bool,
+    spell: PropTypes.object,
+    magic_components: PropTypes.arrayOf(PropTypes.object),
+    magic_schools: PropTypes.arrayOf(PropTypes.object),
+
+}
 
 export default ListDataWrapper(
     ObjectDataWrapper(
