@@ -293,6 +293,7 @@ def home():
 def error():
     data = request.get_json()
     print data
+    return jsonify({"status": "Received"})
 
 @app.route('/authenticate')
 def authenticate():
