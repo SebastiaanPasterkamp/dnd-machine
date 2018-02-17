@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import '../../sass/_panel.scss';
@@ -11,15 +12,16 @@ export class Panel extends LazyComponent
 {
     render() {
         const {
-            className, children, id, header, footer
+            className, children, id, header, footer,
+            contentComponent
         } = this.props;
 
         let style = utils.makeStyle({}, [
             'nice-panel',
             className,
         ]);
-        let ContentComponent = 'div';
-        let contentStyle = utils.makeStyle([
+        let ContentComponent = contentComponent;
+        let contentStyle = utils.makeStyle({}, [
             "nice-panel-content"
         ]);
 
@@ -35,13 +37,11 @@ export class Panel extends LazyComponent
             }
         });
         if (ContentComponent == 'table') {
-            contentStyle = utils.makeStyle([
+            contentStyle = utils.makeStyle({}, [
                 contentStyle,
                 "nice-table", "bordered"
             ]);
         }
-
-        console.log(children);
 
         return <div className={style} id={id}>
             {header
@@ -62,5 +62,19 @@ export class Panel extends LazyComponent
         </div>;
     }
 }
+
+Panel.defaultProps = {
+    contentComponent: 'div',
+};
+
+Panel.propTypes = {
+    className: PropTypes.string,
+    id: PropTypes.string,
+    header: PropTypes.string,
+    footer: PropTypes.string,
+    ContentComponent: PropTypes.oneOf([
+        'div', 'table'
+    ]),
+};
 
 export default Panel;
