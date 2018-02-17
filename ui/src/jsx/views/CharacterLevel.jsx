@@ -48,7 +48,6 @@ const propsMap = {
     'armor': '_armor',
     'languages': '_languages',
     'skills': '_skills',
-    'spells': '_spells',
     'statistics': '_statistics',
     'weapons': '_weapons',
 };
