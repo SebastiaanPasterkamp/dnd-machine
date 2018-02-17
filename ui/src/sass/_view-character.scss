@@ -13,28 +13,34 @@
     }
     > .character-view__base {
         grid-column-end: span 2;
-        grid-row-end: span 2;
-    }
-    > .character-view__statistics {
-        grid-column-end: span 2;
-    }
-    > .character-view__skills {
-        grid-column-end: span 2;
-        grid-row-end: span 3;
     }
     > .character-view__equipment {
         grid-column-end: span 2;
+        grid-row-end: span 2;
+    }
+    > .character-view__skills {
+        grid-column-end: span 2;
+        grid-row-end: span 4;
+    }
+    > .character-view__personality {
+        grid-column-end: span 2;
+    }
+    > .character-view__statistics {
+        grid-column-end: span 2;
+        grid-row-end: span 2;
     }
     > .character-view__backstory {
         grid-column-end: span 2;
+        grid-row-end: span 2;
     }
     > .character-view__spells {
-        grid-column-end: span 2;
-    }
-    > .character-view__traits {
         grid-column-end: span 3;
+        grid-row-end: span 2;
     }
     > .character-view__abilities {
+        grid-column-end: span 3;
+    }
+    > .character-view__traits {
         grid-column-end: span 3;
     }
 }
