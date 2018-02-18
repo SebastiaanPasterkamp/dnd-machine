@@ -9,7 +9,6 @@ import re
 import markdown
 
 from .baseapi import BaseApiBlueprint
-from .. import get_datamapper
 from ..config import get_character_data, get_item_data
 from ..filters import filter_bonus, filter_distance, filter_damage, filter_unique
 from . import fill_pdf
@@ -18,8 +17,6 @@ class CharacterBlueprint(BaseApiBlueprint):
 
     def __init__(self, name, *args, **kwargs):
         super(CharacterBlueprint, self).__init__(name, *args, **kwargs)
-
-        self._character_data = None
 
         self.add_url_rule(
             '/races/api', 'get_races',
@@ -42,35 +39,23 @@ class CharacterBlueprint(BaseApiBlueprint):
 
     @property
     def datamapper(self):
-        if not self._datamapper:
-            datamapper = get_datamapper()
-            self._datamapper = datamapper.character
-        return self._datamapper
+        return self.basemapper.character
 
     @property
     def armormapper(self):
-        if '_armormapper' not in self.__dict__:
-            datamapper = get_datamapper()
-            self._armormapper = datamapper.armor
-        return self._armormapper
+        return self.basemapper.armor
 
     @property
     def weaponmapper(self):
-        if '_weaponmapper' not in self.__dict__:
-            datamapper = get_datamapper()
-            self._weaponmapper = datamapper.weapons
-        return self._weaponmapper
+        return self.basemapper.weapon
 
     @property
     def itemmapper(self):
-        if '_itemmapper' not in self.__dict__:
-            datamapper = get_datamapper()
-            self._itemmapper = datamapper.items
-        return self._itemmapper
+        return self.basemapper.items
 
     @property
     def character_data(self):
-        if not self._character_data:
+        if '_character_data' not in self.__dict__:
             self._character_data = get_character_data(True)
         return self._character_data
 
@@ -81,7 +66,8 @@ class CharacterBlueprint(BaseApiBlueprint):
                 and obj.user_id != request.user.id:
             fields = [
                 'id', 'name', 'gender', 'race', 'class', 'alignment',
-                'background', 'level', 'xp', 'xp_progress', 'xp_level', 'challenge'
+                'background', 'level', 'xp', 'xp_progress',
+                'user_id', 'xp_level', 'challenge'
                 ]
             result = dict([
                 (key, obj[key])
@@ -583,5 +569,10 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         return obj
 
-blueprint = CharacterBlueprint(
-    'character', __name__, template_folder='templates')
+def get_blueprint(basemapper):
+    return CharacterBlueprint(
+        'character',
+        __name__,
+        basemapper=basemapper,
+        template_folder='templates'
+        )

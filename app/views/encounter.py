@@ -2,7 +2,6 @@
 from flask import request, abort, render_template, url_for, redirect
 
 from .baseapi import BaseApiBlueprint
-from .. import get_datamapper
 
 class EncounterBlueprint(BaseApiBlueprint):
 
@@ -18,38 +17,23 @@ class EncounterBlueprint(BaseApiBlueprint):
 
     @property
     def datamapper(self):
-        if not self._datamapper:
-            datamapper = get_datamapper()
-            self._datamapper = datamapper.encounter
-        return self._datamapper
+        return self.basemapper.encounter
 
     @property
     def usermapper(self):
-        if '_usermapper' not in self.__dict__:
-            datamapper = get_datamapper()
-            self._usermapper = datamapper.user
-        return self._usermapper
+        return self.basemapper.user
 
     @property
     def charactermapper(self):
-        if '_charactermapper' not in self.__dict__:
-            datamapper = get_datamapper()
-            self._charactermapper = datamapper.character
-        return self._charactermapper
+        return self.basemapper.character
 
     @property
     def monstermapper(self):
-        if '_monstermapper' not in self.__dict__:
-            datamapper = get_datamapper()
-            self._monstermapper = datamapper.monster
-        return self._monstermapper
+        return self.basemapper.monster
 
     @property
     def partymapper(self):
-        if '_partymapper' not in self.__dict__:
-            datamapper = get_datamapper()
-            self._partymapper = datamapper.party
-        return self._partymapper
+        return self.basemapper.party
 
     def _api_list_filter(self, encounters):
         if not self.checkRole(['admin', 'dm']):
@@ -93,10 +77,8 @@ class EncounterBlueprint(BaseApiBlueprint):
                 'party.overview'
                 ) )
 
-        datamapper = get_datamapper()
-
         encounter = self.datamapper.getById(obj_id)
-        user = datamapper.user.getById(encounter.user_id)
+        user = self.usermapper.getById(encounter.user_id)
 
         party = self.partymapper.getById(party_id)
         party.members = self.charactermapper.getByPartyId(party_id)
@@ -277,5 +259,10 @@ class EncounterBlueprint(BaseApiBlueprint):
 
         return redirect(request.referrer)
 
-blueprint = EncounterBlueprint(
-    'encounter', __name__, template_folder='templates')
+def get_blueprint(basemapper):
+    return EncounterBlueprint(
+        'encounter',
+        __name__,
+        basemapper=basemapper,
+        template_folder='templates'
+        )

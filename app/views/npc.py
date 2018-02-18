@@ -2,7 +2,6 @@
 from flask import request, abort, render_template
 
 from .baseapi import BaseApiBlueprint
-from .. import get_datamapper
 from ..config import get_config, get_npc_data, get_item_data
 from ..filters import filter_bonus, filter_unique
 
@@ -10,10 +9,7 @@ class NpcBlueprint(BaseApiBlueprint):
 
     @property
     def datamapper(self):
-        if not self._datamapper:
-            datamapper = get_datamapper()
-            self._datamapper = datamapper.npc
-        return self._datamapper
+        return self.basemapper.npc
 
     def _exposeAttributes(self, obj):
         fields = [
@@ -65,5 +61,10 @@ class NpcBlueprint(BaseApiBlueprint):
             abort(403)
         return obj
 
-blueprint = NpcBlueprint(
-    'npc', __name__, template_folder='templates')
+def get_blueprint(basemapper):
+    return NpcBlueprint(
+        'npc',
+        __name__,
+        basemapper=basemapper,
+        template_folder='templates'
+        )

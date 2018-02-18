@@ -4,7 +4,6 @@ from flask import (
     )
 
 from .baseapi import BaseApiBlueprint
-from .. import get_datamapper
 
 class PartyBlueprint(BaseApiBlueprint):
 
@@ -26,26 +25,23 @@ class PartyBlueprint(BaseApiBlueprint):
 
     @property
     def datamapper(self):
-        if not self._datamapper:
-            datamapper = get_datamapper()
-            self._datamapper = datamapper.party
-        return self._datamapper
+        return self.basemapper.party
 
     @property
     def charactermapper(self):
-        if '_charactermapper' not in self.__dict__:
-            datamapper = get_datamapper()
-            self._charactermapper = datamapper.character
-        return self._charactermapper
+        return self.basemapper.character
+
+    @property
+    def usermapper(self):
+        return self.basemapper.user
 
     def _exposeAttributes(self, obj):
-        fields = ['id', 'user_id', 'name']
+        fields = ['id', 'user_id', 'name', 'member_ids']
         if self.checkRole(['admin', 'dm']) \
                 and obj.user_id == request.user.id:
-            fields = [
-                'id', 'user_id', 'name', 'description', 'challenge',
-                'member_ids'
-                ]
+            fields.extend([
+                'description', 'challenge'
+                ])
         result = dict([
             (key, obj[key])
             for key in fields
@@ -56,8 +52,7 @@ class PartyBlueprint(BaseApiBlueprint):
         party = self.datamapper.getById(obj_id)
         party.members = self.charactermapper.getByPartyId(obj_id)
 
-        datamapper = get_datamapper()
-        user = datamapper.user.getById(party.user_id)
+        user = self.usermapper.getById(party.user_id)
 
         return render_template(
             'party/show.html',
@@ -175,5 +170,10 @@ class PartyBlueprint(BaseApiBlueprint):
             obj_id=obj.id
             ))
 
-blueprint = PartyBlueprint(
-    'party', __name__, template_folder='templates')
+def get_blueprint(basemapper):
+    return PartyBlueprint(
+        'party',
+        __name__,
+        basemapper=basemapper,
+        template_folder='templates'
+        )
