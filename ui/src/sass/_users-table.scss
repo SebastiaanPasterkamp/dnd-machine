@@ -1,0 +1,16 @@
+// _users-table.scss
+
+.users-table {
+    nav {
+        text-align: center;
+    }
+
+    .users-table__roles {
+        > div:before {
+            content: ', ';
+        }
+        > div:first-child:before {
+            content: normal;
+        }
+    }
+}
