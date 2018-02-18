@@ -49,34 +49,40 @@ class PartyFooter extends LazyComponent
 class PartyRow extends LazyComponent
 {
     render() {
-        let cr = null,
-            ratio = null;
-        if (this.props.challenge) {
-            cr = this.props.challenge;
+        const {
+            id, challenge, name, description, member_ids
+        } = this.props;
+
+        let ratio = null;
+        if (challenge) {
+            const {
+                easy, medium, hard, deadly
+            } = challenge;
             ratio = {
-                easy: cr.easy / cr.deadly,
-                medium: (cr.medium - cr.easy) / cr.deadly,
-                hard: (cr.hard - cr.medium) / cr.deadly,
-                deadly: (cr.deadly - cr.hard) / cr.deadly
+                easy: easy / deadly,
+                medium: (medium - easy) / deadly,
+                hard: (hard - medium) / deadly,
+                deadly: (deadly - hard) / deadly
             };
         }
 
         return <tr
-                data-name={this.props.name}>
+                data-name={name}
+                >
             <td>
-                {this.props.name}<br/>
-                <i>{this.props.description}</i>
+                {name}<br/>
+                <i>{description}</i>
             </td>
             <td>
-                {this.props.member_ids.map((id) => {
-                    return <CharacterLabel
+                {_.map(member_ids, id => (
+                    <CharacterLabel
                         key={id}
                         character_id={id}
                         showProgress={true}
-                        />;
-                })}
+                        />
+                ))}
             </td>
-            {this.props.challenge ? <td>
+            {challenge ? <td>
                 <div className="nice-progress stacked">
                     <div
                         className="nice-progress-fill accent"
@@ -84,7 +90,7 @@ class PartyRow extends LazyComponent
                             width: (ratio.easy * 100.0) + '%',
                             height: '1.25rem'
                         }}>
-                        {cr.easy}
+                        {challenge.easy}
                     </div>
                     <div
                         className="nice-progress-fill good"
@@ -92,7 +98,7 @@ class PartyRow extends LazyComponent
                             width: (ratio.medium * 100.0) + '%',
                             height: '1.25rem'
                         }}>
-                        {cr.medium}
+                        {challenge.medium}
                     </div>
                     <div
                         className="nice-progress-fill warning"
@@ -100,7 +106,7 @@ class PartyRow extends LazyComponent
                             width: (ratio.hard * 100.0) + '%',
                             height: '1.25rem'
                         }}>
-                        {cr.hard}
+                        {challenge.hard}
                     </div>
                     <div
                         className="nice-progress-fill bad"
@@ -108,15 +114,15 @@ class PartyRow extends LazyComponent
                             width: (ratio.deadly * 100.0) + '%',
                             height: '1.25rem'
                         }}>
-                        {cr.deadly}
+                        {challenge.deadly}
                     </div>
                 </div>
             </td> : null}
-            <td>{this.props.id != null
+            <td>{id != null
                 ? <PartyLinks
                     altStyle={true}
                     buttons={['view', 'edit', 'host']}
-                    party_id={this.props.id}
+                    party_id={id}
                     />
                 : null
             }</td>
@@ -133,13 +139,24 @@ class PartyTable extends LazyComponent
     }
 
     render() {
-        if (this.props.parties == null) {
+        const {
+            parties, search = ''
+        } = this.props;
+
+        if (!parties) {
             return null;
         }
-        let pattern = new RegExp(this.props.search || '', "i");
-        let has_challenge = 'challenge' in (
-            _.first(_.values(this.props.parties)) || {}
+
+        const has_challenge = 'challenge' in (
+            _.first(_.values(parties)) || {}
         );
+
+        let pattern = new RegExp(search, "i");
+        const filtered = _.filter(
+            parties,
+            (party) => this.shouldDisplayRow(pattern, party)
+        );
+
 
         return <div>
             <h2 className="icon fa-users">Party list</h2>
@@ -148,14 +165,12 @@ class PartyTable extends LazyComponent
                 <PartyHeader
                     challenge={has_challenge} />
                 <tbody key="tbody">
-                    {_.map(this.props.parties, (party) => {
-                        return this.shouldDisplayRow(pattern, party)
-                            ? <PartyRow
-                                key={party.id}
-                                {...party}
-                                />
-                            : null;
-                    })}
+                    {_.map(filtered, (party) => (
+                        <PartyRow
+                            key={party.id}
+                            {...party}
+                            />
+                    ))}
                 </tbody>
                 <PartyFooter
                     challenge={has_challenge} />
