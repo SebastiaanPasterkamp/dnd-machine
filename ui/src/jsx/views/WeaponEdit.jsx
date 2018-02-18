@@ -194,7 +194,7 @@ export default ListDataWrapper(
             label: 'Weapon',
             buttons: ['cancel', 'reload', 'save']
         },
-        "weapons",
+        "weapon",
         "items"
     ),
     [

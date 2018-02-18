@@ -36,7 +36,7 @@ const viewConfig = {
 const propsList = [
     'languages',
     'skills',
-    'spells',
+    'spell',
     'statistics',
     'tools',
     'weapon_types',
@@ -48,6 +48,7 @@ const propsMap = {
     'armor': '_armor',
     'languages': '_languages',
     'skills': '_skills',
+    'spell': '_spells',
     'statistics': '_statistics',
     'weapons': '_weapons',
 };
