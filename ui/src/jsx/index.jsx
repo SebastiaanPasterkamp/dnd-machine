@@ -29,7 +29,11 @@ import MonstersTable from './views/MonstersTable.jsx';
 import NpcEdit from './views/NpcEdit.jsx';
 import NpcTable from './views/NpcTable.jsx';
 import SpellEdit from './views/SpellEdit.jsx';
+import SpellView from './views/SpellView.jsx';
 import SpellsTable from './views/SpellsTable.jsx';
+import UserEdit from './views/UserEdit.jsx';
+import UsersTable from './views/UsersTable.jsx';
+import UserView from './views/UserView.jsx';
 import WeaponEdit from './views/WeaponEdit.jsx';
 import WeaponsTable from './views/WeaponsTable.jsx';
 
@@ -147,28 +151,32 @@ class DndMachine extends React.Component
                     />
 
                 <Route
-                    path="/items/spells/new"
-                    component={SpellEdit}
-                    />
-                <Route
-                    path="/items/spells/edit/:id"
-                    component={SpellEdit}
-                    />
-                <Route
-                    path="/items/spells/list"
+                    path="/items/spell/list"
                     component={SpellsTable}
+                    />
+                <Route
+                    path="/items/spell/show/:id"
+                    component={SpellView}
+                    />
+                <Route
+                    path="/items/spell/new"
+                    component={SpellEdit}
+                    />
+                <Route
+                    path="/items/spell/edit/:id"
+                    component={SpellEdit}
                     />
 
                 <Route
-                    path="/items/weapons/new"
+                    path="/items/weapon/new"
                     component={WeaponEdit}
                     />
                 <Route
-                    path="/items/weapons/edit/:id"
+                    path="/items/weapon/edit/:id"
                     component={WeaponEdit}
                     />
                 <Route
-                    path="/items/weapons/list"
+                    path="/items/weapon/list"
                     component={WeaponsTable}
                     />
 
@@ -183,6 +191,23 @@ class DndMachine extends React.Component
                 <Route
                     path="/npc/edit/:id"
                     component={NpcEdit}
+                    />
+
+                <Route
+                    path="/user/list"
+                    component={UsersTable}
+                    />
+                <Route
+                    path="/user/new"
+                    component={UserEdit}
+                    />
+                <Route
+                    path="/user/edit/:id"
+                    component={UserEdit}
+                    />
+                <Route
+                    path="/user/show/:id"
+                    component={UserView}
                     />
 
                 <Redirect path="/login" to="/character/list" />
