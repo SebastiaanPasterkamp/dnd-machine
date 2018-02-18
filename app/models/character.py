@@ -430,8 +430,12 @@ class CharacterObject(JsonObject):
         for item in self.equipment:
             obj = None
             if isinstance(item, dict) and 'id' in item:
-                if item['path'] in ['armor', 'weapons']:
-                    obj = self.mapper[ item['path'] ].getById(
+                mappers = {
+                    'armor': self.mapper.armor,
+                    'weapons': self.mapper.weapon,
+                    }
+                if item['path'] in mappers:
+                    obj = mappers[ item['path'] ].getById(
                         item['id']
                         )
                 else:
