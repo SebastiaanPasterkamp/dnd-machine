@@ -1,0 +1,20 @@
+// _user-view.scss
+
+@import 'view-grid';
+
+.user-view {
+    @extend .view-grid;
+
+    > .user-view__description {
+        grid-column-end: span 3;
+    }
+
+    .user-view__roles {
+        > div:before {
+            content: ', ';
+        }
+        > div:first-child:before {
+            content: normal;
+        }
+    }
+}
