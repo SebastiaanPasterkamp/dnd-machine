@@ -2,17 +2,12 @@
 from flask import request, abort, render_template, url_for
 
 from .baseapi import BaseApiBlueprint
-from .. import get_datamapper
 from ..config import get_config
 
 class MonsterBlueprint(BaseApiBlueprint):
-
     @property
     def datamapper(self):
-        if not self._datamapper:
-            datamapper = get_datamapper()
-            self._datamapper = datamapper.monster
-        return self._datamapper
+        return self.basemapper.monster
 
     def _exposeAttributes(self, obj):
         fields = [
@@ -59,10 +54,9 @@ class MonsterBlueprint(BaseApiBlueprint):
                     ))
 
         config = get_config()
-        datamapper = get_datamapper()
         return render_template(
             'monster/edit.html',
-            languages=datamapper.items.getList(
+            languages=self.basemapper.items.getList(
                 'languages.common,languages.exotic'
                 ),
             machine=config['machine'],
@@ -84,5 +78,10 @@ class MonsterBlueprint(BaseApiBlueprint):
             abort(403)
         return obj
 
-blueprint = MonsterBlueprint(
-    'monster', __name__, template_folder='templates')
+def get_blueprint(basemapper):
+    return MonsterBlueprint(
+        'monster',
+        __name__,
+        basemapper=basemapper,
+        template_folder='templates'
+        )

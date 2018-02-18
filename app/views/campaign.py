@@ -4,7 +4,6 @@ from flask import request, abort, render_template, url_for, redirect
 import re
 
 from .baseapi import BaseApiBlueprint
-from .. import get_datamapper
 from ..utils import markdownToToc, indent
 from ..filters import filter_unique
 
@@ -12,38 +11,23 @@ class CampaignBlueprint(BaseApiBlueprint):
 
     @property
     def datamapper(self):
-        if not self._datamapper:
-            datamapper = get_datamapper()
-            self._datamapper = datamapper.campaign
-        return self._datamapper
+        return self.basemapper.campaign
 
     @property
     def encountermapper(self):
-        if '_encountermapper' not in self.__dict__:
-            datamapper = get_datamapper()
-            self._encountermapper = datamapper.encounter
-        return self._encountermapper
+        return self.basemapper.encounter
 
     @property
     def monstermapper(self):
-        if '_monstermapper' not in self.__dict__:
-            datamapper = get_datamapper()
-            self._monstermapper = datamapper.monster
-        return self._monstermapper
+        return self.basemapper.monster
 
     @property
     def npcmapper(self):
-        if '_npcmapper' not in self.__dict__:
-            datamapper = get_datamapper()
-            self._npcmapper = datamapper.npc
-        return self._npcmapper
+        return self.basemapper.npc
 
     @property
     def usermapper(self):
-        if '_usermapper' not in self.__dict__:
-            datamapper = get_datamapper()
-            self._usermapper = datamapper.user
-        return self._usermapper
+        return self.basemapper.user
 
     def _api_list_filter(self, campaigns):
         if not self.checkRole(['admin', 'dm']):
@@ -130,5 +114,10 @@ class CampaignBlueprint(BaseApiBlueprint):
             user=user
             )
 
-blueprint = CampaignBlueprint(
-    'campaign', __name__, template_folder='templates')
+def get_blueprint(basemapper):
+    return CampaignBlueprint(
+        'campaign',
+        __name__,
+        basemapper=basemapper,
+        template_folder='templates'
+        )
