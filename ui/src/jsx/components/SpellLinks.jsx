@@ -21,21 +21,21 @@ class SpellLinks extends BaseLinkGroup
             'view': () => {
                 return {
                     label: 'View',
-                    link: "/items/spells/show/" + spell_id,
+                    link: "/items/spell/show/" + spell_id,
                     icon: 'eye',
                 };
             },
             'edit': () => {
                 return {
                     label: 'Edit',
-                    link: "/items/spells/edit/" + spell_id,
+                    link: "/items/spell/edit/" + spell_id,
                     icon: 'pencil',
                 };
             },
             'new': () => {
                 return {
                     label: 'New',
-                    link: "/items/spells/new",
+                    link: "/items/spell/new",
                     icon: 'plus',
                 };
             }

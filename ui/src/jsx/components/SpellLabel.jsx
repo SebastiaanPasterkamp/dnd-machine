@@ -33,6 +33,17 @@ export class SpellLabel extends LazyComponent
 
             <strong>Casting Time:</strong> {spell.casting_time}
 
+            <strong>School:</strong>&nbsp;
+            <ListLabel
+                items={magic_schools || []}
+                value={spell.school}
+                tooltip={tooltip}
+                />
+
+            <strong>Range:</strong>&nbsp;
+            <Reach
+                distance={spell.range}/>
+
             {spell.components
                 ? <React.Fragment>
                     <strong>Components:</strong>
@@ -59,17 +70,6 @@ export class SpellLabel extends LazyComponent
             }
 
             <strong>Duration:</strong> {spell.duration}
-
-            <strong>Range:</strong>&nbsp;
-            <Reach
-                distance={spell.range}/>
-
-            <strong>School:</strong>&nbsp;
-            <ListLabel
-                items={magic_schools || []}
-                value={spell.school}
-                tooltip={tooltip}
-                />
         </div>;
     }
 
@@ -127,10 +127,9 @@ export default ListDataWrapper(
     ObjectDataWrapper(
         SpellLabel,
         [{
-            type: 'spells',
+            type: 'spell',
             id: 'spell_id',
             group: 'items',
-            prop: 'spell',
         }]
     ),
     [
