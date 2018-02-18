@@ -22,18 +22,11 @@ class UserObject(JsonObject):
             return True
         return False
 
-    def updateFromPost(self, form):
-        old_password = self.password
-        super(UserObject, self).updateFromPost(form)
-        if len(self.password):
-            try:
-                self.password = pbkdf2_sha256.hash(self.password)
-            except AttributeError:
-                self.password = pbkdf2_sha256.encrypt(self.password)
-            else:
-                self.password = old_password
-        else:
-            self.password = old_password
+    def setPassword(self, password):
+        try:
+            self.password = pbkdf2_sha256.hash(password)
+        except AttributeError:
+            self.password = pbkdf2_sha256.encrypt(password)
 
 class UserMapper(JsonObjectDataMapper):
     obj = UserObject

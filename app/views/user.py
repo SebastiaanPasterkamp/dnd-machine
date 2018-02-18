@@ -1,174 +1,84 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, request, session, g, redirect, url_for, \
-    abort, render_template, flash, jsonify
+from flask import request, abort, render_template, url_for
 
-from .. import get_datamapper
-from ..models.user import UserObject
-from ..config import get_config
+from .baseapi import BaseApiBlueprint
 
-blueprint = Blueprint(
-    'user', __name__, template_folder='templates')
+class UserBlueprint(BaseApiBlueprint):
+    @property
+    def datamapper(self):
+        return self.basemapper.user
 
-def exposeAttributes(user):
-    fields = ['id', 'name', 'role']
-    if 'admin' in request.user.role \
-            or user.id == request.user.id:
-        fields = ['id', 'username', 'name', 'email', 'role']
+    def _exposeAttributes(self, obj):
+        fields = ['id', 'name', 'role']
 
-    result = dict([
-        (key, user[key])
-        for key in fields
-        ])
+        if obj.id == request.user.id \
+                or self.checkRole(['admin']):
+            fields = ['id', 'username', 'name', 'email', 'role']
 
-    return result
+        result = dict([
+            (key, obj[key])
+            for key in fields
+            ])
 
-@blueprint.route('/')
-@blueprint.route('/list')
-def overview():
-    if 'admin' not in request.user['role']:
-        abort(403)
+        return result
 
-    config = get_config()
-    datamapper = get_datamapper()
+    def _api_list_filter(self, objs):
+        if not self.checkRole(['admin']):
+            abort(403)
+        return objs
 
-    search = request.args.get('search', '')
-    users = datamapper.user.getList(search)
-    return render_template(
-        'user/overview.html',
-        data=config['data'],
-        users=users,
-        search=search
+    def _api_post_filter(self, obj):
+        if not self.checkRole(['admin']):
+            abort(403)
+        obj.setPassword(obj.password)
+        return obj
+
+    def _api_patch_filter(self, obj):
+        if obj.id != request.user.id \
+                and not self.checkRole(['admin']):
+            abort(403)
+
+        old = self.datamapper.getById(obj.id)
+        if not len(obj.password):
+            obj.password = old.password
+        elif obj.password != old.password:
+            obj.setPassword(obj.password)
+
+        return obj
+
+    def _api_delete_filter(self, obj):
+        if not self.checkRole(['admin']):
+            abort(403)
+        return obj
+
+    def show(self, obj_id):
+        if obj_id != request.user.id \
+                and not self.checkRole(['admin']):
+            abort(403)
+        return render_template(
+            'reactjs-layout.html'
+            )
+
+    def edit(self, obj_id):
+        if obj_id != request.user.id \
+                and not self.checkRole(['admin']):
+            abort(403)
+        return render_template(
+            'reactjs-layout.html'
+            )
+
+    def new(self):
+        if obj_id != request.user.id \
+                and not self.checkRole(['admin']):
+            abort(403)
+        return render_template(
+            'reactjs-layout.html'
+            )
+
+def get_blueprint(basemapper):
+    return UserBlueprint(
+        'user',
+        __name__,
+        basemapper=basemapper,
+        template_folder='templates'
         )
-
-@blueprint.route('/show/<int:user_id>')
-def show(user_id):
-    if user_id != request.user['id'] \
-            and (
-                'role' not in request.user
-                or 'admin' not in request.user['role']
-                ):
-        abort(403)
-
-    config = get_config()
-    datamapper = get_datamapper()
-
-    u = datamapper.user.getById(user_id)
-    return render_template(
-        'user/show.html',
-        data=config['data'],
-        user=u
-        )
-
-@blueprint.route('/edit/<int:user_id>', methods=['GET', 'POST'])
-def edit(user_id):
-    if user_id != request.user['id'] \
-            and 'admin' not in request.user['role']:
-        abort(403)
-
-    config = get_config()
-    datamapper = get_datamapper()
-
-    u = datamapper.user.getById(user_id)
-
-    if request.method == 'POST':
-        if request.form["button"] == "cancel":
-            return redirect(url_for(
-                'user.show',
-                user_id=user_id
-                ))
-
-        u.updateFromPost(request.form)
-
-        if request.form.get("button", "save") == "save":
-            datamapper.user.update(u)
-            return redirect(url_for(
-                'user.show',
-                user_id=user_id
-                ))
-
-    return render_template(
-        'user/edit.html',
-        data=config['data'],
-        user=u
-        )
-
-
-@blueprint.route('/new', methods=['GET', 'POST'])
-def new():
-    if 'role' not in request.user \
-            or 'admin' not in request.user['role']:
-        abort(403)
-
-    config = get_config()
-    datamapper = get_datamapper()
-
-    u = UserObject()
-
-    if request.method == 'POST':
-        if request.form["button"] == "cancel":
-            return redirect(url_for(
-                'user.show',
-                user_id=user_id
-                ))
-
-        u.updateFromPost(request.form)
-
-        if request.form.get("button", "save") == "save":
-            u = datamapper.user.insert(u)
-            return redirect(url_for(
-                'user.show',
-                user_id=u.id
-                ))
-
-    return render_template(
-        'user/edit.html',
-        data=config['data'],
-        user=u
-        )
-
-
-@blueprint.route('/api/<int:user_id>', methods=['GET'])
-def api_get(user_id):
-    datamapper = get_datamapper()
-
-    user = datamapper.user.getById(user_id)
-    if not user:
-        return jsonify(user)
-
-    result = exposeAttributes(user)
-
-    return jsonify(result)
-
-
-@blueprint.route('/api', methods=['POST'])
-def api_post():
-    if 'admin' not in request.user['role']:
-        abort(403)
-
-    datamapper = get_datamapper()
-    user = datamapper.user.create(request.get_json())
-
-    if 'id' in user and user.id:
-        abort(409, "Cannot create with existing ID")
-
-    user = datamapper.user.insert(user)
-
-    return jsonify(user.config)
-
-
-@blueprint.route('/api/<int:user_id>', methods=['PATCH'])
-def api_patch(user_id):
-    datamapper = get_datamapper()
-    user = datamapper.user.getById(user_id)
-    user.update(request.get_json())
-
-    if 'id' not in user or user.id != user_id:
-        abort(409, "Cannot change ID")
-
-    if 'admin' not in request.user.role \
-            and user.id != request.user.id:
-        abort(409, "User must be owned by User")
-
-    user = datamapper.user.update(user)
-
-    return jsonify(user.config)
