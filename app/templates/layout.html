@@ -93,16 +93,16 @@
                             </span>
                             <ul id="menu-items">
                                 <li>
-                                    <a href="{{ url_for('items.get_list', objects='spells') }}" class="icon fa-magic">Spells</a>
+                                    <a href="{{ url_for('spell.overview') }}" class="icon fa-magic">Spells</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url_for('items.get_list', objects='languages') }}" class="icon fa-language">Languages</a>
+                                    <a href="{{ url_for('items.get_item', item='languages') }}" class="icon fa-language">Languages</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url_for('items.get_list', objects='weapons') }}" class="icon fa-cutlery">Weapons</a>
+                                    <a href="{{ url_for('weapon.overview') }}" class="icon fa-cutlery">Weapons</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url_for('items.get_list', objects='armor') }}" class="icon fa-shield">Armor</a>
+                                    <a href="{{ url_for('armor.overview') }}" class="icon fa-shield">Armor</a>
                                 </li>
                             </ul>
                         </li>
@@ -127,7 +127,7 @@
                             </span>
                             <ul>
                                 <li>
-                                    <a href="{{ url_for('user.show', user_id=request.user.id) }}" class="icon fa-address-book">
+                                    <a href="{{ url_for('user.show', obj_id=request.user.id) }}" class="icon fa-address-book">
                                         View profile
                                     </a>
                                 </li>

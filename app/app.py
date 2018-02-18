@@ -9,26 +9,67 @@ from .models.base import JsonObjectDataMapper
 from . import get_db, get_datamapper
 from .config import get_config, get_item_data
 import filters
-from .views.user import blueprint as user
-from .views.items import blueprint as items
-from .views.character import blueprint as character
-from .views.party import blueprint as party
-from .views.monster import blueprint as monster
-from .views.npc import blueprint as npc
-from .views.encounter import blueprint as encounter
-from .views.campaign import blueprint as campaign
+from .views.item import blueprint as items
+from .views.user import get_blueprint as get_user
+from .views.items.armor import get_blueprint as get_armor
+from .views.items.spell import get_blueprint as get_spell
+from .views.items.weapon import get_blueprint as get_weapon
+from .views.character import get_blueprint as get_character
+from .views.party import get_blueprint as get_party
+from .views.monster import get_blueprint as get_monster
+from .views.npc import get_blueprint as get_npc
+from .views.encounter import get_blueprint as get_encounter
+from .views.campaign import get_blueprint as get_campaign
 
 app = Flask(__name__)
 
 # Register blueprints
-app.register_blueprint(user, url_prefix='/user')
-app.register_blueprint(items, url_prefix='/items')
-app.register_blueprint(character, url_prefix='/character')
-app.register_blueprint(party, url_prefix='/party')
-app.register_blueprint(monster, url_prefix='/monster')
-app.register_blueprint(npc, url_prefix='/npc')
-app.register_blueprint(encounter, url_prefix='/encounter')
-app.register_blueprint(campaign, url_prefix='/campaign')
+with app.app_context():
+    dm = get_datamapper()
+    app.register_blueprint(
+        get_user(dm),
+        url_prefix='/user'
+        )
+    app.register_blueprint(
+        get_armor(dm),
+        url_prefix='/items/armor'
+        )
+    app.register_blueprint(
+        get_spell(dm),
+        url_prefix='/items/spell'
+        )
+    app.register_blueprint(
+        get_weapon(dm),
+        url_prefix='/items/weapon'
+        )
+    app.register_blueprint(
+        items,
+        url_prefix='/items'
+        )
+    app.register_blueprint(
+        get_character(dm),
+        url_prefix='/character'
+        )
+    app.register_blueprint(
+        get_party(dm),
+        url_prefix='/party'
+        )
+    app.register_blueprint(
+        get_monster(dm),
+        url_prefix='/monster'
+        )
+    app.register_blueprint(
+        get_npc(dm),
+        url_prefix='/npc'
+        )
+    app.register_blueprint(
+        get_encounter(dm),
+        url_prefix='/encounter'
+        )
+    app.register_blueprint(
+        get_campaign(dm),
+        url_prefix='/campaign'
+        )
 
 # Register filters
 app.jinja_env.filters['max'] = filters.filter_max
@@ -244,7 +285,6 @@ def _migrate():
 def get_user():
     """Checks if the user is logged in, and returns the user
     object"""
-    datamapper = get_datamapper()
 
     publicPages = (
         'login',
@@ -255,6 +295,7 @@ def get_user():
         )
 
     if session.get('user_id') is not None:
+        datamapper = get_datamapper()
         request.user = datamapper.user.getById(session.get('user_id'))
     elif request.endpoint not in publicPages:
         if request.is_xhr:
@@ -266,7 +307,6 @@ def get_user():
 @app.before_request
 def get_party():
     """Checks if the user is hosting a party"""
-    datamapper = get_datamapper()
 
     if session.get('party_id'):
         datamapper = get_datamapper()
@@ -306,7 +346,7 @@ def current_user():
 
     return redirect(url_for(
         'user.api_get',
-        user_id=session.get('user_id')
+        obj_id=session.get('user_id')
         ))
 
 @app.route('/hosted_party')
@@ -381,25 +421,25 @@ def navigation():
     items_group['items'].append({
         'label': 'Spells',
         'icon': 'magic',
-        'path': url_for('items.get_list', objects='spells'),
+        'path': url_for('spell.overview'),
         })
 
     items_group['items'].append({
         'label': 'Languages',
         'icon': 'language',
-        'path': url_for('items.get_list', objects='languages'),
+        'path': url_for('items.get_item', item='languages'),
         })
 
     items_group['items'].append({
         'label': 'Weapons',
         'icon': 'cutlery',
-        'path': url_for('items.get_list', objects='weapons'),
+        'path': url_for('weapon.overview'),
         })
 
     items_group['items'].append({
         'label': 'Armor',
         'icon': 'shield',
-        'path': url_for('items.get_list', objects='armor'),
+        'path': url_for('armor.overview'),
         })
 
     navigation.append(items_group)
@@ -429,7 +469,7 @@ def navigation():
     user_group['items'].append({
         'label': 'View profile',
         'icon': 'address-card-o',
-        'path': url_for('user.show', user_id=request.user.id),
+        'path': url_for('user.show', obj_id=request.user.id),
         })
 
     user_group['items'].append({
