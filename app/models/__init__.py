@@ -35,8 +35,8 @@ class Datamapper(object):
             'monster': lambda: MonsterMapper(db, self),
             'npc': lambda: NpcMapper(db, self),
             'armor': lambda: ArmorMapper(db),
-            'weapons': lambda: WeaponMapper(db),
-            'spells': lambda: SpellMapper(db),
+            'weapon': lambda: WeaponMapper(db),
+            'spell': lambda: SpellMapper(db),
             'campaign': lambda: CampaignMapper(db),
             'items': lambda: ItemsObject(
                 os.path.abspath(

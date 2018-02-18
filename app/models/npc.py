@@ -243,7 +243,7 @@ class NpcObject(JsonObject):
                 ]
             }
         def findObj(item):
-            objs = self.mapper.weapons.getMultiple(
+            objs = self.mapper.weapon.getMultiple(
                 'name COLLATE nocase = :name',
                 {'name': item}
                 )

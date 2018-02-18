@@ -407,7 +407,7 @@ class CharacterObject(JsonObject):
             }
 
         def findObj(item):
-            objs = self.mapper.weapons.getMultiple(
+            objs = self.mapper.weapon.getMultiple(
                 'name COLLATE nocase = :name',
                 {'name': item}
                 )
@@ -529,7 +529,7 @@ class CharacterObject(JsonObject):
 
         self.spellLevel = {}
         for spell in set(self.spellList).union(self.spellPrepared):
-            objs = self.mapper.spells.getMultiple(
+            objs = self.mapper.spell.getMultiple(
                 'name COLLATE nocase = :name',
                 {'name': spell}
                 )
