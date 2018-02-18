@@ -55,9 +55,8 @@ class SpellRow extends LazyComponent
 {
     render() {
         const {
-            id, name, level, classes, _classes, school, magic_schools,
-            range, casting_time, duration, components,
-            magic_components, cost, description, damage
+            id, name, level, range, cost, description, damage,
+            classes, _classes
         } = this.props;
 
         return <tr data-name={name}>
@@ -68,6 +67,24 @@ class SpellRow extends LazyComponent
                         <strong>Level:</strong>&nbsp;
                         {level}
                     </li>
+                    <li>
+                        <strong>Range:</strong>&nbsp;
+                        <Reach distance={range} />
+                    </li>
+                    {damage && damage.dice_count
+                        ? <li>
+                            <strong>Damage:</strong>&nbsp;
+                            <DiceNotation {...damage}/>
+                        </li>
+                        : null
+                    }
+                    {cost ?
+                        <li>
+                            <strong>Cost:</strong>&nbsp;
+                            {cost}
+                        </li>
+                        : null
+                    }
                     {classes.length
                         ? <li className="spells-table--properties">
                             <strong>Classes:</strong>&nbsp;
@@ -79,50 +96,6 @@ class SpellRow extends LazyComponent
                                     tooltip={true}
                                     />;
                             })}
-                        </li>
-                        : null
-                    }
-                    <li>
-                        <strong>School:</strong>&nbsp;
-                        {school}
-                    </li>
-                    <li>
-                        <strong>Range:</strong>&nbsp;
-                        <Reach distance={range} />
-                    </li>
-                    <li>
-                        <strong>Casting Time:</strong>&nbsp;
-                        {casting_time}
-                    </li>
-                    <li>
-                        <strong>Duration:</strong>&nbsp;
-                        {duration}
-                    </li>
-                    {damage && damage.dice_count
-                        ? <li>
-                            <strong>Damage:</strong>&nbsp;
-                            <DiceNotation {...damage}/>
-                        </li>
-                        : null
-                    }
-                    {components.length
-                        ? <li className="spells-table--properties">
-                            <strong>Components:</strong>&nbsp;
-                            {_.map(components, component => {
-                                return                             <ListLabel
-                                    key={component}
-                                    items={magic_components || []}
-                                    value={component}
-                                    tooltip={true}
-                                    />;
-                            })}
-                        </li>
-                        : null
-                    }
-                    {cost ?
-                        <li>
-                            <strong>Cost:</strong>&nbsp;
-                            {cost}
                         </li>
                         : null
                     }
@@ -300,11 +273,8 @@ class SpellsTable extends React.Component
 export default ListDataWrapper(
     ObjectDataListWrapper(
         SpellsTable,
-        {spells: {group: 'items', type: 'spells'}}
+        {spells: {group: 'items', type: 'spell'}}
     ),
-    ['search', 'magic_schools', 'magic_components', 'classes'],
-    'items',
-    {
-        'classes': '_classes'
-    }
+    ['search'],
+    'items'
 );
