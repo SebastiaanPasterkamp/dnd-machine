@@ -1,4 +1,9 @@
 {
+    "user_roles": [
+        {"code": "admin", "label": "Site Administrator"},
+        {"code": "dm", "label": "Dungeon Master"},
+        {"code": "player", "label": "Player"}
+    ],
     "classes": [
         {"code": "Barbarian", "label": "Barbarian", "description": "A fierce warrior of primitive background who can enter a battle rage."},
         {"code": "Bard", "label": "Bard", "description": "An inspiring magician whose power echoes the music of creation."},
