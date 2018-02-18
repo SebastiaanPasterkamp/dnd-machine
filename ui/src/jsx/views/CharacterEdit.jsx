@@ -40,8 +40,8 @@ export class CharacterEdit extends React.Component
         const {
             level, 'class': _class, race, background, xp_progress,
             xp_level, name, alignment, alignments, gender, genders,
-            height, weight, age, appearance, spell, spells, backstory,
-            personality
+            height, weight, age, appearance, spell, _spells,
+            backstory, personality
         } = this.props;
 
         const isSelectable = (item) => {
@@ -157,7 +157,7 @@ export class CharacterEdit extends React.Component
                     ? <ControlGroup label="Prepared Spells">
                         <TagContainer
                             tags={spell.list.concat(spell.prepared)}
-                            tagOptions={spells || []}
+                            tagOptions={_spells || []}
                             setState={(value) => {
                                 const prepared = _.difference(
                                     value, spell.list
@@ -241,7 +241,7 @@ export default ListDataWrapper(
         'genders',
         'languages',
         'skills',
-        'spells',
+        'spell',
         'statistics',
         'tools',
         'weapon_types',
@@ -252,9 +252,10 @@ export default ListDataWrapper(
     'items',
     {
         'armor': '_armor',
+        'spell': '_spells',
         'languages': '_languages',
         'skills': '_skills',
         'statistics': '_statistics',
-        'weapons': '_weapons',
+        'weapon': '_weapons',
     }
 );

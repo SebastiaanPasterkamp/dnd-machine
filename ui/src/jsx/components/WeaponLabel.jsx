@@ -113,10 +113,9 @@ export default ListDataWrapper(
     ObjectDataWrapper(
         WeaponLabel,
         [{
-            type: 'weapons',
+            type: 'weapon',
             id: 'weapon_id',
             group: 'items',
-            prop: 'weapon',
         }]
     ),
     [

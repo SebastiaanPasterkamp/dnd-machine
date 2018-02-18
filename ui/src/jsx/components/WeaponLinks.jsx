@@ -20,21 +20,21 @@ class WeaponLinks extends BaseLinkGroup
             'view': () => {
                 return {
                     label: 'View',
-                    link: "/items/weapons/show/" + weapon_id,
+                    link: "/items/weapon/show/" + weapon_id,
                     icon: 'eye',
                 };
             },
             'edit': () => {
                 return {
                     label: 'Edit',
-                    link: "/items/weapons/edit/" + weapon_id,
+                    link: "/items/weapon/edit/" + weapon_id,
                     icon: 'pencil',
                 };
             },
             'new': () => {
                 return {
                     label: 'New',
-                    link: "/items/weapons/new",
+                    link: "/items/weapon/new",
                     icon: 'plus',
                 };
             }

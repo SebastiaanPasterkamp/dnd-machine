@@ -132,7 +132,7 @@ class WeaponsTable extends LazyComponent
 export default ListDataWrapper(
     ObjectDataListWrapper(
         WeaponsTable,
-        {weapons: {group: 'items', type: 'weapons'}}
+        {weapons: {group: 'items', type: 'weapon'}}
     ),
     ['search', 'weapon_properties'],
     'items'
