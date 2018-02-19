@@ -15,7 +15,7 @@ export class UserView extends React.Component
 {
     render() {
         const {
-            id, name, username, email, role = [],
+            id, name, username, dci, email, role = [],
             user_roles = [], current_user
         } = this.props;
         const isAdmin = _.includes(current_user.role || [], 'admin');
@@ -29,13 +29,13 @@ export class UserView extends React.Component
                 <thead>
                     <tr>
                         <th colSpan="2">
-                            <h3>{name || username}</h3>
-
                             <UserLinks
                                 buttons={['edit']}
                                 className="pull-right"
                                 user_id={id}
                                 />
+
+                            <h3>{name || username}</h3>
                         </th>
                     </tr>
                 </thead>
@@ -49,6 +49,10 @@ export class UserView extends React.Component
                         <th>Email</th>
                         <td>{email}</td>
                     </tr>
+                    {dci? <tr>
+                        <th>DCI</th>
+                        <td>{dci}</td>
+                    </tr> : null}
                     <tr>
                         <th>Roles</th>
                         <td className="user-view__roles">
