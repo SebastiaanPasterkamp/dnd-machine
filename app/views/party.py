@@ -36,30 +36,20 @@ class PartyBlueprint(BaseApiBlueprint):
         return self.basemapper.user
 
     def _exposeAttributes(self, obj):
-        fields = ['id', 'user_id', 'name', 'member_ids']
+        fields = [
+            'id', 'user_id', 'name', 'size', 'description',
+            'member_ids'
+            ]
         if self.checkRole(['admin', 'dm']) \
                 and obj.user_id == request.user.id:
             fields.extend([
-                'description', 'challenge'
+                'challenge'
                 ])
         result = dict([
             (key, obj[key])
             for key in fields
             ])
         return result
-
-    def show(self, obj_id):
-        party = self.datamapper.getById(obj_id)
-        party.members = self.charactermapper.getByPartyId(obj_id)
-
-        user = self.usermapper.getById(party.user_id)
-
-        return render_template(
-            'party/show.html',
-            party=party,
-            user=user,
-            characters=party.members
-            )
 
     def _api_list_filter(self, objs):
         visible = set()
