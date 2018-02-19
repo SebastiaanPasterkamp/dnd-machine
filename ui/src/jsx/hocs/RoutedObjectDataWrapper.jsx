@@ -187,7 +187,10 @@ function RoutedObjectDataWrapper(
         }
 
         renderButtons() {
-            if(!this.state.buttons.length) {
+            const {
+                id, buttons
+            } = this.state;
+            if(!buttons.length) {
                 return null;
             }
 
@@ -195,18 +198,18 @@ function RoutedObjectDataWrapper(
                     className={config.className + "__save"}
                     header="Save"
                     >
-                {_.includes(this.state.buttons, "cancel")
+                {_.includes(buttons, "cancel")
                     ? <ButtonField
                         name="button"
                         color="muted"
                         icon="ban"
-                        onClick={() => this.nextView()}
+                        onClick={() => this.nextView(id)}
                         label="Cancel"
                         />
                     : null
                 }
-                {_.includes(this.state.buttons, "reload")
-                        && this.state.id != null
+                {_.includes(buttons, "reload")
+                        && id != null
                     ? <ButtonField
                         name="button"
                         color="info"
@@ -223,7 +226,7 @@ function RoutedObjectDataWrapper(
                         />
                     : null
                 }
-                {_.includes(this.state.buttons, "recompute")
+                {_.includes(buttons, "recompute")
                     ? <ButtonField
                         name="button"
                         color="accent"
@@ -240,7 +243,7 @@ function RoutedObjectDataWrapper(
                         />
                     : null
                 }
-                {_.includes(this.state.buttons, "save")
+                {_.includes(buttons, "save")
                     ? <ButtonField
                         name="button"
                         color="primary"
@@ -254,6 +257,9 @@ function RoutedObjectDataWrapper(
         }
 
         render() {
+            const {
+                id, error
+            } = this.state;
             let data = this.getStateProps();
 
             if(!data) {
@@ -274,7 +280,7 @@ function RoutedObjectDataWrapper(
                         }}
                         setButtons={(b) => this.setButtons(b)}
                         cancel={() => this.nextView()}
-                        reload={this.state.id != null
+                        reload={id != null
                             ? (callback=null) => this.onReload(callback)
                             : null
                         }
@@ -286,7 +292,7 @@ function RoutedObjectDataWrapper(
                         }}
                         {...this.props}
                         {...data}
-                        error={this.state.error || null}
+                        error={error || null}
                         />
 
                     {this.renderButtons()}
