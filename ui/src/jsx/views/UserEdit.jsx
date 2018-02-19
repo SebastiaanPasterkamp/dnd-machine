@@ -19,7 +19,7 @@ export class UserEdit extends React.Component
 
     render() {
         const {
-            id, name, username, password, email, role = [],
+            id, name, username, password, email, dci, role = [],
             user_roles = [], current_user
         } = this.props;
         const isAdmin = _.includes(current_user.role || [], 'admin');
@@ -63,6 +63,13 @@ export class UserEdit extends React.Component
                         setState={(value) => this.onFieldChange('email', value)
                         } />
                 </ControlGroup>
+                <ControlGroup label="DCI">
+                    <InputField
+                        placeholder="DCI..."
+                        value={dci}
+                        setState={(value) => this.onFieldChange('dci', value)
+                        } />
+                </ControlGroup>
             </Panel>
 
             {isAdmin
@@ -94,7 +101,7 @@ export default ListDataWrapper(
                 className: 'user-edit',
                 icon: 'fa-user',
                 label: 'User',
-                buttons: ['show', 'reload', 'save']
+                buttons: ['cancel', 'show', 'reload', 'save']
             },
             "user"
         ),
