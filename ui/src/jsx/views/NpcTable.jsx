@@ -21,7 +21,6 @@ class NpcHeader extends React.Component
                 <th>Alignment</th>
                 <th>Location</th>
                 <th>Organization</th>
-                <th>Actions</th>
             </tr>
         </thead>;
     }
@@ -32,8 +31,7 @@ class NpcFooter extends LazyComponent
     render() {
         return <tbody>
             <tr>
-                <td colSpan="6"></td>
-                <td>
+                <td colSpan={5}>
                     <NpcLinks
                         altStyle={true}
                         buttons={['new']}
@@ -47,22 +45,25 @@ class NpcFooter extends LazyComponent
 class NpcRow extends LazyComponent
 {
     render() {
-        return <tr
-                data-name={this.props.name}>
-            <td>{this.props.name}</td>
-            <td>{this.props.race}</td>
-            <td>{this.props.class}</td>
-            <td>{this.props.alignment}</td>
-            <td>{this.props.location}</td>
-            <td>{this.props.organization}</td>
-            <td>{this.props.id != null
-                ? <NpcLinks
+        const {
+            id, name, race, 'class': _class, alignment, location,
+            organization
+        } = this.props;
+
+        return <tr data-name={id}>
+            <th>
+                {name}
+                <NpcLinks
                     altStyle={true}
                     buttons={['view', 'edit']}
-                    npc_id={this.props.id}
+                    npc_id={id}
                     />
-                : null
-            }</td>
+            </th>
+            <td>{race}</td>
+            <td>{_class}</td>
+            <td>{alignment}</td>
+            <td>{location}</td>
+            <td>{organization}</td>
         </tr>
     }
 };
@@ -78,24 +79,31 @@ class NpcTable extends LazyComponent
     }
 
     render() {
-        if (this.props.npcs == null) {
+        const {
+            npcs, search = ''
+        } = this.props;
+
+        if (!npcs) {
             return null;
         }
-        let pattern = new RegExp(this.props.search || '', "i");
+
+        let pattern = new RegExp(search, "i");
+        const filtered = _.filter(
+            npcs,
+            (npc) => this.shouldDisplayRow(pattern, npc)
+        );
 
         return <div>
             <h2 className="icon fa-commenting-o">NPC list</h2>
             <table className="nice-table condensed bordered responsive">
                 <NpcHeader />
                 <tbody key="tbody">
-                    {_.map(this.props.npcs, (npc) => {
-                        return this.shouldDisplayRow(pattern, npc)
-                            ? <NpcRow
-                                key={npc.id}
-                                {...npc}
-                                />
-                            : null;
-                    })}
+                    {_.map(npcs, (npc) => (
+                        <NpcRow
+                            key={npc.id}
+                            {...npc}
+                            />
+                    ))}
                 </tbody>
                 <NpcFooter />
             </table>

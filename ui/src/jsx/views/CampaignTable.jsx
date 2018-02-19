@@ -18,7 +18,6 @@ class CampaignHeader extends React.Component
             <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Actions</th>
             </tr>
         </thead>;
     }
@@ -29,8 +28,7 @@ class CampaignFooter extends LazyComponent
     render() {
         return <tbody>
             <tr>
-                <td colSpan="2"></td>
-                <td>
+                <td colSpan={2}>
                     <CampaignLinks
                         altStyle={true}
                         buttons={['new']}
@@ -44,21 +42,23 @@ class CampaignFooter extends LazyComponent
 class CampaignRow extends LazyComponent
 {
     render() {
-        return <tr
-                data-name={this.props.name}>
-            <td>{this.props.name}</td>
-            <td>
-                <MDReactComponent
-                    text={this.props.description} />
-            </td>
-            <td>{this.props.id != null
-                ? <CampaignLinks
+        const {
+            id, name, description = ''
+        } = this.props;
+
+        return <tr data-id={id}>
+            <th>
+                {name}
+                <CampaignLinks
                     altStyle={true}
                     buttons={['view', 'edit']}
-                    campaign_id={this.props.id}
+                    campaign_id={id}
                     />
-                : null
-            }</td>
+            </th>
+            <td>
+                <MDReactComponent
+                    text={description} />
+            </td>
         </tr>
     }
 };
@@ -73,24 +73,31 @@ class CampaignTable extends LazyComponent
     }
 
     render() {
-        if (this.props.campaigns == null) {
+        const {
+            campaigns, search = ''
+        } = this.props;
+
+        if (!campaigns) {
             return null;
         }
-        let pattern = new RegExp(this.props.search || '', "i");
+
+        let pattern = new RegExp(search, "i");
+        const filtered = _.filter(
+            campaigns,
+            (campaign) => this.shouldDisplayRow(pattern, campaign)
+        );
 
         return <div>
             <h2 className="icon fa-commenting-o">NPC list</h2>
             <table className="nice-table condensed bordered responsive">
                 <CampaignHeader />
                 <tbody key="tbody">
-                    {_.map(this.props.campaigns, (campaign) => {
-                        return this.shouldDisplayRow(pattern, campaign)
-                            ? <CampaignRow
-                                key={campaign.id}
-                                {...campaign}
-                                />
-                            : null;
-                    })}
+                {_.map(filtered, (campaign) => (
+                    <CampaignRow
+                        key={campaign.id}
+                        {...campaign}
+                        />
+                ))}
                 </tbody>
                 <CampaignFooter />
             </table>

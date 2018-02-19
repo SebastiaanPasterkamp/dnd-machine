@@ -28,7 +28,6 @@ class SpellsHeader extends React.Component
                 <th>Name</th>
                 <th>Information</th>
                 <th>Description</th>
-                <th>Actions</th>
             </tr>
         </thead>;
     }
@@ -39,8 +38,7 @@ class SpellsFooter extends LazyComponent
     render() {
         return <tbody>
             <tr>
-                <td colSpan="3"></td>
-                <td>
+                <td colSpan={3}>
                     <SpellLinks
                         altStyle={true}
                         buttons={['new']}
@@ -59,8 +57,15 @@ class SpellRow extends LazyComponent
             classes, _classes
         } = this.props;
 
-        return <tr data-name={name}>
-            <th>{name}</th>
+        return <tr data-id={id}>
+            <th>
+                {name}
+                <SpellLinks
+                    altStyle={true}
+                    buttons={['view', 'edit']}
+                    spell_id={id}
+                    />
+            </th>
             <td>
                 <ul className="nice-menu stacked">
                     <li>
@@ -106,14 +111,6 @@ class SpellRow extends LazyComponent
                     text={this.props.description || ''}
                     />
             </td>
-            <td>{id != null ?
-                <SpellLinks
-                    altStyle={true}
-                    buttons={['view', 'edit']}
-                    spell_id={id}
-                    />
-                : null
-            }</td>
         </tr>
     }
 };
@@ -253,15 +250,15 @@ class SpellsTable extends React.Component
             <table className="nice-table condensed bordered responsive">
                 <SpellsHeader/>
                 <tbody key="tbody">
-                    {_.map(paged, (spell) => {
-                        return <SpellRow
+                    {_.map(paged, (spell) => (
+                        <SpellRow
                             key={spell.name}
                             magic_components={magic_components}
                             magic_schools={magic_schools}
                             _classes={_classes}
                             {...spell}
-                            />;
-                    })}
+                            />
+                    ))}
                 </tbody>
                 <SpellsFooter />
             </table>

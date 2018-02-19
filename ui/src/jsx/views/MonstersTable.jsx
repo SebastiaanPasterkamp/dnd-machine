@@ -17,7 +17,6 @@ class MonstersHeader extends React.Component
             <tr>
                 <th>Name</th>
                 <th>Challenge</th>
-                <th>Actions</th>
             </tr>
         </thead>;
     }
@@ -28,8 +27,7 @@ class MonstersFooter extends LazyComponent
     render() {
         return <tbody>
             <tr>
-                <td colSpan="2"></td>
-                <td>
+                <td colSpan={2}>
                     <MonsterLinks
                         altStyle={true}
                         buttons={['new']}
@@ -43,18 +41,20 @@ class MonstersFooter extends LazyComponent
 class MonstersRow extends LazyComponent
 {
     render() {
-        return <tr
-                data-name={this.props.name}>
-            <td>{this.props.name}</td>
-            <td>{this.props.challenge_rating} / {this.props.xp_rating}XP</td>
-            <td>{this.props.id != null
-                ? <MonsterLinks
+        const {
+            id, name, challenge_rating, xp_rating
+        } = this.props;
+
+        return <tr data-name={id}>
+            <th>
+                {name}
+                <MonsterLinks
                     altStyle={true}
                     buttons={['view', 'edit']}
                     monster_id={this.props.id}
                     />
-                : null
-            }</td>
+            </th>
+            <td>{challenge_rating} / {xp_rating}XP</td>
         </tr>
     }
 };
@@ -63,29 +63,36 @@ class MonstersTable extends LazyComponent
 {
     shouldDisplayRow(pattern, monster) {
         return (
-            (monster.name && monster.name.search(pattern) >= 0)
+            (monster.name && monster.name.match(pattern))
         );
     }
 
     render() {
-        if (this.props.monsters == null) {
+        const {
+            monsters, search = ''
+        } = this.props;
+
+        if (!monsters) {
             return null;
         }
-        let pattern = new RegExp(this.props.search || '', "i");
+
+        let pattern = new RegExp(search, "i");
+        const filtered = _.filter(
+            monsters,
+            (monster) => this.shouldDisplayRow(pattern, monster)
+        );
 
         return <div>
             <h2 className="icon fa-paw">Monster list</h2>
             <table className="nice-table condensed bordered responsive">
                 <MonstersHeader />
                 <tbody key="tbody">
-                    {_.map(this.props.monsters, (monster) => {
-                        return this.shouldDisplayRow(pattern, monster)
-                            ? <MonstersRow
-                                key={monster.id}
-                                {...monster}
-                                />
-                            : null;
-                    })}
+                    {_.map(filtered, (monster) => (
+                        <MonstersRow
+                            key={monster.id}
+                            {...monster}
+                            />
+                    ))}
                 </tbody>
                 <MonstersFooter />
             </table>
