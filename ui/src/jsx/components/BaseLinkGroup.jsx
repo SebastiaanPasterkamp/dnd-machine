@@ -2,6 +2,10 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import _ from 'lodash';
 
+import '../../sass/_base-link-group.scss';
+
+import utils from '../utils.jsx';
+
 import LazyComponent from '../components/LazyComponent.jsx';
 
 class BaseLinkGroup extends LazyComponent
@@ -19,63 +23,66 @@ class BaseLinkGroup extends LazyComponent
     }
 
     renderButton(button, props) {
-        let classNames = [
-            this.props.altStyle ? 'nice-btn-alt' : 'nice-btn',
-            'cursor-pointer'
-        ];
-        if ('icon' in props) {
-            classNames = classNames.concat(['icon', 'fa-' + props.icon]);
-        }
-        if ('className' in props) {
-            classNames = classNames.concat([props.className]);
-        }
-        if ('action' in props) {
+        const {
+            altStyle, icon, className, action, download, label, link
+        } = _.assign({}, this.props, props);
+        const style = utils.makeStyle({
+            'nice-btn-alt': altStyle,
+            'nice-btn': !altStyle,
+            'icon': icon,
+            ['fa-' + icon]: icon,
+            [className]: className,
+        }, ['cursor-pointer']);
+
+        if (action) {
             return <a
                 key={button}
-                onClick={props.action}
-                className={classNames.join(' ')}>
-                {props.label}
+                onClick={action}
+                className={style}
+                >
+                {label}
             </a>;
         }
-        if ('download' in props) {
+        if (download) {
             return <a
                 key={button}
-                href={props.download}
-                className={classNames.join(' ')}>
-                {props.label}
+                href={download}
+                className={style}
+                >
+                {label}
             </a>;
         }
         return <Link
             key={button}
-            to={props.link}
-            className={classNames.join(' ')}>
-            {props.label}
+            to={link}
+            className={style}
+            >
+            {label}
         </Link>;
     }
 
     render() {
-        let buttons = this.getAllowed();
-        if ('buttons' in this.props) {
-            buttons = _.intersection(
-                this.props.buttons,
-                buttons
-            );
+        const {
+            buttons, className, extra
+        } = this.props;
+        const style = utils.makeStyle({
+            [className]: className,
+        }, ['base-link-group', 'nice-btn-group']);
+
+        let allowed = this.getAllowed();
+        if (buttons) {
+            allowed = _.intersection(buttons, allowed);
         }
 
-        let classNames = ['nice-btn-group'];
-        if ('className' in this.props) {
-            classNames = classNames.concat([this.props.className]);
-        }
-
-        return <div className={classNames.join(' ')}>
+        return <div className={style}>
             {_.map(this.buttonList(), (func, button) => {
-                if (_.indexOf(buttons, button) < 0) {
+                if (!_.includes(allowed, button)) {
                     return null;
                 }
                 let props = func();
                 return this.renderButton(button, props);
             })}
-            {_.map(this.props.extra, (props, button) => {
+            {_.map(extra, (props, button) => {
                 return this.renderButton(button, props);
             })}
         </div>;
@@ -84,6 +91,7 @@ class BaseLinkGroup extends LazyComponent
 
 BaseLinkGroup.defaultProps = {
     altStyle: false,
+    extra: [],
 };
 
 export default BaseLinkGroup;
