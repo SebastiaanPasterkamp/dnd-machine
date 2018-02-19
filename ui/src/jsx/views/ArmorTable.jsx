@@ -9,6 +9,7 @@ import ArmorLinks from '../components/ArmorLinks.jsx';
 import Bonus from '../components/Bonus.jsx';
 import Reach from '../components/Reach.jsx';
 import Coinage from '../components/Coinage.jsx';
+import ListLabel from '../components/ListLabel.jsx';
 
 class ArmorHeader extends LazyComponent
 {
@@ -19,7 +20,6 @@ class ArmorHeader extends LazyComponent
                 <th>Armor</th>
                 <th>Cost</th>
                 <th>Properties</th>
-                <th>Actions</th>
             </tr>
         </thead>
     }
@@ -30,8 +30,7 @@ class ArmorFooter extends LazyComponent
     render() {
         return <tbody>
             <tr>
-                <td colSpan="4"></td>
-                <td>
+                <td colSpan={4}>
                     <ArmorLinks
                         altStyle={true}
                         buttons={['new']}
@@ -45,44 +44,58 @@ class ArmorFooter extends LazyComponent
 class ArmorRow extends LazyComponent
 {
     render() {
-        return <tr
-                data-name={this.props.name}>
+        const {
+            id, name, type, armor_types = [], value, formula, bonus,
+            cost, weight, requirements, disadvantage
+        } = this.props;
+
+        return <tr data-id={id}>
+            <th>
+                {name}
+                <ArmorLinks
+                    altStyle={true}
+                    buttons={['view', 'edit']}
+                    armor_id={this.props.id}
+                    />
+            </th>
             <td>
-                {this.props.name}<br/>
-                <i>({this.props.type})</i>
-            </td>
-            <td>
-                {this.props.value}
-                {this.props.formula}
-                {this.props.bonus || null
-                    ? <Bonus bonus={this.props.bonus} />
+                {value}
+                {formula}
+                {bonus
+                    ? <Bonus bonus={bonus} />
                     : null
                 }
             </td>
-            <td>{this.props.cost
-                ? <Coinage {...this.props.cost} extended="1" />
+            <td>{cost
+                ? <Coinage {...cost} extended={true} />
                 : null
             }</td>
             <td>
                 <ul>
-                    {this.props.weight || null
+                    <li key="type">
+                        <ListLabel
+                            items={armor_types}
+                            value={type}
+                            />
+                    </li>
+                    {weight
                         ? <li key="weight">
                             <strong>Weight:</strong>
                             &nbsp;
-                            {this.props.weight.lb}
+                            {weight.lb}
                             lb.
                             </li>
                         : null
                     }
-                    {this.props.requirements && this.props.requirements.strength || null
+                    {requirements && requirements.strength
                         ? <li key="requirements">
                             <strong>Strength:</strong>
                             &nbsp;
-                            {this.props.requirements.strength}
+                            {requirements.strength}
                             </li>
                         : null
                     }
-                    {this.props.disadvantage || false
+                    {disadvantage
                         ? <li key="disadvantage">
                             <strong>Stealth:</strong>
                             &nbsp;
@@ -92,31 +105,33 @@ class ArmorRow extends LazyComponent
                     }
                 </ul>
             </td>
-            <td>{this.props.id != null ?
-                <ArmorLinks
-                    altStyle={true}
-                    buttons={['view', 'edit']}
-                    armor_id={this.props.id}
-                    />
-                : null
-            }</td>
         </tr>
     }
 };
 
 class ArmorTable extends LazyComponent
 {
-    shouldDisplayRow(pattern, weapon) {
+    shouldDisplayRow(pattern, armor) {
         return (
-            (weapon.name && weapon.name.search(pattern) >= 0)
+            (armor.name && armor.name.match(pattern))
         );
     }
 
     render() {
-        if (this.props.armor == null) {
+        const {
+            armor, search = '', armor_types
+        } = this.props;
+
+        if (!armor) {
             return null;
         }
-        let pattern = new RegExp(this.props.search || '', "i");
+
+        let pattern = new RegExp(search, "i");
+        const filtered = _.filter(
+            armor,
+            (a) => this.shouldDisplayRow(pattern, a)
+        );
+
 
         return <div>
             <h2 className="icon fa-shield">Armor</h2>
@@ -124,14 +139,13 @@ class ArmorTable extends LazyComponent
             <table className="nice-table condensed bordered responsive">
                 <ArmorHeader />
                 <tbody key="tbody">
-                    {_.map(this.props.armor, (armor) => {
-                        return this.shouldDisplayRow(pattern, armor)
-                            ? <ArmorRow
-                                key={armor.id}
-                                {...armor}
-                                />
-                            : null;
-                    })}
+                    {_.map(filtered, (armor) => (
+                        <ArmorRow
+                            key={armor.id}
+                            {...armor}
+                            armor_types={armor_types}
+                            />
+                    ))}
                 </tbody>
                 <ArmorFooter />
             </table>
@@ -144,5 +158,6 @@ export default ListDataWrapper(
         ArmorTable,
         {armor: {group: 'items', type: 'armor'}}
     ),
-    ['search']
+    ['search', 'armor_types'],
+    'items'
 );

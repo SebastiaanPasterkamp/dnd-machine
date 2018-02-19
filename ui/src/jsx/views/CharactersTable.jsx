@@ -23,8 +23,6 @@ class CharactersHeader extends React.Component
                 <th>Level &amp; Class</th>
                 <th>Alignment</th>
                 <th>User</th>
-                <th>Progress</th>
-                <th>Actions</th>
             </tr>
         </thead>;
     }
@@ -35,8 +33,7 @@ class CharactersFooter extends LazyComponent
     render() {
         return <tbody>
             <tr>
-                <td colSpan="6"></td>
-                <td>
+                <td colSpan={5}>
                     <CharacterLinks
                         altStyle={true}
                         buttons={['new']}
@@ -56,61 +53,63 @@ class CharactersRow extends LazyComponent
             xp_level, id
         } = this.props;
 
-        return <tr
-                data-name={name}>
-            <td>{name}</td>
-            <td>
-                <ListLabel
-                    items={genders}
-                    value={gender}
-                    />
-                    &nbsp;
-                    {race}
-            </td>
-            <td>Level {level} {_class}</td>
-            <td>
-                <ListLabel
-                        items={alignments}
-                        value={alignment}
+        return <React.Fragment>
+            <tr data-id={id}>
+                <th rowSpan={2}>
+                    {name}
+                    <CharacterLinks
+                        altStyle={true}
+                        buttons={['view', 'edit', 'delete', 'download']}
+                        character_id={id}
                         />
-            </td>
-            <td>
-                <UserLabel
-                    user_id={user_id}
-                    />
-            </td>
-            <td>
-                <Progress
-                    value={xp_progress}
-                    total={xp_level}
-                    color={"good"}
-                    labels={[
-                        {
-                            value: 0.75,
-                            label: xp_progress
-                                + " / "
-                                + xp_level
-                        },
-                        {
-                            value: 0.33,
-                            label: xp_progress
-                        },
-                        {
-                            value: 0.10,
-                            label: level
-                        }
-                    ]}
-                    />
-            </td>
-            <td>{id != null
-                ? <CharacterLinks
-                    altStyle={true}
-                    buttons={['view', 'edit', 'delete', 'download']}
-                    character_id={id}
-                    />
-                : null
-            }</td>
-        </tr>
+                </th>
+                <td>
+                    <ListLabel
+                        items={genders}
+                        value={gender}
+                        />
+                        &nbsp;
+                        {race}
+                </td>
+                <td>Level {level} {_class}</td>
+                <td>
+                    <ListLabel
+                            items={alignments}
+                            value={alignment}
+                            />
+                </td>
+                <td>
+                    <UserLabel
+                        user_id={user_id}
+                        />
+                </td>
+            </tr>
+            <tr>
+                <td colSpan={4}>
+                    <Progress
+                        value={xp_progress}
+                        total={xp_level}
+                        color={"good"}
+                        labels={[
+                            {
+                                value: 0.75,
+                                label: xp_progress
+                                    + " / "
+                                    + xp_level
+                            },
+                            {
+                                value: 0.33,
+                                label: xp_progress
+                            },
+                            {
+                                value: 0.10,
+                                label: level
+                            }
+                        ]}
+                        />
+                </td>
+            </tr>
+        </React.Fragment>;
     }
 };
 
@@ -134,7 +133,6 @@ class CharactersTable extends LazyComponent
         }
 
         let pattern = new RegExp(search, "i");
-
         const filtered = _.filter(
             characters,
             (character) => this.shouldDisplayRow(pattern, character)

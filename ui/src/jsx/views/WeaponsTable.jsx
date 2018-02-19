@@ -25,7 +25,6 @@ class WeaponsHeader extends React.Component
                 <th>Range</th>
                 <th>Cost</th>
                 <th>Properties</th>
-                <th>Actions</th>
             </tr>
         </thead>;
     }
@@ -36,8 +35,7 @@ class WeaponsFooter extends LazyComponent
     render() {
         return <tbody>
             <tr>
-                <td colSpan="5"></td>
-                <td>
+                <td colSpan={5}>
                     <WeaponLinks
                         altStyle={true}
                         buttons={['new']}
@@ -52,15 +50,19 @@ class WeaponsRow extends LazyComponent
 {
     render() {
         const {
-            name, type, damage, range, cost, property,
-            weapon_properties, id
+            id, name, type, damage, range, cost, property,
+            weapon_properties = [], weapon_types = []
         } = this.props;
-        return <tr
-                data-name={name}>
-            <td>
-                {name}<br/>
-                <i>({type})</i>
-            </td>
+
+        return <tr data-id={id}>
+            <th>
+                {name}
+                <WeaponLinks
+                    altStyle={true}
+                    buttons={['view', 'edit']}
+                    weapon_id={id}
+                    />
+            </th>
             <td><DiceNotation {...damage}/></td>
             <td>{range
                 ? <Reach {...range}/>
@@ -70,22 +72,24 @@ class WeaponsRow extends LazyComponent
                 ? <Coinage {...cost} extended="1" />
                 : null
             }</td>
-            <td><ul>{_.map(property || [], prop => {
-                return <li key={prop}>
-                    <ListLabel
-                        items={weapon_properties || []}
-                        value={prop}
-                        />
-                </li>;
-            })}</ul></td>
-            <td>{id != null ?
-                <WeaponLinks
-                    altStyle={true}
-                    buttons={['view', 'edit']}
-                    weapon_id={id}
-                    />
-                : null
-            }</td>
+            <td>
+                <ul>
+                    <li key="type">
+                        <ListLabel
+                            items={weapon_types}
+                            value={type}
+                            />
+                    </li>
+                    {_.map(property || [], prop => (
+                    <li key={prop}>
+                        <ListLabel
+                            items={weapon_properties}
+                            value={prop}
+                            />
+                    </li>
+                    ))}
+                </ul>
+            </td>
         </tr>
     }
 };
@@ -94,17 +98,20 @@ class WeaponsTable extends LazyComponent
 {
     shouldDisplayRow(pattern, weapon) {
         return (
-            (weapon.name && weapon.name.search(pattern) >= 0)
+            (weapon.name && weapon.name.match(pattern))
         );
     }
 
     render() {
-        const { search, weapons, weapon_properties } = this.props;
+        const {
+            weapons, search = '', weapon_properties, weapon_types
+        } = this.props;
+
         if (!weapons) {
             return null;
         }
 
-        let pattern = new RegExp(search || '', "i");
+        let pattern = new RegExp(search, "i");
         const filtered = _.filter(
             weapons,
             (weapon) => this.shouldDisplayRow(pattern, weapon)
@@ -115,13 +122,14 @@ class WeaponsTable extends LazyComponent
             <table className="nice-table condensed bordered responsive">
                 <WeaponsHeader />
                 <tbody key="tbody">
-                    {_.map(filtered, (weapon) => {
-                        return <WeaponsRow
+                    {_.map(filtered, (weapon) => (
+                        <WeaponsRow
                             key={weapon.id}
                             {...weapon}
                             weapon_properties={weapon_properties}
-                            />;
-                    })}
+                            weapon_types={weapon_types}
+                            />
+                    ))}
                 </tbody>
                 <WeaponsFooter />
             </table>
@@ -134,6 +142,6 @@ export default ListDataWrapper(
         WeaponsTable,
         {weapons: {group: 'items', type: 'weapon'}}
     ),
-    ['search', 'weapon_properties'],
+    ['search', 'weapon_properties', 'weapon_types'],
     'items'
 );

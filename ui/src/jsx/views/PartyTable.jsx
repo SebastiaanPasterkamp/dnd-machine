@@ -15,12 +15,8 @@ class PartyHeader extends LazyComponent
         return <thead key="thead">
             <tr>
                 <th>Name</th>
+                <th>Description</th>
                 <th>Members</th>
-                {this.props.challenge
-                    ? <th>Challenge</th>
-                    : null
-                }
-                <th>Actions</th>
             </tr>
         </thead>;
     }
@@ -31,11 +27,7 @@ class PartyFooter extends LazyComponent
     render() {
         return <tbody>
             <tr>
-                <td colSpan={this.props.challenge
-                    ? 3
-                    : 2
-                }></td>
-                <td>
+                <td colSpan={3}>
                     <PartyLinks
                         altStyle={true}
                         buttons={['new']}
@@ -66,24 +58,17 @@ class PartyRow extends LazyComponent
             };
         }
 
-        return <tr
-                data-name={name}
-                >
+        return <tr data-name={id}>
+            <th>
+                {name}
+                <PartyLinks
+                    altStyle={true}
+                    buttons={['view', 'edit', 'host']}
+                    party_id={id}
+                    />
+            </th>
             <td>
-                {name}<br/>
-                <i>{description}</i>
-            </td>
-            <td>
-                {_.map(member_ids, id => (
-                    <CharacterLabel
-                        key={id}
-                        character_id={id}
-                        showProgress={true}
-                        />
-                ))}
-            </td>
-            {challenge ? <td>
-                <div className="nice-progress stacked">
+                {challenge ? <div className="nice-progress stacked">
                     <div
                         className="nice-progress-fill accent"
                         style={{
@@ -116,16 +101,18 @@ class PartyRow extends LazyComponent
                         }}>
                         {challenge.deadly}
                     </div>
-                </div>
-            </td> : null}
-            <td>{id != null
-                ? <PartyLinks
-                    altStyle={true}
-                    buttons={['view', 'edit', 'host']}
-                    party_id={id}
+                </div> : null}
+                {description}
+            </td>
+            <td>
+            {_.map(member_ids, id => (
+                <CharacterLabel
+                    key={id}
+                    character_id={id}
+                    showProgress={true}
                     />
-                : null
-            }</td>
+            ))}
+            </td>
         </tr>
     }
 };

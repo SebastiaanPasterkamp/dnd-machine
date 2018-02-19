@@ -19,7 +19,6 @@ class EncounterHeader extends React.Component
                 <th>Name</th>
                 <th>Size</th>
                 <th>Challenge Rating</th>
-                <th>Actions</th>
             </tr>
         </thead>;
     }
@@ -30,8 +29,7 @@ class EncounterFooter extends LazyComponent
     render() {
         return <tbody>
             <tr>
-                <td colSpan="3"></td>
-                <td>
+                <td colSpan={3}>
                     <EncounterLinks
                         altStyle={true}
                         buttons={['new']}
@@ -45,49 +43,52 @@ class EncounterFooter extends LazyComponent
 class EncounterRow extends LazyComponent
 {
     render() {
+        const {
+            id, hosted_party, name, size, challenge_rating, xp_rating,
+            challenge_modified, xp_modified
+        } = this.props;
+
         let ratingStyle = 'muted';
-        if (this.props.hosted_party) {
+        if (hosted_party) {
             ratingStyle = utils.closestStyle(
                 {
-                    info: this.props.hosted_party.challenge.easy,
-                    good: this.props.hosted_party.challenge.medium,
-                    warning: this.props.hosted_party.challenge.hard,
-                    bad: this.props.hosted_party.challenge.deadly,
+                    info: hosted_party.challenge.easy,
+                    good: hosted_party.challenge.medium,
+                    warning: hosted_party.challenge.hard,
+                    bad: hosted_party.challenge.deadly,
                 },
-                this.props.xp_modified,
+                xp_modified,
                 ratingStyle
             );
         }
 
-        return <tr
-                data-name={this.props.name}>
-            <td>{this.props.name}</td>
-            <td>{this.props.size}</td>
+        return <tr data-name={id}>
+            <th>
+                {name}
+                <EncounterLinks
+                    altStyle={true}
+                    buttons={['view', 'edit']}
+                    encounter_id={id}
+                    />
+            </th>
+            <td>{size}</td>
             <td className={ratingStyle}>
                 <span>
                     <strong>Challenge:</strong>&nbsp;
-                    {this.props.challenge_rating}
+                    {challenge_rating}
                     &nbsp;/&nbsp;
-                    {this.props.xp_rating}XP
+                    {xp_rating}XP
                 </span>
-                {this.props.hosted_party
+                {hosted_party
                     ? <span><br/>
                         <strong>Modified:</strong>&nbsp;
-                        {this.props.challenge_modified}
+                        {challenge_modified}
                         &nbsp;/&nbsp;
-                        {this.props.xp_modified}XP
+                        {xp_modified}XP
                     </span>
                     : null
                 }
             </td>
-            <td>{this.props.id != null
-                ? <EncounterLinks
-                    altStyle={true}
-                    buttons={['view', 'edit']}
-                    encounter_id={this.props.id}
-                    />
-                : null
-            }</td>
         </tr>
     }
 };
@@ -101,10 +102,19 @@ class EncounterTable extends LazyComponent
     }
 
     render() {
-        if (this.props.encounters == null) {
+        const {
+            encounters, hosted_party, search = ''
+        } = this.props;
+
+        if (!encounters) {
             return null;
         }
-        let pattern = new RegExp(this.props.search || '', "i");
+
+        let pattern = new RegExp(search, "i");
+        const filtered = _.filter(
+            encounters,
+            (encounter) => this.shouldDisplayRow(pattern, encounter)
+        );
 
         return <div>
             <h2 className="icon fa-gamepad">Encounter list</h2>
@@ -112,15 +122,13 @@ class EncounterTable extends LazyComponent
             <table className="nice-table condensed bordered responsive">
                 <EncounterHeader />
                 <tbody key="tbody">
-                    {_.map(this.props.encounters, (encounter) => {
-                        return this.shouldDisplayRow(pattern, encounter)
-                            ? <EncounterRow
-                                key={encounter.id}
-                                {...encounter}
-                                hosted_party={this.props.hosted_party}
-                                />
-                            : null;
-                    })}
+                    {_.map(filtered, (encounter) => (
+                        <EncounterRow
+                            key={encounter.id}
+                            {...encounter}
+                            hosted_party={hosted_party}
+                            />
+                    ))}
                 </tbody>
                 <EncounterFooter />
             </table>

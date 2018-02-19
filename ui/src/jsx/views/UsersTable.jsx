@@ -18,7 +18,6 @@ class UserHeader extends LazyComponent
                 <th>Name</th>
                 <th>Role</th>
                 <th>Email</th>
-                <th>Actions</th>
             </tr>
         </thead>
     }
@@ -29,8 +28,7 @@ class UserFooter extends LazyComponent
     render() {
         return <tbody>
             <tr>
-                <td colSpan="3"></td>
-                <td>
+                <td colSpan={3}>
                     <UserLinks
                         altStyle={true}
                         buttons={['new']}
@@ -48,12 +46,16 @@ class UserRow extends LazyComponent
             id, username, name, role, email, user_roles = []
         } = this.props;
 
-        return <tr
-                data-name={id}>
-            <td>
+        return <tr data-id={id}>
+            <th>
                 {username}<br/>
                 <i>({name})</i>
-            </td>
+                <UserLinks
+                    altStyle={true}
+                    buttons={['view', 'edit']}
+                    user_id={id}
+                    />
+            </th>
             <td className="users-table__roles">
                 {_.map(role, (r) => (
                     <ListLabel
@@ -64,14 +66,6 @@ class UserRow extends LazyComponent
                 ))}
             </td>
             <td>{email}</td>
-            <td>{id != null ?
-                <UserLinks
-                    altStyle={true}
-                    buttons={['view', 'edit']}
-                    user_id={id}
-                    />
-                : null
-            }</td>
         </tr>
     }
 };
@@ -96,7 +90,6 @@ class UserTable extends LazyComponent
         }
 
         let pattern = new RegExp(search, "i");
-
         const filtered = _.filter(
             users,
             (user) => this.shouldDisplayRow(pattern, user)
