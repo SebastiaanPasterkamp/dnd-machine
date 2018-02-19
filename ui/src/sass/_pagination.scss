@@ -1,0 +1,14 @@
+// _pagination.scss
+
+.pagination {
+    > .pagination__previous {
+        > *::before {
+            content: '\00AB ';
+        }
+    }
+    > .pagination__next {
+        > *::after {
+            content: ' \00BB';
+        }
+    }
+}

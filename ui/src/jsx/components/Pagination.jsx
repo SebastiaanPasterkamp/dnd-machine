@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+import '../../sass/_pagination.scss';
+
 import LazyComponent from '../components/LazyComponent.jsx';
 
 class Pagination extends LazyComponent
 {
     constructor(props) {
         super(props);
-        this.maxSteps = 10;
+        this.maxSteps = 5;
     }
 
     onPaging(offset) {
@@ -66,54 +68,58 @@ class Pagination extends LazyComponent
         }
 
         return <nav>
-            <ul className="nice-pagination bordered small" role="navigation">
+            <ul className="pagination nice-pagination bordered small" role="navigation">
+                <li className="pagination__previous">
                 {current
-                    ? <li>
-                        <a href="#" onClick={e => {
+                    ? <a
+                        href="#"
+                        onClick={e => {
                             e.preventDefault();
                             this.onPaging(current - limit);
-                        }}>
-                            &laquo; Previous
-                        </a>
-                    </li>
-                    : <li className="disabled">
-                        <span>
-                            &laquo; Previous
-                        </span>
-                    </li>
+                        }}
+                        >
+                        Previous
+                    </a>
+                    :
+                    <span className="disabled">
+                        Previous
+                    </span>
                 }
+                </li>
 
-                {_.map(range, ({offset, page}) => {
-                    if (offset == current) {
-                        return <li  key={page} className="current">
+                {_.map(range, ({offset, page}) => (
+                    (offset == current)
+                        ? <li  key={page} className="current">
                             <span>{page}</span>
-                        </li>;
-                    }
-                    return <li key={page}>
-                        <a href="#" onClick={e => {
-                            e.preventDefault();
-                            this.onPaging(offset);
-                        }}>
-                            {page}
-                        </a>
-                    </li>
-                })}
+                        </li>
+                        : <li key={page}>
+                            <a href="#" onClick={e => {
+                                e.preventDefault();
+                                this.onPaging(offset);
+                                }}
+                                >
+                                {page}
+                            </a>
+                        </li>
+                ))}
 
+                <li className="pagination__next">
                 {((current + limit) < total)
-                    ? <li>
-                        <a href="#" onClick={e => {
+                    ? <a
+                        href="#"
+                        className="pagination__next"
+                        onClick={e => {
                             e.preventDefault();
                             this.onPaging(current + limit);
-                        }}>
-                            Next &raquo;
-                        </a>
-                    </li>
-                    : <li className="disabled">
-                        <span>
-                            Next &raquo;
-                        </span>
-                    </li>
+                        }}
+                        >
+                        Next
+                    </a>
+                    : <span className="disabled">
+                        Next
+                    </span>
                 }
+                </li>
             </ul>
         </nav>;
     }
