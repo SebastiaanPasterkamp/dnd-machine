@@ -7,6 +7,7 @@ class UserObject(JsonObject):
         'username': u'',
         'password': u'',
         'email': u'',
+        'dci': u'',
         'role': []
         }
 

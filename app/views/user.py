@@ -9,11 +9,11 @@ class UserBlueprint(BaseApiBlueprint):
         return self.basemapper.user
 
     def _exposeAttributes(self, obj):
-        fields = ['id', 'name', 'role']
+        fields = ['id', 'name', 'role', 'dci']
 
         if obj.id == request.user.id \
                 or self.checkRole(['admin']):
-            fields = ['id', 'username', 'name', 'email', 'role']
+            fields.extend(['username', 'email', 'role'])
 
         result = dict([
             (key, obj[key])
