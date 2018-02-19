@@ -21,6 +21,7 @@ import EncounterTable from './views/EncounterTable.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import PartyEdit from './views/PartyEdit.jsx';
 import PartyTable from './views/PartyTable.jsx';
+import PartyView from './views/PartyView.jsx';
 import LanguageTable from './views/LanguagesTable.jsx';
 import LoginDialog from './views/LoginDialog.jsx';
 import MessageStack from './components/MessageStack.jsx';
@@ -141,7 +142,15 @@ class DndMachine extends React.Component
                     component={PartyTable}
                     />
                 <Route
+                    path="/party/show/:id"
+                    component={PartyView}
+                    />
+                <Route
                     path="/party/edit/:id"
+                    component={PartyEdit}
+                    />
+                <Route
+                    path="/party/new"
                     component={PartyEdit}
                     />
 
