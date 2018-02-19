@@ -123,7 +123,8 @@ export class PartyEdit extends React.Component
         const {
             name, description, member_ids, challenge, characters
         } = this.props;
-        return [
+
+        return <React.Fragment>
             <Panel
                     key="description"
                     className="party-edit__description"
@@ -146,7 +147,7 @@ export class PartyEdit extends React.Component
                             (value) => this.onFieldChange('description', value)
                         } />
                 </ControlGroup>
-            </Panel>,
+            </Panel>
 
             <Panel
                     key="challenge"
@@ -179,7 +180,7 @@ export class PartyEdit extends React.Component
                         </td>
                     </tr>
                 </tbody>
-            </Panel>,
+            </Panel>
 
             <Panel
                     key="members"
@@ -194,7 +195,6 @@ export class PartyEdit extends React.Component
                         <th>Medium</th>
                         <th>Hard</th>
                         <th>Deadly</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>{_.map(member_ids, (id) => {
@@ -207,21 +207,8 @@ export class PartyEdit extends React.Component
                     }
 
                     return <tr key={id}>
-                        <td>{character.name}</td>
-                        <td>{character.level}</td>
-                        <td className="info">
-                            {character.challenge.easy}XP
-                        </td>
-                        <td className="good">
-                            {character.challenge.medium}XP
-                        </td>
-                        <td className="warning">
-                            {character.challenge.hard}XP
-                        </td>
-                        <td className="bad">
-                            {character.challenge.deadly}XP
-                        </td>
-                        <td>
+                        <th>
+                            {character.name}
                             <CharacterLinks
                                 altStyle={true}
                                 buttons={['view']}
@@ -237,13 +224,25 @@ export class PartyEdit extends React.Component
                                     }
                                 }}
                                 />
+                        </th>
+                        <td>{character.level}</td>
+                        <td className="info">
+                            {character.challenge.easy}XP
+                        </td>
+                        <td className="good">
+                            {character.challenge.medium}XP
+                        </td>
+                        <td className="warning">
+                            {character.challenge.hard}XP
+                        </td>
+                        <td className="bad">
+                            {character.challenge.deadly}XP
                         </td>
                     </tr>;
                 })}</tbody>
                 <tbody>
                     <tr>
-                        <td colSpan="6"></td>
-                        <td>
+                        <td colSpan={5}>
                             <a
                                 className="nice-btn-alt cursor-pointer icon fa-plus"
                                 onClick={() => this.toggleDialog()}
@@ -253,10 +252,10 @@ export class PartyEdit extends React.Component
                         </td>
                     </tr>
                 </tbody>
-            </Panel>,
+            </Panel>
 
-            this.renderDialog()
-        ];
+            {this.renderDialog()}
+        </React.Fragment>;
     }
 }
 
