@@ -1,0 +1,27 @@
+// _monster-view.scss
+
+@import 'view-grid';
+
+.monster-view {
+    @extend .view-grid;
+
+    > .monster-view__description {
+        grid-column-end: span 2;
+    }
+
+    > .monster-view__properties {
+        grid-column-end: span 2;
+    }
+
+    > .monster-view__statistics {
+        grid-column-end: span 2;
+    }
+
+    > .monster-view__attack {
+        grid-column-end: span 2;
+    }
+
+    > .monster-view__multiattack {
+        grid-column-end: span 2;
+    }
+}

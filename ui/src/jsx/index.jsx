@@ -27,6 +27,7 @@ import LoginDialog from './views/LoginDialog.jsx';
 import MessageStack from './components/MessageStack.jsx';
 import MonsterEdit from './views/MonsterEdit.jsx';
 import MonstersTable from './views/MonstersTable.jsx';
+import MonsterView from './views/MonsterView.jsx';
 import NpcEdit from './views/NpcEdit.jsx';
 import NpcTable from './views/NpcTable.jsx';
 import SpellEdit from './views/SpellEdit.jsx';
@@ -127,6 +128,10 @@ class DndMachine extends React.Component
                 <Route
                     path="/monster/list"
                     component={MonstersTable}
+                    />
+                <Route
+                    path="/monster/show/:id"
+                    component={MonsterView}
                     />
                 <Route
                     path="/monster/edit/:id"
