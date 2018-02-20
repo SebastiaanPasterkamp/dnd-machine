@@ -27,14 +27,6 @@ class MonsterBlueprint(BaseApiBlueprint):
 
         return result
 
-    def show(self, obj_id):
-        monster = self.datamapper.getById(obj_id)
-
-        return render_template(
-            'monster/show.html',
-            monster=monster
-            )
-
     def new(self):
         monster = self.datamapper.create()
 
