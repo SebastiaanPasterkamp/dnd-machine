@@ -24,6 +24,9 @@ export class BaseTagContainer extends LazyComponent
     }
 
     isImmutable(item) {
+        if (this.props.disabled) {
+            return true;
+        }
         if ('isImmutable' in this.props) {
             return this.props.isImmutable(item);
         }
@@ -39,7 +42,7 @@ export class BaseTagContainer extends LazyComponent
     }
 
     showSelect() {
-        return this.props.showSelect;
+        return !this.props.disabled && this.props.showSelect;
     }
 
     getSelectOptions() {
@@ -98,7 +101,7 @@ export class BaseTagContainer extends LazyComponent
     }
 
     render() {
-        return <div className="nice-tags-container">
+        return <div className="base-tag-container nice-tags-container">
             {this.showSelect()
                 ? <SingleSelect
                     emptyLabel="Add..."
@@ -130,6 +133,7 @@ BaseTagContainer.propTypes = {
     tagOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
     showSelect: PropTypes.bool,
     multiple: PropTypes.bool,
+    disabled: PropTypes.bool,
     isDisabled: PropTypes.func,
     isImmutable: PropTypes.func,
     isSelectable: PropTypes.func,
