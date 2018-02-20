@@ -179,11 +179,6 @@ export class MonsterEdit extends React.Component
     constructor(props) {
         super(props);
 
-        this.genders = [
-            {code: "male", label: "Male"},
-            {code: "female", label: "Female"},
-            {code: "genderless", label: "genderless"},
-        ];
         this.levels = _.range(1, 30)
             .map((i) => {
                 return {code: i, label: i}
@@ -456,7 +451,12 @@ export default ListDataWrapper(
             buttons: ['cancel', 'reload', 'recompute', 'save']
         }, "monster"
     ),
-    ['alignments', 'size_hit_dice', 'monster_types', 'languages'],
+    [
+        'alignments',
+        'size_hit_dice',
+        'monster_types',
+        'languages'
+    ],
     'items',
     {'languages': '_languages'}
 );
