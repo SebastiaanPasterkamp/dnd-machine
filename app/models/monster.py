@@ -136,11 +136,6 @@ class MonsterObject(JsonObject):
 
         self.version = self._version
 
-        self.languages = [
-            l for l in list(set(self.languages))
-            if l != u"None"
-            ]
-
         for stat in itemMapper.statistics:
             stat = stat["code"]
             self.statisticsBase[stat] = self.statisticsBare[stat]
@@ -172,11 +167,6 @@ class MonsterObject(JsonObject):
         self.attack_bonus = 0
         self.spell_save_dc = 0
 
-        self.attacks = [
-            attack
-            for attack in self.attacks
-            if attack.get("name", False)
-            ]
         for attack in self.attacks:
             if 'range_min' in attack:
                 attack['reach'] = {
@@ -188,12 +178,6 @@ class MonsterObject(JsonObject):
             if 'range' in attack:
                 attack['reach'] = attack['range']
                 del(attack['range'])
-
-            attack["damage"] = [
-                damage
-                for damage in attack.get("damage", [])
-                if damage.get("type", False)
-                ]
 
             for damage in attack["damage"]:
                 damage["mode"] = damage.get("mode", "melee")
@@ -243,11 +227,6 @@ class MonsterObject(JsonObject):
                 self.attack_bonus = attack.get("bonus", 0)
                 self.spell_save_dc = attack.get("spell_save_dc", 0)
 
-        self.multiattack = [
-            rotation
-            for rotation in self.multiattack
-            if rotation.get("name", "")
-            ]
         for multiattack in self.multiattack:
             multiattack["average"] = sum([
                 attack["average"]
@@ -264,12 +243,6 @@ class MonsterObject(JsonObject):
             if multiattack["average"] > self.average_damage:
                 self.average_damage = multiattack["average"]
                 self.critical_damage = multiattack["critical"]
-
-        self.traits = [
-            trait
-            for trait in self.traits
-            if trait and trait.get('name')
-            ]
 
         challenge = machine.computeMonsterChallengeRating(
             self.hit_points, self.armor_class,
