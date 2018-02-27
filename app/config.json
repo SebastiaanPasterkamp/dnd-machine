@@ -77,11 +77,11 @@
         "monster_scaling": [
             {
                 "proficiency": 2,
-                "armor_class": {"min": 1, "max": 12},
+                "armor_class": {"min": 1, "max": 13},
                 "hit_points": {"min": 1, "max": 6},
                 "attack_bonus": {"min": -20, "max": 3},
                 "average_damage": {"min": 0, "max": 1},
-                "spell_save_dc": {"min": -20, "max": 12},
+                "spell_save_dc": {"min": -20, "max": 13},
                 "xp": 10,
                 "challenge": 0
             },
