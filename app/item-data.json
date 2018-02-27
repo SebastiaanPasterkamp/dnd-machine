@@ -112,6 +112,11 @@
         {"code": "multiple", "label": "Multi-target", "short": "MT", "description": "Multiple targets are affected. Usually when clustered together."},
         {"code": "area", "label": "Area of Effect", "short": "AoE", "description": "An area of a specific size and shape is affected. Every designated target inside is affected."}
     ],
+    "attack_modes": [
+        {"code": "melee", "label": "Melee Attack", "short": "M", "description": "Melee weapon attack."},
+        {"code": "ranged", "label": "Ranged Attack", "short": "R", "description": "Ranged weapon attack."},
+        {"code": "spell", "label": "Spell Attack", "short": "S", "description": "Spell attack."}
+    ],
     "damage_types": [
         {"code": "acid", "label": "Acid", "short": "Acd", "description": "The corrosive spray of a black dragon's breath and the dissolving enzymes secreted by a black pudding deal acid damage." },
         {"code": "bludgeoning", "label": "Bludgeoning", "short": "Bldg", "description": "Blunt force attacks—hammers, falling, constriction, and the like—deal bludgeoning damage." },
