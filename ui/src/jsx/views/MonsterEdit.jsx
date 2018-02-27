@@ -34,16 +34,18 @@ class AttackEdit extends React.Component
     }
 
     render() {
-        const dmgTypes = _.map(
-            this.props.damage || [],
-            damage => damage.type,
-            );
+        const {
+            name, description = '', damage = [], target,
+            target_methods = [], mode, attack_modes = [], reach,
+            on_hit = '', on_mis = ''
+        } = this.props;
+        const damageTypes = _.get(damage, 'type');
 
         return <div className="edit-attack">
             <ControlGroup label="Name">
                 <InputField
                     placeholder="Name..."
-                    value={this.props.name}
+                    value={name}
                     setState={(value) => {
                         this.onFieldChange('name', value);
                     }} />
@@ -51,34 +53,43 @@ class AttackEdit extends React.Component
             <ControlGroup label="Description">
                 <MarkdownTextField
                     placeholder="Description..."
-                    value={this.props.description}
+                    value={description}
                     rows={5}
                     setState={(value) => {
                         this.onFieldChange('description', value);
                     }} />
             </ControlGroup>
             <ListComponent
-                list={this.props.damage || [{}]}
+                list={damage}
                 component={DamageEdit}
                 keyProp="type"
                 setState={(value) => {
                     this.onFieldChange('damage', value);
                 }}
                 componentProps={{
-                    disabledTypes: dmgTypes
+                    disabledTypes: damageTypes
                 }}
                 />
             <ControlGroup label="Target">
                 <SingleSelect
                     emptyLabel="Target..."
-                    selected={this.props.target}
-                    items={this.props.target_methods}
+                    selected={target}
+                    items={target_methods}
                     setState={(value) => {
                         this.onFieldChange('target', value);
                     }} />
             </ControlGroup>
+            <ControlGroup label="Mode">
+                <SingleSelect
+                    emptyLabel="Mode..."
+                    selected={mode}
+                    items={attack_modes}
+                    setState={(value) => {
+                        this.onFieldChange('mode', value);
+                    }} />
+            </ControlGroup>
             <ReachEdit
-                {...this.props.reach}
+                {...reach}
                 setState={(value) => {
                     this.onFieldChange('reach', value);
                 }}
@@ -87,7 +98,7 @@ class AttackEdit extends React.Component
                 <MarkdownTextField
                     className="small"
                     placeholder="Bad stuff..."
-                    value={this.props.on_hit}
+                    value={on_hit}
                     rows={5}
                     setState={(value) => {
                         this.onFieldChange('on_hit', value);
@@ -97,7 +108,7 @@ class AttackEdit extends React.Component
                 <MarkdownTextField
                     className="small"
                     placeholder="Still bad stuff..."
-                    value={this.props.on_mis}
+                    value={on_mis}
                     rows={5}
                     setState={(value) => {
                         this.onFieldChange('on_mis', value);
@@ -120,16 +131,20 @@ class MultiAttackEditor extends React.Component
     }
 
     render() {
-        const dmgTypes = _.map(
-            this.props.damage || [],
-            damage => damage.type,
-            );
+        const {
+            name, description = '', damage = [], condition = '',
+            sequence = [], attacks = []
+        } = this.props;
+        const attackOptions = _.map(attacks, attack => ({
+            code: attack.name,
+            label: attack.name
+        }));
 
         return <div className="edit-multiattack">
             <ControlGroup label="Name">
                 <InputField
                     placeholder="Rotation name..."
-                    value={this.props.name}
+                    value={name}
                     setState={(value) => {
                         this.onFieldChange('name', value);
                     }} />
@@ -137,7 +152,7 @@ class MultiAttackEditor extends React.Component
             <ControlGroup label="Description">
                 <MarkdownTextField
                     placeholder="Rotation does an average of %average% damage..."
-                    value={this.props.description}
+                    value={description}
                     rows={5}
                     setState={(value) => {
                         this.onFieldChange('description', value);
@@ -146,20 +161,16 @@ class MultiAttackEditor extends React.Component
             <ControlGroup label="Condition">
                 <MarkdownTextField
                     placeholder="Condition..."
-                    value={this.props.condition}
+                    value={condition}
                     rows={5}
                     setState={(value) => {
                         this.onFieldChange('condition', value);
                     }} />
             </ControlGroup>
             <TagContainer
-                tags={this.props.sequence || []}
-                tagOptions={_.map(this.props.attacks, (attack) => {
-                    return {
-                        code: attack.name,
-                        label: attack.name
-                    };
-                })}
+                tags={sequence}
+                tagOptions={attackOptions}
+                multiple={true}
                 setState={(value) => {
                     this.onFieldChange('sequence', value);
                 }}
@@ -170,7 +181,7 @@ class MultiAttackEditor extends React.Component
 
 const AttackEditor = ListDataWrapper(
     AttackEdit,
-    ['target_methods'],
+    ['target_methods', 'attack_modes'],
     'items'
 );
 
@@ -194,6 +205,13 @@ export class MonsterEdit extends React.Component
             'multiattack',
             'statistics'
         ];
+        this.motion = [
+            {code: 'walk', label: 'Walk'},
+            {code: 'burrow', label: 'Burrow'},
+            {code: 'climb', label: 'Climb'},
+            {code: 'fly', label: 'Fly'},
+            {code: 'swim', label: 'Swim'}
+        ];
     }
 
     onFieldChange(field, value, callback=null) {
@@ -213,14 +231,20 @@ export class MonsterEdit extends React.Component
     }
 
     onStatisticsChange(value) {
-        let update = _.assign({}, this.props.statistics, value);
-        this.props.setState({
-            statistics: update
-        });
+        let statistics = _.assign({}, this.props.statistics, value);
+        this.onFieldChange('statistics', statistics);
     }
 
     render() {
-        return [
+        const {
+            name, size, size_hit_dice = [], type, monster_types = [],
+            alignment, alignments = [], level, armor_class,
+            description = '', challenge_rating, xp = 0, motion,
+            languages = [], _languages = [], traits = [],
+            statistics, attacks = [], multiattack = []
+        } = this.props;
+
+        return <React.Fragment>
             <Panel
                     key="description"
                     className="monster-edit__description"
@@ -229,7 +253,7 @@ export class MonsterEdit extends React.Component
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
-                        value={this.props.name}
+                        value={name}
                         setState={(value) => {
                             this.onFieldChange('name', value);
                         }} />
@@ -237,15 +261,15 @@ export class MonsterEdit extends React.Component
                 <ControlGroup labels={["Size", "Type"]}>
                     <SingleSelect
                         emptyLabel="Size..."
-                        selected={this.props.size}
-                        items={this.props.size_hit_dice}
+                        selected={size}
+                        items={size_hit_dice}
                         setState={(value) => {
                             this.onFieldChange('size', value);
                         }} />
                     <SingleSelect
                         emptyLabel="Type..."
-                        selected={this.props.type}
-                        items={this.props.monster_types}
+                        selected={type}
+                        items={monster_types}
                         setState={(value) => {
                             this.onFieldChange('type', value);
                         }} />
@@ -253,8 +277,8 @@ export class MonsterEdit extends React.Component
                 <ControlGroup label="Alignment">
                     <SingleSelect
                         emptyLabel="Alignment..."
-                        selected={this.props.alignment}
-                        items={this.props.alignments}
+                        selected={alignment}
+                        items={alignments}
                         setState={(value) => {
                             this.onFieldChange('alignment', value);
                         }} />
@@ -262,7 +286,7 @@ export class MonsterEdit extends React.Component
                 <ControlGroup label="Level">
                     <SingleSelect
                         emptyLabel="Level..."
-                        selected={this.props.level}
+                        selected={level}
                         items={this.levels}
                         setState={(value) => {
                             this.onFieldChange('level', value);
@@ -271,7 +295,7 @@ export class MonsterEdit extends React.Component
                 <ControlGroup label="Armor Class">
                     <SingleSelect
                         emptyLabel="Armor Class..."
-                        selected={this.props.armor_class}
+                        selected={armor_class}
                         items={this.armor_classes}
                         setState={(value) => {
                             this.onFieldChange('armor_class', value);
@@ -280,13 +304,13 @@ export class MonsterEdit extends React.Component
                 <ControlGroup label="Description">
                     <MarkdownTextField
                         placeholder="Description..."
-                        value={this.props.description}
+                        value={description}
                         rows={5}
                         setState={(value) => {
                             this.onFieldChange('description', value);
                         }} />
                 </ControlGroup>
-            </Panel>,
+            </Panel>
 
             <Panel
                     key="properties"
@@ -294,24 +318,20 @@ export class MonsterEdit extends React.Component
                 >
                 <ControlGroup labels={["Challenge Rating", "/", "XP"]}>
                     <InputField
-                        value={this.props.challenge_rating}
+                        type="float"
+                        value={challenge_rating}
                         disabled={true}
                         />
                     <InputField
-                        value={(this.props.xp||0).toString()}
+                        type="number"
+                        value={xp}
                         disabled={true}
                         />
                 </ControlGroup>
                 <ControlGroup label="Motion">
                     <TagValueContainer
-                        tags={this.props.motion}
-                        tagOptions={[
-                            {code: 'walk', label: 'Walk'},
-                            {code: 'burrow', label: 'Burrow'},
-                            {code: 'climb', label: 'Climb'},
-                            {code: 'fly', label: 'Fly'},
-                            {code: 'swim', label: 'Swim'}
-                        ]}
+                        tags={motion}
+                        tagOptions={this.motion}
                         tagValues={this.levels}
                         defaultValue={20}
                         setState={(value) => {
@@ -321,8 +341,8 @@ export class MonsterEdit extends React.Component
                 </ControlGroup>
                 <ControlGroup label="Languages">
                     <TagContainer
-                        tags={this.props.languages || []}
-                        tagOptions={this.props._languages}
+                        tags={languages}
+                        tagOptions={_languages}
                         setState={(value) => {
                             this.onFieldChange('languages', value);
                         }}
@@ -330,13 +350,13 @@ export class MonsterEdit extends React.Component
                 </ControlGroup>
                 <FormGroup label="Traits">
                     <DefinitionList
-                        list={this.props.traits || {}}
+                        list={traits}
                         setState={(value) => {
                             this.onFieldChange('traits', value);
                         }}
                         />
                 </FormGroup>
-            </Panel>,
+            </Panel>
 
             <Panel
                     key="statistics"
@@ -344,11 +364,11 @@ export class MonsterEdit extends React.Component
                     header="Statistics"
                 >
                 <StatsBlock
-                    {...this.props.statistics}
+                    {...statistics}
                     setState={
                         (update) => this.onStatisticsChange(update)
                     } />
-            </Panel>,
+            </Panel>
 
             <Panel
                     key="attacks"
@@ -357,70 +377,44 @@ export class MonsterEdit extends React.Component
                 >
                 <ListComponent
                     component={AttackEditor}
-                    list={this.props.attacks || [{}]}
+                    list={attacks}
                     setState={(value, callback=null) => {
                         this.onFieldChange('attacks', value, callback);
                     }}
                     onDelete={(index, item) => {
-                        if (!this.props.multiattack) {
-                            return;
-                        }
-                        const mas = _.reduce(
-                            this.props.multiattack,
-                            (mas, ma) => {
-                                const sequence = _.reduce(
+                        const mas = _.map(multiattack, ma => {
+                            if (!_.includes(ma.sequence, item.name)) {
+                                return ma;
+                            }
+                            return _.assign({}, ma, {
+                                sequence: _.pull(
                                     ma.sequence,
-                                    (sequence, attack) => {
-                                        if (attack != item.name) {
-                                            sequence.push(attack);
-                                        }
-                                        return sequence;
-                                    },
-                                    []
-                                );
-                                mas.push(_.assign(
-                                    {},
-                                    ma,
-                                    {sequence: sequence}
-                                ));
-                                return mas;
-                            },
-                            []
-                        );
+                                    item.name
+                                )
+                            });
+                        });
                         this.onFieldChange('multiattack', mas);
                     }}
                     onChange={(index, beforeItem, afterItem) => {
-                        if (!this.props.multiattack) {
-                            return;
-                        }
-                        const mas = _.reduce(
-                            this.props.multiattack,
-                            (mas, ma) => {
-                                const sequence = _.reduce(
+                        const mas = _.map(multiattack, ma => {
+                            if (!_.includes(ma.sequence, item.name)) {
+                                return ma;
+                            }
+                            return _.assign({}, ma, {
+                                sequence: _.map(
                                     ma.sequence,
-                                    (sequence, attack) => {
-                                        if (attack == beforeItem.name) {
-                                            sequence.push(afterItem.name);
-                                        } else {
-                                            sequence.push(attack);
-                                        }
-                                        return sequence;
-                                    },
-                                    []
-                                );
-                                mas.push(_.assign(
-                                    {},
-                                    ma,
-                                    {sequence: sequence}
-                                ));
-                                return mas;
-                            },
-                            []
-                        );
+                                    attack => (
+                                        attack == beforeItem.name
+                                        ? afterItem.name
+                                        : attack
+                                    )
+                                )
+                            });
+                        });
                         this.onFieldChange('multiattack', mas);
                     }}
                     />
-            </Panel>,
+            </Panel>
 
             <Panel
                     key="multiattack"
@@ -429,16 +423,14 @@ export class MonsterEdit extends React.Component
                 >
                 <ListComponent
                     component={MultiAttackEditor}
-                    list={this.props.multiattack || [{}]}
-                    componentProps={{
-                        attacks: this.props.attacks || []
-                    }}
+                    list={multiattack}
+                    componentProps={{attacks}}
                     setState={(value) => {
                         this.onFieldChange('multiattack', value);
                     }}
                     />
             </Panel>
-        ];
+        </React.Fragment>
     }
 }
 
