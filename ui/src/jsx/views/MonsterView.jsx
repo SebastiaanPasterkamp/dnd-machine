@@ -234,6 +234,25 @@ export class MonsterView extends LazyComponent
                         </td>
                     </tr>
                     <tr>
+                        <td colSpan={2}>
+                            <MDReactComponent
+                                text={description || ''}
+                                />
+                        </td>
+                    </tr>
+                </tbody>
+            </Panel>
+
+            <Panel
+                key="properties"
+                className="monster-view__properties info" header="Properties"
+                >
+                <tbody>
+                    <tr>
+                        <th>Challenge Rating</th>
+                        <td>{challenge_rating} ({xp}XP)</td>
+                    </tr>
+                    <tr>
                         <th>Level</th>
                         <td>{level}</td>
                     </tr>
@@ -252,26 +271,6 @@ export class MonsterView extends LazyComponent
                                 bonus={statistics.modifiers.constitution * level}
                                 />)
                         </td>
-                    </tr>
-                    <tr>
-                        <th>Description</th>
-                        <td>
-                            <MDReactComponent
-                                text={description || ''}
-                                />
-                        </td>
-                    </tr>
-                </tbody>
-            </Panel>
-
-            <Panel
-                key="properties"
-                className="monster-view__properties info" header="Properties"
-                >
-                <tbody>
-                    <tr>
-                        <th>Challenge Rating</th>
-                        <td>{challenge_rating} ({xp}XP)</td>
                     </tr>
                     <tr>
                         <th>Motion</th>
