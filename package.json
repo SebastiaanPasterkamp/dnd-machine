@@ -49,14 +49,15 @@
       "**/tests/**/*.js?(x)"
     ],
     "testPathIgnorePatterns": [
-      "__mocks__"
+      "__mocks__",
+      "__init__"
     ],
     "setupFiles": [
-      "<rootDir>/ui/shim.js",
-      "<rootDir>/ui/setupTests.js"
+      "<rootDir>/ui/tests/__init__/shim.js",
+      "<rootDir>/ui/tests/__init__/setup.js"
     ],
     "moduleNameMapper": {
-      "^.+\\.(css|scss)$": "<rootDir>/ui/styleMock.js"
+      "^.+\\.(css|scss)$": "<rootDir>/ui/tests/__mocks__/style.js"
     }
   },
   "repository": {
