@@ -1,32 +1,43 @@
 import React from 'react';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
+
+import utils from '../utils.jsx';
 
 import LazyComponent from './LazyComponent.jsx';
 
 export class ButtonField extends LazyComponent
 {
     render() {
-        let style = _.filter([
-            'nice-btn',
-            'color' in this.props ? this.props.color : null,
-            'icon' in this.props ? "icon" : null,
-            'icon' in this.props ? "fa-" + this.props.icon : null,
-            this.props.className,
-            ]);
+        const {
+            color, icon, className, label, ...buttonProps
+        } = this.props
+        const style = utils.makeStyle({
+            [color]: color,
+            'icon': icon,
+            ['fa-' + icon]: icon
+        }, ['nice-btn', className]);
 
         return <button
-                {...this.props}
-                className={style.join(' ')}
+                {...buttonProps}
+                className={style}
                 >
-            {this.props.label || "Button"}
+            {label}
         </button>
     }
 }
 
 ButtonField.defaultProps = {
+    label: "Button",
     onClick: () => {
         console.log(['ButtonField']);
     }
+};
+
+ButtonField.propTypes = {
+    label: PropTypes.string,
+    color: PropTypes.string,
+    icon: PropTypes.string,
+    className: PropTypes.string
 };
 
 export default ButtonField;
