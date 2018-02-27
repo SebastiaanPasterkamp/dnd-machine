@@ -9,23 +9,20 @@ import ButtonField from './ButtonField.jsx';
 export class ListComponent extends LazyComponent
 {
     onChange(index, item) {
-        let head = _.take(
-                this.props.list, index),
-            oldItem = this.props.list[index],
-            tail = _.takeRight(
-                this.props.list, this.props.list.length - index - 1);
-        this.props.setState(
+        const { list, setState, onChange } = this.props;
+        const head = _.take(list, index),
+            oldItem = list[index],
+            tail = _.takeRight(list, list.length - index - 1);
+        setState(
             head.concat([item]).concat(tail),
-            () => {
-                if (this.props.onChange) {
-                    this.props.onChange(index, oldItem, item);
-                }
-            }
+            onChange
+                ? () => onChange(index, oldItem, item)
+                : null
         );
     }
 
     onSetState(index, update) {
-        let item = _.assign(
+        const item = _.assign(
             {},
             this.props.list[index],
             update
@@ -34,66 +31,54 @@ export class ListComponent extends LazyComponent
     }
 
     onDelete(index) {
-        let head = _.take(
-                this.props.list, index),
-            oldItem = this.props.list[index],
-            tail = _.takeRight(
-                this.props.list, this.props.list.length - index - 1);
-        this.props.setState(
+        const { list, setState, onDelete } = this.props;
+        const head = _.take(list, index),
+            oldItem = list[index],
+            tail = _.takeRight(list, list.length - index - 1);
+        setState(
             head.concat(tail),
-            () => {
-                if (this.props.onDelete) {
-                    this.props.onDelete(index, oldItem);
-                }
-            }
+            onDelete
+                ? () => onDelete(index, oldItem)
+                : null
         );
     }
 
     onAdd(item={}) {
-        let head = _.take(
-                this.props.list, this.props.list.length);
-        if (this.props.onAdd) {
-            this.props.onAdd(this.props.list.length, item);
-        }
-        this.props.setState(head.concat([item]));
+        const { list, setState, onAdd } = this.props;
+        const head = _.take(list, list.length);
+        setState(
+            head.concat([item]),
+            onAdd
+                ? () => onAdd(onAdd(list.length, item))
+                : null
+        );
     }
 
     render() {
-        let onDelete = (index) => () => {
-                this.onDelete(index);
-            },
-            onAdd = () => (e) => {
-                this.onAdd();
-            },
-            onChange = (index) => (item) => {
-                this.onChange(index, item);
-            },
-            onSetState = (index) => (update) => {
-                this.onSetState(index, update);
-            },
-            componentProps = this.props.componentProps || {};
+        const {
+            list, keyProp, component: Component, componentProps = {},
+            initialItem = {}
+        } = this.props;
 
         return <ul className="list-component">
-            {_.map(this.props.list, (item, index) => {
-                const key = this.props.keyProp == null
-                    ? index : (item[this.props.keyProp] || '_');
-                return <li key={key}>
-                    <this.props.component
-                        {...item}
-                        onChange={onChange(index)}
-                        setState={onSetState(index)}
-                        {...componentProps}
-                        />
-                    <ButtonField
-                        className="list-component__delete"
-                        name="del"
-                        color="warning"
-                        icon="minus"
-                        label="&#8203;"
-                        onClick={onDelete(index)}
-                        />
-                </li>
-                })}
+            {_.map(list, (item, index) => (
+            <li key={index}>
+                <Component
+                    {...item}
+                    onChange={(item) => this.onChange(index, item)}
+                    setState={(item) => this.onSetState(index, item)}
+                    {...componentProps}
+                    />
+                <ButtonField
+                    className="list-component__delete"
+                    name="del"
+                    color="warning"
+                    icon="minus"
+                    label="&#8203;"
+                    onClick={() => this.onDelete(index)}
+                    />
+            </li>
+            ))}
             <li key="add-button">
                 <ButtonField
                     className="list-component__add"
@@ -101,15 +86,14 @@ export class ListComponent extends LazyComponent
                     color="primary"
                     icon="plus"
                     label="&#8203;"
-                    onClick={onAdd()}
+                    onClick={() => this.onAdd(_.assign({}, initialItem))}
                     />
             </li>
-        </ul>
+        </ul>;
     }
 }
 
 ListComponent.defaultProps = {
-    keyProp: null,
     setState: (value) => {
         console.log(['ListComponent', value]);
     }
