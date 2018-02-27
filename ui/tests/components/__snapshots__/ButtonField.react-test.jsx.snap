@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ButtonField should show a colored button 1`] = `
+<button
+  className="nice-btn good"
+  onClick={[Function]}
+>
+  Good
+</button>
+`;
+
+exports[`Component: ButtonField should show a custom button 1`] = `
+<button
+  className="nice-btn special"
+  onClick={[Function]}
+>
+  Button
+</button>
+`;
+
+exports[`Component: ButtonField should show a simple button 1`] = `
+<button
+  className="nice-btn"
+  onClick={[Function]}
+>
+  Button
+</button>
+`;
+
+exports[`Component: ButtonField should show an icon button 1`] = `
+<button
+  className="nice-btn icon fa-thumbs-up"
+  onClick={[Function]}
+>
+  Okay
+</button>
+`;
