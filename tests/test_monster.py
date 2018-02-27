@@ -14,10 +14,8 @@ from app.config import get_config, get_item_data
 class TestMonsterObject(unittest.TestCase):
 
     def setUp(self):
-        self.machine = DndMachine(
-            get_config()['machine'],
-            get_item_data()
-            )
+        config = get_config()
+        self.machine = DndMachine(config['machine'])
         self.items = ItemsObject(
             os.path.abspath(os.path.join(
                 os.path.dirname(__file__),
@@ -153,23 +151,22 @@ class TestMonsterObject(unittest.TestCase):
         monster = MonsterObject({
             'statistics': {
                 'bare': {
-                    'strength': 18,
+                    'strength': 16,
                     'dexterity': 12,
                     'charisma': 10
                     }
                 },
             'attacks': [{
                 'name': 'Torch Slam',
+                'mode': 'spell',
                 'damage': [{
                     'type': 'Fire',
-                    'mode': 'spell',
-                    'dice_count': 3,
-                    'dice_size': 6
-                    }, {
-                    'type': 'Bludgeoning',
-                    'mode': 'melee',
                     'dice_count': 2,
                     'dice_size': 8
+                    }, {
+                    'type': 'Bludgeoning',
+                    'dice_count': 3,
+                    'dice_size': 6
                     }]
                 }]
             })
@@ -178,26 +175,25 @@ class TestMonsterObject(unittest.TestCase):
 
         self.assertDictContainsSubset({
             'proficiency': 2,
-            'attack_bonus': 6,
-            'spell_save_dc': 0,
-            'average_damage': 23,
-            'critical_damage': 43
+            'attack_bonus': 2,
+            'spell_save_dc': 10,
+            'average_damage': 19,
+            'critical_damage': 39
             }, monster.config)
         self.assertDictContainsSubset({
-            'notation': u'2d8+4 Bludgeoning + 3d6 Fire'
+            'notation': u'3d6 Bludgeoning + 2d8 Fire'
             }, monster.attacks0)
 
-        monster.statisticsBareStrength = 10
-        monster.statisticsBareCharisma = 16
+        monster.attacks0mode = 'melee'
         monster.compute()
 
         self.assertDictContainsSubset({
-            'notation': '3d6+3 Fire + 2d8 Bludgeoning'
+            'notation': '3d6+3 Bludgeoning + 2d8 Fire'
             }, monster.attacks0)
         self.assertDictContainsSubset({
             'proficiency': 2,
-            'attack_bonus': 0,
-            'spell_save_dc': 13,
+            'attack_bonus': 5,
+            'spell_save_dc': 0,
             'average_damage': 22,
             'critical_damage': 42
             }, monster.config)
@@ -212,14 +208,13 @@ class TestMonsterObject(unittest.TestCase):
                 },
             'attacks': [{
                 'name': 'Poisoned Axe',
+                'mode': 'ranged',
                 'damage': [{
                     'type': 'Piercing',
-                    'mode': 'ranged',
                     'dice_count': 3,
                     'dice_size': 8
                     }, {
                     'type': 'Poison',
-                    'mode': 'spell',
                     'dice_count': 2,
                     'dice_size': 6
                     }]
@@ -233,26 +228,26 @@ class TestMonsterObject(unittest.TestCase):
         monster.compute()
 
         self.assertDictContainsSubset({
-            'notation': '3d8+3 Piercing + 2d6+1 Poison'
+            'notation': '3d8+3 Piercing + 2d6 Poison'
             }, monster.attacks0)
         self.assertDictContainsSubset({
             'proficiency': 2,
             'attack_bonus': 5,
             'spell_save_dc': 0,
-            'average_damage': 48,
-            'critical_damage': 90
+            'average_damage': 46,
+            'critical_damage': 88
             }, monster.config)
 
 
         monster.statisticsBareDexterity = 15
         monster.compute()
 
-        self.assertEquals(monster.attacks0notation, '3d8+2 Piercing + 2d6+1 Poison')
+        self.assertEquals(monster.attacks0notation, '3d8+2 Piercing + 2d6 Poison')
         self.assertEquals(monster.proficiency, 2)
         self.assertEquals(monster.attack_bonus, 4)
         self.assertEquals(monster.spell_save_dc, 0)
-        self.assertEquals(monster.average_damage, 46)
-        self.assertEquals(monster.critical_damage, 88)
+        self.assertEquals(monster.average_damage, 44)
+        self.assertEquals(monster.critical_damage, 86)
 
 
     def testChallengeRating(self):
@@ -279,9 +274,11 @@ class TestMonsterObject(unittest.TestCase):
         monster.compute()
 
         self.assertAlmostEqual(
-            monster.challenge_rating, 0.03, delta=0.01)
-        self.assertEquals(monster.xp, 10)
-        self.assertAlmostEqual(monster.xp_rating, 10., delta=1.0)
+            monster.challenge_rating, 0.125, delta=0.01)
+        self.assertAlmostEqual(
+            monster.challenge_rating_precise, 0.03, delta=0.01)
+        self.assertEquals(monster.xp, 25)
+        self.assertAlmostEqual(monster.xp_rating, 6., delta=1.0)
         self.assertEquals(monster.proficiency, 2)
 
         monster.armor_class = 11
@@ -290,9 +287,11 @@ class TestMonsterObject(unittest.TestCase):
         monster.compute()
 
         self.assertAlmostEqual(
-            monster.challenge_rating, 0.06, delta=0.01)
-        self.assertEquals(monster.xp, 10)
-        self.assertAlmostEqual(monster.xp_rating, 10., delta=1.0)
+            monster.challenge_rating, 0.125, delta=0.01)
+        self.assertAlmostEqual(
+            monster.challenge_rating_precise, 0.06, delta=0.01)
+        self.assertEquals(monster.xp, 25)
+        self.assertAlmostEqual(monster.xp_rating, 12., delta=1.0)
         self.assertEquals(monster.proficiency, 2)
 
         monster = MonsterObject({
@@ -309,14 +308,13 @@ class TestMonsterObject(unittest.TestCase):
             'armor_class': 13,
             'attacks': [{
                 'name': 'Torch Slam',
+                'mode': 'spell',
                 'damage': [{
                     'type': 'Fire',
-                    'mode': 'spell',
                     'dice_count': 3,
                     'dice_size': 6
                     }, {
                     'type': 'Bludgeoning',
-                    'mode': 'melee',
                     'dice_count': 2,
                     'dice_size': 8
                     }]
@@ -326,9 +324,11 @@ class TestMonsterObject(unittest.TestCase):
         monster.compute()
 
         self.assertAlmostEqual(
-            monster.challenge_rating, 2.06, delta=0.01)
-        self.assertEquals(monster.xp, 450)
-        self.assertAlmostEqual(monster.xp_rating, 450., delta=1.0)
+            monster.challenge_rating, 0.25, delta=0.01)
+        self.assertAlmostEqual(
+            monster.challenge_rating_precise, 0.5625, delta=0.01)
+        self.assertEquals(monster.xp, 50)
+        self.assertAlmostEqual(monster.xp_rating, 112., delta=1.0)
         self.assertEquals(monster.proficiency, 2)
 
         monster.armor_class = 14
@@ -338,9 +338,11 @@ class TestMonsterObject(unittest.TestCase):
         monster.compute()
 
         self.assertAlmostEqual(
-            monster.challenge_rating, 2.55, delta=0.02)
-        self.assertEquals(monster.xp, 700)
-        self.assertAlmostEqual(monster.xp_rating, 700., delta=1.0)
+            monster.challenge_rating, 2, delta=0.02)
+        self.assertAlmostEqual(
+            monster.challenge_rating_precise, 2.55, delta=0.02)
+        self.assertEquals(monster.xp, 450)
+        self.assertAlmostEqual(monster.xp_rating, 582., delta=1.0)
         self.assertEquals(monster.proficiency, 2)
 
 
@@ -358,14 +360,13 @@ class TestMonsterObject(unittest.TestCase):
             'armor_class': 16,
             'attacks': [{
                 'name': 'Poisoned Axe',
+                'mode': 'ranged',
                 'damage': [{
                     'type': 'Piercing',
-                    'mode': 'ranged',
                     'dice_count': 3,
                     'dice_size': 8
                     }, {
                     'type': 'Poison',
-                    'mode': 'spell',
                     'dice_count': 2,
                     'dice_size': 6
                     }]
@@ -379,9 +380,11 @@ class TestMonsterObject(unittest.TestCase):
         monster.compute()
 
         self.assertAlmostEqual(
-            monster.challenge_rating, 6.25, delta=0.1)
+            monster.challenge_rating, 6, delta=0.1)
+        self.assertAlmostEqual(
+            monster.challenge_rating_precise, 6.25, delta=0.1)
         self.assertEquals(monster.xp, 2300)
-        self.assertAlmostEqual(monster.xp_rating, 2300.0, delta=1.0)
+        self.assertAlmostEqual(monster.xp_rating, 2450.0, delta=1.0)
         self.assertEquals(monster.proficiency, 3)
 
         monster.armor_class = 17
@@ -390,9 +393,11 @@ class TestMonsterObject(unittest.TestCase):
         monster.compute()
 
         self.assertAlmostEqual(
-            monster.challenge_rating, 6.75, delta=0.1)
+            monster.challenge_rating, 7, delta=0.1)
+        self.assertAlmostEqual(
+            monster.challenge_rating_precise, 6.75, delta=0.1)
         self.assertEquals(monster.xp, 2900)
-        self.assertAlmostEqual(monster.xp_rating, 2900.0, delta=1.0)
+        self.assertAlmostEqual(monster.xp_rating, 2650.0, delta=1.0)
         self.assertEquals(monster.proficiency, 3)
 
 if __name__ == '__main__':
