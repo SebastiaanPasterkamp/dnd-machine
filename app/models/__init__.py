@@ -5,7 +5,7 @@ import sys
 
 from flask import g
 
-from ..config import get_config, get_item_data
+from ..config import get_config
 
 from campaign import CampaignMapper
 from character import CharacterMapper
@@ -26,8 +26,7 @@ class Datamapper(object):
     def __init__(self, db):
         self.db = db
         self._creators = {
-            'machine': lambda: DndMachine(
-                get_config()['machine'], get_item_data()),
+            'machine': lambda: DndMachine(get_config()['machine']),
             'user': lambda: UserMapper(self.db),
             'party': lambda: PartyMapper(db),
             'character': lambda: CharacterMapper(db, self),
