@@ -1,3 +1,3 @@
-// styleMock.js
+// mocks/style.js
 
 export default {};
