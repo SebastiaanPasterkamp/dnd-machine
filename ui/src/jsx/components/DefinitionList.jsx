@@ -17,17 +17,21 @@ export class Definition extends LazyComponent
     }
 
     render() {
+        const {
+            name, description = ''
+        } = this.props;
+
         return <div>
             <InputField
                 placeholder="Name..."
-                value={this.props.name || ''}
+                value={name}
                 setState={(value) => {
-                    this.onFieldChange('name', name);
+                    this.onFieldChange('name', value);
                 }}
                 />
             <MarkdownTextField
                 placeholder="Description..."
-                value={this.props.description || ''}
+                value={description}
                 rows={5}
                 setState={(value) => {
                     this.onFieldChange('description', value);
@@ -39,19 +43,27 @@ export class Definition extends LazyComponent
 export class DefinitionList extends LazyComponent
 {
     render() {
+        const {
+            list, setState
+        } = this.props;
+
         return <ListComponent
-            list={_.values(this.props.list)}
+            list={_.map(list, (description, name) => ({
+                name, description
+            }))}
             component={Definition}
+            initialItem={{name: '', description: ''}}
             keyProp="name"
             setState={(value, callback=null) => {
-                this.props.setState(
-                    _.reduce(value, (list, val) => {
-                        list[val.name] = val;
+                setState(_.reduce(
+                    value,
+                    (list, {name, description}) => {
+                        list[name] = description;
                         return list;
-                    }, {}),
-                    callback
-                );
-            }}
+                    },
+                    {}
+                ), callback
+            )}}
             />
     }
 }
