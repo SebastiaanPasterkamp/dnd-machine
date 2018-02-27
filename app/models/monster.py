@@ -15,9 +15,9 @@ class MonsterObject(JsonObject):
         "hit_points": 2,
         "hit_points_notation": u"1d4",
         "armor_class": 10,
-        "proficiency": 0,
+        "proficiency": 2,
         "passive_perception": 0,
-        "traits": [],
+        "traits": {},
         "features": [],
         "languages": [],
         "multiattack": [],
@@ -127,6 +127,8 @@ class MonsterObject(JsonObject):
                 }
             del self._config['stats']
             del self._config['modifiers']
+        if isinstance(self.traits, list):
+            self.traits = {}
 
         super(MonsterObject, self).migrate()
 
@@ -179,17 +181,28 @@ class MonsterObject(JsonObject):
                 attack['reach'] = attack['range']
                 del(attack['range'])
 
-            for damage in attack["damage"]:
-                damage["mode"] = damage.get("mode", "melee")
-                damage["bonus"] = self.statisticsModifiers.get(
-                    self.attack_modifier.get(
-                        damage["mode"], "strength"
-                        ), 0
-                    )
+            attack["mode"] = attack.get("mode", "melee")
+            attack["bonus"] = 0
+            attack["spell_save_dc"] = 0
+            mod = self.statisticsModifiers.get(
+                self.attack_modifier.get(
+                    attack["mode"], "strength"
+                    ), 0
+                )
+            attack["modifier"] = mod + self.proficiency
+            if attack["mode"] == "spell":
+                attack["spell_save_dc"] = 8 + attack["modifier"]
+            else:
+                attack["bonus"] = mod
+
+            attack["damage"] = attack.get("damage", [])
+            for i, damage in enumerate(attack["damage"]):
+                damage["dice_size"] = damage.get("dice_size", 4)
+                damage["dice_count"] = damage.get("dice_count", 0)
+                damage["type"] = damage.get("type", "")
                 damage.update(machine.diceCast(
                     damage["dice_size"],
-                    damage["dice_count"],
-                    damage["bonus"]
+                    damage["dice_count"]
                     ))
 
             attack["damage"] = sorted(
@@ -197,17 +210,12 @@ class MonsterObject(JsonObject):
                     key=lambda d: d["average"],
                     reverse=True
                     )
-
-            attack["mode"] = attack["damage"][0].get("mode", "melee")
-            attack["modifier"] = attack["damage"][0].get("bonus", 0)
-            if attack["mode"] in ["melee", "ranged"]:
-                attack["bonus"] = \
-                    attack["modifier"] + self.proficiency
-                attack["spell_save_dc"] = 0
-            else:
-                attack["bonus"] = 0
-                attack["spell_save_dc"] = 8 + \
-                    attack["modifier"] + self.proficiency
+            if len(attack["damage"]):
+                attack["damage"][0].update(machine.diceCast(
+                    attack["damage"][0]["dice_size"],
+                    attack["damage"][0]["dice_count"],
+                    attack["bonus"]
+                    ))
 
             attack["average"] = sum([
                 damage["average"]
@@ -224,10 +232,12 @@ class MonsterObject(JsonObject):
             if attack["average"] > self.average_damage:
                 self.average_damage = attack["average"]
                 self.critical_damage = attack["critical"]
-                self.attack_bonus = attack.get("bonus", 0)
-                self.spell_save_dc = attack.get("spell_save_dc", 0)
+                self.attack_bonus = attack["modifier"]
+                self.spell_save_dc = attack["spell_save_dc"]
 
         for multiattack in self.multiattack:
+            multiattack["sequence"] = multiattack.get(
+                "sequence", [])
             multiattack["average"] = sum([
                 attack["average"]
                 for attack_name in multiattack["sequence"]
