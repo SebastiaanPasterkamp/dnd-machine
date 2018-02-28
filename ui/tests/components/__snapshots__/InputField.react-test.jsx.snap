@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: InputField should show a default InputField 1`] = `
+<input
+  className="nice-form-control"
+  disabled={undefined}
+  onChange={[Function]}
+  onKeyPress={null}
+  placeholder={undefined}
+  type={undefined}
+  value=""
+/>
+`;
+
+exports[`Component: InputField should show a disabled number field with class and placeholder 1`] = `
+<input
+  className="nice-form-control"
+  disabled={true}
+  onChange={[Function]}
+  onKeyPress={null}
+  placeholder="Fill in a number..."
+  type="number"
+  value="3"
+/>
+`;

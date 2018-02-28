@@ -24,11 +24,11 @@ Array [
         </span>
         <input
           className="nice-form-control"
-          disabled={false}
+          disabled={undefined}
           onChange={[Function]}
           onKeyPress={null}
           placeholder="Name..."
-          type="text"
+          type={undefined}
           value="Example NPC"
         />
       </div>
@@ -42,11 +42,11 @@ Array [
         </span>
         <input
           className="nice-form-control"
-          disabled={false}
+          disabled={undefined}
           onChange={[Function]}
           onKeyPress={null}
           placeholder="Location..."
-          type="text"
+          type={undefined}
           value="Somewhere"
         />
       </div>
@@ -60,11 +60,11 @@ Array [
         </span>
         <input
           className="nice-form-control"
-          disabled={false}
+          disabled={undefined}
           onChange={[Function]}
           onKeyPress={null}
           placeholder="Organization..."
-          type="text"
+          type={undefined}
           value="D&D Machine, Inc."
         />
       </div>
