@@ -69,9 +69,6 @@ export class InputField extends LazyComponent
 
 InputField.defaultProps = {
     value: '',
-    type: 'text',
-    disabled: false,
-    placeholder: '',
     setState: (value) => {
         console.log(['InputField', value]);
     }
