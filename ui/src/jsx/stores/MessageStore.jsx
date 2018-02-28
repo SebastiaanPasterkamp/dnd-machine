@@ -1,9 +1,10 @@
 import React from 'react';
 import Reflux from 'reflux';
+import _ from 'lodash';
 
 import ReportingActions from '../actions/ReportingActions.jsx';
 
-class MessageStore extends Reflux.Store
+export class MessageStore extends Reflux.Store
 {
     constructor()
     {
