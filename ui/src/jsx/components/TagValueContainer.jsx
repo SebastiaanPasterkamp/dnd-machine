@@ -9,17 +9,16 @@ import BaseTagContainer from './BaseTagContainer.jsx';
 export class TagValueContainer extends BaseTagContainer
 {
     onChange(key, value) {
+        const { tags, setState } = this.props;
         const state = _.pickBy(
             _.assign(
                 {},
-                this.props.tags,
+                tags,
                 {[key]: value}
             ),
-            (value) => {
-                return value !== undefined;
-            }
+            (value) => (value !== undefined)
         );
-        this.props.setState(state);
+        setState(state);
     }
 
     onDelete(key, value) {
@@ -27,23 +26,26 @@ export class TagValueContainer extends BaseTagContainer
     }
 
     onAdd(value) {
-        const item = this.props.tagValues[0];
+        const { tagValues, defaultValue } = this.props;
+        const item = tagValues[0];
         this.onChange(
             value,
-            this.props.defaultValue || item.code || item.name
+            defaultValue || item.code || item.name
         );
     }
 
     getItem(key, value) {
-        return _.find(this.props.tagOptions, {code: key})
-            || _.find(this.props.tagOptions, {name: key})
+        const { tagOptions } = this.props;
+        return _.find(tagOptions, {code: key})
+            || _.find(tagOptions, {name: key})
     }
 
     isDisabled(item) {
-        if ('isDisabled' in this.props) {
-            return this.props.isDisabled(item);
+        const { isDisabled, multiple } = this.props;
+        if (isDisabled) {
+            return isDisabled(item);
         }
-        if (this.props.multiple || false) {
+        if (multiple) {
             return false;
         }
         const tags = this.getTags();
@@ -55,25 +57,24 @@ export class TagValueContainer extends BaseTagContainer
     }
 
     getBadges(key, value, item) {
-        return [
-            {
-                key: 'values',
-                label: value,
-                content: <div className="nice-tag-dropdown hover">
-                    <ul>
-                        {_.map(this.props.tagValues, (option) => {
-                            return <li key={option.code || option.name}>
-                                <a onClick={() => this.onChange(
-                                    key, option.label
-                                    )}>
-                                    {option.label}
-                                </a>
-                            </li>;
-                        })}
-                    </ul>
-                </div>
-            }
-        ];
+        const { tagValues } = this.props;
+        return [{
+            key: 'values',
+            label: value,
+            content: <div className="nice-tag-dropdown hover">
+                <ul>
+                {_.map(tagValues, option => (
+                    <li key={option.code || option.name}>
+                        <a onClick={() => this.onChange(
+                            key, option.label
+                            )}>
+                            {option.label}
+                        </a>
+                    </li>
+                ))}
+                </ul>
+            </div>
+        }];
     }
 }
 
