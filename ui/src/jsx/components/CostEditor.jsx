@@ -15,7 +15,7 @@ class CostEditor extends LazyComponent
             {'code': 'gp', 'label': 'Gold'},
             {'code': 'pp', 'label': 'Platinum'}
         ];
-        this.coins = _.range(1, 100)
+        this.coins = _.range(1, 11)
             .map((i) => {
                 return {code: i, label: i}
             });
@@ -23,9 +23,10 @@ class CostEditor extends LazyComponent
 
     render() {
         return <TagValueContainer
-            tags={this.props.value}
+            tags={this.props.value || {}}
             tagOptions={this.coinage}
             tagValues={this.coins}
+            defaultValue={1}
             setState={(value) => this.props.setState(value)}
             />;
     }
