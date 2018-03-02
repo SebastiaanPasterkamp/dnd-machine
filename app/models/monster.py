@@ -8,9 +8,7 @@ class MonsterObject(JsonObject):
         "size": u"small",
         "type": u"beast",
         "level": 1,
-        "motion": {
-            "walk": 20
-            },
+        "motion": {},
         "alignment": u"Neutral Evil",
         "hit_points": 2,
         "hit_points_notation": u"1d4",
