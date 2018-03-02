@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../../sass/_error-boundary.scss';
+
 import ReportingActions from '../actions/ReportingActions.jsx';
 
 export class ErrorBoundary extends React.Component {
@@ -11,27 +13,28 @@ export class ErrorBoundary extends React.Component {
     }
 
     componentDidCatch(error, info) {
-        this.setState({ hasError: true });
-        ReportingActions.reportError(error, info);
+        this.setState({ hasError: true, error, info });
+        ReportingActions.reportError(error.stack, info.componentStack);
         console.log({error, info});
     }
 
     render() {
-        if (this.state.hasError) {
-            return <div class="nice-modal bad viewport-center">
-                <div class="nice-modal-content">
-                    <div class="nice-modal-header">
-                        <h4>Error</h4>
-                    </div>
-                    <div class="nice-modal-body">
-                        <pre>{JSON.stringify(error, null, 2) }</pre>
-                        <pre>{JSON.stringify(info, null, 2) }</pre>
-                    </div>
-                </div>
-            </div>;
+        const { hasError, error, info } = this.state;
+        if (!hasError) {
+            return this.props.children;
         }
 
-        return this.props.children;
+        return <div class="error-boundary nice-modal bad viewport-center">
+            <div class="nice-modal-content">
+                <div class="nice-modal-header">
+                    <h4>Error</h4>
+                </div>
+                <div class="nice-modal-body">
+                    <pre>{error.stack}</pre>
+                    <pre>{info.componentStack}</pre>
+                </div>
+            </div>
+        </div>;
     }
 }
 
