@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+import utils from '../utils.jsx';
+
 import '../../sass/_base-tag-container.scss';
 
 import LazyComponent from './LazyComponent.jsx';
@@ -10,25 +12,28 @@ import SingleSelect from '../components/SingleSelect.jsx';
 export class BaseTagContainer extends LazyComponent
 {
     isDisabled(item) {
-        if ('isDisabled' in this.props) {
-            return this.props.isDisabled(item);
+        const { isDisabled } = this.props;
+        if (isDisabled) {
+            return isDisabled(item);
         }
         return false;
     }
 
     isSelectable(item) {
-        if ('isSelectable' in this.props) {
-            return this.props.isSelectable(item);
+        const { isSelectable } = this.props;
+        if (isSelectable) {
+            return isSelectable(item);
         }
         return !(item.hidden || false);
     }
 
     isImmutable(item) {
-        if (this.props.disabled) {
+        const { disabled, isImmutable } = this.props;
+        if (disabled) {
             return true;
         }
-        if ('isImmutable' in this.props) {
-            return this.props.isImmutable(item);
+        if (isImmutable) {
+            return isImmutable(item);
         }
         return item.immutable || false;
     }
@@ -42,12 +47,14 @@ export class BaseTagContainer extends LazyComponent
     }
 
     showSelect() {
-        return !this.props.disabled && this.props.showSelect;
+        const { disabled, showSelect } = this.props;
+        return !disabled && showSelect;
     }
 
     getSelectOptions() {
+        const { tagOptions } = this.props;
         return _.reject(
-            this.props.tagOptions,
+            tagOptions,
             (item) => !this.isSelectable(item)
         );
     }
@@ -68,23 +75,21 @@ export class BaseTagContainer extends LazyComponent
     renderTag(key, value) {
         const item = this.getItem(key, value)
             || {label: value, color: 'bad'};
-        var style = ["nice-tag"];
-        if (item.color) {
-            style.push(item.color);
-        } else if (this.isImmutable(item)) {
-            style.push('muted');
-        }
+        const style = utils.makeStyle({
+            [item.color]: item.color,
+            'muted': this.isImmutable(item)
+        }, ["nice-tag"]);
 
-        return <div key={key} className={style.join(' ')}>
+        return <div key={key} className={style}>
             <span className="nice-tag-label">
                 {item.label || item.name}
             </span>
-            {_.map(this.getBadges(key, value, item), (badge) => {
-                return <span key={badge.key} className="nice-tag-badge">
+            {_.map(this.getBadges(key, value, item), badge => (
+                <span key={badge.key} className="nice-tag-badge">
                     {badge.label}
                     {badge.content}
                 </span>
-            })}
+            ))}
             {item.description
                 ? <span className="nice-tag-badge">
                     ?
@@ -113,15 +118,14 @@ export class BaseTagContainer extends LazyComponent
                     />
                 : null
             }
-            {_.map(this.getTags(), (value, key) => {
-                return this.renderTag(key, value);
-            })}
+            {_.map(this.getTags(), (value, key) => (
+                this.renderTag(key, value)
+            ))}
         </div>
     }
 }
 
 BaseTagContainer.defaultProps = {
-    multiple: false,
     showSelect: true,
     setState: (value) => {
         console.log(['BaseTagContainer', value]);
