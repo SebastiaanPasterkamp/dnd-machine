@@ -9,7 +9,7 @@ import re
 import markdown
 
 from .baseapi import BaseApiBlueprint
-from ..config import get_character_data, get_item_data
+from ..config import get_character_data
 from ..filters import filter_bonus, filter_distance, filter_damage, filter_unique
 from . import fill_pdf
 
@@ -67,7 +67,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             fields = [
                 'id', 'name', 'gender', 'race', 'class', 'alignment',
                 'background', 'level', 'xp', 'xp_progress',
-                'user_id', 'xp_level', 'challenge'
+                'user_id', 'xp_level', 'challenge', 'spell'
                 ]
             result = dict([
                 (key, obj[key])
