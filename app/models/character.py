@@ -203,11 +203,16 @@ class CharacterObject(JsonObject):
                 }
             },
         "items": {
-            "*": [],
-            "artisan": {
-                "*": unicode
+            "*": {
+                '*': 'auto',
+                'worth': {
+                    '*': int
+                    },
+                'weight': {
+                    '*': float
+                    },
                 },
-            "trinket": unicode
+            'trinket': unicode
             },
         "abilities": {
             "*": {
@@ -239,11 +244,12 @@ class CharacterObject(JsonObject):
 
         def fixComputed(old, new, pattern=None):
             re_mod = re.compile(pattern or re.escape(old))
-            if old in self._config['computed']:
-                if new not in self._config['computed']:
-                    self._config['computed'][new] = self._config['computed'][old]
-                del self._config['computed'][old]
-            for path, compute in self._config['computed'].items():
+            computed = self._config['computed']
+            if old in computed:
+                if new not in computed:
+                    computed[new] = computed[old]
+                del computed[old]
+            for path, compute in computed.items():
                 if 'formula' not in compute:
                     continue
                 compute['formula'] = re_mod.sub(
