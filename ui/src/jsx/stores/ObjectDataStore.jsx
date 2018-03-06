@@ -45,24 +45,16 @@ const initial = {
         size: "",
         level: 1,
         description: "",
-        statistics: _.reduce(
-            [
-                'strength', 'dexterity', 'constitution',
-                'intelligence', 'wisdom', 'charisma'
-            ], (stats, stat) => {
-                stats['bare'][stat] = 8;
-                stats['bonus'][stat] = [];
-                stats['base'][stat] = 8;
-                stats['modifiers'] = -1;
-                return stats;
-            },
-            {
-                bare: {},
-                bonus: {},
-                base: {},
-                modifiers: {}
+        statistics: {
+            bare: {
+                strength: 8,
+                dexterity: 8,
+                constitution: 8,
+                intelligence: 8,
+                wisdom: 8,
+                charisma: 8,
             }
-        )
+        }
     },
     party: {
         id: null,

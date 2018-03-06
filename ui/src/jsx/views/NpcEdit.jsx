@@ -6,12 +6,15 @@ import '../../sass/_edit-npc.scss';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
+import AutoCompleteInput from '../components/AutoCompleteInput.jsx';
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
+import DefinitionList from '../components/DefinitionList.jsx';
+import FormGroup from '../components/FormGroup.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
-import StatsBlock from '../components/StatsBlock.jsx';
+import {StatsBlock} from '../components/StatsBlock.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
 
 export class NpcEdit extends React.Component
@@ -31,24 +34,121 @@ export class NpcEdit extends React.Component
         });
     }
 
+    onBaseChange(field, items, value) {
+        const { statistics, setState } = this.props
+        const oldConfig = this.getConfig(items, this.props[field]);
+        const newConfig = this.getConfig(items, value);
+        const emptyBonus = _.reduce(
+            statistics.base,
+            (emptyBonus, value, key) => {
+                emptyBonus[key] = [];
+                return emptyBonus;
+            },
+            {}
+        );
+
+        let newState = _.assign(
+            {},
+            _.reduce(
+                oldConfig || {},
+                (reset, value, key) => {
+                    reset[key] = undefined;
+                    return reset;
+                },
+                {}
+            ),
+            newConfig,
+            {
+                statistics,
+                hit_dice: 8,
+                [field]: value,
+            }
+        );
+
+        if (oldConfig && oldConfig.statistics) {
+            newState.statistics.bonus = emptyBonus;
+        }
+
+        if (newConfig && newConfig.statistics) {
+            newState.statistics.bonus = _.assign(
+                {},
+                emptyBonus,
+                newConfig.statistics.bonus
+            );
+        }
+
+        setState(newState);
+    }
+
     onStatisticsChange(value) {
-        let update = Object.assign({}, this.props.statistics, value);
-        this.props.setState({
-            statistics: update
-        });
+        const statistics = _.assign(
+            {},
+            this.props.statistics,
+            value
+        );
+        this.props.setState({statistics});
+    }
+
+    getConfig(items, name) {
+        return _.reduce(
+            items,
+            (config, item) => {
+                if (
+                    item.name != name
+                    && !_.some(item.sub, {name})
+                ) {
+                    return config;
+                }
+                config = _.merge(config, item.config);
+                _.reduce(
+                    item.sub,
+                    (config, sub) => {
+                        if (sub.name != name) {
+                            return config;
+                        }
+                        return _.merge(config, sub.config);
+                    },
+                    config
+                );
+                return config;
+            },
+            {}
+        );
+    }
+
+    flattenSubs(items) {
+        return _.reduce(
+            items,
+            (result, item) => {
+                return _.concat(
+                    result,
+                    _.map(
+                        item.sub || [item],
+                        sub => ({
+                            code: sub.name,
+                            label: sub.name,
+                        })
+                    )
+                );
+            },
+            []
+        );
     }
 
     render() {
         const {
-            name, location, organization, gender, genders,
-            alignment, alignments, size, size_hit_dice, level
+            name, location, organization, 'class': _class,
+            classes = [], race, races = [], gender, genders = [],
+            description = '', alignment, alignments = [], size,
+            size_hit_dice = [], level, traits = [], statistics,
+            _statistics = []
         } = this.props;
 
-        return [
+        return <React.Fragment>
             <Panel
-                    key="description"
-                    className="npc-edit__description"
-                    header="Description"
+                key="description"
+                className="npc-edit__description"
+                header="Description"
                 >
                 <ControlGroup label="Name">
                     <InputField
@@ -74,11 +174,29 @@ export class NpcEdit extends React.Component
                             (value) => this.onFieldChange('organization', value)
                         } />
                 </ControlGroup>
+                <ControlGroup label="Race">
+                    <SingleSelect
+                        emptyLabel="Race..."
+                        selected={race}
+                        items={this.flattenSubs(races)}
+                        setState={
+                            (value) => this.onBaseChange('race', races, value)
+                        } />
+                </ControlGroup>
+                <ControlGroup label="Class">
+                    <AutoCompleteInput
+                        placeholder="Class..."
+                        value={_class}
+                        items={this.flattenSubs(classes)}
+                        setState={
+                            (value) => this.onBaseChange('class', classes, value)
+                        } />
+                </ControlGroup>
                 <ControlGroup label="Gender">
                     <SingleSelect
                         emptyLabel="Gender..."
                         selected={gender}
-                        items={genders || []}
+                        items={genders}
                         setState={
                             (value) => this.onFieldChange('gender', value)
                         } />
@@ -87,7 +205,7 @@ export class NpcEdit extends React.Component
                     <SingleSelect
                         emptyLabel="Alignment..."
                         selected={alignment}
-                        items={alignments || []}
+                        items={alignments}
                         setState={
                             (value) => this.onFieldChange('alignment', value)
                         } />
@@ -96,7 +214,7 @@ export class NpcEdit extends React.Component
                     <SingleSelect
                         emptyLabel="Size..."
                         selected={size}
-                        items={size_hit_dice || []}
+                        items={size_hit_dice}
                         setState={
                             (value) => this.onFieldChange('size', value)
                         } />
@@ -113,42 +231,64 @@ export class NpcEdit extends React.Component
                 <ControlGroup label="Description">
                     <MarkdownTextField
                         placeholder="Description..."
-                        value={this.props.description}
+                        value={description}
                         rows={5}
                         setState={
                             (value) => this.onFieldChange('description', value)
                         } />
                 </ControlGroup>
-            </Panel>,
+            </Panel>
 
             <Panel
-                    key="statistics"
-                    className="npc-edit__statistics" header="Statistics"
+                key="statistics"
+                className="npc-edit__statistics"
+                header="Statistics"
                 >
                 <StatsBlock
-                    {...this.props.statistics}
-                    budget={50}
+                    {...statistics}
+                    statistics={_statistics}
                     setState={
                         (update) => this.onStatisticsChange(update)
                     } />
             </Panel>
-        ];
+
+            <Panel
+                key="properties"
+                className="npc-edit__properties"
+                header="Properties"
+                >
+                <FormGroup label="Traits">
+                    <DefinitionList
+                        list={traits}
+                        setState={(value) => {
+                            this.onFieldChange('traits', value);
+                        }}
+                        />
+                </FormGroup>
+            </Panel>
+        </React.Fragment>;
     }
 }
 
 export default ListDataWrapper(
-    RoutedObjectDataWrapper(
-        NpcEdit, {
-            className: 'npc-edit',
-            icon: 'fa-commenting-o',
-            label: 'NPC',
-            buttons: ['cancel', 'reload', 'recompute', 'save']
-        }, "npc"
+    ListDataWrapper(
+        RoutedObjectDataWrapper(
+            NpcEdit, {
+                className: 'npc-edit',
+                icon: 'fa-commenting-o',
+                label: 'NPC',
+                buttons: ['cancel', 'reload', 'recompute', 'save']
+            }, "npc"
+        ),
+        [
+            'alignments',
+            'genders',
+            'size_hit_dice',
+            'statistics',
+        ],
+        'items',
+        {'statistics': '_statistics'}
     ),
-    [
-        'alignments',
-        'genders',
-        'size_hit_dice',
-    ],
-    'items'
+    ['races', 'classes'],
+    'npc'
 );
