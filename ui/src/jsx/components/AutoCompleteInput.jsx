@@ -27,16 +27,17 @@ export class AutoCompleteInput extends LazyComponent
     render() {
         const { items, value, ...props } = this.props;
         const { focus, hover } = this.state;
+        const filter = new RegExp(value, "i");
 
         const filtered = _.filter(items, item => (
-            item.label.match(value)
+            item.label.match(filter)
         ));
 
         const dropStyle = utils.makeStyle({
             shown: (focus || hover) && filtered.length
         }, ['dropdown-menu']);
 
-        return <div className="nice-dropdown">
+        return <div className="nice-dropdown nice-form-control">
             <InputField
                 {...props}
                 value={value}
@@ -48,9 +49,9 @@ export class AutoCompleteInput extends LazyComponent
                 }
                 />
             <ul
-                    className={dropStyle}
-                    onMouseEnter={() => this.setState({hover: true})}
-                    onMouseLeave={() => this.setState({hover: false})}
+                className={dropStyle}
+                onMouseEnter={() => this.setState({hover: true})}
+                onMouseLeave={() => this.setState({hover: false})}
                 >
                 {_.map(filtered, item => (
                     <li key={item.code}>
