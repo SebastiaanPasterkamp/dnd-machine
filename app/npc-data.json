@@ -4,22 +4,28 @@
         "sub": [{
             "name": "Hill Dwarf",
             "config": {
-                "stats_bonus": {
-                    "wisdom": [1],
-                    "constitution": [2]
+                "statistics": {
+                    "bonus": {
+                        "wisdom": [1],
+                        "constitution": [2]
+                    }
                 }
             }
         }, {
             "name": "Mountain Dwarf",
             "config": {
-                "stats_bonus": {
-                    "strength": [1]
+                "statistics": {
+                    "bonus": {
+                        "strength": [1]
+                    }
                 }
             }
         }],
         "config": {
-            "stats_bonus": {
-                "constitution": [2]
+            "statistics": {
+                "bonus": {
+                    "constitution": [2]
+                }
             },
             "size": "medium",
             "speed": 25,
@@ -34,22 +40,28 @@
         "sub": [{
             "name": "High Elf",
             "config": {
-                "stats_bonus": {
-                    "intelligence": [1]
+                "statistics": {
+                    "bonus": {
+                        "intelligence": [1]
+                    }
                 }
             }
         }, {
             "name": "Wood Elf",
             "config": {
-                "stats_bonus": {
-                    "wisdom": [1]
+                "statistics": {
+                    "bonus": {
+                        "wisdom": [1]
+                    }
                 },
                 "speed": 35
             }
         }],
         "config": {
-            "stats_bonus": {
-                "dexterity": [2]
+            "statistics": {
+                "bonus": {
+                    "dexterity": [2]
+                }
             },
             "size": "medium",
             "speed": 30,
@@ -64,24 +76,30 @@
         "sub": [{
             "name": "Forrest Gnome",
             "config": {
-                "stats_bonus": {
-                    "dexterity": [1]
+                "statistics": {
+                    "bonus": {
+                        "dexterity": [1]
+                    }
                 },
-                "spells": {
-                    "cantrip": ["Minor Illusion"]
+                "spell": {
+                    "list": ["Minor Illusion"]
                 }
             }
         }, {
             "name": "Rock Gnome",
             "config": {
-                "stats_bonus": {
-                    "constitution": [1]
+                "statistics": {
+                    "bonus": {
+                        "constitution": [1]
+                    }
                 }
             }
         }],
         "config": {
-            "stats_bonus": {
-                "intelligence": [2]
+            "statistics": {
+                "bonus": {
+                    "intelligence": [2]
+                }
             },
             "size": "small",
             "speed": 25,
@@ -91,9 +109,11 @@
     }, {
         "name": "Half-Orc",
         "config": {
-            "stats_bonus": {
-                "strength": [2],
-                "constitution": [1]
+            "statistics": {
+                "bonus": {
+                    "strength": [2],
+                    "constitution": [1]
+                }
             },
             "size": "medium",
             "speed": 30,
@@ -105,15 +125,19 @@
         "sub": [{
             "name": "Lightfoot Halfing",
             "config": {
-                "stats_bonus": {
-                    "charisma": [1]
+                "statistics": {
+                    "bonus": {
+                        "charisma": [1]
+                    }
                 }
             }
         }, {
             "name": "Stout Halfing",
             "config": {
-                "stats_bonus": {
-                    "constitution": [1]
+                "statistics": {
+                    "bonus": {
+                        "constitution": [1]
+                    }
                 },
                 "resistances": {
                     "damage": ["Poison"]
@@ -121,8 +145,10 @@
             }
         }],
         "config": {
-            "stats_bonus": {
-                "dexterity": [2]
+            "statistics": {
+                "bonus": {
+                    "dexterity": [2]
+                }
             },
             "size": "small",
             "speed": 25,
@@ -134,13 +160,15 @@
     }, {
         "name": "Human",
         "config": {
-            "stats_bonus": {
-                "strength": [1],
-                "dexterity": [1],
-                "constitution": [1],
-                "intelligence": [1],
-                "wisdom": [1],
-                "charisma": [1]
+            "statistics": {
+                "bonus": {
+                    "strength": [1],
+                    "dexterity": [1],
+                    "constitution": [1],
+                    "intelligence": [1],
+                    "wisdom": [1],
+                    "charisma": [1]
+                }
             },
             "size": "medium",
             "speed": 30,
@@ -164,19 +192,25 @@
             "name": "Bard",
             "config": {
                 "hit_dice": 8,
-                "spell_stat": "charisma"
+                "spell": {
+                    "stat": "charisma"
+                }
             }
         }, {
             "name": "Cleric",
             "config": {
                 "hit_dice": 8,
-                "spell_stat": "wisdom"
+                "spell": {
+                    "stat": "wisdom"
+                }
             }
         }, {
             "name": "Druid",
             "config": {
                 "hit_dice": 8,
-                "spell_stat": "wisdom"
+                "spell": {
+                    "stat": "wisdom"
+                }
             }
         }, {
             "name": "Fighter",
@@ -187,43 +221,57 @@
             "name": "Monk",
             "config": {
                 "hit_dice": 8,
-                "spell_stat": "wisdom"
+                "spell": {
+                    "stat": "wisdom"
+                }
             }
         }, {
             "name": "Paladin",
             "config": {
                 "hit_dice": 10,
-                "spell_stat": "charisma"
+                "spell": {
+                    "stat": "charisma"
+                }
             }
         }, {
             "name": "Ranger",
             "config": {
                 "hit_dice": 10,
-                "spell_stat": "wisdom"
+                "spell": {
+                    "stat": "wisdom"
+                }
             }
         }, {
             "name": "Rogue",
             "config": {
                 "hit_dice": 8,
-                "spell_stat": "intelligence"
+                "spell": {
+                    "stat": "intelligence"
+                }
             }
         }, {
             "name": "Sorcerer",
             "config": {
                 "hit_dice": 6,
-                "spell_stat": "charisma"
+                "spell": {
+                    "stat": "charisma"
+                }
             }
         }, {
             "name": "Warlock",
             "config": {
                 "hit_dice": 8,
-                "spell_stat": "charisma"
+                "spell": {
+                    "stat": "charisma"
+                }
             }
         }, {
             "name": "Wizard",
             "config": {
                 "hit_dice": 6,
-                "spell_stat": "intelligence"
+                "spell": {
+                    "stat": "intelligence"
+                }
             }
         }]
     }, {
@@ -275,8 +323,7 @@
         }, {
             "name": "Ward",
             "description": "A child who is under the care of the church, oftentimes an orphan"
-        },
-        { "name": "Cleric" }
+        }
     ]}, {
         "name": "Legal/Judicial",
         "sub": [{
@@ -292,7 +339,6 @@
             "name": "Constable",
             "description": "Head of peace-keeping law enforcement"
         },
-        { "name": "Diplomat"},
         {
             "name": "Exchequer",
             "description": "Administrator of royal funds"
@@ -310,14 +356,13 @@
         { "name": "Bounty Hunter" },
         { "name": "Cavalry" },
         {
-            "name": "Engineer",
+            "name": "Military Engineer",
             "description": "Designs and builds war machines, such as catapults, and ballistae"
         }, {
             "name": "Forester",
             "description": "A ranger or game warden, often empowered to act as law enforcement within the forest"
         },
         { "name": "Gatekeeper or Toll Keeper" },
-        { "name": "Jailer" },
         { "name": "Mariner" },
         { "name": "Mercenary" },
         {
@@ -353,7 +398,7 @@
         },
         { "name": "Cartographer"},
         {
-            "name": "Engineer",
+            "name": "Civil Engineer",
             "description": "A builder of roads, bridges, castles, fortifications, and siege engines"
         }, {
             "name": "Herald",
@@ -450,8 +495,6 @@
             "description": "A maker of inks, paints, dyes, and stains"
         },
         { "name": "Engraver" },
-        { "name": "Farmer" },
-        { "name": "Fisherman" },
         { "name": "Fishmonger" },
         { "name": "Fortune Teller" },
         { "name": "Furrier" },
@@ -469,10 +512,6 @@
             "description": "One who tends animals"
         },
         { "name": "Hatter" },
-        {
-            "name": "Herdsman",
-            "description": "A keeper of livestock"
-        },
         { "name": "Hunter or Trapper" },
         { "name": "Innkeeper or Tavern-keeper" },
         { "name": "Jeweler" },
@@ -548,9 +587,6 @@
     ]}, {
         "name": "Agriculture",
         "sub": [{
-            "name": "Cooper",
-            "description": "A keeper of poultry and fowl"
-        }, {
             "name": "Farmer",
             "description": "A worker of the fields"
         }, {
@@ -558,7 +594,6 @@
             "description": "a hunter who uses trained birds of prey"
         },
         { "name": "Fisherman" },
-        { "name": "Forester" },
         {
             "name": "Herdsman",
             "description": "A keeper of livestock"

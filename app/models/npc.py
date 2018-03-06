@@ -1,4 +1,5 @@
 import re
+import json
 
 from base import JsonObject, JsonObjectDataMapper
 
@@ -19,7 +20,6 @@ class NpcObject(JsonObject):
         "hit_dice": 8,
         "hit_points_notation": u"1d4",
         "hit_points": 2,
-        "spell_stat": "intelligence",
         "statistics": {
             "bare": {
                 "strength": 8,
@@ -62,23 +62,28 @@ class NpcObject(JsonObject):
             "wisdom": 0,
             "charisma": 0
             },
+        "spell": {
+            "safe_dc": 0,
+            "attack_modifier": 0,
+            "list": [],
+            },
         "equipment": [],
         "weapon": [],
         "armor": [],
         "proficiency": 2,
-        "traits": [],
+        "traits": {},
         "features": [],
         "languages": [],
         "computed": {
             "unarmored": {
                 "formula": "10 + statistics.modifiers.dexterity"
-                }
-            },
-            "spell_safe_dc": {
-                "formula": "8 + npc.proficiency + statistics.modifiers['npc.spell_stat']"
-            },
-            "spell_attack_modifier": {
-                "formula": "npc.proficiency + statistics.modifiers.wisdom"
+                },
+            "spell.safe_dc": {
+                "formula": "8 + npc.proficiency + statistics.modifiers['npc.spell.stat']"
+                },
+            "spell.attack_modifier": {
+                "formula": "npc.proficiency + statistics.modifiers['npc.spell.stat']"
+                },
             },
         }
     _fieldTypes = {
@@ -89,8 +94,10 @@ class NpcObject(JsonObject):
         "speed": int,
         "proficiency": int,
         "passive_perception": int,
-        "spell_safe_dc": int,
-        "spell_attack_modifier": int,
+        "spell": {
+            "safe_dc": int,
+            "attack_modifier": int,
+            },
         "armor_class": int,
         "armor_class_bonus": int,
         "statistics": {
@@ -164,15 +171,55 @@ class NpcObject(JsonObject):
                     )
 
             self.statistics = {
-                "bare": self._config['base_stats'],
-                "bonus": self._config['stats_bonus'],
-                "base": self._config['stats'],
-                "modifiers": self._config['modifiers']
+                "bare": self['base_stats'],
+                "bonus": self['stats_bonus'],
+                "base": self['stats'],
+                "modifiers": self['modifiers']
                 }
-            del self._config['base_stats']
-            del self._config['stats_bonus']
-            del self._config['stats']
-            del self._config['modifiers']
+            del self['base_stats']
+            del self['stats_bonus']
+            del self['stats']
+            del self['modifiers']
+
+        if isinstance(self.traits, list):
+            self.traits = dict([
+                (trait['name'], trait['description'])
+                for trait in self.traits
+                ])
+
+        def fixComputed(old, new, pattern=None):
+            re_mod = re.compile(pattern or re.escape(old))
+            computed = self._config['computed']
+            if old in computed:
+                if new not in computed:
+                    computed[new] = computed[old]
+                del computed[old]
+            for path, compute in computed.items():
+                if 'formula' not in compute:
+                    continue
+                compute['formula'] = re_mod.sub(
+                    new,
+                    compute['formula']
+                    )
+
+        migrate = {
+            "spell_stat": "spell.stat",
+            "spell_attack_modifier": "spell.attack_modifier",
+            "spell_safe_dc": "spell.safe_dc",
+            }
+        for old, new in migrate.items():
+            fixComputed(old, new)
+            if old in self:
+                if isinstance(self[old], dict):
+                    del self[old]
+                    continue
+                try:
+                    self[new] = self[old]
+                except Exception as e:
+                    print e
+                    pass
+                finally:
+                    del self[old]
 
         super(NpcObject, self).migrate()
 
@@ -219,12 +266,6 @@ class NpcObject(JsonObject):
             self.level,
             self.statisticsModifiersConstitution * self.level
             )
-
-        self.traits = [
-            trait
-            for trait in self.traits
-            if trait['name']
-            ]
 
         self.armor = []
         self.weapons = []
