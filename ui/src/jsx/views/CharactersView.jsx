@@ -224,37 +224,29 @@ export class CharacterBasics extends LazyComponent
                     </td>
                 </tr>
 
-                {spell.safe_dc
-                    ? <tr>
-                        <th>Spells</th>
+                {spell.stat ? <React.Fragment>
+                    <tr>
+                        <th>Spell Ability</th>
                         <td>
-                            <ul>
-                                <li>
-                                    <strong>Class:</strong>
-                                    {spell.class}
-                                </li>
-                                <li>
-                                    <strong>Ability:</strong>
-                                    <ListLabel
-                                        items={_statistics || []}
-                                        value={spell.stat}
-                                        />
-                                </li>
-                                <li>
-                                    <strong>DC:</strong>
-                                    {spell.safe_dc}
-                                </li>
-                                <li>
-                                    <strong>Attack Modifier:</strong>
-                                    <Bonus
-                                        bonus={spell.attack_modifier}
-                                        />
-                                </li>
-                            </ul>
+                            <ListLabel
+                                items={_statistics || []}
+                                value={spell.stat}
+                                />
                         </td>
                     </tr>
-                    : null
-                }
+                    <tr>
+                        <th>Spell DC</th>
+                        <td>{spell.safe_dc}</td>
+                    </tr>
+                    <tr>
+                        <th>Spell Attack Modifier</th>
+                        <td>
+                            <Bonus
+                                bonus={spell.attack_modifier}
+                                />
+                        </td>
+                    </tr>
+                </React.Fragment> : null}
             </tbody>
         </Panel>;
     }
