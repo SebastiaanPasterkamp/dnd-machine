@@ -335,71 +335,6 @@
             "description": "This weapon can be used with one or two hands. A damage value in parentheses appears with the property - the damage when the weapon is used with two hands to make a melee attack."
         }
     ],
-    "weapons": {
-        "simple": {
-            "name": "Simple Weapons",
-            "melee": {
-                "name": "Simple Melee Weapons",
-                "items": [
-                    {"name": "Club", "cost": {"sp": 1}, "damage": {"dice_count": 1, "dice_size": 4, "type": "bludgeoning"}, "property": ["light"]},
-                    {"name": "Dagger", "cost": {"gp": 2}, "damage": {"dice_count": 1, "dice_size": 4, "type": "piercing"}, "property": ["finesse", "light", "thrown"], "range": {"min": 20, "max": 60}},
-                    {"name": "Greatclub", "cost": {"sp": 2}, "damage": {"dice_count": 1, "dice_size": 8, "type": "bludgeoning"}, "property": ["two-handed"]},
-                    {"name": "Handaxe", "cost": {"gp": 5}, "damage": {"dice_count": 1, "dice_size": 6, "type": "slashing"}, "property": ["light", "thrown"], "range": {"min": 20, "max": 60}},
-                    {"name": "Javelin", "cost": {"sp": 5}, "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "property": ["thrown"], "range": {"min": 30, "max": 120}},
-                    {"name": "Light hammer", "cost": {"gp": 2}, "damage": {"dice_count": 1, "dice_size": 4, "type": "bludgeoning"}, "property": ["light", "thrown"], "range": {"min": 20, "max": 60}},
-                    {"name": "Mace", "cost": {"gp": 5}, "damage": {"dice_count": 1, "dice_size": 6, "type": "bludgeoning"}},
-                    {"name": "Quarterstaff", "cost": {"sp": 2}, "damage": {"dice_count": 1, "dice_size": 6, "type": "bludgeoning"}, "property": ["versatile"], "versatile": {"dice_count": 1, "dice_size": 8}},
-                    {"name": "Sickle", "cost": {"gp": 1}, "damage": {"dice_count": 1, "dice_size": 4, "type": "slashing"}, "property": ["light"]},
-                    {"name": "Spear", "cost": {"gp": 1}, "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "property": ["thrown", "versatile"], "range": {"min": 20, "max": 60}, "versatile": {"dice_count": 1, "dice_size": 8}}
-                ]
-            },
-            "ranged": {
-                "name": "Simple Ranged Weapons",
-                "items": [
-                    {"name": "Crossbow, light", "cost": {"gp": 25}, "damage": {"dice_count": 1, "dice_size": 8, "type": "piercing"}, "range": {"min": 80, "max": 320}, "property": ["ammunition", "loading", "two-handed"]},
-                    {"name": "Dart", "cost": {"cp": 5}, "damage": {"dice_count": 1, "dice_size": 4, "type": "piercing"}, "property": ["finesse", "thrown"], "range": {"min": 20, "max": 60}},
-                    {"name": "Shortbow", "cost": {"gp": 25}, "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "range": {"min": 80, "max": 320}, "property": ["ammunition", "two-handed"]},
-                    {"name": "Sling", "cost": {"sp": 1}, "damage": {"dice_count": 1, "dice_size": 4, "type": "bludgeoning"}, "range": {"min": 30, "max": 120}, "property": ["ammunition"]}
-                ]
-            }
-        },
-        "martial": {
-            "name": "Martial Weapons",
-            "melee": {
-                "name": "Martial Melee Weapons",
-                "items": [
-                    {"name": "Battleaxe", "cost": {"gp": 10}, "damage": {"dice_count": 1, "dice_size": 8, "type": "slashing"}, "property": ["versatile"], "versatile": {"dice_count": 1, "dice_size": 10}},
-                    {"name": "Flail", "cost": {"gp": 10}, "damage": {"dice_count": 1, "dice_size": 8, "type": "bludgeoning"}},
-                    {"name": "Glaive", "cost": {"gp": 20}, "damage": {"dice_count": 1, "dice_size": 10, "type": "slashing"}, "property": ["heavy", "reach", "two-handed"]},
-                    {"name": "Greataxe", "cost": {"gp": 30}, "damage": {"dice_count": 1, "dice_size": 12, "type": "slashing"}, "property": ["heavy", "two-handed"]},
-                    {"name": "Greatsword", "cost": {"gp": 50}, "damage": {"dice_count": 2, "dice_size": 6, "type": "slashing"}, "property": ["heavy", "two-handed"]},
-                    {"name": "Halberd", "cost": {"gp": 20}, "damage": {"dice_count": 1, "dice_size": 10, "type": "slashing"}, "property": ["heavy", "reach", "two-handed"]},
-                    {"name": "Lance", "cost": {"gp": 10}, "damage": {"dice_count": 1, "dice_size": 12, "type": "piercing"}, "property": ["reach", "special"]},
-                    {"name": "Longsword", "cost": {"gp": 15}, "damage": {"dice_count": 1, "dice_size": 8, "type": "slashing"}, "property": ["versatile"], "versatile": {"dice_count": 1, "dice_size": 10}},
-                    {"name": "Maul", "cost": {"gp": 10}, "damage": {"dice_count": 2, "dice_size": 6, "type": "bludgeoning"}, "property": ["heavy", "two-handed"]},
-                    {"name": "Morningstar", "cost": {"gp": 15}, "damage": {"dice_count": 1, "dice_size": 8, "type": "piercing"}},
-                    {"name": "Pike", "cost": {"gp": 5}, "damage": {"dice_count": 1, "dice_size": 10, "type": "piercing"}, "property": ["heavy", "reach", "two-handed"]},
-                    {"name": "Rapier", "cost": {"gp": 25}, "damage": {"dice_count": 1, "dice_size": 8, "type": "piercing"}, "property": ["finesse"]},
-                    {"name": "Scimitar", "cost": {"gp": 25}, "damage": {"dice_count": 1, "dice_size": 6, "type": "slashing"}, "property": ["finesse", "light"]},
-                    {"name": "Shortsword", "cost": {"gp": 10}, "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "property": ["finesse", "light"]},
-                    {"name": "Trident", "cost": {"gp": 5}, "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "property": ["thrown", "versatile"], "range": {"min": 20, "max": 60}, "versatile": {"dice_count": 1, "dice_size": 8}},
-                    {"name": "War pick", "cost": {"gp": 5}, "damage": {"dice_count": 1, "dice_size": 8, "type": "piercing"}},
-                    {"name": "Warhammer", "cost": {"gp": 15}, "damage": {"dice_count": 1, "dice_size": 8, "type": "bludgeoning"}, "property": ["versatile"], "versatile": {"dice_count": 1, "dice_size": 10}},
-                    {"name": "Whip", "cost": {"gp": 2}, "damage": {"dice_count": 1, "dice_size": 4, "type": "slashing"}, "property": ["finesse", "reach"]}
-                ]
-            },
-            "ranged": {
-                "name": "Martial Ranged Weapons",
-                "items": [
-                    {"name": "Blowgun", "cost": {"gp": 10}, "damage": {"value": 1, "type": "piercing"}, "range": {"min": 25, "max": 100}, "property": ["ammunition", "loading"]},
-                    {"name": "Crossbow, hand", "cost": {"gp": 75}, "damage": {"dice_count": 1, "dice_size": 6, "type": "piercing"}, "range": {"min": 30, "max": 120}, "property": ["ammunition", "light", "loading"]},
-                    {"name": "Crossbow, heavy", "cost": {"gp": 50}, "damage": {"dice_count": 1, "dice_size": 10, "type": "piercing"}, "range": {"min": 100, "max": 400}, "property": ["ammunition", "heavy", "loading", "two-handed"]},
-                    {"name": "Longbow", "cost": {"gp": 50}, "damage": {"dice_count": 1, "dice_size": 8, "type": "piercing"}, "range": {"min": 150, "max": 600}, "property": ["ammunition", "heavy", "two-handed"]},
-                    {"name": "Net", "cost": {"gp": 1}, "range": {"min": 5, "max": 15}, "property": ["special", "thrown"]}
-                ]
-            }
-        }
-    },
     "packs": {
         "Burglar's Pack": {
             "worth": {"gp": 16},
@@ -442,7 +377,7 @@
                 "Backpack",
                 "Crowbar",
                 "Hammer",
-                "Pitons",
+                "10 x Pitons",
                 "5 x Torch",
                 "Tinderbox",
                 "10 x Day of Rations",
