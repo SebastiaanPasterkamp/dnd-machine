@@ -6,7 +6,7 @@ class JsonObject(object):
     _version = '0.0.0'
     _pathPrefix = 'obj'
     _defaultConfig = {}
-    _defaultFieldType = unicode
+    _defaultFieldType = 'auto'
     _fieldTypes = {
         'id': int
         }
@@ -21,27 +21,28 @@ class JsonObject(object):
         if not config.get('id'):
             self._config = self._merge(
                 deepcopy(self._defaultConfig),
-                self.castFieldType(config)
+                config
                 )
         else:
             self._config = config
-        if 'config' in self._config:
-            del(self._config['config'])
 
     @property
     def config(self):
         return self._config
 
     def migrate(self, mapper=None):
+        if '_config' in self._config:
+            raise Exception("%d) Configception" % (self.id))
+
         self._config = self._merge(
             deepcopy(self._defaultConfig),
-            self.castFieldType(self._config)
+            self._config
             )
         self.compute()
 
     def clone(self):
         clone = self.__class__(self.config)
-        del(clone._config['id'])
+        del clone['id']
         return clone
 
     def splitPath(self, path, filterPrefix=True):
@@ -85,33 +86,42 @@ class JsonObject(object):
             return cast
         return self._defaultFieldType
 
-    def _merge(self, a, b, cast=None):
+    def _merge(self, a, b, cast=None, path=[]):
         cast = cast or self._fieldTypes
 
         if isinstance(a, dict) and isinstance(b, dict):
             for key in b:
                 if key not in a:
-                    a[key] = b[key]
+                    a[key] = self.castFieldType(
+                        b[key],
+                        path + [key]
+                        )
+                    continue
                 a[key] = self._merge(
                     a[key],
                     b[key],
-                    self._getCast(cast, key)
+                    self._getCast(cast, key),
+                    path + [key]
                     )
             return a
 
         if isinstance(a, list) and isinstance(b, list):
             return [
-                self._merge(_b, _b, cast)
+                self._merge(_b, _b, cast, path)
                 for _b in b
                 ]
 
         if cast == int and b in [None, '']:
             return 0
 
-        if b is None or cast == 'auto':
+        if b in [None, 'None'] or cast == 'auto':
             return b
 
-        return cast(b)
+        try:
+            return cast(b)
+        except Exception as error:
+            print self.id, error, path, cast, type(b), b
+            raise
 
     def updateFromPost(self, form):
         for field, value in form.iteritems():
@@ -141,17 +151,14 @@ class JsonObject(object):
             return self.getPath(field)
 
     def __delattr__(self, field):
-        try:
-            return object.__delattr__(self, field)
-        except AttributeError:
-            path = field
-            if not isinstance(path, list):
-                path = self.splitPath(path)
-            if len(path) > 1:
-                parent = self.getPath(path[:-1])
-                del parent[path[-1]]
-            else:
-                del self._config[path[0]]
+        if field == 'config':
+            field = '_config'
+        if field.startswith('_') \
+                or field in self.__dict__ \
+                or field in self.__class__.__dict__:
+            object.__delattr__(self, field)
+        else:
+            self.delPath(field)
 
     def __getitem__(self, field):
         try:
@@ -168,15 +175,25 @@ class JsonObject(object):
         if field.startswith('_') \
                 or field in self.__dict__ \
                 or field in self.__class__.__dict__:
-            return object.__setattr__(self, field, value)
-        self.setPath(field, value)
+            object.__setattr__(self, field, value)
+        else:
+            self.setPath(field, value)
 
     def __setitem__(self, field, value):
         if field.startswith('_') \
                 or field in self.__dict__ \
                 or field in self.__class__.__dict__:
             self.__dict__[field] = value
-        self.setPath(field, value)
+        else:
+            self.setPath(field, value)
+
+    def __delitem__(self, field):
+        if field.startswith('_') \
+                or field in self.__dict__ \
+                or field in self.__class__.__dict__:
+            del self.__dict__[field]
+        else:
+            self.delPath(field)
 
     def __contains__(self, field):
         return self.hasPath(field)
@@ -223,7 +240,26 @@ class JsonObject(object):
             rv = rv[step]
         return rv
 
-    def castFieldType(self, value, path=[], cast=None):
+    def delPath(self, path, structure=None):
+        if not isinstance(path, list):
+            path = self.splitPath(path)
+
+        rv = structure \
+            if structure is not None \
+            else self._config
+
+        for step in path[:-1]:
+            if isinstance(step, int):
+                if not isinstance(rv, list):
+                    raise Exception("Not a list %s in %r" % (
+                        step, path))
+            elif not isinstance(rv, dict):
+                raise Exception("Not a dict %s in %r: %r" % (
+                    step, path, rv))
+            rv = rv[step]
+        del rv[path[-1]]
+
+    def castFieldType(self, value, path=[], cast=None, debug=False):
         if not isinstance(path, list):
             path = self.splitPath(path)
         if cast is None:
@@ -236,52 +272,69 @@ class JsonObject(object):
                 default=self._defaultFieldType,
                 structure=self._fieldTypes
                 )
+            if debug:
+                print 'Cast', path, '=', cast
 
         if isinstance(value, list):
+            if debug:
+                print 'list', path
             return [
-                self.castFieldType(v, path, cast)
+                self.castFieldType(v, path, cast, debug)
                 for v in value
                 ]
 
-        if isinstance(value, dict):
+        if isinstance(value, dict) and (cast == 'auto' or isinstance(cast, dict)):
+            if debug:
+                print 'dict', path
             return dict([
                 (
                     step,
                     self.castFieldType(
                         v,
                         path + [step],
-                        self._getCast(cast, step)
+                        self._getCast(cast, step),
+                        debug
                         )
                     )
                 for step, v in value.iteritems()
                 ])
 
         if cast == int and value in [None, '']:
+            if debug:
+                print 'empty int', path
             return 0
 
-        if value is None or cast == 'auto':
+        if value in [None, 'None'] or cast == 'auto':
+            if debug:
+                print 'blank', cast, value
             return value
 
         try:
+            if debug:
+                print 'casting', cast, value
             return cast(value)
         except Exception as error:
             print self.id, error, path, cast, type(value), value
+            raise
 
 
     def setPath(self, path, value):
         if not isinstance(path, list):
             path = self.splitPath(path)
 
+        if path[0] == '_config':
+            raise Exception("%d Cannot set path %r = %r" % (
+                self.id, path, value
+                ))
+
         value = self.castFieldType(value, path)
 
         rv = self._config
-        for i in range(len(path)):
+        for i in range(len(path)-1):
             step = path[i]
 
             next_type = dict
-            if i+1 >= len(path):
-                next_type = lambda: None
-            elif isinstance(path[i+1], int) or path[i+1] == '+':
+            if isinstance(path[i+1], int) or path[i+1] == '+':
                 next_type = list
 
             if isinstance(step, int) or step == '+':
@@ -296,10 +349,13 @@ class JsonObject(object):
                     raise Exception("Not a dict at %s %r: %r" % (step, path, rv))
                 if step not in rv:
                     rv[step] = next_type()
-            if i+1 < len(path):
-                rv = rv[step]
-            else:
-                rv[step] = value
+            rv = rv[step]
+        step = path[-1]
+        if step == '+':
+            step = len(rv)
+            if step >= len(rv):
+                rv.extend([0] * (step - len(rv) + 1))
+        rv[step] = value
 
 class JsonObjectDataMapper(object):
     obj = JsonObject
