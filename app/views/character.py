@@ -54,6 +54,10 @@ class CharacterBlueprint(BaseApiBlueprint):
         return self.basemapper.items
 
     @property
+    def usermapper(self):
+        return self.basemapper.user
+
+    @property
     def character_data(self):
         if '_character_data' not in self.__dict__:
             self._character_data = get_character_data(True)
@@ -139,8 +143,7 @@ class CharacterBlueprint(BaseApiBlueprint):
         if c.user_id != request.user.id \
                 and not self.checkRole(['admin', 'dm']):
             abort(403)
-
-        user = get_datamapper().user.getById(c.user_id)
+        user = self.usermapper.getById(c.user_id)
 
         fdf_text = {
             "CharacterName": c.name,
