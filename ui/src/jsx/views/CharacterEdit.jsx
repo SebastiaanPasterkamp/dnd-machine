@@ -245,7 +245,7 @@ export default ListDataWrapper(
         'statistics',
         'tools',
         'weapon_types',
-        'weapons',
+        'weapon',
         'armor_types',
         'armor'
     ],
