@@ -30,6 +30,7 @@ import MonstersTable from './views/MonstersTable.jsx';
 import MonsterView from './views/MonsterView.jsx';
 import NpcEdit from './views/NpcEdit.jsx';
 import NpcTable from './views/NpcTable.jsx';
+import NpcView from './views/NpcView.jsx';
 import SpellEdit from './views/SpellEdit.jsx';
 import SpellView from './views/SpellView.jsx';
 import SpellsTable from './views/SpellsTable.jsx';
@@ -205,6 +206,10 @@ class DndMachine extends React.Component
                 <Route
                     path="/npc/edit/:id"
                     component={NpcEdit}
+                    />
+                <Route
+                    path="/npc/show/:id"
+                    component={NpcView}
                     />
 
                 <Route

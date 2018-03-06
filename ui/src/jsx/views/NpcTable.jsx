@@ -98,7 +98,7 @@ class NpcTable extends LazyComponent
             <table className="nice-table condensed bordered responsive">
                 <NpcHeader />
                 <tbody key="tbody">
-                    {_.map(npcs, (npc) => (
+                    {_.map(filtered, (npc) => (
                         <NpcRow
                             key={npc.id}
                             {...npc}

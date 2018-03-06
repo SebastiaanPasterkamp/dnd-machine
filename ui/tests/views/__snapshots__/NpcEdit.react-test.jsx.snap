@@ -74,6 +74,61 @@ Array [
         <span
           className="nice-input-addon"
         >
+          Race
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Race...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          />
+        </div>
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Class
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <input
+            className="nice-form-control"
+            disabled={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyPress={null}
+            placeholder="Class..."
+            type={undefined}
+            value=""
+          />
+          <ul
+            className="dropdown-menu"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          />
+        </div>
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
           Gender
         </span>
         <div
@@ -644,7 +699,66 @@ Array [
     </div>
     <div
       className="nice-panel-content"
-    />
+    >
+      <table
+        className="nice-table condensed bordered"
+      >
+        <thead>
+          <tr>
+            <th>
+              Statistic
+            </th>
+            <th>
+              Base
+            </th>
+            <th>
+              Bonus
+            </th>
+            <th>
+              Final
+            </th>
+            <th>
+              Modifier
+            </th>
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+    </div>
+  </div>,
+  <div
+    className="nice-panel npc-edit__properties"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Properties
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <div
+        className="nice-form-group"
+      >
+        <label>
+          Traits
+        </label>
+        <ul
+          className="list-component"
+        >
+          <li>
+            <button
+              className="nice-btn list-component__add primary icon fa-plus"
+              name="add"
+              onClick={[Function]}
+            >
+              ​
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>,
 ]
 `;

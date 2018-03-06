@@ -1,0 +1,23 @@
+// _npc-view.scss
+
+@import 'view-grid';
+
+.npc-view {
+    @extend .view-grid;
+
+    > .npc-view__description {
+        grid-column-end: span 3;
+    }
+
+    > .npc-view__statistics {
+        grid-column-end: span 3;
+    }
+
+    > .npc-view__properties {
+        grid-column-end: span 2;
+    }
+
+    > .npc-view__traits {
+        grid-column-end: span 4;
+    }
+}
