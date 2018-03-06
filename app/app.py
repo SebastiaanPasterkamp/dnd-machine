@@ -255,19 +255,20 @@ def _dump_table(table):
     yield('COMMIT;')
 
 
-def migrate():
+def migrate(objects=None):
     with app.app_context():
-        _migrate()
+        _migrate(objects)
 
 @app.cli.command('migrate')
 def migrate_command():
     _migrate()
 
-def _migrate():
+def _migrate(objects=None):
     """Migrate all Objects to any new configuration."""
     datamapper = get_datamapper()
+    objects = objects or datamapper._creators
 
-    for mapperType in datamapper._creators:
+    for mapperType in objects:
         mapper = datamapper[mapperType]
         if not isinstance(mapper, JsonObjectDataMapper):
             continue

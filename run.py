@@ -35,6 +35,9 @@ group = OptionGroup(parser, "Optional arguments")
 group.add_option("--migrate", dest="migrate", default=False,
                  action="store_true",
                  help="Migrate Objects to new version. Then exit.")
+group.add_option("--migrate-object", dest="objects", default=[],
+                 action="append",
+                 help="Migrate only these Objects to new version. Then exit.")
 group.add_option("--updatedb", dest="updatedb", default=False,
                  action="store_true",
                  help="Update database schema. Then exit.")
@@ -54,8 +57,8 @@ context = (options.ssl_crt, options.ssl_key)
 if all(context):
     args['ssl_context'] = context
 
-if options.migrate:
-    migrate()
+if options.migrate or options.objects:
+    migrate(options.objects)
     exit()
 
 if options.updatedb:
