@@ -39,11 +39,22 @@ class CharacterLinks extends BaseLinkGroup
                 };
             },
             'edit': () => {
+                if (
+                    character
+                    && character.level_up
+                    && character.level_up.config.length
+                ) {
+                    return {
+                        label: 'Level Up',
+                        link: "/character/edit/" + character_id,
+                        icon: 'level-up',
+                        color: 'primary',
+                    };
+                }
                 return {
-                    label: levelUp ? 'Level Up' : 'Edit',
+                    label: 'Edit',
                     link: "/character/edit/" + character_id,
-                    icon: levelUp ? 'level-up' : 'pencil',
-                    color: levelUp ? 'primary' : null,
+                    icon: 'pencil',
                 };
             },
             'download': () => {
