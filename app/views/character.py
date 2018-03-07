@@ -343,10 +343,10 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         equipment = []
         if c.weapons:
-            equipment.append(["Weapons:"])
+            equipment.append(["Weapons:", ""])
             for count, weapon in filter_unique(c.weapons):
                 desc = [
-                    "-",
+                    "*",
                     "%s x %s" % (count, weapon['name']) \
                         if count > 1 \
                         else weapon['name'],
@@ -375,17 +375,17 @@ class CharacterBlueprint(BaseApiBlueprint):
 
 
         if c.armor:
-            equipment.append(["Armor:"])
+            equipment.append(["Armor:", ""])
             for armor in c.armor:
                 if "value" in armor:
                     desc = [
-                        "-",
+                        "*",
                         armor['name'],
                         "AC: %d" % armor["value"]
                         ]
                 if "bonus" in armor:
                     desc = [
-                        "-",
+                        "*",
                         armor['name'],
                         "AC: %s" % filter_bonus(armor["bonus"])
                         ]
@@ -406,14 +406,14 @@ class CharacterBlueprint(BaseApiBlueprint):
             _type = items.itemByNameOrCode(
                 toolType, 'tool_types'
                 )
-            equipment.append([_type['label'] + ":"])
+            equipment.append([_type['label'] + ":", ""])
 
             for count, item in filter_unique(tools):
                 label = item['label'] \
                     if isinstance(item, dict) \
                     else item
                 desc = [
-                    "-",
+                    "*",
                     "%d x %s" % (count, label) \
                         if count > 1 \
                         else label
@@ -456,7 +456,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                 fdf_text[new] = fdf_text[old]
 
         for field in fdf_html:
-            fdf_html[field] = """<?xml version="1.0"?><body>%s</body>""" % (
+            fdf_html[field] = """<body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/" xfa:APIVersion="Acroform:2.7.0.0" xfa:spec="2.1" >%s</body>""" % (
                 markdown.markdown(fdf_html[field])
                 )
 
