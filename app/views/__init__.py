@@ -32,7 +32,7 @@ def fill_pdf(pdf_file, text, html={}, fdf_file=None, debug=False):
             }
         if field in html:
             params['html'] = html.get(field)
-            template = """<<\n/V (%(text)s)\n/RV (%(html)s)\n/T (%(field)s)\n>>"""
+            template = """<<\n/RV (<?xml version="1.0"?>%(html)s)\n/T (%(field)s)\n/V (%(text)s)\n>>"""
         for field in params:
             if isinstance(params[field], basestring):
                 params[field] = params[field].encode('utf-8')
@@ -59,7 +59,7 @@ def fill_pdf(pdf_file, text, html={}, fdf_file=None, debug=False):
         "fill_form", "-",
         "output", "-",
         "dont_ask",
-        "flatten"
+        "need_appearances",
     ]
 
     p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
