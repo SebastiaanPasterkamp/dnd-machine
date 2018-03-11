@@ -180,10 +180,16 @@ export function ObjectDataStoreFactory(id, listenables = null)
         }
 
         onDeleteObjectCompleted(type, id, callback=null) {
-            let update = {};
-            update[type] = _.copy(this.state[type]);
-            delete update[type][id];
-            this.setState(update, callback);
+            const { [type]: items } = this.state;
+            if (!(id in items)) {
+                if (callback) {
+                    callback();
+                }
+                return;
+            }
+            this.setState({
+                [type]: _.omit(items, id),
+            }, callback);
         }
     }
 
