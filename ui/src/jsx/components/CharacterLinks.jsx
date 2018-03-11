@@ -57,6 +57,13 @@ class CharacterLinks extends BaseLinkGroup
                     icon: 'pencil',
                 };
             },
+            'copy': () => {
+                return {
+                    label: 'Copy',
+                    link: "/character/copy/" + character_id,
+                    icon: 'clone',
+                };
+            },
             'download': () => {
                 return {
                     label: 'Download',
@@ -95,49 +102,43 @@ class CharacterLinks extends BaseLinkGroup
             return [];
         }
 
-        if (!character) {
-            if (
+        const userHasRole = (role) => {
+            const roles = _.isArray(role) ? role : [role];
+            return (
                 _.intersection(
                     current_user.role || [],
-                    ['dm', 'player']
-                ).length
-            ) {
+                    roles
+                ).length > 0
+            );
+        };
+
+        if (!character) {
+            if (userHasRole(['dm', 'player'])) {
                 return ['new'];
             }
             return [];
         }
 
-        if (
-            _.intersection(
-                current_user.role || [],
-                ['admin']
-            ).length
-        ) {
-            return ['download', 'delete', 'raw', 'new', 'view'];
+        if (userHasRole(['admin'])) {
+            return [
+                'download', 'delete', 'copy', 'raw', 'new', 'view',
+            ];
         }
 
         if (
             character
             && character.user_id == current_user.id
         ) {
-            return ['download', 'delete', 'edit', 'new', 'view'];
+            return [
+                'download', 'delete', 'copy', 'edit', 'new', 'view',
+            ];
         }
 
-        if (
-            _.intersection(
-                current_user.role || [],
-                ['dm']
-            ).length
-        ) {
-            return ['download', 'edit', 'new', 'view'];
+        if (userHasRole(['dm'])) {
+            return ['download', 'edit', 'copy', 'new', 'view'];
         }
 
-        if (
-            _.intersection(
-                current_user.role || [],
-                ['player']
-            ).length
-        ) {
+        if (userHasRole(['player'])) {
             return ['download', 'new', 'view'];
         }
 
@@ -146,7 +147,7 @@ class CharacterLinks extends BaseLinkGroup
 }
 
 CharacterLinks.defaultProps = {
-    buttons: ['view', 'edit', 'pdf'],
+    buttons: ['view', 'edit', 'copy', 'pdf'],
 };
 
 export default ListDataWrapper(
