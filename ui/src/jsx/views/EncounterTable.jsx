@@ -1,11 +1,14 @@
 import React from 'react';
 
+import '../../sass/_encounter-table.scss';
+
 import utils from '../utils.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
 import EncounterLinks from '../components/EncounterLinks.jsx';
+import MonsterLabel from '../components/MonsterLabel.jsx';
 
 class EncounterHeader extends React.Component
 {
@@ -44,20 +47,21 @@ class EncounterRow extends LazyComponent
 {
     render() {
         const {
-            id, hosted_party, name, size, challenge_rating, xp_rating,
-            challenge_modified, xp_modified
+            id, hosted_party, name, monster_ids, challenge_rating,
+            xp_rating, challenge_modified, xp, xp_modified,
         } = this.props;
 
         let ratingStyle = 'muted';
         if (hosted_party) {
-            ratingStyle = utils.closestStyle(
+            ratingStyle = utils.closest(
                 {
+                    muted: 0,
                     info: hosted_party.challenge.easy,
                     good: hosted_party.challenge.medium,
                     warning: hosted_party.challenge.hard,
                     bad: hosted_party.challenge.deadly,
                 },
-                xp_modified,
+                xp_rating,
                 ratingStyle
             );
         }
@@ -71,20 +75,30 @@ class EncounterRow extends LazyComponent
                     encounter_id={id}
                     />
             </th>
-            <td>{size}</td>
+            <td>
+                {_.map(monster_ids, monster => (
+                    <span key={monster.id}>
+                        {monster.count}
+                        &nbsp;x&nbsp;
+                        <MonsterLabel
+                            monster_id={monster.id}
+                            />
+                    </span>
+                ))}
+            </td>
             <td className={ratingStyle}>
                 <span>
                     <strong>Challenge:</strong>&nbsp;
-                    {challenge_rating}
+                    CR {challenge_rating}
                     &nbsp;/&nbsp;
-                    {xp_rating}XP
+                    {xp} XP
                 </span>
                 {hosted_party
-                    ? <span><br/>
+                    ? <span>
                         <strong>Modified:</strong>&nbsp;
-                        {challenge_modified}
+                        CR {challenge_modified}
                         &nbsp;/&nbsp;
-                        {xp_modified}XP
+                        {xp_modified} XP
                     </span>
                     : null
                 }
@@ -116,7 +130,7 @@ class EncounterTable extends LazyComponent
             (encounter) => this.shouldDisplayRow(pattern, encounter)
         );
 
-        return <div>
+        return <div className="encounter-table">
             <h2 className="icon fa-gamepad">Encounter list</h2>
 
             <table className="nice-table condensed bordered responsive">
