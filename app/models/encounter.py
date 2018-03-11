@@ -54,7 +54,7 @@ class EncounterObject(JsonObject):
         super(EncounterObject, self).__init__(config)
 
     def migrate(self, mapper):
-        if 'monster_ids' not in self:
+        if not len(self.monster_ids or []):
             monster_ids = [
                 monster.id
                 for monster in mapper.monster.getByEncounterId(self.id)
@@ -110,35 +110,33 @@ class EncounterObject(JsonObject):
     def compute(self):
         self.version = self._version
 
+        self.modifierParty = 0.0
         if self.party is not None:
             self.modifierParty = self.modifierByPartySize(self._party.size)
-        else:
-            self.modifierParty = 0.0
 
-        if len(self.monster_ids):
-            self.size = sum([
-                monster['count']
-                for monster in self.monster_ids
-                ])
-            self.modifierMonster = self.modifierByEncounterSize(self.size)
+        self.size = sum([
+            monster['count']
+            for monster in self.monster_ids
+            ])
+        self.modifierMonster = self.modifierByEncounterSize(self.size)
 
-            self.challenge_rating_sum = 0.0
-            self.challenge_rating_precise_sum = 0.0
-            self.xp = 0
-            self.xp_rating_sum = 0
-            for m in self.monster_ids:
-                monster = next((
-                    monster for monster in self.monsters
-                    if monster.id == m['id']
-                    ), None)
-                self.xp += \
-                    monster.xp * m['count']
-                self.challenge_rating_sum += \
-                    monster.challenge_rating * m['count']
-                self.challenge_rating_precise_sum += \
-                    monster.challenge_rating_precise * m['count']
-                self.xp_rating_sum += \
-                    monster.xp_rating * m['count']
+        self.challenge_rating_sum = 0.0
+        self.challenge_rating_precise_sum = 0.0
+        self.xp = 0
+        self.xp_rating_sum = 0
+        for m in self.monster_ids:
+            monster = next((
+                monster for monster in self.monsters
+                if monster.id == m['id']
+                ), None)
+            self.xp += \
+                monster.xp * m['count']
+            self.challenge_rating_sum += \
+                monster.challenge_rating * m['count']
+            self.challenge_rating_precise_sum += \
+                monster.challenge_rating_precise * m['count']
+            self.xp_rating_sum += \
+                monster.xp_rating * m['count']
 
         modifierMonster = self.modifierMonster
 
@@ -163,6 +161,23 @@ class EncounterMapper(JsonObjectDataMapper):
     fields = [
         'name', 'user_id',
         'size', 'challenge_rating', 'xp_rating', 'xp']
+
+    def _readx(self, dbrow):
+        obj = super(EncounterMapper, self)._read(dbrow)
+        if obj is None:
+            return obj
+        cur = self.db.execute("""
+            SELECT `monster_id` AS `id`, `count`
+            FROM `encounter_monsters`
+            WHERE `encounter_id` = ?
+            """,
+            [obj.id]
+            )
+        obj.monster_ids = [
+            dict(row)
+            for row in cur.fetchall() or []
+            ]
+        return obj
 
     def getList(self, search=None):
         """Returns a list of encounters matching the search parameter"""
