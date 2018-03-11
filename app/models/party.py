@@ -3,6 +3,10 @@ from base import JsonObject, JsonObjectDataMapper
 class PartyObject(JsonObject):
     _version = '1.0'
     _pathPrefix = "party"
+    _defaultConfig = {
+        'size': 0,
+        'member_ids': [],
+        }
     _fieldTypes = {
         'id': int,
         'user_id': int,
@@ -27,10 +31,11 @@ class PartyObject(JsonObject):
     @members.setter
     def members(self, members):
         self._members = members
-        self.member_ids = [
-            member.id
-            for member in members
-            ]
+        if not len(self.member_ids or []):
+            self.member_ids = [
+                member.id
+                for member in members
+                ]
         self.compute()
 
     def migrate(self, mapper):
@@ -43,7 +48,6 @@ class PartyObject(JsonObject):
         if len(self.member_ids):
             self.size = len(self.member_ids)
         if len(self.members):
-            self.size = len(self.members)
             self.challenge = {}
             for cr in ['easy', 'medium', 'hard', 'deadly']:
                 self.challenge[cr] = sum([
@@ -151,7 +155,7 @@ class PartyMapper(JsonObjectDataMapper):
         """Insert a new party; updates party_characters table"""
         result = super(PartyMapper, self).insert(obj)
 
-        if not obj.members:
+        if not len(obj.member_ids):
             return result
 
         self.db.executemany("""
@@ -159,8 +163,8 @@ class PartyMapper(JsonObjectDataMapper):
                 (party_id, character_id)
             VALUES (?, ?)
             """, [
-                (result.id, member.id)
-                for member in obj.members
+                (result.id, member)
+                for member in obj.member_ids
                 ])
         self.db.commit()
         return result
@@ -169,44 +173,23 @@ class PartyMapper(JsonObjectDataMapper):
         """Insert a new party; updates party_characters table"""
         result = super(PartyMapper, self).update(obj)
 
-        if not obj.members:
-            return result
-
         self.db.execute("""
             DELETE FROM `party_characters`
             WHERE `party_id` = ?
             """,
             [result.id]
             )
+
+        if not len(obj.member_ids):
+            return result
+
         self.db.executemany("""
             INSERT INTO `party_characters`
                 (party_id, character_id)
             VALUES (?, ?)
             """, [
-                (result.id, member.id)
-                for member in obj.members
+                (result.id, member)
+                for member in obj.member_ids
                 ])
         self.db.commit()
         return result
-
-    def addCharacter(self, party_id, character_id):
-        """Add character to party"""
-        cur = self.db.execute("""
-            INSERT INTO `party_characters` (`party_id`, `character_id`)
-            VALUES (?, ?)
-            """,
-            [party_id, character_id]
-            )
-        self.db.commit()
-
-    def delCharacter(self, party_id, character_id):
-        """Removes character from party"""
-        cur = self.db.execute("""
-            DELETE FROM `party_characters`
-            WHERE
-                `party_id` = ?
-                AND `character_id` = ?
-            """,
-            [party_id, character_id]
-            )
-        self.db.commit()
