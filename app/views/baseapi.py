@@ -144,7 +144,6 @@ class BaseApiBlueprint(Blueprint):
             )
 
         obj = self.datamapper.create(update)
-        obj.compute()
 
         if 'id' in obj and obj.id:
             abort(409, "Cannot create with existing ID")
@@ -183,6 +182,8 @@ class BaseApiBlueprint(Blueprint):
         if not obj:
             return jsonify(None)
 
+        obj.compute()
+
         obj = self.datamapper.update(obj)
 
         return jsonify(self._exposeAttributes(obj))
@@ -219,15 +220,15 @@ class BaseApiBlueprint(Blueprint):
 
         if obj is None:
             obj = self.datamapper.create(update)
-            obj.compute()
             obj = self._api_post_filter(obj)
         else:
             obj.update(update)
-            obj.compute()
             if 'id' not in obj or obj.id != obj_id:
                 abort(409, "Cannot change ID")
             obj = self._api_patch_filter(obj)
 
         obj = self._api_recompute_filter(obj)
+
+        obj.compute()
 
         return jsonify(self._exposeAttributes(obj))
