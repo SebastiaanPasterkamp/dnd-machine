@@ -5,22 +5,28 @@ class EncounterObject(JsonObject):
     _pathPrefix = "encounter"
     _defaultConfig = {
         'size': 0,
-        'loot': []
+        'monster_ids': [],
+        'loot': [],
         }
     _fieldTypes = {
         'id': int,
         'user_id': int,
         'size': int,
-        'challenge_rating_sum': float,
+        'monster_ids': {
+            '*': int,
+            },
         'challenge_rating': float,
+        'challenge_rating_sum': float,
+        'challenge_rating_precise': float,
+        'challenge_rating_precise_sum': float,
         'challenge_modified': float,
         'modifier': {
             '*': float
             },
+        'xp': int,
+        'xp_modified': int,
         'xp_rating_sum': int,
         'xp_rating': float,
-        'xp_modified': int,
-        'xp': int,
         'loot': {
             'count': int
             }
@@ -48,9 +54,27 @@ class EncounterObject(JsonObject):
         super(EncounterObject, self).__init__(config)
 
     def migrate(self, mapper):
-        self.monsters = mapper.monster.getByEncounterId(self.id)
-        for monster in self.monsters:
+        if 'monster_ids' not in self:
+            monster_ids = [
+                monster.id
+                for monster in mapper.monster.getByEncounterId(self.id)
+                ]
+            monster_ids = dict(
+                (monster_id, monster_ids.count(monster_id))
+                for monster_id in monster_ids
+                )
+            self.monster_ids = [
+                {'id': monster_id, 'count': count}
+                for monster_id, count in monster_ids.items()
+                ]
+
+        monsters = []
+        for m in self.monster_ids:
+            monster = mapper.monster.getById(m['id'])
             monster.migrate()
+            monsters.append(monster)
+        self.monsters = monsters
+
         super(EncounterObject, self).migrate()
 
     @property
@@ -86,45 +110,51 @@ class EncounterObject(JsonObject):
     def compute(self):
         self.version = self._version
 
-        self.loot = [
-            item
-            for item in self.loot or []
-            if item['name']
-            ]
-
         if self.party is not None:
             self.modifierParty = self.modifierByPartySize(self._party.size)
         else:
             self.modifierParty = 0.0
 
-        if len(self.monsters):
-            self.size = len(self.monsters)
+        if len(self.monster_ids):
+            self.size = sum([
+                monster['count']
+                for monster in self.monster_ids
+                ])
             self.modifierMonster = self.modifierByEncounterSize(self.size)
 
-            self.xp = sum([
-                monster.xp
-                for monster in self.monsters
-                ])
-            self.challenge_rating_sum = sum([
-                monster.challenge_rating
-                for monster in self._monsters
-                ])
-            self.xp_rating_sum = sum([
-                monster.xp_rating
-                for monster in self._monsters
-                ])
+            self.challenge_rating_sum = 0.0
+            self.challenge_rating_precise_sum = 0.0
+            self.xp = 0
+            self.xp_rating_sum = 0
+            for m in self.monster_ids:
+                monster = next((
+                    monster for monster in self.monsters
+                    if monster.id == m['id']
+                    ), None)
+                self.xp += \
+                    monster.xp * m['count']
+                self.challenge_rating_sum += \
+                    monster.challenge_rating * m['count']
+                self.challenge_rating_precise_sum += \
+                    monster.challenge_rating_precise * m['count']
+                self.xp_rating_sum += \
+                    monster.xp_rating * m['count']
 
-        challenge_rating_sum = self.challenge_rating_sum or 0.0
-        xp_rating_sum = self.xp_rating_sum or 0
-        modifierMonster = self.modifierMonster or 0
-        modifierParty = self.modifierParty or 0
+        modifierMonster = self.modifierMonster
 
-        self.challenge_rating = challenge_rating_sum * modifierMonster
-        self.xp_rating = xp_rating_sum * modifierMonster
+        self.challenge_rating = \
+            self.challenge_rating_sum * modifierMonster
 
-        self.modifierTotal = modifierMonster + modifierParty
-        self.challenge_modified = challenge_rating_sum * self.modifierTotal
-        self.xp_modified = xp_rating_sum * self.modifierTotal
+        self.modifierTotal = \
+            modifierMonster + self.modifierParty
+        self.challenge_modified = \
+            self.challenge_rating_sum * self.modifierTotal
+        self.xp_modified = \
+            self.xp * self.modifierTotal
+        self.challenge_rating_precise = \
+            self.challenge_rating_precise_sum * self.modifierTotal
+        self.xp_rating = \
+            self.xp_rating_sum * modifierMonster
 
 
 class EncounterMapper(JsonObjectDataMapper):
@@ -161,16 +191,17 @@ class EncounterMapper(JsonObjectDataMapper):
         """Insert a new encounter; updates encounter_monsters table"""
         result = super(EncounterMapper, self).insert(obj)
 
-        if not obj.monsters:
+        if not len(obj.monster_ids):
             return result
 
         self.db.executemany("""
             INSERT INTO `encounter_monsters`
-                (`encounter_id`, `monster_id`)
-            VALUES (?, ?)
+                (`encounter_id`, `monster_id`, `count`)
+            VALUES (?, ?, ?)
             """, [
-                (result.id, monster.id)
-                for monster in obj.monsters
+                (result.id, monster['id'], monster['count'])
+                for monster in obj.monster_ids
+                if monster['count'] > 0
                 ])
         self.db.commit()
         return result
@@ -179,45 +210,24 @@ class EncounterMapper(JsonObjectDataMapper):
         """Insert a new encounter; updates encounter_monsters table"""
         result = super(EncounterMapper, self).update(obj)
 
-        if not obj.monsters:
-            return result
-
         self.db.execute("""
             DELETE FROM `encounter_monsters`
             WHERE `encounter_id` = ?
             """,
             [result.id]
             )
+
+        if not len(obj.monster_ids):
+            return result
+
         self.db.executemany("""
             INSERT INTO `encounter_monsters`
-                (`encounter_id`, `monster_id`)
-            VALUES (?, ?)
+                (`encounter_id`, `monster_id`, `count`)
+            VALUES (?, ?, ?)
             """, [
-                (result.id, monster.id)
-                for monster in obj.monsters
+                (result.id, monster['id'], monster['count'])
+                for monster in obj.monster_ids
+                if monster['count'] > 0
                 ])
         self.db.commit()
         return result
-
-    def addMonster(self, encounter_id, monster_id):
-        """Add monster to encounter"""
-        cur = self.db.execute("""
-            INSERT INTO `encounter_monsters` (`encounter_id`, `monster_id`)
-            VALUES (?, ?)
-            """,
-            [encounter_id, monster_id]
-            )
-        self.db.commit()
-
-    def delMonster(self, encounter_id, monster_id):
-        """Remopves monster from encounter"""
-        cur = self.db.execute("""
-            DELETE FROM `encounter_monsters`
-            WHERE
-                `encounter_id` = ?
-                AND `monster_id` = ?
-                LIMIT 1
-            """,
-            [encounter_id, monster_id]
-            )
-        self.db.commit()
