@@ -54,7 +54,7 @@ class MonstersRow extends LazyComponent
                     monster_id={this.props.id}
                     />
             </th>
-            <td>{challenge_rating} / {xp_rating}XP</td>
+            <td>CR {challenge_rating} / {xp_rating} XP</td>
         </tr>
     }
 };
