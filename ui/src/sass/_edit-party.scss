@@ -5,7 +5,33 @@
 .party-edit {
     @extend .widget-grid;
 
+    .party-edit__challenge {
+        table {
+            th {
+                text-align: center;
+            }
+            td {
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+    }
+
     .party-edit__members {
         grid-column-end: span 2;
+
+        table {
+            th {
+                text-align: center;
+
+                &:first-child {
+                    text-align: inherit;
+                }
+            }
+            td {
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
     }
 }
