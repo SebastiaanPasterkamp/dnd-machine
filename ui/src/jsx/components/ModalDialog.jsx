@@ -61,7 +61,7 @@ class ModalDialogLinks extends BaseLinkGroup
 export class ModalDialog extends LazyComponent
 {
     render() {
-        return <div className="nice-modal viewport-center accent tall wide">
+        return <div className="nice-modal viewport-center accent wide">
             <div className="nice-modal-content">
                 <div className="nice-modal-header">
                     <a
