@@ -74,7 +74,6 @@ class JsonObject(object):
         for field in self._config.keys():
             if self._config[field] is None:
                 del self._config[field]
-        self.compute()
 
     def _getCast(self, cast, key):
         if isinstance(cast, dict):
