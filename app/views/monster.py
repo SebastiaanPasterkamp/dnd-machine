@@ -13,10 +13,10 @@ class MonsterBlueprint(BaseApiBlueprint):
         fields = [
             'id', 'name', 'type', 'size', 'alignment', 'level',
             'statistics', 'armor_class', 'description',
-            'proficiency', 'attack_modifier',
+            'proficiency', 'attack_modifier', 'spell_save_dc',
             'passive_perception', 'hit_points', 'dice_size',
-            'attacks', 'multiattack', 'traits',
-            'languages', 'motion',
+            'attacks', 'multiattack', 'traits', 'attack_bonus',
+            'languages', 'motion', 'average_damage',
             'challenge_rating', 'xp', 'xp_rating'
             ]
 
