@@ -40,14 +40,14 @@ describe('utils:', () => {
             good: 50,
         };
 
-        expect(utils.closestStyle(styles, 0)).toBe('bad');
+        expect(utils.closest(styles, 0)).toBe('bad');
 
-        expect(utils.closestStyle(styles, 20)).toBe('warning');
+        expect(utils.closest(styles, 20)).toBe('warning');
 
-        expect(utils.closestStyle(styles, 40)).toBe('good');
+        expect(utils.closest(styles, 40)).toBe('good');
 
-        expect(utils.closestStyle(styles, 100)).toBe('good');
+        expect(utils.closest(styles, 100)).toBe('good');
 
-        expect(utils.closestStyle({}, 100, 'muted')).toBe('muted');
+        expect(utils.closest({}, 100, 'muted')).toBe('muted');
     });
 });

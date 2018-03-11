@@ -29,7 +29,7 @@ let utils = {
         return _.join(active, ' ');
     },
 
-    closestStyle(styles, target, defaultStyle=null) {
+    closest(styles, target, defaultStyle=null) {
         let matched = _.reduce(
             styles,
             (match, value, style) => {
