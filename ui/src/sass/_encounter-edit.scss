@@ -1,0 +1,40 @@
+// _edit-encounter.scss
+
+@import 'widget-grid';
+
+.encounter-edit {
+    @extend .widget-grid;
+
+    .encounter-edit__challenge {
+        table {
+            th {
+                text-align: center;
+            }
+            td {
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .encounter-edit__monsters {
+        grid-column-end: span 2;
+
+        table {
+            span {
+                display: block;
+            }
+            th {
+                text-align: center;
+
+                &:first-child {
+                    text-align: inherit;
+                }
+            }
+            td {
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+    }
+}
