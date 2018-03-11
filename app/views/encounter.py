@@ -11,9 +11,6 @@ class EncounterBlueprint(BaseApiBlueprint):
         self.add_url_rule(
             '/show/<int:obj_id>/<int:party_id>', 'show',
             self.show)
-        self.add_url_rule(
-            '/<int:obj_id>/<action>/<int:monster_id>', 'modify',
-            self.modify)
 
     @property
     def datamapper(self):
@@ -35,37 +32,86 @@ class EncounterBlueprint(BaseApiBlueprint):
     def partymapper(self):
         return self.basemapper.party
 
-    def _api_list_filter(self, encounters):
+    def _api_list_filter(self, objs):
         if not self.checkRole(['admin', 'dm']):
             abort(403)
 
         if not self.checkRole(['admin']):
-            encounters = [
-                encounter
-                for encounter in encounters
-                if encounter.user_id == request.user.id
+            objs = [
+                obj
+                for obj in objs
+                if obj.user_id == request.user.id
                 ]
 
+        for obj in objs:
+            obj.monsters = [
+                self.monstermapper.getById(monster['id'])
+                for monster in obj.monster_ids
+                ]
+            if request.party:
+                obj.party = request.party
+        return objs
+
+    def _raw_filter(self, obj):
+        obj.monsters = [
+            self.monstermapper.getById(monster['id'])
+            for monster in obj.monster_ids
+            ]
         if request.party:
-            for encounter in encounters:
-                encounter.party = request.party
+            obj.party = request.party
+        return obj
 
-        for encounter in encounters:
-            for encounter in encounters:
-                encounter.monsters = self.monstermapper.getByEncounterId(encounter.id)
-
-        return encounters
-
-    def _raw_filter(self, encounter):
-
+    def _api_get_filter(self, obj):
+        obj.monsters = [
+            self.monstermapper.getById(monster['id'])
+            for monster in obj.monster_ids
+            ]
         if request.party:
-            encounter.party = request.party
+            obj.party = request.party
+        return obj
 
-        encounter.monsters = self.monstermapper.getByEncounterId(encounter.id)
+    def _api_post_filter(self, obj):
+        if not self.checkRole(['admin', 'dm']):
+            abort(403)
+        obj.user_id = request.user.id
+        obj.monsters = [
+            self.monstermapper.getById(monster['id'])
+            for monster in obj.monster_ids
+            ]
+        return obj
 
-        return encounter
+    def _api_patch_filter(self, obj):
+        if not self.checkRole(['admin', 'dm']):
+            abort(403)
+        if obj.user_id != request.user.id \
+                and not self.checkRole(['admin']):
+            abort(403, "Not owned")
+        obj.monsters = [
+            self.monstermapper.getById(monster['id'])
+            for monster in obj.monster_ids
+            ]
+        return obj
 
-    def show(self, obj_id, party_id=None):
+    def _api_recompute_filter(self, obj):
+        if not self.checkRole(['admin', 'dm']):
+            abort(403)
+        obj.monsters = [
+            self.monstermapper.getById(monster['id'])
+            for monster in obj.monster_ids
+            ]
+        if request.party:
+            obj.party = request.party
+        return obj
+
+    def _api_delete_filter(self, obj):
+        if not self.checkRole(['admin', 'dm']):
+            abort(403)
+        if obj.user_id != request.user.id \
+                and not self.checkRole(['admin']):
+            abort(403, "Not owned")
+        return obj
+
+    def xshow(self, obj_id, party_id=None):
         if party_id is None:
             if request.party:
                 return redirect( url_for(
@@ -165,99 +211,6 @@ class EncounterBlueprint(BaseApiBlueprint):
             combatants=combatants,
             monsters=info.values()
             )
-
-    def edit(self, obj_id):
-        encounter = self.datamapper.getById(obj_id)
-
-        if encounter.user_id != request.user.id \
-                and not self.checkRole(['admin']):
-            abort(403)
-
-        encounter.monsters = self.monstermapper.getByEncounterId(obj_id)
-
-        if request.method == 'POST':
-            if request.form["button"] == "cancel":
-                return redirect(url_for(
-                    'encounter.show',
-                    obj_id=obj_id
-                    ))
-
-            encounter.updateFromPost(request.form)
-
-            if request.form.get("button", "save") == "save":
-                self.datamapper.update(encounter)
-                return redirect(url_for(
-                    'encounter.show',
-                    obj_id=obj_id
-                    ))
-
-            if request.form.get("button", "save") == "update":
-                self.datamapper.update(encounter)
-                return redirect(url_for(
-                    'encounter.edit',
-                    obj_id=obj_id
-                    ))
-
-        return render_template(
-            'encounter/edit.html',
-            encounter=encounter,
-            monsters=encounter.monsters
-            )
-
-    def new(self):
-        encounter = self.datamapper.create({
-            'user_id': request.user.id
-            })
-
-        if request.method == 'POST':
-            if request.form["button"] == "cancel":
-                return redirect(url_for(
-                    'encounter.overview'
-                    ))
-
-            encounter.updateFromPost(request.form)
-
-            if request.form.get("button", "save") == "save":
-                encounter = self.datamapper.insert(encounter)
-                return redirect(url_for(
-                    'encounter.edit',
-                    obj_id=e.id
-                    ))
-
-        return render_template(
-            'encounter/edit.html',
-            encounter=encounter
-            )
-
-    def modify(self, obj_id, action, monster_id):
-        encounter = self.datamapper.getById(obj_id)
-        monster = self.monstermapper.getById(monster_id)
-
-        if action == 'add':
-            self.datamapper.addMonster(obj_id, monster_id)
-            flash(
-                "The Monster '%s' was added to Encounter '%s'." % (
-                    monster.name,
-                    encounter.name
-                    ),
-                'info'
-                )
-        elif action == 'del':
-            self.datamapper.delMonster(obj_id, monster_id)
-            flash(
-                "The Monster '%s' was removed from Encounter '%s'." % (
-                    monster.name,
-                    encounter.name
-                    ),
-                'info'
-                )
-        else:
-            flash("Unknown action '%s'." % action, 'error')
-
-        encounter.monsters = self.monstermapper.getByEncounterId(obj_id)
-        self.datamapper.update(encounter)
-
-        return redirect(request.referrer)
 
 def get_blueprint(basemapper):
     return EncounterBlueprint(
