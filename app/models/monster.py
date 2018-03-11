@@ -256,10 +256,10 @@ class MonsterObject(JsonObject):
             self.hit_points, self.armor_class,
             self.average_damage, self.attack_bonus, self.spell_save_dc)
 
-        if challenge['proficiency'] != self.proficiency:
-            self.update(challenge)
-        else:
-            self.config.update(challenge)
+        recompute = challenge['proficiency'] != self.proficiency
+        self.update(challenge)
+        if recompute:
+            self.compute()
 
 
 class MonsterMapper(JsonObjectDataMapper):
