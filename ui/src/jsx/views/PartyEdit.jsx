@@ -167,16 +167,16 @@ export class PartyEdit extends React.Component
                     <tr>
                         <td>{member_ids.length}</td>
                         <td className="info">
-                            {challenge.easy}XP
+                            {challenge.easy} XP
                         </td>
                         <td className="good">
-                            {challenge.medium}XP
+                            {challenge.medium} XP
                         </td>
                         <td className="warning">
-                            {challenge.hard}XP
+                            {challenge.hard} XP
                         </td>
                         <td className="bad">
-                            {challenge.deadly}XP
+                            {challenge.deadly} XP
                         </td>
                     </tr>
                 </tbody>
@@ -227,28 +227,30 @@ export class PartyEdit extends React.Component
                         </th>
                         <td>{character.level}</td>
                         <td className="info">
-                            {character.challenge.easy}XP
+                            {character.challenge.easy} XP
                         </td>
                         <td className="good">
-                            {character.challenge.medium}XP
+                            {character.challenge.medium} XP
                         </td>
                         <td className="warning">
-                            {character.challenge.hard}XP
+                            {character.challenge.hard} XP
                         </td>
                         <td className="bad">
-                            {character.challenge.deadly}XP
+                            {character.challenge.deadly} XP
                         </td>
                     </tr>;
                 })}</tbody>
                 <tbody>
                     <tr>
-                        <td colSpan={5}>
+                        <th>
                             <a
                                 className="nice-btn-alt cursor-pointer icon fa-plus"
                                 onClick={() => this.toggleDialog()}
                                 >
                                 Add
                             </a>
+                        </th>
+                        <td colSpan={4}>
                         </td>
                     </tr>
                 </tbody>
