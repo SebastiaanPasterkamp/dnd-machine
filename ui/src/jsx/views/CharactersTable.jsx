@@ -59,7 +59,7 @@ class CharactersRow extends LazyComponent
                     {name}
                     <CharacterLinks
                         altStyle={true}
-                        buttons={['view', 'edit', 'delete', 'download']}
+                        buttons={['view', 'edit', 'copy', 'delete', 'download']}
                         character_id={id}
                         />
                 </th>
