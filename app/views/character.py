@@ -31,6 +31,9 @@ class CharacterBlueprint(BaseApiBlueprint):
             '/download/<int:obj_id>', 'download',
             self.download)
         self.add_url_rule(
+            '/copy/<int:obj_id>', 'copy',
+            self.copy, methods=['GET', 'POST'])
+        self.add_url_rule(
             '/xp/<int:obj_id>/<int:xp>', 'xp',
             self.xp, methods=['GET', 'POST'])
         self.add_url_rule(
@@ -477,15 +480,28 @@ class CharacterBlueprint(BaseApiBlueprint):
             attachment_filename=filename
             )
 
+    def copy(self, obj_id):
+        obj = self.datamapper.getById(obj_id)
+        obj.id = None
+        obj.user_id = request.user.id
+        obj.name += u" (Copy)"
+
+        obj = self.datamapper.insert(obj)
+
+        return redirect(url_for(
+            'character.edit',
+            obj_id=obj.id
+            ))
+
     def xp(self, obj_id, xp):
         if not self.checkRole(['admin', 'dm']):
             abort(403)
 
-        character = self.datamapper.getById(obj_id)
-        character.xp += xp
-        character.compute()
+        obj = self.datamapper.getById(obj_id)
+        obj.xp += xp
+        obj.compute()
 
-        character = self.datamapper.update(character)
+        obj = self.datamapper.update(obj)
 
         return redirect(url_for(
             'character.show',
