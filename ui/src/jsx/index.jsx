@@ -19,6 +19,7 @@ import CharactersTable from './views/CharactersTable.jsx';
 import CharactersView from './views/CharactersView.jsx';
 import EncounterEdit from './views/EncounterEdit.jsx';
 import EncounterTable from './views/EncounterTable.jsx';
+import EncounterView from './views/EncounterView.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import PartyEdit from './views/PartyEdit.jsx';
 import PartyTable from './views/PartyTable.jsx';
@@ -125,6 +126,10 @@ class DndMachine extends React.Component
                 <Route
                     path="/encounter/list"
                     component={EncounterTable}
+                    />
+                <Route
+                    path="/encounter/show/:id"
+                    component={EncounterView}
                     />
                 <Route
                     path="/encounter/edit/:id"
