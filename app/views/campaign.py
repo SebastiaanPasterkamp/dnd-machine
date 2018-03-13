@@ -48,60 +48,72 @@ class CampaignBlueprint(BaseApiBlueprint):
 
         replace = {}
         for match in re.finditer(
-                ur"^/encounter/(\d+)\s*$", campaign.story, re.M):
+                ur"^/encounter/(\d+)\b", campaign.story, re.M):
 
-            pattern, encounter_id = match.group(0), int(match.group(1))
-            if pattern not in replace:
-                encounter = self.encountermapper.getById(encounter_id)
-                if encounter is None:
-                    continue
-                encounter.monsters = \
-                    self.monstermapper.getByEncounterId(encounter.id)
+            pattern, encounter_id = \
+                match.group(0), int(match.group(1))
+            if pattern in replace:
+                continue
 
-                replace[pattern] = "\n\n!!! encounter\n" + indent(
-                        render_template(
-                            'encounter/show.md',
-                            encounter=encounter,
-                            indent='##'
-                            )
-                        )
+            encounter = self.encountermapper.getById(encounter_id)
+            if encounter is None:
+                continue
 
-                skip = set()
-                for monster in sorted(encounter.monsters,\
-                        key=lambda m: m.challenge_rating,
-                        reverse=True):
-                    if monster.id in skip:
-                        continue
-                    skip.add(monster.id)
+            encounter.monsters = \
+                self.monstermapper.getByEncounterId(encounter.id)
 
-                    replace[pattern] += "\n\n!!! monster\n" + indent(
-                        render_template(
-                            'monster/show.md',
-                            monster=monster,
-                            indent='###'
-                            )
-                        )
-                replace[pattern] += "\n"
-
-        for match in re.finditer(
-                ur"^/npc/(\d+)\s*$", campaign.story, re.M):
-
-            pattern, npc_id = match.group(0), int(match.group(1))
-            if pattern not in replace:
-                npc = self.npcmapper.getById(npc_id)
-                if npc is None:
-                    continue
-
-                replace[pattern] = "\n!!! npc\n" + indent(
+            replace[pattern] = "\n\n!!! encounter\n" + indent(
                     render_template(
-                        'npc/show.md',
-                        npc=npc,
+                        'encounter/show.md',
+                        encounter=encounter,
                         indent='##'
                         )
-                    ) + "\n"
+                    )
+
+            skip = set()
+            monsters = sorted(
+                encounter.monsters,
+                key=lambda m: m.challenge_rating,
+                reverse=True
+                )
+            for monster in monsters:
+                if monster.id in skip:
+                    continue
+                skip.add(monster.id)
+
+                replace[pattern] += "\n\n!!! monster\n" + indent(
+                    render_template(
+                        'monster/show.md',
+                        monster=monster,
+                        indent='###'
+                        )
+                    )
+            replace[pattern] += "\n"
+
+        for match in re.finditer(
+                ur"^/npc/(\d+)\b", campaign.story, re.M):
+
+            pattern, npc_id = \
+                match.group(0), int(match.group(1))
+            if pattern in replace:
+                continue
+
+            npc = self.npcmapper.getById(npc_id)
+            if npc is None:
+                continue
+
+            replace[pattern] = "\n!!! npc\n" + indent(
+                render_template(
+                    'npc/show.md',
+                    npc=npc,
+                    indent='##'
+                    )
+                ) + "\n"
 
         campaign.story = reduce(
-            lambda a, kv: a.replace(*kv),
+            lambda subject, kv: re.sub(
+                r"%s\b" % kv[0], kv[1], subject
+                ),
             replace.iteritems(),
             campaign.story
             )
