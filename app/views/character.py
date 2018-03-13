@@ -533,18 +533,17 @@ class CharacterBlueprint(BaseApiBlueprint):
             obj_id=obj_id
             ))
 
-    def _api_list_filter(self, objects):
+    def _api_list_filter(self, objs):
+        if self.checkRole(['admin', 'dm']):
+            return objs
         extended_ids = self.datamapper.getExtendedIds(request.user.id)
-
-        objects = [
+        objs = [
             obj
-            for obj in objects
+            for obj in objs
             if obj.user_id == request.user.id \
-                or obj.id in extended_ids \
-                or self.checkRole(['admin', 'dm'])
+                or obj.id in extended_ids
             ]
-
-        return objects
+        return objs
 
     def _api_get_filter(self, obj):
         if obj.user_id != request.user.id \
@@ -558,7 +557,6 @@ class CharacterBlueprint(BaseApiBlueprint):
 
     def _api_post_filter(self, obj):
         if not self.checkRole(['player', 'dm']):
-            print request.user.config
             abort(403, "Invalid role")
 
         obj.user_id = request.user.id
