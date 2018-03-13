@@ -158,9 +158,10 @@ export class EncounterEdit extends React.Component
             id, name, description, size, monster_ids, monsters,
             modifier, challenge_rating, challenge_modified,
             challenge_rating_precise, xp, xp_modified, xp_rating,
-            hosted_party
+            hosted_party = {}
         } = this.props;
-        const { challenge } = hosted_party || {};
+
+        const { challenge } = hosted_party;
         const index = challenge ? utils.closest({
             'irrelevant': 0,
             'easy': challenge.easy,
@@ -241,8 +242,11 @@ export class EncounterEdit extends React.Component
                     </tr>
                     <tr>
                         <td>CR {challenge_rating} / {xp_modified} XP</td>
-                        {hosted_party
-                            ? <td>CR {challenge_modified.toFixed(2)} / {xp_modified} XP</td>
+                        {challenge
+                            ? <td>
+                                CR {challenge_modified.toFixed(2)}
+                                / {xp_modified} XP
+                            </td>
                             : <td>&mdash;</td>
                         }
                         <td>CR {challenge_rating_precise.toFixed(2)} / {xp_rating} XP</td>
