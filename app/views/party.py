@@ -147,13 +147,13 @@ class PartyBlueprint(BaseApiBlueprint):
             return jsonify(None)
 
         obj.members = self.charactermapper.getByPartyId(obj.id)
-        for member in party.members:
+        for member in obj.members:
             member.xp += int(xp / obj.size)
             member.compute()
             self.charactermapper.update(member)
         obj.members = self.charactermapper.getByPartyId(obj.id)
 
-        self.datamapper.update(party)
+        obj = self.datamapper.update(obj)
 
         return redirect(url_for(
             '%s.api_get' % self.name,
