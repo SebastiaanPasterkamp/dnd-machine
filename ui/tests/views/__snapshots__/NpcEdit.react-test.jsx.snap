@@ -686,6 +686,9 @@ Array [
           </span>
         </div>
       </div>
+      <div
+        className="clearfix"
+      />
     </div>
   </div>,
   <div
@@ -724,6 +727,9 @@ Array [
         </thead>
         <tbody />
       </table>
+      <div
+        className="clearfix"
+      />
     </div>
   </div>,
   <div
@@ -758,6 +764,9 @@ Array [
           </li>
         </ul>
       </div>
+      <div
+        className="clearfix"
+      />
     </div>
   </div>,
 ]
