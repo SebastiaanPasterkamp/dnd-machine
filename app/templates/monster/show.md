@@ -16,13 +16,13 @@
 ---
 
 | {% for stat in items.statistics -%}
-  {% if not loop.first %} | {% endif %}{{ stat.label[:3] }}
+  {% if not loop.first %} | {% endif %}{{ stat.short }}
 {%- endfor %} |
 | {% for stat in items.statistics -%}
   {% if not loop.first %} | {% endif %}---
 {%- endfor %} |
 | {% for stat in items.statistics -%}
-  {% if not loop.first %} | {% endif %}{{ monster.stats[stat.name] }} ({{ monster.modifiers[stat.name]|bonus }})
+  {% if not loop.first %} | {% endif %}{{ monster.statisticsBase[stat.code] }} ({{ monster.statisticsModifiers[stat.code]|bonus }})
 {%- endfor %} |
 
 ---
