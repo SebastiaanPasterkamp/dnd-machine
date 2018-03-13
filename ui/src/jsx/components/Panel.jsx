@@ -52,10 +52,14 @@ export class Panel extends LazyComponent
             }
             <ContentComponent className={contentStyle}>
                 {children}
+                {ContentComponent != 'table'
+                    ? <div className="clearfix"></div>
+                    : null
+                }
             </ContentComponent>
             {footer
                 ? <div className="nice-panel-heading">
-                    {header}
+                    {footer}
                 </div>
                 : null
             }
