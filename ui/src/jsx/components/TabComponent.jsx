@@ -16,16 +16,20 @@ export class TabComponent extends LazyComponent
     }
 
     componentDidMount() {
-        const size = React.Children.count(this.props.children);
+        const { children, tabConfig } = this.props;
+
         let activeTab = 0;
-        React.Children.forEach(this.props.children, (child, index) => {
-            const tabcfg = _.isFunction(this.props.tabConfig)
-                ? this.props.tabConfig(index)
-                : this.props.tabConfig[index];
-            if (tabcfg.active || false) {
-                activeTab = index;
+        React.Children.forEach(
+            children,
+            (child, index) => {
+                const tabcfg = _.isFunction(tabConfig)
+                    ? tabConfig(index)
+                    : tabConfig[index];
+                if (tabcfg.active) {
+                    activeTab = index;
+                }
             }
-        });
+        );
 
         if (activeTab != this.state.activeTab) {
             this.switchTab(activeTab);
@@ -43,61 +47,68 @@ export class TabComponent extends LazyComponent
     }
 
     renderTab(index) {
-        const tabConfig = this.props.tabConfig;
+        const { tabConfig } = this.props;
         const isActive = (index == this.state.activeTab);
         const tabcfg = _.isFunction(tabConfig)
             ? tabConfig(index)
             : tabConfig[index];
         const tabStyle = utils.makeStyle({
-            [tabcfg.color || '']: tabcfg.color && !tabcfg.disabled,
+            [tabcfg.color || '']: (
+                tabcfg.color
+                && !tabcfg.disabled
+            ),
             muted: tabcfg.disabled,
             current: isActive,
         });
         const linkStyle = utils.makeStyle({
-                icon: 'icon' in tabcfg,
-                [tabcfg.icon || '']: 'icon' in tabcfg,
-                'cursor-not-allowed': tabcfg.disabled || false,
-                'cursor-pointer': !tabcfg.disabled,
-            }
-        );
+            icon: 'icon' in tabcfg,
+            [tabcfg.icon || '']: 'icon' in tabcfg,
+            'cursor-not-allowed': tabcfg.disabled,
+            'cursor-pointer': !tabcfg.disabled,
+        });
 
         return <li
-                key={"tab-" + index}
-                className={tabStyle}
-                >
+            key={"tab-" + index}
+            className={tabStyle}
+            >
             <a
-                    className={linkStyle}
-                    onClick={(e) => {
-                        e.preventDefault();
-                        if (isActive || tabcfg.disabled) {
-                            return;
-                        }
-                        this.switchTab(index);
-                    }}
-                    >
+                className={linkStyle}
+                onClick={(e) => {
+                    e.preventDefault();
+                    if (isActive || tabcfg.disabled) {
+                        return;
+                    }
+                    this.switchTab(index);
+                }}
+                >
                 {tabcfg.label}
             </a>
         </li>;
     }
 
     render() {
-        return <div className="nice-tabs-wrapper tab-component">
+        const { children, className } = this.props;
+        const style = utils.makeStyle({}, [
+            'nice-tabs-wrapper', 'tab-component', className
+        ]);
+
+        return <div className={style}>
             <ul className="nice-tabs bold">
                 {React.Children.map(
-                    this.props.children, (child, index) => {
-                        return this.renderTab(index);
-                    }
+                    children,
+                    (child, index) => this.renderTab(index)
                 )}
             </ul>
             <ul className="nice-tab-content">
                 <li className="current">
-                    {React.Children.map(
-                        this.props.children, (child, index) => {
-                            if (index == this.state.activeTab) {
-                                return child;
-                            }
-                        }
-                    )}
+                {React.Children.map(
+                    children,
+                    (child, index) => (
+                        index == this.state.activeTab
+                        ? child
+                        : null
+                    )
+                )}
                 </li>
             </ul>
         </div>;
