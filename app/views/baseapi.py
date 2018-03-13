@@ -110,13 +110,13 @@ class BaseApiBlueprint(Blueprint):
     def _api_list_filter(self, objs):
         return objs
 
-    def api_list(self):
+    def api_list(self, *args, **kwargs):
         objects = self.datamapper.getMultiple()
 
-        objects = self._api_list_filter(objects)
+        objects = self._api_list_filter(objects, *args, **kwargs)
 
         return jsonify([
-            self._exposeAttributes(obj)
+            self._exposeAttributes(obj, *args, **kwargs)
             for obj in objects
             ])
 

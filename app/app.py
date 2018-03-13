@@ -20,6 +20,8 @@ from .views.monster import get_blueprint as get_monster
 from .views.npc import get_blueprint as get_npc
 from .views.encounter import get_blueprint as get_encounter
 from .views.campaign import get_blueprint as get_campaign
+from .views.logs.adventureleaguelog \
+    import get_blueprint as get_adventureleaguelog
 
 app = Flask(__name__)
 
@@ -49,6 +51,10 @@ with app.app_context():
     app.register_blueprint(
         get_character(dm),
         url_prefix='/character'
+        )
+    app.register_blueprint(
+        get_adventureleaguelog(dm),
+        url_prefix='/adventureleaguelog'
         )
     app.register_blueprint(
         get_party(dm),
@@ -86,10 +92,13 @@ app.jinja_env.filters['by_name'] = filters.filter_by_name
 app.jinja_env.filters['json'] = filters.filter_json
 app.jinja_env.filters['md5'] = filters.filter_md5
 app.jinja_env.filters['markdown'] = filters.filter_markdown
-app.jinja_env.filters['named_headers'] = filters.filter_named_headers
-app.jinja_env.filters['linked_objects'] = filters.filter_linked_objects
+app.jinja_env.filters['named_headers'] = \
+    filters.filter_named_headers
+app.jinja_env.filters['linked_objects'] = \
+    filters.filter_linked_objects
 
-# Load default config and override config from an environment variable
+# Load default config and override config from an environment
+# variable
 app.config.update(get_config())
 
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
@@ -156,6 +165,7 @@ def _updatedb():
             """)
         latest = cur.fetchone()
     except:
+        print('Initialize DB Schema versioning.')
         db.execute("""
             CREATE TABLE `schema` (
                 `id` INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -369,6 +379,12 @@ def navigation():
         'icon': 'user-secret',
         'path': url_for('character.overview'),
         })
+    if request.user.dci:
+        navigation.append({
+            'label': 'Adventure League',
+            'icon': 'pencil-square-o', # 'd-and-d',
+            'path': url_for('adventureleague.overview'),
+            })
 
     navigation.append({
         'label': 'Parties',
@@ -492,7 +508,8 @@ def navigation():
             return False
         if 'roles' not in item:
             return True
-        if any([role in item['roles'] for role in request.user['role']]):
+        userRoles = request.user['role']
+        if any([r in item['roles'] for r in userRoles]):
             return True
         return False
 
