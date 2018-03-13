@@ -22,32 +22,38 @@
         {
             "code": "strength",
             "label": "Strength",
+            "short": "Str",
             "description": "Strength is being able to crush a tomato."
         },
         {
             "code": "dexterity",
             "label": "Dexterity",
+            "short": "Dex",
             "description": "Dexterity is being able to dodge a tomato."
 
         },
         {
             "code": "constitution",
             "label": "Constitution",
+            "short": "Con",
             "description": "Constitution is being able to eat a bad tomato."
         },
         {
             "code": "intelligence",
             "label": "Intelligence",
+            "short": "Int",
             "description": "Intelligence is knowing a tomato is a fruit."
         },
         {
             "code": "wisdom",
             "label": "Wisdom",
+            "short": "Wis",
             "description": "Wisdom is knowing not to put a tomato in a fruit salad."
         },
         {
             "code": "charisma",
             "label": "Charisma",
+            "short": "Cha",
             "description": "Charisma is being able to sell a tomato based fruit salad."
         }
     ],

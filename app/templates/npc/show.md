@@ -11,14 +11,14 @@
 ---
 
 | {% for stat in items.statistics -%}
-  {% if not loop.first %} | {% endif %}{{ stat.label[:3] }}
+  {% if not loop.first %} | {% endif %}{{ stat.short }}
 {%- endfor %} |
 | {% for stat in items.statistics -%}
   {% if not loop.first %} | {% endif %}---
 {%- endfor %} |
 | {% for stat in items.statistics -%}
-  {% if not loop.first %} | {% endif %}{{ npc.statisticsBase[stat.name] }} ({{ npc.statisticsModifiers[stat.name]|bonus }})
-{%- endfor %} |
+  {% if not loop.first %} | {% endif %}{{
+  npc.statisticsBase[stat.code] }} ({{ npc.statisticsModifiers[stat.code]|bonus }}) {%- endfor %} |
 
 ---
 
@@ -35,8 +35,8 @@
 ---
 {% endif %}
 
-{% for trait in npc.traits -%}
-* **{{ trait.name }}** {{ trait.description|indent(4) }}
+{% for name, description in npc.traits.items() -%}
+* **{{ name }}** {{ description|indent(4) }}
 
 {% endfor %}
 
