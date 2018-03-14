@@ -150,7 +150,7 @@ export class NpcView extends React.Component
                             &nbsp;
                             (<DiceNotation
                                 dice_count={level}
-                                size_hit_dice={_.get(
+                                dice_size={_.get(
                                     size_hit_dice,
                                     {code: size},
                                     {dice_size: 8}
