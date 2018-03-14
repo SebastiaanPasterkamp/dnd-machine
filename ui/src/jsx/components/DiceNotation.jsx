@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import LazyComponent from '../components/LazyComponent.jsx';
 
 class DiceNotation extends LazyComponent
@@ -17,5 +19,12 @@ class DiceNotation extends LazyComponent
         </div>;
     }
 }
+
+DiceNotation.propTypes = {
+    dice_count: PropTypes.number.isRequired,
+    dice_size: PropTypes.number.isRequired,
+    bonus: PropTypes.number,
+    type: PropTypes.string,
+};
 
 export default DiceNotation;
