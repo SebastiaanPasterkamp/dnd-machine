@@ -57,7 +57,7 @@ class NpcBlueprint(BaseApiBlueprint):
             'id', 'name', 'race', 'class', 'gender',
             'level', 'size', 'alignment', 'statistics', 'languages',
             'location', 'organization', 'description', 'traits',
-            'armor_class', 'spell'
+            'armor_class', 'spell', 'hit_points', 'size',
             ]
 
         result = dict([
