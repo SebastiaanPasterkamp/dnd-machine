@@ -26,7 +26,7 @@ class Datamapper(object):
     def __init__(self, db):
         self.db = db
         self._creators = {
-            'machine': lambda: DndMachine(get_config()['machine']),
+            'machine': lambda: DndMachine(get_config()['machine'], self),
             'user': lambda: UserMapper(self.db),
             'party': lambda: PartyMapper(db),
             'character': lambda: CharacterMapper(db, self),
