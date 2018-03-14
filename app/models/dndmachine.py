@@ -1,9 +1,7 @@
-from flask import g
-import json
-import sqlite3
-from passlib.hash import pbkdf2_sha256 as password
 import parser
 import re
+
+from base import JsonObject, JsonObjectDataMapper
 
 class DndMachine(object):
     _instance = None
@@ -13,11 +11,12 @@ class DndMachine(object):
                                 cls, *args, **kwargs)
         return cls._instance
 
-    def __init__(self, config):
+    def __init__(self, config, mapper):
         self.xp_at_level = config['xp_at_level']
         self.challenge_rating = config["challenge_rating"]
         self.monster_scaling = config["monster_scaling"]
         self.size_hit_dice = config["size_hit_dice"]
+        self.mapper = mapper
 
     def resolveMath(self, obj, formula):
         replace = {}
@@ -197,3 +196,133 @@ class DndMachine(object):
                 + (next_xp * challenge_ratio)
                 )
             }
+
+    def findObj(self, item):
+        objs = self.mapper.weapon.getMultiple(
+            'name COLLATE nocase = :name',
+            {'name': item}
+            )
+        if len(objs):
+            return (
+                'weapons',
+                objs[0]
+                )
+        objs = self.mapper.armor.getMultiple(
+            'name COLLATE nocase = :name',
+            {'name': item}
+            )
+        if len(objs):
+            return (
+                'armor',
+                objs[0]
+                )
+        obj = self.mapper.items.itemByNameOrCode(item, 'tools')
+        if obj is not None:
+            return (
+                'items%s' % obj['type'].capitalize(),
+                obj
+                )
+        return (None, None)
+
+    def identifyEquipment(self, equipment):
+        mappers = {
+            'armor': self.mapper.armor,
+            'weapons': self.mapper.weapon,
+            }
+        re_cnt_item = re.compile(ur"^(\d+)\s+x\s+(.*)$")
+
+        data = {
+            'armor': [],
+            'weapons': [],
+            'items': {
+                "artisan": [],
+                "kit": [],
+                "gaming": [],
+                "musical": [],
+                "trinket": [],
+                },
+            'equipment': [],
+            }
+
+        for item in equipment:
+            obj = None
+            if not isinstance(item, dict):
+                item = {
+                    'name': item,
+                    'count': 1,
+                    'path': 'itemsTrinket',
+                    }
+                matches = re_cnt_item.match(item['name'])
+                if matches != None:
+                    item['count'] = int(matches.group(1))
+                    item['name'] = matches.group(2)
+            elif 'id' in item and item['path'] in mappers:
+                obj = mappers[ item['path'] ].getById(
+                    item['id']
+                    )
+
+            if obj is None:
+                path, obj = self.findObj(item['name'])
+                item['path'] = path or item['path']
+                if obj is None:
+                    obj = item['name']
+                elif 'id' in obj:
+                    item['id'] = obj['id']
+
+            for old in data['equipment']:
+                if old['path'] == item['path'] \
+                        and old['name'] == item['name']:
+                    old['count'] += item['count']
+                    break
+            else:
+                data['equipment'].append(item)
+
+            if isinstance(obj, JsonObject):
+                obj = obj._config
+
+            if item['path'].startswith('items'):
+                itemType = item['path'][5:].lower()
+                data['items'][itemType] += [obj] * item['count']
+            else:
+                data[item['path']] += [obj] * item['count']
+        return data
+
+    def computeWeaponStats(self, weapon, wielder, autoProf=False):
+        attack_modifier = "strength"
+        if u"ranged" in weapon["type"]:
+            attack_modifier = "dexterity"
+        if u"finesse" in weapon['property']:
+            finesse = {
+                "strength": wielder.statisticsModifiersStrength,
+                "dexterity": wielder.statisticsModifiersDexterity,
+                }
+            attack_modifier = max(finesse, key=finesse.get)
+
+        dmg = self.mapper.items.itemByNameOrCode(
+            weapon["damage"]["type"],
+            'damage_types'
+            )
+        weapon["damage"]["type_label"] = dmg["label"]
+        weapon["damage"]["type_short"] = dmg["short"]
+
+        weapon["bonus"] = weapon["damage"]["bonus"] = \
+            wielder.statisticsModifiers[attack_modifier]
+        if autoProf \
+                or weapon['type'] in wielder.proficienciesWeapons \
+                or weapon['name'] in wielder.proficienciesWeapons:
+            weapon["bonus"] += wielder.proficiency
+
+        weapon["damage"]["notation"] = self.diceNotation(
+            weapon["damage"]["dice_size"],
+            weapon["damage"]["dice_count"],
+            weapon["damage"]["bonus"]
+            )
+
+        if "versatile" in weapon["property"]:
+            weapon["versatile"]["bonus"] = weapon["damage"]["bonus"]
+            weapon["versatile"]["notation"] = self.diceNotation(
+                weapon["versatile"]["dice_size"],
+                weapon["versatile"]["dice_count"],
+                weapon["versatile"]["bonus"]
+                )
+        return weapon
