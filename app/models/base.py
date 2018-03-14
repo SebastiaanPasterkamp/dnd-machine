@@ -399,7 +399,11 @@ class JsonObjectDataMapper(object):
             for field, value in obj
             if field not in fields
             )
-        dbrow['config'] = json.dumps(dbrow['config'])
+        dbrow['config'] = json.dumps(
+            dbrow['config'],
+            sort_keys=True,
+            indent=4
+            )
         return dbrow
 
     def create(self, config=None):
