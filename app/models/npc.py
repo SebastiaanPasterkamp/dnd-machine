@@ -70,12 +70,19 @@ class NpcObject(JsonObject):
         "equipment": [],
         "weapon": [],
         "armor": [],
+        "items": {
+            "artisan": [],
+            "kit": [],
+            "gaming": [],
+            "musical": [],
+            "trinket": []
+            },
         "proficiency": 2,
         "traits": {},
         "features": [],
         "languages": [],
         "computed": {
-            "unarmored": {
+            "armor_class": {
                 "formula": "10 + statistics.modifiers.dexterity"
                 },
             "spell.safe_dc": {
@@ -109,17 +116,24 @@ class NpcObject(JsonObject):
             "*": int
             },
         "armor": {
+            "id": int,
             "value": int,
             "bonus": int,
+            "disadvantage": bool,
             "strength": int,
             "cost": {
                 "*": int
+                },
+            "weight": {
+                "*": float
                 }
             },
         "weapons": {
+            "id": int,
             "damage": {
                 "dice_count": int,
-                "dice_size": int
+                "dice_size": int,
+                "bonus": int,
                 },
             "range": {
                 "min": int,
@@ -130,10 +144,24 @@ class NpcObject(JsonObject):
                 "dice_size": int
                 },
             "bonus": int,
-            "bonus_alt": int,
             "cost": {
                 "*": int
+                },
+            "weight": {
+                "*": float
                 }
+            },
+        "items": {
+            "*": {
+                '*': 'auto',
+                'worth': {
+                    '*': int
+                    },
+                'weight': {
+                    '*': float
+                    },
+                },
+            'trinket': 'auto',
             },
         "abilities": {
             "*": {
@@ -221,6 +249,16 @@ class NpcObject(JsonObject):
                 finally:
                     del self[old]
 
+        self.armor = []
+        self.weapons = []
+        self.items = {
+            "artisan": [],
+            "kit": [],
+            "gaming": [],
+            "musical": [],
+            "trinket": []
+            }
+
         super(NpcObject, self).migrate()
 
     def compute(self):
@@ -267,88 +305,13 @@ class NpcObject(JsonObject):
             self.statisticsModifiersConstitution * self.level
             )
 
-        self.armor = []
-        self.weapons = []
-        search = {
-            "armor": [
-                "armor.light.items",
-                "armor.medium.items",
-                "armor.heavy.items",
-                "armor.shield.items"
-                ],
-            "weapons": [
-                "weapons.simple.melee.items",
-                "weapons.simple.ranged.items",
-                "weapons.martial.melee.items",
-                "weapons.martial.ranged.items"
-                ]
-            }
-        def findObj(item):
-            objs = self.mapper.weapon.getMultiple(
-                'name COLLATE nocase = :name',
-                {'name': item}
-                )
-            if len(objs):
-                return 'weapons', objs[0]._config
-            objs = self.mapper.armor.getMultiple(
-                'name COLLATE nocase = :name',
-                {'name': item}
-                )
-            if len(objs):
-                return 'armor', objs[0]._config
-
-            obj = itemMapper.itemByNameOrCode(item, 'tools')
-            if obj is not None:
-                return 'items%s' % obj['type'].capitalize(), obj
-            return None, None
-
-        for items in self.equipment:
-            count, item = 1, items
-            matches = re.match(r'^(\d+)\sx\s(.*)$', items)
-            if matches != None:
-                count, items = int(matches.group(1)), \
-                    matches.group(2)
-            dest, obj = findObj(item)
-            dest = dest or 'misc'
-            if obj:
-                self[dest] = self[dest] + [obj] * count
-            else:
-                self.itemsMisc = self.itemsMisc + [items]
+        self.update(
+            machine.identifyEquipment(self.equipment)
+            )
 
         for weapon in self.weapons:
-            attack_modifier = "strength"
-            if "ranged" in weapon["property"]:
-                attack_modifier = "dexterity"
-            if "finesse" in weapon['property']:
-                attack_modifier = max({
-                    "strength": self.statisticsModifiersStrength,
-                    "dexterity": self.statisticsModifiersDexterity,
-                    })
+            weapon = machine.computeWeaponStats(weapon, self, True)
 
-            dmg = itemMapper.itemByNameOrCode(
-                weapon["damage"]["type"], 'damage_types')
-            weapon["damage"]["type_label"] = dmg["label"]
-            weapon["damage"]["type_short"] = dmg["short"]
-
-            weapon["bonus"] = weapon["damage"]["bonus"] \
-                = self.statisticsModifiers[attack_modifier] \
-                    + self.proficiency
-
-            weapon["damage"]["notation"] = machine.diceNotation(
-                weapon["damage"]["dice_size"],
-                weapon["damage"]["dice_count"],
-                weapon["damage"]["bonus"]
-                )
-
-            if "versatile" in weapon["property"]:
-                weapon["versatile"]["bonus"] = weapon["damage"]["bonus"]
-                weapon["versatile"]["notation"] = machine.diceNotation(
-                    weapon["versatile"]["dice_size"],
-                    weapon["versatile"]["dice_count"],
-                    weapon["versatile"]["bonus"]
-                    )
-
-        self.armor_class = self.unarmored
         self.armor_class_bonus = 0
         for armor in self.armor:
             value = 0
