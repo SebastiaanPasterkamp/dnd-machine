@@ -12,6 +12,7 @@ from character import CharacterMapper
 from dndmachine import DndMachine
 from encounter import EncounterMapper
 from monster import MonsterMapper
+from log.adventureleague import AdventureLeagueLogMapper
 from npc import NpcMapper
 from party import PartyMapper
 from user import UserMapper
@@ -27,7 +28,8 @@ class Datamapper(object):
         self.db = db
         self._creators = {
             'machine': lambda: DndMachine(get_config()['machine'], self),
-            'user': lambda: UserMapper(self.db),
+            'adventureleague': lambda: AdventureLeagueLogMapper(db),
+            'user': lambda: UserMapper(db),
             'party': lambda: PartyMapper(db),
             'character': lambda: CharacterMapper(db, self),
             'encounter': lambda: EncounterMapper(db),
