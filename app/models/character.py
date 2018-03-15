@@ -125,6 +125,9 @@ class CharacterObject(JsonObject):
         "xp": int,
         "xp_progress": int,
         "xp_level": int,
+        "downtime": int,
+        "renown": int,
+        "adventure_items": int,
         "level": int,
         "hit_points": int,
         "hit_dice": int,
@@ -233,7 +236,7 @@ class CharacterObject(JsonObject):
 
     @property
     def character_data(self):
-        if not self._character_data:
+        if '_character_data' not in self.__dict__:
             self._character_data = get_character_data(True)
         return self._character_data
 
