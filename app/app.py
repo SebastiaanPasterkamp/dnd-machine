@@ -20,8 +20,8 @@ from .views.monster import get_blueprint as get_monster
 from .views.npc import get_blueprint as get_npc
 from .views.encounter import get_blueprint as get_encounter
 from .views.campaign import get_blueprint as get_campaign
-from .views.logs.adventureleaguelog \
-    import get_blueprint as get_adventureleaguelog
+from .views.log.adventureleague \
+    import get_blueprint as get_adventureleague
 
 app = Flask(__name__)
 
@@ -53,8 +53,8 @@ with app.app_context():
         url_prefix='/character'
         )
     app.register_blueprint(
-        get_adventureleaguelog(dm),
-        url_prefix='/adventureleaguelog'
+        get_adventureleague(dm),
+        url_prefix='/log/adventureleague'
         )
     app.register_blueprint(
         get_party(dm),

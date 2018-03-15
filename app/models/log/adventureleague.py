@@ -1,17 +1,16 @@
-from base import JsonObject, JsonObjectDataMapper
+from ..base import JsonObject, JsonObjectDataMapper
 from datetime import date
 
 class AdventureLeagueLogObject(JsonObject):
     _pathPrefix = "adventureleaguelog"
     _defaultConfig = {
+        'consumed': False,
         'adventure': {
             'name': u'',
             'id': u'',
             'date': date.today(),
-            'dm': {
-                'name': u'',
-                'dci': u'',
-                },
+            'dm_name': u'',
+            'dm_dci': u'',
             },
         'xp': {
             'starting': 0,
@@ -19,18 +18,18 @@ class AdventureLeagueLogObject(JsonObject):
             'total': 0,
             },
         'gold': {
-            'starting': 0,
-            'earned': 0,
-            'total': 0,
+            'starting': {},
+            'earned': {},
+            'total': {},
             },
         'downtime': {
             'starting': 0,
-            'earned': 0,
+            'earned': 5,
             'total': 0,
             },
         'renown': {
             'starting': 0,
-            'earned': 0,
+            'earned': 1,
             'total': 0,
             },
         'items': {
@@ -44,17 +43,14 @@ class AdventureLeagueLogObject(JsonObject):
         'id': int,
         'user_id': int,
         'character_id': int,
-        'adventure': {
-            'date': date,
-            'dm': {
-                '*': unicode,
-                },
-            },
+        'consumed': bool,
         'xp': {
             '*': int,
             },
         'gold': {
-            '*': int,
+            '*': {
+                '*': int,
+                }
             },
         'downtime': {
             '*': int,
