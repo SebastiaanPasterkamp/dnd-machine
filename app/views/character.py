@@ -74,11 +74,13 @@ class CharacterBlueprint(BaseApiBlueprint):
             fields = [
                 'id', 'name', 'gender', 'race', 'class', 'alignment',
                 'background', 'level', 'xp', 'xp_progress',
-                'user_id', 'xp_level', 'challenge', 'spell'
+                'user_id', 'xp_level', 'challenge', 'spell',
+                'downtime', 'renown', 'adventure_items',
                 ]
             result = dict([
                 (key, obj[key])
                 for key in fields
+                if key in obj
                 ])
         return result
 
