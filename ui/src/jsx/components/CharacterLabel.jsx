@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
@@ -11,7 +12,7 @@ export class CharacterLabel extends LazyComponent
 {
     render() {
         const {
-            character, genders, alignments, showProgress
+            character, genders = [], alignments = [], showProgress,
         } = this.props;
 
         if (!character) {
@@ -23,16 +24,16 @@ export class CharacterLabel extends LazyComponent
             Level {character.level}
             &nbsp;
             <ListLabel
-                    items={genders || []}
-                    value={character.gender}
-                    />
+                items={genders}
+                value={character.gender}
+                />
             &nbsp;
             {character.race}
             &nbsp;
             {character.class}
             &nbsp;
             (<ListLabel
-                    items={alignments || []}
+                    items={alignments}
                     value={character.alignment}
                     />)
             {showProgress
@@ -62,6 +63,14 @@ export class CharacterLabel extends LazyComponent
         </div>;
     }
 }
+
+CharacterLabel.propTypes = {
+    character_id: PropTypes.number.isRequired,
+    showProgress: PropTypes.bool,
+    character: PropTypes.object,
+    alignments: PropTypes.array,
+    genders: PropTypes.array,
+};
 
 export default ListDataWrapper(
     ObjectDataWrapper(
