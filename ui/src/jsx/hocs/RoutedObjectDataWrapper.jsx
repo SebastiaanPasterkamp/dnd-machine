@@ -37,17 +37,16 @@ function RoutedObjectDataWrapper(
         componentWillMount() {
             super.componentWillMount.call(this);
 
-            this.setState({
-                id: _.get(this.props, 'match.params.id') || null
-            }, () => this.onReload());
+            this.onReload();
         }
 
         getStateProps(state) {
+            const id = _.get(this.props, 'match.params.id');
             const stateProps = _.get(
                 state || this.state,
-                [loadableType, this.state.id]
+                [loadableType, id]
             );
-            if (_.isNil(this.state.id) && _.isNil(stateProps)) {
+            if (_.isNil(id) && _.isNil(stateProps)) {
                 return this.store.getInitial(loadableType);
             }
             return stateProps;
@@ -81,6 +80,8 @@ function RoutedObjectDataWrapper(
         }
 
         onSetState(update, callback=null) {
+            const id = _.get(this.props, 'match.params.id');
+
             let loadable = _.assign(
                 {},
                 this.getStateProps(),
@@ -89,28 +90,32 @@ function RoutedObjectDataWrapper(
 
             this.actions.getObject.completed(
                 loadableType,
-                this.state.id,
+                id,
                 loadable,
                 callback
             );
         }
 
         onReload(callback=null) {
-            if (!this.state.id) {
+            const id = _.get(this.props, 'match.params.id');
+            if (id == null) {
                 return;
             }
+
             this.actions.getObject(
                 loadableType,
-                this.state.id,
+                id,
                 loadableGroup,
                 callback
             );
         }
 
         onRecompute(callback=null) {
+            const id = _.get(this.props, 'match.params.id');
+
             this.actions.recomputeObject(
                 loadableType,
-                this.state.id,
+                id,
                 this.getStateProps(),
                 loadableGroup,
                 callback
@@ -118,7 +123,9 @@ function RoutedObjectDataWrapper(
         }
 
         onSave(callback=null) {
-            if (this.state.id == null) {
+            const id = _.get(this.props, 'match.params.id');
+
+            if (id == null) {
                 this.actions.postObject(
                     loadableType,
                     this.getStateProps(),
@@ -133,13 +140,13 @@ function RoutedObjectDataWrapper(
                         if (callback) {
                             callback();
                         }
-                        this.nextView(this.state.id);
+                        this.nextView();
                     }
                 );
             } else {
                 this.actions.patchObject(
                     loadableType,
-                    this.state.id,
+                    id,
                     this.getStateProps(),
                     loadableGroup,
                     () => {
@@ -152,16 +159,18 @@ function RoutedObjectDataWrapper(
                         if (callback) {
                             callback();
                         }
-                        this.nextView(this.state.id);
+                        this.nextView(id);
                     }
                 );
             }
         }
 
-        handleFailed(type, id, error) {
+        handleFailed(type, failedId, error) {
+            const id = _.get(this.props, 'match.params.id');
+
             if (
                 type != loadableType
-                || id != this.state.id
+                || failedId != id
             ) {
                 return;
             }
@@ -187,17 +196,16 @@ function RoutedObjectDataWrapper(
         }
 
         renderButtons() {
-            const {
-                id, buttons
-            } = this.state;
+            const id = _.get(this.props, 'match.params.id');
+            const { buttons } = this.state;
             if(!buttons.length) {
                 return null;
             }
 
             return <Panel
-                    className={config.className + "__save"}
-                    header="Save"
-                    >
+                className={config.className + "__save"}
+                header="Save"
+                >
                 {_.includes(buttons, "cancel")
                     ? <ButtonField
                         name="button"
@@ -208,8 +216,7 @@ function RoutedObjectDataWrapper(
                         />
                     : null
                 }
-                {_.includes(buttons, "reload")
-                        && id != null
+                {_.includes(buttons, "reload") && id != null
                     ? <ButtonField
                         name="button"
                         color="info"
@@ -257,9 +264,11 @@ function RoutedObjectDataWrapper(
         }
 
         render() {
+            const id = _.get(this.props, 'match.params.id');
+            const { error } = this.state;
             const {
-                id, error
-            } = this.state;
+                history, location, match = {}, staticContext, ...props
+            } = this.props;
             let data = this.getStateProps();
 
             if(!data) {
@@ -290,7 +299,8 @@ function RoutedObjectDataWrapper(
                         save={(callback=null) => {
                             this.onSave(callback);
                         }}
-                        {...this.props}
+                        {...props}
+                        {...match.params}
                         {...data}
                         error={error || null}
                         />
