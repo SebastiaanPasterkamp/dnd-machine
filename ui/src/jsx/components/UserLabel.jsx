@@ -1,20 +1,41 @@
 import React from 'react';
-import LazyComponent from '../components/LazyComponent.jsx';
+import PropTypes from 'prop-types';
+
+import '../../sass/_user-label.scss';
 
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
+
+import LazyComponent from '../components/LazyComponent.jsx';
 
 class UserLabel extends LazyComponent
 {
     render() {
-        if (!this.props.user) {
-            return '';
+        const { user, showDCI } = this.props;
+
+        if (!user) {
+            return null;
         }
-        return <div className="user inline">
-            {this.props.user.name}
+
+        return <div className="user-label inline">
+            {user.name}
+            {showDCI && user.dci
+                ? <span className="user-label__dci">
+                DCI #{user.dci}
+                </span>
+                : null
+            }
         </div>;
     }
 }
 
-export default ObjectDataWrapper(UserLabel, [
-    {type: 'user', id: 'user_id'}
-]);
+UserLabel.propTypes = {
+    user_id: PropTypes.number.isRequired,
+    showDCI: PropTypes.bool,
+    user: PropTypes.object,
+};
+
+export default ObjectDataWrapper(
+    UserLabel, [
+        {type: 'user', id: 'user_id'}
+    ]
+);
