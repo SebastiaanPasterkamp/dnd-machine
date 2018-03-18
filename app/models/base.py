@@ -119,7 +119,7 @@ class JsonObject(object):
         try:
             return cast(b)
         except Exception as error:
-            print self.id, error, path, cast, type(b), b
+            print error, path, cast, type(b), b
             raise
 
     def updateFromPost(self, form):
@@ -144,14 +144,13 @@ class JsonObject(object):
         return self._config.iteritems()
 
     def __getattr__(self, field):
-        try:
-            return object.__getattr__(self, field)
-        except AttributeError:
-            return self.getPath(field)
+        if field.startswith('_') \
+                or field in self.__dict__ \
+                or field in self.__class__.__dict__:
+            return object.__getattribute__(self, field)
+        return self.getPath(field)
 
     def __delattr__(self, field):
-        if field == 'config':
-            field = '_config'
         if field.startswith('_') \
                 or field in self.__dict__ \
                 or field in self.__class__.__dict__:
@@ -160,17 +159,15 @@ class JsonObject(object):
             self.delPath(field)
 
     def __getitem__(self, field):
-        try:
+        if field in self.__dict__:
             return self.__dict__[field]
-        except KeyError:
-            try:
-                return self.__class__.__dict__[field]
-            except KeyError:
-                return self.getPath(field)
+        if field in self.__class__.__dict__:
+            return self.__class__.__dict__[field]
+        if field.startswith('_'):
+            raise KeyError
+        return self.getPath(field)
 
     def __setattr__(self, field, value):
-        if field == 'config':
-            field = '_config'
         if field.startswith('_') \
                 or field in self.__dict__ \
                 or field in self.__class__.__dict__:
@@ -179,20 +176,22 @@ class JsonObject(object):
             self.setPath(field, value)
 
     def __setitem__(self, field, value):
-        if field.startswith('_') \
-                or field in self.__dict__ \
-                or field in self.__class__.__dict__:
+        if field in self.__dict__:
             self.__dict__[field] = value
-        else:
-            self.setPath(field, value)
+        if field in self.__class__.__dict__:
+            self.__class__.__dict__[field] = value
+        if field.startswith('_'):
+            raise KeyError
+        self.setPath(field, value)
 
     def __delitem__(self, field):
-        if field.startswith('_') \
-                or field in self.__dict__ \
-                or field in self.__class__.__dict__:
+        if field in self.__dict__:
             del self.__dict__[field]
-        else:
-            self.delPath(field)
+        if field in self.__class__.__dict__:
+            del self.__class__.__dict__[field]
+        if field.startswith('_'):
+            raise KeyError
+        self.delPath(field)
 
     def __contains__(self, field):
         return self.hasPath(field)
@@ -203,6 +202,8 @@ class JsonObject(object):
     def getPath(self, path, default=None, structure=None):
         if not isinstance(path, list):
             path = self.splitPath(path)
+        if len(path) and path[0].startswith('_'):
+            raise Exception("Invalid path: '%r'" % path)
 
         rv = structure \
             if structure is not None \
