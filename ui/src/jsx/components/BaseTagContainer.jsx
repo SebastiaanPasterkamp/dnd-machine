@@ -106,7 +106,13 @@ export class BaseTagContainer extends LazyComponent
     }
 
     render() {
-        return <div className="base-tag-container nice-tags-container">
+        const style = utils.makeStyle({}, [
+            "base-tag-container",
+            "nice-tags-container",
+            this.style
+        ]);
+
+        return <div className={style}>
             {this.showSelect()
                 ? <SingleSelect
                     emptyLabel="Add..."
