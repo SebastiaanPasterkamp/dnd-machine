@@ -68,23 +68,39 @@ class BaseLinkGroup extends LazyComponent
         const style = utils.makeStyle({
             [className]: className,
         }, ['base-link-group', 'nice-btn-group']);
+        const allowed = this.getAllowed();
 
-        let allowed = this.getAllowed();
-        if (buttons) {
-            allowed = _.intersection(buttons, allowed);
-        }
+        const filtered = _.reduce(
+            this.buttonList(),
+            (filtered, func, button) => {
+                const props = func();
+                if (!_.includes(buttons, button)) {
+                    return filtered;
+                }
+                if ('available' in props && !props.available) {
+                    return filtered;
+                }
+                if (
+                    !('available' in props)
+                    && !_.includes(allowed, button)
+                ) {
+                    return filtered;
+                }
+                filtered.push(props);
+                return filtered;
+            },
+            []
+        );
 
         return <div className={style}>
-            {_.map(this.buttonList(), (func, button) => {
-                if (!_.includes(allowed, button)) {
-                    return null;
-                }
-                let props = func();
-                return this.renderButton(button, props);
-            })}
-            {_.map(extra, (props, button) => {
-                return this.renderButton(button, props);
-            })}
+            {_.map(
+                filtered,
+                (props, button) => this.renderButton(button, props)
+            )}
+            {_.map(
+                extra,
+                (props, button) => this.renderButton(button, props)
+            )}
         </div>;
     }
 }
