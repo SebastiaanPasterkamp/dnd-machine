@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import '../../sass/_list-component.scss';
@@ -10,11 +11,13 @@ export class ListComponent extends LazyComponent
 {
     onChange(index, item) {
         const { list, setState, onChange } = this.props;
-        const head = _.take(list, index),
-            oldItem = list[index],
-            tail = _.takeRight(list, list.length - index - 1);
+        const update = _.concat(
+            _.slice(list, 0, index),
+            item,
+            _.slice(list, index+1)
+        );
         setState(
-            head.concat([item]).concat(tail),
+            update,
             onChange
                 ? () => onChange(index, oldItem, item)
                 : null
@@ -22,6 +25,10 @@ export class ListComponent extends LazyComponent
     }
 
     onSetState(index, update) {
+        if (!_.isObject(update)) {
+            this.onChange(index, update);
+            return;
+        }
         const item = _.assign(
             {},
             this.props.list[index],
@@ -32,32 +39,36 @@ export class ListComponent extends LazyComponent
 
     onDelete(index) {
         const { list, setState, onDelete } = this.props;
-        const head = _.take(list, index),
-            oldItem = list[index],
-            tail = _.takeRight(list, list.length - index - 1);
+        const update = _.concat(
+            _.slice(list, 0, index),
+            _.slice(list, index+1)
+        );
         setState(
-            head.concat(tail),
+            update,
             onDelete
                 ? () => onDelete(index, oldItem)
                 : null
         );
     }
 
-    onAdd(item={}) {
+    onAdd(item) {
         const { list, setState, onAdd } = this.props;
-        const head = _.take(list, list.length);
+        const update = _.concat(
+            list,
+            item
+        );
         setState(
-            head.concat([item]),
+            update,
             onAdd
-                ? () => onAdd(onAdd(list.length, item))
+                ? () => onAdd(list.length, item)
                 : null
         );
     }
 
     render() {
         const {
-            list, keyProp, component: Component, componentProps = {},
-            initialItem = {}
+            list, component: Component, componentProps = {},
+            initialItem = {}, disabled = false
         } = this.props;
 
         return <ul className="list-component">
@@ -69,7 +80,7 @@ export class ListComponent extends LazyComponent
                     setState={(item) => this.onSetState(index, item)}
                     {...componentProps}
                     />
-                <ButtonField
+                {disabled ? null : <ButtonField
                     className="list-component__delete"
                     name="del"
                     color="warning"
@@ -77,26 +88,44 @@ export class ListComponent extends LazyComponent
                     label="&#8203;"
                     onClick={() => this.onDelete(index)}
                     />
+                }
             </li>
             ))}
-            <li key="add-button">
+            {disabled ? null : <li key="add-button">
                 <ButtonField
                     className="list-component__add"
                     name="add"
                     color="primary"
                     icon="plus"
                     label="&#8203;"
-                    onClick={() => this.onAdd(_.assign({}, initialItem))}
+                    onClick={() => this.onAdd(
+                        _.cloneDeep(initialItem)
+                    )}
                     />
-            </li>
+            </li>}
         </ul>;
     }
-}
+};
 
 ListComponent.defaultProps = {
     setState: (value) => {
         console.log(['ListComponent', value]);
     }
+};
+
+ListComponent.propTypes = {
+    list: PropTypes.arrayOf(PropTypes.object).isRequired,
+    component: PropTypes.oneOfType([
+        PropTypes.element,
+        PropTypes.func,
+    ]).isRequired,
+    componentProps: PropTypes.object,
+    initialItem: PropTypes.object,
+    disabled: PropTypes.bool,
+    setState: PropTypes.func,
+    onChange: PropTypes.func,
+    onDelete: PropTypes.func,
+    onAdd: PropTypes.func,
 };
 
 export default ListComponent;
