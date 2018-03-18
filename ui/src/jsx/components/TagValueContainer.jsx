@@ -2,12 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import '../../sass/_list-component.scss';
+import '../../sass/_tag-value-container.scss';
 
 import BaseTagContainer from './BaseTagContainer.jsx';
 
 export class TagValueContainer extends BaseTagContainer
 {
+    constructor(props) {
+        super(props);
+        this.style = "tag-value-container";
+    }
+
     onChange(key, value) {
         const { tags, setState } = this.props;
         const state = _.pickBy(
@@ -25,12 +30,12 @@ export class TagValueContainer extends BaseTagContainer
         this.onChange(key, undefined);
     }
 
-    onAdd(value) {
+    onAdd(key) {
         const { tagValues, defaultValue } = this.props;
-        const item = tagValues[0];
+        const item = tagValues ? tagValues[0] : {};
         this.onChange(
-            value,
-            defaultValue || item.code || item.name
+            key,
+            defaultValue || item.code || item.name || 0
         );
     }
 
@@ -58,22 +63,34 @@ export class TagValueContainer extends BaseTagContainer
 
     getBadges(key, value, item) {
         const { tagValues } = this.props;
+        if (tagValues) {
+            return [{
+                key: 'values',
+                label: value,
+                content: <div className="nice-tag-dropdown hover">
+                    <ul>
+                    {_.map(tagValues, option => (
+                        <li key={option.code || option.name}>
+                            <a onClick={() => this.onChange(
+                                key, option.label
+                                )}>
+                                {option.label}
+                            </a>
+                        </li>
+                    ))}
+                    </ul>
+                </div>
+            }]
+        }
         return [{
             key: 'values',
-            label: value,
-            content: <div className="nice-tag-dropdown hover">
-                <ul>
-                {_.map(tagValues, option => (
-                    <li key={option.code || option.name}>
-                        <a onClick={() => this.onChange(
-                            key, option.label
-                            )}>
-                            {option.label}
-                        </a>
-                    </li>
-                ))}
-                </ul>
-            </div>
+            label: <input
+                value={value || ''}
+                type="number"
+                onChange={(e) => this.onChange(
+                    key, parseInt(e.target.value || 0)
+                )}
+                />
         }];
     }
 }
