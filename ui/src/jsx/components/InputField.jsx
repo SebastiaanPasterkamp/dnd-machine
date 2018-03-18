@@ -56,13 +56,13 @@ export class InputField extends LazyComponent
             value={value + (isFloat ? '.' : '')}
             disabled={disabled}
             placeholder={placeholder}
+            {...props}
             onChange={(e) => this.onChange(e.target.value)}
             onKeyPress={
                 onEnter
                 ? (e) => this.onKeyPress(e)
                 : null
             }
-            {...props}
             />;
     }
 }
