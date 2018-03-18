@@ -1,0 +1,40 @@
+// _adventure-league-log-edit.scss
+
+@import 'view-grid';
+
+.adventure-league-log-edit {
+    @extend .view-grid;
+
+    > .adventure-league-log-edit__adventurer {
+        grid-column-end: span 6;
+
+        > .nice-panel-content > div {
+            display: block;
+        }
+    }
+
+    .adventure-league-log-edit__session {
+            grid-column-end: span 6;
+    }
+
+    .adventure-league-log-edit__xp,
+    .adventure-league-log-edit__gold,
+    .adventure-league-log-edit__downtime,
+    .adventure-league-log-edit__renown {
+        grid-column-end: span 3;
+    }
+
+    .adventure-league-log-edit__items {
+        grid-column: 7 / span 6;
+        grid-row: 2;
+    }
+    .adventure-league-log-edit__notes {
+        grid-column: 7 / span 6;
+        grid-row: 3;
+    }
+
+    .adventure-league-log-edit__save {
+        grid-column-end: span 4;
+    }
+
+}

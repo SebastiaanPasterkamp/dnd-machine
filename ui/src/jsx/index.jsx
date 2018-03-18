@@ -9,6 +9,9 @@ import {BrowserRouter as Router, Switch, Route, Link, Redirect} from 'react-rout
 import UiActions from './actions/UiActions.jsx';
 import ListDataWrapper from './hocs/ListDataWrapper.jsx';
 
+import AdventureLeagueLogEdit from './views/AdventureLeagueLogEdit.jsx';
+import AdventureLeagueLogTable from './views/AdventureLeagueLogTable.jsx';
+import AdventureLeagueLogView from './views/AdventureLeagueLogView.jsx';
 import ArmorEdit from './views/ArmorEdit.jsx';
 import ArmorTable from './views/ArmorTable.jsx';
 import CampaignEdit from './views/CampaignEdit.jsx';
@@ -121,6 +124,27 @@ class DndMachine extends React.Component
                 <Route
                     path="/character/new"
                     component={CharacterCreate}
+                    />
+
+                <Route
+                    path="/log/adventureleague/list"
+                    component={AdventureLeagueLogTable}
+                    />
+                <Route
+                    path="/log/adventureleague/show/:id"
+                    component={AdventureLeagueLogView}
+                    />
+                <Route
+                    path="/log/adventureleague/edit/:id"
+                    component={AdventureLeagueLogEdit}
+                    />
+                <Route
+                    path="/log/adventureleague/new"
+                    component={AdventureLeagueLogEdit}
+                    />
+                <Route
+                    path="/log/adventureleague/new/:character_id"
+                    component={AdventureLeagueLogEdit}
                     />
 
                 <Route
@@ -246,17 +270,16 @@ class DndMachine extends React.Component
                 <Redirect path="/login" to="/character/list" />
 
                 <Route path="*" render={props => {
-                    window.location.href = props.location.pathname;
-                    return '';
+                    return "Whoops";
                 }} />
             </Switch> : <Switch>
 
-                <Route path="*" render={props => {
-                    return <LoginDialog
+                <Route path="*" render={props => (
+                    <LoginDialog
                         message="Welcome to D&amp;D Machine. Please log in using your credentials to access this website."
                         icon="d20"
-                        />;
-                }} />
+                        />
+                )} />
 
             </Switch> }</ErrorBoundary>
         </section>

@@ -67,7 +67,7 @@ class AdventureLeagueLogObject(JsonObject):
 class AdventureLeagueLogMapper(JsonObjectDataMapper):
     obj = AdventureLeagueLogObject
     table = "adventureleaguelog"
-    fields = ['user_id', 'character_id']
+    fields = ['user_id', 'character_id', 'consumed']
 
     def getByUserId(self, user_id):
         """Returns all adventure league logs created by user_id"""
