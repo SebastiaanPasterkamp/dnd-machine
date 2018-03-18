@@ -2,7 +2,7 @@
 
 exports[`Component: CostEditor should show a blank widget 1`] = `
 <div
-  className="base-tag-container nice-tags-container"
+  className="base-tag-container nice-tags-container tag-value-container"
 >
   <div
     className="nice-dropdown nice-form-control"
@@ -72,7 +72,7 @@ exports[`Component: CostEditor should show a blank widget 1`] = `
 
 exports[`Component: CostEditor should show coins in provided order 1`] = `
 <div
-  className="base-tag-container nice-tags-container"
+  className="base-tag-container nice-tags-container tag-value-container"
 >
   <div
     className="nice-dropdown nice-form-control"
@@ -148,83 +148,12 @@ exports[`Component: CostEditor should show coins in provided order 1`] = `
     <span
       className="nice-tag-badge"
     >
-      5
-      <div
-        className="nice-tag-dropdown hover"
-      >
-        <ul>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              1
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              4
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              5
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              6
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              7
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              8
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              9
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              10
-            </a>
-          </li>
-        </ul>
-      </div>
+      <input
+        disabled={undefined}
+        onChange={[Function]}
+        type="number"
+        value={5}
+      />
     </span>
     <button
       className="nice-tag-btn"
@@ -246,83 +175,12 @@ exports[`Component: CostEditor should show coins in provided order 1`] = `
     <span
       className="nice-tag-badge"
     >
-      5
-      <div
-        className="nice-tag-dropdown hover"
-      >
-        <ul>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              1
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              4
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              5
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              6
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              7
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              8
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              9
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              10
-            </a>
-          </li>
-        </ul>
-      </div>
+      <input
+        disabled={undefined}
+        onChange={[Function]}
+        type="number"
+        value={5}
+      />
     </span>
     <button
       className="nice-tag-btn"
@@ -344,83 +202,12 @@ exports[`Component: CostEditor should show coins in provided order 1`] = `
     <span
       className="nice-tag-badge"
     >
-      5
-      <div
-        className="nice-tag-dropdown hover"
-      >
-        <ul>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              1
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              4
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              5
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              6
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              7
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              8
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              9
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={[Function]}
-            >
-              10
-            </a>
-          </li>
-        </ul>
-      </div>
+      <input
+        disabled={undefined}
+        onChange={[Function]}
+        type="number"
+        value={5}
+      />
     </span>
     <button
       className="nice-tag-btn"

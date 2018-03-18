@@ -23,11 +23,10 @@ class CostEditor extends LazyComponent
 
     render() {
         return <TagValueContainer
+            {...this.props}
             tags={this.props.value || {}}
             tagOptions={this.coinage}
-            tagValues={this.coins}
             defaultValue={1}
-            setState={(value) => this.props.setState(value)}
             />;
     }
 }
