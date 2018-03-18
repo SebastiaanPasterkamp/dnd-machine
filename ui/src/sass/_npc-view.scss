@@ -6,18 +6,18 @@
     @extend .view-grid;
 
     > .npc-view__description {
-        grid-column-end: span 3;
+        grid-column-end: span 6;
     }
 
     > .npc-view__statistics {
-        grid-column-end: span 3;
+        grid-column-end: span 6;
     }
 
     > .npc-view__properties {
-        grid-column-end: span 2;
+        grid-column-end: span 4;
     }
 
     > .npc-view__traits {
-        grid-column-end: span 4;
+        grid-column-end: span 8;
     }
 }

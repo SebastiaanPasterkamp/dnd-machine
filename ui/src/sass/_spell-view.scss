@@ -6,11 +6,11 @@
     @extend .view-grid;
 
     > .spell-view__information {
-        grid-column-end: span 2;
+        grid-column-end: span 4;
     }
 
     > .spell-view__description {
-        grid-column-end: span 4;
+        grid-column-end: span 8;
     }
 
     .spell-view__properties {

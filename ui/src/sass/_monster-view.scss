@@ -6,22 +6,26 @@
     @extend .view-grid;
 
     > .monster-view__description {
-        grid-column-end: span 2;
-    }
-
-    > .monster-view__properties {
-        grid-column-end: span 2;
+        grid-column-end: span 4;
     }
 
     > .monster-view__statistics {
-        grid-column-end: span 2;
+        grid-column-end: span 4;
+
+        > .nice-panel-content {
+            padding: 0;
+        }
+    }
+
+    > .monster-view__properties {
+        grid-column-end: span 4;
     }
 
     > .monster-view__attack {
-        grid-column-end: span 2;
+        grid-column-end: span 4;
     }
 
     > .monster-view__multiattack {
-        grid-column-end: span 2;
+        grid-column-end: span 4;
     }
 }
