@@ -1,25 +1,22 @@
 // _encounter-view.scss
 
-@import 'view-grid';
+@import 'widget-grid';
 
 .encounter-view {
-    @extend .view-grid;
+    @extend .widget-grid;
 
     > .encounter-view__description {
-        grid-column-end: span 3;
         grid-row-end: span 2;
     }
 
     > .encounter-view__challenge {
-        grid-column-end: span 3;
     }
 
     > .encounter-view__modified {
-        grid-column-end: span 3;
     }
 
     > .encounter-view__tracker {
-        grid-column-end: span 6;
+        grid-column-end: span 2;
 
         .encounter-view__tracker-cards {
             display: flex;
@@ -47,6 +44,6 @@
     }
 
     > .encounter-view__monsters {
-        grid-column-end: span 6;
+        grid-column-end: span 2;
     }
 }
