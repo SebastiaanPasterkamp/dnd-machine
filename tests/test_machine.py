@@ -14,7 +14,7 @@ class DndMachineTestCase(unittest.TestCase):
 
     def setUp(self):
         config = get_config()
-        self.machine = DndMachine(config['machine'])
+        self.machine = DndMachine(config['machine'], self)
 
     def tearDown(self):
         pass

@@ -15,7 +15,7 @@ class TestMonsterObject(unittest.TestCase):
 
     def setUp(self):
         config = get_config()
-        self.machine = DndMachine(config['machine'])
+        self.machine = DndMachine(config['machine'], self)
         self.items = ItemsObject(
             os.path.abspath(os.path.join(
                 os.path.dirname(__file__),
