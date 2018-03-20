@@ -12,99 +12,102 @@ class PartyLinks extends BaseLinkGroup
         super(props);
     }
 
-    buttonList() {
-        return {
-            'view': () => {
-                return {
-                    label: 'View',
-                    link: "/party/show/" + this.props.party.id,
-                    icon: 'eye',
-                };
-            },
-            'edit': () => {
-                return {
-                    label: 'Edit',
-                    link: "/party/edit/" + this.props.party.id,
-                    icon: 'pencil',
-                };
-            },
-            'host': () => {
-                if (
-                    this.props.hosted_party
-                    && this.props.party.id == this.props.hosted_party.id
-                ) {
-                    return {
-                        label: 'Stop',
-                        action: () => {
-                            fetch("/party/host", {
-                            method: "POST",
-                                credentials: 'same-origin',
-                                'headers': {
-                                    'X-Requested-With': 'XMLHttpRequest'
-                                }
-                            })
-                            .then((response) => response.json())
-                            .then((data) => {
-                                ListDataActions.fetchItems.completed({
-                                    hosted_party: data
-                                });
-                            });
-                        },
-                        icon: 'ban',
-                        className: 'info'
-                    };
-                }
-                return {
-                    label: 'Host',
-                    action: () => {
-                        fetch("/party/host/" + this.props.party.id, {
-                            method: "POST",
-                            credentials: 'same-origin',
-                            'headers': {
-                                'X-Requested-With': 'XMLHttpRequest'
-                            }
-                        })
-                        .then((response) => response.json())
-                        .then((data) => {
-                            ListDataActions.fetchItems.completed({
-                                hosted_party: data
-                            });
-                        });
-                    },
-                    icon: 'beer',
-                };
-            },
-            'new': () => {
-                return {
-                    label: 'New',
-                    link: "/party/new",
-                    icon: 'plus',
-                };
-            }
-        };
+    userHasRole(role) {
+        const { current_user = {} } = this.props;
+        const roles = _.isArray(role) ? role : [role];
+
+        return (
+            _.intersection(
+                current_user.role || [],
+                roles
+            ).length > 0
+        );
     }
 
-    getAllowed() {
-        if (this.props.current_user == null) {
+    buttonList() {
+        const {
+            party = {}, hosted_party, current_user = {}
+        } = this.props;
+
+        if (!current_user) {
             return [];
         }
-        if (
-            _.intersection(
-                this.props.current_user.role || [],
-                ['dm']
-            ).length
-        ) {
-            if (this.props.party == null) {
-                return ['new'];
-            }
-            return ['host', 'edit', 'new', 'view'];
+
+        if (!this.userHasRole('dm')) {
+            return [];
         }
-        return [];
+
+        return {
+            'view': () => ({
+                label: 'View',
+                link: "/party/show/" + party.id,
+                icon: 'eye',
+                available: !_.isNil(party.id),
+            }),
+            'edit': () => ({
+                label: 'Edit',
+                link: "/party/edit/" + party.id,
+                icon: 'pencil',
+                available: (
+                    !_.isNil(party.id)
+                    && (
+                        party.user_id == current_user.id
+                        || this.userHasRole(['admin'])
+                    )
+                ),
+            }),
+            'host': () => (hosted_party && party.id == hosted_party.id ? {
+                label: 'Stop',
+                action: () => {
+                    fetch("/party/host", {
+                    method: "POST",
+                        credentials: 'same-origin',
+                        'headers': {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        ListDataActions.fetchItems.completed({
+                            hosted_party: data
+                        });
+                    });
+                },
+                icon: 'ban',
+                className: 'info',
+                available: !_.isNil(party.id),
+            } : {
+                label: 'Host',
+                action: () => {
+                    fetch("/party/host/" + party.id, {
+                        method: "POST",
+                        credentials: 'same-origin',
+                        'headers': {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        ListDataActions.fetchItems.completed({
+                            hosted_party: data
+                        });
+                    });
+                },
+                icon: 'beer',
+                available: !_.isNil(party.id),
+            }),
+            'new': () => ({
+                label: 'New',
+                link: "/party/new",
+                icon: 'plus',
+                available: _.isNil(party.id),
+            })
+        };
     }
 }
 
 PartyLinks.defaultProps = {
-    buttons: ['view', 'edit', 'host'],
+    buttons: ['view', 'edit', 'host', 'new'],
 };
 
 export default ListDataWrapper(

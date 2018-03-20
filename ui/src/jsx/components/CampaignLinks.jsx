@@ -13,18 +13,20 @@ class CampaignLinks extends BaseLinkGroup
     }
 
     buttonList() {
+        const { campaign = {} } = this.props;
+
         return {
             'view': () => {
                 return {
                     label: 'View',
-                    link: "/campaign/show/" + this.props.campaign.id,
+                    link: "/campaign/show/" + campaign.id,
                     icon: 'eye',
                 };
             },
             'edit': () => {
                 return {
                     label: 'Edit',
-                    link: "/campaign/edit/" + this.props.campaign.id,
+                    link: "/campaign/edit/" + campaign.id,
                     icon: 'pencil',
                 };
             },

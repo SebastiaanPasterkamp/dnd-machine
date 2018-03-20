@@ -13,18 +13,20 @@ class NpcLinks extends BaseLinkGroup
     }
 
     buttonList() {
+        const { npc = {} } = this.props;
+
         return {
             'view': () => {
                 return {
                     label: 'View',
-                    link: "/npc/show/" + this.props.npc.id,
+                    link: "/npc/show/" + npc.id,
                     icon: 'eye',
                 };
             },
             'edit': () => {
                 return {
                     label: 'Edit',
-                    link: "/npc/edit/" + this.props.npc.id,
+                    link: "/npc/edit/" + npc.id,
                     icon: 'pencil',
                 };
             },

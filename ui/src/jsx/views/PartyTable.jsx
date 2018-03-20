@@ -30,7 +30,6 @@ class PartyFooter extends LazyComponent
                 <td colSpan={3}>
                     <PartyLinks
                         altStyle={true}
-                        buttons={['new']}
                         />
                 </td>
             </tr>
@@ -63,7 +62,6 @@ class PartyRow extends LazyComponent
                 {name}
                 <PartyLinks
                     altStyle={true}
-                    buttons={['view', 'edit', 'host']}
                     party_id={id}
                     />
             </th>
