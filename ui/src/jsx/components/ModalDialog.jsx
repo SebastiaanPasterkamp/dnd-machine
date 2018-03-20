@@ -13,82 +13,68 @@ class ModalDialogLinks extends BaseLinkGroup
     }
 
     buttonList() {
-        return {
-            'cancel': () => {
-                return {
-                    label: 'Cancel',
-                    action: () => {
-                        this.props.onCancel()
-                    }
-                };
-            },
-            'save': () => {
-                return {
-                    label: 'Cancel',
-                    action: () => {
-                        this.props.onCancel()
-                    },
-                    className: 'primary'
-                };
-            },
-            'done': () => {
-                return {
-                    label: 'Done',
-                    action: () => {
-                        this.props.onDone()
-                    },
-                    className: 'primary'
-                };
-            }
-        };
-    }
+        const { onCancel, onSave, onDone } = this.props;
 
-    getAllowed() {
-        let allowed = [];
-        if (this.props.onCancel) {
-            allowed.push('cancel');
-        }
-        if (this.props.onSave) {
-            allowed.push('save');
-        }
-        if (this.props.onDone) {
-            allowed.push('done');
-        }
-        return allowed;
+        return {
+            'cancel': () => ({
+                label: 'Cancel',
+                action: () => onCancel(),
+                available: !!onCancel,
+            }),
+            'save': () => ({
+                label: 'Save',
+                action: () => onSave(),
+                className: 'primary',
+                available: !!onSave,
+            }),
+            'done': () => ({
+                label: 'Done',
+                action: () => onDone(),
+                className: 'primary',
+                available: !!onDone,
+            })
+        };
     }
 }
 
 export class ModalDialog extends LazyComponent
 {
     render() {
-        return <div className="nice-modal viewport-center accent wide">
+        const {
+            onCancel, onClose, label, subheading, children,
+            onHelp, ...props
+        } = this.props;
+
+        return <div
+            className="nice-modal viewport-center accent wide"
+            >
             <div className="nice-modal-content">
                 <div className="nice-modal-header">
                     <a
                         className="nice-modal-close"
                         onClick={() => {
-                            this.props.onClose
-                                ? this.props.onClose()
-                                : this.props.onCancel()
+                            onClose
+                                ? onClose()
+                                : onCancel()
                         }}
                         >
                         <i className="icon fa-times"></i>
                     </a>
-                    <h4>{this.props.label}</h4>
+                    <h4>{label}</h4>
                 </div>
-                {this.props.subheading
+                {subheading
                     ? <div className="nice-modal-sub">
-                        {this.props.subheading}
+                        {subheading}
                     </div> : null
                 }
                 <div className="nice-modal-body overflow-x-scroll">
-                    {this.props.children}
+                    {children}
                 </div>
                 <div className="nice-modal-footer">
-                    {this.props.onHelp
+                    {onHelp
                         ? <a
                             className="nice-btn link icon fa-question"
-                            onClick={() => this.props.onHelp()}
+                            onClick={() => onHelp()}
                             >
                             Help
                         </a>
@@ -96,7 +82,9 @@ export class ModalDialog extends LazyComponent
                     }
                     <ModalDialogLinks
                         className="pull-right"
-                        {...this.props}
+                        {...props}
+                        onCancel={onCancel}
+                        onClose={onClose}
                         />
                 </div>
             </div>
