@@ -89,21 +89,8 @@ class CharacterBlueprint(BaseApiBlueprint):
             return update
 
         immutable = [
-            'id', 'user_id', 'xp',
+            'id', 'user_id', 'xp', 'level',
             ]
-
-        if obj is not None:
-            immutable.extend([
-                'race', 'class', 'background', 'alignment',
-                'hit_dice', 'speed', 'size',
-                ])
-            if not len(obj.level_upCreation):
-                immutable.extend([
-                    'statistics', 'abilities', 'info', 'computed',
-                    'creation', 'level_up', 'equipment', 'spell',
-                    'languages', 'proficiencies', 'proficiency',
-                    'saving_throws',
-                    ])
 
         update = dict(
             (key, value)
