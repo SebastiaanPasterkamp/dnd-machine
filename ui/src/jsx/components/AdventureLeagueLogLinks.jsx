@@ -22,7 +22,7 @@ class AdventureLeagueLogLinks extends BaseLinkGroup
                 roles
             ).length > 0
         );
-    };
+    }
 
     buttonList() {
         const {
@@ -64,14 +64,26 @@ class AdventureLeagueLogLinks extends BaseLinkGroup
                     && adventureleague.user_id == current_user.id
                 ),
             }),
+            'assign': () => ({
+                label: 'Assign',
+                icon: 'user-o',
+                link: "/log/adventureleague/edit/" + logId + "#assign",
+                color: 'info',
+                available: (
+                    !_.isNil(logId)
+                    && adventureleague.user_id == current_user.id
+                    && !adventureleague.character_id
+                ),
+            }),
             'consume': () => ({
                 label: 'Consume',
                 download: "/log/adventureleague/consume/" + logId,
-                icon: 'shopping-basket',
+                icon: 'thumb-tack',
                 color: 'warning',
                 available: (
                     !_.isNil(logId)
                     && adventureleague.user_id == current_user.id
+                    && adventureleague.character_id
                     && !adventureleague.consumed
                 ),
             }),
@@ -84,6 +96,7 @@ class AdventureLeagueLogLinks extends BaseLinkGroup
                 available: (
                     this.userHasRole(['player'])
                     && current_user.dci
+                    && !logId
                 ),
             }),
             'delete': () => ({
@@ -103,54 +116,12 @@ class AdventureLeagueLogLinks extends BaseLinkGroup
             }),
         };
     }
-
-    getAllowed() {
-        const {
-            current_user, adventureleague, logId
-        } = this.props;
-
-        if (!current_user) {
-            return [];
-        }
-
-        const userHasRole = (role) => {
-            const roles = _.isArray(role) ? role : [role];
-            return (
-                _.intersection(
-                    current_user.role || [],
-                    roles
-                ).length > 0
-            );
-        };
-
-        if (userHasRole(['admin'])) {
-            if (adventureleague) {
-                return [ 'raw', 'view', 'new' ];
-            }
-            return [ 'new' ];
-        }
-
-        if (!current_user.dci) {
-            return [];
-        }
-
-        if (
-            adventureleague
-            && adventureleague.user_id == current_user.id
-        ) {
-            return [ 'delete', 'copy', 'edit', 'view', 'consume', ];
-        }
-
-        if (userHasRole(['player'])) {
-            return [ 'new' ];
-        }
-
-        return [];
-    }
 }
 
 AdventureLeagueLogLinks.defaultProps = {
-    buttons: ['view', 'edit', 'consume'],
+    buttons: [
+        'view', 'edit', 'assign', 'consume', 'delete', 'raw', 'new'
+    ],
 };
 
 export default ListDataWrapper(
