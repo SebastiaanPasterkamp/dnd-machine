@@ -34,7 +34,6 @@ class AdventureLeagueLogFooter extends LazyComponent
                 <th>
                     <AdventureLeagueLogLinks
                         altStyle={true}
-                        buttons={['new']}
                         />
                 </th>
                 <td colSpan={3}>
@@ -59,7 +58,6 @@ class AdventureLeagueRow extends LazyComponent
                 <span>{adventure.date}</span>
                 <AdventureLeagueLogLinks
                     altStyle={true}
-                    buttons={['view', 'edit', 'consume']}
                     logId={logId}
                     />
             </th>
