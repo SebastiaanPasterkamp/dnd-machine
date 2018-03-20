@@ -31,7 +31,6 @@ export class AdventureSession extends React.Component
                 <tr>
                     <th colSpan={3}>
                         <AdventureLeagueLogLinks
-                            buttons={['edit', 'consume']}
                             className="pull-right"
                             logId={logId}
                             />
@@ -259,7 +258,10 @@ AdventureLeagueLogView.propTypes = {
         PropTypes.string,
     ]),
     user_id: PropTypes.number,
-    consumed: PropTypes.bool,
+    consumed: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.number,
+    ]),
     adventure: PropTypes.object,
     xp: PropTypes.object,
     gold: PropTypes.object,

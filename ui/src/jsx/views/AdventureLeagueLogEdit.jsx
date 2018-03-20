@@ -2,20 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+import utils from '../utils.jsx';
+
 import '../../sass/_adventure-league-log-edit.scss';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
+import ButtonField from '../components/ButtonField.jsx';
 import CalculatorInputField from '../components/CalculatorInputField.jsx';
 import CharacterLabel from '../components/CharacterLabel.jsx';
+import CharacterPicker from './CharacterPicker.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
 import Coinage from '../components/Coinage.jsx';
 import CostEditor from '../components/CostEditor.jsx';
 import InputField from '../components/InputField.jsx';
 import ListComponent from '../components/ListComponent.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
+import ModalDialog from '../components/ModalDialog.jsx';
 import Panel from '../components/Panel.jsx';
 import UserLabel from '../components/UserLabel.jsx';
 
@@ -201,6 +206,7 @@ export class AdventureGold extends React.Component
             <ControlGroup label="Starting">
                 <Coinage
                     {...starting}
+                    className="nice-form-control"
                     extended="1"
                     />
             </ControlGroup>
@@ -217,6 +223,7 @@ export class AdventureGold extends React.Component
             <ControlGroup label="Total">
                 <Coinage
                     {...total}
+                    className="nice-form-control"
                     extended="1"
                     />
             </ControlGroup>
@@ -291,6 +298,19 @@ export class AdventureItems extends React.Component
 
 export class AdventureLeagueLogEdit extends React.Component
 {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dialog: false
+        };
+    }
+
+    toggleDialog() {
+        this.setState({
+            dialog: !this.state.dialog
+        });
+    }
+
     componentDidMount() {
         const {
             character_id, consumed = false, setState
@@ -305,6 +325,51 @@ export class AdventureLeagueLogEdit extends React.Component
         const { [field]: original, setState } = this.props;
         const value = _.assign({}, original, update);
         setState({[field]: value});
+    }
+
+    renderDialog() {
+        if (!this.state.dialog) {
+            return null;
+        }
+
+        const {
+            characters, reload, current_user, setState, recompute,
+            character_id,
+        } = this.props;
+
+        return <ModalDialog
+            key="dialog"
+            label="Assign to Character"
+            onCancel={() => reload(() => this.toggleDialog())}
+            onDone={() => this.toggleDialog()}
+            >
+            <CharacterPicker
+                filter={character => (
+                    current_user.id == character.user_id
+                )}
+                actions={character => (
+                    <a
+                        className={utils.makeStyle({
+                            "cursor-pointer": character_id != character.id,
+                            "hidden": character_id == character.id,
+                            "accent": character_id == character.id,
+                        }, [
+                            "nice-btn-alt",
+                            "icon",
+                            "fa-user",
+                        ])}
+                        onClick={() => setState({
+                            character_id: character.id
+                        })}
+                        onCancel={() => setState({
+                            character_id: null
+                        })}
+                        >
+                        Assign
+                    </a>
+                )}
+                />
+        </ModalDialog>;
     }
 
     render() {
@@ -339,14 +404,17 @@ export class AdventureLeagueLogEdit extends React.Component
                         )}
                         showProgress={true}
                         />
-                    : null
+                    : <ButtonField
+                        label="Assign to Character"
+                        onClick={() => this.toggleDialog()}
+                        />
                 }
             </Panel>
 
             <AdventureDelta
                 className="adventure-league-log-edit__xp"
                 label="XP"
-                disabled={consumed}
+                disabled={!!consumed}
                 {...xp}
                 starting={xp.starting || character.xp}
                 setState={!consumed
@@ -358,7 +426,7 @@ export class AdventureLeagueLogEdit extends React.Component
             <AdventureGold
                 className="adventure-league-log-edit__gold"
                 label="Gold"
-                disabled={consumed}
+                disabled={!!consumed}
                 {...gold}
                 starting={gold.starting || character.wealth}
                 setState={!consumed
@@ -370,7 +438,7 @@ export class AdventureLeagueLogEdit extends React.Component
             <AdventureDelta
                 className="adventure-league-log-edit__downtime"
                 label="Downtime"
-                disabled={consumed}
+                disabled={!!consumed}
                 {...downtime}
                 starting={downtime.starting || character.downtime}
                 setState={!consumed
@@ -382,7 +450,7 @@ export class AdventureLeagueLogEdit extends React.Component
             <AdventureDelta
                 className="adventure-league-log-edit__renown"
                 label="Renown"
-                disabled={consumed}
+                disabled={!!consumed}
                 {...renown}
                 starting={renown.starting || character.renown}
                 setState={!consumed
@@ -394,7 +462,7 @@ export class AdventureLeagueLogEdit extends React.Component
             <AdventureItems
                 className="adventure-league-log-edit__items"
                 label="Items"
-                disabled={consumed}
+                disabled={!!consumed}
                 {...items}
                 starting={items.starting || character.adventure_items}
                 setState={!consumed
@@ -417,6 +485,8 @@ export class AdventureLeagueLogEdit extends React.Component
                     })}
                     />
             </Panel>
+
+            {this.renderDialog()}
         </React.Fragment>;
     }
 };
@@ -427,7 +497,10 @@ AdventureLeagueLogEdit.propTypes = {
         PropTypes.string,
     ]),
     user_id: PropTypes.number,
-    consumed: PropTypes.bool,
+    consumed: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.number,
+    ]),
     adventure: PropTypes.object,
     xp: PropTypes.object,
     gold: PropTypes.object,
