@@ -7,10 +7,10 @@ import BaseTagContainer from './BaseTagContainer.jsx';
 export class TagContainer extends BaseTagContainer
 {
     onChange(key, value) {
-        const {tags, onChange} = this.props;
+        const { tags, onChange, setState } = this.props;
         const head = _.take(tags, key);
         const tail = _.takeRight(tags, tags.length - key - 1);
-        this.props.setState(
+        setState(
             head.concat([value]).concat(tail)
         );
         if (onChange) {
@@ -19,10 +19,10 @@ export class TagContainer extends BaseTagContainer
     }
 
     onDelete(key, value) {
-        const {tags, onDelete} = this.props;
+        const { tags, onDelete, setState} = this.props;
         const head = _.take(tags, key);
         const tail = _.takeRight(tags, tags.length - key - 1);
-        this.props.setState(
+        setState(
             head.concat(tail)
         );
         if (onDelete) {
@@ -31,9 +31,9 @@ export class TagContainer extends BaseTagContainer
     }
 
     onAdd(value) {
-        const {tags, onAdd} = this.props;
+        const { tags, onAdd, setState } = this.props;
         const head = _.take(tags, tags.length);
-        this.props.setState(
+        setState(
             head.concat([value])
         );
         if (onAdd) {
@@ -42,15 +42,17 @@ export class TagContainer extends BaseTagContainer
     }
 
     getItem(key, value) {
-        return _.find(this.props.tagOptions, {code: value})
-            || _.find(this.props.tagOptions, {name: value})
+        const { tagOptions } = this.props;
+        return _.find(tagOptions, {code: value})
+            || _.find(tagOptions, {name: value})
     }
 
     isDisabled(item) {
-        if ('isDisabled' in this.props) {
-            return this.props.isDisabled(item);
+        const { isDisabled, multiple } = this.props;
+        if (_.isFunction(isDisabled)) {
+            return isDisabled(item);
         }
-        if (this.props.multiple || false) {
+        if (multiple) {
             return false;
         }
         const tags = this.getTags();

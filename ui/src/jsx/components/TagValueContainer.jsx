@@ -47,7 +47,7 @@ export class TagValueContainer extends BaseTagContainer
 
     isDisabled(item) {
         const { isDisabled, multiple } = this.props;
-        if (isDisabled) {
+        if (_.isFunction(isDisabled)) {
             return isDisabled(item);
         }
         if (multiple) {
@@ -62,12 +62,13 @@ export class TagValueContainer extends BaseTagContainer
     }
 
     getBadges(key, value, item) {
-        const { tagValues } = this.props;
+        const { tagValues, disabled } = this.props;
+
         if (tagValues) {
             return [{
                 key: 'values',
                 label: value,
-                content: <div className="nice-tag-dropdown hover">
+                content: disabled ? null : <div className="nice-tag-dropdown hover">
                     <ul>
                     {_.map(tagValues, option => (
                         <li key={option.code || option.name}>
@@ -82,10 +83,12 @@ export class TagValueContainer extends BaseTagContainer
                 </div>
             }]
         }
+
         return [{
             key: 'values',
             label: <input
                 value={value || ''}
+                disabled={disabled}
                 type="number"
                 onChange={(e) => this.onChange(
                     key, parseInt(e.target.value || 0)
