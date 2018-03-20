@@ -61,7 +61,7 @@ input.nice-form-control, select.nice-form-control, textarea.nice-form-control, .
   margin: -1px -1px 0 -1px;
   padding: 10px 15px; }
 
-.clearfix, .nice-header .nice-header-menu li ul .multi-column, .nice-login .nice-login-footer, .nice-form-horizontal .nice-form-group, .nice-tags-container, .nice-tabs, nav, .nice-btn-group, .nice-popover .nice-popover-body, .nice-modal .nice-modal-content .nice-modal-footer {
+.clearfix, .nice-header .nice-header-menu li ul .multi-column, .nice-login .nice-login-footer, .nice-form-horizontal .nice-form-group, .nice-tags-container, .nice-tabs, nav, .nice-popover .nice-popover-body, .nice-modal .nice-modal-content .nice-modal-footer {
   zoom: 1;
   display: block;
   height: 1%;
