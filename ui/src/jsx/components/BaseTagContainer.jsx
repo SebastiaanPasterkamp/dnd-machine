@@ -13,7 +13,7 @@ export class BaseTagContainer extends LazyComponent
 {
     isDisabled(item) {
         const { isDisabled } = this.props;
-        if (isDisabled) {
+        if (_.isFunction(isDisabled)) {
             return isDisabled(item);
         }
         return false;
@@ -21,7 +21,7 @@ export class BaseTagContainer extends LazyComponent
 
     isSelectable(item) {
         const { isSelectable } = this.props;
-        if (isSelectable) {
+        if (_.isFunction(isSelectable)) {
             return isSelectable(item);
         }
         return !(item.hidden || false);
@@ -32,7 +32,7 @@ export class BaseTagContainer extends LazyComponent
         if (disabled) {
             return true;
         }
-        if (isImmutable) {
+        if (_.isFunction(isImmutable)) {
             return isImmutable(item);
         }
         return item.immutable || false;
@@ -76,9 +76,8 @@ export class BaseTagContainer extends LazyComponent
         const item = this.getItem(key, value)
             || {label: value, color: 'bad'};
         const style = utils.makeStyle({
-            [item.color]: item.color,
             'muted': this.isImmutable(item)
-        }, ["nice-tag"]);
+        }, ["nice-tag", item.color]);
 
         return <div key={key} className={style}>
             <span className="nice-tag-label">
