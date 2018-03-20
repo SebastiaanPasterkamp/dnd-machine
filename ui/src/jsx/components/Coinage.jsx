@@ -1,4 +1,7 @@
 import React from 'react';
+
+import utils from '../utils.jsx';
+
 import LazyComponent from '../components/LazyComponent.jsx';
 
 class Coinage extends LazyComponent
@@ -23,12 +26,27 @@ class Coinage extends LazyComponent
     }
 
     render() {
+        const { className, extended } = this.props;
         const coins = this.order
-            .filter((coin) => {return coin in this.props;})
+            .filter((coin) => (coin in this.props))
             .map((coin) => this.renderCoin(coin, this.props[coin]));
-        const separator = this.props.extended ? ', ' : ' ';
+        const separator = extended ? ', ' : ' ';
+        const style = utils.makeStyle({
+            [className]: className,
+        }, [
+            'coinage',
+            'capitalize',
+        ]);
 
-        return <div className="coinage capitalize">
+        if (style.match('nice-form-control')) {
+            return <input
+                className={style}
+                disabled={true}
+                value={coins.join(separator)}
+                />;
+        }
+
+        return <div className={style}>
             {coins.join(separator)}
         </div>
     }
