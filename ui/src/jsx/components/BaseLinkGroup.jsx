@@ -74,17 +74,20 @@ class BaseLinkGroup extends LazyComponent
             this.buttonList(),
             (filtered, func, button) => {
                 const props = func();
-                if (!_.includes(buttons, button)) {
-                    return filtered;
-                }
-                if ('available' in props && !props.available) {
-                    return filtered;
-                }
                 if (
-                    !('available' in props)
-                    && !_.includes(allowed, button)
+                    !_.isNil(buttons)
+                    && !_.includes(buttons, button)
                 ) {
                     return filtered;
+                }
+                if ('available' in props) {
+                    if (!props.available) {
+                        return filtered;
+                    }
+                } else {
+                    if (!_.includes(allowed, button)) {
+                        return filtered;
+                    }
                 }
                 filtered.push(props);
                 return filtered;
