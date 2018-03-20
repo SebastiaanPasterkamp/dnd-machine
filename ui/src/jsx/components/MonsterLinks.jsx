@@ -13,18 +13,20 @@ class MonsterLinks extends BaseLinkGroup
     }
 
     buttonList() {
+        const { monster = {} } = this.props;
+
         return {
             'view': () => {
                 return {
                     label: 'View',
-                    link: "/monster/show/" + this.props.monster.id,
+                    link: "/monster/show/" + monster.id,
                     icon: 'eye',
                 };
             },
             'edit': () => {
                 return {
                     label: 'Edit',
-                    link: "/monster/edit/" + this.props.monster.id,
+                    link: "/monster/edit/" + monster.id,
                     icon: 'pencil',
                 };
             },

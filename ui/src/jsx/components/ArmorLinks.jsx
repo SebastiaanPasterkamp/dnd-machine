@@ -11,18 +11,20 @@ class ArmorLinks extends BaseLinkGroup
     }
 
     buttonList() {
+        const { armor = {} } = this.props;
+
         return {
             'view': () => {
                 return {
                     label: 'View',
-                    link: "/items/armor/show/" + this.props.armor.id,
+                    link: "/items/armor/show/" + armor.id,
                     icon: 'eye',
                 };
             },
             'edit': () => {
                 return {
                     label: 'Edit',
-                    link: "/items/armor/edit/" + this.props.armor.id,
+                    link: "/items/armor/edit/" + armor.id,
                     icon: 'pencil',
                 };
             },

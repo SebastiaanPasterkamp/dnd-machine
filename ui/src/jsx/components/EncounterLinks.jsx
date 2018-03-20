@@ -13,18 +13,20 @@ class EncounterLinks extends BaseLinkGroup
     }
 
     buttonList() {
+        const { encounter = {} } = this.props;
+
         return {
             'view': () => {
                 return {
                     label: 'View',
-                    link: "/encounter/show/" + this.props.encounter.id,
+                    link: "/encounter/show/" + encounter.id,
                     icon: 'eye',
                 };
             },
             'edit': () => {
                 return {
                     label: 'Edit',
-                    link: "/encounter/edit/" + this.props.encounter.id,
+                    link: "/encounter/edit/" + encounter.id,
                     icon: 'pencil',
                 };
             },
