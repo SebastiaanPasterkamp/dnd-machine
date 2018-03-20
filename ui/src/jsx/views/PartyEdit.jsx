@@ -8,6 +8,7 @@ import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
+import {CharacterPicker} from './CharacterPicker.jsx';
 import CharacterLabel from '../components/CharacterLabel.jsx';
 import CharacterLinks from '../components/CharacterLinks.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
@@ -44,7 +45,7 @@ export class PartyEdit extends React.Component
         const {
             member_ids, setState, recompute
         } = this.props;
-        let update = _.without(member_ids, id);
+        const update = _.without(member_ids, id);
 
         setState(
             {member_ids: update},
@@ -56,7 +57,7 @@ export class PartyEdit extends React.Component
         const {
             member_ids, setState, recompute
         } = this.props;
-        let update = _.union(member_ids, [id]);
+        const update = _.union(member_ids, [id]);
 
         setState(
             {member_ids: update},
@@ -73,49 +74,28 @@ export class PartyEdit extends React.Component
             characters, member_ids, reload
         } = this.props;
 
-        const filtered = _.filter(
-            characters,
-            (character) => !_.includes(member_ids, character.id)
-        );
-
         return <ModalDialog
-                key="dialog"
-                label="Add members"
-                onCancel={() => reload(() => this.toggleDialog())}
-                onDone={() => this.toggleDialog()}
-                >
-            <table className="nice-table condensed bordered">
-                <thead>
-                    <tr>
-                        <th>Player</th>
-                        <th>Character</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>{_.map(filtered, (character) => {
-                    return <tr key={character.id}>
-                        <td>
-                            <UserLabel
-                                user_id={character.user_id}
-                                />
-                        </td>
-                        <td>
-                            <CharacterLabel
-                                character_id={character.id}
-                                showProgress={true}
-                                />
-                        </td>
-                        <td>
-                            <a
-                                className="nice-btn-alt cursor-pointer icon fa-plus"
-                                onClick={() => this.onAddMemberButton(character.id)}
-                                >
-                                Add
-                            </a>
-                        </td>
-                    </tr>;
-                })}</tbody>
-            </table>
+            key="dialog"
+            label="Add members"
+            onCancel={() => reload(() => this.toggleDialog())}
+            onDone={() => this.toggleDialog()}
+            >
+            <CharacterPicker
+                characters={characters}
+                showUser={true}
+                filter={character => !_.includes(
+                    member_ids,
+                    character.id
+                )}
+                actions={character => (
+                    <a
+                        className="nice-btn-alt cursor-pointer icon fa-plus"
+                        onClick={() => this.onAddMemberButton(character.id)}
+                        >
+                        Add
+                    </a>
+                )}
+                />
         </ModalDialog>;
     }
 
@@ -126,10 +106,10 @@ export class PartyEdit extends React.Component
 
         return <React.Fragment>
             <Panel
-                    key="description"
-                    className="party-edit__description"
-                    header="Description"
-                    >
+                key="description"
+                className="party-edit__description"
+                header="Description"
+                >
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
@@ -150,10 +130,10 @@ export class PartyEdit extends React.Component
             </Panel>
 
             <Panel
-                    key="challenge"
-                    className="party-edit__challenge"
-                    header="Challenge Rating"
-                    >
+                key="challenge"
+                className="party-edit__challenge"
+                header="Challenge Rating"
+                >
                 <thead>
                     <tr>
                         <th>Party size</th>
