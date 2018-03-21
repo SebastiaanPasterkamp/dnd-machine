@@ -199,7 +199,7 @@ class DndMachine extends React.Component
                     />
 
                 <Route
-                    path="/items/languages"
+                    path="/items/languages/list"
                     component={LanguageTable}
                     />
 
