@@ -7,6 +7,7 @@ import ReactDom from 'react-dom';
 import {BrowserRouter as Router, Switch, Route, Link, Redirect} from 'react-router-dom';
 
 import UiActions from './actions/UiActions.jsx';
+import ListDataActions from './actions/ListDataActions.jsx';
 import ListDataWrapper from './hocs/ListDataWrapper.jsx';
 
 import AdventureLeagueLogEdit from './views/AdventureLeagueLogEdit.jsx';
@@ -268,6 +269,17 @@ class DndMachine extends React.Component
                     />
 
                 <Redirect path="/login" to="/character/list" />
+
+                <Route path="/logout" render={props => {
+                    ListDataActions.doLogout(
+                        () => props.history.push('/login')
+                    );
+
+                    return <LoginDialog
+                        message="Welcome to D&amp;D Machine. Please log in using your credentials to access this website."
+                        icon="d20"
+                        />;
+                }} />
 
                 <Route path="*" render={props => {
                     return "Whoops";
