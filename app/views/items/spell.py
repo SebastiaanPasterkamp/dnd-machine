@@ -33,10 +33,11 @@ class SpellBlueprint(BaseApiBlueprint):
             abort(403)
         return obj
 
-def get_blueprint(basemapper):
-    return SpellBlueprint(
-    'spell',
-    __name__,
-    basemapper,
-    template_folder='templates'
-    )
+def get_blueprint(basemapper, config):
+    return '/items/spell', SpellBlueprint(
+        'spell',
+        __name__,
+        basemapper,
+        config,
+        template_folder='templates'
+        )

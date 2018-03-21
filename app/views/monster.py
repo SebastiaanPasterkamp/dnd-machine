@@ -70,10 +70,11 @@ class MonsterBlueprint(BaseApiBlueprint):
             abort(403)
         return obj
 
-def get_blueprint(basemapper):
-    return MonsterBlueprint(
+def get_blueprint(basemapper, config):
+    return '/monster', MonsterBlueprint(
         'monster',
         __name__,
-        basemapper=basemapper,
+        basemapper,
+        config,
         template_folder='templates'
         )

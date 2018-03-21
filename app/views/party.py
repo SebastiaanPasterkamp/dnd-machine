@@ -160,10 +160,11 @@ class PartyBlueprint(BaseApiBlueprint):
             obj_id=obj.id
             ))
 
-def get_blueprint(basemapper):
-    return PartyBlueprint(
+def get_blueprint(basemapper, config):
+    return '/party', PartyBlueprint(
         'party',
         __name__,
-        basemapper=basemapper,
+        basemapper,
+        config,
         template_folder='templates'
         )

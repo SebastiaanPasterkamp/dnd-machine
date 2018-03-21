@@ -10,12 +10,14 @@ from flask import (
     )
 
 class BaseApiBlueprint(Blueprint):
-    def __init__(self, name, fullname, basemapper, *args, **kwargs):
+    def __init__(self, name, fullname, basemapper, config,
+                 *args, **kwargs):
         super(BaseApiBlueprint, self).__init__(
             name, fullname, *args, **kwargs)
 
         self.name = name
         self.basemapper = basemapper
+        self.config = config
 
         self.add_url_rule(
             '/', 'index',

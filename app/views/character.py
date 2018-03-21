@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 from flask import (
-    request, abort, render_template, send_file, jsonify, redirect,
-    url_for
+    request, abort, render_template, send_file, jsonify,
+    redirect, url_for
     )
-import os
-import sys
 import re
 import markdown
 
 from .baseapi import BaseApiBlueprint
 from ..config import get_character_data
-from ..filters import filter_bonus, filter_distance, filter_damage, filter_unique
+from ..filters import filter_bonus, filter_distance, filter_unique
 from . import fill_pdf
 
 class CharacterBlueprint(BaseApiBlueprint):
@@ -130,6 +128,14 @@ class CharacterBlueprint(BaseApiBlueprint):
 
     def download(self, obj_id):
         items = self.itemmapper
+
+        machine = self.basemapper.machine
+        def filter_damage(damage):
+            return machine.diceNotation(
+                damage['dice_size'],
+                damage['dice_count'],
+                damage.get('dice_bonus', 0)
+                )
 
         c = self.datamapper.getById(obj_id)
         if c.user_id != request.user.id \
@@ -575,10 +581,11 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         return obj
 
-def get_blueprint(basemapper):
-    return CharacterBlueprint(
+def get_blueprint(basemapper, config):
+    return '/character', CharacterBlueprint(
         'character',
         __name__,
-        basemapper=basemapper,
+        basemapper,
+        config,
         template_folder='templates'
         )

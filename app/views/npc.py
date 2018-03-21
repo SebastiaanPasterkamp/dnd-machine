@@ -2,7 +2,7 @@
 from flask import request, abort, render_template, jsonify
 
 from .baseapi import BaseApiBlueprint
-from ..config import get_config, get_npc_data
+from ..config import get_npc_data
 from ..filters import filter_bonus, filter_unique
 
 class NpcBlueprint(BaseApiBlueprint):
@@ -95,10 +95,11 @@ class NpcBlueprint(BaseApiBlueprint):
             abort(403)
         return obj
 
-def get_blueprint(basemapper):
-    return NpcBlueprint(
+def get_blueprint(basemapper, config):
+    return '/npc', NpcBlueprint(
         'npc',
         __name__,
-        basemapper=basemapper,
+        basemapper,
+        config,
         template_folder='templates'
         )

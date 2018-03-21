@@ -7,8 +7,6 @@ from markdown.extensions import Extension
 import re
 import md5
 
-from . import get_datamapper
-
 def filter_max(items):
     return max(items)
 
@@ -78,21 +76,6 @@ def filter_distance(dist):
     if isinstance(dist, int):
         return "%d ft." % dist
     return dist
-
-def filter_damage(damage):
-    datamapper = get_datamapper()
-    notation = ''
-    if 'value' in damage:
-        notation = "%d" % damage['value']
-    else:
-        notation = datamapper.machine.diceNotation(
-            damage['dice_size'],
-            damage['dice_count'],
-            damage.get('dice_bonus', 0))
-    return "%s %s" % (
-        notation,
-        damage.get('type', '').capitalize()
-        )
 
 def filter_classify(number, ranges={}):
     closest = min(
@@ -215,26 +198,3 @@ def filter_named_headers(html):
                 }
             )
     return Markup(html)
-
-def filter_linked_objects(md):
-    datamapper = get_datamapper()
-
-    internalLinks = re.compile(
-        ur"^(/(encounter|monster)/(\d+))", re.M)
-
-    info = []
-    for match in internalLinks.finditer(md):
-        full, view, view_id = match.groups()
-        obj = datamapper[view].getById(int(view_id))
-
-        if obj is None:
-            continue
-
-        args = {'%s_id'%view: view_id}
-        info.append({
-            'type': view,
-            'id': view_id,
-            'data': obj,
-            'url': url_for('%s.show' % view, **args)
-            })
-    return info

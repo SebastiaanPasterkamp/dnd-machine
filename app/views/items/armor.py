@@ -33,10 +33,11 @@ class ArmorBlueprint(BaseApiBlueprint):
             abort(403)
         return obj
 
-def get_blueprint(basemapper):
-    return ArmorBlueprint(
-    'armor',
-    __name__,
-    basemapper,
-    template_folder='templates'
-    )
+def get_blueprint(basemapper, config):
+    return '/items/armor', ArmorBlueprint(
+        'armor',
+        __name__,
+        basemapper,
+        config,
+        template_folder='templates'
+        )

@@ -4,7 +4,6 @@ import json
 import codecs
 
 config = None
-
 def get_config():
     global config
     if config is None:

@@ -126,10 +126,11 @@ class CampaignBlueprint(BaseApiBlueprint):
             user=user
             )
 
-def get_blueprint(basemapper):
-    return CampaignBlueprint(
+def get_blueprint(basemapper, config):
+    return '/campaign', CampaignBlueprint(
         'campaign',
         __name__,
-        basemapper=basemapper,
+        basemapper,
+        config,
         template_folder='templates'
         )

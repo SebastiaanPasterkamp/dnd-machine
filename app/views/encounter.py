@@ -103,10 +103,11 @@ class EncounterBlueprint(BaseApiBlueprint):
             abort(403, "Not owned")
         return obj
 
-def get_blueprint(basemapper):
-    return EncounterBlueprint(
+def get_blueprint(basemapper, config):
+    return '/encounter', EncounterBlueprint(
         'encounter',
         __name__,
-        basemapper=basemapper,
+        basemapper,
+        config,
         template_folder='templates'
         )
