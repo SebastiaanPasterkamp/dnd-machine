@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-// import '../../sass/_login-dialog.scss';
+import '../../sass/_login-dialog.scss';
 
 import utils from '../utils.jsx';
 
@@ -69,7 +69,7 @@ export class LoginDialog extends React.Component
             'show': processing
         }, ["nice-login-loading"]);
 
-        return <div className="nice-login">
+        return <div className="login-dialog nice-login">
             <div className="nice-login-brand">
                 <span className="text-brand">{title}</span>
             </div>

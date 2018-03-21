@@ -94,7 +94,7 @@ ListDataActions.doLogin.listen((credentials, success, failure) => {
     });
 });
 
-ListDataActions.doLogout.listen(() => {
+ListDataActions.doLogout.listen((callback) => {
     fetch('/logout', {
         credentials: 'same-origin',
         'headers': {
@@ -114,9 +114,14 @@ ListDataActions.doLogout.listen(() => {
             'Logout',
             5
         );
+
+        if (callback) {
+            callback();
+        }
     })
     .catch((error) => {
         console.log(error);
+        ListDataActions.doLogout.failed(error);
 
         ReportingActions.showMessage(
             'bad',
@@ -125,7 +130,9 @@ ListDataActions.doLogout.listen(() => {
             10
         );
 
-        ListDataActions.doLogout.failed(error);
+        if (callback) {
+            callback();
+        }
     });
 });
 
