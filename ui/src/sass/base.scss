@@ -3,6 +3,7 @@
 
 @import 'table-responsive';
 @import 'media-print';
+@import 'media-values';
 
 .product-icon.d20:before {
     background: transparent url('../img/d20.png') no-repeat center center;
@@ -33,4 +34,10 @@ div.object-control {
     position: absolute;
     top: 1em;
     right: 1em;
+}
+
+@media #{$media} and ($feature: $value) {
+    .nice-fixed-header {
+        padding: 0px;
+    }
 }
