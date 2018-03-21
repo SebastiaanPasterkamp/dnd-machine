@@ -114,7 +114,9 @@ def _initdb(db):
     """Initializes the database."""
     fn = os.path.join('app', 'schema', '0.0.0.baseline.sql')
     with open(fn, mode='r') as f:
+        db.cursor().execute("PRAGMA synchronous = OFF");
         db.cursor().executescript(f.read())
+        db.cursor().execute("PRAGMA synchronous = ON");
     db.commit()
     _updatedb(db)
 
@@ -168,6 +170,7 @@ def _updatedb(db):
         glob.glob(os.path.join('app', 'schema', '*.sql')),
         key=lambda change: get_version(change)
         )
+    db.cursor().execute("PRAGMA synchronous = OFF");
     for change in changes:
         version = get_version(change)
 
@@ -183,6 +186,7 @@ def _updatedb(db):
                 'comment': comment
                 })
             db.commit()
+    db.cursor().execute("PRAGMA synchronous = ON");
 
 def _dump_table(db, table):
     """Dump database content to console."""
@@ -236,6 +240,7 @@ def _migrate(db, objects=None):
     datamapper = get_datamapper(db)
     objects = objects or datamapper._creators
 
+    db.cursor().execute("PRAGMA synchronous = OFF");
     for mapperType in objects:
         mapper = datamapper[mapperType]
         if not isinstance(mapper, JsonObjectDataMapper):
@@ -248,6 +253,7 @@ def _migrate(db, objects=None):
             print "- %d" % obj.id
             obj.migrate(datamapper)
             mapper.update(obj)
+    db.cursor().execute("PRAGMA synchronous = ON");
     print "Done"
 
 def register_request_hooks(app):
