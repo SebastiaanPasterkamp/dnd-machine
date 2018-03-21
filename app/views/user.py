@@ -75,10 +75,11 @@ class UserBlueprint(BaseApiBlueprint):
             'reactjs-layout.html'
             )
 
-def get_blueprint(basemapper):
-    return UserBlueprint(
+def get_blueprint(basemapper, config):
+    return '/user', UserBlueprint(
         'user',
         __name__,
-        basemapper=basemapper,
+        basemapper,
+        config,
         template_folder='templates'
         )

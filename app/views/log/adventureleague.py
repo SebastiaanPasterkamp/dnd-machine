@@ -149,10 +149,11 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
             abort(403, "Not owned")
         return obj
 
-def get_blueprint(basemapper):
-    return AdventureLeagueBlueprint(
-    'adventureleague',
-    __name__,
-    basemapper,
-    template_folder='templates'
-    )
+def get_blueprint(basemapper, config):
+    return '/adventureleague', AdventureLeagueBlueprint(
+        'adventureleague',
+        __name__,
+        basemapper,
+        config,
+        template_folder='templates'
+        )

@@ -4,48 +4,58 @@ import os
 import sys
 from optparse import OptionParser, OptionGroup
 
-from app.app import app, migrate, updatedb, dump_table
+from app.app import create_app, migrate, initdb, updatedb, dump_table
+from app.config import get_config
 
 parser = OptionParser("""D&D Machine Web App""")
 
-parser.add_option("--host", dest="host", default="127.0.0.1",
-                  metavar="HOST",
+parser.add_option("--host", default="127.0.0.1", metavar="HOST",
                   help="Bind to IP or Host [default %default]")
 
-parser.add_option("--port", dest="port", default=5000,
-                  metavar="PORT", type=int,
+parser.add_option("--port", default=5000, metavar="PORT", type=int,
                   help="Use this port [default %default]")
 
-parser.add_option("--debug", dest="debug", default=False,
-                  action="store_true",
+parser.add_option("--debug", default=False, action="store_true",
                   help="Enable debugging [default: %default]")
 
-parser.add_option("--threaded", dest="threaded", default=False,
-                  action="store_true",
+parser.add_option("--threaded", default=False, action="store_true",
                   help="Enable multithreading [default: %default]")
 
+
 group = OptionGroup(parser, "Enable SSL")
-group.add_option("--ssl-key", dest="ssl_key", default=None,
+
+group.add_option("--ssl-key", default=None,
                  help="Enable SSL using this key [default: %default]")
-group.add_option("--ssl-crt", dest="ssl_crt", default=None,
+
+group.add_option("--ssl-crt", default=None,
                  help="Enable SSL using this crt [default: %default]")
+
 parser.add_option_group(group)
 
+
 group = OptionGroup(parser, "Optional arguments")
-group.add_option("--migrate", dest="migrate", default=False,
-                 action="store_true",
+
+group.add_option("--migrate", default=False, action="store_true",
                  help="Migrate Objects to new version. Then exit.")
-group.add_option("--migrate-object", dest="objects", default=[],
-                 action="append",
-                 help="Migrate only these Objects to new version. Then exit.")
-group.add_option("--updatedb", dest="updatedb", default=False,
-                 action="store_true",
+
+group.add_option("--initdb", default=False, action="store_true",
+                 help="Initialize the database. Then exit.")
+
+group.add_option("--updatedb", default=False, action="store_true",
                  help="Update database schema. Then exit.")
-group.add_option("--dump-table", dest="dump_table", default=None,
+
+group.add_option("--migrate-object", default=[], action="append",
+                 help="Migrate only these Objects to new version."
+                 " Then exit.")
+
+group.add_option("--dump-table", default=None,
                  help="Dump database content to console. Then exit.")
+
 parser.add_option_group(group)
 
 (options, args) = parser.parse_args()
+
+app = create_app(get_config())
 
 args = {
     "host": options.host,
@@ -57,16 +67,26 @@ context = (options.ssl_crt, options.ssl_key)
 if all(context):
     args['ssl_context'] = context
 
-if options.migrate or options.objects:
-    migrate(options.objects)
+if options.initdb:
+    print('Initializing the database.')
+    initdb(app)
+    print('Initialized the database.')
     exit()
 
 if options.updatedb:
-    updatedb()
+    print('Updating the database.')
+    updatedb(app)
+    print('Updated the database.')
+    exit()
+
+if options.migrate or options.migrate_object:
+    print('Migrating objects.')
+    migrate(app, options.migrate_object)
+    print('Migrated objects.')
     exit()
 
 if options.dump_table:
-    dump_table(options.dump_table)
+    dump_table(app, options.dump_table)
     exit()
 
 app.run(**args)

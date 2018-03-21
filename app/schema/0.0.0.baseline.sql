@@ -10,7 +10,7 @@ CREATE TABLE `users` (
 );
 
 INSERT INTO `users` (`id`, `username`, `password`, `config`)
-    VALUES (1, 'admin', '$pbkdf2-sha256$6400$/N87Z6w1xjgHwPifs3buPQ$7k8ZnhgsKVR0BW5mpwgro50PlGKBcWilBXIZyHHGddg','{"role": ["admin", "dm"]}')
+    VALUES (1, 'admin', '$pbkdf2-sha256$6400$/N87Z6w1xjgHwPifs3buPQ$7k8ZnhgsKVR0BW5mpwgro50PlGKBcWilBXIZyHHGddg','{"role": ["admin", "dm"]}');
 
 DROP TABLE IF EXISTS `character`;
 CREATE TABLE `character` (
@@ -86,6 +86,6 @@ CREATE TABLE `npc` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
   `name` TEXT NOT NULL,
   `location` TEXT NOT NULL,
-  `organization` TEXT NOT NULL
+  `organization` TEXT NOT NULL,
   `config` TEXT
 );
