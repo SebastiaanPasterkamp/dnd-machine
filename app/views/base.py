@@ -207,7 +207,7 @@ def register_paths(app, basemapper, config):
             response = jsonify({
                 'message': 'Login failed'
                 })
-            response.status_code = 400
+            response.status_code = 401
             return response
         else:
             session['user_id'] = user.id
@@ -219,7 +219,7 @@ def register_paths(app, basemapper, config):
         session.pop('user_id', None)
         session.pop('user', None)
         session.pop('party_id', None)
-        return redirect(url_for('login'))
+        return jsonify(None)
 
 def with_app(app, basemapper, config):
     register_paths(app, basemapper, config)
