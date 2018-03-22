@@ -122,6 +122,9 @@ ListDataActions.doLogout.listen((callback) => {
     .catch((error) => {
         console.log(error);
         ListDataActions.doLogout.failed(error);
+        ListDataActions.fetchItems.completed({
+            current_user: null
+        });
 
         ReportingActions.showMessage(
             'bad',
