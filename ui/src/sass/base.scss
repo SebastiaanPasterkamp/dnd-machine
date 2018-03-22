@@ -35,9 +35,3 @@ div.object-control {
     top: 1em;
     right: 1em;
 }
-
-@media #{$media} and ($feature: $value) {
-    .nice-fixed-header {
-        padding: 0px;
-    }
-}
