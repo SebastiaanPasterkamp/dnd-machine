@@ -261,40 +261,53 @@ def register_request_hooks(app):
     Register before/after request hooks
     """
     @app.before_request
-    def get_user():
-        """Checks if the user is logged in, and returns the user
-        object"""
-
+    def check_authorization():
+        """
+        Prevents access to pages that require authentication
+        """
+        if session.get('user_id') is not None:
+            return
         publicPages = (
+            'home',
             'login',
             'doLogin',
             'static',
             'authenticate',
-            'current_user'
             )
+        if request.endpoint not in publicPages:
+            response = jsonify({'message': 'Not logged in'})
+            response.status_code = 401
+            return response
 
-        if session.get('user_id') is not None:
-            db = get_db(app)
-            datamapper = get_datamapper(db)
-            request.user = datamapper.user.getById(session.get('user_id'))
-        elif request.endpoint not in publicPages:
-            if request.is_xhr:
-                response = jsonify({'message': 'Not logged in'})
-                response.status_code = 401
-                return response
-            return redirect(url_for('login'))
+    @app.before_request
+    def get_user():
+        """
+        Attaches a User object to the authenticated session
+        """
+        if session.get('user_id') is None:
+            request.user = None
+            return
+        db = get_db(app)
+        datamapper = get_datamapper(db)
+        request.user = datamapper.user.getById(
+            session.get('user_id')
+            )
 
     @app.before_request
     def get_party():
         """Checks if the user is hosting a party"""
-
-        if session.get('party_id'):
-            db = get_db(app)
-            datamapper = get_datamapper(db)
-            request.party = datamapper.party.getById(session.get('party_id'))
-            request.party.members = datamapper.character.getByPartyId(session.get('party_id'))
-        else:
+        if session.get('party_id') is None:
             request.party = None
+            return
+
+        db = get_db(app)
+        datamapper = get_datamapper(db)
+        request.party = datamapper.party.getById(
+            session.get('party_id')
+            )
+        request.party.members = datamapper.character.getByPartyId(
+            session.get('party_id')
+            )
 
     @app.context_processor
     def inject_metadata():
