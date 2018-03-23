@@ -150,7 +150,7 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
         return obj
 
 def get_blueprint(basemapper, config):
-    return '/adventureleague', AdventureLeagueBlueprint(
+    return '/log/adventureleague', AdventureLeagueBlueprint(
         'adventureleague',
         __name__,
         basemapper,
