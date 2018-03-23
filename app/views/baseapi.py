@@ -30,13 +30,13 @@ class BaseApiBlueprint(Blueprint):
             self.show)
         self.add_url_rule(
             '/new', 'new',
-            self.new, methods=['GET', 'POST'])
+            self.newObj)
         self.add_url_rule(
             '/raw/<int:obj_id>', 'raw',
             self.raw)
         self.add_url_rule(
             '/edit/<int:obj_id>', 'edit',
-            self.edit, methods=['GET', 'POST'])
+            self.edit)
 
         self.add_url_rule(
             '/api', 'api_list',
@@ -86,7 +86,7 @@ class BaseApiBlueprint(Blueprint):
             'reactjs-layout.html'
             )
 
-    def new(self, *args, **kwargs):
+    def newObj(self, *args, **kwargs):
         return render_template(
             'reactjs-layout.html'
             )
