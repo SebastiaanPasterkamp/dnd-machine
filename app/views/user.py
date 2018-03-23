@@ -42,10 +42,25 @@ class UserBlueprint(BaseApiBlueprint):
             abort(403)
         return super(UserBlueprint, self).overview(*args, **kwargs)
 
-    def new(self, *args, **kwargs):
+    def newObj(self, *args, **kwargs):
         if not self.checkRole(['admin']):
             abort(403)
-        return super(UserBlueprint, self).new(*args, **kwargs)
+        return super(UserBlueprint, self).newObj(
+            *args, **kwargs)
+
+    def show(self, obj_id):
+        if obj_id != request.user.id \
+                and not self.checkRole(['admin']):
+            abort(403)
+        return super(UserBlueprint, self).show(
+            *args, **kwargs)
+
+    def edit(self, obj_id):
+        if obj_id != request.user.id \
+                and not self.checkRole(['admin']):
+            abort(403)
+        return super(UserBlueprint, self).edit(
+            *args, **kwargs)
 
     def _raw_filter(self, obj):
         if not self.checkRole(['admin']):
@@ -80,29 +95,6 @@ class UserBlueprint(BaseApiBlueprint):
         if not self.checkRole(['admin']):
             abort(403)
         return obj
-
-    def show(self, obj_id):
-        if obj_id != request.user.id \
-                and not self.checkRole(['admin']):
-            abort(403)
-        return render_template(
-            'reactjs-layout.html'
-            )
-
-    def edit(self, obj_id):
-        if obj_id != request.user.id \
-                and not self.checkRole(['admin']):
-            abort(403)
-        return render_template(
-            'reactjs-layout.html'
-            )
-
-    def new(self):
-        if not self.checkRole(['admin']):
-            abort(403)
-        return render_template(
-            'reactjs-layout.html'
-            )
 
 def get_blueprint(basemapper, config):
     return '/user', UserBlueprint(

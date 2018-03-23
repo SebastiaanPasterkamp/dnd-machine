@@ -17,7 +17,7 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
             self.api_list, methods=['GET'])
         self.add_url_rule(
             '/new/<int:character_id>', 'new',
-            self.new, methods=['GET'])
+            self.newObj, methods=['GET'])
         self.add_url_rule(
             '/copy/<int:obj_id>', 'copy',
             self.copy, methods=['GET', 'POST'])
@@ -46,16 +46,16 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
             obj_id=obj.id
             ))
 
-    def new(self, character_id=None, *args, **kwargs):
+    def newObj(self, character_id=None, *args, **kwargs):
         if character_id is None:
-            return super(AdventureLeagueBlueprint, self).new(
+            return super(AdventureLeagueBlueprint, self).newObj(
                 *args, **kwargs)
         character = self.charactermapper.getById(character_id)
         if character is None:
             abort(404)
         if character.user_id != request.user.id:
             abort(403, "Not owned")
-        return super(AdventureLeagueBlueprint, self).new(
+        return super(AdventureLeagueBlueprint, self).newObj(
             *args, **kwargs)
 
     def _api_list_filter(self, objs, character_id=None):
