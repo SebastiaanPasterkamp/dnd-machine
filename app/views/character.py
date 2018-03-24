@@ -65,37 +65,39 @@ class CharacterBlueprint(BaseApiBlueprint):
         return self._character_data
 
     def _exposeAttributes(self, obj):
-        result = obj.config
+        if obj.user_id == request.user.id \
+                or self.checkRole(['admin', 'dm']):
+            return obj.config
 
-        if not self.checkRole(['dm']) \
-                and obj.user_id != request.user.id:
-            fields = [
-                'id', 'name', 'gender', 'race', 'class', 'alignment',
-                'background', 'level', 'xp', 'xp_progress',
-                'user_id', 'xp_level', 'challenge', 'spell',
-                'downtime', 'renown', 'adventure_items',
-                ]
-            result = dict([
-                (key, obj[key])
-                for key in fields
-                if key in obj
-                ])
-        return result
+        exposed = set([
+            'id', 'name', 'gender', 'race', 'class', 'alignment',
+            'background', 'level', 'xp', 'xp_progress',
+            'user_id', 'xp_level', 'challenge', 'spell',
+            'downtime', 'renown', 'adventure_items',
+            ])
+        return dict(
+            (key, value)
+            for key in obj.config.iteritems()
+            if key in exposed
+            )
 
     def _mutableAttributes(self, update, obj=None):
-        if self.checkRole(['dm']):
+        if self.checkRole(['admin', 'dm']):
             return update
 
-        immutable = [
-            'id', 'user_id', 'xp', 'level',
-            ]
+        immutable = set([
+            'user_id', 'xp', 'level',
+            ])
+        if obj is not None:
+            immutable |= set([
+                'race', 'class', 'background'
+                ])
 
-        update = dict(
+        return dict(
             (key, value)
-            for key, value in update.items()
+            for key, value in update.iteritems()
             if key not in immutable
             )
-        return update
 
     def find_caracter_field(self, field, value):
         for data in self.character_data[field]:
