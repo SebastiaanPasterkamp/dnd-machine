@@ -48,44 +48,59 @@ class BaseAppTestCase(unittest.TestCase):
             )
         password = user.get('password')
         try:
-            password = pbkdf2_sha256.hash(password)
+            user['password'] = pbkdf2_sha256.hash(password)
         except AttributeError:
-            password = pbkdf2_sha256.encrypt(password)
+            user['password'] = pbkdf2_sha256.encrypt(password)
+        return self.dbInsertObject(
+            'users',
+            user,
+            ['username', 'password', 'email']
+            )
+
+    def dbInsertObject(self, table, obj, columns=[]):
+        data = dict(
+            (key, value)
+            for key, value in obj.iteritems()
+            if key in columns
+            )
+        data['config'] = json.dumps(dict(
+            (key, value)
+            for key, value in obj.iteritems()
+            if key not in columns
+            ))
 
         result = self.app.db.execute("""
-            INSERT INTO `users`
-                (`username`, `password`, `email`, `config`)
+            INSERT INTO `%s`
+                (`%s`)
             VALUES
-                (:username, :password, :email, :config)
-            """,
-            {
-                'username': user.get('username'),
-                'password': password,
-                'email': user.get('email'),
-                'config': json.dumps(config),
-                }
+                (:%s)
+            """ % (
+                table,
+                '`, `'.join(data.keys()),
+                ', :'.join(data.keys()),
+                ),
+            data
             )
-        return result.lastrowid
+        self.app.db.commit()
+        return self.dbGetObject('users', result.lastrowid)
 
-    def getUser(self, userId):
+    def dbGetObject(self, table, objId):
         cur = self.app.db.execute("""
-            SELECT `username`, `password`, `email`, `config`
-            FROM `users`
-            WHERE `id` = :userId
-            """,
+            SELECT *
+            FROM `%s`
+            WHERE `id` = :objId
+            """ % table,
             {
-                'userId': userId,
+                'objId': objId,
                 }
             )
         obj = cur.fetchone()
         if obj is None:
             return None
         obj = dict(obj)
-        user = json.loads(obj['config'])
-        user['id'] = userId
-        user['username'] = obj['username']
-        user['email'] = obj['email']
-        return user
+        obj.update(json.loads(obj['config']))
+        del obj['config']
+        return obj
 
     def postJSON(self, path, data):
         return self.client.post(
