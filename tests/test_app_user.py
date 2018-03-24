@@ -17,20 +17,18 @@ class AppUserTestCase(BaseAppTestCase):
         users = {
             u'user': [],
             u'player': [u'player'],
-            u'dm': [u'player']
+            u'dm': [u'dm']
             }
         self.users = {}
         for name, role in users.items():
-            self.users[name] = {
+            self.users[name] = self.createUser({
                 'username': name,
                 'password': name,
                 'email': name + u'@example.com',
                 'role': role,
-                }
-            self.users[name]['id'] = self.createUser(
-                self.users[name]
-                )
-        self.testUser = {
+                })
+            self.users[name]['password'] = name
+        self.newUser = {
             'username': "test",
             'password': 'secret',
             'name': "Test Case",
@@ -106,7 +104,7 @@ class AppUserTestCase(BaseAppTestCase):
             self.assertEqual(200, rv.status_code)
             userData = rv.get_json()
             self.assertNotIn(u'admin', userData['role'])
-            userData = self.getUser(user['id'])
+            userData = self.dbGetObject('users', user['id'])
             self.assertEqual(user['role'], userData['role'])
 
         self.doLogin('admin', 'admin')
@@ -120,9 +118,9 @@ class AppUserTestCase(BaseAppTestCase):
             self.assertEqual([u'admin'], userData['role'])
 
     def testCreateUser(self):
-        user = self.testUser
+        user = self.newUser
         self.doLogin('admin', 'admin')
-        rv = self.postJSON('/user/api', self.testUser)
+        rv = self.postJSON('/user/api', self.newUser)
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.mimetype, 'application/json')
         userData = rv.get_json()
@@ -131,13 +129,13 @@ class AppUserTestCase(BaseAppTestCase):
         self.assertDictContainsSubset(user, userData)
 
     def testCreateUser403(self):
-        user = self.testUser
+        user = self.newUser
         self.doLogin('user', 'user')
         rv = self.postJSON('/user/api', user)
         self.assertEqual(rv.status_code, 403)
 
     def testEditUser(self):
-        user = self.testUser
+        user = self.newUser
         user['id'] = self.users['user']['id']
         self.doLogin('admin', 'admin')
         rv = self.patchJSON('/user/api/%d' % user['id'], user)
@@ -150,7 +148,7 @@ class AppUserTestCase(BaseAppTestCase):
         self.assertEqual(rv.status_code, 302)
 
     def testChangePassword(self):
-        user = self.testUser
+        user = self.newUser
         user['id'] = self.users['user']['id']
         self.doLogin('user', 'user')
         user['password'] = ''
@@ -170,7 +168,7 @@ class AppUserTestCase(BaseAppTestCase):
         self.assertEqual(rv.status_code, 302)
 
     def testEditUser403(self):
-        user = self.testUser
+        user = self.newUser
         user['id'] = self.users['dm']['id']
         self.doLogin('user', 'user')
         rv = self.patchJSON('/user/api/%d' % user['id'], user)
@@ -181,7 +179,7 @@ class AppUserTestCase(BaseAppTestCase):
         self.doLogin('admin', 'admin')
         rv = self.client.delete('/user/api/%d' % user['id'])
         self.assertEqual(rv.status_code, 200)
-        userData = self.getUser(user['id'])
+        userData = self.dbGetObject('users', user['id'])
         self.assertIsNone(userData)
 
     def testDeleteUser403(self):
@@ -189,7 +187,7 @@ class AppUserTestCase(BaseAppTestCase):
         self.doLogin('user', 'user')
         rv = self.client.delete('/user/api/%d' % user['id'])
         self.assertEqual(rv.status_code, 403)
-        userData = self.getUser(user['id'])
+        userData = self.dbGetObject('users', user['id'])
         del user['password']
         self.assertDictContainsSubset(user, userData)
 
