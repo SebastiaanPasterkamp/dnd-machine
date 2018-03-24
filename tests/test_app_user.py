@@ -15,7 +15,6 @@ class AppUserTestCase(BaseAppTestCase):
     def setUp(self):
         super(AppUserTestCase, self).setUp()
         users = {
-            u'user': [],
             u'player': [u'player'],
             u'dm': [u'dm']
             }
@@ -46,7 +45,7 @@ class AppUserTestCase(BaseAppTestCase):
             self.assertEqual(rv.status_code, 401)
 
     def testProtectedPages403(self):
-        self.doLogin('user', 'user')
+        self.doLogin('player', 'player')
         for page, expected in self.adminPages.items():
             rv = self.client.get(page)
             self.assertEqual(rv.status_code, 403)
@@ -71,7 +70,6 @@ class AppUserTestCase(BaseAppTestCase):
         for userId in [
                 1,
                 self.users['player']['id'],
-                self.users['user']['id'],
                 ]:
             rv = self.client.get('/user/api/%s' % userId)
             userData = rv.get_json()
@@ -82,7 +80,6 @@ class AppUserTestCase(BaseAppTestCase):
                 1,
                 self.users['dm']['id'],
                 self.users['player']['id'],
-                self.users['user']['id'],
                 ]:
             rv = self.client.get('/user/api/%s' % userId)
             userData = rv.get_json()
@@ -92,7 +89,6 @@ class AppUserTestCase(BaseAppTestCase):
         users = [
             self.users['dm'],
             self.users['player'],
-            self.users['user'],
             ]
 
         for user in users:
@@ -130,13 +126,13 @@ class AppUserTestCase(BaseAppTestCase):
 
     def testCreateUser403(self):
         user = self.newUser
-        self.doLogin('user', 'user')
+        self.doLogin('player', 'player')
         rv = self.postJSON('/user/api', user)
         self.assertEqual(rv.status_code, 403)
 
     def testEditUser(self):
         user = self.newUser
-        user['id'] = self.users['user']['id']
+        user['id'] = self.users['player']['id']
         self.doLogin('admin', 'admin')
         rv = self.patchJSON('/user/api/%d' % user['id'], user)
         self.assertEqual(rv.status_code, 200)
@@ -149,28 +145,28 @@ class AppUserTestCase(BaseAppTestCase):
 
     def testChangePassword(self):
         user = self.newUser
-        user['id'] = self.users['user']['id']
-        self.doLogin('user', 'user')
+        user['id'] = self.users['player']['id']
+        self.doLogin('player', 'player')
         user['password'] = ''
         rv = self.patchJSON('/user/api/%d' % user['id'], user)
         self.assertEqual(rv.status_code, 200)
-        rv = self.doLogin('user', '')
+        rv = self.doLogin('player', '')
         self.assertEqual(rv.status_code, 401)
-        rv = self.doLogin('user', 'user')
+        rv = self.doLogin('player', 'player')
         self.assertEqual(rv.status_code, 302)
 
         user['password'] = 'foobar'
         rv = self.patchJSON('/user/api/%d' % user['id'], user)
         self.assertEqual(rv.status_code, 200)
-        rv = self.doLogin('user', 'user')
+        rv = self.doLogin('player', 'player')
         self.assertEqual(rv.status_code, 401)
-        rv = self.doLogin('user', 'foobar')
+        rv = self.doLogin('player', 'foobar')
         self.assertEqual(rv.status_code, 302)
 
     def testEditUser403(self):
         user = self.newUser
         user['id'] = self.users['dm']['id']
-        self.doLogin('user', 'user')
+        self.doLogin('player', 'player')
         rv = self.patchJSON('/user/api/%d' % user['id'], user)
         self.assertEqual(rv.status_code, 403)
 
@@ -184,7 +180,7 @@ class AppUserTestCase(BaseAppTestCase):
 
     def testDeleteUser403(self):
         user = self.users['player']
-        self.doLogin('user', 'user')
+        self.doLogin('player', 'player')
         rv = self.client.delete('/user/api/%d' % user['id'])
         self.assertEqual(rv.status_code, 403)
         userData = self.dbGetObject('users', user['id'])
