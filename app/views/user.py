@@ -40,7 +40,8 @@ class UserBlueprint(BaseApiBlueprint):
     def overview(self, *args, **kwargs):
         if not self.checkRole(['admin']):
             abort(403)
-        return super(UserBlueprint, self).overview(*args, **kwargs)
+        return super(UserBlueprint, self).overview(
+            *args, **kwargs)
 
     def newObj(self, *args, **kwargs):
         if not self.checkRole(['admin']):
@@ -52,15 +53,13 @@ class UserBlueprint(BaseApiBlueprint):
         if obj_id != request.user.id \
                 and not self.checkRole(['admin']):
             abort(403)
-        return super(UserBlueprint, self).show(
-            *args, **kwargs)
+        return super(UserBlueprint, self).show(obj_id)
 
     def edit(self, obj_id):
         if obj_id != request.user.id \
                 and not self.checkRole(['admin']):
             abort(403)
-        return super(UserBlueprint, self).edit(
-            *args, **kwargs)
+        return super(UserBlueprint, self).edit(obj_id)
 
     def _raw_filter(self, obj):
         if not self.checkRole(['admin']):
