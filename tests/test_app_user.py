@@ -5,6 +5,8 @@ from __init__ import BaseAppTestCase
 class AppUserTestCase(BaseAppTestCase):
     adminPages = {
         '/user/list': (200, 'text/html'),
+        '/user/show/1': (200, 'text/html'),
+        '/user/edit/1': (200, 'text/html'),
         '/user/new': (200, 'text/html'),
         '/user/api': (200, 'application/json'),
         '/user/raw/1': (200, 'application/json'),
@@ -28,6 +30,14 @@ class AppUserTestCase(BaseAppTestCase):
             self.users[name]['id'] = self.createUser(
                 self.users[name]
                 )
+        self.testUser = {
+            'username': "test",
+            'password': 'secret',
+            'name': "Test Case",
+            'role': ["player"],
+            'email': "test@example.com",
+            }
+
 
     def testProtectedPages401(self):
         for page, expected in self.privatePages.items():
@@ -110,39 +120,77 @@ class AppUserTestCase(BaseAppTestCase):
             self.assertEqual([u'admin'], userData['role'])
 
     def testCreateUser(self):
-        user = {
-            'username': "test",
-            'password': 'secret',
-            'name': "Test Case",
-            'role': ["player"],
-            'email': "test@example.com",
-            }
-
+        user = self.testUser
         self.doLogin('admin', 'admin')
-        rv = self.postJSON('/user/api', user)
-        del user['password']
+        rv = self.postJSON('/user/api', self.testUser)
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.mimetype, 'application/json')
         userData = rv.get_json()
         self.assertIn('id', userData)
+        del user['password']
         self.assertDictContainsSubset(user, userData)
 
-    def testEditUser(self):
-        user = {
-            'id': self.users['user']['id'],
-            'username': "test",
-            'password': 'secret',
-            'name': "Test Case",
-            'role': ["player"],
-            'email': "test@example.com",
-            }
+    def testCreateUser403(self):
+        user = self.testUser
+        self.doLogin('user', 'user')
+        rv = self.postJSON('/user/api', user)
+        self.assertEqual(rv.status_code, 403)
 
+    def testEditUser(self):
+        user = self.testUser
+        user['id'] = self.users['user']['id']
         self.doLogin('admin', 'admin')
         rv = self.patchJSON('/user/api/%d' % user['id'], user)
-        del user['password']
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.mimetype, 'application/json')
         userData = rv.get_json()
+        del user['password']
+        self.assertDictContainsSubset(user, userData)
+        rv = self.doLogin('admin', 'admin')
+        self.assertEqual(rv.status_code, 302)
+
+    def testChangePassword(self):
+        user = self.testUser
+        user['id'] = self.users['user']['id']
+        self.doLogin('user', 'user')
+        user['password'] = ''
+        rv = self.patchJSON('/user/api/%d' % user['id'], user)
+        self.assertEqual(rv.status_code, 200)
+        rv = self.doLogin('user', '')
+        self.assertEqual(rv.status_code, 401)
+        rv = self.doLogin('user', 'user')
+        self.assertEqual(rv.status_code, 302)
+
+        user['password'] = 'foobar'
+        rv = self.patchJSON('/user/api/%d' % user['id'], user)
+        self.assertEqual(rv.status_code, 200)
+        rv = self.doLogin('user', 'user')
+        self.assertEqual(rv.status_code, 401)
+        rv = self.doLogin('user', 'foobar')
+        self.assertEqual(rv.status_code, 302)
+
+    def testEditUser403(self):
+        user = self.testUser
+        user['id'] = self.users['dm']['id']
+        self.doLogin('user', 'user')
+        rv = self.patchJSON('/user/api/%d' % user['id'], user)
+        self.assertEqual(rv.status_code, 403)
+
+    def testDeleteUser(self):
+        user = self.users['player']
+        self.doLogin('admin', 'admin')
+        rv = self.client.delete('/user/api/%d' % user['id'])
+        self.assertEqual(rv.status_code, 200)
+        userData = self.getUser(user['id'])
+        self.assertIsNone(userData)
+
+    def testDeleteUser403(self):
+        user = self.users['player']
+        self.doLogin('user', 'user')
+        rv = self.client.delete('/user/api/%d' % user['id'])
+        self.assertEqual(rv.status_code, 403)
+        userData = self.getUser(user['id'])
+        del user['password']
         self.assertDictContainsSubset(user, userData)
 
 if __name__ == '__main__':
