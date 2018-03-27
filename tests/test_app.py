@@ -4,6 +4,14 @@ from __init__ import BaseAppTestCase
 
 class AppTestCase(BaseAppTestCase):
 
+    def setUp(self):
+        super(AppTestCase, self).setUp()
+        self.privatePages = {
+            '/navigation': (200, 'application/json'),
+            '/current_user': (302, None),
+            '/hosted_party': (302, None),
+            }
+
     def testPublicPages(self):
         rv = self.client.get('/login')
         self.assertEqual(rv.status_code, 200)
@@ -27,6 +35,20 @@ class AppTestCase(BaseAppTestCase):
         rv = self.client.get('/static/css/dnd-machine.css')
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.mimetype, 'text/css')
+
+    def testPrivatePages401(self):
+        for page, expected in self.privatePages.items():
+            rv = self.client.get(page)
+            self.assertEqual(rv.status_code, 401)
+
+    def testPrivatePages200(self):
+        self.doLogin('admin', 'admin')
+        for page, expected in self.privatePages.items():
+            code, mimetype = expected
+            rv = self.client.get(page)
+            self.assertEqual(rv.status_code, code)
+            if mimetype:
+                self.assertEqual(rv.mimetype, mimetype)
 
     def testLogin(self):
         rv = self.doLogin('admin', 'admin')
