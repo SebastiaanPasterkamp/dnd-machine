@@ -14,14 +14,12 @@ from app.config import get_config
 
 class Response(BaseResponse):
     def get_json(self):
-        return json.loads(self.get_data())
+        try:
+            return json.loads(self.get_data())
+        except:
+            return None
 
 class BaseAppTestCase(unittest.TestCase):
-    privatePages = {
-        '/navigation': (200, 'application/json'),
-        '/current_user': (302, None),
-        '/hosted_party': (302, None),
-        }
 
     def setUp(self):
         config = get_config()
@@ -82,7 +80,20 @@ class BaseAppTestCase(unittest.TestCase):
             data
             )
         self.app.db.commit()
-        return self.dbGetObject('users', result.lastrowid)
+        return self.dbGetObject(table, result.lastrowid)
+
+    def dbInsertLink(self, table, data={}):
+        result = self.app.db.execute("""
+            INSERT INTO `%s` (`%s`)
+            VALUES (:%s)
+            """ % (
+                table,
+                '`, `'.join(data.keys()),
+                ', :'.join(data.keys()),
+                ),
+            data
+            )
+        self.app.db.commit()
 
     def dbGetObject(self, table, objId):
         cur = self.app.db.execute("""
