@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import request, abort, render_template, url_for
 
-from .baseapi import BaseApiBlueprint
+from .baseapi import BaseApiBlueprint, BaseApiCallback
 
 class UserBlueprint(BaseApiBlueprint):
     @property
@@ -37,62 +37,32 @@ class UserBlueprint(BaseApiBlueprint):
             if key in mutable
             ])
 
-    def overview(self, *args, **kwargs):
+    @BaseApiCallback('overview')
+    @BaseApiCallback('new')
+    @BaseApiCallback('raw')
+    @BaseApiCallback('api_list')
+    @BaseApiCallback('api_post')
+    @BaseApiCallback('api_delete')
+    def adminOnly(self, *args, **kwargs):
         if not self.checkRole(['admin']):
             abort(403)
-        return super(UserBlueprint, self).overview(
-            *args, **kwargs)
 
-    def newObj(self, *args, **kwargs):
-        if not self.checkRole(['admin']):
-            abort(403)
-        return super(UserBlueprint, self).newObj(
-            *args, **kwargs)
-
-    def show(self, obj_id):
+    @BaseApiCallback('show')
+    @BaseApiCallback('edit')
+    @BaseApiCallback('api_patch')
+    @BaseApiCallback('api_recompute')
+    def adminOrOwned(self, obj_id):
         if obj_id != request.user.id \
                 and not self.checkRole(['admin']):
             abort(403)
-        return super(UserBlueprint, self).show(obj_id)
 
-    def edit(self, obj_id):
-        if obj_id != request.user.id \
-                and not self.checkRole(['admin']):
-            abort(403)
-        return super(UserBlueprint, self).edit(obj_id)
-
-    def _raw_filter(self, obj):
-        if not self.checkRole(['admin']):
-            abort(403)
-        return obj
-
-    def _api_list_filter(self, objs):
-        if not self.checkRole(['admin']):
-            abort(403)
-        return objs
-
-    def _api_post_filter(self, obj):
-        if not self.checkRole(['admin']):
-            abort(403)
-        obj.setPassword(obj.password)
-        return obj
-
-    def _api_patch_filter(self, obj):
-        if obj.id != request.user.id \
-                and not self.checkRole(['admin']):
-            abort(403)
-
+    @BaseApiCallback('api_patch.object')
+    def hashOrPreservePassword(self, obj):
         old = self.datamapper.getById(obj.id)
         if not len(obj.password):
             obj.password = old.password
         elif obj.password != old.password:
             obj.setPassword(obj.password)
-
-        return obj
-
-    def _api_delete_filter(self, obj):
-        if not self.checkRole(['admin']):
-            abort(403)
         return obj
 
 def get_blueprint(basemapper, config):
