@@ -246,15 +246,10 @@ def _migrate(db, objects=None):
         if not isinstance(mapper, JsonObjectDataMapper):
             continue
         objs = mapper.getMultiple()
-        print "Converting '%s': %d" % (
-            mapperType, len(objs)
-            )
         for obj in objs:
-            print "- %d" % obj.id
             obj.migrate(datamapper)
             mapper.update(obj)
     db.cursor().execute("PRAGMA synchronous = ON");
-    print "Done"
 
 def register_request_hooks(app):
     """
