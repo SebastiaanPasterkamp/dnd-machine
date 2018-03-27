@@ -115,6 +115,8 @@ class AppUserTestCase(BaseAppTestCase):
         self.assertIn('id', userData)
         del user['password']
         self.assertDictContainsSubset(user, userData)
+        userData = self.dbGetObject('users', userData['id'])
+        self.assertDictContainsSubset(user, userData)
 
     def testCreateUser403(self):
         user = self.newUser
@@ -132,8 +134,8 @@ class AppUserTestCase(BaseAppTestCase):
         userData = rv.get_json()
         del user['password']
         self.assertDictContainsSubset(user, userData)
-        rv = self.doLogin('admin', 'admin')
-        self.assertEqual(rv.status_code, 302)
+        userData = self.dbGetObject('users', user['id'])
+        self.assertDictContainsSubset(user, userData)
 
     def testChangePassword(self):
         user = self.newUser
