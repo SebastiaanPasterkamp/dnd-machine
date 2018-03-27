@@ -3,10 +3,11 @@ from flask import (
     request, abort, render_template, send_file, jsonify,
     redirect, url_for
     )
+import os
 import re
 import markdown
 
-from .baseapi import BaseApiBlueprint
+from .baseapi import BaseApiBlueprint, BaseApiCallback
 from ..config import get_character_data
 from ..filters import filter_bonus, filter_distance, filter_unique
 from . import fill_pdf
@@ -77,7 +78,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             ])
         return dict(
             (key, value)
-            for key in obj.config.iteritems()
+            for key, value in obj.config.iteritems()
             if key in exposed
             )
 
@@ -99,14 +100,6 @@ class CharacterBlueprint(BaseApiBlueprint):
             if key not in immutable
             )
 
-    def find_caracter_field(self, field, value):
-        for data in self.character_data[field]:
-            for sub in data.get('sub', []):
-                if sub['name'] == value:
-                    return data, sub
-            if data['name'] == value:
-                return data, None
-
     def get_races(self):
         def _race_attribs(race):
             return dict(
@@ -121,17 +114,92 @@ class CharacterBlueprint(BaseApiBlueprint):
             ]
         return jsonify(races)
 
-
     def get_classes(self):
         return jsonify(self.character_data['class'])
 
     def get_backgrounds(self):
         return jsonify(self.character_data['background'])
 
-    def download(self, obj_id):
-        items = self.itemmapper
+    @BaseApiCallback('new')
+    @BaseApiCallback('edit')
+    @BaseApiCallback('copy')
+    @BaseApiCallback('api_post')
+    @BaseApiCallback('api_patch')
+    @BaseApiCallback('api_delete')
+    def playerOrDmOnly(self, *args, **kwargs):
+        if not self.checkRole(['dm', 'player']):
+            abort(403)
 
+    @BaseApiCallback('api_post.object')
+    def setOwner(self, obj):
+        obj.user_id = request.user.id
+        return obj
+
+    @BaseApiCallback('raw')
+    def adminOnly(self, *args, **kwargs):
+        if not self.checkRole(['admin']):
+            abort(403)
+
+    @BaseApiCallback('xp')
+    @BaseApiCallback('reset')
+    def adminOrDmOnly(self, *args, **kwargs):
+        if not self.checkRole(['admin', 'dm']):
+            abort(403)
+
+    @BaseApiCallback('api_delete.object')
+    @BaseApiCallback('api_patch.object')
+    def adminDmOrOwned(self, obj):
+        if obj.user_id != request.user.id \
+                and not self.checkRole(['admin', 'dm']):
+            abort(403)
+        return obj
+
+    @BaseApiCallback('api_list.objects')
+    def adminDmOrExtendedMultiple(self, objects):
+        if self.checkRole(['admin', 'dm']):
+            return objects
+
+        extended_ids = self.datamapper.getExtendedIds(
+            request.user.id
+            )
+        objects = [
+            obj
+            for obj in objects
+            if obj.user_id == request.user.id \
+                or obj.id in extended_ids
+            ]
+        return objects
+
+    @BaseApiCallback('api_get.object')
+    @BaseApiCallback('copy.object')
+    @BaseApiCallback('download.object')
+    def adminDmOrExtendedSingle(self, obj):
+        if obj.user_id == request.user.id \
+                or self.checkRole(['admin', 'dm']):
+            return obj
+        extended_ids =  self.datamapper.getExtendedIds(
+            request.user.id
+            )
+        if obj.id not in extended_ids:
+            abort(403)
+        return obj
+
+
+    def download(self, obj_id):
+        self.doCallback('download', obj_id)
+
+        obj = self.datamapper.getById(obj_id)
+        if obj is None:
+            abort(404)
+        obj = self.doCallback(
+            'download.object',
+            obj,
+            )
+
+        user = self.usermapper.getById(obj.user_id)
+        items = self.itemmapper
         machine = self.basemapper.machine
+
         def filter_damage(damage):
             return machine.diceNotation(
                 damage['dice_size'],
@@ -139,59 +207,57 @@ class CharacterBlueprint(BaseApiBlueprint):
                 damage.get('dice_bonus', 0)
                 )
 
-        c = self.datamapper.getById(obj_id)
-        if c.user_id != request.user.id \
-                and not self.checkRole(['admin', 'dm']):
-            abort(403)
-        user = self.usermapper.getById(c.user_id)
-
         fdf_text = {
-            "CharacterName": c.name,
-            "CharacterName 2": c.name,
+            "CharacterName": obj.name,
+            "CharacterName 2": obj.name,
             "PlayerName": user.username,
-            "HPMax": c.hit_points,
+            "HPMax": obj.hit_points,
             "AC": "%s%s" % (
-                c.armor_class,
-                " / +%s" % c.armor_class_bonus if c.armor_class_bonus else ""
+                obj.armor_class,
+                " / +%s" % (
+                    obj.armor_class_bonus \
+                        if obj.armor_class_bonus \
+                        else ""
+                    )
                 ),
-            "HD": "%dd%d" % (c.level, c.hit_dice),
-            "XP": c.xp,
-            "Race ": c.race,
-            "ClassLevel": "%s %d" % (c.Class, c.level),
-            "Speed": c.speed,
-            "Background": c.background,
-            "Alignment": c.alignment,
-            "ProBonus": filter_bonus(c.proficiency),
-            "Initiative": filter_bonus(c.initiative_bonus),
-            "Passive": filter_bonus(c.passive_perception),
-            "Age": c.age,
-            "Height": c.height,
-            "Weight": c.weight,
-            "Current Weight": c.weight,
-            "Appearance": c.appearance,
-            "PersonalityTraits ": c.personalityTraits,
-            "Ideals": c.personalityIdeals,
-            "Bonds": c.personalityBonds,
-            "Flaws": c.personalityFlaws
+            "HD": "%dd%d" % (obj.level, obj.hit_dice),
+            "XP": obj.xp,
+            "Race ": obj.race,
+            "ClassLevel": "%s %d" % (obj.Class, obj.level),
+            "Speed": obj.speed,
+            "Background": obj.background,
+            "Alignment": obj.alignment,
+            "ProBonus": filter_bonus(obj.proficiency),
+            "Initiative": filter_bonus(obj.initiative_bonus),
+            "Passive": filter_bonus(obj.passive_perception),
+            "Age": obj.age,
+            "Height": obj.height,
+            "Weight": obj.weight,
+            "Current Weight": obj.weight,
+            "Appearance": obj.appearance,
+            "PersonalityTraits ": obj.personalityTraits,
+            "Ideals": obj.personalityIdeals,
+            "Bonds": obj.personalityBonds,
+            "Flaws": obj.personalityFlaws
             }
         fdf_html = {
-            "Appearance": c.appearance or "",
-            "Background": c.backstory or "",
-            "PersonalityTraits ": c.personalityTraits,
-            "Ideals": c.personalityIdeals,
-            "Bonds": c.personalityBonds,
-            "Flaws": c.personalityFlaws
+            "Appearance": obj.appearance or "",
+            "Background": obj.backstory or "",
+            "PersonalityTraits ": obj.personalityTraits,
+            "Ideals": obj.personalityIdeals,
+            "Bonds": obj.personalityBonds,
+            "Flaws": obj.personalityFlaws
             }
 
-        if c.spellSafe_dc:
+        if obj.spellSafe_dc:
             fdf_text.update({
-                "SpellSaveDC 2": c.spellSafe_dc,
-                "SpellAtkBonus 2": filter_bonus(c.spellAttack_modifier),
-                "Spellcasting Class 2": c.Class,
-                "Total Prepared Spells": c.spellMax_prepared or '',
+                "SpellSaveDC 2": obj.spellSafe_dc,
+                "SpellAtkBonus 2": filter_bonus(obj.spellAttack_modifier),
+                "Spellcasting Class 2": obj.Class,
+                "Total Prepared Spells": obj.spellMax_prepared or '',
                 #"AttacksSpellcasting": "",
                 })
-        if c.spellSlots:
+        if obj.spellSlots:
             fdf_spell_slots = {
                 "level_1": "SlotsTotal 19",
                 "level_2": "SlotsTotal 20",
@@ -203,10 +269,10 @@ class CharacterBlueprint(BaseApiBlueprint):
                 "level_8": "SlotsTotal 26",
                 "level_9": "SlotsTotal 27"
                 }
-            for level, slots in c.spellSlots.items():
+            for level, slots in obj.spellSlots.items():
                 fdf_text[ fdf_spell_slots[level] ] = slots
 
-        if c.spellList:
+        if obj.spellList:
             fdf_spell_lists = {
                 "cantrip": ["1014", "1015", "1016", "1017", "1018", "1019", "1020", "1021"],
                 "level_1": ["1022", "1023", "1024", "1025", "1026", "1027", "1028", "1029", "1030", "1031", "1032", "1033"],
@@ -219,28 +285,28 @@ class CharacterBlueprint(BaseApiBlueprint):
                 "level_8": ["10101", "10100", "10102", "10103", "10104", "10105", "10106"],
                 "level_9": ["10108", "10107", "10109", "101010", "101011", "101012", "101013"]
                 }
-            for level, spells in c.spellLevel.items():
+            for level, spells in obj.spellLevel.items():
                 fdf_spell_list = fdf_spell_lists[ level ]
                 for i, spell in enumerate(spells):
                     fdf_text[ "Spells %s" % fdf_spell_list[i] ] = spell['name']
 
         for stat in items.statistics:
             stat_prefix = stat['code'][:3].upper()
-            fdf_text[stat_prefix] = c.statisticsBase[stat['code']]
-            fdf_text[stat_prefix + 'mod'] = filter_bonus(c.statisticsModifiers[stat['code']])
-            fdf_text['SavingThrow ' + stat['label']] = filter_bonus(c.saving_throws[stat['code']])
-            if stat['code'] in c.proficienciesAdvantages:
+            fdf_text[stat_prefix] = obj.statisticsBase[stat['code']]
+            fdf_text[stat_prefix + 'mod'] = filter_bonus(obj.statisticsModifiers[stat['code']])
+            fdf_text['SavingThrow ' + stat['label']] = filter_bonus(obj.saving_throws[stat['code']])
+            if stat['code'] in obj.proficienciesAdvantages:
                 fdf_text['SavingThrow ' + stat['label']] += 'A'
-            if stat['code'] in c.proficienciesSaving_throws:
+            if stat['code'] in obj.proficienciesSaving_throws:
                 fdf_text['ST ' + stat['label']] = True
 
         for skill in items.skills:
-            fdf_text[skill['label']] = filter_bonus(c.skills[skill['code']])
-            if skill['code'] in c.proficienciesSkills:
+            fdf_text[skill['label']] = filter_bonus(obj.skills[skill['code']])
+            if skill['code'] in obj.proficienciesSkills:
                 fdf_text['ChBx ' + skill['label']] = True
 
         i = 0
-        for count, weapon in filter_unique(c.weapons):
+        for count, weapon in filter_unique(obj.weapons):
             fdf_text['Wpn Name %d' % (i+1)] = "%d x %s" % (
                 count, weapon['name']) if count > 1 else weapon['name']
             fdf_text['Wpn%d Damage' % (i+1)] = "%s %s" % (
@@ -251,22 +317,22 @@ class CharacterBlueprint(BaseApiBlueprint):
             i += 1
 
         for coin in ['cp', 'sp', 'ep', 'gp', 'pp']:
-            if coin not in c.wealth:
+            if coin not in obj.wealth:
                 continue
-            fdf_text[coin.upper()] = c.wealth[coin]
+            fdf_text[coin.upper()] = obj.wealth[coin]
 
         proficiencies = {}
-        if c.languages:
+        if obj.languages:
             proficiencies["Languages"] = []
-            for prof in c.languages:
+            for prof in obj.languages:
                 lang = items.itemByNameOrCode(prof, 'languages')
                 proficiencies["Languages"].append(
                     lang['label'] if lang else prof
                     )
 
-        if c.proficienciesArmor:
+        if obj.proficienciesArmor:
             proficiencies["Armor"] = []
-            for prof in c.proficienciesArmor:
+            for prof in obj.proficienciesArmor:
                 label = prof
                 armor = items.itemByNameOrCode(prof, 'armor_types')
                 if armor is not None:
@@ -280,9 +346,9 @@ class CharacterBlueprint(BaseApiBlueprint):
                         label = objs[0].name
                 proficiencies["Armor"].append(label)
 
-        if c.proficienciesWeapons:
+        if obj.proficienciesWeapons:
             proficiencies["Weapons"] = []
-            for prof in c.proficienciesWeapons:
+            for prof in obj.proficienciesWeapons:
                 label = prof
                 weapon = items.itemByNameOrCode(prof, 'weapon_types')
                 if weapon is not None:
@@ -296,9 +362,9 @@ class CharacterBlueprint(BaseApiBlueprint):
                         label = objs[0].name
                 proficiencies["Weapons"].append(label)
 
-        if c.proficienciesTools:
+        if obj.proficienciesTools:
             proficiencies["Tools"] = []
-            for prof in c.proficienciesTools:
+            for prof in obj.proficienciesTools:
                 if prof is None:
                     continue
                 proficiencies["Tools"].append(prof)
@@ -319,32 +385,32 @@ class CharacterBlueprint(BaseApiBlueprint):
             "* %s: %s" % (
                 key, desc
                 )
-            for key, desc in c.info.iteritems()
+            for key, desc in obj.info.iteritems()
             ])
         fdf_html["Features and Traits"] = "\n".join([
             "* **%s**: %s" % (
                 key, desc
                 )
-            for key, desc in c.info.iteritems()
+            for key, desc in obj.info.iteritems()
             ])
 
         fdf_text["Feat+Traits"] = "\n\n".join([
             "* %s: %s" % (
                 key, ability['description'] % ability
                 )
-            for key, ability in c.abilities.iteritems()
+            for key, ability in obj.abilities.iteritems()
             ])
         fdf_html["Feat+Traits"] = "\n".join([
             "* **%s**: %s" % (
                 key, ability['description'] % ability
                 )
-            for key, ability in c.abilities.iteritems()
+            for key, ability in obj.abilities.iteritems()
             ])
 
         equipment = []
-        if c.weapons:
+        if obj.weapons:
             equipment.append(["Weapons:", ""])
-            for count, weapon in filter_unique(c.weapons):
+            for count, weapon in filter_unique(obj.weapons):
                 desc = [
                     "*",
                     "%s x %s" % (count, weapon['name']) \
@@ -374,9 +440,9 @@ class CharacterBlueprint(BaseApiBlueprint):
                     equipment[-1].append("  " + ", ".join(desc))
 
 
-        if c.armor:
+        if obj.armor:
             equipment.append(["Armor:", ""])
-            for armor in c.armor:
+            for armor in obj.armor:
                 if "value" in armor:
                     desc = [
                         "*",
@@ -400,7 +466,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                         ])
                 equipment[-1].append(" ".join(desc))
 
-        for toolType, tools in c.items.items():
+        for toolType, tools in obj.items.items():
             if not len(tools):
                 continue
             _type = items.itemByNameOrCode(
@@ -462,14 +528,14 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         pdf_file = os.path.join('app', 'static', 'pdf', 'Current Standard v1.4.pdf')
 
-        filename = re.sub(ur'[^\w\d]+', '_', c['name'])
+        filename = re.sub(ur'[^\w\d]+', '_', obj.name)
         filename = re.sub(ur'^_+|_+$', '', filename)
         filename +=  '.pdf'
         return send_file(
             fill_pdf(
                 pdf_file,
                 fdf_text, fdf_html,
-                '/tmp/%s.fdf' % c['name'],
+                '/tmp/%s.fdf' % obj.name,
                 debug=request.args.get('debug', False)
                 ),
             mimetype="application/pdf",
@@ -478,7 +544,16 @@ class CharacterBlueprint(BaseApiBlueprint):
             )
 
     def copy(self, obj_id):
+        self.doCallback('copy', obj_id)
+
         obj = self.datamapper.getById(obj_id)
+        if obj is None:
+            abort(404)
+        obj = self.doCallback(
+            'copy.object',
+            obj,
+            )
+
         obj.id = None
         obj.user_id = request.user.id
         obj.name += u" (Copy)"
@@ -491,10 +566,11 @@ class CharacterBlueprint(BaseApiBlueprint):
             ))
 
     def xp(self, obj_id, xp):
-        if not self.checkRole(['admin', 'dm']):
-            abort(403)
+        self.doCallback('xp', obj_id, xp)
 
         obj = self.datamapper.getById(obj_id)
+        obj = self.doCallback('xp.object', obj, xp)
+
         obj.xp += xp
         obj.compute()
 
@@ -506,82 +582,34 @@ class CharacterBlueprint(BaseApiBlueprint):
             ))
 
     def reset(self, obj_id):
-        if not self.checkRole(['admin', 'dm']):
-            abort(403)
+        self.doCallback('reset', obj_id)
+
         keeping = [
-            'user_id', 'class', 'race', 'background', 'xp', 'name',
-            'personality', 'gender', 'appearance', 'alignment',
-            'backstory'
+            'user_id', 'class', 'race', 'background', 'xp',
+            'name', 'personality', 'gender', 'appearance',
+            'alignment', 'backstory'
             ]
 
         character = self.datamapper.getById(obj_id)
-        reset = self.datamapper.create(dict([
+        self.doCallback('reset.original', character)
+
+        reset = self.datamapper.create(dict(
             (keep, character[keep])
             for keep in keeping
-            ]))
+            if keep in character
+            ))
         reset.id = obj_id
         reset.user_id = character.user_id
         reset.compute()
 
-        character = self.datamapper.update(reset)
+        reset = self.doCallback('reset.object', reset)
+        reset = self.datamapper.update(reset)
 
         return redirect(url_for(
             'character.edit',
             obj_id=obj_id
             ))
 
-    def _api_list_filter(self, objs):
-        if self.checkRole(['admin', 'dm']):
-            return objs
-        extended_ids = self.datamapper.getExtendedIds(request.user.id)
-        objs = [
-            obj
-            for obj in objs
-            if obj.user_id == request.user.id \
-                or obj.id in extended_ids
-            ]
-        return objs
-
-    def _api_get_filter(self, obj):
-        if obj.user_id != request.user.id \
-                and not self.checkRole(['admin', 'dm']):
-
-            extended_ids = self.datamapper.getExtendedIds(request.user.id)
-            if obj_id not in extended_ids:
-                abort(403)
-
-        return obj
-
-    def _api_post_filter(self, obj):
-        if not self.checkRole(['player', 'dm']):
-            abort(403, "Invalid role")
-
-        obj.user_id = request.user.id
-
-        return obj
-
-    def _api_patch_filter(self, obj):
-        if not self.checkRole(['player', 'dm']):
-            abort(403, "Invalid role")
-
-        if obj.user_id != request.user.id \
-                and not self.checkRole(['admin', 'dm']):
-            abort(403, "Not owned")
-
-        obj.creation += obj.level_upCreation
-        obj.compute()
-
-        return obj
-
-    def _api_delete_filter(self, obj):
-        if not self.checkRole(['player', 'dm']):
-            abort(403, "Invalid role")
-
-        if obj.user_id != request.user.id \
-                and not self.checkRole(['admin', 'dm']):
-            abort(403, "Not owned")
-
-        return obj
 
 def get_blueprint(basemapper, config):
     return '/character', CharacterBlueprint(
