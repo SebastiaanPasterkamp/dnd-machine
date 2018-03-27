@@ -3,17 +3,17 @@ import unittest
 from __init__ import BaseAppTestCase
 
 class AppUserTestCase(BaseAppTestCase):
-    adminPages = {
-        '/user/list': (200, 'text/html'),
-        '/user/show/1': (200, 'text/html'),
-        '/user/edit/1': (200, 'text/html'),
-        '/user/new': (200, 'text/html'),
-        '/user/api': (200, 'application/json'),
-        '/user/raw/1': (200, 'application/json'),
-        }
 
     def setUp(self):
         super(AppUserTestCase, self).setUp()
+        self.adminPages = {
+            '/user/list': (200, 'text/html'),
+            '/user/show/1': (200, 'text/html'),
+            '/user/edit/1': (200, 'text/html'),
+            '/user/new': (200, 'text/html'),
+            '/user/api': (200, 'application/json'),
+            '/user/raw/1': (200, 'application/json'),
+            }
         users = {
             u'player': [u'player'],
             u'dm': [u'dm']
@@ -37,9 +37,6 @@ class AppUserTestCase(BaseAppTestCase):
 
 
     def testProtectedPages401(self):
-        for page, expected in self.privatePages.items():
-            rv = self.client.get(page)
-            self.assertEqual(rv.status_code, 401)
         for page, expected in self.adminPages.items():
             rv = self.client.get(page)
             self.assertEqual(rv.status_code, 401)
@@ -52,12 +49,6 @@ class AppUserTestCase(BaseAppTestCase):
 
     def testProtectedPages200(self):
         self.doLogin('admin', 'admin')
-        for page, expected in self.privatePages.items():
-            code, mimetype = expected
-            rv = self.client.get(page)
-            self.assertEqual(rv.status_code, code)
-            if mimetype:
-                self.assertEqual(rv.mimetype, mimetype)
         for page, expected in self.adminPages.items():
             code, mimetype = expected
             rv = self.client.get(page)
@@ -72,6 +63,7 @@ class AppUserTestCase(BaseAppTestCase):
                 self.users['player']['id'],
                 ]:
             rv = self.client.get('/user/api/%s' % userId)
+            self.assertEqual(rv.status_code, 200)
             userData = rv.get_json()
             self.assertNotIn('email', userData)
 
