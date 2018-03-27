@@ -9,7 +9,17 @@ from flask import (
     abort
     )
 
+def BaseApiCallback(key):
+    def func_wrapper(func):
+        if not hasattr(func, '_callbacks'):
+            func._callbacks = []
+        func._callbacks.append(key)
+        return func
+    return func_wrapper
+
+
 class BaseApiBlueprint(Blueprint):
+
     def __init__(self, name, fullname, basemapper, config,
                  *args, **kwargs):
         super(BaseApiBlueprint, self).__init__(
@@ -18,6 +28,14 @@ class BaseApiBlueprint(Blueprint):
         self.name = name
         self.basemapper = basemapper
         self.config = config
+
+        self._callbacks = dict(
+            (callback, func)
+            for func in self.__class__.__dict__.values()
+            if callable(func) \
+                and hasattr(func, '_callbacks')
+            for callback in func._callbacks
+            )
 
         self.add_url_rule(
             '/', 'index',
@@ -60,6 +78,12 @@ class BaseApiBlueprint(Blueprint):
             '/recompute/<int:obj_id>', 'recompute',
             self.api_recompute, methods=['POST'])
 
+    def doCallback(self, key, *args, **kwargs):
+        if key not in self._callbacks:
+            return args[0] if len(args) else None
+        result = self._callbacks[key](self, *args, **kwargs)
+        return result
+
     def checkRole(self, roles):
         if request.user is None:
             return False
@@ -73,163 +97,183 @@ class BaseApiBlueprint(Blueprint):
     def _mutableAttributes(self, config, obj=None):
         return config
 
-    def index(self):
+    def index(self, *args, **kwargs):
+        self.doCallback('index', *args, **kwargs)
         return redirect(url_for('%s.overview' % self.name))
 
     def overview(self, *args, **kwargs):
+        self.doCallback('overview', *args, **kwargs)
         return render_template(
             'reactjs-layout.html'
             )
 
-    def show(self, *args, **kwargs):
+    def show(self, obj_id, *args, **kwargs):
+        self.doCallback('show', obj_id, *args, **kwargs)
         return render_template(
             'reactjs-layout.html'
             )
 
     def newObj(self, *args, **kwargs):
+        self.doCallback('new', *args, **kwargs)
         return render_template(
             'reactjs-layout.html'
             )
 
-    def edit(self, *args, **kwargs):
+    def edit(self, obj_id, *args, **kwargs):
+        self.doCallback('edit', obj_id, *args, **kwargs)
         return render_template(
             'reactjs-layout.html'
             )
-
-    def _raw_filter(self, obj):
-        return obj
 
     def raw(self, obj_id):
+        self.doCallback('raw', obj_id)
+
         obj = self.datamapper.getById(obj_id)
-
-        obj = self._raw_filter(obj)
-
-        if not obj:
-            return jsonify(None)
+        obj = self.doCallback(
+            'raw.object',
+            obj,
+            )
 
         return jsonify(obj.config)
 
-    def _api_list_filter(self, objs):
-        return objs
-
     def api_list(self, *args, **kwargs):
-        objects = self.datamapper.getMultiple()
+        self.doCallback('api_list', *args, **kwargs)
 
-        objects = self._api_list_filter(objects, *args, **kwargs)
+        objects = self.datamapper.getMultiple()
+        objects = self.doCallback(
+            'api_list.objects',
+            objects,
+            *args,
+            **kwargs
+            )
 
         return jsonify([
             self._exposeAttributes(obj, *args, **kwargs)
             for obj in objects
             ])
 
-    def _api_get_filter(self, obj):
-        return obj
-
     def api_get(self, obj_id):
+        self.doCallback('api_get', obj_id)
+
         obj = self.datamapper.getById(obj_id)
-
-        obj = self._api_get_filter(obj)
-
         if not obj:
-            return jsonify(None)
+            abort(404, "Object not found")
+
+        obj = self.doCallback(
+            'api_get.object',
+            obj,
+            )
 
         return jsonify(self._exposeAttributes(obj))
 
-    def _api_post_filter(self, obj):
-        return obj
-
     def api_post(self):
-        update = request.get_json()
-        update = dict(
-            (key, value)
-            for key, value in self._mutableAttributes(update).items()
+        self.doCallback('api_post')
+
+        data = request.get_json()
+        data = self._mutableAttributes(data)
+        data = self.doCallback(
+            'api_post.data',
+            data,
             )
 
-        obj = self.datamapper.create(update)
-
+        obj = self.datamapper.create(data)
         if 'id' in obj and obj.id:
             abort(409, "Cannot create with existing ID")
-
-        obj = self._api_post_filter(obj)
-
-        if not obj:
-            return jsonify(None)
+        obj = self.doCallback(
+            'api_post.object',
+            obj,
+            )
 
         obj.compute()
         obj = self.datamapper.insert(obj)
 
         return jsonify(self._exposeAttributes(obj))
 
-    def _api_patch_filter(self, obj):
-        return obj
-
     def api_patch(self, obj_id):
+        self.doCallback('api_patch', obj_id)
+
         obj = self.datamapper.getById(obj_id)
         if not obj:
             abort(404, "Object not found")
 
-        update = request.get_json()
-        update = dict(
-            (key, value)
-            for key, value in self._mutableAttributes(
-                update, obj
-                ).items()
+        obj = self.doCallback(
+            'api_patch.original',
+            obj,
             )
-        obj.update(update)
 
-        if 'id' not in obj or obj.id != obj_id:
+        data = request.get_json()
+        if 'id' in data and data['id'] != obj_id:
             abort(409, "Cannot change ID")
 
-        obj = self._api_patch_filter(obj)
-        if not obj:
-            return jsonify(None)
+        data = self._mutableAttributes(data, obj)
+        data = self.doCallback(
+            'api_patch.data',
+            data,
+            obj,
+            )
+
+        obj.update(data)
+        obj = self.doCallback(
+            'api_patch.object',
+            obj,
+            )
 
         obj.compute()
-
         obj = self.datamapper.update(obj)
 
         return jsonify(self._exposeAttributes(obj))
 
-    def _api_delete_filter(self, obj):
-        abort(403, "Not implemented")
-
     def api_delete(self, obj_id):
+        self.doCallback('api_delete', obj_id)
+
         obj = self.datamapper.getById(obj_id)
         if not obj:
             abort(404, "Object not found")
 
-        obj = self._api_delete_filter(obj)
-
-        if not obj:
-            return jsonify(None)
+        obj = self.doCallback(
+            'api_delete.object',
+            obj,
+            )
 
         self.datamapper.delete(obj)
 
         return jsonify(self._exposeAttributes(obj))
 
-    def _api_recompute_filter(self, obj):
-        return obj
-
     def api_recompute(self, obj_id=None):
-        update = request.get_json()
+        self.doCallback('api_recompute', obj_id)
+
+        data = request.get_json()
+        if obj_id is not None \
+                and 'id' in data \
+                and data['id'] != obj_id:
+            abort(409, "Cannot change ID")
+
         obj = self.datamapper.getById(obj_id)
-        update = dict(
-            (key, value)
-            for key, value in self._mutableAttributes(
-                update, obj
-                ).items()
+        if obj is not None:
+            obj = self.doCallback(
+                'api_patch.original',
+                obj,
+                )
+
+        data = self._mutableAttributes(data, obj)
+        data = self.doCallback(
+            'api_recompute.data',
+            data,
             )
 
         if obj is None:
-            obj = self.datamapper.create(update)
+            obj = self.datamapper.create(data)
             obj = self._api_post_filter(obj)
+            obj = self.doCallback(
+                'api_post.object',
+                obj,
+                )
         else:
-            obj.update(update)
-            if 'id' not in obj or obj.id != obj_id:
-                abort(409, "Cannot change ID")
-            obj = self._api_patch_filter(obj)
-
-        obj = self._api_recompute_filter(obj)
+            obj.update(data)
+            obj = self.doCallback(
+                'api_patch.object',
+                obj,
+                )
 
         obj.compute()
 
