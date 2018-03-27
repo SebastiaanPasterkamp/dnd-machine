@@ -246,7 +246,7 @@ class CharacterObject(JsonObject):
 
         def fixComputed(old, new, pattern=None):
             re_mod = re.compile(pattern or re.escape(old))
-            computed = self._config['computed']
+            computed = self.config.get('computed', {})
             if old in computed:
                 if new not in computed:
                     computed[new] = computed[old]
@@ -258,13 +258,14 @@ class CharacterObject(JsonObject):
                     new,
                     compute['formula']
                     )
-            for ability in self.abilities.values():
+            abilities = self.config.get('abilities', {})
+            for ability in abilities.values():
                 for key, val in ability.items():
                     if not key.endswith('_formula'):
                         continue
                     ability[key] = re_mod.sub(new, val)
 
-        if "base_stats" in self._config:
+        if "base_stats" in self.config:
             fixComputed(
                 "modifiers",
                 "statistics.modifiers",
@@ -272,22 +273,22 @@ class CharacterObject(JsonObject):
                 )
 
             self.statistics = {
-                "bare": self._config['base_stats'],
-                "bonus": self._config['stats_bonus'],
-                "base": self._config['stats'],
-                "modifiers": self._config['modifiers']
+                "bare": self.config['base_stats'],
+                "bonus": self.config['stats_bonus'],
+                "base": self.config['stats'],
+                "modifiers": self.config['modifiers']
                 }
-            del self._config['base_stats']
-            del self._config['stats_bonus']
-            del self._config['stats']
-            del self._config['modifiers']
+            del self.config['base_stats']
+            del self.config['stats_bonus']
+            del self.config['stats']
+            del self.config['modifiers']
 
-        self.personality = self.personality or {}
+        self.personality = self.config.get('personality', {})
         for key in ["traits", "ideals", "bonds", "flaws"]:
-            if key in self._config:
+            if key in self.config:
                 if not self.personality.get(key):
-                    self.personality[key] = self._config[key]
-                del self._config[key]
+                    self.personality[key] = self.config[key]
+                del self.config[key]
 
         migrate = {
             "spell_stat": "spell.stat",
@@ -298,10 +299,10 @@ class CharacterObject(JsonObject):
             }
         for old, new in migrate.items():
             fixComputed(old, new)
-            if old in self._config:
+            if old in self.config:
                 self[new] = self[old]
-                del self._config[old]
-        if "spell_slots" in self._config:
+                del self.config[old]
+        if "spell_slots" in self.config:
             slots = self.spell_slots
             self.spellSlots = {
                 "level_1": slots.get("1st_level", 0),
@@ -314,10 +315,10 @@ class CharacterObject(JsonObject):
                 "level_8": slots.get("8th_level", 0),
                 "level_9": slots.get("9th_level", 0),
                 }
-            del self._config["spell_slots"]
-        if "spells" in self._config:
+            del self.config["spell_slots"]
+        if "spells" in self.config:
             level = self.spells
-            del self._config["spells"]
+            del self.config["spells"]
             if not isinstance(level, dict):
                 level = {}
             self.spellLevel = {
@@ -336,9 +337,9 @@ class CharacterObject(JsonObject):
                 self.spellList = []
                 for spells in level.values():
                     self.spellList.extend(spells)
-        if 'weapon' in self._config:
-            del self._config['weapon']
-        if 'misc' in self.items:
+        if 'weapon' in self.config:
+            del self.config['weapon']
+        if 'misc' in self.config.get('items', {}):
             del self.items['misc']
 
         self.armor = []
@@ -443,7 +444,7 @@ class CharacterObject(JsonObject):
 
         self.abilities = self._expandFormulas(self.abilities)
         # No type-casting
-        self._config['level_up'] = self.getLevelUp()
+        self.config['level_up'] = self.getLevelUp()
 
     def _meetsCondition(self, creation, phase):
         if creation in self.creation:
