@@ -46,23 +46,6 @@ class MonsterBlueprint(BaseApiBlueprint):
         if not self.checkRole(['admin']):
             abort(403)
 
-    @BaseApiCallback('api_list.objects')
-    def adminOrDmMultiple(self, objs):
-        if not self.checkRole(['admin', 'dm']):
-            abort(403)
-        return objs
-
-    @BaseApiCallback('show.object')
-    @BaseApiCallback('edit.object')
-    @BaseApiCallback('api_get.object')
-    @BaseApiCallback('api_post.object')
-    @BaseApiCallback('api_patch.original')
-    @BaseApiCallback('api_delete.object')
-    def adminOrDmSingle(self, objs):
-        if not self.checkRole(['admin', 'dm']):
-            abort(403)
-        return objs
-
 def get_blueprint(basemapper, config):
     return '/monster', MonsterBlueprint(
         'monster',

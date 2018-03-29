@@ -37,33 +37,47 @@ class UserBlueprint(BaseApiBlueprint):
             if key in mutable
             ])
 
+    @BaseApiCallback('index')
     @BaseApiCallback('overview')
     @BaseApiCallback('new')
     @BaseApiCallback('raw')
     @BaseApiCallback('api_list')
     @BaseApiCallback('api_post')
+    @BaseApiCallback('api_copy')
     @BaseApiCallback('api_delete')
     def adminOnly(self, *args, **kwargs):
         if not self.checkRole(['admin']):
             abort(403)
 
+    @BaseApiCallback('api_copy.object')
+    def updateName(self, obj, *args, **kwargs):
+        obj.name += ' (copy)'
+
     @BaseApiCallback('show')
     @BaseApiCallback('edit')
-    @BaseApiCallback('api_patch')
-    @BaseApiCallback('api_recompute')
-    def adminOrOwned(self, obj_id):
+    def adminOrOwnedID(self, obj_id, *args, **kwargs):
         if obj_id != request.user.id \
                 and not self.checkRole(['admin']):
             abort(403)
 
     @BaseApiCallback('api_patch.object')
-    def hashOrPreservePassword(self, obj):
+    @BaseApiCallback('api_recompute.object')
+    def adminOrOwned(self, obj, *args, **kwargs):
+        if obj.id != request.user.id \
+                and not self.checkRole(['admin']):
+            abort(403)
+
+    @BaseApiCallback('api_post.object')
+    def hashPassword(self, obj, *args, **kwargs):
+        obj.setPassword(obj.password)
+
+    @BaseApiCallback('api_patch.object')
+    def hashOrPreservePassword(self, obj, *args, **kwargs):
         old = self.datamapper.getById(obj.id)
         if not len(obj.password):
             obj.password = old.password
         elif obj.password != old.password:
             obj.setPassword(obj.password)
-        return obj
 
 def get_blueprint(basemapper, config):
     return '/user', UserBlueprint(
