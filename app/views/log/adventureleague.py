@@ -77,7 +77,7 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
         character_id = character_id or (
             obj.character_id if obj else None
             )
-        if character_id is None:
+        if not character_id:
             return
         if self.checkRole(['admin']):
             return
