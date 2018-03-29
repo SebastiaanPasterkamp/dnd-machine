@@ -126,7 +126,7 @@ class AdventureLeagueLogTable extends LazyComponent
 {
     shouldDisplayRow(pattern, log) {
         return (
-            (log.name && log.name.match(pattern))
+            (log.adventure.name && log.adventure.name.match(pattern))
             || (log.notes && log.notes.match(pattern))
         );
     }
