@@ -603,7 +603,7 @@ class CharacterMapper(JsonObjectDataMapper):
 
     def getExtendedIds(self, user_id):
         """Returns all character IDs from parties the user has
-        characters in
+        characters in, or DMs for
         """
         cur = self.db.execute("""
             SELECT
@@ -612,12 +612,18 @@ class CharacterMapper(JsonObjectDataMapper):
                 `user_characters` AS uc
                 LEFT JOIN `party_characters` AS pc
                     ON (pc.character_id = uc.character_id)
+                LEFT JOIN `party` AS p
+                    ON (pc.party_id = p.id)
                 LEFT JOIN `party_characters` AS epc
                     ON (epc.party_id = pc.party_id)
             WHERE
                 uc.`user_id` = ?
+                OR p.`user_id` = ?
             """,
-            [user_id]
+            [
+                user_id,
+                user_id
+                ]
             )
         character_ids = cur.fetchall() or []
         return [
