@@ -100,7 +100,7 @@ class AppCharacterTestCase(BaseAppTestCase):
         pages.update(self.protectedPages)
         for page, expected in pages.items():
             rv = self.client.get(page)
-            self.assertEqual(rv.status_code, 401)
+            self.assertResponse(page, rv, 401)
 
     def testPrivatePages200(self):
         self.doLogin('alice', 'alice')
@@ -110,27 +110,13 @@ class AppCharacterTestCase(BaseAppTestCase):
         for page, expected in pages.items():
             code, mimetype = expected
             rv = self.client.get(page)
-            self.assertEqual(
-                rv.status_code,
-                code,
-                "%s: %r vs %r" % (page, rv.status_code, code)
-                )
-            if mimetype:
-                self.assertEqual(
-                    rv.mimetype,
-                    mimetype,
-                    "%s: %r vs %r" % (page, rv.mimetype, mimetype)
-                    )
+            self.assertResponse(page, rv, *expected)
 
     def testProtectedPages403(self):
         self.doLogin('bob', 'bob')
         for page, expected in self.protectedPages.items():
             rv = self.client.get(page)
-            self.assertEqual(
-                rv.status_code,
-                403,
-                "%s: %r vs %r" % (page, rv.status_code, 403)
-                )
+            self.assertResponse(page, rv, 403)
 
     def testProtectedPages200(self):
         self.doLogin('bob', 'bob')
@@ -155,53 +141,29 @@ class AppCharacterTestCase(BaseAppTestCase):
         for page, expected in self.protectedPages.items():
             code, mimetype = expected
             rv = self.client.get(page)
-            self.assertEqual(
-                rv.status_code,
-                code,
-                "%s: %r vs %r" % (page, rv.status_code, code)
-                )
-            if mimetype:
-                self.assertEqual(
-                    rv.mimetype,
-                    mimetype,
-                    "%s: %r vs %r" % (page, rv.mimetype, mimetype)
-                    )
+            self.assertResponse(page, rv, *expected)
 
     def testPrivilegedPages403(self):
         self.doLogin('alice', 'alice')
         for page, expected in self.adminPages.items():
             rv = self.client.get(page)
-            self.assertEqual(
-                rv.status_code,
-                403,
-                "%s: %r vs %r" % (page, rv.status_code, 403)
-                )
+            self.assertResponse(page, rv, 403)
 
     def testPrivilegedPages200(self):
         self.doLogin('admin', 'admin')
         for page, expected in self.adminPages.items():
             code, mimetype = expected
             rv = self.client.get(page)
-            self.assertEqual(
-                rv.status_code,
-                code,
-                "%s: %r vs %r" % (page, rv.status_code, code)
-                )
-            if mimetype:
-                self.assertEqual(
-                    rv.mimetype,
-                    mimetype,
-                    "%s: %r vs %r" % (page, rv.mimetype, mimetype)
-                    )
+            self.assertResponse(page, rv, *expected)
 
     def listCharactersProtected(self):
         self.doLogin('alice', 'alice')
-        rv = self.client.get('/character/api')
         charIds = [
             self.characters['alice']['id']
             ]
-        self.assertEqual(rv.status_code, 200)
-        self.assertEqual(rv.mimetype, 'application/json')
+        page = '/character/api'
+        rv = self.client.get(page)
+        self.assertResponse(page, rv, 200, 'application/json')
         charData = [
             char['id']
             for char in rv.get_json()
@@ -228,9 +190,9 @@ class AppCharacterTestCase(BaseAppTestCase):
                 'party_id': party['id'],
                 'character_id': charId,
                 })
-        rv = self.client.get('/character/api')
-        self.assertEqual(rv.status_code, 200)
-        self.assertEqual(rv.mimetype, 'application/json')
+        page = '/character/api'
+        rv = self.client.get(page)
+        self.assertResponse(page, rv, 200, 'application/json')
         charData = [
             char['id']
             for char in rv.get_json()
@@ -243,9 +205,9 @@ class AppCharacterTestCase(BaseAppTestCase):
             char['id']
             for char in self.characters.values()
             ])
-        rv = self.client.get('/character/api')
-        self.assertEqual(rv.status_code, 200)
-        self.assertEqual(rv.mimetype, 'application/json')
+        page = '/character/api'
+        rv = self.client.get(page)
+        self.assertResponse(page, rv, 200, 'application/json')
         charData = [
             char['id']
             for char in rv.get_json()
@@ -261,9 +223,9 @@ class AppCharacterTestCase(BaseAppTestCase):
         char.update({
             'name': 'test'
             })
-        rv = self.postJSON('/character/api', char)
-        self.assertEqual(rv.status_code, 200)
-        self.assertEqual(rv.mimetype, 'application/json')
+        page = '/character/api'
+        rv = self.postJSON(page, char)
+        self.assertResponse(page, rv, 200, 'application/json')
         charData = rv.get_json()
         self.assertIn('id', charData)
         self.assertDictContainsSubset(char, charData)
@@ -277,8 +239,9 @@ class AppCharacterTestCase(BaseAppTestCase):
         char.update({
             'name': 'test'
             })
-        rv = self.postJSON('/character/api', char)
-        self.assertEqual(rv.status_code, 403)
+        page = '/character/api'
+        rv = self.postJSON(page, char)
+        self.assertResponse(page, rv, 403)
 
     def testEditCharacter200(self):
         self.doLogin('alice', 'alice')
@@ -293,9 +256,9 @@ class AppCharacterTestCase(BaseAppTestCase):
             'user_id': self.users['bob']['id'],
             'xp': 300,
             })
-        rv = self.patchJSON('/character/api/%s' % char['id'], char)
-        self.assertEqual(rv.status_code, 200)
-        self.assertEqual(rv.mimetype, 'application/json')
+        page = '/character/api/%s' % char['id']
+        rv = self.patchJSON(page, char)
+        self.assertResponse(page, rv, 200, 'application/json')
         charData = rv.get_json()
         self.assertDictContainsSubset(orig, charData)
         charData = self.dbGetObject('character', charData['id'])
@@ -311,9 +274,9 @@ class AppCharacterTestCase(BaseAppTestCase):
             'user_id': self.users['bob']['id'],
             'xp': 300,
             })
-        rv = self.patchJSON('/character/api/%s' % char['id'], char)
-        self.assertEqual(rv.status_code, 200)
-        self.assertEqual(rv.mimetype, 'application/json')
+        page = '/character/api/%s' % char['id']
+        rv = self.patchJSON(page, char)
+        self.assertResponse(page, rv, 200, 'application/json')
         charData = rv.get_json()
         char['level'] = 2
         self.assertDictContainsSubset(char, charData)
@@ -331,8 +294,9 @@ class AppCharacterTestCase(BaseAppTestCase):
             'user_id': self.users['bob']['id'],
             'xp': 300,
             })
-        rv = self.patchJSON('/character/api/%s' % char['id'], char)
-        self.assertEqual(rv.status_code, 403)
+        page = '/character/api/%s' % char['id']
+        rv = self.patchJSON(page, char)
+        self.assertResponse(page, rv, 403)
         charData = self.dbGetObject('character', orig['id'])
         self.assertDictContainsSubset(orig, charData)
 
@@ -347,24 +311,27 @@ class AppCharacterTestCase(BaseAppTestCase):
             'name': 'test',
             'xp': 300,
             })
-        rv = self.patchJSON('/character/api/%s' % orig['id'], char)
-        self.assertEqual(rv.status_code, 409)
+        page = '/character/api/%s' % orig['id']
+        rv = self.patchJSON(page, char)
+        self.assertResponse(page, rv, 409)
         charData = self.dbGetObject('character', orig['id'])
         self.assertDictContainsSubset(orig, charData)
 
     def testDeleteCharacter200(self):
         char = self.characters['alice']
         self.doLogin('alice', 'alice')
-        rv = self.client.delete('/character/api/%d' % char['id'])
-        self.assertEqual(rv.status_code, 200)
+        page = '/character/api/%d' % char['id']
+        rv = self.client.delete(page)
+        self.assertResponse(page, rv, 200)
         charData = self.dbGetObject('character', char['id'])
         self.assertIsNone(charData)
 
     def testDeleteCharacter403(self):
         char = self.characters['alice']
         self.doLogin('bob', 'bob')
-        rv = self.client.delete('/character/api/%d' % char['id'])
-        self.assertEqual(rv.status_code, 403)
+        page = '/character/api/%d' % char['id']
+        rv = self.client.delete(page)
+        self.assertResponse(page, rv, 403)
         charData = self.dbGetObject('character', char['id'])
         del char['equipment']
         del char['proficiencies']

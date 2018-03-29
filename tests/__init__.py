@@ -113,6 +113,19 @@ class BaseAppTestCase(unittest.TestCase):
         del obj['config']
         return obj
 
+    def assertResponse(self, page, rv, code, mimetype=None):
+        self.assertEqual(
+            rv.status_code,
+            code,
+            "%s: %r vs %r" % (page, rv.status_code, code)
+            )
+        if mimetype:
+            self.assertEqual(
+                rv.mimetype,
+                mimetype,
+                "%s: %r vs %r" % (page, rv.mimetype, mimetype)
+                )
+
     def postJSON(self, path, data):
         return self.client.post(
             path,
