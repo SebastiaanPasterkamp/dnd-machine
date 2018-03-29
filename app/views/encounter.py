@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from flask import request, abort, render_template, url_for, redirect
 
-from .baseapi import BaseApiBlueprint
+from .baseapi import BaseApiBlueprint, BaseApiCallback
 
 class EncounterBlueprint(BaseApiBlueprint):
+
     @property
     def datamapper(self):
         return self.basemapper.encounter
@@ -24,17 +25,34 @@ class EncounterBlueprint(BaseApiBlueprint):
     def partymapper(self):
         return self.basemapper.party
 
-    def _api_list_filter(self, objs):
+    @BaseApiCallback('index')
+    @BaseApiCallback('overview')
+    @BaseApiCallback('show')
+    @BaseApiCallback('new')
+    @BaseApiCallback('edit')
+    @BaseApiCallback('api_list')
+    @BaseApiCallback('api_get')
+    @BaseApiCallback('api_post')
+    @BaseApiCallback('api_patch')
+    @BaseApiCallback('api_delete')
+    @BaseApiCallback('api_recompute')
+    def adminOrDmOnly(self, *args, **kwargs):
         if not self.checkRole(['admin', 'dm']):
             abort(403)
 
+    @BaseApiCallback('raw')
+    def adminOnly(self):
+        if not self.checkRole(['admin']):
+            abort(403)
+
+    @BaseApiCallback('api_list.objects')
+    def adminOrOwnedMultiple(self, objs):
         if not self.checkRole(['admin']):
             objs = [
                 obj
                 for obj in objs
                 if obj.user_id == request.user.id
                 ]
-
         for obj in objs:
             obj.monsters = [
                 self.monstermapper.getById(monster['id'])
@@ -44,48 +62,14 @@ class EncounterBlueprint(BaseApiBlueprint):
                 obj.party = request.party
         return objs
 
-    def _raw_filter(self, obj):
-        obj.monsters = [
-            self.monstermapper.getById(monster['id'])
-            for monster in obj.monster_ids
-            ]
-        if request.party:
-            obj.party = request.party
-        return obj
-
-    def _api_get_filter(self, obj):
-        obj.monsters = [
-            self.monstermapper.getById(monster['id'])
-            for monster in obj.monster_ids
-            ]
-        if request.party:
-            obj.party = request.party
-        return obj
-
-    def _api_post_filter(self, obj):
-        if not self.checkRole(['admin', 'dm']):
-            abort(403)
-        obj.user_id = request.user.id
-        obj.monsters = [
-            self.monstermapper.getById(monster['id'])
-            for monster in obj.monster_ids
-            ]
-        return obj
-
-    def _api_patch_filter(self, obj):
-        if not self.checkRole(['admin', 'dm']):
-            abort(403)
-        if obj.user_id != request.user.id \
+    @BaseApiCallback('show.object')
+    @BaseApiCallback('edit.object')
+    @BaseApiCallback('api_get.object')
+    @BaseApiCallback('api_patch.object')
+    @BaseApiCallback('api_delete.object')
+    def adminOrOwnedSingle(self, obj):
+        if obj.id != request.user.id \
                 and not self.checkRole(['admin']):
-            abort(403, "Not owned")
-        obj.monsters = [
-            self.monstermapper.getById(monster['id'])
-            for monster in obj.monster_ids
-            ]
-        return obj
-
-    def _api_recompute_filter(self, obj):
-        if not self.checkRole(['admin', 'dm']):
             abort(403)
         obj.monsters = [
             self.monstermapper.getById(monster['id'])
@@ -95,13 +79,17 @@ class EncounterBlueprint(BaseApiBlueprint):
             obj.party = request.party
         return obj
 
-    def _api_delete_filter(self, obj):
+    @BaseApiCallback('api_post.object')
+    def setOwner(self, obj):
         if not self.checkRole(['admin', 'dm']):
             abort(403)
-        if obj.user_id != request.user.id \
-                and not self.checkRole(['admin']):
-            abort(403, "Not owned")
+        obj.id = request.user.id
+        obj.monsters = [
+            self.monstermapper.getById(monster['id'])
+            for monster in obj.monster_ids
+            ]
         return obj
+
 
 def get_blueprint(basemapper, config):
     return '/encounter', EncounterBlueprint(

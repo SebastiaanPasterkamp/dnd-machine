@@ -3,7 +3,7 @@ from flask import request, abort, render_template, url_for, redirect
 
 import re
 
-from .baseapi import BaseApiBlueprint
+from .baseapi import BaseApiBlueprint, BaseApiCallback
 from ..utils import markdownToToc, indent
 from ..filters import filter_unique
 
@@ -29,26 +29,65 @@ class CampaignBlueprint(BaseApiBlueprint):
     def usermapper(self):
         return self.basemapper.user
 
-    def _api_list_filter(self, campaigns):
+    @BaseApiCallback('index')
+    @BaseApiCallback('overview')
+    @BaseApiCallback('show')
+    @BaseApiCallback('new')
+    @BaseApiCallback('edit')
+    @BaseApiCallback('api_list')
+    @BaseApiCallback('api_get')
+    @BaseApiCallback('api_post')
+    @BaseApiCallback('api_patch')
+    @BaseApiCallback('api_delete')
+    @BaseApiCallback('api_recompute')
+    def adminOrDmOnly(self, *args, **kwargs):
         if not self.checkRole(['admin', 'dm']):
             abort(403)
 
+    @BaseApiCallback('raw')
+    def adminOnly(self):
         if not self.checkRole(['admin']):
-            campaigns = [
-                campaign
-                for campaign in campaigns
-                if campaign.user_id == request.user.id
-                ]
+            abort(403)
 
-        return campaigns
+    @BaseApiCallback('api_list.objects')
+    def adminOrOwnedMultiple(self, objs):
+        if self.checkRole(['admin']):
+            return objs
+        objs = [
+            obj
+            for obj in objs
+            if obj.user_id == request.user.id
+            ]
+        return objs
+
+    @BaseApiCallback('show.object')
+    @BaseApiCallback('edit.object')
+    @BaseApiCallback('api_get.object')
+    @BaseApiCallback('api_patch.original')
+    @BaseApiCallback('api_delete.object')
+    def adminOrOwnedSingle(self, obj):
+        if obj.id != request.user.id \
+                and not self.checkRole(['admin']):
+            abort(403)
+
+    @BaseApiCallback('api_post.object')
+    def setOwner(self, obj):
+        if not self.checkRole(['admin', 'dm']):
+            abort(403)
+        obj.id = request.user.id
+        return obj
 
     def show(self, obj_id):
-        campaign = self.datamapper.getById(obj_id)
-        user = self.usermapper.getById(campaign.user_id)
+        self.doCallback('show', obj_id, *args, **kwargs)
+
+        obj = self.datamapper.getById(obj_id)
+        user = self.usermapper.getById(obj.user_id)
+
+        self.doCallback('show.object', obj)
 
         replace = {}
         for match in re.finditer(
-                ur"^/encounter/(\d+)\b", campaign.story, re.M):
+                ur"^/encounter/(\d+)\b", obj.story, re.M):
 
             pattern, encounter_id = \
                 match.group(0), int(match.group(1))
@@ -91,7 +130,7 @@ class CampaignBlueprint(BaseApiBlueprint):
             replace[pattern] += "\n"
 
         for match in re.finditer(
-                ur"^/npc/(\d+)\b", campaign.story, re.M):
+                ur"^/npc/(\d+)\b", obj.story, re.M):
 
             pattern, npc_id = \
                 match.group(0), int(match.group(1))
@@ -110,19 +149,19 @@ class CampaignBlueprint(BaseApiBlueprint):
                     )
                 ) + "\n"
 
-        campaign.story = reduce(
+        obj.story = reduce(
             lambda subject, kv: re.sub(
                 r"%s\b" % kv[0], kv[1], subject
                 ),
             replace.iteritems(),
-            campaign.story
+            obj.story
             )
 
-        campaign.toc = markdownToToc(campaign.story)
+        obj.toc = markdownToToc(obj.story)
 
         return render_template(
             'campaign/show.html',
-            campaign=campaign,
+            campaign=obj,
             user=user
             )
 

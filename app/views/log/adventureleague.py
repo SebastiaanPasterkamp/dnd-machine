@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import ( abort, request, redirect, url_for )
 
-from ..baseapi import BaseApiBlueprint
+from ..baseapi import BaseApiBlueprint, BaseApiCallback
 
 class AdventureLeagueBlueprint(BaseApiBlueprint):
 
@@ -33,32 +33,30 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
     def charactermapper(self):
         return self.basemapper.character
 
-    def copy(self, obj_id):
-        obj = self.datamapper.getById(obj_id)
-        obj.id = None
+    @BaseApiCallback('new')
+    @BaseApiCallback('edit')
+    @BaseApiCallback('overview')
+    @BaseApiCallback('consume')
+    @BaseApiCallback('api_list')
+    @BaseApiCallback('api_post')
+    @BaseApiCallback('api_copy')
+    @BaseApiCallback('api_patch')
+    @BaseApiCallback('api_delete')
+    def dciPlayerOnly(self, *args, **kwargs):
+        if not self.checkRole(['player']):
+            abort(403)
+        if not request.user.dci:
+            abort(403)
+
+    @BaseApiCallback('api_copy.object')
+    def copy(self, obj, *args, **kwargs):
         obj.user_id = request.user.id
         obj.adventureName += u" (Copy)"
+        return obj
 
-        obj = self.datamapper.insert(obj)
-
-        return redirect(url_for(
-            'adventureleague.edit',
-            obj_id=obj.id
-            ))
-
-    def newObj(self, character_id=None, *args, **kwargs):
-        if character_id is None:
-            return super(AdventureLeagueBlueprint, self).newObj(
-                *args, **kwargs)
-        character = self.charactermapper.getById(character_id)
-        if character is None:
-            abort(404)
-        if character.user_id != request.user.id:
-            abort(403, "Not owned")
-        return super(AdventureLeagueBlueprint, self).newObj(
-            *args, **kwargs)
-
-    def _api_list_filter(self, objs, character_id=None):
+    @BaseApiCallback('api_list.objects')
+    def adminOrOwnedAndCharacterFilter(self, objs, *args, **kwargs):
+        character_id = kwargs.get('character_id')
         if character_id is not None:
             objs = [
                 obj
@@ -74,26 +72,41 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
             ]
         return objs
 
-    def _api_post_filter(self, obj):
-        if not self.checkRole(['player']):
-            abort(403)
+    @BaseApiCallback('api_post.object')
+    def setOwnerCheckCharacterOwned(self, obj):
         obj.user_id = request.user.id
-        return obj
-
-    def consume(self, obj_id):
-        obj = self.datamapper.getById(obj_id)
-        if obj is None:
-            abort(404)
-        if obj.consumed:
-            abort(410, "Adventure League Log already consumed")
         if not obj.character_id:
-            abort(409, "The Adventure League Log is not yet claimed")
-
+            return obj
         character = self.charactermapper.getById(obj.character_id)
         if character is None:
             abort(404)
         if character.user_id != request.user.id:
             abort(403, "Not owned")
+        return obj
+
+    @BaseApiCallback('api_patch.object')
+    @BaseApiCallback('api_delete.object')
+    @BaseApiCallback('consume.original')
+    def checkCharacterOwned(self, obj):
+        if not obj.character_id:
+            return obj
+        character = self.charactermapper.getById(obj.character_id)
+        if character is None:
+            abort(404)
+        if character.user_id != request.user.id:
+            abort(403, "Not owned")
+        return obj
+
+    def consume(self, obj_id):
+        self.doCallback('consume', obj_id)
+        obj = self.datamapper.getById(obj_id)
+        if obj is None:
+            abort(404)
+        self.doCallback('consume.original', obj)
+        if obj.consumed:
+            abort(410, "Adventure League Log already consumed")
+        if not obj.character_id:
+            abort(409, "The Adventure League Log is not yet claimed")
 
         mapping = {
             'xp': 'xp',
@@ -126,6 +139,8 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
         obj.consumed = True
         character.compute()
 
+        self.doCallback('consume.object', obj, character)
+
         obj = self.datamapper.update(obj)
         character = self.charactermapper.update(character)
 
@@ -133,21 +148,6 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
             'character.show',
             obj_id=character.id
             ))
-
-
-    def _api_patch_filter(self, obj):
-        if self.checkRole(['admin']):
-            return obj
-        if obj.user_id != request.user.id:
-            abort(403, "Not owned")
-        return obj
-
-    def _api_delete_filter(self, obj):
-        if self.checkRole(['admin']):
-            return obj
-        if obj.user_id != request.user.id:
-            abort(403, "Not owned")
-        return obj
 
 def get_blueprint(basemapper, config):
     return '/log/adventureleague', AdventureLeagueBlueprint(

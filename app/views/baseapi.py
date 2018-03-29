@@ -66,6 +66,9 @@ class BaseApiBlueprint(Blueprint):
             '/api', 'api_post',
             self.api_post, methods=['POST'])
         self.add_url_rule(
+            '/copy/<int:obj_id>', 'api_copy',
+            self.api_copy, methods=['GET'])
+        self.add_url_rule(
             '/api/<int:obj_id>', 'api_patch',
             self.api_patch, methods=['PATCH'])
         self.add_url_rule(
@@ -188,6 +191,29 @@ class BaseApiBlueprint(Blueprint):
         obj = self.datamapper.insert(obj)
 
         return jsonify(self._exposeAttributes(obj))
+
+    def api_copy(self, obj_id):
+        self.doCallback('api_copy', obj_id)
+
+        obj = self.datamapper.getById(obj_id)
+        if not obj:
+            abort(404, "Object not found")
+        obj = self.doCallback(
+            'api_copy.original',
+            obj,
+            )
+
+        obj.id = None
+        obj = self.doCallback(
+            'api_copy.object',
+            obj,
+            )
+
+        obj = self.datamapper.insert(obj)
+        return redirect(url_for(
+            '%s.api_get' % self.name,
+            obj_id=obj.id
+            ))
 
     def api_patch(self, obj_id):
         self.doCallback('api_patch', obj_id)
