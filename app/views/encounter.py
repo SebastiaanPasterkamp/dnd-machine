@@ -48,7 +48,7 @@ class EncounterBlueprint(BaseApiBlueprint):
     @BaseApiCallback('api_list.objects')
     def adminOrOwnedMultiple(self, objs):
         if not self.checkRole(['admin']):
-            objs = [
+            objs[:] = [
                 obj
                 for obj in objs
                 if obj.user_id == request.user.id
@@ -60,7 +60,6 @@ class EncounterBlueprint(BaseApiBlueprint):
                 ]
             if request.party:
                 obj.party = request.party
-        return objs
 
     @BaseApiCallback('show.object')
     @BaseApiCallback('edit.object')

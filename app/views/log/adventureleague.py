@@ -19,9 +19,6 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
             '/new/<int:character_id>', 'new',
             self.newObj, methods=['GET'])
         self.add_url_rule(
-            '/copy/<int:obj_id>', 'copy',
-            self.copy, methods=['GET', 'POST'])
-        self.add_url_rule(
             '/consume/<int:obj_id>', 'consume',
             self.consume)
 
@@ -33,81 +30,94 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
     def charactermapper(self):
         return self.basemapper.character
 
+    @BaseApiCallback('index')
+    @BaseApiCallback('overview')
+    @BaseApiCallback('show')
     @BaseApiCallback('new')
     @BaseApiCallback('edit')
-    @BaseApiCallback('overview')
     @BaseApiCallback('consume')
     @BaseApiCallback('api_list')
+    @BaseApiCallback('api_get')
     @BaseApiCallback('api_post')
     @BaseApiCallback('api_copy')
     @BaseApiCallback('api_patch')
     @BaseApiCallback('api_delete')
+    @BaseApiCallback('api_recompute')
     def dciPlayerOnly(self, *args, **kwargs):
         if not self.checkRole(['player']):
             abort(403)
         if not request.user.dci:
             abort(403)
 
+    @BaseApiCallback('api_post.object')
     @BaseApiCallback('api_copy.object')
-    def copy(self, obj, *args, **kwargs):
+    def setOwner(self, obj, *args, **kwargs):
         obj.user_id = request.user.id
+
+    @BaseApiCallback('api_copy.object')
+    def updateName(self, obj, *args, **kwargs):
         obj.adventureName += u" (Copy)"
-        return obj
+
+    @BaseApiCallback('api_patch.object')
+    @BaseApiCallback('api_delete.object')
+    @BaseApiCallback('consume.original')
+    def adminOrOwned(self, obj, *args, **kwargs):
+        if self.checkRole(['admin']):
+            return
+        if obj.user_id != request.user.id:
+            abort(403, "Not owned")
+
+    @BaseApiCallback('api_list')
+    @BaseApiCallback('api_post.object')
+    @BaseApiCallback('api_patch.object')
+    @BaseApiCallback('api_delete.object')
+    @BaseApiCallback('consume.original')
+    def adminOrCharacterOwned(
+            self, obj=None, character_id=None, *args, **kwargs):
+        character_id = character_id or (
+            obj.character_id if obj else None
+            )
+        if character_id is None:
+            return
+        if self.checkRole(['admin']):
+            return
+        character = self.charactermapper.getById(character_id)
+        if character is None:
+            abort(404)
+        if character.user_id != request.user.id:
+            abort(403, "character not owned")
 
     @BaseApiCallback('api_list.objects')
-    def adminOrOwnedAndCharacterFilter(self, objs, *args, **kwargs):
-        character_id = kwargs.get('character_id')
+    def adminOrOwnedAndCharacterOwned(
+            self, objs, character_id=None, *args, **kwargs):
         if character_id is not None:
-            objs = [
+            objs[:] = [
                 obj
                 for obj in objs
                 if obj.character_id == character_id
                 ]
         if self.checkRole(['admin']):
-            return objs
-        objs = [
+            return
+        objs[:] = [
             obj
             for obj in objs
             if obj.user_id == request.user.id
             ]
-        return objs
-
-    @BaseApiCallback('api_post.object')
-    def setOwnerCheckCharacterOwned(self, obj):
-        obj.user_id = request.user.id
-        if not obj.character_id:
-            return obj
-        character = self.charactermapper.getById(obj.character_id)
-        if character is None:
-            abort(404)
-        if character.user_id != request.user.id:
-            abort(403, "Not owned")
-        return obj
-
-    @BaseApiCallback('api_patch.object')
-    @BaseApiCallback('api_delete.object')
-    @BaseApiCallback('consume.original')
-    def checkCharacterOwned(self, obj):
-        if not obj.character_id:
-            return obj
-        character = self.charactermapper.getById(obj.character_id)
-        if character is None:
-            abort(404)
-        if character.user_id != request.user.id:
-            abort(403, "Not owned")
-        return obj
 
     def consume(self, obj_id):
         self.doCallback('consume', obj_id)
+
         obj = self.datamapper.getById(obj_id)
         if obj is None:
             abort(404)
         self.doCallback('consume.original', obj)
+
         if obj.consumed:
             abort(410, "Adventure League Log already consumed")
         if not obj.character_id:
             abort(409, "The Adventure League Log is not yet claimed")
 
+        character = self.charactermapper.getById(character_id)
         mapping = {
             'xp': 'xp',
             'downtime': 'downtime',

@@ -27,14 +27,6 @@ class NpcBlueprint(BaseApiBlueprint):
             self._npc_data = get_npc_data()
         return self._npc_data
 
-    def find_npc_field(self, field, value):
-        for data in self.npc_data[field]:
-            for sub in data.get('sub', []):
-                if sub['name'] == value:
-                    return data, sub
-            if data['name'] == value:
-                return data, None
-
     def get_races(self):
         def _race_attribs(race):
             return dict(
@@ -67,14 +59,6 @@ class NpcBlueprint(BaseApiBlueprint):
 
         return result
 
-    def find_npc_field(self, npc_data, field, value):
-        for data in npc_data[field]:
-            for sub in data.get('sub', []):
-                if sub['name'] == value:
-                    return data, sub
-            if data['name'] == value:
-                return data, None
-
     @BaseApiCallback('index')
     @BaseApiCallback('overview')
     @BaseApiCallback('show')
@@ -94,23 +78,6 @@ class NpcBlueprint(BaseApiBlueprint):
     def adminOnly(self):
         if not self.checkRole(['admin']):
             abort(403)
-
-    @BaseApiCallback('api_list.objects')
-    def adminOrDmMultiple(self, objs):
-        if not self.checkRole(['admin', 'dm']):
-            abort(403)
-        return objs
-
-    @BaseApiCallback('show.object')
-    @BaseApiCallback('edit.object')
-    @BaseApiCallback('api_get.object')
-    @BaseApiCallback('api_post.object')
-    @BaseApiCallback('api_patch.original')
-    @BaseApiCallback('api_delete.object')
-    def adminOrDmSingle(self, objs):
-        if not self.checkRole(['admin', 'dm']):
-            abort(403)
-        return objs
 
 def get_blueprint(basemapper, config):
     return '/npc', NpcBlueprint(

@@ -30,9 +30,6 @@ class CharacterBlueprint(BaseApiBlueprint):
             '/download/<int:obj_id>', 'download',
             self.download)
         self.add_url_rule(
-            '/copy/<int:obj_id>', 'copy',
-            self.copy, methods=['GET', 'POST'])
-        self.add_url_rule(
             '/xp/<int:obj_id>/<int:xp>', 'xp',
             self.xp, methods=['GET', 'POST'])
         self.add_url_rule(
@@ -122,7 +119,7 @@ class CharacterBlueprint(BaseApiBlueprint):
 
     @BaseApiCallback('new')
     @BaseApiCallback('edit')
-    @BaseApiCallback('copy')
+    @BaseApiCallback('api_copy')
     @BaseApiCallback('api_post')
     @BaseApiCallback('api_patch')
     @BaseApiCallback('api_delete')
@@ -131,6 +128,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             abort(403)
 
     @BaseApiCallback('api_post.object')
+    @BaseApiCallback('api_copy.object')
     def setOwner(self, obj):
         obj.user_id = request.user.id
         return obj
@@ -155,23 +153,21 @@ class CharacterBlueprint(BaseApiBlueprint):
         return obj
 
     @BaseApiCallback('api_list.objects')
-    def adminDmOrExtendedMultiple(self, objects):
+    def adminDmOrExtendedMultiple(self, objs):
         if self.checkRole(['admin', 'dm']):
             return objects
-
         extended_ids = self.datamapper.getExtendedIds(
             request.user.id
             )
-        objects = [
+        objs[:] = [
             obj
-            for obj in objects
+            for obj in objs
             if obj.user_id == request.user.id \
                 or obj.id in extended_ids
             ]
-        return objects
 
     @BaseApiCallback('api_get.object')
-    @BaseApiCallback('copy.object')
+    @BaseApiCallback('api_copy.original')
     @BaseApiCallback('download.object')
     def adminDmOrExtendedSingle(self, obj):
         if obj.user_id == request.user.id \
@@ -191,7 +187,7 @@ class CharacterBlueprint(BaseApiBlueprint):
         obj = self.datamapper.getById(obj_id)
         if obj is None:
             abort(404)
-        obj = self.doCallback(
+        self.doCallback(
             'download.object',
             obj,
             )
@@ -543,33 +539,15 @@ class CharacterBlueprint(BaseApiBlueprint):
             attachment_filename=filename
             )
 
-    def copy(self, obj_id):
-        self.doCallback('copy', obj_id)
-
-        obj = self.datamapper.getById(obj_id)
-        if obj is None:
-            abort(404)
-        obj = self.doCallback(
-            'copy.object',
-            obj,
-            )
-
-        obj.id = None
-        obj.user_id = request.user.id
+    @BaseApiCallback('api_copy.object')
+    def changeName(self, obj, *args, **kwargs):
         obj.name += u" (Copy)"
-
-        obj = self.datamapper.insert(obj)
-
-        return redirect(url_for(
-            'character.edit',
-            obj_id=obj.id
-            ))
 
     def xp(self, obj_id, xp):
         self.doCallback('xp', obj_id, xp)
 
         obj = self.datamapper.getById(obj_id)
-        obj = self.doCallback('xp.object', obj, xp)
+        self.doCallback('xp.object', obj, xp)
 
         obj.xp += xp
         obj.compute()
@@ -602,7 +580,7 @@ class CharacterBlueprint(BaseApiBlueprint):
         reset.user_id = character.user_id
         reset.compute()
 
-        reset = self.doCallback('reset.object', reset)
+        self.doCallback('reset.object', reset)
         reset = self.datamapper.update(reset)
 
         return redirect(url_for(

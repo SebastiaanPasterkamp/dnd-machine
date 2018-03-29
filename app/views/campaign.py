@@ -52,13 +52,12 @@ class CampaignBlueprint(BaseApiBlueprint):
     @BaseApiCallback('api_list.objects')
     def adminOrOwnedMultiple(self, objs):
         if self.checkRole(['admin']):
-            return objs
-        objs = [
+            return
+        objs[:] = [
             obj
             for obj in objs
             if obj.user_id == request.user.id
             ]
-        return objs
 
     @BaseApiCallback('show.object')
     @BaseApiCallback('edit.object')

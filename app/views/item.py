@@ -4,11 +4,13 @@ from flask import Blueprint, abort, render_template, jsonify
 from .. import get_datamapper
 
 def register_paths(blueprint, basemapper, config):
+
     @blueprint.route('/<string:item>/list')
     def overview(self, item):
         return render_template(
             'reactjs-layout.html'
             )
+
     @blueprint.route('/<string:item>/api')
     def get_item(item):
         if item in basemapper.items:

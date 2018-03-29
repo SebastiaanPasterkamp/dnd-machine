@@ -66,9 +66,9 @@ class PartyBlueprint(BaseApiBlueprint):
         return visible
 
     @BaseApiCallback('api_list.objects')
-    def adminOrOwnedMultiple(self, objs):
+    def filterVisibleMultiple(self, objs, *args, **kwargs):
         visible = self._getVisibleParties()
-        objs = [
+        objs[:] = [
             obj
             for obj in objs
             if obj.id in visible
@@ -77,20 +77,37 @@ class PartyBlueprint(BaseApiBlueprint):
             obj.members = self.charactermapper.getByPartyId(obj.id)
         return objs
 
-    @BaseApiCallback('api_get.objects')
-    def _api_get_filter(self, obj):
-        obj.members = self.charactermapper.getByPartyId(obj.id)
-        return obj
+    @BaseApiCallback('api_get')
+    def filterVisibleSingle(self, obj_id, *args, **kwargs):
+        visible = self._getVisibleParties()
+        if obj.id not in visible:
+            abort(403)
 
-    @BaseApiCallback('api_post')
-    @BaseApiCallback('api_patch')
+    @BaseApiCallback('api_get.object')
+    @BaseApiCallback('api_patch.object')
+    @BaseApiCallback('api_copy.object')
+    @BaseApiCallback('xp.original')
+    @BaseApiCallback('xp.object')
+    def setMembers(self, obj, *args, **kwargs):
+        obj.members = self.charactermapper.getByPartyId(obj.id)
+
+    @BaseApiCallback('show')
     @BaseApiCallback('new')
+    @BaseApiCallback('edit')
+    @BaseApiCallback('xp')
+    @BaseApiCallback('api_post')
+    @BaseApiCallback('api_copy')
+    @BaseApiCallback('api_patch')
     @BaseApiCallback('recompute')
     @BaseApiCallback('get_hosting')
     @BaseApiCallback('set_hosting')
-    @BaseApiCallback('xp')
     def adminOrDmOnly(self, *args, **kwargs):
         if not self.checkRole(['admin', 'dm']):
+            abort(403)
+
+    @BaseApiCallback('raw')
+    def adminOnly(self, *args, **kwargs):
+        if not self.checkRole(['admin']):
             abort(403)
 
     @BaseApiCallback('api_delete.object')
@@ -99,20 +116,11 @@ class PartyBlueprint(BaseApiBlueprint):
         if obj.user_id != request.user.id \
                 and not self.checkRole(['admin', 'dm']):
             abort(403)
-        obj.members = [
-            self.charactermapper.getById(member_id)
-            for member_id in obj.member_ids
-            ]
-        return obj
 
     @BaseApiCallback('api_post.objects')
-    def setOwnerAndMembers(self, obj):
+    @BaseApiCallback('api_copy.objects')
+    def setOwner(self, obj):
         obj.user_id = request.user.id
-        obj.members = [
-            self.charactermapper.getById(member_id)
-            for member_id in obj.member_ids
-            ]
-        return obj
 
     def get_hosting(self):
         self.doCallback('get_hosting')
@@ -139,19 +147,22 @@ class PartyBlueprint(BaseApiBlueprint):
         obj = self.datamapper.getById(obj_id)
         if obj is None:
             return jsonify(None)
-        obj = self.doCallback(
-            'xp.object',
+        self.doCallback(
+            'xp.original',
             obj,
             xp,
             )
 
-        obj.members = self.charactermapper.getByPartyId(obj.id)
         for member in obj.members:
             member.xp += int(xp / obj.size)
             member.compute()
             self.charactermapper.update(member)
-        obj.members = self.charactermapper.getByPartyId(obj.id)
 
+        self.doCallback(
+            'xp.object',
+            obj,
+            xp,
+            )
         obj = self.datamapper.update(obj)
 
         return redirect(url_for(
