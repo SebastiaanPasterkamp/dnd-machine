@@ -29,13 +29,16 @@ class BaseApiBlueprint(Blueprint):
         self.basemapper = basemapper
         self.config = config
 
-        self._callbacks = dict(
-            (callback, func)
-            for func in self.__class__.__dict__.values()
-            if callable(func) \
-                and hasattr(func, '_callbacks')
-            for callback in func._callbacks
-            )
+        self._callbacks = {}
+        for func in self.__class__.__dict__.values():
+            if not callable(func):
+                continue
+            if not hasattr(func, '_callbacks'):
+                continue
+            for callback in func._callbacks:
+                callbacks = self._callbacks.get(callback, [])
+                callbacks.append(func)
+                self._callbacks[callback] = callbacks
 
         self.add_url_rule(
             '/', 'index',
@@ -82,10 +85,8 @@ class BaseApiBlueprint(Blueprint):
             self.api_recompute, methods=['POST'])
 
     def doCallback(self, key, *args, **kwargs):
-        if key not in self._callbacks:
-            return args[0] if len(args) else None
-        result = self._callbacks[key](self, *args, **kwargs)
-        return result
+        for callback in self._callbacks.get(key, []):
+            callback(self, *args, **kwargs)
 
     def checkRole(self, roles):
         if request.user is None:
@@ -132,7 +133,7 @@ class BaseApiBlueprint(Blueprint):
         self.doCallback('raw', obj_id)
 
         obj = self.datamapper.getById(obj_id)
-        obj = self.doCallback(
+        self.doCallback(
             'raw.object',
             obj,
             )
@@ -142,17 +143,17 @@ class BaseApiBlueprint(Blueprint):
     def api_list(self, *args, **kwargs):
         self.doCallback('api_list', *args, **kwargs)
 
-        objects = self.datamapper.getMultiple()
-        objects = self.doCallback(
+        objs = self.datamapper.getMultiple()
+        self.doCallback(
             'api_list.objects',
-            objects,
+            objs,
             *args,
             **kwargs
             )
 
         return jsonify([
             self._exposeAttributes(obj, *args, **kwargs)
-            for obj in objects
+            for obj in objs
             ])
 
     def api_get(self, obj_id):
@@ -162,7 +163,7 @@ class BaseApiBlueprint(Blueprint):
         if not obj:
             abort(404, "Object not found")
 
-        obj = self.doCallback(
+        self.doCallback(
             'api_get.object',
             obj,
             )
@@ -174,7 +175,7 @@ class BaseApiBlueprint(Blueprint):
 
         data = request.get_json()
         data = self._mutableAttributes(data)
-        data = self.doCallback(
+        self.doCallback(
             'api_post.data',
             data,
             )
@@ -182,7 +183,7 @@ class BaseApiBlueprint(Blueprint):
         obj = self.datamapper.create(data)
         if 'id' in obj and obj.id:
             abort(409, "Cannot create with existing ID")
-        obj = self.doCallback(
+        self.doCallback(
             'api_post.object',
             obj,
             )
@@ -198,13 +199,13 @@ class BaseApiBlueprint(Blueprint):
         obj = self.datamapper.getById(obj_id)
         if not obj:
             abort(404, "Object not found")
-        obj = self.doCallback(
+        self.doCallback(
             'api_copy.original',
             obj,
             )
 
         obj.id = None
-        obj = self.doCallback(
+        self.doCallback(
             'api_copy.object',
             obj,
             )
@@ -222,7 +223,7 @@ class BaseApiBlueprint(Blueprint):
         if not obj:
             abort(404, "Object not found")
 
-        obj = self.doCallback(
+        self.doCallback(
             'api_patch.original',
             obj,
             )
@@ -232,14 +233,14 @@ class BaseApiBlueprint(Blueprint):
             abort(409, "Cannot change ID")
 
         data = self._mutableAttributes(data, obj)
-        data = self.doCallback(
+        self.doCallback(
             'api_patch.data',
             data,
             obj,
             )
 
         obj.update(data)
-        obj = self.doCallback(
+        self.doCallback(
             'api_patch.object',
             obj,
             )
@@ -256,7 +257,7 @@ class BaseApiBlueprint(Blueprint):
         if not obj:
             abort(404, "Object not found")
 
-        obj = self.doCallback(
+        self.doCallback(
             'api_delete.object',
             obj,
             )
@@ -276,13 +277,13 @@ class BaseApiBlueprint(Blueprint):
 
         obj = self.datamapper.getById(obj_id)
         if obj is not None:
-            obj = self.doCallback(
+            self.doCallback(
                 'api_patch.original',
                 obj,
                 )
 
         data = self._mutableAttributes(data, obj)
-        data = self.doCallback(
+        self.doCallback(
             'api_recompute.data',
             data,
             )
@@ -290,13 +291,13 @@ class BaseApiBlueprint(Blueprint):
         if obj is None:
             obj = self.datamapper.create(data)
             obj = self._api_post_filter(obj)
-            obj = self.doCallback(
+            self.doCallback(
                 'api_post.object',
                 obj,
                 )
         else:
             obj.update(data)
-            obj = self.doCallback(
+            self.doCallback(
                 'api_patch.object',
                 obj,
                 )
