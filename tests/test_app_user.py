@@ -39,22 +39,19 @@ class AppUserTestCase(BaseAppTestCase):
     def testProtectedPages401(self):
         for page, expected in self.adminPages.items():
             rv = self.client.get(page)
-            self.assertEqual(rv.status_code, 401)
+            self.assertResponse(page, rv, 401)
 
     def testProtectedPages403(self):
         self.doLogin('player', 'player')
         for page, expected in self.adminPages.items():
             rv = self.client.get(page)
-            self.assertEqual(rv.status_code, 403)
+            self.assertResponse(page, rv, 403)
 
     def testProtectedPages200(self):
         self.doLogin('admin', 'admin')
         for page, expected in self.adminPages.items():
-            code, mimetype = expected
             rv = self.client.get(page)
-            self.assertEqual(rv.status_code, code)
-            if mimetype:
-                self.assertEqual(rv.mimetype, mimetype)
+            self.assertResponse(page, rv, *expected)
 
     def testProtectedContentGet(self):
         self.doLogin('dm', 'dm')
@@ -62,8 +59,9 @@ class AppUserTestCase(BaseAppTestCase):
                 1,
                 self.users['player']['id'],
                 ]:
-            rv = self.client.get('/user/api/%s' % userId)
-            self.assertEqual(rv.status_code, 200)
+            page = '/user/api/%s' % userId
+            rv = self.client.get(page)
+            self.assertResponse(page, rv, 200, 'application/json')
             userData = rv.get_json()
             self.assertNotIn('email', userData)
 
@@ -73,7 +71,9 @@ class AppUserTestCase(BaseAppTestCase):
                 self.users['dm']['id'],
                 self.users['player']['id'],
                 ]:
-            rv = self.client.get('/user/api/%s' % userId)
+            page = '/user/api/%s' % userId
+            rv = self.client.get(page)
+            self.assertResponse(page, rv, 200, 'application/json')
             userData = rv.get_json()
             self.assertIn('email', userData)
 
@@ -85,11 +85,12 @@ class AppUserTestCase(BaseAppTestCase):
 
         for user in users:
             self.doLogin(user['username'], user['password'])
-            rv = self.patchJSON('/user/api/%s' % user['id'], {
+            page = '/user/api/%s' % user['id']
+            rv = self.patchJSON(page, {
                 'id': user['id'],
                 'role': ['admin']
                 })
-            self.assertEqual(200, rv.status_code)
+            self.assertResponse(page, rv, 200, 'application/json')
             userData = rv.get_json()
             self.assertNotIn(u'admin', userData['role'])
             userData = self.dbGetObject('users', user['id'])
@@ -97,20 +98,21 @@ class AppUserTestCase(BaseAppTestCase):
 
         self.doLogin('admin', 'admin')
         for user in users:
-            rv = self.patchJSON('/user/api/%s' % user['id'], {
+            page = '/user/api/%s' % user['id']
+            rv = self.patchJSON(page, {
                 'id': user['id'],
                 'role': ['admin']
                 })
-            self.assertEqual(200, rv.status_code)
+            self.assertResponse(page, rv, 200, 'application/json')
             userData = rv.get_json()
             self.assertEqual([u'admin'], userData['role'])
 
     def testCreateUser(self):
         user = self.newUser
         self.doLogin('admin', 'admin')
-        rv = self.postJSON('/user/api', self.newUser)
-        self.assertEqual(rv.status_code, 200)
-        self.assertEqual(rv.mimetype, 'application/json')
+        page = '/user/api'
+        rv = self.postJSON(page, self.newUser)
+        self.assertResponse(page, rv, 200, 'application/json')
         userData = rv.get_json()
         self.assertIn('id', userData)
         del user['password']
@@ -121,16 +123,17 @@ class AppUserTestCase(BaseAppTestCase):
     def testCreateUser403(self):
         user = self.newUser
         self.doLogin('player', 'player')
-        rv = self.postJSON('/user/api', user)
-        self.assertEqual(rv.status_code, 403)
+        page = '/user/api'
+        rv = self.postJSON(page, user)
+        self.assertResponse(page, rv, 403)
 
     def testEditUser(self):
         user = self.newUser
         user['id'] = self.users['player']['id']
         self.doLogin('admin', 'admin')
-        rv = self.patchJSON('/user/api/%d' % user['id'], user)
-        self.assertEqual(rv.status_code, 200)
-        self.assertEqual(rv.mimetype, 'application/json')
+        page = '/user/api/%d' % user['id']
+        rv = self.patchJSON(page, user)
+        self.assertResponse(page, rv, 200, 'application/json')
         userData = rv.get_json()
         del user['password']
         self.assertDictContainsSubset(user, userData)
@@ -142,16 +145,18 @@ class AppUserTestCase(BaseAppTestCase):
         user['id'] = self.users['player']['id']
         self.doLogin('player', 'player')
         user['password'] = ''
-        rv = self.patchJSON('/user/api/%d' % user['id'], user)
-        self.assertEqual(rv.status_code, 200)
+        page = '/user/api/%d' % user['id']
+        rv = self.patchJSON(page, user)
+        self.assertResponse(page, rv, 200, 'application/json')
         rv = self.doLogin('player', '')
         self.assertEqual(rv.status_code, 401)
         rv = self.doLogin('player', 'player')
         self.assertEqual(rv.status_code, 302)
 
         user['password'] = 'foobar'
-        rv = self.patchJSON('/user/api/%d' % user['id'], user)
-        self.assertEqual(rv.status_code, 200)
+        page = '/user/api/%d' % user['id']
+        rv = self.patchJSON(page, user)
+        self.assertResponse(page, rv, 200, 'application/json')
         rv = self.doLogin('player', 'player')
         self.assertEqual(rv.status_code, 401)
         rv = self.doLogin('player', 'foobar')
@@ -161,21 +166,25 @@ class AppUserTestCase(BaseAppTestCase):
         user = self.newUser
         user['id'] = self.users['dm']['id']
         self.doLogin('player', 'player')
-        rv = self.patchJSON('/user/api/%d' % user['id'], user)
-        self.assertEqual(rv.status_code, 403)
+        page = '/user/api/%d' % user['id']
+        rv = self.patchJSON(page, user)
+        self.assertResponse(page, rv, 403)
 
     def testDeleteUser(self):
         user = self.users['player']
         self.doLogin('admin', 'admin')
-        rv = self.client.delete('/user/api/%d' % user['id'])
-        self.assertEqual(rv.status_code, 200)
+        page = '/user/api/%d' % user['id']
+        rv = self.client.delete(page)
+        self.assertResponse(page, rv, 200, 'application/json')
         userData = self.dbGetObject('users', user['id'])
         self.assertIsNone(userData)
 
     def testDeleteUser403(self):
         user = self.users['player']
         self.doLogin('player', 'player')
-        rv = self.client.delete('/user/api/%d' % user['id'])
+        page = '/user/api/%d' % user['id']
+        rv = self.client.delete(page)
+        self.assertResponse(page, rv, 403)
         self.assertEqual(rv.status_code, 403)
         userData = self.dbGetObject('users', user['id'])
         del user['password']
