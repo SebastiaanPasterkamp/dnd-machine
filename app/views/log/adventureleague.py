@@ -117,7 +117,7 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
         if not obj.character_id:
             abort(409, "The Adventure League Log is not yet claimed")
 
-        character = self.charactermapper.getById(character_id)
+        character = self.charactermapper.getById(obj.character_id)
         mapping = {
             'xp': 'xp',
             'downtime': 'downtime',
