@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import request, abort, render_template, jsonify
 
-from .baseapi import BaseApiBlueprint
+from .baseapi import BaseApiBlueprint, BaseApiCallback
 from ..config import get_npc_data
 from ..filters import filter_bonus, filter_unique
 
@@ -75,25 +75,42 @@ class NpcBlueprint(BaseApiBlueprint):
             if data['name'] == value:
                 return data, None
 
-    def _raw_filter(self, obj):
-        if 'admin' not in request.user.role:
+    @BaseApiCallback('index')
+    @BaseApiCallback('overview')
+    @BaseApiCallback('show')
+    @BaseApiCallback('new')
+    @BaseApiCallback('edit')
+    @BaseApiCallback('api_list')
+    @BaseApiCallback('api_get')
+    @BaseApiCallback('api_post')
+    @BaseApiCallback('api_patch')
+    @BaseApiCallback('api_delete')
+    @BaseApiCallback('api_recompute')
+    def adminOrDmOnly(self, *args, **kwargs):
+        if not self.checkRole(['admin', 'dm']):
             abort(403)
-        return obj
 
-    def _api_post_filter(self, obj):
-        if 'dm' not in request.user['role']:
+    @BaseApiCallback('raw')
+    def adminOnly(self):
+        if not self.checkRole(['admin']):
             abort(403)
-        return obj
 
-    def _api_patch_filter(self, obj):
-        if 'dm' not in request.user['role']:
+    @BaseApiCallback('api_list.objects')
+    def adminOrDmMultiple(self, objs):
+        if not self.checkRole(['admin', 'dm']):
             abort(403)
-        return obj
+        return objs
 
-    def _api_delete_filter(self, obj):
-        if 'dm' not in request.user['role']:
+    @BaseApiCallback('show.object')
+    @BaseApiCallback('edit.object')
+    @BaseApiCallback('api_get.object')
+    @BaseApiCallback('api_post.object')
+    @BaseApiCallback('api_patch.original')
+    @BaseApiCallback('api_delete.object')
+    def adminOrDmSingle(self, objs):
+        if not self.checkRole(['admin', 'dm']):
             abort(403)
-        return obj
+        return objs
 
 def get_blueprint(basemapper, config):
     return '/npc', NpcBlueprint(

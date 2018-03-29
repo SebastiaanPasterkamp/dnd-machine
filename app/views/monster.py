@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import request, abort, render_template, url_for
 
-from .baseapi import BaseApiBlueprint
-from ..config import get_config
+from .baseapi import BaseApiBlueprint, BaseApiCallback
 
 class MonsterBlueprint(BaseApiBlueprint):
     @property
@@ -27,48 +26,42 @@ class MonsterBlueprint(BaseApiBlueprint):
 
         return result
 
-    def new(self):
-        monster = self.datamapper.create()
-
-        if request.method == 'POST':
-            if request.form["button"] == "cancel":
-                return redirect(url_for(
-                    'monster.overview'
-                    ))
-
-            monster.updateFromPost(request.form)
-
-            if request.form.get("button", "save") == "save":
-                monster = self.datamapper.insert(monster)
-                return redirect(url_for(
-                    'monster.show',
-                    obj_id=monster.id
-                    ))
-
-        config = get_config()
-        return render_template(
-            'monster/edit.html',
-            languages=self.basemapper.items.getList(
-                'languages.common,languages.exotic'
-                ),
-            machine=config['machine'],
-            monster=monster
-            )
-
-    def _api_post_filter(self, obj):
-        if not self.checkRole(['dm']):
+    @BaseApiCallback('index')
+    @BaseApiCallback('overview')
+    @BaseApiCallback('show')
+    @BaseApiCallback('new')
+    @BaseApiCallback('edit')
+    @BaseApiCallback('api_list')
+    @BaseApiCallback('api_get')
+    @BaseApiCallback('api_post')
+    @BaseApiCallback('api_patch')
+    @BaseApiCallback('api_delete')
+    @BaseApiCallback('api_recompute')
+    def adminOrDmOnly(self, *args, **kwargs):
+        if not self.checkRole(['admin', 'dm']):
             abort(403)
-        return obj
 
-    def _api_patch_filter(self, obj):
-        if not self.checkRole(['dm']):
+    @BaseApiCallback('raw')
+    def adminOnly(self):
+        if not self.checkRole(['admin']):
             abort(403)
-        return obj
 
-    def _api_delete_filter(self, obj):
-        if not self.checkRole(['dm']):
+    @BaseApiCallback('api_list.objects')
+    def adminOrDmMultiple(self, objs):
+        if not self.checkRole(['admin', 'dm']):
             abort(403)
-        return obj
+        return objs
+
+    @BaseApiCallback('show.object')
+    @BaseApiCallback('edit.object')
+    @BaseApiCallback('api_get.object')
+    @BaseApiCallback('api_post.object')
+    @BaseApiCallback('api_patch.original')
+    @BaseApiCallback('api_delete.object')
+    def adminOrDmSingle(self, objs):
+        if not self.checkRole(['admin', 'dm']):
+            abort(403)
+        return objs
 
 def get_blueprint(basemapper, config):
     return '/monster', MonsterBlueprint(
