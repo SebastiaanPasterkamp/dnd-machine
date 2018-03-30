@@ -67,16 +67,15 @@ class CharacterBlueprint(BaseApiBlueprint):
                 or self.checkRole(['admin', 'dm']):
             return obj.config
 
-        exposed = set([
-            'id', 'name', 'gender', 'race', 'class', 'alignment',
-            'background', 'level', 'xp', 'xp_progress',
-            'user_id', 'xp_level', 'challenge', 'spell',
-            'downtime', 'renown', 'adventure_items',
+        protected = set([
+            'creation', 'background', 'personality', 'computed',
+            'wealth', 'level_up',
             ])
+
         return dict(
             (key, value)
             for key, value in obj.config.iteritems()
-            if key in exposed
+            if key not in protected
             )
 
     def _mutableAttributes(self, update, obj=None):
@@ -428,7 +427,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                     if prop == 'thrown':
                         tag += " (%s)" % filter_distance(weapon['range'])
                     if prop == 'versatile':
-                        tag += " (%s)" % filter_damage(weapon['versatile']),
+                        tag += " (%s)" % filter_damage(weapon['versatile'])
                     desc.append(tag)
                 if len(desc):
                     equipment[-1].append("  " + ", ".join(desc))
