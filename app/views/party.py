@@ -31,17 +31,12 @@ class PartyBlueprint(BaseApiBlueprint):
     def charactermapper(self):
         return self.basemapper.character
 
-    @property
-    def usermapper(self):
-        return self.basemapper.user
-
     def _exposeAttributes(self, obj):
         fields = set([
             'id', 'user_id', 'name', 'size', 'description',
             'member_ids'
             ])
-        if self.checkRole(['admin', 'dm']) \
-                and obj.user_id == request.user.id:
+        if self.checkRole(['admin', 'dm']):
             fields |= set([
                 'challenge'
                 ])
@@ -53,8 +48,6 @@ class PartyBlueprint(BaseApiBlueprint):
 
     def _getVisibleParties(self):
         visible = set()
-        if self.checkRole(['admin']):
-            visible = set([obj.id for obj in objs])
         if self.checkRole(['player']):
             visible |= set(
                 self.datamapper.getIdsByUserId(request.user.id)
@@ -67,19 +60,22 @@ class PartyBlueprint(BaseApiBlueprint):
 
     @BaseApiCallback('api_list.objects')
     def filterVisibleMultiple(self, objs, *args, **kwargs):
-        visible = self._getVisibleParties()
-        objs[:] = [
-            obj
-            for obj in objs
-            if obj.id in visible
-            ]
+        if not self.checkRole(['admin']):
+            visible = self._getVisibleParties()
+            objs[:] = [
+                obj
+                for obj in objs
+                if obj.id in visible
+                ]
         for obj in objs:
             obj.members = self.charactermapper.getByPartyId(obj.id)
 
     @BaseApiCallback('api_get')
     def filterVisibleSingle(self, obj_id, *args, **kwargs):
+        if self.checkRole(['admin']):
+            return
         visible = self._getVisibleParties()
-        if obj.id not in visible:
+        if obj_id not in visible:
             abort(403)
 
     @BaseApiCallback('api_get.object')
@@ -116,8 +112,8 @@ class PartyBlueprint(BaseApiBlueprint):
                 and not self.checkRole(['admin', 'dm']):
             abort(403)
 
-    @BaseApiCallback('api_post.objects')
-    @BaseApiCallback('api_copy.objects')
+    @BaseApiCallback('api_post.object')
+    @BaseApiCallback('api_copy.object')
     def setOwner(self, obj):
         obj.user_id = request.user.id
 
@@ -145,7 +141,7 @@ class PartyBlueprint(BaseApiBlueprint):
 
         obj = self.datamapper.getById(obj_id)
         if obj is None:
-            return jsonify(None)
+            abort(404)
         self.doCallback(
             'xp.original',
             obj,
