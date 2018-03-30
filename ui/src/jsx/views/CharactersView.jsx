@@ -359,8 +359,8 @@ export class CharacterEquipment extends LazyComponent
 {
     render() {
         const {
-            weapons, weapon_properties, weapon_types,
-            armor, armor_types, items
+            weapons = [], weapon_properties = [], weapon_types = [],
+            armor = [], armor_types = [], items = []
         } = this.props;
 
         return <Panel
@@ -445,8 +445,12 @@ export class CharacterBackstory extends LazyComponent
 {
     render() {
         const {
-            backstory = ''
+            backstory
         } = this.props;
+
+        if (_.isEmpty(backstory)) {
+            return null;
+        }
 
         return <Panel
                 key="backstory"
@@ -464,8 +468,12 @@ export class CharacterPersonality extends LazyComponent
 {
     render() {
         const {
-            personality
+            personality = {}
         } = this.props;
+
+        if (_.isEmpty(_.keys(personality))) {
+            return null;
+        }
 
         return <Panel
                 key="personality"
@@ -482,7 +490,7 @@ export class CharacterPersonality extends LazyComponent
                     <strong>{label}</strong>
 
                     <MDReactComponent
-                        text={personality[field]}
+                        text={personality[field] || ''}
                         />
                 </React.Fragment>
             ))}
