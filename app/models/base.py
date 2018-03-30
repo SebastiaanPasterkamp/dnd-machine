@@ -34,6 +34,10 @@ class JsonObject(object):
         if '_config' in self._config:
             raise Exception("%d) Configception" % (self.id))
 
+        for key, val in self._config.items():
+            if val is None:
+                del self._config[key]
+
         self._config = self._merge(
             deepcopy(self._defaultConfig),
             self._config
@@ -477,7 +481,10 @@ class JsonObjectDataMapper(object):
             WHERE `id` = :id
             """ % (
                 self.table,
-                ', '.join(["`%s` = :%s" % (f, f) for f in self.fields])
+                ', '.join([
+                    "`%s` = :%s" % (f, f)
+                    for f in self.fields
+                    ])
                 ),
             new_obj
             )
