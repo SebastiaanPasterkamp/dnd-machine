@@ -24,12 +24,12 @@ export class ErrorBoundary extends React.Component {
             return this.props.children;
         }
 
-        return <div class="error-boundary nice-modal bad viewport-center">
-            <div class="nice-modal-content">
-                <div class="nice-modal-header">
+        return <div className="error-boundary nice-modal bad viewport-center">
+            <div className="nice-modal-content">
+                <div className="nice-modal-header">
                     <h4>Error</h4>
                 </div>
-                <div class="nice-modal-body">
+                <div className="nice-modal-body">
                     <pre>{error.stack}</pre>
                     <pre>{info.componentStack}</pre>
                 </div>
