@@ -191,4 +191,4 @@ class AppUserTestCase(BaseAppTestCase):
         self.assertDictContainsSubset(user, userData)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
