@@ -32,24 +32,6 @@ class AppCharacterTestCase(BaseAppTestCase):
             u'bob': ['player'],
             u'dm': ['dm']
             }
-        character = {
-            'race': 'human',
-            'class': 'fighter',
-            'background': 'soldier',
-            'xp': 0,
-            'level': 1,
-            'hit_dice': 10,
-            'info': {},
-            'languages': ['common'],
-            'equipment': [
-                'Leather Armor',
-                'Handaxe',
-                ],
-            'proficiencies': {
-                'armor': ['Leather Armor'],
-                'weapons': ['Handaxe'],
-                },
-            }
         self.users = {}
         self.characters = {}
         for name, role in users.items():
@@ -59,12 +41,15 @@ class AppCharacterTestCase(BaseAppTestCase):
                 'email': name + u'@example.com',
                 'role': role,
                 })
+            self.users[name]['password'] = name
             self.characters[name] = self.createCharacter(
-                character,
+                {
+                    'name': name
+                    },
                 self.users[name]
                 )
 
-        migrate(self.app, ['character'])
+        migrate(self.app, ['user', 'character'])
         charId = self.characters['alice']['id']
         self.protectedPages = {
             '/character/api/%d' % charId: (200, 'application/json'),
@@ -77,27 +62,11 @@ class AppCharacterTestCase(BaseAppTestCase):
             '/character/reset/%d' % charId: (302, None),
             }
 
-    def createCharacter(self, character, user):
-        obj = dict(character)
-        obj.update({
-            'name': user['username'],
-            'user_id': user['id'],
-            })
-        obj = self.dbInsertObject(
-            'character',
-            obj,
-            ['name', 'level']
-            )
-        self.dbInsertLink('user_characters', {
-            'user_id': user['id'],
-            'character_id': obj['id']
-            })
-        return obj
-
     def testPrivatePages401(self):
         pages = {}
         pages.update(self.privatePages)
         pages.update(self.protectedPages)
+        pages.update(self.adminPages)
         for page, expected in pages.items():
             rv = self.client.get(page)
             self.assertResponse(page, rv, 401)
@@ -338,4 +307,4 @@ class AppCharacterTestCase(BaseAppTestCase):
         self.assertDictContainsSubset(char, charData)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)

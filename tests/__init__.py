@@ -39,11 +39,6 @@ class BaseAppTestCase(unittest.TestCase):
         self.app.db.close()
 
     def createUser(self, user):
-        config = dict(
-            (key,value)
-            for key, value in user.iteritems()
-            if key not in ['username', 'password', 'email']
-            )
         password = user.get('password')
         try:
             user['password'] = pbkdf2_sha256.hash(password)
@@ -54,6 +49,57 @@ class BaseAppTestCase(unittest.TestCase):
             user,
             ['username', 'password', 'email']
             )
+
+    def createCharacter(self, character, user):
+        obj = {
+            'user_id': user['id'],
+            'race': 'human',
+            'class': 'fighter',
+            'background': 'soldier',
+            'xp': 0,
+            'level': 1,
+            'hit_dice': 10,
+            'info': {},
+            'languages': ['common'],
+            'equipment': [
+                'Leather Armor',
+                'Handaxe',
+                ],
+            'proficiencies': {
+                'armor': ['Leather Armor'],
+                'weapons': ['Handaxe'],
+                },
+            }
+        obj.update(character)
+        obj = self.dbInsertObject(
+            'character',
+            obj,
+            ['name', 'level']
+            )
+        self.dbInsertLink('user_characters', {
+            'user_id': user['id'],
+            'character_id': obj['id']
+            })
+        return obj
+
+    def createParty(self, party, members, dm):
+        obj = {
+            'user_id': dm['id'],
+            'size': len(members),
+            'member_ids': [char['id'] for char in members]
+            }
+        obj.update(party)
+        obj = self.dbInsertObject(
+            'party',
+            obj,
+            ['name', 'user_id']
+            )
+        for char in members:
+            self.dbInsertLink('party_characters', {
+                'party_id': obj['id'],
+                'character_id': char['id']
+                })
+        return obj
 
     def dbInsertObject(self, table, obj, columns=[]):
         data = dict(
