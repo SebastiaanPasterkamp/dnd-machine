@@ -75,7 +75,6 @@ class PartyBlueprint(BaseApiBlueprint):
             ]
         for obj in objs:
             obj.members = self.charactermapper.getByPartyId(obj.id)
-        return objs
 
     @BaseApiCallback('api_get')
     def filterVisibleSingle(self, obj_id, *args, **kwargs):

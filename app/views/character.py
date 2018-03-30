@@ -131,7 +131,6 @@ class CharacterBlueprint(BaseApiBlueprint):
     @BaseApiCallback('api_copy.object')
     def setOwner(self, obj):
         obj.user_id = request.user.id
-        return obj
 
     @BaseApiCallback('raw')
     def adminOnly(self, *args, **kwargs):
@@ -150,12 +149,12 @@ class CharacterBlueprint(BaseApiBlueprint):
         if obj.user_id != request.user.id \
                 and not self.checkRole(['admin', 'dm']):
             abort(403)
-        return obj
+
 
     @BaseApiCallback('api_list.objects')
     def adminDmOrExtendedMultiple(self, objs):
         if self.checkRole(['admin', 'dm']):
-            return objects
+            return
         extended_ids = self.datamapper.getExtendedIds(
             request.user.id
             )
@@ -172,13 +171,12 @@ class CharacterBlueprint(BaseApiBlueprint):
     def adminDmOrExtendedSingle(self, obj):
         if obj.user_id == request.user.id \
                 or self.checkRole(['admin', 'dm']):
-            return obj
+            return
         extended_ids =  self.datamapper.getExtendedIds(
             request.user.id
             )
         if obj.id not in extended_ids:
             abort(403)
-        return obj
 
 
     def download(self, obj_id):

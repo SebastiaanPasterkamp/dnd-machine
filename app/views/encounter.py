@@ -76,7 +76,6 @@ class EncounterBlueprint(BaseApiBlueprint):
             ]
         if request.party:
             obj.party = request.party
-        return obj
 
     @BaseApiCallback('api_post.object')
     def setOwner(self, obj):
@@ -87,7 +86,6 @@ class EncounterBlueprint(BaseApiBlueprint):
             self.monstermapper.getById(monster['id'])
             for monster in obj.monster_ids
             ]
-        return obj
 
 
 def get_blueprint(basemapper, config):
