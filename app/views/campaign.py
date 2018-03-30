@@ -71,10 +71,7 @@ class CampaignBlueprint(BaseApiBlueprint):
 
     @BaseApiCallback('api_post.object')
     def setOwner(self, obj):
-        if not self.checkRole(['admin', 'dm']):
-            abort(403)
         obj.id = request.user.id
-        return obj
 
     def show(self, obj_id):
         self.doCallback('show', obj_id, *args, **kwargs)
