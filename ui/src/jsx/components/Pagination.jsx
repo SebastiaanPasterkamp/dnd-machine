@@ -78,11 +78,11 @@ class Pagination extends LazyComponent
                             this.onPaging(current - limit);
                         }}
                         >
-                        Previous
+                        <i>Previous</i>
                     </a>
                     :
                     <span className="disabled">
-                        Previous
+                        <i>Previous</i>
                     </span>
                 }
                 </li>
@@ -113,10 +113,10 @@ class Pagination extends LazyComponent
                             this.onPaging(current + limit);
                         }}
                         >
-                        Next
+                        <i>Next</i>
                     </a>
                     : <span className="disabled">
-                        Next
+                        <i>Next</i>
                     </span>
                 }
                 </li>
