@@ -6,14 +6,6 @@ class AppUserTestCase(BaseAppTestCase):
 
     def setUp(self):
         super(AppUserTestCase, self).setUp()
-        self.adminPages = {
-            '/user/list': (200, 'text/html'),
-            '/user/show/1': (200, 'text/html'),
-            '/user/edit/1': (200, 'text/html'),
-            '/user/new': (200, 'text/html'),
-            '/user/api': (200, 'application/json'),
-            '/user/raw/1': (200, 'application/json'),
-            }
         users = {
             u'player': [u'player'],
             u'dm': [u'dm']
@@ -27,6 +19,15 @@ class AppUserTestCase(BaseAppTestCase):
                 'role': role,
                 })
             self.users[name]['password'] = name
+        userId = self.users['player']['id']
+        self.adminPages = {
+            '/user/list': (200, 'text/html'),
+            '/user/show/%d' % userId: (200, 'text/html'),
+            '/user/edit/%d' % userId: (200, 'text/html'),
+            '/user/new': (200, 'text/html'),
+            '/user/api': (200, 'application/json'),
+            '/user/raw/%d' % userId: (200, 'application/json'),
+            }
         self.newUser = {
             'username': "test",
             'password': 'secret',
