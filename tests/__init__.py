@@ -133,6 +133,42 @@ class BaseAppTestCase(unittest.TestCase):
             ['name', 'challenge_rating', 'xp_rating', 'xp']
             )
 
+    def createEncounter(self, encounter, monster_ids, monsters, dm):
+        obj = {
+            'user_id': dm['id'],
+            'size': sum(
+                count
+                for count in monster_ids.values()
+                ),
+            'monster_ids': [
+                {'id': monsters[name]['id'], 'count': count}
+                for name, count in monster_ids.items()
+                ],
+            'challenge_rating': 0.0,
+            'xp_rating': 0,
+            'xp': 0,
+            }
+        obj.update(encounter)
+        obj = self.dbInsertObject(
+            'encounter',
+            obj,
+            [
+                'name', 'user_id', 'size',
+                'challenge_rating', 'xp_rating', 'xp'
+                ]
+            )
+        # Incorrect value at this point
+        del obj['challenge_rating']
+        del obj['xp_rating']
+        del obj['xp']
+        for name, count in monster_ids.items():
+            self.dbInsertLink('encounter_monsters', {
+                'encounter_id': obj['id'],
+                'monster_id': monsters[name]['id'],
+                'count': count,
+                })
+        return obj
+
     def dbInsertObject(self, table, obj, columns=[]):
         data = dict(
             (key, value)
