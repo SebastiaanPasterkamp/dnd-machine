@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import request, abort, render_template, url_for, redirect
+from flask import request, abort
 
 from .baseapi import BaseApiBlueprint, BaseApiCallback
 
@@ -68,7 +68,7 @@ class EncounterBlueprint(BaseApiBlueprint):
     @BaseApiCallback('api_delete.object')
     def adminOrOwnedSingle(self, obj):
         if obj.id != request.user.id \
-                and not self.checkRole(['admin']):
+                and not self.checkRole(['admin', 'dm']):
             abort(403)
         obj.monsters = [
             self.monstermapper.getById(monster['id'])
