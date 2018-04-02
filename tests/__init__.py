@@ -101,6 +101,38 @@ class BaseAppTestCase(unittest.TestCase):
                 })
         return obj
 
+    def createMonster(self, monster):
+        obj = {
+            "name": "Monster",
+            "size": "medium",
+            "type": "Beast",
+            "alignment": "neutral evil",
+            "level": 3,
+            "armor_class": 13,
+            "attacks": [{
+                "name": "Smash",
+                "target": "single",
+                "damage": [{
+                    "dice_count": 1,
+                    "dice_size": 4,
+                    "mode": "melee",
+                    "type": "bludgeoning"
+                    }],
+                }],
+            "motion": {
+                "walk": 20
+                },
+            "challenge_rating": 0.125,
+            "xp": 25,
+            "xp_rating": 18,
+            }
+        obj.update(monster)
+        return self.dbInsertObject(
+            'monster',
+            obj,
+            ['name', 'challenge_rating', 'xp_rating', 'xp']
+            )
+
     def dbInsertObject(self, table, obj, columns=[]):
         data = dict(
             (key, value)
