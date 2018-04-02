@@ -7,7 +7,7 @@ class AppUserTestCase(BaseAppTestCase):
     def setUp(self):
         super(AppUserTestCase, self).setUp()
         users = {
-            u'player': [u'player'],
+            u'user': [],
             u'dm': [u'dm']
             }
         self.users = {}
@@ -19,14 +19,16 @@ class AppUserTestCase(BaseAppTestCase):
                 'role': role,
                 })
             self.users[name]['password'] = name
-        userId = self.users['player']['id']
+        userId = self.users['user']['id']
         self.adminPages = {
             '/user/list': (200, 'text/html'),
-            '/user/show/%d' % userId: (200, 'text/html'),
-            '/user/edit/%d' % userId: (200, 'text/html'),
             '/user/new': (200, 'text/html'),
             '/user/api': (200, 'application/json'),
             '/user/raw/%d' % userId: (200, 'application/json'),
+            }
+        self.userPages = {
+            '/user/show/%d' % userId: (200, 'text/html'),
+            '/user/edit/%d' % userId: (200, 'text/html'),
             }
         self.newUser = {
             'username': "test",
@@ -36,29 +38,46 @@ class AppUserTestCase(BaseAppTestCase):
             'email': "test@example.com",
             }
 
-
     def testProtectedPages401(self):
-        for page, expected in self.adminPages.items():
+        pages = {}
+        pages.update(self.adminPages)
+        pages.update(self.userPages)
+        for page, expected in pages.items():
             rv = self.client.get(page)
             self.assertResponse(page, rv, 401)
 
     def testProtectedPages403(self):
-        self.doLogin('player', 'player')
+        self.doLogin('user', 'user')
         for page, expected in self.adminPages.items():
             rv = self.client.get(page)
             self.assertResponse(page, rv, 403)
 
     def testProtectedPages200(self):
         self.doLogin('admin', 'admin')
-        for page, expected in self.adminPages.items():
+        pages = {}
+        pages.update(self.adminPages)
+        pages.update(self.userPages)
+        for page, expected in pages.items():
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
+
+    def testPrivilegedPages200(self):
+        self.doLogin('user', 'user')
+        for page, expected in self.userPages.items():
+            rv = self.client.get(page)
+            self.assertResponse(page, rv, *expected)
+
+    def testPrivilegedPages403(self):
+        self.doLogin('dm', 'dm')
+        for page, expected in self.userPages.items():
+            rv = self.client.get(page)
+            self.assertResponse(page, rv, 403)
 
     def testProtectedContentGet(self):
         self.doLogin('dm', 'dm')
         for userId in [
                 1,
-                self.users['player']['id'],
+                self.users['user']['id'],
                 ]:
             page = '/user/api/%s' % userId
             rv = self.client.get(page)
@@ -70,7 +89,7 @@ class AppUserTestCase(BaseAppTestCase):
         for userId in [
                 1,
                 self.users['dm']['id'],
-                self.users['player']['id'],
+                self.users['user']['id'],
                 ]:
             page = '/user/api/%s' % userId
             rv = self.client.get(page)
@@ -81,7 +100,7 @@ class AppUserTestCase(BaseAppTestCase):
     def testProtectedContentPatch(self):
         users = [
             self.users['dm'],
-            self.users['player'],
+            self.users['user'],
             ]
 
         for user in users:
@@ -123,14 +142,14 @@ class AppUserTestCase(BaseAppTestCase):
 
     def testCreateUser403(self):
         user = self.newUser
-        self.doLogin('player', 'player')
+        self.doLogin('user', 'user')
         page = '/user/api'
         rv = self.postJSON(page, user)
         self.assertResponse(page, rv, 403)
 
     def testEditUser(self):
         user = self.newUser
-        user['id'] = self.users['player']['id']
+        user['id'] = self.users['user']['id']
         self.doLogin('admin', 'admin')
         page = '/user/api/%d' % user['id']
         rv = self.patchJSON(page, user)
@@ -143,36 +162,36 @@ class AppUserTestCase(BaseAppTestCase):
 
     def testChangePassword(self):
         user = self.newUser
-        user['id'] = self.users['player']['id']
-        self.doLogin('player', 'player')
+        user['id'] = self.users['user']['id']
+        self.doLogin('user', 'user')
         user['password'] = ''
         page = '/user/api/%d' % user['id']
         rv = self.patchJSON(page, user)
         self.assertResponse(page, rv, 200, 'application/json')
-        rv = self.doLogin('player', '')
+        rv = self.doLogin('user', '')
         self.assertEqual(rv.status_code, 401)
-        rv = self.doLogin('player', 'player')
+        rv = self.doLogin('user', 'user')
         self.assertEqual(rv.status_code, 302)
 
         user['password'] = 'foobar'
         page = '/user/api/%d' % user['id']
         rv = self.patchJSON(page, user)
         self.assertResponse(page, rv, 200, 'application/json')
-        rv = self.doLogin('player', 'player')
+        rv = self.doLogin('user', 'user')
         self.assertEqual(rv.status_code, 401)
-        rv = self.doLogin('player', 'foobar')
+        rv = self.doLogin('user', 'foobar')
         self.assertEqual(rv.status_code, 302)
 
     def testEditUser403(self):
         user = self.newUser
         user['id'] = self.users['dm']['id']
-        self.doLogin('player', 'player')
+        self.doLogin('user', 'user')
         page = '/user/api/%d' % user['id']
         rv = self.patchJSON(page, user)
         self.assertResponse(page, rv, 403)
 
     def testDeleteUser(self):
-        user = self.users['player']
+        user = self.users['user']
         self.doLogin('admin', 'admin')
         page = '/user/api/%d' % user['id']
         rv = self.client.delete(page)
@@ -181,8 +200,8 @@ class AppUserTestCase(BaseAppTestCase):
         self.assertIsNone(userData)
 
     def testDeleteUser403(self):
-        user = self.users['player']
-        self.doLogin('player', 'player')
+        user = self.users['user']
+        self.doLogin('user', 'user')
         page = '/user/api/%d' % user['id']
         rv = self.client.delete(page)
         self.assertResponse(page, rv, 403)
