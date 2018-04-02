@@ -149,6 +149,10 @@ class CharacterBlueprint(BaseApiBlueprint):
                 and not self.checkRole(['admin', 'dm']):
             abort(403)
 
+    @BaseApiCallback('api_patch.object')
+    def recordCreation(self, obj):
+        obj.creation += obj.level_upCreation
+
     @BaseApiCallback('api_list.objects')
     def adminDmOrExtendedMultiple(self, objs):
         if self.checkRole(['admin', 'dm']):
