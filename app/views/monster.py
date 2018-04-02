@@ -42,7 +42,7 @@ class MonsterBlueprint(BaseApiBlueprint):
             abort(403)
 
     @BaseApiCallback('raw')
-    def adminOnly(self):
+    def adminOnly(self, *args, **kwargs):
         if not self.checkRole(['admin']):
             abort(403)
 
