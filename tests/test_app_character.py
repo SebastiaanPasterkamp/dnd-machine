@@ -286,6 +286,44 @@ class AppCharacterTestCase(BaseAppTestCase):
         charData = self.dbGetObject('character', orig['id'])
         self.assertDictContainsSubset(orig, charData)
 
+    def testGrantXp(self):
+        self.doLogin('dm', 'dm')
+        char = self.characters['alice']
+        page = '/character/xp/%d/%d' % (char['id'], 300)
+        rv = self.postJSON(page, char)
+        self.assertResponse(page, rv, 302)
+        charData = self.dbGetObject('character', char['id'])
+        self.assertDictContainsSubset(
+            {
+                'xp': 300,
+                'level': 2
+                },
+            charData
+            )
+
+    def testLevelUpCharacter(self):
+        self.doLogin('dm', 'dm')
+        char = self.characters['alice']
+        page = '/character/xp/%d/%d' % (char['id'], 300)
+        rv = self.postJSON(page, char)
+
+        self.doLogin('alice', 'alice')
+        beforeData = self.dbGetObject('character', char['id'])
+        self.assertEquals([], beforeData['creation'])
+
+        page = '/character/api/%s' % char['id']
+        rv = self.patchJSON(page, beforeData)
+        self.assertResponse(page, rv, 200, 'application/json')
+        afterData = self.dbGetObject('character', char['id'])
+        self.assertEquals(
+            afterData['creation'],
+            beforeData['level_up']['creation']
+            )
+        self.assertNotEquals(
+            afterData['level_up'],
+            beforeData['level_up']
+            )
+
     def testDeleteCharacter200(self):
         char = self.characters['alice']
         self.doLogin('alice', 'alice')
