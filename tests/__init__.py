@@ -53,9 +53,9 @@ class BaseAppTestCase(unittest.TestCase):
     def createCharacter(self, character, user):
         obj = {
             'user_id': user['id'],
-            'race': 'human',
-            'class': 'fighter',
-            'background': 'soldier',
+            'race': 'Human',
+            'class': 'Fighter',
+            'background': 'Soldier',
             'xp': 0,
             'level': 1,
             'hit_dice': 10,
