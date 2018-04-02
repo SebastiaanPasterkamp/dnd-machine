@@ -237,7 +237,7 @@ class CharacterObject(JsonObject):
     @property
     def character_data(self):
         if '_character_data' not in self.__dict__:
-            self._character_data = get_character_data(True)
+            self._character_data = get_character_data()
         return self._character_data
 
     def migrate(self, mapper=None):

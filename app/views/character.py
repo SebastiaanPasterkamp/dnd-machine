@@ -59,7 +59,7 @@ class CharacterBlueprint(BaseApiBlueprint):
     @property
     def character_data(self):
         if '_character_data' not in self.__dict__:
-            self._character_data = get_character_data(True)
+            self._character_data = get_character_data()
         return self._character_data
 
     def _exposeAttributes(self, obj):
@@ -148,7 +148,6 @@ class CharacterBlueprint(BaseApiBlueprint):
         if obj.user_id != request.user.id \
                 and not self.checkRole(['admin', 'dm']):
             abort(403)
-
 
     @BaseApiCallback('api_list.objects')
     def adminDmOrExtendedMultiple(self, objs):
