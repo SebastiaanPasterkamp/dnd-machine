@@ -50,7 +50,7 @@ const propsMap = {
     'skills': '_skills',
     'spell': '_spells',
     'statistics': '_statistics',
-    'weapons': '_weapons',
+    'weapon': '_weapons',
 };
 
 class AbilityScoreSelect extends LazyComponent
