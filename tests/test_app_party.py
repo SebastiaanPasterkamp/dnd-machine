@@ -91,7 +91,7 @@ class AppPartyTestCase(BaseAppTestCase):
 
     def testPartyPagesDm200(self):
         self.doLogin('dm', 'dm')
-        for page, expected in self.dmPages.items():
+        for page, expected in self.partyPages.items():
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
 
