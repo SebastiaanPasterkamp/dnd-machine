@@ -66,7 +66,7 @@ class CampaignBlueprint(BaseApiBlueprint):
     @BaseApiCallback('api_delete.object')
     def adminOrOwnedSingle(self, obj):
         if obj.id != request.user.id \
-                and not self.checkRole(['admin']):
+                and not self.checkRole(['admin', 'dm']):
             abort(403)
 
     @BaseApiCallback('api_post.object')
@@ -74,7 +74,7 @@ class CampaignBlueprint(BaseApiBlueprint):
         obj.id = request.user.id
 
     def show(self, obj_id):
-        self.doCallback('show', obj_id, *args, **kwargs)
+        self.doCallback('show', obj_id)
 
         obj = self.datamapper.getById(obj_id)
         user = self.usermapper.getById(obj.user_id)
