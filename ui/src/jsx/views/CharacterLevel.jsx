@@ -96,10 +96,11 @@ export class CharacterLevel extends React.Component
                             value
                         );
                     } else if (option.type == 'list') {
-                        update = (current || []).concat(
-                            value
-                        );
-                        if (!(option.multiple || false)) {
+                        update = _.without(
+                            current || [],
+                            value.removed
+                        ).concat(value.added);
+                        if (!option.multiple) {
                             update = _.uniq(update);
                         }
                     } else {

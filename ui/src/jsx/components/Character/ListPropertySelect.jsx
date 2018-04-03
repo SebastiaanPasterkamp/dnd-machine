@@ -9,86 +9,74 @@ class ListPropertySelect extends BaseTagContainer
     constructor(props) {
         super(props);
         this.state = {
-            value: [],
+            added: [],
+            removed: [],
         };
     }
 
     componentDidMount() {
-        this.props.onChange(
-            this.props.path,
-            this.props.given || []
-        );
+        this.onSetState();
     }
 
     componentWillUnmount() {
-        this.props.onChange(
-            this.props.path,
-            undefined
-        );
+        const { onChange, path } = this.props;
+        onChange(path, undefined);
     }
 
     isDisabled(item) {
         const { multiple, current, given } = this.props;
+        const { added, removed } = this.state;
         if (multiple) {
             return false;
         }
         const value = item.code || item.name;
+        if (_.includes(removed, value)) {
+            return false;
+        }
         if (_.includes(current, value)) {
             return true;
         }
         if (_.includes(given, value)) {
             return true;
         }
-        if (_.includes(this.state.value, value)) {
+        if (_.includes(added, value)) {
             return true;
         }
         return false;
     }
 
-    _setState(value) {
+    onSetState() {
         const { onChange, path, given = [] } = this.props;
-        this.setState(
-            {value},
-            () => onChange(path, this.state.value.concat(given))
-        );
+        const { added, removed } = this.state;
+        onChange(path, {
+            added: added.concat(given),
+            removed
+        });
     }
 
-    onChange(key, value) {
-        let head = _.take(
-            this.state.value,
-            key
-        );
-        let tail = _.takeRight(
-            this.state.value,
-            this.state.value.length - key - 1
-        );
-        this._setState(
-            head.concat([value]).concat(tail)
-        );
-    }
-
-    onDelete(key, value) {
-        let head = _.take(
-            this.state.value,
-            key
-        );
-        let tail = _.takeRight(
-            this.state.value,
-            this.state.value.length - key - 1
-        );
-        this._setState(
-            head.concat(tail)
-        );
+    onDelete(key, item) {
+        const value = item.code || item.name;
+        const { replace = 0 } = this.props;
+        const { added, removed } = this.state;
+        let state = { added, removed };
+        if (_.includes(added, value)) {
+            state.added = _.without(state.added, value);
+        } else if (removed.length < replace) {
+            state.removed = state.removed.concat([value]);
+        }
+        this.setState(state, () => this.onSetState());
     }
 
     onAdd(value) {
-        let head = _.take(
-            this.state.value,
-            this.state.value.length
-        );
-        this._setState(
-            head.concat([value])
-        );
+        const { limit = 0, replace = 0 } = this.props;
+        const { added, removed } = this.state;
+        let state = { added, removed };
+        if (_.includes(removed, value)) {
+            state.removed = _.without(state.removed, value);
+        } else if (added.length < (limit + removed.length)) {
+            state.added = state.added.concat([value]);
+        }
+        this.setState(state, () => this.onSetState());
     }
 
     getItem(key, value) {
@@ -102,10 +90,13 @@ class ListPropertySelect extends BaseTagContainer
     }
 
     getTags() {
-        const { given = [], current = [] } = this.props;
+        const {
+            given = [], current = [], replace = 0
+        } = this.props;
+        const { added, removed } = this.state;
 
         let tags = _.map(
-            this.state.value,
+            added,
             (code) => this.findItem(code)
         ).concat( _.map(
             given,
@@ -123,11 +114,19 @@ class ListPropertySelect extends BaseTagContainer
             tags,
             (item) => (item.code || item.name)
         );
+        let downgrade = _.countBy(
+            removed,
+            (item) => (item.code || item.name)
+        );
+        _.forEach(downgrade, (count, code) => {
+            upgrade[code] = (upgrade[code] || 0) - count;
+        });
 
+        const immutable = (replace - removed.length) <= 0;
         return tags.concat( _.filter( _.map(
-            current,
+            _.without(current, removed),
             (code) => {
-                if (upgrade[code] || 0) {
+                if ((upgrade[code] || 0) > 0) {
                     upgrade[code] -= 1;
                     return null;
                 }
@@ -138,16 +137,16 @@ class ListPropertySelect extends BaseTagContainer
                 return _.assign(
                     {},
                     _current,
-                    {
-                        immutable: true
-                    }
+                    {immutable}
                 );
             }
         ) ) );
     }
 
     showSelect() {
-        if ((this.props.limit || 0) - this.state.value.length) {
+        const { limit = 0, replace = 0 } = this.props
+        const { added, removed } = this.state;
+        if ((limit - added.length + removed.length) > 0) {
             return true;
         }
         return false;
