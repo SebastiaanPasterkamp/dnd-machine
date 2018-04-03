@@ -1792,6 +1792,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "5 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1"]
@@ -1842,6 +1843,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "6 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2"]
@@ -1884,7 +1886,7 @@
                     }, {
                         "label": "College of Valor",
                         "description": "Bards of the College of Valor are daring skalds whose tales keep alive the memory of the great heroes of the past, and thereby inspire a new generation of heroes. These bards gather in mead halls or around great bonfires to sing the deeds of the mighty, both past and present. They travel the land to witness great events firsthand and to ensure that the memory of those events doesn't pass from the world. With their songs, they inspire others to reach the same heights of accomplishment as the heroes of old.",
-                        "options": [{
+                        "config": [{
                             "label": "Bonus Armor Proficiencies",
                             "path": "proficiencies.armor",
                             "type": "list",
@@ -1954,6 +1956,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "7 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2"]
@@ -2017,6 +2020,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "8 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3"]
@@ -2075,6 +2079,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "9 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3"]
@@ -2160,6 +2165,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "10 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3", "4"]
@@ -2212,6 +2218,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "11 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3", "4"]
@@ -2276,6 +2283,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "12 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3", "4", "5"]
@@ -2337,6 +2345,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "14 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "level": ["Cantrip", "1", "2", "3", "4", "5"]
                     }
@@ -2399,6 +2408,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "15 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3", "4", "5", "6"]
@@ -2453,6 +2463,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "15 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3", "4", "5", "6"]
@@ -2519,6 +2530,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "16 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3", "4", "5", "6", "7"]
@@ -2575,6 +2587,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "18 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "level": ["Cantrip", "1", "2", "3", "4", "5", "6", "7"]
                     }
@@ -2662,6 +2675,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "19 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8"]
@@ -2718,6 +2732,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "19 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8"]
@@ -2786,6 +2801,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "20 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -2844,6 +2860,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "22 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "level": ["Cantrip", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
                     }
@@ -2900,6 +2917,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "22 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -2966,6 +2984,7 @@
                     "type": "list",
                     "list": "spell",
                     "limit_formula": "22 - spell.max_known",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
