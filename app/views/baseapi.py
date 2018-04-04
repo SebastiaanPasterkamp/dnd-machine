@@ -290,7 +290,6 @@ class BaseApiBlueprint(Blueprint):
 
         if obj is None:
             obj = self.datamapper.create(data)
-            obj = self._api_post_filter(obj)
             self.doCallback(
                 'api_post.object',
                 obj,
