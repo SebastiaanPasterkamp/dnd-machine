@@ -28,7 +28,10 @@ class Coinage extends LazyComponent
     render() {
         const { className, extended } = this.props;
         const coins = this.order
-            .filter((coin) => (coin in this.props))
+            .filter((coin) => (
+                coin in this.props
+                && this.props[coin])
+            )
             .map((coin) => this.renderCoin(coin, this.props[coin]));
         const separator = extended ? ', ' : ' ';
         const style = utils.makeStyle({
