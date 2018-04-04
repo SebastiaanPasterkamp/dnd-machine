@@ -206,7 +206,7 @@ class CharacterBlueprint(BaseApiBlueprint):
         fdf_text = {
             "CharacterName": obj.name,
             "CharacterName 2": obj.name,
-            "PlayerName": user.username,
+            "PlayerName": user.name or user.username,
             "HPMax": obj.hit_points,
             "AC": "%s%s" % (
                 obj.armor_class,
