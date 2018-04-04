@@ -98,6 +98,10 @@ class CharacterConfig extends LazyComponent
     }
 };
 
+CharacterConfig.defaultProps = {
+    index: [],
+};
+
 CharacterConfig.propTypes = {
     onChange: PropTypes.func.isRequired,
     index: PropTypes.arrayOf(PropTypes.number).isRequired,
