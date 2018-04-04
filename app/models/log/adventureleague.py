@@ -32,6 +32,11 @@ class AdventureLeagueLogObject(JsonObject):
             'earned': 1,
             'total': 0,
             },
+        'equipment': {
+            'starting': 0,
+            'earned': [],
+            'total': 0,
+            },
         'items': {
             'starting': 0,
             'earned': [],
@@ -57,6 +62,10 @@ class AdventureLeagueLogObject(JsonObject):
             },
         'renown': {
             '*': int,
+            },
+        'equipment': {
+            '*': int,
+            'earned': unicode,
             },
         'items': {
             '*': int,
