@@ -26,66 +26,64 @@ import TabComponent from '../components/TabComponent.jsx';
 export class CharacterPickAttribute extends LazyComponent
 {
     tabConfig(index) {
-        const attrib = this.props.info[index];
-        const active = _.find(attrib.sub || [attrib], sub => {
-            return sub.name == this.props.value
-        });
+        const { info, value } = this.props;
+        const attrib = info[index];
+        const active = _.find(
+            attrib.sub || [attrib],
+            sub => (sub.name == this.props.value)
+        );
 
         return {
             label: attrib.name,
             color: active
                 ? 'good'
-                : (this.props.value == null ? 'info' : 'accent'),
+                : (value == null ? 'info' : 'accent'),
             active: active
         };
     }
 
     renderSelector(attrib) {
+        const { value, setState } = this.props;
         const subs = _.get(attrib, 'sub');
 
         if (!subs) {
             return <ButtonField
-                label={
-                    attrib.name == this.props.value
-                    ? this.props.value
-                    : "Pick..."
-                }
-                onClick={() => {
-                    this.props.setState(attrib.name);
-                }}
+                label={attrib.name == value ? value : "Pick..."}
+                onClick={() => setState(attrib.name)}
                 />;
         }
 
         return <SingleSelect
-            items={_.map(subs, (sub) => {
-                return {
-                    code: sub.name,
-                    label: sub.name
-                };
-            })}
+            items={_.map(subs, (sub) => ({
+                code: sub.name,
+                label: sub.name
+            }))}
             emptyLabel="Pick..."
-            selected={this.props.value}
-            setState={(value) => {
-                this.props.setState(value);
-            }}
+            selected={value}
+            setState={(value) => setState(value)}
             />;
     }
 
     render() {
-        if (!('info' in this.props)) {
+        const { info } = this.props;
+        if (!info) {
             return null;
         }
 
         return <TabComponent
-                tabConfig={(index) => this.tabConfig(index)}
-                >
-            {_.map(this.props.info, (attrib, index) => {
-                return <div key={"attrib-" + index}>
+            className="character-pick-attribute"
+            tabConfig={(index) => this.tabConfig(index)}
+            >
+            {_.map(info, (attrib, index) => (
+                <div key={"attrib-" + index}>
                     {this.renderSelector(attrib)}
-                    <MDReactComponent text={attrib.description} />
+                    <MDReactComponent
+                        className="character-pick-attribute--description"
+                        text={attrib.description}
+                        />
                     {this.renderSelector(attrib)}
-                </div>;
-            })}
+                </div>
+            ))}
         </TabComponent>;
     }
 }
@@ -102,24 +100,17 @@ export class CharacterCreate extends LazyComponent
     }
 
     onFieldChange(field, value) {
+        const {
+            race, 'class': _class, background, setState
+        } = this.props;
         const base = _.assign(
             {},
-            {
-                race: this.props.race,
-                'class': this.props.class,
-                background: this.props.background,
-            },
+            {race, 'class': _class, background},
             {[field]: value}
         );
         this.setState({
-            doneInit: (
-                base.race
-                && base.class
-                && base.background
-            )
-        }, () => {
-            this.props.setState(base)
-        });
+            doneInit: (base.race && base.class && base.background)
+        }, () => setState(base));
     }
 
     onStatisticsChange(value) {
@@ -146,33 +137,38 @@ export class CharacterCreate extends LazyComponent
     }
 
     tabConfig(index) {
+        const { race, 'class': _class, background } = this.props;
+        const {
+            doneInit, doneStats, doneDescr
+        } = this.state;
+
         const tabs = [
             {
-                label: this.props.race || 'Race',
-                color: this.props.race ? 'good' : 'info',
+                label: race || 'Race',
+                color: race ? 'good' : 'info',
             },
             {
-                label: this.props.class || 'Class',
-                color: this.props.class ? 'good' : 'info',
+                label: _class || 'Class',
+                color: _class ? 'good' : 'info',
             },
             {
-                label: this.props.background || 'Background',
-                color: this.props.background ? 'good' : 'info',
+                label: background || 'Background',
+                color: background ? 'good' : 'info',
             },
             {
                 label: 'Statistics',
-                color: this.state.doneStats ? 'good' : 'info',
-                disabled: !this.state.doneInit
+                color: doneStats ? 'good' : 'info',
+                disabled: !doneInit
             },
             {
                 label: 'Description',
-                color: this.state.doneDescr ? 'good' : 'info',
-                disabled: !this.state.doneStats
+                color: doneDescr ? 'good' : 'info',
+                disabled: !doneStats
             },
             {
                 label: 'Result',
                 color: 'info',
-                disabled: !this.state.doneDescr
+                disabled: !doneDescr
             }
         ];
 
@@ -180,36 +176,44 @@ export class CharacterCreate extends LazyComponent
     }
 
     render() {
+        const {
+            race, races, 'class': _class, classes, background,
+            backgrounds, statistics, _statistics, setState, level,
+            gender, genders = [], alignment, alignments = [],
+            xp_progress, xp_level,
+        } = this.props;
+        const { doneStats } = this.state;
+
         return <TabComponent
                 onTabChange={(index) => this.onTabChange(index)}
                 tabConfig={(index) => this.tabConfig(index)}
                 >
             <CharacterPickAttribute
-                info={this.props.races}
-                value={this.props.race}
-                setState={(value) => {
-                    this.onFieldChange('race', value);
-                }}
+                info={races}
+                value={race}
+                setState={
+                    (value) => this.onFieldChange('race', value)
+                }
                 />
             <CharacterPickAttribute
-                info={this.props.classes}
-                value={this.props.class}
-                setState={(value) => {
-                    this.onFieldChange('class', value);
-                }}
+                info={classes}
+                value={_class}
+                setState={
+                    (value) => this.onFieldChange('class', value)
+                }
                 />
             <CharacterPickAttribute
-                info={this.props.backgrounds}
-                value={this.props.background}
-                setState={(value) => {
-                    this.onFieldChange('background', value);
-                }}
+                info={backgrounds}
+                value={background}
+                setState={
+                    (value) => this.onFieldChange('background', value)
+                }
                 />
             <StatsBlock
-                {...this.props.statistics}
+                {...statistics}
                 budget={27}
                 maxBare={15}
-                statistics={this.props._statistics}
+                statistics={_statistics}
                 setState={
                     (update) => this.onStatisticsChange(update)
                 }
@@ -220,53 +224,46 @@ export class CharacterCreate extends LazyComponent
                     this.setState(
                         {
                             doneDescr: (
-                                this.state.doneStats
+                                doneStats
                                 && (
                                     'name' in update
                                     ? update.name
-                                    : this.props.name
+                                    : name
                                 )
                             )
                         },
-                        () => this.props.setState(update)
+                        () => setState(update)
                     );
                 }}
                 />
             <Panel
                 header="Result"
                 >
-                <h3>{this.props.name}</h3>
+                <h3>{name}</h3>
 
                 <h4>
-                    Level {this.props.level}
+                    Level {level}
                     &nbsp;
                     <ListLabel
-                        items={this.props.genders}
-                        value={this.props.gender}
+                        items={genders}
+                        value={gender}
                         />
                     &nbsp;
-                    {this.props.race}
+                    {race}
                     &nbsp;
-                    {this.props.class}
+                    {_class}
                     &nbsp;
                     (<ListLabel
-                        items={this.props.alignments}
-                        value={this.props.alignment}
+                        items={alignments}
+                        value={alignment}
                         />)
                 </h4>
 
                 <Progress
-                    value={this.props.xp_progress}
-                    total={this.props.xp_level}
+                    value={xp_progress}
+                    total={xp_level}
                     color={"good"}
-                    label={
-                        this.props.level
-                        + ' ('
-                        + this.props.xp_progress
-                        + " / "
-                        + this.props.xp_level
-                        + ')'
-                    }
+                    label={`${level} (${xp_progress} / ${xp_level})`}
                     />
             </Panel>
         </TabComponent>;
