@@ -60,8 +60,9 @@ export class AdventureDelta extends React.Component
 {
     render() {
         const {
-            starting = 0, earned = 0, total = 0, className, label,
+            starting = 0, earned = 0, className, label,
         } = this.props;
+        const total = starting + earned;
 
         return <Panel
             className={className}
@@ -89,9 +90,16 @@ export class AdventureGold extends React.Component
 {
     render() {
         const {
-            starting = {}, earned = {}, total = {}, className, label,
+            starting = {}, earned = {}, className, label,
         } = this.props;
-        const _total = earned ? total : starting;
+        const total = _.assign(
+            {},
+            starting,
+            _.mapValues(
+                earned,
+                (value, coin) => (value + (starting[coin] || 0))
+            )
+        );
 
         return <Panel
             className={className}
@@ -120,7 +128,7 @@ export class AdventureGold extends React.Component
                     <th>Total</th>
                     <td>
                         <Coinage
-                            {..._total}
+                            {...total}
                             extended={true}
                             />
                     </td>
@@ -134,9 +142,10 @@ export class AdventureItems extends React.Component
 {
     render() {
         const {
-            starting = 0, earned = [], total = 0, className, label,
+            starting = 0, earned = [], className, label,
             disabled = false,
         } = this.props;
+        const total = starting + _.filter(earned).length;
 
         return <Panel
             className={className}
@@ -149,13 +158,12 @@ export class AdventureItems extends React.Component
                 </tr>
                 <tr>
                     <th>Earned</th>
-                    <th>
-                        <ul>
-                        {_.map(earned, (item, i) => (
-                            <li key={i}>{item}</li>
-                        ))}
-                        </ul>
-                    </th>
+                    <th>{earned.length
+                        ? _.map(earned, (item, i) => (
+                            <span key={i}>{item}</span>
+                        ))
+                        : <span>&mdash;</span>
+                    }</th>
                 </tr>
                 <tr>
                     <th>Total</th>
@@ -172,8 +180,8 @@ export class AdventureLeagueLogView extends React.Component
         const {
             id, character_id, character = {wealth: {}}, user_id,
             current_user = {}, adventure = {}, xp = {}, gold = {},
-            downtime = {}, renown = {}, items = {}, notes = '',
-            consumed = false
+            downtime = {}, renown = {}, equipment = {}, items = {},
+            notes = '', consumed = false
         } = this.props;
 
         return <React.Fragment>
@@ -208,33 +216,51 @@ export class AdventureLeagueLogView extends React.Component
                 className="adventure-league-log-view__xp"
                 label="XP"
                 {...xp}
-                starting={xp.starting || character.xp}
+                starting={consumed
+                    ? xp.starting
+                    : character.xp
+                }
                 />
 
             <AdventureGold
                 className="adventure-league-log-view__gold"
                 label="Gold"
                 {...gold}
-                starting={gold.starting || character.wealth.gp}
+                starting={consumed
+                    ? gold.starting :
+                    character.wealth
+                }
                 />
 
             <AdventureDelta
                 className="adventure-league-log-view__downtime"
                 label="Downtime"
                 {...downtime}
-                starting={downtime.starting || character.downtime}
+                starting={consumed
+                    ? downtime.starting
+                    : character.downtime
+                }
                 />
 
             <AdventureDelta
                 className="adventure-league-log-view__renown"
                 label="Renown"
                 {...renown}
-                starting={renown.starting || character.renown}
+                starting={consumed
+                    ? renown.starting
+                    : character.renown
+                }
+                />
+
+            <AdventureItems
+                className="adventure-league-log-view__equipment"
+                label="Regular Items"
+                {...equipment}
                 />
 
             <AdventureItems
                 className="adventure-league-log-view__items"
-                label="Items"
+                label="Magical Items"
                 {...items}
                 />
 
