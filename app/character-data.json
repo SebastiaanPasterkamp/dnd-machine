@@ -9671,7 +9671,7 @@
                     "Shortsword"
                 ],
                 "tools": [
-                    "Thieves' Tools"
+                    "Thieves' tools"
                 ]
             },
             "info": {
@@ -9701,7 +9701,7 @@
                             ]},
                             {"multiple": [
                                 {"select": "character.proficiencies.skills"},
-                                {"group": ["Thieves' Tools"]}
+                                {"group": ["Thieves' tools"]}
                             ]}
                         ]}
                     ],
@@ -12727,11 +12727,12 @@
                     "path": "proficiencies.tools",
                     "type": "list",
                     "list": "tools",
-                    "given": ["Gaming Sets", "Thieves' Tools"]
+                    "given": ["Gaming Set", "Thieves' tools"]
                 }, {
                     "label": "Criminal equipment",
                     "path": "equipment",
                     "type": "list",
+                    "list": "tools",
                     "multiple": true,
                     "given": [
                         "Crowbar",
@@ -12740,7 +12741,13 @@
                     ],
                     "limit": 1,
                     "filter": {
-                        "code": ["Gaming Set", "Thieves' Tools"]
+                        "code": [
+                            "Dice set",
+                            "Dragonchess set",
+                            "Playing card set",
+                            "Three-Dragon Ante set",
+                            "Thieves' tools"
+                        ]
                     }
                 }]
             }
