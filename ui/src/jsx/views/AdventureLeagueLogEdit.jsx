@@ -97,27 +97,29 @@ export class AdventureDelta extends React.Component
 {
     constructor(props) {
         super(props);
-        this.state = { };
+        this.state = {};
+    }
+
+    computeTotal(earned) {
+        const { starting = 0 } = this.props;
+        return starting + earned;
     }
 
     onChange(earned) {
-        const {
-            starting = 0, disabled = false, setState
-        } = this.props;
+        const { disabled = false, setState } = this.props;
         if (disabled) {
             return;
         }
-        setState({
-            earned,
-            total: starting + earned
-        });
+        const total = this.computeTotal(earned);
+        setState({ earned, total });
     }
 
     render() {
         const {
-            starting = 0, earned = 0, total = 0, className, label,
+            starting = 0, earned = 0, className, label,
             disabled = false,
         } = this.props;
+        const total = this.computeTotal(earned);
         const { formula = earned } = this.state;
 
         return <Panel
@@ -174,14 +176,9 @@ export class AdventureDelta extends React.Component
 
 export class AdventureGold extends React.Component
 {
-    onChange(earned) {
-        const {
-            starting = {}, disabled = false, setState
-        } = this.props;
-        if (disabled) {
-            return;
-        }
-        const total = _.assign(
+    computeTotal(earned) {
+        const { starting = {} } = this.props;
+        return _.assign(
             {},
             starting,
             _.mapValues(
@@ -189,15 +186,23 @@ export class AdventureGold extends React.Component
                 (value, coin) => (value + (starting[coin] || 0))
             )
         );
+    }
 
+    onChange(earned) {
+        const { disabled = false, setState } = this.props;
+        if (disabled) {
+            return;
+        }
+        const total = this.computeTotal(earned);
         setState({ earned, total });
     }
 
     render() {
         const {
-            starting = {}, earned = {}, total = {}, className, label,
+            starting = {}, earned = {}, className, label,
             disabled = false,
         } = this.props;
+        const total = this.computeTotal(earned);
 
         return <Panel
             className={className}
@@ -233,10 +238,13 @@ export class AdventureGold extends React.Component
 
 export class AdventureItems extends React.Component
 {
+    computeTotal(earned) {
+        const { starting = 0 } = this.props;
+        return starting + _.filter(earned).length;
+    }
+
     onChange(items) {
-        const {
-            starting = 0, disabled = false, setState
-        } = this.props;
+        const { disabled = false, setState } = this.props;
         if (disabled) {
             return;
         }
@@ -244,15 +252,16 @@ export class AdventureItems extends React.Component
             items,
             item => (_.isObject(item) ? item.value : item)
         );
-        const total = starting + _.filter(earned).length;
+        const total = this.computeTotal(earned);
         setState({ earned, total });
     }
 
     render() {
         const {
-            starting = 0, earned = [], total = 0, className, label,
+            starting = 0, earned = [], className, label,
             disabled = false,
         } = this.props;
+        const total = this.computeTotal(earned);
 
         return <Panel
             className={className}
@@ -376,8 +385,8 @@ export class AdventureLeagueLogEdit extends React.Component
         const {
             character_id, character = {wealth: {}}, user_id,
             current_user = {}, adventure = {}, xp = {}, gold = {},
-            downtime = {}, renown = {}, items = {}, notes = '',
-            consumed = false
+            downtime = {}, renown = {}, equipment = {}, items = {},
+            notes = '', consumed = false
         } = this.props;
 
         return <React.Fragment>
@@ -416,7 +425,10 @@ export class AdventureLeagueLogEdit extends React.Component
                 label="XP"
                 disabled={!!consumed}
                 {...xp}
-                starting={xp.starting || character.xp}
+                starting={consumed
+                    ? xp.starting
+                    : character.xp
+                }
                 setState={!consumed
                     ? (value) => this.onFieldChange('xp', value)
                     : null
@@ -428,7 +440,10 @@ export class AdventureLeagueLogEdit extends React.Component
                 label="Gold"
                 disabled={!!consumed}
                 {...gold}
-                starting={gold.starting || character.wealth}
+                starting={consumed
+                    ? gold.starting
+                    : character.wealth
+                }
                 setState={!consumed
                     ? (value) => this.onFieldChange('gold', value)
                     : null
@@ -440,7 +455,10 @@ export class AdventureLeagueLogEdit extends React.Component
                 label="Downtime"
                 disabled={!!consumed}
                 {...downtime}
-                starting={downtime.starting || character.downtime}
+                starting={consumed
+                    ? downtime.starting
+                    : character.downtime
+                }
                 setState={!consumed
                     ? (value) => this.onFieldChange('downtime', value)
                     : null
@@ -452,7 +470,10 @@ export class AdventureLeagueLogEdit extends React.Component
                 label="Renown"
                 disabled={!!consumed}
                 {...renown}
-                starting={renown.starting || character.renown}
+                starting={consumed
+                    ? renown.starting
+                    : character.renown
+                }
                 setState={!consumed
                     ? (value) => this.onFieldChange('renown', value)
                     : null
@@ -460,11 +481,28 @@ export class AdventureLeagueLogEdit extends React.Component
                 />
 
             <AdventureItems
+                className="adventure-league-log-edit__equipment"
+                label="Regular Items"
+                disabled={!!consumed}
+                {...equipment}
+                starting={equipment.starting}
+                setState={!consumed
+                    ? (value) => this.onFieldChange(
+                        'equipment', value
+                    )
+                    : null
+                }
+                />
+
+            <AdventureItems
                 className="adventure-league-log-edit__items"
-                label="Items"
+                label="Magical Items"
                 disabled={!!consumed}
                 {...items}
-                starting={items.starting || character.adventure_items}
+                starting={consumed
+                    ? items.starting
+                    : character.adventure_items
+                }
                 setState={!consumed
                     ? (value) => this.onFieldChange('items', value)
                     : null

@@ -24,17 +24,14 @@
         grid-column-end: span 3;
     }
 
-    .adventure-league-log-edit__items {
-        grid-column: 7 / span 6;
-        grid-row: 2;
-    }
+    .adventure-league-log-edit__equipment,
+    .adventure-league-log-edit__items,
     .adventure-league-log-edit__notes {
-        grid-column: 7 / span 6;
-        grid-row: 3;
+        grid-column: span 6;
     }
 
     .adventure-league-log-edit__save {
-        grid-column-end: span 4;
+        grid-column-end: span 6;
     }
 
 }

@@ -24,12 +24,16 @@
         grid-column-end: span 3;
     }
 
+    .adventure-league-log-view__equipment {
+        grid-column: span 6;
+    }
     .adventure-league-log-view__items {
-        grid-column: 7 / span 6;
-        grid-row: 2;
+        grid-column: span 6;
+        span {
+            display: block;
+        }
     }
     .adventure-league-log-view__notes {
-        grid-column: 7 / span 6;
-        grid-row: 3;
+        grid-column: span 6;
     }
 }
