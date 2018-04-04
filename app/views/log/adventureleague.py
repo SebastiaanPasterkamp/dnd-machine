@@ -142,8 +142,14 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
             for key, value in character.wealth.items()
             ])
 
-        obj.itemsStarting = character.adventure_items
+        obj.equipmentStarting = len(character.equipment)
+        character.equipment += obj.equipmentEarned or []
+        obj.equipmentTotal = len(character.equipment)
+
+        obj.itemsStarting = character.adventure_items or 0
         character.equipment += obj.itemsEarned or []
+        character.adventure_items = obj.itemsStarting \
+            + len(obj.itemsEarned or [])
         obj.itemsTotal = character.adventure_items
 
         obj.consumed = True
