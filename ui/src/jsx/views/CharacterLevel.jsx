@@ -12,6 +12,7 @@ import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import CharacterConfig from '../components/Character/CharacterConfig.jsx';
+import ComputeChange from '../components/Character/ComputeChange.jsx';
 import Panel from '../components/Panel.jsx';
 import {StatsBlock} from '../components/StatsBlock.jsx';
 
@@ -51,85 +52,20 @@ export class CharacterLevel extends React.Component
         };
 
         this.computeProps = _.debounce(() => {
-            const change = _.reduce(
+            const { character, setState } = this.props;
+
+            const change = ComputeChange(
                 this.state,
-                (change, {path, value, option}) => {
-                    if (_.isNil(option)) {
-                        return change;
-                    }
-
-                    if (option.type == 'ability_score') {
-                        change.state.abilityScore = (
-                            change.state.abilityScore || 0
-                        ) + (value || 0);
-                        return change;
-                    }
-
-                    const root = _.split(path, '.')[0];
-                    if (_.isNil(change.props[root])) {
-                        change.props[root] = _.cloneDeep(
-                            this.props.character[root]
-                        );
-                    }
-                    if (value == undefined) {
-                        return change;
-                    }
-
-                    const current = _.get(
-                        change.props,
-                        path
-                    );
-                    let update = null;
-
-                    if (
-                        value == null
-                        || _.includes(
-                            ['value', 'select'],
-                            option.type
-                        )
-                    ) {
-                        update = value;
-                    } else if (option.type == 'dict') {
-                        update = _.assign(
-                            {},
-                            current || {},
-                            value
-                        );
-                    } else if (option.type == 'list') {
-                        update = _.without(
-                            current || [],
-                            value.removed
-                        ).concat(value.added);
-                        if (!option.multiple) {
-                            update = _.uniq(update);
-                        }
-                    } else {
-                        console.log([
-                            "Unknown option type",
-                            option
-                        ]);
-                    }
-
-                    change.props = _.set(
-                        change.props,
-                        path,
-                        update
-                    );
-
-                    return change;
-                },
-                {props: {}, state: {}}
+                character
             );
 
             if (!_.isEqual(change.state, {})) {
                 this.setState(
                     change.state,
-                    () => {
-                        this.props.setState(change.props);
-                    }
+                    () => setState(change.props)
                 );
             } else {
-                this.props.setState(change.props);
+                setState(change.props);
             }
         }, 10);
     }
@@ -191,7 +127,6 @@ export class CharacterLevel extends React.Component
                 >
                 <CharacterConfig
                     config={level_up.config}
-                    index={[]}
                     getCurrent={(path) => _.get(this.props, path)}
                     getItems={(lists) => this.getItems(lists)}
                     onChange={(path, value, index, option) => {
