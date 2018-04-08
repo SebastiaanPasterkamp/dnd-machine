@@ -365,6 +365,7 @@ class JsonObjectDataMapper(object):
     obj = JsonObject
     table = None
     fields = []
+    order = 'id'
 
     _instance = None
     def __new__(cls, *args, **kwargs):
@@ -433,8 +434,8 @@ class JsonObjectDataMapper(object):
     def getMultiple(self, where="1", values={}):
         """Returns a list of obj matching the where clause"""
         cur = self.db.execute("""
-            SELECT * FROM `%s` WHERE %s
-            """ % (self.table, where),
+            SELECT * FROM `%s` WHERE %s ORDER BY `%s`
+            """ % (self.table, where, self.order),
             values
             )
         objs = cur.fetchall() or []
