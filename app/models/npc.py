@@ -337,6 +337,7 @@ class NpcMapper(JsonObjectDataMapper):
     obj = NpcObject
     table = "npc"
     fields = ["name", "location", "organization"]
+    order = 'name'
 
     def __init__(self, db, mapper, config={}):
         self.mapper = mapper

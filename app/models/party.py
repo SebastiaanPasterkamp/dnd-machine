@@ -60,6 +60,7 @@ class PartyMapper(JsonObjectDataMapper):
     obj = PartyObject
     table = "party"
     fields = ['name', 'user_id']
+    order = 'name'
 
     def getList(self, search=None):
         """Returns a list of parties matching the search parameter"""

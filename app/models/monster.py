@@ -266,6 +266,7 @@ class MonsterMapper(JsonObjectDataMapper):
     obj = MonsterObject
     table = "monster"
     fields = ['name', 'challenge_rating', 'xp_rating', 'xp']
+    order = 'name'
 
     def __init__(self, db, mapper, config={}):
         self.mapper = mapper

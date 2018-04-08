@@ -52,3 +52,4 @@ class SpellMapper(JsonObjectDataMapper):
     obj = SpellObject
     table = "spell"
     fields = ["name", "school", "level"]
+    order = 'name'

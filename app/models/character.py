@@ -522,6 +522,7 @@ class CharacterMapper(JsonObjectDataMapper):
     obj = CharacterObject
     table = "character"
     fields = ["name", "level"]
+    order = 'name'
 
     def __init__(self, db, mapper, config={}):
         self.mapper = mapper
