@@ -42,10 +42,13 @@ export class StatsBlock extends Reflux.Component
 
     sendUpdate(update={}) {
         const {
-            bare, bonus, base, modifiers,
-            statistics,
-            setState
-            } = this.props;
+            bare, bonus, base, modifiers, statistics, setState
+        } = this.props;
+
+        if (!statistics) {
+            return;
+        }
+
         let props = _.assign(
             {},
             {
@@ -57,14 +60,10 @@ export class StatsBlock extends Reflux.Component
             update
         );
 
-        if (!statistics) {
-            return;
-        }
-
-        statistics.map((stat) => {
+        _.forEach(statistics, stat => {
             stat = stat.code;
             props.base[stat] = props.bare[stat]
-                + (_.sum(props.bonus[stat] || [0]));
+                + _.sum(_.get(props, ['bonus', stat], []))
 
             props.modifiers[stat] = Math.floor(
                 (props.base[stat] - 10) / 2
@@ -91,17 +90,18 @@ export class StatsBlock extends Reflux.Component
     }
 
     increaseStat(index, stat) {
-        let improvement = _.extend([], this.state.improvement);
-        let bare = _.assign({}, this.props.bare);
+        let improvement = _.clone(this.state.improvement);
+        let bonus = _.assign({}, this.props.bonus);
         if (improvement[index]) {
-            bare[ improvement[index] ] -= 1;
+            const old = improvement[index];
+            bonus[ old ] = _.dropRight(bonus[ old ]);
         }
-        bare[ stat ] += 1;
+        bonus[ stat ] = bonus[ stat ].concat([1]);
         improvement[index] = stat;
 
         this.setState(
             {improvement},
-            () => this.sendUpdate({bare})
+            () => this.sendUpdate({bonus})
         );
     }
 
