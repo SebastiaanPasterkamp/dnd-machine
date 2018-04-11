@@ -158,6 +158,12 @@ export class CharacterLevel extends React.Component
                             {type: 'dict'}
                         );
                         this.onChange(
+                            'statistics.bonus',
+                            statistics.bonus,
+                            ['statistics','bonus'],
+                            {type: 'dict'}
+                        );
+                        this.onChange(
                             'statistics.modifiers',
                             statistics.modifiers,
                             ['statistics','modifiers'],
