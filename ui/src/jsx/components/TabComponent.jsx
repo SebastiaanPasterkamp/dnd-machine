@@ -37,13 +37,11 @@ export class TabComponent extends LazyComponent
     }
 
     switchTab(index) {
-        this.setState({
-            activeTab: index
-        }, () => {
-            if (this.props.onTabChange) {
-                this.props.onTabChange(index);
-            }
-        });
+        const { onTabChange } = this.props;
+        this.setState(
+            {activeTab: index},
+            () => onTabChange && onTabChange(index)
+        );
     }
 
     renderTab(index) {
@@ -73,13 +71,13 @@ export class TabComponent extends LazyComponent
             >
             <a
                 className={linkStyle}
-                onClick={(e) => {
-                    e.preventDefault();
-                    if (isActive || tabcfg.disabled) {
-                        return;
+                onClick={(!isActive && !tabcfg.disabled)
+                    ? (e) => {
+                        e.preventDefault();
+                        this.switchTab(index);
                     }
-                    this.switchTab(index);
-                }}
+                    : null
+                }
                 >
                 {tabcfg.label}
             </a>
@@ -88,8 +86,11 @@ export class TabComponent extends LazyComponent
 
     render() {
         const { children, className } = this.props;
+        const { activeTab } = this.state;
         const style = utils.makeStyle({}, [
-            'nice-tabs-wrapper', 'tab-component', className
+            'nice-tabs-wrapper',
+            'tab-component',
+            className
         ]);
 
         return <div className={style}>
@@ -104,7 +105,7 @@ export class TabComponent extends LazyComponent
                 {React.Children.map(
                     children,
                     (child, index) => (
-                        index == this.state.activeTab
+                        index == activeTab
                         ? child
                         : null
                     )
