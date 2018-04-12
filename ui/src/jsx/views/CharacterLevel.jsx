@@ -113,7 +113,7 @@ export class CharacterLevel extends React.Component
             increase: this.state.abilityScore,
             editBase: false,
         };
-        if (!character.creation.length) {
+        if (!character.xp) {
             statsBlock.editBase = true;
             statsBlock.budget = 27;
             statsBlock.maxBare = 15;
@@ -126,7 +126,7 @@ export class CharacterLevel extends React.Component
                     header="Level-up"
                 >
                 <CharacterConfig
-                    config={level_up.config}
+                    config={level_up.config || []}
                     getCurrent={(path) => _.get(this.props, path)}
                     getItems={(lists) => this.getItems(lists)}
                     onChange={(path, value, index, option) => {
