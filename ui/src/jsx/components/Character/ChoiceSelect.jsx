@@ -14,31 +14,37 @@ class ChoiceSelect extends LazyComponent
     }
 
     render() {
-        return <TabComponent
-                tabConfig={this.props.options}
-                >
-            {_.map(this.props.options, (option, index) => {
-                const props = {
-                    index: this.props.index.concat([index]),
-                    getCurrent: this.props.getCurrent,
-                    getItems: this.props.getItems,
-                    onChange: this.props.onChange,
-                    config: option.config
-                };
+        const {
+            description = '', options = [],
+            index: prefix, getCurrent, getItems, onChange
+        } = this.props;
+        const props = { getCurrent, getItems, onChange };
 
-                return <div key={index}>
-                    {option.description
-                        ? <MDReactComponent
-                            text={option.description}
+        return <React.Fragment>
+            {description &&
+                <MDReactComponent
+                    text={description}
+                    />
+            }
+            <TabComponent
+                tabConfig={options}
+                >
+            {_.map(options, (option, index) => (
+                <div key={index}>
+                    {option.description &&
+                        <MDReactComponent
+                            text={option.description || ''}
                             />
-                        : null
                     }
                     <CharacterConfig
                         {...props}
+                        config={[option]}
+                        index={prefix.concat([index])}
                         />
-                </div>;
-            })}
-        </TabComponent>;
+                </div>
+            ))}
+            </TabComponent>
+        </React.Fragment>;
     }
 };
 
@@ -47,6 +53,7 @@ ChoiceSelect.propTypes = {
     getCurrent: PropTypes.func.isRequired,
     getItems: PropTypes.func.isRequired,
     options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    index: PropTypes.arrayOf(PropTypes.number).isRequired,
     description: PropTypes.string,
 };
 
