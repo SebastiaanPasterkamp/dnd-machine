@@ -1,5 +1,5 @@
 import re
-from math import ceil
+from math import ceil, floor
 
 from base import JsonObject, JsonObjectDataMapper
 
@@ -367,9 +367,10 @@ class CharacterObject(JsonObject):
             stat = stat["code"]
             self.statisticsBase[stat] = self.statisticsBare[stat] \
                 + sum(self.statisticsBonus.get(stat, []))
-            self.statisticsModifiers[stat] = int(
+            self.statisticsModifiers[stat] = floor(
                 (self.statisticsBase[stat] - 10.0) / 2.0
                 )
+
             self.saving_throws[stat] = self.statisticsModifiers[stat]
             if stat in self.proficienciesExpertise:
                 self.saving_throws[stat] += self.proficiency * 2
@@ -471,12 +472,14 @@ class CharacterObject(JsonObject):
     def _expandFormulas(self, obj):
         machine = self.mapper.machine
         if isinstance(obj, dict):
+            computed = {}
             for key, val in obj.items():
                 if key.endswith('_formula'):
                     _key = key.replace('_formula', '')
-                    obj[_key] = machine.resolveMath(self, val)
+                    computed[_key] = machine.resolveMath(self, val)
                 else:
                     obj[key] = self._expandFormulas(val)
+            obj.update(computed)
         elif isinstance(obj, list):
             obj = [
                 self._expandFormulas(child)

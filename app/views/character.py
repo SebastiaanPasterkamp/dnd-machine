@@ -578,6 +578,10 @@ class CharacterBlueprint(BaseApiBlueprint):
             ))
         reset.id = obj_id
         reset.user_id = character.user_id
+        reset.creation = filter(
+            lambda v: v is not None,
+            [reset.race, reset['class'], reset.background]
+            )
         reset.compute()
 
         self.doCallback('reset.object', reset)
