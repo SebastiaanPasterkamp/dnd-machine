@@ -208,21 +208,23 @@ class CharacterBlueprint(BaseApiBlueprint):
             "CharacterName 2": obj.name,
             "PlayerName": user.name or user.username,
             "HPMax": obj.hit_points,
-            "AC": "%s%s" % (
-                obj.armor_class,
-                " / +%s" % (
-                    obj.armor_class_bonus \
-                        if obj.armor_class_bonus \
-                        else ""
-                    )
-                ),
+            "AC": "%s / +%s" % (
+                    obj.armor_class,
+                    obj.armor_class_bonus
+                    ) \
+                if obj.armor_class_bonus \
+                else "%s" %  obj.armor_class,
             "HD": "%dd%d" % (obj.level, obj.hit_dice),
             "XP": obj.xp,
             "Race ": obj.race,
             "ClassLevel": "%s %d" % (obj.Class, obj.level),
             "Speed": obj.speed,
             "Background": obj.background,
-            "Alignment": obj.alignment,
+            "Alignment": items.itemByNameOrCode(
+                obj.alignment,
+                'alignments',
+                {'label': obj.alignment}
+                )['label'],
             "ProBonus": filter_bonus(obj.proficiency),
             "Initiative": filter_bonus(obj.initiative_bonus),
             "Passive": filter_bonus(obj.passive_perception),
@@ -247,7 +249,7 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         if obj.spellSafe_dc:
             fdf_text.update({
-                "SpellSaveDC 2": obj.spellSafe_dc,
+                "SpellSaveDC  2": obj.spellSafe_dc,
                 "SpellAtkBonus 2": filter_bonus(obj.spellAttack_modifier),
                 "Spellcasting Class 2": obj.Class,
                 "Total Prepared Spells": obj.spellMax_prepared or '',
@@ -303,8 +305,9 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         i = 0
         for count, weapon in filter_unique(obj.weapons):
-            fdf_text['Wpn Name %d' % (i+1)] = "%d x %s" % (
-                count, weapon['name']) if count > 1 else weapon['name']
+            fdf_text['Wpn Name %d' % (i+1)] = \
+                "%d x %s %s" % (count, weapon['name']) if count > 1 \
+                else weapon['name']
             fdf_text['Wpn%d Damage' % (i+1)] = "%s %s" % (
                 weapon['damage'].get('notation', ''),
                 weapon['damage'].get('type_short', '')
@@ -405,7 +408,7 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         equipment = []
         if obj.weapons:
-            equipment.append(["Weapons:", ""])
+            equipment.append(["Weapons:"])
             for count, weapon in filter_unique(obj.weapons):
                 desc = [
                     "*",
@@ -426,7 +429,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                     tag = items.itemByNameOrCode(
                         prop, 'weapon_properties'
                         )
-                    tag = tag['short']
+                    tag = tag['label']
                     if prop == 'thrown':
                         tag += " (%s)" % filter_distance(weapon['range'])
                     if prop == 'versatile':
@@ -435,9 +438,8 @@ class CharacterBlueprint(BaseApiBlueprint):
                 if len(desc):
                     equipment[-1].append("  " + ", ".join(desc))
 
-
         if obj.armor:
-            equipment.append(["Armor:", ""])
+            equipment.append(["Armor:"])
             for armor in obj.armor:
                 if "value" in armor:
                     desc = [
@@ -468,8 +470,8 @@ class CharacterBlueprint(BaseApiBlueprint):
             _type = items.itemByNameOrCode(
                 toolType, 'tool_types'
                 )
-            equipment.append([_type['label'] + ":", ""])
 
+            equipment.append([_type['label'] + ":"])
             for count, item in filter_unique(tools):
                 label = item['label'] \
                     if isinstance(item, dict) \
@@ -487,16 +489,15 @@ class CharacterBlueprint(BaseApiBlueprint):
             key=lambda lines: len(lines),
             reverse=True
             )
-        key = ["Equipment", "Equipment2"]
-        fdf_text["Equipment"] = fdf_html["Equipment"] = "\n".join([
-            "\n".join(equipment[i])
-            for i in range(0, len(equipment), 2)
-            ])
-
-        fdf_text["Equipment2"] = fdf_html["Equipment2"] = "\n".join([
-            "\n".join(equipment[i])
-            for i in range(1, len(equipment), 2)
-            ])
+        keys = ["Equipment", "Equipment2"]
+        for key in keys:
+            fdf_text[key] = []
+        for equip in sorted(equipment, key=lambda equip: -len(equip)):
+            key = min(keys, key=lambda key: len(fdf_text[key]))
+            fdf_text[key].append("")
+            fdf_text[key].extend(equip)
+        for key in keys:
+            fdf_text[key] = fdf_html[key] = "\n".join(fdf_text[key])
 
         fdf_translation = {
             'Wpn Name 1': 'Wpn Name',
