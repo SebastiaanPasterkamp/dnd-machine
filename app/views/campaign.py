@@ -51,6 +51,8 @@ class CampaignBlueprint(BaseApiBlueprint):
 
     @BaseApiCallback('api_list.objects')
     def adminOrOwnedMultiple(self, objs):
+        for obj in objs:
+            del obj.story
         if self.checkRole(['admin']):
             return
         objs[:] = [
