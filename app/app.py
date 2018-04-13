@@ -270,9 +270,11 @@ def register_request_hooks(app):
             'authenticate',
             )
         if request.endpoint not in publicPages:
-            response = jsonify({'message': 'Not logged in'})
-            response.status_code = 401
-            return response
+            if request.is_xhr:
+                response = jsonify({'message': 'Not logged in'})
+                response.status_code = 401
+                return response
+            redirect('/login')
 
     @app.before_request
     def get_user():
