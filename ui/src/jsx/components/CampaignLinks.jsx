@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { userHasRole } from '../utils.jsx';
+
 import ListDataActions from '../actions/ListDataActions.jsx';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
@@ -13,30 +15,41 @@ class CampaignLinks extends BaseLinkGroup
     }
 
     buttonList() {
-        const { campaign = {} } = this.props;
+        const {
+            campaign, campaign_id, current_user: user
+        } = this.props;
+
+        if (!user) {
+            return {};
+        }
 
         return {
-            'view': () => {
-                return {
-                    label: 'View',
-                    link: "/campaign/show/" + campaign.id,
-                    icon: 'eye',
-                };
-            },
-            'edit': () => {
-                return {
-                    label: 'Edit',
-                    link: "/campaign/edit/" + campaign.id,
-                    icon: 'pencil',
-                };
-            },
-            'new': () => {
-                return {
-                    label: 'New',
-                    link: "/campaign/new",
-                    icon: 'plus',
-                };
-            }
+            'view': () => ({
+                label: 'View',
+                link: "/campaign/show/" + campaign_id,
+                icon: 'eye',
+                available: campaign && (
+                    campaign.user_id == user.id
+                    || userHasRole(user, 'admin')
+                ),
+            }),
+            'edit': () => ({
+                label: 'Edit',
+                link: "/campaign/edit/" + campaign_id,
+                icon: 'pencil',
+                available: campaign && (
+                    campaign.user_id == user.id
+                    || userHasRole(user, 'admin')
+                ),
+            }),
+            'new': () => ({
+                label: 'New',
+                link: "/campaign/new",
+                icon: 'plus',
+                available: !campaign && (
+                    userHasRole(user, 'dm')
+                ),
+            }),
         };
     }
 
