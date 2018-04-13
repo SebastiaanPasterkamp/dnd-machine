@@ -53,8 +53,8 @@ class SpellRow extends LazyComponent
 {
     render() {
         const {
-            id, name, level, range, cost, description, damage,
-            classes, _classes
+            id, name, level, range, cost, description, damage, casting_time,
+            classes = [], _classes = []
         } = this.props;
 
         return <tr data-id={id}>
@@ -73,16 +73,13 @@ class SpellRow extends LazyComponent
                         {level}
                     </li>
                     <li>
+                        <strong>Casting time:</strong>&nbsp;
+                        {casting_time}
+                    </li>
+                    <li>
                         <strong>Range:</strong>&nbsp;
                         <Reach distance={range} />
                     </li>
-                    {damage && damage.dice_count
-                        ? <li>
-                            <strong>Damage:</strong>&nbsp;
-                            <DiceNotation {...damage}/>
-                        </li>
-                        : null
-                    }
                     {cost ?
                         <li>
                             <strong>Cost:</strong>&nbsp;
@@ -93,14 +90,14 @@ class SpellRow extends LazyComponent
                     {classes.length
                         ? <li className="spells-table--properties">
                             <strong>Classes:</strong>&nbsp;
-                            {_.map(classes, _class => {
-                                return                             <ListLabel
+                            {_.map(classes, _class => (
+                                <ListLabel
                                     key={_class}
-                                    items={_classes || []}
+                                    items={_classes}
                                     value={_class}
                                     tooltip={true}
-                                    />;
-                            })}
+                                    />
+                            ))}
                         </li>
                         : null
                     }
@@ -272,6 +269,9 @@ export default ListDataWrapper(
         SpellsTable,
         {spells: {group: 'items', type: 'spell'}}
     ),
-    ['search'],
-    'items'
+    ['search', 'classes'],
+    'items',
+    {
+        'classes': '_classes',
+    }
 );
