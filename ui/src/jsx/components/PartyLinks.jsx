@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { userHasRole } from '../utils.jsx';
+
 import ListDataActions from '../actions/ListDataActions.jsx';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
@@ -12,51 +14,35 @@ class PartyLinks extends BaseLinkGroup
         super(props);
     }
 
-    userHasRole(role) {
-        const { current_user = {} } = this.props;
-        const roles = _.isArray(role) ? role : [role];
-
-        return (
-            _.intersection(
-                current_user.role || [],
-                roles
-            ).length > 0
-        );
-    }
-
     buttonList() {
         const {
-            party = {}, hosted_party, current_user = {}
+            party, party_id, hosted_party, current_user: user
         } = this.props;
 
-        if (!current_user) {
-            return [];
-        }
-
-        if (!this.userHasRole('dm')) {
-            return [];
+        if (!user) {
+            return {};
         }
 
         return {
             'view': () => ({
                 label: 'View',
-                link: "/party/show/" + party.id,
+                link: "/party/show/" + party_id,
                 icon: 'eye',
-                available: !_.isNil(party.id),
+                available: party && (
+                    party.user_id == user.id
+                    || userHasRole(user, ['dm', 'admin'])
+                ),
             }),
             'edit': () => ({
                 label: 'Edit',
-                link: "/party/edit/" + party.id,
+                link: "/party/edit/" + party_id,
                 icon: 'pencil',
-                available: (
-                    !_.isNil(party.id)
-                    && (
-                        party.user_id == current_user.id
-                        || this.userHasRole(['admin'])
-                    )
+                available: party && (
+                    party.user_id == user.id
+                    || userHasRole(user, 'admin')
                 ),
             }),
-            'host': () => (hosted_party && party.id == hosted_party.id ? {
+            'host': () => (hosted_party && party_id == hosted_party_id ? {
                 label: 'Stop',
                 action: () => {
                     fetch("/party/host", {
@@ -75,11 +61,13 @@ class PartyLinks extends BaseLinkGroup
                 },
                 icon: 'ban',
                 className: 'info',
-                available: !_.isNil(party.id),
+                available: party && (
+                    userHasRole(user, 'dm')
+                ),
             } : {
                 label: 'Host',
                 action: () => {
-                    fetch("/party/host/" + party.id, {
+                    fetch("/party/host/" + party_id, {
                         method: "POST",
                         credentials: 'same-origin',
                         'headers': {
@@ -94,13 +82,17 @@ class PartyLinks extends BaseLinkGroup
                     });
                 },
                 icon: 'beer',
-                available: !_.isNil(party.id),
+                available: party && (
+                    userHasRole(user, 'dm')
+                ),
             }),
             'new': () => ({
                 label: 'New',
                 link: "/party/new",
                 icon: 'plus',
-                available: _.isNil(party.id),
+                available: !party && (
+                    userHasRole(user, ['dm', 'admin'])
+                ),
             })
         };
     }
