@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { userHasRole } from '../utils.jsx';
+
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
@@ -14,7 +16,7 @@ class CharacterLinks extends BaseLinkGroup
 
     buttonList() {
         const {
-            character, character_id
+            character, character_id, current_user: user
         } = this.props;
 
         const levelUp = (
@@ -23,115 +25,66 @@ class CharacterLinks extends BaseLinkGroup
             && character.level_up.config.length
         );
 
+        if (!user) {
+            return {};
+        }
+
         return {
-            'view': () => {
-                return {
-                    label: 'View',
-                    link: "/character/show/" + character_id,
-                    icon: 'eye',
-                };
-            },
-            'raw': () => {
-                return {
-                    label: 'Raw',
-                    link: "/character/raw/" + character_id,
-                    icon: 'cogs',
-                };
-            },
-            'edit': () => {
-                return {
-                    label: 'Edit',
-                    link: "/character/edit/" + character_id,
-                    icon: levelUp ? 'level-up' : 'pencil',
-                    color: levelUp ? 'primary' : null,
-                };
-            },
-            'copy': () => {
-                return {
-                    label: 'Copy',
-                    link: "/character/copy/" + character_id,
-                    icon: 'clone',
-                };
-            },
-            'download': () => {
-                return {
-                    label: 'PDF',
-                    download: "/character/download/" + character_id,
-                    icon: 'file-pdf-o',
-                };
-            },
-            'new': () => {
-                return {
-                    label: 'New',
-                    link: "/character/new",
-                    icon: 'plus',
-                };
-            },
-            'delete': () => {
-                return {
-                    label: 'Delete',
-                    action: () => {
-                        ObjectDataActions.deleteObject(
-                            "character", character_id
-                        );
-                    },
-                    icon: 'trash-o',
-                    color: 'bad'
-                };
-            },
+            'view': () => ({
+                label: 'View',
+                link: "/character/show/" + character_id,
+                icon: 'eye',
+                available: character && userHasRole(user, 'player'),
+            }),
+            'raw': () => ({
+                label: 'Raw',
+                link: "/character/raw/" + character_id,
+                icon: 'cogs',
+                available: character && userHasRole(user, 'admin'),
+            }),
+            'edit': () => ({
+                label: 'Edit',
+                link: "/character/edit/" + character_id,
+                icon: levelUp ? 'level-up' : 'pencil',
+                color: levelUp ? 'primary' : null,
+                available: character && (
+                    character.user_id == user.id
+                    || userHasRole(user, ['admin', 'dm'])
+                ),
+            }),
+            'copy': () => ({
+                label: 'Copy',
+                link: "/character/copy/" + character_id,
+                icon: 'clone',
+                available: character && (
+                    character.user_id == user.id
+                    || userHasRole(user, ['admin', 'dm'])
+                ),
+            }),
+            'download': () => ({
+                label: 'PDF',
+                download: "/character/download/" + character_id,
+                icon: 'file-pdf-o',
+                available: character && userHasRole(user, ['player', 'dm']),
+            }),
+            'new': () => ({
+                label: 'New',
+                link: "/character/new",
+                icon: 'plus',
+                available: !character && userHasRole(user, ['player', 'dm']),
+            }),
+            'delete': () => ({
+                label: 'Delete',
+                action: () => {
+                    ObjectDataActions.deleteObject(
+                        "character", character_id
+                    );
+                },
+                icon: 'trash-o',
+                color: 'bad',
+                available: character && character.user_id == user.id,
+            }),
         };
-    }
-
-    getAllowed() {
-        const {
-            current_user, character, character_id
-        } = this.props;
-
-        if (!current_user) {
-            return [];
-        }
-
-        const userHasRole = (role) => {
-            const roles = _.isArray(role) ? role : [role];
-            return (
-                _.intersection(
-                    current_user.role || [],
-                    roles
-                ).length > 0
-            );
-        };
-
-        if (!character) {
-            if (userHasRole(['dm', 'player'])) {
-                return ['new'];
-            }
-            return [];
-        }
-
-        if (userHasRole(['admin'])) {
-            return [
-                'download', 'delete', 'copy', 'raw', 'new', 'view',
-            ];
-        }
-
-        if (
-            character
-            && character.user_id == current_user.id
-        ) {
-            return [
-                'download', 'delete', 'copy', 'edit', 'new', 'view',
-            ];
-        }
-
-        if (userHasRole(['dm'])) {
-            return ['download', 'edit', 'copy', 'new', 'view'];
-        }
-
-        if (userHasRole(['player'])) {
-            return ['download', 'new', 'view'];
-        }
-
-        return [];
     }
 }
 
