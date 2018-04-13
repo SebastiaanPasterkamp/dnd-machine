@@ -43,9 +43,12 @@
     }
 
     &.splitview {
+        display: grid;
+        grid-template-columns: 50% 50%;
+
         .markdown-textedit__preview,
         textarea {
-            width: 50%;
+            position: initial;
         }
     }
 

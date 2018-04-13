@@ -24,7 +24,7 @@ export class CampaignEdit extends React.Component
     }
 
     render() {
-        return [
+        return <React.Fragment>
             <Panel
                     key="description"
                     className="campaign-edit__description"
@@ -47,7 +47,7 @@ export class CampaignEdit extends React.Component
                             this.onFieldChange('description', value);
                         }} />
                 </ControlGroup>
-            </Panel>,
+            </Panel>
 
             <MarkdownTextField
                 key="story"
@@ -57,8 +57,9 @@ export class CampaignEdit extends React.Component
                 rows={5}
                 setState={(value) => {
                     this.onFieldChange('story', value);
-                }} />
-        ];
+                }}
+                />
+        </React.Fragment>;
     }
 }
 
