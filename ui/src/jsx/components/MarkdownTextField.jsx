@@ -36,7 +36,7 @@ export class MarkdownTextField extends LazyComponent
 
     render() {
         const {
-            className, value, placeholder, rows, disabled
+            className, value = '', placeholder = '', rows = 1, disabled
         } = this.props;
         const {
             editing, hovering
@@ -71,19 +71,20 @@ export class MarkdownTextField extends LazyComponent
             }
             <textarea
                 className="nice-form-control"
-                value={value || ''}
-                rows={rows || 1}
+                value={value}
+                rows={rows}
                 ref={(textarea) => {
                     this.textarea = textarea;
                 }}
-                placeholder={placeholder || ''}
+                placeholder={placeholder}
                 onChange={(e) => this.onChange(e.target.value)}
                 onFocus={() => this.setEditing(true)}
                 onBlur={() => this.setEditing(false)}
                 />
             <MDReactComponent
                 className="markdown-textedit__preview"
-                text={value || ''} />
+                text={value}
+                />
         </div>;
     }
 }
