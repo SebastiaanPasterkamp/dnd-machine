@@ -106,6 +106,14 @@ class DndMachine extends React.Component
                     component={CampaignEdit}
                     />
                 <Route
+                    path="/campaign/show/:id"
+                    render={props => {
+                        window.location.href = props.location.pathname;
+                        return null;
+                    }}
+                    />
+
+                <Route
                     path="/campaign/list"
                     component={CampaignTable}
                     />
@@ -268,7 +276,10 @@ class DndMachine extends React.Component
                     component={UserView}
                     />
 
-                <Redirect path="/login" to="/character/list" />
+                <Redirect
+                    path="/login"
+                    to="/character/list"
+                    />
 
                 <Route path="/logout" render={props => {
                     ListDataActions.doLogout(
@@ -286,12 +297,20 @@ class DndMachine extends React.Component
                 }} />
             </Switch> : <Switch>
 
-                <Route path="*" render={props => (
+                <Route path="/login" render={props => (
                     <LoginDialog
                         message="Welcome to D&amp;D Machine. Please log in using your credentials to access this website."
                         icon="d20"
                         />
                 )} />
+
+                <Route
+                    path="*"
+                    render={props => {
+                        window.location.href = '/login';
+                        return null;
+                    }}
+                    />
 
             </Switch> }</ErrorBoundary>
         </section>
