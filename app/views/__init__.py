@@ -36,6 +36,8 @@ def fill_pdf(pdf_file, text, html={}, fdf_file=None, debug=False):
         for field in params:
             if isinstance(params[field], basestring):
                 params[field] = params[field].encode('utf-8')
+            if params[field] is None:
+                params[field] = ''
         fdf_data = fdf_data.replace(replace, template % params)
 
     for val in re_bool.finditer(fdf_template):
