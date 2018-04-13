@@ -6738,7 +6738,7 @@ INSERT INTO `spell` (id, name, school, level, config)
     "range": "Self"
 }');
 INSERT INTO `spell` (id, name, school, level, config)
-    VALUES (378, 'Power Word Heal', 'evocation', 'Cantrip', '{
+    VALUES (378, 'Power Word Heal', 'evocation', '9', '{
     "casting_time": "1 Action", 
     "classes": [
         "Bard"
