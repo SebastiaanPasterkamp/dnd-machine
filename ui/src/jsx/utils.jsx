@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-let utils = {
+const utils = {
     randomColor() {
         var letters = '0123456789ABCDEF';
         var color = '#';
@@ -44,5 +44,16 @@ let utils = {
         return matched.style;
     }
 }
+
+export function userHasRole(user, role) {
+    const roles = _.isArray(role) ? role : [role];
+    return (
+        _.intersection(
+            user.role || [],
+            roles
+        ).length > 0
+    );
+};
+
 
 export default utils;
