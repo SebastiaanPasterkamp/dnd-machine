@@ -11694,6 +11694,75 @@
             }
         }
     }, {
+        "name": "Outlander",
+        "filename": "outlander.md",
+        "phases": {
+            "outlander": {
+                "config": [{
+                    "hidden": true,
+                    "path": "wealth",
+                    "type": "value",
+                    "value": {
+                        "gp": 10
+                    }
+                }, {
+                    "label": "Wanderer",
+                    "path": "info.Wanderer",
+                    "type": "value",
+                    "value": "You have an excellent memory for maps and geography, and you can always recall the general layout of terrain, settlements, and other features around you. in addition, you can find food and fresh water for yourself and up to five other people each day, provided that the land offers berries, small game, water, and so forth."
+                }, {
+                    "label": "Outlander Skill Proficiencies",
+                    "path": "proficiencies.skills",
+                    "type": "list",
+                    "list": ["skills"],
+                    "given": ["athletics", "survival"]
+                }, {
+                    "label": "Musical Instrument Proficiency",
+                    "path": "proficiencies.musical",
+                    "type": "list",
+                    "list": ["tools"],
+                    "filter": {
+                        "type": "musical"
+                    }
+                }, {
+                    "label": "Background Language",
+                    "path": "languages",
+                    "type": "list",
+                    "list": ["languages"],
+                    "limit": 1
+                }, {
+                    "label": "Outlander equipment",
+                    "path": "equipment",
+                    "type": "list",
+                    "multiple": true,
+                    "given": [
+                        "Staff",
+                        "Hunting Trap",
+                        "trophy from an animal you killed",
+                        "Set of traveler's clothes",
+                        "Belt Pouch"
+                    ]
+                }, {
+                    "label": "Origin",
+                    "path": "info.Origin",
+                    "type": "select",
+                    "limit": 1,
+                    "items": [
+                        "Forester",
+                        "Trapper",
+                        "Homesteader",
+                        "Guide",
+                        "Exile or outcast",
+                        "Bounty hunter",
+                        "Pilgrim",
+                        "Tribal nomad",
+                        "Hunter-gatherer",
+                        "Tribal marauder"
+                    ]
+                }]
+            }
+        }
+    }, {
         "name": "Noble",
         "filename": "noble.md",
         "phases": {
