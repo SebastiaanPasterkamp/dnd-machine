@@ -25,6 +25,7 @@ import EncounterEdit from './views/EncounterEdit.jsx';
 import EncounterTable from './views/EncounterTable.jsx';
 import EncounterView from './views/EncounterView.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
+import PageFooter from './views/PageFooter.jsx';
 import PartyEdit from './views/PartyEdit.jsx';
 import PartyTable from './views/PartyTable.jsx';
 import PartyView from './views/PartyView.jsx';
@@ -56,7 +57,7 @@ class DndMachine extends React.Component
         const auth = !!current_user;
         const loading = typeof(current_user) == 'undefined';
 
-        return <Router><div>
+        return <Router><React.Fragment>
         <header className="nice-header fixed">
             <div className="nice-header-container">
                 <h1 className="nice-header-brand">
@@ -319,12 +320,13 @@ class DndMachine extends React.Component
 
             </Switch> }</ErrorBoundary>
         </section>
+        <PageFooter />
         <MessageStack
             messages={[
                 {id: 'abc', message: 'test', title: 'foo'}
                 ]}
             />
-    </div></Router>;
+    </React.Fragment></Router>;
     }
 }
 
