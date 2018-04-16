@@ -75,7 +75,7 @@ export class EncounterEdit extends React.Component
 
     onAddMonsterButton(id) {
         const {
-            monster_ids, setState, recompute
+            monster_ids = [], setState, recompute
         } = this.props;
         const index = _.findIndex(monster_ids, {id});
         let update = monster_ids;
@@ -155,10 +155,10 @@ export class EncounterEdit extends React.Component
 
     render() {
         const {
-            id, name, description, size, monster_ids, monsters,
-            modifier, challenge_rating, challenge_modified,
-            challenge_rating_precise, xp, xp_modified, xp_rating,
-            hosted_party
+            id, name, description = '', size, monster_ids = [], monsters = {},
+            modifier = {}, challenge_rating, challenge_modified = 0.0,
+            challenge_rating_precise = 0.0, xp = 0, xp_modified = 0,
+            xp_rating = 0, hosted_party
         } = this.props;
 
         const { challenge } = hosted_party || {};
@@ -288,10 +288,10 @@ export class EncounterEdit extends React.Component
                     </tr>
                 </thead>
                 <tbody>{_.map(monster_ids, m => {
-                    const monster = _.get(
-                        monsters, m.id
-                    );
-
+                    if (!m) {
+                        return null;
+                    }
+                    const monster = _.get(monsters, m.id);
                     if (!monster) {
                         return null;
                     }
