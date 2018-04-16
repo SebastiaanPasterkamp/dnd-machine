@@ -239,7 +239,7 @@ export class MonsterEdit extends React.Component
         const {
             name, size, size_hit_dice = [], type, monster_types = [],
             alignment, alignments = [], level, armor_class,
-            description = '', challenge_rating, xp = 0, motion,
+            description = '', challenge_rating, xp = 0, motion = {},
             languages = [], _languages = [], traits = [],
             statistics, attacks = [], multiattack = []
         } = this.props;
@@ -332,7 +332,6 @@ export class MonsterEdit extends React.Component
                     <TagValueContainer
                         tags={motion}
                         tagOptions={this.motion}
-                        tagValues={this.levels}
                         defaultValue={20}
                         setState={(value) => {
                             this.onFieldChange('motion', value);
