@@ -113,7 +113,7 @@ export class CharacterLevel extends React.Component
             increase: this.state.abilityScore,
             editBase: false,
         };
-        if (!character.xp) {
+        if (character.creation.length <= 3) {
             statsBlock.editBase = true;
             statsBlock.budget = 27;
             statsBlock.maxBare = 15;
