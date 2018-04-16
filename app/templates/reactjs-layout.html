@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="white">
@@ -16,37 +16,7 @@
         <link rel="apple-touch-icon-precomposed" type="image/png" href="{{ url_for('static', filename='img/dnd-machine-icon.png') }}">
     </head>
     <body class="nice-fixed-header">
-        <div id="app">
-        </div>
-        <footer>
-            <div class="nice-container">
-                <p class="pull-left">
-                    &copy; {{ info.date }} <span class="text-brand">{{ info.title }}</span>
-                </p>
-                <ul class="nice-footer-menu">
-                    <li>
-                        <a href="https://github.com/SebastiaanPasterkamp/dnd-machine/blob/master/LICENSE.md" target="_blank" class="icon fa-balance-scale">
-                            Project License
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/SebastiaanPasterkamp/dnd-machine" target="_blank" class="icon fa-github">
-                            Source
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://nice.textkernel.nl/" target="_blank" class="product-icon textkernel">
-                            Nice!
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://dnd.wizards.com/articles/features/basicrules" target="_blank" class="icon fa-book">
-                            Basic Rules for Dungeons &amp; Dragons
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
+        <div id="app" />
         <script src="{{ url_for('static', filename='js/dnd-machine.js') }}" type="text/javascript"></script>
     </body>
 </html>
