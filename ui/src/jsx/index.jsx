@@ -52,7 +52,9 @@ import Navigation from './views/Navigation.jsx';
 class DndMachine extends React.Component
 {
     render() {
-        const auth = !!this.props.current_user;
+        const { current_user } = this.props;
+        const auth = !!current_user;
+        const loading = typeof(current_user) == 'undefined';
 
         return <Router><div>
         <header className="nice-header fixed">
@@ -307,8 +309,11 @@ class DndMachine extends React.Component
                 <Route
                     path="*"
                     render={props => {
-                        window.location.href = '/login';
-                        return null;
+                        if (!loading) {
+                            window.location.href = '/login';
+                        }
+                        return <div
+                            className="nice-loading large brand viewport-center"></div>;
                     }}
                     />
 
