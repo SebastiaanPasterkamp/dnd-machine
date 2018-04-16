@@ -274,7 +274,7 @@ def register_request_hooks(app):
                 response = jsonify({'message': 'Not logged in'})
                 response.status_code = 401
                 return response
-            redirect('/login')
+            return redirect('/login')
 
     @app.before_request
     def get_user():
