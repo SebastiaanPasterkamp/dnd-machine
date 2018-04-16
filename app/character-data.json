@@ -11594,7 +11594,7 @@
         "name": "Folk Hero",
         "filename": "folk_hero.md",
         "phases": {
-            "folk-hero": {
+            "folk hero": {
                 "config": [{
                     "hidden": true,
                     "path": "wealth",
@@ -11648,7 +11648,7 @@
         "name": "Hermit",
         "filename": "hermit.md",
         "phases": {
-            "criminal": {
+            "hermit": {
                 "config": [{
                     "hidden": true,
                     "path": "wealth",
