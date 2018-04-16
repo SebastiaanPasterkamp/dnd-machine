@@ -68,7 +68,7 @@ class ListPropertySelect extends BaseTagContainer
     }
 
     onAdd(value) {
-        const { limit = 0, replace = 0 } = this.props;
+        const { limit = 1, replace = 0 } = this.props;
         const { added, removed } = this.state;
         let state = { added, removed };
         if (_.includes(removed, value)) {
@@ -144,7 +144,7 @@ class ListPropertySelect extends BaseTagContainer
     }
 
     showSelect() {
-        const { limit = 0, replace = 0 } = this.props
+        const { limit = 1, replace = 0 } = this.props
         const { added, removed } = this.state;
         if ((limit - added.length + removed.length) > 0) {
             return true;
