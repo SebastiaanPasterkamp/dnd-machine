@@ -19,14 +19,14 @@ export class StatsBlock extends Reflux.Component
 
     componentWillUnmount() {
         if (this.state.improvement.length) {
-            let bare = _.assign({}, this.props.bare);
-            _.map(
+            let bonus = _.assign({}, this.props.bonus || {});
+            _.forEach(
                 this.state.improvement,
                 inc => {
-                    bare[inc] -= 1;
+                    bonus[ old ] = _.dropRight(bonus[ old ]);
                 }
             );
-            this.sendUpdate({bare});
+            this.sendUpdate({bonus});
         }
     }
 
@@ -34,15 +34,14 @@ export class StatsBlock extends Reflux.Component
         const { minBare, maxBare } = this.props;
         return _.map(
             _.range(minBare, maxBare + 1),
-            (i) => {
-                return {code: i, label: i};
-            }
+            (i) => ({code: i, label: i})
         );
     }
 
     sendUpdate(update={}) {
         const {
-            bare, bonus, base, modifiers, statistics, setState
+            bare = {}, bonus = {}, base = {}, modifiers = {},
+            statistics = [], setState
         } = this.props;
 
         if (!statistics) {
@@ -62,8 +61,8 @@ export class StatsBlock extends Reflux.Component
 
         _.forEach(statistics, stat => {
             stat = stat.code;
-            props.base[stat] = props.bare[stat]
-                + _.sum(_.get(props, ['bonus', stat], []))
+            props.base[stat] = (props.bare[stat] || 0)
+                + _.sum(_.get(props, ['bonus', stat], []));
 
             props.modifiers[stat] = Math.floor(
                 (props.base[stat] - 10) / 2
@@ -76,8 +75,8 @@ export class StatsBlock extends Reflux.Component
     }
 
     componentWillReceiveProps(nextProps) {
-        const {bare, bonus, base, modifiers} = nextProps;
-        this.sendUpdate({bare, bonus, base, modifiers});
+        const { bare, bonus, base, modifiers } = nextProps;
+        this.sendUpdate({ bare, bonus, base, modifiers });
     }
 
     changeBareStat(stat, value) {
@@ -86,7 +85,7 @@ export class StatsBlock extends Reflux.Component
             this.props.bare,
             {[stat]: value}
         );
-        this.sendUpdate({bare});
+        this.sendUpdate({ bare });
     }
 
     increaseStat(index, stat) {
@@ -101,7 +100,7 @@ export class StatsBlock extends Reflux.Component
 
         this.setState(
             {improvement},
-            () => this.sendUpdate({bonus})
+            () => this.sendUpdate({ bonus })
         );
     }
 
@@ -120,28 +119,31 @@ export class StatsBlock extends Reflux.Component
     }
 
     isDisabled(stat, item) {
-        if (!this.props.budget) {
+        const { budget, bare } = this.props;
+        if (!budget) {
             return false;
         }
         let spent = this._spent();
-        spent -= this._cost(this.props.bare[stat]);
+        spent -= this._cost(bare[stat]);
         spent += this._cost(item.code);
         return (
-            (this.props.budget - spent) < 0
+            (budget - spent) < 0
         );
     }
 
     renderHeader() {
+        const { bonus, increase } = this.props;
+
         return <thead>
             <tr>
                 <th>Statistic</th>
                 <th>Base</th>
-                {this.props.bonus
+                {bonus
                     ? <th>Bonus</th>
                     : null
                 }
-                {this.props.increase
-                    ? <th colSpan={this.props.increase}>Increase</th>
+                {increase
+                    ? <th colSpan={increase}>Increase</th>
                     : null
                 }
                 <th>Final</th>
@@ -151,8 +153,11 @@ export class StatsBlock extends Reflux.Component
     }
 
     renderIncrease(index, stat) {
-        const selected = this.state.improvement[index] == stat;
-        const disabled = !selected && this.props.base[stat] >= 20;
+        const { base } = this.props;
+        const { improvement } = this.state;
+        const selected = improvement[index] == stat;
+        const disabled = !selected && base[stat] >= 20;
+
         return <td key={stat + '-' + index}>
             <input
                 type="radio"
@@ -166,63 +171,70 @@ export class StatsBlock extends Reflux.Component
 
     renderRow(stat) {
         const code = stat.code;
+        const {
+            editBase, base, bare, bonus, modifiers, increase
+        } = this.props;
+
         return <tr key={code} className="text-align-center">
             <th>{stat.label}</th>
             <td>
-                {this.props.editBase
+                {editBase
                     ? <SingleSelect
                         heading={stat.label}
                         description={stat.description}
                         items={this.getRange()}
                         setState={(value) => this.changeBareStat(code, value)}
                         isDisabled={(item) => this.isDisabled(code, item)}
-                        selected={this.props.bare[code]} />
-                    : this.props.bare[code]
+                        selected={bare[code]} />
+                    : bare[code]
                 }
             </td>
-            {this.props.bonus
+            {bonus
                 ? <td>
-                    <Bonus bonus={_.sum(this.props.bonus[code])} />
+                    <Bonus bonus={_.sum(bonus[code])} />
                 </td>
                 : null
             }
-            {_.times(this.props.increase,
+            {_.times(increase,
                 (index) => this.renderIncrease(index, code)
             )}
-            <td>{this.props.base[code]}</td>
+            <td>{base[code]}</td>
             <td>
-                <Bonus bonus={this.props.modifiers[code]} />
+                <Bonus bonus={modifiers[code]} />
             </td>
         </tr>
     }
 
     renderBudget() {
+        const { budget, bonus = 0, increase = 0 } = this.props;
+
+        if (!budget) {
+            return null;
+        }
+
         return <tr key="budget" className="text-align-center">
             <th>Budget</th>
-            <td>{this.props.budget - this._spent()}</td>
+            <td>{budget - this._spent()}</td>
             <td colSpan={
                 2
-                + (this.props.bonus ? 1 : 0)
-                + (this.props.increase || 0)
+                + (bonus ? 1 : 0)
+                + increase
             }></td>
         </tr>
     }
 
     render() {
-        if (!this.props.statistics) {
+        const { statistics } = this.props;
+
+        if (!statistics) {
             return null;
         }
 
         return <table className="nice-table condensed bordered">
             {this.renderHeader()}
             <tbody>
-                {this.props.statistics
-                    .map((stat) => this.renderRow(stat))
-                }
-                {this.props.budget
-                    ? this.renderBudget()
-                    : null
-                }
+                {_.map(statistics, stat => this.renderRow(stat))}
+                {this.renderBudget()}
             </tbody>
         </table>;
     }
