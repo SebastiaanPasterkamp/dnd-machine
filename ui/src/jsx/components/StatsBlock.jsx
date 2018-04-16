@@ -22,8 +22,8 @@ export class StatsBlock extends Reflux.Component
             let bonus = _.assign({}, this.props.bonus || {});
             _.forEach(
                 this.state.improvement,
-                inc => {
-                    bonus[ old ] = _.dropRight(bonus[ old ]);
+                stat => {
+                    bonus[stat] = _.dropRight(bonus[stat]);
                 }
             );
             this.sendUpdate({bonus});
