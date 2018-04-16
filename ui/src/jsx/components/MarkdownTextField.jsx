@@ -71,7 +71,7 @@ export class MarkdownTextField extends LazyComponent
             }
             <textarea
                 className="nice-form-control"
-                value={value}
+                value={value || ''}
                 rows={rows}
                 ref={(textarea) => {
                     this.textarea = textarea;
@@ -83,7 +83,7 @@ export class MarkdownTextField extends LazyComponent
                 />
             <MDReactComponent
                 className="markdown-textedit__preview"
-                text={value}
+                text={value || ''}
                 />
         </div>;
     }
