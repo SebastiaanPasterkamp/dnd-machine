@@ -61,7 +61,10 @@ class AppMonsterTestCase(BaseAppTestCase):
 
     def testProtectedPages401(self):
         for page, expected in self.dmPages.items():
-            rv = self.client.get(page)
+            rv = self.client.get(
+                page,
+                headers={'X-Requested-With': 'XMLHttpRequest'}
+                )
             self.assertResponse(page, rv, 401)
 
     def testDmPages200(self):

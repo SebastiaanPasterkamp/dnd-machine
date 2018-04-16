@@ -43,7 +43,10 @@ class AppUserTestCase(BaseAppTestCase):
         pages.update(self.adminPages)
         pages.update(self.userPages)
         for page, expected in pages.items():
-            rv = self.client.get(page)
+            rv = self.client.get(
+                page,
+                headers={'X-Requested-With': 'XMLHttpRequest'}
+                )
             self.assertResponse(page, rv, 401)
 
     def testProtectedPages403(self):

@@ -17,7 +17,10 @@ class AppTestCase(BaseAppTestCase):
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.mimetype, 'text/html')
 
-        rv = self.client.get('/current_user')
+        rv = self.client.get(
+            '/current_user',
+            headers={'X-Requested-With': 'XMLHttpRequest'}
+            )
         self.assertEqual(rv.status_code, 401)
 
         rv = self.client.get('/authenticate')
@@ -38,7 +41,10 @@ class AppTestCase(BaseAppTestCase):
 
     def testPrivatePages401(self):
         for page, expected in self.privatePages.items():
-            rv = self.client.get(page)
+            rv = self.client.get(
+                page,
+                headers={'X-Requested-With': 'XMLHttpRequest'}
+                )
             self.assertEqual(rv.status_code, 401)
 
     def testPrivatePages200(self):
@@ -69,14 +75,22 @@ class AppTestCase(BaseAppTestCase):
         rv = self.doLogin('admin', 'admin')
         self.assertEqual(rv.status_code, 302)
 
-        rv = self.client.get('/current_user', follow_redirects=True)
+        rv = self.client.get(
+            '/current_user',
+            follow_redirects=True,
+            headers={'X-Requested-With': 'XMLHttpRequest'}
+            )
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.mimetype, 'application/json')
 
         rv = self.doLogout(False)
         self.assertEqual(rv.status_code, 200)
 
-        rv = self.client.get('/current_user', follow_redirects=True)
+        rv = self.client.get(
+            '/current_user',
+            follow_redirects=True,
+            headers={'X-Requested-With': 'XMLHttpRequest'}
+            )
         self.assertEqual(rv.status_code, 401)
 
 if __name__ == '__main__':

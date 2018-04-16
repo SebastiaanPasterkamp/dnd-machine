@@ -244,14 +244,16 @@ class BaseAppTestCase(unittest.TestCase):
         return self.client.post(
             path,
             data=json.dumps(data),
-            content_type='application/json'
+            content_type='application/json',
+            headers={'X-Requested-With': 'XMLHttpRequest'}
             )
 
     def patchJSON(self, path, data):
         return self.client.patch(
             path,
             data=json.dumps(data),
-            content_type='application/json'
+            content_type='application/json',
+            headers={'X-Requested-With': 'XMLHttpRequest'}
             )
 
     def doLogin(self, username, password):
