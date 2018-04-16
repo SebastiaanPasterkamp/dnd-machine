@@ -74,7 +74,10 @@ class AppPartyTestCase(BaseAppTestCase):
         pages.update(self.dmPages)
         pages.update(self.partyPages)
         for page, expected in pages.items():
-            rv = self.client.get(page)
+            rv = self.client.get(
+                page,
+                headers={'X-Requested-With': 'XMLHttpRequest'}
+                )
             self.assertResponse(page, rv, 401)
 
     def testDmPages200(self):

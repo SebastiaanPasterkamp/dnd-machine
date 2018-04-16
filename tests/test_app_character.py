@@ -68,7 +68,10 @@ class AppCharacterTestCase(BaseAppTestCase):
         pages.update(self.protectedPages)
         pages.update(self.adminPages)
         for page, expected in pages.items():
-            rv = self.client.get(page)
+            rv = self.client.get(
+                page,
+                headers={'X-Requested-With': 'XMLHttpRequest'}
+                )
             self.assertResponse(page, rv, 401)
 
     def testPrivatePages200(self):
