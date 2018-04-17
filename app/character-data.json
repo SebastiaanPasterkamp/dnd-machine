@@ -11723,7 +11723,8 @@
                     "list": ["tools"],
                     "filter": {
                         "type": "musical"
-                    }
+                    },
+                    "limit": 1
                 }, {
                     "label": "Background Language",
                     "path": "languages",
