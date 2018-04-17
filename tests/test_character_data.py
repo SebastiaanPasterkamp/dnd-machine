@@ -236,6 +236,12 @@ class CharacterDataTestCase(unittest.TestCase):
     def checkConfig(self, config, path):
         typeSpecific = {
             'list': {
+                'hidden': {
+                    'instance': bool,
+                    },
+                'hidden_formula': {
+                    'instance': unicode,
+                    },
                 'given': {
                     'instance': list,
                     },
@@ -255,11 +261,11 @@ class CharacterDataTestCase(unittest.TestCase):
                 'limit': {
                     'instance': int,
                     },
-                'replace': {
-                    'instance': int,
-                    },
                 'limit_formula': {
                     'instance': unicode,
+                    },
+                'replace': {
+                    'instance': int,
                     },
                 },
             'select': {
@@ -283,11 +289,24 @@ class CharacterDataTestCase(unittest.TestCase):
                     },
                 },
             'value': {
+                'hidden': {
+                    'instance': bool,
+                    },
+                'hidden_formula': {
+                    'instance': unicode,
+                    },
                 'value': {
                     'required': True,
                     },
                 },
             'ability_score': {
+                'hidden': {
+                    'instance': bool,
+                    'required': True,
+                    },
+                'hidden_formula': {
+                    'instance': unicode,
+                    },
                 'path': {},
                 'limit': {
                     'instance': int,
@@ -317,6 +336,12 @@ class CharacterDataTestCase(unittest.TestCase):
                     },
                 },
             'dict': {
+                'hidden': {
+                    'instance': bool,
+                    },
+                'hidden_formula': {
+                    'instance': unicode,
+                    },
                 'dict': {
                     'instance': dict,
                     'required': True
@@ -333,12 +358,6 @@ class CharacterDataTestCase(unittest.TestCase):
                 }
             }
         base = {
-            'hidden': {
-                'instance': bool,
-                },
-            'hidden_formula': {
-                'instance': unicode,
-                },
             'label': {
                 'instance': unicode,
                 },
@@ -365,6 +384,23 @@ class CharacterDataTestCase(unittest.TestCase):
                 pathSpecific.get( config['path'], {} )
                 )
         self.verifyStruct(config, struct, path)
+
+        if config['type'] == 'list':
+            need_one = ['given', 'limit', 'limit_formula', 'replace']
+            self.assertTrue(
+                any(f in config for f in need_one),
+                "Need one of '%r' in '%r'" % (
+                    need_one, config
+                    )
+                )
+            if config.get('hidden', False):
+                exclude = ['limit', 'limit_formula', 'replace']
+                self.assertFalse(
+                    any(f in config for f in exclude),
+                    "Can't have one of '%r' in '%r'" % (
+                        exclude, config
+                        )
+                    )
 
 
     def checkSubrace(self, subrace, path):
