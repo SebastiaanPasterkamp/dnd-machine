@@ -9617,7 +9617,7 @@
             "sorcerer-1": {
                 "conditions": {
                     "level": 1,
-                    "class": "Wizard"
+                    "class": "Sorcerer"
                 },
                 "config": [{
                     "hidden": true,
