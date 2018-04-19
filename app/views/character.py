@@ -306,7 +306,7 @@ class CharacterBlueprint(BaseApiBlueprint):
         i = 0
         for count, weapon in filter_unique(obj.weapons):
             fdf_text['Wpn Name %d' % (i+1)] = \
-                "%d x %s %s" % (count, weapon['name']) if count > 1 \
+                "%d x %s" % (count, weapon['name']) if count > 1 \
                 else weapon['name']
             fdf_text['Wpn%d Damage' % (i+1)] = "%s %s" % (
                 weapon['damage'].get('notation', ''),
