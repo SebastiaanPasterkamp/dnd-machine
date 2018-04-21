@@ -131,6 +131,11 @@ function RoutedObjectDataWrapper(
                     this.getStateProps(),
                     loadableGroup,
                     () => {
+                        this.actions.getObject.completed(
+                            loadableType,
+                            id,
+                            null
+                        );
                         ReportingActions.showMessage(
                             'good',
                             'Created',
