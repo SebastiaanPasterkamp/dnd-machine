@@ -610,7 +610,7 @@
                     "value": "(12 + statistics.modifiers.constitution) + (7 + statistics.modifiers.constitution) * (level - 1)"
                 }, {
                     "hidden": true,
-                    "path": "computed.armor_class.formula",
+                    "path": "computed.unarmored.formula",
                     "type": "value",
                     "value": "10 + statistics.modifiers.dexterity + statistics.modifiers.constitution"
                 }, {
@@ -9915,7 +9915,7 @@
                             "given": ["1 * level"]
                         }, {
                             "hidden": true,
-                            "path": "computed.armor_class.formula",
+                            "path": "computed.unarmored.formula",
                             "type": "value",
                             "value": "13 + statistics.modifiers.dexterity"
                         }, {
