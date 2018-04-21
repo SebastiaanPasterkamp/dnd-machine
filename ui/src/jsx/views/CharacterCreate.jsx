@@ -180,7 +180,7 @@ export class CharacterCreate extends LazyComponent
             race, races, 'class': _class, classes, background,
             backgrounds, statistics, _statistics, setState, level,
             gender, genders = [], alignment, alignments = [],
-            xp_progress, xp_level,
+            xp_progress, xp_level, name = '',
         } = this.props;
         const { doneStats } = this.state;
 
@@ -225,11 +225,7 @@ export class CharacterCreate extends LazyComponent
                         {
                             doneDescr: (
                                 doneStats
-                                && (
-                                    'name' in update
-                                    ? update.name
-                                    : name
-                                )
+                                && name.length
                             )
                         },
                         () => setState(update)
