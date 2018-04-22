@@ -106,9 +106,9 @@ class PartyMapper(JsonObjectDataMapper):
         cur = self.db.execute("""
             SELECT p.*
             FROM `%s` AS p
-            JOIN `party_characters` AS pc ON (p.id=pc.party_id)
-            JOIN `user_characters` AS uc USING (character_id)
-            WHERE uc.`user_id` = ?
+            JOIN `party_characters` AS pc ON (p.id = pc.party_id)
+            JOIN `character` AS c ON (c.id = pc.character_id)
+            WHERE c.`user_id` = ?
             """ % self.table,
             [user_id]
             )
@@ -125,8 +125,8 @@ class PartyMapper(JsonObjectDataMapper):
         cur = self.db.execute("""
             SELECT pc.party_id as id
             FROM `party_characters` AS pc
-            JOIN `user_characters` AS uc USING (character_id)
-            WHERE uc.`user_id` = ?
+            JOIN `character` AS c ON (c.id = pc.character_id)
+            WHERE c.`user_id` = ?
             """,
             [user_id]
             )
