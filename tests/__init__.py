@@ -74,12 +74,8 @@ class BaseAppTestCase(unittest.TestCase):
         obj = self.dbInsertObject(
             'character',
             obj,
-            ['name', 'level']
+            ['name', 'user_id', 'level']
             )
-        self.dbInsertLink('user_characters', {
-            'user_id': user['id'],
-            'character_id': obj['id']
-            })
         return obj
 
     def createParty(self, party, members, dm):

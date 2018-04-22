@@ -255,6 +255,9 @@ class CharacterDataTestCase(unittest.TestCase):
                         'humanoid_types', 'terrain_types',
                         ]
                     },
+                'items': {
+                    'instance': list,
+                    },
                 'filter': {
                     'instance': dict,
                     },
@@ -354,6 +357,11 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     'required': True,
                     'one-of': [True]
+                    },
+                'type': {
+                    'instance': unicode,
+                    'required': True,
+                    'one-of': ['list'],
                     },
                 }
             }

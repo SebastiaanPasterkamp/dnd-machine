@@ -90,7 +90,6 @@ class AppUserTestCase(BaseAppTestCase):
 
         self.doLogin('admin', 'admin')
         for userId in [
-                1,
                 self.users['dm']['id'],
                 self.users['user']['id'],
                 ]:
