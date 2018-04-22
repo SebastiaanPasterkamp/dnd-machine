@@ -8278,28 +8278,31 @@
                     ]
                 }, {
                     "label": "Favored Enemy",
-                    "path": "abilities.Favored Enemy",
-                    "type": "dict",
-                    "dict": {
-                        "description": "You have significant experience studying, tracking, hunting, and even talking to a certain type of enemy. You have **Advantage** on **Wisdom (Survival)** checks to track **%(favored_enemy)s** enemies, as well as on **Intelligence** checks to recall information about them.",
-                        "favored_enemy_formula": "', '.join(character.favored.enemy or ['Favored'])"
-                    }
-                }, {
-                    "description": "Choose a type of favored enemy. You also learn one language of your choice that is spoken by your favored enemy, if they speak one at all.",
-                    "type": "choice",
-                    "options": [{
-                        "label": "Monsters",
-                        "type": "config",
-                        "config": [{
-                            "label": "Favored Enemy",
+                    "type": "config",
+                    "config": [{
+                        "path": "abilities.Favored Enemy",
+                        "type": "dict",
+                        "dict": {
+                            "description": "You have significant experience studying, tracking, hunting, and even talking to a certain type of enemy. You have **Advantage** on **Wisdom (Survival)** checks to track **%(favored_enemy)s** enemies, as well as on **Intelligence** checks to recall information about them.",
+                            "favored_enemy_formula": "', '.join(character.favored.enemy or ['Favored'])"
+                        }
+                    }, {
+                        "description": "Choose a type of favored enemy. You also learn one language of your choice that is spoken by your favored enemy, if they speak one at all.",
+                        "type": "choice",
+                        "options": [{
+                            "label": "Monsters",
                             "type": "config",
-                            "type": "list",
-                            "list": ["monster_types"],
-                            "path": "favored.enemy",
-                            "limit": 1,
-                            "filter": {
-                                "intelligent": false
-                            }
+                            "config": [{
+                                "label": "Favored Enemy",
+                                "type": "config",
+                                "type": "list",
+                                "list": ["monster_types"],
+                                "path": "favored.enemy",
+                                "limit": 1,
+                                "filter": {
+                                    "intelligent": false
+                                }
+                            }]
                         }, {
                             "label": "Celestial",
                             "type": "config",
@@ -8384,18 +8387,21 @@
                     }]
                 }, {
                     "label": "Natural Explorer",
-                    "path": "abilities.Natural Explorer",
-                    "type": "dict",
-                    "dict": {
-                        "description": "You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions. When you make an **Intelligence** or **Wisdom** check related to your favored ** %(favored_terrain)s ** terrain, your **proficiency bonus** is doubled if you are using a skill that you're proficient in.While traveling for an hour or more in your favored terrain, you gain the following benefits:\n\n* Difficult terrain doesn't slow your group's travel.\n* Your group can't become lost except by magical means.\n* Even when you are engaged in another activity while traveling (such as foraging, navigating, or (racking), you remain alert to danger.\n* if you are traveling alone, you can move stealthily at a normal pace. When you forage, you find twice as much food as you normally would.\n* While tracking other creatures, you also learn (heir exact number, their sizes, and how long ago they passed through the area.",
-                        "favored_terrain_formula": "', '.join(character.favored.terrain or [''])"
-                    }
-                }, {
-                    "description": "Choose one type of favored terrain:",
-                    "type": "list",
-                    "list": ["terrain_types"],
-                    "path": "favored.terrain",
-                    "limit": 1
+                    "type": "config",
+                    "config": [{
+                        "path": "abilities.Natural Explorer",
+                        "type": "dict",
+                        "dict": {
+                            "description": "You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions. When you make an **Intelligence** or **Wisdom** check related to your favored ** %(favored_terrain)s ** terrain, your **proficiency bonus** is doubled if you are using a skill that you're proficient in.While traveling for an hour or more in your favored terrain, you gain the following benefits:\n\n* Difficult terrain doesn't slow your group's travel.\n* Your group can't become lost except by magical means.\n* Even when you are engaged in another activity while traveling (such as foraging, navigating, or (racking), you remain alert to danger.\n* if you are traveling alone, you can move stealthily at a normal pace. When you forage, you find twice as much food as you normally would.\n* While tracking other creatures, you also learn (heir exact number, their sizes, and how long ago they passed through the area.",
+                            "favored_terrain_formula": "', '.join(character.favored.terrain or [''])"
+                        }
+                    }, {
+                        "description": "Choose one type of favored terrain:",
+                        "type": "list",
+                        "list": ["terrain_types"],
+                        "path": "favored.terrain",
+                        "limit": 1
+                    }]
                 }]
             },
             "ranger-2": {
@@ -11568,7 +11574,7 @@
                     "type": "choice",
                     "options": [{
                         "label": "Favor of an Admirer",
-                        "type": "select",
+                        "type": "list",
                         "path": "equipment",
                         "multiple": true,
                         "limit": 1,
@@ -11917,36 +11923,30 @@
                     }
                 }, {
                     "label": "Background Equipment",
-                    "type": "config",
-                    "config": [{
-                        "type": "list",
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Insignia of Rank",
-                            "Set of Common Clothes",
-                            "Pouch"
-                        ]
-                    }, {
-                        "type": "select",
-                        "path": "equipment",
-                        "multiple": true,
-                        "items": [
-                            "Set of Bone Dice",
-                            "Deck of cards"
-                        ]
-                    }, {
-                        "type": "select",
-                        "description": "A trophy taken from a fallen enemy.",
-                        "path": "equipment",
-                        "multiple": true,
-                        "limit": 1,
-                        "items": [
-                            "Dagger",
-                            "Broken Blade",
-                            "Piece of a Banner"
-                        ]
-                    }]
+                    "type": "list",
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": [
+                        "Insignia of Rank",
+                        "Set of Common Clothes",
+                        "Pouch"
+                    ],
+                    "limit": 1,
+                    "items": [
+                        "Set of Bone Dice",
+                        "Deck of cards"
+                    ]
+                }, {
+                    "type": "list",
+                    "label": "A trophy taken from a fallen enemy.",
+                    "path": "equipment",
+                    "multiple": true,
+                    "limit": 1,
+                    "items": [
+                        "Dagger",
+                        "Broken Blade",
+                        "Piece of a Banner"
+                    ]
                 }]
             }
         }
