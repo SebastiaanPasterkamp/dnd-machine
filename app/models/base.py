@@ -386,6 +386,8 @@ class JsonObjectDataMapper(object):
 
         dbrow['config'] = json.loads(dbrow['config'])
         for field in self.fields:
+            if dbrow[field] is None:
+                continue
             dbrow['config'][field] = dbrow[field]
         dbrow['config']['id'] = dbrow['id']
         return self.obj(dbrow['config'])
