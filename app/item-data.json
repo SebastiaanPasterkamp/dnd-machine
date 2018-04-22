@@ -215,20 +215,20 @@
         {"code": "Troglodyte", "label": "Troglodyte"}
     ],
     "monster_types": [
-        {"code": "Aberration", "label": "Aberration", "description": "Aberration"},
-        {"code": "Beast", "label": "Beast", "description": "Beast"},
+        {"code": "Aberration", "label": "Aberration", "description": "Aberration", "intelligent": false},
+        {"code": "Beast", "label": "Beast", "description": "Beast", "intelligent": false},
         {"code": "Celestial", "label": "Celestial", "description": "Celestial", "intelligent": true},
-        {"code": "Construct", "label": "Construct", "description": "Construct"},
+        {"code": "Construct", "label": "Construct", "description": "Construct", "intelligent": false},
         {"code": "Dragon", "label": "Dragon", "description": "Dragon", "intelligent": true},
-        {"code": "Elemental", "label": "Elemental", "description": "Elemental"},
+        {"code": "Elemental", "label": "Elemental", "description": "Elemental", "intelligent": false},
         {"code": "Fey", "label": "Fey", "description": "Fey", "intelligent": true},
-        {"code": "Fiend", "label": "Fiend", "description": "Fiend"},
+        {"code": "Fiend", "label": "Fiend", "description": "Fiend", "intelligent": false},
         {"code": "Giant", "label": "Giant", "description": "Giant", "intelligent": true},
         {"code": "Humanoid", "label": "Humanoid", "description": "Humanoid", "intelligent": true},
-        {"code": "Monstrosity", "label": "Monstrosity", "description": "Monstrosity"},
-        {"code": "Ooze", "label": "Ooze", "description": "Ooze"},
-        {"code": "Plant", "label": "Plant", "description": "Plant"},
-        {"code": "Undead", "label": "Undead", "description": "Undead"}
+        {"code": "Monstrosity", "label": "Monstrosity", "description": "Monstrosity", "intelligent": false},
+        {"code": "Ooze", "label": "Ooze", "description": "Ooze", "intelligent": false},
+        {"code": "Plant", "label": "Plant", "description": "Plant", "intelligent": false},
+        {"code": "Undead", "label": "Undead", "description": "Undead", "intelligent": false}
     ],
     "terrain_types": [
         {"code": "Arctic", "label": "Arctic"},
