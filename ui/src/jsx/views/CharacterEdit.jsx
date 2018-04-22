@@ -247,7 +247,10 @@ export default ListDataWrapper(
         'weapon_types',
         'weapon',
         'armor_types',
-        'armor'
+        'armor',
+        'monster_types',
+        'humanoid_types',
+        'terrain_types',
     ],
     'items',
     {
