@@ -6,7 +6,7 @@ from .. import get_datamapper
 def register_paths(blueprint, basemapper, config):
 
     @blueprint.route('/<string:item>/list')
-    def overview(self, item):
+    def overview(item):
         return render_template(
             'reactjs-layout.html'
             )
