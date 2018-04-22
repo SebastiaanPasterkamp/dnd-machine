@@ -524,7 +524,7 @@ class CharacterObject(JsonObject):
 class CharacterMapper(JsonObjectDataMapper):
     obj = CharacterObject
     table = "character"
-    fields = ["name", "level"]
+    fields = ["name", "user_id", "level"]
     order = 'name'
 
     def __init__(self, db, mapper, config={}):
@@ -548,31 +548,6 @@ class CharacterMapper(JsonObjectDataMapper):
             {"search": "%%%s%%" % search}
             )
 
-    def insert(self, obj):
-        """Adds the link between user and character after inserting"""
-        new_obj = super(CharacterMapper, self).insert(obj)
-        self.db.execute("""
-            INSERT INTO `user_characters` (`user_id`, `character_id`)
-            VALUES (:user_id, :character_id)""", {
-                'user_id': new_obj.user_id,
-                'character_id': new_obj.id
-                }
-            )
-        self.db.commit()
-        return new_obj
-
-    def delete(self, obj):
-        """Removes the link between user and character before deleting"""
-        cur = self.db.execute("""
-            DELETE FROM `user_characters`
-            WHERE `user_id` = :user_id AND `character_id` = :character_id
-            """, {
-                'user_id': obj.user_id,
-                'character_id': obj.id
-                }
-            )
-        return super(CharacterMapper, self).delete(obj)
-
     def getByPartyId(self, party_id):
         """Returns all characters in a party by party_id"""
         cur = self.db.execute("""
@@ -591,20 +566,11 @@ class CharacterMapper(JsonObjectDataMapper):
 
     def getByUserId(self, user_id):
         """Returns all characters from a user by user_id"""
-        cur = self.db.execute("""
-            SELECT c.*
-            FROM `user_characters` AS uc
-            JOIN `%s` AS c ON (uc.character_id=c.id)
-            WHERE `user_id` = ?
-            """ % self.table,
-            [user_id]
+        return self.getMultiple(
+            "`user_id` = :userId",
+            {"userId": user_id}
             )
-        characters = cur.fetchall() or []
-        return [
-            self._read(dict(character))
-            for character in characters
-            ]
-
+        
     def getExtendedIds(self, user_id):
         """Returns all character IDs from parties the user has
         characters in, or DMs for
@@ -613,15 +579,15 @@ class CharacterMapper(JsonObjectDataMapper):
             SELECT
                 DISTINCT epc.character_id
             FROM
-                `user_characters` AS uc
+                `character` AS c
                 LEFT JOIN `party_characters` AS pc
-                    ON (pc.character_id = uc.character_id)
+                    ON (pc.character_id = c.id)
                 LEFT JOIN `party` AS p
                     ON (pc.party_id = p.id)
                 LEFT JOIN `party_characters` AS epc
                     ON (epc.party_id = pc.party_id)
             WHERE
-                uc.`user_id` = ?
+                c.`user_id` = ?
                 OR p.`user_id` = ?
             """,
             [
