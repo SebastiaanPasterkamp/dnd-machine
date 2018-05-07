@@ -29,19 +29,19 @@ const utils = {
         return _.join(active, ' ');
     },
 
-    closest(styles, target, defaultStyle=null) {
+    closest(options, target, defaultOption=null) {
         let matched = _.reduce(
-            styles,
-            (match, value, style) => {
+            options,
+            (match, value, option) => {
                 let delta = Math.abs(value - target);
                 if (delta < match.delta) {
-                    match = {delta, style};
+                    match = {delta, option};
                 }
                 return match;
             },
-            {style: defaultStyle, delta: Number.MAX_SAFE_INTEGER}
+            {option: defaultOption, delta: Number.MAX_SAFE_INTEGER}
         );
-        return matched.style;
+        return matched.option;
     }
 }
 
