@@ -8,24 +8,6 @@ class MonsterBlueprint(BaseApiBlueprint):
     def datamapper(self):
         return self.basemapper.monster
 
-    def _exposeAttributes(self, obj):
-        fields = [
-            'id', 'name', 'type', 'size', 'alignment', 'level',
-            'statistics', 'armor_class', 'description',
-            'proficiency', 'attack_modifier', 'spell_save_dc',
-            'passive_perception', 'hit_points', 'dice_size',
-            'attacks', 'multiattack', 'traits', 'attack_bonus',
-            'languages', 'motion', 'average_damage',
-            'challenge_rating', 'xp', 'xp_rating'
-            ]
-
-        result = dict([
-            (key, obj[key])
-            for key in fields
-            ])
-
-        return result
-
     @BaseApiCallback('index')
     @BaseApiCallback('overview')
     @BaseApiCallback('show')
