@@ -3,6 +3,8 @@ import React from 'react';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
+import ChallengeRating from '../components/ChallengeRating.jsx';
+import XpRating from '../components/XpRating.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import MonsterLinks from '../components/MonsterLinks.jsx';
 
@@ -42,7 +44,7 @@ class MonstersRow extends LazyComponent
 {
     render() {
         const {
-            id, name, challenge_rating, xp_rating
+            id, name, challenge_rating, xp
         } = this.props;
 
         return <tr data-name={id}>
@@ -54,7 +56,15 @@ class MonstersRow extends LazyComponent
                     monster_id={this.props.id}
                     />
             </th>
-            <td>CR {challenge_rating} / {xp_rating} XP</td>
+            <td>
+                <ChallengeRating
+                    challengeRating={challenge_rating}
+                    />
+                &nbsp;/&nbsp;
+                <XpRating
+                    xpRating={xp}
+                    />
+            </td>
         </tr>
     }
 };
