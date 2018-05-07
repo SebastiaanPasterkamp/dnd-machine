@@ -8,6 +8,7 @@ import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import Bonus from '../components/Bonus.jsx';
+import ChallengeRating from '../components/ChallengeRating.jsx';
 import DiceNotation from '../components/DiceNotation.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import ListLabel from '../components/ListLabel.jsx';
@@ -17,6 +18,7 @@ import Reach from '../components/Reach.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
 import TagContainer from '../components/TagContainer.jsx';
 import TagValueContainer from '../components/TagValueContainer.jsx';
+import XpRating from '../components/XpRating.jsx';
 
 class AttackView extends LazyComponent
 {
@@ -178,11 +180,10 @@ export class MonsterView extends LazyComponent
     render() {
         const {
             id, name, size, type, alignment, level, armor_class,
-            description = '', challenge_rating, xp, motion, languages,
-            traits, attacks, multiattack, statistics, dice_size,
-            hit_points,
-            monster_types = [], size_hit_dice = [], _languages = [],
-            alignments = [],
+            description = '', challenge_rating_precise: cr, xp_rating,
+            motion, languages, traits, attacks, multiattack,
+            statistics, dice_size, hit_points, monster_types = [],
+            size_hit_dice = [], _languages = [], alignments = [],
         } = this.props;
 
         return <React.Fragment>
@@ -250,7 +251,16 @@ export class MonsterView extends LazyComponent
                 <tbody>
                     <tr>
                         <th>Challenge Rating</th>
-                        <td>{challenge_rating} ({xp}XP)</td>
+                        <td>
+                            <ChallengeRating
+                                challengeRating={cr}
+                                precise={true}
+                                />
+                            &nbsp;/&nbsp;
+                            <XpRating
+                                xpRating={xp_rating}
+                                />
+                        </td>
                     </tr>
                     <tr>
                         <th>Level</th>
