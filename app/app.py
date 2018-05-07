@@ -67,6 +67,9 @@ def register_cli(app):
     @app.cli.command('initdb')
     def initdb_command():
         print('Initializing the database.')
+        if os.path.exists(app.config.get('DATABASE')):
+            os.remove(app.config.get('DATABASE'))
+        app.db = None
         db = get_db(app)
         _initdb(db)
         print('Initialized the database.')
@@ -87,9 +90,16 @@ def register_cli(app):
         db = get_db(app)
         for line in _dump_table(db, table):
             print line
+    @app.cli.command('import-sql')
+    def import_sql_command(filename):
+        db = get_db(app)
+        _import_sql(db, filename)
 
 def initdb(app):
     with app.app_context():
+        if os.path.exists(app.config.get('DATABASE')):
+            os.remove(app.config.get('DATABASE'))
+        app.db = None
         db = get_db(app)
         _initdb(db)
 
@@ -108,6 +118,11 @@ def dump_table(app, table):
         db = get_db(app)
         for line in _dump_table(db, table):
             print line
+
+def import_sql(app, filename=None):
+    with app.app_context():
+        db = get_db(app)
+        _import_sql(db, filename)
 
 
 def _initdb(db):
@@ -250,6 +265,14 @@ def _migrate(db, objects=None):
             obj.migrate(datamapper)
             mapper.update(obj)
     db.cursor().execute("PRAGMA synchronous = ON");
+
+def _import_sql(db, filename=None):
+    """Import sql file into the database."""
+    db.cursor().execute("PRAGMA synchronous = OFF")
+    with open(filename, mode='r') as f:
+        db.cursor().executescript(f.read())
+        db.commit()
+    db.cursor().execute("PRAGMA synchronous = ON")
 
 def register_request_hooks(app):
     """

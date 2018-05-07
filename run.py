@@ -4,7 +4,14 @@ import os
 import sys
 from optparse import OptionParser, OptionGroup
 
-from app.app import create_app, migrate, initdb, updatedb, dump_table
+from app.app import (
+    create_app,
+    migrate,
+    initdb,
+    updatedb,
+    import_sql,
+    dump_table,
+    )
 from app.config import get_config
 
 parser = OptionParser("""D&D Machine Web App""")
@@ -44,6 +51,10 @@ group.add_option("--initdb", default=False, action="store_true",
 group.add_option("--updatedb", default=False, action="store_true",
                  help="Update database schema. Then exit.")
 
+group.add_option("--import-sql", default=None, metavar="FILE",
+                 help="Import custom SQL into the database."
+                 " Then exit.")
+
 group.add_option("--migrate-object", default=[], action="append",
                  help="Migrate only these Objects to new version."
                  " Then exit.")
@@ -77,6 +88,12 @@ if options.updatedb:
     print('Updating the database.')
     updatedb(app)
     print('Updated the database.')
+    exit()
+
+if options.import_sql:
+    print('Importing custom SQL into the database.')
+    import_sql(app, options.import_sql)
+    print('Imported custom SQL into the database.')
     exit()
 
 if options.migrate or options.migrate_object:

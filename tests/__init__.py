@@ -9,7 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..'
     )))
 
-from app.app import create_app, initdb
+from app.app import create_app, _initdb
 from app.config import get_config
 
 class Response(BaseResponse):
@@ -33,7 +33,7 @@ class BaseAppTestCase(unittest.TestCase):
         self.app.response_class = Response
         self.client = self.app.test_client(use_cookies=True)
         self.app.testing = True
-        initdb(self.app)
+        _initdb(self.app.db)
 
     def tearDown(self):
         self.app.db.close()
