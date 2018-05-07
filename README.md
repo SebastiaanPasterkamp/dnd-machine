@@ -26,7 +26,7 @@ npm run build
 
 ```bash
 python tests/run_tests.py
-npm test
+npm run test
 ```
 
 ## Running in a Development setup
