@@ -42,22 +42,26 @@
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p",
-    "test": "node_modules/.bin/jest --roots ui/tests/"
+    "test": "node_modules/.bin/jest"
   },
   "jest": {
     "testMatch": [
-      "**/tests/**/*.js?(x)"
+      "**/ui/tests/**/*.{js,jsx}"
+    ],
+    "collectCoverageFrom": [
+      "**/ui/src/**/*.{js,jsx}"
     ],
     "testPathIgnorePatterns": [
       "__mocks__",
       "__init__"
     ],
+    "collectCoverage": true,
     "setupFiles": [
       "<rootDir>/ui/tests/__init__/shim.js",
       "<rootDir>/ui/tests/__init__/setup.js"
     ],
     "moduleNameMapper": {
-      "^.+\\.(css|scss)$": "<rootDir>/ui/tests/__mocks__/style.js"
+      "^.+.(css|scss)$": "<rootDir>/ui/tests/__mocks__/style.js"
     }
   },
   "repository": {
