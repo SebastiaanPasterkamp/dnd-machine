@@ -160,13 +160,13 @@ class TestMonsterObject(unittest.TestCase):
                 'name': 'Torch Slam',
                 'mode': 'spell',
                 'damage': [{
-                    'type': 'Fire',
-                    'dice_count': 2,
-                    'dice_size': 8
-                    }, {
                     'type': 'Bludgeoning',
                     'dice_count': 3,
                     'dice_size': 6
+                    }, {
+                    'type': 'Fire',
+                    'dice_count': 2,
+                    'dice_size': 8
                     }]
                 }]
             })
@@ -175,7 +175,7 @@ class TestMonsterObject(unittest.TestCase):
 
         self.assertDictContainsSubset({
             'proficiency': 2,
-            'attack_bonus': 2,
+            'attack_bonus': 0,
             'spell_save_dc': 10,
             'average_damage': 19,
             'critical_damage': 39

@@ -187,32 +187,21 @@ class MonsterObject(JsonObject):
                     attack["mode"], "strength"
                     ), 0
                 )
-            attack["modifier"] = mod + self.proficiency
             if attack["mode"] == "spell":
-                attack["spell_save_dc"] = 8 + attack["modifier"]
+                attack["spell_save_dc"] = 8 + self.proficiency + mod
             else:
-                attack["bonus"] = mod
+                attack["bonus"] = mod + self.proficiency
 
             attack["damage"] = attack.get("damage", [])
             for i, damage in enumerate(attack["damage"]):
                 damage["dice_size"] = damage.get("dice_size", 4)
                 damage["dice_count"] = damage.get("dice_count", 0)
+                damage['bonus'] = 0 if i else mod
                 damage["type"] = damage.get("type", "")
                 damage.update(machine.diceCast(
                     damage["dice_size"],
-                    damage["dice_count"]
-                    ))
-
-            attack["damage"] = sorted(
-                    attack["damage"],
-                    key=lambda d: d["average"],
-                    reverse=True
-                    )
-            if len(attack["damage"]):
-                attack["damage"][0].update(machine.diceCast(
-                    attack["damage"][0]["dice_size"],
-                    attack["damage"][0]["dice_count"],
-                    attack["bonus"]
+                    damage["dice_count"],
+                    damage['bonus']
                     ))
 
             attack["average"] = sum([
@@ -230,7 +219,7 @@ class MonsterObject(JsonObject):
             if attack["average"] > self.average_damage:
                 self.average_damage = attack["average"]
                 self.critical_damage = attack["critical"]
-                self.attack_bonus = attack["modifier"]
+                self.attack_bonus = attack["bonus"]
                 self.spell_save_dc = attack["spell_save_dc"]
 
         for multiattack in self.multiattack:
