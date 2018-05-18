@@ -52,7 +52,7 @@ class MonstersRow extends LazyComponent
                 {name}
                 <MonsterLinks
                     altStyle={true}
-                    buttons={['view', 'edit']}
+                    buttons={['view', 'edit', 'copy']}
                     monster_id={this.props.id}
                     />
             </th>
