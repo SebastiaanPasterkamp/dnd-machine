@@ -260,7 +260,7 @@ export class CharacterStatistics extends LazyComponent
         } = this.props;
 
         if (!_statistics) {
-            return null;
+            return <div className="character-view__statistics"></div>;
         }
 
         return <Panel
@@ -307,7 +307,7 @@ export class CharacterSkills extends LazyComponent
         } = this.props;
 
         if (_.isNil(proficiencies)) {
-            return null;
+            return <div className="character-view__skills"></div>;
         }
 
         return <Panel
@@ -448,17 +448,13 @@ export class CharacterBackstory extends LazyComponent
             backstory
         } = this.props;
 
-        if (_.isEmpty(backstory)) {
-            return null;
-        }
-
         return <Panel
                 key="backstory"
                 className="character-view__backstory info"
                 header="Backstory"
             >
             <MDReactComponent
-                text={backstory}
+                text={backstory || ''}
                 />
         </Panel>;
     }
@@ -472,7 +468,7 @@ export class CharacterPersonality extends LazyComponent
         } = this.props;
 
         if (_.isEmpty(_.keys(personality))) {
-            return null;
+            return <div className="character-view__personality"></div>;
         }
 
         return <Panel

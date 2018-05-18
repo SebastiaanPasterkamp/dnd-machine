@@ -47,9 +47,9 @@ export class AdventureSession extends React.Component
                     <th>DM DCI</th>
                 </tr>
                 <tr>
-                    <th>{date}</th>
-                    <th>{dm_name}</th>
-                    <th>{dm_dci}</th>
+                    <td>{date}</td>
+                    <td>{dm_name}</td>
+                    <td>{dm_dci}</td>
                 </tr>
             </tbody>
         </Panel>;
@@ -71,15 +71,15 @@ export class AdventureDelta extends React.Component
             <tbody>
                 <tr>
                     <th>Starting</th>
-                    <th>{starting}</th>
+                    <td>{starting}</td>
                 </tr>
                 <tr>
                     <th>Earned</th>
-                    <th>{earned}</th>
+                    <td>{earned}</td>
                 </tr>
                 <tr>
                     <th>Total</th>
-                    <th>{earned ? total : starting}</th>
+                    <td>{earned ? total : starting}</td>
                 </tr>
             </tbody>
         </Panel>;
@@ -154,20 +154,20 @@ export class AdventureItems extends React.Component
             <tbody>
                 <tr>
                     <th>Starting</th>
-                    <th>{starting}</th>
+                    <td>{starting}</td>
                 </tr>
                 <tr>
-                    <th>Earned</th>
-                    <th>{earned.length
+                    <th>Obtained</th>
+                    <td>{earned.length
                         ? _.map(earned, (item, i) => (
                             <span key={i}>{item}</span>
                         ))
                         : <span>&mdash;</span>
-                    }</th>
+                    }</td>
                 </tr>
                 <tr>
                     <th>Total</th>
-                    <th>{earned.length ? total : starting}</th>
+                    <td>{earned.length ? total : starting}</td>
                 </tr>
             </tbody>
         </Panel>;
