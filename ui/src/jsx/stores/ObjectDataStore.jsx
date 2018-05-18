@@ -93,7 +93,7 @@ export function ObjectDataStoreFactory(id, listenables = null)
         updateObject(type, id, data, callback=null) {
             if (_.isEqual(data, _.get(this.state, [type, id]))) {
                 if (callback) {
-                    callback();
+                    callback(type, id, data);
                 }
                 return;
             }
@@ -116,8 +116,9 @@ export function ObjectDataStoreFactory(id, listenables = null)
             };
 
             this.setState(update);
+
             if (callback) {
-                _.defer(callback);
+                _.defer(() => callback(type, id, data) );
             }
         };
 
@@ -173,6 +174,10 @@ export function ObjectDataStoreFactory(id, listenables = null)
 
         onPostObjectCompleted(type, id, object, callback=null) {
             this.updateObject(type, id, object, callback);
+        }
+
+        onCopyObjectCompleted(type, id, object, callback=null) {
+            this.updateObject(type, object.id, object, callback);
         }
 
         onRecomputeObjectCompleted(type, id, object, callback=null) {
