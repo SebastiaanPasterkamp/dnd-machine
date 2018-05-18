@@ -12,6 +12,7 @@ import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import Bonus from '../components/Bonus.jsx';
 import ButtonField from '../components/ButtonField.jsx';
+import ChallengeRating from '../components/ChallengeRating.jsx';
 import MonsterLabel from '../components/MonsterLabel.jsx';
 import MonsterLinks from '../components/MonsterLinks.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
@@ -19,6 +20,7 @@ import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
+import XpRating from '../components/XpRating.jsx';
 
 import ModalDialog from '../components/ModalDialog.jsx';
 
@@ -156,9 +158,8 @@ export class EncounterEdit extends React.Component
     render() {
         const {
             id, name, description = '', size, monster_ids = [], monsters = {},
-            modifier = {}, challenge_rating, challenge_modified = 0.0,
-            challenge_rating_precise = 0.0, xp = 0, xp_modified = 0,
-            xp_rating = 0, hosted_party
+            modifier = {}, challenge_rating, challenge_modified,
+            challenge_rating_precise, xp, xp_modified, xp_rating, hosted_party
         } = this.props;
 
         const { challenge } = hosted_party || {};
@@ -172,27 +173,55 @@ export class EncounterEdit extends React.Component
                     challenge.deadly
                     - challenge.hard
                 )
-        }, xp_rating, 'irrelevant') : null;
+        }, xp_rating || 0, 'irrelevant') : null;
         const classification = challenge ? {
             'irrelevant': <span>
-                Irrelevant (&lt; {challenge.easy} XP)
+                Irrelevant
+                (&lt; <XpRating xpRating={challenge.easy} />)
             </span>,
             'easy': <span>
-                Easy ({challenge.easy} XP)
+                Easy
+                (<XpRating xpRating={challenge.easy} />)
             </span>,
             'medium': <span>
-                Medium ({challenge.medium} XP)
+                Medium
+                (<XpRating xpRating={challenge.medium} />)
             </span>,
             'hard': <span>
-                Hard ({challenge.hard} XP)
+                Hard
+                (<XpRating xpRating={challenge.hard} />)
             </span>,
             'deadly': <span>
-                Deadly ({challenge.deadly} XP)
+                Deadly
+                (<XpRating xpRating={challenge.deadly} />)
             </span>,
             'insane': <span>
-                Insane (>{challenge.deadly} XP)
+                Insane
+                (&gt; <XpRating xpRating={challenge.deadly} />)
             </span>,
         }[index] : null;
+        const summary = _.reduce(
+            monster_ids, (summary, m) => {
+                if (!m) {
+                    return summary;
+                }
+                const monster = _.get(monsters, m.id);
+                if (!monster) {
+                    return summary;
+                }
+
+                summary.challenge_rating += monster.challenge_rating_precise * m.count;
+                summary.xp += monster.xp_rating * m.count;
+                summary.average_damage += monster.average_damage * m.count;
+
+                return summary;
+            },
+            {
+                challenge_rating: 0,
+                xp: 0,
+                average_damage: 0,
+            }
+        );
 
         return <React.Fragment>
             <Panel
@@ -241,15 +270,38 @@ export class EncounterEdit extends React.Component
                         <th>Exact Challenge Rating</th>
                     </tr>
                     <tr>
-                        <td>CR {challenge_rating} / {xp_modified} XP</td>
+                        <td>
+                            <ChallengeRating
+                                challengeRating={challenge_rating}
+                                />
+                            &nbsp;/&nbsp;
+                            <XpRating
+                                xpRating={xp}
+                                />
+                        </td>
                         {challenge
                             ? <td>
-                                CR {challenge_modified.toFixed(2)}
-                                / {xp_modified} XP
+                                <ChallengeRating
+                                    challengeRating={challenge_modified}
+                                    />
+                                &nbsp;/&nbsp;
+                                <XpRating
+                                    xpRating={xp_modified}
+                                    />
                             </td>
                             : <td>&mdash;</td>
                         }
-                        <td>CR {challenge_rating_precise.toFixed(2)} / {xp_rating} XP</td>
+                        <td>
+                            <ChallengeRating
+                                challengeRating={challenge_rating_precise}
+                                precise={true}
+                                />
+                            &nbsp;/&nbsp;
+                            <XpRating
+                                xpRating={xp_rating}
+                                precise={true}
+                                />
+                        </td>
                     </tr>
                     {hosted_party ? <React.Fragment>
                         <tr>
@@ -259,7 +311,11 @@ export class EncounterEdit extends React.Component
                         </tr>
                         <tr>
                             <td>{hosted_party.size}</td>
-                            <td>{xp / hosted_party.size} XP</td>
+                            <td>
+                                <XpRating
+                                    xpRating={(xp || 0) / hosted_party.size}
+                                    />
+                            </td>
                             <td>{classification}</td>
                         </tr>
                     </React.Fragment> : null}
@@ -322,22 +378,41 @@ export class EncounterEdit extends React.Component
                                 />
                         </th>
                         <td>
-                            CR {monster.challenge_rating}
-                            {m.count != 0
-                                ? <span>(CR {monster.challenge_rating * m.count})</span>
-                                : null
-                            }
+                            <ChallengeRating
+                                challengeRating={monster.challenge_rating_precise}
+                                precise={true}
+                                />
+                            {m.count > 1 ? <span>(
+                                <ChallengeRating
+                                    challengeRating={
+                                        monster.challenge_rating_precise
+                                        * m.count
+                                    }
+                                    precise={true}
+                                    />
+                             )</span> : null}
                         </td>
                         <td>
-                            {monster.xp} XP
-                            {m.count != 0
-                                ? <span>({monster.xp * m.count} XP)</span>
-                                : null
-                            }
+                            <XpRating
+                                xpRating={monster.xp_rating}
+                                />
+                            {m.count > 1 ? <span>(
+                                <XpRating
+                                    xpRating={
+                                        monster.xp_rating
+                                        * m.count
+                                    }
+                                    />
+                             )</span> : null}
                         </td>
                         <td>{monster.hit_points}</td>
                         <td>{monster.armor_class}</td>
-                        <td>{monster.average_damage}</td>
+                        <td>
+                            {monster.average_damage}
+                            {m.count > 1 ? <span>(
+                                {monster.average_damage * m.count}
+                             )</span> : null}
+                        </td>
                         <td>
                             {monster.attack_bonus
                                 ? <span>
@@ -367,7 +442,23 @@ export class EncounterEdit extends React.Component
                                 Add
                             </a>
                         </th>
-                        <td colSpan="6"></td>
+                        <td>
+                            <ChallengeRating
+                                challengeRating={summary.challenge_rating}
+                                precise={true}
+                                />
+                        </td>
+                        <td>
+                            <XpRating
+                                xpRating={summary.xp}
+                                precise={true}
+                                />
+                        </td>
+                        <td colSpan="2"></td>
+                        <td>
+                            {summary.average_damage}
+                        </td>
+                        <td></td>
                     </tr>
                 </tbody>
             </Panel>
