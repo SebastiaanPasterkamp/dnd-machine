@@ -52,28 +52,7 @@ class CampaignLinks extends BaseLinkGroup
             }),
         };
     }
-
-    getAllowed() {
-        if (this.props.current_user == null) {
-            return [];
-        }
-        if (
-            !_.intersection(
-                this.props.current_user.role || [],
-                ['dm', 'admin']
-            ).length
-        ) {
-            return [];
-        }
-        if (this.props.campaign == null) {
-            return ['new'];
-        }
-        if (this.props.campaign.user_id == this.props.current_user.id) {
-            return ['edit', 'new', 'view'];
-        }
-        return ['view', 'new'];
-    }
-}
+};
 
 CampaignLinks.defaultProps = {
     buttons: ['view', 'edit'],
