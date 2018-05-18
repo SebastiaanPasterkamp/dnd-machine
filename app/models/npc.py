@@ -63,6 +63,7 @@ class NpcObject(JsonObject):
             "charisma": 0
             },
         "spell": {
+            "stat": "charisma",
             "safe_dc": 0,
             "attack_modifier": 0,
             "list": [],
