@@ -53,13 +53,12 @@ class CampaignBlueprint(BaseApiBlueprint):
     def adminOrOwnedMultiple(self, objs):
         for obj in objs:
             del obj.story
-        if self.checkRole(['admin']):
-            return
-        objs[:] = [
-            obj
-            for obj in objs
-            if obj.user_id == request.user.id
-            ]
+        if not self.checkRole(['admin']):
+            objs[:] = [
+                obj
+                for obj in objs
+                if obj.user_id == request.user.id
+                ]
 
     @BaseApiCallback('show.object')
     @BaseApiCallback('edit.object')
@@ -72,8 +71,9 @@ class CampaignBlueprint(BaseApiBlueprint):
             abort(403)
 
     @BaseApiCallback('api_post.object')
+    @BaseApiCallback('api_copy.object')
     def setOwner(self, obj):
-        obj.id = request.user.id
+        obj.user_id = request.user.id
 
     def show(self, obj_id):
         self.doCallback('show', obj_id)
