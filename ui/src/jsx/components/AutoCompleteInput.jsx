@@ -29,9 +29,10 @@ export class AutoCompleteInput extends LazyComponent
         const { focus, hover } = this.state;
         const filter = new RegExp(value, "i");
 
-        const filtered = _.filter(items, item => (
-            item.label.match(filter)
-        ));
+        const filtered = _.filter(
+            items,
+            item => item.label.match(filter)
+        );
 
         const dropStyle = utils.makeStyle({
             shown: (focus || hover) && filtered.length
