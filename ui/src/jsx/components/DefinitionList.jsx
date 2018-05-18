@@ -42,28 +42,38 @@ export class Definition extends LazyComponent
 
 export class DefinitionList extends LazyComponent
 {
-    render() {
+    onSetState(value, callback) {
         const {
             list, setState
         } = this.props;
 
+        setState(_.reduce(
+            value,
+            (list, {name, description}) => {
+                list[name] = description;
+                return list;
+            },
+            {}
+        ), callback);
+    }
+
+    render() {
+        const {
+            list, setState, ...rest
+        } = this.props;
+
         return <ListComponent
+            {...rest}
             list={_.map(list, (description, name) => ({
                 name, description
             }))}
             component={Definition}
             initialItem={{name: '', description: ''}}
             keyProp="name"
-            setState={(value, callback=null) => {
-                setState(_.reduce(
-                    value,
-                    (list, {name, description}) => {
-                        list[name] = description;
-                        return list;
-                    },
-                    {}
-                ), callback
-            )}}
+            setState={setState
+                ? (value, callback=null) => this.onSetState(value, callback)
+                : null
+            }
             />
     }
 }
