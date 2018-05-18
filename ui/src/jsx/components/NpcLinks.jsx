@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import ListDataActions from '../actions/ListDataActions.jsx';
+import { userHasRole } from '../utils.jsx';
+
+import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
@@ -13,54 +16,67 @@ class NpcLinks extends BaseLinkGroup
     }
 
     buttonList() {
-        const { npc = {} } = this.props;
+        const { router } = this.context;
+        const {
+            npc, npc_id, current_user: user
+        } = this.props;
+
+        if (!user) {
+            return {};
+        }
+
+        const available = npc && userHasRole(user, 'dm');
 
         return {
-            'view': () => {
-                return {
-                    label: 'View',
-                    link: "/npc/show/" + npc.id,
-                    icon: 'eye',
-                };
-            },
-            'edit': () => {
-                return {
-                    label: 'Edit',
-                    link: "/npc/edit/" + npc.id,
-                    icon: 'pencil',
-                };
-            },
-            'new': () => {
-                return {
-                    label: 'New',
-                    link: "/npc/new",
-                    icon: 'plus',
-                };
-            }
+            'view': () => ({
+                label: 'View',
+                link: "/npc/show/" + npc_id,
+                icon: 'eye',
+                available,
+            }),
+            'edit': () => ({
+                label: 'Edit',
+                link: "/npc/edit/" + npc_id,
+                icon: 'pencil',
+                available,
+            }),
+            'copy': () => ({
+                label: 'Copy',
+                action: () => {
+                    ObjectDataActions.copyObject(
+                        "npc", npc_id, null,
+                        (type, id, data) => {
+                            router.history.push(
+                                '/npc/edit/' + data.id
+                            );
+                        }
+                    );
+                },
+                icon: 'clone',
+                available,
+            }),
+            'new': () => ({
+                label: 'New',
+                link: "/npc/new",
+                icon: 'plus',
+                available: !npc && userHasRole(user, 'dm'),
+            }),
         };
-    }
-
-    getAllowed() {
-        if (this.props.current_user == null) {
-            return [];
-        }
-        if (
-            _.intersection(
-                this.props.current_user.role || [],
-                ['dm']
-            ).length
-        ) {
-            if (this.props.npc == null) {
-                return ['new'];
-            }
-            return ['edit', 'new', 'view'];
-        }
-        return [];
     }
 }
 
+NpcLinks.contextTypes = {
+    router: PropTypes.object,
+};
+
+NpcLinks.propTypes = {
+    npc: PropTypes.object,
+    npc_id: PropTypes.number,
+    current_user: PropTypes.object,
+};
+
 NpcLinks.defaultProps = {
-    buttons: ['view', 'edit'],
+    buttons: ['view', 'edit', 'copy'],
 };
 
 export default ListDataWrapper(

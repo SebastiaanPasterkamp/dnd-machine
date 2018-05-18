@@ -42,7 +42,7 @@ class PartyLinks extends BaseLinkGroup
                     || userHasRole(user, 'admin')
                 ),
             }),
-            'host': () => (hosted_party && party_id == hosted_party_id ? {
+            'host': () => (hosted_party && party_id == hosted_party.id ? {
                 label: 'Stop',
                 action: () => {
                     fetch("/party/host", {
