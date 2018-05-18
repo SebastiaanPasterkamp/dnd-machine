@@ -1,5 +1,6 @@
 import React from 'react';
-import {withRouter, Link} from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import _ from 'lodash';
 
 import utils from '../utils.jsx';
 
@@ -13,7 +14,7 @@ class Navigation extends LazyComponent
 {
     renderItem(item, location) {
         const style = utils.makeStyle({
-            primary: location.pathname == item.path
+            primary: _.startsWith(location.pathname, item.path)
         }, ["highlight"]);
 
         return <li key={item.label} className={style}>
@@ -28,9 +29,10 @@ class Navigation extends LazyComponent
 
     renderItemGroup(group, location) {
         const style = utils.makeStyle({
-            primary: _.reduce(group.items, (same, item) => {
-                return same || location.pathname == item.path;
-            }, false),
+            primary: _.some(
+                group.items,
+                item => _.startsWith(location.pathname, item.path)
+            ),
         }, ["highlight"]);
 
         return <li key={group.label} className={style}>
@@ -53,8 +55,8 @@ class Navigation extends LazyComponent
         return <ul className="nice-header-menu menu-pills">
             {_.map(navigation, nav => (
                 'items' in nav
-                ? this.renderItemGroup(nav, location)
-                : this.renderItem(nav, location)
+                    ? this.renderItemGroup(nav, location)
+                    : this.renderItem(nav, location)
             ))}
         </ul>;
     }
