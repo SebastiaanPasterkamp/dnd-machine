@@ -10,6 +10,7 @@ export function ObjectDataActionsFactory(id)
         "getObject": {asyncResult: true},
         "postObject": {asyncResult: true},
         "patchObject": {asyncResult: true},
+        "copyObject": {asyncResult: true},
         "deleteObject": {asyncResult: true},
         "recomputeObject": {asyncResult: true},
     });
@@ -140,6 +141,30 @@ export function ObjectDataActionsFactory(id)
         .catch((error) => {
             console.log(error);
             oda.patchObject.failed(
+                type, id, error
+            );
+        });
+    });
+
+    oda.copyObject.listen((type, id, group=null, callback=null) => {
+        let path = '/' + _.filter([group, type, 'copy', id]).join('/')
+
+        fetch(path, {
+            credentials: 'same-origin',
+            method: 'GET',
+            'headers': {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then((response) => response.json())
+        .then((result) => {
+            oda.copyObject.completed(
+                type, id, result, callback
+            );
+        })
+        .catch((error) => {
+            console.log(error);
+            oda.copyObject.failed(
                 type, id, error
             );
         });
