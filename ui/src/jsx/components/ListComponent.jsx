@@ -19,7 +19,7 @@ export class ListComponent extends LazyComponent
         setState(
             update,
             onChange
-                ? () => onChange(index, oldItem, item)
+                ? () => onChange(index, update, item)
                 : null
         );
     }
@@ -51,11 +51,16 @@ export class ListComponent extends LazyComponent
         );
     }
 
-    onAdd(item) {
-        const { list, setState, onAdd } = this.props;
+    onAdd() {
+        const {
+            list, initialItem = {}, setState, onAdd,
+        } = this.props;
+
+        const item = _.cloneDeep(initialItem);
         const update = _.concat(
+            [],
             list,
-            item
+            [item]
         );
         setState(
             update,
@@ -65,14 +70,57 @@ export class ListComponent extends LazyComponent
         );
     }
 
+    renderNewItemButton() {
+        const {
+            list, disabled = false, newItem = 'button',
+        } = this.props;
+
+        if (disabled) {
+            return null;
+        }
+
+        if (newItem == 'auto') {
+            return null;
+        }
+        if (newItem == 'initial' && !list.length) {
+            return null;
+        }
+
+        return <li key="add-button">
+            <ButtonField
+                className="list-component__add"
+                name="add"
+                color="primary"
+                icon="plus"
+                label="&#8203;"
+                onClick={() => this.onAdd()}
+                />
+        </li>;
+    }
+
     render() {
         const {
             list, component: Component, componentProps = {},
-            initialItem = {}, disabled = false
+            initialItem = {}, disabled = false, newItem = 'button',
         } = this.props;
 
+        let items = _.map(
+            list,
+            (item, index) => ({item, index, disabled})
+        );
+        if (
+            (newItem == 'initial' && !list.length)
+            || newItem == 'auto'
+        ) {
+            items.push({
+                item: initialItem,
+                index: list.length,
+                disabled: true,
+            });
+        }
+
         return <ul className="list-component">
-            {_.map(list, (item, index) => (
+            {_.map(items, ({item, index, disabled}) => (
             <li key={index}>
                 <Component
                     {...item}
@@ -80,29 +128,18 @@ export class ListComponent extends LazyComponent
                     setState={(item) => this.onSetState(index, item)}
                     {...componentProps}
                     />
-                {disabled ? null : <ButtonField
+                <ButtonField
                     className="list-component__delete"
+                    disabled={disabled}
                     name="del"
                     color="warning"
                     icon="minus"
                     label="&#8203;"
                     onClick={() => this.onDelete(index)}
                     />
-                }
             </li>
             ))}
-            {disabled ? null : <li key="add-button">
-                <ButtonField
-                    className="list-component__add"
-                    name="add"
-                    color="primary"
-                    icon="plus"
-                    label="&#8203;"
-                    onClick={() => this.onAdd(
-                        _.cloneDeep(initialItem)
-                    )}
-                    />
-            </li>}
+            {this.renderNewItemButton()}
         </ul>;
     }
 };
@@ -121,6 +158,7 @@ ListComponent.propTypes = {
     ]).isRequired,
     componentProps: PropTypes.object,
     initialItem: PropTypes.object,
+    newItem: PropTypes.oneOf(['button', 'initial', 'auto']),
     disabled: PropTypes.bool,
     setState: PropTypes.func,
     onChange: PropTypes.func,
