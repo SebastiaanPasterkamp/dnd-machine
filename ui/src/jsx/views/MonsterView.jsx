@@ -181,7 +181,7 @@ export class MonsterView extends LazyComponent
         const {
             id, name, size, type, alignment, level, armor_class,
             description = '', challenge_rating_precise: cr, xp_rating,
-            motion, languages, traits, attacks, multiattack,
+            motion, languages, traits, attacks, multiattack, proficiency,
             statistics, dice_size, hit_points, monster_types = [],
             size_hit_dice = [], _languages = [], alignments = [],
         } = this.props;
@@ -263,6 +263,14 @@ export class MonsterView extends LazyComponent
                         </td>
                     </tr>
                     <tr>
+                        <th>Proficiency</th>
+                        <td>
+                            <Bonus
+                                bonus={proficiency}
+                                />
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Level</th>
                         <td>{level}</td>
                     </tr>
@@ -312,15 +320,15 @@ export class MonsterView extends LazyComponent
                                 />
                         </td>
                     </tr>
-                    {traits.length ? <tr>
+                    {!_.isEmpty(traits) ? <tr>
                         <th>Traits</th>
                         <td>
                             <ul>
-                            {_.map(traits, (trait) => (
-                                <li key={trait.name}>
-                                    <strong>{trait.name}</strong>
+                            {_.map(traits, (description, name) => (
+                                <li key={name}>
+                                    <strong>{name}</strong>
                                     <MDReactComponent
-                                        text={trait.description || ''}
+                                        text={description || ''}
                                         />
                                 </li>
                             ))}

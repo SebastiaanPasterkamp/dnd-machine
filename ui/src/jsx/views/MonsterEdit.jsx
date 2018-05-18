@@ -62,6 +62,7 @@ class AttackEdit extends React.Component
             <ListComponent
                 list={damage}
                 component={DamageEdit}
+                newItem="initial"
                 keyProp="type"
                 setState={(value) => {
                     this.onFieldChange('damage', value);
@@ -239,9 +240,10 @@ export class MonsterEdit extends React.Component
         const {
             name, size, size_hit_dice = [], type, monster_types = [],
             alignment, alignments = [], level, armor_class,
-            description = '', challenge_rating, xp = 0, motion = {},
-            languages = [], _languages = [], traits = [],
-            statistics, attacks = [], multiattack = []
+            description = '', challenge_rating_precise = 0.0,
+            xp_rating = 0, motion = {}, languages = [],
+            _languages = [], traits = [], statistics, attacks = [],
+            multiattack = []
         } = this.props;
 
         return <React.Fragment>
@@ -319,12 +321,12 @@ export class MonsterEdit extends React.Component
                 <ControlGroup labels={["Challenge Rating", "/", "XP"]}>
                     <InputField
                         type="float"
-                        value={challenge_rating}
+                        value={challenge_rating_precise}
                         disabled={true}
                         />
                     <InputField
                         type="number"
-                        value={xp}
+                        value={ xp_rating }
                         disabled={true}
                         />
                 </ControlGroup>
@@ -350,6 +352,7 @@ export class MonsterEdit extends React.Component
                 <FormGroup label="Traits">
                     <DefinitionList
                         list={traits}
+                        newItem="auto"
                         setState={(value) => {
                             this.onFieldChange('traits', value);
                         }}
@@ -377,6 +380,7 @@ export class MonsterEdit extends React.Component
                 <ListComponent
                     component={AttackEditor}
                     list={attacks}
+                    newItem="initial"
                     setState={(value, callback=null) => {
                         this.onFieldChange('attacks', value, callback);
                     }}
@@ -423,6 +427,7 @@ export class MonsterEdit extends React.Component
                 <ListComponent
                     component={MultiAttackEditor}
                     list={multiattack}
+                    newItem="initial"
                     componentProps={{attacks}}
                     setState={(value) => {
                         this.onFieldChange('multiattack', value);
