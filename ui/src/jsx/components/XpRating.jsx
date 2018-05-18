@@ -7,6 +7,12 @@ class XpRating extends LazyComponent
 {
     render() {
         const { xpRating } = this.props;
+        if (_.isNil(xpRating)) {
+            return <div className="challenge-rating inline">
+                CR&nbsp;&mdash;
+            </div>;
+        }
+
         const value = Math.round(xpRating);
 
         return <div className="xp-rating inline">
@@ -16,7 +22,7 @@ class XpRating extends LazyComponent
 }
 
 XpRating.propTypes = {
-    xpRating: PropTypes.number.isRequired,
+    xpRating: PropTypes.number,
 }
 
 export default XpRating;
