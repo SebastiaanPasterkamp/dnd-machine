@@ -15,6 +15,7 @@ class MonsterBlueprint(BaseApiBlueprint):
     @BaseApiCallback('edit')
     @BaseApiCallback('api_list')
     @BaseApiCallback('api_get')
+    @BaseApiCallback('api_copy')
     @BaseApiCallback('api_post')
     @BaseApiCallback('api_patch')
     @BaseApiCallback('api_delete')
@@ -27,6 +28,15 @@ class MonsterBlueprint(BaseApiBlueprint):
     def adminOnly(self, *args, **kwargs):
         if not self.checkRole(['admin']):
             abort(403)
+
+    @BaseApiCallback('api_post.object')
+    @BaseApiCallback('api_copy.object')
+    def setOwner(self, obj):
+        obj.user_id = request.user.id
+
+    @BaseApiCallback('api_copy.object')
+    def changeName(self, obj, *args, **kwargs):
+        obj.name += u" (Copy)"
 
 def get_blueprint(basemapper, config):
     return '/monster', MonsterBlueprint(

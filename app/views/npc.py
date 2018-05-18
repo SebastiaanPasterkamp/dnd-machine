@@ -79,6 +79,15 @@ class NpcBlueprint(BaseApiBlueprint):
         if not self.checkRole(['admin']):
             abort(403)
 
+    @BaseApiCallback('api_post.object')
+    @BaseApiCallback('api_copy.object')
+    def setOwner(self, obj):
+        obj.user_id = request.user.id
+
+    @BaseApiCallback('api_copy.object')
+    def changeName(self, obj, *args, **kwargs):
+        obj.name += u" (Copy)"
+
 def get_blueprint(basemapper, config):
     return '/npc', NpcBlueprint(
         'npc',
