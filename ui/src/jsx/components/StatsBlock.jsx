@@ -30,6 +30,24 @@ export class StatsBlock extends Reflux.Component
         }
     }
 
+    hasBonus() {
+        const { bonus = {} } = this.props;
+        const total = _.reduce(
+            bonus,
+            (total, bonuses) => (total + _.sum(bonuses)),
+            0
+        );
+        return total > 0;
+    }
+
+    hasFinal() {
+        const { increase = 0 } = this.props;
+        if (increase) {
+            return true;
+        }
+        return this.hasBonus();
+    }
+
     getRange() {
         const { minBare, maxBare } = this.props;
         return _.map(
@@ -132,22 +150,25 @@ export class StatsBlock extends Reflux.Component
     }
 
     renderHeader() {
-        const { bonus, increase } = this.props;
+        const { increase } = this.props;
 
         return <thead>
             <tr>
                 <th>Statistic</th>
-                <th>Base</th>
-                {bonus
-                    ? <th>Bonus</th>
+                <th className="text-align-center">Base</th>
+                {this.hasBonus()
+                    ? <th className="text-align-center">Bonus</th>
                     : null
                 }
                 {increase
-                    ? <th colSpan={increase}>Increase</th>
+                    ? <th colSpan={increase} className="text-align-center">Increase</th>
                     : null
                 }
-                <th>Final</th>
-                <th>Modifier</th>
+                {this.hasFinal()
+                    ? <th className="text-align-center">Final</th>
+                    : null
+                }
+                <th className="text-align-center">Modifier</th>
             </tr>
         </thead>
     }
@@ -172,7 +193,7 @@ export class StatsBlock extends Reflux.Component
     renderRow(stat) {
         const code = stat.code;
         const {
-            editBase, base, bare, bonus, modifiers, increase
+            editBase, base, bare, bonus = {}, modifiers, increase
         } = this.props;
 
         return <tr key={code} className="text-align-center">
@@ -189,7 +210,7 @@ export class StatsBlock extends Reflux.Component
                     : bare[code]
                 }
             </td>
-            {bonus
+            {this.hasBonus()
                 ? <td>
                     <Bonus bonus={_.sum(bonus[code])} />
                 </td>
@@ -198,7 +219,10 @@ export class StatsBlock extends Reflux.Component
             {_.times(increase,
                 (index) => this.renderIncrease(index, code)
             )}
-            <td>{base[code]}</td>
+            {this.hasFinal()
+                ? <td>{base[code]}</td>
+                : null
+            }
             <td>
                 <Bonus bonus={modifiers[code]} />
             </td>
@@ -206,7 +230,7 @@ export class StatsBlock extends Reflux.Component
     }
 
     renderBudget() {
-        const { budget, bonus = 0, increase = 0 } = this.props;
+        const { budget, increase = 0 } = this.props;
 
         if (!budget) {
             return null;
@@ -217,7 +241,7 @@ export class StatsBlock extends Reflux.Component
             <td>{budget - this._spent()}</td>
             <td colSpan={
                 2
-                + (bonus ? 1 : 0)
+                + (this.hasBonus() ? 1 : 0)
                 + increase
             }></td>
         </tr>
