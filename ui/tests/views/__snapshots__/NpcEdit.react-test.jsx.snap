@@ -711,16 +711,24 @@ Array [
             <th>
               Statistic
             </th>
-            <th>
+            <th
+              className="text-align-center"
+            >
               Base
             </th>
-            <th>
+            <th
+              className="text-align-center"
+            >
               Bonus
             </th>
-            <th>
+            <th
+              className="text-align-center"
+            >
               Final
             </th>
-            <th>
+            <th
+              className="text-align-center"
+            >
               Modifier
             </th>
           </tr>
@@ -754,9 +762,45 @@ Array [
           className="list-component"
         >
           <li>
+            <div>
+              <input
+                className="nice-form-control"
+                disabled={undefined}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Name..."
+                type={undefined}
+                value=""
+              />
+              <div
+                className="markdown-textedit preview"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              >
+                <span
+                  className="markdown-textedit__placeholder"
+                >
+                  Description...
+                </span>
+                <textarea
+                  className="nice-form-control"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  placeholder="Description..."
+                  rows={5}
+                  value=""
+                />
+                <span
+                  className="markdown-textedit__preview"
+                />
+              </div>
+            </div>
             <button
-              className="nice-btn list-component__add primary icon fa-plus"
-              name="add"
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
               onClick={[Function]}
             >
               ​

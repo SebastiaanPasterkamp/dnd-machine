@@ -260,6 +260,7 @@ export class NpcEdit extends React.Component
                 <FormGroup label="Traits">
                     <DefinitionList
                         list={traits}
+                        newItem="initial"
                         setState={(value) => {
                             this.onFieldChange('traits', value);
                         }}

@@ -55,7 +55,6 @@ class NpcRow extends LazyComponent
                 {name}
                 <NpcLinks
                     altStyle={true}
-                    buttons={['view', 'edit']}
                     npc_id={id}
                     />
             </th>
