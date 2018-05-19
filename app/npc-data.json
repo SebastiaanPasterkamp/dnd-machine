@@ -1,5 +1,16 @@
 {
     "race": [{
+        "name": "Dragonborn",
+        "config": {
+            "stats_bonus": {
+                "strength": [2],
+                "constitution": [1]
+            },
+            "size": "medium",
+            "speed": 30,
+            "languages":  ["common", "draconic"]
+        }
+    }, {
         "name": "Dwarf",
         "sub": [{
             "name": "Hill Dwarf",
@@ -173,6 +184,17 @@
             "size": "medium",
             "speed": 30,
             "languages": ["common"]
+        }
+    }, {
+        "name": "Orc",
+        "config": {
+            "stats_bonus": {
+                "strength": [2],
+                "constitution": [1]
+            },
+            "size": "medium",
+            "speed": 30,
+            "languages":  ["common", "orc"]
         }
     }],
     "class": [{
