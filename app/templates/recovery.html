@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="{{ url_for('recovery', id=user.id, key=key) }}" method="post">
+
+<div class="nice-login">
+    <div class="nice-login-brand">
+        <span class="text-brand">{{ info.title }}</span>
+    </div>
+    <div class="nice-login-intro">
+        <div class="nice-login-intro-logo">
+            <i class="product-icon icon d20"></i>
+        </div>
+        <div class="nice-login-intro-content">
+            Welcome to <strong>{{ info.title }}</strong>. You can now enter new credentials for your account.
+        </div>
+        <div class="nice-login-loading"></div>
+    </div>
+    <div class="nice-login-content">
+        <div class="nice-form-group">
+            <label for="match">Username</label>
+            <input tabindex="1" type="text" class="nice-form-control" value={{ user.username }} disabled="disabled" />
+        </div>
+        <div class="nice-form-group">
+            <label for="pwd1">Password</label>
+            <input tabindex="2" type="password" class="nice-form-control" placeholder="Password..." name="pwd1" id="pwd1" />
+        </div>
+        <div class="nice-form-group">
+            <label for="pwd2">Repeat</label>
+            <input tabindex="2" type="password" class="nice-form-control" placeholder="Same password..." name="pwd2" id="pwd2" />
+        </div>
+    </div>
+    <div class="nice-login-footer">
+        <div class="nice-btn-group pull-right">
+            <button type="button" class="nice-btn">
+                Cancel
+            </button>
+            <button type="submit" class="nice-btn primary icon fa-check-square-o">
+                Set password
+            </button>
+        </div>
+    </div>
+    <div class="nice-login-version">
+        {{ info.title }} {{ info.version }}
+        <span class="text-brand pull-right">
+            by {{ info.author }} &copy;{{ info.date }}
+        </span>
+    </div>
+</div>
+
+</form>
+{% endblock %}
