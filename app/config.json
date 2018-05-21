@@ -2,11 +2,20 @@
     "SECRET_KEY": "development key",
     "DATABASE": "flaskr.db",
     "SEND_FILE_MAX_AGE_DEFAULT": 3600,
+    "SERVER_NAME": "localhost:5000",
+
+    "MAIL_SERVER": "smtp.gmail.com",
+    "MAIL_PORT": 465,
+    "MAIL_MAIL_USE_TLS": false,
+    "MAIL_USE_SSL": true,
+    "MAIL_USERNAME": "",
+    "MAIL_PASSWORD": "",
+
     "info": {
         "title": "D&D Machine",
         "version": "v0.1",
         "author": "Cromrots",
-        "date": "2017"
+        "date": "2017 - 2018"
     },
     "data": {
         "roles": [
