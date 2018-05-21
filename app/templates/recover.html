@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="{{ url_for('recover') }}" method="post">
+
+<div class="nice-login">
+    <div class="nice-login-brand">
+        <span class="text-brand">{{ info.title }}</span>
+    </div>
+    <div class="nice-login-intro">
+        <div class="nice-login-intro-logo">
+            <i class="product-icon icon d20"></i>
+        </div>
+        <div class="nice-login-intro-content">
+            Welcome to <strong>{{ info.title }}</strong>. Please enter either the <i>username</i> or <i>email address</i> you remember for your account to recover.
+        </div>
+        <div class="nice-login-loading"></div>
+    </div>
+    <div class="nice-login-content">
+        <div class="nice-form-group">
+            <label for="match">Username or email address</label>
+            <input tabindex="1" type="text" class="nice-form-control" placeholder="Username or email..." name="match" id="match" />
+        </div>
+    </div>
+    <div class="nice-login-footer">
+        <div class="nice-btn-group pull-right">
+            <a href="/" class="nice-btn">
+                Cancel
+            </a>
+            <button type="submit" class="nice-btn primary icon fa-question">
+                Recover
+            </button>
+        </div>
+    </div>
+    <div class="nice-login-version">
+        {{ info.title }} {{ info.version }}
+        <span class="text-brand pull-right">
+            by {{ info.author }} &copy;{{ info.date }}
+        </span>
+    </div>
+</div>
+
+</form>
+{% endblock %}

@@ -1,0 +1,12 @@
+Greetings <strong>{{ user.name }}</strong>,
+
+<p>
+It has come to my knowledge that you've may have forgotten your
+credentials for your account on <a href={{ url_for('login', _external=True, _scheme='http') }}>D&amp;D
+Machine</a>. Fear not! It is but a simple matter of entering a new password for your account by following <a href="{{ url_for('recovery', id=user.id, key=key, _external=true, _scheme='http') }}">this link</a>.
+</p>
+
+<p>
+Safe travels!<br/>
+<strong>D&amp;D Machine</strong>
+</p>
