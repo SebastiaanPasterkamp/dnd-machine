@@ -44,6 +44,14 @@ class BaseAppTestCase(unittest.TestCase):
             user['password'] = pbkdf2_sha256.hash(password)
         except AttributeError:
             user['password'] = pbkdf2_sha256.encrypt(password)
+
+        recovery = user.get('recovery')
+        if recovery:
+            try:
+                user['recovery'] = pbkdf2_sha256.hash(recovery)
+            except AttributeError:
+                user['recovery'] = pbkdf2_sha256.encrypt(recovery)
+
         return self.dbInsertObject(
             'users',
             user,

@@ -17,6 +17,10 @@ class AppTestCase(BaseAppTestCase):
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.mimetype, 'text/html')
 
+        rv = self.client.get('/recover')
+        self.assertEqual(rv.status_code, 200)
+        self.assertEqual(rv.mimetype, 'text/html')
+
         rv = self.client.get(
             '/current_user',
             headers={'X-Requested-With': 'XMLHttpRequest'}
@@ -38,6 +42,7 @@ class AppTestCase(BaseAppTestCase):
         rv = self.client.get('/static/css/dnd-machine.css')
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.mimetype, 'text/css')
+
 
     def testPrivatePages401(self):
         for page, expected in self.privatePages.items():
@@ -92,6 +97,73 @@ class AppTestCase(BaseAppTestCase):
             headers={'X-Requested-With': 'XMLHttpRequest'}
             )
         self.assertEqual(rv.status_code, 401)
+
+
+    def testRecoverStart(self):
+        user = self.createUser({
+            'username': 'testRecoverStart',
+            'password': 'testRecoverStart',
+            'email': u'testRecoverStart@example.com',
+            })
+        self.assertNotIn('recovery', user)
+
+        rv = self.client.post(
+            '/recover',
+            data=dict(match=user['username']),
+            follow_redirects=False,
+            )
+        self.assertEqual(rv.status_code, 302)
+        self.assertIn('/login', rv.location)
+
+        userData = self.dbGetObject('users', user['id'])
+        self.assertIn('recovery', userData)
+        self.assertDictContainsSubset(user, userData)
+
+
+    def testRecoverClaim(self):
+        key = u'R3C0V3R'
+        user = self.createUser({
+            'username': 'testRecoverStart',
+            'password': 'testRecoverStart',
+            'email': u'testRecoverStart@example.com',
+            'recovery': key,
+            })
+
+        rv = self.client.get(
+            '/recover/%d/%s' % (user['id'], key)
+            )
+        self.assertEqual(rv.status_code, 200)
+        self.assertEqual(rv.mimetype, 'text/html')
+
+        rv = self.client.post(
+            '/recover/%d/%s' % (user['id'], key),
+            data=dict(
+                pwd1='good',
+                pwd2='bad',
+                ),
+            follow_redirects=False,
+            )
+        self.assertEqual(rv.status_code, 302)
+        self.assertIn(
+            '/recover/%d/%s' % (user['id'], key),
+            rv.location
+            )
+
+        rv = self.client.post(
+            '/recover/%d/%s' % (user['id'], key),
+            data=dict(
+                pwd1='1234abcd',
+                pwd2='1234abcd',
+                ),
+            follow_redirects=False,
+            )
+        self.assertEqual(rv.status_code, 302)
+        self.assertIn('/login', rv.location)
+
+        userData = self.dbGetObject('users', user['id'])
+        self.assertNotIn('recovery', userData)
+        self.assertNotEquals(user['password'], userData['password'])
+
 
 if __name__ == '__main__':
     unittest.main()
