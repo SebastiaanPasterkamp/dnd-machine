@@ -110,8 +110,8 @@ class CharacterDataTestCase(unittest.TestCase):
         for key in data.keys():
             self.assertIn(
                 key, struct,
-                "Unexpected key '%s' in %r" % (
-                    key, name
+                "Unexpected key '%s' in %r: %r" % (
+                    key, name, data
                     )
                 )
 
@@ -122,7 +122,9 @@ class CharacterDataTestCase(unittest.TestCase):
             if 'required' in settings:
                 self.assertIn(
                     key, data,
-                    "%s: Expected in '%r %r" % (key, name, struct)
+                    "%s: Expected in '%r': %r" % (
+                        key, name, data
+                        )
                     )
             if key not in data:
                 continue
@@ -210,6 +212,9 @@ class CharacterDataTestCase(unittest.TestCase):
                     'origin': {
                         'instance': list,
                         },
+                    'patron': {
+                        'instance': list,
+                        },
                     }
                 }
         self.verifyStruct(phase, struct, path)
@@ -285,6 +290,12 @@ class CharacterDataTestCase(unittest.TestCase):
                 },
             'config': {
                 'path': {},
+                'hidden': {
+                    'instance': bool,
+                    },
+                'hidden_formula': {
+                    'instance': unicode,
+                    },
                 'config': {
                     'instance': list,
                     'required': True,
