@@ -3,3 +3,4 @@
 node_modules/
 dnd-machine.js
 dnd-machine.css
+app/config.local.json

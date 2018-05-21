@@ -8,8 +8,13 @@ data = {}
 def get_config():
     global config
     if config is None:
-        with open(os.path.join('app', 'config.json')) as cfg:
+        path = os.path.join('app', 'config.json')
+        with open(path) as cfg:
             config = json.load(cfg)
+        path = os.path.join('app', 'config.local.json')
+        if os.path.exists(path):
+            with open(path) as cfg:
+                config.update(json.load(cfg))
     return config
 
 def get_character_data():

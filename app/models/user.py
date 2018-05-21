@@ -29,6 +29,19 @@ class UserObject(JsonObject):
         except AttributeError:
             self.password = pbkdf2_sha256.encrypt(password)
 
+    def setRecovery(self, key):
+        try:
+            self.recovery = pbkdf2_sha256.hash(key)
+        except AttributeError:
+            self.recovery = pbkdf2_sha256.encrypt(key)
+
+    def checkRecovery(self, key):
+        if not self.recovery:
+            return False
+        if pbkdf2_sha256.verify(key, self.recovery):
+            return True
+        return False
+
 class UserMapper(JsonObjectDataMapper):
     obj = UserObject
     table = "users"
