@@ -118,8 +118,9 @@ export class LoginDialog extends React.Component
             <div className="nice-login-footer">
                 {recoverAction
                     ? <a
-                            onClick={recoverAction}
-                            className="nice-btn link icon fa-question">
+                        href={recoverAction}
+                        className="nice-btn link icon fa-question"
+                        >
                         Lost your credentials?
                     </a>
                     : null
