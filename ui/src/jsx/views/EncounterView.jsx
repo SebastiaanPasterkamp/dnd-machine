@@ -104,7 +104,7 @@ class CombatantCard extends LazyComponent
         } = this.state;
         const style = utils.makeStyle({
             [defaultStyle]: hp_missing < hit_points,
-            'muted': hp_missing >= hit_points,
+            'bad': hp_missing >= hit_points,
         }, ["nice-card"]);
 
         return <summary
@@ -366,7 +366,7 @@ export class EncounterView extends React.Component
                                 <CombatantCard
                                     key={`monster-${monster.id}-${index}`}
                                     {...monsters[monster.id]}
-                                    defaultStyle="accent"
+                                    defaultStyle="brand"
                                     prefix={`${id}-monster-${index}`}
                                     combat={combat}
                                     />
