@@ -59,7 +59,6 @@ export class CampaignLinks extends BaseLinkGroup
     }
 };
 
-
 CampaignLinks.propTypes = _.assign(
     {}, BaseLinkGroup.propTypes, {
         buttons: PropTypes.arrayOf(

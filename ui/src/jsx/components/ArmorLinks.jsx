@@ -15,7 +15,7 @@ export class ArmorLinks extends BaseLinkGroup
 
     buttonList() {
         const {
-            armor_id, armor = {}, current_user: user,
+            armor_id, current_user: user,
         } = this.props;
 
         if (!user) {
