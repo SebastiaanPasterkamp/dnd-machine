@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
@@ -6,30 +8,21 @@ import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
-class AdventureLeagueLogLinks extends BaseLinkGroup
+import { userHasRole } from '../utils.jsx';
+
+export class AdventureLeagueLogLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
     }
 
-    userHasRole(role) {
-        const { current_user = {} } = this.props;
-        const roles = _.isArray(role) ? role : [role];
-
-        return (
-            _.intersection(
-                current_user.role || [],
-                roles
-            ).length > 0
-        );
-    }
-
     buttonList() {
         const {
-            logId, adventureleague = {}, current_user, characterId,
+            logId, adventureleague = {}, current_user: user,
+            characterId,
         } = this.props;
 
-        if (!current_user) {
+        if (!user) {
             return {};
         }
 
@@ -41,8 +34,8 @@ class AdventureLeagueLogLinks extends BaseLinkGroup
                 available: (
                     !_.isNil(logId)
                     && (
-                        adventureleague.user_id == current_user.id
-                        || this.userHasRole(['admin'])
+                        adventureleague.user_id == user.id
+                        || userHasRole(user, ['admin'])
                     )
                 ),
             }),
@@ -52,7 +45,7 @@ class AdventureLeagueLogLinks extends BaseLinkGroup
                 icon: 'cogs',
                 available: (
                     !_.isNil(logId)
-                    && this.userHasRole(['admin'])
+                    && userHasRole(user, ['admin'])
                 ),
             }),
             'edit': () => ({
@@ -61,7 +54,7 @@ class AdventureLeagueLogLinks extends BaseLinkGroup
                 icon: 'pencil',
                 available: (
                     !_.isNil(logId)
-                    && adventureleague.user_id == current_user.id
+                    && adventureleague.user_id == user.id
                 ),
             }),
             'assign': () => ({
@@ -71,7 +64,7 @@ class AdventureLeagueLogLinks extends BaseLinkGroup
                 color: 'info',
                 available: (
                     !_.isNil(logId)
-                    && adventureleague.user_id == current_user.id
+                    && adventureleague.user_id == user.id
                     && !adventureleague.character_id
                 ),
             }),
@@ -82,7 +75,7 @@ class AdventureLeagueLogLinks extends BaseLinkGroup
                 color: 'warning',
                 available: (
                     !_.isNil(logId)
-                    && adventureleague.user_id == current_user.id
+                    && adventureleague.user_id == user.id
                     && adventureleague.character_id
                     && !adventureleague.consumed
                 ),
@@ -94,9 +87,9 @@ class AdventureLeagueLogLinks extends BaseLinkGroup
                     : "/log/adventureleague/new",
                 icon: 'plus',
                 available: (
-                    this.userHasRole(['player'])
-                    && current_user.dci
-                    && !logId
+                    _.isNil(logId)
+                    && userHasRole(user, ['player'])
+                    && user.dci
                 ),
             }),
             'delete': () => ({
@@ -110,7 +103,7 @@ class AdventureLeagueLogLinks extends BaseLinkGroup
                 color: 'bad',
                 available: (
                     !_.isNil(logId)
-                    && adventureleague.user_id == current_user.id
+                    && adventureleague.user_id == user.id
                     && !adventureleague.consumed
                 ),
             }),
@@ -118,11 +111,30 @@ class AdventureLeagueLogLinks extends BaseLinkGroup
     }
 }
 
-AdventureLeagueLogLinks.defaultProps = {
-    buttons: [
-        'view', 'edit', 'assign', 'consume', 'delete', 'raw', 'new'
-    ],
-};
+AdventureLeagueLogLinks.propTypes = _.assign(
+    {}, BaseLinkGroup.propTypes, {
+        buttons: PropTypes.arrayOf(
+            PropTypes.oneOf([
+                'view', 'edit', 'assign', 'consume', 'delete',
+                'raw', 'new',
+            ])
+        ),
+        logId: PropTypes.number,
+        current_user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            dci: PropTypes.string,
+            roles: PropTypes.arrayOf(
+                PropTypes.oneOf(['player', 'dm', 'admin'])
+            ),
+        }),
+        adventureleague: PropTypes.shape({
+            user_id: PropTypes.number.isRequired,
+            consumed: PropTypes.oneOf([0, 1]).isRequired,
+            character_id: PropTypes.number,
+        }),
+        characterId: PropTypes.number,
+    }
+);
 
 export default ListDataWrapper(
     ObjectDataWrapper(AdventureLeagueLogLinks, [
