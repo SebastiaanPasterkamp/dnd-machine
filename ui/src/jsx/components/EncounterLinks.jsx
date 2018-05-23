@@ -1,71 +1,77 @@
 import React from 'react';
-
-import ListDataActions from '../actions/ListDataActions.jsx';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
-class EncounterLinks extends BaseLinkGroup
+import { userHasRole } from '../utils.jsx';
+
+export class EncounterLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
     }
 
     buttonList() {
-        const { encounter = {} } = this.props;
+        const {
+            encounter_id, current_user: user,
+        } = this.props;
+
+        if (!user) {
+            return {};
+        }
 
         return {
-            'view': () => {
-                return {
-                    label: 'View',
-                    link: "/encounter/show/" + encounter.id,
-                    icon: 'eye',
-                };
-            },
-            'edit': () => {
-                return {
-                    label: 'Edit',
-                    link: "/encounter/edit/" + encounter.id,
-                    icon: 'pencil',
-                };
-            },
-            'new': () => {
-                return {
-                    label: 'New',
-                    link: "/encounter/new",
-                    icon: 'plus',
-                };
-            }
+            'view': () => ({
+                label: 'View',
+                link: "/encounter/show/" + encounter_id,
+                icon: 'eye',
+                available:  (
+                    encounter_id
+                    && userHasRole(user, ['admin', 'dm'])
+                ),
+            }),
+            'edit': () => ({
+                label: 'Edit',
+                link: "/encounter/edit/" + encounter_id,
+                icon: 'pencil',
+                available: (
+                    encounter_id
+                    && userHasRole(user, ['admin', 'dm'])
+                ),
+            }),
+            'new': () => ({
+                label: 'New',
+                link: "/encounter/new",
+                icon: 'plus',
+                available: (
+                    !encounter_id
+                    && userHasRole(user, ['admin', 'dm'])
+                ),
+            }),
         };
     }
-
-    getAllowed() {
-        if (this.props.current_user == null) {
-            return [];
-        }
-        if (
-            _.intersection(
-                this.props.current_user.role || [],
-                ['dm']
-            ).length
-        ) {
-            if (this.props.encounter == null) {
-                return ['new'];
-            }
-            return ['edit', 'new', 'view'];
-        }
-        return [];
-    }
-}
-
-EncounterLinks.defaultProps = {
-    buttons: ['view', 'edit'],
 };
 
+EncounterLinks.propTypes = _.assign(
+    {}, BaseLinkGroup.propTypes, {
+        buttons: PropTypes.arrayOf(
+            PropTypes.oneOf([
+                'view', 'edit', 'new',
+            ])
+        ),
+        encounter_id: PropTypes.number,
+        current_user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            role: PropTypes.arrayOf(
+                PropTypes.oneOf(['player', 'dm', 'admin'])
+            ),
+        }),
+    }
+);
+
 export default ListDataWrapper(
-    ObjectDataWrapper(EncounterLinks, [
-        {type: 'encounter', id: 'encounter_id'}
-    ]),
+    EncounterLinks,
     ['current_user']
 );
