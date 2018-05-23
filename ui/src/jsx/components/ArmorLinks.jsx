@@ -1,77 +1,75 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
-class ArmorLinks extends BaseLinkGroup
+import { userHasRole } from '../utils.jsx';
+
+export class ArmorLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
     }
 
     buttonList() {
-        const { armor = {} } = this.props;
+        const {
+            armor_id, armor = {}, current_user: user,
+        } = this.props;
+
+        if (!user) {
+            return {};
+        }
 
         return {
-            'view': () => {
-                return {
-                    label: 'View',
-                    link: "/items/armor/show/" + armor.id,
-                    icon: 'eye',
-                };
-            },
-            'edit': () => {
-                return {
-                    label: 'Edit',
-                    link: "/items/armor/edit/" + armor.id,
-                    icon: 'pencil',
-                };
-            },
-            'new': () => {
-                return {
-                    label: 'New',
-                    link: "/items/armor/new",
-                    icon: 'plus',
-                };
-            }
+            'view': () => ({
+                label: 'View',
+                link: "/items/armor/show/" + armor_id,
+                icon: 'eye',
+                available: armor_id,
+            }),
+            'edit': () => ({
+                label: 'Edit',
+                link: "/items/armor/edit/" + armor_id,
+                icon: 'pencil',
+                available: (
+                    armor_id
+                    && userHasRole(user, ['admin', 'dm'])
+                ),
+            }),
+            'new': () => ({
+                label: 'New',
+                link: "/items/armor/new",
+                icon: 'plus',
+                available: (
+                    !armor_id
+                    && userHasRole(user, ['admin', 'dm'])
+                ),
+            })
         };
     }
-
-    getAllowed() {
-        if (this.props.current_user == null) {
-            return [];
-        }
-        if (
-            _.intersection(
-                this.props.current_user.role || [],
-                ['dm']
-            ).length
-        ) {
-            if (this.props.armor == null) {
-                return ['new'];
-            }
-            return ['edit', 'new', 'view'];
-        }
-        if (
-            _.intersection(
-                this.props.current_user.role || [],
-                'player'
-            ).length
-        ) {
-            return ['view'];
-        }
-        return [];
-    }
-}
-
-ArmorLinks.defaultProps = {
-    buttons: ['view', 'edit'],
 };
 
+ArmorLinks.propTypes = _.assign(
+    {}, BaseLinkGroup.propTypes, {
+        buttons: PropTypes.arrayOf(
+            PropTypes.oneOf([
+                'view', 'edit', 'new',
+            ])
+        ),
+        armor_id: PropTypes.number,
+        current_user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            roles: PropTypes.arrayOf(
+                PropTypes.oneOf(['player', 'dm', 'admin'])
+            ),
+        }),
+    }
+);
+
 export default ListDataWrapper(
-    ObjectDataWrapper(ArmorLinks, [
-        {group: 'items', type: 'armor', id: 'armor_id'}
-    ]),
+    ArmorLinks,
     ['current_user']
 );
