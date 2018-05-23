@@ -14,7 +14,7 @@
                     style="background-color: #182642; color: white;"
                     >
                     <img
-                        src=url_for('static', filename='img/d20.png', _external=true, _scheme='http') }}
+		    src={{ url_for('static', filename='img/d20.png', _external=true, _scheme='http') }}
                         alt="D&amp;D Machine"
                         width="128"
                         height="150 "
@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
-                Greetings <strong>{{ user.name }}<</strong>,
+                Greetings <strong>{{ user.name }}</strong>,
 
                 <p>
                 It has come to my knowledge that you've may have forgotten your
