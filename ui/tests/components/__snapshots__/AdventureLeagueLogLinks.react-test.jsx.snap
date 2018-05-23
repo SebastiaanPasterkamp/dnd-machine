@@ -60,13 +60,13 @@ exports[`Component: AdventureLeagueLogLinks should replace assign with consume 1
     Edit
   </a>
   <a
-    className="cursor-pointer nice-btn icon fa-thumb-tack"
+    className="cursor-pointer nice-btn icon fa-thumb-tack warning"
     href="/log/adventureleague/consume/100"
   >
     Consume
   </a>
   <a
-    className="cursor-pointer nice-btn icon fa-trash-o"
+    className="cursor-pointer nice-btn icon fa-trash-o bad"
     onClick={[Function]}
   >
     Delete
@@ -93,14 +93,14 @@ exports[`Component: AdventureLeagueLogLinks should show all buttons for the owne
     Edit
   </a>
   <a
-    className="cursor-pointer nice-btn icon fa-user-o"
+    className="cursor-pointer nice-btn icon fa-user-o info"
     href="/log/adventureleague/edit/100#assign"
     onClick={[Function]}
   >
     Assign
   </a>
   <a
-    className="cursor-pointer nice-btn icon fa-trash-o"
+    className="cursor-pointer nice-btn icon fa-trash-o bad"
     onClick={[Function]}
   >
     Delete
