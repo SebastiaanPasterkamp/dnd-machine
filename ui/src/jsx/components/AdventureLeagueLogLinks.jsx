@@ -61,7 +61,7 @@ export class AdventureLeagueLogLinks extends BaseLinkGroup
                 label: 'Assign',
                 icon: 'user-o',
                 link: "/log/adventureleague/edit/" + logId + "#assign",
-                color: 'info',
+                className: 'info',
                 available: (
                     !_.isNil(logId)
                     && adventureleague.user_id == user.id
@@ -72,7 +72,7 @@ export class AdventureLeagueLogLinks extends BaseLinkGroup
                 label: 'Consume',
                 download: "/log/adventureleague/consume/" + logId,
                 icon: 'thumb-tack',
-                color: 'warning',
+                className: 'warning',
                 available: (
                     !_.isNil(logId)
                     && adventureleague.user_id == user.id
@@ -100,7 +100,7 @@ export class AdventureLeagueLogLinks extends BaseLinkGroup
                     );
                 },
                 icon: 'trash-o',
-                color: 'bad',
+                className: 'bad',
                 available: (
                     !_.isNil(logId)
                     && adventureleague.user_id == user.id
