@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
 import { userHasRole } from '../utils.jsx';
 
@@ -62,7 +61,7 @@ ArmorLinks.propTypes = _.assign(
         armor_id: PropTypes.number,
         current_user: PropTypes.shape({
             id: PropTypes.number.isRequired,
-            roles: PropTypes.arrayOf(
+            role: PropTypes.arrayOf(
                 PropTypes.oneOf(['player', 'dm', 'admin'])
             ),
         }),

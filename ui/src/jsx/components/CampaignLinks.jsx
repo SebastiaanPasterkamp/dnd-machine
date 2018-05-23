@@ -1,14 +1,14 @@
 import React from 'react';
-
-import { userHasRole } from '../utils.jsx';
-
-import ListDataActions from '../actions/ListDataActions.jsx';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
-class CampaignLinks extends BaseLinkGroup
+import { userHasRole } from '../utils.jsx';
+
+export class CampaignLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
@@ -16,7 +16,7 @@ class CampaignLinks extends BaseLinkGroup
 
     buttonList() {
         const {
-            campaign, campaign_id, current_user: user
+            campaign = {}, campaign_id, current_user: user
         } = this.props;
 
         if (!user) {
@@ -28,35 +28,57 @@ class CampaignLinks extends BaseLinkGroup
                 label: 'View',
                 link: "/campaign/show/" + campaign_id,
                 icon: 'eye',
-                available: campaign && (
-                    campaign.user_id == user.id
-                    || userHasRole(user, 'admin')
+                available: (
+                    campaign_id
+                    && (
+                        campaign.user_id == user.id
+                        || userHasRole(user, 'admin')
+                    )
                 ),
             }),
             'edit': () => ({
                 label: 'Edit',
                 link: "/campaign/edit/" + campaign_id,
                 icon: 'pencil',
-                available: campaign && (
-                    campaign.user_id == user.id
-                    || userHasRole(user, 'admin')
+                available: (
+                    campaign_id
+                    && campaign.user_id == user.id
+                    && userHasRole(user, 'dm')
                 ),
             }),
             'new': () => ({
                 label: 'New',
                 link: "/campaign/new",
                 icon: 'plus',
-                available: !campaign && (
-                    userHasRole(user, 'dm')
+                available: (
+                    !campaign_id
+                    && userHasRole(user, 'dm')
                 ),
             }),
         };
     }
 };
 
-CampaignLinks.defaultProps = {
-    buttons: ['view', 'edit'],
-};
+
+CampaignLinks.propTypes = _.assign(
+    {}, BaseLinkGroup.propTypes, {
+        buttons: PropTypes.arrayOf(
+            PropTypes.oneOf([
+                'view', 'edit', 'new',
+            ])
+        ),
+        campaign_id: PropTypes.number,
+        current_user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            role: PropTypes.arrayOf(
+                PropTypes.oneOf(['player', 'dm', 'admin'])
+            ),
+        }),
+        campaign: PropTypes.shape({
+            user_id: PropTypes.number.isRequired,
+        }),
+    }
+);
 
 export default ListDataWrapper(
     ObjectDataWrapper(CampaignLinks, [

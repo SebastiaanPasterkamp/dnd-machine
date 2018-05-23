@@ -35,7 +35,7 @@ export class AdventureLeagueLogLinks extends BaseLinkGroup
                     !_.isNil(logId)
                     && (
                         adventureleague.user_id == user.id
-                        || userHasRole(user, ['admin'])
+                        || userHasRole(user, 'admin')
                     )
                 ),
             }),
@@ -45,7 +45,7 @@ export class AdventureLeagueLogLinks extends BaseLinkGroup
                 icon: 'cogs',
                 available: (
                     !_.isNil(logId)
-                    && userHasRole(user, ['admin'])
+                    && userHasRole(user, 'admin')
                 ),
             }),
             'edit': () => ({
@@ -88,7 +88,7 @@ export class AdventureLeagueLogLinks extends BaseLinkGroup
                 icon: 'plus',
                 available: (
                     _.isNil(logId)
-                    && userHasRole(user, ['player'])
+                    && userHasRole(user, 'player')
                     && user.dci
                 ),
             }),
@@ -123,7 +123,7 @@ AdventureLeagueLogLinks.propTypes = _.assign(
         current_user: PropTypes.shape({
             id: PropTypes.number.isRequired,
             dci: PropTypes.string,
-            roles: PropTypes.arrayOf(
+            role: PropTypes.arrayOf(
                 PropTypes.oneOf(['player', 'dm', 'admin'])
             ),
         }),
