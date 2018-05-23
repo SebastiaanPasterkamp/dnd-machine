@@ -62,7 +62,11 @@
     ],
     "moduleNameMapper": {
       "^.+.(css|scss)$": "<rootDir>/ui/tests/__mocks__/style.js"
-    }
+    },
+    "modulePaths": [
+        "ui/src/jsx",
+        "ui/src/sass"
+    ]
   },
   "repository": {
     "type": "git",
