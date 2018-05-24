@@ -41,7 +41,6 @@ class SpellsFooter extends LazyComponent
                 <td colSpan={3}>
                     <SpellLinks
                         altStyle={true}
-                        buttons={['new']}
                         />
                 </td>
             </tr>
@@ -62,7 +61,6 @@ class SpellRow extends LazyComponent
                 {name}
                 <SpellLinks
                     altStyle={true}
-                    buttons={['view', 'edit']}
                     spell_id={id}
                     />
             </th>

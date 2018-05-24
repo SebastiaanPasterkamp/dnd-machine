@@ -35,7 +35,6 @@ class EncounterFooter extends LazyComponent
                 <td colSpan={3}>
                     <EncounterLinks
                         altStyle={true}
-                        buttons={['new']}
                         />
                 </td>
             </tr>

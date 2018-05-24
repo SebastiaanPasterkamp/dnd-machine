@@ -31,7 +31,6 @@ class UserFooter extends LazyComponent
                 <td colSpan={3}>
                     <UserLinks
                         altStyle={true}
-                        buttons={['new']}
                         />
                 </td>
             </tr>
@@ -52,7 +51,6 @@ class UserRow extends LazyComponent
                 <i>({name})</i>
                 <UserLinks
                     altStyle={true}
-                    buttons={['view', 'edit']}
                     user_id={id}
                     />
             </th>

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
@@ -33,7 +32,6 @@ class ArmorFooter extends LazyComponent
                 <td colSpan={4}>
                     <ArmorLinks
                         altStyle={true}
-                        buttons={['new']}
                         />
                 </td>
             </tr>
@@ -54,7 +52,6 @@ class ArmorRow extends LazyComponent
                 {name}
                 <ArmorLinks
                     altStyle={true}
-                    buttons={['view', 'edit']}
                     armor_id={this.props.id}
                     />
             </th>

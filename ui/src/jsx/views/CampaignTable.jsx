@@ -31,7 +31,6 @@ class CampaignFooter extends LazyComponent
                 <td colSpan={2}>
                     <CampaignLinks
                         altStyle={true}
-                        buttons={['new']}
                         />
                 </td>
             </tr>
@@ -51,7 +50,6 @@ class CampaignRow extends LazyComponent
                 {name}
                 <CampaignLinks
                     altStyle={true}
-                    buttons={['view', 'edit']}
                     campaign_id={id}
                     />
             </th>
