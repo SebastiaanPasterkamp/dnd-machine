@@ -38,7 +38,6 @@ class WeaponsFooter extends LazyComponent
                 <td colSpan={5}>
                     <WeaponLinks
                         altStyle={true}
-                        buttons={['new']}
                         />
                 </td>
             </tr>
@@ -59,7 +58,6 @@ class WeaponsRow extends LazyComponent
                 {name}
                 <WeaponLinks
                     altStyle={true}
-                    buttons={['view', 'edit']}
                     weapon_id={id}
                     />
             </th>
