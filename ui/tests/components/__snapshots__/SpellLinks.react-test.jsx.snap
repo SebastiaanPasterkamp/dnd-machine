@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: SpellLinks should render a new button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-plus"
+    href="/items/spell/new"
+    onClick={[Function]}
+  >
+    New
+  </a>
+</div>
+`;
+
+exports[`Component: SpellLinks should render without props 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+/>
+`;
+
+exports[`Component: SpellLinks should show a view and edit button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/items/spell/show/10"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-pencil"
+    href="/items/spell/edit/10"
+    onClick={[Function]}
+  >
+    Edit
+  </a>
+</div>
+`;
+
+exports[`Component: SpellLinks should show only a view button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/items/spell/show/10"
+    onClick={[Function]}
+  >
+    View
+  </a>
+</div>
+`;
