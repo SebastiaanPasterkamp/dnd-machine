@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: MonsterLinks should render a new button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-plus"
+    href="/monster/new"
+    onClick={[Function]}
+  >
+    New
+  </a>
+</div>
+`;
+
+exports[`Component: MonsterLinks should render without props 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+/>
+`;
+
+exports[`Component: MonsterLinks should show nothing 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+/>
+`;
+
+exports[`Component: MonsterLinks should show the normal buttons 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/monster/show/10"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-pencil"
+    href="/monster/edit/10"
+    onClick={[Function]}
+  >
+    Edit
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-clone"
+    onClick={[Function]}
+  >
+    Copy
+  </a>
+</div>
+`;
+
+exports[`Component: MonsterLinks should show the raw button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-cogs"
+    href="/monster/raw/10"
+    onClick={[Function]}
+  >
+    Raw
+  </a>
+</div>
+`;
