@@ -1,12 +1,13 @@
 import React from 'react';
-
-import ListDataActions from '../actions/ListDataActions.jsx';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
-class SpellLinks extends BaseLinkGroup
+import { userHasRole } from '../utils.jsx';
+
+export class SpellLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
@@ -14,68 +15,58 @@ class SpellLinks extends BaseLinkGroup
 
     buttonList() {
         const {
-            spell_id
+            spell_id, current_user: user,
         } = this.props;
+
+        if (!user) {
+            return {};
+        }
 
         return {
-            'view': () => {
-                return {
-                    label: 'View',
-                    link: "/items/spell/show/" + spell_id,
-                    icon: 'eye',
-                };
-            },
-            'edit': () => {
-                return {
-                    label: 'Edit',
-                    link: "/items/spell/edit/" + spell_id,
-                    icon: 'pencil',
-                };
-            },
-            'new': () => {
-                return {
-                    label: 'New',
-                    link: "/items/spell/new",
-                    icon: 'plus',
-                };
-            }
+            'view': () => ({
+                label: 'View',
+                link: "/items/spell/show/" + spell_id,
+                icon: 'eye',
+                available: spell_id,
+            }),
+            'edit': () => ({
+                label: 'Edit',
+                link: "/items/spell/edit/" + spell_id,
+                icon: 'pencil',
+                available: (
+                    spell_id
+                    && userHasRole(user, ['admin', 'dm'])
+                ),
+            }),
+            'new': () => ({
+                label: 'New',
+                link: "/items/spell/new",
+                icon: 'plus',
+                available: (
+                    !spell_id
+                    && userHasRole(user, ['admin', 'dm'])
+                ),
+            }),
         };
     }
-
-    getAllowed() {
-        const {
-            spell_id, current_user
-        } = this.props;
-
-        if (current_user == null) {
-            return [];
-        }
-
-        if (
-            _.intersection(
-                current_user.role || [],
-                ['dm']
-            ).length
-        ) {
-            return ['edit', 'new', 'view'];
-        }
-
-        if (
-            _.intersection(
-                current_user.role || [],
-                ['player']
-            ).length
-        ) {
-            return ['view'];
-        }
-
-        return ['view'];
-    }
-}
-
-SpellLinks.defaultProps = {
-    buttons: ['view', 'edit'],
 };
+
+SpellLinks.propTypes = _.assign(
+    {}, BaseLinkGroup.propTypes, {
+        buttons: PropTypes.arrayOf(
+            PropTypes.oneOf([
+                'view', 'edit', 'new',
+            ])
+        ),
+        spell_id: PropTypes.number,
+        current_user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            role: PropTypes.arrayOf(
+                PropTypes.oneOf(['player', 'dm', 'admin'])
+            ),
+        }),
+    }
+);
 
 export default ListDataWrapper(
     SpellLinks,
