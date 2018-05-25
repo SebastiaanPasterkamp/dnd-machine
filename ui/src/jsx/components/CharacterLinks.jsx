@@ -12,11 +12,12 @@ import { userHasRole } from '../utils.jsx';
 
 export class CharacterLinks extends BaseLinkGroup
 {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
     }
 
     buttonList() {
+        const { router } = this.context;
         const {
             character = {}, character_id, current_user: user
         } = this.props;
@@ -62,7 +63,16 @@ export class CharacterLinks extends BaseLinkGroup
             }),
             'copy': () => ({
                 label: 'Copy',
-                link: "/character/copy/" + character_id,
+                action: () => {
+                    ObjectDataActions.copyObject(
+                        "character", character_id, null,
+                        (type, id, data) => {
+                            router.history.push(
+                                '/character/edit/' + data.id
+                            );
+                        }
+                    );
+                },
                 icon: 'clone',
                 available: (
                     character_id
@@ -107,6 +117,10 @@ export class CharacterLinks extends BaseLinkGroup
         };
     }
 }
+
+CharacterLinks.contextTypes = {
+    router: PropTypes.object,
+};
 
 CharacterLinks.propTypes = _.assign(
     {}, BaseLinkGroup.propTypes, {
