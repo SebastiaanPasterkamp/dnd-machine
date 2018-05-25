@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { userHasRole } from '../utils.jsx';
+import _ from 'lodash';
 
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
-class MonsterLinks extends BaseLinkGroup
+import { userHasRole } from '../utils.jsx';
+
+export class MonsterLinks extends BaseLinkGroup
 {
     constructor(props, context) {
         super(props, context);
@@ -18,14 +18,17 @@ class MonsterLinks extends BaseLinkGroup
     buttonList() {
         const { router } = this.context;
         const {
-            monster, monster_id, current_user: user,
+            monster_id, current_user: user,
         } = this.props;
 
         if (!user) {
             return {};
         }
 
-        const available = monster && userHasRole(user, 'dm');
+        const available = (
+            monster_id
+            && userHasRole(user, 'dm')
+        );
 
         return {
             'view': () => ({
@@ -33,6 +36,15 @@ class MonsterLinks extends BaseLinkGroup
                 link: "/monster/show/" + monster_id,
                 icon: 'eye',
                 available,
+            }),
+            'raw': () => ({
+                label: 'Raw',
+                link: "/monster/raw/" + monster_id,
+                icon: 'cogs',
+                available: (
+                    monster_id
+                    && userHasRole(user, 'admin')
+                ),
             }),
             'edit': () => ({
                 label: 'Edit',
@@ -59,7 +71,10 @@ class MonsterLinks extends BaseLinkGroup
                 label: 'New',
                 link: "/monster/new",
                 icon: 'plus',
-                available: !monster_id && userHasRole(user, 'dm')
+                available: (
+                    !monster_id
+                    && userHasRole(user, 'dm')
+                ),
             }),
         };
     }
@@ -69,19 +84,24 @@ MonsterLinks.contextTypes = {
     router: PropTypes.object,
 };
 
-MonsterLinks.propTypes = {
-    monster: PropTypes.object,
-    monster_id: PropTypes.number,
-    current_user: PropTypes.object,
-};
-
-MonsterLinks.defaultProps = {
-    buttons: ['view', 'edit', 'copy'],
-};
+MonsterLinks.propTypes = _.assign(
+    {}, BaseLinkGroup.propTypes, {
+        buttons: PropTypes.arrayOf(
+            PropTypes.oneOf([
+                'view', 'edit', 'copy', 'raw', 'new',
+            ])
+        ),
+        monster_id: PropTypes.number,
+        current_user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            role: PropTypes.arrayOf(
+                PropTypes.oneOf(['player', 'dm', 'admin'])
+            ),
+        }),
+    }
+);
 
 export default ListDataWrapper(
-    ObjectDataWrapper(MonsterLinks, [
-        {type: 'monster', id: 'monster_id'}
-    ]),
+    MonsterLinks,
     ['current_user']
 );
