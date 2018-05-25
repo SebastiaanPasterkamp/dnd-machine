@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: UserLinks should not show anything to non-self non-admin 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+/>
+`;
+
+exports[`Component: UserLinks should render a new button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-plus"
+    href="/user/new"
+    onClick={[Function]}
+  >
+    New
+  </a>
+</div>
+`;
+
+exports[`Component: UserLinks should render without props 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+/>
+`;
+
+exports[`Component: UserLinks should show admin buttons 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/user/show/2"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-cogs"
+    href="/user/raw/2"
+    onClick={[Function]}
+  >
+    Raw
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-pencil"
+    href="/user/edit/2"
+    onClick={[Function]}
+  >
+    Edit
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-trash-o"
+    onClick={[Function]}
+  >
+    Delete
+  </a>
+</div>
+`;
+
+exports[`Component: UserLinks should show privileged buttons 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/user/show/1"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-pencil"
+    href="/user/edit/1"
+    onClick={[Function]}
+  >
+    Edit
+  </a>
+</div>
+`;
