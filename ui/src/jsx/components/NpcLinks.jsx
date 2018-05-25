@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { userHasRole } from '../utils.jsx';
+import _ from 'lodash';
 
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
-class NpcLinks extends BaseLinkGroup
+import { userHasRole } from '../utils.jsx';
+
+export class NpcLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
@@ -18,14 +18,17 @@ class NpcLinks extends BaseLinkGroup
     buttonList() {
         const { router } = this.context;
         const {
-            npc, npc_id, current_user: user
+            npc_id, current_user: user
         } = this.props;
 
         if (!user) {
             return {};
         }
 
-        const available = npc && userHasRole(user, 'dm');
+        const available = (
+            npc_id
+            && userHasRole(user, 'dm')
+        );
 
         return {
             'view': () => ({
@@ -33,6 +36,15 @@ class NpcLinks extends BaseLinkGroup
                 link: "/npc/show/" + npc_id,
                 icon: 'eye',
                 available,
+            }),
+            'raw': () => ({
+                label: 'Raw',
+                link: "/npc/raw/" + npc_id,
+                icon: 'cogs',
+                available: (
+                    npc_id
+                    && userHasRole(user, 'admin')
+                ),
             }),
             'edit': () => ({
                 label: 'Edit',
@@ -59,7 +71,10 @@ class NpcLinks extends BaseLinkGroup
                 label: 'New',
                 link: "/npc/new",
                 icon: 'plus',
-                available: !npc && userHasRole(user, 'dm'),
+                available: (
+                    !npc_id
+                    && userHasRole(user, 'dm')
+                ),
             }),
         };
     }
@@ -69,19 +84,24 @@ NpcLinks.contextTypes = {
     router: PropTypes.object,
 };
 
-NpcLinks.propTypes = {
-    npc: PropTypes.object,
-    npc_id: PropTypes.number,
-    current_user: PropTypes.object,
-};
-
-NpcLinks.defaultProps = {
-    buttons: ['view', 'edit', 'copy'],
-};
+NpcLinks.propTypes = _.assign(
+    {}, BaseLinkGroup.propTypes, {
+        buttons: PropTypes.arrayOf(
+            PropTypes.oneOf([
+                'view', 'edit', 'copy', 'raw', 'new',
+            ])
+        ),
+        npc_id: PropTypes.number,
+        current_user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            role: PropTypes.arrayOf(
+                PropTypes.oneOf(['player', 'dm', 'admin'])
+            ),
+        }),
+    }
+);
 
 export default ListDataWrapper(
-    ObjectDataWrapper(NpcLinks, [
-        {type: 'npc', id: 'npc_id'}
-    ]),
+    NpcLinks,
     ['current_user']
 );
