@@ -40,7 +40,6 @@ exports[`Component: CharacterLinks should show a level-up button 1`] = `
   </a>
   <a
     className="cursor-pointer nice-btn icon fa-clone"
-    href="/character/copy/10"
     onClick={[Function]}
   >
     Copy
@@ -114,7 +113,6 @@ exports[`Component: CharacterLinks should show privileged buttons 1`] = `
   </a>
   <a
     className="cursor-pointer nice-btn icon fa-clone"
-    href="/character/copy/10"
     onClick={[Function]}
   >
     Copy
