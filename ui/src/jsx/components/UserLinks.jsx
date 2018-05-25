@@ -1,12 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
-class UserLinks extends BaseLinkGroup
+import { userHasRole } from '../utils.jsx';
+
+export class UserLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
@@ -14,101 +17,95 @@ class UserLinks extends BaseLinkGroup
 
     buttonList() {
         const {
-            user, user_id
-        } = this.props;
-
-        return {
-            'view': () => {
-                return {
-                    label: 'View',
-                    link: "/user/show/" + user_id,
-                    icon: 'eye',
-                };
-            },
-            'raw': () => {
-                return {
-                    label: 'Raw',
-                    link: "/user/raw/" + user_id,
-                    icon: 'cogs',
-                };
-            },
-            'edit': () => {
-                return {
-                    label: 'Edit',
-                    link: "/user/edit/" + user_id,
-                    icon: 'pencil',
-                };
-            },
-            'new': () => {
-                return {
-                    label: 'New',
-                    link: "/user/new",
-                    icon: 'plus',
-                };
-            },
-            'delete': () => {
-                return {
-                    label: 'Delete',
-                    action: () => {
-                        ObjectDataActions.deleteObject(
-                            "user", user_id
-                        );
-                    },
-                    icon: 'trash-o',
-                    color: 'bad'
-                };
-            },
-        };
-    }
-
-    getAllowed() {
-        const {
-            current_user, user, user_id
+            user_id, current_user,
         } = this.props;
 
         if (!current_user) {
-            return [];
+            return {};
         }
 
-        if (!user) {
-            if (
-                _.intersection(
-                    current_user.role || [],
-                    ['admin']
-                ).length
-            ) {
-                return ['new'];
-            }
-            return [];
-        }
-
-        if (
-            _.intersection(
-                current_user.role || [],
-                ['admin']
-            ).length
-        ) {
-            return ['delete', 'edit', 'new', 'view'];
-        }
-
-        if (
-            user
-            && user.id == current_user.id
-        ) {
-            return ['delete', 'edit', 'view'];
-        }
-
-        return [];
+        return {
+            'view': () => ({
+                label: 'View',
+                link: "/user/show/" + user_id,
+                icon: 'eye',
+                available: (
+                    user_id
+                    && (
+                        user_id == current_user.id
+                        || userHasRole(current_user, ['admin'])
+                    )
+                ),
+            }),
+            'raw': () => ({
+                label: 'Raw',
+                link: "/user/raw/" + user_id,
+                icon: 'cogs',
+                available: (
+                    user_id
+                    && userHasRole(current_user, ['admin'])
+                ),
+            }),
+            'edit': () => ({
+                label: 'Edit',
+                link: "/user/edit/" + user_id,
+                icon: 'pencil',
+                available: (
+                    user_id
+                    && (
+                        user_id == current_user.id
+                        || userHasRole(current_user, ['admin'])
+                    )
+                ),
+            }),
+            'new': () => ({
+                label: 'New',
+                link: "/user/new",
+                icon: 'plus',
+                available: (
+                    !user_id
+                    && userHasRole(current_user, ['admin'])
+                ),
+            }),
+            'delete': () => ({
+                label: 'Delete',
+                action: () => {
+                    ObjectDataActions.deleteObject(
+                        "user", user_id
+                    );
+                },
+                icon: 'trash-o',
+                color: 'bad',
+                available: (
+                    user_id
+                    && (
+                        user_id != current_user.id
+                        && userHasRole(current_user, ['admin'])
+                    )
+                ),
+            }),
+        };
     }
-}
-
-UserLinks.defaultProps = {
-    buttons: ['view', 'edit'],
 };
 
+UserLinks.propTypes = _.assign(
+    {}, BaseLinkGroup.propTypes, {
+        buttons: PropTypes.arrayOf(
+            PropTypes.oneOf([
+                'view', 'raw', 'edit', 'new', 'delete',
+            ])
+        ),
+        user_id: PropTypes.number,
+        current_user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            role: PropTypes.arrayOf(
+                PropTypes.oneOf(['player', 'dm', 'admin'])
+            ),
+        }),
+    }
+);
+
 export default ListDataWrapper(
-    ObjectDataWrapper(UserLinks, [
-        {type: 'user', id: 'user_id'}
-    ]),
+    UserLinks,
     ['current_user']
 );
