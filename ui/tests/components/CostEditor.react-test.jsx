@@ -1,7 +1,6 @@
 import React from 'react';
 import {mount} from 'enzyme';
 import CostEditor from '../../src/jsx/components/CostEditor.jsx';
-import { stub } from 'sinon';
 import renderer from 'react-test-renderer';
 
 describe('Component: CostEditor', () => {
