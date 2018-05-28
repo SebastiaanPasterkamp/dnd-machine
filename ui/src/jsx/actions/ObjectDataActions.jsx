@@ -173,6 +173,10 @@ export function ObjectDataActionsFactory(id)
     oda.deleteObject.listen((type, id, group=null, callback=null) => {
         let path = '/' + _.filter([group, type, 'api', id]).join('/')
 
+        if (!confirm("Are you sure?")) {
+            return false;
+        }
+
         fetch(path, {
             credentials: 'same-origin',
             method: 'DELETE',
