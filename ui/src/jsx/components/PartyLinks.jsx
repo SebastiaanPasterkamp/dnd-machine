@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import { userHasRole } from '../utils.jsx';
 
@@ -8,7 +10,7 @@ import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
-class PartyLinks extends BaseLinkGroup
+export class PartyLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
@@ -16,7 +18,10 @@ class PartyLinks extends BaseLinkGroup
 
     buttonList() {
         const {
-            party, party_id, hosted_party, current_user: user
+            party,
+            party_id,
+            hosted_party: hosted,
+            current_user: user,
         } = this.props;
 
         if (!user) {
@@ -28,21 +33,27 @@ class PartyLinks extends BaseLinkGroup
                 label: 'View',
                 link: "/party/show/" + party_id,
                 icon: 'eye',
-                available: party && (
-                    party.user_id == user.id
-                    || userHasRole(user, ['dm', 'admin'])
+                available: (
+                    party
+                    && (
+                        party.user_id == user.id
+                        || userHasRole(user, ['dm', 'admin'])
+                    )
                 ),
             }),
             'edit': () => ({
                 label: 'Edit',
                 link: "/party/edit/" + party_id,
                 icon: 'pencil',
-                available: party && (
-                    party.user_id == user.id
-                    || userHasRole(user, 'admin')
+                available: (
+                    party
+                    && (
+                        party.user_id == user.id
+                        || userHasRole(user, 'admin')
+                    )
                 ),
             }),
-            'host': () => (hosted_party && party_id == hosted_party.id ? {
+            'host': () => (hosted && party_id == hosted.id ? {
                 label: 'Stop',
                 action: () => {
                     fetch("/party/host", {
@@ -55,14 +66,15 @@ class PartyLinks extends BaseLinkGroup
                     .then((response) => response.json())
                     .then((data) => {
                         ListDataActions.fetchItems.completed({
-                            hosted_party: data
+                            hosted: data
                         });
                     });
                 },
                 icon: 'ban',
                 className: 'info',
-                available: party && (
-                    userHasRole(user, 'dm')
+                available: (
+                    party_id
+                    && userHasRole(user, 'dm')
                 ),
             } : {
                 label: 'Host',
@@ -77,30 +89,49 @@ class PartyLinks extends BaseLinkGroup
                     .then((response) => response.json())
                     .then((data) => {
                         ListDataActions.fetchItems.completed({
-                            hosted_party: data
+                            hosted: data
                         });
                     });
                 },
                 icon: 'beer',
-                available: party && (
-                    userHasRole(user, 'dm')
+                available: (
+                    party_id
+                    && userHasRole(user, 'dm')
                 ),
             }),
             'new': () => ({
                 label: 'New',
                 link: "/party/new",
                 icon: 'plus',
-                available: !party && (
-                    userHasRole(user, ['dm', 'admin'])
+                available: (
+                    !party_id
+                    && userHasRole(user, ['dm', 'admin'])
                 ),
             })
         };
     }
 }
 
-PartyLinks.defaultProps = {
-    buttons: ['view', 'edit', 'host', 'new'],
-};
+
+PartyLinks.propTypes = _.assign(
+    {}, BaseLinkGroup.propTypes, {
+        buttons: PropTypes.arrayOf(
+            PropTypes.oneOf([
+                'view', 'edit', 'new', 'host',
+            ])
+        ),
+        party_id: PropTypes.number,
+        current_user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            role: PropTypes.arrayOf(
+                PropTypes.oneOf(['player', 'dm', 'admin'])
+            ),
+        }),
+        hosted_party: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+        }),
+    }
+);
 
 export default ListDataWrapper(
     ObjectDataWrapper(PartyLinks, [
