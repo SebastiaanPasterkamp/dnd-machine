@@ -45,7 +45,6 @@ export class CharacterDescription extends LazyComponent
                 header="Description"
             >
             <CharacterLinks
-                buttons={['edit', 'download']}
                 className="pull-right"
                 character_id={id}
                 />
