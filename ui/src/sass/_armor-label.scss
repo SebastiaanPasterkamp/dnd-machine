@@ -1,10 +1,21 @@
 // _armor-label.scss
 
-.armor-label{
-    > strong:before {
-        content: ', ';
+.armor-label {
+    > strong:after {
+        content: ' ';
     }
-    > strong:first-child:before {
-        content: normal;
+
+    > .armor-label__info span {
+        > strong:after {
+            content: ' ';
+        }
+
+        &:before {
+            content: ', ';
+        }
+
+        &:first-child:before {
+            content: normal;
+        }
     }
 }
