@@ -1,0 +1,474 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: AutoCompleteInput should expand on focus 1`] = `
+<AutoCompleteInput
+  items={
+    Array [
+      Object {
+        "code": "light",
+        "label": "Light Armor",
+      },
+      Object {
+        "code": "heavy",
+        "label": "Heavy Armor",
+      },
+    ]
+  }
+  setState={[Function]}
+>
+  <div
+    className="nice-dropdown nice-form-control"
+  >
+    <InputField
+      onBlur={[Function]}
+      onEnter={[Function]}
+      onFocus={[Function]}
+      setState={[Function]}
+      value=""
+    >
+      <input
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        value=""
+      />
+    </InputField>
+    <ul
+      className="dropdown-menu"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <li
+        key="light"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Light Armor
+        </a>
+      </li>
+      <li
+        key="heavy"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Heavy Armor
+        </a>
+      </li>
+    </ul>
+  </div>
+</AutoCompleteInput>
+`;
+
+exports[`Component: AutoCompleteInput should expand on focus 2`] = `
+<AutoCompleteInput
+  items={
+    Array [
+      Object {
+        "code": "light",
+        "label": "Light Armor",
+      },
+      Object {
+        "code": "heavy",
+        "label": "Heavy Armor",
+      },
+    ]
+  }
+  setState={[Function]}
+>
+  <div
+    className="nice-dropdown nice-form-control"
+  >
+    <InputField
+      onBlur={[Function]}
+      onEnter={[Function]}
+      onFocus={[Function]}
+      setState={[Function]}
+      value=""
+    >
+      <input
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        value=""
+      />
+    </InputField>
+    <ul
+      className="dropdown-menu shown"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <li
+        key="light"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Light Armor
+        </a>
+      </li>
+      <li
+        key="heavy"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Heavy Armor
+        </a>
+      </li>
+    </ul>
+  </div>
+</AutoCompleteInput>
+`;
+
+exports[`Component: AutoCompleteInput should hide when w/o results 1`] = `
+<AutoCompleteInput
+  items={
+    Array [
+      Object {
+        "code": "light",
+        "label": "Light Armor",
+      },
+      Object {
+        "code": "heavy",
+        "label": "Heavy Armor",
+      },
+    ]
+  }
+  setState={[Function]}
+  value="unknown"
+>
+  <div
+    className="nice-dropdown nice-form-control"
+  >
+    <InputField
+      onBlur={[Function]}
+      onEnter={null}
+      onFocus={[Function]}
+      setState={[Function]}
+      value="unknown"
+    >
+      <input
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyPress={null}
+        value="unknown"
+      />
+    </InputField>
+    <ul
+      className="dropdown-menu"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    />
+  </div>
+</AutoCompleteInput>
+`;
+
+exports[`Component: AutoCompleteInput should render be disabled 1`] = `
+<div
+  className="nice-dropdown nice-form-control"
+>
+  <input
+    className="nice-form-control"
+    disabled={true}
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyPress={[Function]}
+    placeholder={undefined}
+    type={undefined}
+    value=""
+  />
+  <ul
+    className="dropdown-menu"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        Light Armor
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        Heavy Armor
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Component: AutoCompleteInput should render value not in the list 1`] = `
+<div
+  className="nice-dropdown nice-form-control"
+>
+  <input
+    className="nice-form-control"
+    disabled={undefined}
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyPress={null}
+    placeholder={undefined}
+    type={undefined}
+    value="whatever"
+  />
+  <ul
+    className="dropdown-menu"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  />
+</div>
+`;
+
+exports[`Component: AutoCompleteInput should render with minimum props 1`] = `
+<div
+  className="nice-dropdown nice-form-control"
+>
+  <input
+    className="nice-form-control"
+    disabled={undefined}
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyPress={[Function]}
+    placeholder={undefined}
+    type={undefined}
+    value=""
+  />
+  <ul
+    className="dropdown-menu"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        Light Armor
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        Heavy Armor
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Component: AutoCompleteInput should stay expanded on blur 1`] = `
+<AutoCompleteInput
+  items={
+    Array [
+      Object {
+        "code": "light",
+        "label": "Light Armor",
+      },
+      Object {
+        "code": "heavy",
+        "label": "Heavy Armor",
+      },
+    ]
+  }
+  setState={[Function]}
+>
+  <div
+    className="nice-dropdown nice-form-control"
+  >
+    <InputField
+      onBlur={[Function]}
+      onEnter={[Function]}
+      onFocus={[Function]}
+      setState={[Function]}
+      value=""
+    >
+      <input
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        value=""
+      />
+    </InputField>
+    <ul
+      className="dropdown-menu"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <li
+        key="light"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Light Armor
+        </a>
+      </li>
+      <li
+        key="heavy"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Heavy Armor
+        </a>
+      </li>
+    </ul>
+  </div>
+</AutoCompleteInput>
+`;
+
+exports[`Component: AutoCompleteInput should stay expanded on blur 2`] = `
+<AutoCompleteInput
+  items={
+    Array [
+      Object {
+        "code": "light",
+        "label": "Light Armor",
+      },
+      Object {
+        "code": "heavy",
+        "label": "Heavy Armor",
+      },
+    ]
+  }
+  setState={[Function]}
+>
+  <div
+    className="nice-dropdown nice-form-control"
+  >
+    <InputField
+      onBlur={[Function]}
+      onEnter={[Function]}
+      onFocus={[Function]}
+      setState={[Function]}
+      value=""
+    >
+      <input
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        value=""
+      />
+    </InputField>
+    <ul
+      className="dropdown-menu shown"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <li
+        key="light"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Light Armor
+        </a>
+      </li>
+      <li
+        key="heavy"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Heavy Armor
+        </a>
+      </li>
+    </ul>
+  </div>
+</AutoCompleteInput>
+`;
+
+exports[`Component: AutoCompleteInput should stay hide when losing focus/mouse 1`] = `
+<AutoCompleteInput
+  items={
+    Array [
+      Object {
+        "code": "light",
+        "label": "Light Armor",
+      },
+      Object {
+        "code": "heavy",
+        "label": "Heavy Armor",
+      },
+    ]
+  }
+  setState={[Function]}
+>
+  <div
+    className="nice-dropdown nice-form-control"
+  >
+    <InputField
+      onBlur={[Function]}
+      onEnter={[Function]}
+      onFocus={[Function]}
+      setState={[Function]}
+      value=""
+    >
+      <input
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        value=""
+      />
+    </InputField>
+    <ul
+      className="dropdown-menu"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <li
+        key="light"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Light Armor
+        </a>
+      </li>
+      <li
+        key="heavy"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Heavy Armor
+        </a>
+      </li>
+    </ul>
+  </div>
+</AutoCompleteInput>
+`;
