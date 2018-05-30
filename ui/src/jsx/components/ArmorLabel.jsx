@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import MDReactComponent from 'markdown-react-js';
 
@@ -14,63 +15,71 @@ import ListLabel from '../components/ListLabel.jsx';
 export class ArmorLabel extends LazyComponent
 {
     renderInfo(armor) {
-        const { showInfo, armor_properties } = this.props;
+        const { showInfo = true } = this.props;
 
         if (!showInfo) {
             return null;
         }
 
-        return <div className="armor-label">
-            <strong>AC:</strong>
-            {armor.value}
-            {'value' in armor ? null : armor.formula}
-            {armor.bonus
-                ? <Bonus
-                    bonus={armor.bonus}
-                    />
-                : null
-            }
+        return <div className="armor-label__info">
+            <span>
+                <strong>AC:</strong>
+                {armor.value}
+
+                {'value' in armor ? null : armor.formula}
+
+                {armor.bonus
+                    ? <Bonus
+                        bonus={armor.bonus}
+                        />
+                    : null
+                }
+            </span>
+
             {armor.requirements.strength
-                ? <React.Fragment>
-                    <strong>Strength:</strong>&nbsp;{armor.requirements.strength}
-                </React.Fragment>
+                ? <span>
+                    <strong>Strength:</strong>
+                    {armor.requirements.strength}
+                </span>
                 : null
             }
+
             {armor.disadvantage
-                ? <React.Fragment>
-                    <strong>Stealth:</strong>&nbsp;Disadvantage
-                </React.Fragment>
+                ? <span>
+                    <strong>Stealth:</strong>
+                    Disadvantage
+                </span>
                 : null
             }
         </div>;
     }
 
     renderDescription(armor) {
-        const { showDescription } = this.props;
+        const { showDescription = '' } = this.props;
 
         if (!showDescription) {
             return null;
         }
 
         return <MDReactComponent
-            text={armor.description || ''}
+            text={armor.description}
             />;
     }
 
     render() {
         const {
-            armor, armor_types, showDescription, showInfo
+            armor, armor_types = [], showDescription, showInfo = true,
         } = this.props;
+
         if (!armor) {
             return null;
         }
 
         return <div className="armor-label inline">
             <strong>{armor.name}</strong>
-            &nbsp;
             <i>
                 (<ListLabel
-                    items={armor_types || []}
+                    items={armor_types}
                     value={armor.type}
                     />)
             </i>
@@ -80,9 +89,23 @@ export class ArmorLabel extends LazyComponent
     }
 }
 
-ArmorLabel.defaultProps = {
-    showDescription: false,
-    showInfo: true
+ArmorLabel.propTypes = {
+    armor_id: PropTypes.number.isRequired,
+    armor_types: PropTypes.array,
+
+    showInfo: PropTypes.bool,
+    showDescription: PropTypes.bool,
+
+    armor: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        value: PropTypes.number,
+        formula: PropTypes.string,
+        bonus: PropTypes.number,
+        requirements: PropTypes.object,
+        disadvantage: PropTypes.bool,
+    }),
 };
 
 export default ListDataWrapper(
