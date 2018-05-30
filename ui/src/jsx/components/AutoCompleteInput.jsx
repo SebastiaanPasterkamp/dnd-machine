@@ -25,7 +25,7 @@ export class AutoCompleteInput extends LazyComponent
     }
 
     render() {
-        const { items, value, ...props } = this.props;
+        const { items, value, disabled, ...props } = this.props;
         const { focus, hover } = this.state;
         const filter = new RegExp(value, "i");
 
@@ -42,6 +42,7 @@ export class AutoCompleteInput extends LazyComponent
             <InputField
                 {...props}
                 value={value}
+                disabled={disabled}
                 onFocus={() => this.setState({focus: true})}
                 onBlur={() => this.setState({focus: false})}
                 onEnter={filtered.length
@@ -77,6 +78,7 @@ AutoCompleteInput.defaultProps = {
 
 AutoCompleteInput.propTypes = {
     setState: PropTypes.func,
+    value: PropTypes.any,
     items: PropTypes.arrayOf(
         PropTypes.shape({
             code: PropTypes.oneOfType([
@@ -86,7 +88,7 @@ AutoCompleteInput.propTypes = {
             label: PropTypes.string,
             description: PropTypes.string,
         })
-    ),
+    ).isRequired,
     disabled: PropTypes.bool,
 };
 
