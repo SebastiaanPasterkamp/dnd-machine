@@ -3,79 +3,94 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import BaseTagContainer from './BaseTagContainer.jsx';
+import LazyComponent from './LazyComponent.jsx';
 
-export class TagContainer extends BaseTagContainer
+export class TagContainer extends LazyComponent
 {
-    onChange(key, value) {
-        const { tags, onChange, setState } = this.props;
-        const head = _.take(tags, key);
-        const tail = _.takeRight(tags, tags.length - key - 1);
-        setState(
-            head.concat([value]).concat(tail)
-        );
-        if (onChange) {
-            onChange(key, value);
-        }
-    }
+    onDelete(tag, index) {
+        const { value, onDelete, setState } = this.props;
 
-    onDelete(key, value) {
-        const { tags, onDelete, setState} = this.props;
-        const head = _.take(tags, key);
-        const tail = _.takeRight(tags, tags.length - key - 1);
         setState(
-            head.concat(tail)
+            _.concat(
+                _.slice(value, 0, index),
+                _.slice(value, index + 1)
+            )
         );
+
         if (onDelete) {
-            onDelete(key, value);
+            onDelete(tag, index);
         }
     }
 
-    onAdd(value) {
-        const { tags, onAdd, setState } = this.props;
-        const head = _.take(tags, tags.length);
+    onAdd(newValue) {
+        const { value, onAdd, setState } = this.props;
+
         setState(
-            head.concat([value])
+            _.concat(value, [newValue])
         );
+
         if (onAdd) {
-            onAdd(value);
+            onAdd(newValue);
         }
     }
 
-    getItem(key, value) {
-        const { tagOptions } = this.props;
-        return _.find(tagOptions, {code: value})
-            || _.find(tagOptions, {name: value})
+    getItems(multiple) {
+        const { items = [], value } = this.props;
+        const filtered = multiple
+            ? items
+            : _.filter(items, item => !(
+                _.includes(value, item.code)
+                || _.includes(value, item.name)
+            ));
+
+        return _.map(
+            filtered,
+            item => _.pickBy({
+                id: item.code || item.name,
+                code: item.code,
+                name: item.name,
+                label: item.label,
+                description: item.description,
+            }, v => (v !== undefined))
+        );
     }
 
-    isDisabled(item) {
-        const { isDisabled, multiple } = this.props;
-        if (_.isFunction(isDisabled)) {
-            return isDisabled(item);
-        }
-        if (multiple) {
-            return false;
-        }
-        const tags = this.getTags();
-        const tag = (item.code || item.name)
-        if (_.includes(tags, tag)) {
-            return true;
-        }
-        return false;
+    getItem(tag) {
+        const { items = [] } = this.props;
+        const { code, name, label, description } = (
+            _.find(items, { code: tag })
+            || _.find(items, { name: tag })
+            || {}
+        );
+
+        return _.pickBy({
+            id: tag,
+            code,
+            name,
+            label,
+            description,
+        }, v => (v !== undefined));
     }
 
-}
+    render() {
+        const {
+            value, setState, multiple, ...props,
+        } = this.props;
 
-TagContainer.defaultProps = _.assign({}, BaseTagContainer.defaultProps, {
-    setState: (value) => {
-        console.log(['TagContainer', value]);
+        return <BaseTagContainer
+            {...props}
+            items={this.getItems(multiple)}
+            onAdd={(newValue) => this.onAdd(newValue)}
+            onDelete={(tag, index) => this.onDelete(tag, index)}
+            value={_.map(value, tag => this.getItem(tag))}
+            />;
     }
-});
+};
 
 TagContainer.propTypes = _.assign({}, BaseTagContainer.propTypes, {
-    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-    onAdd: PropTypes.func,
-    onChange: PropTypes.func,
-    onDelete: PropTypes.func,
+    value: PropTypes.arrayOf(PropTypes.string).isRequired,
+    setState: PropTypes.func.isRequired,
+    multiple: PropTypes.bool,
 });
 
 export default TagContainer;

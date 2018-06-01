@@ -5,110 +5,184 @@ import _ from 'lodash';
 import '../../sass/_tag-value-container.scss';
 
 import BaseTagContainer from './BaseTagContainer.jsx';
+import LazyComponent from './LazyComponent.jsx';
 
-export class TagValueContainer extends BaseTagContainer
+class TagValueDropdown extends LazyComponent
 {
-    constructor(props) {
-        super(props);
-        this.style = "tag-value-container";
-    }
+    render() {
+        const {
+            items, value, onChange, disabled = false,
+        } = this.props;
 
-    onChange(key, value) {
-        const { tags, setState } = this.props;
-        const state = _.pickBy(
-            _.assign(
-                {},
-                tags,
-                {[key]: value}
-            ),
-            (value) => (value !== undefined)
+        if (items === undefined) {
+            return <input
+                type="number"
+                value={value}
+                disabled={disabled}
+                onChange={e => onChange(e.target.value)}
+                />;
+        }
+
+        const { label } = (
+            _.find(items, { code: value })
+            || _.find(items, { name: value })
+            || { label: value }
         );
-        setState(state);
+
+        return <div className="nice-tag-dropdown hover">
+            {label}
+            <ul>
+            {_.map(items, item => {
+                const value = _.get(item, 'code', item.name);
+                return <li
+                    key={value}
+                    data-value={value}
+                    >
+                    <a onClick={() => onChange(value)}>
+                        {item.label}
+                    </a>
+                </li>;
+            })}
+            </ul>
+        </div>;
+    }
+};
+
+export class TagValueContainer extends LazyComponent
+{
+    onChange(key, newValue) {
+        const { value, onChange, setState } = this.props;
+        setState(
+            _.pickBy(
+                _.assign(
+                    {},
+                    value,
+                    {[key]: newValue}
+                ),
+                value => (value !== undefined)
+            )
+        );
+
+        if (onChange) {
+            onChange(key, newValue);
+        }
     }
 
-    onDelete(key, value) {
-        this.onChange(key, undefined);
+    onDelete(key) {
+        const { value, onDelete, setState } = this.props;
+        setState(
+            _.pickBy(
+                _.assign(
+                    {},
+                    value,
+                    {[key]: undefined}
+                ),
+                value => (value !== undefined)
+            )
+        );
+
+        if (onDelete) {
+            onDelete(key);
+        }
     }
 
     onAdd(key) {
-        const { tagValues, defaultValue } = this.props;
-        const item = tagValues ? tagValues[0] : {};
-        this.onChange(
-            key,
-            defaultValue || item.code || item.name || 0
+        const {
+            value, defaultValue = 0, onAdd, setState,
+        } = this.props;
+        setState(
+            _.pickBy(
+                _.assign(
+                    {},
+                    value,
+                    {[key]: defaultValue}
+                ),
+                value => (value !== undefined)
+            )
+        );
+
+        if (onAdd) {
+            onAdd(key, defaultValue);
+        }
+    }
+
+    getItems() {
+        const { items = [], value } = this.props;
+        const filtered = _.filter(items, item => !(
+            _.get(item, 'code', item.name) in value
+        ));
+
+        return _.map(
+            filtered,
+            item => _.pickBy({
+                id: _.get(item, 'code', item.name),
+                code: item.code,
+                name: item.name,
+                label: item.label,
+                description: item.description,
+            }, v => (v !== undefined))
         );
     }
 
-    getItem(key, value) {
-        const { tagOptions } = this.props;
-        return _.find(tagOptions, {code: key})
-            || _.find(tagOptions, {name: key})
-    }
+    getItem(tag, value) {
+        const {
+            items = [], tagValues, onChange, disabled,
+        } = this.props;
+        const { code, name, label, description } = (
+            _.find(items, { code: tag })
+            || _.find(items, { name: tag })
+            || {}
+        );
 
-    isDisabled(item) {
-        const { isDisabled, multiple } = this.props;
-        if (_.isFunction(isDisabled)) {
-            return isDisabled(item);
-        }
-        if (multiple) {
-            return false;
-        }
-        const tags = this.getTags();
-        const tag = (item.code || item.name)
-        if (tag in tags) {
-            return true;
-        }
-        return false;
-    }
-
-    getBadges(key, value, item) {
-        const { tagValues, disabled } = this.props;
-
-        if (tagValues) {
-            return [{
-                key: 'values',
-                label: value,
-                content: disabled ? null : <div className="nice-tag-dropdown hover">
-                    <ul>
-                    {_.map(tagValues, option => (
-                        <li key={option.code || option.name}>
-                            <a onClick={() => this.onChange(
-                                key, option.label
-                                )}>
-                                {option.label}
-                            </a>
-                        </li>
-                    ))}
-                    </ul>
-                </div>
+        return _.pickBy({
+            id: tag,
+            code,
+            name,
+            label,
+            description,
+            badges: [{
+                component: TagValueDropdown,
+                onChange: onChange,
+                items: tagValues,
+                value,
+                disabled,
             }]
-        }
+        }, v => (v !== undefined));
+    }
 
-        return [{
-            key: 'values',
-            label: <input
-                value={value || ''}
-                disabled={disabled}
-                type="number"
-                onChange={(e) => this.onChange(
-                    key, parseInt(e.target.value || 0)
-                )}
-                />
-        }];
+    render() {
+        const {
+            value, setState, ...props,
+        } = this.props;
+
+        return <BaseTagContainer
+            {...props}
+            className="tag-value-container"
+            items={this.getItems()}
+            onAdd={(item) => this.onAdd(item)}
+            onChange={(tag, index, badge, value) => this.onChange(
+                tag, index, badge, value
+            )}
+            onDelete={(tag, index) => this.onDelete(tag, index)}
+            value={_.map(
+                value,
+                (value, tag) => this.getItem(tag, value)
+            )}
+            />;
     }
 }
 
-TagValueContainer.defaultProps = _.assign({}, BaseTagContainer.defaultProps, {
-    setState: (value) => {
-        console.log(['TagValueContainer', value]);
+TagValueContainer.propTypes = _.assign(
+    {}, BaseTagContainer.propTypes, {
+        value: PropTypes.object.isRequired,
+        tagValues: PropTypes.arrayOf(
+            PropTypes.object
+        ),
+        setState: PropTypes.func.isRequired,
+        onAdd: PropTypes.func,
+        onChange: PropTypes.func,
+        onDelete: PropTypes.func,
     }
-});
-
-TagValueContainer.propTypes = _.assign({}, BaseTagContainer.propTypes, {
-    tags: PropTypes.object.isRequired,
-    onAdd: PropTypes.func,
-    onChange: PropTypes.func,
-    onDelete: PropTypes.func,
-});
+);
 
 export default TagValueContainer;
