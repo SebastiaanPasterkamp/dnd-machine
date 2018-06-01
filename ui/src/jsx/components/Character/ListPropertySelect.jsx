@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import BaseTagContainer from '../BaseTagContainer.jsx';
 import LazyComponent from '../LazyComponent.jsx';
 
-class ListPropertySelect extends BaseTagContainer
+class ListPropertySelect extends LazyComponent
 {
     constructor(props) {
         super(props);
@@ -23,46 +24,23 @@ class ListPropertySelect extends BaseTagContainer
         onChange(path, undefined);
     }
 
-    isDisabled(item) {
-        const { multiple, current, given } = this.props;
-        const { added, removed } = this.state;
-        if (multiple) {
-            return false;
-        }
-        const value = item.code || item.name;
-        if (_.includes(removed, value)) {
-            return false;
-        }
-        if (_.includes(current, value)) {
-            return true;
-        }
-        if (_.includes(given, value)) {
-            return true;
-        }
-        if (_.includes(added, value)) {
-            return true;
-        }
-        return false;
-    }
-
     onSetState() {
         const { onChange, path, given = [] } = this.props;
         const { added, removed } = this.state;
         onChange(path, {
-            added: added.concat(given),
+            added: _.concat(added, given),
             removed
         });
     }
 
-    onDelete(key, item) {
-        const value = item.code || item.name;
+    onDelete(value, index) {
         const { replace = 0 } = this.props;
         const { added, removed } = this.state;
         let state = { added, removed };
         if (_.includes(added, value)) {
             state.added = _.without(state.added, value);
         } else if (removed.length < replace) {
-            state.removed = state.removed.concat([value]);
+            state.removed = _.concat(state.removed, [value]);
         }
         this.setState(state, () => this.onSetState());
     }
@@ -74,59 +52,56 @@ class ListPropertySelect extends BaseTagContainer
         if (_.includes(removed, value)) {
             state.removed = _.without(state.removed, value);
         } else if (added.length < (limit + removed.length)) {
-            state.added = state.added.concat([value]);
+            state.added = _.concat(state.added, [value]);
         }
         this.setState(state, () => this.onSetState());
     }
 
-    getItem(key, value) {
-        return value;
-    }
-
     findItem(value, _default={label: value, color: 'bad'}) {
-        return _.find(this.props.items, {code: value})
-            || _.find(this.props.items, {name: value})
-            || _default;
+        const { items = [] } = this.props;
+        const item = _.find(items, {code: value})
+            || _.find(items, {name: value})
+            || _.assign({}, _default, {code: value, label: value});
+
+        return {
+            id: _.get(item, 'code', item.name),
+            label: _.get(item, 'label', item.name),
+            description: item.description,
+        };
     }
 
-    getTags() {
+    getValue() {
         const {
-            given = [], current = [], replace = 0
+            given = [], current = [], replace = 0,
         } = this.props;
         const { added, removed } = this.state;
 
-        let tags = _.map(
+        const tags = _.map(
             added,
-            (code) => this.findItem(code)
+            code => this.findItem(code)
         ).concat( _.map(
             given,
-            (code) => _.assign(
+            code => _.assign(
                 {},
                 this.findItem(code),
                 {
-                    color: 'info',
-                    immutable: true,
+                    className: 'info',
+                    disabled: true,
                 }
             )
         ) );
 
-        let upgrade = _.countBy(
-            tags,
-            (item) => (item.code || item.name)
-        );
-        let downgrade = _.countBy(
-            removed,
-            (item) => (item.code || item.name)
-        );
+        let upgrade = _.countBy(tags, 'id');
+        let downgrade = _.countBy(removed, 'id');
         _.forEach(downgrade, (count, code) => {
-            upgrade[code] = (upgrade[code] || 0) - count;
+            upgrade[code] = _.get(upgrade, code, 0) - count;
         });
 
-        const immutable = (replace - removed.length) <= 0;
+        const disabled = (replace - removed.length) <= 0;
         return tags.concat( _.filter( _.map(
             _.without(current, removed),
-            (code) => {
-                if ((upgrade[code] || 0) > 0) {
+            code => {
+                if (_.get(upgrade, code, 0) > 0) {
                     upgrade[code] -= 1;
                     return null;
                 }
@@ -137,7 +112,7 @@ class ListPropertySelect extends BaseTagContainer
                 return _.assign(
                     {},
                     _current,
-                    {immutable}
+                    {disabled}
                 );
             }
         ) ) );
@@ -152,10 +127,11 @@ class ListPropertySelect extends BaseTagContainer
         return false;
     }
 
-    getSelectOptions() {
-        const { limit, filter = [], items } = this.props;
+    getItems(value, multiple) {
+        const { filter = [], items, current, given, } = this.props;
+        const { added, removed } = this.state;
 
-        if (!limit) {
+        if (!this.showSelect()) {
             return [];
         }
 
@@ -175,9 +151,9 @@ class ListPropertySelect extends BaseTagContainer
             return items;
         }
 
-        const filtered = _.filter(
-            items,
-            (item) => _.every(
+        const values = _.map(value, 'id');
+        const filtered = _(items)
+            .filter(item => _.every(
                 _filter,
                 (cond, path) => {
                     const value = _.get(item, path);
@@ -186,18 +162,36 @@ class ListPropertySelect extends BaseTagContainer
                         cond
                     ).length;
                 }
-            )
-        );
+            ))
+            .filter(item => (
+                multiple
+                || !_.includes(values, _.get(item, 'code', item.name))
+            ))
+            .value();
 
         return filtered;
     }
 
     render() {
-        if (this.props.hidden) {
+        const {
+            path, onChange, given, current, limit, filter, multiple,
+            hidden, ...props,
+        } = this.props;
+
+        if (hidden) {
             return null;
         }
 
-        return super.render.call(this);
+        const value = this.getValue();
+
+        return <BaseTagContainer
+            {...props}
+            items={this.getItems(value, multiple)}
+            onAdd={(value) => this.onAdd(value)}
+            onDelete={(item, index) => this.onDelete(item, index)}
+            showSelect={this.showSelect()}
+            value={value}
+            />;
     }
 
 };
