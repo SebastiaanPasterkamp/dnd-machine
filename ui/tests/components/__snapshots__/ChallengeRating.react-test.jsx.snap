@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ChallengeRating should render "CR 0" 1`] = `
+<div
+  className="challenge-rating inline"
+>
+  CR 
+  0
+</div>
+`;
+
+exports[`Component: ChallengeRating should render a CR float 1`] = `
+<div
+  className="challenge-rating inline"
+>
+  CR 
+  0.200
+</div>
+`;
+
+exports[`Component: ChallengeRating should render a fraction CR number 1`] = `
+<div
+  className="challenge-rating inline"
+>
+  CR 
+  ¼
+</div>
+`;
+
+exports[`Component: ChallengeRating should render a high CR float 1`] = `
+<div
+  className="challenge-rating inline"
+>
+  CR 
+  13.370
+</div>
+`;
+
+exports[`Component: ChallengeRating should render a high CR number 1`] = `
+<div
+  className="challenge-rating inline"
+>
+  CR 
+  13
+</div>
+`;
+
+exports[`Component: ChallengeRating should render without props 1`] = `
+<div
+  className="challenge-rating inline"
+>
+  CR —
+</div>
+`;
