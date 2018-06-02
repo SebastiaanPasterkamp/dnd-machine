@@ -7,9 +7,11 @@ import LazyComponent from '../components/LazyComponent.jsx';
 class CheckBox extends LazyComponent
 {
     render() {
+        const { isChecked } = this.props;
+
         const style = utils.makeStyle({
-            'fa-check-square-o': this.props.isChecked,
-            'fa-square-o': !this.props.isChecked,
+            'fa-check-square-o': isChecked,
+            'fa-square-o': !isChecked,
         }, ['icon']);
 
         return <span className={style}>&nbsp;</span>;
