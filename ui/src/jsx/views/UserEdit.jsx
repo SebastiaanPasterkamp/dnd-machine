@@ -80,8 +80,8 @@ export class UserEdit extends React.Component
                     >
                     <ControlGroup label="Role">
                         <TagContainer
-                            tags={role}
-                            tagOptions={user_roles}
+                            value={role}
+                            items={user_roles}
                             setState={(value) => {
                                 this.onFieldChange('role', value);
                             }}

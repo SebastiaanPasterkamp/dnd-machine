@@ -40,12 +40,15 @@ export class CharacterEdit extends React.Component
         const {
             level, 'class': _class, race, background, xp_progress,
             xp_level, name, alignment, alignments, gender, genders,
-            height, weight, age, appearance, spell, _spells,
+            height, weight, age, appearance, spell = {}, _spells = [],
             backstory, personality
         } = this.props;
 
-        const isSelectable = (item) => {
+        const filtered_spells = _.filter(_spells, item => {
             const level = 'level_' + item.level;
+            if (_.includes(spell.prepared, item.name)) {
+                return false;
+            }
             if (!_.includes(item.classes, _class)) {
                 return false;
             }
@@ -56,7 +59,7 @@ export class CharacterEdit extends React.Component
                 return true;
             }
             return false;
-        };
+        });
 
         return <React.Fragment>
             <CharacterLevel
@@ -156,8 +159,8 @@ export class CharacterEdit extends React.Component
                 {spell.max_prepared
                     ? <ControlGroup label="Prepared Spells">
                         <TagContainer
-                            tags={spell.list.concat(spell.prepared)}
-                            tagOptions={_spells || []}
+                            value={spell.list.concat(spell.prepared)}
+                            items={filtered_spells}
                             setState={(value) => {
                                 const prepared = _.difference(
                                     value, spell.list
@@ -170,11 +173,6 @@ export class CharacterEdit extends React.Component
                             showSelect={
                                 spell.prepared.length < spell.max_prepared
                             }
-                            isSelectable={isSelectable}                            isImmutable={(item) => {
-                                return !_.includes(
-                                    spell.prepared, item.name
-                                );
-                            }}
                             />
                     </ControlGroup>
                     : null

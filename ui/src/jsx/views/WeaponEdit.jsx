@@ -83,8 +83,9 @@ export class WeaponEdit extends React.Component
 
     render() {
         const {
-            name, damage, versatile, type, weapon_types, property,
-            range, weight, cost, description, weapon_properties
+            name, damage, versatile, type, weapon_types,
+            property = [], range, weight, cost, description,
+            weapon_properties = [],
         } = this.props;
         return [
             <Panel
@@ -133,8 +134,8 @@ export class WeaponEdit extends React.Component
                 >
                 <ControlGroup label="Attributes">
                     <TagContainer
-                        tags={property || []}
-                        tagOptions={weapon_properties || []}
+                        value={property}
+                        items={weapon_properties}
                         setState={(value) => {
                             this.onFieldChange('property', value);
                         }} />

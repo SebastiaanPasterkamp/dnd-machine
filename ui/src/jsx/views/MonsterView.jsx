@@ -147,9 +147,9 @@ class MultiAttackView extends LazyComponent
                     <th>Sequence</th>
                     <td>
                         <TagContainer
+                            value={sequence}
                             disabled={true}
-                            tags={sequence}
-                            tagOptions={_.map(attacks, (attack) => ({
+                            items={_.map(attacks, (attack) => ({
                                 code: attack.name,
                                 label: attack.name
                             }))}
@@ -160,9 +160,9 @@ class MultiAttackView extends LazyComponent
                     <th>Combo Damage</th>
                     <td>
                         <TagValueContainer
-                            tags={{average, critical}}
+                            value={{average, critical}}
                             disabled={true}
-                            tagOptions={[
+                            items={[
                                 {code: 'average', label: 'Average'},
                                 {code: 'critical', label: 'Critical'}
                                 ]}
@@ -294,8 +294,8 @@ export class MonsterView extends LazyComponent
                         <th>Motion</th>
                         <td>
                             <TagValueContainer
-                                tags={motion}
-                                tagOptions={[
+                                value={motion}
+                                items={[
                                     {code: 'walk', label: 'Walk'},
                                     {code: 'burrow', label: 'Burrow'},
                                     {code: 'climb', label: 'Climb'},
@@ -314,9 +314,9 @@ export class MonsterView extends LazyComponent
                         <th>Languages</th>
                         <td>
                             <TagContainer
-                                tags={languages}
+                                value={languages}
                                 disabled={true}
-                                tagOptions={_languages}
+                                items={_languages}
                                 />
                         </td>
                     </tr>
