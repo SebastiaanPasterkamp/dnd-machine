@@ -67,7 +67,7 @@ export class SpellEdit extends React.Component
 
     render() {
         const {
-            casting_time, classes, _classes, components,
+            casting_time, classes = [], _classes = [], components,
             magic_components, cost, damage, description, duration,
             level, name, range, school, magic_schools
         } = this.props;
@@ -96,8 +96,8 @@ export class SpellEdit extends React.Component
                 </ControlGroup>
                 <ControlGroup label="Classes">
                     <TagContainer
-                        tags={classes || []}
-                        tagOptions={_classes || []}
+                        value={classes}
+                        items={_classes}
                         setState={(value) => {
                             this.onFieldChange('classes', value);
                         }}

@@ -169,8 +169,8 @@ class MultiAttackEditor extends React.Component
                     }} />
             </ControlGroup>
             <TagContainer
-                tags={sequence}
-                tagOptions={attackOptions}
+                value={sequence}
+                items={attackOptions}
                 multiple={true}
                 setState={(value) => {
                     this.onFieldChange('sequence', value);
@@ -332,8 +332,8 @@ export class MonsterEdit extends React.Component
                 </ControlGroup>
                 <ControlGroup label="Motion">
                     <TagValueContainer
-                        tags={motion}
-                        tagOptions={this.motion}
+                        value={motion}
+                        items={this.motion}
                         defaultValue={20}
                         setState={(value) => {
                             this.onFieldChange('motion', value);
@@ -342,8 +342,8 @@ export class MonsterEdit extends React.Component
                 </ControlGroup>
                 <ControlGroup label="Languages">
                     <TagContainer
-                        tags={languages}
-                        tagOptions={_languages}
+                        value={languages}
+                        items={_languages}
                         setState={(value) => {
                             this.onFieldChange('languages', value);
                         }}

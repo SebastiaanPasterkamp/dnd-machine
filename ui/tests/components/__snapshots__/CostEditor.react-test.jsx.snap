@@ -91,39 +91,12 @@ exports[`Component: CostEditor should show coins in provided order 1`] = `
       onClick={[Function]}
     >
       <li
-        className="disabled"
-        data-value="cp"
-        onClick={null}
-      >
-        <a>
-          Copper
-        </a>
-      </li>
-      <li
-        className="disabled"
-        data-value="sp"
-        onClick={null}
-      >
-        <a>
-          Silver
-        </a>
-      </li>
-      <li
         className={null}
         data-value="ep"
         onClick={[Function]}
       >
         <a>
           Electrum
-        </a>
-      </li>
-      <li
-        className="disabled"
-        data-value="gp"
-        onClick={null}
-      >
-        <a>
-          Gold
         </a>
       </li>
       <li
@@ -149,7 +122,7 @@ exports[`Component: CostEditor should show coins in provided order 1`] = `
       className="nice-tag-badge"
     >
       <input
-        disabled={undefined}
+        disabled={false}
         onChange={[Function]}
         type="number"
         value={5}
@@ -176,7 +149,7 @@ exports[`Component: CostEditor should show coins in provided order 1`] = `
       className="nice-tag-badge"
     >
       <input
-        disabled={undefined}
+        disabled={false}
         onChange={[Function]}
         type="number"
         value={5}
@@ -203,7 +176,7 @@ exports[`Component: CostEditor should show coins in provided order 1`] = `
       className="nice-tag-badge"
     >
       <input
-        disabled={undefined}
+        disabled={false}
         onChange={[Function]}
         type="number"
         value={5}

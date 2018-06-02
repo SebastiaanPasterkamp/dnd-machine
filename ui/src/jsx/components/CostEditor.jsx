@@ -9,23 +9,20 @@ class CostEditor extends LazyComponent
     constructor(props) {
         super(props);
         this.coinage = [
-            {'code': 'cp', 'label': 'Copper'},
-            {'code': 'sp', 'label': 'Silver'},
-            {'code': 'ep', 'label': 'Electrum'},
-            {'code': 'gp', 'label': 'Gold'},
-            {'code': 'pp', 'label': 'Platinum'}
+            {code: 'cp', label: 'Copper'},
+            {code: 'sp', label: 'Silver'},
+            {code: 'ep', label: 'Electrum'},
+            {code: 'gp', label: 'Gold'},
+            {code: 'pp', label: 'Platinum'}
         ];
-        this.coins = _.range(1, 11)
-            .map((i) => {
-                return {code: i, label: i}
-            });
     }
 
     render() {
+        const { value = {}, ...props } = this.props;
+
         return <TagValueContainer
             {...this.props}
-            tags={this.props.value || {}}
-            tagOptions={this.coinage}
+            items={this.coinage}
             defaultValue={1}
             />;
     }

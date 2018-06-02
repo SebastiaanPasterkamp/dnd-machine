@@ -163,9 +163,9 @@ export class NpcView extends React.Component
                         <th>Languages</th>
                         <td>
                             <TagContainer
-                                tags={languages}
+                                value={languages}
                                 disabled={true}
-                                tagOptions={_languages}
+                                items={_languages}
                                 />
                         </td>
                     </tr>

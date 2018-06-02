@@ -37,7 +37,7 @@ class MultipleChoiceSelect extends LazyComponent
         }
     }
 
-    onDelete(key, value) {
+    onDelete(value, key) {
         const limit = this.props.replace;
         if (_.includes(this.state.used, value)) {
             let used = _.without(this.state.used, value);
@@ -76,11 +76,11 @@ class MultipleChoiceSelect extends LazyComponent
         });
 
         return <TagContainer
-            tags={current}
-            tagOptions={tagOptions}
+            value={current}
+            items={tagOptions}
             onAdd={(value) => this.onAdd(value)}
             onDelete={(key, value) => this.onDelete(key, value)}
-            onChange={() => { return null; }}
+            setState={() => { return null; }}
             showSelect={showSelect}
             />;
     }
