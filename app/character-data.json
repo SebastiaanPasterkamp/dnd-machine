@@ -5114,7 +5114,7 @@
                         "multiple": true,
                         "given": ["Chain mail"]
                     }, {
-                        "label": "Leather Armor",
+                        "label": "Leather Armor + Longbow",
                         "path": "equipment",
                         "type": "list",
                         "list": ["weapon", "armor"],
