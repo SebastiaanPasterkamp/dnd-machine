@@ -14,16 +14,12 @@ export class ControlGroup extends LazyComponent
     }
 
     render() {
-        let childCount = React.Children.count(this.props.children);
-        let labels = []
-        if ('labels' in this.props) {
-            labels = this.props.labels;
-        } else if ('label' in this.props) {
-            labels = [this.props.label];
-        }
+        const { children, label } = this.props;
+        const { labels = [label] } = this.props;
+        const childCount = React.Children.count(children);
 
         return <div className="nice-control-group">
-            {React.Children.map(this.props.children, (child, index) => {
+            {React.Children.map(children, (child, index) => {
                 if (index >= labels.length) {
                     return [child];
                 }
