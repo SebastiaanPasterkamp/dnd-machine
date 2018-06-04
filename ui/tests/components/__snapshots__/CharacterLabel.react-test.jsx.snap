@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: CharacterLabel should render with minimum props 1`] = `null`;
+
+exports[`Component: CharacterLabel should show progress with level 1`] = `
+<div
+  className="character inline"
+>
+  Example
+  , Level 
+  1
+   
+  <div
+    className="list-label inline"
+  >
+    Male
+  </div>
+   
+  Orc
+   
+  Fighter
+    (
+  <div
+    className="list-label inline"
+  >
+    Lawful good
+  </div>
+  )
+  <div
+    className="nice-progress good"
+  >
+    <div
+      className="nice-progress-fill"
+      style={
+        Object {
+          "height": "1.25rem",
+          "width": "16.666666666666664%",
+        }
+      }
+    >
+      1
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Component: CharacterLabel should show progress with xp / max 1`] = `
+<div
+  className="character inline"
+>
+  Example
+  , Level 
+  1
+   
+  <div
+    className="list-label inline"
+  >
+    Male
+  </div>
+   
+  Orc
+   
+  Fighter
+    (
+  <div
+    className="list-label inline"
+  >
+    Lawful good
+  </div>
+  )
+  <div
+    className="nice-progress good"
+  >
+    <div
+      className="nice-progress-fill"
+      style={
+        Object {
+          "height": "1.25rem",
+          "width": "99.66666666666667%",
+        }
+      }
+    >
+      299 / 300
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Component: CharacterLabel should show without progress 1`] = `
+<div
+  className="character inline"
+>
+  Example
+  , Level 
+  1
+   
+  <div
+    className="list-label inline"
+  >
+    Male
+  </div>
+   
+  Orc
+   
+  Fighter
+    (
+  <div
+    className="list-label inline"
+  >
+    Lawful good
+  </div>
+  )
+</div>
+`;
