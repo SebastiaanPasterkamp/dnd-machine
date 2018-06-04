@@ -67,7 +67,17 @@ export class CharacterLabel extends LazyComponent
 CharacterLabel.propTypes = {
     character_id: PropTypes.number.isRequired,
     showProgress: PropTypes.bool,
-    character: PropTypes.object,
+    character: PropTypes.shape({
+        race: PropTypes.string.isRequired,
+        'class': PropTypes.string.isRequired,
+        background: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        level: PropTypes.number.isRequired,
+        gender: PropTypes.string,
+        alignment: PropTypes.string,
+        xp_progress: PropTypes.number.isRequired,
+        xp_level: PropTypes.number.isRequired,
+    }),
     alignments: PropTypes.array,
     genders: PropTypes.array,
 };
