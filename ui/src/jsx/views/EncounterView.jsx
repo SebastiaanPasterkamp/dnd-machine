@@ -34,7 +34,7 @@ class CombatantCard extends LazyComponent
     constructor(props) {
         super(props);
 
-        const cache = JSON.parse(sessionStorage.getItem(this.getCacheKey()));
+        const cache = JSON.parse(localStorage.getItem(this.getCacheKey()));
         this.state = cache || {
             initiative: 0,
             hp_missing: 0,
@@ -51,7 +51,7 @@ class CombatantCard extends LazyComponent
     updateState(update) {
         this.setState(
             update,
-            () => sessionStorage.setItem(
+            () => localStorage.setItem(
                 this.getCacheKey(),
                 JSON.stringify(this.state)
             )
