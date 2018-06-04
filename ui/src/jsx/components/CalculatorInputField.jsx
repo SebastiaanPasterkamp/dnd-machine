@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import InputField from './InputField.jsx';
 import LazyComponent from './LazyComponent.jsx';
@@ -84,7 +85,10 @@ CalculatorInputField.defaultProps = {
 };
 
 CalculatorInputField.propTypes = _.assign({}, InputField.propTypes, {
-    value: PropTypes.number,
+    value: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]),
     setState: PropTypes.func,
     minValue: PropTypes.number,
     maxValue: PropTypes.number,
