@@ -66,7 +66,7 @@ export class LoginDialog extends React.Component
         }, ["product-icon"]);
 
         const loadingStyle = utils.makeStyle({
-            'show': processing
+            'shown': processing
         }, ["nice-login-loading"]);
 
         return <div className="login-dialog nice-login">
