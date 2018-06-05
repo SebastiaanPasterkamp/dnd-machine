@@ -39,6 +39,20 @@ class DndMachineTestCase(unittest.TestCase):
         obj.hasPath.assert_called_once_with('test.path')
         obj.getPath.assert_not_called()
 
+    def testResolveMathFormulas(self):
+        obj = Mock()
+        obj.hasPath = Mock(return_value=False)
+        obj._pathPrefix = 'test'
+
+        self.assertEquals(
+            self.machine.resolveMath(obj, 'min(3, 5)'), 3)
+        self.assertEquals(
+            self.machine.resolveMath(obj, 'max(3, 5)'), 5)
+        self.assertEquals(
+            self.machine.resolveMath(obj, 'ceil(5 / 2.0)'), 3)
+        self.assertEquals(
+            self.machine.resolveMath(obj, 'floor(5 / 2.0)'), 2)
+
     def testFindByNameByName(self):
         items = [
             {'name': 'foo', 'value': 1},
