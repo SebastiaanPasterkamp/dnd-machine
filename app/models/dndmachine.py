@@ -1,5 +1,6 @@
 import parser
 import re
+import math
 
 from base import JsonObject, JsonObjectDataMapper
 
@@ -18,6 +19,13 @@ class DndMachine(object):
         self.size_hit_dice = config["size_hit_dice"]
         self.mapper = mapper
 
+        self.ns = vars(math).copy()
+        self.ns.update({
+            '__builtins__': None,
+            'min': min,
+            'max': max,
+            })
+
     def resolveMath(self, obj, formula):
         replace = {}
         for m in re.finditer(ur'\b[a-z_.]+\b', formula):
@@ -29,7 +37,7 @@ class DndMachine(object):
         for var, val in replace.iteritems():
             formula = formula.replace(var, str(val))
         code = parser.expr(formula).compile()
-        return eval(code)
+        return eval(code, self.ns)
 
     def findByName(self, name, items, default=None):
         matches = [
