@@ -7138,7 +7138,7 @@
                     "hidden": true,
                     "path": "computed.spellMax_prepared.formula",
                     "type": "value",
-                    "value": "max(1, statistics.modifiers.charisma + int(character.level / 2.0))"
+                    "value": "max(1, statistics.modifiers.charisma + floor(character.level / 2.0))"
                 }, {
                     "hidden": true,
                     "path": "spell.slots",

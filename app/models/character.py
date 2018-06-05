@@ -265,6 +265,8 @@ class CharacterObject(JsonObject):
                         continue
                     ability[key] = re_mod.sub(new, val)
 
+        fixComputed('int(', 'floor(')
+
         if "base_stats" in self.config:
             fixComputed(
                 "modifiers",
