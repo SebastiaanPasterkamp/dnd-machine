@@ -362,6 +362,9 @@ class CharacterObject(JsonObject):
 
         self.version = self._version
 
+        self.level, self.xp_progress, self.xp_level = \
+            machine.xpToLevel(self.xp)
+
         self.statisticsBase = {}
         self.statisticsModifiers = {}
 
@@ -404,9 +407,6 @@ class CharacterObject(JsonObject):
         cr = machine.challengeByLevel(self.level)
         for rating, value in cr.iteritems():
             self.challenge[rating] = value
-
-        self.level, self.xp_progress, self.xp_level = \
-            machine.xpToLevel(self.xp)
 
         self.update(
             machine.identifyEquipment(self.equipment)
