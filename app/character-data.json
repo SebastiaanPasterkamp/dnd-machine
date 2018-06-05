@@ -21227,11 +21227,11 @@
                         "Purse"
                     ]
                 }, {
-                    "label": "Hermit Languages",
+                    "label": "Noble Languages",
                     "path": "languages",
                     "type": "list",
                     "list": ["languages"],
-                    "limit": 2
+                    "limit": 1
                 }]
             }
         }
