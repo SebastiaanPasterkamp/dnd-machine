@@ -1,0 +1,1788 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ListPropertySelect should not render when hidden 1`] = `null`;
+
+exports[`Component: ListPropertySelect should omit unknown current values 1`] = `
+<div
+  className="base-tag-container nice-tags-container"
+>
+  <div
+    className="nice-tag good"
+  >
+    <span
+      className="nice-tag-label"
+    >
+      foo
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Component: ListPropertySelect should render with full props 1`] = `
+<div
+  className="base-tag-container nice-tags-container"
+>
+  <div
+    className="nice-dropdown nice-form-control"
+  >
+    <button
+      className="nice-btn"
+      onClick={[Function]}
+    >
+      Add...
+      <i
+        className="icon fa-angle-down"
+      />
+    </button>
+    <ul
+      className="dropdown-menu"
+      onClick={[Function]}
+    >
+      <li
+        className={null}
+        data-value="strength"
+        onClick={[Function]}
+      >
+        <a>
+          Strength
+        </a>
+      </li>
+      <li
+        className={null}
+        data-value="intelligence"
+        onClick={[Function]}
+      >
+        <a>
+          Intelligence
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="nice-tag good"
+  >
+    <span
+      className="nice-tag-label"
+    >
+      <div
+        className="tool-tip inline"
+      >
+        Strength
+        <span
+          className="tool-tip--content"
+        >
+          <p>
+            Str
+          </p>
+        </span>
+      </div>
+    </span>
+  </div>
+  <div
+    className="nice-tag good"
+  >
+    <span
+      className="nice-tag-label"
+    >
+      <div
+        className="tool-tip inline"
+      >
+        Charisma
+        <span
+          className="tool-tip--content"
+        >
+          <p>
+            Char
+          </p>
+        </span>
+      </div>
+    </span>
+  </div>
+  <div
+    className="nice-tag warning"
+  >
+    <span
+      className="nice-tag-label"
+    >
+      <div
+        className="tool-tip inline"
+      >
+        Dexterity
+        <span
+          className="tool-tip--content"
+        >
+          <p>
+            Dex
+          </p>
+        </span>
+      </div>
+    </span>
+    <button
+      className="nice-tag-btn"
+      onClick={[Function]}
+    >
+      <i
+        className="icon fa-trash-o"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Component: ListPropertySelect should render with minimum props 1`] = `
+<div
+  className="base-tag-container nice-tags-container"
+/>
+`;
+
+exports[`after 1`] = `
+<ListPropertySelect
+  current={
+    Array [
+      "charisma",
+    ]
+  }
+  given={
+    Array [
+      "charisma",
+    ]
+  }
+  items={
+    Array [
+      Object {
+        "code": "strength",
+        "description": "Str",
+        "label": "Strength",
+      },
+      Object {
+        "code": "dexterity",
+        "description": "Dex",
+        "label": "Dexterity",
+      },
+      Object {
+        "code": "constitution",
+        "description": "Con",
+        "label": "Constitution",
+      },
+      Object {
+        "code": "intelligence",
+        "description": "Int",
+        "label": "Intelligence",
+      },
+      Object {
+        "code": "wisdom",
+        "description": "Wis",
+        "label": "Wisdom",
+      },
+      Object {
+        "code": "charisma",
+        "description": "Char",
+        "label": "Charisma",
+      },
+    ]
+  }
+  onChange={[Function]}
+  path="some.path"
+  replace={1}
+>
+  <BaseTagContainer
+    items={
+      Array [
+        Object {
+          "code": "strength",
+          "description": "Str",
+          "label": "Strength",
+        },
+        Object {
+          "code": "dexterity",
+          "description": "Dex",
+          "label": "Dexterity",
+        },
+        Object {
+          "code": "constitution",
+          "description": "Con",
+          "label": "Constitution",
+        },
+        Object {
+          "code": "intelligence",
+          "description": "Int",
+          "label": "Intelligence",
+        },
+        Object {
+          "code": "wisdom",
+          "description": "Wis",
+          "label": "Wisdom",
+        },
+      ]
+    }
+    onAdd={[Function]}
+    onDelete={[Function]}
+    replace={1}
+    showSelect={true}
+    value={
+      Array [
+        Object {
+          "color": "good",
+          "description": "Char",
+          "disabled": true,
+          "id": "charisma",
+          "label": "Charisma",
+        },
+      ]
+    }
+  >
+    <div
+      className="base-tag-container nice-tags-container"
+    >
+      <SingleSelect
+        emptyLabel="Add..."
+        isDisabled={[Function]}
+        items={
+          Array [
+            Object {
+              "code": "strength",
+              "description": "Str",
+              "label": "Strength",
+            },
+            Object {
+              "code": "dexterity",
+              "description": "Dex",
+              "label": "Dexterity",
+            },
+            Object {
+              "code": "constitution",
+              "description": "Con",
+              "label": "Constitution",
+            },
+            Object {
+              "code": "intelligence",
+              "description": "Int",
+              "label": "Intelligence",
+            },
+            Object {
+              "code": "wisdom",
+              "description": "Wis",
+              "label": "Wisdom",
+            },
+          ]
+        }
+        setState={[Function]}
+      >
+        <OnClickOutside(BaseSelect)
+          emptyLabel="Add..."
+          eventTypes={
+            Array [
+              "mousedown",
+              "touchstart",
+            ]
+          }
+          excludeScrollbar={false}
+          isDisabled={[Function]}
+          items={
+            Array [
+              Object {
+                "code": "strength",
+                "description": "Str",
+                "label": "Strength",
+              },
+              Object {
+                "code": "dexterity",
+                "description": "Dex",
+                "label": "Dexterity",
+              },
+              Object {
+                "code": "constitution",
+                "description": "Con",
+                "label": "Constitution",
+              },
+              Object {
+                "code": "intelligence",
+                "description": "Int",
+                "label": "Intelligence",
+              },
+              Object {
+                "code": "wisdom",
+                "description": "Wis",
+                "label": "Wisdom",
+              },
+            ]
+          }
+          label="Add..."
+          outsideClickIgnoreClass="ignore-react-onclickoutside"
+          preventDefault={false}
+          setState={[Function]}
+          stopPropagation={false}
+        >
+          <BaseSelect
+            closeOnClick={true}
+            disableOnClickOutside={[Function]}
+            emptyLabel="Add..."
+            enableOnClickOutside={[Function]}
+            eventTypes={
+              Array [
+                "mousedown",
+                "touchstart",
+              ]
+            }
+            isDisabled={[Function]}
+            items={
+              Array [
+                Object {
+                  "code": "strength",
+                  "description": "Str",
+                  "label": "Strength",
+                },
+                Object {
+                  "code": "dexterity",
+                  "description": "Dex",
+                  "label": "Dexterity",
+                },
+                Object {
+                  "code": "constitution",
+                  "description": "Con",
+                  "label": "Constitution",
+                },
+                Object {
+                  "code": "intelligence",
+                  "description": "Int",
+                  "label": "Intelligence",
+                },
+                Object {
+                  "code": "wisdom",
+                  "description": "Wis",
+                  "label": "Wisdom",
+                },
+              ]
+            }
+            label="Add..."
+            outsideClickIgnoreClass="ignore-react-onclickoutside"
+            preventDefault={false}
+            setState={[Function]}
+            stopPropagation={false}
+          >
+            <div
+              className="nice-dropdown nice-form-control"
+            >
+              <button
+                className="nice-btn"
+                onClick={[Function]}
+              >
+                Add...
+                <i
+                  className="icon fa-angle-down"
+                />
+              </button>
+              <ul
+                className="dropdown-menu"
+                onClick={[Function]}
+              >
+                <li
+                  className={null}
+                  data-value="strength"
+                  key="strength"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Strength
+                  </a>
+                </li>
+                <li
+                  className={null}
+                  data-value="dexterity"
+                  key="dexterity"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Dexterity
+                  </a>
+                </li>
+                <li
+                  className={null}
+                  data-value="constitution"
+                  key="constitution"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Constitution
+                  </a>
+                </li>
+                <li
+                  className={null}
+                  data-value="intelligence"
+                  key="intelligence"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Intelligence
+                  </a>
+                </li>
+                <li
+                  className={null}
+                  data-value="wisdom"
+                  key="wisdom"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Wisdom
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </BaseSelect>
+        </OnClickOutside(BaseSelect)>
+      </SingleSelect>
+      <BaseTag
+        color="good"
+        description="Char"
+        disabled={true}
+        id="charisma"
+        key="0"
+        label="Charisma"
+        onChange={[Function]}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag good"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            <ToolTip
+              content="Char"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Charisma
+                <MDReactComponent
+                  className="tool-tip--content"
+                  text="Char"
+                >
+                  <span
+                    className="tool-tip--content"
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Char
+                    </p>
+                  </span>
+                </MDReactComponent>
+              </div>
+            </ToolTip>
+          </span>
+        </div>
+      </BaseTag>
+    </div>
+  </BaseTagContainer>
+</ListPropertySelect>
+`;
+
+exports[`after 2`] = `
+<ListPropertySelect
+  current={
+    Array [
+      "charisma",
+      "dexterity",
+      "strength",
+    ]
+  }
+  given={
+    Array [
+      "charisma",
+    ]
+  }
+  items={
+    Array [
+      Object {
+        "code": "strength",
+        "description": "Str",
+        "label": "Strength",
+      },
+      Object {
+        "code": "dexterity",
+        "description": "Dex",
+        "label": "Dexterity",
+      },
+      Object {
+        "code": "constitution",
+        "description": "Con",
+        "label": "Constitution",
+      },
+      Object {
+        "code": "intelligence",
+        "description": "Int",
+        "label": "Intelligence",
+      },
+      Object {
+        "code": "wisdom",
+        "description": "Wis",
+        "label": "Wisdom",
+      },
+      Object {
+        "code": "charisma",
+        "description": "Char",
+        "label": "Charisma",
+      },
+    ]
+  }
+  limit={1}
+  onChange={[Function]}
+  path="some.path"
+>
+  <BaseTagContainer
+    items={Array []}
+    onAdd={[Function]}
+    onDelete={[Function]}
+    showSelect={false}
+    value={
+      Array [
+        Object {
+          "color": "info",
+          "description": "Str",
+          "id": "strength",
+          "label": "Strength",
+        },
+        Object {
+          "color": "good",
+          "description": "Char",
+          "disabled": true,
+          "id": "charisma",
+          "label": "Charisma",
+        },
+        Object {
+          "color": null,
+          "description": "Dex",
+          "disabled": true,
+          "id": "dexterity",
+          "label": "Dexterity",
+        },
+      ]
+    }
+  >
+    <div
+      className="base-tag-container nice-tags-container"
+    >
+      <BaseTag
+        color="info"
+        description="Str"
+        id="strength"
+        key="0"
+        label="Strength"
+        onChange={[Function]}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag info"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            <ToolTip
+              content="Str"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Strength
+                <MDReactComponent
+                  className="tool-tip--content"
+                  text="Str"
+                >
+                  <span
+                    className="tool-tip--content"
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Str
+                    </p>
+                  </span>
+                </MDReactComponent>
+              </div>
+            </ToolTip>
+          </span>
+          <button
+            className="nice-tag-btn"
+            onClick={[Function]}
+          >
+            <i
+              className="icon fa-trash-o"
+            />
+          </button>
+        </div>
+      </BaseTag>
+      <BaseTag
+        color="good"
+        description="Char"
+        disabled={true}
+        id="charisma"
+        key="1"
+        label="Charisma"
+        onChange={[Function]}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag good"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            <ToolTip
+              content="Char"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Charisma
+                <MDReactComponent
+                  className="tool-tip--content"
+                  text="Char"
+                >
+                  <span
+                    className="tool-tip--content"
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Char
+                    </p>
+                  </span>
+                </MDReactComponent>
+              </div>
+            </ToolTip>
+          </span>
+        </div>
+      </BaseTag>
+      <BaseTag
+        color={null}
+        description="Dex"
+        disabled={true}
+        id="dexterity"
+        key="2"
+        label="Dexterity"
+        onChange={[Function]}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag muted"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            <ToolTip
+              content="Dex"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Dexterity
+                <MDReactComponent
+                  className="tool-tip--content"
+                  text="Dex"
+                >
+                  <span
+                    className="tool-tip--content"
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Dex
+                    </p>
+                  </span>
+                </MDReactComponent>
+              </div>
+            </ToolTip>
+          </span>
+        </div>
+      </BaseTag>
+    </div>
+  </BaseTagContainer>
+</ListPropertySelect>
+`;
+
+exports[`before 1`] = `
+<ListPropertySelect
+  current={
+    Array [
+      "strength",
+    ]
+  }
+  given={
+    Array [
+      "charisma",
+    ]
+  }
+  items={
+    Array [
+      Object {
+        "code": "strength",
+        "description": "Str",
+        "label": "Strength",
+      },
+      Object {
+        "code": "dexterity",
+        "description": "Dex",
+        "label": "Dexterity",
+      },
+      Object {
+        "code": "constitution",
+        "description": "Con",
+        "label": "Constitution",
+      },
+      Object {
+        "code": "intelligence",
+        "description": "Int",
+        "label": "Intelligence",
+      },
+      Object {
+        "code": "wisdom",
+        "description": "Wis",
+        "label": "Wisdom",
+      },
+      Object {
+        "code": "charisma",
+        "description": "Char",
+        "label": "Charisma",
+      },
+    ]
+  }
+  onChange={[Function]}
+  path="some.path"
+  replace={1}
+>
+  <BaseTagContainer
+    items={Array []}
+    onAdd={[Function]}
+    onDelete={[Function]}
+    replace={1}
+    showSelect={false}
+    value={
+      Array [
+        Object {
+          "color": "good",
+          "description": "Char",
+          "disabled": true,
+          "id": "charisma",
+          "label": "Charisma",
+        },
+        Object {
+          "color": "warning",
+          "description": "Str",
+          "disabled": false,
+          "id": "strength",
+          "label": "Strength",
+        },
+      ]
+    }
+  >
+    <div
+      className="base-tag-container nice-tags-container"
+    >
+      <BaseTag
+        color="good"
+        description="Char"
+        disabled={true}
+        id="charisma"
+        key="0"
+        label="Charisma"
+        onChange={[Function]}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag good"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            <ToolTip
+              content="Char"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Charisma
+                <MDReactComponent
+                  className="tool-tip--content"
+                  text="Char"
+                >
+                  <span
+                    className="tool-tip--content"
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Char
+                    </p>
+                  </span>
+                </MDReactComponent>
+              </div>
+            </ToolTip>
+          </span>
+        </div>
+      </BaseTag>
+      <BaseTag
+        color="warning"
+        description="Str"
+        disabled={false}
+        id="strength"
+        key="1"
+        label="Strength"
+        onChange={[Function]}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag warning"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            <ToolTip
+              content="Str"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Strength
+                <MDReactComponent
+                  className="tool-tip--content"
+                  text="Str"
+                >
+                  <span
+                    className="tool-tip--content"
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Str
+                    </p>
+                  </span>
+                </MDReactComponent>
+              </div>
+            </ToolTip>
+          </span>
+          <button
+            className="nice-tag-btn"
+            onClick={[Function]}
+          >
+            <i
+              className="icon fa-trash-o"
+            />
+          </button>
+        </div>
+      </BaseTag>
+    </div>
+  </BaseTagContainer>
+</ListPropertySelect>
+`;
+
+exports[`before 2`] = `
+<ListPropertySelect
+  current={
+    Array [
+      "dexterity",
+    ]
+  }
+  given={
+    Array [
+      "charisma",
+    ]
+  }
+  items={
+    Array [
+      Object {
+        "code": "strength",
+        "description": "Str",
+        "label": "Strength",
+      },
+      Object {
+        "code": "dexterity",
+        "description": "Dex",
+        "label": "Dexterity",
+      },
+      Object {
+        "code": "constitution",
+        "description": "Con",
+        "label": "Constitution",
+      },
+      Object {
+        "code": "intelligence",
+        "description": "Int",
+        "label": "Intelligence",
+      },
+      Object {
+        "code": "wisdom",
+        "description": "Wis",
+        "label": "Wisdom",
+      },
+      Object {
+        "code": "charisma",
+        "description": "Char",
+        "label": "Charisma",
+      },
+    ]
+  }
+  limit={1}
+  onChange={[Function]}
+  path="some.path"
+>
+  <BaseTagContainer
+    items={
+      Array [
+        Object {
+          "code": "strength",
+          "description": "Str",
+          "label": "Strength",
+        },
+        Object {
+          "code": "constitution",
+          "description": "Con",
+          "label": "Constitution",
+        },
+        Object {
+          "code": "intelligence",
+          "description": "Int",
+          "label": "Intelligence",
+        },
+        Object {
+          "code": "wisdom",
+          "description": "Wis",
+          "label": "Wisdom",
+        },
+      ]
+    }
+    onAdd={[Function]}
+    onDelete={[Function]}
+    showSelect={true}
+    value={
+      Array [
+        Object {
+          "color": "good",
+          "description": "Char",
+          "disabled": true,
+          "id": "charisma",
+          "label": "Charisma",
+        },
+        Object {
+          "color": null,
+          "description": "Dex",
+          "disabled": true,
+          "id": "dexterity",
+          "label": "Dexterity",
+        },
+      ]
+    }
+  >
+    <div
+      className="base-tag-container nice-tags-container"
+    >
+      <SingleSelect
+        emptyLabel="Add..."
+        isDisabled={[Function]}
+        items={
+          Array [
+            Object {
+              "code": "strength",
+              "description": "Str",
+              "label": "Strength",
+            },
+            Object {
+              "code": "constitution",
+              "description": "Con",
+              "label": "Constitution",
+            },
+            Object {
+              "code": "intelligence",
+              "description": "Int",
+              "label": "Intelligence",
+            },
+            Object {
+              "code": "wisdom",
+              "description": "Wis",
+              "label": "Wisdom",
+            },
+          ]
+        }
+        setState={[Function]}
+      >
+        <OnClickOutside(BaseSelect)
+          emptyLabel="Add..."
+          eventTypes={
+            Array [
+              "mousedown",
+              "touchstart",
+            ]
+          }
+          excludeScrollbar={false}
+          isDisabled={[Function]}
+          items={
+            Array [
+              Object {
+                "code": "strength",
+                "description": "Str",
+                "label": "Strength",
+              },
+              Object {
+                "code": "constitution",
+                "description": "Con",
+                "label": "Constitution",
+              },
+              Object {
+                "code": "intelligence",
+                "description": "Int",
+                "label": "Intelligence",
+              },
+              Object {
+                "code": "wisdom",
+                "description": "Wis",
+                "label": "Wisdom",
+              },
+            ]
+          }
+          label="Add..."
+          outsideClickIgnoreClass="ignore-react-onclickoutside"
+          preventDefault={false}
+          setState={[Function]}
+          stopPropagation={false}
+        >
+          <BaseSelect
+            closeOnClick={true}
+            disableOnClickOutside={[Function]}
+            emptyLabel="Add..."
+            enableOnClickOutside={[Function]}
+            eventTypes={
+              Array [
+                "mousedown",
+                "touchstart",
+              ]
+            }
+            isDisabled={[Function]}
+            items={
+              Array [
+                Object {
+                  "code": "strength",
+                  "description": "Str",
+                  "label": "Strength",
+                },
+                Object {
+                  "code": "constitution",
+                  "description": "Con",
+                  "label": "Constitution",
+                },
+                Object {
+                  "code": "intelligence",
+                  "description": "Int",
+                  "label": "Intelligence",
+                },
+                Object {
+                  "code": "wisdom",
+                  "description": "Wis",
+                  "label": "Wisdom",
+                },
+              ]
+            }
+            label="Add..."
+            outsideClickIgnoreClass="ignore-react-onclickoutside"
+            preventDefault={false}
+            setState={[Function]}
+            stopPropagation={false}
+          >
+            <div
+              className="nice-dropdown nice-form-control"
+            >
+              <button
+                className="nice-btn"
+                onClick={[Function]}
+              >
+                Add...
+                <i
+                  className="icon fa-angle-down"
+                />
+              </button>
+              <ul
+                className="dropdown-menu"
+                onClick={[Function]}
+              >
+                <li
+                  className={null}
+                  data-value="strength"
+                  key="strength"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Strength
+                  </a>
+                </li>
+                <li
+                  className={null}
+                  data-value="constitution"
+                  key="constitution"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Constitution
+                  </a>
+                </li>
+                <li
+                  className={null}
+                  data-value="intelligence"
+                  key="intelligence"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Intelligence
+                  </a>
+                </li>
+                <li
+                  className={null}
+                  data-value="wisdom"
+                  key="wisdom"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Wisdom
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </BaseSelect>
+        </OnClickOutside(BaseSelect)>
+      </SingleSelect>
+      <BaseTag
+        color="good"
+        description="Char"
+        disabled={true}
+        id="charisma"
+        key="0"
+        label="Charisma"
+        onChange={[Function]}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag good"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            <ToolTip
+              content="Char"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Charisma
+                <MDReactComponent
+                  className="tool-tip--content"
+                  text="Char"
+                >
+                  <span
+                    className="tool-tip--content"
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Char
+                    </p>
+                  </span>
+                </MDReactComponent>
+              </div>
+            </ToolTip>
+          </span>
+        </div>
+      </BaseTag>
+      <BaseTag
+        color={null}
+        description="Dex"
+        disabled={true}
+        id="dexterity"
+        key="1"
+        label="Dexterity"
+        onChange={[Function]}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag muted"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            <ToolTip
+              content="Dex"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Dexterity
+                <MDReactComponent
+                  className="tool-tip--content"
+                  text="Dex"
+                >
+                  <span
+                    className="tool-tip--content"
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Dex
+                    </p>
+                  </span>
+                </MDReactComponent>
+              </div>
+            </ToolTip>
+          </span>
+        </div>
+      </BaseTag>
+    </div>
+  </BaseTagContainer>
+</ListPropertySelect>
+`;
+
+exports[`removed 1`] = `
+<ListPropertySelect
+  current={
+    Array [
+      "charisma",
+      "dexterity",
+    ]
+  }
+  given={
+    Array [
+      "charisma",
+    ]
+  }
+  items={
+    Array [
+      Object {
+        "code": "strength",
+        "description": "Str",
+        "label": "Strength",
+      },
+      Object {
+        "code": "dexterity",
+        "description": "Dex",
+        "label": "Dexterity",
+      },
+      Object {
+        "code": "constitution",
+        "description": "Con",
+        "label": "Constitution",
+      },
+      Object {
+        "code": "intelligence",
+        "description": "Int",
+        "label": "Intelligence",
+      },
+      Object {
+        "code": "wisdom",
+        "description": "Wis",
+        "label": "Wisdom",
+      },
+      Object {
+        "code": "charisma",
+        "description": "Char",
+        "label": "Charisma",
+      },
+    ]
+  }
+  limit={1}
+  onChange={[Function]}
+  path="some.path"
+>
+  <BaseTagContainer
+    items={
+      Array [
+        Object {
+          "code": "strength",
+          "description": "Str",
+          "label": "Strength",
+        },
+        Object {
+          "code": "constitution",
+          "description": "Con",
+          "label": "Constitution",
+        },
+        Object {
+          "code": "intelligence",
+          "description": "Int",
+          "label": "Intelligence",
+        },
+        Object {
+          "code": "wisdom",
+          "description": "Wis",
+          "label": "Wisdom",
+        },
+      ]
+    }
+    onAdd={[Function]}
+    onDelete={[Function]}
+    showSelect={true}
+    value={
+      Array [
+        Object {
+          "color": "good",
+          "description": "Char",
+          "disabled": true,
+          "id": "charisma",
+          "label": "Charisma",
+        },
+        Object {
+          "color": null,
+          "description": "Dex",
+          "disabled": true,
+          "id": "dexterity",
+          "label": "Dexterity",
+        },
+      ]
+    }
+  >
+    <div
+      className="base-tag-container nice-tags-container"
+    >
+      <SingleSelect
+        emptyLabel="Add..."
+        isDisabled={[Function]}
+        items={
+          Array [
+            Object {
+              "code": "strength",
+              "description": "Str",
+              "label": "Strength",
+            },
+            Object {
+              "code": "constitution",
+              "description": "Con",
+              "label": "Constitution",
+            },
+            Object {
+              "code": "intelligence",
+              "description": "Int",
+              "label": "Intelligence",
+            },
+            Object {
+              "code": "wisdom",
+              "description": "Wis",
+              "label": "Wisdom",
+            },
+          ]
+        }
+        setState={[Function]}
+      >
+        <OnClickOutside(BaseSelect)
+          emptyLabel="Add..."
+          eventTypes={
+            Array [
+              "mousedown",
+              "touchstart",
+            ]
+          }
+          excludeScrollbar={false}
+          isDisabled={[Function]}
+          items={
+            Array [
+              Object {
+                "code": "strength",
+                "description": "Str",
+                "label": "Strength",
+              },
+              Object {
+                "code": "constitution",
+                "description": "Con",
+                "label": "Constitution",
+              },
+              Object {
+                "code": "intelligence",
+                "description": "Int",
+                "label": "Intelligence",
+              },
+              Object {
+                "code": "wisdom",
+                "description": "Wis",
+                "label": "Wisdom",
+              },
+            ]
+          }
+          label="Add..."
+          outsideClickIgnoreClass="ignore-react-onclickoutside"
+          preventDefault={false}
+          setState={[Function]}
+          stopPropagation={false}
+        >
+          <BaseSelect
+            closeOnClick={true}
+            disableOnClickOutside={[Function]}
+            emptyLabel="Add..."
+            enableOnClickOutside={[Function]}
+            eventTypes={
+              Array [
+                "mousedown",
+                "touchstart",
+              ]
+            }
+            isDisabled={[Function]}
+            items={
+              Array [
+                Object {
+                  "code": "strength",
+                  "description": "Str",
+                  "label": "Strength",
+                },
+                Object {
+                  "code": "constitution",
+                  "description": "Con",
+                  "label": "Constitution",
+                },
+                Object {
+                  "code": "intelligence",
+                  "description": "Int",
+                  "label": "Intelligence",
+                },
+                Object {
+                  "code": "wisdom",
+                  "description": "Wis",
+                  "label": "Wisdom",
+                },
+              ]
+            }
+            label="Add..."
+            outsideClickIgnoreClass="ignore-react-onclickoutside"
+            preventDefault={false}
+            setState={[Function]}
+            stopPropagation={false}
+          >
+            <div
+              className="nice-dropdown nice-form-control"
+            >
+              <button
+                className="nice-btn"
+                onClick={[Function]}
+              >
+                Add...
+                <i
+                  className="icon fa-angle-down"
+                />
+              </button>
+              <ul
+                className="dropdown-menu"
+                onClick={[Function]}
+              >
+                <li
+                  className={null}
+                  data-value="strength"
+                  key="strength"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Strength
+                  </a>
+                </li>
+                <li
+                  className={null}
+                  data-value="constitution"
+                  key="constitution"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Constitution
+                  </a>
+                </li>
+                <li
+                  className={null}
+                  data-value="intelligence"
+                  key="intelligence"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Intelligence
+                  </a>
+                </li>
+                <li
+                  className={null}
+                  data-value="wisdom"
+                  key="wisdom"
+                  onClick={[Function]}
+                >
+                  <a>
+                    Wisdom
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </BaseSelect>
+        </OnClickOutside(BaseSelect)>
+      </SingleSelect>
+      <BaseTag
+        color="good"
+        description="Char"
+        disabled={true}
+        id="charisma"
+        key="0"
+        label="Charisma"
+        onChange={[Function]}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag good"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            <ToolTip
+              content="Char"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Charisma
+                <MDReactComponent
+                  className="tool-tip--content"
+                  text="Char"
+                >
+                  <span
+                    className="tool-tip--content"
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Char
+                    </p>
+                  </span>
+                </MDReactComponent>
+              </div>
+            </ToolTip>
+          </span>
+        </div>
+      </BaseTag>
+      <BaseTag
+        color={null}
+        description="Dex"
+        disabled={true}
+        id="dexterity"
+        key="1"
+        label="Dexterity"
+        onChange={[Function]}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag muted"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            <ToolTip
+              content="Dex"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Dexterity
+                <MDReactComponent
+                  className="tool-tip--content"
+                  text="Dex"
+                >
+                  <span
+                    className="tool-tip--content"
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Dex
+                    </p>
+                  </span>
+                </MDReactComponent>
+              </div>
+            </ToolTip>
+          </span>
+        </div>
+      </BaseTag>
+    </div>
+  </BaseTagContainer>
+</ListPropertySelect>
+`;
+
+exports[`replaced 1`] = `
+<ListPropertySelect
+  current={
+    Array [
+      "charisma",
+      "strength",
+    ]
+  }
+  given={
+    Array [
+      "charisma",
+    ]
+  }
+  items={
+    Array [
+      Object {
+        "code": "strength",
+        "description": "Str",
+        "label": "Strength",
+      },
+      Object {
+        "code": "dexterity",
+        "description": "Dex",
+        "label": "Dexterity",
+      },
+      Object {
+        "code": "constitution",
+        "description": "Con",
+        "label": "Constitution",
+      },
+      Object {
+        "code": "intelligence",
+        "description": "Int",
+        "label": "Intelligence",
+      },
+      Object {
+        "code": "wisdom",
+        "description": "Wis",
+        "label": "Wisdom",
+      },
+      Object {
+        "code": "charisma",
+        "description": "Char",
+        "label": "Charisma",
+      },
+    ]
+  }
+  onChange={[Function]}
+  path="some.path"
+  replace={1}
+>
+  <BaseTagContainer
+    items={Array []}
+    onAdd={[Function]}
+    onDelete={[Function]}
+    replace={1}
+    showSelect={false}
+    value={
+      Array [
+        Object {
+          "color": "good",
+          "description": "Char",
+          "disabled": true,
+          "id": "charisma",
+          "label": "Charisma",
+        },
+        Object {
+          "color": "warning",
+          "description": "Str",
+          "disabled": false,
+          "id": "strength",
+          "label": "Strength",
+        },
+      ]
+    }
+  >
+    <div
+      className="base-tag-container nice-tags-container"
+    >
+      <BaseTag
+        color="good"
+        description="Char"
+        disabled={true}
+        id="charisma"
+        key="0"
+        label="Charisma"
+        onChange={[Function]}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag good"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            <ToolTip
+              content="Char"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Charisma
+                <MDReactComponent
+                  className="tool-tip--content"
+                  text="Char"
+                >
+                  <span
+                    className="tool-tip--content"
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Char
+                    </p>
+                  </span>
+                </MDReactComponent>
+              </div>
+            </ToolTip>
+          </span>
+        </div>
+      </BaseTag>
+      <BaseTag
+        color="warning"
+        description="Str"
+        disabled={false}
+        id="strength"
+        key="1"
+        label="Strength"
+        onChange={[Function]}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag warning"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            <ToolTip
+              content="Str"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Strength
+                <MDReactComponent
+                  className="tool-tip--content"
+                  text="Str"
+                >
+                  <span
+                    className="tool-tip--content"
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Str
+                    </p>
+                  </span>
+                </MDReactComponent>
+              </div>
+            </ToolTip>
+          </span>
+          <button
+            className="nice-tag-btn"
+            onClick={[Function]}
+          >
+            <i
+              className="icon fa-trash-o"
+            />
+          </button>
+        </div>
+      </BaseTag>
+    </div>
+  </BaseTagContainer>
+</ListPropertySelect>
+`;

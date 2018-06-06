@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render 1`] = `""`;
+
+exports[`render 2`] = `
+<MarkdownTextField
+  className="small"
+  disabled={true}
+  setState={[Function]}
+  value="This shows _new_ content"
+/>
+`;
