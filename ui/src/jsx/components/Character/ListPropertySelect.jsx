@@ -59,9 +59,18 @@ class ListPropertySelect extends LazyComponent
 
     findItem(value, _default={label: value, color: 'bad'}) {
         const { items = [] } = this.props;
-        const item = _.find(items, {code: value})
-            || _.find(items, {name: value})
-            || _.assign({}, _default, {code: value, label: value});
+        const match = _.find(items, {code: value})
+            || _.find(items, {name: value});
+
+        if (!match && !_default) {
+            return _default;
+        }
+
+        const item = match || _.assign(
+            {},
+            _default,
+            {code: value, label: value}
+        );
 
         return {
             id: _.get(item, 'code', item.name),
@@ -78,14 +87,20 @@ class ListPropertySelect extends LazyComponent
 
         const tags = _.map(
             added,
-            code => this.findItem(code)
+            code => _.assign(
+                {},
+                this.findItem(code),
+                {
+                    color: 'info',
+                }
+            )
         ).concat( _.map(
             given,
             code => _.assign(
                 {},
                 this.findItem(code),
                 {
-                    className: 'info',
+                    color: 'good',
                     disabled: true,
                 }
             )
@@ -112,7 +127,10 @@ class ListPropertySelect extends LazyComponent
                 return _.assign(
                     {},
                     _current,
-                    {disabled}
+                    {
+                        color: disabled ? null : 'warning',
+                        disabled
+                    }
                 );
             }
         ) ) );
@@ -207,6 +225,7 @@ ListPropertySelect.propTypes = {
         ])
     ),
     current: PropTypes.array,
+    replace: PropTypes.number,
     limit: PropTypes.number,
     filter: PropTypes.object,
     multiple: PropTypes.bool,
