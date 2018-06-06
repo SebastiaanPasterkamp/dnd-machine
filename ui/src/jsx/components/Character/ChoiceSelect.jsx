@@ -16,7 +16,7 @@ class ChoiceSelect extends LazyComponent
 
     render() {
         const {
-            description = '', options = [], index: prefix,
+            description = '', options, index: prefix,
             getCurrent, getItems, onChange,
         } = this.props;
         const props = { getCurrent, getItems, onChange };

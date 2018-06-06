@@ -23,7 +23,7 @@ class DictPropertySelect extends LazyComponent
     }
 
     render() {
-        const { hidden = false, current, dict = {} } = this.props;
+        const { hidden = false, current, dict } = this.props;
 
         if (hidden) {
             return null;
