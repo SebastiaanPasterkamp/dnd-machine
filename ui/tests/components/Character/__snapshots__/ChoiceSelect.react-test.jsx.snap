@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ChoiceSelect should render with all props 1`] = `
+Array [
+  <span>
+    <p>
+      One choice please
+    </p>
+  </span>,
+  <div
+    className="nice-tabs-wrapper tab-component"
+  >
+    <ul
+      className="nice-tabs bold"
+    >
+      <li
+        className="tab-component__tab current"
+      >
+        <a
+          className="cursor-pointer"
+          onClick={null}
+        >
+          Choice A
+        </a>
+      </li>
+      <li
+        className="tab-component__tab"
+      >
+        <a
+          className="cursor-pointer"
+          onClick={[Function]}
+        >
+          Choice B
+        </a>
+      </li>
+    </ul>
+    <ul
+      className="nice-tab-content"
+    >
+      <li
+        className="current"
+      >
+        <div>
+          <div
+            className="nice-form-group"
+          >
+            <label>
+              Choice A
+            </label>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>,
+]
+`;
+
+exports[`Component: ChoiceSelect should render with minimum props 1`] = `
+Array [
+  "",
+  <div
+    className="nice-tabs-wrapper tab-component"
+  >
+    <ul
+      className="nice-tabs bold"
+    />
+    <ul
+      className="nice-tab-content"
+    >
+      <li
+        className="current"
+      />
+    </ul>
+  </div>,
+]
+`;
+
+exports[`unount tab 0, mount tab 1 1`] = `
+Array [
+  Array [
+    null,
+    undefined,
+    Array [
+      1,
+      2,
+      0,
+      0,
+    ],
+    Object {
+      "label": "Choice A",
+      "limit": 1,
+      "type": "ability_score",
+    },
+  ],
+  Array [
+    null,
+    2,
+    Array [
+      1,
+      2,
+      1,
+      0,
+    ],
+    Object {
+      "label": "Choice B",
+      "limit": 2,
+      "type": "ability_score",
+    },
+  ],
+]
+`;
