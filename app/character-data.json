@@ -332,7 +332,6 @@
                     "type": "list",
                     "given": [2]
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }, {
@@ -917,7 +916,6 @@
                         "maximum_rages": 3
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -1079,7 +1077,6 @@
                         "maximum_rages": 4
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -1209,7 +1206,6 @@
                         "maximum_rages": 5
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -1355,7 +1351,6 @@
                         "maximum_rages": 5
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -1434,7 +1429,6 @@
                         "maximum_rages": 6
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -1961,7 +1955,6 @@
                         "level": ["1", "2"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -2223,7 +2216,6 @@
                         "level": ["1", "2", "3", "4"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -2468,7 +2460,6 @@
                         "level": ["1", "2", "3", "4", "5", "6"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -2738,7 +2729,6 @@
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -2923,7 +2913,6 @@
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -3777,7 +3766,6 @@
                         "level": "Cantrip"
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -4250,7 +4238,6 @@
                         "challenge_rating": "1"
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -4550,7 +4537,6 @@
                         "level": "Cantrip"
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -4734,7 +4720,6 @@
                         "level": "Cantrip"
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -4981,7 +4966,6 @@
                         "level": "Cantrip"
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -5589,7 +5573,6 @@
                     "type": "value",
                     "value": 2
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -5931,7 +5914,6 @@
                     "type": "value",
                     "value": 3
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -6329,7 +6311,6 @@
                     "type": "value",
                     "value": 4
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -6673,7 +6654,6 @@
                     "type": "value",
                     "value": 5
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -6822,7 +6802,6 @@
                     "type": "value",
                     "value": 6
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -7363,7 +7342,6 @@
                         "level_1": 3
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -7567,7 +7545,6 @@
                         "level_2": 3
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -7721,7 +7698,6 @@
                         "level_3": 3
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -7917,7 +7893,6 @@
                         "level_4": 2
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -8041,7 +8016,6 @@
                         "level_5": 2
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -8628,7 +8602,6 @@
                         "level": ["1"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -8939,7 +8912,6 @@
                         "description": "Moving through nonmagical difficult terrain costs you no extra movement. You can also pass through nonmagical plants without being slowed by them and without taking damage from them if they have thorns, spines, or a similar hazard. In addition, you have **Advantage** on saving throws against plants that are magically created or manipulated to impede movement, such those created by the *entangle* spell."
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -9142,7 +9114,6 @@
                         "level": ["1", "2", "3"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -9447,7 +9418,6 @@
                         "level": ["1", "2", "3", "4"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -9572,7 +9542,6 @@
                         "level": ["1", "2", "3", "4", "5"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -10201,7 +10170,6 @@
                         "level": ["1", "2"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -10447,7 +10415,6 @@
                         "level": ["1", "2", "3", "4"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -10741,7 +10708,6 @@
                         "level": ["1", "2", "3", "4", "5", "6"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -11001,7 +10967,6 @@
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -11281,7 +11246,6 @@
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }]
@@ -11773,7 +11737,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -12336,7 +12300,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -12850,7 +12814,6 @@
                         "level": ["1", "2"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }, {
@@ -12862,7 +12825,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -13385,7 +13348,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -13908,7 +13871,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -14424,7 +14387,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -14855,7 +14818,6 @@
                         "level": ["1", "2", "3", "4"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }, {
@@ -14867,7 +14829,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -15307,7 +15269,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -15737,7 +15699,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -16275,7 +16237,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -16708,7 +16670,6 @@
                         "level": ["1", "2", "3", "4", "5", "6"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }, {
@@ -16720,7 +16681,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -17172,7 +17133,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -17604,7 +17565,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -18135,7 +18096,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -18570,7 +18531,6 @@
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }, {
@@ -18582,7 +18542,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -19036,7 +18996,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -19470,7 +19430,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -19906,7 +19866,6 @@
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
                     }
                 }, {
-                    "hidden": true,
                     "type": "ability_score",
                     "limit": 2
                 }, {
@@ -19918,7 +19877,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -20369,7 +20328,7 @@
                     "options": [{
                         "label": "Agonizing Blast",
                         "path": "abilities.Agonizing Blast",
-                        "hidden_formula": "'Eldritch Black' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
