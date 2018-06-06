@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MDReactComponent from 'markdown-react-js';
+import _ from 'lodash';
 
 import LazyComponent from '../LazyComponent.jsx';
 import TabComponent from '../TabComponent.jsx';
@@ -15,8 +16,8 @@ class ChoiceSelect extends LazyComponent
 
     render() {
         const {
-            description = '', options = [],
-            index: prefix, getCurrent, getItems, onChange
+            description = '', options = [], index: prefix,
+            getCurrent, getItems, onChange,
         } = this.props;
         const props = { getCurrent, getItems, onChange };
 
@@ -29,11 +30,11 @@ class ChoiceSelect extends LazyComponent
             <TabComponent
                 tabConfig={options}
                 >
-            {_.map(options, (option, index) => (
+            {_.map(options, ({description, ...option}, index) => (
                 <div key={index}>
-                    {option.description &&
+                    {description &&
                         <MDReactComponent
-                            text={option.description || ''}
+                            text={ description }
                             />
                     }
                     <CharacterConfig
@@ -52,7 +53,11 @@ ChoiceSelect.propTypes = {
     onChange: PropTypes.func.isRequired,
     getCurrent: PropTypes.func.isRequired,
     getItems: PropTypes.func.isRequired,
-    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    options: PropTypes.arrayOf(
+        PropTypes.shape({
+            description: PropTypes.string,
+        })
+    ).isRequired,
     index: PropTypes.arrayOf(PropTypes.number).isRequired,
     description: PropTypes.string,
 };
