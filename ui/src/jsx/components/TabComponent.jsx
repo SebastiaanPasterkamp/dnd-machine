@@ -57,7 +57,7 @@ export class TabComponent extends LazyComponent
             ),
             muted: tabcfg.disabled,
             current: isActive,
-        });
+        }, ['tab-component__tab']);
         const linkStyle = utils.makeStyle({
             icon: 'icon' in tabcfg,
             [tabcfg.icon || '']: 'icon' in tabcfg,
