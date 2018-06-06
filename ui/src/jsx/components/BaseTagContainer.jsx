@@ -14,13 +14,13 @@ export class BaseTag extends LazyComponent
 {
     render() {
         const {
-            id, label, description, className, badges = [],
+            id, label, description, className, color, badges = [],
             onChange, disabled, onDelete,
         } = this.props;
 
         const style = utils.makeStyle({
-            'muted': (disabled || !onDelete),
-        }, ["nice-tag", className]);
+            'muted': !color && (disabled || !onDelete),
+        }, ["nice-tag", color, className]);
 
         return <div className={style}>
             <span className="nice-tag-label">
@@ -67,6 +67,7 @@ BaseTag.propTypes = {
     description: PropTypes.string,
     disabled: PropTypes.bool,
     className: PropTypes.string,
+    color: PropTypes.string,
     onDelete: PropTypes.func,
     onChange: PropTypes.func,
     badges: PropTypes.arrayOf(
