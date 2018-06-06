@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {sprintf} from 'sprintf-js';
+import { sprintf } from 'sprintf-js';
+import _ from 'lodash';
 
 import LazyComponent from '../LazyComponent.jsx';
 import MarkdownTextField from '../MarkdownTextField.jsx';
