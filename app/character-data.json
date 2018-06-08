@@ -11775,14 +11775,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -12338,14 +12347,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -12863,14 +12881,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -13386,14 +13413,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -13909,14 +13945,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -14425,14 +14470,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -14867,14 +14921,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -15307,14 +15370,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -15737,14 +15809,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -16275,14 +16356,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -16719,14 +16809,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -17171,14 +17270,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -17603,14 +17711,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -18134,14 +18251,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -18580,14 +18706,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -19034,14 +19169,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -19468,14 +19612,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -19915,14 +20068,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
@@ -20366,14 +20528,23 @@
                         }
                     }, {
                         "label": "Beguiling Influence",
-                        "description": "You gain proficiency in the Deception and Persuasion skills.",
-                        "path": "proficiencies.skills",
-                        "type": "list",
-                        "list": ["skills"],
-                        "given": [
-                            "deception",
-                            "persuasion"
-                        ]
+                        "type": "config",
+                        "hidden_formula": "'deception' in proficiencies.skills and 'persuasion' in proficiencies.skills",
+                        "config": [{
+                            "path": "abilities.Beguiling Influence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain proficiency in the Deception and Persuasion skills."
+                            }
+                        }, {
+                            "path": "proficiencies.skills",
+                            "type": "list",
+                            "list": ["skills"],
+                            "given": [
+                                "deception",
+                                "persuasion"
+                            ]
+                        }]
                     }, {
                         "label": "Bewitching Whispers",
                         "path": "abilities.Bewitching Whispers",
