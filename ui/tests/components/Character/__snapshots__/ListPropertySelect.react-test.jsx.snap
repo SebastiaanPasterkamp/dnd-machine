@@ -185,52 +185,7 @@ exports[`after 1`] = `
   path="some.path"
   replace={1}
 >
-  <BaseTagContainer
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "dexterity",
-          "description": "Dex",
-          "label": "Dexterity",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-      ]
-    }
-    onAdd={[Function]}
-    onDelete={[Function]}
-    replace={1}
-    showSelect={true}
-    value={
-      Array [
-        Object {
-          "color": "good",
-          "description": "Char",
-          "disabled": true,
-          "id": "charisma",
-          "label": "Charisma",
-        },
-      ]
-    }
-  >
+  <TagsContainer>
     <div
       className="base-tag-container nice-tags-container"
     >
@@ -431,14 +386,13 @@ exports[`after 1`] = `
           </BaseSelect>
         </OnClickOutside(BaseSelect)>
       </SingleSelect>
-      <BaseTag
+      <Tag
         color="good"
         description="Char"
         disabled={true}
         id="charisma"
-        key="0"
+        key="tag-0"
         label="Charisma"
-        onChange={[Function]}
         onDelete={[Function]}
       >
         <div
@@ -473,9 +427,9 @@ exports[`after 1`] = `
             </ToolTip>
           </span>
         </div>
-      </BaseTag>
+      </Tag>
     </div>
-  </BaseTagContainer>
+  </TagsContainer>
 </ListPropertySelect>
 `;
 
@@ -531,46 +485,16 @@ exports[`after 2`] = `
   onChange={[Function]}
   path="some.path"
 >
-  <BaseTagContainer
-    items={Array []}
-    onAdd={[Function]}
-    onDelete={[Function]}
-    showSelect={false}
-    value={
-      Array [
-        Object {
-          "color": "info",
-          "description": "Str",
-          "id": "strength",
-          "label": "Strength",
-        },
-        Object {
-          "color": "good",
-          "description": "Char",
-          "disabled": true,
-          "id": "charisma",
-          "label": "Charisma",
-        },
-        Object {
-          "color": null,
-          "description": "Dex",
-          "disabled": true,
-          "id": "dexterity",
-          "label": "Dexterity",
-        },
-      ]
-    }
-  >
+  <TagsContainer>
     <div
       className="base-tag-container nice-tags-container"
     >
-      <BaseTag
+      <Tag
         color="info"
         description="Str"
         id="strength"
-        key="0"
+        key="tag-0"
         label="Strength"
-        onChange={[Function]}
         onDelete={[Function]}
       >
         <div
@@ -604,24 +528,28 @@ exports[`after 2`] = `
               </div>
             </ToolTip>
           </span>
-          <button
-            className="nice-tag-btn"
+          <TagBadgeButton
+            icon="fa-trash-o"
             onClick={[Function]}
           >
-            <i
-              className="icon fa-trash-o"
-            />
-          </button>
+            <button
+              className="nice-tag-btn"
+              onClick={[Function]}
+            >
+              <i
+                className="icon fa-trash-o"
+              />
+            </button>
+          </TagBadgeButton>
         </div>
-      </BaseTag>
-      <BaseTag
+      </Tag>
+      <Tag
         color="good"
         description="Char"
         disabled={true}
         id="charisma"
-        key="1"
+        key="tag-1"
         label="Charisma"
-        onChange={[Function]}
         onDelete={[Function]}
       >
         <div
@@ -656,15 +584,14 @@ exports[`after 2`] = `
             </ToolTip>
           </span>
         </div>
-      </BaseTag>
-      <BaseTag
+      </Tag>
+      <Tag
         color={null}
         description="Dex"
         disabled={true}
         id="dexterity"
-        key="2"
+        key="tag-2"
         label="Dexterity"
-        onChange={[Function]}
         onDelete={[Function]}
       >
         <div
@@ -699,9 +626,9 @@ exports[`after 2`] = `
             </ToolTip>
           </span>
         </div>
-      </BaseTag>
+      </Tag>
     </div>
-  </BaseTagContainer>
+  </TagsContainer>
 </ListPropertySelect>
 `;
 
@@ -755,42 +682,17 @@ exports[`before 1`] = `
   path="some.path"
   replace={1}
 >
-  <BaseTagContainer
-    items={Array []}
-    onAdd={[Function]}
-    onDelete={[Function]}
-    replace={1}
-    showSelect={false}
-    value={
-      Array [
-        Object {
-          "color": "good",
-          "description": "Char",
-          "disabled": true,
-          "id": "charisma",
-          "label": "Charisma",
-        },
-        Object {
-          "color": "warning",
-          "description": "Str",
-          "disabled": false,
-          "id": "strength",
-          "label": "Strength",
-        },
-      ]
-    }
-  >
+  <TagsContainer>
     <div
       className="base-tag-container nice-tags-container"
     >
-      <BaseTag
+      <Tag
         color="good"
         description="Char"
         disabled={true}
         id="charisma"
-        key="0"
+        key="tag-0"
         label="Charisma"
-        onChange={[Function]}
         onDelete={[Function]}
       >
         <div
@@ -825,15 +727,14 @@ exports[`before 1`] = `
             </ToolTip>
           </span>
         </div>
-      </BaseTag>
-      <BaseTag
+      </Tag>
+      <Tag
         color="warning"
         description="Str"
         disabled={false}
         id="strength"
-        key="1"
+        key="tag-1"
         label="Strength"
-        onChange={[Function]}
         onDelete={[Function]}
       >
         <div
@@ -867,18 +768,23 @@ exports[`before 1`] = `
               </div>
             </ToolTip>
           </span>
-          <button
-            className="nice-tag-btn"
+          <TagBadgeButton
+            icon="fa-trash-o"
             onClick={[Function]}
           >
-            <i
-              className="icon fa-trash-o"
-            />
-          </button>
+            <button
+              className="nice-tag-btn"
+              onClick={[Function]}
+            >
+              <i
+                className="icon fa-trash-o"
+              />
+            </button>
+          </TagBadgeButton>
         </div>
-      </BaseTag>
+      </Tag>
     </div>
-  </BaseTagContainer>
+  </TagsContainer>
 </ListPropertySelect>
 `;
 
@@ -932,53 +838,7 @@ exports[`before 2`] = `
   onChange={[Function]}
   path="some.path"
 >
-  <BaseTagContainer
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-      ]
-    }
-    onAdd={[Function]}
-    onDelete={[Function]}
-    showSelect={true}
-    value={
-      Array [
-        Object {
-          "color": "good",
-          "description": "Char",
-          "disabled": true,
-          "id": "charisma",
-          "label": "Charisma",
-        },
-        Object {
-          "color": null,
-          "description": "Dex",
-          "disabled": true,
-          "id": "dexterity",
-          "label": "Dexterity",
-        },
-      ]
-    }
-  >
+  <TagsContainer>
     <div
       className="base-tag-container nice-tags-container"
     >
@@ -1154,14 +1014,13 @@ exports[`before 2`] = `
           </BaseSelect>
         </OnClickOutside(BaseSelect)>
       </SingleSelect>
-      <BaseTag
+      <Tag
         color="good"
         description="Char"
         disabled={true}
         id="charisma"
-        key="0"
+        key="tag-0"
         label="Charisma"
-        onChange={[Function]}
         onDelete={[Function]}
       >
         <div
@@ -1196,15 +1055,14 @@ exports[`before 2`] = `
             </ToolTip>
           </span>
         </div>
-      </BaseTag>
-      <BaseTag
+      </Tag>
+      <Tag
         color={null}
         description="Dex"
         disabled={true}
         id="dexterity"
-        key="1"
+        key="tag-1"
         label="Dexterity"
-        onChange={[Function]}
         onDelete={[Function]}
       >
         <div
@@ -1239,9 +1097,9 @@ exports[`before 2`] = `
             </ToolTip>
           </span>
         </div>
-      </BaseTag>
+      </Tag>
     </div>
-  </BaseTagContainer>
+  </TagsContainer>
 </ListPropertySelect>
 `;
 
@@ -1296,53 +1154,7 @@ exports[`removed 1`] = `
   onChange={[Function]}
   path="some.path"
 >
-  <BaseTagContainer
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-      ]
-    }
-    onAdd={[Function]}
-    onDelete={[Function]}
-    showSelect={true}
-    value={
-      Array [
-        Object {
-          "color": "good",
-          "description": "Char",
-          "disabled": true,
-          "id": "charisma",
-          "label": "Charisma",
-        },
-        Object {
-          "color": null,
-          "description": "Dex",
-          "disabled": true,
-          "id": "dexterity",
-          "label": "Dexterity",
-        },
-      ]
-    }
-  >
+  <TagsContainer>
     <div
       className="base-tag-container nice-tags-container"
     >
@@ -1518,14 +1330,13 @@ exports[`removed 1`] = `
           </BaseSelect>
         </OnClickOutside(BaseSelect)>
       </SingleSelect>
-      <BaseTag
+      <Tag
         color="good"
         description="Char"
         disabled={true}
         id="charisma"
-        key="0"
+        key="tag-0"
         label="Charisma"
-        onChange={[Function]}
         onDelete={[Function]}
       >
         <div
@@ -1560,15 +1371,14 @@ exports[`removed 1`] = `
             </ToolTip>
           </span>
         </div>
-      </BaseTag>
-      <BaseTag
+      </Tag>
+      <Tag
         color={null}
         description="Dex"
         disabled={true}
         id="dexterity"
-        key="1"
+        key="tag-1"
         label="Dexterity"
-        onChange={[Function]}
         onDelete={[Function]}
       >
         <div
@@ -1603,9 +1413,9 @@ exports[`removed 1`] = `
             </ToolTip>
           </span>
         </div>
-      </BaseTag>
+      </Tag>
     </div>
-  </BaseTagContainer>
+  </TagsContainer>
 </ListPropertySelect>
 `;
 
@@ -1660,42 +1470,17 @@ exports[`replaced 1`] = `
   path="some.path"
   replace={1}
 >
-  <BaseTagContainer
-    items={Array []}
-    onAdd={[Function]}
-    onDelete={[Function]}
-    replace={1}
-    showSelect={false}
-    value={
-      Array [
-        Object {
-          "color": "good",
-          "description": "Char",
-          "disabled": true,
-          "id": "charisma",
-          "label": "Charisma",
-        },
-        Object {
-          "color": "warning",
-          "description": "Str",
-          "disabled": false,
-          "id": "strength",
-          "label": "Strength",
-        },
-      ]
-    }
-  >
+  <TagsContainer>
     <div
       className="base-tag-container nice-tags-container"
     >
-      <BaseTag
+      <Tag
         color="good"
         description="Char"
         disabled={true}
         id="charisma"
-        key="0"
+        key="tag-0"
         label="Charisma"
-        onChange={[Function]}
         onDelete={[Function]}
       >
         <div
@@ -1730,15 +1515,14 @@ exports[`replaced 1`] = `
             </ToolTip>
           </span>
         </div>
-      </BaseTag>
-      <BaseTag
+      </Tag>
+      <Tag
         color="warning"
         description="Str"
         disabled={false}
         id="strength"
-        key="1"
+        key="tag-1"
         label="Strength"
-        onChange={[Function]}
         onDelete={[Function]}
       >
         <div
@@ -1772,17 +1556,22 @@ exports[`replaced 1`] = `
               </div>
             </ToolTip>
           </span>
-          <button
-            className="nice-tag-btn"
+          <TagBadgeButton
+            icon="fa-trash-o"
             onClick={[Function]}
           >
-            <i
-              className="icon fa-trash-o"
-            />
-          </button>
+            <button
+              className="nice-tag-btn"
+              onClick={[Function]}
+            >
+              <i
+                className="icon fa-trash-o"
+              />
+            </button>
+          </TagBadgeButton>
         </div>
-      </BaseTag>
+      </Tag>
     </div>
-  </BaseTagContainer>
+  </TagsContainer>
 </ListPropertySelect>
 `;

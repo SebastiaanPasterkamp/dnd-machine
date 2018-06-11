@@ -27,9 +27,10 @@ describe('Component: TagContainer', () => {
             <TagContainer
                 setState={setState}
                 items={items}
-                value={['a', 'b']}
+                value={['a', 'b', 'a']}
                 className="info"
                 disabled={true}
+                multiple={true}
                 showSelect={false}
                 />
         ).toJSON();

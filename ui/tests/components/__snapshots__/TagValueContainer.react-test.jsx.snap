@@ -72,7 +72,7 @@ exports[`Component: TagValueContainer should exclude selected items from select 
 </div>
 `;
 
-exports[`Component: TagValueContainer should render with all props 1`] = `
+exports[`Component: TagValueContainer should render disabled 1`] = `
 <div
   className="base-tag-container nice-tags-container tag-value-container"
 >
@@ -87,31 +87,7 @@ exports[`Component: TagValueContainer should render with all props 1`] = `
     <span
       className="nice-tag-badge"
     >
-      <div
-        className="nice-tag-dropdown hover"
-      >
-        Five
-        <ul>
-          <li
-            data-value={0}
-          >
-            <a
-              onClick={[Function]}
-            >
-              Zero
-            </a>
-          </li>
-          <li
-            data-value={5}
-          >
-            <a
-              onClick={[Function]}
-            >
-              Five
-            </a>
-          </li>
-        </ul>
-      </div>
+      Five
     </span>
   </div>
   <div
@@ -136,25 +112,48 @@ exports[`Component: TagValueContainer should render with all props 1`] = `
     <span
       className="nice-tag-badge"
     >
+      Zero
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Component: TagValueContainer should render with all props 1`] = `
+<div
+  className="base-tag-container nice-tags-container tag-value-container info"
+>
+  <div
+    className="nice-tag"
+  >
+    <span
+      className="nice-tag-label"
+    >
+      Aaa
+    </span>
+    <span
+      className="nice-tag-badge"
+    >
+      Five
       <div
         className="nice-tag-dropdown hover"
       >
-        Zero
         <ul>
           <li
             data-value={0}
+            onClick={[Function]}
           >
             <a
-              onClick={[Function]}
+              className="cursor-pointer"
             >
               Zero
             </a>
           </li>
           <li
             data-value={5}
+            onClick={[Function]}
           >
             <a
-              onClick={[Function]}
+              className="cursor-pointer"
             >
               Five
             </a>
@@ -162,6 +161,73 @@ exports[`Component: TagValueContainer should render with all props 1`] = `
         </ul>
       </div>
     </span>
+    <button
+      className="nice-tag-btn"
+      onClick={[Function]}
+    >
+      <i
+        className="icon fa-trash-o"
+      />
+    </button>
+  </div>
+  <div
+    className="nice-tag"
+  >
+    <span
+      className="nice-tag-label"
+    >
+      <div
+        className="tool-tip inline"
+      >
+        Bbb
+        <span
+          className="tool-tip--content"
+        >
+          <p>
+            Bee
+          </p>
+        </span>
+      </div>
+    </span>
+    <span
+      className="nice-tag-badge"
+    >
+      Zero
+      <div
+        className="nice-tag-dropdown hover"
+      >
+        <ul>
+          <li
+            data-value={0}
+            onClick={[Function]}
+          >
+            <a
+              className="cursor-pointer"
+            >
+              Zero
+            </a>
+          </li>
+          <li
+            data-value={5}
+            onClick={[Function]}
+          >
+            <a
+              className="cursor-pointer"
+            >
+              Five
+            </a>
+          </li>
+        </ul>
+      </div>
+    </span>
+    <button
+      className="nice-tag-btn"
+      onClick={[Function]}
+    >
+      <i
+        className="icon fa-trash-o"
+      />
+    </button>
   </div>
 </div>
 `;

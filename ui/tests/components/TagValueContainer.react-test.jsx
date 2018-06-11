@@ -34,8 +34,21 @@ describe('Component: TagValueContainer', () => {
                 tagValues={tagValues}
                 value={{a: 5, b: 0}}
                 className="info"
+                />
+        ).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should render disabled', () => {
+        const setState = jest.fn();
+        const tree = renderer.create(
+            <TagValueContainer
+                setState={setState}
+                items={items}
+                tagValues={tagValues}
+                value={{a: 5, b: 0}}
                 disabled={true}
-                showSelect={false}
                 />
         ).toJSON();
 
@@ -95,10 +108,7 @@ describe('Component: TagValueContainer', () => {
         );
 
         wrapper
-            .find('div.nice-tag-dropdown')
-            .simulate('mouseOver');
-        wrapper
-            .find('li[data-value=0] a')
+            .find('[data-value=0]')
             .simulate('click');
 
         expect(onChange)
