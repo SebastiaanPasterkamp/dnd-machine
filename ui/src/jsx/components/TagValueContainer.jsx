@@ -2,51 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+import utils from '../utils.jsx';
+
 import '../../sass/_tag-value-container.scss';
 
-import BaseTagContainer from './BaseTagContainer.jsx';
+import {
+    TagsContainer,
+    Tag,
+    TagBadge,
+} from './BaseTagContainer.jsx';
 import LazyComponent from './LazyComponent.jsx';
-
-class TagValueDropdown extends LazyComponent
-{
-    render() {
-        const {
-            items, value, onChange, disabled = false,
-        } = this.props;
-
-        if (items === undefined) {
-            return <input
-                type="number"
-                value={value}
-                disabled={disabled}
-                onChange={e => onChange(e.target.value)}
-                />;
-        }
-
-        const { label } = (
-            _.find(items, { code: value })
-            || _.find(items, { name: value })
-            || { label: value }
-        );
-
-        return <div className="nice-tag-dropdown hover">
-            {label}
-            <ul>
-            {_.map(items, item => {
-                const value = _.get(item, 'code', item.name);
-                return <li
-                    key={value}
-                    data-value={value}
-                    >
-                    <a onClick={() => onChange(value)}>
-                        {item.label}
-                    </a>
-                </li>;
-            })}
-            </ul>
-        </div>;
-    }
-};
+import SingleSelect from '../components/SingleSelect.jsx';
 
 export class TagValueContainer extends LazyComponent
 {
@@ -70,6 +36,7 @@ export class TagValueContainer extends LazyComponent
 
     onDelete(key) {
         const { value, onDelete, setState } = this.props;
+
         setState(
             _.pickBy(
                 _.assign(
@@ -90,6 +57,7 @@ export class TagValueContainer extends LazyComponent
         const {
             value, defaultValue = 0, onAdd, setState,
         } = this.props;
+
         setState(
             _.pickBy(
                 _.assign(
@@ -106,83 +74,150 @@ export class TagValueContainer extends LazyComponent
         }
     }
 
-    getItems() {
-        const { items = [], value } = this.props;
-        const filtered = _.filter(items, item => !(
-            _.get(item, 'code', item.name) in value
-        ));
+    renderSelect() {
+        const {
+            value, items = [], disabled, showSelect = true,
+        } = this.props;
 
-        return _.map(
-            filtered,
-            item => _.pickBy({
-                id: _.get(item, 'code', item.name),
-                code: item.code,
-                name: item.name,
-                label: item.label,
-                description: item.description,
-            }, v => (v !== undefined))
-        );
+        if (disabled) return null;
+        if (!showSelect) return null;
+        if (!items.length) return null;
+
+        const filtered = _.chain(items)
+            .filter(item => !(
+                _.get(item, 'code', item.name) in value
+            ))
+            .map(item => _.pickBy(
+                {
+                    code: _.get(item, 'code', item.name),
+                    label: _.get(item, 'label', item.name),
+                    description: item.description,
+                },
+                v => v !== undefined
+            ))
+            .value();
+
+        if (!filtered.length) return null;
+
+        return <SingleSelect
+            emptyLabel="Add..."
+            items={filtered}
+            setState={item => this.onAdd(item)}
+            />;
     }
 
-    getItem(tag, value) {
-        const {
-            items = [], tagValues, onChange, disabled,
-        } = this.props;
-        const { code, name, label, description } = (
-            _.find(items, { code: tag })
-            || _.find(items, { name: tag })
-            || {}
+    renderBadge(badgeItems, tag) {
+        const { disabled = false, } = this.props;
+        const label = _.get(
+            _.find(badgeItems || {}, {key: tag.value}),
+            'label',
+            tag.value
         );
 
-        return _.pickBy({
-            id: tag,
-            code,
-            name,
-            label,
-            description,
-            badges: [{
-                component: TagValueDropdown,
-                onChange: onChange,
-                items: tagValues,
-                value,
-                disabled,
-            }]
-        }, v => (v !== undefined));
+        if (disabled) {
+            return <TagBadge>
+                { label }
+            </TagBadge>;
+        }
+
+        if (!badgeItems) {
+            return <TagBadge>
+                <input
+                    type="number"
+                    value={tag.value}
+                    disabled={disabled}
+                    onChange={e => this.onChange(
+                        tag.key,
+                        e.target.value
+                    )}
+                    />
+            </TagBadge>;
+        }
+
+        return <TagBadge>
+            { label }
+            <div className="nice-tag-dropdown hover">
+                <ul>
+                {_.map(badgeItems, option => (
+                    <li
+                        key={option.key}
+                        data-value={option.key}
+                        onClick={() => this.onChange(
+                            tag.key,
+                            option.key
+                        )}
+                        >
+                        <a className="cursor-pointer">
+                            { option.label }
+                        </a>
+                    </li>
+                ))}
+                </ul>
+            </div>
+        </TagBadge>;
     }
 
     render() {
         const {
-            value, setState, ...props,
+            value, tagValues, items = [], setState, className,
+            disabled,
         } = this.props;
+        const style = utils.makeStyle({}, [
+            "tag-value-container",
+            className,
+        ]);
 
-        return <BaseTagContainer
-            {...props}
-            className="tag-value-container"
-            items={this.getItems()}
-            onAdd={(item) => this.onAdd(item)}
-            onChange={(tag, index, badge, value) => this.onChange(
-                tag, index, badge, value
-            )}
-            onDelete={(tag, index) => this.onDelete(tag, index)}
-            value={_.map(
+        const badgeItems = tagValues
+            ? _.map(tagValues, item => ({
+                key: _.get(item, 'code', item.name),
+                label: _.get(item, 'label', item.name),
+            }))
+            : null;
+
+        const tags = _.map(value, (value, key) => {
+            const { label, description } = (
+                _.find(items, { code: key })
+                || _.find(items, { name: key })
+                || {}
+            );
+
+            return {
+                key,
                 value,
-                (value, tag) => this.getItem(tag, value)
-            )}
-            />;
+                label,
+                description,
+                disabled,
+                onChange: (value) => this.onChange(key, value),
+                onDelete: () => this.onDelete(key),
+            };
+        });
+
+        return <TagsContainer className={ style }>
+            {this.renderSelect()}
+
+            {_.map(tags, tag => (
+                <Tag {...tag}>
+                    {this.renderBadge(badgeItems, tag)}
+                </Tag>
+            ))}
+        </TagsContainer>;
     }
 }
 
-TagValueContainer.propTypes = _.assign(
-    {}, BaseTagContainer.propTypes, {
-        value: PropTypes.object.isRequired,
-        tagValues: PropTypes.arrayOf(
-            PropTypes.object
-        ),
-        setState: PropTypes.func.isRequired,
-        onAdd: PropTypes.func,
-        onChange: PropTypes.func,
-        onDelete: PropTypes.func,
-    }
-);
+TagValueContainer.propTypes = {
+    value: PropTypes.object.isRequired,
+    tagValues: PropTypes.arrayOf(
+        PropTypes.object
+    ),
+    className: PropTypes.string,
+    showSelect: PropTypes.bool,
+    disabled: PropTypes.bool,
+    items: PropTypes.arrayOf(
+        PropTypes.object
+    ),
+    onAdd: PropTypes.func,
+    onChange: PropTypes.func,
+    onDelete: PropTypes.func,
+};
 
 export default TagValueContainer;

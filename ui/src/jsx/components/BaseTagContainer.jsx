@@ -10,12 +10,52 @@ import LazyComponent from './LazyComponent.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import ToolTip from '../components/ToolTip.jsx';
 
-export class BaseTag extends LazyComponent
+export class TagBadge extends LazyComponent
+{
+    render() {
+        const { children, icon} = this.props;
+
+        return <span
+            className="nice-tag-badge"
+            >
+            {icon && <i className={`icon $(icon)`} />}
+            {children}
+        </span>;
+    }
+}
+
+TagBadge.propTypes = {
+    children: PropTypes.node,
+    icon: PropTypes.string,
+};
+
+export class TagBadgeButton extends LazyComponent
+{
+    render() {
+        const { onClick, icon, label } = this.props;
+
+        return <button
+            className="nice-tag-btn"
+            onClick={onClick}
+            >
+            {icon && <i className={`icon ${icon}`} />}
+            {label}
+        </button>;
+    }
+}
+
+TagBadgeButton.propTypes = {
+    onClick: PropTypes.func.isRequired,
+    icon: PropTypes.string,
+    label: PropTypes.string,
+};
+
+export class Tag extends LazyComponent
 {
     render() {
         const {
-            id, label, description, className, color, badges = [],
-            onChange, disabled, onDelete,
+            label, description, className, color, badges = [],
+            children, onChange, disabled, onDelete,
         } = this.props;
 
         const style = utils.makeStyle({
@@ -28,6 +68,7 @@ export class BaseTag extends LazyComponent
                     {label}
                 </ToolTip>
             </span>
+            {children}
             {_.map(
                 badges,
                 (badge, index) => {
@@ -49,20 +90,17 @@ export class BaseTag extends LazyComponent
                     </span>;
                 }
             )}
-            {(disabled || !onDelete)
-                ? null
-                : <button
-                        className="nice-tag-btn"
-                        onClick={() => onDelete()}
-                        >
-                    <i className="icon fa-trash-o"></i>
-                </button>
+            {!disabled && onDelete &&
+                <TagBadgeButton
+                    onClick={() => onDelete()}
+                    icon="fa-trash-o"
+                    />
             }
         </div>;
     }
 };
 
-BaseTag.propTypes = {
+Tag.propTypes = {
     label: PropTypes.string,
     description: PropTypes.string,
     disabled: PropTypes.bool,
@@ -78,13 +116,10 @@ BaseTag.propTypes = {
     ),
 };
 
-export class BaseTagContainer extends LazyComponent
+export class TagsContainer extends LazyComponent
 {
     render() {
-        const {
-            value, className, showSelect = true, items = [],
-            onAdd, onChange, onDelete, disabled,
-        } = this.props;
+        const { className, children } = this.props;
 
         const style = utils.makeStyle({}, [
             "base-tag-container",
@@ -93,45 +128,13 @@ export class BaseTagContainer extends LazyComponent
         ]);
 
         return <div className={style}>
-            {showSelect && items.length
-                ? <SingleSelect
-                    emptyLabel="Add..."
-                    items={items}
-                    setState={ disabled
-                        ? null
-                        : item => onAdd(item)
-                    }
-                    disabled={disabled}
-                    />
-                : null
-            }
-            {_.map(value, (tag, index) => (
-                <BaseTag
-                    key={index}
-                    onDelete={() => onDelete(tag.id, index)}
-                    onChange={disabled
-                        ? null
-                        : value => onChange(tag.id, value)
-                    }
-                    disabled={disabled}
-                    {...tag}
-                    />
-            ))}
+            {children}
         </div>;
     }
 }
 
-BaseTagContainer.propTypes = {
-    value: PropTypes.array.isRequired,
+TagsContainer.propTypes = {
     className: PropTypes.string,
-    showSelect: PropTypes.bool,
-    disabled: PropTypes.bool,
-    items: PropTypes.arrayOf(
-        PropTypes.object
-    ),
-    onAdd: PropTypes.func,
-    onChange: PropTypes.func,
-    onDelete: PropTypes.func,
 };
 
-export default BaseTagContainer;
+export default TagsContainer;

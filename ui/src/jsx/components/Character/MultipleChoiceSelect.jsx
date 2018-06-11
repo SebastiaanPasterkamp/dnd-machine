@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import LazyComponent from '../LazyComponent.jsx';
 import TagContainer from '../TagContainer.jsx';
@@ -11,69 +12,74 @@ class MultipleChoiceSelect extends LazyComponent
     constructor(props) {
         super(props);
         this.state = {
-            used: [],
+            added: [],
             removed: []
         };
     }
 
-    componentWillUnmount() {
-        _.forEach(
-            this.state.replace,
-            path => this.props.onChange(path, undefined)
-        );
+    onSetState() {
+        const { onChange } = this.props;
+        const { added, removed } = this.state;
+        // Remove 'removed' items
     }
 
-    onAdd(value) {
-        const limit = this.props.limit
-                    + this.state.removed.length;
-        if (_.includes(this.state.removed, value)) {
-            let removed = _.without(this.state.used, value);
-            this.setState({removed}, () => {
-                this.props.onChange(value, undefined)
-            });
-        } else if (this.state.used.length < limit) {
-            let used = _.union(this.state.used, [value]);
-            this.setState({used});
+    onAdd(label) {
+        const { limit = 0, replace = 0 } = this.props;
+        const { added, removed } = this.state;
+        let state = { added, removed };
+        if (_.includes(removed, label)) {
+            state.removed = _.without(state.removed, label);
+        } else if (added.length < (limit + removed.length)) {
+            state.added = _.concat(state.added, [label]);
         }
+        this.setState(state, () => this.onSetState());
     }
 
-    onDelete(value, key) {
-        const limit = this.props.replace;
-        if (_.includes(this.state.used, value)) {
-            let used = _.without(this.state.used, value);
-            this.setState({used});
-        } else if (this.state.removed.length < limit) {
-            let removed = _.union(this.state.removed, [value]);
-            this.setState({removed}, () => {
-                this.props.onChange(value, null)
-            });
+    onDelete(label, index) {
+        const { replace = 0 } = this.props;
+        const { added, removed } = this.state;
+        let state = { added, removed };
+        if (_.includes(added, label)) {
+            state.added = _.without(state.added, label);
+        } else if (removed.length < replace) {
+            state.removed = _.concat(state.removed, [label]);
         }
+        this.setState(state, () => this.onSetState());
     }
 
     renderTags() {
-        const {getCurrent, limit, replace} = this.props;
-        const {used, removed} = this.state;
-        const showSelect = used.length < limit;
-        const currentImmutable = removed.length >= replace;
-        const current = _.reduce(
-            this.props.options,
-            (current, option) => {
-                if (getCurrent(option.path)) {
-                    current.push(option.path);
+        const {
+            options, getCurrent, limit = 0, replace = 0
+        } = this.props;
+        const { added, removed } = this.state;
+        const showSelect = (added.length - removed.length) < limit;
+        const disabled = removed.length >= replace;
+
+        const current = _.chain(options)
+            .filter(option => {
+                if (_.includes(added, option.label)) {
+                    return true;
                 }
-                return current;
-            },
-            []
-        );
-        const tagOptions = _.map(this.props.options, option => {
-            const isNew = _.includes(used, option.path);
-            return {
-                code: option.path,
-                label: option.label,
-                immutable: currentImmutable && !isNew,
-                color: isNew ? 'info' : 'warning'
-            };
-        });
+                const path = (
+                    _.get(option, 'path')
+                    || _.get(option, ['config', 0, 'path'])
+                );
+                return getCurrent(path);
+            })
+            .map(option => option.label)
+            .value();
+
+        const tagOptions = _.chain(options)
+            .filter(option => !option.hidden)
+            .map(option => {
+                const isNew = _.includes(added, option.label);
+                return {
+                    code: option.label,
+                    label: option.label,
+                    color: isNew ? 'info' : 'warning'
+                };
+            })
+            .value();
 
         return <TagContainer
             value={current}
@@ -86,29 +92,31 @@ class MultipleChoiceSelect extends LazyComponent
     }
 
     render() {
-        const {used, removed} = this.state;
-        const changes = _.union(used, removed);
+        const {
+            options, index, getCurrent, getItems, onChange,
+        } = this.props;
+        const filtered = _.filter(
+            options,
+            option => _.includes(this.state.added, option.label)
+        );
+
+        const props = {
+            getCurrent: getCurrent,
+            getItems: getItems,
+            onChange: onChange,
+        };
 
         return <div>
             {this.renderTags()}
-            {_.map(this.props.options, (option, index) => {
-                if (!_.includes(changes, option.path)) {
-                    return null;
-                }
-                const props = {
-                    index: this.props.index.concat([index]),
-                    getCurrent: this.props.getCurrent,
-                    getItems: this.props.getItems,
-                    onChange: this.props.onChange,
-                    config: [option],
-                    disabled: _.includes(removed, option.path)
-                };
 
-                return <CharacterConfig
-                    key={index}
+            {_.map(filtered, (option, i) => (
+                <CharacterConfig
+                    key={i}
                     {...props}
-                    />;
-            })}
+                    index={ index.concat([i]) }
+                    config={ [option] }
+                    />
+            ))}
         </div>;
     }
 };
@@ -119,11 +127,12 @@ MultipleChoiceSelect.defaultTypes = {
 
 MultipleChoiceSelect.propTypes = {
     onChange: PropTypes.func.isRequired,
+    index: PropTypes.arrayOf(PropTypes.number).isRequired,
     getCurrent: PropTypes.func.isRequired,
     getItems: PropTypes.func.isRequired,
     options: PropTypes.arrayOf(PropTypes.object).isRequired,
     description: PropTypes.string,
-    limit: PropTypes.number.isRequired,
+    limit: PropTypes.number,
     replace: PropTypes.number,
 };
 

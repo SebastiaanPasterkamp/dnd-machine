@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import BaseTagContainer from './BaseTagContainer.jsx';
+import {
+    TagsContainer,
+    Tag,
+    TagBadge,
+} from './BaseTagContainer.jsx';
 import LazyComponent from './LazyComponent.jsx';
+import SingleSelect from './SingleSelect.jsx';
 
 export class TagContainer extends LazyComponent
 {
@@ -34,63 +39,94 @@ export class TagContainer extends LazyComponent
         }
     }
 
-    getItems(multiple) {
-        const { items = [], value } = this.props;
-        const filtered = multiple
-            ? items
-            : _.filter(items, item => !(
-                _.includes(value, item.code)
-                || _.includes(value, item.name)
-            ));
+    renderSelect() {
+        const {
+            value, items = [], disabled, multiple, showSelect = true,
+        } = this.props;
 
-        return _.map(
-            filtered,
-            item => _.pickBy({
-                id: item.code || item.name,
-                code: item.code,
-                name: item.name,
-                label: item.label,
-                description: item.description,
-            }, v => (v !== undefined))
-        );
-    }
+        if (disabled) return null;
+        if (!showSelect) return null;
+        if (!items.length) return null;
 
-    getItem(tag) {
-        const { items = [] } = this.props;
-        const { code, name, label, description } = (
-            _.find(items, { code: tag })
-            || _.find(items, { name: tag })
-            || {}
-        );
+        const filtered = _.chain(items)
+            .filter(item => (
+                multiple
+                || !_.includes(value,  _.get(item, 'code', item.name))
+            ))
+            .map(item => _.pickBy(
+                {
+                    code: _.get(item, 'code', item.name),
+                    label: _.get(item, 'label', item.name),
+                    description: item.description,
+                },
+                v => v !== undefined
+            ))
+            .value();
 
-        return _.pickBy({
-            id: tag,
-            code,
-            name,
-            label,
-            description,
-        }, v => (v !== undefined));
+        if (!filtered.length) return null;
+
+        return <SingleSelect
+            emptyLabel="Add..."
+            items={filtered}
+            setState={item => this.onAdd(item)}
+            />;
     }
 
     render() {
         const {
-            value, setState, multiple, ...props,
+            value, items = [], disabled, multiple, showSelect = true,
+           className,
         } = this.props;
+        const counts = _.countBy(value);
 
-        return <BaseTagContainer
-            {...props}
-            items={this.getItems(multiple)}
-            onAdd={(newValue) => this.onAdd(newValue)}
-            onDelete={(tag, index) => this.onDelete(tag, index)}
-            value={_.map(value, tag => this.getItem(tag))}
-            />;
+        const tags = _.map(counts, (count, key) => {
+            const { label, description } = (
+                _.find(items, { code: key })
+                || _.find(items, { name: key })
+                || {}
+            );
+
+            return {
+                key,
+                count,
+                label,
+                description,
+                disabled,
+                onDelete: () => this.onDelete(
+                    key,
+                    _.indexOf(value, key)
+                ),
+            };
+        });
+
+        return <TagsContainer className={className}>
+            {this.renderSelect()}
+
+            {_.map(tags, tag => (
+                <Tag {...tag}>
+                    {multiple && tag.count > 1 &&
+                        <TagBadge>
+                            &times;&nbsp;{ tag.count }
+                        </TagBadge>
+                    }
+                </Tag>
+            ))}
+        </TagsContainer>
     }
 };
 
-TagContainer.propTypes = _.assign({}, BaseTagContainer.propTypes, {
+TagContainer.propTypes = {
     value: PropTypes.arrayOf(PropTypes.string).isRequired,
     setState: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    showSelect: PropTypes.bool,
     multiple: PropTypes.bool,
-});
+    disabled: PropTypes.bool,
+    items: PropTypes.arrayOf(
+        PropTypes.object
+    ),
+    onAdd: PropTypes.func,
+    onDelete: PropTypes.func,
+};
 
 export default TagContainer;
