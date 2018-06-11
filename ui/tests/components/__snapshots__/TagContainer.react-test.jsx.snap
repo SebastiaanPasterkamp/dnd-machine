@@ -123,6 +123,12 @@ exports[`Component: TagContainer should render with all props 1`] = `
     >
       Aaa
     </span>
+    <span
+      className="nice-tag-badge"
+    >
+      × 
+      2
+    </span>
   </div>
   <div
     className="nice-tag muted"

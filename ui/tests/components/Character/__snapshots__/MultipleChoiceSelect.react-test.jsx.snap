@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: MultipleChoiceSelect should render with minimum props 1`] = `
+<div>
+  <div
+    className="base-tag-container nice-tags-container"
+  />
+</div>
+`;
