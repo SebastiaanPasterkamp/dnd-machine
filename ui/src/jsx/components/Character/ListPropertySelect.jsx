@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import BaseTagContainer from '../BaseTagContainer.jsx';
+import {
+    TagsContainer,
+    Tag,
+    TagBadge,
+} from '../BaseTagContainer.jsx';
 import LazyComponent from '../LazyComponent.jsx';
+import SingleSelect from '../SingleSelect.jsx';
 
 class ListPropertySelect extends LazyComponent
 {
@@ -33,7 +38,7 @@ class ListPropertySelect extends LazyComponent
         });
     }
 
-    onDelete(value, index) {
+    onDelete(value) {
         const { replace = 0 } = this.props;
         const { added, removed } = this.state;
         let state = { added, removed };
@@ -136,21 +141,17 @@ class ListPropertySelect extends LazyComponent
         ) ) );
     }
 
-    showSelect() {
-        const { limit = 0, replace = 0 } = this.props;
-        const { added, removed } = this.state;
-        if ((limit - added.length + removed.length) > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    getItems(value, multiple) {
-        const { filter = [], items, current, given, } = this.props;
+    renderSelect() {
+        const {
+            multiple, filter = [], items, current = [], given = [],
+            limit = 0, replace = 0,
+        } = this.props;
         const { added, removed } = this.state;
 
-        if (!this.showSelect()) {
-            return [];
+        if (!items.length) return null;
+
+        if ((limit - added.length + removed.length) <= 0) {
+            return null;
         }
 
         const _filter = _.reduce(
@@ -165,12 +166,10 @@ class ListPropertySelect extends LazyComponent
             {}
         );
 
-        if (!_filter) {
-            return items;
-        }
-
-        const values = _.map(value, 'id');
-        const filtered = _(items)
+        const values = _.concat(
+            given, current, added
+        );
+        const filtered = _.chain(items)
             .filter(item => _.every(
                 _filter,
                 (cond, path) => {
@@ -183,33 +182,45 @@ class ListPropertySelect extends LazyComponent
             ))
             .filter(item => (
                 multiple
+                || _.includes(removed, _.get(item, 'code', item.name))
                 || !_.includes(values, _.get(item, 'code', item.name))
             ))
             .value();
 
-        return filtered;
+        if (!filtered.length) return null;
+
+        return <SingleSelect
+            emptyLabel="Add..."
+            items={filtered}
+            setState={item => this.onAdd(item)}
+            />;
     }
 
     render() {
-        const {
-            path, onChange, given, current, limit, filter, multiple,
-            hidden, ...props,
-        } = this.props;
+        const { hidden, } = this.props;
 
         if (hidden) {
             return null;
         }
 
-        const value = this.getValue();
+        const tags = _.map(
+            this.getValue(),
+            tag => _.assign(tag, {
+                onDelete: () => this.onDelete(tag.id),
+            })
+        );
 
-        return <BaseTagContainer
-            {...props}
-            items={this.getItems(value, multiple)}
-            onAdd={(value) => this.onAdd(value)}
-            onDelete={(item, index) => this.onDelete(item, index)}
-            showSelect={this.showSelect()}
-            value={value}
-            />;
+        return <TagsContainer>
+            {this.renderSelect()}
+
+            {_.map(tags, (tag, i) => (
+                <Tag
+                    key={`tag-${i}`}
+                    {...tag}
+                    />
+            ))}
+
+        </TagsContainer>;
     }
 
 };
