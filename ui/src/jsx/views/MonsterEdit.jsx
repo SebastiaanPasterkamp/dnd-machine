@@ -334,7 +334,7 @@ export class MonsterEdit extends React.Component
                     <TagValueContainer
                         value={motion}
                         items={this.motion}
-                        defaultValue={20}
+                        defaultValue={30}
                         setState={(value) => {
                             this.onFieldChange('motion', value);
                         }}

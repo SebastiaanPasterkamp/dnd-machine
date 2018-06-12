@@ -9,7 +9,6 @@ import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 import Panel from '../components/Panel.jsx';
 import ListLabel from '../components/ListLabel.jsx';
 import UserLinks from '../components/UserLinks.jsx';
-import TagContainer from '../components/TagContainer.jsx';
 
 export class UserView extends React.Component
 {

@@ -61,9 +61,9 @@ class AttackView extends LazyComponent
                     <th>Attack Damage</th>
                     <td>
                         <TagValueContainer
-                            tags={{average, critical}}
+                            value={{average, critical}}
                             disabled={true}
-                            tagOptions={[
+                            items={[
                                 {code: 'average', label: 'Average'},
                                 {code: 'critical', label: 'Critical'}
                                 ]}
@@ -295,6 +295,7 @@ export class MonsterView extends LazyComponent
                         <td>
                             <TagValueContainer
                                 value={motion}
+                                disabled={true}
                                 items={[
                                     {code: 'walk', label: 'Walk'},
                                     {code: 'burrow', label: 'Burrow'},
@@ -302,11 +303,6 @@ export class MonsterView extends LazyComponent
                                     {code: 'fly', label: 'Fly'},
                                     {code: 'swim', label: 'Swim'}
                                 ]}
-                                tagValues={this.levels}
-                                disabled={true}
-                                setState={(value) => {
-                                    this.onFieldChange('motion', value);
-                                }}
                                 />
                         </td>
                     </tr>
