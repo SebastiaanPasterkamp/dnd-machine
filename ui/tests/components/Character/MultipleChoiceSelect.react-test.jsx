@@ -26,12 +26,14 @@ const props = {
         }]
     }],
     getCurrent: jest.fn(
-        path => path == 'bar.foo',
+        path => path == 'bar.foo'
+            ? { description: 'Foo is okay' }
+            : null
     ),
     getItems: jest.fn(),
 };
 
-describe.skip('Component: MultipleChoiceSelect', () => {
+describe('Component: MultipleChoiceSelect', () => {
     it('should render with minimum props', () => {
         const onChange = jest.fn();
         const tree = renderer.create(
@@ -58,54 +60,41 @@ describe.skip('Component: MultipleChoiceSelect', () => {
         expect(tree).toMatchSnapshot();
     });
 
-    it('should omit unknown current values', () => {
-        const onChange = jest.fn();
-        const tree = renderer.create(
-            <MultipleChoiceSelect
-                onChange={onChange}
-                {...props}
-                given={[
-                    'foo',
-                ]}
-                current={[
-                    'bar',
-                ]}
-                />
-        ).toJSON();
-
-//         expect(tree).toMatchSnapshot();
-    });
-
-    it('should emit onChange when mounted / unmounted', () => {
+    it('should emit onChange when updated and then unmounted', () => {
         const onChange = jest.fn();
         const wrapper = mount(
             <MultipleChoiceSelect
-                onChange={onChange}
                 {...props}
-                given={[
-                    'strength',
-                    'charisma',
-                ]}
-                current={[
-                    'dexterity',
-                ]}
+                getCurrent={() => {}}
+                onChange={onChange}
+                limit={1}
                 />
         );
 
+        expect(onChange).not.toBeCalled();
+
+        wrapper
+            .find('.nice-dropdown button')
+            .simulate('click');
+        wrapper
+            .find('li[data-value="Simple"]')
+            .simulate('click');
+
         expect(onChange).toBeCalledWith(
-            props.path,
-            {
-                "added": ["strength", "charisma"],
-                "removed": [],
-            }
+            "foo.bar",
+            { description: 'Bar is good' },
+            [0, 0],
+            props.options[0]
         );
 
         onChange.mockClear();
         wrapper.unmount();
 
         expect(onChange).toBeCalledWith(
-            props.path,
-            undefined
+            "foo.bar",
+            undefined,
+            [0, 0],
+            props.options[0]
         );
     });
 
@@ -115,131 +104,90 @@ describe.skip('Component: MultipleChoiceSelect', () => {
             <MultipleChoiceSelect
                 onChange={onChange}
                 {...props}
-                given={[
-                    'charisma',
-                ]}
-                current={[
-                    'strength',
-                ]}
                 replace={1}
                 />
         );
 
-//         expect(wrapper).toMatchSnapshot('before');
-
-        onChange.mockClear();
         wrapper
             .find('.nice-tag-btn')
             .at(0)
             .simulate('click');
+
         expect(onChange).toBeCalledWith(
-            props.path,
-            {
-                "added": ["charisma"],
-                "removed": ["strength"],
-            }
+            'bar.foo',
+            undefined,
+            [0, 0, 0],
+            props.options[1].config[0]
         );
+
+        wrapper.setProps({
+            getCurrent: jest.fn(() => null),
+        });
+
+        expect(wrapper).toMatchSnapshot('removed');
 
         onChange.mockClear();
 
-        wrapper.setProps({
-            current: ['charisma'],
-        });
-
-        expect(onChange).not.toBeCalled();
-
-//         expect(wrapper).toMatchSnapshot('after');
-
         wrapper
-            .find('.nice-btn')
+            .find('.nice-dropdown button')
             .simulate('click');
         wrapper
-            .find('[data-value="strength"]')
+            .find('li[data-value="Complex"]')
             .simulate('click');
+
+        expect(wrapper).toMatchSnapshot('added back');
 
         expect(onChange).toBeCalledWith(
-            props.path,
-            {
-                "added": ["charisma"],
-                "removed": [],
-            }
+            "bar.foo",
+            { description: 'Foo is okay' },
+            [0, 0, 0],
+            props.options[1].config[0]
         );
-
-        onChange.mockClear();
-
-        wrapper.setProps({
-            current: ['charisma', 'strength'],
-        });
-
-        expect(onChange).not.toBeCalled();
-
-//         expect(wrapper).toMatchSnapshot('replaced');
     });
 
-    it('should handle adding and deleting new', () => {
+    it('should handle removing a new pick', () => {
         const onChange = jest.fn();
         const wrapper = mount(
             <MultipleChoiceSelect
                 onChange={onChange}
                 {...props}
-                given={[
-                    'charisma',
-                ]}
-                current={[
-                    'dexterity',
-                ]}
                 limit={1}
+                getCurrent={jest.fn(() => null)}
                 />
         );
 
-//         expect(wrapper).toMatchSnapshot('before');
-
         onChange.mockClear();
+
         wrapper
-            .find('.nice-btn')
+            .find('.nice-dropdown button')
             .simulate('click');
         wrapper
-            .find('[data-value="strength"]')
+            .find('li[data-value="Simple"]')
             .simulate('click');
+
+        expect(wrapper).toMatchSnapshot('added');
 
         expect(onChange).toBeCalledWith(
-            props.path,
-            {
-                "added": ["strength", "charisma"],
-                "removed": [],
-            }
+            "foo.bar",
+            { description: 'Bar is good' },
+            [0, 0],
+            props.options[0]
         );
 
         onChange.mockClear();
-
-        wrapper.setProps({
-            current: ['charisma', 'dexterity', 'strength'],
-        });
-
-        expect(onChange).not.toBeCalled();
-
-//         expect(wrapper).toMatchSnapshot('after');
 
         wrapper
             .find('.nice-tag-btn')
             .at(0)
             .simulate('click');
+
         expect(onChange).toBeCalledWith(
-            props.path,
-            {
-                "added": ["charisma"],
-                "removed": [],
-            }
+            'foo.bar',
+            undefined,
+            [0, 0],
+            props.options[0]
         );
 
-        onChange.mockClear();
-
-        wrapper.setProps({
-            current: ['charisma', 'dexterity'],
-        });
-
-        expect(onChange).not.toBeCalled();
-
-//         expect(wrapper).toMatchSnapshot('removed');
+        expect(wrapper).toMatchSnapshot('removed');
     });
 });
