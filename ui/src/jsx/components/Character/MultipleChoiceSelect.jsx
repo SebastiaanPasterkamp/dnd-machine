@@ -13,52 +13,72 @@ class MultipleChoiceSelect extends LazyComponent
         super(props);
         this.state = {
             added: [],
-            removed: []
+            removed: [],
+            filtered: [],
         };
     }
 
     onSetState() {
-        const { onChange } = this.props;
+        const { options, onChange } = this.props;
         const { added, removed } = this.state;
-        // Remove 'removed' items
     }
 
     onAdd(label) {
         const { limit = 0, replace = 0 } = this.props;
-        const { added, removed } = this.state;
-        let state = { added, removed };
+        const { added, removed, filtered } = this.state;
+        let state = {};
+
+        if (_.includes(filtered, label)) {
+            state.filtered = _.without(filtered, label);
+        }
         if (_.includes(removed, label)) {
-            state.removed = _.without(state.removed, label);
-        } else if (added.length < (limit + removed.length)) {
-            state.added = _.concat(state.added, [label]);
+            state.removed = _.without(removed, label);
+        }
+        if (added.length < (limit + removed.length)) {
+            state.added = _.concat(added, [label]);
+        }
+        if (_.isEmpty(state)) {
+            return;
         }
         this.setState(state, () => this.onSetState());
     }
 
-    onDelete(label, index) {
+    onDelete(label) {
         const { replace = 0 } = this.props;
-        const { added, removed } = this.state;
-        let state = { added, removed };
+        const { added, removed, filtered } = this.state;
+        let state = {};
+
+        if (!_.includes(filtered, label)) {
+            state.filtered = _.concat(filtered, [label]);
+        }
         if (_.includes(added, label)) {
-            state.added = _.without(state.added, label);
-        } else if (removed.length < replace) {
-            state.removed = _.concat(state.removed, [label]);
+            state.added = _.without(added, label);
+        }
+        if (removed.length < replace) {
+            state.removed = _.concat(removed, [label]);
+        }
+        if (_.isEmpty(state)) {
+            return;
         }
         this.setState(state, () => this.onSetState());
     }
 
-    renderTags() {
+    render() {
         const {
-            options, getCurrent, limit = 0, replace = 0
+            options, index, getCurrent, getItems, onChange,
+            limit = 0, replace = 0,
         } = this.props;
-        const { added, removed } = this.state;
+        const { added, removed, filtered } = this.state;
         const showSelect = (added.length - removed.length) < limit;
         const disabled = removed.length >= replace;
 
-        const current = _.chain(options)
+        const value = _.chain(options)
             .filter(option => {
                 if (_.includes(added, option.label)) {
                     return true;
+                }
+                if (_.includes(filtered, option.label)) {
+                    return false;
                 }
                 const path = (
                     _.get(option, 'path')
@@ -68,8 +88,7 @@ class MultipleChoiceSelect extends LazyComponent
             })
             .map(option => option.label)
             .value();
-
-        const tagOptions = _.chain(options)
+        const items = _.chain(options)
             .filter(option => !option.hidden)
             .map(option => {
                 const isNew = _.includes(added, option.label);
@@ -81,40 +100,32 @@ class MultipleChoiceSelect extends LazyComponent
             })
             .value();
 
-        return <TagContainer
-            value={current}
-            items={tagOptions}
-            onAdd={(value) => this.onAdd(value)}
-            onDelete={(key, value) => this.onDelete(key, value)}
-            setState={() => { return null; }}
-            showSelect={showSelect}
-            />;
-    }
-
-    render() {
-        const {
-            options, index, getCurrent, getItems, onChange,
-        } = this.props;
-        const filtered = _.filter(
+        const configs = _.filter(
             options,
-            option => _.includes(this.state.added, option.label)
+            option => _.includes(value, option.label)
         );
-
         const props = {
-            getCurrent: getCurrent,
-            getItems: getItems,
-            onChange: onChange,
+            getCurrent,
+            getItems,
+            onChange,
         };
 
         return <div>
-            {this.renderTags()}
+            <TagContainer
+                value={value}
+                items={items}
+                onAdd={(label) => this.onAdd(label)}
+                onDelete={(label, index) => this.onDelete(label)}
+                setState={() => null}
+                showSelect={showSelect}
+                />
 
-            {_.map(filtered, (option, i) => (
+            {_.map(configs, (config, i) => (
                 <CharacterConfig
                     key={i}
                     {...props}
                     index={ index.concat([i]) }
-                    config={ [option] }
+                    config={ [config] }
                     />
             ))}
         </div>;
