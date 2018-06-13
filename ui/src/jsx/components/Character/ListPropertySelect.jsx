@@ -143,8 +143,8 @@ class ListPropertySelect extends LazyComponent
 
     renderSelect() {
         const {
-            multiple, filter = [], items, current = [], given = [],
-            limit = 0, replace = 0,
+            multiple, filter = [], items = [], current = [],
+            given = [], limit = 0, replace = 0,
         } = this.props;
         const { added, removed } = this.state;
 
