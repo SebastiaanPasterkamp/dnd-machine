@@ -52,6 +52,15 @@ export class MarkdownTextField extends LazyComponent
             ]
         );
 
+        if (disabled) {
+            return <div className={style}>
+                <MDReactComponent
+                    className="markdown-textedit__preview"
+                    text={value || ''}
+                    />
+            </div>;
+        }
+
         return <div
                 className={style}
                 onClick={editing ? null : () => this.setEditing(true)}
