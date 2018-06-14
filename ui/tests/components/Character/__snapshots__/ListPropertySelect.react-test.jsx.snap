@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Component: ListPropertySelect should not render select w/ filtering all items 1`] = `
+<div
+  className="base-tag-container nice-tags-container"
+/>
+`;
+
+exports[`Component: ListPropertySelect should not render select w/o items 1`] = `
+<div
+  className="base-tag-container nice-tags-container"
+/>
+`;
+
 exports[`Component: ListPropertySelect should not render when hidden 1`] = `null`;
 
 exports[`Component: ListPropertySelect should omit unknown current values 1`] = `
@@ -142,6 +154,11 @@ exports[`after 1`] = `
       "charisma",
     ]
   }
+  filter={
+    Object {
+      "code": "strength",
+    }
+  }
   given={
     Array [
       "charisma",
@@ -199,26 +216,6 @@ exports[`after 1`] = `
               "description": "Str",
               "label": "Strength",
             },
-            Object {
-              "code": "dexterity",
-              "description": "Dex",
-              "label": "Dexterity",
-            },
-            Object {
-              "code": "constitution",
-              "description": "Con",
-              "label": "Constitution",
-            },
-            Object {
-              "code": "intelligence",
-              "description": "Int",
-              "label": "Intelligence",
-            },
-            Object {
-              "code": "wisdom",
-              "description": "Wis",
-              "label": "Wisdom",
-            },
           ]
         }
         setState={[Function]}
@@ -239,26 +236,6 @@ exports[`after 1`] = `
                 "code": "strength",
                 "description": "Str",
                 "label": "Strength",
-              },
-              Object {
-                "code": "dexterity",
-                "description": "Dex",
-                "label": "Dexterity",
-              },
-              Object {
-                "code": "constitution",
-                "description": "Con",
-                "label": "Constitution",
-              },
-              Object {
-                "code": "intelligence",
-                "description": "Int",
-                "label": "Intelligence",
-              },
-              Object {
-                "code": "wisdom",
-                "description": "Wis",
-                "label": "Wisdom",
               },
             ]
           }
@@ -286,26 +263,6 @@ exports[`after 1`] = `
                   "code": "strength",
                   "description": "Str",
                   "label": "Strength",
-                },
-                Object {
-                  "code": "dexterity",
-                  "description": "Dex",
-                  "label": "Dexterity",
-                },
-                Object {
-                  "code": "constitution",
-                  "description": "Con",
-                  "label": "Constitution",
-                },
-                Object {
-                  "code": "intelligence",
-                  "description": "Int",
-                  "label": "Intelligence",
-                },
-                Object {
-                  "code": "wisdom",
-                  "description": "Wis",
-                  "label": "Wisdom",
                 },
               ]
             }
@@ -339,46 +296,6 @@ exports[`after 1`] = `
                 >
                   <a>
                     Strength
-                  </a>
-                </li>
-                <li
-                  className={null}
-                  data-value="dexterity"
-                  key="dexterity"
-                  onClick={[Function]}
-                >
-                  <a>
-                    Dexterity
-                  </a>
-                </li>
-                <li
-                  className={null}
-                  data-value="constitution"
-                  key="constitution"
-                  onClick={[Function]}
-                >
-                  <a>
-                    Constitution
-                  </a>
-                </li>
-                <li
-                  className={null}
-                  data-value="intelligence"
-                  key="intelligence"
-                  onClick={[Function]}
-                >
-                  <a>
-                    Intelligence
-                  </a>
-                </li>
-                <li
-                  className={null}
-                  data-value="wisdom"
-                  key="wisdom"
-                  onClick={[Function]}
-                >
-                  <a>
-                    Wisdom
                   </a>
                 </li>
               </ul>
@@ -638,6 +555,11 @@ exports[`before 1`] = `
     Array [
       "strength",
     ]
+  }
+  filter={
+    Object {
+      "code": "strength",
+    }
   }
   given={
     Array [
@@ -1426,6 +1348,11 @@ exports[`replaced 1`] = `
       "charisma",
       "strength",
     ]
+  }
+  filter={
+    Object {
+      "code": "strength",
+    }
   }
   given={
     Array [
