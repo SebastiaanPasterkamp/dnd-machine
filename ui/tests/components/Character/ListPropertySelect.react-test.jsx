@@ -23,6 +23,34 @@ describe('Component: ListPropertySelect', () => {
         expect(tree).toMatchSnapshot();
     });
 
+    it('should not render select w/o items', () => {
+        const onChange = jest.fn();
+        const tree = renderer.create(
+            <ListPropertySelect
+                onChange={onChange}
+                {...props}
+                limit={1}
+                items={[]}
+                />
+        ).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should not render select w/ filtering all items', () => {
+        const onChange = jest.fn();
+        const tree = renderer.create(
+            <ListPropertySelect
+                onChange={onChange}
+                {...props}
+                limit={1}
+                filter={{ code: 'impossible' }}
+                />
+        ).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
     it('should not render when hidden', () => {
         const onChange = jest.fn();
         const tree = renderer.create(
@@ -128,6 +156,7 @@ describe('Component: ListPropertySelect', () => {
                 current={[
                     'strength',
                 ]}
+                filter={{ code: 'strength' }}
                 replace={1}
                 />
         );
