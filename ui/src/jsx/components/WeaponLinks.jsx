@@ -1,10 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
-class WeaponLinks extends BaseLinkGroup
+import { userHasRole } from '../utils.jsx';
+
+export class WeaponLinks extends BaseLinkGroup
 {
     constructor(props) {
         super(props);
@@ -13,71 +16,58 @@ class WeaponLinks extends BaseLinkGroup
 
     buttonList() {
         const {
-            weapon_id
+            weapon_id, current_user: user,
         } = this.props;
+
+        if (!user) {
+            return {};
+        }
 
         return {
-            'view': () => {
-                return {
-                    label: 'View',
-                    link: "/items/weapon/show/" + weapon_id,
-                    icon: 'eye',
-                };
-            },
-            'edit': () => {
-                return {
-                    label: 'Edit',
-                    link: "/items/weapon/edit/" + weapon_id,
-                    icon: 'pencil',
-                };
-            },
-            'new': () => {
-                return {
-                    label: 'New',
-                    link: "/items/weapon/new",
-                    icon: 'plus',
-                };
-            }
+            'view': () => ({
+                label: 'View',
+                link: "/items/weapon/show/" + weapon_id,
+                icon: 'eye',
+                available: weapon_id,
+            }),
+            'edit': () => ({
+                label: 'Edit',
+                link: "/items/weapon/edit/" + weapon_id,
+                icon: 'pencil',
+                available: (
+                    weapon_id
+                    && userHasRole(user, ['admin', 'dm'])
+                ),
+            }),
+            'new': () => ({
+                label: 'New',
+                link: "/items/weapon/new",
+                icon: 'plus',
+                available: (
+                    !weapon_id
+                    && userHasRole(user, ['admin', 'dm'])
+                ),
+            }),
         };
-    }
-
-    getAllowed() {
-        const {
-            weapon_id, current_user
-        } = this.props;
-
-        if (current_user == null) {
-            return [];
-        }
-
-        if (
-            _.intersection(
-                current_user.role || [],
-                ['dm']
-            ).length
-        ) {
-            if (weapon_id == null) {
-                return ['new'];
-            }
-            return ['edit', 'new', 'view'];
-        }
-
-        if (
-            _.intersection(
-                current_user.role || [],
-                ['player']
-            ).length
-        ) {
-            return ['view'];
-        }
-
-        return [];
     }
 }
 
-WeaponLinks.defaultProps = {
-    buttons: ['view', 'edit'],
-};
+WeaponLinks.propTypes = _.assign(
+    {}, BaseLinkGroup.propTypes, {
+        buttons: PropTypes.arrayOf(
+            PropTypes.oneOf([
+                'view', 'edit', 'new',
+            ])
+        ),
+        weapon_id: PropTypes.number,
+        current_user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            role: PropTypes.arrayOf(
+                PropTypes.oneOf(['player', 'dm', 'admin'])
+            ),
+        }),
+    }
+);
 
 export default ListDataWrapper(
     WeaponLinks,
