@@ -6,6 +6,13 @@ import SingleSelect from '../SingleSelect.jsx';
 
 class SelectPropertySelect extends LazyComponent
 {
+    componentDidMount() {
+        this.props.onChange(
+            this.props.path,
+            this.props.current
+        );
+    }
+
     componentWillUnmount() {
         this.props.onChange(
             this.props.path,
