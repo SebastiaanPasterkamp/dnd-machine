@@ -76,10 +76,6 @@ class BaseLinkGroup extends LazyComponent
         return {};
     }
 
-    getAllowed() {
-        return [];
-    }
-
     render() {
         const {
             buttons, className, altStyle, extra = [],
@@ -87,7 +83,6 @@ class BaseLinkGroup extends LazyComponent
         const style = utils.makeStyle({
             [className]: className,
         }, ['base-link-group', 'nice-btn-group']);
-        const allowed = this.getAllowed();
 
         const filtered = _(
                 this.buttonList()
@@ -98,9 +93,7 @@ class BaseLinkGroup extends LazyComponent
             ).mapValues(
                 func => func()
             ).pickBy(
-                (props, action) => 'available' in props
-                    ? props.available
-                    : _.includes(allowed, action)
+                'available'
             ).value();
 
         return <div className={style}>
