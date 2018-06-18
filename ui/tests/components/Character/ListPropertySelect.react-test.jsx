@@ -16,7 +16,7 @@ describe('Component: ListPropertySelect', () => {
         const tree = renderer.create(
             <ListPropertySelect
                 onChange={onChange}
-                {...props}
+                path="some.path"
                 />
         ).toJSON();
 
