@@ -5,6 +5,9 @@ export default function ComputeChange(changes, original) {
         if (_.isNil(option)) {
             return change;
         }
+        if (value === undefined) {
+            return change;
+        }
 
         if (option.type == 'ability_score') {
             change.state.abilityScore = (
@@ -19,15 +22,12 @@ export default function ComputeChange(changes, original) {
                 original[root]
             );
         }
-        if (value == undefined) {
-            return change;
-        }
 
         const current = _.get(change.props, path);
         let update = null;
 
         if (
-            value == null
+            value === null
             || _.includes(
                 ['value', 'select'],
                 option.type
@@ -37,10 +37,11 @@ export default function ComputeChange(changes, original) {
         } else if (option.type == 'dict') {
             update = _.assign({}, current || {}, value);
         } else if (option.type == 'list') {
-            update = _.without(
+            update = _.difference(
                 current || [],
                 value.removed
-            ).concat(value.added);
+            );
+            update = _.concat(update, value.added);
             if (!option.multiple) {
                 update = _.uniq(update);
             }
