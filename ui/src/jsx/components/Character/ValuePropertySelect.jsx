@@ -21,7 +21,7 @@ class ValuePropertySelect extends LazyComponent
     }
 
     render() {
-        const { hidden = false, value = '' } = this.props;
+        const { hidden = false, value } = this.props;
 
         if (hidden) {
             return null;
