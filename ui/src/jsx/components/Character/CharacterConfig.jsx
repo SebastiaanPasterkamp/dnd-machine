@@ -31,27 +31,27 @@ class CharacterConfig extends LazyComponent
 
     render() {
         const {
-            config, onChange, getCurrent, getItems
+            config, onChange, getCurrent, getItems,
+            index: prefix = [],
         } = this.props;
 
         return <React.Fragment>{_.map(config, (option, index) => {
             const ConfigComponent = this.components[option.type];
 
-            if (ConfigComponent == undefined) {
-                console.log(option);
-                return null;
+            if (!ConfigComponent) {
+                throw "Unknown option type: " + option.type;
             }
 
             const props = {
-                index: this.props.index.concat([index]),
+                index: _.concat(prefix, [index]),
             };
             props.onChange = (
-                path, value, idx=null, opt=null
+                path, value, idx=props.index, opt=option
             ) => onChange(
                 path,
                 value,
-                idx || props.index,
-                opt || option,
+                idx,
+                opt,
             );
 
             if (_.includes(
@@ -65,13 +65,13 @@ class CharacterConfig extends LazyComponent
             if ('list' in option) {
                 props.items = getItems(option.list);
             } else if ('items' in option) {
-                if (_.isArray(option.items)) {
+                if (_.isObject(option.items[0])) {
+                    props.items = option.items;
+                } else {
                     props.items = _.map(option.items, i => ({
                         code: i,
                         label: i
                     }));
-                } else {
-                    props.items = option.items;
                 }
             }
             if ('path' in option) {
@@ -97,10 +97,6 @@ class CharacterConfig extends LazyComponent
                     />;
         })}</React.Fragment>
     }
-};
-
-CharacterConfig.defaultProps = {
-    index: [],
 };
 
 CharacterConfig.propTypes = {
