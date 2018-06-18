@@ -21,7 +21,7 @@ class SelectPropertySelect extends LazyComponent
     }
 
     render() {
-        const { hidden = false, items = [], current } = this.props;
+        const { hidden = false, items, current } = this.props;
 
         if (hidden) {
             return null;
@@ -41,7 +41,7 @@ SelectPropertySelect.propTypes = {
     path: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
-    value: PropTypes.any,
+    current: PropTypes.any,
     hidden: PropTypes.bool,
 };
 
