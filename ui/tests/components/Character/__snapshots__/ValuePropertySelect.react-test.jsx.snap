@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render 1`] = `
+<ValuePropertySelect
+  hidden={true}
+  onChange={[Function]}
+  path="some.path"
+  value="This shows _formatted_ content."
+/>
+`;
+
+exports[`render 2`] = `
+<ValuePropertySelect
+  onChange={[Function]}
+  path="some.path"
+  value="This shows _formatted_ content."
+>
+  <MarkdownTextField
+    className="small"
+    disabled={true}
+    setState={[Function]}
+    value="This shows _formatted_ content."
+  >
+    <div
+      className="markdown-textedit small preview"
+    >
+      <MDReactComponent
+        className="markdown-textedit__preview"
+        text="This shows _formatted_ content."
+      >
+        <span
+          className="markdown-textedit__preview"
+          key="mdrct-html-0"
+        >
+          <p
+            key="mdrct-p-0"
+          >
+            This shows 
+            <em
+              key="mdrct-em-1"
+            >
+              formatted
+            </em>
+             content.
+          </p>
+        </span>
+      </MDReactComponent>
+    </div>
+  </MarkdownTextField>
+</ValuePropertySelect>
+`;
