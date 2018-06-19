@@ -26,7 +26,7 @@ export class MonsterLinks extends BaseLinkGroup
         }
 
         const available = (
-            monster_id
+            monster_id != undefined
             && userHasRole(user, 'dm')
         );
 
@@ -42,7 +42,7 @@ export class MonsterLinks extends BaseLinkGroup
                 link: "/monster/raw/" + monster_id,
                 icon: 'cogs',
                 available: (
-                    monster_id
+                    monster_id != undefined
                     && userHasRole(user, 'admin')
                 ),
             }),
@@ -72,7 +72,7 @@ export class MonsterLinks extends BaseLinkGroup
                 link: "/monster/new",
                 icon: 'plus',
                 available: (
-                    !monster_id
+                    monster_id == undefined
                     && userHasRole(user, 'dm')
                 ),
             }),

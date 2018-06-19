@@ -27,14 +27,14 @@ export class SpellLinks extends BaseLinkGroup
                 label: 'View',
                 link: "/items/spell/show/" + spell_id,
                 icon: 'eye',
-                available: spell_id,
+                available: spell_id != undefined,
             }),
             'edit': () => ({
                 label: 'Edit',
                 link: "/items/spell/edit/" + spell_id,
                 icon: 'pencil',
                 available: (
-                    spell_id
+                    spell_id != undefined
                     && userHasRole(user, ['admin', 'dm'])
                 ),
             }),
@@ -43,7 +43,7 @@ export class SpellLinks extends BaseLinkGroup
                 link: "/items/spell/new",
                 icon: 'plus',
                 available: (
-                    !spell_id
+                    spell_id == undefined
                     && userHasRole(user, ['admin', 'dm'])
                 ),
             }),

@@ -27,14 +27,14 @@ export class ArmorLinks extends BaseLinkGroup
                 label: 'View',
                 link: "/items/armor/show/" + armor_id,
                 icon: 'eye',
-                available: armor_id,
+                available: armor_id != undefined,
             }),
             'edit': () => ({
                 label: 'Edit',
                 link: "/items/armor/edit/" + armor_id,
                 icon: 'pencil',
                 available: (
-                    armor_id
+                    armor_id != undefined
                     && userHasRole(user, ['admin', 'dm'])
                 ),
             }),
@@ -43,7 +43,7 @@ export class ArmorLinks extends BaseLinkGroup
                 link: "/items/armor/new",
                 icon: 'plus',
                 available: (
-                    !armor_id
+                    armor_id == undefined
                     && userHasRole(user, ['admin', 'dm'])
                 ),
             })

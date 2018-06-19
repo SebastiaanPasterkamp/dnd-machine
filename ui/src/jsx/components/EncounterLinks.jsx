@@ -28,7 +28,7 @@ export class EncounterLinks extends BaseLinkGroup
                 link: "/encounter/show/" + encounter_id,
                 icon: 'eye',
                 available:  (
-                    encounter_id
+                    encounter_id != undefined
                     && userHasRole(user, ['admin', 'dm'])
                 ),
             }),
@@ -37,7 +37,7 @@ export class EncounterLinks extends BaseLinkGroup
                 link: "/encounter/edit/" + encounter_id,
                 icon: 'pencil',
                 available: (
-                    encounter_id
+                    encounter_id != undefined
                     && userHasRole(user, ['admin', 'dm'])
                 ),
             }),
@@ -46,7 +46,7 @@ export class EncounterLinks extends BaseLinkGroup
                 link: "/encounter/new",
                 icon: 'plus',
                 available: (
-                    !encounter_id
+                    encounter_id == undefined
                     && userHasRole(user, ['admin', 'dm'])
                 ),
             }),

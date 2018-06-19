@@ -73,7 +73,7 @@ export class PartyLinks extends BaseLinkGroup
                 icon: 'ban',
                 className: 'info',
                 available: (
-                    party_id
+                    party_id != undefined
                     && userHasRole(user, 'dm')
                 ),
             } : {
@@ -95,7 +95,7 @@ export class PartyLinks extends BaseLinkGroup
                 },
                 icon: 'beer',
                 available: (
-                    party_id
+                    party_id != undefined
                     && userHasRole(user, 'dm')
                 ),
             }),
@@ -104,7 +104,7 @@ export class PartyLinks extends BaseLinkGroup
                 link: "/party/new",
                 icon: 'plus',
                 available: (
-                    !party_id
+                    party_id == undefined
                     && userHasRole(user, ['dm', 'admin'])
                 ),
             })
