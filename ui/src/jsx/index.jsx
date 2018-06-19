@@ -61,7 +61,7 @@ class DndMachine extends React.Component
         <header className="nice-header fixed">
             <div className="nice-header-container">
                 <h1 className="nice-header-brand">
-                    <Link to={auth ? "/login" : "/"}>
+                    <Link to={auth ? "/character/list" : "/login"}>
                         <img
                             src="/static/img/dungeons-and-dragons-logo.png"
                             height="35"
@@ -300,23 +300,12 @@ class DndMachine extends React.Component
                 }} />
             </Switch> : <Switch>
 
-                <Route path="/login" render={props => (
+                <Route path="*" render={props => (
                     <LoginDialog
                         message="Welcome to D&amp;D Machine. Please log in using your credentials to access this website."
                         icon="d20"
                         />
                 )} />
-
-                <Route
-                    path="*"
-                    render={props => {
-                        if (!loading) {
-                            window.location.href = '/login';
-                        }
-                        return <div
-                            className="nice-loading large brand viewport-center"></div>;
-                    }}
-                    />
 
             </Switch> }</ErrorBoundary>
         </section>
