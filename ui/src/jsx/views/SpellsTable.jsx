@@ -197,7 +197,7 @@ class SpellsTable extends React.Component
                     id="classes"
                     items={_classes || []}
                     selected={classes}
-                    label="All classes"
+                    emptyLabel="All classes"
                     setState={
                         (classes) => this.filterClasses(classes)
                     } />
@@ -207,7 +207,7 @@ class SpellsTable extends React.Component
                     id="levels"
                     items={this.levels}
                     selected={levels}
-                    label="All levels"
+                    emptyLabel="All levels"
                     setState={
                         (levels) => this.filterLevels(levels)
                     } />
