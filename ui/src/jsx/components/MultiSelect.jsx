@@ -37,17 +37,22 @@ class MultiSelect extends LazyComponent
     }
 
     getLabel() {
-        const { items, label, selected, emptyLabel } = this.props;
-        let result = emptyLabel;
+        const {
+            items, label, selected, emptyLabel,
+        } = this.props;
+
         if (selected.length == 1) {
-            let item = _.find(items, {
+            const { label = emptyLabel } = _.find(items, {
                 code: selected[0]
-            });
-            result = item.label;
-        } else if (selected.length > 1) {
-            result = selected.length + ' selected';
+            }) || {};
+
+            return label;
         }
-        return result;
+
+        if (selected.length > 1) {
+            return selected.length + ' selected';
+        }
+        return emptyLabel;
     }
 
     renderItem(item) {
