@@ -1,5 +1,7 @@
 // _tool-tip.scss
 
+@import 'media-values';
+
 /* Tooltip container */
 .tool-tip {
     position: relative;
@@ -12,6 +14,7 @@
         white-space: initial;
         visibility: hidden;
         width: 40em;
+        max-width: 80vw;
         background-color: #555;
         color: #fff;
         text-align: center;
@@ -28,6 +31,13 @@
         /* Fade in tooltip */
         opacity: 0;
         transition: opacity 0.3s;
+    }
+
+    @media #{$media} and ($feature: $value) {
+        .tool-tip--content {
+            width: 60vw;
+            margin-left: -30vw;
+        }
     }
 
     /* Tooltip arrow */
