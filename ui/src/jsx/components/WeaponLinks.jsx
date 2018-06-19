@@ -28,14 +28,14 @@ export class WeaponLinks extends BaseLinkGroup
                 label: 'View',
                 link: "/items/weapon/show/" + weapon_id,
                 icon: 'eye',
-                available: weapon_id,
+                available: weapon_id != undefined,
             }),
             'edit': () => ({
                 label: 'Edit',
                 link: "/items/weapon/edit/" + weapon_id,
                 icon: 'pencil',
                 available: (
-                    weapon_id
+                    weapon_id != undefined
                     && userHasRole(user, ['admin', 'dm'])
                 ),
             }),
@@ -44,7 +44,7 @@ export class WeaponLinks extends BaseLinkGroup
                 link: "/items/weapon/new",
                 icon: 'plus',
                 available: (
-                    !weapon_id
+                    weapon_id == undefined
                     && userHasRole(user, ['admin', 'dm'])
                 ),
             }),

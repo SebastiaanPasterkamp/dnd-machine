@@ -26,7 +26,7 @@ export class NpcLinks extends BaseLinkGroup
         }
 
         const available = (
-            npc_id
+            npc_id != undefined
             && userHasRole(user, 'dm')
         );
 
@@ -42,7 +42,7 @@ export class NpcLinks extends BaseLinkGroup
                 link: "/npc/raw/" + npc_id,
                 icon: 'cogs',
                 available: (
-                    npc_id
+                    npc_id != undefined
                     && userHasRole(user, 'admin')
                 ),
             }),
@@ -72,7 +72,7 @@ export class NpcLinks extends BaseLinkGroup
                 link: "/npc/new",
                 icon: 'plus',
                 available: (
-                    !npc_id
+                    npc_id == undefined
                     && userHasRole(user, 'dm')
                 ),
             }),

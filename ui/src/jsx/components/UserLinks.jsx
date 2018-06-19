@@ -30,7 +30,7 @@ export class UserLinks extends BaseLinkGroup
                 link: "/user/show/" + user_id,
                 icon: 'eye',
                 available: (
-                    user_id
+                    user_id != undefined
                     && (
                         user_id == current_user.id
                         || userHasRole(current_user, ['admin'])
@@ -42,7 +42,7 @@ export class UserLinks extends BaseLinkGroup
                 link: "/user/raw/" + user_id,
                 icon: 'cogs',
                 available: (
-                    user_id
+                    user_id != undefined
                     && userHasRole(current_user, ['admin'])
                 ),
             }),
@@ -51,7 +51,7 @@ export class UserLinks extends BaseLinkGroup
                 link: "/user/edit/" + user_id,
                 icon: 'pencil',
                 available: (
-                    user_id
+                    user_id != undefined
                     && (
                         user_id == current_user.id
                         || userHasRole(current_user, ['admin'])
@@ -63,7 +63,7 @@ export class UserLinks extends BaseLinkGroup
                 link: "/user/new",
                 icon: 'plus',
                 available: (
-                    !user_id
+                    user_id == undefined
                     && userHasRole(current_user, ['admin'])
                 ),
             }),
@@ -77,7 +77,7 @@ export class UserLinks extends BaseLinkGroup
                 icon: 'trash-o',
                 color: 'bad',
                 available: (
-                    user_id
+                    user_id != undefined
                     && (
                         user_id != current_user.id
                         && userHasRole(current_user, ['admin'])

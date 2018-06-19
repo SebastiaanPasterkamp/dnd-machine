@@ -16,7 +16,7 @@ export class CampaignLinks extends BaseLinkGroup
 
     buttonList() {
         const {
-            campaign = {}, campaign_id, current_user: user
+            campaign_id, campaign = {}, current_user: user
         } = this.props;
 
         if (!user) {
@@ -29,7 +29,7 @@ export class CampaignLinks extends BaseLinkGroup
                 link: "/campaign/show/" + campaign_id,
                 icon: 'eye',
                 available: (
-                    campaign_id
+                    campaign_id != undefined
                     && (
                         campaign.user_id == user.id
                         || userHasRole(user, 'admin')
@@ -41,7 +41,7 @@ export class CampaignLinks extends BaseLinkGroup
                 link: "/campaign/edit/" + campaign_id,
                 icon: 'pencil',
                 available: (
-                    campaign_id
+                    campaign_id != undefined
                     && campaign.user_id == user.id
                     && userHasRole(user, 'dm')
                 ),
@@ -51,7 +51,7 @@ export class CampaignLinks extends BaseLinkGroup
                 link: "/campaign/new",
                 icon: 'plus',
                 available: (
-                    !campaign_id
+                    campaign_id == undefined
                     && userHasRole(user, 'dm')
                 ),
             }),

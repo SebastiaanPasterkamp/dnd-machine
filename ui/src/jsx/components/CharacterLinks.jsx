@@ -38,7 +38,7 @@ export class CharacterLinks extends BaseLinkGroup
                 link: "/character/show/" + character_id,
                 icon: 'eye',
                 available: (
-                    character_id
+                    character_id != undefined
                     && userHasRole(user, ['player', 'dm'])
                 ),
             }),
@@ -47,7 +47,7 @@ export class CharacterLinks extends BaseLinkGroup
                 link: "/character/raw/" + character_id,
                 icon: 'cogs',
                 available: (
-                    character_id
+                    character_id != undefined
                     && userHasRole(user, 'admin')
                 ),
             }),
@@ -57,7 +57,7 @@ export class CharacterLinks extends BaseLinkGroup
                 icon: levelUp ? 'level-up' : 'pencil',
                 className: levelUp ? 'primary' : null,
                 available: (
-                    character_id
+                    character_id != undefined
                     && character.user_id == user.id
                 ),
             }),
@@ -75,7 +75,7 @@ export class CharacterLinks extends BaseLinkGroup
                 },
                 icon: 'clone',
                 available: (
-                    character_id
+                    character_id != undefined
                     && (
                         character.user_id == user.id
                         || userHasRole(user, ['dm'])
@@ -87,7 +87,7 @@ export class CharacterLinks extends BaseLinkGroup
                 download: "/character/download/" + character_id,
                 icon: 'file-pdf-o',
                 available: (
-                    character_id
+                    character_id != undefined
                     && userHasRole(user, ['player', 'dm'])
                 ),
             }),
@@ -96,7 +96,7 @@ export class CharacterLinks extends BaseLinkGroup
                 link: "/character/new",
                 icon: 'plus',
                 available: (
-                    !character_id
+                    character_id == undefined
                     && userHasRole(user, ['player', 'dm'])
                 ),
             }),
@@ -110,7 +110,7 @@ export class CharacterLinks extends BaseLinkGroup
                 icon: 'trash-o',
                 className: 'bad',
                 available: (
-                    character_id
+                    character_id != undefined
                     && character.user_id == user.id
                 ),
             }),
