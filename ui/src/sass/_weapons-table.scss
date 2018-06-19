@@ -1,0 +1,26 @@
+// _weapons-table.scss
+
+@import 'view-grid';
+
+.weapons-table {
+    nav {
+        text-align: center;
+    }
+
+    .weapons-table--properties {
+        > div:before {
+            content: ', ';
+        }
+        > div:first-of-type:before {
+            content: normal;
+        }
+    }
+
+    .weapons-table--search {
+        @extend .view-grid;
+
+        > * {
+            grid-column-end: span 6;
+        }
+    }
+}
