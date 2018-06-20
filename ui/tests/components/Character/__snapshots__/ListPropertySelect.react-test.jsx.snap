@@ -221,7 +221,6 @@ exports[`after 1`] = `
         setState={[Function]}
       >
         <OnClickOutside(BaseSelect)
-          emptyLabel="Add..."
           eventTypes={
             Array [
               "mousedown",
@@ -229,26 +228,14 @@ exports[`after 1`] = `
             ]
           }
           excludeScrollbar={false}
-          isDisabled={[Function]}
-          items={
-            Array [
-              Object {
-                "code": "strength",
-                "description": "Str",
-                "label": "Strength",
-              },
-            ]
-          }
           label="Add..."
           outsideClickIgnoreClass="ignore-react-onclickoutside"
           preventDefault={false}
-          setState={[Function]}
           stopPropagation={false}
         >
           <BaseSelect
             closeOnClick={true}
             disableOnClickOutside={[Function]}
-            emptyLabel="Add..."
             enableOnClickOutside={[Function]}
             eventTypes={
               Array [
@@ -256,20 +243,9 @@ exports[`after 1`] = `
                 "touchstart",
               ]
             }
-            isDisabled={[Function]}
-            items={
-              Array [
-                Object {
-                  "code": "strength",
-                  "description": "Str",
-                  "label": "Strength",
-                },
-              ]
-            }
             label="Add..."
             outsideClickIgnoreClass="ignore-react-onclickoutside"
             preventDefault={false}
-            setState={[Function]}
             stopPropagation={false}
           >
             <div
@@ -794,7 +770,6 @@ exports[`before 2`] = `
         setState={[Function]}
       >
         <OnClickOutside(BaseSelect)
-          emptyLabel="Add..."
           eventTypes={
             Array [
               "mousedown",
@@ -802,41 +777,14 @@ exports[`before 2`] = `
             ]
           }
           excludeScrollbar={false}
-          isDisabled={[Function]}
-          items={
-            Array [
-              Object {
-                "code": "strength",
-                "description": "Str",
-                "label": "Strength",
-              },
-              Object {
-                "code": "constitution",
-                "description": "Con",
-                "label": "Constitution",
-              },
-              Object {
-                "code": "intelligence",
-                "description": "Int",
-                "label": "Intelligence",
-              },
-              Object {
-                "code": "wisdom",
-                "description": "Wis",
-                "label": "Wisdom",
-              },
-            ]
-          }
           label="Add..."
           outsideClickIgnoreClass="ignore-react-onclickoutside"
           preventDefault={false}
-          setState={[Function]}
           stopPropagation={false}
         >
           <BaseSelect
             closeOnClick={true}
             disableOnClickOutside={[Function]}
-            emptyLabel="Add..."
             enableOnClickOutside={[Function]}
             eventTypes={
               Array [
@@ -844,35 +792,9 @@ exports[`before 2`] = `
                 "touchstart",
               ]
             }
-            isDisabled={[Function]}
-            items={
-              Array [
-                Object {
-                  "code": "strength",
-                  "description": "Str",
-                  "label": "Strength",
-                },
-                Object {
-                  "code": "constitution",
-                  "description": "Con",
-                  "label": "Constitution",
-                },
-                Object {
-                  "code": "intelligence",
-                  "description": "Int",
-                  "label": "Intelligence",
-                },
-                Object {
-                  "code": "wisdom",
-                  "description": "Wis",
-                  "label": "Wisdom",
-                },
-              ]
-            }
             label="Add..."
             outsideClickIgnoreClass="ignore-react-onclickoutside"
             preventDefault={false}
-            setState={[Function]}
             stopPropagation={false}
           >
             <div
@@ -1110,7 +1032,6 @@ exports[`removed 1`] = `
         setState={[Function]}
       >
         <OnClickOutside(BaseSelect)
-          emptyLabel="Add..."
           eventTypes={
             Array [
               "mousedown",
@@ -1118,41 +1039,14 @@ exports[`removed 1`] = `
             ]
           }
           excludeScrollbar={false}
-          isDisabled={[Function]}
-          items={
-            Array [
-              Object {
-                "code": "strength",
-                "description": "Str",
-                "label": "Strength",
-              },
-              Object {
-                "code": "constitution",
-                "description": "Con",
-                "label": "Constitution",
-              },
-              Object {
-                "code": "intelligence",
-                "description": "Int",
-                "label": "Intelligence",
-              },
-              Object {
-                "code": "wisdom",
-                "description": "Wis",
-                "label": "Wisdom",
-              },
-            ]
-          }
           label="Add..."
           outsideClickIgnoreClass="ignore-react-onclickoutside"
           preventDefault={false}
-          setState={[Function]}
           stopPropagation={false}
         >
           <BaseSelect
             closeOnClick={true}
             disableOnClickOutside={[Function]}
-            emptyLabel="Add..."
             enableOnClickOutside={[Function]}
             eventTypes={
               Array [
@@ -1160,35 +1054,9 @@ exports[`removed 1`] = `
                 "touchstart",
               ]
             }
-            isDisabled={[Function]}
-            items={
-              Array [
-                Object {
-                  "code": "strength",
-                  "description": "Str",
-                  "label": "Strength",
-                },
-                Object {
-                  "code": "constitution",
-                  "description": "Con",
-                  "label": "Constitution",
-                },
-                Object {
-                  "code": "intelligence",
-                  "description": "Int",
-                  "label": "Intelligence",
-                },
-                Object {
-                  "code": "wisdom",
-                  "description": "Wis",
-                  "label": "Wisdom",
-                },
-              ]
-            }
             label="Add..."
             outsideClickIgnoreClass="ignore-react-onclickoutside"
             preventDefault={false}
-            setState={[Function]}
             stopPropagation={false}
           >
             <div
