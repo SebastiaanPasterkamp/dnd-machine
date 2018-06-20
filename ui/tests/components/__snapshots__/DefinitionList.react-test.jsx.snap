@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: DefinitionList should render with minimum props 1`] = `
+<ul
+  className="list-component"
+>
+  <li>
+    <div>
+      <input
+        className="nice-form-control"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Name..."
+        type={undefined}
+        value=""
+      />
+      <div
+        className="markdown-textedit preview"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <span
+          className="markdown-textedit__placeholder"
+        >
+          Description...
+        </span>
+        <textarea
+          className="nice-form-control"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="Description..."
+          rows={5}
+          value=""
+        />
+        <span
+          className="markdown-textedit__preview"
+        />
+      </div>
+    </div>
+    <button
+      className="nice-btn list-component__delete warning icon fa-minus"
+      disabled={true}
+      name="del"
+      onClick={[Function]}
+    >
+      ​
+    </button>
+  </li>
+</ul>
+`;
+
+exports[`Component: DefinitionList show some items 1`] = `
+<ul
+  className="list-component"
+>
+  <li>
+    <div>
+      <input
+        className="nice-form-control"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Name..."
+        type={undefined}
+        value="foo"
+      />
+      <div
+        className="markdown-textedit preview"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <textarea
+          className="nice-form-control"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="Description..."
+          rows={5}
+          value="bar"
+        />
+        <span
+          className="markdown-textedit__preview"
+        >
+          <p>
+            bar
+          </p>
+        </span>
+      </div>
+    </div>
+    <button
+      className="nice-btn list-component__delete warning icon fa-minus"
+      disabled={false}
+      name="del"
+      onClick={[Function]}
+    >
+      ​
+    </button>
+  </li>
+  <li>
+    <div>
+      <input
+        className="nice-form-control"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Name..."
+        type={undefined}
+        value="hello"
+      />
+      <div
+        className="markdown-textedit preview"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <textarea
+          className="nice-form-control"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="Description..."
+          rows={5}
+          value="*mark* _down_"
+        />
+        <span
+          className="markdown-textedit__preview"
+        >
+          <p>
+            <em>
+              mark
+            </em>
+             
+            <em>
+              down
+            </em>
+          </p>
+        </span>
+      </div>
+    </div>
+    <button
+      className="nice-btn list-component__delete warning icon fa-minus"
+      disabled={false}
+      name="del"
+      onClick={[Function]}
+    >
+      ​
+    </button>
+  </li>
+  <li>
+    <div>
+      <input
+        className="nice-form-control"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Name..."
+        type={undefined}
+        value=""
+      />
+      <div
+        className="markdown-textedit preview"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <span
+          className="markdown-textedit__placeholder"
+        >
+          Description...
+        </span>
+        <textarea
+          className="nice-form-control"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="Description..."
+          rows={5}
+          value=""
+        />
+        <span
+          className="markdown-textedit__preview"
+        />
+      </div>
+    </div>
+    <button
+      className="nice-btn list-component__delete warning icon fa-minus"
+      disabled={true}
+      name="del"
+      onClick={[Function]}
+    >
+      ​
+    </button>
+  </li>
+</ul>
+`;
