@@ -140,7 +140,7 @@ export class NpcEdit extends React.Component
             name, location, organization, 'class': _class,
             classes = [], race, races = [], gender, genders = [],
             description = '', alignment, alignments = [], size,
-            size_hit_dice = [], level, traits = [], statistics,
+            size_hit_dice = [], level, traits = {}, statistics,
             _statistics = []
         } = this.props;
 
