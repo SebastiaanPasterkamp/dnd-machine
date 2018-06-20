@@ -5,16 +5,30 @@ import renderer from 'react-test-renderer';
 import { stub } from 'sinon';
 import MultiSelect from '../../src/jsx/components/MultiSelect.jsx';
 
+const props = {
+    items: [
+        {code: 1, label: 'One'},
+        {code: 2, label: 'Two'},
+        {code: 3, label: 'Three'},
+        {code: 4, label: 'Four'},
+    ],
+};
+const disabled = {
+    items: [
+        {code: 1, label: 'One', disabled: true},
+        {code: 2, label: 'Two'},
+        {code: 3, label: 'Three'},
+        {code: 4, label: 'Four'},
+    ],
+};
+
 describe('Component: MultiSelect', () => {
     it('should show a simple dropdown with 4 items', () => {
-        const items = [
-            {code: 1, label: 'One'},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-            {code: 4, label: 'Four'},
-        ];
         const tree = renderer.create(
-            <MultiSelect items={items} selected={[]} />
+            <MultiSelect
+                {...props}
+                selected={[]}
+                />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -28,40 +42,43 @@ describe('Component: MultiSelect', () => {
             {code: 4, label: 'Four'},
         ];
         const tree = renderer.create(
-            <MultiSelect items={items} selected={[3,4]} />
-        ).toJSON();
-
-        expect(tree).toMatchSnapshot();
-    });
-
-    it('should show a dropdown with 4 items disabled by callback', () => {
-        const items = [
-            {code: 1, label: 'One'},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-            {code: 4, label: 'Four'},
-        ];
-        const tree = renderer.create(
             <MultiSelect
                 items={items}
                 selected={[3,4]}
-                isDisabled={(item) => { return item.code%2 == 0; }}
                 />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
     });
 
+    it('should show a dropdown with 4 items disabled by callback', () => {
+        const tree = renderer.create(
+            <MultiSelect
+                {...props}
+                selected={[3,4]}
+                isDisabled={item => (item.code%2 == 0)}
+                />
+        ).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should handle unknown value', () => {
+        const tree = renderer.create(
+            <MultiSelect
+                {...props}
+                selected={[5]}
+                />
+        );
+
+        expect(tree)
+            .toMatchSnapshot();
+    });
+
     it('should contain expected elements', () => {
-        const items = [
-            {code: 1, label: 'One', disabled: true},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-            {code: 4, label: 'Four'},
-        ];
         const wrapper = mount(
             <MultiSelect
-                items={items}
+                {...disabled}
                 selected={[2,3]}
                 />
         );
@@ -90,14 +107,11 @@ describe('Component: MultiSelect', () => {
     });
 
     it('should not close on click', () => {
-        const items = [
-            {code: 1, label: 'One', disabled: true},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-            {code: 4, label: 'Four'},
-        ];
         const wrapper = mount(
-            <MultiSelect items={items} selected={[]} />
+            <MultiSelect
+                {...disabled}
+                selected={[]}
+                />
         );
 
         expect(wrapper.find('ul.shown').exists()).toBe(false);
@@ -112,15 +126,9 @@ describe('Component: MultiSelect', () => {
 
     it('should callback for disabled states', () => {
         const onIsDisabled = stub();
-        const items = [
-            {code: 1, label: 'One', disabled: true},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-            {code: 4, label: 'Four'},
-        ];
         const wrapper = mount(
             <MultiSelect
-                items={items}
+                {...disabled}
                 selected={[]}
                 isDisabled={onIsDisabled}
                 />
@@ -135,15 +143,9 @@ describe('Component: MultiSelect', () => {
         onClickCallback.callsFake((state) => {
             selected = state;
         });
-        const items = [
-            {code: 1, label: 'One', disabled: true},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-            {code: 4, label: 'Four'},
-        ];
         const wrapper = mount(
             <MultiSelect
-                items={items}
+                {...disabled}
                 selected={selected}
                 setState={onClickCallback}
                 />
@@ -158,15 +160,9 @@ describe('Component: MultiSelect', () => {
 
     it('should not callback for disabled item', () => {
         const onClickCallback = stub();
-        const items = [
-            {code: 1, label: 'One', disabled: true},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-            {code: 4, label: 'Four'},
-        ];
         const wrapper = mount(
             <MultiSelect
-                items={items}
+                {...disabled}
                 selected={[3]}
                 setState={onClickCallback}
                 />
