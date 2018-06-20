@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import BaseSelect from './BaseSelect.jsx';
@@ -7,33 +8,23 @@ import utils from '../utils.jsx';
 
 class MultiSelect extends LazyComponent
 {
-    getId(item) {
-        if ('code' in item) {
-            return item.code;
-        }
-        return item.name;
-    }
-
-    getName(item) {
-        if ('label' in item) {
-            return item.label;
-        }
-        return item.name;
-    }
-
     onChange(item, checked) {
-        if (this.props.isDisabled(item)) {
+        const {
+            selected,
+            isDisabled,
+            setState
+        } = this.props;
+
+        if (isDisabled(item)) {
             return;
         }
-        let selected = [];
-        const id = this.getId(item);
-        if (checked) {
-            selected = _.concat(this.props.selected, [id]);
-        } else {
-            selected = _.difference(this.props.selected, [id]);
-        }
 
-        this.props.setState(selected);
+        const id = _.get(item, 'code', item.name);
+        const newState = checked
+            ? _.concat(selected, [id])
+            : _.difference(selected, [id]);
+
+        setState(newState);
     }
 
     getLabel() {
@@ -52,57 +43,81 @@ class MultiSelect extends LazyComponent
         if (selected.length > 1) {
             return selected.length + ' selected';
         }
+
         return emptyLabel;
     }
 
     renderItem(item) {
-        const { selected } = this.props;
-        const id = this.getId(item);
-        let isChecked = _.includes(selected, id);
-        let isDisabled = this.props.isDisabled(item)
-        let style = utils.makeStyle({
-            info: isChecked,
-            disabled: isDisabled
+        const {
+            selected,
+            isDisabled,
+        } = this.props;
+        const id = _.get(item, 'code', item.name);
+        const checked = _.includes(selected, id);
+        const disabled = isDisabled(item);
+        const style = utils.makeStyle({
+            info: checked,
+            disabled,
         });
+
         return <li
-                key={id}
-                data-value={id}
-                className={style}
-                >
-            <label><input
+            key={id}
+            data-value={id}
+            className={style}
+            >
+            <label>
+                <input
                     type="checkbox"
-                    checked={isChecked}
-                    disabled={isDisabled}
+                    checked={ checked }
+                    disabled={ disabled }
                     onChange={
-                        isDisabled
-                            ? null
-                            : () => this.onChange(item, !isChecked)}
+                        disabled
+                        ? null
+                        : () => this.onChange(item, !checked)
+                    }
                     />
-                {this.getName(item)}
+                { _.get(item, 'label', item.name) }
             </label>
         </li>
     }
 
     render() {
+        const {
+            items,
+            selected,
+            setState,
+            isDisabled,
+            emptyLabel,
+            ...props,
+        } = this.props;
+
         return <BaseSelect
-                label={this.getLabel()}
-                closeOnClick={false}
-                {...this.props}>
-            {this.props.items
-                .map((item) => this.renderItem(item))
-            }
+            label={ this.getLabel() }
+            closeOnClick={ false }
+            {...props}
+            >
+            {_.map(
+                items,
+                item => this.renderItem(item)
+            )}
         </BaseSelect>;
     }
 }
 
 MultiSelect.defaultProps = {
     emptyLabel: "0 selected",
-    isDisabled: (item) => {
-        return item.disabled;
-    },
+    isDisabled: (item) => item.disabled,
     setState: (selected) => {
         console.log(['MultiSelect', selected]);
     }
+};
+
+MultiSelect.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    selected: PropTypes.arrayOf(PropTypes.any).isRequired,
+    setState: PropTypes.func.isRequired,
+    isDisabled: PropTypes.func.isRequired,
+    emptyLabel: PropTypes.string,
 };
 
 export default MultiSelect;

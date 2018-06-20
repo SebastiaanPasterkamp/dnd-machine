@@ -1,85 +1,91 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LazyComponent from '../components/LazyComponent.jsx';
-
 import _ from 'lodash';
 
 import BaseSelect from './BaseSelect.jsx';
+import LazyComponent from '../components/LazyComponent.jsx';
+import utils from '../utils.jsx';
 
 class SingleSelect extends LazyComponent
 {
-    getId(item) {
-        if ('code' in item) {
-            return item.code;
-        }
-        return item.name;
-    }
-
-    getName(item) {
-        if ('label' in item) {
-            return item.label;
-        }
-        return item.name;
-    }
-
     onClick(item) {
         if (this.props.isDisabled(item)) {
             return;
         }
 
-        this.props.setState(this.getId(item));
+        this.props.setState(
+            _.get(item, 'code', item.name)
+        );
     }
 
     getLabel() {
-        let label = this.props.emptyLabel;
-        let item = _.find(
-            this.props.items,
-            {code: this.props.selected}
-        ) || _.find(
-            this.props.items,
-            {name: this.props.selected}
+        const {
+            items,
+            selected,
+            emptyLabel,
+        } = this.props;
+
+        const item = (
+            _.find(items, {code: selected})
+            || _.find(items, {name: selected})
         );
-        if (
-            !_.isNil(item)
-            && !_.isNil(this.getId(item))
-        ) {
-            label = this.getName(item);
+
+        if (_.isNil(item)) {
+            return emptyLabel;
         }
-        return label;
+
+        return _.get(item, 'label', item.name);
     }
 
     renderItem(item) {
-        if (_.isNil(this.getId(item))) {
+        const id = _.get(item, 'code', item.name);
+        if (_.isNil(id)) {
             return null;
         }
-        let isDisabled = this.props.isDisabled(item);
-        let style = _.filter([
-            this.getId(item) == this.props.selected
-                ? "info"
-                : null,
-            isDisabled
-                ? "disabled"
-                : null
-            ]);
+
+        const {
+            selected,
+            isDisabled,
+        } = this.props;
+
+        const disabled = isDisabled(item);
+        const style = utils.makeStyle({
+            info: id === selected,
+            disabled,
+        });
+
         return <li
-                key={this.getId(item)}
-                className={style.length ? style.join(' ') : null}
-                data-value={this.getId(item)}
-                onClick={isDisabled
-                    ? null
-                    : () => this.onClick(item)
-                }
-                >
-            <a>{this.getName(item)}</a>
-        </li>
+            key={ id }
+            className={ style }
+            data-value={ id }
+            onClick={
+                disabled
+                ? null
+                : () => this.onClick(item)
+            }
+            >
+            <a>
+                { _.get(item, 'label', item.name) }
+            </a>
+        </li>;
     }
 
     render() {
+        const {
+            items,
+            selected,
+            setState,
+            isDisabled,
+            emptyLabel,
+            ...props,
+        } = this.props;
+
         return <BaseSelect
-                label={this.getLabel()}
-                {...this.props}>
+            label={ this.getLabel() }
+            {...props}
+            >
             {_.map(
-                this.props.items,
+                items,
                 item => this.renderItem(item)
             )}
         </BaseSelect>;
@@ -87,24 +93,18 @@ class SingleSelect extends LazyComponent
 }
 
 SingleSelect.defaultProps = {
-    isDisabled: (item) => {
-        return (
-            'disabled' in item
-            && item.disabled
-        );
-    },
+    isDisabled: (item) => item.disabled,
     setState: (selected) => {
         console.log(['SingleSelect', selected]);
     }
 };
 
 SingleSelect.propTypes = {
-    isDisabled: PropTypes.func.isRequired,
-    setState: PropTypes.func.isRequired,
-    emptyLabel: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
     selected: PropTypes.any,
-
+    setState: PropTypes.func.isRequired,
+    isDisabled: PropTypes.func.isRequired,
+    emptyLabel: PropTypes.string,
 };
 
 export default SingleSelect;
