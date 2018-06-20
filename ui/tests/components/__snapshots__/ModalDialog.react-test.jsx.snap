@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ModalDialog should render with full props 1`] = `
+<div
+  className="nice-modal viewport-center accent wide"
+>
+  <div
+    className="nice-modal-content"
+  >
+    <div
+      className="nice-modal-header"
+    >
+      <a
+        className="nice-modal-close"
+        onClick={[Function]}
+      >
+        <i
+          className="icon fa-times"
+        />
+      </a>
+      <h4>
+        test
+      </h4>
+    </div>
+    <div
+      className="nice-modal-sub"
+    >
+      more testing
+    </div>
+    <div
+      className="nice-modal-body overflow-x-scroll"
+    >
+      <span>
+        Foo bar
+      </span>
+    </div>
+    <div
+      className="nice-modal-footer"
+    >
+      <a
+        className="nice-btn link icon fa-question"
+        onClick={[Function]}
+      >
+        Whut!
+      </a>
+      <div
+        className="base-link-group nice-btn-group pull-right"
+      >
+        <a
+          className="cursor-pointer nice-btn icon fa-fa-cross pull-right"
+          onClick={[Function]}
+        >
+          Close
+        </a>
+        <a
+          className="cursor-pointer nice-btn icon fa-fa-check primary"
+          onClick={[Function]}
+        >
+          Save
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Component: ModalDialog should render with minimum props 1`] = `
+<div
+  className="nice-modal viewport-center accent wide"
+>
+  <div
+    className="nice-modal-content"
+  >
+    <div
+      className="nice-modal-header"
+    >
+      <a
+        className="nice-modal-close"
+        onClick={undefined}
+      >
+        <i
+          className="icon fa-times"
+        />
+      </a>
+      <h4>
+        test
+      </h4>
+    </div>
+    <div
+      className="nice-modal-body overflow-x-scroll"
+    >
+      Foo bar
+    </div>
+    <div
+      className="nice-modal-footer"
+    >
+      <div
+        className="base-link-group nice-btn-group pull-right"
+      />
+    </div>
+  </div>
+</div>
+`;
