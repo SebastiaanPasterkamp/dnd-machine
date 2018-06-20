@@ -5,42 +5,48 @@ import renderer from 'react-test-renderer';
 import { stub } from 'sinon';
 import SingleSelect from '../../src/jsx/components/SingleSelect.jsx';
 
+const props = {
+    items: [
+        {code: 1, label: 'One'},
+        {code: 2, label: 'Two'},
+        {code: 3, label: 'Three'},
+    ],
+};
+
+const disabled = {
+    items: [
+        {code: 1, label: 'One', disabled: true},
+        {code: 2, label: 'Two'},
+        {code: 3, label: 'Three'},
+    ],
+};
+
 describe('Component: SingleSelect', () => {
     it('should show a simple dropdown with 3 items', () => {
-        const items = [
-            {code: 1, label: 'One'},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-        ];
         const tree = renderer.create(
-            <SingleSelect items={items} />
+            <SingleSelect
+                {...props}
+                />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
     });
 
     it('should show a dropdown with 3 items in various states', () => {
-        const items = [
-            {code: 1, label: 'One'},
-            {code: 2, label: 'Two', disabled: true},
-            {code: 3, label: 'Three'},
-        ];
         const tree = renderer.create(
-            <SingleSelect items={items} selected={3} />
+            <SingleSelect
+                {...disabled}
+                selected={3}
+                />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
     });
 
     it('should show a dropdown with 3 items disabled by callback', () => {
-        const items = [
-            {code: 1, label: 'One'},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-        ];
         const tree = renderer.create(
             <SingleSelect
-                items={items}
+                {...props}
                 selected={3}
                 isDisabled={(item) => { return item.code != 2; }}
                 />
@@ -49,15 +55,22 @@ describe('Component: SingleSelect', () => {
         expect(tree).toMatchSnapshot();
     });
 
+    it('should handle unknown value', () => {
+        const tree = renderer.create(
+            <SingleSelect
+                {...props}
+                selected={4}
+                />
+        );
+
+        expect(tree)
+            .toMatchSnapshot();
+    });
+
     it('should contain expected elements', () => {
-        const items = [
-            {code: 1, label: 'One', disabled: true},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-        ];
         const wrapper = mount(
             <SingleSelect
-                items={items}
+                {...disabled}
                 selected={2}
                 />
         );
@@ -80,13 +93,10 @@ describe('Component: SingleSelect', () => {
     });
 
     it('should close on click', () => {
-        const items = [
-            {code: 1, label: 'One', disabled: true},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-        ];
         const wrapper = mount(
-            <SingleSelect items={items} />
+            <SingleSelect
+                {...disabled}
+                />
         );
 
         expect(wrapper.find('ul.shown').exists()).toBe(false);
@@ -101,13 +111,11 @@ describe('Component: SingleSelect', () => {
 
     it('should callback for disabled states', () => {
         const onIsDisabled = stub();
-        const items = [
-            {code: 1, label: 'One', disabled: true},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-        ];
         const wrapper = mount(
-            <SingleSelect items={items} isDisabled={onIsDisabled} />
+            <SingleSelect
+                {...disabled}
+                isDisabled={onIsDisabled}
+                />
         );
 
         expect(onIsDisabled.callCount).toEqual(3);
@@ -115,13 +123,11 @@ describe('Component: SingleSelect', () => {
 
     it('should callback the newly selected item', () => {
         const onClickCallback = stub();
-        const items = [
-            {code: 1, label: 'One', disabled: true},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-        ];
         const wrapper = mount(
-            <SingleSelect items={items} setState={onClickCallback} />
+            <SingleSelect
+                {...disabled}
+                setState={onClickCallback}
+                />
         );
 
         wrapper.find('button').simulate('click');
@@ -132,13 +138,11 @@ describe('Component: SingleSelect', () => {
 
     it('should not callback for disabled item', () => {
         const onClickCallback = stub();
-        const items = [
-            {code: 1, label: 'One', disabled: true},
-            {code: 2, label: 'Two'},
-            {code: 3, label: 'Three'},
-        ];
         const wrapper = mount(
-            <SingleSelect items={items} setState={onClickCallback} />
+            <SingleSelect
+                {...disabled}
+                setState={onClickCallback}
+                />
         );
 
         wrapper.find('button').simulate('click');
