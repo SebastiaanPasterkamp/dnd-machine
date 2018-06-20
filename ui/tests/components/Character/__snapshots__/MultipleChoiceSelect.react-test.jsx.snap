@@ -593,7 +593,6 @@ exports[`removed 1`] = `
             setState={[Function]}
           >
             <OnClickOutside(BaseSelect)
-              emptyLabel="Add..."
               eventTypes={
                 Array [
                   "mousedown",
@@ -601,29 +600,14 @@ exports[`removed 1`] = `
                 ]
               }
               excludeScrollbar={false}
-              isDisabled={[Function]}
-              items={
-                Array [
-                  Object {
-                    "code": "Simple",
-                    "label": "Simple",
-                  },
-                  Object {
-                    "code": "Complex",
-                    "label": "Complex",
-                  },
-                ]
-              }
               label="Add..."
               outsideClickIgnoreClass="ignore-react-onclickoutside"
               preventDefault={false}
-              setState={[Function]}
               stopPropagation={false}
             >
               <BaseSelect
                 closeOnClick={true}
                 disableOnClickOutside={[Function]}
-                emptyLabel="Add..."
                 enableOnClickOutside={[Function]}
                 eventTypes={
                   Array [
@@ -631,23 +615,9 @@ exports[`removed 1`] = `
                     "touchstart",
                   ]
                 }
-                isDisabled={[Function]}
-                items={
-                  Array [
-                    Object {
-                      "code": "Simple",
-                      "label": "Simple",
-                    },
-                    Object {
-                      "code": "Complex",
-                      "label": "Complex",
-                    },
-                  ]
-                }
                 label="Add..."
                 outsideClickIgnoreClass="ignore-react-onclickoutside"
                 preventDefault={false}
-                setState={[Function]}
                 stopPropagation={false}
               >
                 <div
@@ -777,7 +747,6 @@ exports[`removed 2`] = `
             setState={[Function]}
           >
             <OnClickOutside(BaseSelect)
-              emptyLabel="Add..."
               eventTypes={
                 Array [
                   "mousedown",
@@ -785,29 +754,14 @@ exports[`removed 2`] = `
                 ]
               }
               excludeScrollbar={false}
-              isDisabled={[Function]}
-              items={
-                Array [
-                  Object {
-                    "code": "Simple",
-                    "label": "Simple",
-                  },
-                  Object {
-                    "code": "Complex",
-                    "label": "Complex",
-                  },
-                ]
-              }
               label="Add..."
               outsideClickIgnoreClass="ignore-react-onclickoutside"
               preventDefault={false}
-              setState={[Function]}
               stopPropagation={false}
             >
               <BaseSelect
                 closeOnClick={true}
                 disableOnClickOutside={[Function]}
-                emptyLabel="Add..."
                 enableOnClickOutside={[Function]}
                 eventTypes={
                   Array [
@@ -815,23 +769,9 @@ exports[`removed 2`] = `
                     "touchstart",
                   ]
                 }
-                isDisabled={[Function]}
-                items={
-                  Array [
-                    Object {
-                      "code": "Simple",
-                      "label": "Simple",
-                    },
-                    Object {
-                      "code": "Complex",
-                      "label": "Complex",
-                    },
-                  ]
-                }
                 label="Add..."
                 outsideClickIgnoreClass="ignore-react-onclickoutside"
                 preventDefault={false}
-                setState={[Function]}
                 stopPropagation={false}
               >
                 <div

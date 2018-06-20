@@ -558,7 +558,6 @@ exports[`Component: CharacterConfig should render list 1`] = `
           setState={[Function]}
         >
           <OnClickOutside(BaseSelect)
-            emptyLabel="Add..."
             eventTypes={
               Array [
                 "mousedown",
@@ -566,41 +565,14 @@ exports[`Component: CharacterConfig should render list 1`] = `
               ]
             }
             excludeScrollbar={false}
-            isDisabled={[Function]}
-            items={
-              Array [
-                Object {
-                  "code": "strength",
-                  "description": "Str",
-                  "label": "Strength",
-                },
-                Object {
-                  "code": "dexterity",
-                  "description": "Dex",
-                  "label": "Dexterity",
-                },
-                Object {
-                  "code": "constitution",
-                  "description": "Con",
-                  "label": "Constitution",
-                },
-                Object {
-                  "code": "intelligence",
-                  "description": "Int",
-                  "label": "Intelligence",
-                },
-              ]
-            }
             label="Add..."
             outsideClickIgnoreClass="ignore-react-onclickoutside"
             preventDefault={false}
-            setState={[Function]}
             stopPropagation={false}
           >
             <BaseSelect
               closeOnClick={true}
               disableOnClickOutside={[Function]}
-              emptyLabel="Add..."
               enableOnClickOutside={[Function]}
               eventTypes={
                 Array [
@@ -608,35 +580,9 @@ exports[`Component: CharacterConfig should render list 1`] = `
                   "touchstart",
                 ]
               }
-              isDisabled={[Function]}
-              items={
-                Array [
-                  Object {
-                    "code": "strength",
-                    "description": "Str",
-                    "label": "Strength",
-                  },
-                  Object {
-                    "code": "dexterity",
-                    "description": "Dex",
-                    "label": "Dexterity",
-                  },
-                  Object {
-                    "code": "constitution",
-                    "description": "Con",
-                    "label": "Constitution",
-                  },
-                  Object {
-                    "code": "intelligence",
-                    "description": "Int",
-                    "label": "Intelligence",
-                  },
-                ]
-              }
               label="Add..."
               outsideClickIgnoreClass="ignore-react-onclickoutside"
               preventDefault={false}
-              setState={[Function]}
               stopPropagation={false}
             >
               <div
@@ -1022,7 +968,6 @@ exports[`Component: CharacterConfig should render select 1`] = `
     >
       <OnClickOutside(BaseSelect)
         className="small"
-        emptyLabel="Please select"
         eventTypes={
           Array [
             "mousedown",
@@ -1030,53 +975,15 @@ exports[`Component: CharacterConfig should render select 1`] = `
           ]
         }
         excludeScrollbar={false}
-        isDisabled={[Function]}
-        items={
-          Array [
-            Object {
-              "code": "strength",
-              "description": "Str",
-              "label": "Strength",
-            },
-            Object {
-              "code": "dexterity",
-              "description": "Dex",
-              "label": "Dexterity",
-            },
-            Object {
-              "code": "constitution",
-              "description": "Con",
-              "label": "Constitution",
-            },
-            Object {
-              "code": "intelligence",
-              "description": "Int",
-              "label": "Intelligence",
-            },
-            Object {
-              "code": "wisdom",
-              "description": "Wis",
-              "label": "Wisdom",
-            },
-            Object {
-              "code": "charisma",
-              "description": "Char",
-              "label": "Charisma",
-            },
-          ]
-        }
         label="Strength"
         outsideClickIgnoreClass="ignore-react-onclickoutside"
         preventDefault={false}
-        selected="strength"
-        setState={[Function]}
         stopPropagation={false}
       >
         <BaseSelect
           className="small"
           closeOnClick={true}
           disableOnClickOutside={[Function]}
-          emptyLabel="Please select"
           enableOnClickOutside={[Function]}
           eventTypes={
             Array [
@@ -1084,46 +991,9 @@ exports[`Component: CharacterConfig should render select 1`] = `
               "touchstart",
             ]
           }
-          isDisabled={[Function]}
-          items={
-            Array [
-              Object {
-                "code": "strength",
-                "description": "Str",
-                "label": "Strength",
-              },
-              Object {
-                "code": "dexterity",
-                "description": "Dex",
-                "label": "Dexterity",
-              },
-              Object {
-                "code": "constitution",
-                "description": "Con",
-                "label": "Constitution",
-              },
-              Object {
-                "code": "intelligence",
-                "description": "Int",
-                "label": "Intelligence",
-              },
-              Object {
-                "code": "wisdom",
-                "description": "Wis",
-                "label": "Wisdom",
-              },
-              Object {
-                "code": "charisma",
-                "description": "Char",
-                "label": "Charisma",
-              },
-            ]
-          }
           label="Strength"
           outsideClickIgnoreClass="ignore-react-onclickoutside"
           preventDefault={false}
-          selected="strength"
-          setState={[Function]}
           stopPropagation={false}
         >
           <div
@@ -1340,7 +1210,6 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
           setState={[Function]}
         >
           <OnClickOutside(BaseSelect)
-            emptyLabel="Add..."
             eventTypes={
               Array [
                 "mousedown",
@@ -1348,25 +1217,14 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
               ]
             }
             excludeScrollbar={false}
-            isDisabled={[Function]}
-            items={
-              Array [
-                Object {
-                  "code": "foo",
-                  "label": "foo",
-                },
-              ]
-            }
             label="Add..."
             outsideClickIgnoreClass="ignore-react-onclickoutside"
             preventDefault={false}
-            setState={[Function]}
             stopPropagation={false}
           >
             <BaseSelect
               closeOnClick={true}
               disableOnClickOutside={[Function]}
-              emptyLabel="Add..."
               enableOnClickOutside={[Function]}
               eventTypes={
                 Array [
@@ -1374,19 +1232,9 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                   "touchstart",
                 ]
               }
-              isDisabled={[Function]}
-              items={
-                Array [
-                  Object {
-                    "code": "foo",
-                    "label": "foo",
-                  },
-                ]
-              }
               label="Add..."
               outsideClickIgnoreClass="ignore-react-onclickoutside"
               preventDefault={false}
-              setState={[Function]}
               stopPropagation={false}
             >
               <div
@@ -1592,7 +1440,6 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
           setState={[Function]}
         >
           <OnClickOutside(BaseSelect)
-            emptyLabel="Add..."
             eventTypes={
               Array [
                 "mousedown",
@@ -1600,51 +1447,14 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
               ]
             }
             excludeScrollbar={false}
-            isDisabled={[Function]}
-            items={
-              Array [
-                Object {
-                  "code": "strength",
-                  "description": "Str",
-                  "label": "Strength",
-                },
-                Object {
-                  "code": "dexterity",
-                  "description": "Dex",
-                  "label": "Dexterity",
-                },
-                Object {
-                  "code": "constitution",
-                  "description": "Con",
-                  "label": "Constitution",
-                },
-                Object {
-                  "code": "intelligence",
-                  "description": "Int",
-                  "label": "Intelligence",
-                },
-                Object {
-                  "code": "wisdom",
-                  "description": "Wis",
-                  "label": "Wisdom",
-                },
-                Object {
-                  "code": "charisma",
-                  "description": "Char",
-                  "label": "Charisma",
-                },
-              ]
-            }
             label="Add..."
             outsideClickIgnoreClass="ignore-react-onclickoutside"
             preventDefault={false}
-            setState={[Function]}
             stopPropagation={false}
           >
             <BaseSelect
               closeOnClick={true}
               disableOnClickOutside={[Function]}
-              emptyLabel="Add..."
               enableOnClickOutside={[Function]}
               eventTypes={
                 Array [
@@ -1652,45 +1462,9 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                   "touchstart",
                 ]
               }
-              isDisabled={[Function]}
-              items={
-                Array [
-                  Object {
-                    "code": "strength",
-                    "description": "Str",
-                    "label": "Strength",
-                  },
-                  Object {
-                    "code": "dexterity",
-                    "description": "Dex",
-                    "label": "Dexterity",
-                  },
-                  Object {
-                    "code": "constitution",
-                    "description": "Con",
-                    "label": "Constitution",
-                  },
-                  Object {
-                    "code": "intelligence",
-                    "description": "Int",
-                    "label": "Intelligence",
-                  },
-                  Object {
-                    "code": "wisdom",
-                    "description": "Wis",
-                    "label": "Wisdom",
-                  },
-                  Object {
-                    "code": "charisma",
-                    "description": "Char",
-                    "label": "Charisma",
-                  },
-                ]
-              }
               label="Add..."
               outsideClickIgnoreClass="ignore-react-onclickoutside"
               preventDefault={false}
-              setState={[Function]}
               stopPropagation={false}
             >
               <div

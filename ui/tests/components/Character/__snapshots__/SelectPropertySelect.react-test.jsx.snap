@@ -126,7 +126,6 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
   >
     <OnClickOutside(BaseSelect)
       className="small"
-      emptyLabel="Please select"
       eventTypes={
         Array [
           "mousedown",
@@ -134,53 +133,15 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
         ]
       }
       excludeScrollbar={false}
-      isDisabled={[Function]}
-      items={
-        Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
-        ]
-      }
       label="Strength"
       outsideClickIgnoreClass="ignore-react-onclickoutside"
       preventDefault={false}
-      selected="strength"
-      setState={[Function]}
       stopPropagation={false}
     >
       <BaseSelect
         className="small"
         closeOnClick={true}
         disableOnClickOutside={[Function]}
-        emptyLabel="Please select"
         enableOnClickOutside={[Function]}
         eventTypes={
           Array [
@@ -188,46 +149,9 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
             "touchstart",
           ]
         }
-        isDisabled={[Function]}
-        items={
-          Array [
-            Object {
-              "code": "strength",
-              "description": "Str",
-              "label": "Strength",
-            },
-            Object {
-              "code": "dexterity",
-              "description": "Dex",
-              "label": "Dexterity",
-            },
-            Object {
-              "code": "constitution",
-              "description": "Con",
-              "label": "Constitution",
-            },
-            Object {
-              "code": "intelligence",
-              "description": "Int",
-              "label": "Intelligence",
-            },
-            Object {
-              "code": "wisdom",
-              "description": "Wis",
-              "label": "Wisdom",
-            },
-            Object {
-              "code": "charisma",
-              "description": "Char",
-              "label": "Charisma",
-            },
-          ]
-        }
         label="Strength"
         outsideClickIgnoreClass="ignore-react-onclickoutside"
         preventDefault={false}
-        selected="strength"
-        setState={[Function]}
         stopPropagation={false}
       >
         <div
