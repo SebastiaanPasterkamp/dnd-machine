@@ -50,4 +50,31 @@ describe('utils:', () => {
 
         expect(utils.closest({}, 100, 'muted')).toBe('muted');
     });
+
+    it('should resolve math', () => {
+        const obj = {
+            path: 5,
+        };
+
+        expect(
+            utils.resolveMath(obj, 'test.path * 2', 'test')
+        ).toBe(10);
+
+        expect(
+            utils.resolveMath(obj, 'test.gone', 'test')
+        ).toBe(undefined);
+
+        expect(
+            utils.resolveMath(obj, 'min(3, 5)', 'test')
+        ).toBe(3);
+        expect(
+            utils.resolveMath(obj, 'max(3, 5)', 'test')
+        ).toBe(5);
+        expect(
+            utils.resolveMath(obj, 'ceil(5 / 2.0)', 'test')
+        ).toBe(3);
+        expect(
+            utils.resolveMath(obj, 'floor(5 / 2.0)', 'test')
+        ).toBe(2);
+    });
 });
