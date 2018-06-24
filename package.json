@@ -10,6 +10,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "lodash": "^4.17.4",
+    "mathjs": "^5.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-onclickoutside": "^6.7.1",
@@ -62,7 +63,7 @@
       "<rootDir>/ui/tests/__init__/setup.js"
     ],
     "snapshotSerializers": [
-        "enzyme-to-json/serializer"
+      "enzyme-to-json/serializer"
     ],
     "moduleNameMapper": {
       "^.+.(css|scss)$": "<rootDir>/ui/tests/__mocks__/style.js"
