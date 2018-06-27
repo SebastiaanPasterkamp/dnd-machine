@@ -41,7 +41,7 @@ export class CharacterEdit extends React.Component
             level, 'class': _class, race, background, xp_progress,
             xp_level, name, alignment, alignments, gender, genders,
             height, weight, age, appearance, spell = {}, _spells = [],
-            backstory, personality
+            backstory, personality = {},
         } = this.props;
 
         const filtered_spells = _.filter(_spells, item => {

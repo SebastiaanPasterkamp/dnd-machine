@@ -22,6 +22,31 @@ import SingleSelect from '../components/SingleSelect.jsx';
 import {StatsBlock} from '../components/StatsBlock.jsx';
 import TabComponent from '../components/TabComponent.jsx';
 
+import CharacterConfig from '../components/Character/CharacterConfig.jsx';
+import ComputeChange from '../components/Character/ComputeChange.jsx';
+
+const propsList = [
+    'languages',
+    'skills',
+    'spell',
+    'statistics',
+    'tools',
+    'weapon_types',
+    'weapon',
+    'armor_types',
+    'armor',
+    'monster_types',
+    'humanoid_types',
+    'terrain_types',
+];
+const propsMap = {
+    'armor': '_armor',
+    'languages': '_languages',
+    'skills': '_skills',
+    'spell': '_spells',
+    'statistics': '_statistics',
+    'weapon': '_weapons',
+};
 
 export class CharacterPickAttribute extends LazyComponent
 {
@@ -96,16 +121,82 @@ export class CharacterCreate extends LazyComponent
             doneInit: false,
             doneStats: false,
             doneDescr: false,
+            abilityScore: 0,
         };
+
+        this.computeProps = _.debounce(() => {
+            const {
+                character,
+                setState,
+            } = this.props;
+            const {
+                doneInit,
+                doneStats,
+                doneDescr,
+                abilityScore,
+                ...change,
+            } = this.state;
+
+            const update = ComputeChange(change, {});
+
+            this.setState(
+                update.state,
+                () => setState(update.props)
+            );
+        }, 10);
+    }
+
+    getCurrent(path) {
+        return _.get(
+            this.props.character,
+            path
+        );
+    }
+
+    getItems(lists) {
+        if (!_.isArray(lists)) {
+            lists = [lists];
+        }
+
+        return _.reduce(
+            lists,
+            (items, item) => {
+                return items.concat(
+                    this.props[
+                        propsMap[item] || item
+                    ] || []
+                );
+            },
+            []
+        );
+    }
+
+    onChange(path, value, index, option) {
+        this.setState(
+            {
+                [index.join('.')]: {path, value, option}
+            },
+            () => this.computeProps()
+        );
     }
 
     onFieldChange(field, value) {
         const {
-            race, 'class': _class, background, setState
+            character,
+            setState,
         } = this.props;
+        const {
+            race,
+            'class': _class,
+            background,
+        } = character;
         const base = _.assign(
             {},
-            {race, 'class': _class, background},
+            {
+                race,
+                'class': _class,
+                background,
+            },
             {[field]: value}
         );
         this.setState({
@@ -114,7 +205,11 @@ export class CharacterCreate extends LazyComponent
     }
 
     onStatisticsChange(value) {
-        let statistics = _.assign({}, this.props.statistics, value);
+        let statistics = _.assign(
+            {},
+            this.props.character.statistics,
+            value
+        );
 
         this.setState(
             {
@@ -123,7 +218,7 @@ export class CharacterCreate extends LazyComponent
                     && _.sum(_.values(statistics.bare)) >= 60
                 )
             },
-            () => this.props.setState({statistics})
+            () => this.props.setState({ statistics })
         );
     }
 
@@ -137,9 +232,11 @@ export class CharacterCreate extends LazyComponent
     }
 
     tabConfig(index) {
-        const { race, 'class': _class, background } = this.props;
         const {
-            doneInit, doneStats, doneDescr
+            race, 'class': _class, background
+        } = this.props.character;
+        const {
+            doneInit, doneStats, doneDescr,
         } = this.state;
 
         const tabs = [
@@ -177,23 +274,29 @@ export class CharacterCreate extends LazyComponent
 
     render() {
         const {
-            race, races, 'class': _class, classes, background,
-            backgrounds, statistics, _statistics, setState, level,
-            gender, genders = [], alignment, alignments = [],
-            xp_progress, xp_level, name = '',
+            character,
+            races = [], classes, backgrounds, _statistics, setState,
+            genders = [], alignments = [],
         } = this.props;
+        const {
+            race, 'class': _class, background, statistics, level,
+            gender, alignment, xp_progress, xp_level, name = '',
+        } = character;
         const { doneStats } = this.state;
 
         return <TabComponent
-                onTabChange={(index) => this.onTabChange(index)}
-                tabConfig={(index) => this.tabConfig(index)}
+                onTabChange={index => this.onTabChange(index) }
+                tabConfig={ index => this.tabConfig(index) }
+                mountAll={ true }
                 >
-            <CharacterPickAttribute
-                info={races}
-                value={race}
-                setState={
-                    (value) => this.onFieldChange('race', value)
-                }
+            <CharacterConfig
+                index={[]}
+                config={races}
+                getCurrent={path => this.getCurrent(path)}
+                getItems={lists => this.getItems(lists)}
+                onChange={(path, value, index, option) => {
+                    this.onChange(path, value, index, option)
+                }}
                 />
             <CharacterPickAttribute
                 info={classes}
@@ -273,12 +376,15 @@ export default ListDataWrapper(
                 className: 'character-create',
                 icon: 'fa-user-secret',
                 label: 'Create Character',
-            }, "character"
+            },
+            'character',
+            null,
+            'character'
         ),
-        ['alignments', 'genders', 'statistics'],
+        propsList,
         'items',
-        {'statistics': '_statistics'}
+        propsMap,
     ),
     ['races', 'classes', 'backgrounds'],
-    'character'
+    'character',
 );
