@@ -95,7 +95,21 @@ Object {
 
 exports[`Function: ComputeChange should skip undefined value 1`] = `
 Object {
-  "props": Object {},
+  "props": Object {
+    "some": undefined,
+  },
+  "state": Object {},
+}
+`;
+
+exports[`Function: ComputeChange should undo canceled changes 1`] = `
+Object {
+  "props": Object {
+    "other": undefined,
+    "some": Object {
+      "path": "Canceled value",
+    },
+  },
   "state": Object {},
 }
 `;

@@ -70,8 +70,11 @@ describe('Component: ChoiceSelect', () => {
                 null,
                 1,
                 [1, 2, 0, 0],
-                options[0]
-                );
+                {
+                    "limit": 1,
+                    "type": "ability_score",
+                }
+            );
 
         onChange.mockClear();
 
@@ -81,6 +84,6 @@ describe('Component: ChoiceSelect', () => {
             .simulate('click');
 
         expect(onChange.mock.calls)
-            .toMatchSnapshot('unount tab 0, mount tab 1');
+            .toMatchSnapshot('unmount tab 0, mount tab 1');
     });
 });

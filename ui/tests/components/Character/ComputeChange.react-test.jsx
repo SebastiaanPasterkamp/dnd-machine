@@ -117,6 +117,25 @@ describe('Function: ComputeChange', () => {
             .toMatchSnapshot();
     });
 
+    it('should undo canceled changes', () => {
+        const change = ComputeChange([
+            {path: 'some.path', value: undefined, option: {
+                type: 'value',
+            }},
+            {path: 'other.path', value: undefined, option: {
+                type: 'value',
+            }},
+        ], {
+            some: {
+                path: "Canceled value",
+            },
+            other: undefined,
+        });
+
+        expect(change)
+            .toMatchSnapshot();
+    });
+
     it('complain about unknown option type', () => {
         expect(
             () => ComputeChange([
@@ -125,6 +144,5 @@ describe('Function: ComputeChange', () => {
                 }},
             ], {})
         ).toThrow();
-
     });
 });
