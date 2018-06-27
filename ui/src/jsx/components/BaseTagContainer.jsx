@@ -47,7 +47,10 @@ export class TagBadgeButton extends LazyComponent
 TagBadgeButton.propTypes = {
     onClick: PropTypes.func.isRequired,
     icon: PropTypes.string,
-    label: PropTypes.string,
+    label: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
 };
 
 export class Tag extends LazyComponent
@@ -101,7 +104,10 @@ export class Tag extends LazyComponent
 };
 
 Tag.propTypes = {
-    label: PropTypes.string,
+    label: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
     description: PropTypes.string,
     disabled: PropTypes.bool,
     className: PropTypes.string,
