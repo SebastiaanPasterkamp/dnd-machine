@@ -2,6 +2,7 @@ import React from 'react';
 import Reflux from 'reflux';
 
 import ListDataActions from '../actions/ListDataActions.jsx';
+import LoadingActions from '../actions/LoadingActions.jsx';
 
 class ListDataStore extends Reflux.Store
 {
@@ -19,13 +20,19 @@ class ListDataStore extends Reflux.Store
         this.setState(data);
     }
 
-    onFetchItemsCompleted(data)
+    onFetchItems(type, category) {
+        LoadingActions.start(type);
+    }
+
+    onFetchItemsCompleted(data, type)
     {
+        LoadingActions.finish(type);
         this.setState(data);
     }
 
     onFetchItemsFailed(type, error)
     {
+        LoadingActions.finish(type);
         this.setState({
             [type]: null
         });
