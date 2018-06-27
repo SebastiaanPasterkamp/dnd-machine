@@ -1,582 +1,859 @@
 {
     "race": [{
-        "name": "Dwarf",
-        "filename": "dwarf.md",
-        "sub": [{
-            "name": "Hill Dwarf",
-            "phases": {
-                "hill dwarf": {
+        "label": "Dwarf",
+        "description": "Kingdoms rich in ancient grandeur, halls carved into the roots of mountains, the echoing of picks and hammers in deep mines and blazing forges, a commitment to clan and tradition, and a burning hatred of goblins and orcs—these common threads unite all dwarves.\n\n**Short and Stout**\nBold and hardy, dwarves are known as skilled warriors, miners, and workers of stone and metal. Though they stand well under 5 feet tall, dwarves are so broad and compact that they can weigh as much as a human standing nearly two feet taller. Their courage and endurance are also easily a match for any of the larger folk.",
+        "type": "config",
+        "config": [{
+            "label": "Subrace",
+            "description": "Two main subraces of dwarves populate the worlds of D&D: **Hill Dwarves** and **Mountain Dwarves**. Choose one of these subraces.",
+            "type": "choice",
+            "options": [{
+                "label": "Hill Dwarf",
+                "description": "As a **Hill Dwarf**, you have keen senses, deep intuition, and remarkable resilience. The gold dwarves of Faerûn in their mighty southern kingdom are hill dwarves, as are the exiled Neidar and the debased Klar of Krynn in the Dragonlance setting.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Hill Dwarf"
+                }, {
+                    "label": "Ability Score Increase",
+                    "description": "Your **Wisdom** score increases by 1.",
+                    "type": "config",
                     "config": [{
                         "hidden": true,
                         "path": "statistics.bonus.wisdom",
                         "type": "list",
-                        "given": [2]
-                    }, {
+                        "given": [1]
+                    }]
+                }, {
+                    "label": "Dwarven Toughness",
+                    "description": "Your hit point maximum increases by 1, and it increases by 1 every time you gain a level.",
+                    "type": "config",
+                    "config": [{
                         "hidden": true,
                         "path": "computed.hit_points.bonus",
                         "type": "list",
                         "given": ["1 * level"]
                     }]
-                }
-            }
-        }, {
-            "name": "Mountain Dwarf",
-            "phases": {
-                "mountain dwarf": {
+                }]
+            }, {
+                "label": "Mountain Dwarf",
+                "description": "As a **Mountain Dwarf**, you’re strong and hardy, accustomed to a difficult life in rugged terrain. You’re probably on the tall side (for a dwarf), and tend toward lighter coloration. The shield dwarves of northern Faerûn, as well as the ruling Hylar clan and the noble Daewar clan of Dragonlance, are mountain dwarves.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Mountain Dwarf"
+                }, {
+                    "label": "Ability Score Increase",
+                    "description": "Your **Strength** score increases by 2.",
+                    "type": "config",
                     "config": [{
                         "hidden": true,
                         "path": "statistics.bonus.strength",
                         "type": "list",
                         "given": [2]
-                    }, {
-                        "label": "Dwarven Armor Training",
-                        "path": "proficiencies.armor",
-                        "type": "list",
-                        "list": ["armor_types", "armor"],
-                        "given": ["light", "medium"]
                     }]
-                }
+                }, {
+                    "label": "Dwarven Armor Training",
+                    "description": "You have *proficiency* with the following armor:",
+                    "path": "proficiencies.armor",
+                    "type": "list",
+                    "list": ["armor_types", "armor"],
+                    "given": ["light", "medium"]
+                }]
+            }]
+        }, {
+            "label": "Ability Score Increase",
+            "description": "Your **Constitution** score increases by 2.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "statistics.bonus.constitution",
+                "type": "list",
+                "given": [2]
+            }]
+        }, {
+            "label": "Size",
+            "description": "Dwarves stand between 4 and 5 feet tall and average about 150 pounds. Your *size* is **Medium**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "size",
+                "type": "value",
+                "value": "medium"
+            }]
+        }, {
+            "label": "Speed",
+            "description": "Your base walking *speed* is **25 feet**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "speed",
+                "type": "value",
+                "value": 25
+            }, {
+                "path": "info.Speed",
+                "type": "value",
+                "value": "Your *speed* is not reduced by wearing **heavy armor**."
+            }]
+        }, {
+            "label": "Darkvision",
+            "path": "info.Darkvision",
+            "type": "value",
+            "value": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+        }, {
+            "label": "Dwarven Resilience",
+            "path": "info.Dwarven Resilience",
+            "type": "value",
+            "value": "You have *Advantage* on *Saving Throws* against **Poison**, and you have *Resistance* against **Poison Damage**."
+        }, {
+            "label": "Dwarven Combat Training",
+            "description": "You have *proficiency* with the following weapons:",
+            "path": "proficiencies.weapons",
+            "type": "list",
+            "list": ["weapon_types", "weapon"],
+            "given": [
+                "Battleaxe",
+                "Handaxe",
+                "Throwing Hammer",
+                "Warhammer"
+            ]
+        }, {
+            "label": "Tool Proficiency",
+            "description": "You gain *proficiency* with the artisan’s tools of your choice:",
+            "path": "proficiencies.tools",
+            "type": "list",
+            "list": ["tools"],
+            "limit": 1,
+            "filter": {
+                "code": [
+                    "Smith's tools",
+                    "Brewer's supplies",
+                    "Mason's tools"
+                ]
             }
-        }],
-        "phases": {
-            "dwarf": {
+        }, {
+            "label": "Stonecunning",
+            "path": "info.Stonecunning",
+            "type": "value",
+            "value": "Whenever you make an **Intelligence (History)** check related to the origin of stonework, you are considered proficient in the **History** skill and add *double your proficiency bonus* to the check, instead of your normal proficiency bonus."
+        }, {
+            "label": "Racial Languages",
+            "description": "You can speak, read, and write **Common** and **Dwarvish**. Dwarvish is full of hard consonants and guttural sounds, and those characteristics spill over into whatever other language a dwarf might speak.",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "given": ["common", "dwarvish"]
+        }]
+    }, {
+        "label": "Elf",
+        "description": "Elves are a magical people of otherworldly grace, living in the world but not entirely part of it. They live in places of ethereal beauty, in the midst of ancient forests or in silvery spires glittering with faerie light, where soft music drifts through the air and gentle fragrances waft on the breeze. Elves love nature and magic, art and artistry, music and poetry, and the good things of the world.\n\n**Slender and Graceful**\nWith their unearthly grace and fine features, elves appear hauntingly beautiful to humans and members of many other races. They are slightly shorter than humans on average, ranging from well under 5 feet tall to just over 6 feet. They are more slender than humans, weighing only 100 to 145 pounds. Males and females are about the same height, and males are only marginally heavier than females.",
+        "type": "config",
+        "config": [{
+            "label": "Subrace",
+            "description": "Ancient divides among the elven people resulted in two main subraces: **High Elves**, and **Wood elves**.",
+            "type": "choice",
+            "options": [{
+                "label": "High Elf",
+                "description": "As a **High Elf**, you have a keen mind and a mastery of at least the basics of magic. In many of the worlds of D&D, there are two kinds of high elves. One type (which includes the gray elves and valley elves of Greyhawk, the Silvanesti of Dragonlance, and the sun elves of the Forgotten Realms) is haughty and reclusive, believing themselves to be superior to non-elves and even other elves. The other type (including the high elves of Greyhawk, the Qualinesti of Dragonlance, and the moon elves of the Forgotten Realms) are more common and more friendly, and often encountered among humans and other races.",
+                "type": "config",
                 "config": [{
                     "hidden": true,
-                    "path": "statistics.bonus.constitution",
-                    "type": "list",
-                    "given": [2]
-                }, {
-                    "hidden": true,
-                    "path": "size",
+                    "path": "race",
                     "type": "value",
-                    "value": "medium"
+                    "value": "High Elf"
                 }, {
-                    "hidden": true,
-                    "path": "speed",
-                    "type": "value",
-                    "value": 25
-                }, {
-                    "label": "Speed",
-                    "path": "info.Speed",
-                    "type": "value",
-                    "value": "Your *speed* is not reduced by wearing **heavy armor**."
-                }, {
-                    "label": "Darkvision",
-                    "path": "info.Darkvision",
-                    "type": "value",
-                    "value": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
-                }, {
-                    "label": "Dwarven Resilience",
-                    "path": "info.Dwarven Resilience",
-                    "type": "value",
-                    "value": "You have *Advantage* on *Saving Throws* against **Poison**, and you have *Resistance* against **Poison** *Damage*."
-                }, {
-                    "label": "Dwarven Combat Training",
-                    "path": "proficiencies.weapons",
-                    "type": "list",
-                    "list": ["weapon_types", "weapon"],
-                    "given": [
-                        "Battleaxe",
-                        "Handaxe",
-                        "Throwing Hammer",
-                        "Warhammer"
-                    ]
-                }, {
-                    "label": "Tool Proficiency",
-                    "path": "proficiencies.tools",
-                    "type": "list",
-                    "list": ["tools"],
-                    "limit": 1,
-                    "filter": {
-                        "code": [
-                            "Smith's tools",
-                            "Brewer's supplies",
-                            "Mason's tools"
-                        ]
-                    }
-                }, {
-                    "label": "Stonecunning",
-                    "path": "info.Stonecunning",
-                    "type": "value",
-                    "value": "Whenever you make an **Intelligence** (**History**) check related to the origin of stonework, you are considered proficient in the **History** skill and add double your proficiency bonus to the check, instead of your normal proficiency bonus."
-                }, {
-                    "label": "Racial Languages",
-                    "path": "languages",
-                    "type": "list",
-                    "list": ["languages"],
-                    "given": ["common", "dwarvish"]
-                }]
-            }
-        }
-    }, {
-        "name": "Elf",
-        "filename": "elf.md",
-        "sub": [{
-            "name": "High Elf",
-            "phases": {
-                "high elf": {
+                    "label": "Ability Score Increase",
+                    "description": "Your **Intelligence** score increases by 1.",
+                    "type": "config",
                     "config": [{
                         "hidden": true,
                         "path": "statistics.bonus.intelligence",
                         "type": "list",
                         "given": [1]
-                    }, {
+                    }]
+                }, {
+                    "label": "Speed",
+                    "description": "Your base walking *speed* is **30 feet.**",
+                    "type": "config",
+                    "config": [{
                         "hidden": true,
                         "path": "speed",
                         "type": "value",
                         "value": 30
-                    }, {
-                        "label": "Elf Weapon Training",
-                        "path": "proficiencies.weapons",
-                        "type": "list",
-                        "list": ["weapon_types", "weapon"],
-                        "given": [
-                            "Longsword",
-                            "Shortsword",
-                            "Shortbow",
-                            "Longbow"
-                        ]
-                    }, {
-                        "label": "Racial Spells",
-                        "path": "spell.list",
-                        "type": "list",
-                        "list": ["spell"],
-                        "limit": 1,
-                        "filter": {
-                            "classes": "Wizard",
-                            "level": "Cantrip"
-                        }
-                    }, {
-                        "label": "Racial Languages",
-                        "path": "languages",
-                        "type": "list",
-                        "list": ["languages"],
-                        "limit": 1
                     }]
-                }
-            }
-        }, {
-            "name": "Wood Elf",
-            "phases": {
-                "wood elf": {
+                } , {
+                    "label": "Elf Weapon Training",
+                    "description": "You have *proficiency* with the following weapons:",
+                    "path": "proficiencies.weapons",
+                    "type": "list",
+                    "list": ["weapon_types", "weapon"],
+                    "given": [
+                        "Longsword",
+                        "Shortsword",
+                        "Shortbow",
+                        "Longbow"
+                    ]
+                }, {
+                    "label": "Cantrip",
+                    "description": "You know one *Cantrip* of your choice from the **Wizard** spell list. **Intelligence** is your spellcasting ability for it.",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": ["spell"],
+                    "limit": 1,
+                    "filter": {
+                        "classes": "Wizard",
+                        "level": "Cantrip"
+                    }
+                }, {
+                    "label": "Extra Language",
+                    "description": "You can speak, read, and write one extra language of your choice.",
+                    "path": "languages",
+                    "type": "list",
+                    "list": ["languages"],
+                    "limit": 1
+                }]
+            }, {
+                "label": "Wood Elf",
+                "description": "As a **Wood Elf**, you have keen senses and intuition, and your fleet feet carry you quickly and stealthily through your native forests. This category includes the wild elves (grugach) of Greyhawk and the Kagonesti of Dragonlance, as well as the races called wood elves in Greyhawk and the Forgotten Realms. In Faerûn, wood elves (also called wild elves, green elves, or forest elves) are reclusive and distrusting of non-elves.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Wood Elf"
+                }, {
+                    "label": "Ability Score Increase",
+                    "description": "Your **Wisdom** score increases by 1.",
+                    "type": "config",
                     "config": [{
                         "hidden": true,
                         "path": "statistics.bonus.wisdom",
                         "type": "list",
                         "given": [1]
-                    }, {
+                    }]
+                }, {
+                    "label": "Elf Weapon Training",
+                    "description": "You have *proficiency* with the following weapons:",
+                    "path": "proficiencies.weapons",
+                    "type": "list",
+                    "list": ["weapon_types", "weapon"],
+                    "given": [
+                        "Longsword",
+                        "Shortsword",
+                        "Shortbow",
+                        "Longbow"
+                    ]
+                }, {
+                    "label": "Fleet of Foot",
+                    "description": "Your base walking *speed* increases to **35 feet**.",
+                    "type": "config",
+                    "config": [{
                         "hidden": true,
                         "path": "speed",
                         "type": "value",
                         "value": 35
-                    }, {
-                        "label": "Elf Weapon Training",
-                        "path": "proficiencies.weapons",
-                        "type": "list",
-                        "list": ["weapon_types", "weapon"],
-                        "given": [
-                            "Longsword",
-                            "Shortsword",
-                            "Shortbow",
-                            "Longbow"
-                        ]
-                    }, {
-                        "label": "Mask of the Wild",
-                        "path": "info.Mask of the Wild",
-                        "type": "value",
-                        "value": "You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena."
                     }]
-                }
-            }
-        }],
-        "phases": {
-            "elf": {
+                }, {
+                    "label": "Mask of the Wild",
+                    "path": "info.Mask of the Wild",
+                    "type": "value",
+                    "value": "You can attempt to *Hide* even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena."
+                }]
+            }]
+        }, {
+            "label": "Ability Score Increase",
+            "description": "Your **Dexterity** score increases by 2.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "statistics.bonus.dexterity",
+                "type": "list",
+                "given": [2]
+            }]
+        }, {
+            "label": "Size",
+            "description": "Elves range from under 5 to over 6 feet tall and have slender builds. Your size is **Medium**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "size",
+                "type": "value",
+                "value": "medium"
+            }]
+        }, {
+            "label": "Darkvision",
+            "path": "info.Darkvision",
+            "type": "value",
+            "value": "Accustomed to twilit forests and the night sky, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+        }, {
+            "label": "Keen Senses",
+            "description": "You have *proficiency* in the **Perception** skill.",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "given": ["perception"]
+        }, {
+            "label": "Fey Ancestry",
+            "path": "info.Fey Ancestry",
+            "type": "value",
+            "value": "You have **Advantage** on *Saving Throws* against being *Charmed*, and magic can't put you to *Sleep*."
+        }, {
+            "label": "Trance",
+            "path": "info.Trance",
+            "type": "value",
+            "value": "Elves don't need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day. (The Common word for such meditation is \"trance.\") While meditating, you can dream after a fashion; such dreams are actually mental exercises that have become reflexive through years of practice. After resting in this way, you gain the same benefit that a human does from 8 hours of sleep."
+        }, {
+            "label": "Languages",
+            "description": "You can speak, read, and write **Common** and **Elvish**. Elvish is fluid, with subtle intonations and intricate grammar. Elven literature is rich and varied, and their songs and poems are famous among other races. Many bards learn their language so they can add Elvish ballads to their repertoires.",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "given": ["common", "elvish"]
+        }]
+    }, {
+        "label": "Gnome",
+        "description": "A constant hum of busy activity pervades the warrens and neighborhoods where gnomes form their close- knit communities. Louder sounds punctuate the hum: a crunch of grinding gears hcre, a minor explosion there, a yelp of surprise or triumph, and especially bursts of laughter. Gnomes take delight in life, enjoying every moment of invention, exploration, investigation, creation, and play.\n\n**Vibrant Expression**\nA gnome's energy and enthusiasm for living shines through every inch of his or her tiny body. Gnomes average slightly over 3 feet tall and weigh 40 to 45 pounds. Their tan or brown faces are usually adorned with broad smiles (beneath their prodigious noses), and their bright eyes shine with excitement. Their fair hair has a tendency to stick out in every direction, as if expressing the gnome's insatiable interest in everything around.",
+        "type": "config",
+        "config": [{
+            "label": "Subrace",
+            "description": "Two subraces of gnomes are found among the worlds of D&D: **Forest Gnomes** and **Rock Gnomes**. Choose one of these subraces.",
+            "type": "choice",
+            "options": [{
+                "label": "Forest Gnome",
+                "description": "As a **Forest Gnome**, you have a natural knack for illusion and inherent quickness and stealth. In the worlds of D&D, forest gnomes are rare and secretive. They gather in hidden communities in sylvan forests, using illusions and trickery to conceal themselves from threats or to mask their escape should they be detected. Forest gnomes tend to be friendly with other good-spirited woodland folk, and they regard elves and good fey as their most important allies, These gnomes also befriend small forest animals and rely on them for information about threats that might prowl their lands.",
+                "type": "config",
                 "config": [{
                     "hidden": true,
-                    "path": "statistics.bonus.dexterity",
-                    "type": "list",
-                    "given": [2]
-                }, {
-                    "hidden": true,
-                    "path": "size",
+                    "path": "race",
                     "type": "value",
-                    "value": "medium"
+                    "value": "Forest Gnome"
                 }, {
-                    "label": "Darkvision",
-                    "path": "info.Darkvision",
-                    "type": "value",
-                    "value": "Accustomed to twilit forests and the night sky, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
-                }, {
-                    "label": "Keen Senses",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "given": ["perception"]
-                }, {
-                    "label": "Fey Ancestry",
-                    "path": "info.Fey Ancestry",
-                    "type": "value",
-                    "value": "You have **Advantage** on *Saving Throws* against being *Charmed*, and magic can't put you to *Sleep*."
-                }, {
-                    "label": "Trance",
-                    "path": "info.Trance",
-                    "type": "value",
-                    "value": "Elves don't need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day. (The Common word for such meditation is \"trance.\") While meditating, you can dream after a fashion; such dreams are actually mental exercises that have become reflexive through years of practice. After resting in this way, you gain the same benefit that a human does from 8 hours of sleep."
-                }, {
-                    "label": "Racial Languages",
-                    "path": "languages",
-                    "type": "list",
-                    "list": ["languages"],
-                    "given": ["common", "elvish"]
-                }]
-            }
-        }
-    }, {
-        "name": "Gnome",
-        "filename": "gnome.md",
-        "sub": [{
-            "name": "Forrest Gnome",
-            "phases": {
-                "forrest gnome": {
+                    "label": "Ability Score Increase",
+                    "description": "Your **Dexterity** score increases by 1.",
+                    "type": "config",
                     "config": [{
                         "hidden": true,
                         "path": "statistics.bonus.dexterity",
                         "type": "list",
                         "given": [1]
-                    }, {
-                        "label": "Natural Illusionist",
-                        "path": "spell.list",
-                        "type": "list",
-                        "list": ["spell"],
-                        "given": ["Minor Illusion"]
-                    }, {
-                        "label": "Speak with Small Beasts",
-                        "path": "info.Speak with Small Beasts",
-                        "type": "value",
-                        "value": "Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts. Forest gnomes love animals and often keep squirrels, badgers, rabbits, moles, woodpeckers, and other creatures as beloved pets."
                     }]
-                }
-            }
-        }, {
-            "name": "Rock Gnome",
-            "phases": {
-                "rock gnome": {
+                }, {
+                    "label": "Natural Illusionist",
+                    "description": "You know the *Minor Illusion* *Cantrip*. **Intelligence** is your spellcasting ability for it.",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": ["spell"],
+                    "given": ["Minor Illusion"]
+                }, {
+                    "label": "Speak with Small Beasts",
+                    "path": "info.Speak with Small Beasts",
+                    "type": "value",
+                    "value": "Through sounds and gestures, you can communicate simple ideas with *Small* or smaller beasts. Forest gnomes love animals and often keep squirrels, badgers, rabbits, moles, woodpeckers, and other creatures as beloved pets."
+                }]
+            }, {
+                "label": "Rock Gnome",
+                "description": "As a **Rock Gnome**, you have a natural inventiveness and hardiness beyond that of other gnomes. Most gnomes in the worlds of D&D are rock gnomes, including the tinker gnomes of the Dragonlance setting.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Rock Gnome"
+                }, {
+                    "label": "Ability Score Increase",
+                    "description": "Your **Constitution** score increases by 1.",
+                    "type": "config",
                     "config": [{
                         "hidden": true,
                         "path": "statistics.bonus.constitution",
                         "type": "list",
                         "given": [1]
-                    }, {
-                        "label": "Artificer's Lore",
-                        "path": "info.Artificer's Lore",
-                        "type": "value",
-                        "value": "Whenever you make an **Intelligence** (**History**) check related to magic items, alchemical objects, or technological devices, you can add twice your proficiency bonus, instead of any proficiency bonus you normally apply."
-                    }, {
-                        "hidden": true,
-                        "path": "proficiencies.tools",
-                        "type": "list",
-                        "given": ["Artisan's Tools"]
-                    }, {
-                        "label": "Tinker",
-                        "path": "info.Tinker",
-                        "type": "value",
-                        "value": "You have proficiency with **Artisan's Tools** (**Tinker's Tools**). Using those tools, you can spend 1 hour and 10 gp worth of materials to construct a **Tiny Clockwork Device** (*AC 5, 1 HP*). The device ceases to function after 24 hours (unless you spend 1 hour repairing it to keep the device functioning), or when you use your *action* to dismantle it; at that time, you can reclaim the materials used to create it. You can have up to three such devices active at a time.\n\nWhen you create a device, choose one of the following options:\n* **Clockwork Toy.** This toy is a clockwork animal, monster, or person, such as a frog, mouse, bird, dragon, or soldier. When placed on the ground, the toy moves 5 feet across the ground on each of your turns in a random direction. It makes noises as appropriate to the creature it represents.\n* **Fire Starter.** The device produces a miniature flame, which you can use to light a candle, torch, or campfire. Using the device requires your action.\n* **Music Box.** When opened. this music box plays a single song at a moderate volume. The box stops playing when it reaches the song's end or when it is closed."
                     }]
-                }
-            }
-        }],
-        "phases": {
-            "gnome": {
+                }, {
+                    "label": "Artificer's Lore",
+                    "path": "info.Artificer's Lore",
+                    "type": "value",
+                    "value": "Whenever you make an **Intelligence** (**History**) check related to magic items, alchemical objects, or technological devices, you can add twice your *proficiency bonus*, instead of any proficiency bonus you normally apply."
+                }, {
+                    "hidden": true,
+                    "path": "proficiencies.tools",
+                    "type": "list",
+                    "given": ["Tinker's tools"]
+                }, {
+                    "label": "Tinker",
+                    "path": "info.Tinker",
+                    "type": "value",
+                    "value": "You have proficiency with **Tinker's Tools**. Using those tools, you can spend 1 hour and 10 gp worth of materials to construct a **Tiny Clockwork Device** (*AC 5, 1 HP*). The device ceases to function after 24 hours (unless you spend 1 hour repairing it to keep the device functioning), or when you use your *action* to dismantle it; at that time, you can reclaim the materials used to create it. You can have up to three such devices active at a time.\n\nWhen you create a device, choose one of the following options:\n* **Clockwork Toy.** This toy is a clockwork animal, monster, or person, such as a frog, mouse, bird, dragon, or soldier. When placed on the ground, the toy moves 5 feet across the ground on each of your turns in a random direction. It makes noises as appropriate to the creature it represents.\n* **Fire Starter.** The device produces a miniature flame, which you can use to light a candle, torch, or campfire. Using the device requires your action.\n* **Music Box.** When opened. this music box plays a single song at a moderate volume. The box stops playing when it reaches the song's end or when it is closed."
+                }]
+            }]
+        }, {
+            "label": "Ability Score Increase",
+            "description": "Your **Constitution** score increases by 2.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "statistics.bonus.intelligence",
+                "type": "list",
+                "given": [2]
+            }]
+        }, {
+            "label": "Size",
+            "description": "Gnomes are between 3 and 4 feet tall and average about 40 pounds. Your size is **Small**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "size",
+                "type": "value",
+                "value": "small"
+            }]
+        }, {
+            "label": "Speed",
+            "description": "Your base walking *speed* is **25 feet**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "speed",
+                "type": "value",
+                "value": 25
+            }]
+        }, {
+            "label": "Darkvision",
+            "path": "info.Darkvision",
+            "type": "value",
+            "value": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+        }, {
+            "label": "Gnome Cunning",
+            "path": "info.Gnome Cunning",
+            "type": "value",
+            "value": "You have **Advantage** on all **Intelligence**, **Wisdom**, and **Charisma** *Saving Throws* against magic."
+        }, {
+            "label": "Languages",
+            "description": "You can speak, read, and write **Common** and **Gnomish**. The Gnomish language, which uses the Dwarvish script, is renowned for its technical treatises and its catalogs of knowledge about the natural world.",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "given": ["common", "gnomish"]
+        }]
+    }, {
+        "label": "Half-Elf",
+        "description": "Walking in two worlds but truly belonging to neither, half-elves combine what some say are the best qualities of their elf and human parents: human curiosity, inventiveness, and ambition tempered by the refined senses, love of nature, and artistic tastes of the elves. Some half-elves live among humans, set apart by their emotional and physical differences, watching friends and loved ones age while time barely touches them. Others live with the elves, growing restless as they reach adulthood in the timeless elven realms, while their peers continue to live as children. Many half-elves, unable to fit into either society, choose lives of solitary wandering or join with other misfits and outcasts in the adventuring life.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "race",
+            "type": "value",
+            "value": "Half-Elf"
+        }, {
+            "label": "Ability Score Increase",
+            "description": "Your **Charisma** score increases by 2, and two other ability scores of your choice increase by 1.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "statistics.bonus.charisma",
+                "type": "list",
+                "given": [2]
+            }, {
+                "type": "ability_score",
+                "limit": 2
+            }]
+        }, {
+            "label": "Size",
+            "description": "Half-elves are about the same size as humans, ranging from 5 to 6 feet tall. Your size is **Medium**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "size",
+                "type": "value",
+                "value": "medium"
+            }]
+        }, {
+            "label": "Speed",
+            "description": "Your base walking *speed* is **30 feet**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "speed",
+                "type": "value",
+                "value": 30
+            }]
+        }, {
+            "label": "Darkvision",
+            "path": "info.Darkvision",
+            "type": "value",
+            "value": "Thanks to your elf blood, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+        }, {
+            "label": "Fey Ancestry",
+            "path": "info.Fey Ancestry",
+            "type": "value",
+            "value": "You have **Advantage** on *Saving Throws* against being *Charmed*, and magic can't put you to *Sleep*."
+        }, {
+            "label": "Skill Versatility",
+            "description": "You gain proficiency in two skills of your choice.",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "limit": 2
+        }, {
+            "label": "Languages",
+            "description": "You can speak, read, and write **Common**, **Elvish**, and one extra language of your choice.",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "given": ["common", "elvish"],
+            "limit": 1
+        }]
+    }, {
+        "label": "Half-Orc",
+        "description": "Whether united under the leadership of a mighty warlock or having fought to a standstill after years of conflict, ore and human tribes sometimes form alliances, joining forces into a larger horde to the terror of civilized lands nearby. When these alliances are sealed by marriages, half-ores are born. Some half-arcs rise to become proud chiefs of arc tribes, their human blood giving them an edge over their full-blooded orc rivals. Some venture into the world to prove their worth among humans and other more civilized races. Many of these become adventurers, achieving greatness for their mighty deeds and notoriety for their barbaric customs and savage fury.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "race",
+            "type": "value",
+            "value": "Half-Orc"
+        }, {
+            "label": "Ability Score Increase",
+            "description": "Your **Strength** score increases by 2, and your **Constitution** score increases by 1.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "statistics.bonus.strength",
+                "type": "list",
+                "given": [2]
+            }, {
+                "hidden": true,
+                "path": "statistics.bonus.constitution",
+                "type": "list",
+                "given": [1]
+            }]
+        }, {
+            "label": "Size",
+            "description": "Half-ores are somewhat larger and bulkier than humans, and they range From 5 to well over 6 feet tall. Your *size* is **Medium**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "size",
+                "type": "value",
+                "value": "medium"
+            }]
+        }, {
+            "label": "Speed",
+            "description": "Your base walking *speed* is **30 feet**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "speed",
+                "type": "value",
+                "value": 30
+            }]
+        }, {
+            "label": "Darkvision",
+            "path": "info.Darkvision",
+            "type": "value",
+            "value": "Thanks to your orc blood, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+        }, {
+            "label": "Menacing",
+            "description": "You gain proficiency in the **Intimidation** skill.",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "given": ["intimidation"]
+        }, {
+            "label": "Relentless Endurance",
+            "path": "info.Relentless Endurance",
+            "type": "value",
+            "value": "When you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. You can't use this feature again until you finish a long rest."
+        }, {
+            "label": "Savage Attacks",
+            "path": "info.Savage Attacks",
+            "type": "value",
+            "value": "When you score a critical hit with a melee weapon attack, you can roll one of the weapon's damage dice one additional time and add it to the extra damage of the critical hit."
+        }, {
+            "label": "Languages",
+            "description": "You can speak, read, and write **Common** and **Orc**. Orc is a harsh, grating language with hard consonants. It has no script of its own but is written in the Dwarvish script.",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "given": ["common", "orc"]
+        }]
+    }, {
+        "label": "Halfling",
+        "description": "The comforts of home are the goals of most halflings’ lives: a place to settle in peace and quiet, far from marauding monsters and clashing armies; a blazing fire and a generous meal; fine drink and fine conversation. Though some halflings live out their days in remote agricultural communities, others form nomadic bands that travel constantly, lured by the open road and the wide horizon to discover the wonders of new lands and peoples. But even these wanderers love peace, food, hearth, and home, though home might be a wagon jostling along an dirt road or a raft floating downriver.",
+        "type": "config",
+        "config": [{
+            "label": "Subrace",
+            "description": "The two main kinds of halfling, **Lightfoot** and **Stout**, are more like closely related families than true subraces. Choose one of these subraces.",
+            "type": "choice",
+            "options": [{
+                "label": "Lightfoot Halfling",
+                "description": "As a lightfoot halfling, you can easily hide from notice, even using other people as cover. You’re inclined to be affable and get along well with others. In the Forgotten Realms, lightfoot halflings have spread the farthest and thus are the most common variety.\n\nLightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a nomadic life. In the world of Greyhawk, these halflings are called hairfeet or tallfellows.",
+                "type": "config",
                 "config": [{
                     "hidden": true,
-                    "path": "statistics.bonus.intelligence",
-                    "type": "list",
-                    "given": [2]
-                }, {
-                    "hidden": true,
-                    "path": "size",
+                    "path": "race",
                     "type": "value",
-                    "value": "small"
+                    "value": "Lightfoot Halfling"
                 }, {
-                    "hidden": true,
-                    "path": "speed",
-                    "type": "value",
-                    "value": 25
-                }, {
-                    "label": "Darkvision",
-                    "path": "info.Darkvision",
-                    "type": "value",
-                    "value": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
-                }, {
-                    "label": "Gnome Cunning",
-                    "path": "info.Gnome Cunning",
-                    "type": "value",
-                    "value": "You have **Advantage** on all **Intelligence**, **Wisdom**, and **Charisma** *Saving Throws* against magic."
-                }, {
-                    "label": "Racial Languages",
-                    "path": "languages",
-                    "type": "list",
-                    "list": ["languages"],
-                    "given": ["common", "gnomish"]
-                }]
-            }
-        }
-    }, {
-        "name": "Half-Elf",
-        "filename": "half-elf.md",
-        "phases": {
-            "half-elf": {
-                "config": [{
-                    "hidden": true,
-                    "path": "statistics.bonus.charisma",
-                    "type": "list",
-                    "given": [2]
-                }, {
-                    "type": "ability_score",
-                    "limit": 2
-                }, {
-                    "hidden": true,
-                    "path": "size",
-                    "type": "value",
-                    "value": "medium"
-                }, {
-                    "hidden": true,
-                    "path": "speed",
-                    "type": "value",
-                    "value": 30
-                }, {
-                    "label": "Darkvision",
-                    "path": "info.Darkvision",
-                    "type": "value",
-                    "value": "Thanks to your elf blood, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
-                }, {
-                    "label": "Fey Ancestry",
-                    "path": "info.Fey Ancestry",
-                    "type": "value",
-                    "value": "You have **Advantage** on *Saving Throws* against being *Charmed*, and magic can't put you to *Sleep*."
-                }, {
-                    "label": "Skill Versatility",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "limit": 2
-                }, {
-                    "label": "Racial Languages",
-                    "path": "languages",
-                    "type": "list",
-                    "list": ["languages"],
-                    "given": ["common", "elvish"],
-                    "limit": 1
-                }]
-            }
-        }
-    }, {
-        "name": "Half-Orc",
-        "filename": "half-orc.md",
-        "phases": {
-            "half-orc": {
-                "config": [{
-                    "hidden": true,
-                    "path": "statistics.bonus.strength",
-                    "type": "list",
-                    "given": [2]
-                }, {
-                    "hidden": true,
-                    "path": "statistics.bonus.constitution",
-                    "type": "list",
-                    "given": [1]
-                }, {
-                    "hidden": true,
-                    "path": "size",
-                    "type": "value",
-                    "value": "medium"
-                }, {
-                    "hidden": true,
-                    "path": "speed",
-                    "type": "value",
-                    "value": 30
-                }, {
-                    "label": "Darkvision",
-                    "path": "info.Darkvision",
-                    "type": "value",
-                    "value": "Thanks to your orc blood, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
-                }, {
-                    "label": "Menacing",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "given": ["intimidation"]
-                }, {
-                    "label": "Relentless Endurance",
-                    "path": "info.Relentless Endurance",
-                    "type": "value",
-                    "value": "When you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. You can't use this feature again until you finish a long rest."
-                }, {
-                    "label": "Savage Attacks",
-                    "path": "info.Savage Attacks",
-                    "type": "value",
-                    "value": "When you score a critical hit with a melee weapon attack, you can roll one of the weapon's damage dice one additional time and add it to the extra damage of the critical hit."
-                }, {
-                    "label": "Racial Languages",
-                    "path": "languages",
-                    "type": "list",
-                    "list": ["languages"],
-                    "given": ["common", "orc"]
-                }]
-            }
-        }
-    }, {
-        "name": "Halfling",
-        "filename": "halfling.md",
-        "sub": [{
-            "name": "Lightfoot Halfling",
-            "phases": {
-                "lightfoot halfling": {
+                    "label": "Ability Score Increase",
+                    "description": "Your **Charisma** score increases by 1.",
+                    "type": "config",
                     "config": [{
                         "hidden": true,
                         "path": "statistics.bonus.charisma",
                         "type": "list",
                         "given": [1]
-                    }, {
-                        "label": "Naturally Stealthy",
-                        "path": "info.Naturally Stealthy",
-                        "type": "value",
-                        "value": "You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you."
                     }]
-                }
-            }
-        }, {
-            "name": "Stout Halfling",
-            "phases": {
-                "stout halfling": {
+                }, {
+                    "label": "Naturally Stealthy",
+                    "path": "info.Naturally Stealthy",
+                    "type": "value",
+                    "value": "You can attempt to *Hide* even when you are obscured only by a creature that is at least one size larger than you."
+                }]
+            }, {
+                "label": "Stout Halfling",
+                "description": "As a stout halfling, you’re hardier than average and have some resistance to poison. Some say that stouts have dwarven blood. In the Forgotten Realms, these halflings are called stronghearts, and they’re most common in the south.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Stout Halfling"
+                }, {
+                    "label": "Ability Score Increase",
+                    "description": "Your Constitution score increases by 1.",
+                    "type": "config",
                     "config": [{
                         "hidden": true,
                         "path": "statistics.bonus.constitution",
                         "type": "list",
                         "given": [1]
-                    }, {
-                        "label": "Stout Resilience",
-                        "path": "info.Stout Resilience",
-                        "type": "value",
-                        "value": "You have **Advantage** on *Saving Throws* against **Poison**, and you have *Resistance* against **Poison Damage**."
                     }]
-                }
-            }
-        }],
-        "phases": {
-            "halfling": {
-                "config": [{
-                    "hidden": true,
-                    "path": "statistics.bonus.dexterity",
-                    "type": "list",
-                    "given": [2]
                 }, {
-                    "hidden": true,
-                    "path": "size",
+                    "label": "Stout Resilience",
+                    "path": "info.Stout Resilience",
                     "type": "value",
-                    "value": "small"
-                }, {
-                    "hidden": true,
-                    "path": "speed",
-                    "type": "value",
-                    "value": 25
-                }, {
-                    "label": "Lucky",
-                    "path": "info.Lucky",
-                    "type": "value",
-                    "value": "When you roll a 1 on an *Attack Roll*, *Ability Check*, or *Saving Throw*, you can reroll the die and must use the new roll."
-                }, {
-                    "label": "Brave",
-                    "path": "info.Brave",
-                    "type": "value",
-                    "value": "You have **Advantage** on *Saving Throws* against being *Frightened*."
-                }, {
-                    "label": "Halfling Nimbleness",
-                    "path": "info.Halfling Nimbleness",
-                    "type": "value",
-                    "value": "You can move through the space of any creature that is of a size larger than yours."
-                }, {
-                    "label": "Racial Languages",
-                    "path": "languages",
-                    "type": "list",
-                    "list": ["languages"],
-                    "given": ["common", "halfling"]
+                    "value": "You have **Advantage** on *Saving Throws* against **Poison**, and you have *Resistance* against **Poison Damage**."
                 }]
-            }
-        }
+            }]
+        }, {
+            "label": "Ability Score Increase",
+            "description": "Your **Dexterity** score increases by 2.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "statistics.bonus.dexterity",
+                "type": "list",
+                "given": [2]
+            }]
+        }, {
+            "label": "Size",
+            "description": "Halflings average about 3 feet tall and weigh about 40 pounds. Your *size* is **Small**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "size",
+                "type": "value",
+                "value": "small"
+            }]
+        }, {
+            "label": "Speed",
+            "description": "Your base walking *speed* is **25 feet**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "speed",
+                "type": "value",
+                "value": 25
+            }]
+        }, {
+            "label": "Lucky",
+            "path": "info.Lucky",
+            "type": "value",
+            "value": "When you roll a 1 on an *Attack Roll*, *Ability Check*, or *Saving Throw*, you can reroll the die and must use the new roll."
+        }, {
+            "label": "Brave",
+            "path": "info.Brave",
+            "type": "value",
+            "value": "You have **Advantage** on *Saving Throws* against being *Frightened*."
+        }, {
+            "label": "Halfling Nimbleness",
+            "path": "info.Halfling Nimbleness",
+            "type": "value",
+            "value": "You can move through the space of any creature that is of a size larger than yours."
+        }, {
+            "label": "Languages",
+            "description": "You can speak, read, and write **Common** and **Halfling**. The Halfling language isn’t secret, but halflings are loath to share it with others. They write very little, so they don’t have a rich body of literature. Their oral tradition, however, is very strong. Almost all halflings speak **Common** to converse with the people in whose lands they dwell or through which they are traveling.",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "given": ["common", "halfling"]
+        }]
     }, {
-        "name": "Human",
-        "filename": "human.md",
-        "sub": [{
-            "name": "Ucalishite Human"
-        }, {
-            "name": "Chondathan Human"
-        }, {
-            "name": "Damaran Human"
-        }, {
-            "name": "Illuskan Human"
-        }, {
-            "name": "Mulan Human"
-        }, {
-            "name": "Rashemi Human"
-        }, {
-            "name": "Shou Human"
-        }, {
-            "name": "Tethyrian Human"
-        }, {
-            "name": "Turami Human"
-        }],
-        "phases": {
-            "human": {
+        "label": "Human",
+        "description": "In the reckonings of most worlds, humans are the youngest of the common races, late to arrive on the world scene and short-lived in comparison to dwarves, elves, and dragons. Perhaps it is because of their shorter lives that they strive to achieve as much as they can in the years they are given. Or maybe they feel they have something to prove to the elder races, and that’s why they build their mighty empires on the foundation of conquest and trade. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.",
+        "type": "config",
+        "config": [{
+            "label": "Subrace",
+            "description": "In the Forgotten Realms, nine human ethnic groups are widely recognized, though over a dozen others are found in more localized areas of Faerûn. These groups, and the typical names of their members, can be used as inspiration no matter which world your human is in.",
+            "type": "choice",
+            "options": [{
+                "label": "Ucalishite",
+                "description": "Shorter and slighter in build than most other humans, Calishites have dusky brown skin, hair, and eyes. They’re found primarily in southwest Faerûn.",
+                "type": "config",
                 "config": [{
                     "hidden": true,
-                    "path": "statistics.bonus.strength",
-                    "type": "list",
-                    "given": [1]
-                }, {
-                    "hidden": true,
-                    "path": "statistics.bonus.dexterity",
-                    "type": "list",
-                    "given": [1]
-                }, {
-                    "hidden": true,
-                    "path": "statistics.bonus.constitution",
-                    "type": "list",
-                    "given": [1]
-                }, {
-                    "hidden": true,
-                    "path": "statistics.bonus.intelligence",
-                    "type": "list",
-                    "given": [1]
-                }, {
-                    "hidden": true,
-                    "path": "statistics.bonus.wisdom",
-                    "type": "list",
-                    "given": [1]
-                }, {
-                    "hidden": true,
-                    "path": "statistics.bonus.charisma",
-                    "type": "list",
-                    "given": [1]
-                }, {
-                    "hidden": true,
-                    "path": "size",
+                    "path": "race",
                     "type": "value",
-                    "value": "medium"
-                }, {
-                    "hidden": true,
-                    "path": "speed",
-                    "type": "value",
-                    "value": 30
-                }, {
-                    "label": "Racial Languages",
-                    "path": "languages",
-                    "type": "list",
-                    "list": ["languages"],
-                    "given": ["common"],
-                    "limit": 1
+                    "value": "Ucalishite Human"
                 }]
-            }
-        }
+            }, {
+                "label": "Chondathan",
+                "description": "Chondathans are slender, tawny-skinned folk with brown hair that ranges from almost blond to almost black. Most are tall and have green or brown eyes, but these traits are hardly universal. Humans of Chondathan descent dominate the central lands of Faerûn, around the Inner Sea.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Chondathan Human"
+                }]
+            }, {
+                "label": "Damaran",
+                "description": "Found primarily in the northwest of Faerûn, Damarans are of moderate height and build, with skin hues ranging from tawny to fair. Their hair is usually brown or black, and their eye color varies widely, though brown is most common.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Damaran Human"
+                }]
+            }, {
+                "label": "Illuskan",
+                "description": "Illuskans are tall, fair-skinned folk with blue or steely gray eyes. Most have raven-black hair, but those who inhabit the extreme northwest have blond, red, or light brown hair.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Illuskan Human"
+                }]
+            }, {
+                "label": "Mulan",
+                "description": "Dominant in the eastern and southeastern shores of the Inner Sea, the Mulan are generally tall, slim, and amber-skinned, with eyes of hazel or brown. Their hair ranges from black to dark brown, but in the lands where the Mulan are most prominent, nobles and many other Mulan shave off all their hair.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Mulan Human Human"
+                }]
+            }, {
+                "label": "Rashemi",
+                "description": "Most often found east of the Inner Sea and often intermingled with the Mulan, Rashemis tend to be short, stout, and muscular. They usually have dusky skin, dark eyes, and thick black hair.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Rashemi Human"
+                }]
+            }, {
+                "label": "Shou",
+                "description": "The Shou are the most numerous and powerful ethnic group in Kara-Tur, far to the east of Faerûn. They are yellowish-bronze in hue, with black hair and dark eyes. Shou surnames are usually presented before the given name.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Shou Human"
+                }]
+            }, {
+                "label": "Tethyrian",
+                "description": "Widespread along the entire Sword Coast at the western edge of Faerûn, Tethyrians are of medium build and height, with dusky skin that tends to grow fairer the farther north they dwell. Their hair and eye color varies widely, but brown hair and blue eyes are the most common.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Tethyrian Human"
+                }]
+            }, {
+                "label": "Turami",
+                "description": "Native to the southern shore of the Inner Sea, the Turami people are generally tall and muscular, with dark mahogany skin, curly black hair, and dark eyes.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "race",
+                    "type": "value",
+                    "value": "Turami Human"
+                }]
+            }]
+        }, {
+            "label": "Ability Score Increase",
+            "description": "Your ability scores each increase by 1.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "statistics.bonus.strength",
+                "type": "list",
+                "given": [1]
+            }, {
+                "hidden": true,
+                "path": "statistics.bonus.dexterity",
+                "type": "list",
+                "given": [1]
+            }, {
+                "hidden": true,
+                "path": "statistics.bonus.constitution",
+                "type": "list",
+                "given": [1]
+            }, {
+                "hidden": true,
+                "path": "statistics.bonus.intelligence",
+                "type": "list",
+                "given": [1]
+            }, {
+                "hidden": true,
+                "path": "statistics.bonus.wisdom",
+                "type": "list",
+                "given": [1]
+            }, {
+                "hidden": true,
+                "path": "statistics.bonus.charisma",
+                "type": "list",
+                "given": [1]
+            }]
+        }, {
+            "label": "Size",
+            "description": "Humans vary widely in height and build, from barely 5 feet to well over 6 feet tall. Regardless of your position in that range, your *size* is **Medium**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "size",
+                "type": "value",
+                "value": "medium"
+            }]
+        }, {
+            "label": "Speed",
+            "description": "Your base walking *speed* is **30 feet**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "speed",
+                "type": "value",
+                "value": 30
+            }]
+        }, {
+            "label": "Languages",
+            "description": "You can speak, read, and write **Common** and one extra language of your choice. Humans typically learn the languages of other peoples they deal with, including obscure dialects. They are fond of sprinkling their speech with words borrowed from other tongues: Orc curses, Elvish musical expressions, Dwarvish military phrases, and so on.",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "given": ["common"],
+            "limit": 1
+        }]
     }],
     "class": [{
         "name": "Barbarian",
