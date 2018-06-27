@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import '../../sass/_tab-component.scss';
@@ -16,7 +17,10 @@ export class TabComponent extends LazyComponent
     }
 
     componentDidMount() {
-        const { children, tabConfig } = this.props;
+        const {
+            children,
+            tabConfig,
+        } = this.props;
 
         let activeTab = 0;
         React.Children.forEach(
@@ -37,7 +41,9 @@ export class TabComponent extends LazyComponent
     }
 
     switchTab(index) {
-        const { onTabChange } = this.props;
+        const {
+            onTabChange,
+        } = this.props;
         this.setState(
             {activeTab: index},
             () => onTabChange && onTabChange(index)
@@ -45,13 +51,15 @@ export class TabComponent extends LazyComponent
     }
 
     renderTab(index) {
-        const { tabConfig } = this.props;
+        const {
+            tabConfig,
+        } = this.props;
         const isActive = (index == this.state.activeTab);
         const tabcfg = _.isFunction(tabConfig)
             ? tabConfig(index)
             : tabConfig[index];
         const tabStyle = utils.makeStyle({
-            [tabcfg.color || '']: (
+            [tabcfg.color]: (
                 tabcfg.color
                 && !tabcfg.disabled
             ),
@@ -60,7 +68,7 @@ export class TabComponent extends LazyComponent
         }, ['tab-component__tab']);
         const linkStyle = utils.makeStyle({
             icon: 'icon' in tabcfg,
-            [tabcfg.icon || '']: 'icon' in tabcfg,
+            [tabcfg.icon]: 'icon' in tabcfg,
             'cursor-not-allowed': tabcfg.disabled,
             'cursor-pointer': !tabcfg.disabled,
         });
@@ -71,8 +79,8 @@ export class TabComponent extends LazyComponent
             >
             <a
                 className={linkStyle}
-                onClick={(!isActive && !tabcfg.disabled)
-                    ? (e) => {
+                onClick={!(isActive || tabcfg.disabled)
+                    ? e => {
                         e.preventDefault();
                         this.switchTab(index);
                     }
@@ -85,8 +93,14 @@ export class TabComponent extends LazyComponent
     }
 
     render() {
-        const { children, className } = this.props;
-        const { activeTab } = this.state;
+        const {
+            children,
+            className,
+            mountAll,
+        } = this.props;
+        const {
+            activeTab,
+        } = this.state;
         const style = utils.makeStyle({}, [
             'nice-tabs-wrapper',
             'tab-component',
@@ -101,19 +115,30 @@ export class TabComponent extends LazyComponent
                 )}
             </ul>
             <ul className="nice-tab-content">
-                <li className="current">
-                {React.Children.map(
-                    children,
-                    (child, index) => (
-                        index == activeTab
-                        ? child
-                        : null
-                    )
-                )}
-                </li>
+                {React.Children.map(children, (child, index) => (
+                    (mountAll || index == activeTab) &&
+                    <li
+                        className={
+                            index == activeTab
+                            ? "current"
+                            : null
+                        }
+                        >
+                        {child}
+                    </li>
+                ))}
             </ul>
         </div>;
     }
 }
+
+TabComponent.propTypes = {
+    children: PropTypes.node.isRequired,
+    tabConfig: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.func,
+    ]).isRequired,
+    onTabChange: PropTypes.func,
+};
 
 export default TabComponent;
