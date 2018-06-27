@@ -398,8 +398,11 @@ class CharacterObject(JsonObject):
                 self.skills[skill] += ceil(self.proficiency / 2.0)
 
         for path, compute in self.computed.items():
-            value = machine.resolveMath(
-                self, compute.get("formula", ""))
+            value = 0
+            if 'formula' in compute:
+                value += machine.resolveMath(
+                    self, compute["formula"]
+                    )
             for bonus in compute.get("bonus", []):
                 value += machine.resolveMath(self, bonus)
             self.setPath(path, value)
@@ -515,11 +518,10 @@ class CharacterObject(JsonObject):
         return levelUp
 
     def _find_caracter_field(self, field, value):
+        if value is None:
+            return {}, None
         for data in self.character_data[field]:
-            for sub in data.get('sub', []):
-                if sub['name'] == value:
-                    return data, sub
-            if data['name'] == value:
+            if data.get('name', data.get('label')) in value:
                 return data, None
         return {}, None
 
