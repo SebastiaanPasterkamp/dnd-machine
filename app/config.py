@@ -25,6 +25,8 @@ def get_character_data():
         data['character-data'] = json.load(cfg)
     for section in ['race', 'class', 'background']:
         for part in data['character-data'][section]:
+            if 'filename' not in part:
+                continue
             mdfile = os.path.join('app', 'data', part['filename'])
             with codecs.open(mdfile, encoding='utf-8') as fh:
                 part['description'] = fh.read()
