@@ -10,7 +10,7 @@ import ButtonField from '../components/ButtonField.jsx';
 import Panel from '../components/Panel.jsx';
 
 function RoutedObjectDataWrapper(
-    WrappedComponent, config, loadableType, loadableGroup=null
+    WrappedComponent, config, loadableType, loadableGroup=null, prop=null
 ) {
     let pathPrefix = '/' + _.filter([
             loadableGroup,
@@ -274,11 +274,15 @@ function RoutedObjectDataWrapper(
             const {
                 history, location, match = {}, staticContext, ...props
             } = this.props;
-            let data = this.getStateProps();
+            const data = this.getStateProps();
 
             if(!data) {
                 return null;
             }
+
+            const routed = prop
+                ? { [prop]: data }
+                : data;
 
             return <div>
                 <h2 className={["icon", config.icon].join(' ')}>
@@ -306,7 +310,7 @@ function RoutedObjectDataWrapper(
                         }}
                         {...props}
                         {...match.params}
-                        {...data}
+                        {...routed}
                         error={error || null}
                         />
 
