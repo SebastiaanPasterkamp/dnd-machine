@@ -36,7 +36,7 @@ ListDataActions.fetchItems.listen((type, category=null) => {
             .then((response) => {
                 ListDataActions.fetchItems.completed({
                     [type]: response
-                });
+                }, type);
             })
             .catch((error) => {
                 console.log(error);

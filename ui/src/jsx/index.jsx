@@ -6,6 +6,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import {BrowserRouter as Router, Switch, Route, Link, Redirect} from 'react-router-dom';
 
+import ActivityWrapper from './hocs/ActivityWrapper.jsx';
 import UiActions from './actions/UiActions.jsx';
 import ListDataActions from './actions/ListDataActions.jsx';
 import ListDataWrapper from './hocs/ListDataWrapper.jsx';
@@ -51,6 +52,8 @@ import WeaponsTable from './views/WeaponsTable.jsx';
 import DefaultFilter from './views/DefaultFilter.jsx';
 import Navigation from './views/Navigation.jsx';
 
+const ActivityLoadingSplash = ActivityWrapper(LoadingSplash);
+
 class DndMachine extends React.Component
 {
     render() {
@@ -59,8 +62,7 @@ class DndMachine extends React.Component
         const loading = current_user === undefined;
 
         return <Router><React.Fragment>
-        <LoadingSplash
-            loading={loading}
+        <ActivityLoadingSplash
             overlay={true}
             />
 
