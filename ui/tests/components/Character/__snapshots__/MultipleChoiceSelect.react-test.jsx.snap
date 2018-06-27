@@ -57,15 +57,20 @@ exports[`Component: MultipleChoiceSelect should render with full props 1`] = `
       Complex
     </label>
     <div
-      className="markdown-textedit small preview"
+      className="nice-form-group"
     >
-      <span
-        className="markdown-textedit__preview"
+      <label />
+      <div
+        className="markdown-textedit small preview"
       >
-        <p>
-          Foo is okay
-        </p>
-      </span>
+        <span
+          className="markdown-textedit__preview"
+        >
+          <p>
+            Foo is okay
+          </p>
+        </span>
+      </div>
     </div>
   </div>
 </div>
@@ -101,15 +106,20 @@ exports[`Component: MultipleChoiceSelect should render with minimum props 1`] = 
       Complex
     </label>
     <div
-      className="markdown-textedit small preview"
+      className="nice-form-group"
     >
-      <span
-        className="markdown-textedit__preview"
+      <label />
+      <div
+        className="markdown-textedit small preview"
       >
-        <p>
-          Foo is okay
-        </p>
-      </span>
+        <span
+          className="markdown-textedit__preview"
+        >
+          <p>
+            Foo is okay
+          </p>
+        </span>
+      </div>
     </div>
   </div>
 </div>
@@ -460,52 +470,60 @@ exports[`added back 1`] = `
             onChange={[Function]}
             type="config"
           >
-            <DictPropertySelect
-              current={null}
-              dict={
-                Object {
-                  "description": "Foo is okay",
-                }
-              }
-              index={
-                Array [
-                  0,
-                  0,
-                  0,
-                ]
-              }
+            <FormGroup
               key="0"
-              onChange={[Function]}
-              path="bar.foo"
-              type="dict"
             >
-              <MarkdownTextField
-                className="small"
-                disabled={true}
-                setState={[Function]}
-                value="Foo is okay"
+              <div
+                className="nice-form-group"
               >
-                <div
-                  className="markdown-textedit small preview"
+                <label />
+                <DictPropertySelect
+                  current={null}
+                  dict={
+                    Object {
+                      "description": "Foo is okay",
+                    }
+                  }
+                  index={
+                    Array [
+                      0,
+                      0,
+                      0,
+                    ]
+                  }
+                  onChange={[Function]}
+                  path="bar.foo"
+                  type="dict"
                 >
-                  <MDReactComponent
-                    className="markdown-textedit__preview"
-                    text="Foo is okay"
+                  <MarkdownTextField
+                    className="small"
+                    disabled={true}
+                    setState={[Function]}
+                    value="Foo is okay"
                   >
-                    <span
-                      className="markdown-textedit__preview"
-                      key="mdrct-html-0"
+                    <div
+                      className="markdown-textedit small preview"
                     >
-                      <p
-                        key="mdrct-p-0"
+                      <MDReactComponent
+                        className="markdown-textedit__preview"
+                        text="Foo is okay"
                       >
-                        Foo is okay
-                      </p>
-                    </span>
-                  </MDReactComponent>
-                </div>
-              </MarkdownTextField>
-            </DictPropertySelect>
+                        <span
+                          className="markdown-textedit__preview"
+                          key="mdrct-html-0"
+                        >
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Foo is okay
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </MarkdownTextField>
+                </DictPropertySelect>
+              </div>
+            </FormGroup>
           </CharacterConfig>
         </div>
       </FormGroup>
