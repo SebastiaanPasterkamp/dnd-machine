@@ -30,7 +30,7 @@ class ChoiceSelect extends LazyComponent
             <TabComponent
                 tabConfig={options}
                 >
-            {_.map(options, ({description, ...option}, index) => (
+            {_.map(options, ({description, label, ...option}, index) => (
                 <div key={index}>
                     {description &&
                         <MDReactComponent
