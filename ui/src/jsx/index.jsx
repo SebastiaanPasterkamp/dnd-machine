@@ -30,6 +30,7 @@ import PartyEdit from './views/PartyEdit.jsx';
 import PartyTable from './views/PartyTable.jsx';
 import PartyView from './views/PartyView.jsx';
 import LanguageTable from './views/LanguagesTable.jsx';
+import LoadingSplash from './components/LoadingSplash.jsx';
 import LoginDialog from './views/LoginDialog.jsx';
 import MessageStack from './components/MessageStack.jsx';
 import MonsterEdit from './views/MonsterEdit.jsx';
@@ -55,9 +56,14 @@ class DndMachine extends React.Component
     render() {
         const { current_user } = this.props;
         const auth = !!current_user;
-        const loading = typeof(current_user) == 'undefined';
+        const loading = current_user === undefined;
 
         return <Router><React.Fragment>
+        <LoadingSplash
+            loading={loading}
+            overlay={true}
+            />
+
         <header className="nice-header fixed">
             <div className="nice-header-container">
                 <h1 className="nice-header-brand">
@@ -85,6 +91,7 @@ class DndMachine extends React.Component
 
             </div>
         </header>
+
         <section className="nice-fluid-container grid">
             <ErrorBoundary>{ auth ? <Switch>
                 <Route
@@ -289,10 +296,7 @@ class DndMachine extends React.Component
                         () => props.history.push('/login')
                     );
 
-                    return <LoginDialog
-                        message="Welcome to D&amp;D Machine. Please log in using your credentials to access this website."
-                        icon="d20"
-                        />;
+                    return null;
                 }} />
 
                 <Route path="*" render={props => {
