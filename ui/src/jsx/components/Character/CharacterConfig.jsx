@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import MDReactComponent from 'markdown-react-js';
 
 import FormGroup from '../FormGroup.jsx';
 import LazyComponent from '../LazyComponent.jsx';
@@ -12,6 +13,8 @@ import ListPropertySelect from './ListPropertySelect.jsx';
 import MultipleChoiceSelect from './MultipleChoiceSelect.jsx';
 import SelectPropertySelect from './SelectPropertySelect.jsx';
 import ValuePropertySelect from './ValuePropertySelect.jsx';
+
+import utis from '../../utils.jsx';
 
 class CharacterConfig extends LazyComponent
 {
@@ -41,6 +44,12 @@ class CharacterConfig extends LazyComponent
             if (!ConfigComponent) {
                 throw "Unknown option type: " + option.type;
             }
+
+            _.forEach(option, (value, path) => {
+                if (!path.match(/_formula$/)) {
+                    return;
+                }
+            });
 
             const props = {
                 index: _.concat(prefix, [index]),
@@ -78,23 +87,21 @@ class CharacterConfig extends LazyComponent
                 props.current = getCurrent(option.path);
             }
 
-            if (option.label) {
-                return <FormGroup
-                        label={option.label}
-                        key={index}
-                        >
-                    <ConfigComponent
-                        {...option}
-                        {...props}
-                        />
-                </FormGroup>;
-            }
-
-            return <ConfigComponent
+            return <FormGroup
+                    label={option.label}
                     key={index}
+                    >
+                {option.description &&
+                    <MDReactComponent
+                        text={ option.description }
+                        />
+                }
+                <ConfigComponent
                     {...option}
+                    description={undefined}
                     {...props}
-                    />;
+                    />
+            </FormGroup>;
         })}</React.Fragment>
     }
 };

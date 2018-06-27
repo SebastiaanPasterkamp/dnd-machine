@@ -5,9 +5,6 @@ export default function ComputeChange(changes, original) {
         if (_.isNil(option)) {
             return change;
         }
-        if (value === undefined) {
-            return change;
-        }
 
         if (option.type == 'ability_score') {
             change.state.abilityScore = (
@@ -19,8 +16,12 @@ export default function ComputeChange(changes, original) {
         const root = _.split(path, '.')[0];
         if (_.isNil(change.props[root])) {
             change.props[root] = _.cloneDeep(
-                original[root]
+                _.get(original, root)
             );
+        }
+
+        if (value === undefined) {
+            return change;
         }
 
         const current = _.get(change.props, path);
