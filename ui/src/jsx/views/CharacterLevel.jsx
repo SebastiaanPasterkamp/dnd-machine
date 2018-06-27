@@ -55,21 +55,21 @@ export class CharacterLevel extends React.Component
         };
 
         this.computeProps = _.debounce(() => {
-            const { character, setState } = this.props;
+            const {
+                character,
+                setState,
+            } = this.props;
+            const {
+                abilityScore,
+                ...change
+            } = this.state;
 
-            const change = ComputeChange(
-                this.state,
-                character
+            const update = ComputeChange(change, character);
+
+            this.setState(
+                update.state,
+                () => setState(update.props)
             );
-
-            if (!_.isEqual(change.state, {})) {
-                this.setState(
-                    change.state,
-                    () => setState(change.props)
-                );
-            } else {
-                setState(change.props);
-            }
         }, 10);
     }
 
@@ -102,12 +102,12 @@ export class CharacterLevel extends React.Component
 
     render() {
         const {
-            character, level_up, statistics, _statistics
+            character, level_up = {}, statistics, _statistics
         } = this.props;
 
         if (
             !character
-            || !level_up.creation.length
+            || !level_up.creation
         ) {
             return null;
         }
@@ -129,6 +129,7 @@ export class CharacterLevel extends React.Component
                     header="Level-up"
                 >
                 <CharacterConfig
+                    index={[]}
                     config={level_up.config || []}
                     getCurrent={(path) => _.get(this.props, path)}
                     getItems={(lists) => this.getItems(lists)}
