@@ -97,7 +97,7 @@ export class CharacterPickAttribute extends LazyComponent
 
         return <TabComponent
             className="character-pick-attribute"
-            tabConfig={(index) => this.tabConfig(index)}
+            tabConfig={index => this.tabConfig(index)}
             >
             {_.map(info, (attrib, index) => (
                 <div key={"attrib-" + index}>
@@ -138,6 +138,12 @@ export class CharacterCreate extends LazyComponent
             } = this.state;
 
             const update = ComputeChange(change, {});
+
+            console.log({
+                character,
+                update,
+                change,
+            });
 
             this.setState(
                 update.state,
@@ -233,7 +239,9 @@ export class CharacterCreate extends LazyComponent
 
     tabConfig(index) {
         const {
-            race, 'class': _class, background
+            race,
+            'class': _class,
+            background,
         } = this.props.character;
         const {
             doneInit, doneStats, doneDescr,
@@ -275,14 +283,17 @@ export class CharacterCreate extends LazyComponent
     render() {
         const {
             character,
-            races = [], classes, backgrounds, _statistics, setState,
-            genders = [], alignments = [],
+            races = [], classes = [], backgrounds = [],
+            _statistics, setState, genders = [], alignments = [],
         } = this.props;
         const {
             race, 'class': _class, background, statistics, level,
             gender, alignment, xp_progress, xp_level, name = '',
         } = character;
-        const { doneStats } = this.state;
+        const {
+            doneStats,
+            abilityScore,
+        } = this.state;
 
         return <TabComponent
                 onTabChange={index => this.onTabChange(index) }
@@ -298,25 +309,30 @@ export class CharacterCreate extends LazyComponent
                     this.onChange(path, value, index, option)
                 }}
                 />
-            <CharacterPickAttribute
-                info={classes}
-                value={_class}
-                setState={
-                    (value) => this.onFieldChange('class', value)
-                }
+            <CharacterConfig
+                index={[]}
+                config={classes}
+                getCurrent={path => this.getCurrent(path)}
+                getItems={lists => this.getItems(lists)}
+                onChange={(path, value, index, option) => {
+                    this.onChange(path, value, index, option)
+                }}
                 />
-            <CharacterPickAttribute
-                info={backgrounds}
-                value={background}
-                setState={
-                    (value) => this.onFieldChange('background', value)
-                }
+            <CharacterConfig
+                index={[]}
+                config={backgrounds}
+                getCurrent={path => this.getCurrent(path)}
+                getItems={lists => this.getItems(lists)}
+                onChange={(path, value, index, option) => {
+                    this.onChange(path, value, index, option)
+                }}
                 />
             <StatsBlock
                 {...statistics}
                 budget={27}
                 maxBare={15}
                 statistics={_statistics}
+                increase={ abilityScore }
                 setState={
                     (update) => this.onStatisticsChange(update)
                 }
