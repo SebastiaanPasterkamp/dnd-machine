@@ -8,7 +8,7 @@ You spent years learning the lore of the multiverse. You scoured manuscripts, st
 
 * **Equipment:** A bottle of black ink, a quill, a small knife, a letter from a dead colleague posing a question you have not yet been able to answer, a set of common clothes, and a pouch containing 10 gp
 
-## Specialt
+## Specialty
 
 To determine the nature of your scholarly training, roll a d8 or choose from the options in the table below.
 
