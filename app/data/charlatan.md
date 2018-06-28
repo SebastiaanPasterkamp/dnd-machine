@@ -19,6 +19,7 @@ that just happens to be for sale. These marvels sound
 implausible, but you make them sound like the real deal.
 
 * **Skill Proficiencies:** Deception, Sleight of Hand
+
 * **Tool Proficiencies:** Disguise kit, forgery kit
 
 * **Equipment:** A set of fine clothes, a disguise kit, tools
