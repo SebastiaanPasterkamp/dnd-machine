@@ -23,7 +23,7 @@ def get_character_data():
         return data['character-data']
     with open(os.path.join('app', 'character-data.json')) as cfg:
         data['character-data'] = json.load(cfg)
-    for section in ['race', 'class', 'background']:
+    for section in ['class']:
         for part in data['character-data'][section]:
             if 'filename' not in part:
                 continue
