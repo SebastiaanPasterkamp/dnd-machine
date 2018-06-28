@@ -39,7 +39,7 @@
                 }]
             }, {
                 "label": "Mountain Dwarf",
-                "description": "As a **Mountain Dwarf**, you’re strong and hardy, accustomed to a difficult life in rugged terrain. You’re probably on the tall side (for a dwarf), and tend toward lighter coloration. The shield dwarves of northern Faerûn, as well as the ruling Hylar clan and the noble Daewar clan of Dragonlance, are mountain dwarves.",
+                "description": "As a **Mountain Dwarf**, you're strong and hardy, accustomed to a difficult life in rugged terrain. You're probably on the tall side (for a dwarf), and tend toward lighter coloration. The shield dwarves of northern Faerûn, as well as the ruling Hylar clan and the noble Daewar clan of Dragonlance, are mountain dwarves.",
                 "type": "config",
                 "config": [{
                     "hidden": true,
@@ -123,7 +123,7 @@
             ]
         }, {
             "label": "Tool Proficiency",
-            "description": "You gain *proficiency* with the artisan’s tools of your choice:",
+            "description": "You gain *proficiency* with the artisan's tools of your choice:",
             "path": "proficiencies.tools",
             "type": "list",
             "list": ["tools"],
@@ -581,7 +581,7 @@
         }]
     }, {
         "label": "Halfling",
-        "description": "The comforts of home are the goals of most halflings’ lives: a place to settle in peace and quiet, far from marauding monsters and clashing armies; a blazing fire and a generous meal; fine drink and fine conversation. Though some halflings live out their days in remote agricultural communities, others form nomadic bands that travel constantly, lured by the open road and the wide horizon to discover the wonders of new lands and peoples. But even these wanderers love peace, food, hearth, and home, though home might be a wagon jostling along an dirt road or a raft floating downriver.",
+        "description": "The comforts of home are the goals of most halflings' lives: a place to settle in peace and quiet, far from marauding monsters and clashing armies; a blazing fire and a generous meal; fine drink and fine conversation. Though some halflings live out their days in remote agricultural communities, others form nomadic bands that travel constantly, lured by the open road and the wide horizon to discover the wonders of new lands and peoples. But even these wanderers love peace, food, hearth, and home, though home might be a wagon jostling along an dirt road or a raft floating downriver.",
         "type": "config",
         "config": [{
             "label": "Subrace",
@@ -589,7 +589,7 @@
             "type": "choice",
             "options": [{
                 "label": "Lightfoot Halfling",
-                "description": "As a lightfoot halfling, you can easily hide from notice, even using other people as cover. You’re inclined to be affable and get along well with others. In the Forgotten Realms, lightfoot halflings have spread the farthest and thus are the most common variety.\n\nLightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a nomadic life. In the world of Greyhawk, these halflings are called hairfeet or tallfellows.",
+                "description": "As a lightfoot halfling, you can easily hide from notice, even using other people as cover. You're inclined to be affable and get along well with others. In the Forgotten Realms, lightfoot halflings have spread the farthest and thus are the most common variety.\n\nLightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a nomadic life. In the world of Greyhawk, these halflings are called hairfeet or tallfellows.",
                 "type": "config",
                 "config": [{
                     "hidden": true,
@@ -614,7 +614,7 @@
                 }]
             }, {
                 "label": "Stout Halfling",
-                "description": "As a stout halfling, you’re hardier than average and have some resistance to poison. Some say that stouts have dwarven blood. In the Forgotten Realms, these halflings are called stronghearts, and they’re most common in the south.",
+                "description": "As a stout halfling, you're hardier than average and have some resistance to poison. Some say that stouts have dwarven blood. In the Forgotten Realms, these halflings are called stronghearts, and they're most common in the south.",
                 "type": "config",
                 "config": [{
                     "hidden": true,
@@ -685,7 +685,7 @@
             "value": "You can move through the space of any creature that is of a size larger than yours."
         }, {
             "label": "Languages",
-            "description": "You can speak, read, and write **Common** and **Halfling**. The Halfling language isn’t secret, but halflings are loath to share it with others. They write very little, so they don’t have a rich body of literature. Their oral tradition, however, is very strong. Almost all halflings speak **Common** to converse with the people in whose lands they dwell or through which they are traveling.",
+            "description": "You can speak, read, and write **Common** and **Halfling**. The Halfling language isn't secret, but halflings are loath to share it with others. They write very little, so they don't have a rich body of literature. Their oral tradition, however, is very strong. Almost all halflings speak **Common** to converse with the people in whose lands they dwell or through which they are traveling.",
             "path": "languages",
             "type": "list",
             "list": ["languages"],
@@ -693,7 +693,7 @@
         }]
     }, {
         "label": "Human",
-        "description": "In the reckonings of most worlds, humans are the youngest of the common races, late to arrive on the world scene and short-lived in comparison to dwarves, elves, and dragons. Perhaps it is because of their shorter lives that they strive to achieve as much as they can in the years they are given. Or maybe they feel they have something to prove to the elder races, and that’s why they build their mighty empires on the foundation of conquest and trade. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.",
+        "description": "In the reckonings of most worlds, humans are the youngest of the common races, late to arrive on the world scene and short-lived in comparison to dwarves, elves, and dragons. Perhaps it is because of their shorter lives that they strive to achieve as much as they can in the years they are given. Or maybe they feel they have something to prove to the elder races, and that's why they build their mighty empires on the foundation of conquest and trade. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.",
         "type": "config",
         "config": [{
             "label": "Subrace",
@@ -701,7 +701,7 @@
             "type": "choice",
             "options": [{
                 "label": "Ucalishite",
-                "description": "Shorter and slighter in build than most other humans, Calishites have dusky brown skin, hair, and eyes. They’re found primarily in southwest Faerûn.",
+                "description": "Shorter and slighter in build than most other humans, Calishites have dusky brown skin, hair, and eyes. They're found primarily in southwest Faerûn.",
                 "type": "config",
                 "config": [{
                     "hidden": true,
@@ -21159,608 +21159,716 @@
         }
     }],
     "background": [{
-        "name": "Acolyte",
-        "filename": "acolyte.md",
-        "phases": {
-            "acolyte": {
-                "config": [{
-                    "hidden": true,
-                    "path": "wealth",
-                    "type": "value",
-                    "value": {
-                        "gp": 15
-                    }
-                }, {
-                    "label": "Shelter of the Faithful",
-                    "path": "info.Shelter of the Faithful",
-                    "type": "value",
-                    "value": "As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle."
-                }, {
-                    "label": "Acolyte Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "given": ["insight", "religion"]
-                }, {
-                    "label": "Acolyte Languages",
-                    "path": "languages",
-                    "type": "list",
-                    "list": ["languages"],
-                    "limit": 2
-                }, {
-                    "label": "Acolyte equipment",
-                    "path": "equipment",
-                    "type": "list",
-                    "multiple": true,
-                    "given": [
-                        "Holy Symbol",
-                        "5 x Stick of Incense",
-                        "Vestments",
-                        "Set of Common Clothes",
-                        "Belt Pouch"
-                    ],
-                    "limit": 1,
-                    "filter": {
-                        "code": ["Prayer Book", "Prayer Wheel"]
-                    }
-                }]
+        "label": "Acolyte",
+        "description": "You have spent your life in the service of a temple to a specific god or pantheon of gods. You act as an intermediary between the realm of the holy and the mortal world, performing sacred rites and offering sacrifices in order to conduct worshipers into the presence of the divine. You are not necessarily a cleric—performing sacred rites is not the same thing as channeling divine power.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "background",
+            "type": "value",
+            "value": "Acolyte"
+        }, {
+            "hidden": true,
+            "path": "wealth",
+            "type": "value",
+            "value": {
+                "gp": 15
             }
-        }
+        }, {
+            "label": "Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "given": ["insight", "religion"]
+        }, {
+            "label": "Languages",
+            "description": "Two of your choice:",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "limit": 2
+        }, {
+            "label": "Equipment",
+            "path": "equipment",
+            "type": "list",
+            "multiple": true,
+            "given": [
+                "Holy Symbol",
+                "5 x Stick of Incense",
+                "Vestments",
+                "Set of Common Clothes",
+                "Belt Pouch"
+            ],
+            "limit": 1,
+            "filter": {
+                "code": ["Prayer Book", "Prayer Wheel"]
+            }
+        }, {
+            "label": "Feature: Shelter of the Faithful",
+            "path": "info.Shelter of the Faithful",
+            "type": "value",
+            "value": "As an **Acolyte**, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle."
+        }]
     }, {
-        "name": "Charlatan",
-        "filename": "charlatan.md",
-        "phases": {
-            "charlatan": {
-                "config": [{
-                    "hidden": true,
-                    "path": "wealth",
-                    "type": "value",
-                    "value": {
-                        "gp": 15
-                    }
-                }, {
-                    "label": "False Identity",
-                    "path": "info.False Identity",
-                    "type": "value",
-                    "value": "You have created a second identity that includes documentation, established acquaintances, and disguises that allow you to assume that persona. Additionally, you can forge documents including official papers and personal letters, as long as you have seen an example of the kind of document or the handwriting you are trying to copy."
-                }, {
-                    "label": "Charlatan Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "given": ["deception", "sleight of hand"]
-                }, {
-                    "label": "Charlatan equipment",
-                    "path": "equipment",
-                    "type": "list",
-                    "multiple": true,
-                    "limit": 1,
-                    "filter": {
-                        "code": ["Disguise kit", "Forgery kit"]
-                    }
-                }, {
-                    "label": "Charlatan equipment",
-                    "path": "equipment",
-                    "type": "list",
-                    "multiple": true,
-                    "given": [
-                            "Set of Fine Clothes",
-                            "Disguise Kit",
-                            "Belt Pouch"
-                    ],
-                    "limit": 1,
-                    "filter": {
-                        "code": [
-                            "Ten Stoppered Bottles filled with Colored Liquid",
-                            "Set of Weighted Dice",
-                            "Deck of Marked Cards",
-                            "Signet Ring of an Imaginary Duke"
-                        ]
-                    }
-                }]
+        "label": "Charlatan",
+        "description": "You have always had a way with people. You know what makes them tick, you can tease out their hearts' desires after a few minutes of conversation, and with a few leading questions you can read them like they were children's books. It's a useful talent, and one that you're perfectly willing to use for your advantage.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "background",
+            "type": "value",
+            "value": "Charlatan"
+        }, {
+            "hidden": true,
+            "path": "wealth",
+            "type": "value",
+            "value": {
+                "gp": 15
             }
-        }
+        }, {
+            "label": "Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "given": ["deception", "sleight of hand"]
+        }, {
+            "label": "Equipment",
+            "description": "Tools of the con of your choice:",
+            "path": "equipment",
+            "type": "list",
+            "multiple": true,
+            "given": [
+                "Set of Fine Clothes",
+                "Disguise Kit",
+                "Belt Pouch"
+            ],
+            "limit": 1,
+            "filter": {
+                "code": [
+                    "Ten Stoppered Bottles filled with Colored Liquid",
+                    "Set of Weighted Dice",
+                    "Deck of Marked Cards",
+                    "Signet Ring of an Imaginary Duke"
+                ]
+            }
+        }, {
+            "label": "Favorite Schemes",
+            "description": "Every charlatan has an angle he or she uses in preference to other schemes. Choose a favorite scam or roll a `d6` on the table below.",
+            "path": "info.Scam",
+            "type": "select",
+            "limit": 1,
+            "items": [
+                "I cheat at games of chance.",
+                "I shave coins or forge documents.",
+                "I insinuate myself into people's lives to prey on their weakness and secure their fortunes.",
+                "I put on new identities like clothes.",
+                "I run sleight-of-hand cons on street corners.",
+                "I convince people that worthless junk is worth their hard-earned money."
+            ]
+        }, {
+            "label": "Feature: False Identity",
+            "path": "info.False Identity",
+            "type": "value",
+            "value": "You have created a second identity that includes documentation, established acquaintances, and disguises that allow you to assume that persona. Additionally, you can forge documents including official papers and personal letters, as long as you have seen an example of the kind of document or the handwriting you are trying to copy."
+        }]
     }, {
-        "name": "Criminal",
-        "filename": "criminal.md",
-        "phases": {
-            "criminal": {
-                "config": [{
-                    "hidden": true,
-                    "path": "wealth",
-                    "type": "value",
-                    "value": {
-                        "gp": 15
-                    }
-                }, {
-                    "label": "Criminal Contact",
-                    "path": "info.Criminal Contact",
-                    "type": "value",
-                    "value": "You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you."
-                }, {
-                    "label": "Criminal Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "given": ["deception", "stealth"]
-                }, {
-                    "label": "Criminal Tool Proficiencies",
-                    "path": "proficiencies.tools",
-                    "type": "list",
-                    "list": ["tools"],
-                    "given": ["Gaming Set", "Thieves' tools"]
-                }, {
-                    "label": "Criminal equipment",
-                    "path": "equipment",
-                    "type": "list",
-                    "list": ["tools"],
-                    "multiple": true,
-                    "given": [
-                        "Crowbar",
-                        "Set of Dark Common Clothes, Including a Hood",
-                        "Belt Pouch"
-                    ],
-                    "limit": 1,
-                    "filter": {
-                        "code": [
-                            "Dice set",
-                            "Dragonchess set",
-                            "Playing card set",
-                            "Three-Dragon Ante set",
-                            "Thieves' tools"
-                        ]
-                    }
-                }]
+        "label": "Criminal",
+        "description": "You are an experienced criminal with a history of breaking the law. You have spent a lot of time among other criminals and still have contacts within the criminal underworld. You're far closer than most people to the world of murder, theft, and violence that pervades the underbelly of civilization, and you have survived up to this point by flouting the rules and regulations of society.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "background",
+            "type": "value",
+            "value": "Criminal"
+        }, {
+            "hidden": true,
+            "path": "wealth",
+            "type": "value",
+            "value": {
+                "gp": 15
             }
-        }
+        }, {
+            "label": "Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "given": ["deception", "stealth"]
+        }, {
+            "label": "Tool Proficiencies",
+            "path": "proficiencies.tools",
+            "type": "list",
+            "list": ["tools"],
+            "limit": 1,
+            "filter": {
+                "code": ["Gaming Set", "Thieves' tools"]
+            }
+        }, {
+            "label": "equipment",
+            "path": "equipment",
+            "type": "list",
+            "list": ["tools"],
+            "multiple": true,
+            "given": [
+                "Crowbar",
+                "Set of Dark Common Clothes, Including a Hood",
+                "Belt Pouch"
+            ],
+            "limit": 1,
+            "filter": {
+                "code": [
+                    "Dice set",
+                    "Dragonchess set",
+                    "Playing card set",
+                    "Three-Dragon Ante set",
+                    "Thieves' tools"
+                ]
+            }
+        }, {
+            "label": "Criminal Specialty",
+            "description": "There are many kinds of criminals, and within a thieves' guild or similar criminal organization, individual members have particular specialties. Even criminals who operate outside of such organizations have strong preferences for certain kinds of crimes over others. Choose the role you played in your criminal life, or roll a `d8` on the table below.",
+            "path": "info.Specialty",
+            "type": "select",
+            "limit": 1,
+            "items": [
+                "Blackmailer",
+                "Burglar",
+                "Enforcer",
+                "Fence",
+                "Highway robber",
+                "Hired killer",
+                "Pickpocket",
+                "Smuggler"
+            ]
+        }, {
+            "label": "Feature: Criminal Contact",
+            "path": "info.Criminal Contact",
+            "type": "value",
+            "value": "You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you."
+        }]
     }, {
-        "name": "Entertainer",
-        "filename": "entertainer.md",
-        "phases": {
-            "entertainer": {
-                "config": [{
-                    "hidden": true,
-                    "path": "wealth",
-                    "type": "value",
-                    "value": {
-                        "gp": 15
-                    }
-                }, {
-                    "label": "By Popular Demand",
-                    "path": "info.By Popular Demand",
-                    "type": "value",
-                    "value": "You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble's court. At such a place, you receive free lodging and food of a modest or comfortable standard (depending on the quality of the establishment), as long as you perform each night. In addition, your performance makes you something of a local figure. When strangers recognize you in a town where you have performed, they typically take a liking to you."
-                }, {
-                    "label": "Entertainer Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "given": ["acrobatics", "performance"]
-                }, {
-                    "label": "Entertainer Tool Proficiencies",
-                    "path": "proficiencies.tools",
-                    "type": "list",
-                    "list": ["tools"],
-                    "given": ["Disguise Kit"],
-                    "limit": 1,
-                    "filter": {
-                        "type": "musical"
-                    }
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Musical equipment",
-                        "type": "list",
-                        "list": ["tools"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Costume",
-                            "Belt Pouch"
-                        ],
-                        "limit": 1,
-                        "filter": {
-                            "type": "musical"
-                        }
-                    }, {
-                        "label": "Gladiator equipment",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Costume",
-                            "Belt Pouch"
-                        ],
-                        "limit": 1,
-                        "filter": {
-                            "name": [
-                                "Spear",
-                                "Trident",
-                                "Whip",
-                                "Net"
-                            ]
-                        }
-                    }]
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Favor of an Admirer",
-                        "type": "list",
-                        "path": "equipment",
-                        "multiple": true,
-                        "limit": 1,
-                        "items": [
-                            "Love Letter; the Favor of an Admirer",
-                            "Lock of Hair; the Favor of an Admirer"
-                        ]
-                    }, {
-                        "label": "Trinket",
-                        "type": "list",
-                        "list": ["tools"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "limit": 1,
-                        "filter": {
-                            "type": "trinket"
-                        }
-                    }]
-                }]
+        "label": "Entertainer",
+        "description": "You thrive in front of an audience. You know how to entrance them, entertain them, and even inspire them. Your poetics can stir the hearts of those who hear you, awakening grief or joy, laughter or anger. Your music raises their spirits or captures their sorrow. Your dance steps captivate, your humor cuts to the quick. Whatever techniques you use, your art is your life.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "background",
+            "type": "value",
+            "value": "Entertainer"
+        }, {
+            "hidden": true,
+            "path": "wealth",
+            "type": "value",
+            "value": {
+                "gp": 15
             }
-        }
+        }, {
+            "label": "Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "given": ["acrobatics", "performance"]
+        }, {
+            "label": "Tool Proficiencies",
+            "path": "proficiencies.tools",
+            "type": "list",
+            "list": ["tools"],
+            "given": ["Disguise Kit"],
+            "limit": 1,
+            "filter": {
+                "type": "musical"
+            }
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Musical equipment",
+                "type": "list",
+                "list": ["tools"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Costume",
+                    "Belt Pouch"
+                ],
+                "limit": 1,
+                "filter": {
+                    "type": "musical"
+                }
+            }, {
+                "label": "Gladiator equipment",
+                "type": "list",
+                "list": ["weapon"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Costume",
+                    "Belt Pouch"
+                ],
+                "limit": 1,
+                "filter": {
+                    "name": [
+                        "Spear",
+                        "Trident",
+                        "Whip",
+                        "Net"
+                    ]
+                }
+            }]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Favor of an Admirer",
+                "type": "list",
+                "path": "equipment",
+                "multiple": true,
+                "limit": 1,
+                "items": [
+                    "Love Letter; the Favor of an Admirer",
+                    "Lock of Hair; the Favor of an Admirer"
+                ]
+            }, {
+                "label": "Trinket",
+                "type": "list",
+                "list": ["tools"],
+                "path": "equipment",
+                "multiple": true,
+                "limit": 1,
+                "filter": {
+                    "type": "trinket"
+                }
+            }]
+        }, {
+            "label": "Feature: By Popular Demand",
+            "path": "info.By Popular Demand",
+            "type": "value",
+            "value": "You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble's court. At such a place, you receive free lodging and food of a modest or comfortable standard (depending on the quality of the establishment), as long as you perform each night. In addition, your performance makes you something of a local figure. When strangers recognize you in a town where you have performed, they typically take a liking to you."
+        }, {
+            "label": "Entertainer Routines",
+            "description": "A good entertainer is versatile, spicing up every performance with a variety of different routines. Choose one to three routines or roll a `d10` on the table below to define your expertise as an entertainer.",
+            "path": "info.Entertainer Routines",
+            "type": "select",
+            "limit": 1,
+            "items": [
+                "Actor",
+                "Dancer",
+                "Fire-eater",
+                "Jester",
+                "Juggler",
+                "Instrumentalist",
+                "Poet",
+                "Singer",
+                "Storyteller",
+                "Tumbler"
+            ]
+        }]
     }, {
-        "name": "Folk Hero",
-        "filename": "folk_hero.md",
-        "phases": {
-            "folk hero": {
-                "config": [{
-                    "hidden": true,
-                    "path": "wealth",
-                    "type": "value",
-                    "value": {
-                        "gp": 10
-                    }
-                }, {
-                    "label": "Rustic Hospitality",
-                    "path": "info.Rustic Hospitality",
-                    "type": "value",
-                    "value": "Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners, unless you have shown yourself to be a danger to them. They will shield you from the law or anyone else searching for you, though they will not risk their lives for you."
-                }, {
-                    "label": "Folk Hero Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "given": ["animal handling", "survival"]
-                }, {
-                    "label": "Folk Hero Tool Proficiencies",
-                    "path": "proficiencies.tools",
-                    "type": "list",
-                    "list": ["tools"],
-                    "limit": 1,
-                    "filter": {
-                        "type": "artisan"
-                    },
-                    "given": [
-                        "Vehicles (land)"
-                    ]
-                }, {
-                    "label": "Folk Hero equipment",
-                    "path": "equipment",
-                    "type": "list",
-                    "list": ["tools"],
-                    "multiple": true,
-                    "given": [
-                        "Shovel",
-                        "Iron Pot",
-                        "Set of Common Clothes",
-                        "Pouch"
-                    ],
-                    "limit": 1,
-                    "filter": {
-                        "type": "artisan"
-                    }
-                }]
+        "label": "Folk Hero",
+        "description": "You come from a humble social rank, but you are destined for so much more. Already the people of your home village regard you as their champion, and your destiny calls you to stand against the tyrants and monsters that threaten the common folk everywhere.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "background",
+            "type": "value",
+            "value": "Folk Hero"
+        }, {
+            "hidden": true,
+            "path": "wealth",
+            "type": "value",
+            "value": {
+                "gp": 10
             }
-        }
+        }, {
+            "label": "Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "given": ["animal handling", "survival"]
+        }, {
+            "label": "Tool Proficiencies",
+            "path": "proficiencies.tools",
+            "type": "list",
+            "list": ["tools"],
+            "limit": 1,
+            "filter": {
+                "type": "artisan"
+            },
+            "given": [
+                "Vehicles (land)"
+            ]
+        }, {
+            "label": "Equipment",
+            "path": "equipment",
+            "type": "list",
+            "list": ["tools"],
+            "multiple": true,
+            "given": [
+                "Shovel",
+                "Iron Pot",
+                "Set of Common Clothes",
+                "Pouch"
+            ],
+            "limit": 1,
+            "filter": {
+                "type": "artisan"
+            }
+        }, {
+            "label": "Defining Event",
+            "description": "You previously pursued a simple profession among the peasantry, perhaps as a farmer, miner, servant, shepherd, woodcutter, or gravedigger. But something happened that set you on a different path and marked you for greater things. Choose or roll a `d10` to determine a defining event that marked you as a hero of the people.",
+            "path": "info.Defining Event",
+            "type": "select",
+            "limit": 1,
+            "items": [
+                "I stood up to a tyrant's agents.",
+                "I saved people during a natural disaster.",
+                "I stood alone against a terrible monster.",
+                "I stole from a corrupt merchant to help the poor.",
+                "I led a militia to fight off an invading army.",
+                "I broke into a tyrant's castle and stole weapons to arm the people.",
+                "I trained the peasantry to use farm implements as weapons against a tyrant's soldiers.",
+                "A lord rescinded an unpopular decree after I led a symbolic act of protest against it.",
+                "A celestial, fey, or similar creature gave me a blessing or revealed my secret origin.",
+                "Recruited into a lord's army, I rose to leadership and was commended for my heroism."
+            ]
+        }, {
+            "label": "Feature: Rustic Hospitality",
+            "path": "info.Rustic Hospitality",
+            "type": "value",
+            "value": "Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners, unless you have shown yourself to be a danger to them. They will shield you from the law or anyone else searching for you, though they will not risk their lives for you."
+        }]
     }, {
-        "name": "Hermit",
-        "filename": "hermit.md",
-        "phases": {
-            "hermit": {
-                "config": [{
-                    "hidden": true,
-                    "path": "wealth",
-                    "type": "value",
-                    "value": {
-                        "gp": 5
-                    }
-                }, {
-                    "label": "Discovery",
-                    "path": "info.Discovery",
-                    "type": "value",
-                    "value": "The quiet seclusion of your extended hermitage gave you access to a unique and powerful discovery. The exact nature of this revelation depends on the nature of your seclusion. It might be a great truth about the cosmos, the deities, the powerful beings of the outer planes, or the forces of nature. It could be a site that no one else has ever seen. You might have uncovered a fact that has long been forgotten, or unearthed some relic of the past that could rewrite history. It might be information that would be damaging to the people who or consigned you to exile, and hence the reason for your return to society. Work with your DM to determine the details of your discovery and its impact on the campaign."
-                }, {
-                    "label": "Hermit Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "given": ["medicine", "religion"]
-                }, {
-                    "label": "Hermit Tool Proficiencies",
-                    "path": "proficiencies.tools",
-                    "type": "list",
-                    "list": ["tools"],
-                    "given": ["Herbalism kit"]
-                }, {
-                    "label": "Hermit equipment",
-                    "path": "equipment",
-                    "type": "list",
-                    "multiple": true,
-                    "given": [
-                        "Scroll case stuffed full of notes from your studies or prayers",
-                        "Winter blanket",
-                        "Set of common clothes",
-                        "Herbalism Kit"
-                    ]
-                }, {
-                    "label": "Hermit Languages",
-                    "path": "languages",
-                    "type": "list",
-                    "list": ["languages"],
-                    "limit": 1
-                }]
+        "label": "Hermit",
+        "description": "You lived in seclusion - either in a sheltered community such as a monastery, or entirely alone - for a formative part of your life. In your time apart from the clamor of society, you found quiet, solitude, and perhaps some of the answers you were looking for.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "background",
+            "type": "value",
+            "value": "Hermit"
+        }, {
+            "hidden": true,
+            "path": "wealth",
+            "type": "value",
+            "value": {
+                "gp": 5
             }
-        }
+        }, {
+            "label": "Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "given": ["medicine", "religion"]
+        }, {
+            "label": "Tool Proficiencies",
+            "path": "proficiencies.tools",
+            "type": "list",
+            "list": ["tools"],
+            "given": ["Herbalism kit"]
+        }, {
+            "label": "Languages",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "limit": 1
+        }, {
+            "label": "Equipment",
+            "path": "equipment",
+            "type": "list",
+            "multiple": true,
+            "given": [
+                "Scroll case stuffed full of notes from your studies or prayers",
+                "Winter blanket",
+                "Set of common clothes",
+                "Herbalism Kit"
+            ]
+        }, {
+            "label": "Life of Seclusion",
+            "description": "What was the reason for your isolation, and what changed to allow you to end your solitude? You can work with your DM to determine the exact nature of your seclusion, or you can choose or roll a `d8` on the table below to determine the reason behind your seclusion.",
+            "path": "info.Life of Seclusion",
+            "type": "select",
+            "limit": 1,
+            "items": [
+                "I was searching for spiritual enlightenment.",
+                "I was partaking of communal living in accordance with the dictates of a religious order.",
+                "I was exiled for a crime I didn't commit.",
+                "I retreated from society after a life-altering event.",
+                "I needed a quiet place to work on my art, literature, music, or manifesto.",
+                "I needed to commune with nature, far from civilization.",
+                "I was the caretaker of an ancient ruin or relic.",
+                "I was a pilgrim in search of a person, place, or relic of spiritual significance."
+            ]
+        }, {
+            "label": "Feature: Discovery",
+            "path": "info.Discovery",
+            "type": "value",
+            "value": "The quiet seclusion of your extended hermitage gave you access to a unique and powerful discovery. The exact nature of this revelation depends on the nature of your seclusion. It might be a great truth about the cosmos, the deities, the powerful beings of the outer planes, or the forces of nature. It could be a site that no one else has ever seen. You might have uncovered a fact that has long been forgotten, or unearthed some relic of the past that could rewrite history. It might be information that would be damaging to the people who or consigned you to exile, and hence the reason for your return to society. Work with your DM to determine the details of your discovery and its impact on the campaign."
+        }]
     }, {
-        "name": "Outlander",
-        "filename": "outlander.md",
-        "phases": {
-            "outlander": {
-                "config": [{
-                    "hidden": true,
-                    "path": "wealth",
-                    "type": "value",
-                    "value": {
-                        "gp": 10
-                    }
-                }, {
-                    "label": "Wanderer",
-                    "path": "info.Wanderer",
-                    "type": "value",
-                    "value": "You have an excellent memory for maps and geography, and you can always recall the general layout of terrain, settlements, and other features around you. in addition, you can find food and fresh water for yourself and up to five other people each day, provided that the land offers berries, small game, water, and so forth."
-                }, {
-                    "label": "Outlander Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "given": ["athletics", "survival"]
-                }, {
-                    "label": "Musical Instrument Proficiency",
-                    "path": "proficiencies.musical",
-                    "type": "list",
-                    "list": ["tools"],
-                    "filter": {
-                        "type": "musical"
-                    },
-                    "limit": 1
-                }, {
-                    "label": "Background Language",
-                    "path": "languages",
-                    "type": "list",
-                    "list": ["languages"],
-                    "limit": 1
-                }, {
-                    "label": "Outlander equipment",
-                    "path": "equipment",
-                    "type": "list",
-                    "multiple": true,
-                    "given": [
-                        "Staff",
-                        "Hunting Trap",
-                        "trophy from an animal you killed",
-                        "Set of traveler's clothes",
-                        "Belt Pouch"
-                    ]
-                }, {
-                    "label": "Origin",
-                    "path": "info.Origin",
-                    "type": "select",
-                    "limit": 1,
-                    "items": [
-                        "Forester",
-                        "Trapper",
-                        "Homesteader",
-                        "Guide",
-                        "Exile or outcast",
-                        "Bounty hunter",
-                        "Pilgrim",
-                        "Tribal nomad",
-                        "Hunter-gatherer",
-                        "Tribal marauder"
-                    ]
-                }]
+        "label": "Noble",
+        "description": "You understand wealth, power, and privilege. You carry a noble title, and your family owns land, collects taxes, and wields significant political influence. You might be a pampered aristocrat unfamiliar with work or discomfort, a former merchant just elevated to the nobility, or a disinherited scoundrel with a disproportionate sense of entitlement. Or you could be an honest, hard-working landowner who cares deeply about the people who live and work on your land, keenly aware of your responsibility to them.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "background",
+            "type": "value",
+            "value": "Noble"
+        }, {
+            "hidden": true,
+            "path": "wealth",
+            "type": "value",
+            "value": {
+                "gp": 25
             }
-        }
+        }, {
+            "label": "Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "given": ["history", "persuasion"]
+        }, {
+            "label": "Tool Proficiencies",
+            "path": "proficiencies.tools",
+            "type": "list",
+            "list": ["tools"],
+            "limit": 1,
+            "filter": {
+                "type": "gaming"
+            }
+        }, {
+            "label": "Languages",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "limit": 1
+
+        }, {
+            "label": "Equipment",
+            "path": "equipment",
+            "type": "list",
+            "multiple": true,
+            "given": [
+                "Set of fine clothes",
+                "Signet Ring",
+                "Scroll of Pedigree",
+                "Purse"
+            ]
+        }, {
+            "label": "Feature: Position of Privilege",
+            "path": "info.Position of Privilege",
+            "type": "value",
+            "value": "Thanks to your noble birth, people are inclined to think the best of you. You are welcome in high society, and people assume you have the right to be wherever you are. The common folk make every effort to accommodate you and avoid your displeasure, and other people of high birth treat you as a member of the same social sphere. You can secure an audience with a local noble if you need to."
+        }]
     }, {
-        "name": "Noble",
-        "filename": "noble.md",
-        "phases": {
-            "noble": {
-                "config": [{
-                    "hidden": true,
-                    "path": "wealth",
-                    "type": "value",
-                    "value": {
-                        "gp": 25
-                    }
-                }, {
-                    "label": "Position of Privilege",
-                    "path": "info.Position of Privilege",
-                    "type": "value",
-                    "value": "Thanks to your noble birth, people are inclined to think the best of you. You are welcome in high society, and people assume you have the right to be wherever you are. The common folk make every effort to accommodate you and avoid your displeasure, and other people of high birth treat you as a member of the same social sphere. You can secure an audience with a local noble if you need to."
-                }, {
-                    "label": "Noble Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "given": ["history", "persuasion"]
-                }, {
-                    "label": "Noble equipment",
-                    "path": "equipment",
-                    "type": "list",
-                    "multiple": true,
-                    "limit": 1,
-                    "filter": {
-                        "code": ["Disguise kit", "Forgery kit"]
-                    }
-                }, {
-                    "label": "Noble Tool Proficiencies",
-                    "path": "proficiencies.tools",
-                    "type": "list",
-                    "list": ["tools"],
-                    "limit": 1,
-                    "filter": {
-                        "type": "gaming"
-                    }
-                }, {
-                    "label": "Noble equipment",
-                    "path": "equipment",
-                    "type": "list",
-                    "multiple": true,
-                    "given": [
-                        "Set of fine clothes",
-                        "Signet Ring",
-                        "Scroll of Pedigree",
-                        "Purse"
-                    ]
-                }, {
-                    "label": "Noble Languages",
-                    "path": "languages",
-                    "type": "list",
-                    "list": ["languages"],
-                    "limit": 1
-                }]
+        "label": "Outlander",
+        "description": "You grew up in the wilds, far from civilization and the comforts of town and technology. You've witnessed the migration of herds larger than forests, survived weather more extreme than any city-dweller could comprehend, and enjoyed the solitude of being the only thinking creature for miles in any direction. The wilds are in your blood, whether you were a nomad, an explorer, a recluse, a hunter-gatherer, or even a marauder. Even in places where you don't know the specific features of the terrain, you know the ways of the wild.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "background",
+            "type": "value",
+            "value": "Outlander"
+        }, {
+            "hidden": true,
+            "path": "wealth",
+            "type": "value",
+            "value": {
+                "gp": 10
             }
-        }
+        }, {
+            "label": "Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "given": ["athletics", "survival"]
+        }, {
+            "label": "Tool Proficiencies",
+            "path": "proficiencies.musical",
+            "type": "list",
+            "list": ["tools"],
+            "filter": {
+                "type": "musical"
+            },
+            "limit": 1
+        }, {
+            "label": "Language",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "limit": 1
+        }, {
+            "label": "Equipment",
+            "path": "equipment",
+            "type": "list",
+            "multiple": true,
+            "given": [
+                "Staff",
+                "Hunting Trap",
+                "Trophy from an animal you killed",
+                "Set of traveler's clothes",
+                "Belt Pouch"
+            ]
+        }, {
+            "label": "Origin",
+            "description": "You've been to strange places and seen things that others cannot begin to fathom. Consider some of the distant lands you have visited, and how they impacted you. You can roll a `d10` on the following table to determine your occupation during your time in the wild, or choose one that best fits your character.",
+            "path": "info.Origin",
+            "type": "select",
+            "limit": 1,
+            "items": [
+                "Forester",
+                "Trapper",
+                "Homesteader",
+                "Guide",
+                "Exile or outcast",
+                "Bounty hunter",
+                "Pilgrim",
+                "Tribal nomad",
+                "Hunter-gatherer",
+                "Tribal marauder"
+            ]
+        }, {
+            "label": "Feature: Wanderer",
+            "path": "info.Wanderer",
+            "type": "value",
+            "value": "You have an excellent memory for maps and geography, and you can always recall the general layout of terrain, settlements, and other features around you. in addition, you can find food and fresh water for yourself and up to five other people each day, provided that the land offers berries, small game, water, and so forth."
+        }]
     }, {
-        "name": "Sage",
-        "filename": "sage.md",
-        "phases": {
-            "sage": {
-                "config": [{
-                    "hidden": true,
-                    "path": "wealth",
-                    "type": "value",
-                    "value": {
-                        "gp": 10
-                    }
-                }, {
-                    "label": "Researcher",
-                    "path": "info.Researcher",
-                    "type": "value",
-                    "value": "When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature. Your DM might rule that the knowledge you seek is secreted away in an almost inaccessible place, or that it simply cannot be found. Unearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign."
-                }, {
-                    "label": "Sage Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "given": ["arcana", "history"]
-                }, {
-                    "label": "Sage equipment",
-                    "path": "equipment",
-                    "type": "list",
-                    "multiple": true,
-                    "given": [
-                        "Bottle of Black Ink",
-                        "Quill",
-                        "Small Knife",
-                        "Letter From a Dead Colleague posing a question you have not yet been able to answer",
-                        "Set of Common Clothes",
-                        "Pouch"
-                    ]
-                }, {
-                    "label": "Hermit Languages",
-                    "path": "languages",
-                    "type": "list",
-                    "list": ["languages"],
-                    "limit": 2
-                }]
+        "label": "Sage",
+        "description": "You spent years learning the lore of the multiverse. You scoured manuscripts, studied scrolls, and listened to the greatest experts on the subjects that interest you. Your efforts have made you a master in your fields of study.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "background",
+            "type": "value",
+            "value": "Sage"
+        }, {
+            "hidden": true,
+            "path": "wealth",
+            "type": "value",
+            "value": {
+                "gp": 10
             }
-        }
+        }, {
+            "label": "Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "given": ["arcana", "history"]
+        }, {
+            "label": "Languages",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "limit": 2
+        }, {
+            "label": "Equipment",
+            "path": "equipment",
+            "type": "list",
+            "multiple": true,
+            "given": [
+                "Bottle of Black Ink",
+                "Quill",
+                "Small Knife",
+                "Letter From a Dead Colleague posing a question you have not yet been able to answer",
+                "Set of Common Clothes",
+                "Pouch"
+            ]
+        }, {
+            "label": "Specialty",
+            "description": "To determine the nature of your scholarly training, roll a `d8` or choose from the options in the table below.",
+            "path": "info.Specialty",
+            "type": "select",
+            "limit": 1,
+            "items": [
+                "Alchemist",
+                "Astronomer",
+                "Discredited academic",
+                "Librariand",
+                "Professor",
+                "Researcher",
+                "Wizard's apprentice",
+                "Scribe"
+            ]
+        }, {
+            "label": "Feature: Researcher",
+            "path": "info.Researcher",
+            "type": "value",
+            "value": "When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature. Your DM might rule that the knowledge you seek is secreted away in an almost inaccessible place, or that it simply cannot be found. Unearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign."
+        }]
     }, {
-        "name": "Soldier",
-        "filename": "soldier.md",
-        "phases": {
-            "soldier": {
-                "config": [{
-                    "hidden": true,
-                    "path": "wealth.gp",
-                    "type": "value",
-                    "value": 10
-                }, {
-                    "label": "Military Rank",
-                    "path": "info.Military Rank",
-                    "type": "value",
-                    "value": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized."
-                }, {
-                    "label": "Specialty",
-                    "path": "info.Specialty",
-                    "type": "select",
-                    "limit": 1,
-                    "items": [
-                        "Officer",
-                        "Scout",
-                        "Infantry",
-                        "Cavalry",
-                        "Healerd",
-                        "Quartermaster",
-                        "Standard bearer",
-                        "Support staff (cook, blacksmith, or the like)"
-                    ]
-                }, {
-                    "label": "Background Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "given": ["athletics", "intimidation"]
-                }, {
-                    "label": "Background Tool Proficiencies",
-                    "path": "proficiencies.tools",
-                    "type": "list",
-                    "list": ["tools"],
-                    "limit": 1,
-                    "given": ["Vehicles (land)"],
-                    "filter": {
-                        "type": "gaming"
-                    }
-                }, {
-                    "label": "Background Equipment",
-                    "type": "list",
-                    "path": "equipment",
-                    "multiple": true,
-                    "given": [
-                        "Insignia of Rank",
-                        "Set of Common Clothes",
-                        "Pouch"
-                    ],
-                    "limit": 1,
-                    "items": [
-                        "Set of Bone Dice",
-                        "Deck of cards"
-                    ]
-                }, {
-                    "type": "list",
-                    "label": "A trophy taken from a fallen enemy.",
-                    "path": "equipment",
-                    "multiple": true,
-                    "limit": 1,
-                    "items": [
-                        "Dagger",
-                        "Broken Blade",
-                        "Piece of a Banner"
-                    ]
-                }]
+        "label": "Soldier",
+        "description": "War has been your life for as long as you care to remember. You trained as a youth, studied the use of weapons and armor, learned basic survival techniques, including how to stay alive on the battlefield. You might have been part of a standing national army or a mercenary company, or perhaps a member of a local militia who rose to prominence during a recent war.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "background",
+            "type": "value",
+            "value": "Soldier"
+        }, {
+            "hidden": true,
+            "path": "wealth.gp",
+            "type": "value",
+            "value": 10
+        }, {
+            "label": "Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "given": ["athletics", "intimidation"]
+        }, {
+            "label": "Tool Proficiencies",
+            "path": "proficiencies.tools",
+            "type": "list",
+            "list": ["tools"],
+            "limit": 1,
+            "given": ["Vehicles (land)"],
+            "filter": {
+                "type": "gaming"
             }
-        }
+        }, {
+            "label": "Equipment",
+            "type": "list",
+            "path": "equipment",
+            "multiple": true,
+            "given": [
+                "Insignia of Rank",
+                "Set of Common Clothes",
+                "Pouch"
+            ],
+            "limit": 1,
+            "items": [
+                "Set of Bone Dice",
+                "Deck of cards"
+            ]
+        }, {
+            "type": "list",
+            "label": "A trophy taken from a fallen enemy:",
+            "path": "equipment",
+            "multiple": true,
+            "limit": 1,
+            "items": [
+                "Dagger",
+                "Broken Blade",
+                "Piece of a Banner"
+            ]
+        }, {
+            "label": "Specialty",
+            "description": "During your time as a soldier, you had a specific role to play in your unit or army. Roll a `d8` or choose from the options in the table below to determine your role.",
+            "path": "info.Specialty",
+            "type": "select",
+            "limit": 1,
+            "items": [
+                "Officer",
+                "Scout",
+                "Infantry",
+                "Cavalry",
+                "Healerd",
+                "Quartermaster",
+                "Standard bearer",
+                "Support staff (cook, blacksmith, or the like)"
+            ]
+        }, {
+            "label": "Feature: Military Rank",
+            "path": "info.Military Rank",
+            "type": "value",
+            "value": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized."
+        }]
     }]
 }
