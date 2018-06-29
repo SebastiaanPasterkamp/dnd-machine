@@ -856,172 +856,200 @@
         }]
     }],
     "class": [{
-        "name": "Barbarian",
-        "filename": "barbarian.md",
-        "phases": {
-            "barbarian-1": {
-                "conditions": {
-                    "level": 1,
-                    "class": "Barbarian"
-                },
+        "label": "Barbarian",
+        "description": "Barbarians come alive in the chaos of combat. They can enter a berserk state where rage takes over, giving them superhuman strength and resilience. A barbarian can draw on this reservoir of fury only a few times without resting, but those few rages are usually sufficient to defeat whatever threats arise.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "class",
+            "type": "value",
+            "value": "Barbarian"
+        }, {
+            "hidden": true,
+            "path": "path",
+            "type": "value",
+            "value": []
+        }, {
+            "hidden": true,
+            "path": "proficiency",
+            "type": "value",
+            "value": 2
+        }, {
+            "label": "Hit Dice",
+            "description": "`1d12` per **Barbarian** level.",
+            "type": "config",
+            "config": [{
+                "label": "Hit Points at 1st Level",
+                "description": "`12` + your **Constitution modifier**.",
+                "type": "config",
                 "config": [{
-                    "hidden": true,
-                    "path": "path",
-                    "type": "value",
-                    "value": []
-                }, {
-                    "hidden": true,
-                    "path": "proficiency",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
-                    "path": "hit_dice",
-                    "type": "value",
-                    "value": 12
-                }, {
                     "hidden": true,
                     "path": "computed.hit_points.formula",
                     "type": "value",
                     "value": "(12 + statistics.modifiers.constitution) + (7 + statistics.modifiers.constitution) * (level - 1)"
-                }, {
+                }]
+            }, {
+                "label": "Hit Points at Higher Levels",
+                "description": "`1d12` (or `7`) + your **Constitution modifier** per **Barbarian** level after 1st.",
+                "type": "config",
+                "config": [{
                     "hidden": true,
-                    "path": "computed.unarmored.formula",
+                    "path": "hit_dice",
                     "type": "value",
-                    "value": "10 + statistics.modifiers.dexterity + statistics.modifiers.constitution"
-                }, {
-                    "label": "Class Armor Proficiencies",
-                    "path": "proficiencies.armor",
-                    "type": "list",
-                    "list": ["armor_types", "armor"],
-                    "given": [
-                        "light",
-                        "medium",
-                        "shield"
+                    "value": 12
+                }]
+            }]
+        }, {
+            "label": "Proficiencies",
+            "type": "config",
+            "config": [{
+                "label": "Armor",
+                "path": "proficiencies.armor",
+                "type": "list",
+                "list": ["armor_types", "armor"],
+                "given": [
+                    "light",
+                    "medium",
+                    "shield"
+                ]
+            }, {
+                "label": "Weapons",
+                "path": "proficiencies.weapons",
+                "type": "list",
+                "list": ["weapon_types", "weapon"],
+                "given": [
+                    "simple melee",
+                    "simple ranged",
+                    "martial melee",
+                    "martial ranged"
+                ]
+            }, {
+                "label": "Saving Throws",
+                "path": "proficiencies.saving_throws",
+                "type": "list",
+                "list": ["statistics"],
+                "given": [
+                    "strength",
+                    "constitution"
+                ]
+            }, {
+                "label": "Skills",
+                "description": "Choose two skills below.",
+                "path": "proficiencies.skills",
+                "type": "list",
+                "list": ["skills"],
+                "limit": 2,
+                "filter": {
+                    "code": [
+                        "animal handling",
+                        "athletics",
+                        "intimidation",
+                        "nature",
+                        "perception",
+                        "survival"
                     ]
-                }, {
-                    "label": "Class Weapon Proficiencies",
-                    "path": "proficiencies.weapons",
-                    "type": "list",
-                    "list": ["weapon_types", "weapon"],
-                    "given": [
-                        "simple melee",
-                        "simple ranged",
-                        "martial melee",
-                        "martial ranged"
-                    ]
-                }, {
-                    "label": "Class Saving Throws",
-                    "path": "proficiencies.saving_throws",
-                    "type": "list",
-                    "list": ["statistics"],
-                    "given": [
-                        "strength",
-                        "constitution"
-                    ]
-                }, {
-                    "label": "Class Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "limit": 2,
-                    "filter": {
-                        "code": [
-                            "animal handling",
-                            "athletics",
-                            "intimidation",
-                            "nature",
-                            "perception",
-                            "survival"
-                        ]
-                    }
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Greataxe",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Greataxe"]
-                    }, {
-                        "label": "Martial Melee",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "limit": 1,
-                        "filter": {
-                            "type": "martial melee"
-                        }
-                    }]
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Dual-wield Axes",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Handaxe", "Handaxe"]
-                    }, {
-                        "label": "Simple Weapon",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "limit": 1,
-                        "filter": {
-                            "type": [
-                                "simple melee",
-                                "simple ranged"
-                            ]
-                        }
-                    }]
-                }, {
-                    "label": "Class equipment",
-                    "path": "equipment",
+                }
+            }]
+        }, {
+            "label": "Equipment",
+            "description": "You start with the following equipment, in addition to the equipment granted by your background:",
+            "type": "config",
+            "config": [{
+                "type": "choice",
+                "options": [{
+                    "label": "A Greataxe",
                     "type": "list",
                     "list": ["weapon"],
-                    "multiple": true,
-                    "given": [
-                        "Javelin",
-                        "Javelin",
-                        "Javelin",
-                        "Javelin"
-                    ]
-                }, {
-                    "label": "Explorer's Pack",
                     "path": "equipment",
-                    "type": "list",
-                    "list": ["tools"],
                     "multiple": true,
-                    "given": [
-                        "Backpack",
-                        "Bedroll",
-                        "Mess Kit",
-                        "Tinderbox",
-                        "10 x Torch",
-                        "10 x Day of Rations",
-                        "Waterskin",
-                        "50 Feet of Hempen Rope"
-                    ]
+                    "given": ["Greataxe"]
                 }, {
-                    "label": "Unarmored Defense",
-                    "path": "info.Unarmored Defense",
-                    "type": "value",
-                    "value": "While you are not wearing any armor, your **Armor Class** equals 10 + your **Dexterity Modifier** + **Constitution Modifier**. You can use a shield and still gain this benefit."
-                }, {
-                    "label": "Rage",
-                    "path": "abilities.Rage",
-                    "type": "dict",
-                    "dict": {
-                        "description": "In battle, you fight with primal ferocity. On your turn, you can enter a rage as a *Bonus Action*. While raging, you gain the following benefits if you aren't wearing heavy armor:\n\n* You have **Advantage** on **Strength** checks and **Strength** *Saving Throws*.\n*  When you make a melee weapon attack using **Strength**, you gain +%(bonus_damage)s bonus to the damage.\n* You have *resistance* to *bludgeoning*, *piercing*, and *slashing* damage.\nIf you are able to cast spells, you can't **cast** them or **concentrate** on them while raging. Your rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven't attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a *bonus action*. Once you have raged %(maximum_rages)s times, you must finish a long rest before you can rage again.",
-                        "bonus_damage": 2,
-                        "maximum_rages": 2
+                    "label": "Martial Melee",
+                    "type": "list",
+                    "list": ["weapon"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "limit": 1,
+                    "filter": {
+                        "type": "martial melee"
                     }
                 }]
-            },
+            }, {
+                "type": "choice",
+                "options": [{
+                    "label": "Two Handaxes",
+                    "type": "list",
+                    "list": ["weapon"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": ["Handaxe", "Handaxe"]
+                }, {
+                    "label": "Simple Weapon",
+                    "type": "list",
+                    "list": ["weapon"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "limit": 1,
+                    "filter": {
+                        "type": [
+                            "simple melee",
+                            "simple ranged"
+                        ]
+                    }
+                }]
+            }, {
+                "label": "Explorer's Pack",
+                "path": "equipment",
+                "type": "list",
+                "list": ["tools"],
+                "multiple": true,
+                "given": [
+                    "Backpack",
+                    "Bedroll",
+                    "Mess Kit",
+                    "Tinderbox",
+                    "10 x Torch",
+                    "10 x Day of Rations",
+                    "Waterskin",
+                    "50 Feet of Hempen Rope"
+                ]
+            }, {
+                "label": "Four Javelins",
+                "path": "equipment",
+                "type": "list",
+                "list": ["weapon"],
+                "multiple": true,
+                "given": [
+                    "Javelin",
+                    "Javelin",
+                    "Javelin",
+                    "Javelin"
+                ]
+            }]
+        }, {
+            "label": "Unarmored Defense",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "computed.unarmored.formula",
+                "type": "value",
+                "value": "10 + statistics.modifiers.dexterity + statistics.modifiers.constitution"
+            }, {
+                "path": "info.Unarmored Defense",
+                "type": "value",
+                "value": "While you are not wearing any armor, your **Armor Class** equals 10 + your **Dexterity Modifier** + **Constitution Modifier**. You can use a shield and still gain this benefit."
+            }]
+        }, {
+            "label": "Rage",
+            "path": "abilities.Rage",
+            "type": "dict",
+            "dict": {
+                "description": "In battle, you fight with primal ferocity. On your turn, you can enter a rage as a *Bonus Action*. While raging, you gain the following benefits if you aren't wearing heavy armor:\n\n* You have **Advantage** on **Strength** checks and **Strength** *Saving Throws*.\n*  When you make a melee weapon attack using **Strength**, you gain +%(bonus_damage)s bonus to the damage.\n* You have *resistance* to *bludgeoning*, *piercing*, and *slashing* damage.\nIf you are able to cast spells, you can't **cast** them or **concentrate** on them while raging. Your rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven't attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a *bonus action*. Once you have raged %(maximum_rages)s times, you must finish a long rest before you can rage again.",
+                "bonus_damage": 2,
+                "maximum_rages": 2
+            }
+        }],
+        "phases": {
             "barbarian-2": {
                 "conditions": {
                     "level": 2,
@@ -1749,234 +1777,277 @@
             }
         }
     }, {
-        "name": "Bard",
-        "filename": "bard.md",
-        "phases": {
-            "bard-1": {
-                "conditions": {
-                    "level": 1,
-                    "class": "Bard"
-                },
+        "label": "Bard",
+        "description": "The greatest strength of bards is their sheer versatility. Many bards prefer to stick to the sidelines in combat, using their magic to inspire their allies and hinder their foes from a distance. But bards are capable of defending themselves in melee if necessary, using their magic to bolster their swords and armor. Their spells lean toward charms and illusions rather than blatantly destructive spells. They have a wide-ranging knowledge of many subjects and a natural aptitude that lets them do almost anything well. Bards become masters of the talents they set their minds to perfecting, from musical performance to esoteric knowledge.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "class",
+            "type": "value",
+            "value": "Bard"
+        }, {
+            "hidden": true,
+            "path": "college",
+            "type": "value",
+            "value": []
+        }, {
+            "hidden": true,
+            "path": "proficiency",
+            "type": "value",
+            "value": 2
+        }, {
+            "label": "Hit Dice",
+            "description": "`1d8` per **Bard** level.",
+            "type": "config",
+            "config": [{
+                "label": "Hit Points at 1st Level",
+                "description": "`8` + your **Constitution modifier**.",
+                "type": "config",
                 "config": [{
-                    "hidden": true,
-                    "path": "college",
-                    "type": "value",
-                    "value": []
-                }, {
-                    "hidden": true,
-                    "path": "proficiency",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
-                    "path": "hit_dice",
-                    "type": "value",
-                    "value": 8
-                }, {
                     "hidden": true,
                     "path": "computed.hit_points.formula",
                     "type": "value",
                     "value": "(8 + statistics.modifiers.constitution) + (5 + statistics.modifiers.constitution) * (level - 1)"
+                }]
+            }, {
+                "label": "Hit Points at Higher Levels",
+                "description": "`1d8` (or `5`) + your **Constitution modifier** per **Bard** level after 1st.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "hit_dice",
+                    "type": "value",
+                    "value": 8
+                }]
+            }]
+        }, {
+            "label": "Proficiencies",
+            "type": "config",
+            "config": [{
+                "label": "Armor",
+                "path": "proficiencies.armor",
+                "type": "list",
+                "list": ["armor_types", "armor"],
+                "given": ["light"]
+            }, {
+                "label": "Weapons",
+                "path": "proficiencies.weapons",
+                "type": "list",
+                "list": ["weapon_types", "weapon"],
+                "given": [
+                    "simple melee",
+                    "Crossbow, light",
+                    "Longsword",
+                    "Rapier",
+                    "Shortsword"
+                ]
+            }, {
+                "label": "Tools",
+                "description": "Three musical instruments of your choice.",
+                "path": "proficiencies.musical",
+                "type": "list",
+                "list": ["tools"],
+                "filter": {
+                    "type": "musical"
+                },
+                "limit": 3
+            }, {
+                "label": "Saving Throws",
+                "path": "proficiencies.saving_throws",
+                "type": "list",
+                "list": ["statistics"],
+                "given": [
+                    "dexterity",
+                    "charisma"
+                ]
+            }, {
+                "label": "Skills",
+                "path": "proficiencies.skills",
+                "type": "list",
+                "list": ["skills"],
+                "limit": 3
+            }]
+        }, {
+            "label": "Equipment",
+            "description": "You start with the following equipment, in addition to the equipment granted by your background:",
+            "type": "config",
+            "config": [{
+                "type": "choice",
+                "options": [{
+                    "label": "A Rapier",
+                    "type": "list",
+                    "list": ["weapon"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": ["Rapier"]
                 }, {
+                    "label": "A Longsword",
+                    "type": "list",
+                    "list": ["weapon"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": ["Longsword"]
+                }, {
+                    "label": "Simple Weapon",
+                    "type": "list",
+                    "list": ["weapon"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "limit": 1,
+                    "filter": {
+                        "type": "simple melee"
+                    }
+                }]
+            }, {
+                "type": "choice",
+                "options": [{
+                    "label": "Diplomat's Pack",
+                    "type": "list",
+                    "list": ["tools"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": [
+                        "Chest",
+                        "2 x Case for Maps and Scrolls",
+                        "Set of Fine Clothes",
+                        "Bottle of Ink",
+                        "Ink Pen",
+                        "Lamp",
+                        "2 x Flask of Oil",
+                        "5 x Sheet of Paper",
+                        "Vial of Perfume",
+                        "Sealing Wax",
+                        "Soap"
+                    ]
+                }, {
+                    "label": "Entertainer's Pack",
+                    "type": "list",
+                    "list": ["tools"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": [
+                        "Backpack",
+                        "Bedroll",
+                        "2 x Costume",
+                        "5 x Candle",
+                        "5 x Day of Rations",
+                        "Waterskin",
+                        "Disguise Kit"
+                    ]
+                }]
+            }, {
+                "type": "choice",
+                "options": [{
+                    "label": "Lute",
+                    "type": "list",
+                    "list": ["tools"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": ["Lute"]
+                }, {
+                    "label": "Other musical instrument",
+                    "type": "list",
+                    "list": ["tools"],
+                    "path": "equipment",
+                    "filter": {
+                        "type": "musical"
+                    },
+                    "multiple": true,
+                    "limit": 1
+                }]
+            }, {
+                "path": "equipment",
+                "type": "list",
+                "list": ["armor", "weapon"],
+                "multiple": true,
+                "given": [
+                    "Leather Armor",
+                    "Dagger"
+                ]
+            }]
+        }, {
+            "label": "Spellcasting",
+            "description": "You have learned to untangle and reshape the fabric of reality in harmony with your wishes and music. Your spells are part of your vast repertoire, magic that you can tune to different situations.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "spell.max_cantrips",
+                "type": "value",
+                "value": 2
+            }, {
+                "hidden": true,
+                "path": "spell.slots",
+                "type": "dict",
+                "dict": {
+                    "level_1": 2
+                }
+            }, {
+                "hidden": true,
+                "path": "spell.max_known",
+                "type": "value",
+                "value": 4
+            }, {
+                "label": "Cantrips",
+                "description": "You know two cantrips of your choice from the bard spell list. You learn additional bard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Bard table.",
+                "path": "spell.list",
+                "type": "list",
+                "list": ["spell"],
+                "limit": 2,
+                "filter": {
+                    "classes": "Bard",
+                    "level": "Cantrip"
+                }
+            }, {
+                "label": "Spells Known of 1st Level and Higher",
+                "description": "You know four 1st-level spells of your choice from the bard spell list.",
+                "path": "spell.list",
+                "type": "list",
+                "list": ["spell"],
+                "limit": 4,
+                "filter": {
+                    "classes": "Bard",
+                    "level": ["1"]
+                }
+            }, {
+                "label": "Spellcasting ability",
+                "description": "**Charisma** is your spellcasting ability for your bard spells. Your magic comes from the heart and soul you pour into the performance of your music or oration. You use your Charisma whenever a spell refers to your spellcasting ability. In addition, you use your Charisma modifier when setting the saving throw DC for a bard spell you east and when making an attack roll with one.",
+                "type": "config",
+                "config": [{
                     "hidden": true,
                     "path": "spell.stat",
                     "type": "value",
                     "value": "charisma"
                 }, {
-                    "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_known",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 2
-                    }
-                }, {
-                    "hidden": true,
-                    "path": "computed.spellSafe_dc.formula",
-                    "type": "value",
-                    "value": "8 + character.proficiency + statistics.modifiers.charisma"
-                }, {
-                    "hidden": true,
-                    "path": "computed.spellAttack_modifier.formula",
-                    "type": "value",
-                    "value": "character.proficiency + statistics.modifiers.charisma"
-                }, {
-                    "label": "Class Armor Proficiencies",
-                    "path": "proficiencies.armor",
-                    "type": "list",
-                    "list": ["armor_types", "armor"],
-                    "given": ["light"]
-                }, {
-                    "label": "Class Weapon Proficiencies",
-                    "path": "proficiencies.weapons",
-                    "type": "list",
-                    "list": ["weapon_types", "weapon"],
-                    "given": [
-                        "simple melee",
-                        "Crossbow, light",
-                        "Longsword",
-                        "Rapier",
-                        "Shortsword"
-                    ]
-                }, {
-                    "label": "Musical Instrument Proficiencies",
-                    "path": "proficiencies.musical",
-                    "type": "list",
-                    "list": ["tools"],
-                    "filter": {
-                        "type": "musical"
-                    },
-                    "limit": 3
-                }, {
-                    "label": "Class Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "limit": 3
-                }, {
-                    "label": "Class Saving Throws",
-                    "path": "proficiencies.saving_throws",
-                    "type": "list",
-                    "list": ["statistics"],
-                    "given": [
-                        "dexterity",
-                        "charisma"
-                    ]
-                }, {
-                    "label": "Class equipment",
-                    "path": "equipment",
-                    "type": "list",
-                    "list": ["armor", "weapon"],
-                    "multiple": true,
-                    "given": [
-                        "Leather Armor",
-                        "Dagger"
-                    ]
-                }, {
-                    "label": "Bardic Inspiration",
-                    "path": "abilities.Bardic Inspiration",
-                    "type": "dict",
-                    "dict": {
-                        "description": "You can inspire others through stirring words or music. To do so, you use a *bonus action* on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one **Bardic Inspiration** die, a %(dice_size)s.\nOnce within the next 10 minutes, the creature can roll the die and add the number rolled to one *Ability Check*, *Attack Roll*, or *Saving Throw* it makes. The creature can wait until after it rolls the `d20` before deciding to use the **Bardic Inspiration** die, but must decide before the DM says whether the roll succeeds or fails. Once the **Bardic Inspiration** die is rolled, it is lost. A creature can have only one **Bardic Inspiration** die at a time.\nYou can use this feature a %(uses)s times. You regain any expended uses when you finish a *%(rest)s* rest.",
-                        "dice_size": "d6",
-                        "uses_formula": "max(1, statistics.modifiers.charisma)",
-                        "rest": "long"
-                    }
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Rapier",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Rapier"]
-                    }, {
-                        "label": "Longsword",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Longsword"]
-                    }, {
-                        "label": "Simple Weapon",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "limit": 1,
-                        "filter": {
-                            "type": "simple melee"
-                        }
+                    "label": "Spell save DC",
+                    "description": "`8` + your **Proficiency bonus** + your **Charisma modifier**",
+                    "type": "config",
+                    "config": [{
+                        "path": "computed.spellSafe_dc.formula",
+                        "type": "value",
+                        "value": "8 + character.proficiency + statistics.modifiers.charisma"
                     }]
                 }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Lute",
-                        "type": "list",
-                        "list": ["tools"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Lute"]
-                    }, {
-                        "label": "Other Instrument",
-                        "type": "list",
-                        "list": ["tools"],
-                        "path": "equipment",
-                        "filter": {
-                            "type": "musical"
-                        },
-                        "multiple": true,
-                        "limit": 1
+                    "label": "Spell attack modifier",
+                    "description": "Your **proficiency bonus** + your **Charisma modifier**",
+                    "config": [{
+                        "path": "computed.spellAttack_modifier.formula",
+                        "type": "value",
+                        "value": "character.proficiency + statistics.modifiers.charisma"
                     }]
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Diplomat's Pack",
-                        "type": "list",
-                        "list": ["tools"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Chest",
-                            "2 x Case for Maps and Scrolls",
-                            "Set of Fine Clothes",
-                            "Bottle of Ink",
-                            "Ink Pen",
-                            "Lamp",
-                            "2 x Flask of Oil",
-                            "5 x Sheet of Paper",
-                            "Vial of Perfume",
-                            "Sealing Wax",
-                            "Soap"
-                        ]
-                    }, {
-                        "label": "Entertainer's Pack",
-                        "type": "list",
-                        "list": ["tools"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Bedroll",
-                            "2 x Costume",
-                            "5 x Candle",
-                            "5 x Day of Rations",
-                            "Waterskin",
-                            "Disguise Kit"
-                        ]
-                    }]
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 2,
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
-                    "label": "Spells",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 4,
-                    "filter": {
-                        "classes": "Bard",
-                        "level": ["1"]
-                    }
                 }]
-            },
+            }]
+        }, {
+            "label": "Bardic Inspiration",
+            "path": "abilities.Bardic Inspiration",
+            "type": "dict",
+            "dict": {
+                "description": "You can inspire others through stirring words or music. To do so, you use a *bonus action* on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one **Bardic Inspiration** die, a %(dice_size)s.\nOnce within the next 10 minutes, the creature can roll the die and add the number rolled to one *Ability Check*, *Attack Roll*, or *Saving Throw* it makes. The creature can wait until after it rolls the `d20` before deciding to use the **Bardic Inspiration** die, but must decide before the DM says whether the roll succeeds or fails. Once the **Bardic Inspiration** die is rolled, it is lost. A creature can have only one **Bardic Inspiration** die at a time.\nYou can use this feature a %(uses)s times. You regain any expended uses when you finish a *%(rest)s* rest.",
+                "dice_size": "d6",
+                "uses_formula": "max(1, statistics.modifiers.charisma)",
+                "rest": "long"
+            }
+        }],
+        "phases": {
             "bard-2": {
                 "conditions": {
                     "level": 2,
