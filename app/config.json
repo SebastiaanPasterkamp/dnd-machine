@@ -1,5 +1,5 @@
 {
-    "SECRET_KEY": "development key",
+    "SECRET_KEY": "0mUhRKxfg2Ceo2kS4R3qYKOUs0zepvHn",
     "DATABASE": "flaskr.db",
     "SEND_FILE_MAX_AGE_DEFAULT": 3600,
     "SERVER_NAME": "localhost:5000",
