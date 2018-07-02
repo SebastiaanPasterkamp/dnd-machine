@@ -13,6 +13,7 @@ if [ ! -e "$DATABASE" ]; then
     else
         echo "Initializing DnD Machine. Login with 'admin/admin' to get started."
         ./run.py \
+            $RUNARGS \
             --debug \
             --initdb
     fi
@@ -26,5 +27,13 @@ echo "Upgrading DnD Machine..."
     $RUNARGS \
     --migrate
 echo "Upgrade completed."
+
+echo "Building UI"
+if [ ! -L /dnd-machine/node_modules ]; then
+    rm -rf /dnd-machine/node_modules
+    ln -s /node_modules /dnd-machine/node_modules
+fi
+npm install
+npm build
 
 ./run.py $RUNARGS $@
