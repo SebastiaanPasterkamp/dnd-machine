@@ -28,7 +28,9 @@ RUN apt-get update \
 COPY . /dnd-machine
 
 RUN npm install \
-    && npm run build
+    && npm run build \
+    && mv /dnd-machine/node_modules /node_modules \
+    && ln -s /node_modules /dnd-machine/node_modules
 
 VOLUME [ "/var/run/dnd-machine" ]
 
