@@ -11,6 +11,7 @@ import ControlGroup from '../components/ControlGroup.jsx';
 import CostEditor from '../components/CostEditor.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
+import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import MultiSelect from '../components/MultiSelect.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
@@ -32,7 +33,7 @@ export class ArmorEdit extends React.Component
         ];
 
         this.state = {
-            armor_method: null
+            armor_method: null,
         };
     }
 
@@ -66,8 +67,8 @@ export class ArmorEdit extends React.Component
         );
 
         const {
-            type, armor_types, name, bonus, value, formula,
-            requirements, weight, disadvantage, cost
+            type, armor_types, name, description, bonus, value, formula,
+            requirements, weight = {}, disadvantage, cost
         } = this.props;
 
         return [
@@ -178,7 +179,23 @@ export class ArmorEdit extends React.Component
                             this.onFieldChange('cost', value);
                         }} />
                 </ControlGroup>
-            </Panel>
+            </Panel>,
+
+            <Panel
+                key="description"
+                className="armor-edit__description"
+                header="Description"
+                >
+                <ControlGroup label="Description">
+                    <MarkdownTextField
+                        placeholder="Description..."
+                        value={description || ''}
+                        rows={5}
+                        setState={value => {
+                            this.onFieldChange('description', value);
+                        }} />
+                </ControlGroup>
+            </Panel>,
         ];
     }
 }
