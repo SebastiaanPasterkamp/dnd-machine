@@ -19,13 +19,10 @@
                 }, {
                     "label": "Ability Score Increase",
                     "description": "Your **Wisdom** score increases by 1.",
-                    "type": "config",
-                    "config": [{
-                        "hidden": true,
-                        "path": "statistics.bonus.wisdom",
-                        "type": "list",
-                        "given": [1]
-                    }]
+                    "described": true,
+                    "path": "statistics.bonus.wisdom",
+                    "type": "list",
+                    "given": [1]
                 }, {
                     "label": "Dwarven Toughness",
                     "description": "Your hit point maximum increases by 1, and it increases by 1 every time you gain a level.",
@@ -1446,7 +1443,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "You can use your *action* to *frighten* someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a **Wisdom** *Saving Throw* (DC equal to `%(dc)s`) or be *frightened* of you until the end of your next turn. On subsequent turns, you can use your *action* to extend the duration of this effect on the frightened creature until the end of your next turn. This effect ends if the creature ends its turn out of line of sight or more than 60 feet away from you. If the creature succeeds on its saving throw, you can't use this feature on that creature again for 24 hours.",
-                        "dc_formula": "8 + character.proficiency + statistics.modifiers.charisma"
+                        "dc_formula": "8 + character.proficiency + statistics.modifiers.charisma",
+                        "dc_default": "8 + your **Proficiency** + your **Charisma modifier**"
                     }
                 }]
             },
@@ -1711,7 +1709,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "If your total for a **Strength** check is less than your **Strength** score (%(minimum_score)s), you can use %(minimum_score)s in place of the total.",
-                        "minimum_score_formula": "statistics.base.strength"
+                        "minimum_score_formula": "statistics.base.strength",
+                        "minimum_score_default": "your base **Strength**"
                     }
                 }]
             },
@@ -2022,6 +2021,7 @@
                     "description": "`8` + your **Proficiency bonus** + your **Charisma modifier**",
                     "type": "config",
                     "config": [{
+                        "hidden": true,
                         "path": "computed.spellSafe_dc.formula",
                         "type": "value",
                         "value": "8 + character.proficiency + statistics.modifiers.charisma"
@@ -2029,7 +2029,9 @@
                 }, {
                     "label": "Spell attack modifier",
                     "description": "Your **proficiency bonus** + your **Charisma modifier**",
+                    "type": "config",
                     "config": [{
+                        "hidden": true,
                         "path": "computed.spellAttack_modifier.formula",
                         "type": "value",
                         "value": "character.proficiency + statistics.modifiers.charisma"
@@ -2041,9 +2043,10 @@
             "path": "abilities.Bardic Inspiration",
             "type": "dict",
             "dict": {
-                "description": "You can inspire others through stirring words or music. To do so, you use a *bonus action* on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one **Bardic Inspiration** die, a %(dice_size)s.\nOnce within the next 10 minutes, the creature can roll the die and add the number rolled to one *Ability Check*, *Attack Roll*, or *Saving Throw* it makes. The creature can wait until after it rolls the `d20` before deciding to use the **Bardic Inspiration** die, but must decide before the DM says whether the roll succeeds or fails. Once the **Bardic Inspiration** die is rolled, it is lost. A creature can have only one **Bardic Inspiration** die at a time.\nYou can use this feature a %(uses)s times. You regain any expended uses when you finish a *%(rest)s* rest.",
+                "description": "You can inspire others through stirring words or music. To do so, you use a *bonus action* on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one **Bardic Inspiration** die, a %(dice_size)s.\nOnce within the next 10 minutes, the creature can roll the die and add the number rolled to one *Ability Check*, *Attack Roll*, or *Saving Throw* it makes. The creature can wait until after it rolls the `d20` before deciding to use the **Bardic Inspiration** die, but must decide before the DM says whether the roll succeeds or fails. Once the **Bardic Inspiration** die is rolled, it is lost. A creature can have only one **Bardic Inspiration** die at a time.\nYou can use this feature %(uses)s times. You regain any expended uses when you finish a *%(rest)s* rest.",
                 "dice_size": "d6",
                 "uses_formula": "max(1, statistics.modifiers.charisma)",
+                "uses_default": "your **Charisma modifier** number of",
                 "rest": "long"
             }
         }],
@@ -3330,464 +3333,526 @@
             }
         }
     }, {
-        "name": "Cleric",
-        "filename": "cleric.md",
-        "phases": {
-            "cleric-1": {
-                "conditions": {
-                    "level": 1,
-                    "class": "Cleric"
-                },
+        "label": "Cleric",
+        "description": "Clerics combine the helpful magic of healing and inspiring their allies with spells that harm and hinder foes. They can provoke awe and dread, lay curses of plague or poison, and even call down flames from heaven to consume their enemies. For those evildoers who will benefit most from a mace to the head, clerics depend on their combat training to let them wade into melee with the power of the gods on their side.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "class",
+            "type": "value",
+            "value": "Cleric"
+        }, {
+            "hidden": true,
+            "path": "proficiency",
+            "type": "value",
+            "value": 2
+        }, {
+            "label": "Hit Dice",
+            "description": "`1d8` per **Cleric** level.",
+            "type": "config",
+            "config": [{
+                "label": "Hit Points at 1st Level",
+                "description": "`8` + your **Constitution modifier**.",
+                "type": "config",
                 "config": [{
-                    "hidden": true,
-                    "path": "proficiency",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
-                    "path": "hit_dice",
-                    "type": "value",
-                    "value": 8
-                }, {
                     "hidden": true,
                     "path": "computed.hit_points.formula",
                     "type": "value",
                     "value": "(8 + statistics.modifiers.constitution) + (5 + statistics.modifiers.constitution) * (level - 1)"
+                }]
+            }, {
+                "label": "Hit Points at Higher Levels",
+                "description": "`1d8` (or `5`) + your **Constitution modifier** per **Cleric** level after 1st.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "hit_dice",
+                    "type": "value",
+                    "value": 8
+                }]
+            }]
+        }, {
+            "label": "Proficiencies",
+            "type": "config",
+            "config": [{
+                "label": "Armor",
+                "path": "proficiencies.armor",
+                "type": "list",
+                "list": ["armor_types", "armor"],
+                "given": ["light", "medium", "shield"]
+            }, {
+                "label": "Weapons",
+                "path": "proficiencies.weapons",
+                "type": "list",
+                "list": ["weapon_types", "weapon"],
+                "given": [
+                    "simple melee",
+                    "simple ranged"
+                ]
+            }, {
+                "label": "Saving Throws",
+                "path": "proficiencies.saving_throws",
+                "type": "list",
+                "list": ["statistics"],
+                "given": [
+                    "wisdom",
+                    "charisma"
+                ]
+            }, {
+                "label": "Skills",
+                "path": "proficiencies.skills",
+                "type": "list",
+                "list": ["skills"],
+                "limit": 2,
+                "filter": {
+                    "code": ["history", "insight", "medicine", "pursuasion", "religion"]
+                }
+            }]
+        }, {
+            "label": "Equipment",
+            "description": "You start with the following equipment, in addition to the equipment granted by your background:",
+            "type": "config",
+            "config": [{
+                "type": "choice",
+                "options": [{
+                    "label": "Mace",
+                    "type": "list",
+                    "list": ["weapon"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": ["Mace"]
                 }, {
+                    "label": "Warhammer",
+                    "description": "Only take if proficient.",
+                    "hidden_formula": "!('martial melee' in proficiencies.weapons)",
+                    "type": "list",
+                    "list": ["weapon"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": ["Warhammer"]
+                }]
+            }, {
+                "type": "choice",
+                "options": [{
+                    "label": "Scale mail",
+                    "type": "list",
+                    "list": ["armor"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": ["Scale mail"]
+                }, {
+                    "label": "Leather Armor",
+                    "type": "list",
+                    "list": ["armor"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": ["Leather Armor"]
+                }, {
+                    "label": "Chain Mail",
+                    "description": "Only take if proficient.",
+                    "hidden_formula": "!('heavy' in proficiencies.armor)",
+                    "type": "list",
+                    "list": ["armor"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": ["Chain Mail"]
+                }]
+            }, {
+                "type": "choice",
+                "options": [{
+                    "label": "Crossbow",
+                    "type": "list",
+                    "list": ["weapon"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": ["Crossbow, light", "20 x Bolt"]
+                }, {
+                    "label": "Simple Weapon",
+                    "type": "list",
+                    "list": ["weapon"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "limit": 1,
+                    "filter": {
+                        "type": [
+                            "simple melee",
+                            "simple ranged"
+                        ]
+                    }
+                }]
+            }, {
+                "type": "choice",
+                "options": [{
+                    "label": "Priest's Pack",
+                    "type": "list",
+                    "list": ["items"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": [
+                        "Backpack",
+                        "Blanket",
+                        "10 x Candle",
+                        "Tinderbox",
+                        "Alms Box",
+                        "2 x Block of Incense",
+                        "Censer",
+                        "Vestments",
+                        "2 x Day of Rations",
+                        "Waterskin"
+                    ]
+                }, {
+                    "label": "Explorer's Pack",
+                    "type": "list",
+                    "list": ["items"],
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": [
+                        "Backpack",
+                        "Bedroll",
+                        "Mess Kit",
+                        "Tinderbox",
+                        "10 x Torch",
+                        "10 x Day of Rations",
+                        "Waterskin",
+                        "50 Feet of Hempen Rope"
+                    ]
+                }]
+            }, {
+                "label": "Class Equipment",
+                "type": "list",
+                "list": ["armor", "items"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Shield",
+                    "Holy Symbol"
+                ]
+            }]
+        }, {
+            "label": "Spellcasting",
+            "description": "You have learned to untangle and reshape the fabric of reality in harmony with your wishes and music. Your spells are part of your vast repertoire, magic that you can tune to different situations.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "spell.max_cantrips",
+                "type": "value",
+                "value": 3
+            }, {
+                "hidden": true,
+                "path": "spell.slots",
+                "type": "dict",
+                "dict": {
+                    "level_1": 2
+                }
+            }, {
+                "label": "Cantrips",
+                "description": "You know three cantrips of your choice from the cleric spell list. You learn additional cleric cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Cleric table.",
+                "path": "spell.list",
+                "type": "list",
+                "list": ["spell"],
+                "limit_formula": "3 - spell.max_cantrips",
+                "filter": {
+                    "classes": "Cleric",
+                    "level": "Cantrip"
+                }
+            }, {
+                "label": "Spellcasting ability",
+                "description": "**Wisdom** is your spellcasting ability for your cleric spells. The power of your spells comes from your devotion to your deity. You use your Wisdom whenever a cleric spell refers to your spellcasting ability. In addition, you use your Wisdom modifier when setting the saving throw DC for a cleric spell you cast and when making an attack roll with one.",
+                "type": "config",
+                "config": [{
                     "hidden": true,
                     "path": "spell.stat",
                     "type": "value",
                     "value": "wisdom"
                 }, {
-                    "hidden": true,
-                    "path": "computed.spellSafe_dc.formula",
-                    "type": "value",
-                    "value": "8 + character.proficiency + statistics.modifiers.wisdom"
-                }, {
-                    "hidden": true,
-                    "path": "computed.spellAttack_modifier.formula",
-                    "type": "value",
-                    "value": "character.proficiency + statistics.modifiers.wisdom"
-                }, {
-                    "hidden": true,
-                    "path": "computed.spellMax_prepared.formula",
-                    "type": "value",
-                    "value": "max(1, character.level + statistics.modifiers.wisdom)"
-                }, {
-                    "label": "Class Armor Proficiencies",
-                    "path": "proficiencies.armor",
-                    "type": "list",
-                    "list": ["armor_types", "armor"],
-                    "given": ["light", "medium", "shield"]
-                }, {
-                    "label": "Class Weapon Proficiencies",
-                    "path": "proficiencies.weapons",
-                    "type": "list",
-                    "list": ["weapon_types", "weapon"],
-                    "given": [
-                        "simple melee",
-                        "simple ranged"
-                    ]
-                }, {
-                    "label": "Class Saving Throws",
-                    "path": "proficiencies.saving_throws",
-                    "type": "list",
-                    "list": ["statistics"],
-                    "given": [
-                        "wisdom",
-                        "charisma"
-                    ]
-                }, {
-                    "label": "Class Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "limit": 2,
-                    "filter": {
-                        "code": ["history", "insight", "medicine", "pursuasion", "religion"]
-                    }
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Mace",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Mace"]
-                    }, {
-                        "label": "Warhammer",
-                        "description": "Only take if proficient.",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Warhammer"]
+                    "label": "Spell save DC",
+                    "description": "`8` + your **Proficiency bonus** + your **Charisma modifier**",
+                    "type": "config",
+                    "config": [{
+                        "hidden": true,
+                        "path": "computed.spellSafe_dc.formula",
+                        "type": "value",
+                        "value": "8 + character.proficiency + statistics.modifiers.wisdom"
                     }]
                 }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Scale mail",
-                        "type": "list",
-                        "list": ["armor"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Scale mail"]
-                    }, {
-                        "label": "Leather Armor",
-                        "type": "list",
-                        "list": ["armor"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Leather Armor"]
-                    }, {
-                        "label": "Chain Mail",
-                        "description": "Only take if proficient.",
-                        "type": "list",
-                        "list": ["armor"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Chain Mail"]
+                    "label": "Spell attack modifier",
+                    "description": "Your **proficiency bonus** + your **Charisma modifier**",
+                    "type": "config",
+                    "config": [{
+                        "hidden": true,
+                        "path": "computed.spellAttack_modifier.formula",
+                        "type": "value",
+                        "value": "character.proficiency + statistics.modifiers.wisdom"
                     }]
                 }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Crossbow",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Crossbow, light", "20 x Bolt"]
+                    "label": "Spells prepared",
+                    "description": "You prepare the list of cleric spells that are available for you to cast, choosing from the cleric spell list. When you do so, choose a number of cleric spells equal to your **Wisdom modifier** + your **Cleric level** (minimum of one spell). The spells must be of a level for which you have spell slots.",
+                    "type": "config",
+                    "config": [{
+                        "hidden": true,
+                        "path": "computed.spellMax_prepared.formula",
+                        "type": "value",
+                        "value": "max(1, character.level + statistics.modifiers.wisdom)"
+                    }]
+                }]
+            }, {
+                "label": "Divine Domain",
+                "description": "Choose one domain related to your deity. Your choice grants you domain spells and other features. It also grants you additional ways to use Channel Divinity, and additional benefits at higher levels.",
+                "type": "choice",
+                "options": [{
+                    "label": "Knowledge",
+                    "description": "The gods of knowledge value learning and understanding above all. Some teach that knowledge is to be gathered and shared in libraries and universities, or promote the practical knowledge of craft and invention. Some deities hoard knowledge and keep its secrets to themselves. And some promise their followers that they will gain tremendous power if they unlock the secrets of the multiverse. Followers of these gods study esoteric lore, collect old tomes, delve into the secret places of the earth, and learn all they can. Some gods of knowledge promote the practical knowledge of craft and invention.",
+                    "type": "config",
+                    "config": [{
+                        "hidden": true,
+                        "path": "domain",
+                        "type": "value",
+                        "value": ["Knowledge"]
                     }, {
-                        "label": "Simple Weapon",
+                        "label": "Domain Spells",
+                        "path": "spell.list",
                         "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "limit": 1,
-                        "filter": {
-                            "type": [
-                                "simple melee",
-                                "simple ranged"
-                            ]
+                        "list": ["spell"],
+                        "given": ["Command", "Identify"]
+                    }, {
+                        "label": "Blessing of Knowledge",
+                        "type": "config",
+                        "config": [{
+                            "label": "Languages",
+                            "path": "languages",
+                            "type": "list",
+                            "list": ["languages"],
+                            "limit": 2
+                        }, {
+                            "label": "Expertise",
+                            "path": "proficiencies.expertise",
+                            "type": "list",
+                            "list": ["skills"],
+                            "limit": 2,
+                            "filter": {
+                                "code": [
+                                    "arcana",
+                                    "history",
+                                    "nature",
+                                    "religion"
+                                ]
+                            }
+                        }]
+                    }]
+                }, {
+                    "label": "Life",
+                    "description": "The Life domain focuses on the vibrant positive energy-one of the fundamental forces of the universe- that sustains all life. The gods of life promote vitality and health through healing the sick and wounded, caring for those in need, and driving away the forces of death and undeath. Almost any non-evil deity can claim influence over this domain",
+                    "type": "config",
+                    "config": [{
+                        "hidden": true,
+                        "path": "domain",
+                        "type": "value",
+                        "value": ["Life"]
+                    }, {
+                        "label": "Domain Spells",
+                        "path": "spell.list",
+                        "type": "list",
+                        "list": ["spell"],
+                        "given": ["Bless", "Cure Wounds"]
+                    }, {
+                        "label": "Bonus Proficiency",
+                        "path": "proficiencies.armor",
+                        "type": "list",
+                        "list": ["armor_types", "armor"],
+                        "given": ["heavy"]
+                    }, {
+                        "label": "Disciple of Life",
+                        "path": "abilities.Disciple of Life",
+                        "type": "dict",
+                        "dict": {
+                            "description": "Your healing spells are more effective. Whenever you use a spell of 1st level or higher to restore hit points to a creature. the creature regains additional hit points equal to 2 + the spell's level."
                         }
                     }]
                 }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Priest's Pack",
-                        "type": "list",
-                        "list": ["items"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Blanket",
-                            "10 x Candle",
-                            "Tinderbox",
-                            "Alms Box",
-                            "2 x Block of Incense",
-                            "Censer",
-                            "Vestments",
-                            "2 x Day of Rations",
-                            "Waterskin"
-                        ]
+                    "label": "Light",
+                    "description": "Gods of light promote the ideals of rebirth and renewal, truth, vigilance, and beauty, often using the symbol of the sun. Some of these gods are portrayed as the sun itself or as a charioteer who guides the sun across the sky. Others are tireless sentinels whose eyes pierce every shadow and see through every deception. Some are deities of beauty and artistry, who teach that art is a vehicle for the soul's improvement. Clerics of a god of light are enlightened souls infused with radiance and the power of their gods' discerning vision, charged with chasing away lies and burning away darkness.",
+                    "type": "config",
+                    "config": [{
+                        "hidden": true,
+                        "path": "domain",
+                        "type": "value",
+                        "value": ["Light"]
                     }, {
-                        "label": "Explorer's Pack",
+                        "label": "Domain Spells",
+                        "path": "spell.list",
                         "type": "list",
-                        "list": ["items"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Bedroll",
-                            "Mess Kit",
-                            "Tinderbox",
-                            "10 x Torch",
-                            "10 x Day of Rations",
-                            "Waterskin",
-                            "50 Feet of Hempen Rope"
-                        ]
+                        "list": ["spell"],
+                        "given": ["Burning Hands", "Faerie Fire", "Light"]
+                    }, {
+                        "label": "Warding Flare",
+                        "path": "abilities.Warding Flare",
+                        "type": "dict",
+                        "dict": {
+                            "description": "You can interpose divine light between yourself and an attacking enemy. When you are attacked by a creature within 30 feet of you that you can see, you can use your *reaction* to impose **Disadvantage** on the attack roll, causing light to flare before the attacker before it hits or misses. An attacker that can't be blinded is immune to this feature. You can use this feature %(uses)s times. You regain all expended uses when you finish a long rest.",
+                            "uses_formula": "max(1, statistics.modifiers.wisdom)",
+                            "uses_default": "your **Wisdom modifier** number"
+                        }
                     }]
                 }, {
-                    "label": "Class Equipment",
-                    "type": "list",
-                    "list": ["armor", "items"],
-                    "path": "equipment",
-                    "multiple": true,
-                    "given": [
-                        "Shield",
-                        "Holy Symbol"
-                    ]
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 3
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Cleric",
-                        "level": "Cantrip"
-                    }
-                }, {
-                    "label": "Divine Domain",
-                    "description": "Choose one domain related to your deity. Your choice grants you domain spells and other features. It also grants you additional ways to use Channel Divinity, and additional benefits at higher levels.",
-                    "type": "choice",
-                    "options": [{
-                        "label": "Knowledge",
-                        "description": "The gods of knowledge value learning and understanding above all. Some teach that knowledge is to be gathered and shared in libraries and universities, or promote the practical knowledge of craft and invention. Some deities hoard knowledge and keep its secrets to themselves. And some promise their followers that they will gain tremendous power if they unlock the secrets of the multiverse. Followers of these gods study esoteric lore, collect old tomes, delve into the secret places of the earth, and learn all they can. Some gods of knowledge promote the practical knowledge of craft and invention.",
-                        "type": "config",
-                        "config": [{
-                            "hidden": true,
-                            "path": "domain",
-                            "type": "value",
-                            "value": ["Knowledge"]
-                        }, {
-                            "label": "Knowledge Domain Spells",
-                            "path": "spell.list",
-                            "type": "list",
-                            "list": ["spell"],
-                            "given": ["Command", "Identify"]
-                        }, {
-                            "label": "Blessing of Knowledge",
-                            "type": "config",
-                            "config": [{
-                                "label": "Languages",
-                                "path": "languages",
-                                "type": "list",
-                                "list": ["languages"],
-                                "limit": 2
-                            }, {
-                                "label": "Expertise",
-                                "path": "proficiencies.expertise",
-                                "type": "list",
-                                "list": ["skills"],
-                                "limit": 2,
-                                "filter": {
-                                    "code": [
-                                        "arcana",
-                                        "history",
-                                        "nature",
-                                        "religion"
-                                    ]
-                                }
-                            }]
-                        }]
+                    "label": "Nature",
+                    "description": "Gods of nature are as varied as the natural world itself. from inscrutable gods of the deep forests to friendly deities associated with particular springs and groves. Druids revere nature as a whole and might serve one of these deities, practicing mysterious rites and reciting all-but-forgotten prayers in their own secret tongue. But many of these gods have clerics as well, champions who take a more active role in advancing the interests of a particular nature god. These clerics might hunt the evil monstrosities that despoil the woodlands, bless the harvest of the faithful, or wither the crops of those who anger their gods.",
+                    "type": "config",
+                    "config": [{
+                        "hidden": true,
+                        "path": "domain",
+                        "type": "value",
+                        "value": ["Nature"]
                     }, {
-                        "label": "Life",
-                        "description": "The Life domain focuses on the vibrant positive energy-one of the fundamental forces of the universe- that sustains all life. The gods of life promote vitality and health through healing the sick and wounded, caring for those in need, and driving away the forces of death and undeath. Almost any non-evil deity can claim influence over this domain",
+                        "label": "Domain Spells",
+                        "path": "spell.list",
+                        "type": "list",
+                        "list": ["spell"],
+                        "given": ["Animal Friendship", "Speak with Animals"]
+                    }, {
+                        "label": "Acolyt of Nature",
                         "type": "config",
                         "config": [{
-                            "hidden": true,
-                            "path": "domain",
-                            "type": "value",
-                            "value": ["Life"]
-                        }, {
-                            "label": "Life Domain Spells",
+                            "label": "Druid Cantrip",
                             "path": "spell.list",
                             "type": "list",
                             "list": ["spell"],
-                            "given": ["Bless", "Cure Wounds"]
+                            "limit": 1,
+                            "filter": {
+                                "classes": "Druid",
+                                "level": "Cantrip"
+                            }
                         }, {
-                            "label": "Bonus Proficiency",
-                            "path": "proficiencies.armor",
+                            "label": "Skill",
+                            "path": "proficiencies.skills",
                             "type": "list",
-                            "list": ["armor_types", "armor"],
-                            "given": ["heavy"]
-                        }, {
-                            "label": "Disciple of Life",
-                            "path": "abilities.Disciple of Life",
-                            "type": "dict",
-                            "dict": {
-                                "description": "Your healing spells are more effective. Whenever you use a spell of 1st level or higher to restore hit points to a creature. the creature regains additional hit points equal to 2 + the spell's level."
+                            "list": ["skills"],
+                            "limit": 1,
+                            "filter": {
+                                "code": ["animal handling", "nature", "survival"]
                             }
                         }]
                     }, {
-                        "label": "Light",
-                        "description": "Gods of light promote the ideals of rebirth and renewal, truth, vigilance, and beauty, often using the symbol of the sun. Some of these gods are portrayed as the sun itself or as a charioteer who guides the sun across the sky. Others are tireless sentinels whose eyes pierce every shadow and see through every deception. Some are deities of beauty and artistry, who teach that art is a vehicle for the soul's improvement. Clerics of a god of light are enlightened souls infused with radiance and the power of their gods' discerning vision, charged with chasing away lies and burning away darkness.",
-                        "type": "config",
-                        "config": [{
-                            "hidden": true,
-                            "path": "domain",
-                            "type": "value",
-                            "value": ["Light"]
-                        }, {
-                            "label": "Light Domain Spells",
-                            "path": "spell.list",
-                            "type": "list",
-                            "list": ["spell"],
-                            "given": ["Burning Hands", "Faerie Fire", "Light"]
-                        }, {
-                            "label": "Warding Flare",
-                            "path": "abilities.Warding Flare",
-                            "type": "dict",
-                            "dict": {
-                                "description": "You can interpose divine light between yourself and an attacking enemy. When you are attacked by a creature within 30 feet of you that you can see, you can use your *reaction* to impose **Disadvantage** on the attack roll, causing light to flare before the attacker before it hits or misses. An attacker that can't be blinded is immune to this feature. You can use this feature %(uses)d times. You regain all expended uses when you finish a long rest.",
-                                "uses_formula": "max(1, statistics.modifiers.wisdom)"
-                            }
-                        }]
+                        "label": "Bonus Proficiency",
+                        "path": "proficiencies.armor",
+                        "type": "list",
+                        "list": ["armor_types", "armor"],
+                        "given": ["heavy"]
+                    }]
+                }, {
+                    "label": "Tempest",
+                    "description": "Gods whose portfolios include the Tempest domain govern storms, sea, and sky. They include gods of lightning and thunder, gods of earthquakes, some fire gods, and certain gods of violence, physical strength, and courage. In some pantheons, a god of this domain rules over other deities and is known for swift justice delivered by thunderbolts. In the pantheons of seafaring people, gods of this domain are ocean deities and the patrons of sailors. Tempest gods send their clerics to inspire fear in the common folk, either to keep those folk on the path of righteousness or to encourage them to offer sacrifices of propitiation to ward off divine wrath.",
+                    "type": "config",
+                    "config": [{
+                        "hidden": true,
+                        "path": "domain",
+                        "type": "value",
+                        "value": ["Tempest"]
                     }, {
-                        "label": "Nature",
-                        "description": "Gods of nature are as varied as the natural world itself. from inscrutable gods of the deep forests to friendly deities associated with particular springs and groves. Druids revere nature as a whole and might serve one of these deities, practicing mysterious rites and reciting all-but-forgotten prayers in their own secret tongue. But many of these gods have clerics as well, champions who take a more active role in advancing the interests of a particular nature god. These clerics might hunt the evil monstrosities that despoil the woodlands, bless the harvest of the faithful, or wither the crops of those who anger their gods.",
+                        "label": "Domain Spells",
+                        "path": "spell.list",
+                        "type": "list",
+                        "list": ["spell"],
+                        "given": ["Fog Cloud", "Thunderwave"]
+                    }, {
+                        "label": "Bonus Proficiency",
                         "type": "config",
                         "config": [{
-                            "hidden": true,
-                            "path": "domain",
-                            "type": "value",
-                            "value": ["Nature"]
-                        }, {
-                            "label": "Nature Domain Spells",
-                            "path": "spell.list",
+                            "label": "Weapon Proficiency",
+                            "path": "proficiencies.weapons",
                             "type": "list",
-                            "list": ["spell"],
-                            "given": ["Animal Friendship", "Speak with Animals"]
+                            "list": ["weapon"],
+                            "given": [
+                                "martial melee",
+                                "martial ranged"
+                            ]
                         }, {
-                            "label": "Acolyt of Nature",
-                            "type": "config",
-                            "config": [{
-                                "label": "Druid Cantrip",
-                                "path": "spell.list",
-                                "type": "list",
-                                "list": ["spell"],
-                                "limit": 1,
-                                "filter": {
-                                    "class": "Druid",
-                                    "level": "Cantrip"
-                                }
-                            }, {
-                                "label": "Skill",
-                                "path": "proficiencies.skills",
-                                "type": "list",
-                                "list": ["skills"],
-                                "limit": 1,
-                                "filter": {
-                                    "code": ["animal handling", "nature", "survival"]
-                                }
-                            }]
-                        }, {
-                            "label": "Bonus Proficiency",
+                            "label": "Armor Proficiency",
                             "path": "proficiencies.armor",
                             "type": "list",
-                            "list": ["armor_types", "armor"],
+                            "list": ["armor_types"],
                             "given": ["heavy"]
                         }]
                     }, {
-                        "label": "Tempest",
-                        "description": "Gods whose portfolios include the Tempest domain govern storms, sea, and sky. They include gods of lightning and thunder, gods of earthquakes, some fire gods, and certain gods of violence, physical strength, and courage. In some pantheons, a god of this domain rules over other deities and is known for swift justice delivered by thunderbolts. In the pantheons of seafaring people, gods of this domain are ocean deities and the patrons of sailors. Tempest gods send their clerics to inspire fear in the common folk, either to keep those folk on the path of righteousness or to encourage them to offer sacrifices of propitiation to ward off divine wrath.",
+                        "label": "Wrath of the Storm",
+                        "path": "abilities.Wrath of the Storm",
+                        "type": "dict",
+                        "dict": {
+                            "description": "You can thunderously rebuke attackers. When a creature within 5 feet of you that you can see hits you with an attack, you can use your *reaction* to cause the creature to make a **Dexterity** saving throw. The creature takes `2d8` lightning or thunder damage (your choice) on a failed saving throw, and half as much damage on a successful one. You can use this feature %(uses)s times. You regain all expended uses when you finish a long rest.",
+                            "uses_formula": "max(1, statistics.modifiers.wisdom)",
+                            "uses_default": "your **Wisdom modifier** number"
+                        }
+                    }]
+                }, {
+                    "label": "Trickery",
+                    "description": "Gods of trickery are mischief-makers and instigators who stand as a constant challenge to the accepted order among both gods and mortals. They're patrons of thieves, scoundrels, gamblers, rebels, and liberators. Their clerics are a disruptive force in the world, puncturing pride, mocking tyrants, stealing from the rich, freeing captives, and flouting hollow traditions. They prefer subterfuge. pranks, deception, and theft rather than direct confrontation.",
+                    "type": "config",
+                    "config": [{
+                        "hidden": true,
+                        "path": "domain",
+                        "type": "value",
+                        "value": ["Trickery"]
+                    }, {
+                        "label": "Domain Spells",
+                        "path": "spell.list",
+                        "type": "list",
+                        "list": ["spell"],
+                        "given": ["Charm Person", "Disguise Self"]
+                    }, {
+                        "label": "Blessing of the Trickster",
+                        "path": "abilities.Blessing of the Trickster",
+                        "type": "dict",
+                        "dict": {
+                            "description": "You can use your *action* to touch a willing creature other than yourself to give it **Advantage** on **Dexterity (Stealth)** checks. This blessing lasts for 1 hour or until you use this feature again."
+                        }
+                    }]
+                }, {
+                    "label": "War",
+                    "description": "War has many manifestations. It can make heroes of ordinary people. It can be desperate and horrific, with acts of cruelty and cowardice eclipsing instances of excellence and courage. In either case, the gods of war watch over warriors and reward them for their great deeds. The clerics of such gods excel in battle, inspiring others to fight the good fight or offering acts of violence as prayers. Gods of war include champions of honor and chivalry as well as gods of destruction and pillage and gods of conquest and domination. Other war gods take a more neutral stance, promoting war in all its manifestations and supporting warriors in any circumstance.",
+                    "type": "config",
+                    "config": [{
+                        "hidden": true,
+                        "path": "domain",
+                        "type": "value",
+                        "value": ["War"]
+                    }, {
+                        "label": "Domain Spells",
+                        "path": "spell.list",
+                        "type": "list",
+                        "list": ["spell"],
+                        "given": ["Divine Favor", "Shield of Faith"]
+                    }, {
+                        "label": "Bonus Proficiency",
                         "type": "config",
                         "config": [{
-                            "hidden": true,
-                            "path": "domain",
-                            "type": "value",
-                            "value": ["Tempest"]
-                        }, {
-                            "label": "Tempest Domain Spells",
-                            "path": "spell.list",
+                            "label": "Weapon Proficiency",
+                            "path": "proficiencies.weapons",
                             "type": "list",
-                            "list": ["spell"],
-                            "given": ["Fog Cloud", "Thunderwave"]
+                            "list": ["weapon"],
+                            "given": [
+                                "martial melee",
+                                "martial ranged"
+                            ]
                         }, {
-                            "label": "Bonus Proficiency",
-                            "type": "config",
-                            "config": [{
-                                "label": "Weapon Proficiency",
-                                "path": "proficiencies.weapons",
-                                "type": "list",
-                                "list": ["weapon"],
-                                "given": [
-                                    "martial melee",
-                                    "martial ranged"
-                                ]
-                            }, {
-                                "label": "Armor Proficiency",
-                                "path": "proficiencies.armor",
-                                "type": "list",
-                                "list": ["armor_types"],
-                                "given": ["heavy"]
-                            }]
-                        }, {
-                            "label": "Wrath of the Storm",
-                            "path": "abilities.Wrath of the Storm",
-                            "type": "dict",
-                            "dict": {
-                                "description": "You can thunderously rebuke attackers. When a creature within 5 feet of you that you can see hits you with an attack, you can use your *reaction* to cause the creature to make a **Dexterity** saving throw. The creature takes `2d8` lightning or thunder damage (your choice) on a failed saving throw, and half as much damage on a successful one. You can use this feature %(uses)d times. You regain all expended uses when you finish a long rest.",
-                                "uses_formula": "max(1, statistics.modifiers.wisdom)"
-                            }
+                            "label": "Armor Proficiency",
+                            "path": "proficiencies.armor",
+                            "type": "list",
+                            "list": ["armor_types"],
+                            "given": ["heavy"]
                         }]
                     }, {
-                        "label": "Trickery",
-                        "description": "Gods of trickery are mischief-makers and instigators who stand as a constant challenge to the accepted order among both gods and mortals. They're patrons of thieves, scoundrels, gamblers, rebels, and liberators. Their clerics are a disruptive force in the world, puncturing pride, mocking tyrants, stealing from the rich, freeing captives, and flouting hollow traditions. They prefer subterfuge. pranks, deception, and theft rather than direct confrontation.",
-                        "type": "config",
-                        "config": [{
-                            "hidden": true,
-                            "path": "domain",
-                            "type": "value",
-                            "value": ["Trickery"]
-                        }, {
-                            "label": "Trickery Domain Spells",
-                            "path": "spell.list",
-                            "type": "list",
-                            "list": ["spell"],
-                            "given": ["Charm Person", "Disguise Self"]
-                        }, {
-                            "label": "Blessing of the Trickster",
-                            "path": "abilities.Blessing of the Trickster",
-                            "type": "dict",
-                            "dict": {
-                                "description": "You can use your *action* to touch a willing creature other than yourself to give it **Advantage** on **Dexterity (Stealth)** checks. This blessing lasts for 1 hour or until you use this feature again."
-                            }
-                        }]
-                    }, {
-                        "label": "War",
-                        "description": "War has many manifestations. It can make heroes of ordinary people. It can be desperate and horrific, with acts of cruelty and cowardice eclipsing instances of excellence and courage. In either case, the gods of war watch over warriors and reward them for their great deeds. The clerics of such gods excel in battle, inspiring others to fight the good fight or offering acts of violence as prayers. Gods of war include champions of honor and chivalry as well as gods of destruction and pillage and gods of conquest and domination. Other war gods take a more neutral stance, promoting war in all its manifestations and supporting warriors in any circumstance.",
-                        "type": "config",
-                        "config": [{
-                            "hidden": true,
-                            "path": "domain",
-                            "type": "value",
-                            "value": ["War"]
-                        }, {
-                            "label": "Tempest Domain Spells",
-                            "path": "spell.list",
-                            "type": "list",
-                            "list": ["spell"],
-                            "given": ["Divine Favor", "Shield of Faith"]
-                        }, {
-                            "label": "Bonus Proficiency",
-                            "type": "config",
-                            "config": [{
-                                "label": "Weapon Proficiency",
-                                "path": "proficiencies.weapons",
-                                "type": "list",
-                                "list": ["weapon"],
-                                "given": [
-                                    "martial melee",
-                                    "martial ranged"
-                                ]
-                            }, {
-                                "label": "Armor Proficiency",
-                                "path": "proficiencies.armor",
-                                "type": "list",
-                                "list": ["armor_types"],
-                                "given": ["heavy"]
-                            }]
-                        }, {
-                            "label": "War Priest",
-                            "path": "abilities.War Priest",
-                            "type": "dict",
-                            "dict": {
-                                "description": "Your god delivers bolts of inspiration to you while you are engaged in battle. When you use the **Attack** action, you can make one weapon attack as a *bonus action*. You can use this feature %(uses)d times. You regain all expended uses when you finish a long rest.",
-                                "uses_formula": "max(1, statistics.modifiers.wisdom)"
-                            }
-                        }]
+                        "label": "War Priest",
+                        "path": "abilities.War Priest",
+                        "type": "dict",
+                        "dict": {
+                            "description": "Your god delivers bolts of inspiration to you while you are engaged in battle. When you use the **Attack** action, you can make one weapon attack as a *bonus action*. You can use this feature %(uses)s times. You regain all expended uses when you finish a long rest.",
+                            "uses_formula": "max(1, statistics.modifiers.wisdom)",
+                            "uses_default": "your **Wisdom modifier** number"
+                        }
                     }]
                 }]
-            },
+            }]
+        }],
+        "phases": {
             "cleric-2": {
                 "conditions": {
                     "level": 2,
@@ -3827,6 +3892,7 @@
                     "dict": {
                         "description": "You have the ability to channel divine energy directly from your deity, using that energy to fuel magical effects. You start with two such effects: **Turn Undead** and an effect determined by your domain. When you use your **Channel Divinity**, you choose which effect to create. You must then finish a short or long rest after %(uses)s uses to use your Channel Divinity again. Some Channel Divinity effects require *Saving Throws*. When you use such an effect from this class, the DC equals `%(dc)s`.",
                         "dc_formula": "character.spell.safe_dc",
+                        "dc_default": "your Spell DC",
                         "uses": 1
                     }
                 }, {
@@ -3867,7 +3933,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "You can use your **Channel Divinity** to heal the badly injured. As an *action*, you present your holy symbol and evoke healing energy that can restore %(hit_points)s hit points. Choose any creatures within 30 feet of you, and divide those hit points among them. This feature can restore a creature to no more than half of its hit point maximum. You can't use this feature on an undead or a construct.",
-                        "hit_points_formula": "5 * character.level"
+                        "hit_points_formula": "5 * character.level",
+                        "hit_points_default": "5 x your Character level"
                     }
                 }]
             },
@@ -3882,8 +3949,9 @@
                     "path": "abilities.Channel Divinity: Radiance of the Dawn",
                     "type": "dict",
                     "dict": {
-                        "description": "You can use your **Channel Divinity** to harness sunlight, banishing darkness and dealing radiant damage to your foes. As an *action*, you present your holy symbol, and any magical darkness within 30 feet of you is dispelled. Additionally, each hostile creature within 30 feet of you must make a **Constitution** saving throw. A creature takes radiant damage equal to `2d10 + %(bonus)d` on a failed saving throw, and half as much damage on a successful one. A creature that has total cover from you is not affected.",
-                        "bonus_formula": "character.level"
+                        "description": "You can use your **Channel Divinity** to harness sunlight, banishing darkness and dealing radiant damage to your foes. As an *action*, you present your holy symbol, and any magical darkness within 30 feet of you is dispelled. Additionally, each hostile creature within 30 feet of you must make a **Constitution** saving throw. A creature takes radiant damage equal to `2d10 + %(bonus)s` on a failed saving throw, and half as much damage on a successful one. A creature that has total cover from you is not affected.",
+                        "bonus_formula": "character.level",
+                        "bonus_default": "your Character level"
                     }
                 }]
             },
@@ -4344,7 +4412,9 @@
                     "path": "abilities.Warding Flare",
                     "type": "dict",
                     "dict": {
-                        "description": "You can interpose divine light between yourself and an attacking enemy. When you, or a creature other than you, are attacked by a creature within 30 feet of you that you can see, you can use your *reaction* to impose **Disadvantage** on the attack roll, causing light to flare before the attacker before it hits or misses. An attacker that can't be blinded is immune to this feature. You can use this feature %(uses)d times. You regain all expended uses when you finish a long rest."
+                        "description": "You can interpose divine light between yourself and an attacking enemy. When you, or a creature other than you, are attacked by a creature within 30 feet of you that you can see, you can use your *reaction* to impose **Disadvantage** on the attack roll, causing light to flare before the attacker before it hits or misses. An attacker that can't be blinded is immune to this feature. You can use this feature %(uses)d times. You regain all expended uses when you finish a long rest.",
+                        "uses_formula": "max(1, statistics.modifiers.wisdom)",
+                        "uses_default": "your **Wisdom modifier** number"
                     }
                 }]
             },
@@ -5191,8 +5261,9 @@
                     "path": "abilities.Stormborn",
                     "type": "dict",
                     "dict": {
-                        "description": "You have a flying speed of %(speed)s whenever you are not underground or indoors.",
-                        "speed_formula": "character.speed"
+                        "description": "You have a flying speed equal to %(speed)s whenever you are not underground or indoors.",
+                        "speed_formula": "character.speed",
+                        "speed_default": "your Character speed"
                     }
                 }]
             },
@@ -5613,8 +5684,9 @@
                     "path": "abilities.Second Wind",
                     "type": "dict",
                     "dict": {
-                        "description": "You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to `1d10 + %(bonus)d`. Once you use this feature, you must finish a short or long rest before you can use it again.",
-                        "bonus_formula": "character.level"
+                        "description": "You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to `1d10 + %(bonus)s`. Once you use this feature, you must finish a short or long rest before you can use it again.",
+                        "bonus_formula": "character.level",
+                        "bonus_default": "your Character level"
                     }
                 }]
             },
@@ -5695,6 +5767,7 @@
                                 "description": "You know **maneuvers** that are fueled by special dice called **superiority dice**.\n* **Maneuvers.** Many maneuvers enhance an attack in some way. You can use only one maneuver per attack.\n* **Superiority Dice**. You have *%(uses)s* superiority dice which are `%(dice_size)s`s. A superiority die is expended when you use it. You regain all of your expended superiority dice when you finish a short or long rest.\n* **Saving Throws.** Some of your maneuvers require your target to make a saving throw to resist the maneuver's effects. The saving throw DC is `%(dc)s`.",
                                 "dice_size": "d8",
                                 "dc_formula": "8 + character.proficiency + max(statistics.modifiers.strength, statistics.modifiers.dexterity)",
+                                "dc_default": "8 + your **Proficiency** + either your **Strength** or **Dexterity modifier**",
                                 "uses": 4
                             }
                         }, {
@@ -5772,7 +5845,8 @@
                                 "type": "dict",
                                 "dict": {
                                     "description": "When another creature damages you with a melee attack. you can use your *reaction* and expend one superiority die to reduce the damage by the number you roll on your superiority die + %(modifier)s.",
-                                    "modifier_formula": "statistics.modifiers.dexterity"
+                                    "modifier_formula": "statistics.modifiers.dexterity",
+                                    "modifier_default": "your **Dexterity modifier**"
                                 }
                             }, {
                                 "label": "Precision Attack",
@@ -5794,7 +5868,8 @@
                                 "type": "dict",
                                 "dict": {
                                     "description": "On your turn, you can use a *bonus action* and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + %(modifier)s.",
-                                    "modifier_formula": "statistics.modifiers.charisma"
+                                    "modifier_formula": "statistics.modifiers.charisma",
+                                    "modifier_default": "your **Charisma modifier**"
                                 }
                             }, {
                                 "label": "Riposte",
@@ -6064,7 +6139,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "You can add half your proficiency bonus (round up) to any **Strength**, **Dexterity**, or **Constitution** check you make that doesn't already use your proficiency bonus. In addition, when you make a running long jump, the distance you can cover increases by %(modifier)s feet.",
-                        "modifier_formula": "statistics.modifiers.strength"
+                        "modifier_formula": "statistics.modifiers.strength",
+                        "modifier_default": "your **Strength modifier**"
                     }
                 }]
             },
@@ -6163,7 +6239,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When another creature damages you with a melee attack. you can use your *reaction* and expend one superiority die to reduce the damage by the number you roll on your superiority die + %(modifier)s.",
-                            "modifier_formula": "statistics.modifiers.dexterity"
+                            "modifier_formula": "statistics.modifiers.dexterity",
+                            "modifier_default": "your **Dexterity modifier**"
                         }
                     }, {
                         "label": "Precision Attack",
@@ -6185,7 +6262,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "On your turn, you can use a *bonus action* and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + %(modifier)s.",
-                            "modifier_formula": "statistics.modifiers.charisma"
+                            "modifier_formula": "statistics.modifiers.charisma",
+                            "modifier_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Riposte",
@@ -6498,7 +6576,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When another creature damages you with a melee attack. you can use your *reaction* and expend one superiority die to reduce the damage by the number you roll on your superiority die + %(modifier)s.",
-                            "modifier_formula": "statistics.modifiers.dexterity"
+                            "modifier_formula": "statistics.modifiers.dexterity",
+                            "modifier_default": "your **Dexterity modifier**"
                         }
                     }, {
                         "label": "Precision Attack",
@@ -6520,7 +6599,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "On your turn, you can use a *bonus action* and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + %(modifier)s.",
-                            "modifier_formula": "statistics.modifiers.charisma"
+                            "modifier_formula": "statistics.modifiers.charisma",
+                            "modifier_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Riposte",
@@ -6917,7 +6997,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When another creature damages you with a melee attack. you can use your *reaction* and expend one superiority die to reduce the damage by the number you roll on your superiority die + %(modifier)s.",
-                            "modifier_formula": "statistics.modifiers.dexterity"
+                            "modifier_formula": "statistics.modifiers.dexterity",
+                            "modifier_default": "your **Dexterity modifier**"
                         }
                     }, {
                         "label": "Precision Attack",
@@ -6939,7 +7020,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "On your turn, you can use a *bonus action* and expend one superiority die to bolster the resolve of one of your companions. When you do so, choose a friendly creature who can see or hear you. That creature gains temporary hit points equal to the superiority die roll + %(modifier)s.",
-                            "modifier_formula": "statistics.modifiers.charisma"
+                            "modifier_formula": "statistics.modifiers.charisma",
+                            "modifier_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Riposte",
@@ -7109,7 +7191,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "You attain the pinnacle of resilience in battle. At the start of each of your turns, you regain hit points equal to `5 + %(modifier)s if you have no more than half of your hit points left. You don't gain this benefit if you have 0 hit points.",
-                        "modifier_formula": "statistics.modifiers.constitution"
+                        "modifier_formula": "statistics.modifiers.constitution",
+                        "modifier_default": "your **Constitution modifier**"
                     }
                 }]
             },
@@ -7434,7 +7517,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strand von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the hallow spell. You can use this feature %(uses)s times. When you finish a long rest, you regain all expended uses.",
-                        "uses_formula": "1 + statistics.modifiers.charisma"
+                        "uses_formula": "1 + statistics.modifiers.charisma",
+                        "uses_default": "1 + your **Charisma modifier**"
                     }
                 }, {
                     "label": "Lay on Hands",
@@ -7442,7 +7526,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total of %(pool_size)s hit points. As an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool. Alternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one. This feature has no effect on undead and constructs.",
-                        "pool_size_formula": "5 * level"
+                        "pool_size_formula": "5 * level",
+                        "pool_size_default": "5 x your Paladin level"
                     }
                 }]
             },
@@ -7565,7 +7650,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "Your oath allows you to channel divine energy to fuel magical effects. Each Channel Divinity option provided by your oath explains how to use it. When you use your Channel Divinity, you choose which option to use. You must then finish a short or long rest to use your Channel Divinity again. Some Channel Divinity effects require saving throws. When you use such an effect from this class, the DC equals `%(dc)s`.",
-                        "dc_formula": "spell.safe_dc"
+                        "dc_formula": "spell.safe_dc",
+                        "dc_default": "your **Spell DC**"
                     }
                 }, {
                     "label": "Sacred Oath",
@@ -7593,7 +7679,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "As an action, you can imbue one weapon that you are holding with positive energy, using your Channel Divinity. For 1 minute, you add +%(bonus)s to attack rolls made with that weapon. The weapon also emits bright light in a 20-foot radius and dim light 20 feet beyond that. lithe weapon is not already magical, it becomes magical for the duration.\nYou can end this effect on your turn as part of any other action. If you are no longer holding or carrying this weapon, or if you fall unconscious, this effect ends.",
-                                "bonus_formula": "max(1, statistics.modifiers.charisma)"
+                                "bonus_formula": "max(1, statistics.modifiers.charisma)",
+                                "bonus_default": "your **Charisma modifier**"
                             }
                         }, {
                             "label": "Turn the Unholy",
@@ -7601,7 +7688,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "As an action, you present your holy symbol and speak a prayer censuring fiends and undead, using your Channel Divinity. Each fiend or undead that can see or hear you within 30 feet of you must make a Wisdom saving throw (DC `%(dc)s`. lithe creature fails its saving throw, it is turned for 1 minute or until it takes damage.\nA turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action.",
-                                "dc_formula": "spell.safe_dc"
+                                "dc_formula": "spell.safe_dc",
+                                "dc_default": "your **Spell DC**"
                             }
                         }]
                     }, {
@@ -7626,7 +7714,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "You can use your Channel Divinity to invoke primeval forces to ensnare a foe. As an action, you can cause spectral vines to spring up and reach for a creature within 10 feet of you that you can see. The creature must succeed on a Strength or Dexterity saving throw (its choice, DC `%(dc)s`) or be restrained, While restrained by the vines, the creature repeats the saving throw at the end of each of its turns. On a success, it frees itself and the vines vanish.",
-                                "dc_formula": "spell.safe_dc"
+                                "dc_formula": "spell.safe_dc",
+                                "dc_default": "your **Spell DC**"
                             }
                         }, {
                             "label": "Turn the Faithless",
@@ -7634,7 +7723,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "You can use your Channel Divinity to utter ancient words that are painful for fey and fiends to hear. As an action, you present your holy symbol, and each fey or fiend within 30 feet of you that can hear you must make a Wisdom saving throw (DC `%(dc)s`). On a failed save, the creature is turned for 1 minute or until it takes damage.\nA turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action. If the creature's true form is concealed by an illusion, shapeshifting, or other effect, that form is revealed while it is turned.",
-                                "dc_formula": "spell.safe_dc"
+                                "dc_formula": "spell.safe_dc",
+                                "dc_default": "your **Spell DC**"
                             }
                         }]
                     }, {
@@ -7659,7 +7749,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "As an action, you present your holy symbol and speak a prayer of denunciation, using your Channel Divinity. Choose one creature within 60 feet of you that you can see. That creature must make a Wisdom saving throw (DC `%(dc)s`), unless it is immune to being frightened. Fiends and undead have disadvantage on this saving throw.\nOn a failed save, the creature is frightened for 1 minute or until it takes any damage. While frightened, the creature's speed is 0. and it can't benefit from any bonus to its speed.\n On a successful save, the creature's speed is halved for 1 minute or until the creature takes any damage.",
-                                "dc_formula": "spell.safe_dc"
+                                "dc_formula": "spell.safe_dc",
+                                "dc_default": "your **Spell DC**"
                             }
                         }, {
                             "label": "Turn the Faithless",
@@ -7802,7 +7893,9 @@
                     "dict": {
                         "description": "Whenever you or a friendly creature within %(range)s feet of you must make a saving throw, the creature gains a bonus to the saving throw equal to %(bonus)s. You must be conscious to grant this bonus.",
                         "bonus_formula": "statistics.modifiers.charisma",
-                        "range_formula": "aura_range"
+                        "bonus_default": "your **Charisma modifier**",
+                        "range_formula": "aura_range",
+                        "range_default": "your **Aura range**"
                     }
                 }]
             },
@@ -7838,7 +7931,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "You and friendly creatures within %(range)s feet of you can't be charmed while you are conscious.",
-                        "range_formula": "aura_range"
+                        "range_formula": "aura_range",
+                        "range_default": "your **Aura range**"
                     }
                 }]
             },
@@ -7854,7 +7948,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "Ancient magic lies so heavily upon you that it forms an eldritch ward. You and friendly creatures within %(range)s feet of you have resistance to damage from spells.",
-                        "range_formula": "aura_range"
+                        "range_formula": "aura_range",
+                        "range_default": "your **Aura range**"
                     }
                 }]
             },
@@ -7870,7 +7965,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "Your supernatural focus helps you close off a foe's retreat. When you hit a creature with an opportunity attack, you can move up to %(distance)s feet immediately after the attack and as part of the same reaction. This movement doesn't provoke opportunity attacks.",
-                        "distance_formula": "speed/2"
+                        "distance_formula": "speed/2",
+                        "distance_default": "half your speed"
                     }
                 }]
             },
@@ -7994,7 +8090,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "You and friendly creatures within %(range)s feet of you can't be frightened while you are conscious.",
-                        "range_formula": "aura_range"
+                        "range_formula": "aura_range",
+                        "range_default": "your **Aura range**"
                     }
                 }]
             },
@@ -8149,7 +8246,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "You can use your action to end one spell on yourself or on one willing creature that you touch. You can use this feature %(uses)s of times. You regain expended uses when you finish a long rest.",
-                        "uses_formula": "max(1, statistics.modifiers.charisma)"
+                        "uses_formula": "max(1, statistics.modifiers.charisma)",
+                        "uses_default": "your **Charisma modifier**"
                     }
                 }]
             },
@@ -8613,7 +8711,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "You have significant experience studying, tracking, hunting, and even talking to a certain type of enemy. You have **Advantage** on **Wisdom (Survival)** checks to track **%(favored_enemy)s** enemies, as well as on **Intelligence** checks to recall information about them.",
-                            "favored_enemy_formula": "', '.join(character.favored.enemy or ['Favored'])"
+                            "favored_enemy_formula": "', '.join(character.favored.enemy or ['your Favored'])",
+                            "favored_enemy_default": "*your *Favored*"
                         }
                     }, {
                         "description": "Choose a type of favored enemy. You also learn one language of your choice that is spoken by your favored enemy, if they speak one at all.",
@@ -8721,8 +8820,9 @@
                         "path": "abilities.Natural Explorer",
                         "type": "dict",
                         "dict": {
-                            "description": "You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions. When you make an **Intelligence** or **Wisdom** check related to your favored ** %(favored_terrain)s ** terrain, your **proficiency bonus** is doubled if you are using a skill that you're proficient in.While traveling for an hour or more in your favored terrain, you gain the following benefits:\n\n* Difficult terrain doesn't slow your group's travel.\n* Your group can't become lost except by magical means.\n* Even when you are engaged in another activity while traveling (such as foraging, navigating, or (racking), you remain alert to danger.\n* if you are traveling alone, you can move stealthily at a normal pace. When you forage, you find twice as much food as you normally would.\n* While tracking other creatures, you also learn (heir exact number, their sizes, and how long ago they passed through the area.",
-                            "favored_terrain_formula": "', '.join(character.favored.terrain or [''])"
+                            "description": "You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions. When you make an **Intelligence** or **Wisdom** check related to **%(favored_terrain)s** terrain, your **proficiency bonus** is doubled if you are using a skill that you're proficient in.While traveling for an hour or more in your favored terrain, you gain the following benefits:\n\n* Difficult terrain doesn't slow your group's travel.\n* Your group can't become lost except by magical means.\n* Even when you are engaged in another activity while traveling (such as foraging, navigating, or (racking), you remain alert to danger.\n* if you are traveling alone, you can move stealthily at a normal pace. When you forage, you find twice as much food as you normally would.\n* While tracking other creatures, you also learn (heir exact number, their sizes, and how long ago they passed through the area.",
+                            "favored_terrain_formula": "', '.join(character.favored.terrain or ['your *Favored*'])",
+                            "favored_terrain_default": "your *Favored*"
                         }
                     }, {
                         "description": "Choose one type of favored terrain:",
@@ -10405,8 +10505,9 @@
                         "path": "abilities.Careful Spell",
                         "type": "dict",
                         "dict": {
-                            "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)d. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
-                            "uses_formula": "min(1, statistics.modifiers.charisma)"
+                            "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)s. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
+                            "uses_formula": "min(1, statistics.modifiers.charisma)",
+                            "uses_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Distant Spell",
@@ -10423,7 +10524,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)d. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
-                            "uses_formula": "min(1, statistics.modifiers.charisma)"
+                            "uses_formula": "min(1, statistics.modifiers.charisma)",
+                            "uses_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Extended Spell",
@@ -10637,9 +10739,11 @@
                     "path": "abilities.Elemental Affinity",
                     "type": "dict",
                     "dict": {
-                        "description": "When you cast a spell that deals damage of the type associated with your draconic ancestry (*%(type)s*), add your **Charisma modifier** (%(bonus)s) to that damage. At the same time, you can spend 1 sorcery point to gain resistance to that damage type for 1 hour.",
+                        "description": "When you cast a spell that deals damage of the type associated with *%(type)s* damage, add %(bonus)s to that damage. At the same time, you can spend 1 sorcery point to gain resistance to that damage type for 1 hour.",
                         "type_formula": "dragon.damage",
-                        "bonus_formula": "statistics.modifiers.charisma"
+                        "type_default": "your draconic ancestry's",
+                        "bonus_formula": "statistics.modifiers.charisma",
+                        "bonus_default": "your **Charisma modifier**"
                     }
                 }]
             },
@@ -10884,8 +10988,9 @@
                         "path": "abilities.Careful Spell",
                         "type": "dict",
                         "dict": {
-                            "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)d. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
-                            "uses_formula": "min(1, statistics.modifiers.charisma)"
+                            "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)s. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
+                            "uses_formula": "min(1, statistics.modifiers.charisma)",
+                            "uses_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Distant Spell",
@@ -10901,8 +11006,9 @@
                         "path": "abilities.Empowered Spell",
                         "type": "dict",
                         "dict": {
-                            "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)d. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
-                            "uses_formula": "min(1, statistics.modifiers.charisma)"
+                            "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)s. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
+                            "uses_formula": "min(1, statistics.modifiers.charisma)",
+                            "uses_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Extended Spell",
@@ -11386,8 +11492,9 @@
                         "path": "abilities.Careful Spell",
                         "type": "dict",
                         "dict": {
-                            "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)d. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
-                            "uses_formula": "min(1, statistics.modifiers.charisma)"
+                            "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)s. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
+                            "uses_formula": "min(1, statistics.modifiers.charisma)",
+                            "uses_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Distant Spell",
@@ -11403,8 +11510,9 @@
                         "path": "abilities.Empowered Spell",
                         "type": "dict",
                         "dict": {
-                            "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)d. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
-                            "uses_formula": "min(1, statistics.modifiers.charisma)"
+                            "description": "When you roll damage for a spell, you can spend 1 *sorcery point* to reroll a number of the damage dice up to %(uses)s. You must use the new rolls. You can use **Empowered Spell** even if you have already used a different **Metamagic** option during the casting of the spell.",
+                            "uses_formula": "min(1, statistics.modifiers.charisma)",
+                            "uses_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Extended Spell",
@@ -11897,7 +12005,8 @@
                                 "type": "dict",
                                 "dict": {
                                     "description": "As an **Action**, you can cause each creature in a 10-foot cube originating from you to make a **Wisdom** saving throw against your warlock spell save DC `%(dc)s`. The creatures that fail their saving throw are all charmed or frightened by you (your choice) until the end of your next turn.\n\nOnce you use this feature, you can't use it again until you finish a short or long rest.",
-                                    "dc_formula": "character.spell.safe_dc"
+                                    "dc_formula": "character.spell.safe_dc",
+                                    "dc_default": "your **Spell DC**"
                                 }
                             }]
                         }, {
@@ -11925,7 +12034,9 @@
                                 "dict": {
                                     "description": "At 1st level, you have a pool of `%(uses)sd6s` that you can spend to heal others.\n\nAs a *bonus action*, you can heal one creature you can see within 60 feet of you, spending dice from the pool. The maximum number of dice you can spend at once equals %(max)s. Roll the dice you spend, add them together, and restore a number of hit points equal to the total.\n\nYour pool regains all expended dice when you finish a long rest.",
                                     "uses_formula": "1 + character.level",
-                                    "max_formula": "statistics.modifiers.charisma"
+                                    "uses_default": "1 + your Character level",
+                                    "max_formula": "statistics.modifiers.charisma",
+                                    "max_default": "your **Charisma modifier**"
                                 }
                             }]
                         }, {
@@ -11950,7 +12061,8 @@
                                 "type": "dict",
                                 "dict": {
                                     "description": "When you reduce a hostile creature to 0 hit points, you gain temporary hit points equal to %(thp)s.",
-                                    "thp_formula": "max(1, character.level + statistics.modifiers.charisma)"
+                                    "thp_formula": "max(1, character.level + statistics.modifiers.charisma)",
+                                    "thp_default": "your Character level + your **Charisma modifier**"
                                 }
                             }]
                         }, {
@@ -12020,9 +12132,11 @@
                                 "path": "abilities.Hexblade's Curse",
                                 "type": "dict",
                                 "dict": {
-                                    "description": "As a *bonus action*, choose one creature you can see within 30 feet of you. The curse ends early if the target dies, you die, or you are incapacitated. The target is cursed for 1 minute. Until the curse ends, you gain the following benefits:\n\n* You gain a `+%(bonus)s` bonus to damage rolls against the cursed target.\n* Any attack roll you make against the cursed target is a critical hit on a roll of 19 or 20 on the d20.\n* If the cursed target dies, you regain hit points equal %(hp)s.\n\nYou can't use this feature again until you finish a short or long rest.",
+                                    "description": "As a *bonus action*, choose one creature you can see within 30 feet of you. The curse ends early if the target dies, you die, or you are incapacitated. The target is cursed for 1 minute. Until the curse ends, you gain the following benefits:\n\n* You gain `+%(bonus)s` bonus to damage rolls against the cursed target.\n* Any attack roll you make against the cursed target is a critical hit on a roll of 19 or 20 on the d20.\n* If the cursed target dies, you regain hit points equal %(hp)s.\n\nYou can't use this feature again until you finish a short or long rest.",
                                     "bonus_formula": "character.proficiency",
-                                    "hp_formula": "character.level + statistics.modifiers.charisma"
+                                    "bonus_default": "your **Proficiency**",
+                                    "hp_formula": "character.level + statistics.modifiers.charisma",
+                                    "hp_default": "your Character level + your **Charisma modifier**"
                                 }
                             }]
                         }]
@@ -12089,7 +12203,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -12158,7 +12273,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -12184,8 +12300,9 @@
                         "hidden_formula": "character.level < 5",
                         "type": "dict",
                         "dict": {
-                            "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -12300,8 +12417,9 @@
                         "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
                         "type": "dict",
                         "dict": {
-                            "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to %(mod)s",
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -12310,8 +12428,9 @@
                         "hidden_formula": "character.level < 5",
                         "type": "dict",
                         "dict": {
-                            "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -12660,8 +12779,9 @@
                         "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
-                            "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` to the damage it deals on a hit.",
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -12730,7 +12850,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -12757,7 +12878,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -12873,7 +12995,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -12883,7 +13006,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -13194,8 +13318,9 @@
                         "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
-                            "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "description": "When you cast *Eldritch Blast*, add `+%(bonus)s` to the damage it deals on a hit.",
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -13264,7 +13389,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -13291,7 +13417,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -13407,7 +13534,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -13417,7 +13545,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -13727,7 +13856,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -13796,7 +13926,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -13823,7 +13954,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -13939,7 +14071,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -13949,7 +14082,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -14259,7 +14393,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -14328,7 +14463,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -14355,7 +14491,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -14471,7 +14608,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -14481,7 +14619,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -14717,7 +14856,9 @@
                     "dict": {
                         "description": "When you slay a humanoid, you can cause its spirit to rise from its corpse as a specter, the statistics for which are in the Monster Manual. When the specter appears, it gains %(thp)s temporary hit points. Roll initiative for the specter which has its own turns. It obeys your verbal commands, and it gains a `+%(bonus)s` special bonus to its attack rolls. The specter remains in your service until the end of your next long rest, at which point it vanishes to the afterlife. Once you bind a specter with this feature, you can't use the feature again until you finish a long rest.",
                         "thp_formula": "character.level",
-                        "bonus_formula": "max(0, statistics.modifiers.charisma)"
+                        "thp_default": "your Character level",
+                        "bonus_formula": "max(0, statistics.modifiers.charisma)",
+                        "bonus_default": "your **Charisma modifier**"
                     }
                 }]
             },
@@ -14784,7 +14925,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -14853,7 +14995,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -14880,7 +15023,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -14996,7 +15140,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -15006,7 +15151,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -15235,7 +15381,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -15304,7 +15451,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -15331,7 +15479,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -15447,7 +15596,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -15457,7 +15607,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -15684,7 +15835,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -15753,7 +15905,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -15780,7 +15933,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -15896,7 +16050,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -15906,7 +16061,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -16123,7 +16279,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -16192,7 +16349,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -16219,7 +16377,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -16335,7 +16494,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -16345,7 +16505,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -16520,7 +16681,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "You are immune to being charmed, and when another creature attempts to charm you, you can use your *reaction* to attempt to turn the charm back on that creature. The creature must succeed on a **Wisdom** saving throw against your warlock spell save DC `%(dc)s` or be charmed by you for 1 minute or until the creature takes any damage.",
-                        "dc_formula": "character.spell.safe_dc"
+                        "dc_formula": "character.spell.safe_dc",
+                        "dc_default": "your **Spell DC**"
                     }
                 }]
             },
@@ -16537,7 +16699,9 @@
                     "dict": {
                         "description": "You gain temporary hit points whenever you finish a short or long rest. These temporary hit points equal %(your)s THP. Additionally, choose up to five creatures you can see at the end of the rest. Those creatures each gain temporary hit points equal to %(their)s THP.",
                         "your_formula": "character.level + statistics.modifiers.charisma",
-                        "their_fomula": "floor((character.level + statistics.modifiers.charisma) / 2.0)"
+                        "your_default": "Character level + your **Charisma modifier**",
+                        "their_fomula": "floor((character.level + statistics.modifiers.charisma) / 2.0)",
+                        "your_default": "half your Character level + half your **Charisma modifier**"
                     }
                 }]
             },
@@ -16670,7 +16834,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -16739,7 +16904,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -16766,7 +16932,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -16882,7 +17049,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -16892,7 +17060,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -17123,7 +17292,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -17192,7 +17362,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -17219,7 +17390,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -17335,7 +17507,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -17345,7 +17518,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -17584,7 +17758,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -17653,7 +17828,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -17680,7 +17856,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -17796,7 +17973,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -17806,7 +17984,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -18025,7 +18204,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -18094,7 +18274,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -18121,7 +18302,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -18237,7 +18419,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -18247,7 +18430,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -18422,7 +18606,8 @@
                     "type": "dict",
                     "dict": {
                         "description": "As an action, choose a creature that you can see within 60 feet of you. It must make a **Wisdom** *saving throw* against your warlock spell save DC `%(dc)s. On a failed save, it is charmed or frightened by you (your choice) for 1 minute or until your concentration is broken (as if you are concentrating on a spell). This effect ends early if the creature takes any damage.\n\nUntil this illusion ends, the creature thinks it is lost in a misty realm, the appearance of which you choose. The creature can see and hear only itself, you, and the illusion.\n\nYou must finish a short or long rest before you can use this feature again.",
-                        "dc_formula": "character.spell.safe_dc"
+                        "dc_formula": "character.spell.safe_dc",
+                        "dc_default": "your **Spell DC**"
                     }
                 }]
             },
@@ -18439,7 +18624,9 @@
                     "dict": {
                         "description": "When you have to make a death saving throw at the start of your turn, you can instead spring back to your feet. You regain %(hp)s hit points, and then you stand up if you so choose. Each creature of your choice that is within 30 feet of you takes radiant damage equal to `2d8 + %(mod)s`, and it is *blinded* until the end of the current turn.\n\nOnce you use this feature, you can't use it again until you finish a long rest.",
                         "hp_formula": "floor(character.hit_points / 2.0)",
-                        "mod": "statistics.modifiers.charisma"
+                        "hp_default": "half your normal",
+                        "mod_formula": "statistics.modifiers.charisma",
+                        "mod_default": "your **Charisma modifier**"
                     }
                 }]
             },
@@ -18565,7 +18752,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -18634,7 +18822,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -18661,7 +18850,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -18777,7 +18967,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -18787,7 +18978,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -19020,7 +19212,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -19089,7 +19282,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -19116,7 +19310,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -19232,7 +19427,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -19242,7 +19438,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -19483,7 +19680,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -19552,7 +19750,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -19579,7 +19778,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -19695,7 +19895,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -19705,7 +19906,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -19926,7 +20128,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -19995,7 +20198,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -20022,7 +20226,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -20138,7 +20343,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -20148,7 +20354,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -20382,7 +20589,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -20451,7 +20659,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -20478,7 +20687,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -20594,7 +20804,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -20604,7 +20815,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
@@ -20842,7 +21054,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
-                            "bonus_formula": "statistics.modifiers.charisma"
+                            "bonus_formula": "statistics.modifiers.charisma",
+                            "bonus_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Armor of Shadows",
@@ -20911,7 +21124,8 @@
                             "type": "dict",
                             "dict": {
                                 "description": "With your *Book of Shadows* in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag. On your adventures, you can add other ritual spells to your *Book of Shadows*. When you find such a spell, you can add it to the book if the spell's level is equal to or less than %(level)s and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.",
-                                "level_formula": "ceil(character.level / 2.0)"
+                                "level_formula": "ceil(character.level / 2.0)",
+                                "level_default": "half your Character level"
                             }
                         }, {
                             "path": "spell.list",
@@ -20938,7 +21152,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you can surround yourself with a magical aura that looks like buzzing flies. The aura extends 5 feet from you in every direction, but not through total cover. It lasts until you're incapacitated or you dismiss it as a *bonus action*.\n\nThe aura grants you **Advantage** on **Charisma (Intimidation)** checks but **Disadvantage** on all other **Charisma** checks. Any other creature that starts its turn in the aura takes poison damage equal to your %(mod)s.\n\nOnce you use this invocation, you can't use it again until you finish a short or long rest",
-                            "mod_formula": "max(0, statistics.modifiers.charisma)"
+                            "mod_formula": "max(0, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Devil's Sight",
@@ -21054,7 +21269,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
-                            "mod_formula": "statistics.modifiers.charisma"
+                            "mod_formula": "statistics.modifiers.charisma",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Maddening Hex",
@@ -21064,7 +21280,8 @@
                         "type": "dict",
                         "dict": {
                             "description": "As a *bonus action*, you cause a psychic disturbance around the target cursed by your hex spell or by a warlock feature of yours, such as *Hexblade's Curse* or *Sign of Ill Omen*. When you do so, you deal psychic damage to the cursed target and each creature of your choice that you can see within 5 feet of it. The psychic damage equals your Charisma modifier %(mod)s. To use this invocation, you must be able to see the cursed target, and it must be within 30 feet of you.",
-                            "mod_formula": "max(1, statistics.modifiers.charisma)"
+                            "mod_formula": "max(1, statistics.modifiers.charisma)",
+                            "mod_default": "your **Charisma modifier**"
                         }
                     }, {
                         "label": "Mask of Many Faces",
