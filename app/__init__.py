@@ -2,7 +2,7 @@ import sqlite3
 
 from flask import g
 
-from .config import get_config, get_item_data
+from .config import get_item_data
 from .models import Datamapper
 
 def connect_db(config):
@@ -20,7 +20,7 @@ def get_db(app):
         app.db = connect_db(app.config)
     return app.db
 
-def get_datamapper(db):
+def get_datamapper(db, config):
     """Creates and returns a Datamapper singleton.
     """
-    return Datamapper(db)
+    return Datamapper(db, config)

@@ -59,3 +59,27 @@ export FLASK_APP=app/app.py
 ```
 
 Visit [D&D Machine](http://localhost:5000)
+
+# Docker
+
+The docker image keeps the flask database in a volume, so it's persistent
+between restarts. The database will be upgraded during start-up should the
+container start with a newer version.
+
+## Building the image
+
+```bash
+docker build \
+    --tag dnd-machine:latest .
+```
+
+## Running the image
+
+```bash
+docker run \
+    --detach \
+    --publish 5000:5000 \
+    --name dndmachine \
+    --restart always \
+    dnd-machine:latest
+```

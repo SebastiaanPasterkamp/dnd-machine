@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, abort, render_template, jsonify
 
-from .. import get_datamapper
-
 def register_paths(blueprint, basemapper, config):
 
     @blueprint.route('/<string:item>/list')
