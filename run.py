@@ -14,6 +14,12 @@ from app.app import (
     )
 from app.config import get_config
 
+config = get_config()
+
+def changeConfig(option, opt, value, parser):
+    (key, val) = value.split('=', 1)
+    config[key] = val
+
 parser = OptionParser("""D&D Machine Web App""")
 
 parser.add_option("--host", default="127.0.0.1", metavar="HOST",
@@ -27,6 +33,10 @@ parser.add_option("--debug", default=False, action="store_true",
 
 parser.add_option("--threaded", default=False, action="store_true",
                   help="Enable multithreading [default: %default]")
+
+parser.add_option("--config", default={}, type='string', action="callback",
+                  callback=changeConfig,
+                  metavar="FIELD=value", help="Change config parameters.")
 
 
 group = OptionGroup(parser, "Enable SSL")
@@ -66,7 +76,7 @@ parser.add_option_group(group)
 
 (options, args) = parser.parse_args()
 
-app = create_app(get_config())
+app = create_app(config)
 
 args = {
     "host": options.host,

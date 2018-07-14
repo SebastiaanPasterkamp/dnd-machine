@@ -14,12 +14,6 @@ import filters
 def create_app(config={}):
     app = Flask(__name__)
 
-    app.config.update(dict(
-        DATABASE=os.path.join(app.root_path, 'flaskr.db'),
-        SECRET_KEY=b'_5#y2L"F4Q8z\n\xec]/',
-        USERNAME='admin',
-        PASSWORD='default'
-    ))
     app.config.update(config)
     app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
@@ -36,7 +30,7 @@ def register_blueprints(app, config):
     Auto detect blueprint modules
     """
     db = get_db(app)
-    dm = get_datamapper(db)
+    dm = get_datamapper(db, app.config)
     for name in find_modules('app.views', recursive=True):
         mod = import_string(name)
         url_prefix = '/'.join(
@@ -83,7 +77,7 @@ def register_cli(app):
     def migrate_command():
         print('Migrating objects.')
         db = get_db(app)
-        _migrate(db)
+        _migrate(db, app.config)
         print('Migrated objects.')
     @app.cli.command('dump-table')
     def dump_table_command(table):
@@ -111,7 +105,7 @@ def updatedb(app):
 def migrate(app, objects=None):
     with app.app_context():
         db = get_db(app)
-        _migrate(db, objects)
+        _migrate(db, app.config, objects)
 
 def dump_table(app, table):
     with app.app_context():
@@ -250,9 +244,9 @@ def _dump_table(db, table):
             yield(row[0])
     yield('COMMIT;')
 
-def _migrate(db, objects=None):
+def _migrate(db, config, objects=None):
     """Migrate all Objects to any new configuration."""
-    datamapper = get_datamapper(db)
+    datamapper = get_datamapper(db, config)
     objects = objects or datamapper._creators
 
     db.cursor().execute("PRAGMA synchronous = OFF");
@@ -310,7 +304,7 @@ def register_request_hooks(app):
             request.user = None
             return
         db = get_db(app)
-        datamapper = get_datamapper(db)
+        datamapper = get_datamapper(db, app.config)
         request.user = datamapper.user.getById(
             session.get('user_id')
             )
@@ -323,7 +317,7 @@ def register_request_hooks(app):
             return
 
         db = get_db(app)
-        datamapper = get_datamapper(db)
+        datamapper = get_datamapper(db, app.config)
         request.party = datamapper.party.getById(
             session.get('party_id')
             )

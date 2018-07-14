@@ -5,8 +5,6 @@ import sys
 
 from flask import g
 
-from ..config import get_config
-
 from campaign import CampaignMapper
 from character import CharacterMapper
 from dndmachine import DndMachine
@@ -24,10 +22,10 @@ from items import ItemsObject
 class Datamapper(object):
     """Contains instances for each type.
     """
-    def __init__(self, db):
+    def __init__(self, db, config):
         self.db = db
         self._creators = {
-            'machine': lambda: DndMachine(get_config()['machine'], self),
+            'machine': lambda: DndMachine(config['machine'], self),
             'adventureleague': lambda: AdventureLeagueLogMapper(db),
             'user': lambda: UserMapper(db),
             'party': lambda: PartyMapper(db),

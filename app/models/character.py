@@ -431,7 +431,7 @@ class CharacterObject(JsonObject):
                 self.armor_class = armor["value"]
             if "bonus" in armor \
                     and armor["bonus"] > self.armor_class_bonus:
-                self.armor_class_bonus = armor["bonus"]
+                self.armor_class_bonus += armor["bonus"]
 
         self.spellLevel = {}
         for spell in set(self.spellList).union(self.spellPrepared):
