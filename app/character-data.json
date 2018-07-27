@@ -21485,5 +21485,48 @@
                 }]
             }
         }
+    }, {
+        "name": "Urchin",
+        "filename": "urchin.md",
+        "phases": {
+            "soldier": {
+                "config": [{
+                    "hidden": true,
+                    "path": "wealth.gp",
+                    "type": "value",
+                    "value": 10
+                }, {
+                    "label": "Feature: City Secrets",
+                    "path": "info.City Secrets",
+                    "type": "value",
+                    "value": "You know the secret patterns and flow to cities and can find passages through the urban sprawl that others would miss. When you are not in combat, you (and companions you lead) can travel between any two locations in the city twice as fast as your speed would normally allow."
+                }, {
+                    "label": "Background Skill Proficiencies",
+                    "path": "proficiencies.skills",
+                    "type": "list",
+                    "list": ["skills"],
+                    "given": ["sleight of hand", "stealth"]
+                }, {
+                    "label": "Background Tool Proficiencies",
+                    "path": "proficiencies.tools",
+                    "type": "list",
+                    "list": ["tools"],
+                    "given": ["Disguise kit", "Thieves' tools"]
+                }, {
+                    "label": "Background Equipment",
+                    "type": "list",
+                    "path": "equipment",
+                    "multiple": true,
+                    "given": [
+                        "Small knife",
+                        "Map of the city you grew up in",
+                        "Pet mouse",
+                        "Token to remember your parents by",
+                        "Set of common clothes",
+                        "Belt Pouch"
+                    ]
+                }]
+            }
+        }
     }]
 }
