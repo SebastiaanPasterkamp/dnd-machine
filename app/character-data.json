@@ -577,6 +577,98 @@
                 }]
             }
         }
+    }, {
+        "name": "Tiefling",
+        "filename": "tiefling.md",
+        "phases": {
+            "teifling": {
+                "config": [{
+                    "hidden": true,
+                    "path": "statistics.bonus.intelligence",
+                    "type": "list",
+                    "given": [1]
+                }, {
+                    "hidden": true,
+                    "path": "statistics.bonus.charisma",
+                    "type": "list",
+                    "given": [2]
+                }, {
+                    "hidden": true,
+                    "path": "size",
+                    "type": "value",
+                    "value": "medium"
+                }, {
+                    "hidden": true,
+                    "path": "speed",
+                    "type": "value",
+                    "value": 30
+                }, {
+                    "label": "Darkvision",
+                    "path": "info.Darkvision",
+                    "type": "value",
+                    "value": "Thanks to your infernal heritage, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+                }, {
+                    "label": "Hellish Resistance",
+                    "path": "info.Hellish Resistance",
+                    "type": "value",
+                    "value": "You have resistance to *fire damage*."
+                }, {
+                    "label": "Infernal Legacy",
+                    "path": "info.Hellish Resistance",
+                    "type": "value",
+                    "value": "You know the *thaumaturgy* cantrip."
+                }, {
+                    "hidden": true,
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": ["spell"],
+                    "given": ["thaumaturgy"]
+                }, {
+                    "label": "Racial Languages",
+                    "path": "languages",
+                    "type": "list",
+                    "list": ["languages"],
+                    "given": ["common", "infernal"],
+                    "limit": 1
+                }]
+            },
+            "tiefling-3": {
+                "conditions": {
+                    "level": 3,
+                    "race": "Tiefling"
+                },
+                "config": [{
+                    "label": "Infernal Legacy",
+                    "path": "info.Hellish Resistance",
+                    "type": "value",
+                    "value": "You know the *thaumaturgy* cantrip. You can cast the *hellish rebuke* spell once per day as a 2nd-level spell. **Charisma** is your *Spellcasting Ability* for this spell."
+                }, {
+                    "hidden": true,
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": ["spell"],
+                    "given": ["hellish rebuke"]
+                }]
+            },
+            "tiefling-5": {
+                "conditions": {
+                    "level": 5,
+                    "race": "Tiefling"
+                },
+                "config": [{
+                    "label": "Infernal Legacy",
+                    "path": "info.Hellish Resistance",
+                    "type": "value",
+                    "value": "You know the *thaumaturgy* cantrip. You can cast the *hellish rebuke*, and *darkness* spells once per day as a 2nd-level spell. **Charisma** is your *Spellcasting Ability* for these spells."
+                }, {
+                    "hidden": true,
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": ["spell"],
+                    "given": ["darkness"]
+                }]
+            }
+        }
     }],
     "class": [{
         "name": "Barbarian",
@@ -11536,7 +11628,7 @@
                                 "given": ["Archfey"]
                             }, {
                                 "label": "Expanded Spell List",
-                                "path": "spell.list",
+                                "path": "spell.expanded",
                                 "type": "list",
                                 "list": ["spell"],
                                 "given": [
@@ -11561,7 +11653,7 @@
                                 "given": ["Celestial"]
                             }, {
                                 "label": "Expanded Spell List",
-                                "path": "spell.list",
+                                "path": "spell.expanded",
                                 "type": "list",
                                 "list": ["spell"],
                                 "given": [
@@ -11589,7 +11681,7 @@
                                 "given": ["Fiend"]
                             }, {
                                 "label": "Expanded Spell List",
-                                "path": "spell.list",
+                                "path": "spell.expanded",
                                 "type": "list",
                                 "list": ["spell"],
                                 "given": [
@@ -11614,7 +11706,7 @@
                                 "given": ["Great Old One"]
                             }, {
                                 "label": "Expanded Spell List",
-                                "path": "spell.list",
+                                "path": "spell.expanded",
                                 "type": "list",
                                 "list": ["spell"],
                                 "given": [
@@ -11638,7 +11730,7 @@
                                 "given": ["Hexblade"]
                             }, {
                                 "label": "Expanded Spell List",
-                                "path": "spell.list",
+                                "path": "spell.expanded",
                                 "type": "list",
                                 "list": ["spell"],
                                 "given": [
@@ -12134,7 +12226,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12151,7 +12243,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12168,7 +12260,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12185,7 +12277,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12202,7 +12294,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12706,7 +12798,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12723,7 +12815,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12740,7 +12832,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12757,7 +12849,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12774,7 +12866,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13240,7 +13332,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13257,7 +13349,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13274,7 +13366,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13291,7 +13383,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13308,7 +13400,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13772,7 +13864,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13789,7 +13881,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13806,7 +13898,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13823,7 +13915,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13840,7 +13932,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
