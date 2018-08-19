@@ -2,114 +2,76 @@
 
 exports[`Function: ComputeChange should apply mutations to lists 1`] = `
 Object {
-  "props": Object {
-    "some": Object {
-      "path": Array [
-        "one",
-        "foo",
-      ],
-    },
+  "some": Object {
+    "path": Array [
+      "one",
+      "foo",
+    ],
   },
-  "state": Object {},
 }
 `;
 
 exports[`Function: ComputeChange should apply mutations to lists with duplicates 1`] = `
 Object {
-  "props": Object {
-    "some": Object {
-      "path": Array [
-        "one",
-        "two",
-        "foo",
-        "foo",
-      ],
-    },
+  "some": Object {
+    "path": Array [
+      "one",
+      "two",
+      "foo",
+      "foo",
+    ],
   },
-  "state": Object {},
 }
 `;
 
 exports[`Function: ComputeChange should merge dicts 1`] = `
 Object {
-  "props": Object {
-    "some": Object {
-      "path": Object {
-        "description": "foo",
-        "value": "rab",
-      },
+  "some": Object {
+    "path": Object {
+      "description": "foo",
+      "value": "rab",
     },
-  },
-  "state": Object {},
-}
-`;
-
-exports[`Function: ComputeChange should set ability_score 1`] = `
-Object {
-  "props": Object {},
-  "state": Object {
-    "abilityScore": 2,
   },
 }
 `;
 
 exports[`Function: ComputeChange should set null value 1`] = `
 Object {
-  "props": Object {
-    "some": Object {
-      "path": null,
-    },
+  "some": Object {
+    "path": null,
   },
-  "state": Object {},
 }
 `;
 
 exports[`Function: ComputeChange should set value for select 1`] = `
 Object {
-  "props": Object {
-    "some": Object {
-      "path": "bar",
-    },
+  "some": Object {
+    "path": "bar",
   },
-  "state": Object {},
 }
 `;
 
 exports[`Function: ComputeChange should set value for value 1`] = `
 Object {
-  "props": Object {
-    "some": Object {
-      "path": "foo",
-    },
+  "some": Object {
+    "path": "foo",
   },
-  "state": Object {},
 }
 `;
 
-exports[`Function: ComputeChange should skip undefined options 1`] = `
-Object {
-  "props": Object {},
-  "state": Object {},
-}
-`;
+exports[`Function: ComputeChange should skip undefined options 1`] = `Object {}`;
 
 exports[`Function: ComputeChange should skip undefined value 1`] = `
 Object {
-  "props": Object {
-    "some": undefined,
-  },
-  "state": Object {},
+  "some": undefined,
 }
 `;
 
 exports[`Function: ComputeChange should undo canceled changes 1`] = `
 Object {
-  "props": Object {
-    "other": undefined,
-    "some": Object {
-      "path": "Canceled value",
-    },
+  "other": undefined,
+  "some": Object {
+    "path": "Canceled value",
   },
-  "state": Object {},
 }
 `;

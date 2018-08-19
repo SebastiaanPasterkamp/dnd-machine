@@ -1,51 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`render 1`] = `
-<ValuePropertySelect
+exports[`Component: ValuePropertySelect should not render anything when hidden 1`] = `
+<CharacterEditorComponent
   hidden={true}
-  onChange={[Function]}
   path="some.path"
-  value="This shows _formatted_ content."
-/>
-`;
-
-exports[`render 2`] = `
-<ValuePropertySelect
-  onChange={[Function]}
-  path="some.path"
+  type="value"
   value="This shows _formatted_ content."
 >
-  <MarkdownTextField
-    className="small"
-    disabled={true}
-    setState={[Function]}
+  <ValuePropertySelect
+    current="This shows _formatted_ content."
+    getCurrent={[Function]}
+    hidden={true}
+    onChange={[Function]}
+    type="value"
+    value="This shows _formatted_ content."
+  />
+</CharacterEditorComponent>
+`;
+
+exports[`Component: ValuePropertySelect should render the formatted description 1`] = `
+<CharacterEditorComponent
+  path="some.path"
+  type="value"
+  value="This shows _formatted_ content."
+>
+  <ValuePropertySelect
+    current="This shows _formatted_ content."
+    getCurrent={[Function]}
+    onChange={[Function]}
+    type="value"
     value="This shows _formatted_ content."
   >
-    <div
-      className="markdown-textedit small preview"
+    <MarkdownTextField
+      className="small"
+      disabled={true}
+      setState={[Function]}
+      value="This shows _formatted_ content."
     >
-      <MDReactComponent
-        className="markdown-textedit__preview"
-        text="This shows _formatted_ content."
+      <div
+        className="markdown-textedit small preview"
       >
-        <span
+        <MDReactComponent
           className="markdown-textedit__preview"
-          key="mdrct-html-0"
+          text="This shows _formatted_ content."
         >
-          <p
-            key="mdrct-p-0"
+          <span
+            className="markdown-textedit__preview"
+            key="mdrct-html-0"
           >
-            This shows 
-            <em
-              key="mdrct-em-1"
+            <p
+              key="mdrct-p-0"
             >
-              formatted
-            </em>
-             content.
-          </p>
-        </span>
-      </MDReactComponent>
-    </div>
-  </MarkdownTextField>
-</ValuePropertySelect>
+              This shows 
+              <em
+                key="mdrct-em-1"
+              >
+                formatted
+              </em>
+               content.
+            </p>
+          </span>
+        </MDReactComponent>
+      </div>
+    </MarkdownTextField>
+  </ValuePropertySelect>
+</CharacterEditorComponent>
 `;
