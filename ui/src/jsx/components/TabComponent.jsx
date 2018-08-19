@@ -138,6 +138,7 @@ TabComponent.propTypes = {
         PropTypes.array,
         PropTypes.func,
     ]).isRequired,
+    mountAll: PropTypes.bool,
     onTabChange: PropTypes.func,
 };
 
