@@ -4,11 +4,11 @@ import MDReactComponent from 'markdown-react-js';
 
 // import '../../sass/_create-character.scss';
 
+import utils from '../utils.jsx';
+
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
-
-import {CharacterEditView} from './CharacterEdit.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
@@ -23,9 +23,12 @@ import {StatsBlock} from '../components/StatsBlock.jsx';
 import TabComponent from '../components/TabComponent.jsx';
 
 import CharacterConfig from '../components/Character/CharacterConfig.jsx';
-import ComputeChange from '../components/Character/ComputeChange.jsx';
+import StatisticsSelect from '../components/Character/StatisticsSelect.jsx';
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
 const propsList = [
+    'alignments',
+    'genders',
     'languages',
     'skills',
     'spell',
@@ -48,308 +51,188 @@ const propsMap = {
     'weapon': '_weapons',
 };
 
-export class CharacterPickAttribute extends LazyComponent
+export class CharacterCreate extends React.Component
 {
-    tabConfig(index) {
-        const { info, value } = this.props;
-        const attrib = info[index];
-        const active = _.find(
-            attrib.sub || [attrib],
-            sub => (sub.name == this.props.value)
-        );
+    baseConfig = [{
+        type: 'manual',
+        path: 'name',
+        label: 'Name',
+        placeholder: 'Name...',
+    }, {
+        type: 'select',
+        path: 'alignment',
+        label: 'Alignment',
+        list: ['alignments'],
+    }, {
+        type: 'select',
+        path: 'gender',
+        label: 'Gender',
+        list: ['genders'],
+    }, {
+        type: 'config',
+        label: 'Personality',
+        config: [{
+            type: 'manual',
+            path: 'personality.traits',
+            label: 'Traits',
+            placeholder: 'Traits...',
+            markup: true,
+        }, {
+            type: 'manual',
+            path: 'personality.ideals',
+            label: 'Ideals',
+            placeholder: 'Ideals...',
+            markup: true,
+        }, {
+            type: 'manual',
+            path: 'personality.bonds',
+            label: 'Bonds',
+            placeholder: 'Bonds...',
+            markup: true,
+        }, {
+            type: 'manual',
+            path: 'personality.flaws',
+            label: 'Flaws',
+            placeholder: 'Flaws...',
+            markup: true,
+        }],
+    }, {
+        type: 'manual',
+        path: 'backstory',
+        label: 'Backstory',
+        placeholder: 'Backstory...',
+        markup: true,
+    }];
 
-        return {
-            label: attrib.name,
-            color: active
-                ? 'good'
-                : (value == null ? 'info' : 'accent'),
-            active: active
-        };
-    }
-
-    renderSelector(attrib) {
-        const { value, setState } = this.props;
-        const subs = _.get(attrib, 'sub');
-
-        if (!subs) {
-            return <ButtonField
-                label={attrib.name == value ? value : "Pick..."}
-                onClick={() => setState(attrib.name)}
-                />;
-        }
-
-        return <SingleSelect
-            items={_.map(subs, (sub) => ({
-                code: sub.name,
-                label: sub.name
-            }))}
-            emptyLabel="Pick..."
-            selected={value}
-            setState={(value) => setState(value)}
-            />;
-    }
-
-    render() {
-        const { info } = this.props;
-        if (!info) {
-            return null;
-        }
-
-        return <TabComponent
-            className="character-pick-attribute"
-            tabConfig={index => this.tabConfig(index)}
-            >
-            {_.map(info, (attrib, index) => (
-                <div key={"attrib-" + index}>
-                    {this.renderSelector(attrib)}
-                    <MDReactComponent
-                        className="character-pick-attribute--description"
-                        text={attrib.description}
-                        />
-                    {this.renderSelector(attrib)}
-                </div>
-            ))}
-        </TabComponent>;
-    }
-}
-
-export class CharacterCreate extends LazyComponent
-{
     constructor(props) {
         super(props);
         this.state = {
-            doneInit: false,
-            doneStats: false,
-            doneDescr: false,
-            abilityScore: 0,
-        };
-
-        this.computeProps = _.debounce(() => {
-            const {
-                character,
-                setState,
-            } = this.props;
-            const {
-                doneInit,
-                doneStats,
-                doneDescr,
-                abilityScore,
-                ...change,
-            } = this.state;
-
-            const update = ComputeChange(change, {});
-
-            console.log({
-                character,
-                update,
-                change,
-            });
-
-            this.setState(
-                update.state,
-                () => setState(update.props)
-            );
-        }, 10);
-    }
-
-    getCurrent(path) {
-        return _.get(
-            this.props.character,
-            path
-        );
-    }
-
-    getItems(lists) {
-        if (!_.isArray(lists)) {
-            lists = [lists];
-        }
-
-        return _.reduce(
-            lists,
-            (items, item) => {
-                return items.concat(
-                    this.props[
-                        propsMap[item] || item
-                    ] || []
-                );
-            },
-            []
-        );
-    }
-
-    onChange(path, value, index, option) {
-        this.setState(
-            {
-                [index.join('.')]: {path, value, option}
-            },
-            () => this.computeProps()
-        );
-    }
-
-    onFieldChange(field, value) {
-        const {
-            character,
-            setState,
-        } = this.props;
-        const {
-            race,
-            'class': _class,
-            background,
-        } = character;
-        const base = _.assign(
-            {},
-            {
-                race,
-                'class': _class,
-                background,
-            },
-            {[field]: value}
-        );
-        this.setState({
-            doneInit: (base.race && base.class && base.background)
-        }, () => setState(base));
-    }
-
-    onStatisticsChange(value) {
-        let statistics = _.assign(
-            {},
-            this.props.character.statistics,
-            value
-        );
-
-        this.setState(
-            {
-                doneStats: (
-                    this.state.doneInit
-                    && _.sum(_.values(statistics.bare)) >= 60
-                )
-            },
-            () => this.props.setState({ statistics })
-        );
-    }
-
-    onTabChange(index) {
-        this.props.recompute();
-        if (index == 5) {
-            this.props.setButtons(['save']);
-        } else {
-            this.props.setButtons([]);
-        }
-    }
-
-    tabConfig(index) {
-        const {
-            race,
-            'class': _class,
-            background,
-        } = this.props.character;
-        const {
-            doneInit, doneStats, doneDescr,
-        } = this.state;
-
-        const tabs = [
-            {
-                label: race || 'Race',
-                color: race ? 'good' : 'info',
-            },
-            {
-                label: _class || 'Class',
-                color: _class ? 'good' : 'info',
-            },
-            {
-                label: background || 'Background',
-                color: background ? 'good' : 'info',
-            },
-            {
+            tabConfig: [{
+                label: 'Race',
+                color: 'info',
+            }, {
+                label: 'Class',
+                color: 'info',
+            }, {
+                label: 'Background',
+                color: 'info',
+            }, {
                 label: 'Statistics',
-                color: doneStats ? 'good' : 'info',
-                disabled: !doneInit
-            },
-            {
+                color: 'info',
+            }, {
                 label: 'Description',
-                color: doneDescr ? 'good' : 'info',
-                disabled: !doneStats
-            },
-            {
+                color: 'info',
+            }, {
                 label: 'Result',
                 color: 'info',
-                disabled: !doneDescr
-            }
-        ];
+            }],
+        };
+    }
 
-        return tabs[index];
+    computeConfig(config, character) {
+        if (_.isPlainObject(config)) {
+            let changed = false;
+            const newConfig = _.reduce(
+                config,
+                (newConfig, value, key) => {
+                    newConfig[key] = value;
+                    if (key.match(/_formula$/)) {
+                        const root = _.replace(key, /_formula$/, '');
+                        try {
+                            const newValue = utils.resolveMath(
+                                character,
+                                value,
+                                'character'
+                            );
+                            if (newValue != value) {
+                                changed = true;
+                                newConfig[root] = newValue;
+                            }
+                        } catch(error) {
+                            if (config[root + '_default'] != value) {
+                                changed = true;
+                                newConfig[root] = config[root + '_default'];
+                            }
+                        }
+                    } else {
+                        const newValue = this.computeConfig(
+                            value,
+                            character,
+                        );
+                        if (newValue != value) {
+                            changed = true;
+                            newConfig[key] = newValue;
+                        }
+                    }
+                    return newConfig;
+                },
+                {}
+            );
+            if (changed) {
+                return newConfig;
+            }
+        } else if (_.isObject(config)) {
+            let changed = false;
+            const newConfig = _.map(
+                config,
+                value => {
+                    const newValue = this.computeConfig(
+                        value,
+                        character,
+                    );
+                    if (newValue != value) {
+                        changed = true;
+                        return newValue;
+                    }
+                    return value;
+                }
+            );
+            if (changed) {
+                return newConfig;
+            }
+        }
+
+        return config;
     }
 
     render() {
         const {
-            character,
+            getCurrent,
             races = [], classes = [], backgrounds = [],
             _statistics, setState, genders = [], alignments = [],
         } = this.props;
+        const character = getCurrent();
         const {
-            race, 'class': _class, background, statistics, level,
-            gender, alignment, xp_progress, xp_level, name = '',
+            race = 'Race',
+            'class': _class = 'Class',
+            background = 'Background',
+            statistics, level = 1, gender, alignment,
+            xp_progress = 0, xp_level = 300, name = '',
         } = character;
         const {
-            doneStats,
-            abilityScore,
+            tabConfig,
         } = this.state;
 
         return <TabComponent
-                onTabChange={index => this.onTabChange(index) }
-                tabConfig={ index => this.tabConfig(index) }
+                onTabChange={ this.onTabChange }
+                tabConfig={ tabConfig }
                 mountAll={ true }
                 >
             <CharacterConfig
-                index={[]}
-                config={races}
-                getCurrent={path => this.getCurrent(path)}
-                getItems={lists => this.getItems(lists)}
-                onChange={(path, value, index, option) => {
-                    this.onChange(path, value, index, option)
-                }}
+                config={ this.computeConfig(races, character) }
                 />
             <CharacterConfig
-                index={[]}
-                config={classes}
-                getCurrent={path => this.getCurrent(path)}
-                getItems={lists => this.getItems(lists)}
-                onChange={(path, value, index, option) => {
-                    this.onChange(path, value, index, option)
-                }}
+                config={ this.computeConfig(classes, character) }
                 />
             <CharacterConfig
-                index={[]}
-                config={backgrounds}
-                getCurrent={path => this.getCurrent(path)}
-                getItems={lists => this.getItems(lists)}
-                onChange={(path, value, index, option) => {
-                    this.onChange(path, value, index, option)
-                }}
+                config={ this.computeConfig(backgrounds, character) }
                 />
-            <StatsBlock
-                {...statistics}
-                budget={27}
-                maxBare={15}
-                statistics={_statistics}
-                increase={ abilityScore }
-                setState={
-                    (update) => this.onStatisticsChange(update)
-                }
+            <StatisticsSelect
+                budget={ 27 }
+                maxBare={ 15 }
                 />
-            <CharacterEditView
-                {...this.props}
-                setState={(update) => {
-                    this.setState(
-                        {
-                            doneDescr: (
-                                doneStats
-                                && name.length
-                            )
-                        },
-                        () => setState(update)
-                    );
-                }}
+            <CharacterConfig
+                config={ this.baseConfig }
                 />
             <Panel
                 header="Result"
@@ -385,17 +268,16 @@ export class CharacterCreate extends LazyComponent
     }
 }
 
+const foo = {
+    className: 'character-create',
+    icon: 'fa-user-secret',
+    label: 'Create Character',
+};
+
 export default ListDataWrapper(
     ListDataWrapper(
-        RoutedObjectDataWrapper(
-            CharacterCreate, {
-                className: 'character-create',
-                icon: 'fa-user-secret',
-                label: 'Create Character',
-            },
-            'character',
-            null,
-            'character'
+        CharacterEditorWrapper(
+            CharacterCreate
         ),
         propsList,
         'items',

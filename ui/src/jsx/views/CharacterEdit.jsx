@@ -38,10 +38,11 @@ export class CharacterEdit extends React.Component
 
     render() {
         const {
-            level, 'class': _class, race, background, xp_progress,
-            xp_level, name, alignment, alignments, gender, genders,
-            height, weight, age, appearance, spell = {}, _spells = [],
-            backstory, personality = {},
+            level = 1, 'class': _class, race, background,
+            xp_progress = 0, xp_level = 300, name, alignment,
+            alignments, gender, genders, height, weight, age,
+            appearance, spell = {}, _spells = [], backstory,
+            personality = {},
         } = this.props;
 
         const filtered_spells = _.filter(_spells, item => {
