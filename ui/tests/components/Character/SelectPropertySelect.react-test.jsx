@@ -1,22 +1,49 @@
 import React from 'react';
-import SelectPropertySelect from 'components/Character/SelectPropertySelect.jsx';
+import _ from 'lodash';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+jest.useFakeTimers();
+
+import SelectPropertySelect from 'components/Character/SelectPropertySelect.jsx';
+
+import CharacterEditorActions from 'actions/CharacterEditorActions.jsx';
+import ListDataStore from 'stores/ListDataStore.jsx';
 
 const { statistics } = require('../../__mocks__/apiCalls.js');
 
+const character = {
+    some: {
+        path: 'charisma',
+    },
+};
 const props = {
+    type: 'select',
     path: 'some.path',
     items: statistics,
-    current: 'strength',
 }
 
+const mockedId = 'id_1';
+
 describe('Component: SelectPropertySelect', () => {
+
+    beforeEach(() => {
+        _.uniqueId = jest.fn();
+        _.uniqueId
+            .mockReturnValueOnce(mockedId)
+            .mockReturnValueOnce('unexpected_2');
+
+        CharacterEditorActions.editCharacter.completed(character);
+        ListDataStore.onFetchItemsCompleted(
+            {statistics},
+            'statistics'
+        );
+
+        jest.runAllTimers();
+    });
+
     it('should not render anything', () => {
-        const onChange = jest.fn();
         const wrapper = mount(
             <SelectPropertySelect
-                onChange={onChange}
                 hidden={true}
                 {...props}
                 />
@@ -27,10 +54,8 @@ describe('Component: SelectPropertySelect', () => {
     });
 
     it('should render the list', () => {
-        const onChange = jest.fn();
         const wrapper = mount(
             <SelectPropertySelect
-                onChange={onChange}
                 {...props}
                 />
         );
@@ -39,30 +64,45 @@ describe('Component: SelectPropertySelect', () => {
             .toMatchSnapshot();
     });
 
-    it('should emit onChange dispite being hidden', () => {
-        const onChange = jest.fn();
+    it('should emit addChange dispite being hidden', () => {
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+
         const wrapper = mount(
             <SelectPropertySelect
-                onChange={onChange}
                 hidden={true}
                 {...props}
                 />
         );
 
-        expect(onChange)
-            .toBeCalledWith('some.path', props.current);
+        expect(addChange)
+            .toBeCalledWith(
+                props.path,
+                "charisma",
+                mockedId,
+                {
+                    hidden: true,
+                    type: props.type,
+                    items: statistics,
+                },
+            );
     });
 
-    it('should emit onChange on new selection', () => {
-        const onChange = jest.fn();
+    it('should emit addChange on new selection', () => {
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+
         const wrapper = mount(
             <SelectPropertySelect
-                onChange={onChange}
                 {...props}
                 />
         );
 
-        onChange.mockClear();
+        addChange.mockClear();
 
         wrapper
             .find('button')
@@ -71,26 +111,51 @@ describe('Component: SelectPropertySelect', () => {
             .find({'data-value': 'wisdom'})
             .simulate('click');
 
-        expect(onChange)
-            .toBeCalledWith('some.path', 'wisdom');
+        expect(addChange)
+            .toBeCalledWith(
+                props.path,
+                "wisdom",
+                mockedId,
+                {
+                    type: props.type,
+                    items: statistics,
+                },
+
+            );
     });
 
-    it('should emit onChange on mount and umount', () => {
-        const onChange = jest.fn();
+
+    it('should emit *Change actions on mount and umount', () => {
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+        const removeChange = jest.spyOn(
+            CharacterEditorActions,
+            'removeChange'
+        );
+
         const wrapper = mount(
             <SelectPropertySelect
-                onChange={onChange}
                 {...props}
                 />
         );
 
-        expect(onChange)
-            .toBeCalledWith('some.path', props.current);
+        expect(addChange)
+            .toBeCalledWith(
+                props.path,
+                "wisdom",
+                mockedId,
+                {
+                    type: props.type,
+                    items: statistics,
+                },
 
-        onChange.mockClear();
+            );
+
         wrapper.unmount();
 
-        expect(onChange)
-            .toBeCalledWith('some.path', undefined);
+        expect(removeChange)
+            .toBeCalledWith(mockedId);
     });
 });

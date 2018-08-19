@@ -1,81 +1,108 @@
 import React from 'react';
-import ListPropertySelect from 'components/Character/ListPropertySelect.jsx';
-import renderer from 'react-test-renderer';
+import _ from 'lodash';
 import { mount } from 'enzyme';
+jest.useFakeTimers();
+
+jest.mock('actions/ListDataActions.jsx');
+
+import ListPropertySelect from 'components/Character/ListPropertySelect.jsx';
+
+import CharacterEditorActions from 'actions/CharacterEditorActions.jsx';
+import ListDataStore from 'stores/ListDataStore.jsx';
 
 const { statistics } = require('../../__mocks__/apiCalls.js');
 
+const character = {
+    some: {
+        path: ['dexterity'],
+    },
+};
 const props = {
+    type: 'list',
     path: 'some.path',
-    items: statistics,
+    list: 'statistics',
 }
 
-describe('Component: ListPropertySelect', () => {
-    it('should render with minimum props', () => {
-        const onChange = jest.fn();
-        const tree = renderer.create(
-            <ListPropertySelect
-                onChange={onChange}
-                path="some.path"
-                />
-        ).toJSON();
+const mockedId = 'id_1';
 
-        expect(tree).toMatchSnapshot();
+describe('Component: ListPropertySelect', () => {
+
+    beforeEach(() => {
+        _.uniqueId = jest.fn();
+        _.uniqueId
+            .mockReturnValueOnce(mockedId)
+            .mockReturnValueOnce('unexpected_2');
+
+        CharacterEditorActions.editCharacter.completed(character);
+        ListDataStore.onFetchItemsCompleted(
+            {statistics},
+            'statistics'
+        );
+
+        jest.runAllTimers();
+    });
+
+    it('should render with minimum props', () => {
+        const wrapper = mount(
+            <ListPropertySelect
+                path="some.path"
+                type="list"
+                />
+        );
+        jest.runAllTimers();
+
+        expect(wrapper)
+            .toMatchSnapshot();
     });
 
     it('should not render select w/o items', () => {
-        const onChange = jest.fn();
-        const tree = renderer.create(
+        const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 {...props}
+                list={undefined}
                 limit={1}
-                items={[]}
                 />
-        ).toJSON();
+        );
+        jest.runAllTimers();
 
-        expect(tree).toMatchSnapshot();
+        expect(wrapper)
+            .toMatchSnapshot();
     });
 
     it('should not render select w/ filtering all items', () => {
-        const onChange = jest.fn();
-        const tree = renderer.create(
+        const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 {...props}
                 limit={1}
-                filter={{ code: 'impossible' }}
+                filter={{ code: ['impossible'] }}
                 />
-        ).toJSON();
+        );
+        jest.runAllTimers();
 
-        expect(tree).toMatchSnapshot();
+        expect(wrapper)
+            .toMatchSnapshot();
     });
 
     it('should not render when hidden', () => {
-        const onChange = jest.fn();
-        const tree = renderer.create(
+        const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 {...props}
                 hidden={true}
                 />
-        ).toJSON();
+        );
+        jest.runAllTimers();
 
-        expect(tree).toMatchSnapshot();
+        expect(wrapper)
+            .toMatchSnapshot();
     });
 
     it('should render with full props', () => {
-        const onChange = jest.fn();
-        const tree = renderer.create(
+        const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 {...props}
                 given={[
-                    'strength',
+                    'constitution',
                     'charisma',
-                ]}
-                current={[
-                    'dexterity',
                 ]}
                 limit={2}
                 replace={1}
@@ -88,103 +115,132 @@ describe('Component: ListPropertySelect', () => {
                 }}
                 multiple={true}
                 />
-        ).toJSON();
+        );
+        jest.runAllTimers();
 
-        expect(tree).toMatchSnapshot();
+        expect(wrapper)
+            .toMatchSnapshot();
     });
 
     it('should omit unknown current values', () => {
-        const onChange = jest.fn();
-        const tree = renderer.create(
+        CharacterEditorActions.editCharacter.completed({
+            some: {
+                path: ['dexterity', 'bar'],
+            },
+        });
+        const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 {...props}
                 given={[
                     'foo',
                 ]}
-                current={[
-                    'bar',
-                ]}
                 />
-        ).toJSON();
+        );
+        jest.runAllTimers();
 
-        expect(tree).toMatchSnapshot();
+        expect(wrapper)
+            .toMatchSnapshot();
     });
 
-    it('should emit onChange when mounted / unmounted', () => {
-        const onChange = jest.fn();
+    it('should emit *Change actions on mount and umount', () => {
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+        const removeChange = jest.spyOn(
+            CharacterEditorActions,
+            'removeChange'
+        );
         const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 {...props}
                 given={[
                     'strength',
                     'charisma',
                 ]}
-                current={[
-                    'dexterity',
-                ]}
                 />
         );
 
-        expect(onChange).toBeCalledWith(
-            props.path,
-            {
-                "added": ["strength", "charisma"],
-                "removed": [],
-            }
-        );
+        expect(addChange)
+            .toBeCalledWith(
+                props.path,
+                {
+                    "added": ["strength", "charisma"],
+                    "removed": [],
+                },
+                mockedId,
+                {
+                    given: [
+                        'strength',
+                        'charisma',
+                    ],
+                    type: props.type,
+                    items: statistics,
+                },
+            );
 
-        onChange.mockClear();
         wrapper.unmount();
 
-        expect(onChange).toBeCalledWith(
-            props.path,
-            undefined
-        );
+        expect(removeChange)
+            .toBeCalledWith(mockedId);
     });
 
     it('should handle replacing one existing', () => {
-        const onChange = jest.fn();
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
         const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 {...props}
                 given={[
                     'charisma',
                 ]}
-                current={[
-                    'strength',
-                ]}
-                filter={{ code: 'strength' }}
+                filter={{ code: ['strength'] }}
                 replace={1}
                 />
         );
 
-        expect(wrapper).toMatchSnapshot('before');
+        expect(wrapper)
+            .toMatchSnapshot();
 
-        onChange.mockClear();
+        addChange.mockClear();
         wrapper
             .find('.nice-tag-btn')
             .at(0)
             .simulate('click');
-        expect(onChange).toBeCalledWith(
-            props.path,
-            {
-                "added": ["charisma"],
-                "removed": ["strength"],
-            }
+        expect(addChange)
+            .toBeCalledWith(
+                props.path,
+                {
+                    "added": ["charisma"],
+                    "removed": ["dexterity"],
+                },
+                mockedId,
+                {
+                    given: [
+                        'charisma',
+                    ],
+                    filter: { code: ['strength'] },
+                    replace: 1,
+                    type: props.type,
+                    items: statistics,
+                },
+            );
+
+        CharacterEditorActions.addChange(
+            'some.path',
+            {added: ['intelligence'], removed: []},
+            'id_2',
+            {type: 'list'},
         );
 
-        onChange.mockClear();
+        addChange.mockClear();
 
-        wrapper.setProps({
-            current: ['charisma'],
-        });
+        expect(addChange).not.toBeCalled();
 
-        expect(onChange).not.toBeCalled();
-
-        expect(wrapper).toMatchSnapshot('after');
+        expect(wrapper)
+            .toMatchSnapshot();
 
         wrapper
             .find('.nice-btn')
@@ -193,44 +249,48 @@ describe('Component: ListPropertySelect', () => {
             .find('[data-value="strength"]')
             .simulate('click');
 
-        expect(onChange).toBeCalledWith(
-            props.path,
-            {
-                "added": ["charisma"],
-                "removed": [],
-            }
-        );
+        expect(addChange)
+            .toBeCalledWith(
+                props.path,
+                {
+                    "added": ["strength", "charisma"],
+                    "removed": ["dexterity"],
+                },
+                mockedId,
+                {
+                    given: [
+                        'charisma',
+                    ],
+                    filter: { code: ['strength'] },
+                    replace: 1,
+                    type: props.type,
+                    items: statistics,
+                },
+            );
 
-        onChange.mockClear();
-
-        wrapper.setProps({
-            current: ['charisma', 'strength'],
-        });
-
-        expect(onChange).not.toBeCalled();
-
-        expect(wrapper).toMatchSnapshot('replaced');
+        expect(wrapper)
+            .toMatchSnapshot();
     });
 
     it('should handle adding and deleting new', () => {
-        const onChange = jest.fn();
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
         const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 {...props}
                 given={[
                     'charisma',
-                ]}
-                current={[
-                    'dexterity',
                 ]}
                 limit={1}
                 />
         );
 
-        expect(wrapper).toMatchSnapshot('before');
+        expect(wrapper)
+            .toMatchSnapshot();
 
-        onChange.mockClear();
+        addChange.mockClear();
         wrapper
             .find('.nice-btn')
             .simulate('click');
@@ -238,44 +298,59 @@ describe('Component: ListPropertySelect', () => {
             .find('[data-value="strength"]')
             .simulate('click');
 
-        expect(onChange).toBeCalledWith(
-            props.path,
-            {
-                "added": ["strength", "charisma"],
-                "removed": [],
-            }
+        expect(addChange)
+            .toBeCalledWith(
+                props.path,
+                {
+                    "added": ["strength", "charisma"],
+                    "removed": [],
+                },
+                mockedId,
+                {
+                    given: [
+                        'charisma',
+                    ],
+                    limit: 1,
+                    type: props.type,
+                    items: statistics,
+                },
+            );
+
+        CharacterEditorActions.addChange(
+            'some.path',
+            {added: ['intelligence'], removed: []},
+            'id_2',
+            {type: 'list'},
         );
 
-        onChange.mockClear();
+        addChange.mockClear();
 
-        wrapper.setProps({
-            current: ['charisma', 'dexterity', 'strength'],
-        });
+        expect(addChange).not.toBeCalled();
 
-        expect(onChange).not.toBeCalled();
-
-        expect(wrapper).toMatchSnapshot('after');
+        expect(wrapper).toMatchSnapshot();
 
         wrapper
             .find('.nice-tag-btn')
             .at(0)
             .simulate('click');
-        expect(onChange).toBeCalledWith(
-            props.path,
-            {
-                "added": ["charisma"],
-                "removed": [],
-            }
-        );
+        expect(addChange)
+            .toBeCalledWith(
+                props.path,
+                {
+                    "added": ["charisma"],
+                    "removed": [],
+                },
+                mockedId,
+                {
+                    given: [
+                        'charisma',
+                    ],
+                    limit: 1,
+                    type: props.type,
+                    items: statistics,
+                },
+            );
 
-        onChange.mockClear();
-
-        wrapper.setProps({
-            current: ['charisma', 'dexterity'],
-        });
-
-        expect(onChange).not.toBeCalled();
-
-        expect(wrapper).toMatchSnapshot('removed');
+        expect(wrapper).toMatchSnapshot();
     });
 });

@@ -1,19 +1,27 @@
 import React from 'react';
-import CharacterConfig from 'components/Character/CharacterConfig.jsx';
+import _ from 'lodash';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+jest.useFakeTimers();
+
+jest.mock('actions/ListDataActions.jsx');
+
+import CharacterConfig from 'components/Character/CharacterConfig.jsx';
+
+import CharacterEditorActions from 'actions/CharacterEditorActions.jsx';
+import ListDataStore from 'stores/ListDataStore.jsx';
 
 const api = require('../../__mocks__/apiCalls.js');
-const current = {
-    'foo.value': 'foo',
-    'foo.select': 'strength',
-    'foo.list': ['charisma'],
-};
 
-const props = {
-    index: [],
-    getCurrent: jest.fn((path) => current[path]),
-    getItems: jest.fn((list) => api[list]),
+const character = {
+    foo: {
+        value: 'foo',
+        select: 'strength',
+        list: ['charisma'],
+        dict: {
+            description: 'foo.dict goes here',
+        },
+    },
 };
 
 const value = {
@@ -104,13 +112,31 @@ const multichoice = {
 };
 
 describe('Component: CharacterConfig', () => {
+
+    var mockedId = 1;
+
+    beforeEach(() => {
+        mockedId = 1;
+
+        _.uniqueId = jest.fn();
+        _.uniqueId
+            .mockReturnValue('id_' + mockedId++);
+
+        CharacterEditorActions.editCharacter.completed(character);
+        ListDataStore.onFetchItemsCompleted(
+            {
+                statistics: api.statistics,
+            },
+            'statistics'
+        );
+
+        jest.runAllTimers();
+    });
+
     it('should not render anything', () => {
-        const onChange = jest.fn();
         const wrapper = mount(
             <CharacterConfig
-                onChange={onChange}
                 config={[]}
-                {...props}
                 />
         );
 
@@ -119,213 +145,276 @@ describe('Component: CharacterConfig', () => {
     });
 
     it('should render value', () => {
-        const onChange = jest.fn();
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+
         const wrapper = mount(
             <CharacterConfig
-                onChange={onChange}
                 config={[
                     value,
                 ]}
-                {...props}
                 />
         );
 
         expect(wrapper)
             .toMatchSnapshot();
 
-        expect(onChange)
+        expect(addChange)
             .toBeCalledWith(
-                'foo.value',
-                'bar',
-                [0],
-                value,
+                value.path,
+                value.value,
+                'id_1',
+                {
+                    type: value.type,
+                    value: value.value,
+                },
             );
     });
 
     it('should render dict', () => {
-        const onChange = jest.fn();
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+
         const wrapper = mount(
             <CharacterConfig
-                onChange={onChange}
                 config={[
                     dict,
                 ]}
-                {...props}
                 />
         );
 
         expect(wrapper)
             .toMatchSnapshot();
 
-        expect(onChange)
+        expect(addChange)
             .toBeCalledWith(
-                'foo.dict',
+                dict.path,
                 dict.dict,
-                [0],
-                dict,
+                'id_1',
+                {
+                    type: dict.type,
+                    dict: dict.dict,
+                },
             );
     });
 
     it('should render select', () => {
-        const onChange = jest.fn();
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+
         const wrapper = mount(
             <CharacterConfig
-                onChange={onChange}
                 config={[
                     select,
                 ]}
-                {...props}
                 />
         );
 
         expect(wrapper)
             .toMatchSnapshot();
 
-        expect(onChange)
+        expect(addChange)
             .toBeCalledWith(
-                'foo.select',
-                'strength',
-                [0],
-                select,
+                select.path,
+                api.statistics[0].code,
+                'id_1',
+                {
+                    items: api.statistics,
+                    type: select.type,
+                },
             );
     });
 
     it('should render list', () => {
-        const onChange = jest.fn();
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+
         const wrapper = mount(
             <CharacterConfig
-                onChange={onChange}
                 config={[
                     list,
                 ]}
-                {...props}
                 />
         );
 
         expect(wrapper)
             .toMatchSnapshot();
 
-        expect(onChange)
+        expect(addChange)
             .toBeCalledWith(
-                'foo.list',
-                {added: ['wisdom'], removed: []},
-                [0],
-                list,
+                list.path,
+                {added: list.given, removed: []},
+                'id_1',
+                {
+                    given: list.given,
+                    items: api.statistics,
+                    limit: list.limit,
+                    replace: list.replace,
+                    type: list.type,
+                },
             );
     });
 
     it('should render with array items', () => {
-        const onChange = jest.fn();
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+
         const wrapper = mount(
             <CharacterConfig
-                onChange={onChange}
                 config={[
                     list_array,
                 ]}
-                {...props}
                 />
         );
 
         expect(wrapper)
             .toMatchSnapshot();
 
-        expect(onChange)
+        expect(addChange)
             .toBeCalledWith(
-                'foo.items',
-                {added: ['bar'], removed: []},
-                [0],
-                list_array,
+                list_array.path,
+                {added: list_array.given, removed: []},
+                'id_1',
+                {
+                    given: list_array.given,
+                    items: _.map(
+                        list_array.items,
+                        item => ({
+                            code: item,
+                            label: item,
+                        })
+                    ),
+                    limit: list_array.limit,
+                    type: list_array.type,
+                },
             );
     });
 
     it('should render with object items', () => {
-        const onChange = jest.fn();
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+
         const wrapper = mount(
             <CharacterConfig
-                onChange={onChange}
                 config={[
                     list_object,
                 ]}
-                {...props}
                 />
         );
 
         expect(wrapper)
             .toMatchSnapshot();
 
-        expect(onChange)
+        expect(addChange)
             .toBeCalledWith(
-                'foo.items',
-                {added: ['bar'], removed: []},
-                [0],
-                list_object,
+                list_object.path,
+                {added: list_object.given, removed: []},
+                'id_1',
+                {
+                    given: list_object.given,
+                    items: api.statistics,
+                    limit: list_object.limit,
+                    type: list_object.type,
+                },
             );
     });
 
     it('should render config', () => {
-        const onChange = jest.fn();
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+
         const wrapper = mount(
             <CharacterConfig
-                onChange={onChange}
                 config={[
                     config,
                 ]}
-                {...props}
                 />
         );
 
         expect(wrapper)
             .toMatchSnapshot();
 
-        expect(onChange)
+        expect(addChange)
             .toBeCalledWith(
-                'foo.value',
-                'bar',
-                [0, 0],
-                value,
+                config.config[0].path,
+                config.config[0].value,
+                'id_1',
+                {
+                    type: config.config[0].type,
+                    value: config.config[0].value,
+                },
             );
     });
 
     it('should render choice', () => {
-        const onChange = jest.fn();
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+
         const wrapper = mount(
             <CharacterConfig
-                onChange={onChange}
                 config={[
                     choice,
                 ]}
-                {...props}
                 />
         );
 
         expect(wrapper)
             .toMatchSnapshot();
 
-        expect(onChange)
+        expect(addChange)
             .toBeCalledWith(
-                'foo.value',
-                'bar',
-                [0, 0, 0, 0],
-                value,
+                choice.options[0].config[0].path,
+                choice.options[0].config[0].value,
+                'id_1',
+                {
+                    type: choice.options[0].config[0].type,
+                    value: choice.options[0].config[0].value,
+                },
             );
     });
 
     it('should render multichoice', () => {
-        const onChange = jest.fn();
+        const addChange = jest.spyOn(
+            CharacterEditorActions,
+            'addChange'
+        );
+
         const wrapper = mount(
             <CharacterConfig
-                onChange={onChange}
                 config={[
                     multichoice,
                 ]}
-                {...props}
                 />
         );
 
         expect(wrapper)
             .toMatchSnapshot();
 
-        expect(onChange)
-            .not.toBeCalled();
+        expect(addChange)
+            .toBeCalledWith(
+                multichoice.options[0].options[0].path,
+                multichoice.options[0].options[0].value,
+                'id_1',
+                {
+                    type: multichoice.options[0].options[0].type,
+                    value: multichoice.options[0].options[0].value,
+                },
+            );
     });
 });
