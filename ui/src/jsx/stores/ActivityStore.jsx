@@ -17,6 +17,11 @@ export class ActivityStore extends Reflux.Store
 
     onStart(action)
     {
+        const {
+            loading,
+            ...activity,
+        } = this.state;
+
         this.setState({
             [action]: true,
             loading: true,
