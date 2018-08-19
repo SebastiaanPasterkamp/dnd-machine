@@ -318,7 +318,7 @@ class JsonObject(object):
                 print 'casting', cast, value
             return cast(value)
         except Exception as error:
-            print self.id, error, path, cast, type(value), value
+            print error, path, cast, type(value), value
             raise
 
 
