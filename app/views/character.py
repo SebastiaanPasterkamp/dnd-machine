@@ -97,24 +97,47 @@ class CharacterBlueprint(BaseApiBlueprint):
             )
 
     def get_races(self):
-        def _race_attribs(race):
-            return dict(
-                (attrib, race.get(attrib))
-                for attrib in [
-                    'name', 'sub', 'config', 'description'
-                    ]
-                )
-        races = [
-            _race_attribs(race)
-            for race in self.character_data['race']
-            ]
-        return jsonify(races)
+        return jsonify([{
+            'type': 'choice',
+            'options': self.character_data['race'],
+            }])
 
     def get_classes(self):
-        return jsonify(self.character_data['class'])
+        classes = []
+        for data in self.character_data['class']:
+            if 'config' in data:
+                classes.append(data)
+                continue
+
+            level_1 = [
+                option['config']
+                for phase, option in data['phases'].iteritems()
+                if phase.endswith('-1')
+                ]
+
+            config = {
+                'label': data['name'],
+                'description': data.get('description', '').split("\n\n")[1],
+                'type': 'config',
+                'config': level_1[0],
+                }
+            config['config'].append({
+                'hidden': True,
+                'path': 'class',
+                'type': 'value',
+                'value': data['name'],
+                })
+            classes.append(config)
+        return jsonify([{
+            'type': 'choice',
+            'options': classes,
+            }])
 
     def get_backgrounds(self):
-        return jsonify(self.character_data['background'])
+        return jsonify([{
+            'type': 'choice',
+            'options': self.character_data['background'],
+            }])
 
     @BaseApiCallback('new')
     @BaseApiCallback('edit')
