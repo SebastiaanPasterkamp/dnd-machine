@@ -68,13 +68,13 @@ INSERT INTO `item` (id, type, name, config)
 INSERT INTO `item` (id, type, name, config)
     VALUES (28, 'martial melee', 'Greatsword', '{"property": ["heavy", "two-handed"], "cost": {"gp": 50}, "damage": {"dice_count": 2, "type": "slashing", "dice_size": 6}, "weight": {}}');
 INSERT INTO `item` (id, type, name, config)
-    VALUES (29, 'simple melee', 'Pike', '{"property": ["heavy", "reach", "two-handed"], "cost": {"gp": 5}, "damage": {"dice_count": 1, "type": "slashing", "dice_size": 10}, "weight": {"lb": 18.0}}');
+    VALUES (29, 'martial melee', 'Pike', '{"property": ["heavy", "reach", "two-handed"], "cost": {"gp": 5}, "damage": {"dice_count": 1, "type": "slashing", "dice_size": 10}, "weight": {"lb": 18.0}}');
 INSERT INTO `item` (id, type, name, config)
     VALUES (30, 'martial melee', 'Trident', '{"weight": {"lb": 4.0}, "damage": {"dice_count": 1, "type": "piercing", "dice_size": 6}, "range": {"max": 60, "min": 20}, "cost": {"gp": 5}, "property": ["thrown", "versatile"], "versatile": {"dice_count": 1, "type": "piercing", "dice_size": 8}}');
 INSERT INTO `item` (id, type, name, config)
-    VALUES (31, 'simple melee', 'War Pick', '{"property": [], "cost": {"gp": 5}, "damage": {"dice_count": 1, "type": "piercing", "dice_size": 8}, "weight": {"lb": 2.0}}');
+    VALUES (31, 'martial melee', 'War Pick', '{"property": [], "cost": {"gp": 5}, "damage": {"dice_count": 1, "type": "piercing", "dice_size": 8}, "weight": {"lb": 2.0}}');
 INSERT INTO `item` (id, type, name, config)
-    VALUES (32, 'simple melee', 'Warhammer', '{"property": ["versatile"], "cost": {"gp": 15}, "versatile": {"dice_count": 1, "type": "bludgeoning", "dice_size": 10}, "damage": {"dice_count": 1, "type": "bludgeoning", "dice_size": 8}, "weight": {"lb": 2.0}}');
+    VALUES (32, 'martial melee', 'Warhammer', '{"property": ["versatile"], "cost": {"gp": 15}, "versatile": {"dice_count": 1, "type": "bludgeoning", "dice_size": 10}, "damage": {"dice_count": 1, "type": "bludgeoning", "dice_size": 8}, "weight": {"lb": 2.0}}');
 INSERT INTO `item` (id, type, name, config)
     VALUES (33, 'martial melee', 'Whip', '{"property": ["finesse", "reach"], "cost": {"gp": 2}, "damage": {"dice_count": 1, "type": "slashing", "dice_size": 4}, "weight": {"lb": 3.0}}');
 INSERT INTO `item` (id, type, name, config)
