@@ -103,7 +103,7 @@ class CharacterObject(JsonObject):
             },
         "appearance": "",
         "computed": {
-            "armor_class": {
+            "unarmored": {
                 "formula": "10 + statistics.modifiers.dexterity"
                 }
             },
@@ -215,13 +215,6 @@ class CharacterObject(JsonObject):
                     },
                 },
             'trinket': 'auto',
-            },
-        "abilities": {
-            "*": {
-                "*": unicode,
-                "uses": int,
-                "bonus": int
-                }
             }
         }
 
@@ -421,17 +414,13 @@ class CharacterObject(JsonObject):
         self.armor_class = self.unarmored
         self.armor_class_bonus = 0
         for armor in self.armor:
-            value = 0
             if "formula" in armor:
                 armor["value"] = machine.resolveMath(
                     self, armor["formula"]
                     )
-            if "value" in armor \
-                    and armor["value"] > self.armor_class:
-                self.armor_class = armor["value"]
-            if "bonus" in armor \
-                    and armor["bonus"] > self.armor_class_bonus:
-                self.armor_class_bonus += armor["bonus"]
+            if armor.get('value', 0) > self.armor_class:
+                self.armor_class = armor.get('value', 0)
+            self.armor_class_bonus += armor.get(bonus, 0)
 
         self.spellLevel = {}
         for spell in set(self.spellList).union(self.spellPrepared):
