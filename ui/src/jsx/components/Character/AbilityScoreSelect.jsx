@@ -2,21 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import LazyComponent from '../LazyComponent.jsx';
+import actions from '../../actions/CharacterEditorActions.jsx';
 
 class AbilityScoreSelect extends LazyComponent
 {
     componentDidMount() {
-        this.props.onChange(
-            null,
-            this.props.limit
-        );
+        actions.addAbilityScoreIncrease(this.props.limit);
     }
 
     componentWillUnmount() {
-        this.props.onChange(
-            null,
-            undefined
-        );
+        actions.removeAbilityScoreIncrease(this.props.limit);
     }
 
     render() {
@@ -25,7 +20,6 @@ class AbilityScoreSelect extends LazyComponent
 };
 
 AbilityScoreSelect.propTypes = {
-    onChange: PropTypes.func.isRequired,
     limit: PropTypes.number.isRequired,
 };
 

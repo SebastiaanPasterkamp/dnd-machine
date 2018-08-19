@@ -10,13 +10,14 @@ import AbilityScoreSelect from './AbilityScoreSelect.jsx';
 import ChoiceSelect from './ChoiceSelect.jsx';
 import DictPropertySelect from './DictPropertySelect.jsx';
 import ListPropertySelect from './ListPropertySelect.jsx';
+import ManualInputSelect from './ManualInputSelect.jsx';
 import MultipleChoiceSelect from './MultipleChoiceSelect.jsx';
 import SelectPropertySelect from './SelectPropertySelect.jsx';
 import ValuePropertySelect from './ValuePropertySelect.jsx';
 
 import utis from '../../utils.jsx';
 
-class CharacterConfig extends LazyComponent
+export class CharacterConfig extends LazyComponent
 {
     constructor(props) {
         super(props);
@@ -29,76 +30,41 @@ class CharacterConfig extends LazyComponent
             multichoice: MultipleChoiceSelect,
             select: SelectPropertySelect,
             value: ValuePropertySelect,
+            manual: ManualInputSelect,
         };
     }
 
     render() {
         const {
-            config, onChange, getCurrent, getItems,
-            index: prefix = [],
+            config,
         } = this.props;
 
         return <React.Fragment>{_.map(config, (option, index) => {
             const ConfigComponent = this.components[option.type];
 
             if (!ConfigComponent) {
+                console.log({option});
                 throw "Unknown option type: " + option.type;
             }
 
-            _.forEach(option, (value, path) => {
-                if (!path.match(/_formula$/)) {
-                    return;
-                }
-            });
-
-            const props = {
-                index: _.concat(prefix, [index]),
-            };
-            props.onChange = (
-                path, value, idx=props.index, opt=option
-            ) => onChange(
-                path,
-                value,
-                idx,
-                opt,
-            );
-
-            if (_.includes(
-                ['choice', 'config', 'multichoice'],
-                option.type
-            )) {
-                props.getCurrent = getCurrent;
-                props.getItems = getItems;
-            }
-
-            if ('list' in option) {
-                props.items = getItems(option.list);
-            } else if ('items' in option) {
-                if (_.isObject(option.items[0])) {
-                    props.items = option.items;
-                } else {
-                    props.items = _.map(option.items, i => ({
-                        code: i,
-                        label: i
-                    }));
-                }
-            }
-            if ('path' in option) {
-                props.current = getCurrent(option.path);
+            let {
+                description, label, hidden, described,
+                ...props
+            } = option;
+            if (hidden || described) {
+                props.hidden = true;
             }
 
             return <FormGroup
-                    label={option.label}
-                    key={index}
-                    >
-                {option.description &&
+                key={ index }
+                label={ label }
+                >
+                {description &&
                     <MDReactComponent
-                        text={ option.description }
+                        text={ description }
                         />
                 }
                 <ConfigComponent
-                    {...option}
-                    description={undefined}
                     {...props}
                     />
             </FormGroup>;
@@ -107,10 +73,6 @@ class CharacterConfig extends LazyComponent
 };
 
 CharacterConfig.propTypes = {
-    onChange: PropTypes.func.isRequired,
-    index: PropTypes.arrayOf(PropTypes.number).isRequired,
-    getCurrent: PropTypes.func.isRequired,
-    getItems: PropTypes.func.isRequired,
     config: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

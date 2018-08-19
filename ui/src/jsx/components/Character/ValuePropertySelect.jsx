@@ -3,25 +3,21 @@ import PropTypes from 'prop-types';
 
 import LazyComponent from '../LazyComponent.jsx';
 import MarkdownTextField from '../MarkdownTextField.jsx';
+import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
 
-class ValuePropertySelect extends LazyComponent
+export class ValuePropertySelect extends LazyComponent
 {
     componentDidMount() {
         this.props.onChange(
-            this.props.path,
             this.props.value
         );
     }
 
-    componentWillUnmount() {
-        this.props.onChange(
-            this.props.path,
-            undefined
-        );
-    }
-
     render() {
-        const { hidden = false, value } = this.props;
+        const {
+            hidden,
+            value,
+        } = this.props;
 
         if (hidden) {
             return null;
@@ -36,10 +32,10 @@ class ValuePropertySelect extends LazyComponent
 };
 
 ValuePropertySelect.propTypes = {
-    path: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['value']).isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.any.isRequired,
     hidden: PropTypes.bool,
 };
 
-export default ValuePropertySelect;
+export default CharacterEditorWrapper(ValuePropertySelect);
