@@ -15,13 +15,21 @@ export class StatsBlock extends Reflux.Component
         this.state = {
             improvement: []
         };
+
     }
 
     componentWillUnmount() {
-        if (this.state.improvement.length) {
-            let bonus = _.assign({}, this.props.bonus || {});
+        const {
+            bonus: oldBonus = {},
+        } = this.props;
+        const {
+            improvement,
+        } = this.state;
+
+        if (improvement.length) {
+            let bonus = _.clone(oldBonus);
             _.forEach(
-                this.state.improvement,
+                improvement,
                 stat => {
                     bonus[stat] = _.dropRight(bonus[stat]);
                 }
@@ -79,7 +87,8 @@ export class StatsBlock extends Reflux.Component
 
         _.forEach(statistics, stat => {
             stat = stat.code;
-            props.base[stat] = (props.bare[stat] || 0)
+            props.bare[stat] = _.get(props, ['bare', stat], 8);
+            props.base[stat] = props.bare[stat]
                 + _.sum(_.get(props, ['bonus', stat], []));
 
             props.modifiers[stat] = Math.floor(
@@ -107,18 +116,41 @@ export class StatsBlock extends Reflux.Component
     }
 
     increaseStat(index, stat) {
-        let improvement = _.clone(this.state.improvement);
-        let bonus = _.assign({}, this.props.bonus);
+        const {
+            improvement: oldImprovement,
+        } = this.state;
+        const {
+            bonus: oldBonus = {},
+            bonusChange,
+        } = this.props;
+        let improvement = _.clone(oldImprovement);
+        let bonus = _.clone(oldBonus);
+
         if (improvement[index]) {
             const old = improvement[index];
             bonus[ old ] = _.dropRight(bonus[ old ]);
         }
-        bonus[ stat ] = bonus[ stat ].concat([1]);
+        bonus[ stat ] = _.concat(
+            _.get(bonus, stat, []),
+            [1],
+        );
         improvement[index] = stat;
 
         this.setState(
-            {improvement},
-            () => this.sendUpdate({ bonus })
+            {
+                improvement,
+            },
+            () => {
+                this.sendUpdate({
+                    bonus,
+                });
+
+                if (bonusChange) {
+                    bonusChange(
+                        _.countBy(this.state.improvement)
+                    );
+                }
+            }
         );
     }
 
@@ -127,11 +159,15 @@ export class StatsBlock extends Reflux.Component
     }
 
     _spent() {
+        const {
+            modifiers,
+            bare,
+        } = this.props;
         return _.reduce(
-            this.props.bare,
-            (result, value, key) => {
-                return result + this._cost(value)
-            },
+            modifiers,
+            (result, mod, stat) => (
+                result + this._cost(_.get(bare, stat, 8))
+            ),
             0
         );
     }
@@ -142,7 +178,7 @@ export class StatsBlock extends Reflux.Component
             return false;
         }
         let spent = this._spent();
-        spent -= this._cost(bare[stat]);
+        spent -= this._cost(_.get(bare, stat, 8));
         spent += this._cost(item.code);
         return (
             (budget - spent) < 0
@@ -193,7 +229,7 @@ export class StatsBlock extends Reflux.Component
     renderRow(stat) {
         const code = stat.code;
         const {
-            editBase, base, bare, bonus = {}, modifiers, increase
+            editBase, base, bare, bonus = {}, modifiers, increase,
         } = this.props;
 
         return <tr key={code} className="text-align-center">
