@@ -8696,7 +8696,7 @@
                     "label": "Bow & Arrows",
                     "path": "equipment",
                     "type": "list",
-                    "list": ["weapon", "trinket"],
+                    "list": ["weapon", "tools"],
                     "multiple": true,
                     "given": [
                         "Longbow",
@@ -11980,165 +11980,167 @@
                 }, {
                     "label": "Otherworldly Patron",
                     "type": "choice",
+                    "description": "You have struck a bargain with an otherworldly being of your choice. Your choice grants you special features.",
                     "options": [{
-                        "description": "You have struck a bargain with an otherworldly being of your choice. Your choice grants you special features.",
-                        "type": "choice",
-                        "options": [{
-                            "label": "The Archfey",
-                            "type": "config",
-                            "config": [{
-                                "path": "patron",
-                                "type": "list",
-                                "given": ["Archfey"]
-                            }, {
-                                "label": "Expanded Spell List",
-                                "path": "spell.list",
-                                "type": "list",
-                                "list": ["spell"],
-                                "given": [
-                                    "Faerie Fire",
-                                    "Sleep"
-                                ]
-                            }, {
-                                "label": "Fey Presence",
-                                "path": "abilities.Fey Presence",
-                                "type": "dict",
-                                "dict": {
-                                    "description": "As an **Action**, you can cause each creature in a 10-foot cube originating from you to make a **Wisdom** saving throw against your warlock spell save DC `%(dc)s`. The creatures that fail their saving throw are all charmed or frightened by you (your choice) until the end of your next turn.\n\nOnce you use this feature, you can't use it again until you finish a short or long rest.",
-                                    "dc_formula": "character.spell.safe_dc",
-                                    "dc_default": "your **Spell DC**"
-                                }
-                            }]
+                        "label": "The Archfey",
+                        "type": "config",
+                        "config": [{
+                            "path": "patron",
+                            "type": "list",
+                            "hidden": true,
+                            "given": ["Archfey"]
                         }, {
-                            "label": "The Celestial",
-                            "type": "config",
-                            "config": [{
-                                "path": "patron",
-                                "type": "list",
-                                "given": ["Celestial"]
-                            }, {
-                                "label": "Expanded Spell List",
-                                "path": "spell.list",
-                                "type": "list",
-                                "list": ["spell"],
-                                "given": [
-                                    "Sacred Flame",
-                                    "Light",
-                                    "Guiding Bolt",
-                                    "Cure Wounds"
-                                ]
-                            }, {
-                                "label": "Healing Light",
-                                "path": "abilities.Healing Light",
-                                "type": "dict",
-                                "dict": {
-                                    "description": "At 1st level, you have a pool of `%(uses)sd6s` that you can spend to heal others.\n\nAs a *bonus action*, you can heal one creature you can see within 60 feet of you, spending dice from the pool. The maximum number of dice you can spend at once equals %(max)s. Roll the dice you spend, add them together, and restore a number of hit points equal to the total.\n\nYour pool regains all expended dice when you finish a long rest.",
-                                    "uses_formula": "1 + character.level",
-                                    "uses_default": "1 + your Character level",
-                                    "max_formula": "statistics.modifiers.charisma",
-                                    "max_default": "your **Charisma modifier**"
-                                }
-                            }]
+                            "label": "Expanded Spell List",
+                            "path": "spell.expanded",
+                            "type": "list",
+                            "list": ["spell"],
+                            "given": [
+                                "Faerie Fire",
+                                "Sleep"
+                            ]
                         }, {
-                            "label": "The Fiend",
-                            "type": "config",
-                            "config": [{
-                                "path": "patron",
-                                "type": "list",
-                                "given": ["Fiend"]
-                            }, {
-                                "label": "Expanded Spell List",
-                                "path": "spell.list",
-                                "type": "list",
-                                "list": ["spell"],
-                                "given": [
-                                    "Burning Hands",
-                                    "Command"
-                                ]
-                            }, {
-                                "label": "Dark One's Blessing",
-                                "path": "abilities.Dark One's Blessing",
-                                "type": "dict",
-                                "dict": {
-                                    "description": "When you reduce a hostile creature to 0 hit points, you gain temporary hit points equal to %(thp)s.",
-                                    "thp_formula": "max(1, character.level + statistics.modifiers.charisma)",
-                                    "thp_default": "your Character level + your **Charisma modifier**"
-                                }
-                            }]
+                            "label": "Fey Presence",
+                            "path": "abilities.Fey Presence",
+                            "type": "dict",
+                            "dict": {
+                                "description": "As an **Action**, you can cause each creature in a 10-foot cube originating from you to make a **Wisdom** saving throw against your warlock spell save DC `%(dc)s`. The creatures that fail their saving throw are all charmed or frightened by you (your choice) until the end of your next turn.\n\nOnce you use this feature, you can't use it again until you finish a short or long rest.",
+                                "dc_formula": "character.spell.safe_dc",
+                                "dc_default": "your **Spell DC**"
+                            }
+                        }]
+                    }, {
+                        "label": "The Celestial",
+                        "type": "config",
+                        "config": [{
+                            "path": "patron",
+                            "type": "list",
+                            "hidden": true,
+                            "given": ["Celestial"]
                         }, {
-                            "label": "The Great Old One",
-                            "type": "config",
-                            "config": [{
-                                "path": "patron",
-                                "type": "list",
-                                "given": ["Great Old One"]
-                            }, {
-                                "label": "Expanded Spell List",
-                                "path": "spell.list",
-                                "type": "list",
-                                "list": ["spell"],
-                                "given": [
-                                    "Dissonant Whispers",
-                                    "Tasha's Hideous Laughter"
-                                ]
-                            }, {
-                                "label": "Awakened Mind",
-                                "path": "abilities.Awakened Mind",
-                                "type": "dict",
-                                "dict": {
-                                    "description": "You can communicate telepathically with any creature you can see within 30 feet of you. You don't need to share a language with the creature for it to understand your telepathic utterances, but the creature must be able to understand at least one language. Additionally, the creature does not gain the ability to telepathically reply, despite you being able to speak to it."
-                                }
-                            }]
+                            "label": "Expanded Spell List",
+                            "path": "spell.expanded",
+                            "type": "list",
+                            "list": ["spell"],
+                            "given": [
+                                "Sacred Flame",
+                                "Light",
+                                "Guiding Bolt",
+                                "Cure Wounds"
+                            ]
                         }, {
-                            "label": "The Hexblade",
-                            "type": "config",
-                            "config": [{
-                                "path": "patron",
-                                "type": "list",
-                                "given": ["Hexblade"]
-                            }, {
-                                "label": "Expanded Spell List",
-                                "path": "spell.list",
-                                "type": "list",
-                                "list": ["spell"],
-                                "given": [
-                                    "Shield",
-                                    "Wrathful Smite"
-                                ]
-                            }, {
-                                "label": "Armor Proficiencies",
-                                "path": "proficiencies.armor",
-                                "type": "list",
-                                "list": ["armor_types", "armor"],
-                                "given": ["medium", "shield"]
-                            }, {
-                                "label": "Weapon Proficiencies",
-                                "path": "proficiencies.weapons",
-                                "type": "list",
-                                "list": ["weapon_types", "weapon"],
-                                "given": [
-                                    "martial melee",
-                                    "martial ranged"
-                                ]
-                            }, {
-                                "label": "Hex Warrior",
-                                "path": "abilities.Hex Warrior",
-                                "type": "dict",
-                                "dict": {
-                                    "description": "Whenever you finish a long rest, you can touch one weapon that you are proficient with and that lacks the two-handed property. When you attack with that weapon, you can use your Charisma modifier, instead of Strength or Dexterity, for the attack and damage rolls. This benefit lasts until you finish a long rest. If you later gain the *Pact of the Blade* feature, this benefit extends to every pact weapon you conjure with that feature, no matter the weapon's type."
-                                }
-                            }, {
-                                "label": "Hexblade's Curse",
-                                "path": "abilities.Hexblade's Curse",
-                                "type": "dict",
-                                "dict": {
-                                    "description": "As a *bonus action*, choose one creature you can see within 30 feet of you. The curse ends early if the target dies, you die, or you are incapacitated. The target is cursed for 1 minute. Until the curse ends, you gain the following benefits:\n\n* You gain `+%(bonus)s` bonus to damage rolls against the cursed target.\n* Any attack roll you make against the cursed target is a critical hit on a roll of 19 or 20 on the d20.\n* If the cursed target dies, you regain hit points equal %(hp)s.\n\nYou can't use this feature again until you finish a short or long rest.",
-                                    "bonus_formula": "character.proficiency",
-                                    "bonus_default": "your **Proficiency**",
-                                    "hp_formula": "character.level + statistics.modifiers.charisma",
-                                    "hp_default": "your Character level + your **Charisma modifier**"
-                                }
-                            }]
+                            "label": "Healing Light",
+                            "path": "abilities.Healing Light",
+                            "type": "dict",
+                            "dict": {
+                                "description": "At 1st level, you have a pool of `%(uses)sd6s` that you can spend to heal others.\n\nAs a *bonus action*, you can heal one creature you can see within 60 feet of you, spending dice from the pool. The maximum number of dice you can spend at once equals %(max)s. Roll the dice you spend, add them together, and restore a number of hit points equal to the total.\n\nYour pool regains all expended dice when you finish a long rest.",
+                                "uses_formula": "1 + character.level",
+                                "uses_default": "1 + your Character level",
+                                "max_formula": "statistics.modifiers.charisma",
+                                "max_default": "your **Charisma modifier**"
+                            }
+                        }]
+                    }, {
+                        "label": "The Fiend",
+                        "type": "config",
+                        "config": [{
+                            "path": "patron",
+                            "type": "list",
+                            "hidden": true,
+                            "given": ["Fiend"]
+                        }, {
+                            "label": "Expanded Spell List",
+                            "path": "spell.expanded",
+                            "type": "list",
+                            "list": ["spell"],
+                            "given": [
+                                "Burning Hands",
+                                "Command"
+                            ]
+                        }, {
+                            "label": "Dark One's Blessing",
+                            "path": "abilities.Dark One's Blessing",
+                            "type": "dict",
+                            "dict": {
+                                "description": "When you reduce a hostile creature to 0 hit points, you gain temporary hit points equal to %(thp)s.",
+                                "thp_formula": "max(1, character.level + statistics.modifiers.charisma)",
+                                "thp_default": "your Character level + your **Charisma modifier**"
+                            }
+                        }]
+                    }, {
+                        "label": "The Great Old One",
+                        "type": "config",
+                        "config": [{
+                            "path": "patron",
+                            "type": "list",
+                            "hidden": true,
+                            "given": ["Great Old One"]
+                        }, {
+                            "label": "Expanded Spell List",
+                            "path": "spell.expanded",
+                            "type": "list",
+                            "list": ["spell"],
+                            "given": [
+                                "Dissonant Whispers",
+                                "Tasha's Hideous Laughter"
+                            ]
+                        }, {
+                            "label": "Awakened Mind",
+                            "path": "abilities.Awakened Mind",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You can communicate telepathically with any creature you can see within 30 feet of you. You don't need to share a language with the creature for it to understand your telepathic utterances, but the creature must be able to understand at least one language. Additionally, the creature does not gain the ability to telepathically reply, despite you being able to speak to it."
+                            }
+                        }]
+                    }, {
+                        "label": "The Hexblade",
+                        "type": "config",
+                        "config": [{
+                            "path": "patron",
+                            "type": "list",
+                            "hidden": true,
+                            "given": ["Hexblade"]
+                        }, {
+                            "label": "Expanded Spell List",
+                            "path": "spell.expanded",
+                            "type": "list",
+                            "list": ["spell"],
+                            "given": [
+                                "Shield",
+                                "Wrathful Smite"
+                            ]
+                        }, {
+                            "label": "Armor Proficiencies",
+                            "path": "proficiencies.armor",
+                            "type": "list",
+                            "list": ["armor_types", "armor"],
+                            "given": ["medium", "shield"]
+                        }, {
+                            "label": "Weapon Proficiencies",
+                            "path": "proficiencies.weapons",
+                            "type": "list",
+                            "list": ["weapon_types", "weapon"],
+                            "given": [
+                                "martial melee",
+                                "martial ranged"
+                            ]
+                        }, {
+                            "label": "Hex Warrior",
+                            "path": "abilities.Hex Warrior",
+                            "type": "dict",
+                            "dict": {
+                                "description": "Whenever you finish a long rest, you can touch one weapon that you are proficient with and that lacks the two-handed property. When you attack with that weapon, you can use your Charisma modifier, instead of Strength or Dexterity, for the attack and damage rolls. This benefit lasts until you finish a long rest. If you later gain the *Pact of the Blade* feature, this benefit extends to every pact weapon you conjure with that feature, no matter the weapon's type."
+                            }
+                        }, {
+                            "label": "Hexblade's Curse",
+                            "path": "abilities.Hexblade's Curse",
+                            "type": "dict",
+                            "dict": {
+                                "description": "As a *bonus action*, choose one creature you can see within 30 feet of you. The curse ends early if the target dies, you die, or you are incapacitated. The target is cursed for 1 minute. Until the curse ends, you gain the following benefits:\n\n* You gain `+%(bonus)s` bonus to damage rolls against the cursed target.\n* Any attack roll you make against the cursed target is a critical hit on a roll of 19 or 20 on the d20.\n* If the cursed target dies, you regain hit points equal %(hp)s.\n\nYou can't use this feature again until you finish a short or long rest.",
+                                "bonus_formula": "character.proficiency",
+                                "bonus_default": "your **Proficiency**",
+                                "hp_formula": "character.level + statistics.modifiers.charisma",
+                                "hp_default": "your Character level + your **Charisma modifier**"
+                            }
                         }]
                     }]
                 }]
@@ -12601,7 +12603,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12618,7 +12620,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12635,7 +12637,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12652,7 +12654,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -12669,7 +12671,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13178,7 +13180,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13195,7 +13197,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13212,7 +13214,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13229,7 +13231,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13246,7 +13248,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13717,7 +13719,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13734,7 +13736,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13751,7 +13753,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13768,7 +13770,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -13785,7 +13787,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -14254,7 +14256,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -14271,7 +14273,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -14288,7 +14290,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -14305,7 +14307,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
@@ -14322,7 +14324,7 @@
                 },
                 "config": [{
                     "label": "Expanded Spell List",
-                    "path": "spell.list",
+                    "path": "spell.expanded",
                     "type": "list",
                     "list": ["spell"],
                     "given": [
