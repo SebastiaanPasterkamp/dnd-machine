@@ -10,7 +10,10 @@ import {
 import LazyComponent from '../LazyComponent.jsx';
 import SingleSelect from '../SingleSelect.jsx';
 
-class ListPropertySelect extends LazyComponent
+import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
+import ListsToItemsWrapper from '../../hocs/ListsToItemsWrapper.jsx';
+
+export class ListPropertySelect extends LazyComponent
 {
     constructor(props) {
         super(props);
@@ -24,17 +27,18 @@ class ListPropertySelect extends LazyComponent
         this.onSetState();
     }
 
-    componentWillUnmount() {
-        const { onChange, path } = this.props;
-        onChange(path, undefined);
-    }
-
     onSetState() {
-        const { onChange, path, given = [] } = this.props;
-        const { added, removed } = this.state;
-        onChange(path, {
+        const {
+            onChange,
+            given = [],
+        } = this.props;
+        const {
+            added,
+            removed,
+        } = this.state;
+        onChange({
             added: _.concat(added, given),
-            removed
+            removed,
         });
     }
 
@@ -154,31 +158,22 @@ class ListPropertySelect extends LazyComponent
             return null;
         }
 
-        const _filter = _.reduce(
-            filter,
-            (filter, cond, path) => {
-                if (path.match('_formula')) {
-                    return filter;
-                }
-                filter[path] = _.isArray(cond) ? cond : [cond];
-                return filter;
-            },
-            {}
-        );
-
         const values = _.concat(
             given, current, added
         );
         const filtered = _.chain(items)
-            .filter(item => _.every(
-                _filter,
-                (cond, path) => {
-                    const value = _.get(item, path);
-                    return _.intersection(
-                        _.isArray(value) ? value : [value],
-                        cond
-                    ).length;
-                }
+            .filter(item => (
+                _.includes(removed, _.get(item, 'code', item.name))
+                || _.every(
+                    filter,
+                    (cond, path) => {
+                        const value = _.get(item, path);
+                        return _.intersection(
+                            _.isArray(value) ? value : [value],
+                            _.isArray(cond) ? cond : [cond],
+                        ).length;
+                    }
+                )
             ))
             .filter(item => (
                 multiple
@@ -197,8 +192,9 @@ class ListPropertySelect extends LazyComponent
     }
 
     render() {
-        const { hidden, } = this.props;
-
+        const {
+            hidden,
+        } = this.props;
         if (hidden) {
             return null;
         }
@@ -219,14 +215,13 @@ class ListPropertySelect extends LazyComponent
                     {...tag}
                     />
             ))}
-
         </TagsContainer>;
     }
 
 };
 
 ListPropertySelect.propTypes = {
-    path: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['list']).isRequired,
     onChange: PropTypes.func.isRequired,
     items: PropTypes.arrayOf(PropTypes.object),
     given: PropTypes.arrayOf(
@@ -243,4 +238,7 @@ ListPropertySelect.propTypes = {
     hidden: PropTypes.bool,
 };
 
-export default ListPropertySelect;
+export default ListsToItemsWrapper(
+    CharacterEditorWrapper(ListPropertySelect),
+    'items'
+);

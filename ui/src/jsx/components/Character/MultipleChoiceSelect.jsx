@@ -6,8 +6,9 @@ import LazyComponent from '../LazyComponent.jsx';
 import TagContainer from '../TagContainer.jsx';
 
 import CharacterConfig from './CharacterConfig.jsx';
+import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
 
-class MultipleChoiceSelect extends LazyComponent
+export class MultipleChoiceSelect extends LazyComponent
 {
     constructor(props) {
         super(props);
@@ -16,11 +17,8 @@ class MultipleChoiceSelect extends LazyComponent
             removed: [],
             filtered: [],
         };
-    }
-
-    onSetState() {
-        const { options, onChange } = this.props;
-        const { added, removed } = this.state;
+        this.onAdd = this.onAdd.bind(this);
+        this.onDelete = this.onDelete.bind(this);
     }
 
     onAdd(label) {
@@ -40,7 +38,7 @@ class MultipleChoiceSelect extends LazyComponent
         if (_.isEmpty(state)) {
             return;
         }
-        this.setState(state, () => this.onSetState());
+        this.setState(state);
     }
 
     onDelete(label) {
@@ -60,13 +58,13 @@ class MultipleChoiceSelect extends LazyComponent
         if (_.isEmpty(state)) {
             return;
         }
-        this.setState(state, () => this.onSetState());
+        this.setState(state);
     }
 
     render() {
         const {
-            options, index, getCurrent, getItems, onChange,
-            limit = 0, replace = 0,
+            options, limit = 0, replace = 0,
+            getCurrent,
         } = this.props;
         const { added, removed, filtered } = this.state;
         const showSelect = (added.length - removed.length) < limit;
@@ -100,34 +98,24 @@ class MultipleChoiceSelect extends LazyComponent
             })
             .value();
 
-        const configs = _.filter(
-            options,
-            option => _.includes(value, option.label)
-        );
-        const props = {
-            getCurrent,
-            getItems,
-            onChange,
-        };
-
         return <div>
             <TagContainer
                 value={value}
                 items={items}
-                onAdd={(label) => this.onAdd(label)}
-                onDelete={(label, index) => this.onDelete(label)}
+                onAdd={ this.onAdd }
+                onDelete={ this.onDelete }
                 setState={() => null}
                 showSelect={showSelect}
                 />
-
-            {_.map(configs, (config, i) => (
-                <CharacterConfig
-                    key={i}
-                    {...props}
-                    index={ index.concat([i]) }
-                    config={ [config] }
-                    />
-            ))}
+            {_.map(
+                options,
+                (config, i) => _.includes(value, config.label)
+                    ? <CharacterConfig
+                        key={i}
+                        config={ [config] }
+                        />
+                    : null
+            )}
         </div>;
     }
 };
@@ -137,14 +125,12 @@ MultipleChoiceSelect.defaultTypes = {
 };
 
 MultipleChoiceSelect.propTypes = {
-    onChange: PropTypes.func.isRequired,
-    index: PropTypes.arrayOf(PropTypes.number).isRequired,
-    getCurrent: PropTypes.func.isRequired,
-    getItems: PropTypes.func.isRequired,
+    type: PropTypes.oneOf(['multichoice']).isRequired,
     options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    getCurrent: PropTypes.func.isRequired,
     description: PropTypes.string,
     limit: PropTypes.number,
     replace: PropTypes.number,
 };
 
-export default MultipleChoiceSelect;
+export default CharacterEditorWrapper(MultipleChoiceSelect);

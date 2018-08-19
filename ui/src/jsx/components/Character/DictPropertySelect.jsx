@@ -3,52 +3,47 @@ import PropTypes from 'prop-types';
 import { sprintf } from 'sprintf-js';
 import _ from 'lodash';
 
+import utils from '../../utils.jsx';
+
 import LazyComponent from '../LazyComponent.jsx';
 import MarkdownTextField from '../MarkdownTextField.jsx';
+import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
 
-class DictPropertySelect extends LazyComponent
+export class DictPropertySelect extends LazyComponent
 {
     componentDidMount() {
         this.props.onChange(
-            this.props.path,
             this.props.dict
         );
     }
 
-    componentWillUnmount() {
-        this.props.onChange(
-            this.props.path,
-            undefined
-        );
-    }
-
     render() {
-        const { hidden = false, current, dict } = this.props;
+        const {
+            hidden,
+            current,
+            dict,
+        } = this.props;
 
         if (hidden) {
             return null;
         }
 
-        const _dict = _.assign(
-            {},
-            current,
-            dict
-        );
+        const content = current || dict;
 
         return <MarkdownTextField
             className="small"
             disabled={true}
-            value={sprintf(_dict.description, _dict)}
+            value={sprintf(content.description || '', content)}
             />;
     }
 };
 
 DictPropertySelect.propTypes = {
-    path: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    type: PropTypes.oneOf(['dict']).isRequired,
     dict: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
     current: PropTypes.object,
     hidden: PropTypes.bool,
 };
 
-export default DictPropertySelect;
+export default CharacterEditorWrapper(DictPropertySelect);
