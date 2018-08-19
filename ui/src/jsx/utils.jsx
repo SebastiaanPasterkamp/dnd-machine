@@ -47,24 +47,26 @@ const utils = {
 
     resolveMath(obj, formula, name='') {
         let replace = {};
-        const re = new RegExp(/\b[a-z_.]+\b/);
+        const re = new RegExp(/\b[a-z_]+\.[a-z_.]+\b/g);
         const prefix = new RegExp(`^${name}\.`);
 
-        const matches = re.exec(formula);
-        _.forEach(matches, match => {
-            const path = match.replace(prefix, '')
+        _.forEach(formula.match(re), match => {
+            const path = _.replace(match, prefix, '');
             const value = _.get(obj, path);
-            if (
-                value !== undefined
+            if (value !== undefined
                 || path !== match
             ) {
                 replace[match] = value;
             }
         });
         _.forEach(replace, (replace, match) => {
-            formula = formula.replace(match, replace);
+            formula = _.replace(formula, match, replace);
         });
-        return math.eval(formula);
+        try {
+            return math.eval(formula);
+        } catch(err) {
+            return undefined;
+        }
     }
 };
 

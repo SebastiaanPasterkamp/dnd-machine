@@ -65,6 +65,10 @@ describe('utils:', () => {
         ).toBe(undefined);
 
         expect(
+            utils.resolveMath(obj, 'test.gone', 'test')
+        ).toBe(undefined);
+
+        expect(
             utils.resolveMath(obj, 'min(3, 5)', 'test')
         ).toBe(3);
         expect(
