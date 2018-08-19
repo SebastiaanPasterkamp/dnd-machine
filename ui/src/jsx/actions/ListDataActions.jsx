@@ -3,6 +3,7 @@ import Reflux from 'reflux';
 import _ from 'lodash';
 
 import ReportingActions from './ReportingActions.jsx';
+import LoadingActions from '../actions/LoadingActions.jsx';
 
 function jsonOrBust(response) {
     if (response.ok) {
@@ -21,10 +22,12 @@ let throttledGet = {};
 
 ListDataActions.fetchItems.listen((type, category=null) => {
     let path = '/' + _.filter([
-        category, type, category ? 'api' : null]).join('/');
+        category, type, category ? 'api' : null
+    ]).join('/');
 
     if (!(path in throttledGet)) {
         throttledGet[path] = _.throttle((path, type) => {
+            LoadingActions.start(type);
 
             fetch(path, {
                 credentials: 'same-origin',
@@ -34,11 +37,13 @@ ListDataActions.fetchItems.listen((type, category=null) => {
             })
             .then(jsonOrBust)
             .then((response) => {
+                LoadingActions.finish(type);
                 ListDataActions.fetchItems.completed({
                     [type]: response
                 }, type);
             })
             .catch((error) => {
+                LoadingActions.finish(type);
                 console.log(error);
                 ListDataActions.fetchItems.failed(type, error);
             });
