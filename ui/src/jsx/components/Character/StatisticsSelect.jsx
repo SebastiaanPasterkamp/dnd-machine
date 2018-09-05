@@ -17,6 +17,8 @@ class StatisticsSelect extends Reflux.Component
     }
 
     componentWillUnmount() {
+        super.componentWillUnmount.call(this);
+
         const {
             character,
         } = this.state;
@@ -68,11 +70,6 @@ class StatisticsSelect extends Reflux.Component
         const {
             statistics = {},
         } = character;
-
-        console.log({
-            statistics,
-            bonus,
-        });
 
         _.forEach(
             statistics.modifiers,
