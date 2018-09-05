@@ -19,37 +19,11 @@ import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import Panel from '../components/Panel.jsx';
 import Progress from '../components/Progress.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
-import {StatsBlock} from '../components/StatsBlock.jsx';
 import TabComponent from '../components/TabComponent.jsx';
 
 import CharacterConfig from '../components/Character/CharacterConfig.jsx';
 import StatisticsSelect from '../components/Character/StatisticsSelect.jsx';
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
-
-const propsList = [
-    'alignments',
-    'genders',
-    'languages',
-    'skills',
-    'spell',
-    'statistics',
-    'tools',
-    'weapon_types',
-    'weapon',
-    'armor_types',
-    'armor',
-    'monster_types',
-    'humanoid_types',
-    'terrain_types',
-];
-const propsMap = {
-    'armor': '_armor',
-    'languages': '_languages',
-    'skills': '_skills',
-    'spell': '_spells',
-    'statistics': '_statistics',
-    'weapon': '_weapons',
-};
 
 export class CharacterCreate extends React.Component
 {
@@ -106,27 +80,25 @@ export class CharacterCreate extends React.Component
 
     constructor(props) {
         super(props);
-        this.state = {
-            tabConfig: [{
-                label: 'Race',
-                color: 'info',
-            }, {
-                label: 'Class',
-                color: 'info',
-            }, {
-                label: 'Background',
-                color: 'info',
-            }, {
-                label: 'Statistics',
-                color: 'info',
-            }, {
-                label: 'Description',
-                color: 'info',
-            }, {
-                label: 'Result',
-                color: 'info',
-            }],
-        };
+        this.tabConfig = [{
+            label: 'Race',
+            color: 'info',
+        }, {
+            label: 'Class',
+            color: 'info',
+        }, {
+            label: 'Background',
+            color: 'info',
+        }, {
+            label: 'Statistics',
+            color: 'info',
+        }, {
+            label: 'Description',
+            color: 'info',
+        }, {
+            label: 'Result',
+            color: 'info',
+        }];
     }
 
     computeConfig(config, character) {
@@ -195,29 +167,34 @@ export class CharacterCreate extends React.Component
         return config;
     }
 
+    onSave = () => {
+        const {
+            onSave,
+            history,
+        } = this.props;
+
+        onSave((id) => history.push(`/character/show/${ id }`));
+    }
+
     render() {
         const {
             getCurrent,
             races = [], classes = [], backgrounds = [],
-            _statistics, setState, genders = [], alignments = [],
+            genders = [], alignments = [],
         } = this.props;
         const character = getCurrent();
         const {
             race = 'Race',
             'class': _class = 'Class',
             background = 'Background',
-            statistics, level = 1, gender, alignment,
+            level = 1, gender, alignment,
             xp_progress = 0, xp_level = 300, name = '',
         } = character;
-        const {
-            tabConfig,
-        } = this.state;
 
         return <TabComponent
-                onTabChange={ this.onTabChange }
-                tabConfig={ tabConfig }
-                mountAll={ true }
-                >
+            tabConfig={ this.tabConfig }
+            mountAll={ true }
+        >
             <CharacterConfig
                 config={ this.computeConfig(races, character) }
                 />
@@ -263,6 +240,12 @@ export class CharacterCreate extends React.Component
                     color={"good"}
                     label={`${level} (${xp_progress} / ${xp_level})`}
                     />
+
+                <ButtonField
+                    label="Save"
+                    className="primary"
+                    onClick={this.onSave}
+                    />
             </Panel>
         </TabComponent>;
     }
@@ -279,10 +262,12 @@ export default ListDataWrapper(
         CharacterEditorWrapper(
             CharacterCreate
         ),
-        propsList,
-        'items',
-        propsMap,
+        ['races', 'classes', 'backgrounds'],
+        'character',
     ),
-    ['races', 'classes', 'backgrounds'],
-    'character',
+    [
+        'genders',
+        'alignments',
+    ],
+    'items'
 );
