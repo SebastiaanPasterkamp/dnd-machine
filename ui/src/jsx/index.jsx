@@ -146,6 +146,10 @@ class DndMachine extends React.Component
                     path="/character/new"
                     component={CharacterCreate}
                     />
+                <Route
+                    path="/character/reset/:id"
+                    component={CharacterCreate}
+                    />
 
                 <Route
                     path="/log/adventureleague/list"
