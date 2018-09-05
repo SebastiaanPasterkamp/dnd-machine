@@ -17,17 +17,33 @@ class CharacterEditorStore extends Reflux.Store
         };
         this.listenables = CharacterEditorActions;
 
-        this.computeChange = _.throttle(
-            this._computeChange.bind(this),
-            500,
-            {
-                leading: true,
-                trailing: true,
-            }
+        this.delayedComputeChange = _.debounce(
+            this.computeChange,
+            50,
         );
     }
 
-    _computeChange() {
+    reset() {
+        const {
+            original,
+            abilityScoreIncrease,
+            character,
+            ...rest
+        } = this.state;
+        const state = _.assign(
+            {
+                original: {},
+                abilityScoreIncrease: 0,
+                character: {},
+            },
+            _.fromPairs(
+                _.map(rest, (value, key) => [key, undefined])
+            ),
+        );
+        this.setState(state);
+    }
+
+    computeChange = () => {
         const {
             original,
             abilityScoreIncrease,
@@ -35,7 +51,11 @@ class CharacterEditorStore extends Reflux.Store
             ...changes,
         } = this.state;
 
-        const character = ComputeChange(changes, original);
+        const character = ComputeChange(
+            changes,
+            original,
+            original,
+        );
 
         this.setState({
             character,
@@ -46,8 +66,47 @@ class CharacterEditorStore extends Reflux.Store
         this.setState({
             original,
             abilityScoreIncrease: 0,
+            character: {},
+        });
+        this.computeChange();
+    }
+
+    onResetCharacterCompleted(original) {
+        const {
+            user_id, xp, level, xp_progress, xp_level,
+            name, personality, gender, appearance,
+            alignment, backstory, age, weight, height,
+        } = original;
+
+        this.setState({
+            original: {
+                user_id, xp, level, xp_progress, xp_level,
+                name, personality, gender, appearance,
+                alignment, backstory, age, weight, height,
+            },
+            abilityScoreIncrease: 0,
+            character: {},
+        });
+        this.computeChange();
+    }
+
+    onSaveCharacterCompleted(id, original, callback) {
+        this.setState({
+            original,
+            abilityScoreIncrease: 0,
             character: original,
         });
+        if (callback) {
+            callback(id, original);
+        }
+    }
+
+    onPostCharacterCompleted(id, original, callback) {
+        this.onSaveCharacterCompleted(id, original, callback);
+    }
+
+    onPatchCharacterCompleted(id, original, callback) {
+        this.onSaveCharacterCompleted(id, original, callback);
     }
 
     onAddChange(path, value, id, option) {
@@ -64,16 +123,14 @@ class CharacterEditorStore extends Reflux.Store
             character: ComputeChange({[id]: change}, original, start),
             [id]: change,
         });
-        this.computeChange();
+        this.delayedComputeChange();
     }
 
     onRemoveChange(id) {
-        this.setState(
-            {
-                [id]: undefined,
-            }
-        );
-        this.computeChange();
+        this.setState({
+            [id]: undefined,
+        });
+        this.delayedComputeChange();
     }
 
     onAddAbilityScoreIncrease(increase) {
