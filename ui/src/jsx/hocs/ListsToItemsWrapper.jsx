@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
@@ -35,14 +36,14 @@ function ListsToItemsWrapper(
                         this.state.listed,
                         _.pickBy(
                             updated,
-                            (value, update) => (
-                                _.includes(props.list,update)
+                            (value, update) => _.includes(
+                                props.list, update
                             )
                         ),
                     );
                     const items = _.reduce(
                         listed,
-                        (items, list, key) => _.concat(items, list),
+                        (items, list) => _.concat(items, list),
                         []
                     );
 
@@ -76,13 +77,13 @@ function ListsToItemsWrapper(
                 items: stateItems = [],
             } = this.state;
             const {
-                items: propItems = [],
+                items: propItems,
                 list,
                 ...props
             } = this.props;
 
             let items = stateItems;
-            if (propItems.length) {
+            if (propItems) {
                 if (_.isObject(propItems[0])) {
                     items = propItems;
                 } else {
@@ -101,6 +102,21 @@ function ListsToItemsWrapper(
                 {...props}
                 />
         }
+    };
+
+    ListsToItems.propTypes = {
+        list: PropTypes.arrayOf(
+            PropTypes.string
+        ),
+        items: PropTypes.arrayOf(
+            PropTypes.oneOfType([
+                PropTypes.shape({
+                    label: PropTypes.string.isRequired,
+                    code: PropTypes.string.isRequired,
+                }),
+                PropTypes.string,
+            ])
+        ),
     };
 
     ListsToItems.WrappedComponent = WrappedComponent;
