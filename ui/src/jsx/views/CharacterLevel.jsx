@@ -11,10 +11,11 @@ import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
-import CharacterConfig from '../components/Character/CharacterConfig.jsx';
-import ComputeChange from '../components/Character/ComputeChange.jsx';
 import Panel from '../components/Panel.jsx';
-import {StatsBlock} from '../components/StatsBlock.jsx';
+
+import CharacterConfig from '../components/Character/CharacterConfig.jsx';
+import StatisticsSelect from '../components/Character/StatisticsSelect.jsx';
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
 const viewConfig = {
     className: 'character-level',
@@ -48,146 +49,114 @@ const propsMap = {
 
 export class CharacterLevel extends React.Component
 {
-    constructor(props) {
-        super(props);
-        this.state = {
-            abilityScore: 0,
-        };
 
-        this.computeProps = _.debounce(() => {
-            const {
-                character,
-                setState,
-            } = this.props;
-            const {
-                abilityScore,
-                ...change
-            } = this.state;
-
-            const update = ComputeChange(change, character);
-
-            this.setState(
-                update.state,
-                () => setState(update.props)
+    computeConfig(config, character) {
+        if (_.isPlainObject(config)) {
+            let changed = false;
+            const newConfig = _.reduce(
+                config,
+                (newConfig, value, key) => {
+                    newConfig[key] = value;
+                    if (key.match(/_formula$/)) {
+                        const root = _.replace(key, /_formula$/, '');
+                        try {
+                            const newValue = utils.resolveMath(
+                                character,
+                                value,
+                                'character'
+                            );
+                            if (newValue != value) {
+                                changed = true;
+                                newConfig[root] = newValue;
+                            }
+                        } catch(error) {
+                            if (config[root + '_default'] != value) {
+                                changed = true;
+                                newConfig[root] = config[root + '_default'];
+                            }
+                        }
+                    } else {
+                        const newValue = this.computeConfig(
+                            value,
+                            character,
+                        );
+                        if (newValue != value) {
+                            changed = true;
+                            newConfig[key] = newValue;
+                        }
+                    }
+                    return newConfig;
+                },
+                {}
             );
-        }, 10);
-    }
-
-    getItems(lists) {
-        if (!_.isArray(lists)) {
-            lists = [lists];
+            if (changed) {
+                return newConfig;
+            }
+        } else if (_.isObject(config)) {
+            let changed = false;
+            const newConfig = _.map(
+                config,
+                value => {
+                    const newValue = this.computeConfig(
+                        value,
+                        character,
+                    );
+                    if (newValue != value) {
+                        changed = true;
+                        return newValue;
+                    }
+                    return value;
+                }
+            );
+            if (changed) {
+                return newConfig;
+            }
         }
 
-        return _.reduce(
-            lists,
-            (items, item) => {
-                return items.concat(
-                    this.props[
-                        propsMap[item] || item
-                    ] || []
-                );
-            },
-            []
-        );
-    }
-
-    onChange(path, value, index, option) {
-        this.setState(
-            {
-                [index.join('.')]: {path, value, option}
-            },
-            () => this.computeProps()
-        );
+        return config;
     }
 
     render() {
         const {
             character, level_up = {}, statistics, _statistics
         } = this.props;
+        const {
+            config = [],
+            creation,
+        } = level_up;
 
-        if (
-            !character
-            || !level_up.creation
-        ) {
+        if (!config.length) {
             return null;
         }
 
-        let statsBlock = {
-            increase: this.state.abilityScore,
-            editBase: false,
-        };
-        if (character.creation.length <= 3) {
-            statsBlock.editBase = true;
-            statsBlock.budget = 27;
-            statsBlock.maxBare = 15;
-        }
+        const statsBlock = creation.length
+            ? {
+                editBase: true,
+                budget: 27,
+                maxBare: 15,
+            } : {
+                editBase: false,
+            };
 
         return [
             <Panel
-                    key="level-up"
-                    className="character-level__level-up"
-                    header="Level-up"
+                key="level-up"
+                className="character-level__level-up"
+                header="Level-up"
                 >
                 <CharacterConfig
-                    index={[]}
-                    config={level_up.config || []}
-                    getCurrent={(path) => _.get(this.props, path)}
-                    getItems={(lists) => this.getItems(lists)}
-                    onChange={(path, value, index, option) => {
-                        this.onChange(path, value, index, option)
-                    }}
+                    config={ this.computeConfig(config, character) }
                     />
             </Panel>,
 
-            statsBlock.increase || statsBlock.editBase ? <Panel
-                    key="statistics"
-                    className="character-level__statistics"
-                    header="Ability Score"
-                >
-                <StatsBlock
-                    {...statistics}
-                    statistics={_statistics}
-                    {...statsBlock}
-                    setState={(statistics) => {
-                        this.onChange(
-                            'statistics.bare',
-                            statistics.bare,
-                            ['statistics','bare'],
-                            {type: 'dict'}
-                        );
-                        this.onChange(
-                            'statistics.base',
-                            statistics.base,
-                            ['statistics','base'],
-                            {type: 'dict'}
-                        );
-                        this.onChange(
-                            'statistics.bonus',
-                            statistics.bonus,
-                            ['statistics','bonus'],
-                            {type: 'dict'}
-                        );
-                        this.onChange(
-                            'statistics.modifiers',
-                            statistics.modifiers,
-                            ['statistics','modifiers'],
-                            {type: 'dict'}
-                        );
-                    }}
-                    />
-            </Panel> : null
+            <StatisticsSelect
+                key="statistics"
+                {...statsBlock}
+                />,
         ];
     }
 };
 
-export default ListDataWrapper(
-    RoutedObjectDataWrapper(
-        ObjectDataWrapper(
-            CharacterLevel,
-            [{type: 'character', id: 'id'}]
-        ), viewConfig, "character"
-    ),
-    propsList,
-    'items',
-    propsMap
+export default CharacterEditorWrapper(
+    CharacterLevel
 );
