@@ -5,13 +5,9 @@ jest.useFakeTimers();
 
 import ValuePropertySelect from 'components/Character/ValuePropertySelect.jsx';
 
-import CharacterEditorActions from 'actions/CharacterEditorActions.jsx';
+import actions from 'actions/CharacterEditorActions.jsx';
+import store from 'stores/CharacterEditorStore.jsx';
 
-const character = {
-    some: {
-        path: 'This shows _old_ content',
-    },
-};
 const props = {
     path: 'some.path',
     type: 'value',
@@ -28,9 +24,16 @@ describe('Component: ValuePropertySelect', () => {
             .mockReturnValueOnce(mockedId)
             .mockReturnValueOnce('unexpected_2');
 
-        CharacterEditorActions.editCharacter.completed(character);
+        actions.editCharacter.completed({
+            some: {
+                path: 'This shows _old_ content',
+            },
+        });
+
         jest.runAllTimers();
     });
+
+    afterEach(() => store.reset());
 
     it('should not render anything when hidden', () => {
         const wrapper = mount(
@@ -57,7 +60,7 @@ describe('Component: ValuePropertySelect', () => {
 
     it('should emit onChange dispite being hidden', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
 
@@ -83,11 +86,11 @@ describe('Component: ValuePropertySelect', () => {
 
     it('should emit onChange on mount and umount', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
         const removeChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'removeChange'
         );
 

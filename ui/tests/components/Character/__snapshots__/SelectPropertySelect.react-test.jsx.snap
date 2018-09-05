@@ -118,6 +118,8 @@ exports[`Component: SelectPropertySelect should not render anything 1`] = `
         ]
       }
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       type="select"
     />
   </CharacterEditorComponent>
@@ -239,6 +241,8 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
         ]
       }
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       type="select"
     >
       <SingleSelect

@@ -7,20 +7,16 @@ jest.mock('actions/ListDataActions.jsx');
 
 import ListPropertySelect from 'components/Character/ListPropertySelect.jsx';
 
-import CharacterEditorActions from 'actions/CharacterEditorActions.jsx';
+import actions from 'actions/CharacterEditorActions.jsx';
+import store from 'stores/CharacterEditorStore.jsx';
 import ListDataStore from 'stores/ListDataStore.jsx';
 
 const { statistics } = require('../../__mocks__/apiCalls.js');
 
-const character = {
-    some: {
-        path: ['dexterity'],
-    },
-};
 const props = {
     type: 'list',
     path: 'some.path',
-    list: 'statistics',
+    list: ['statistics'],
 }
 
 const mockedId = 'id_1';
@@ -33,7 +29,12 @@ describe('Component: ListPropertySelect', () => {
             .mockReturnValueOnce(mockedId)
             .mockReturnValueOnce('unexpected_2');
 
-        CharacterEditorActions.editCharacter.completed(character);
+        actions.editCharacter.completed({
+            some: {
+                path: ['dexterity'],
+            },
+        });
+
         ListDataStore.onFetchItemsCompleted(
             {statistics},
             'statistics'
@@ -41,6 +42,8 @@ describe('Component: ListPropertySelect', () => {
 
         jest.runAllTimers();
     });
+
+    afterEach(() => store.reset());
 
     it('should render with minimum props', () => {
         const wrapper = mount(
@@ -123,11 +126,6 @@ describe('Component: ListPropertySelect', () => {
     });
 
     it('should omit unknown current values', () => {
-        CharacterEditorActions.editCharacter.completed({
-            some: {
-                path: ['dexterity', 'bar'],
-            },
-        });
         const wrapper = mount(
             <ListPropertySelect
                 {...props}
@@ -144,11 +142,11 @@ describe('Component: ListPropertySelect', () => {
 
     it('should emit *Change actions on mount and umount', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
         const removeChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'removeChange'
         );
         const wrapper = mount(
@@ -187,7 +185,7 @@ describe('Component: ListPropertySelect', () => {
 
     it('should handle replacing one existing', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
         const wrapper = mount(
@@ -228,7 +226,7 @@ describe('Component: ListPropertySelect', () => {
                 },
             );
 
-        CharacterEditorActions.addChange(
+        actions.addChange(
             'some.path',
             {added: ['intelligence'], removed: []},
             'id_2',
@@ -274,7 +272,7 @@ describe('Component: ListPropertySelect', () => {
 
     it('should handle adding and deleting new', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
         const wrapper = mount(
@@ -316,7 +314,7 @@ describe('Component: ListPropertySelect', () => {
                 },
             );
 
-        CharacterEditorActions.addChange(
+        actions.addChange(
             'some.path',
             {added: ['intelligence'], removed: []},
             'id_2',

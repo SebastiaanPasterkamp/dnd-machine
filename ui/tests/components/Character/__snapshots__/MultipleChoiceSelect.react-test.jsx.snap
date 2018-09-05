@@ -38,6 +38,8 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
     label="Example"
     limit={1}
     onChange={[Function]}
+    onSave={[Function]}
+    onUpdate={[Function]}
     options={
       Array [
         Object {
@@ -208,6 +210,8 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
                 }
                 getCurrent={[Function]}
                 onChange={[Function]}
+                onSave={[Function]}
+                onUpdate={[Function]}
                 type="dict"
               >
                 <MarkdownTextField
@@ -314,6 +318,8 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
                       }
                       getCurrent={[Function]}
                       onChange={[Function]}
+                      onSave={[Function]}
+                      onUpdate={[Function]}
                       type="dict"
                     >
                       <MarkdownTextField
@@ -393,6 +399,8 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
     label="Example"
     limit={1}
     onChange={[Function]}
+    onSave={[Function]}
+    onUpdate={[Function]}
     options={
       Array [
         Object {
@@ -629,6 +637,8 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
                       }
                       getCurrent={[Function]}
                       onChange={[Function]}
+                      onSave={[Function]}
+                      onUpdate={[Function]}
                       type="dict"
                     >
                       <MarkdownTextField
@@ -708,6 +718,8 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
     getCurrent={[Function]}
     label="Example"
     onChange={[Function]}
+    onSave={[Function]}
+    onUpdate={[Function]}
     options={
       Array [
         Object {

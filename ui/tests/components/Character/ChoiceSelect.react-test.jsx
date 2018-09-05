@@ -3,7 +3,8 @@ import { mount } from 'enzyme';
 
 import ChoiceSelect from 'components/Character/ChoiceSelect.jsx';
 
-import CharacterEditorActions from 'actions/CharacterEditorActions.jsx';
+import actions from 'actions/CharacterEditorActions.jsx';
+import store from 'stores/CharacterEditorStore.jsx';
 
 const props = {
     type: 'choice',
@@ -21,6 +22,9 @@ const props = {
 };
 
 describe('Component: ChoiceSelect', () => {
+
+    afterEach(() => store.reset());
+
     it('should render with minimum props', () => {
         const wrapper = mount(
             <ChoiceSelect
@@ -46,11 +50,11 @@ describe('Component: ChoiceSelect', () => {
 
     it('should emit changes while switching tabs', () => {
         const add = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addAbilityScoreIncrease'
         );
         const remove = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'removeAbilityScoreIncrease'
         );
         const wrapper = mount(
