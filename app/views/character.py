@@ -18,6 +18,9 @@ class CharacterBlueprint(BaseApiBlueprint):
         super(CharacterBlueprint, self).__init__(name, *args, **kwargs)
 
         self.add_url_rule(
+            '/api/<int:obj_id>', 'api_post',
+            self.api_post, methods=['POST'])
+        self.add_url_rule(
             '/races/api', 'get_races',
             self.get_races, methods=['GET'])
         self.add_url_rule(
@@ -34,7 +37,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             self.xp, methods=['GET', 'POST'])
         self.add_url_rule(
             '/reset/<int:obj_id>', 'reset',
-            self.reset, methods=['GET', 'POST'])
+            self.newObj, methods=['GET', 'POST'])
 
     @property
     def datamapper(self):
@@ -149,6 +152,20 @@ class CharacterBlueprint(BaseApiBlueprint):
         if not self.checkRole(['dm', 'player']):
             abort(403)
 
+    @BaseApiCallback('api_post.data')
+    def keepFields(self, data, obj):
+        if obj is None:
+            return
+        keeping = [
+            'xp',
+            ]
+
+        data.update(dict(
+            (keep, obj[keep])
+            for keep in keeping
+            if keep in obj
+            ))
+
     @BaseApiCallback('api_post.object')
     @BaseApiCallback('api_copy.object')
     def setOwner(self, obj):
@@ -166,6 +183,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             abort(403)
 
     @BaseApiCallback('api_delete.object')
+    @BaseApiCallback('api_post.object')
     @BaseApiCallback('api_patch.object')
     def adminDmOrOwned(self, obj):
         if obj.user_id != request.user.id \
@@ -580,39 +598,6 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         return redirect(url_for(
             'character.show',
-            obj_id=obj_id
-            ))
-
-    def reset(self, obj_id):
-        self.doCallback('reset', obj_id)
-
-        keeping = [
-            'user_id', 'class', 'race', 'background', 'xp',
-            'name', 'personality', 'gender', 'appearance',
-            'alignment', 'backstory'
-            ]
-
-        character = self.datamapper.getById(obj_id)
-        self.doCallback('reset.original', character)
-
-        reset = self.datamapper.create(dict(
-            (keep, character[keep])
-            for keep in keeping
-            if keep in character
-            ))
-        reset.id = obj_id
-        reset.user_id = character.user_id
-        reset.creation = filter(
-            lambda v: v is not None,
-            [reset.race, reset['class'], reset.background]
-            )
-        reset.compute()
-
-        self.doCallback('reset.object', reset)
-        reset = self.datamapper.update(reset)
-
-        return redirect(url_for(
-            'character.edit',
             obj_id=obj_id
             ))
 
