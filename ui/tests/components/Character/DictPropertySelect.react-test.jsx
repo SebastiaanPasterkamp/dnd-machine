@@ -5,16 +5,9 @@ jest.useFakeTimers();
 
 import DictPropertySelect from 'components/Character/DictPropertySelect.jsx';
 
-import CharacterEditorActions from 'actions/CharacterEditorActions.jsx';
+import actions from 'actions/CharacterEditorActions.jsx';
+import store from 'stores/CharacterEditorStore.jsx';
 
-const character = {
-    some: {
-        path: {
-            description: 'This shows _%(type)s_ content',
-            type: 'old',
-        },
-    },
-};
 const props = {
     type: 'dict',
     path: 'some.path',
@@ -33,9 +26,19 @@ describe('Component: DictPropertySelect', () => {
             .mockReturnValueOnce(mockedId)
             .mockReturnValueOnce('unexpected_2');
 
-        CharacterEditorActions.editCharacter.completed(character);
+        actions.editCharacter.completed({
+            some: {
+                path: {
+                    description: 'This shows _%(type)s_ content',
+                    type: 'old',
+                },
+            },
+        });
+
         jest.runAllTimers();
     });
+
+    afterEach(() => store.reset());
 
     it('should not render anything while hidden', () => {
         const wrapper = mount(
@@ -64,7 +67,7 @@ describe('Component: DictPropertySelect', () => {
 
     it('should emit onChange dispite being hidden', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
 
@@ -90,11 +93,11 @@ describe('Component: DictPropertySelect', () => {
 
     it('should emit *Change actions on mount and umount', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
         const removeChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'removeChange'
         );
         const wrapper = mount(

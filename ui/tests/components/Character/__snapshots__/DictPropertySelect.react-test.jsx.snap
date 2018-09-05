@@ -26,6 +26,8 @@ exports[`Component: DictPropertySelect should not render anything while hidden 1
     getCurrent={[Function]}
     hidden={true}
     onChange={[Function]}
+    onSave={[Function]}
+    onUpdate={[Function]}
     type="dict"
   />
 </CharacterEditorComponent>
@@ -55,6 +57,8 @@ exports[`Component: DictPropertySelect should render the updated description 1`]
     }
     getCurrent={[Function]}
     onChange={[Function]}
+    onSave={[Function]}
+    onUpdate={[Function]}
     type="dict"
   >
     <MarkdownTextField

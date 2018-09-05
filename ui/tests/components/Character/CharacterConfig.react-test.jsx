@@ -8,21 +8,11 @@ jest.mock('actions/ListDataActions.jsx');
 
 import CharacterConfig from 'components/Character/CharacterConfig.jsx';
 
-import CharacterEditorActions from 'actions/CharacterEditorActions.jsx';
+import actions from 'actions/CharacterEditorActions.jsx';
+import store from 'stores/CharacterEditorStore.jsx';
 import ListDataStore from 'stores/ListDataStore.jsx';
 
 const api = require('../../__mocks__/apiCalls.js');
-
-const character = {
-    foo: {
-        value: 'foo',
-        select: 'strength',
-        list: ['charisma'],
-        dict: {
-            description: 'foo.dict goes here',
-        },
-    },
-};
 
 const value = {
     type: 'value',
@@ -41,13 +31,13 @@ const dict = {
 
 const select = {
     type: 'select',
-    list: 'statistics',
+    list: ['statistics'],
     path: 'foo.select',
 };
 
 const list = {
     type: 'list',
-    list: 'statistics',
+    list: ['statistics'],
     path: 'foo.list',
     given: ['wisdom'],
     replace: 1,
@@ -99,15 +89,16 @@ const multichoice = {
     type: 'multichoice',
     options: [{
         label: 'a',
+        path: 'foo.value',
         description: 'foo',
-        options: [
-            value,
-        ],
+        type: 'value',
+        value,
     }, {
         label: 'b',
-        options: [
-            dict,
-        ],
+        path: 'dict',
+        describe: 'bar',
+        type: 'dict',
+        dict,
     }],
 };
 
@@ -122,7 +113,17 @@ describe('Component: CharacterConfig', () => {
         _.uniqueId
             .mockReturnValue('id_' + mockedId++);
 
-        CharacterEditorActions.editCharacter.completed(character);
+        actions.editCharacter.completed({
+            foo: {
+                value: 'foo',
+                select: 'strength',
+                list: ['charisma'],
+                dict: {
+                    description: 'foo.dict goes here',
+                },
+            },
+        });
+
         ListDataStore.onFetchItemsCompleted(
             {
                 statistics: api.statistics,
@@ -132,6 +133,8 @@ describe('Component: CharacterConfig', () => {
 
         jest.runAllTimers();
     });
+
+    afterEach(() => store.reset());
 
     it('should not render anything', () => {
         const wrapper = mount(
@@ -146,7 +149,7 @@ describe('Component: CharacterConfig', () => {
 
     it('should render value', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
 
@@ -175,7 +178,7 @@ describe('Component: CharacterConfig', () => {
 
     it('should render dict', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
 
@@ -204,7 +207,7 @@ describe('Component: CharacterConfig', () => {
 
     it('should render select', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
 
@@ -233,7 +236,7 @@ describe('Component: CharacterConfig', () => {
 
     it('should render list', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
 
@@ -265,7 +268,7 @@ describe('Component: CharacterConfig', () => {
 
     it('should render with array items', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
 
@@ -302,7 +305,7 @@ describe('Component: CharacterConfig', () => {
 
     it('should render with object items', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
 
@@ -333,7 +336,7 @@ describe('Component: CharacterConfig', () => {
 
     it('should render config', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
 
@@ -362,7 +365,7 @@ describe('Component: CharacterConfig', () => {
 
     it('should render choice', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
 
@@ -391,7 +394,7 @@ describe('Component: CharacterConfig', () => {
 
     it('should render multichoice', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
 
@@ -408,12 +411,12 @@ describe('Component: CharacterConfig', () => {
 
         expect(addChange)
             .toBeCalledWith(
-                multichoice.options[0].options[0].path,
-                multichoice.options[0].options[0].value,
+                multichoice.options[0].path,
+                multichoice.options[0].value,
                 'id_1',
                 {
-                    type: multichoice.options[0].options[0].type,
-                    value: multichoice.options[0].options[0].value,
+                    type: multichoice.options[0].type,
+                    value: multichoice.options[0].value,
                 },
             );
     });

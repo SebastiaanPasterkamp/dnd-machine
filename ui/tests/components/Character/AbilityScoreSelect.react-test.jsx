@@ -3,9 +3,12 @@ import AbilityScoreSelect from 'components/Character/AbilityScoreSelect.jsx';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
-import CharacterEditorActions from 'actions/CharacterEditorActions.jsx';
+import actions from 'actions/CharacterEditorActions.jsx';
+import store from 'stores/CharacterEditorStore.jsx';
 
 describe('Component: AbilityScoreSelect', () => {
+
+    afterEach(() => store.reset());
 
     it('should not render anything', () => {
         const tree = renderer.create(
@@ -19,11 +22,11 @@ describe('Component: AbilityScoreSelect', () => {
 
     it('should emit an Ability Score increase', () => {
         const add = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addAbilityScoreIncrease'
         );
         const remove = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'removeAbilityScoreIncrease'
         );
         const wrapper = shallow(
@@ -41,7 +44,7 @@ describe('Component: AbilityScoreSelect', () => {
 
     it('should revoke an Ability Score increase', () => {
         const remove = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'removeAbilityScoreIncrease'
         );
         const wrapper = shallow(

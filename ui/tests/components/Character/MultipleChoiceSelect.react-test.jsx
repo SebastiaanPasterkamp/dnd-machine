@@ -6,15 +6,8 @@ jest.useFakeTimers();
 
 import MultipleChoiceSelect from 'components/Character/MultipleChoiceSelect.jsx';
 
-import CharacterEditorActions from 'actions/CharacterEditorActions.jsx';
-
-const character = {
-    bar: {
-        foo: {
-            description: 'Foo is bad',
-        },
-    },
-};
+import actions from 'actions/CharacterEditorActions.jsx';
+import store from 'stores/CharacterEditorStore.jsx';
 
 const props = {
     type: 'multichoice',
@@ -56,9 +49,18 @@ describe('Component: MultipleChoiceSelect', () => {
             .mockReturnValueOnce(mockedIds[2])
             .mockReturnValueOnce('unexpected_2');
 
-        CharacterEditorActions.editCharacter.completed(character);
+        actions.editCharacter.completed({
+            bar: {
+                foo: {
+                    description: 'Foo is bad',
+                },
+            },
+        });
+
         jest.runAllTimers();
     });
+
+    afterEach(() => store.reset());
 
     it('should render with minimum props', () => {
         const tree = renderer.create(
@@ -84,11 +86,11 @@ describe('Component: MultipleChoiceSelect', () => {
 
     it('should emit *Change actions on mount and umount', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
         const removeChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'removeChange'
         );
 
@@ -118,7 +120,7 @@ describe('Component: MultipleChoiceSelect', () => {
 
     it('should handle replacing one existing', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
 
@@ -173,13 +175,13 @@ describe('Component: MultipleChoiceSelect', () => {
             );
     });
 
-    it.skip('should handle removing a new pick', () => {
+    it('should handle removing a new pick', () => {
         const addChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'addChange'
         );
         const removeChange = jest.spyOn(
-            CharacterEditorActions,
+            actions,
             'removeChange'
         );
 

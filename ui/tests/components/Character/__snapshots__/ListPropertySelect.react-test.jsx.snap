@@ -8,7 +8,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
     ]
   }
   limit={1}
-  list="statistics"
+  list={
+    Array [
+      "statistics",
+    ]
+  }
   path="some.path"
   type="list"
 >
@@ -61,7 +65,6 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
         Array [
           "dexterity",
           "charisma",
-          "intelligence",
         ]
       }
       getCurrent={[Function]}
@@ -106,6 +109,8 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
       }
       limit={1}
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       type="list"
     >
       <TagsContainer>
@@ -126,6 +131,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
                   "code": "constitution",
                   "description": "Con",
                   "label": "Constitution",
+                },
+                Object {
+                  "code": "intelligence",
+                  "description": "Int",
+                  "label": "Intelligence",
                 },
                 Object {
                   "code": "wisdom",
@@ -198,6 +208,16 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
                     >
                       <a>
                         Constitution
+                      </a>
+                    </li>
+                    <li
+                      className={null}
+                      data-value="intelligence"
+                      key="intelligence"
+                      onClick={[Function]}
+                    >
+                      <a>
+                        Intelligence
                       </a>
                     </li>
                     <li
@@ -299,48 +319,6 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
               </span>
             </div>
           </Tag>
-          <Tag
-            color={null}
-            description="Int"
-            disabled={true}
-            id="intelligence"
-            key="tag-2"
-            label="Intelligence"
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
-            >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Int"
-                >
-                  <div
-                    className="tool-tip inline"
-                  >
-                    Intelligence
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Int"
-                    >
-                      <span
-                        className="tool-tip--content"
-                        key="mdrct-html-0"
-                      >
-                        <p
-                          key="mdrct-p-0"
-                        >
-                          Int
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
-            </div>
-          </Tag>
         </div>
       </TagsContainer>
     </ListPropertySelect>
@@ -356,7 +334,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
     ]
   }
   limit={1}
-  list="statistics"
+  list={
+    Array [
+      "statistics",
+    ]
+  }
   path="some.path"
   type="list"
 >
@@ -408,9 +390,8 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
       current={
         Array [
           "dexterity",
-          "strength",
           "charisma",
-          "intelligence",
+          "strength",
         ]
       }
       getCurrent={[Function]}
@@ -455,6 +436,8 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
       }
       limit={1}
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       type="list"
     >
       <TagsContainer>
@@ -599,48 +582,6 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
               </span>
             </div>
           </Tag>
-          <Tag
-            color={null}
-            description="Int"
-            disabled={true}
-            id="intelligence"
-            key="tag-3"
-            label="Intelligence"
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
-            >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Int"
-                >
-                  <div
-                    className="tool-tip inline"
-                  >
-                    Intelligence
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Int"
-                    >
-                      <span
-                        className="tool-tip--content"
-                        key="mdrct-html-0"
-                      >
-                        <p
-                          key="mdrct-p-0"
-                        >
-                          Int
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
-            </div>
-          </Tag>
         </div>
       </TagsContainer>
     </ListPropertySelect>
@@ -656,7 +597,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
     ]
   }
   limit={1}
-  list="statistics"
+  list={
+    Array [
+      "statistics",
+    ]
+  }
   path="some.path"
   type="list"
 >
@@ -709,6 +654,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
         Array [
           "dexterity",
           "charisma",
+          "strength",
           "intelligence",
         ]
       }
@@ -754,6 +700,8 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
       }
       limit={1}
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       type="list"
     >
       <TagsContainer>
@@ -765,11 +713,6 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
             isDisabled={[Function]}
             items={
               Array [
-                Object {
-                  "code": "strength",
-                  "description": "Str",
-                  "label": "Strength",
-                },
                 Object {
                   "code": "constitution",
                   "description": "Con",
@@ -828,16 +771,6 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
                     className="dropdown-menu"
                     onClick={[Function]}
                   >
-                    <li
-                      className={null}
-                      data-value="strength"
-                      key="strength"
-                      onClick={[Function]}
-                    >
-                      <a>
-                        Strength
-                      </a>
-                    </li>
                     <li
                       className={null}
                       data-value="constitution"
@@ -949,10 +882,52 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
           </Tag>
           <Tag
             color={null}
+            description="Str"
+            disabled={true}
+            id="strength"
+            key="tag-2"
+            label="Strength"
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag muted"
+            >
+              <span
+                className="nice-tag-label"
+              >
+                <ToolTip
+                  content="Str"
+                >
+                  <div
+                    className="tool-tip inline"
+                  >
+                    Strength
+                    <MDReactComponent
+                      className="tool-tip--content"
+                      text="Str"
+                    >
+                      <span
+                        className="tool-tip--content"
+                        key="mdrct-html-0"
+                      >
+                        <p
+                          key="mdrct-p-0"
+                        >
+                          Str
+                        </p>
+                      </span>
+                    </MDReactComponent>
+                  </div>
+                </ToolTip>
+              </span>
+            </div>
+          </Tag>
+          <Tag
+            color={null}
             description="Int"
             disabled={true}
             id="intelligence"
-            key="tag-2"
+            key="tag-3"
             label="Intelligence"
             onDelete={[Function]}
           >
@@ -1010,7 +985,11 @@ exports[`Component: ListPropertySelect should handle replacing one existing 1`] 
       "charisma",
     ]
   }
-  list="statistics"
+  list={
+    Array [
+      "statistics",
+    ]
+  }
   path="some.path"
   replace={1}
   type="list"
@@ -1121,6 +1100,8 @@ exports[`Component: ListPropertySelect should handle replacing one existing 1`] 
         ]
       }
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       replace={1}
       type="list"
     >
@@ -1246,7 +1227,11 @@ exports[`Component: ListPropertySelect should handle replacing one existing 2`] 
       "charisma",
     ]
   }
-  list="statistics"
+  list={
+    Array [
+      "statistics",
+    ]
+  }
   path="some.path"
   replace={1}
   type="list"
@@ -1356,6 +1341,8 @@ exports[`Component: ListPropertySelect should handle replacing one existing 2`] 
         ]
       }
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       replace={1}
       type="list"
     >
@@ -1514,7 +1501,11 @@ exports[`Component: ListPropertySelect should handle replacing one existing 3`] 
       "charisma",
     ]
   }
-  list="statistics"
+  list={
+    Array [
+      "statistics",
+    ]
+  }
   path="some.path"
   replace={1}
   type="list"
@@ -1573,9 +1564,9 @@ exports[`Component: ListPropertySelect should handle replacing one existing 3`] 
     <ListPropertySelect
       current={
         Array [
-          "strength",
           "charisma",
           "intelligence",
+          "strength",
         ]
       }
       filter={
@@ -1626,6 +1617,8 @@ exports[`Component: ListPropertySelect should handle replacing one existing 3`] 
         ]
       }
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       replace={1}
       type="list"
     >
@@ -1788,7 +1781,11 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
     }
   }
   limit={1}
-  list="statistics"
+  list={
+    Array [
+      "statistics",
+    ]
+  }
   path="some.path"
   type="list"
 >
@@ -1888,6 +1885,8 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
       }
       limit={1}
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       type="list"
     >
       <TagsContainer>
@@ -1965,6 +1964,8 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
       items={Array []}
       limit={1}
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       type="list"
     >
       <TagsContainer>
@@ -1980,7 +1981,11 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
 exports[`Component: ListPropertySelect should not render when hidden 1`] = `
 <ListsToItems
   hidden={true}
-  list="statistics"
+  list={
+    Array [
+      "statistics",
+    ]
+  }
   path="some.path"
   type="list"
 >
@@ -2066,6 +2071,8 @@ exports[`Component: ListPropertySelect should not render when hidden 1`] = `
         ]
       }
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       type="list"
     />
   </CharacterEditorComponent>
@@ -2079,7 +2086,11 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
       "foo",
     ]
   }
-  list="statistics"
+  list={
+    Array [
+      "statistics",
+    ]
+  }
   path="some.path"
   type="list"
 >
@@ -2130,7 +2141,6 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
       current={
         Array [
           "dexterity",
-          "bar",
           "foo",
         ]
       }
@@ -2175,6 +2185,8 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
         ]
       }
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       type="list"
     >
       <TagsContainer>
@@ -2268,7 +2280,11 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
     ]
   }
   limit={2}
-  list="statistics"
+  list={
+    Array [
+      "statistics",
+    ]
+  }
   multiple={true}
   path="some.path"
   replace={1}
@@ -2391,6 +2407,8 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       limit={2}
       multiple={true}
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       replace={1}
       type="list"
     >
@@ -2563,6 +2581,8 @@ exports[`Component: ListPropertySelect should render with minimum props 1`] = `
       getCurrent={[Function]}
       items={Array []}
       onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
       type="list"
     >
       <TagsContainer>

@@ -12,6 +12,8 @@ exports[`Component: ValuePropertySelect should not render anything when hidden 1
     getCurrent={[Function]}
     hidden={true}
     onChange={[Function]}
+    onSave={[Function]}
+    onUpdate={[Function]}
     type="value"
     value="This shows _formatted_ content."
   />
@@ -28,6 +30,8 @@ exports[`Component: ValuePropertySelect should render the formatted description 
     current="This shows _formatted_ content."
     getCurrent={[Function]}
     onChange={[Function]}
+    onSave={[Function]}
+    onUpdate={[Function]}
     type="value"
     value="This shows _formatted_ content."
   >
