@@ -170,18 +170,36 @@ class BaseApiBlueprint(Blueprint):
 
         return jsonify(self._exposeAttributes(obj))
 
-    def api_post(self):
-        self.doCallback('api_post')
+    def api_post(self, obj_id=None):
+        self.doCallback('api_post', obj_id)
+
+        if obj_id is not None:
+            obj = self.datamapper.getById(obj_id)
+            if not obj:
+                abort(404, "Object not found")
+
+            self.doCallback(
+                'api_post.original',
+                obj,
+                )
 
         data = request.get_json()
-        data = self._mutableAttributes(data)
+        if obj_id is not None \
+                and 'id' in data \
+                and data['id'] != obj_id:
+            abort(409, "Cannot change ID")
+
+        data = self._mutableAttributes(data, obj)
         self.doCallback(
             'api_post.data',
             data,
+            obj
             )
 
         obj = self.datamapper.create(data)
-        if 'id' in obj and obj.id:
+        if obj_id is not None:
+            obj.id = obj_id
+        elif 'id' in obj and obj.id is not None:
             abort(409, "Cannot create with existing ID")
         self.doCallback(
             'api_post.object',
@@ -189,7 +207,7 @@ class BaseApiBlueprint(Blueprint):
             )
 
         obj.compute()
-        obj = self.datamapper.insert(obj)
+        obj = self.datamapper.save(obj)
 
         return jsonify(self._exposeAttributes(obj))
 
