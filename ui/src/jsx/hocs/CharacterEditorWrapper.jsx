@@ -14,14 +14,43 @@ function CharacterEditorWrapper(WrappedComponent) {
             this.store = store;
             this.storeKeys = ['character'];
             this._id = _.uniqueId();
-
-            this.onChange = this.onChange.bind(this);
-            this.getCurrent = this.getCurrent.bind(this);
         }
 
-        onChange(change) {
+        componentWillMount() {
+            super.componentWillMount.call(this);
+
+            const id = _.get(this.props, 'match.params.id');
+            if (id == null) {
+                return;
+            }
+            const path = _.get(this.props, 'match.path');
+            if (path.match('reset')) {
+                actions.resetCharacter(id);
+            } else {
+                actions.editCharacter(id);
+            }
+        }
+
+        onSave = (callback=null) => {
+            const id = _.get(this.props, 'match.params.id');
+
+            actions.postCharacter(
+                this.state.character, id, callback,
+            );
+        }
+
+        onUpdate = (callback=null) => {
+            const id = _.get(this.props, 'match.params.id');
+
+            actions.patchCharacter(
+                this.state.character, id, callback,
+            );
+        }
+
+        onChange = (change) => {
             const {
                 path,
+                match,
                 ...rest
             } = this.props;
             actions.addChange(
@@ -32,7 +61,7 @@ function CharacterEditorWrapper(WrappedComponent) {
             );
         }
 
-        getCurrent(path) {
+        getCurrent = (path) => {
             if (!path) {
                 return this.state.character;
             }
@@ -40,6 +69,8 @@ function CharacterEditorWrapper(WrappedComponent) {
         }
 
         componentWillUnmount() {
+            super.componentWillUnmount.call(this);
+
             actions.removeChange(
                 this._id
             );
@@ -52,6 +83,8 @@ function CharacterEditorWrapper(WrappedComponent) {
             } = this.props;
 
             let props = {
+                onSave: this.onSave,
+                onUpdate: this.onUpdate,
                 onChange: this.onChange,
                 getCurrent: this.getCurrent,
             };
