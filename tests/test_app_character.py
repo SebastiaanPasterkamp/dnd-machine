@@ -52,14 +52,15 @@ class AppCharacterTestCase(BaseAppTestCase):
         migrate(self.app, ['user', 'character'])
         charId = self.characters['alice']['id']
         self.protectedPages = {
+            '/character/show/%d' % charId: (200, 'text/html'),
             '/character/api/%d' % charId: (200, 'application/json'),
+            '/character/reset/%d' % charId: (200, 'text/html'),
             '/character/copy/%d' % charId: (302, None),
             '/character/download/%d' % charId: (200, 'application/pdf'),
             }
         self.adminPages = {
             '/character/raw/%d' % charId: (200, 'application/json'),
             '/character/xp/%d/25' % charId: (302, None),
-            '/character/reset/%d' % charId: (302, None),
             }
 
     def testPrivatePages401(self):

@@ -235,13 +235,21 @@ class BaseAppTestCase(unittest.TestCase):
         self.assertEqual(
             rv.status_code,
             code,
-            "%s: %r vs %r" % (page, rv.status_code, code)
+            "%s: returns status code %r (not %r)" % (
+                page,
+                code,
+                rv.status_code,
+                )
             )
         if mimetype:
             self.assertEqual(
                 rv.mimetype,
                 mimetype,
-                "%s: %r vs %r" % (page, rv.mimetype, mimetype)
+                "%s: has mimetype %r (not %r)" % (
+                    page,
+                    mimetype,
+                    rv.mimetype,
+                    )
                 )
 
     def postJSON(self, path, data):
