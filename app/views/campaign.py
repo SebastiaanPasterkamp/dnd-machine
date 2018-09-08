@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-from flask import request, abort, render_template, url_for, redirect
+from flask import request, render_template, url_for, redirect
 
 import re
 
 from .baseapi import BaseApiBlueprint, BaseApiCallback
-from ..utils import markdownToToc, indent
+from ..errors import ApiException
 from ..filters import filter_unique
+from ..utils import markdownToToc, indent
 
 class CampaignBlueprint(BaseApiBlueprint):
 
@@ -42,12 +43,12 @@ class CampaignBlueprint(BaseApiBlueprint):
     @BaseApiCallback('api_recompute')
     def adminOrDmOnly(self, *args, **kwargs):
         if not self.checkRole(['admin', 'dm']):
-            abort(403)
+            raise ApiException(403, "Insufficient permissions")
 
     @BaseApiCallback('raw')
     def adminOnly(self):
         if not self.checkRole(['admin']):
-            abort(403)
+            raise ApiException(403, "Insufficient permissions")
 
     @BaseApiCallback('api_list.objects')
     def adminOrOwnedMultiple(self, objs):
@@ -68,7 +69,7 @@ class CampaignBlueprint(BaseApiBlueprint):
     def adminOrOwnedSingle(self, obj):
         if obj.id != request.user.id \
                 and not self.checkRole(['admin', 'dm']):
-            abort(403)
+            raise ApiException(403, "Insufficient permissions")
 
     @BaseApiCallback('api_post.object')
     @BaseApiCallback('api_copy.object')
