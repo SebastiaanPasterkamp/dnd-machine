@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, request, session, redirect, url_for, \
-    abort, render_template, jsonify, flash
+    render_template, jsonify, flash
 from flask_mail import Mail, Message
 import uuid
+
+from ..errors import ApiException
 
 def register_paths(app, basemapper, config):
     @app.route('/')
@@ -29,7 +31,7 @@ def register_paths(app, basemapper, config):
     @app.route('/current_user')
     def current_user():
         if session.get('user_id') is None:
-            abort(404)
+            raise ApiException(404, "No such user")
 
         return redirect(url_for(
             'user.api_get',
@@ -49,7 +51,7 @@ def register_paths(app, basemapper, config):
         navigation = []
 
         if session.get('user_id') is None:
-            abort(404)
+            raise ApiException(404, "Page not found")
 
         navigation.append({
             'label': 'Characters',

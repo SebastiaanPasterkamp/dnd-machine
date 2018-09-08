@@ -5,7 +5,7 @@ from flask import Flask, request, session, g, redirect, \
     url_for, abort, render_template, jsonify, Markup
 from werkzeug.utils import find_modules, import_string
 
-
+from .errors import ApiException
 from .models.base import JsonObjectDataMapper
 from . import get_db, get_datamapper
 from .config import get_item_data
@@ -345,3 +345,12 @@ def register_request_hooks(app):
         r.headers["Expires"] = "0"
         r.headers['Cache-Control'] = 'public, max-age=0'
         return r
+
+    @app.errorhandler(ApiException)
+    def handle_api_exception(error):
+        """
+        Return ApiException as JSON messages with HTTP status code
+        """
+        response = jsonify(error.to_dict())
+        response.status_code = error.status_code
+        return response

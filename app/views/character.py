@@ -9,6 +9,7 @@ import markdown
 
 from .baseapi import BaseApiBlueprint, BaseApiCallback
 from ..config import get_character_data
+from ..errors import ApiException
 from ..filters import filter_bonus, filter_distance, filter_unique
 from . import fill_pdf
 
@@ -37,7 +38,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             self.xp, methods=['GET', 'POST'])
         self.add_url_rule(
             '/reset/<int:obj_id>', 'reset',
-            self.newObj, methods=['GET', 'POST'])
+            self.newObj, methods=['GET'])
 
     @property
     def datamapper(self):
@@ -150,6 +151,17 @@ class CharacterBlueprint(BaseApiBlueprint):
     @BaseApiCallback('api_delete')
     def playerOrDmOnly(self, *args, **kwargs):
         if not self.checkRole(['dm', 'player']):
+            raise ApiException(403, "Insufficient privileges")
+
+    @BaseApiCallback('show')
+    @BaseApiCallback('reset')
+    def pageAdminDmOrOwned(self, obj_id):
+        if self.checkRole(['admin', 'dm']):
+            return
+        extended_ids =  self.datamapper.getExtendedIds(
+            request.user.id
+            )
+        if obj_id not in extended_ids:
             abort(403)
 
     @BaseApiCallback('api_post.data')
@@ -174,21 +186,20 @@ class CharacterBlueprint(BaseApiBlueprint):
     @BaseApiCallback('raw')
     def adminOnly(self, *args, **kwargs):
         if not self.checkRole(['admin']):
-            abort(403)
+            raise ApiException(403, "Insufficient privileges")
 
     @BaseApiCallback('xp')
-    @BaseApiCallback('reset')
     def adminOrDmOnly(self, *args, **kwargs):
         if not self.checkRole(['admin', 'dm']):
-            abort(403)
+            raise ApiException(403, "Insufficient privileges")
 
     @BaseApiCallback('api_delete.object')
-    @BaseApiCallback('api_post.object')
+    @BaseApiCallback('api_patch.original')
     @BaseApiCallback('api_patch.object')
     def adminDmOrOwned(self, obj):
         if obj.user_id != request.user.id \
                 and not self.checkRole(['admin', 'dm']):
-            abort(403)
+            raise ApiException(403, "Insufficient privileges")
 
     @BaseApiCallback('api_patch.object')
     def recordCreation(self, obj):
@@ -219,7 +230,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             request.user.id
             )
         if obj.id not in extended_ids:
-            abort(403)
+            raise ApiException(403, "Insufficient privileges")
 
 
     def download(self, obj_id):
@@ -227,7 +238,7 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         obj = self.datamapper.getById(obj_id)
         if obj is None:
-            abort(404)
+            raise ApiException(404, "Character not found")
         self.doCallback(
             'download.object',
             obj,

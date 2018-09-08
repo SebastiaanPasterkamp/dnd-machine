@@ -6,8 +6,9 @@ from flask import (
     jsonify,
     redirect,
     url_for,
-    abort
     )
+
+from ..errors import ApiException
 
 def BaseApiCallback(key):
     def func_wrapper(func):
@@ -117,8 +118,11 @@ class BaseApiBlueprint(Blueprint):
             'reactjs-layout.html'
             )
 
-    def newObj(self, *args, **kwargs):
-        self.doCallback('new', *args, **kwargs)
+    def newObj(self, obj_id=None, *args, **kwargs):
+        if obj_id is None:
+            self.doCallback('new', *args, **kwargs)
+        else:
+            self.doCallback('reset', obj_id, *args, **kwargs)
         return render_template(
             'reactjs-layout.html'
             )
@@ -161,7 +165,7 @@ class BaseApiBlueprint(Blueprint):
 
         obj = self.datamapper.getById(obj_id)
         if not obj:
-            abort(404, "Object not found")
+            raise ApiException(404, "Object not found")
 
         self.doCallback(
             'api_get.object',
@@ -173,10 +177,11 @@ class BaseApiBlueprint(Blueprint):
     def api_post(self, obj_id=None):
         self.doCallback('api_post', obj_id)
 
+        obj = None
         if obj_id is not None:
             obj = self.datamapper.getById(obj_id)
             if not obj:
-                abort(404, "Object not found")
+                raise ApiException(404, "Object not found")
 
             self.doCallback(
                 'api_post.original',
@@ -187,7 +192,7 @@ class BaseApiBlueprint(Blueprint):
         if obj_id is not None \
                 and 'id' in data \
                 and data['id'] != obj_id:
-            abort(409, "Cannot change ID")
+            raise ApiException(409, "Cannot change ID")
 
         data = self._mutableAttributes(data, obj)
         self.doCallback(
@@ -200,7 +205,7 @@ class BaseApiBlueprint(Blueprint):
         if obj_id is not None:
             obj.id = obj_id
         elif 'id' in obj and obj.id is not None:
-            abort(409, "Cannot create with existing ID")
+            raise ApiException(409, "Cannot create with existing ID")
         self.doCallback(
             'api_post.object',
             obj,
@@ -216,7 +221,7 @@ class BaseApiBlueprint(Blueprint):
 
         obj = self.datamapper.getById(obj_id)
         if not obj:
-            abort(404, "Object not found")
+            raise ApiException(404, "Object not found")
         self.doCallback(
             'api_copy.original',
             obj,
@@ -239,7 +244,7 @@ class BaseApiBlueprint(Blueprint):
 
         obj = self.datamapper.getById(obj_id)
         if not obj:
-            abort(404, "Object not found")
+            raise ApiException(404, "Object not found")
 
         self.doCallback(
             'api_patch.original',
@@ -248,7 +253,7 @@ class BaseApiBlueprint(Blueprint):
 
         data = request.get_json()
         if 'id' in data and data['id'] != obj_id:
-            abort(409, "Cannot change ID")
+            raise ApiException(409, "Cannot change ID")
 
         data = self._mutableAttributes(data, obj)
         self.doCallback(
@@ -273,7 +278,7 @@ class BaseApiBlueprint(Blueprint):
 
         obj = self.datamapper.getById(obj_id)
         if not obj:
-            abort(404, "Object not found")
+            raise ApiException(404, "Object not found")
 
         self.doCallback(
             'api_delete.object',
@@ -291,7 +296,7 @@ class BaseApiBlueprint(Blueprint):
         if obj_id is not None \
                 and 'id' in data \
                 and data['id'] != obj_id:
-            abort(409, "Cannot change ID")
+            raise ApiException(409, "Cannot change ID")
 
         obj = self.datamapper.getById(obj_id)
         if obj is not None:
