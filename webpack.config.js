@@ -33,6 +33,11 @@ var config = {
                 }
             },
             {
+                test: /\.json$/i,
+                include : APP_DIR_JSX,
+                loader : 'json-loader'
+            },
+            {
                 test: /\.(sass|scss)$/,
                 loader: ExtractTextPlugin.extract([
                     {

@@ -58,7 +58,6 @@
       "__mocks__",
       "__init__"
     ],
-    "collectCoverage": true,
     "setupFiles": [
       "<rootDir>/ui/tests/__init__/shim.js",
       "<rootDir>/ui/tests/__init__/setup.js"
