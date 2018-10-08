@@ -87,17 +87,17 @@ class CharacterBlueprint(BaseApiBlueprint):
             return update
 
         immutable = set([
-            'user_id', 'xp', 'level',
+            'user_id', 'xp',
             ])
-        if obj is not None:
+        if obj:
             immutable |= set([
                 'race', 'class', 'background'
                 ])
 
         return dict(
-            (key, value)
+            (key, obj[key] if obj and key in immutable else value)
             for key, value in update.iteritems()
-            if key not in immutable
+            if not obj or key not in immutable
             )
 
     def get_races(self):
@@ -225,6 +225,7 @@ class CharacterBlueprint(BaseApiBlueprint):
     def adminDmOrExtendedSingle(self, obj):
         if obj.user_id == request.user.id \
                 or self.checkRole(['admin', 'dm']):
+            obj.compute()
             return
         extended_ids =  self.datamapper.getExtendedIds(
             request.user.id

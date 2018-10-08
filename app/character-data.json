@@ -1049,8 +1049,7 @@
         "phases": {
             "barbarian-2": {
                 "conditions": {
-                    "level": 2,
-                    "creation": "barbarian-1"
+                    "level": 2
                 },
                 "config": [{
                     "hidden": true,
@@ -2053,8 +2052,7 @@
         "phases": {
             "bard-2": {
                 "conditions": {
-                    "level": 2,
-                    "creation": "bard-1"
+                    "level": 2
                 },
                 "config": [{
                     "hidden": true,
@@ -3855,8 +3853,7 @@
         "phases": {
             "cleric-2": {
                 "conditions": {
-                    "level": 2,
-                    "creation": "cleric-1"
+                    "level": 2
                 },
                 "config": [{
                     "hidden": true,
@@ -3909,7 +3906,6 @@
             "cleric-2-knowledge": {
                 "conditions": {
                     "level": 2,
-                    "creation": "cleric-1",
                     "domain": ["Knowledge"]
                 },
                 "config": [{
@@ -3924,7 +3920,6 @@
             "cleric-2-life": {
                 "conditions": {
                     "level": 2,
-                    "creation": "clearic-1",
                     "domain": ["Life"]
                 },
                 "config": [{
@@ -3941,7 +3936,6 @@
             "cleric-2-light": {
                 "conditions": {
                     "level": 2,
-                    "creation": "clearic-1",
                     "domain": ["Light"]
                 },
                 "config": [{
@@ -3958,7 +3952,6 @@
             "cleric-2-nature": {
                 "conditions": {
                     "level": 2,
-                    "creation": "cleric-1",
                     "domain": ["Nature"]
                 },
                 "config": [{
@@ -3973,7 +3966,6 @@
             "cleric-2-tempest": {
                 "conditions": {
                     "level": 2,
-                    "creation": "cleric-1",
                     "domain": ["Tempest"]
                 },
                 "config": [{
@@ -3988,7 +3980,6 @@
             "cleric-2-trickery": {
                 "conditions": {
                     "level": 2,
-                    "creation": "cleric-1",
                     "domain": ["Trickery"]
                 },
                 "config": [{
@@ -4003,7 +3994,6 @@
             "cleric-2-war": {
                 "conditions": {
                     "level": 2,
-                    "creation": "cleric-1",
                     "domain": ["War"]
                 },
                 "config": [{
@@ -5439,261 +5429,260 @@
             }
         }
     }, {
-        "name": "Fighter",
-        "filename": "fighter.md",
-        "phases": {
-            "fighter-1": {
-                "conditions": {
-                    "level": 1,
-                    "class": "Fighter"
-                },
+        "label": "Fighter",
+        "description": "Fighters learn the basics of all combat styles. Every fighter can swing an axe, fence with a rapier, wield a longsword or a greatsword, use a bow, and even trap foes in a net with some degree of skill. Likewise, a fighter is adept with shields and every form of armor. Beyond that basic degree of familiarity, each fighter specializes in a certain style of combat. Some concentrate on archery, some on fighting with two weapons at once, and some on augmenting their martial skills with magic. This combination of broad general ability and extensive specialization makes fighters superior combatants on battlefields and in dungeons alike.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "class",
+            "type": "value",
+            "value": "Fighter"
+        }, {
+            "hidden": true,
+            "path": "archetype",
+            "type": "value",
+            "value": []
+        }, {
+            "hidden": true,
+            "path": "proficiency",
+            "type": "value",
+            "value": 2
+        }, {
+            "hidden": true,
+            "path": "hit_dice",
+            "type": "value",
+            "value": 10
+        }, {
+            "hidden": true,
+            "path": "computed.hit_points.formula",
+            "type": "value",
+            "value": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
+        }, {
+            "label": "Class Saving Throws",
+            "path": "proficiencies.saving_throws",
+            "type": "list",
+            "list": ["statistics"],
+            "given": [
+                "strength",
+                "constitution"
+            ]
+        }, {
+            "label": "Class Armor Proficiencies",
+            "path": "proficiencies.armor",
+            "type": "list",
+            "list": ["armor_types", "armor"],
+            "given": [
+                "light",
+                "medium",
+                "heavy",
+                "shield"
+            ]
+        }, {
+            "label": "Class Weapon Proficiencies",
+            "path": "proficiencies.weapons",
+            "type": "list",
+            "list": ["weapon_types", "weapon"],
+            "given": [
+                "simple melee",
+                "simple ranged",
+                "martial melee",
+                "martial ranged"
+            ]
+        }, {
+            "label": "Class Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "limit": 2,
+            "filter": {
+                "code": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]
+            }
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Chain mail",
+                "path": "equipment",
+                "type": "list",
+                "list": ["weapon", "armor"],
+                "multiple": true,
+                "given": ["Chain mail"]
+            }, {
+                "label": "Leather Armor + Longbow",
+                "path": "equipment",
+                "type": "list",
+                "list": ["weapon", "armor"],
+                "multiple": true,
+                "given": [
+                    "Leather Armor",
+                    "Longbow",
+                    "20 x Arrow"
+                ]
+            }]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Sword & Board",
+                "type": "config",
                 "config": [{
-                    "hidden": true,
-                    "path": "archetype",
-                    "type": "value",
-                    "value": []
-                }, {
-                    "hidden": true,
-                    "path": "proficiency",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
-                    "path": "hit_dice",
-                    "type": "value",
-                    "value": 10
-                }, {
-                    "hidden": true,
-                    "path": "computed.hit_points.formula",
-                    "type": "value",
-                    "value": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
-                }, {
-                    "label": "Class Saving Throws",
-                    "path": "proficiencies.saving_throws",
+                    "label": "Weapon",
+                    "path": "equipment",
                     "type": "list",
-                    "list": ["statistics"],
-                    "given": [
-                        "strength",
-                        "constitution"
-                    ]
+                    "list": ["weapon"],
+                    "multiple": true,
+                    "limit": 1,
+                    "filter": {
+                        "type": [
+                            "martial melee",
+                            "martial ranged"
+                        ]
+                    }
                 }, {
-                    "label": "Class Armor Proficiencies",
-                    "path": "proficiencies.armor",
+                    "label": "Shield",
+                    "path": "equipment",
                     "type": "list",
-                    "list": ["armor_types", "armor"],
-                    "given": [
-                        "light",
-                        "medium",
-                        "heavy",
-                        "shield"
-                    ]
-                }, {
-                    "label": "Class Weapon Proficiencies",
-                    "path": "proficiencies.weapons",
-                    "type": "list",
-                    "list": ["weapon_types", "weapon"],
-                    "given": [
-                        "simple melee",
-                        "simple ranged",
+                    "list": ["armor"],
+                    "multiple": true,
+                    "limit": 1,
+                    "filter": {
+                        "type": ["shield"]
+                    }
+                }]
+            }, {
+                "label": "Dual Wield",
+                "label": "Weapons",
+                "path": "equipment",
+                "type": "list",
+                "list": ["weapon"],
+                "multiple": true,
+                "limit": 2,
+                "filter": {
+                    "type": [
                         "martial melee",
                         "martial ranged"
                     ]
-                }, {
-                    "label": "Class Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "limit": 2,
-                    "filter": {
-                        "code": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]
-                    }
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Chain mail",
-                        "path": "equipment",
-                        "type": "list",
-                        "list": ["weapon", "armor"],
-                        "multiple": true,
-                        "given": ["Chain mail"]
-                    }, {
-                        "label": "Leather Armor + Longbow",
-                        "path": "equipment",
-                        "type": "list",
-                        "list": ["weapon", "armor"],
-                        "multiple": true,
-                        "given": [
-                            "Leather Armor",
-                            "Longbow",
-                            "20 x Arrow"
-                        ]
-                    }]
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Sword & Board",
-                        "type": "config",
-                        "config": [{
-                            "label": "Weapon",
-                            "path": "equipment",
-                            "type": "list",
-                            "list": ["weapon"],
-                            "multiple": true,
-                            "limit": 1,
-                            "filter": {
-                                "type": [
-                                    "martial melee",
-                                    "martial ranged"
-                                ]
-                            }
-                        }, {
-                            "label": "Shield",
-                            "path": "equipment",
-                            "type": "list",
-                            "list": ["armor"],
-                            "multiple": true,
-                            "limit": 1,
-                            "filter": {
-                                "type": ["shield"]
-                            }
-                        }]
-                    }, {
-                        "label": "Dual Wield",
-                        "label": "Weapons",
-                        "path": "equipment",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "multiple": true,
-                        "limit": 2,
-                        "filter": {
-                            "type": [
-                                "martial melee",
-                                "martial ranged"
-                            ]
-                        }
-                    }]
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Crossbow",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Crossbow, light", "20 x Bolt"]
-                    }, {
-                        "label": "Dual-wield Axes",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Handaxe", "Handaxe"]
-                    }]
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Dungeoneer's Pack",
-                        "type": "list",
-                        "list": ["items"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Crowbar",
-                            "Hammer",
-                            "10 x Pitons",
-                            "5 x Torch",
-                            "Tinderbox",
-                            "10 x Day of Rations",
-                            "Waterskin",
-                            "50 Feet of Hempen Rope"
-                        ]
-                    }, {
-                        "label": "Explorer's Pack",
-                        "type": "list",
-                        "list": ["items"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Bedroll",
-                            "Mess Kit",
-                            "Tinderbox",
-                            "10 x Torch",
-                            "10 x Day of Rations",
-                            "Waterskin",
-                            "50 Feet of Hempen Rope"
-                        ]
-                    }]
-                }, {
-                    "label": "Fighting Style",
-                    "description": "You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a **Fighting Style** option more than once, even if you later get to choose again.",
-                    "type": "multichoice",
-                    "limit": 1,
-                    "options": [{
-                        "label": "Archery",
-                        "hidden_formula": "'Archery' in character.abilities",
-                        "path": "abilities.Archery",
-                        "type": "dict",
-                        "dict": {
-                            "description": "You gain a `+2` bonus to attack rolls you make with ranged weapons."
-                        }
-                    }, {
-                        "label": "Defense",
-                        "hidden_formula": "'Defense' in character.abilities",
-                        "path": "abilities.Defense",
-                        "type": "dict",
-                        "dict": {
-                            "description": "While you are wearing armor, you gain a `+1` bonus to AC."
-                        }
-                    }, {
-                        "label": "Dueling",
-                        "hidden_formula": "'Dueling' in character.abilities",
-                        "path": "abilities.Dueling",
-                        "type": "dict",
-                        "dict": {
-                            "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a `+2` bonus to damage rolls with that weapon."
-                        }
-                    }, {
-                        "label": "Great Weapon Fighting",
-                        "hidden_formula": "'Great Weapon Fighting' in character.abilities",
-                        "path": "abilities.Great Weapon Fighting",
-                        "type": "dict",
-                        "dict": {
-                            "description": "When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2. The weapon must have the *two-handed* or *versatile* property for you to gain this benefit."
-                        }
-                    }, {
-                        "label": "Protection",
-                        "hidden_formula": "'Protection' in character.abilities",
-                        "path": "abilities.Protection",
-                        "type": "dict",
-                        "dict": {
-                            "description": "When a creature you can see attacks a target other than you that is within 5 feet of you. you can use your reaction to impose **Disadvantage** on the attack roll. You must be wielding a shield."
-                        }
-                    }, {
-                        "label": "Two-Weapon Fighting",
-                        "hidden_formula": "'Two-Weapon Fighting' in character.abilities",
-                        "path": "abilities.Two-Weapon Fighting",
-                        "type": "dict",
-                        "dict": {
-                            "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack."
-                        }
-                    }]
-                }, {
-                    "label": "Second Wind",
-                    "path": "abilities.Second Wind",
-                    "type": "dict",
-                    "dict": {
-                        "description": "You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to `1d10 + %(bonus)s`. Once you use this feature, you must finish a short or long rest before you can use it again.",
-                        "bonus_formula": "character.level",
-                        "bonus_default": "your Character level"
-                    }
-                }]
-            },
+                }
+            }]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Crossbow",
+                "type": "list",
+                "list": ["weapon"],
+                "path": "equipment",
+                "multiple": true,
+                "given": ["Crossbow, light", "20 x Bolt"]
+            }, {
+                "label": "Dual-wield Axes",
+                "type": "list",
+                "list": ["weapon"],
+                "path": "equipment",
+                "multiple": true,
+                "given": ["Handaxe", "Handaxe"]
+            }]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Dungeoneer's Pack",
+                "type": "list",
+                "list": ["items"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Backpack",
+                    "Crowbar",
+                    "Hammer",
+                    "10 x Pitons",
+                    "5 x Torch",
+                    "Tinderbox",
+                    "10 x Day of Rations",
+                    "Waterskin",
+                    "50 Feet of Hempen Rope"
+                ]
+            }, {
+                "label": "Explorer's Pack",
+                "type": "list",
+                "list": ["items"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Backpack",
+                    "Bedroll",
+                    "Mess Kit",
+                    "Tinderbox",
+                    "10 x Torch",
+                    "10 x Day of Rations",
+                    "Waterskin",
+                    "50 Feet of Hempen Rope"
+                ]
+            }]
+        }, {
+            "label": "Fighting Style",
+            "description": "You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a **Fighting Style** option more than once, even if you later get to choose again.",
+            "type": "multichoice",
+            "limit": 1,
+            "options": [{
+                "label": "Archery",
+                "hidden_formula": "'Archery' in character.abilities",
+                "path": "abilities.Archery",
+                "type": "dict",
+                "dict": {
+                    "description": "You gain a `+2` bonus to attack rolls you make with ranged weapons."
+                }
+            }, {
+                "label": "Defense",
+                "hidden_formula": "'Defense' in character.abilities",
+                "path": "abilities.Defense",
+                "type": "dict",
+                "dict": {
+                    "description": "While you are wearing armor, you gain a `+1` bonus to AC."
+                }
+            }, {
+                "label": "Dueling",
+                "hidden_formula": "'Dueling' in character.abilities",
+                "path": "abilities.Dueling",
+                "type": "dict",
+                "dict": {
+                    "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a `+2` bonus to damage rolls with that weapon."
+                }
+            }, {
+                "label": "Great Weapon Fighting",
+                "hidden_formula": "'Great Weapon Fighting' in character.abilities",
+                "path": "abilities.Great Weapon Fighting",
+                "type": "dict",
+                "dict": {
+                    "description": "When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2. The weapon must have the *two-handed* or *versatile* property for you to gain this benefit."
+                }
+            }, {
+                "label": "Protection",
+                "hidden_formula": "'Protection' in character.abilities",
+                "path": "abilities.Protection",
+                "type": "dict",
+                "dict": {
+                    "description": "When a creature you can see attacks a target other than you that is within 5 feet of you. you can use your reaction to impose **Disadvantage** on the attack roll. You must be wielding a shield."
+                }
+            }, {
+                "label": "Two-Weapon Fighting",
+                "hidden_formula": "'Two-Weapon Fighting' in character.abilities",
+                "path": "abilities.Two-Weapon Fighting",
+                "type": "dict",
+                "dict": {
+                    "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack."
+                }
+            }]
+        }, {
+            "label": "Second Wind",
+            "path": "abilities.Second Wind",
+            "type": "dict",
+            "dict": {
+                "description": "You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to `1d10 + %(bonus)s`. Once you use this feature, you must finish a short or long rest before you can use it again.",
+                "bonus_formula": "character.level",
+                "bonus_default": "your Character level"
+            }
+        }],
+        "phases": {
             "fighter-2": {
                 "conditions": {
-                    "level": 2,
-                    "creation": "fighter-1"
+                    "level": 2
                 },
                 "config": [{
                     "hidden": true,
@@ -7327,214 +7316,213 @@
             }
         }
     }, {
-        "name": "Paladin",
-        "filename": "paladin.md",
-        "phases": {
-            "paladin-1": {
-                "conditions": {
-                    "level": 1,
-                    "class": "Paladin"
-                },
+        "label": "Paladin",
+        "description": "A paladin swears to uphold justice and righteousness, to stand with the good things of the world against the encroaching darkness, and to hunt the forces of evil wherever they lurk. Different paladins focus on various aspects of the cause of righteousness, but all are bound by the oaths that grant them power to do their sacred work. Although many paladins are devoted to gods of good, a paladin's power comes as much from a commitment to justice itself as it does from a god. Paladins train for years to learn the skills of combat, mastering a variety of weapons and armor. Even so, their martial skills are secondary to the magical power they wield: power to heal the sick and injured, to smite the wicked and the undead, and to protect the innocent and those who join them in the fight for justice.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "class",
+            "type": "value",
+            "value": "Paladin"
+        }, {
+            "hidden": true,
+            "path": "oath",
+            "type": "value",
+            "value": []
+        }, {
+            "hidden": true,
+            "path": "proficiency",
+            "type": "value",
+            "value": 2
+        }, {
+            "hidden": true,
+            "path": "hit_dice",
+            "type": "value",
+            "value": 10
+        }, {
+            "hidden": true,
+            "path": "computed.hit_points.formula",
+            "type": "value",
+            "value": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
+        }, {
+            "label": "Class Armor Proficiencies",
+            "path": "proficiencies.armor",
+            "type": "list",
+            "list": ["armor_types", "armor"],
+            "given": ["light", "medium", "heavy", "shield"]
+        }, {
+            "label": "Class Weapon Proficiencies",
+            "path": "proficiencies.weapons",
+            "type": "list",
+            "list": ["weapon_types", "weapon"],
+            "given": [
+                "simple melee",
+                "simple ranged",
+                "martial melee",
+                "martial ranged"
+            ]
+        }, {
+            "label": "Class Saving Throws",
+            "path": "proficiencies.saving_throws",
+            "type": "list",
+            "list": ["statistics"],
+            "given": ["wisdom", "charisma"]
+        }, {
+            "label": "Class Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "limit": 2,
+            "filter": {
+                "code": [
+                    "athletics",
+                    "insight",
+                    "intimidation",
+                    "medicine",
+                    "persuasion",
+                    "religion"
+                ]
+            }
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Sword & Board",
+                "type": "config",
                 "config": [{
-                    "hidden": true,
-                    "path": "oath",
-                    "type": "value",
-                    "value": []
-                }, {
-                    "hidden": true,
-                    "path": "proficiency",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
-                    "path": "hit_dice",
-                    "type": "value",
-                    "value": 10
-                }, {
-                    "hidden": true,
-                    "path": "computed.hit_points.formula",
-                    "type": "value",
-                    "value": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
-                }, {
-                    "label": "Class Armor Proficiencies",
-                    "path": "proficiencies.armor",
+                    "label": "Weapon",
+                    "path": "equipment",
                     "type": "list",
-                    "list": ["armor_types", "armor"],
-                    "given": ["light", "medium", "heavy", "shield"]
+                    "list": ["weapon"],
+                    "multiple": true,
+                    "limit": 1,
+                    "filter": {
+                        "type": [
+                            "martial melee",
+                            "martial ranged"
+                        ]
+                    }
                 }, {
-                    "label": "Class Weapon Proficiencies",
-                    "path": "proficiencies.weapons",
+                    "label": "Shield",
+                    "path": "equipment",
                     "type": "list",
-                    "list": ["weapon_types", "weapon"],
-                    "given": [
-                        "simple melee",
-                        "simple ranged",
+                    "list": ["armor"],
+                    "multiple": true,
+                    "limit": 1,
+                    "filter": {
+                        "type": ["shield"]
+                    }
+                }]
+            }, {
+                "label": "Dual Wield",
+                "label": "Weapons",
+                "path": "equipment",
+                "type": "list",
+                "list": ["weapon"],
+                "multiple": true,
+                "limit": 2,
+                "filter": {
+                    "type": [
                         "martial melee",
                         "martial ranged"
                     ]
-                }, {
-                    "label": "Class Saving Throws",
-                    "path": "proficiencies.saving_throws",
-                    "type": "list",
-                    "list": ["statistics"],
-                    "given": ["wisdom", "charisma"]
-                }, {
-                    "label": "Class Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "limit": 2,
-                    "filter": {
-                        "code": [
-                            "athletics",
-                            "insight",
-                            "intimidation",
-                            "medicine",
-                            "persuasion",
-                            "religion"
-                        ]
-                    }
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Sword & Board",
-                        "type": "config",
-                        "config": [{
-                            "label": "Weapon",
-                            "path": "equipment",
-                            "type": "list",
-                            "list": ["weapon"],
-                            "multiple": true,
-                            "limit": 1,
-                            "filter": {
-                                "type": [
-                                    "martial melee",
-                                    "martial ranged"
-                                ]
-                            }
-                        }, {
-                            "label": "Shield",
-                            "path": "equipment",
-                            "type": "list",
-                            "list": ["armor"],
-                            "multiple": true,
-                            "limit": 1,
-                            "filter": {
-                                "type": ["shield"]
-                            }
-                        }]
-                    }, {
-                        "label": "Dual Wield",
-                        "label": "Weapons",
-                        "path": "equipment",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "multiple": true,
-                        "limit": 2,
-                        "filter": {
-                            "type": [
-                                "martial melee",
-                                "martial ranged"
-                            ]
-                        }
-                    }]
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "5 Javelins",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Javelin",
-                            "Javelin",
-                            "Javelin",
-                            "Javelin",
-                            "Javelin"
-                        ]
-                    }, {
-                        "label": "Simple Melee",
-                        "path": "equipment",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "multiple": true,
-                        "limit": 1,
-                        "filter": {
-                            "type": ["simple melee"]
-                        }
-                    }]
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Priest's Pack",
-                        "type": "list",
-                        "list": ["items"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Blanket",
-                            "10 x Candle",
-                            "Tinderbox",
-                            "Alms Box",
-                            "2 x Block of Incense",
-                            "Censer",
-                            "Vestments",
-                            "2 x Day of Rations",
-                            "Waterskin"
-                        ]
-                    }, {
-                        "label": "Explorer's Pack",
-                        "type": "list",
-                        "list": ["items"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Bedroll",
-                            "Mess Kit",
-                            "Tinderbox",
-                            "10 x Torch",
-                            "10 x Day of Rations",
-                            "Waterskin",
-                            "50 Feet of Hempen Rope"
-                        ]
-                    }]
-                }, {
-                    "label": "Class Equipment",
-                    "type": "list",
-                    "list": ["armor", "items"],
-                    "path": "equipment",
-                    "multiple": true,
-                    "given": [
-                        "Chain Mail",
-                        "Holy Symbol"
-                    ]
-                }, {
-                    "label": "Divine Sense",
-                    "path": "abilities.Divine Sense",
-                    "type": "dict",
-                    "dict": {
-                        "description": "The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strand von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the hallow spell. You can use this feature %(uses)s times. When you finish a long rest, you regain all expended uses.",
-                        "uses_formula": "1 + statistics.modifiers.charisma",
-                        "uses_default": "1 + your **Charisma modifier**"
-                    }
-                }, {
-                    "label": "Lay on Hands",
-                    "path": "abilities.Lay on Hands",
-                    "type": "dict",
-                    "dict": {
-                        "description": "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total of %(pool_size)s hit points. As an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool. Alternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one. This feature has no effect on undead and constructs.",
-                        "pool_size_formula": "5 * level",
-                        "pool_size_default": "5 x your Paladin level"
-                    }
-                }]
-            },
+                }
+            }]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "5 Javelins",
+                "type": "list",
+                "list": ["weapon"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Javelin",
+                    "Javelin",
+                    "Javelin",
+                    "Javelin",
+                    "Javelin"
+                ]
+            }, {
+                "label": "Simple Melee",
+                "path": "equipment",
+                "type": "list",
+                "list": ["weapon"],
+                "multiple": true,
+                "limit": 1,
+                "filter": {
+                    "type": ["simple melee"]
+                }
+            }]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Priest's Pack",
+                "type": "list",
+                "list": ["items"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Backpack",
+                    "Blanket",
+                    "10 x Candle",
+                    "Tinderbox",
+                    "Alms Box",
+                    "2 x Block of Incense",
+                    "Censer",
+                    "Vestments",
+                    "2 x Day of Rations",
+                    "Waterskin"
+                ]
+            }, {
+                "label": "Explorer's Pack",
+                "type": "list",
+                "list": ["items"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Backpack",
+                    "Bedroll",
+                    "Mess Kit",
+                    "Tinderbox",
+                    "10 x Torch",
+                    "10 x Day of Rations",
+                    "Waterskin",
+                    "50 Feet of Hempen Rope"
+                ]
+            }]
+        }, {
+            "label": "Class Equipment",
+            "type": "list",
+            "list": ["armor", "items"],
+            "path": "equipment",
+            "multiple": true,
+            "given": [
+                "Chain Mail",
+                "Holy Symbol"
+            ]
+        }, {
+            "label": "Divine Sense",
+            "path": "abilities.Divine Sense",
+            "type": "dict",
+            "dict": {
+                "description": "The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strand von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the hallow spell. You can use this feature %(uses)s times. When you finish a long rest, you regain all expended uses.",
+                "uses_formula": "1 + statistics.modifiers.charisma",
+                "uses_default": "1 + your **Charisma modifier**"
+            }
+        }, {
+            "label": "Lay on Hands",
+            "path": "abilities.Lay on Hands",
+            "type": "dict",
+            "dict": {
+                "description": "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total of %(pool_size)s hit points. As an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool. Alternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one. This feature has no effect on undead and constructs.",
+                "pool_size_formula": "5 * level",
+                "pool_size_default": "5 x your Paladin level"
+            }
+        }],
+        "phases": {
             "paladin-2": {
                 "conditions": {
-                    "level": 2,
-                    "creation": "paladin-1"
+                    "level": 2
                 },
                 "config": [{
                     "hidden": true,
@@ -8536,307 +8524,306 @@
             }
         }
     }, {
-        "name": "Ranger",
-        "filename": "ranger.md",
-        "phases": {
-            "ranger-1": {
-                "conditions": {
-                    "level": 1,
-                    "class": "Ranger"
-                },
-                "config": [{
-                    "hidden": true,
-                    "path": "archetype",
-                    "type": "value",
-                    "value": []
-                }, {
-                    "hidden": true,
-                    "path": "proficiency",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
-                    "path": "favored",
-                    "type": "value",
-                    "value": {
-                        "enemy": [],
-                        "terrain": []
-                    }
-                }, {
-                    "hidden": true,
-                    "path": "hit_dice",
-                    "type": "value",
-                    "value": 10
-                }, {
-                    "hidden": true,
-                    "path": "computed.hit_points.formula",
-                    "type": "value",
-                    "value": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
-                }, {
-                    "label": "Class Armor Proficiencies",
-                    "path": "proficiencies.armor",
-                    "type": "list",
-                    "list": ["armor_types", "armor"],
-                    "given": ["light", "medium", "shield"]
-                }, {
-                    "label": "Class Weapon Proficiencies",
-                    "path": "proficiencies.weapons",
-                    "type": "list",
-                    "list": ["weapon_types", "weapon"],
-                    "given": [
+        "label": "Ranger",
+        "description": "Warriors of the wilderness, rangers specialize in hunting the monsters that threaten the edges of civilization—humanoid raiders. rampaging beasts and monstrosities, terrible giants, and deadly dragons. They learn to track their quarry as a predator does, moving stealthily through the wilds and hiding themselves in brush and rubble. Rangers focus their combat training on techniques that are particularly useful against their specific favored foes.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "class",
+            "type": "value",
+            "value": "Ranger"
+        }, {
+            "hidden": true,
+            "path": "archetype",
+            "type": "value",
+            "value": []
+        }, {
+            "hidden": true,
+            "path": "proficiency",
+            "type": "value",
+            "value": 2
+        }, {
+            "hidden": true,
+            "path": "favored",
+            "type": "value",
+            "value": {
+                "enemy": [],
+                "terrain": []
+            }
+        }, {
+            "hidden": true,
+            "path": "hit_dice",
+            "type": "value",
+            "value": 10
+        }, {
+            "hidden": true,
+            "path": "computed.hit_points.formula",
+            "type": "value",
+            "value": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
+        }, {
+            "label": "Class Armor Proficiencies",
+            "path": "proficiencies.armor",
+            "type": "list",
+            "list": ["armor_types", "armor"],
+            "given": ["light", "medium", "shield"]
+        }, {
+            "label": "Class Weapon Proficiencies",
+            "path": "proficiencies.weapons",
+            "type": "list",
+            "list": ["weapon_types", "weapon"],
+            "given": [
+                "simple melee",
+                "simple ranged",
+                "martial melee",
+                "martial ranged"
+            ]
+        }, {
+            "label": "Class Saving Throws",
+            "path": "proficiencies.saving_throws",
+            "type": "list",
+            "list": ["statistics"],
+            "given": ["strength", "dexterity"]
+        }, {
+            "label": "Class Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "limit": 3,
+            "filter": {
+                "code": [
+                    "animal handling",
+                    "athletics",
+                    "insight",
+                    "investigation",
+                    "nature",
+                    "perception",
+                    "stealth",
+                    "survival"
+                ]
+            }
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Scale mail",
+                "type": "list",
+                "list": ["armor"],
+                "path": "equipment",
+                "multiple": true,
+                "given": ["Scale mail"]
+            }, {
+                "label": "Leather Armor",
+                "type": "list",
+                "list": ["armor"],
+                "path": "equipment",
+                "multiple": true,
+                "given": ["Leather Armor"]
+            }]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "2 Shortswords",
+                "type": "list",
+                "list": ["weapon"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Shortsword",
+                    "Shortsword"
+                ]
+            }, {
+                "label": "2 Simple Weapons",
+                "type": "list",
+                "list": ["weapon"],
+                "path": "equipment",
+                "multiple": true,
+                "limit": 2,
+                "filter": {
+                    "type": [
                         "simple melee",
-                        "simple ranged",
-                        "martial melee",
-                        "martial ranged"
+                        "simple ranged"
                     ]
-                }, {
-                    "label": "Class Saving Throws",
-                    "path": "proficiencies.saving_throws",
-                    "type": "list",
-                    "list": ["statistics"],
-                    "given": ["strength", "dexterity"]
-                }, {
-                    "label": "Class Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "limit": 3,
-                    "filter": {
-                        "code": [
-                            "animal handling",
-                            "athletics",
-                            "insight",
-                            "investigation",
-                            "nature",
-                            "perception",
-                            "stealth",
-                            "survival"
-                        ]
-                    }
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Scale mail",
+                }
+            }]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Dungeoneer's Pack",
+                "type": "list",
+                "list": ["items"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Backpack",
+                    "Crowbar",
+                    "Hammer",
+                    "10 x Pitons",
+                    "5 x Torch",
+                    "Tinderbox",
+                    "10 x Day of Rations",
+                    "Waterskin",
+                    "50 Feet of Hempen Rope"
+                ]
+            }, {
+                "label": "Explorer's Pack",
+                "type": "list",
+                "list": ["items"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Backpack",
+                    "Bedroll",
+                    "Mess Kit",
+                    "Tinderbox",
+                    "10 x Torch",
+                    "10 x Day of Rations",
+                    "Waterskin",
+                    "50 Feet of Hempen Rope"
+                ]
+            }]
+        }, {
+            "label": "Bow & Arrows",
+            "path": "equipment",
+            "type": "list",
+            "list": ["weapon", "tools"],
+            "multiple": true,
+            "given": [
+                "Longbow",
+                "Quiver",
+                "20 x Arrow"
+            ]
+        }, {
+            "label": "Favored Enemy",
+            "type": "config",
+            "config": [{
+                "path": "abilities.Favored Enemy",
+                "type": "dict",
+                "dict": {
+                    "description": "You have significant experience studying, tracking, hunting, and even talking to a certain type of enemy. You have **Advantage** on **Wisdom (Survival)** checks to track **%(favored_enemy)s** enemies, as well as on **Intelligence** checks to recall information about them.",
+                    "favored_enemy_formula": "', '.join(character.favored.enemy or ['your Favored'])",
+                    "favored_enemy_default": "*your *Favored*"
+                }
+            }, {
+                "description": "Choose a type of favored enemy. You also learn one language of your choice that is spoken by your favored enemy, if they speak one at all.",
+                "type": "choice",
+                "options": [{
+                    "label": "Monsters",
+                    "type": "config",
+                    "config": [{
+                        "label": "Favored Enemy",
+                        "type": "config",
                         "type": "list",
-                        "list": ["armor"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Scale mail"]
-                    }, {
-                        "label": "Leather Armor",
-                        "type": "list",
-                        "list": ["armor"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Leather Armor"]
-                    }]
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "2 Shortswords",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Shortsword",
-                            "Shortsword"
-                        ]
-                    }, {
-                        "label": "2 Simple Weapons",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "limit": 2,
+                        "list": ["monster_types"],
+                        "path": "favored.enemy",
+                        "limit": 1,
                         "filter": {
-                            "type": [
-                                "simple melee",
-                                "simple ranged"
-                            ]
+                            "intelligent": false
                         }
                     }]
                 }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Dungeoneer's Pack",
-                        "type": "list",
-                        "list": ["items"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Crowbar",
-                            "Hammer",
-                            "10 x Pitons",
-                            "5 x Torch",
-                            "Tinderbox",
-                            "10 x Day of Rations",
-                            "Waterskin",
-                            "50 Feet of Hempen Rope"
-                        ]
-                    }, {
-                        "label": "Explorer's Pack",
-                        "type": "list",
-                        "list": ["items"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Bedroll",
-                            "Mess Kit",
-                            "Tinderbox",
-                            "10 x Torch",
-                            "10 x Day of Rations",
-                            "Waterskin",
-                            "50 Feet of Hempen Rope"
-                        ]
-                    }]
-                }, {
-                    "label": "Bow & Arrows",
-                    "path": "equipment",
-                    "type": "list",
-                    "list": ["weapon", "tools"],
-                    "multiple": true,
-                    "given": [
-                        "Longbow",
-                        "Quiver",
-                        "20 x Arrow"
-                    ]
-                }, {
-                    "label": "Favored Enemy",
+                    "label": "Celestial",
                     "type": "config",
                     "config": [{
-                        "path": "abilities.Favored Enemy",
-                        "type": "dict",
-                        "dict": {
-                            "description": "You have significant experience studying, tracking, hunting, and even talking to a certain type of enemy. You have **Advantage** on **Wisdom (Survival)** checks to track **%(favored_enemy)s** enemies, as well as on **Intelligence** checks to recall information about them.",
-                            "favored_enemy_formula": "', '.join(character.favored.enemy or ['your Favored'])",
-                            "favored_enemy_default": "*your *Favored*"
-                        }
+                        "label": "Favored Enemy",
+                        "type": "list",
+                        "list": ["monster_types"],
+                        "path": "favored.enemy",
+                        "given": ["Celestial"]
                     }, {
-                        "description": "Choose a type of favored enemy. You also learn one language of your choice that is spoken by your favored enemy, if they speak one at all.",
-                        "type": "choice",
-                        "options": [{
-                            "label": "Monsters",
-                            "type": "config",
-                            "config": [{
-                                "label": "Favored Enemy",
-                                "type": "config",
-                                "type": "list",
-                                "list": ["monster_types"],
-                                "path": "favored.enemy",
-                                "limit": 1,
-                                "filter": {
-                                    "intelligent": false
-                                }
-                            }]
-                        }, {
-                            "label": "Celestial",
-                            "type": "config",
-                            "config": [{
-                                "label": "Favored Enemy",
-                                "type": "list",
-                                "list": ["monster_types"],
-                                "path": "favored.enemy",
-                                "given": ["Celestial"]
-                            }, {
-                                "label": "Language",
-                                "type": "list",
-                                "list": ["languages"],
-                                "path": "languages",
-                                "given": ["celestial"]
-                            }]
-                        }, {
-                            "label": "Dragons",
-                            "type": "config",
-                            "config": [{
-                                "label": "Favored Enemy",
-                                "type": "list",
-                                "list": ["monster_types"],
-                                "path": "favored.enemy",
-                                "given": ["Dragon"]
-                            }, {
-                                "label": "Language",
-                                "type": "list",
-                                "list": ["languages"],
-                                "path": "languages",
-                                "given": ["draconic"]
-                            }]
-                        }, {
-                            "label": "Fey",
-                            "type": "config",
-                            "config": [{
-                                "label": "Favored Enemy",
-                                "type": "list",
-                                "list": ["monster_types"],
-                                "path": "favored.enemy",
-                                "given": ["Fey"]
-                            }, {
-                                "label": "Language",
-                                "type": "list",
-                                "list": ["languages"],
-                                "path": "languages",
-                                "given": ["sylvan"]
-                            }]
-                        }, {
-                            "label": "Giants",
-                            "type": "config",
-                            "config": [{
-                                "label": "Favored Enemy",
-                                "type": "list",
-                                "list": ["monster_types"],
-                                "path": "favored.enemy",
-                                "given": ["Giant"]
-                            }, {
-                                "label": "Language",
-                                "type": "list",
-                                "list": ["languages"],
-                                "path": "languages",
-                                "given": ["giant"]
-                            }]
-                        }, {
-                            "label": "Humanoids",
-                            "type": "config",
-                            "config": [{
-                                "label": "Favored Enemy",
-                                "path": "favored.enemy",
-                                "type": "list",
-                                "list": ["humanoid_types"],
-                                "limit": 2
-                            }, {
-                                "label": "Language",
-                                "type": "list",
-                                "list": ["languages"],
-                                "path": "languages",
-                                "limit": 1
-                            }]
-                        }]
+                        "label": "Language",
+                        "type": "list",
+                        "list": ["languages"],
+                        "path": "languages",
+                        "given": ["celestial"]
                     }]
                 }, {
-                    "label": "Natural Explorer",
+                    "label": "Dragons",
                     "type": "config",
                     "config": [{
-                        "path": "abilities.Natural Explorer",
-                        "type": "dict",
-                        "dict": {
-                            "description": "You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions. When you make an **Intelligence** or **Wisdom** check related to **%(favored_terrain)s** terrain, your **proficiency bonus** is doubled if you are using a skill that you're proficient in.While traveling for an hour or more in your favored terrain, you gain the following benefits:\n\n* Difficult terrain doesn't slow your group's travel.\n* Your group can't become lost except by magical means.\n* Even when you are engaged in another activity while traveling (such as foraging, navigating, or (racking), you remain alert to danger.\n* if you are traveling alone, you can move stealthily at a normal pace. When you forage, you find twice as much food as you normally would.\n* While tracking other creatures, you also learn (heir exact number, their sizes, and how long ago they passed through the area.",
-                            "favored_terrain_formula": "', '.join(character.favored.terrain or ['your *Favored*'])",
-                            "favored_terrain_default": "your *Favored*"
-                        }
-                    }, {
-                        "description": "Choose one type of favored terrain:",
+                        "label": "Favored Enemy",
                         "type": "list",
-                        "list": ["terrain_types"],
-                        "path": "favored.terrain",
+                        "list": ["monster_types"],
+                        "path": "favored.enemy",
+                        "given": ["Dragon"]
+                    }, {
+                        "label": "Language",
+                        "type": "list",
+                        "list": ["languages"],
+                        "path": "languages",
+                        "given": ["draconic"]
+                    }]
+                }, {
+                    "label": "Fey",
+                    "type": "config",
+                    "config": [{
+                        "label": "Favored Enemy",
+                        "type": "list",
+                        "list": ["monster_types"],
+                        "path": "favored.enemy",
+                        "given": ["Fey"]
+                    }, {
+                        "label": "Language",
+                        "type": "list",
+                        "list": ["languages"],
+                        "path": "languages",
+                        "given": ["sylvan"]
+                    }]
+                }, {
+                    "label": "Giants",
+                    "type": "config",
+                    "config": [{
+                        "label": "Favored Enemy",
+                        "type": "list",
+                        "list": ["monster_types"],
+                        "path": "favored.enemy",
+                        "given": ["Giant"]
+                    }, {
+                        "label": "Language",
+                        "type": "list",
+                        "list": ["languages"],
+                        "path": "languages",
+                        "given": ["giant"]
+                    }]
+                }, {
+                    "label": "Humanoids",
+                    "type": "config",
+                    "config": [{
+                        "label": "Favored Enemy",
+                        "path": "favored.enemy",
+                        "type": "list",
+                        "list": ["humanoid_types"],
+                        "limit": 2
+                    }, {
+                        "label": "Language",
+                        "type": "list",
+                        "list": ["languages"],
+                        "path": "languages",
                         "limit": 1
                     }]
                 }]
-            },
+            }]
+        }, {
+            "label": "Natural Explorer",
+            "type": "config",
+            "config": [{
+                "path": "abilities.Natural Explorer",
+                "type": "dict",
+                "dict": {
+                    "description": "You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions. When you make an **Intelligence** or **Wisdom** check related to **%(favored_terrain)s** terrain, your **proficiency bonus** is doubled if you are using a skill that you're proficient in.While traveling for an hour or more in your favored terrain, you gain the following benefits:\n\n* Difficult terrain doesn't slow your group's travel.\n* Your group can't become lost except by magical means.\n* Even when you are engaged in another activity while traveling (such as foraging, navigating, or (racking), you remain alert to danger.\n* if you are traveling alone, you can move stealthily at a normal pace. When you forage, you find twice as much food as you normally would.\n* While tracking other creatures, you also learn (heir exact number, their sizes, and how long ago they passed through the area.",
+                    "favored_terrain_formula": "', '.join(character.favored.terrain or ['your *Favored*'])",
+                    "favored_terrain_default": "your *Favored*"
+                }
+            }, {
+                "description": "Choose one type of favored terrain:",
+                "type": "list",
+                "list": ["terrain_types"],
+                "path": "favored.terrain",
+                "limit": 1
+            }]
+        }],
+        "phases": {
             "ranger-2": {
                 "conditions": {
-                    "level": 2,
-                    "creation": "ranger-1"
+                    "level": 2
                 },
                 "config": [{
                     "hidden": true,
@@ -10041,348 +10028,347 @@
             }
         }
     }, {
-        "name": "Sorcerer",
-        "filename": "sorcerer.md",
-        "phases": {
-            "sorcerer-1": {
-                "conditions": {
-                    "level": 1,
-                    "class": "Sorcerer"
-                },
+        "label": "Sorcerer",
+        "description": "Magic is a part of every sorcerer, suffusing body, mind, and spirit with a latent power that waits to be tapped. Some sorcerers wield magic that springs from an ancient bloodline infused with the magic of dragons. Others carry a raw, uncontrolled magic within them, a chaotic storm that manifests in unexpected ways.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "class",
+            "type": "value",
+            "value": "Sorcerer"
+        }, {
+            "hidden": true,
+            "path": "proficiency",
+            "type": "value",
+            "value": 2
+        }, {
+            "hidden": true,
+            "path": "hit_dice",
+            "type": "value",
+            "value": 6
+        }, {
+            "hidden": true,
+            "path": "computed.hit_points.formula",
+            "type": "value",
+            "value": "(6 + statistics.modifiers.constitution) + (4 + statistics.modifiers.constitution) * (level - 1)"
+        }, {
+            "hidden": true,
+            "path": "spell.stat",
+            "type": "value",
+            "value": "charisma"
+        }, {
+            "hidden": true,
+            "path": "spell.max_cantrips",
+            "type": "value",
+            "value": 4
+        }, {
+            "hidden": true,
+            "path": "spell.max_known",
+            "type": "value",
+            "value": 2
+        }, {
+            "hidden": true,
+            "path": "spell.slots",
+            "type": "dict",
+            "dict": {
+                "level_1": 2
+            }
+        }, {
+            "hidden": true,
+            "path": "computed.spellSafe_dc.formula",
+            "type": "value",
+            "value": "8 + character.proficiency + statistics.modifiers.charisma"
+        }, {
+            "hidden": true,
+            "path": "computed.spellAttack_modifier.formula",
+            "type": "value",
+            "value": "character.proficiency + statistics.modifiers.charisma"
+        }, {
+            "label": "Class Weapon Proficiencies",
+            "path": "proficiencies.weapons",
+            "type": "list",
+            "list": ["weapon_types", "weapon"],
+            "given": [
+                "Dagger",
+                "Dart",
+                "Sling",
+                "Quarterstaff",
+                "Crossbow, light"
+            ]
+        }, {
+            "label": "Class Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "limit": 2,
+            "filter": {
+                "code": [
+                    "arcana",
+                    "deception",
+                    "insight",
+                    "intimidation",
+                    "pursuasion",
+                    "religion"
+                ]
+            }
+        }, {
+            "label": "Class Saving Throws",
+            "path": "proficiencies.saving_throws",
+            "type": "list",
+            "list": ["statistics"],
+            "given": ["constitution", "charisma"]
+        }, {
+            "label": "Cantrips",
+            "path": "spell.list",
+            "type": "list",
+            "list": ["spell"],
+            "limit": 4,
+            "filter": {
+                "classes": "Sorcerer",
+                "level": "Cantrip"
+            }
+        }, {
+            "label": "Spells",
+            "path": "spell.list",
+            "type": "list",
+            "list": ["spell"],
+            "limit": 2,
+            "filter": {
+                "classes": "Sorcerer",
+                "level": ["1"]
+            }
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Crossbow",
+                "type": "list",
+                "list": ["weapon"],
+                "path": "equipment",
+                "multiple": true,
+                "given": ["Crossbow, light", "20 x Bolt"]
+            }, {
+                "label": "Simple Weapon",
+                "type": "list",
+                "list": ["weapon"],
+                "path": "equipment",
+                "multiple": true,
+                "limit": 1,
+                "filter": {
+                    "type": [
+                        "simple melee",
+                        "simple ranged"
+                    ]
+                }
+            }]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Component Pouch",
+                "type": "list",
+                "path": "equipment",
+                "multiple": true,
+                "given": ["Component Pouch"]
+            }, {
+                "label": "Arcane Focus",
+                "type": "list",
+                "path": "equipment",
+                "multiple": true,
+                "given": ["Arcane Focus"]
+            }]
+        }, {
+            "label": "Two daggers",
+            "type": "list",
+            "list": ["weapon"],
+            "path": "equipment",
+            "multiple": true,
+            "given": ["Dagger", "Dagger"]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Dungeoneer's Pack",
+                "type": "list",
+                "list": ["items"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Backpack",
+                    "Crowbar",
+                    "Hammer",
+                    "10 x Pitons",
+                    "5 x Torch",
+                    "Tinderbox",
+                    "10 x Day of Rations",
+                    "Waterskin",
+                    "50 Feet of Hempen Rope"
+                ]
+            }, {
+                "label": "Explorer's Pack",
+                "type": "list",
+                "list": ["items"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Backpack",
+                    "Bedroll",
+                    "Mess Kit",
+                    "Tinderbox",
+                    "10 x Torch",
+                    "10 x Day of Rations",
+                    "Waterskin",
+                    "50 Feet of Hempen Rope"
+                ]
+            }]
+        }, {
+            "label": "Sorcerous Origin",
+            "description": "Different sorcerers claim different origins for their innate magic. Although many variations exist, most of these origins fall into two categories: a draconic bloodline and wild magic.",
+            "type": "choice",
+            "options": [{
+                "label": "Draconic Bloodline",
+                "description": "Your innate magic comes from draconic magic that was mingled with your blood or that of your ancestors. Most often, sorcerers with this origin trace their descent back to a mighty sorcerer of ancient times who made a bargain with a dragon or who might even have claimed a dragon parent. Some of these bloodlines are well established in the world, hut most are obscure. Any given sorcerer could be the first of a new bloodline, as a result of a pact or some other exceptional circumstance.",
+                "type": "config",
                 "config": [{
                     "hidden": true,
-                    "path": "proficiency",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
-                    "path": "hit_dice",
-                    "type": "value",
-                    "value": 6
-                }, {
-                    "hidden": true,
-                    "path": "computed.hit_points.formula",
-                    "type": "value",
-                    "value": "(6 + statistics.modifiers.constitution) + (4 + statistics.modifiers.constitution) * (level - 1)"
-                }, {
-                    "hidden": true,
-                    "path": "spell.stat",
-                    "type": "value",
-                    "value": "charisma"
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_known",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 2
-                    }
-                }, {
-                    "hidden": true,
-                    "path": "computed.spellSafe_dc.formula",
-                    "type": "value",
-                    "value": "8 + character.proficiency + statistics.modifiers.charisma"
-                }, {
-                    "hidden": true,
-                    "path": "computed.spellAttack_modifier.formula",
-                    "type": "value",
-                    "value": "character.proficiency + statistics.modifiers.charisma"
-                }, {
-                    "label": "Class Weapon Proficiencies",
-                    "path": "proficiencies.weapons",
+                    "path": "origin",
                     "type": "list",
-                    "list": ["weapon_types", "weapon"],
-                    "given": [
-                        "Dagger",
-                        "Dart",
-                        "Sling",
-                        "Quarterstaff",
-                        "Crossbow, light"
-                    ]
+                    "given": ["Draconic"]
                 }, {
-                    "label": "Class Skill Proficiencies",
-                    "path": "proficiencies.skills",
+                    "label": "Draconic",
+                    "path": "languages",
                     "type": "list",
-                    "list": ["skills"],
-                    "limit": 2,
-                    "filter": {
-                        "code": [
-                            "arcana",
-                            "deception",
-                            "insight",
-                            "intimidation",
-                            "pursuasion",
-                            "religion"
-                        ]
-                    }
+                    "list": ["languages"],
+                    "given": ["draconic"]
                 }, {
-                    "label": "Class Saving Throws",
-                    "path": "proficiencies.saving_throws",
-                    "type": "list",
-                    "list": ["statistics"],
-                    "given": ["constitution", "charisma"]
+                    "path": "info.Dragon Ancestor",
+                    "type": "value",
+                    "value": "Whenever you make a **Charisma** check when interacting with dragons, your proficiency bonus is doubled if it applies to the check."
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 4,
-                    "filter": {
-                        "classes": "Sorcerer",
-                        "level": "Cantrip"
-                    }
-                }, {
-                    "label": "Spells",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 2,
-                    "filter": {
-                        "classes": "Sorcerer",
-                        "level": ["1"]
-                    }
-                }, {
+                    "description": "Choose one type of dragon as your ancestor. The damage type associated with each dragon is used by features you gain later.",
                     "type": "choice",
                     "options": [{
-                        "label": "Crossbow",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Crossbow, light", "20 x Bolt"]
+                        "label": "Black - Acid",
+                        "type": "dict",
+                        "path": "dragon",
+                        "dict": {
+                            "color": "Black",
+                            "damage": "Acid"
+                        }
                     }, {
-                        "label": "Simple Weapon",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "limit": 1,
-                        "filter": {
-                            "type": [
-                                "simple melee",
-                                "simple ranged"
-                            ]
+                        "label": "Blue - Lightning",
+                        "type": "dict",
+                        "path": "dragon",
+                        "dict": {
+                            "color": "Blue",
+                            "damage": "Lightning"
+                        }
+                    }, {
+                        "label": "Brass - Fire",
+                        "type": "dict",
+                        "path": "dragon",
+                        "dict": {
+                            "color": "Brass",
+                            "damage": "Fire"
+                        }
+                    }, {
+                        "label": "Bronze - Lightning",
+                        "type": "dict",
+                        "path": "dragon",
+                        "dict": {
+                            "color": "Bronze",
+                            "damage": "Lightning"
+                        }
+                    }, {
+                        "label": "Copper - Acid",
+                        "type": "dict",
+                        "path": "dragon",
+                        "dict": {
+                            "color": "Copper",
+                            "damage": "Acid"
+                        }
+                    }, {
+                        "label": "Gold - Fire",
+                        "type": "dict",
+                        "path": "dragon",
+                        "dict": {
+                            "color": "Gold",
+                            "damage": "Fire"
+                        }
+                    }, {
+                        "label": "Green - Poison",
+                        "type": "dict",
+                        "path": "dragon",
+                        "dict": {
+                            "color": "Green",
+                            "damage": "Poison"
+                        }
+                    }, {
+                        "label": "Red - Fire",
+                        "type": "dict",
+                        "path": "dragon",
+                        "dict": {
+                            "color": "Red",
+                            "damage": "Fire"
+                        }
+                    }, {
+                        "label": "Silver - Cold",
+                        "type": "dict",
+                        "path": "dragon",
+                        "dict": {
+                            "color": "Silver",
+                            "damage": "Cold"
+                        }
+                    }, {
+                        "label": "White - Cold",
+                        "type": "dict",
+                        "path": "dragon",
+                        "dict": {
+                            "color": "White",
+                            "damage": "Cold"
                         }
                     }]
                 }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Component Pouch",
-                        "type": "list",
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Component Pouch"]
-                    }, {
-                        "label": "Arcane Focus",
-                        "type": "list",
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Arcane Focus"]
-                    }]
-                }, {
-                    "label": "Two daggers",
+                    "hidden": true,
+                    "path": "computed.hit_points.bonus",
                     "type": "list",
-                    "list": ["weapon"],
-                    "path": "equipment",
-                    "multiple": true,
-                    "given": ["Dagger", "Dagger"]
+                    "given": ["1 * level"]
                 }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Dungeoneer's Pack",
-                        "type": "list",
-                        "list": ["items"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Crowbar",
-                            "Hammer",
-                            "10 x Pitons",
-                            "5 x Torch",
-                            "Tinderbox",
-                            "10 x Day of Rations",
-                            "Waterskin",
-                            "50 Feet of Hempen Rope"
-                        ]
-                    }, {
-                        "label": "Explorer's Pack",
-                        "type": "list",
-                        "list": ["items"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Bedroll",
-                            "Mess Kit",
-                            "Tinderbox",
-                            "10 x Torch",
-                            "10 x Day of Rations",
-                            "Waterskin",
-                            "50 Feet of Hempen Rope"
-                        ]
-                    }]
+                    "hidden": true,
+                    "path": "computed.unarmored.formula",
+                    "type": "value",
+                    "value": "13 + statistics.modifiers.dexterity"
                 }, {
-                    "label": "Sorcerous Origin",
-                    "description": "Different sorcerers claim different origins for their innate magic. Although many variations exist, most of these origins fall into two categories: a draconic bloodline and wild magic.",
-                    "type": "choice",
-                    "options": [{
-                        "label": "Draconic Bloodline",
-                        "description": "Your innate magic comes from draconic magic that was mingled with your blood or that of your ancestors. Most often, sorcerers with this origin trace their descent back to a mighty sorcerer of ancient times who made a bargain with a dragon or who might even have claimed a dragon parent. Some of these bloodlines are well established in the world, hut most are obscure. Any given sorcerer could be the first of a new bloodline, as a result of a pact or some other exceptional circumstance.",
-                        "type": "config",
-                        "config": [{
-                            "hidden": true,
-                            "path": "origin",
-                            "type": "list",
-                            "given": ["Draconic"]
-                        }, {
-                            "label": "Draconic",
-                            "path": "languages",
-                            "type": "list",
-                            "list": ["languages"],
-                            "given": ["draconic"]
-                        }, {
-                            "path": "info.Dragon Ancestor",
-                            "type": "value",
-                            "value": "Whenever you make a **Charisma** check when interacting with dragons, your proficiency bonus is doubled if it applies to the check."
-                        }, {
-                            "description": "Choose one type of dragon as your ancestor. The damage type associated with each dragon is used by features you gain later.",
-                            "type": "choice",
-                            "options": [{
-                                "label": "Black - Acid",
-                                "type": "dict",
-                                "path": "dragon",
-                                "dict": {
-                                    "color": "Black",
-                                    "damage": "Acid"
-                                }
-                            }, {
-                                "label": "Blue - Lightning",
-                                "type": "dict",
-                                "path": "dragon",
-                                "dict": {
-                                    "color": "Blue",
-                                    "damage": "Lightning"
-                                }
-                            }, {
-                                "label": "Brass - Fire",
-                                "type": "dict",
-                                "path": "dragon",
-                                "dict": {
-                                    "color": "Brass",
-                                    "damage": "Fire"
-                                }
-                            }, {
-                                "label": "Bronze - Lightning",
-                                "type": "dict",
-                                "path": "dragon",
-                                "dict": {
-                                    "color": "Bronze",
-                                    "damage": "Lightning"
-                                }
-                            }, {
-                                "label": "Copper - Acid",
-                                "type": "dict",
-                                "path": "dragon",
-                                "dict": {
-                                    "color": "Copper",
-                                    "damage": "Acid"
-                                }
-                            }, {
-                                "label": "Gold - Fire",
-                                "type": "dict",
-                                "path": "dragon",
-                                "dict": {
-                                    "color": "Gold",
-                                    "damage": "Fire"
-                                }
-                            }, {
-                                "label": "Green - Poison",
-                                "type": "dict",
-                                "path": "dragon",
-                                "dict": {
-                                    "color": "Green",
-                                    "damage": "Poison"
-                                }
-                            }, {
-                                "label": "Red - Fire",
-                                "type": "dict",
-                                "path": "dragon",
-                                "dict": {
-                                    "color": "Red",
-                                    "damage": "Fire"
-                                }
-                            }, {
-                                "label": "Silver - Cold",
-                                "type": "dict",
-                                "path": "dragon",
-                                "dict": {
-                                    "color": "Silver",
-                                    "damage": "Cold"
-                                }
-                            }, {
-                                "label": "White - Cold",
-                                "type": "dict",
-                                "path": "dragon",
-                                "dict": {
-                                    "color": "White",
-                                    "damage": "Cold"
-                                }
-                            }]
-                        }, {
-                            "hidden": true,
-                            "path": "computed.hit_points.bonus",
-                            "type": "list",
-                            "given": ["1 * level"]
-                        }, {
-                            "hidden": true,
-                            "path": "computed.unarmored.formula",
-                            "type": "value",
-                            "value": "13 + statistics.modifiers.dexterity"
-                        }, {
-                            "label": "Draconic Resilience",
-                            "path": "info.Draconic Resilience",
-                            "type": "value",
-                            "value": "Parts of your skin are covered by a thin sheen of dragon-like scales. When you aren't wearing armor, your AC equals 13 + your **Dexterity modifier**."
-                        }]
-                    }, {
-                        "label": "Wild Magic",
-                        "description": "Your innate magic comes from the wild forces of chaos that underlie the order of creation, You might have endured exposure to some form of raw magic, perhaps through a planar portal leading to _Limbo_, the _Elemental Planes_, or the mysterious _Far Realm_. Perhaps you were blessed by a powerful fey creature or marked by a demon. Or your magic could be a fluke of your birth, with no apparent cause or reason. However it came to be, this chaotic magic churns within you, waiting for any outlet.",
-                        "type": "config",
-                        "config": [{
-                            "hidden": true,
-                            "path": "origin",
-                            "type": "list",
-                            "given": ["Wild"]
-                        }, {
-                            "label": "Wild Magic Surge",
-                            "path": "info.Wild Magic Surge",
-                            "type": "value",
-                            "value": "Your spellcasting can unleash surges of untamed magic. Immediately after you cast a *sorcerer spell* of 1st level or higher, the DM can have you roll a `d20`. If you roll a `1`. roll on the *Wild Magic Surge* table (p104) to create a random magical effect."
-                        }, {
-                            "label": "Tides of Chaos",
-                            "path": "abilities.Tides of Chaos",
-                            "type": "dict",
-                            "dict": {
-                                "description": "You can manipulate the forces of chance and chaos to gain **Advantage** on one *attack roll*, ability check, or *saving throw*. Once you do so. you must finish a long rest before you can use this feature again.\nAny time before you regain the use of this feature, the DM can have you roll on the **Wild Magic Surge** table immediately after you cast a *sorcerer spell* of 1st level or higher. You then regain the use of this feature."
-                            }
-                        }]
-                    }]
+                    "label": "Draconic Resilience",
+                    "path": "info.Draconic Resilience",
+                    "type": "value",
+                    "value": "Parts of your skin are covered by a thin sheen of dragon-like scales. When you aren't wearing armor, your AC equals 13 + your **Dexterity modifier**."
                 }]
-            },
+            }, {
+                "label": "Wild Magic",
+                "description": "Your innate magic comes from the wild forces of chaos that underlie the order of creation, You might have endured exposure to some form of raw magic, perhaps through a planar portal leading to _Limbo_, the _Elemental Planes_, or the mysterious _Far Realm_. Perhaps you were blessed by a powerful fey creature or marked by a demon. Or your magic could be a fluke of your birth, with no apparent cause or reason. However it came to be, this chaotic magic churns within you, waiting for any outlet.",
+                "type": "config",
+                "config": [{
+                    "hidden": true,
+                    "path": "origin",
+                    "type": "list",
+                    "given": ["Wild"]
+                }, {
+                    "label": "Wild Magic Surge",
+                    "path": "info.Wild Magic Surge",
+                    "type": "value",
+                    "value": "Your spellcasting can unleash surges of untamed magic. Immediately after you cast a *sorcerer spell* of 1st level or higher, the DM can have you roll a `d20`. If you roll a `1`. roll on the *Wild Magic Surge* table (p104) to create a random magical effect."
+                }, {
+                    "label": "Tides of Chaos",
+                    "path": "abilities.Tides of Chaos",
+                    "type": "dict",
+                    "dict": {
+                        "description": "You can manipulate the forces of chance and chaos to gain **Advantage** on one *attack roll*, ability check, or *saving throw*. Once you do so. you must finish a long rest before you can use this feature again.\nAny time before you regain the use of this feature, the DM can have you roll on the **Wild Magic Surge** table immediately after you cast a *sorcerer spell* of 1st level or higher. You then regain the use of this feature."
+                    }
+                }]
+            }]
+        }],
+        "phases": {
             "sorcerer-2": {
                 "conditions": {
-                    "level": 2,
-                    "creation": "sorcerer-1"
+                    "level": 2
                 },
                 "config": [{
                     "hidden": true,
@@ -11773,382 +11759,381 @@
             }
         }
     },     {
-        "name": "Warlock",
-        "filename": "warlock.md",
-        "phases": {
-            "warlock-1": {
-                "conditions": {
-                    "level": 1,
-                    "class": "Warlock"
-                },
+        "label": "Warlock",
+        "description": "A warlock is defined by a pact with an otherworldly being. Sometimes the relationship between warlock and patron is like that of a cleric and a deity, though the beings that serve as patrons for warlocks are not gods. A warlock might lead a cult dedicated to a demon prince, an archdevil, or an utterly alien entity—beings not typically served by clerics. More often, though, the arrangement is similar to that between a master and an apprentice. The warlock learns and grows in power, at the cost of occasional services performed on the patron's behalf.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "class",
+            "type": "value",
+            "value": "Warlock"
+        }, {
+            "hidden": true,
+            "path": "proficiency",
+            "type": "value",
+            "value": 2
+        }, {
+            "hidden": true,
+            "path": "hit_dice",
+            "type": "value",
+            "value": 8
+        }, {
+            "hidden": true,
+            "path": "computed.hit_points.formula",
+            "type": "value",
+            "value": "(8 + statistics.modifiers.constitution) + (5 + statistics.modifiers.constitution) * (level - 1)"
+        }, {
+            "hidden": true,
+            "path": "spell.stat",
+            "type": "value",
+            "value": "charisma"
+        }, {
+            "hidden": true,
+            "path": "spell.max_cantrips",
+            "type": "value",
+            "value": 2
+        }, {
+            "hidden": true,
+            "path": "spell.max_known",
+            "type": "value",
+            "value": 2
+        }, {
+            "hidden": true,
+            "path": "spell.slots",
+            "type": "dict",
+            "dict": {
+                "level_1": 1
+            }
+        }, {
+            "hidden": true,
+            "path": "computed.spell_safe_dc.formula",
+            "type": "value",
+            "value": "8 + character.proficiency + statistics.modifiers.charisma"
+        }, {
+            "hidden": true,
+            "path": "computed.spell_attack_modifier.formula",
+            "type": "value",
+            "value": "character.proficiency + statistics.modifiers.charisma"
+        }, {
+            "label": "Class Armor Proficiencies",
+            "path": "proficiencies.armor",
+            "type": "list",
+            "list": ["armor_types", "armor"],
+            "given": ["light"]
+        }, {
+            "label": "Class Weapon Proficiencies",
+            "path": "proficiencies.weapons",
+            "type": "list",
+            "list": ["weapon_types", "weapon"],
+            "given": ["simple melee", "simple ranged"]
+        }, {
+            "label": "Class Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "limit": 2,
+            "filter": {
+                "code": [
+                    "arcana",
+                    "deception",
+                    "history",
+                    "intimidation",
+                    "investigation",
+                    "nature",
+                    "religion"
+                ]
+            }
+        }, {
+            "label": "Class Saving Throws",
+            "path": "proficiencies.saving_throws",
+            "type": "list",
+            "list": ["statistics"],
+            "given": [
+                "charisma",
+                "wisdom"
+            ]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Crossbow",
+                "type": "list",
+                "list": ["weapon"],
+                "path": "equipment",
+                "multiple": true,
+                "given": ["Crossbow, light", "20 x Bolt"]
+            }, {
+                "label": "Simple Weapon",
+                "type": "list",
+                "list": ["weapon"],
+                "path": "equipment",
+                "multiple": true,
+                "limit": 1,
+                "filter": {
+                    "type": [
+                        "simple melee",
+                        "simple ranged"
+                    ]
+                }
+            }]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Component Pouch",
+                "type": "list",
+                "path": "equipment",
+                "multiple": true,
+                "given": ["Component Pouch"]
+            }, {
+                "label": "Arcane Focus",
+                "type": "list",
+                "path": "equipment",
+                "multiple": true,
+                "given": ["Arcane Focus"]
+            }]
+        }, {
+            "type": "choice",
+            "options": [{
+                "label": "Dungeoneer's Pack",
+                "type": "list",
+                "list": ["items"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Backpack",
+                    "Crowbar",
+                    "Hammer",
+                    "10 x Pitons",
+                    "5 x Torch",
+                    "Tinderbox",
+                    "10 x Day of Rations",
+                    "Waterskin",
+                    "50 Feet of Hempen Rope"
+                ]
+            }, {
+                "label": "Scholar's Pack",
+                "type": "list",
+                "list": ["items"],
+                "path": "equipment",
+                "multiple": true,
+                "given": [
+                    "Backpack",
+                    "Book of Lore",
+                    "Bottle of Ink",
+                    "Ink Pen",
+                    "10 x Sheet of Parchment",
+                    "Little Bag of Sand",
+                    "Small Knife"
+                ]
+            }]
+        }, {
+            "label": "Class equipment",
+            "path": "equipment",
+            "type": "list",
+            "list": ["armor", "weapon"],
+            "multiple": true,
+            "limit": 1,
+            "filter": {
+                "type": [
+                    "simple melee",
+                    "simple ranged"
+                ]
+            },
+            "given": [
+                "Leather Armor",
+                "Dagger",
+                "Dagger"
+            ]
+        }, {
+            "label": "Cantrips",
+            "path": "spell.list",
+            "type": "list",
+            "list": ["spell"],
+            "limit": 2,
+            "filter": {
+                "classes": "Warlock",
+                "level": "Cantrip"
+            }
+        }, {
+            "label": "Spells",
+            "path": "spell.list",
+            "type": "list",
+            "list": ["spell"],
+            "limit": 2,
+            "filter": {
+                "classes": "Warlock",
+                "level": ["1"]
+            }
+        }, {
+            "label": "Otherworldly Patron",
+            "type": "choice",
+            "description": "You have struck a bargain with an otherworldly being of your choice. Your choice grants you special features.",
+            "options": [{
+                "label": "The Archfey",
+                "type": "config",
                 "config": [{
+                    "path": "patron",
+                    "type": "list",
                     "hidden": true,
-                    "path": "proficiency",
-                    "type": "value",
-                    "value": 2
+                    "given": ["Archfey"]
                 }, {
-                    "hidden": true,
-                    "path": "hit_dice",
-                    "type": "value",
-                    "value": 8
+                    "label": "Expanded Spell List",
+                    "path": "spell.expanded",
+                    "type": "list",
+                    "list": ["spell"],
+                    "given": [
+                        "Faerie Fire",
+                        "Sleep"
+                    ]
                 }, {
-                    "hidden": true,
-                    "path": "computed.hit_points.formula",
-                    "type": "value",
-                    "value": "(8 + statistics.modifiers.constitution) + (5 + statistics.modifiers.constitution) * (level - 1)"
-                }, {
-                    "hidden": true,
-                    "path": "spell.stat",
-                    "type": "value",
-                    "value": "charisma"
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_known",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
+                    "label": "Fey Presence",
+                    "path": "abilities.Fey Presence",
                     "type": "dict",
                     "dict": {
-                        "level_1": 1
+                        "description": "As an **Action**, you can cause each creature in a 10-foot cube originating from you to make a **Wisdom** saving throw against your warlock spell save DC `%(dc)s`. The creatures that fail their saving throw are all charmed or frightened by you (your choice) until the end of your next turn.\n\nOnce you use this feature, you can't use it again until you finish a short or long rest.",
+                        "dc_formula": "character.spell.safe_dc",
+                        "dc_default": "your **Spell DC**"
                     }
-                }, {
+                }]
+            }, {
+                "label": "The Celestial",
+                "type": "config",
+                "config": [{
+                    "path": "patron",
+                    "type": "list",
                     "hidden": true,
-                    "path": "computed.spell_safe_dc.formula",
-                    "type": "value",
-                    "value": "8 + character.proficiency + statistics.modifiers.charisma"
+                    "given": ["Celestial"]
                 }, {
+                    "label": "Expanded Spell List",
+                    "path": "spell.expanded",
+                    "type": "list",
+                    "list": ["spell"],
+                    "given": [
+                        "Sacred Flame",
+                        "Light",
+                        "Guiding Bolt",
+                        "Cure Wounds"
+                    ]
+                }, {
+                    "label": "Healing Light",
+                    "path": "abilities.Healing Light",
+                    "type": "dict",
+                    "dict": {
+                        "description": "At 1st level, you have a pool of `%(uses)sd6s` that you can spend to heal others.\n\nAs a *bonus action*, you can heal one creature you can see within 60 feet of you, spending dice from the pool. The maximum number of dice you can spend at once equals %(max)s. Roll the dice you spend, add them together, and restore a number of hit points equal to the total.\n\nYour pool regains all expended dice when you finish a long rest.",
+                        "uses_formula": "1 + character.level",
+                        "uses_default": "1 + your Character level",
+                        "max_formula": "statistics.modifiers.charisma",
+                        "max_default": "your **Charisma modifier**"
+                    }
+                }]
+            }, {
+                "label": "The Fiend",
+                "type": "config",
+                "config": [{
+                    "path": "patron",
+                    "type": "list",
                     "hidden": true,
-                    "path": "computed.spell_attack_modifier.formula",
-                    "type": "value",
-                    "value": "character.proficiency + statistics.modifiers.charisma"
+                    "given": ["Fiend"]
                 }, {
-                    "label": "Class Armor Proficiencies",
+                    "label": "Expanded Spell List",
+                    "path": "spell.expanded",
+                    "type": "list",
+                    "list": ["spell"],
+                    "given": [
+                        "Burning Hands",
+                        "Command"
+                    ]
+                }, {
+                    "label": "Dark One's Blessing",
+                    "path": "abilities.Dark One's Blessing",
+                    "type": "dict",
+                    "dict": {
+                        "description": "When you reduce a hostile creature to 0 hit points, you gain temporary hit points equal to %(thp)s.",
+                        "thp_formula": "max(1, character.level + statistics.modifiers.charisma)",
+                        "thp_default": "your Character level + your **Charisma modifier**"
+                    }
+                }]
+            }, {
+                "label": "The Great Old One",
+                "type": "config",
+                "config": [{
+                    "path": "patron",
+                    "type": "list",
+                    "hidden": true,
+                    "given": ["Great Old One"]
+                }, {
+                    "label": "Expanded Spell List",
+                    "path": "spell.expanded",
+                    "type": "list",
+                    "list": ["spell"],
+                    "given": [
+                        "Dissonant Whispers",
+                        "Tasha's Hideous Laughter"
+                    ]
+                }, {
+                    "label": "Awakened Mind",
+                    "path": "abilities.Awakened Mind",
+                    "type": "dict",
+                    "dict": {
+                        "description": "You can communicate telepathically with any creature you can see within 30 feet of you. You don't need to share a language with the creature for it to understand your telepathic utterances, but the creature must be able to understand at least one language. Additionally, the creature does not gain the ability to telepathically reply, despite you being able to speak to it."
+                    }
+                }]
+            }, {
+                "label": "The Hexblade",
+                "type": "config",
+                "config": [{
+                    "path": "patron",
+                    "type": "list",
+                    "hidden": true,
+                    "given": ["Hexblade"]
+                }, {
+                    "label": "Expanded Spell List",
+                    "path": "spell.expanded",
+                    "type": "list",
+                    "list": ["spell"],
+                    "given": [
+                        "Shield",
+                        "Wrathful Smite"
+                    ]
+                }, {
+                    "label": "Armor Proficiencies",
                     "path": "proficiencies.armor",
                     "type": "list",
                     "list": ["armor_types", "armor"],
-                    "given": ["light"]
+                    "given": ["medium", "shield"]
                 }, {
-                    "label": "Class Weapon Proficiencies",
+                    "label": "Weapon Proficiencies",
                     "path": "proficiencies.weapons",
                     "type": "list",
                     "list": ["weapon_types", "weapon"],
-                    "given": ["simple melee", "simple ranged"]
-                }, {
-                    "label": "Class Skill Proficiencies",
-                    "path": "proficiencies.skills",
-                    "type": "list",
-                    "list": ["skills"],
-                    "limit": 2,
-                    "filter": {
-                        "code": [
-                            "arcana",
-                            "deception",
-                            "history",
-                            "intimidation",
-                            "investigation",
-                            "nature",
-                            "religion"
-                        ]
-                    }
-                }, {
-                    "label": "Class Saving Throws",
-                    "path": "proficiencies.saving_throws",
-                    "type": "list",
-                    "list": ["statistics"],
                     "given": [
-                        "charisma",
-                        "wisdom"
+                        "martial melee",
+                        "martial ranged"
                     ]
                 }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Crossbow",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Crossbow, light", "20 x Bolt"]
-                    }, {
-                        "label": "Simple Weapon",
-                        "type": "list",
-                        "list": ["weapon"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "limit": 1,
-                        "filter": {
-                            "type": [
-                                "simple melee",
-                                "simple ranged"
-                            ]
-                        }
-                    }]
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Component Pouch",
-                        "type": "list",
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Component Pouch"]
-                    }, {
-                        "label": "Arcane Focus",
-                        "type": "list",
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": ["Arcane Focus"]
-                    }]
-                }, {
-                    "type": "choice",
-                    "options": [{
-                        "label": "Dungeoneer's Pack",
-                        "type": "list",
-                        "list": ["items"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Crowbar",
-                            "Hammer",
-                            "10 x Pitons",
-                            "5 x Torch",
-                            "Tinderbox",
-                            "10 x Day of Rations",
-                            "Waterskin",
-                            "50 Feet of Hempen Rope"
-                        ]
-                    }, {
-                        "label": "Scholar's Pack",
-                        "type": "list",
-                        "list": ["items"],
-                        "path": "equipment",
-                        "multiple": true,
-                        "given": [
-                            "Backpack",
-                            "Book of Lore",
-                            "Bottle of Ink",
-                            "Ink Pen",
-                            "10 x Sheet of Parchment",
-                            "Little Bag of Sand",
-                            "Small Knife"
-                        ]
-                    }]
-                }, {
-                    "label": "Class equipment",
-                    "path": "equipment",
-                    "type": "list",
-                    "list": ["armor", "weapon"],
-                    "multiple": true,
-                    "limit": 1,
-                    "filter": {
-                        "type": [
-                            "simple melee",
-                            "simple ranged"
-                        ]
-                    },
-                    "given": [
-                        "Leather Armor",
-                        "Dagger",
-                        "Dagger"
-                    ]
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 2,
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
+                    "label": "Hex Warrior",
+                    "path": "abilities.Hex Warrior",
+                    "type": "dict",
+                    "dict": {
+                        "description": "Whenever you finish a long rest, you can touch one weapon that you are proficient with and that lacks the two-handed property. When you attack with that weapon, you can use your Charisma modifier, instead of Strength or Dexterity, for the attack and damage rolls. This benefit lasts until you finish a long rest. If you later gain the *Pact of the Blade* feature, this benefit extends to every pact weapon you conjure with that feature, no matter the weapon's type."
                     }
                 }, {
-                    "label": "Spells",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 2,
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": ["1"]
+                    "label": "Hexblade's Curse",
+                    "path": "abilities.Hexblade's Curse",
+                    "type": "dict",
+                    "dict": {
+                        "description": "As a *bonus action*, choose one creature you can see within 30 feet of you. The curse ends early if the target dies, you die, or you are incapacitated. The target is cursed for 1 minute. Until the curse ends, you gain the following benefits:\n\n* You gain `+%(bonus)s` bonus to damage rolls against the cursed target.\n* Any attack roll you make against the cursed target is a critical hit on a roll of 19 or 20 on the d20.\n* If the cursed target dies, you regain hit points equal %(hp)s.\n\nYou can't use this feature again until you finish a short or long rest.",
+                        "bonus_formula": "character.proficiency",
+                        "bonus_default": "your **Proficiency**",
+                        "hp_formula": "character.level + statistics.modifiers.charisma",
+                        "hp_default": "your Character level + your **Charisma modifier**"
                     }
-                }, {
-                    "label": "Otherworldly Patron",
-                    "type": "choice",
-                    "description": "You have struck a bargain with an otherworldly being of your choice. Your choice grants you special features.",
-                    "options": [{
-                        "label": "The Archfey",
-                        "type": "config",
-                        "config": [{
-                            "path": "patron",
-                            "type": "list",
-                            "hidden": true,
-                            "given": ["Archfey"]
-                        }, {
-                            "label": "Expanded Spell List",
-                            "path": "spell.expanded",
-                            "type": "list",
-                            "list": ["spell"],
-                            "given": [
-                                "Faerie Fire",
-                                "Sleep"
-                            ]
-                        }, {
-                            "label": "Fey Presence",
-                            "path": "abilities.Fey Presence",
-                            "type": "dict",
-                            "dict": {
-                                "description": "As an **Action**, you can cause each creature in a 10-foot cube originating from you to make a **Wisdom** saving throw against your warlock spell save DC `%(dc)s`. The creatures that fail their saving throw are all charmed or frightened by you (your choice) until the end of your next turn.\n\nOnce you use this feature, you can't use it again until you finish a short or long rest.",
-                                "dc_formula": "character.spell.safe_dc",
-                                "dc_default": "your **Spell DC**"
-                            }
-                        }]
-                    }, {
-                        "label": "The Celestial",
-                        "type": "config",
-                        "config": [{
-                            "path": "patron",
-                            "type": "list",
-                            "hidden": true,
-                            "given": ["Celestial"]
-                        }, {
-                            "label": "Expanded Spell List",
-                            "path": "spell.expanded",
-                            "type": "list",
-                            "list": ["spell"],
-                            "given": [
-                                "Sacred Flame",
-                                "Light",
-                                "Guiding Bolt",
-                                "Cure Wounds"
-                            ]
-                        }, {
-                            "label": "Healing Light",
-                            "path": "abilities.Healing Light",
-                            "type": "dict",
-                            "dict": {
-                                "description": "At 1st level, you have a pool of `%(uses)sd6s` that you can spend to heal others.\n\nAs a *bonus action*, you can heal one creature you can see within 60 feet of you, spending dice from the pool. The maximum number of dice you can spend at once equals %(max)s. Roll the dice you spend, add them together, and restore a number of hit points equal to the total.\n\nYour pool regains all expended dice when you finish a long rest.",
-                                "uses_formula": "1 + character.level",
-                                "uses_default": "1 + your Character level",
-                                "max_formula": "statistics.modifiers.charisma",
-                                "max_default": "your **Charisma modifier**"
-                            }
-                        }]
-                    }, {
-                        "label": "The Fiend",
-                        "type": "config",
-                        "config": [{
-                            "path": "patron",
-                            "type": "list",
-                            "hidden": true,
-                            "given": ["Fiend"]
-                        }, {
-                            "label": "Expanded Spell List",
-                            "path": "spell.expanded",
-                            "type": "list",
-                            "list": ["spell"],
-                            "given": [
-                                "Burning Hands",
-                                "Command"
-                            ]
-                        }, {
-                            "label": "Dark One's Blessing",
-                            "path": "abilities.Dark One's Blessing",
-                            "type": "dict",
-                            "dict": {
-                                "description": "When you reduce a hostile creature to 0 hit points, you gain temporary hit points equal to %(thp)s.",
-                                "thp_formula": "max(1, character.level + statistics.modifiers.charisma)",
-                                "thp_default": "your Character level + your **Charisma modifier**"
-                            }
-                        }]
-                    }, {
-                        "label": "The Great Old One",
-                        "type": "config",
-                        "config": [{
-                            "path": "patron",
-                            "type": "list",
-                            "hidden": true,
-                            "given": ["Great Old One"]
-                        }, {
-                            "label": "Expanded Spell List",
-                            "path": "spell.expanded",
-                            "type": "list",
-                            "list": ["spell"],
-                            "given": [
-                                "Dissonant Whispers",
-                                "Tasha's Hideous Laughter"
-                            ]
-                        }, {
-                            "label": "Awakened Mind",
-                            "path": "abilities.Awakened Mind",
-                            "type": "dict",
-                            "dict": {
-                                "description": "You can communicate telepathically with any creature you can see within 30 feet of you. You don't need to share a language with the creature for it to understand your telepathic utterances, but the creature must be able to understand at least one language. Additionally, the creature does not gain the ability to telepathically reply, despite you being able to speak to it."
-                            }
-                        }]
-                    }, {
-                        "label": "The Hexblade",
-                        "type": "config",
-                        "config": [{
-                            "path": "patron",
-                            "type": "list",
-                            "hidden": true,
-                            "given": ["Hexblade"]
-                        }, {
-                            "label": "Expanded Spell List",
-                            "path": "spell.expanded",
-                            "type": "list",
-                            "list": ["spell"],
-                            "given": [
-                                "Shield",
-                                "Wrathful Smite"
-                            ]
-                        }, {
-                            "label": "Armor Proficiencies",
-                            "path": "proficiencies.armor",
-                            "type": "list",
-                            "list": ["armor_types", "armor"],
-                            "given": ["medium", "shield"]
-                        }, {
-                            "label": "Weapon Proficiencies",
-                            "path": "proficiencies.weapons",
-                            "type": "list",
-                            "list": ["weapon_types", "weapon"],
-                            "given": [
-                                "martial melee",
-                                "martial ranged"
-                            ]
-                        }, {
-                            "label": "Hex Warrior",
-                            "path": "abilities.Hex Warrior",
-                            "type": "dict",
-                            "dict": {
-                                "description": "Whenever you finish a long rest, you can touch one weapon that you are proficient with and that lacks the two-handed property. When you attack with that weapon, you can use your Charisma modifier, instead of Strength or Dexterity, for the attack and damage rolls. This benefit lasts until you finish a long rest. If you later gain the *Pact of the Blade* feature, this benefit extends to every pact weapon you conjure with that feature, no matter the weapon's type."
-                            }
-                        }, {
-                            "label": "Hexblade's Curse",
-                            "path": "abilities.Hexblade's Curse",
-                            "type": "dict",
-                            "dict": {
-                                "description": "As a *bonus action*, choose one creature you can see within 30 feet of you. The curse ends early if the target dies, you die, or you are incapacitated. The target is cursed for 1 minute. Until the curse ends, you gain the following benefits:\n\n* You gain `+%(bonus)s` bonus to damage rolls against the cursed target.\n* Any attack roll you make against the cursed target is a critical hit on a roll of 19 or 20 on the d20.\n* If the cursed target dies, you regain hit points equal %(hp)s.\n\nYou can't use this feature again until you finish a short or long rest.",
-                                "bonus_formula": "character.proficiency",
-                                "bonus_default": "your **Proficiency**",
-                                "hp_formula": "character.level + statistics.modifiers.charisma",
-                                "hp_default": "your Character level + your **Charisma modifier**"
-                            }
-                        }]
-                    }]
                 }]
-            },
+            }]
+        }],
+        "phases": {
             "warlock-2": {
                 "conditions": {
-                    "level": 2,
-                    "creation": "warlock-1"
+                    "level": 2
                 },
                 "config": [{
                     "hidden": true,
@@ -12598,7 +12583,6 @@
             "warlock-2-archfey": {
                 "conditions": {
                     "level": 2,
-                    "creation": "warlock-1",
                     "patron": ["Archfey"]
                 },
                 "config": [{
@@ -12615,7 +12599,6 @@
             "warlock-2-celestial": {
                 "conditions": {
                     "level": 2,
-                    "creation": "warlock-1",
                     "patron": ["Celestial"]
                 },
                 "config": [{
@@ -12632,7 +12615,6 @@
             "warlock-2-fiend": {
                 "conditions": {
                     "level": 2,
-                    "creation": "warlock-1",
                     "patron": ["Fiend"]
                 },
                 "config": [{
@@ -12649,7 +12631,6 @@
             "warlock-2-great-old-one": {
                 "conditions": {
                     "level": 2,
-                    "creation": "warlock-1",
                     "patron": ["Great Old One"]
                 },
                 "config": [{
@@ -12666,7 +12647,6 @@
             "warlock-2-hexblade": {
                 "conditions": {
                     "level": 2,
-                    "creation": "warlock-1",
                     "patron": ["Hexblade"]
                 },
                 "config": [{
