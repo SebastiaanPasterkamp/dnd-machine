@@ -1,0 +1,49 @@
+{
+    "description": [{
+        "path": "name",
+        "type": "manual",
+        "label": "Name",
+        "placeholder": "Name..."
+    }, {
+        "type": "select",
+        "path": "alignment",
+        "label": "Alignment",
+        "list": ["alignments"]
+    }, {
+        "type": "select",
+        "path": "gender",
+        "label": "Gender",
+        "list": ["genders"]
+    }],
+    "personality": [{
+        "type": "manual",
+        "path": "personality.traits",
+        "label": "Traits",
+        "placeholder": "Traits...",
+        "markup": true
+    }, {
+        "type": "manual",
+        "path": "personality.ideals",
+        "label": "Ideals",
+        "placeholder": "Ideals...",
+        "markup": true
+    }, {
+        "type": "manual",
+        "path": "personality.bonds",
+        "label": "Bonds",
+        "placeholder": "Bonds...",
+        "markup": true
+    }, {
+        "type": "manual",
+        "path": "personality.flaws",
+        "label": "Flaws",
+        "placeholder": "Flaws...",
+        "markup": true
+    }, {
+        "type": "manual",
+        "path": "backstory",
+        "label": "Backstory",
+        "placeholder": "Backstory...",
+        "markup": true
+    }]
+}

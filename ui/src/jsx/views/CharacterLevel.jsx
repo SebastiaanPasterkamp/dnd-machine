@@ -118,24 +118,25 @@ export class CharacterLevel extends React.Component
 
     render() {
         const {
-            character, level_up = {}, statistics, _statistics
+            character,
+            config,
+            abilityScoreIncrease,
+            _statistics,
         } = this.props;
-        const {
-            config = [],
-            creation,
-        } = level_up;
 
-        if (!config.length) {
+        if (_.isEmpty(config)) {
             return null;
         }
 
-        const statsBlock = creation.length
+        const statsBlock = _.isEmpty(character.creation)
             ? {
                 editBase: true,
                 budget: 27,
                 maxBare: 15,
+                increase: abilityScoreIncrease,
             } : {
                 editBase: false,
+                increase: abilityScoreIncrease,
             };
 
         return [
@@ -145,7 +146,7 @@ export class CharacterLevel extends React.Component
                 header="Level-up"
                 >
                 <CharacterConfig
-                    config={ this.computeConfig(config, character) }
+                    config={ config }
                     />
             </Panel>,
 
@@ -158,5 +159,6 @@ export class CharacterLevel extends React.Component
 };
 
 export default CharacterEditorWrapper(
-    CharacterLevel
+    CharacterLevel,
+    ['character', 'config', 'abilityScoreIncrease'],
 );
