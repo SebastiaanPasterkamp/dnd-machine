@@ -25,59 +25,10 @@ import CharacterConfig from '../components/Character/CharacterConfig.jsx';
 import StatisticsSelect from '../components/Character/StatisticsSelect.jsx';
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
+import baseConfig from '../components/Character/baseConfig.json';
+
 export class CharacterCreate extends React.Component
 {
-    baseConfig = [{
-        type: 'manual',
-        path: 'name',
-        label: 'Name',
-        placeholder: 'Name...',
-    }, {
-        type: 'select',
-        path: 'alignment',
-        label: 'Alignment',
-        list: ['alignments'],
-    }, {
-        type: 'select',
-        path: 'gender',
-        label: 'Gender',
-        list: ['genders'],
-    }, {
-        type: 'config',
-        label: 'Personality',
-        config: [{
-            type: 'manual',
-            path: 'personality.traits',
-            label: 'Traits',
-            placeholder: 'Traits...',
-            markup: true,
-        }, {
-            type: 'manual',
-            path: 'personality.ideals',
-            label: 'Ideals',
-            placeholder: 'Ideals...',
-            markup: true,
-        }, {
-            type: 'manual',
-            path: 'personality.bonds',
-            label: 'Bonds',
-            placeholder: 'Bonds...',
-            markup: true,
-        }, {
-            type: 'manual',
-            path: 'personality.flaws',
-            label: 'Flaws',
-            placeholder: 'Flaws...',
-            markup: true,
-        }],
-    }, {
-        type: 'manual',
-        path: 'backstory',
-        label: 'Backstory',
-        placeholder: 'Backstory...',
-        markup: true,
-    }];
-
     constructor(props) {
         super(props);
         this.tabConfig = [{
@@ -209,7 +160,10 @@ export class CharacterCreate extends React.Component
                 maxBare={ 15 }
                 />
             <CharacterConfig
-                config={ this.baseConfig }
+                config={ _.concat(
+                    baseConfig.description,
+                    baseConfig.personality,
+                ) }
                 />
             <Panel
                 header="Result"

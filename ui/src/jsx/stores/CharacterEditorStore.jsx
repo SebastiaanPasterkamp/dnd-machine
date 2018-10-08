@@ -14,6 +14,7 @@ class CharacterEditorStore extends Reflux.Store
             original: {},
             abilityScoreIncrease: 0,
             character: {},
+            config: {},
         };
         this.listenables = CharacterEditorActions;
 
@@ -28,6 +29,7 @@ class CharacterEditorStore extends Reflux.Store
             original,
             abilityScoreIncrease,
             character,
+            config,
             ...rest
         } = this.state;
         const state = _.assign(
@@ -35,6 +37,7 @@ class CharacterEditorStore extends Reflux.Store
                 original: {},
                 abilityScoreIncrease: 0,
                 character: {},
+                config: {},
             },
             _.fromPairs(
                 _.map(rest, (value, key) => [key, undefined])
@@ -48,8 +51,15 @@ class CharacterEditorStore extends Reflux.Store
             original,
             abilityScoreIncrease,
             character: old,
+            config: oldConfig,
             ...changes,
         } = this.state;
+        const {
+            level_up: {
+                config = [],
+                creation,
+            } = {},
+        } = original;
 
         const character = ComputeChange(
             changes,
@@ -59,7 +69,77 @@ class CharacterEditorStore extends Reflux.Store
 
         this.setState({
             character,
+            config: this.computeConfig(
+                config,
+                character,
+            ),
         });
+    }
+
+    computeConfig(config, character) {
+        if (_.isPlainObject(config)) {
+            let changed = false;
+            const newConfig = _.reduce(
+                config,
+                (newConfig, value, key) => {
+                    newConfig[key] = value;
+                    if (key.match(/_formula$/)) {
+                        const root = _.replace(key, /_formula$/, '');
+                        try {
+                            const newValue = utils.resolveMath(
+                                character,
+                                value,
+                                'character'
+                            );
+                            if (newValue != value) {
+                                changed = true;
+                                newConfig[root] = newValue;
+                            }
+                        } catch(error) {
+                            if (config[root + '_default'] != value) {
+                                changed = true;
+                                newConfig[root] = config[root + '_default'];
+                            }
+                        }
+                    } else {
+                        const newValue = this.computeConfig(
+                            value,
+                            character,
+                        );
+                        if (newValue != value) {
+                            changed = true;
+                            newConfig[key] = newValue;
+                        }
+                    }
+                    return newConfig;
+                },
+                {}
+            );
+            if (changed) {
+                return newConfig;
+            }
+        } else if (_.isObject(config)) {
+            let changed = false;
+            const newConfig = _.map(
+                config,
+                value => {
+                    const newValue = this.computeConfig(
+                        value,
+                        character,
+                    );
+                    if (newValue != value) {
+                        changed = true;
+                        return newValue;
+                    }
+                    return value;
+                }
+            );
+            if (changed) {
+                return newConfig;
+            }
+        }
+
+        return config;
     }
 
     onEditCharacterCompleted(original) {

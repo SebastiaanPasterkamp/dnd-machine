@@ -5,14 +5,20 @@ import _ from 'lodash';
 import actions from '../actions/CharacterEditorActions.jsx';
 import store from '../stores/CharacterEditorStore.jsx';
 
-function CharacterEditorWrapper(WrappedComponent) {
+function CharacterEditorWrapper(
+    WrappedComponent,
+    storeKeys=[],
+) {
 
     const CharacterEditorComponent = class extends Reflux.Component {
 
         constructor(props) {
             super(props);
             this.store = store;
-            this.storeKeys = ['character'];
+            this.storeKeys = _.concat(
+                storeKeys,
+                ['character']
+            );
             this._id = _.uniqueId();
         }
 
@@ -20,10 +26,11 @@ function CharacterEditorWrapper(WrappedComponent) {
             super.componentWillMount.call(this);
 
             const id = _.get(this.props, 'match.params.id');
-            if (id == null) {
+            const path = _.get(this.props, 'match.path');
+
+            if (path == null) {
                 return;
             }
-            const path = _.get(this.props, 'match.path');
             if (path.match('reset')) {
                 actions.resetCharacter(id);
             } else {
@@ -79,8 +86,12 @@ function CharacterEditorWrapper(WrappedComponent) {
         render() {
             const {
                 path,
-                ...rest
+                ...restProps
             } = this.props;
+            const restState = _.pick(
+                this.state,
+                storeKeys
+            );
 
             let props = {
                 onSave: this.onSave,
@@ -93,7 +104,8 @@ function CharacterEditorWrapper(WrappedComponent) {
             }
 
             return <WrappedComponent
-                {...rest}
+                {...this.state}
+                {...restProps}
                 {...props}
                 />
         }

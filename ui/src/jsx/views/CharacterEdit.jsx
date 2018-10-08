@@ -8,7 +8,8 @@ import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
-import {CharacterLevel} from './CharacterLevel.jsx';
+import CharacterConfig from '../components/Character/CharacterConfig.jsx';
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
@@ -20,6 +21,8 @@ import StatsBlock from '../components/StatsBlock.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import Progress from '../components/Progress.jsx';
 import TagContainer from '../components/TagContainer.jsx';
+
+import baseConfig from '../components/Character/baseConfig.json';
 
 const viewConfig = {
     className: 'character-edit',
@@ -36,191 +39,118 @@ export class CharacterEdit extends React.Component
         });
     }
 
-    render() {
+    onSave = () => {
         const {
-            level = 1, 'class': _class, race, background,
-            xp_progress = 0, xp_level = 300, name, alignment,
-            alignments, gender, genders, height, weight, age,
-            appearance, spell = {}, _spells = [], backstory,
-            personality = {},
+            onUpdate,
+            history,
         } = this.props;
 
-        const filtered_spells = _.filter(_spells, item => {
-            const level = 'level_' + item.level;
-            if (_.includes(spell.prepared, item.name)) {
-                return false;
-            }
-            if (!_.includes(item.classes, _class)) {
-                return false;
-            }
-            if (item.level == 'Cantrip') {
-                return true;
-            }
-            if (level in spell.slots && spell.slots[level]) {
-                return true;
-            }
-            return false;
-        });
+        onUpdate((id) => history.push(`/character/show/${ id }`));
+    }
 
-        return <React.Fragment>
-            <CharacterLevel
-                key="level-up"
-                {...this.props}
-                />
+    render() {
+        const {
+            character = {},
+            config,
+            abilityScoreIncrease,
+            _statistics,
+        } = this.props;
 
-            <Panel
+        const {
+            name,
+            level,
+            'class': _class,
+            race,
+            background,
+            xp_progress = 0,
+            xp_level = 300,
+        } = character;
+
+        return (
+            <React.Fragment>
+
+                { !_.isEmpty(config) ? (
+                    <Panel
+                        key="level-up"
+                        className="character-edit__level-up"
+                        header="Level Up"
+                    >
+                        <CharacterConfig
+                            key="level-up"
+                            config={ config }
+                            />
+                    </Panel>
+                ) : null }
+
+                { abilityScoreIncrease ? (
+                    <Panel
+                        key="statistics"
+                        className="character-edit__statistics"
+                        header="Statistics"
+                    >
+                        <StatisticsSelect
+                            editBase={ false }
+                            increase={ abilityScoreIncrease }
+                            />
+                    </Panel>
+                ) : null }
+
+                <Panel
                     key="description"
                     className="character-edit__description"
                     header="Description"
                 >
-                Level {level} {_class} {race} ({background})
-                <Progress
-                    value={xp_progress}
-                    total={xp_level}
-                    color={"good"}
-                    labels={[
-                        {
-                            value: 0.30,
-                            label: xp_progress
-                                + " / "
-                                + xp_level
-                        },
-                        {
-                            value: 0.20,
-                            label: xp_progress
-                        },
-                        {
-                            value: 0.10,
-                            label: level
-                        }
-                    ]}
-                    />
-                <ControlGroup label="Name">
-                    <InputField
-                        placeholder="Name..."
-                        value={name}
-                        setState={(value) => {
-                            this.onFieldChange('name', value);
-                        }} />
-                </ControlGroup>
-                <ControlGroup label="Alignment">
-                    <SingleSelect
-                        emptyLabel="Alignment..."
-                        selected={alignment}
-                        items={alignments || []}
-                        setState={(value) => {
-                            this.onFieldChange('alignment', value);
-                        }} />
-                </ControlGroup>
-                <ControlGroup label="Gender">
-                    <SingleSelect
-                        emptyLabel="Gender..."
-                        selected={gender}
-                        items={genders || []}
-                        setState={(value) => {
-                            this.onFieldChange('gender', value);
-                        }} />
-                </ControlGroup>
-                <ControlGroup labels={["Height", "ft."]}>
-                    <InputField
-                        type="float"
-                        placeholder="Height..."
-                        value={height}
-                        setState={(value) => {
-                            this.onFieldChange('height', value);
-                        }} />
-                </ControlGroup>
-                <ControlGroup labels={["Weight", "lb."]}>
-                    <InputField
-                        type="float"
-                        placeholder="Weight..."
-                        value={weight}
-                        setState={(value) => {
-                            this.onFieldChange('weight', value);
-                        }} />
-                </ControlGroup>
-                <ControlGroup labels={["Age", "years old"]}>
-                    <InputField
-                        type="number"
-                        placeholder="Age..."
-                        value={age}
-                        setState={(value) => {
-                            this.onFieldChange('age', value);
-                        }} />
-                </ControlGroup>
-                <ControlGroup label="Appearance">
-                    <MarkdownTextField
-                        placeholder="Appearance..."
-                        value={appearance}
-                        rows={5}
-                        setState={(value) => {
-                            this.onFieldChange('appearance', value);
-                        }} />
-                </ControlGroup>
-                {spell.max_prepared
-                    ? <ControlGroup label="Prepared Spells">
-                        <TagContainer
-                            value={spell.list.concat(spell.prepared)}
-                            items={filtered_spells}
-                            setState={(value) => {
-                                const prepared = _.difference(
-                                    value, spell.list
-                                );
-                                const update = _.assign(
-                                    {}, spell, {prepared}
-                                );
-                                this.onFieldChange('spell', update);
-                            }}
-                            showSelect={
-                                spell.prepared.length < spell.max_prepared
-                            }
-                            />
-                    </ControlGroup>
-                    : null
-                }
-            </Panel>
 
-            <Panel
+                    Level {level} {_class} {race} ({background})
+
+                    <Progress
+                        value={xp_progress}
+                        total={xp_level}
+                        color={"good"}
+                        labels={[
+                            {
+                                value: 0.30,
+                                label: xp_progress
+                                    + " / "
+                                    + xp_level
+                            },
+                            {
+                                value: 0.20,
+                                label: xp_progress
+                            },
+                            {
+                                value: 0.10,
+                                label: level
+                            }
+                        ]}
+                    />
+
+                    <CharacterConfig
+                        config={ baseConfig.description }
+                        />
+
+                    <ButtonField
+                        label="Save"
+                        className="primary"
+                        onClick={this.onSave}
+                        />
+
+                </Panel>
+
+                <Panel
                     key="personality"
                     className="character-edit__personality"
                     header="Personality"
                 >
-                {_.map({
-                    'traits': 'Traits',
-                    'ideals': 'Ideals',
-                    'bonds': 'Bonds',
-                    'flaws': 'Flaws'
-                }, (label, field) => {
-                    return <ControlGroup key={label} label={label}>
-                    <MarkdownTextField
-                        placeholder={label + "..."}
-                        value={personality[field]}
-                        rows={5}
-                        setState={(value) => {
-                            const update = _.assign(
-                                {},
-                                personality,
-                                {[field]: value}
-                            );
-                            this.onFieldChange('personality', update);
-                        }} />
-                </ControlGroup>})}
-            </Panel>
 
-            <Panel
-                    key="backstory"
-                    className="character-edit__backstory"
-                    header="Backstory"
-                >
-                <MarkdownTextField
-                    placeholder="Backstory..."
-                    value={backstory}
-                    rows={15}
-                    setState={(value) => {
-                        this.onFieldChange('backstory', value);
-                    }} />
-            </Panel>
-        </React.Fragment>;
+                    <CharacterConfig
+                        config={ baseConfig.personality }
+                        />
+
+                </Panel>
+
+            </React.Fragment>
+        );
     }
 };
 
@@ -228,36 +158,7 @@ export const CharacterEditView = BaseViewWrapper(
     CharacterEdit, viewConfig
 );
 
-export default ListDataWrapper(
-    RoutedObjectDataWrapper(
-        ObjectDataWrapper(
-            CharacterEdit,
-            [{type: 'character', id: 'id'}]
-        ), viewConfig, "character"
-    ),
-    [
-        'alignments',
-        'genders',
-        'languages',
-        'skills',
-        'spell',
-        'statistics',
-        'tools',
-        'weapon_types',
-        'weapon',
-        'armor_types',
-        'armor',
-        'monster_types',
-        'humanoid_types',
-        'terrain_types',
-    ],
-    'items',
-    {
-        'armor': '_armor',
-        'spell': '_spells',
-        'languages': '_languages',
-        'skills': '_skills',
-        'statistics': '_statistics',
-        'weapon': '_weapons',
-    }
+export default CharacterEditorWrapper(
+    CharacterEditView,
+    ['character', 'config', 'abilityScoreIncrease'],
 );
