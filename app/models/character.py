@@ -502,8 +502,7 @@ class CharacterObject(JsonObject):
                     levelUp["config"] += phase["config"]
 
         levelUp['creation'] = list(levelUp['creation'])
-        levelUp['config'] = self._expandFormulas(levelUp['config'])
-
+        levelUp['config'] = levelUp['config']
         return levelUp
 
     def _find_caracter_field(self, field, value):

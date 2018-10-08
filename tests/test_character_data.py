@@ -21,43 +21,28 @@ class CharacterDataTestCase(unittest.TestCase):
             'race': {
                 'instance': list,
                 'required': True,
-                'callback': lambda r, p: self.verifyStruct(r, {
-                    'name': {
-                        'instance': unicode,
-                        'required': True,
-                        },
-                    'filename': {
-                        'instance': unicode,
-                        },
-                    'description': {
-                        'instance': unicode,
-                        'required': True,
-                        },
-                    'sub': {
-                        'instance': list,
-                        'callback': self.checkSubrace,
-                        },
-                    'phases': {
-                        'instance': dict,
-                        'required': True,
-                        'callback': self.checkPhase,
-                        },
-                    }, p),
+                'callback': self.checkConfig,
                 },
             'class': {
                 'instance': list,
                 'required': True,
                 'callback': lambda c, p: self.verifyStruct(c, {
-                    'name': {
+                    'label': {
                         'instance': unicode,
                         'required': True,
-                        },
-                    'filename': {
-                        'instance': unicode,
                         },
                     'description': {
                         'instance': unicode,
                         'required': True,
+                        },
+                    'type': {
+                        'one-of': ['config'],
+                        'required': True,
+                        },
+                    'config': {
+                        'instance': list,
+                        'required': True,
+                        'callback': self.checkConfig,
                         },
                     'phases': {
                         'instance': dict,
@@ -71,24 +56,7 @@ class CharacterDataTestCase(unittest.TestCase):
             'background': {
                 'instance': list,
                 'required': True,
-                'callback': lambda b, p: self.verifyStruct(b, {
-                    'name': {
-                        'instance': unicode,
-                        'required': True,
-                        },
-                    'filename': {
-                        'instance': unicode,
-                        },
-                    'description': {
-                        'instance': unicode,
-                        'required': True,
-                        },
-                    'phases': {
-                        'instance': dict,
-                        'required': True,
-                        'callback': self.checkPhase,
-                        },
-                    }, p),
+                'callback': self.checkConfig,
                 },
             }
         character_data = get_character_data()
@@ -220,28 +188,13 @@ class CharacterDataTestCase(unittest.TestCase):
         self.verifyStruct(phase, struct, path)
 
 
-    def checkOption(self, option, path):
-        struct = {
-            'label': {
-                'instance': unicode,
-                'required': True,
-                },
-            'description': {
-                'instance': unicode,
-                },
-            'config': {
-                'instance': list,
-                'required': True,
-                'callback': self.checkConfig,
-                },
-            }
-        self.verifyStruct(option, struct, path)
-
-
     def checkConfig(self, config, path):
         typeSpecific = {
             'list': {
                 'hidden': {
+                    'instance': bool,
+                    },
+                'described': {
                     'instance': bool,
                     },
                 'hidden_formula': {
@@ -314,13 +267,6 @@ class CharacterDataTestCase(unittest.TestCase):
                     },
                 },
             'ability_score': {
-                'hidden': {
-                    'instance': bool,
-                    'required': True,
-                    },
-                'hidden_formula': {
-                    'instance': unicode,
-                    },
                 'path': {},
                 'limit': {
                     'instance': int,
@@ -420,20 +366,6 @@ class CharacterDataTestCase(unittest.TestCase):
                         exclude, config
                         )
                     )
-
-
-    def checkSubrace(self, subrace, path):
-        struct = {
-            'name': {
-                'instance': unicode,
-                'required': True,
-                },
-            'phases': {
-                'instance': dict,
-                'callback': self.checkPhase,
-                },
-            }
-        self.verifyStruct(subrace, struct, path)
 
 
 if __name__ == '__main__':
