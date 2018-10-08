@@ -8,6 +8,13 @@ exports[`Component: ValuePropertySelect should not render anything when hidden 1
   value="This shows _formatted_ content."
 >
   <ValuePropertySelect
+    character={
+      Object {
+        "some": Object {
+          "path": "This shows _formatted_ content.",
+        },
+      }
+    }
     current="This shows _formatted_ content."
     getCurrent={[Function]}
     hidden={true}
@@ -27,6 +34,13 @@ exports[`Component: ValuePropertySelect should render the formatted description 
   value="This shows _formatted_ content."
 >
   <ValuePropertySelect
+    character={
+      Object {
+        "some": Object {
+          "path": "This shows _formatted_ content.",
+        },
+      }
+    }
     current="This shows _formatted_ content."
     getCurrent={[Function]}
     onChange={[Function]}

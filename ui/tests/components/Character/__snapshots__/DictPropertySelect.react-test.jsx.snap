@@ -12,6 +12,16 @@ exports[`Component: DictPropertySelect should not render anything while hidden 1
   type="dict"
 >
   <DictPropertySelect
+    character={
+      Object {
+        "some": Object {
+          "path": Object {
+            "description": "This shows _%(type)s_ content",
+            "type": "new",
+          },
+        },
+      }
+    }
     current={
       Object {
         "description": "This shows _%(type)s_ content",
@@ -44,6 +54,16 @@ exports[`Component: DictPropertySelect should render the updated description 1`]
   type="dict"
 >
   <DictPropertySelect
+    character={
+      Object {
+        "some": Object {
+          "path": Object {
+            "description": "This shows _%(type)s_ content",
+            "type": "new",
+          },
+        },
+      }
+    }
     current={
       Object {
         "description": "This shows _%(type)s_ content",

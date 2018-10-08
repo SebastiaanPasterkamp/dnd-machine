@@ -61,6 +61,16 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
     type="list"
   >
     <ListPropertySelect
+      character={
+        Object {
+          "some": Object {
+            "path": Array [
+              "dexterity",
+              "charisma",
+            ],
+          },
+        }
+      }
       current={
         Array [
           "dexterity",
@@ -387,6 +397,18 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
     type="list"
   >
     <ListPropertySelect
+      character={
+        Object {
+          "some": Object {
+            "path": Array [
+              "dexterity",
+              "charisma",
+              "strength",
+              "intelligence",
+            ],
+          },
+        }
+      }
       current={
         Array [
           "dexterity",
@@ -650,6 +672,18 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
     type="list"
   >
     <ListPropertySelect
+      character={
+        Object {
+          "some": Object {
+            "path": Array [
+              "dexterity",
+              "charisma",
+              "strength",
+              "intelligence",
+            ],
+          },
+        }
+      }
       current={
         Array [
           "dexterity",
@@ -1046,6 +1080,16 @@ exports[`Component: ListPropertySelect should handle replacing one existing 1`] 
     type="list"
   >
     <ListPropertySelect
+      character={
+        Object {
+          "some": Object {
+            "path": Array [
+              "dexterity",
+              "charisma",
+            ],
+          },
+        }
+      }
       current={
         Array [
           "dexterity",
@@ -1288,6 +1332,16 @@ exports[`Component: ListPropertySelect should handle replacing one existing 2`] 
     type="list"
   >
     <ListPropertySelect
+      character={
+        Object {
+          "some": Object {
+            "path": Array [
+              "charisma",
+              "intelligence",
+            ],
+          },
+        }
+      }
       current={
         Array [
           "charisma",
@@ -1562,6 +1616,17 @@ exports[`Component: ListPropertySelect should handle replacing one existing 3`] 
     type="list"
   >
     <ListPropertySelect
+      character={
+        Object {
+          "some": Object {
+            "path": Array [
+              "charisma",
+              "intelligence",
+              "strength",
+            ],
+          },
+        }
+      }
       current={
         Array [
           "charisma",
@@ -1836,6 +1901,15 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
     type="list"
   >
     <ListPropertySelect
+      character={
+        Object {
+          "some": Object {
+            "path": Array [
+              "dexterity",
+            ],
+          },
+        }
+      }
       current={
         Array [
           "dexterity",
@@ -1955,6 +2029,15 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
     type="list"
   >
     <ListPropertySelect
+      character={
+        Object {
+          "some": Object {
+            "path": Array [
+              "dexterity",
+            ],
+          },
+        }
+      }
       current={
         Array [
           "dexterity",
@@ -2029,6 +2112,15 @@ exports[`Component: ListPropertySelect should not render when hidden 1`] = `
     type="list"
   >
     <ListPropertySelect
+      character={
+        Object {
+          "some": Object {
+            "path": Array [
+              "dexterity",
+            ],
+          },
+        }
+      }
       current={
         Array [
           "dexterity",
@@ -2138,6 +2230,16 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
     type="list"
   >
     <ListPropertySelect
+      character={
+        Object {
+          "some": Object {
+            "path": Array [
+              "dexterity",
+              "foo",
+            ],
+          },
+        }
+      }
       current={
         Array [
           "dexterity",
@@ -2347,6 +2449,19 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
     type="list"
   >
     <ListPropertySelect
+      character={
+        Object {
+          "some": Object {
+            "path": Array [
+              "dexterity",
+              "constitution",
+              "charisma",
+              "constitution",
+              "charisma",
+            ],
+          },
+        }
+      }
       current={
         Array [
           "dexterity",
@@ -2573,6 +2688,15 @@ exports[`Component: ListPropertySelect should render with minimum props 1`] = `
     type="list"
   >
     <ListPropertySelect
+      character={
+        Object {
+          "some": Object {
+            "path": Array [
+              "dexterity",
+            ],
+          },
+        }
+      }
       current={
         Array [
           "dexterity",
