@@ -43,11 +43,7 @@ describe('Component: MultipleChoiceSelect', () => {
 
     beforeEach(() => {
         _.uniqueId = jest.fn();
-        _.uniqueId
-            .mockReturnValueOnce(mockedIds[0])
-            .mockReturnValueOnce(mockedIds[1])
-            .mockReturnValueOnce(mockedIds[2])
-            .mockReturnValueOnce('unexpected_2');
+        _.uniqueId.mockReturnValue('unexpected');
 
         actions.editCharacter.completed({
             bar: {
@@ -56,6 +52,12 @@ describe('Component: MultipleChoiceSelect', () => {
                 },
             },
         });
+
+        _.uniqueId
+            .mockReturnValueOnce(mockedIds[0])
+            .mockReturnValueOnce(mockedIds[1])
+            .mockReturnValueOnce(mockedIds[2])
+            .mockReturnValue('unexpected');
 
         jest.runAllTimers();
     });
