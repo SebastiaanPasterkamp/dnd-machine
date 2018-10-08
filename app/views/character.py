@@ -107,34 +107,9 @@ class CharacterBlueprint(BaseApiBlueprint):
             }])
 
     def get_classes(self):
-        classes = []
-        for data in self.character_data['class']:
-            if 'config' in data:
-                classes.append(data)
-                continue
-
-            level_1 = [
-                option['config']
-                for phase, option in data['phases'].iteritems()
-                if phase.endswith('-1')
-                ]
-
-            config = {
-                'label': data['name'],
-                'description': data.get('description', '').split("\n\n")[1],
-                'type': 'config',
-                'config': level_1[0],
-                }
-            config['config'].append({
-                'hidden': True,
-                'path': 'class',
-                'type': 'value',
-                'value': data['name'],
-                })
-            classes.append(config)
         return jsonify([{
             'type': 'choice',
-            'options': classes,
+            'options': self.character_data['class'],
             }])
 
     def get_backgrounds(self):
