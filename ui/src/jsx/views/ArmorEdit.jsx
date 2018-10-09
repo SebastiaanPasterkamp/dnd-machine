@@ -67,19 +67,24 @@ export class ArmorEdit extends React.Component
         );
 
         const {
-            type, armor_types, name, description, bonus, value, formula,
-            requirements, weight = {}, disadvantage, cost
+            type, armor_types = [], name, description, bonus, value, formula,
+            requirements = {}, weight = {}, disadvantage,
+            cost = {}
         } = this.props;
+
+        const {
+            code: defaultArmorType,
+        } = armor_types[0] || {};
 
         return [
             <Panel
-                    key="description"
-                    className="armor-edit__description"
-                    header="Description"
+                    key="basics"
+                    className="armor-edit__basics"
+                    header="Basics"
                 >
                 <ControlGroup label="Type">
                     <SingleSelect
-                        selected={type || armor_types[0].code}
+                        selected={type || defaultArmorType}
                         items={armor_types || []}
                         setState={(value) =>
                             this.onFieldChange('type', value)

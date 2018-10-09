@@ -29,7 +29,7 @@ class UserLabel extends LazyComponent
 }
 
 UserLabel.propTypes = {
-    user_id: PropTypes.number.isRequired,
+    user_id: PropTypes.number,
     showDCI: PropTypes.bool,
     user: PropTypes.object,
 };
