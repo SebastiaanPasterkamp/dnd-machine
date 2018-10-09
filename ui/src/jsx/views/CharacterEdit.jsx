@@ -9,6 +9,7 @@ import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import CharacterConfig from '../components/Character/CharacterConfig.jsx';
+import StatisticsSelect from '../components/Character/StatisticsSelect.jsx';
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
