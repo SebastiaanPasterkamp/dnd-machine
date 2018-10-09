@@ -1,6 +1,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
+import utils from '../utils.jsx';
 
 import CharacterEditorActions from '../actions/CharacterEditorActions.jsx';
 import ComputeChange from '../components/Character/ComputeChange.jsx';
