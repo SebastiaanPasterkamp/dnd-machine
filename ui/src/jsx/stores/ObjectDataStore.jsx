@@ -4,78 +4,6 @@ import _ from 'lodash';
 
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
-const initial = {
-    armor: {
-        id: null,
-        type: 'light armor',
-        name: '',
-        cost: {},
-        requirements: {},
-    },
-    character: {
-        id: null,
-        name: '',
-        'class': null,
-        race: null,
-        background: null,
-        statistics: {
-            bare: {
-                strength: 8,
-                dexterity: 8,
-                constitution: 8,
-                intelligence: 8,
-                wisdom: 8,
-                charisma: 8,
-            }
-        },
-        alignment: 'true neutral',
-        level: 1,
-        xp: 0,
-        xp_progress: 0,
-        xp_level: 0,
-    },
-    navigation: [],
-    npc: {
-        id: null,
-        name: "",
-        location: "",
-        organization: "",
-        gender: "",
-        alignment: "",
-        size: "",
-        level: 1,
-        description: "",
-        statistics: {
-            bare: {
-                strength: 8,
-                dexterity: 8,
-                constitution: 8,
-                intelligence: 8,
-                wisdom: 8,
-                charisma: 8,
-            }
-        }
-    },
-    party: {
-        id: null,
-        name: '',
-        challenge: {},
-        member_ids: [],
-    },
-    weapons: {
-        id: null,
-        type: 'simple melee weapon',
-        name: '',
-        cost: {},
-        damage: {
-            dice_count: 1,
-            dice_size: 4,
-            type: 'bludgeoning'
-        },
-        property: []
-    },
-};
-
 export function ObjectDataStoreFactory(id, listenables = null)
 {
 
@@ -197,15 +125,6 @@ export function ObjectDataStoreFactory(id, listenables = null)
             }, callback);
         }
     }
-
-    ObjectDataStore.getInitial = (type) => {
-        if (!(type in initial)) {
-            return {
-                id: null
-            }
-        }
-        return initial[type];
-    };
 
     ObjectDataStore.id = id;
 
