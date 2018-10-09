@@ -591,6 +591,16 @@ export class CharacterTraits extends LazyComponent
 export class CharactersView extends React.Component
 {
     render() {
+        const {
+            race,
+            'class': _class,
+            background,
+        } = this.props;
+
+        if (!race || !_class || !background) {
+            return null;
+        }
+
         return <React.Fragment>
             <CharacterDescription
                 {...this.props}
