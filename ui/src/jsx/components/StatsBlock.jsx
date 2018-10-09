@@ -77,8 +77,8 @@ export class StatsBlock extends Reflux.Component
         let props = _.assign(
             {},
             {
-                bare: bare,
-                bonus: bonus,
+                bare,
+                bonus,
                 base: _.assign({}, base),
                 modifiers: _.assign({}, modifiers),
             },
@@ -107,7 +107,7 @@ export class StatsBlock extends Reflux.Component
     }
 
     changeBareStat(stat, value) {
-        let bare = _.assign(
+        const bare = _.assign(
             {},
             this.props.bare,
             {[stat]: value}
@@ -147,7 +147,7 @@ export class StatsBlock extends Reflux.Component
 
                 if (bonusChange) {
                     bonusChange(
-                        _.countBy(this.state.improvement)
+                        bonus
                     );
                 }
             }

@@ -71,19 +71,11 @@ class StatisticsSelect extends Reflux.Component
             statistics = {},
         } = character;
 
-        _.forEach(
-            statistics.modifiers,
-            (mod, stat) => {
-                actions.addChange(
-                    `statistics.bonus.${ stat }`,
-                    {
-                        added: [_.get(bonus, stat, 0)],
-                        removed: [],
-                    },
-                    `${ this._id }-bonus-${ stat }`,
-                    { type: 'list' },
-                );
-            }
+        actions.addChange(
+            `statistics.bonus`,
+            bonus,
+            `${ this._id }-bonus`,
+            { type: 'dict' },
         );
     }
 
