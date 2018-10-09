@@ -30,6 +30,14 @@ function RoutedObjectDataWrapper(
             this.storeKeys = [loadableType];
         }
 
+        getId() {
+            const id = _.get(this.props, 'match.params.id');
+            if (id == null) {
+                return null;
+            }
+            return parseInt(id);
+        }
+
         setButtons(buttons) {
             this.setState({buttons});
         }
@@ -41,14 +49,12 @@ function RoutedObjectDataWrapper(
         }
 
         getStateProps(state) {
-            const id = _.get(this.props, 'match.params.id');
+            const id = this.getId();
             const stateProps = _.get(
                 state || this.state,
-                [loadableType, id]
+                [loadableType, id],
+                {}
             );
-            if (_.isNil(id) && _.isNil(stateProps)) {
-                return this.store.getInitial(loadableType);
-            }
             return stateProps;
         }
 
@@ -80,7 +86,7 @@ function RoutedObjectDataWrapper(
         }
 
         onSetState(update, callback=null) {
-            const id = _.get(this.props, 'match.params.id');
+            const id = this.getId();
 
             let loadable = _.assign(
                 {},
@@ -97,7 +103,7 @@ function RoutedObjectDataWrapper(
         }
 
         onReload(callback=null) {
-            const id = _.get(this.props, 'match.params.id');
+            const id = this.getId();
             if (id == null) {
                 return;
             }
@@ -111,7 +117,7 @@ function RoutedObjectDataWrapper(
         }
 
         onRecompute(callback=null) {
-            const id = _.get(this.props, 'match.params.id');
+            const id = this.getId();
 
             this.actions.recomputeObject(
                 loadableType,
@@ -123,7 +129,7 @@ function RoutedObjectDataWrapper(
         }
 
         onSave(callback=null) {
-            const id = _.get(this.props, 'match.params.id');
+            const id = this.getId();
 
             if (id == null) {
                 this.actions.postObject(
@@ -171,7 +177,7 @@ function RoutedObjectDataWrapper(
         }
 
         handleFailed(type, failedId, error) {
-            const id = _.get(this.props, 'match.params.id');
+            const id = this.getId();
 
             if (
                 type != loadableType
@@ -201,7 +207,7 @@ function RoutedObjectDataWrapper(
         }
 
         renderButtons() {
-            const id = _.get(this.props, 'match.params.id');
+            const id = this.getId();
             const { buttons } = this.state;
             if(!buttons.length) {
                 return null;
@@ -269,10 +275,11 @@ function RoutedObjectDataWrapper(
         }
 
         render() {
-            const id = _.get(this.props, 'match.params.id');
+            const id = this.getId();
             const { error } = this.state;
             const {
-                history, location, match = {}, staticContext, ...props
+                history, location, match = {}, staticContext,
+                ...rest
             } = this.props;
             const data = this.getStateProps();
 
@@ -280,9 +287,15 @@ function RoutedObjectDataWrapper(
                 return null;
             }
 
-            const routed = prop
-                ? { [prop]: data }
-                : data;
+            const props = _.assign(
+                {
+                    ...match.params,
+                    ...rest,
+                },
+                id !== null ? { id } : null,
+                prop ? { [prop]: data } : { ...data },
+                !error ? { error } : null,
+            );
 
             return <div>
                 <h2 className={["icon", config.icon].join(' ')}>
@@ -309,9 +322,6 @@ function RoutedObjectDataWrapper(
                             this.onSave(callback);
                         }}
                         {...props}
-                        {...match.params}
-                        {...routed}
-                        error={error || null}
                         />
 
                     {this.renderButtons()}
