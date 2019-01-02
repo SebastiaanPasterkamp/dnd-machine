@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import '../../sass/_user-view.scss';
@@ -15,9 +16,8 @@ export class UserView extends React.Component
     render() {
         const {
             id, name, username, dci, email, role = [],
-            user_roles = [], current_user
+            user_roles = [],
         } = this.props;
-        const isAdmin = _.includes(current_user.role || [], 'admin');
 
         return <React.Fragment>
             <Panel
@@ -70,22 +70,33 @@ export class UserView extends React.Component
     }
 }
 
+UserView.propTypes = {
+    id: PropTypes.number,
+    name: PropTypes.string,
+    dci: PropTypes.string,
+    email: PropTypes.string,
+    role: PropTypes.arrayOf(
+        PropTypes.string
+    ),
+    user_roles: PropTypes.arrayOf(
+        PropTypes.shape({
+            code: PropTypes.string.isRequired,
+            label: PropTypes.string.isRequired,
+        })
+    ),
+};
+
 export default ListDataWrapper(
-    ListDataWrapper(
-        RoutedObjectDataWrapper(
-            UserView, {
-                className: 'user-view',
-                icon: 'fa-user',
-                label: 'User',
-            },
-            "user"
-        ),
-        [
-            "user_roles",
-        ],
-        'items'
+    RoutedObjectDataWrapper(
+        UserView, {
+            className: 'user-view',
+            icon: 'fa-user',
+            label: 'User',
+        },
+        "user"
     ),
     [
-        "current_user",
-    ]
+        "user_roles",
+    ],
+    'items'
 );
