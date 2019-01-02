@@ -101,6 +101,10 @@ export function ObjectDataStoreFactory(id, listenables = null)
         }
 
         onPostObjectCompleted(type, id, object, callback=null) {
+            const { [type]: items } = this.state;
+            this.setState({
+                [type]: _.omit(items, null),
+            }, callback);
             this.updateObject(type, id, object, callback);
         }
 
