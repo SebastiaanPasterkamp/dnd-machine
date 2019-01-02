@@ -851,6 +851,101 @@
             "given": ["common"],
             "limit": 1
         }]
+    }, {
+        "label": "Tiefling",
+        "description": "To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling. And to twist the knife, tieflings know that this is because a pact struck generations ago infused the essence of Asmodeus—overlord of the Nine Hells—into their bloodline. Their appearance and their nature are not their fault but the result of an ancient sin, for which they and their children and their children's children will always be held accountable.\n\n### Infernal Bloodline\n\nTieflings are derived from human bloodlines, and in the broadest possible sense, they still look human. However, their infernal heritage has left a clear imprint on their appearance. Tieflings have large horns that take any of a variety of shapes: some have curling horns like a ram, others have straight and tall horns like a gazelle's, and some spiral upward like an antelopes' horns. They have thick tails, four to five feet long, which lash or coil around their legs when they get upset or nervous. Their canine teeth are sharply pointed, and their eyes are solid colors - black, red, white, silver, or gold - with no visible sclera or pupil. Their skin tones cover the full range of human coloration, but also include various shades of red. Their hair, cascading down from behind their horns, is usually dark, from black or brown to dark red, blue, or purple.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "race",
+            "type": "value",
+            "value": "Tiefling"
+        }, {
+            "label": "Ability Score Increase",
+            "description": "Your **Charisma** score increases by 2, and your **Intelligence** score increases by 1.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "statistics.bonus.charisma",
+                "type": "list",
+                "given": [2]
+            }, {
+                "hidden": true,
+                "path": "statistics.bonus.intelligence",
+                "type": "list",
+                "given": [1]
+            }]
+        }, {
+            "label": "Size",
+            "description": "Tieflings are about the same size and build as humans. Your *size* is **Medium**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "size",
+                "type": "value",
+                "value": "medium"
+            }]
+        }, {
+            "label": "Speed",
+            "description": "Your base walking *speed* is **30 feet**.",
+            "type": "config",
+            "config": [{
+                "hidden": true,
+                "path": "speed",
+                "type": "value",
+                "value": 30
+            }]
+        }, {
+            "label": "Darkvision",
+            "path": "info.Darkvision",
+            "type": "value",
+            "value": "Thanks to your infernal heritage, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+        }, {
+            "label": "Hellish Resistance",
+            "path": "info.Hellish Resistance",
+            "type": "value",
+            "value": "You have resistance to *fire damage*."
+        }, {
+            "label": "Infernal Legacy",
+            "description": "You know the *thaumaturgy* cantrip.",
+            "path": "spell.list",
+            "type": "list",
+            "list": ["spell"],
+            "given": ["thaumaturgy"]
+        }, {
+            "label": "Languages",
+            "description": "You can speak, read, and write **Common** and **Infernal**.",
+            "path": "languages",
+            "type": "list",
+            "list": ["languages"],
+            "given": ["common", "infernal"]
+        }],
+        "phases": {
+            "tiefling-3": {
+                "conditions": {
+                    "level": 3,
+                    "race": "Tiefling"
+                },
+                "config": [{
+                    "label": "Infernal Legacy",
+                    "path": "info.Hellish Resistance",
+                    "type": "value",
+                    "value": "You can cast the *hellish rebuke* spell once per day as a 2nd-level spell. **Charisma** is your *Spellcasting Ability* for this spell."
+                }]
+            },
+            "tiefling-5": {
+                "conditions": {
+                    "level": 5,
+                    "race": "Tiefling"
+                },
+                "config": [{
+                    "label": "Infernal Legacy",
+                    "path": "info.Hellish Resistance",
+                    "type": "value",
+                    "value": "You can cast the *hellish rebuke*, and *darkness* spells once per day as a 2nd-level spell. **Charisma** is your *Spellcasting Ability* for these spells."
+                }]
+            }
+        }
     }],
     "class": [{
         "label": "Barbarian",
@@ -22139,6 +22234,51 @@
             "path": "info.Military Rank",
             "type": "value",
             "value": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized."
+        }]
+    }, {
+        "label": "Urchin",
+        "description": "You grew up on the streets alone, orphaned, and poor. You had no one to watch over you or to provide for you, so you learned to provide for yourself. You fought fiercely over food and kept a constant watch out for other desperate souls who might steal from you. You slept on rooftops and in alleyways, exposed to the elements, and endured sickness without the advantage of medicine or a place to recuperate. You've survived despite all odds, and did so through cunning, strength, speed. or some combination of each.",
+        "type": "config",
+        "config": [{
+            "hidden": true,
+            "path": "background",
+            "type": "value",
+            "value": "Urchin"
+        }, {
+            "hidden": true,
+            "path": "wealth.gp",
+            "type": "value",
+            "value": 10
+        }, {
+            "label": "Feature: City Secrets",
+            "path": "info.City Secrets",
+            "type": "value",
+            "value": "You know the secret patterns and flow to cities and can find passages through the urban sprawl that others would miss. When you are not in combat, you (and companions you lead) can travel between any two locations in the city twice as fast as your speed would normally allow."
+        }, {
+            "label": "Background Skill Proficiencies",
+            "path": "proficiencies.skills",
+            "type": "list",
+            "list": ["skills"],
+            "given": ["sleight of hand", "stealth"]
+        }, {
+            "label": "Background Tool Proficiencies",
+            "path": "proficiencies.tools",
+            "type": "list",
+            "list": ["tools"],
+            "given": ["Disguise kit", "Thieves' tools"]
+        }, {
+            "label": "Background Equipment",
+            "type": "list",
+            "path": "equipment",
+            "multiple": true,
+            "given": [
+                "Small knife",
+                "Map of the city you grew up in",
+                "Pet mouse",
+                "Token to remember your parents by",
+                "Set of common clothes",
+                "Belt Pouch"
+            ]
         }]
     }]
 }
