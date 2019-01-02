@@ -31,7 +31,7 @@ def register_paths(app, basemapper, config):
     @app.route('/current_user')
     def current_user():
         if session.get('user_id') is None:
-            raise ApiException(404, "No such user")
+            return jsonify(None)
 
         return redirect(url_for(
             'user.api_get',

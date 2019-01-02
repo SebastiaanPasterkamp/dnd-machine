@@ -282,6 +282,7 @@ def register_request_hooks(app):
         publicPages = (
             'home',
             'login',
+            'current_user',
             'doLogin',
             'static',
             'authenticate',
