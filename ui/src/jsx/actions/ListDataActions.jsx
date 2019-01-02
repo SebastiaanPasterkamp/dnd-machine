@@ -109,8 +109,9 @@ ListDataActions.doLogout.listen((callback) => {
     .then(jsonOrBust)
     .then((response) => {
         ListDataActions.doLogout.completed(response);
-        ListDataActions.fetchItems.completed({
-            current_user: null
+        ListDataActions.setState({
+            current_user: null,
+            navigation: null,
         });
 
         ReportingActions.showMessage(
