@@ -3,6 +3,8 @@ import Reflux from 'reflux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+import '../../sass/_stats-block.scss';
+
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 
 import Bonus from '../components/Bonus.jsx';
@@ -290,7 +292,7 @@ export class StatsBlock extends Reflux.Component
             return null;
         }
 
-        return <table className="nice-table condensed bordered">
+        return <table className="nice-table stats-block condensed bordered">
             {this.renderHeader()}
             <tbody>
                 {_.map(statistics, stat => this.renderRow(stat))}
