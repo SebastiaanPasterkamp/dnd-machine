@@ -8,7 +8,7 @@ import {statistics, alignments, genders, size_hit_dice} from '../__mocks__/apiCa
 
 import {NpcEdit} from '../../src/jsx/views/NpcEdit.jsx';
 
-describe('Component: NpcEdit', () => {
+describe('View NpcEdit', () => {
     const props = {
         id: null,
         name: "Example NPC",

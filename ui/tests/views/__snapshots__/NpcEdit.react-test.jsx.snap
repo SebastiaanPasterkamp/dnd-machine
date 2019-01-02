@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component: NpcEdit should show an npc editor 1`] = `
+exports[`View NpcEdit should show an npc editor 1`] = `
 Array [
   <div
     className="nice-panel npc-edit__description"
