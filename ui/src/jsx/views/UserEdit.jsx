@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import '../../sass/_user-edit.scss';
@@ -20,9 +21,9 @@ export class UserEdit extends React.Component
     render() {
         const {
             id, name, username, password, email, dci, role = [],
-            user_roles = [], current_user
+            user_roles = [], current_user: { role: current_role = [] }
         } = this.props;
-        const isAdmin = _.includes(current_user.role || [], 'admin');
+        const isAdmin = _.includes(current_role, 'admin');
 
         return <React.Fragment>
             <Panel
@@ -93,6 +94,28 @@ export class UserEdit extends React.Component
         </React.Fragment>;
     }
 }
+
+UserEdit.propTypes = {
+    setState: PropTypes.func.isRequired,
+    id: PropTypes.number,
+    name: PropTypes.string,
+    dci: PropTypes.string,
+    email: PropTypes.string,
+    role: PropTypes.arrayOf(
+        PropTypes.string
+    ),
+    user_roles: PropTypes.arrayOf(
+        PropTypes.shape({
+            code: PropTypes.string.isRequired,
+            label: PropTypes.string.isRequired,
+        })
+    ),
+    current_user: PropTypes.shape({
+        role: PropTypes.arrayOf(
+            PropTypes.string
+        ),
+    }).isRequired,
+};
 
 export default ListDataWrapper(
     ListDataWrapper(
