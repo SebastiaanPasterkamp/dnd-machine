@@ -1,7 +1,10 @@
 import React from 'react';
-import { UserLinks } from 'components/UserLinks.jsx';
+import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
+
+import { UserLinks } from 'components/UserLinks.jsx';
+import ObjectDataActions from 'actions/ObjectDataActions.jsx';
 
 describe('Component: UserLinks', () => {
     it('should render without props', () => {
@@ -76,5 +79,25 @@ describe('Component: UserLinks', () => {
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
+    });
+
+    it('should trigger delete action when clicked', () => {
+        const spy = jest.spyOn(ObjectDataActions, 'deleteObject');
+
+        const wrapper = mount(
+            <MemoryRouter>
+                <UserLinks
+                    user_id={2}
+                    current_user={{
+                        id: 1,
+                        role: ['admin'],
+                    }}
+                    />
+            </MemoryRouter>
+        );
+
+        wrapper.find('.fa-trash-o').simulate('click');
+
+        expect(spy).toBeCalledWith("user", 2);
     });
 });

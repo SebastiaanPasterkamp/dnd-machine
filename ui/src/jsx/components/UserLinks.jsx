@@ -15,6 +15,12 @@ export class UserLinks extends BaseLinkGroup
         super(props);
     }
 
+    onDelete = () => {
+        const { user_id } = this.props;
+
+        ObjectDataActions.deleteObject("user", user_id);
+    }
+
     buttonList() {
         const {
             user_id, current_user,
@@ -69,11 +75,7 @@ export class UserLinks extends BaseLinkGroup
             }),
             'delete': () => ({
                 label: 'Delete',
-                action: () => {
-                    ObjectDataActions.deleteObject(
-                        "user", user_id
-                    );
-                },
+                action: this.onDelete,
                 icon: 'trash-o',
                 color: 'bad',
                 available: (
