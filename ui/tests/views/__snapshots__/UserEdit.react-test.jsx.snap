@@ -1,0 +1,231 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserEdit should formulate a user after editing 1`] = `
+Object {
+  "null": Object {
+    "dci": "123123123",
+    "email": "full.name@email.com",
+    "name": "Full Name",
+    "password": "secret",
+    "role": Array [
+      "player",
+    ],
+    "username": "name",
+  },
+}
+`;
+
+exports[`UserEdit should render with full props 1`] = `
+<React.Fragment>
+  <Panel
+    className="user-edit__description"
+    contentComponent="div"
+    header="Description"
+    key="description"
+  >
+    <ControlGroup
+      label="Username"
+    >
+      <InputField
+        disabled={true}
+        placeholder="Username..."
+        setState={null}
+        value=""
+      />
+    </ControlGroup>
+    <ControlGroup
+      label="Full name"
+    >
+      <InputField
+        placeholder="Full name..."
+        setState={[Function]}
+        value="Example User"
+      />
+    </ControlGroup>
+    <ControlGroup
+      label="Password"
+    >
+      <InputField
+        placeholder="Password..."
+        setState={[Function]}
+        type="password"
+        value=""
+      />
+    </ControlGroup>
+    <ControlGroup
+      label="Email"
+    >
+      <InputField
+        placeholder="Email..."
+        setState={[Function]}
+        type="email"
+        value="user@example.com"
+      />
+    </ControlGroup>
+    <ControlGroup
+      label="DCI"
+    >
+      <InputField
+        placeholder="DCI..."
+        setState={[Function]}
+        value="1234567890"
+      />
+    </ControlGroup>
+  </Panel>
+</React.Fragment>
+`;
+
+exports[`UserEdit should render with full props as admin 1`] = `
+<React.Fragment>
+  <Panel
+    className="user-edit__description"
+    contentComponent="div"
+    header="Description"
+    key="description"
+  >
+    <ControlGroup
+      label="Username"
+    >
+      <InputField
+        disabled={false}
+        placeholder="Username..."
+        setState={[Function]}
+        value=""
+      />
+    </ControlGroup>
+    <ControlGroup
+      label="Full name"
+    >
+      <InputField
+        placeholder="Full name..."
+        setState={[Function]}
+        value="Example User"
+      />
+    </ControlGroup>
+    <ControlGroup
+      label="Password"
+    >
+      <InputField
+        placeholder="Password..."
+        setState={[Function]}
+        type="password"
+        value=""
+      />
+    </ControlGroup>
+    <ControlGroup
+      label="Email"
+    >
+      <InputField
+        placeholder="Email..."
+        setState={[Function]}
+        type="email"
+        value="user@example.com"
+      />
+    </ControlGroup>
+    <ControlGroup
+      label="DCI"
+    >
+      <InputField
+        placeholder="DCI..."
+        setState={[Function]}
+        value="1234567890"
+      />
+    </ControlGroup>
+  </Panel>
+  <Panel
+    className="user-edit__permissions"
+    contentComponent="div"
+    header="Permissions"
+    key="permissions"
+  >
+    <ControlGroup
+      label="Role"
+    >
+      <TagContainer
+        items={
+          Array [
+            Object {
+              "code": "admin",
+              "label": "Admin",
+            },
+            Object {
+              "code": "dm",
+              "label": "Dungeon Master",
+            },
+            Object {
+              "code": "player",
+              "label": "Player",
+            },
+          ]
+        }
+        setState={[Function]}
+        value={
+          Array [
+            "player",
+          ]
+        }
+      />
+    </ControlGroup>
+  </Panel>
+</React.Fragment>
+`;
+
+exports[`UserEdit should render with minimum props 1`] = `
+<React.Fragment>
+  <Panel
+    className="user-edit__description"
+    contentComponent="div"
+    header="Description"
+    key="description"
+  >
+    <ControlGroup
+      label="Username"
+    >
+      <InputField
+        disabled={true}
+        placeholder="Username..."
+        setState={null}
+        value=""
+      />
+    </ControlGroup>
+    <ControlGroup
+      label="Full name"
+    >
+      <InputField
+        placeholder="Full name..."
+        setState={[Function]}
+        value=""
+      />
+    </ControlGroup>
+    <ControlGroup
+      label="Password"
+    >
+      <InputField
+        placeholder="Password..."
+        setState={[Function]}
+        type="password"
+        value=""
+      />
+    </ControlGroup>
+    <ControlGroup
+      label="Email"
+    >
+      <InputField
+        placeholder="Email..."
+        setState={[Function]}
+        type="email"
+        value=""
+      />
+    </ControlGroup>
+    <ControlGroup
+      label="DCI"
+    >
+      <InputField
+        placeholder="DCI..."
+        setState={[Function]}
+        value=""
+      />
+    </ControlGroup>
+  </Panel>
+</React.Fragment>
+`;
