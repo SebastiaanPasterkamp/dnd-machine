@@ -704,7 +704,7 @@ Array [
       className="nice-panel-content"
     >
       <table
-        className="nice-table condensed bordered"
+        className="nice-table stats-block condensed bordered"
       >
         <thead>
           <tr>
