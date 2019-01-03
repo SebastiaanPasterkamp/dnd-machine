@@ -8,7 +8,6 @@ class AppTestCase(BaseAppTestCase):
         super(AppTestCase, self).setUp()
         self.privatePages = {
             '/navigation': (200, 'application/json'),
-            '/current_user': (302, None),
             '/hosted_party': (302, None),
             }
 
@@ -25,7 +24,9 @@ class AppTestCase(BaseAppTestCase):
             '/current_user',
             headers={'X-Requested-With': 'XMLHttpRequest'}
             )
-        self.assertEqual(rv.status_code, 401)
+        self.assertEqual(rv.status_code, 200)
+        self.assertEqual(rv.mimetype, 'application/json')
+        self.assertEqual(rv.get_json(), None)
 
         rv = self.client.get('/authenticate')
         self.assertEqual(rv.status_code, 200)
@@ -96,7 +97,8 @@ class AppTestCase(BaseAppTestCase):
             follow_redirects=True,
             headers={'X-Requested-With': 'XMLHttpRequest'}
             )
-        self.assertEqual(rv.status_code, 401)
+        self.assertEqual(rv.status_code, 200)
+        self.assertEqual(rv.get_json(), None)
 
 
     def testRecoverStart(self):
