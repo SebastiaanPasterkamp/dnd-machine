@@ -2346,6 +2346,124 @@
                                 "description": "You learn to inspire others in battle. A creature that has a **Bardic Inspiration** die from you can roll that die and add the number rolled to a weapon damage roll it just made. Alternatively, when an attack roll is made against the creature, it can use its *reaction* to roll the **Bardic Inspiration** die and add the number rolled to its AC against that attack, after seeing the roll but before knowing whether it hits or misses."
                             }
                         }]
+                    }, {
+                        "label": "College of Glamour",
+                        "description": "The College of Glamour is the home of bards who maste red their craft in the vibrant realm of the Feywild or under the tutelage of someone who dwelled there . Tuto red by satyrs, eladrin, and other fey, these bards learn to use their magic to delight and captivate others. The bards of this college are regarded with a mixture of awe and fear. Their performances are the stuff of legend. These bards are so eloquent that a speech or s ong that one of them performs can cause captors to release the bard unharmed and can lure a furious dragon into complacency. The same magic that allows them to quell beasts can also bend minds. Villainous bards of this college can leech off a community for weeks, misusing their magic to turn their hosts into thralls. Heroic bards of this college instead use this power to gladden the downtrodden and undermine oppressors.",
+                        "type": "config",
+                        "config": [{
+                            "hidden": true,
+                            "path": "college",
+                            "type": "list",
+                            "given": ["Glamour"]
+                        }, {
+                            "label": "Mantle of Inspiration",
+                            "path": "abilities.Mantle of Inspiration",
+                            "type": "dict",
+                            "dict": {
+                                "description": "When you join the College of Glamour, you gain the ability to weave a song of fey magic that imbues your allies with vigor and speed. As a bonus action, you can expend one use of your *Bardic Inspiration* to grant yourself a wondrous appearance. When you do so, choose a number of creatures you can see and that can see you within 60 feet of you, up to %(targets)s. Each of them gains %(hp)d temporary hit points. When a creature gains these temporary hit points, it can immediately use its reaction to move up to its speed, without provoking opportunity attacks.",
+                                "targets_formula": "max(1, statistics.modifiers.charisma)",
+                                "targets_default": "your **Charisma modifier**",
+                                "hp": 5
+                            }
+                        }, {
+                            "label": "Enthralling Performance",
+                            "path": "abilities.Enthralling Performance",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You can charge your performance with seductive, fey magic. If you perform for at least 1 minute, you can attempt to inspire wonder in your audience by singing, reciting a poem , or dancing. At the end of the per formance, choose a number of humanoids within 60 feet of you who watched and listened to all of it, up to %(targets)d.\nEach target must succeed on a **Wisdom** *Saving Throw* against your spell save DC or be *charmed* by you. While charmed in this way, the target idolizes you, it speaks glowingly of you to anyone who talks to it, and it hinders anyone who opposes you, although it avoids violence unless it was already inclined to fight on your behalf.\nThis effect ends on a target after 1 hour, if it takes any damage, if you attack it, or if it witnesses you attacking or damaging any of its allies. If a target succeeds on its saving throw, the target has no hint that you tried to charm it. Once you use this feature, you can't use it again until you finish a short or long rest.",
+                                "targets_formula": "max(1, statistics.modifiers.charisma)",
+                                "targets_default": "your **Charisma modifier**"
+                            }
+                        }]
+                    }, {
+                        "label": "College of Swords",
+                        "description": "Bards of the College of Swords are called blades, and they entertain through daring feats of weapon prowess. Blades perform stunts such as sword swallowing, knife throwing and juggling, and mock combats. Though they use their weapons to entertain, they are also highly trained and skilled warriors in their own right. Their talent with weapons inspires many blades to lead double lives. One blade might use a circus troupe as cover for nefarious deeds such as assassination, robbery, and blackmail. Other blades strike at the wicked, bringing justice to bear against the cruel and powerful. Most troupes are happy to accept a blade's talent for the excitement it adds to a performance, but few entertainers fully trust a blade in their ranks. Blades who abandon their lives as enter tainers have often run into trouble that makes maintaining their secret activities impossible. A blade caught stealing or engaging in vigilante justice is too great a liability for most troupes. With their weapon skills and magic, these blades either take up work as enforcers for thieves' guilds or strike out on their own as adventurers.",
+                        "type": "config",
+                        "config": [{
+                            "hidden": true,
+                            "path": "college",
+                            "type": "list",
+                            "given": ["Swords"]
+                        }, {
+                            "label": "Bonus Proficiencies",
+                            "description": "You gain proficiency with medium armor and the scimitar.",
+                            "type": "config",
+                            "config": [{
+                                "path": "info.Bonus Proficiencies",
+                                "type": "value",
+                                "value": "If you're proficient with a simple or martial melee weapon, you can use it as a spellcasting focus for your bard spells."
+                            }, {
+                                "label": "Bonus Armor Proficiencies",
+                                "path": "proficiencies.armor",
+                                "type": "list",
+                                "list": ["armor_types", "armor"],
+                                "given": ["medium"]
+                            }, {
+                                "label": "Bonus Weapon Proficiencies",
+                                "path": "proficiencies.weapons",
+                                "type": "list",
+                                "list": ["weapon_types", "weapon"],
+                                "given": [
+                                    "scimitar"
+                                ]
+                            }]
+                        }, {
+                            "label": "Fighting Style",
+                            "description": "You adopt a style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if some thing in the game lets you choose again.",
+                            "type": "multichoice",
+                            "limit": 1,
+                            "options": [{
+                                "label": "Dueling",
+                                "hidden_formula": "'Dueling' in character.abilities",
+                                "path": "abilities.Dueling",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a `+2` bonus to damage rolls with that weapon."
+                                }
+                            }, {
+                                "label": "Two-Weapon Fighting",
+                                "hidden_formula": "'Two-Weapon Fighting' in character.abilities",
+                                "path": "abilities.Two-Weapon Fighting",
+                                "type": "dict",
+                                "dict": {
+                                    "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack."
+                                }
+                            }]
+                        }, {
+                            "label": "Blade Flourish",
+                            "path": "abilities.Blade Flourish",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You learn to perform impressive displays of martial prowess and speed. Whenever you take the **Attack** action on your turn, your walking speed increases by 10 feet until the end of the turn, and if a weapon attack that you make as part of this action hits a creature, you can use one of the following **Blade Flourish** options of your choice. You can use only one Blade Flourish option per turn.\n* **Defensive Flourish**. You can expend one use of your *Bardic Inspiration* to cause the weapon to deal one extra `%(dice)s` damage to the target you hit. You also add the number rolled to your AC until the start of your next turn.\n* **Slashing Flourish**. You can expend o ne use of your *Bardic Inspiration* to cause the weapon to deal one extra `%(dice)s` damage to the target you hit and to any other creature of your choice that you can see w ithin 5 feet of you.\n* **Mobile Flourish**. You can expend one use of your *Bardic Inspiration* to cause the weapon to deal one extra `%(dice)s` damage to the target you hit. You can also push the target up to 5 feet away from you, plus a number of feet equal to the number you roll on that die. You can then immediately use your *reaction* to move up to your walking speed to an unoccupied space with in 5 feet of the target.",
+                                "dice_formula": "abilities.Bardic Inspiration.dice",
+                                "dice_default": "Bardic Inspiration die"
+                            }
+                        }]
+                    }, {
+                        "label": "College of Whispers",
+                        "description": "Most folk are happy to welcome a bard into their midst. Bards of the *College of Whispers* use this to their advantage. They appear to be like other bards, sharing news, singing songs, and telling tales to the audiences they gather. In truth, the College of Whispers teaches its students that they are wolves among sheep. These bards use their knowledge and magic to uncover secrets and turn them against others through extortion and threats . Many other bards hate the College of Whispers, viewing it as a parasite that uses a bard's reputation to acquire wealth and power. For this reason, members of this college rarely reveal their true nature. They typically claim to follow some other college, or they keep their actual calling secret in order to infiltrate and exploit royal courts and other settings of power.",
+                        "type": "config",
+                        "config": [{
+                            "hidden": true,
+                            "path": "college",
+                            "type": "list",
+                            "given": ["Whispers"]
+                        }, {
+                            "label": "Psychic Blades",
+                            "path": "abilities.Psychic Blades",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You gain the ability to ma ke your weapon attacks magically toxic to a creature's mind. When you hit a creature with a weapon attack, you can expend one use of your *Bardic Inspiration* to deal an extra `%(dice)s` **psychic damage** to that target. You can do so only once per round on your turn.",
+                                "dice": "2d6"
+                            }
+                        }, {
+                            "label": "Words of Terror",
+                            "path": "abilities.Words of Terror",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You learn to infuse innocent-seeming words with an insidious magic that can inspire terror. If you speak to a humanoid alone for at least 1 minute, you can attempt to seed paranoia in its mind. At the end of the conversation, the target must succeed on a *Wisdom* saving throw against your spell save DC or be *frightened* of you or another creature of your choice. The target is frightened in this way for 1 hour, until it is attacked or damaged, or until it witnesses its allies being attacked or damaged. If the target succeeds on its saving throw, the target has no hint that you tried to frighten it. Once you use this feature, you can't use it again until you finish a short or long rest."
+                            }
+                        }]
                     }]
                 }]
             },
@@ -2463,6 +2581,34 @@
                     }
                 }]
             },
+            "bard-5-glamour": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "bard-4",
+                    "college": ["Glamour"]
+                },
+                "config": [{
+                    "path": "abilities.Mantle of Inspiration",
+                    "type": "dict",
+                    "dict": {
+                        "hp": 8
+                    }
+                }]
+            },
+            "bard-5-whispers": {
+                "conditions": {
+                    "level": 5,
+                    "creation": "bard-4",
+                    "college": ["Whispers"]
+                },
+                "config": [{
+                    "path": "abilities.Psychic Blades",
+                    "type": "dict",
+                    "dict": {
+                        "dice": "3d6"
+                    }
+                }]
+            },
             "bard-6": {
                 "conditions": {
                     "level": 6,
@@ -2552,6 +2698,51 @@
                     "type": "dict",
                     "dict": {
                         "description": "You can attack twice, instead of once, whenever you take the **Attack** action on your turn."
+                    }
+                }]
+            },
+            "bard-6-glamour": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "bard-5",
+                    "college": ["Glamour"]
+                },
+                "config": [{
+                    "label": "Mantle of Majesty",
+                    "path": "abilities.Mantle of Majesty",
+                    "type": "dict",
+                    "dict": {
+                        "description": "You gain the ability to cloak yourself in a fey magic that makes others want to serve you. As a *bonus action*, you cast *command*, without expending a spell slot, and you take on an appearance of unearthly beauty for 1 minute or until your concentration ends (as if you were concentrating on a spell). During this time, you can cast *command* as a *bonus action* on each of your turns, without expending a spells lot. Any creature *charmed* by you automatically fails its saving throw against the command you cast with this feature. Once you use this feature, you can't use it again until you finish a long rest."
+                    }
+                }]
+            },
+            "bard-6-sword": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "bard-5",
+                    "college": ["Sword"]
+                },
+                "config": [{
+                    "label": "Extra Attack",
+                    "path": "abilities.Extra Attack",
+                    "type": "dict",
+                    "dict": {
+                        "description": "You can attack twice, instead of once, whenever you take the **Attack** action on your turn."
+                    }
+                }]
+            },
+            "bard-6-whispers": {
+                "conditions": {
+                    "level": 6,
+                    "creation": "bard-5",
+                    "college": ["Whispers"]
+                },
+                "config": [{
+                    "label": "Mantle of Whispers",
+                    "path": "abilities.Mantle of Whispers",
+                    "type": "dict",
+                    "dict": {
+                        "description": "You gain the ability to adopt a humanoid's persona. When a humanoid dies within 30 feet of you, you can magically capture its shadow using your reaction. You retain this shadow until you use it or you finish a long rest. You can use the shadow as an action. When you do so, it vanishes, magically transforming into a disguise that appears on you. You now look like the dead person, but healthy and alive. This disguise lasts for 1 hour or until you end it as a *bonus action*. While you're in the disguise, you gain access to all information that the humanoid would freely share with a casual acquaintance. Such information includes general details on its background and personal life, but doesn't include secrets. The information is enough that you can pass yourself off as the person by drawing on its memories. Another creature can see through this disguise by succeeding on a **Wisdom (Insight)** check contested by your **Charisma (Deception)** check. You gain a `+5` bonus to your check. Once you capture a shadow with this feature, you can't capture another one with it until you finish a short or long rest."
                     }
                 }]
             },
@@ -2792,6 +2983,34 @@
                     "limit": 2,
                     "filter": {
                         "code_formula": "proficiencies.skills"
+                    }
+                }]
+            },
+            "bard-10-glamour": {
+                "conditions": {
+                    "level": 10,
+                    "creation": "bard-9",
+                    "college": ["Glamour"]
+                },
+                "config": [{
+                    "path": "abilities.Mantle of Inspiration",
+                    "type": "dict",
+                    "dict": {
+                        "hp": 11
+                    }
+                }]
+            },
+            "bard-10-whispers": {
+                "conditions": {
+                    "level": 10,
+                    "creation": "bard-9",
+                    "college": ["Whispers"]
+                },
+                "config": [{
+                    "path": "abilities.Psychic Blades",
+                    "type": "dict",
+                    "dict": {
+                        "dice": "5d6"
                     }
                 }]
             },
@@ -3053,6 +3272,49 @@
                     "value": "You have mastered the art of weaving spellcasting and weapon use into a single harmonious act. When you use your action to cast a bard spell, you can make one weapon attack as a bonus action."
                 }]
             },
+            "bard-14-glamour": {
+                "conditions": {
+                    "level": 14,
+                    "creation": "bard-13",
+                    "college": ["Glamour"]
+                },
+                "config": [{
+                    "label": "Unbreakable Majesty",
+                    "path": "abilities.Unbreakable Majesty",
+                    "type": "dict",
+                    "dict": {
+                        "description": "Your appearance permanently gains an otherworldly aspect that makes you look more lovely and fierce. In addition, as a *bonus action*, you can assume a magically majestic presence for 1 minute or until you are incapacitated. For the duration, whenever any creature tries to attack you for the first time on a turn, the attacker must make a **Charisma** *saving throw* against your spell save DC. On a failed save, it can't attack you on this turn , and it must choose a new target for its attack or the attack is wasted. On a successful save, it can attack you on this turn, but it has **disadvantage** on any *saving throw* it makes against your spells on your next turn. Once you assume this majestic presence, you can't do so again until you finish a short or long rest."
+                    }
+                }]
+            },
+            "bard-14-sword": {
+                "conditions": {
+                    "level": 14,
+                    "creation": "bard-13",
+                    "college": ["Sword"]
+                },
+                "config": [{
+                    "label": "Master's Flourish",
+                    "path": "info.Master's Flourish",
+                    "type": "value",
+                    "value": "Whenever you use a **Blade Flourish** option, you can roll a `d6` and use it instead of expending a *Bardic Inspiration* die."
+                }]
+            },
+            "bard-14-whispers": {
+                "conditions": {
+                    "level": 14,
+                    "creation": "bard-13",
+                    "college": ["Whispers"]
+                },
+                "config": [{
+                    "label": "Shadow Lore",
+                    "path": "abilities.Master's Flourish",
+                    "type": "dict",
+                    "dict": {
+                        "description": "You gain the ability to weave dark magic into your words and tap into a creature's deepest fears. As an **action**, you magically whisper a phrase that only one creature of your choice within 30 feet of you can hear. The target must make a **Wisdom** *saving throw* against your spell save DC. It automatically succeeds if it doesn't share a language with you or if it can't hear you. On a successful saving throw, your whisper sounds like unintelligible mumbling and has no effect.\nOn a failed saving throw, the target is *charmed* by you for the next 8 hours or until you or your allies attack it, damage it, or force it to make a saving throw. It interprets the whispers as a description of its most mortifying secret. You gain no knowledge of this secret, but the target is convinced you know it.\nThe charmed creature obeys your commands for fear that you will reveal its secret. It won't risk its life for you or fight for you, unless it was already inclined to do so. It grants you favors and gifts it would offer to a close friend.\nWhen the effect ends, the creature has no understanding of why it held you in such fear. Once you use this feature, you can't use it again until you finish a long rest."
+                    }
+                }]
+            },
             "bard-15": {
                 "conditions": {
                     "level": 15,
@@ -3114,6 +3376,35 @@
                     "filter": {
                         "classes": "Bard",
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8"]
+                    }
+                }]
+            },
+            "bard-15-glamour": {
+                "conditions": {
+                    "level": 15,
+                    "creation": "bard-14",
+                    "college": ["Glamour"]
+                },
+                "config": [{
+                    "label": "Mantle of Inspiration",
+                    "path": "abilities.Mantle of Inspiration",
+                    "type": "dict",
+                    "dict": {
+                        "hp": 14
+                    }
+                }]
+            },
+            "bard-15-whispers": {
+                "conditions": {
+                    "level": 15,
+                    "creation": "bard-10",
+                    "college": ["Whispers"]
+                },
+                "config": [{
+                    "path": "abilities.Psychic Blades",
+                    "type": "dict",
+                    "dict": {
+                        "dice": "8d6"
                     }
                 }]
             },
@@ -10587,7 +10878,7 @@
                         "type": "dict",
                         "dict": {
                             "description": "When you cast a spell that forces other creatures to make a *Saving Throw*, you can protect some of those creatures from the spell's full force. To do so, you spend 1 *sorcery point* and choose a number of those creatures up to %(uses)s. A chosen creature automatically succeeds on its *Saving Throw* against the spell.",
-                            "uses_formula": "min(1, statistics.modifiers.charisma)",
+                            "uses_formula": "max(1, statistics.modifiers.charisma)",
                             "uses_default": "your **Charisma modifier**"
                         }
                     }, {
