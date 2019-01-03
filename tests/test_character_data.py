@@ -21,7 +21,32 @@ class CharacterDataTestCase(unittest.TestCase):
             'race': {
                 'instance': list,
                 'required': True,
-                'callback': self.checkConfig,
+                'callback': lambda c, p: self.verifyStruct(c, {
+                    'label': {
+                        'instance': unicode,
+                        'required': True,
+                        },
+                    'description': {
+                        'instance': unicode,
+                        'required': True,
+                        },
+                    'type': {
+                        'one-of': ['config'],
+                        'required': True,
+                        },
+                    'config': {
+                        'instance': list,
+                        'required': True,
+                        'callback': self.checkConfig,
+                        },
+                    'phases': {
+                        'instance': dict,
+                        'required': False,
+                        'callback': lambda d, p: self.checkPhase(
+                            d, p, True
+                            )
+                        },
+                    }, p),
                 },
             'class': {
                 'instance': list,
@@ -87,7 +112,7 @@ class CharacterDataTestCase(unittest.TestCase):
             p = path + [data.get('label', key)]
             name = '.'.join(p)
 
-            if 'required' in settings:
+            if settings.get('required', False):
                 self.assertIn(
                     key, data,
                     "%s: Expected in '%r': %r" % (
@@ -157,6 +182,9 @@ class CharacterDataTestCase(unittest.TestCase):
                         'required': True,
                         },
                     'creation': {
+                        'instance': unicode,
+                        },
+                    'race': {
                         'instance': unicode,
                         },
                     'class': {
