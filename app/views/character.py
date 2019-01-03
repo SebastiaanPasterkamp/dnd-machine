@@ -89,10 +89,6 @@ class CharacterBlueprint(BaseApiBlueprint):
         immutable = set([
             'user_id', 'xp',
             ])
-        if obj:
-            immutable |= set([
-                'race', 'class', 'background'
-                ])
 
         return dict(
             (key, obj[key] if obj and key in immutable else value)
