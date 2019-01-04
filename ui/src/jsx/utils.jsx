@@ -56,14 +56,18 @@ const utils = {
             if (value !== undefined
                 || path !== match
             ) {
-                replace[match] = value;
+                replace[match] = JSON.stringify(value);
             }
         });
         _.forEach(replace, (replace, match) => {
             formula = _.replace(formula, match, replace);
         });
         try {
-            return math.eval(formula);
+            const result = math.eval(formula);
+            if (result.toArray !== undefined) {
+                return result.toArray();
+            }
+            return result;
         } catch(err) {
             return undefined;
         }
