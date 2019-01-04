@@ -167,6 +167,9 @@ export class ListPropertySelect extends LazyComponent
                 || _.every(
                     filter,
                     (cond, path) => {
+                        if (path.match(/_(formula|default)$/)) {
+                            return true;
+                        }
                         const value = _.get(item, path);
                         return _.intersection(
                             _.isArray(value) ? value : [value],
