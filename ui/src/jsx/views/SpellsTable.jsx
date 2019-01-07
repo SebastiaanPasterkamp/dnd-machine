@@ -52,19 +52,19 @@ class SpellRow extends LazyComponent
 {
     render() {
         const {
-            id, name, level, range, cost, description, damage, casting_time,
+            id, name, level, range, cost, description, damage, casting_time, duration, concentration,
             classes = [], _classes = []
         } = this.props;
 
         return <tr data-id={id}>
-            <th>
+            <th className="spells-table--name">
                 {name}
                 <SpellLinks
                     altStyle={true}
                     spell_id={id}
                     />
             </th>
-            <td>
+            <td className="spells-table--summary">
                 <ul className="nice-menu stacked">
                     <li>
                         <strong>Level:</strong>&nbsp;
@@ -73,6 +73,14 @@ class SpellRow extends LazyComponent
                     <li>
                         <strong>Casting time:</strong>&nbsp;
                         {casting_time}
+                    </li>
+                    <li>
+                        <strong>Duration:</strong>&nbsp;
+                        {duration}
+                    </li>
+                    <li>
+                        <strong>Concentration:</strong>&nbsp;
+                        {concentration ? "Yes" : "No"}
                     </li>
                     <li>
                         <strong>Range:</strong>&nbsp;
@@ -101,7 +109,7 @@ class SpellRow extends LazyComponent
                     }
                 </ul>
             </td>
-            <td>
+            <td className="spells-table--description">
                 <MDReactComponent
                     text={this.props.description || ''}
                     />

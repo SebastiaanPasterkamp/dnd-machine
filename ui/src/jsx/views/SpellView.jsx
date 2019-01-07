@@ -24,9 +24,10 @@ export class SpellsView extends React.Component
 {
     render() {
         const {
-            description = '', level, casting_time, components = [],
-            magic_components = [], cost, duration, range, school,
-            magic_schools = [], damage, classes, _classes = []
+            description = '', level, casting_time, duration,
+            concentration, components = [], magic_components = [],
+            cost,  range, school, magic_schools = [], damage,
+            classes = [], _classes = []
         } = this.props;
 
         return <React.Fragment>
@@ -46,6 +47,14 @@ export class SpellsView extends React.Component
                         <td>{casting_time}</td>
                     </tr>
                     <tr>
+                        <th>Duration:</th>
+                        <td>{duration}</td>
+                    </tr>
+                    <tr>
+                        <th>Concentration:</th>
+                        <td>{concentration ? "Yes" : "No"}</td>
+                    </tr>
+                    <tr>
                         <th>Range</th>
                         <td>
                             <Reach
@@ -59,10 +68,6 @@ export class SpellsView extends React.Component
                             <DiceNotation {...damage}/>
                         </td>
                     </tr> : null}
-                    <tr>
-                        <th>Duration</th>
-                        <td>{duration}</td>
-                    </tr>
                     <tr>
                         <th>School</th>
                         <td>
