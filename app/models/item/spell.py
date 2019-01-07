@@ -10,6 +10,7 @@ class SpellObject(JsonObject):
         "components": [],
         "level": "Cantrip",
         "duration": "Instantaneous",
+        "concentration": False,
         "casting_time": "1 action",
         "range": "Self"
         }
@@ -20,12 +21,13 @@ class SpellObject(JsonObject):
             "dice_count": int,
             "dice_size": int
             },
+        "concentration": bool,
         }
 
     def migrate(self, mapper):
         items = mapper.items
 
-        self.components = [
+        self.components = list(set([
             items.itemByNameOrCode(
                 component, 'magic_components'
                 )['code']
@@ -33,10 +35,12 @@ class SpellObject(JsonObject):
             if items.itemByNameOrCode(
                 component, 'magic_components'
                 )
-            ]
+            ]))
         self.school = items.itemByNameOrCode(
             self.school, 'magic_schools', {'code': self.school}
             )['code']
+        if self.concentration is None:
+            self.concentration = "concentration" in self.duration.lower()
 
         if 'damage' in self and not isinstance(self.damage, dict):
             re_dmg = re.compile(r"^(?P<dice_count>\d+)d(?P<dice_size>\d+)(?:\s*\+\s*(?P<bonus>\d+))?\s+(?P<type>.*)$")
