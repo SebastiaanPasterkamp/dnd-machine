@@ -49,11 +49,7 @@ exports[`Component: AdventureLeagueLogLinks should render a new button for a cha
 </div>
 `;
 
-exports[`Component: AdventureLeagueLogLinks should render without props 1`] = `
-<div
-  className="base-link-group nice-btn-group"
-/>
-`;
+exports[`Component: AdventureLeagueLogLinks should render without props 1`] = `null`;
 
 exports[`Component: AdventureLeagueLogLinks should replace assign with consume 1`] = `
 <div

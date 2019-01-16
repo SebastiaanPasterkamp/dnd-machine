@@ -93,11 +93,7 @@ exports[`Component: ModalDialog should render with minimum props 1`] = `
     </div>
     <div
       className="nice-modal-footer"
-    >
-      <div
-        className="base-link-group nice-btn-group pull-right"
-      />
-    </div>
+    />
   </div>
 </div>
 `;

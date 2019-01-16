@@ -2,7 +2,7 @@
 
 exports[`Component: StatsBlock should show stat block editor 1`] = `
 <table
-  className="nice-table condensed bordered"
+  className="nice-table stats-block condensed bordered"
 >
   <thead>
     <tr>

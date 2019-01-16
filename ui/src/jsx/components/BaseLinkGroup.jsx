@@ -78,7 +78,7 @@ class BaseLinkGroup extends LazyComponent
 
     render() {
         const {
-            buttons, className, altStyle, extra = [],
+            buttons, omit = [], className, altStyle, extra = [],
         } = this.props;
         const style = utils.makeStyle({
             [className]: className,
@@ -90,11 +90,17 @@ class BaseLinkGroup extends LazyComponent
                 (func, action) => (
                     !buttons || _.includes(buttons, action)
                 )
+            ).omitBy(
+                (func, action) => _.includes(omit, action)
             ).mapValues(
                 func => func()
             ).pickBy(
                 'available'
             ).value();
+
+        if (_.isEmpty(filtered)) {
+            return null;
+        }
 
         return <div className={style}>
             {_.map(
@@ -127,8 +133,11 @@ BaseLinkGroup.propTypes = {
     buttons: PropTypes.arrayOf(
         PropTypes.string
     ),
+    omit: PropTypes.arrayOf(
+        PropTypes.string
+    ),
     className: PropTypes.string,
-    extra: PropTypes.arrayOf(
+    extra: PropTypes.objectOf(
         PropTypes.shape({
             altStyle: PropTypes.bool,
             icon: PropTypes.string,
