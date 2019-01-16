@@ -55,8 +55,14 @@ export function ObjectDataActionsFactory(id)
     });
 
     oda.getObject.listen((type, id, group=null, callback=null) => {
-        let path = '/' + _.filter([group, type, 'api', id]).join('/'),
-            list = '/' + _.filter([group, type, 'api']).join('/')
+        let path = '/' + _.filter(
+                [group, type, 'api', id],
+                p => (p !== null)
+            ).join('/'),
+            list = '/' + _.filter(
+                [group, type, 'api'],
+                p => (p !== null)
+            ).join('/')
 
         if (
             list in oda.throttledGet
