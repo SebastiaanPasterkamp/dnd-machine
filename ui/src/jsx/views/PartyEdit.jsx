@@ -71,7 +71,7 @@ export class PartyEdit extends React.Component
         }
 
         const {
-            characters, member_ids, reload
+            characters, member_ids = [], reload
         } = this.props;
 
         return <ModalDialog
@@ -101,7 +101,9 @@ export class PartyEdit extends React.Component
 
     render() {
         const {
-            name, description, member_ids, challenge, characters
+            name, description, member_ids = [],
+            challenge: { easy, medium, hard, deadly } = {},
+            characters
         } = this.props;
 
         return <React.Fragment>
@@ -147,16 +149,16 @@ export class PartyEdit extends React.Component
                     <tr>
                         <td>{member_ids.length}</td>
                         <td className="info">
-                            {challenge.easy} XP
+                            {easy} XP
                         </td>
                         <td className="good">
-                            {challenge.medium} XP
+                            {medium} XP
                         </td>
                         <td className="warning">
-                            {challenge.hard} XP
+                            {hard} XP
                         </td>
                         <td className="bad">
-                            {challenge.deadly} XP
+                            {deadly} XP
                         </td>
                     </tr>
                 </tbody>

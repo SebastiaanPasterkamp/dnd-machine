@@ -23,7 +23,8 @@ export class PartyView extends React.Component
     render() {
         const {
             id, name, user_id, description, size, member_ids,
-            challenge, characters
+            challenge: { easy, medium, hard, deadly } = {},
+            characters = []
         } = this.props;
 
         return <React.Fragment>
@@ -41,7 +42,13 @@ export class PartyView extends React.Component
                                 party_id={id}
                                 />
 
-                            <h3>{name}</h3>
+                            <h3>
+                                {name}
+                                <PartyLinks
+                                    altStyle={true}
+                                    party_id={id}
+                                    />
+                            </h3>
                         </th>
                     </tr>
                 </thead>
@@ -80,16 +87,16 @@ export class PartyView extends React.Component
                     <tr>
                         <td>{size}</td>
                         <td className="info">
-                            {challenge.easy}XP
+                            {easy}XP
                         </td>
                         <td className="good">
-                            {challenge.medium}XP
+                            {medium}XP
                         </td>
                         <td className="warning">
-                            {challenge.hard}XP
+                            {hard}XP
                         </td>
                         <td className="bad">
-                            {challenge.deadly}XP
+                            {deadly}XP
                         </td>
                     </tr>
                 </tbody>
@@ -112,35 +119,36 @@ export class PartyView extends React.Component
                 </thead>
                 <tbody>
                 {_.map(member_ids, (id) => {
-                    const character = _.get(
-                        characters, id
-                    );
+                    const {
+                        name, level,
+                       challenge: { easy, medium, hard, deadly } = {},
+                    } = _.get(characters, id, {});
 
-                    if (!character) {
+                    if (!name) {
                         return null;
                     }
 
                     return <tr key={id}>
                         <th>
-                            {character.name}
+                            {name}
                             <CharacterLinks
                                 altStyle={true}
                                 buttons={['view']}
-                                character_id={character.id}
+                                character_id={id}
                                 />
                         </th>
-                        <td>{character.level}</td>
+                        <td>{level}</td>
                         <td className="info">
-                            {character.challenge.easy}XP
+                            {easy}XP
                         </td>
                         <td className="good">
-                            {character.challenge.medium}XP
+                            {medium}XP
                         </td>
                         <td className="warning">
-                            {character.challenge.hard}XP
+                            {hard}XP
                         </td>
                         <td className="bad">
-                            {character.challenge.deadly}XP
+                            {deadly}XP
                         </td>
                     </tr>;
                 })}
