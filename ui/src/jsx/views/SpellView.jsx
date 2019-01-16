@@ -13,6 +13,7 @@ import Panel from '../components/Panel.jsx';
 import ListLabel from '../components/ListLabel.jsx';
 import Reach from '../components/Reach.jsx';
 import {SpellLabel} from '../components/SpellLabel.jsx';
+import SpellLinks from '../components/SpellLinks.jsx';
 
 const viewConfig = {
     className: 'spell-view',
@@ -24,7 +25,7 @@ export class SpellsView extends React.Component
 {
     render() {
         const {
-            description = '', level, casting_time, duration,
+            id, name, description = '', level, casting_time, duration,
             concentration, components = [], magic_components = [],
             cost,  range, school, magic_schools = [], damage,
             classes = [], _classes = []
@@ -38,6 +39,16 @@ export class SpellsView extends React.Component
                 header="Information"
                 >
                 <tbody>
+                    <tr>
+                        <th colSpan={2}>
+                            { name }
+                            <SpellLinks
+                                altStyle={true}
+                                spell_id={id}
+                                omit={['view']}
+                                />
+                        </th>
+                    </tr>
                     <tr>
                         <th>Level</th>
                         <td>{level}</td>
