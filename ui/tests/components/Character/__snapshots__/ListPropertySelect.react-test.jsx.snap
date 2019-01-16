@@ -2531,6 +2531,94 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
         <div
           className="base-tag-container nice-tags-container"
         >
+          <SingleSelect
+            emptyLabel="Add..."
+            isDisabled={[Function]}
+            items={
+              Array [
+                Object {
+                  "code": "strength",
+                  "description": "Str",
+                  "label": "Strength",
+                },
+                Object {
+                  "code": "intelligence",
+                  "description": "Int",
+                  "label": "Intelligence",
+                },
+              ]
+            }
+            setState={[Function]}
+          >
+            <OnClickOutside(BaseSelect)
+              eventTypes={
+                Array [
+                  "mousedown",
+                  "touchstart",
+                ]
+              }
+              excludeScrollbar={false}
+              label="Add..."
+              outsideClickIgnoreClass="ignore-react-onclickoutside"
+              preventDefault={false}
+              stopPropagation={false}
+            >
+              <BaseSelect
+                closeOnClick={true}
+                disableOnClickOutside={[Function]}
+                enableOnClickOutside={[Function]}
+                eventTypes={
+                  Array [
+                    "mousedown",
+                    "touchstart",
+                  ]
+                }
+                label="Add..."
+                outsideClickIgnoreClass="ignore-react-onclickoutside"
+                preventDefault={false}
+                stopPropagation={false}
+              >
+                <div
+                  className="nice-dropdown nice-form-control"
+                >
+                  <button
+                    className="nice-btn"
+                    onClick={[Function]}
+                  >
+                    Add...
+                    <i
+                      className="icon fa-angle-down"
+                    />
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    onClick={[Function]}
+                  >
+                    <li
+                      className={null}
+                      data-value="strength"
+                      key="strength"
+                      onClick={[Function]}
+                    >
+                      <a>
+                        Strength
+                      </a>
+                    </li>
+                    <li
+                      className={null}
+                      data-value="intelligence"
+                      key="intelligence"
+                      onClick={[Function]}
+                    >
+                      <a>
+                        Intelligence
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </BaseSelect>
+            </OnClickOutside(BaseSelect)>
+          </SingleSelect>
           <Tag
             color="good"
             description="Con"
