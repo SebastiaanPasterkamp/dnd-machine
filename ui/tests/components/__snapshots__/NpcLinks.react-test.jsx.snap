@@ -14,17 +14,9 @@ exports[`Component: NpcLinks should render a new button 1`] = `
 </div>
 `;
 
-exports[`Component: NpcLinks should render without props 1`] = `
-<div
-  className="base-link-group nice-btn-group"
-/>
-`;
+exports[`Component: NpcLinks should render without props 1`] = `null`;
 
-exports[`Component: NpcLinks should show nothing 1`] = `
-<div
-  className="base-link-group nice-btn-group"
-/>
-`;
+exports[`Component: NpcLinks should show nothing 1`] = `null`;
 
 exports[`Component: NpcLinks should show the normal buttons 1`] = `
 <div

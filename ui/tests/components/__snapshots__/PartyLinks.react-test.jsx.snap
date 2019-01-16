@@ -14,11 +14,7 @@ exports[`Component: PartyLinks should render a new button 1`] = `
 </div>
 `;
 
-exports[`Component: PartyLinks should render without props 1`] = `
-<div
-  className="base-link-group nice-btn-group"
-/>
-`;
+exports[`Component: PartyLinks should render without props 1`] = `null`;
 
 exports[`Component: PartyLinks should show a stop button 1`] = `
 <div

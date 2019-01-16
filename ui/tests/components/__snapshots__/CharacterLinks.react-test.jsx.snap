@@ -14,11 +14,7 @@ exports[`Component: CharacterLinks should render a new button 1`] = `
 </div>
 `;
 
-exports[`Component: CharacterLinks should render without props 1`] = `
-<div
-  className="base-link-group nice-btn-group"
-/>
-`;
+exports[`Component: CharacterLinks should render without props 1`] = `null`;
 
 exports[`Component: CharacterLinks should show a level-up button 1`] = `
 <div

@@ -14,11 +14,7 @@ exports[`Component: CampaignLinks should render a new button 1`] = `
 </div>
 `;
 
-exports[`Component: CampaignLinks should render without props 1`] = `
-<div
-  className="base-link-group nice-btn-group"
-/>
-`;
+exports[`Component: CampaignLinks should render without props 1`] = `null`;
 
 exports[`Component: CampaignLinks should show a view and edit button 1`] = `
 <div

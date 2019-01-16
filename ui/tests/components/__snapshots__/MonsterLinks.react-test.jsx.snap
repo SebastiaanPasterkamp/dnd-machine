@@ -14,17 +14,9 @@ exports[`Component: MonsterLinks should render a new button 1`] = `
 </div>
 `;
 
-exports[`Component: MonsterLinks should render without props 1`] = `
-<div
-  className="base-link-group nice-btn-group"
-/>
-`;
+exports[`Component: MonsterLinks should render without props 1`] = `null`;
 
-exports[`Component: MonsterLinks should show nothing 1`] = `
-<div
-  className="base-link-group nice-btn-group"
-/>
-`;
+exports[`Component: MonsterLinks should show nothing 1`] = `null`;
 
 exports[`Component: MonsterLinks should show the normal buttons 1`] = `
 <div

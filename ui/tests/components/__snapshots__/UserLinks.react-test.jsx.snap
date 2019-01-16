@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component: UserLinks should not show anything to non-self non-admin 1`] = `
-<div
-  className="base-link-group nice-btn-group"
-/>
-`;
+exports[`Component: UserLinks should not show anything to non-self non-admin 1`] = `null`;
 
 exports[`Component: UserLinks should render a new button 1`] = `
 <div
@@ -20,11 +16,7 @@ exports[`Component: UserLinks should render a new button 1`] = `
 </div>
 `;
 
-exports[`Component: UserLinks should render without props 1`] = `
-<div
-  className="base-link-group nice-btn-group"
-/>
-`;
+exports[`Component: UserLinks should render without props 1`] = `null`;
 
 exports[`Component: UserLinks should show admin buttons 1`] = `
 <div
