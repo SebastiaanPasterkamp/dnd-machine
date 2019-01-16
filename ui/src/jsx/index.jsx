@@ -47,6 +47,7 @@ import UserEdit from './views/UserEdit.jsx';
 import UsersTable from './views/UsersTable.jsx';
 import UserView from './views/UserView.jsx';
 import WeaponEdit from './views/WeaponEdit.jsx';
+import WeaponView from './views/WeaponView.jsx';
 import WeaponsTable from './views/WeaponsTable.jsx';
 
 import DefaultFilter from './views/DefaultFilter.jsx';
@@ -245,6 +246,10 @@ class DndMachine extends React.Component
                     component={SpellEdit}
                     />
 
+                <Route
+                    path="/items/weapon/show/:id"
+                    component={WeaponView}
+                    />
                 <Route
                     path="/items/weapon/new"
                     component={WeaponEdit}
