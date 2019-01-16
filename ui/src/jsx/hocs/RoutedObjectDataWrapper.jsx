@@ -31,8 +31,8 @@ function RoutedObjectDataWrapper(
         }
 
         getId() {
-            const id = _.get(this.props, 'match.params.id');
-            if (id == null) {
+            const id = _.get(this.props, 'match.params.id', null);
+            if (id === null) {
                 return null;
             }
             return parseInt(id);
@@ -79,7 +79,7 @@ function RoutedObjectDataWrapper(
 
         nextView(id=null) {
             this.props.history.push(
-                id == null
+                id === null
                 ? pathPrefix + '/list'
                 : pathPrefix + '/show/' + id
             );
@@ -88,7 +88,7 @@ function RoutedObjectDataWrapper(
         onSetState(update, callback=null) {
             const id = this.getId();
 
-            let loadable = _.assign(
+            const loadable = _.assign(
                 {},
                 this.getStateProps(),
                 update
@@ -104,7 +104,7 @@ function RoutedObjectDataWrapper(
 
         onReload(callback=null) {
             const id = this.getId();
-            if (id == null) {
+            if (id === null) {
                 return;
             }
 
@@ -131,7 +131,7 @@ function RoutedObjectDataWrapper(
         onSave(callback=null) {
             const id = this.getId();
 
-            if (id == null) {
+            if (id === null) {
                 this.actions.postObject(
                     loadableType,
                     this.getStateProps(),
@@ -181,7 +181,7 @@ function RoutedObjectDataWrapper(
 
             if (
                 type != loadableType
-                || failedId != id
+                || failedId !== id
             ) {
                 return;
             }
@@ -227,7 +227,7 @@ function RoutedObjectDataWrapper(
                         />
                     : null
                 }
-                {_.includes(buttons, "reload") && id != null
+                {_.includes(buttons, "reload") && id !== null
                     ? <ButtonField
                         name="button"
                         color="info"
@@ -311,7 +311,7 @@ function RoutedObjectDataWrapper(
                         }}
                         setButtons={(b) => this.setButtons(b)}
                         cancel={() => this.nextView()}
-                        reload={id != null
+                        reload={id !== null
                             ? (callback=null) => this.onReload(callback)
                             : null
                         }
