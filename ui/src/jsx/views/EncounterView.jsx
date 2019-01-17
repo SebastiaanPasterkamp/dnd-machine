@@ -188,6 +188,10 @@ export class EncounterView extends React.Component
         } = this.props;
         const { combat } = this.state;
 
+        if (!name) {
+            return null;
+        }
+
         const { challenge } = hosted_party || {};
         const classification = challenge ? utils.closest({
             'info': challenge.easy,
