@@ -116,14 +116,14 @@ class CombatantCard extends LazyComponent
             </div>
             <div className="nice-card-content">
                 <Progress
-                    value={hit_points}
+                    value={hit_points - hp_missing}
                     total={hit_points}
                     color={utils.closest({
                         "muted": -0.15,
                         "bad": 0.15,
                         "warning": 0.50,
                         "good": 0.85,
-                    }, 1.0, 'muted')}
+                    }, 1.0 - (hp_missing / hit_points), 'muted')}
                     label={
                         (hit_points - hp_missing)
                         + ' / '
