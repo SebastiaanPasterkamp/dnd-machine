@@ -128,6 +128,8 @@ class MonsterObject(JsonObject):
         if isinstance(self.traits, list):
             self.traits = {}
 
+        self.motion = {k:v for k, v in self.motion.items() if v}
+
         super(MonsterObject, self).migrate()
 
     def compute(self):
