@@ -117,7 +117,7 @@ export class TagContainer extends LazyComponent
 
 TagContainer.propTypes = {
     value: PropTypes.arrayOf(PropTypes.string).isRequired,
-    setState: PropTypes.func.isRequired,
+    setState: PropTypes.func,
     className: PropTypes.string,
     showSelect: PropTypes.bool,
     multiple: PropTypes.bool,

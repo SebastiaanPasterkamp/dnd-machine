@@ -186,6 +186,10 @@ export class MonsterView extends LazyComponent
             size_hit_dice = [], _languages = [], alignments = [],
         } = this.props;
 
+        if (!name) {
+            return null;
+        }
+
         return <React.Fragment>
             <Panel
                 key="description"

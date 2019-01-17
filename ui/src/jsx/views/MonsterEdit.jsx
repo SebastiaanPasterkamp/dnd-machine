@@ -242,7 +242,7 @@ export class MonsterEdit extends React.Component
             alignment, alignments = [], level, armor_class,
             description = '', challenge_rating_precise = 0.0,
             xp_rating = 0, motion = {}, languages = [],
-            _languages = [], traits = [], statistics, attacks = [],
+            _languages = [], traits = {}, statistics, attacks = [],
             multiattack = []
         } = this.props;
 
