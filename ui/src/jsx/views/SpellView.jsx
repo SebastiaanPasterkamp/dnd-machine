@@ -41,12 +41,12 @@ export class SpellsView extends React.Component
                 <tbody>
                     <tr>
                         <th colSpan={2}>
-                            { name }
                             <SpellLinks
-                                altStyle={true}
+                                className="pull-right"
                                 spell_id={id}
                                 omit={['view']}
                                 />
+                            { name }
                         </th>
                     </tr>
                     <tr>

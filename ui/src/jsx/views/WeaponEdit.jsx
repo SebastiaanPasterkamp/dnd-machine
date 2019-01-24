@@ -83,30 +83,35 @@ export class WeaponEdit extends React.Component
 
     render() {
         const {
-            name, damage, versatile, type, weapon_types,
-            property = [], range, weight, cost, description,
+            name, damage, versatile, type, weapon_types = [],
+            property = [], range, weight = {}, cost = {}, description,
             weapon_properties = [],
         } = this.props;
+
+        const {
+            code: defaultWeaponType,
+        } = weapon_types[0] || {};
+
         return [
             <Panel
                     key="description"
                     className="weapon-edit__description"
                     header="Description"
                 >
-                <ControlGroup label="Type">
-                    <SingleSelect
-                        selected={type || weapon_types[0].code}
-                        items={weapon_types || []}
-                        setState={(value) =>
-                            this.onFieldChange('type', value)
-                        } />
-                </ControlGroup>
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
                         value={name}
                         setState={(value) =>
                             this.onFieldChange('name', value)
+                        } />
+                </ControlGroup>
+                <ControlGroup label="Type">
+                    <SingleSelect
+                        selected={type || defaultWeaponType}
+                        items={weapon_types || []}
+                        setState={(value) =>
+                            this.onFieldChange('type', value)
                         } />
                 </ControlGroup>
                 <DamageEdit
