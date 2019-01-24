@@ -24,9 +24,15 @@ export class NpcView extends React.Component
             classes = [], race, races = [], gender, genders = [],
             description = '', alignment, alignments = [], size,
             armor_class, size_hit_dice = [], hit_points, level,
-            traits = {}, statistics, _statistics = [], languages = [],
-            _languages = [], spell
+            traits = {}, statistics = {}, _statistics = [],
+            languages = [], _languages = [], spell = {}
         } = this.props;
+
+        if (!name) {
+            return null;
+        }
+
+        const { modifiers = {} } = statistics;
 
         return <React.Fragment>
 
@@ -155,7 +161,7 @@ export class NpcView extends React.Component
                                     {code: size},
                                     {dice_size: 8}
                                 ).dice_size}
-                                bonus={statistics.modifiers.constitution * level}
+                                bonus={modifiers.constitution * level}
                                 />)
                         </td>
                     </tr>
