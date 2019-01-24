@@ -66,7 +66,7 @@ export class PartyLinks extends BaseLinkGroup
                     .then((response) => response.json())
                     .then((data) => {
                         ListDataActions.fetchItems.completed({
-                            hosted: data
+                            hosted_party: data
                         });
                     });
                 },
@@ -89,7 +89,7 @@ export class PartyLinks extends BaseLinkGroup
                     .then((response) => response.json())
                     .then((data) => {
                         ListDataActions.fetchItems.completed({
-                            hosted: data
+                            hosted_party: data
                         });
                     });
                 },
