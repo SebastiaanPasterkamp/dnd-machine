@@ -190,10 +190,7 @@ export default ListDataWrapper(
             buttons: ['cancel', 'reload', 'save']
         },
         "spell",
-        "items",
-        {
-            "spell": "spells"
-        }
+        "items"
     ),
     [
         "magic_components",
