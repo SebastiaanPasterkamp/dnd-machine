@@ -21,6 +21,7 @@ export class StatsBlock extends Reflux.Component
     }
 
     componentWillUnmount() {
+        super.componentWillUnmount.call(this);
         const {
             bonus: oldBonus = {},
         } = this.props;
