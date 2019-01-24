@@ -99,13 +99,13 @@ class JsonObject(object):
                         b[key],
                         path + [key]
                         )
-                    continue
-                a[key] = self._merge(
-                    a[key],
-                    b[key],
-                    self._getCast(cast, key),
-                    path + [key]
-                    )
+                else:
+                    a[key] = self._merge(
+                        a[key],
+                        b[key],
+                        self._getCast(cast, key),
+                        path + [key]
+                        )
             return a
 
         if isinstance(a, list) and isinstance(b, list):

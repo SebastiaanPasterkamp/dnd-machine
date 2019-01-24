@@ -88,13 +88,13 @@ class MonsterObject(JsonObject):
             'average': int,
             'critical': int,
             'reach': {
-                '*': int
+                '*': int,
                 },
             'damage': {
                 '*': int,
                 'mode': unicode,
                 'type': unicode,
-                'notation': unicode
+                'notation': unicode,
                 }
             },
         'hit_points': int,
@@ -127,6 +127,18 @@ class MonsterObject(JsonObject):
             del self._config['modifiers']
         if isinstance(self.traits, list):
             self.traits = {}
+
+        for attack in self.attacks:
+            if 'range_min' in attack:
+                attack['reach'] = {
+                    'min': attack['range_min'],
+                    'max': attack['range_max']
+                    }
+                del attack['range_min']
+                del attack['range_max']
+            if 'range' in attack:
+                attack['reach'] = attack['range']
+                del attack['range']
 
         self.motion = {k:v for k, v in self.motion.items() if v}
 
@@ -170,17 +182,6 @@ class MonsterObject(JsonObject):
         self.spell_save_dc = 0
 
         for attack in self.attacks:
-            if 'range_min' in attack:
-                attack['reach'] = {
-                    'min': attack['range_min'],
-                    'max': attack['range_max']
-                    }
-                del(attack['range_min'])
-                del(attack['range_max'])
-            if 'range' in attack:
-                attack['reach'] = attack['range']
-                del(attack['range'])
-
             attack["mode"] = attack.get("mode", "melee")
             attack["bonus"] = 0
             attack["spell_save_dc"] = 0
