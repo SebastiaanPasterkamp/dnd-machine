@@ -37,17 +37,13 @@ export class PartyView extends React.Component
                     <tr>
                         <th colSpan="2">
                             <PartyLinks
-                                buttons={['edit']}
                                 className="pull-right"
                                 party_id={id}
+                                omit={['view']}
                                 />
 
                             <h3>
                                 {name}
-                                <PartyLinks
-                                    altStyle={true}
-                                    party_id={id}
-                                    />
                             </h3>
                         </th>
                     </tr>

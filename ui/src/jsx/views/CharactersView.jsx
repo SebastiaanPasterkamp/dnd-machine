@@ -47,7 +47,7 @@ export class CharacterDescription extends LazyComponent
             <CharacterLinks
                 className="pull-right"
                 character_id={id}
-                buttons={['edit', 'pdf', 'delete']}
+                omit={['view']}
                 />
 
             <h3>{name}</h3>
