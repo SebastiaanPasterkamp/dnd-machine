@@ -15,6 +15,8 @@ class CharacterObject(JsonObject):
         "class": u"",
         "background": u"",
         "alignment": u"true neutral",
+        "adventure_league": False,
+        "treasure_checkpoints": {},
         "level": 1,
         "xp": 0,
         "statistics": {
@@ -127,7 +129,16 @@ class CharacterObject(JsonObject):
         "xp_level": int,
         "downtime": int,
         "renown": int,
+        "adventure_league": bool,
         "adventure_items": int,
+        "adventure_checkpoints": int,
+        "treasure_checkpoints": {
+            "*": {
+                "*": int,
+                },
+            },
+        "acp_progress": int,
+        "acp_level": int,
         "level": int,
         "hit_points": int,
         "hit_dice": int,
@@ -233,7 +244,7 @@ class CharacterObject(JsonObject):
             self._character_data = get_character_data()
         return self._character_data
 
-    def migrate(self, mapper=None):
+    def migrate(self, mapper):
         if self.race == "Stout Halfing":
             self.race = "Stout Halfling"
 
@@ -347,6 +358,9 @@ class CharacterObject(JsonObject):
             "trinket": []
             }
 
+        if mapper.adventureleague.getByCharacterId(self.id):
+            self.adventure_league = True
+
         super(CharacterObject, self).migrate()
 
     def compute(self):
@@ -355,8 +369,12 @@ class CharacterObject(JsonObject):
 
         self.version = self._version
 
-        self.level, self.xp_progress, self.xp_level = \
-            machine.xpToLevel(self.xp)
+        if self.adventure_checkpoints:
+            self.level, self.acp_progress, self.acp_level = \
+                machine.acpToLevel(self.adventure_checkpoints)
+        else:
+            self.level, self.xp_progress, self.xp_level = \
+                machine.xpToLevel(self.xp)
 
         self.statisticsBase = {}
         self.statisticsModifiers = {}
@@ -481,6 +499,71 @@ class CharacterObject(JsonObject):
                 ]
         return obj
 
+    def consumeAdventureLeague(self, log):
+        flatMapping = {
+            'downtime': 'downtime',
+            'renown': 'renown',
+            }
+        if log.getPath(['adventure_checkpoints', 'earned'], 0):
+            flatMapping['adventure_checkpoints'] = 'adventure_checkpoints'
+            if not self.adventure_checkpoints:
+                self.adventure_checkpoints = \
+                    self.mapper.machine.xpToAcp(self.xp)
+        else:
+            flatMapping['xp'] = 'xp'
+
+        nestedMapping = {
+            'gold': 'wealth',
+            'treasure_checkpoints': 'treasure_checkpoints',
+            }
+
+        for src, dst in flatMapping.items():
+            log.setPath([src], log.getPath([src], {}))
+            log.setPath([src, 'starting'], self.getPath(dst, 0))
+            self.setPath(
+                dst,
+                self.getPath(dst, 0) \
+                    + log.getPath([src, 'earned'], 0)
+                )
+            log.setPath([src, 'total'], self.getPath(dst))
+
+        for src, dst in nestedMapping.items():
+            log.setPath([src], log.getPath([src], {}))
+            log.setPath(
+                [src, 'starting'],
+                dict([
+                    (key, value)
+                    for key, value in self.getPath(dst, {}).items()
+                    ])
+                )
+            for field, value in log.getPath(
+                    ['src', 'earned'], {}
+                    ).items():
+                self.setPath(
+                    [dst, field],
+                    value + self.getPath([dst, field], 0)
+                    )
+            log.setPath(
+                [src, 'total'],
+                dict([
+                    (key, value)
+                    for key, value in self.getPath(dst, {}).items()
+                    ])
+                )
+
+        log.equipmentStarting = len(self.equipment)
+        self.equipment += log.equipmentEarned or []
+        log.equipmentTotal = len(self.equipment)
+
+        log.itemsStarting = self.adventure_items or 0
+        self.equipment += log.itemsEarned or []
+        self.adventure_items = log.itemsStarting \
+            + len(log.itemsEarned or [])
+        log.itemsTotal = self.adventure_items
+
+        log.consumed = True
+        self.adventure_league = True
+        self.compute()
 
     def getLevelUp(self):
         levelUp = {

@@ -19,6 +19,9 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
             '/new/<int:character_id>', 'new',
             self.newObj, methods=['GET'])
         self.add_url_rule(
+            '/edit/<int:obj_id>/<int:character_id>', 'edit',
+            self.edit, methods=['GET'])
+        self.add_url_rule(
             '/consume/<int:obj_id>', 'consume',
             self.consume)
 
@@ -48,6 +51,11 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
             abort(403)
         if not request.user.dci:
             abort(403)
+        if 'character_id' not in kwargs:
+            return
+        obj = self.charactermapper.getById(kwargs['character_id'])
+        if obj is None or obj.user_id != request.user.id:
+            abort(403, "Not owned")
 
     @BaseApiCallback('api_post.object')
     @BaseApiCallback('api_copy.object')
@@ -118,42 +126,7 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
             abort(409, "The Adventure League Log is not yet claimed")
 
         character = self.charactermapper.getById(obj.character_id)
-        mapping = {
-            'xp': 'xp',
-            'downtime': 'downtime',
-            'renown': 'renown'
-            }
-        for src, dst in mapping.items():
-            obj[src] = obj[src] or {}
-            obj[src]['starting'] = character[dst] or 0
-            character[dst] = (character[dst] or 0) \
-                + (obj[src]['earned'] or 0)
-            obj[src]['total'] = character[dst]
-
-        obj.goldStarting = dict([
-            (key, value)
-            for key, value in character.wealth.items()
-            ])
-        for coin, value in obj.goldEarned.items():
-            character.wealth[coin] = value \
-                + character.wealth.get(coin, 0)
-        obj.goldTotal = dict([
-            (key, value)
-            for key, value in character.wealth.items()
-            ])
-
-        obj.equipmentStarting = len(character.equipment)
-        character.equipment += obj.equipmentEarned or []
-        obj.equipmentTotal = len(character.equipment)
-
-        obj.itemsStarting = character.adventure_items or 0
-        character.equipment += obj.itemsEarned or []
-        character.adventure_items = obj.itemsStarting \
-            + len(obj.itemsEarned or [])
-        obj.itemsTotal = character.adventure_items
-
-        obj.consumed = True
-        character.compute()
+        character.consumeAdventureLeague(obj)
 
         self.doCallback('consume.object', obj, character)
 

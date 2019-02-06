@@ -41,7 +41,7 @@ class PartyObject(JsonObject):
     def migrate(self, mapper):
         self.members = mapper.character.getByPartyId(self.id)
         for member in self.members:
-            member.migrate()
+            member.migrate(mapper)
         super(PartyObject, self).migrate()
 
     def compute(self):
@@ -71,19 +71,10 @@ class PartyMapper(JsonObjectDataMapper):
 
     def getByDmUserId(self, user_id):
         """Returns all parties run by the DM by user_id"""
-        cur = self.db.execute("""
-            SELECT *
-            FROM `%s`
-            WHERE `user_id` = ?
-            """ % self.table,
+        self.getMultiple(
+            "`user_id` = ?",
             [user_id]
             )
-        parties = cur.fetchall() or []
-        return [
-            self._read(dict(party))
-            for party in parties
-            if party
-            ]
 
     def getIdsByDmUserId(self, user_id):
         """Returns all party IDs run by the DM by user_id"""
