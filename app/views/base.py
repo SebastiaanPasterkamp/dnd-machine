@@ -60,7 +60,7 @@ def register_paths(app, basemapper, config):
             })
         if request.user.dci:
             navigation.append({
-                'label': 'Adventure League',
+                'label': 'AL logs',
                 'icon': 'pencil-square-o', # 'd-and-d',
                 'path': url_for('adventureleague.overview'),
                 })

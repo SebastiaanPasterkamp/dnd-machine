@@ -81,6 +81,30 @@ class DndMachine(object):
             xp_offset = xp_level
         return level, xp - xp_offset, xp_level - xp_offset
 
+    def acpToLevel(self, acp):
+        level = 1
+        acp_per_level = 4
+        if acp <= 16:
+            level = 1 + acp / 4
+            return level, acp % 4, 4
+        level = 3 + acp / 8
+        return level, acp % 8, 8
+
+    def xpToAcp(self, xp):
+        level, progress, max_progress = self.xpToLevel(xp)
+        acp = 0
+        acp_per_level = 4
+        if level > 4:
+            acp += 4 * 4
+            level -= 4
+            acp_per_level = 8
+
+        acp += level * acp_per_level
+        acp += int(math.ceil(
+            float(progress * acp_per_level) / max_progress
+            ))
+        return acp
+
     def challengeByLevel(self, level, formula=False):
         """Returns the Challenge Rating in XP by level
         use formula=True to use a mathematical approach,

@@ -12,10 +12,20 @@ class AdventureLeagueLogObject(JsonObject):
             'dm_name': u'',
             'dm_dci': u'',
             },
+        'adventure_checkpoints': {
+            'starting': 0,
+            'earned': 0,
+            'total': 0,
+            },
         'xp': {
             'starting': 0,
             'earned': 0,
             'total': 0,
+            },
+        'treasure_checkpoints': {
+            'starting': {},
+            'earned': {},
+            'total': {},
             },
         'gold': {
             'starting': {},
@@ -49,8 +59,16 @@ class AdventureLeagueLogObject(JsonObject):
         'user_id': int,
         'character_id': int,
         'consumed': bool,
+        'adventure_checkpoints': {
+            '*': int,
+            },
         'xp': {
             '*': int,
+            },
+        'treasure_checkpoints': {
+            '*': {
+                '*': int,
+                }
             },
         'gold': {
             '*': {
@@ -80,34 +98,16 @@ class AdventureLeagueLogMapper(JsonObjectDataMapper):
 
     def getByUserId(self, user_id):
         """Returns all adventure league logs created by user_id"""
-        cur = self.db.execute("""
-            SELECT *
-            FROM `%s`
-            WHERE `user_id` = ?
-            """ % self.table,
+        return self.getMultiple(
+            "`user_id` = ?",
             [user_id]
             )
-        objs = cur.fetchall() or []
-        return [
-            self._read(dict(objs))
-            for obj in objs
-            if obj
-            ]
 
     def getByCharacterId(self, character_id):
         """Returns all adventure league logs created by
         character_id
         """
-        cur = self.db.execute("""
-            SELECT *
-            FROM `%s`
-            WHERE `character_id` = ?
-            """ % self.table,
+        return self.getMultiple(
+            "`character_id` = ?",
             [character_id]
             )
-        objs = cur.fetchall() or []
-        return [
-            self._read(dict(objs))
-            for obj in objs
-            if obj
-            ]
