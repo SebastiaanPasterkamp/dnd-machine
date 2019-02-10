@@ -42,6 +42,12 @@ exports[`Component: MonsterLinks should show the normal buttons 1`] = `
   >
     Copy
   </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-trash-o bad"
+    onClick={[Function]}
+  >
+    Delete
+  </a>
 </div>
 `;
 
