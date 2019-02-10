@@ -5,17 +5,22 @@ import '../../sass/_adventure-league-log-table.scss';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
+import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
 import AdventureLeagueLogLinks from '../components/AdventureLeagueLogLinks.jsx';
+import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import CharacterLabel from '../components/CharacterLabel.jsx';
+import CharacterPicker from './CharacterPicker.jsx';
 import Coinage from '../components/Coinage.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import ListLabel from '../components/ListLabel.jsx';
+import ModalDialog from '../components/ModalDialog.jsx';
 
-class AdventureLeagueLogHeader extends LazyComponent
-{
-    render() {
-        return <thead>
+import { userHasRole } from '../utils.jsx';
+
+const AdventureLeagueLogHeader = function() {
+    return (
+        <thead>
             <tr>
                 <th>Adventure</th>
                 <th>Gains</th>
@@ -23,24 +28,41 @@ class AdventureLeagueLogHeader extends LazyComponent
                 <th>Character</th>
             </tr>
         </thead>
-    }
+    );
 };
 
-class AdventureLeagueLogFooter extends LazyComponent
-{
-    render() {
-        return <tbody>
+const AdventureLeagueLogFooter = function({
+    onNew,
+    characterId,
+}) {
+    const extra = characterId !== undefined ? ({
+        'new': {
+            label: 'New',
+            link: "/log/adventureleague/new/" + characterId,
+            icon: 'plus',
+        },
+    }) : ({
+        'new': {
+            label: 'New',
+            action: onNew,
+            icon: 'plus',
+        },
+    });
+
+    return (
+        <tbody>
             <tr>
                 <th>
-                    <AdventureLeagueLogLinks
+                    <BaseLinkGroup
                         altStyle={true}
+                        extra={extra}
                         />
                 </th>
                 <td colSpan={3}>
                 </td>
             </tr>
         </tbody>
-    }
+    );
 };
 
 class AdventureLeagueRow extends LazyComponent
@@ -122,9 +144,81 @@ class AdventureLeagueRow extends LazyComponent
     }
 };
 
+export class CharacterSelectDialog extends React.Component
+{
+    constructor(props) {
+        super(props);
+        this.state = {
+            character_id: null,
+        };
+    }
+
+    render() {
+        const {
+            onCancel,
+            current_user,
+        } = this.props
+        const {
+            character_id,
+        } = this.state;
+
+        return (
+            <ModalDialog
+                label="Pick a Character"
+                onCancel={onCancel}
+                onDone={character_id == null
+                    ? null
+                    : () => onDone(character_id)
+                }
+            >
+                <CharacterPicker
+                    filter={character => (
+                        current_user.id == character.user_id
+                        && (
+                            character.xp == 0
+                            || character.adventure_league
+                        )
+                    )}
+                    actions={character => ({
+                        'pick': {
+                            label: 'Pick',
+                            link: "/log/adventureleague/new/" + character.id,
+                            icon: 'user-secret',
+                        },
+                    })}
+                />
+            </ModalDialog>
+        );
+    }
+};
+
 class AdventureLeagueLogTable extends LazyComponent
 {
-    shouldDisplayRow(pattern, log) {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dialog: false,
+        };
+
+        this.toggleDialog = this.toggleDialog.bind(this);
+    }
+
+    toggleDialog() {
+        const {
+            dialog,
+        } = this.state;
+        this.setState({
+            dialog: !dialog,
+        });
+    }
+
+    shouldDisplayRow(pattern, character_id, log) {
+        if (
+            character_id !== undefined
+            && log.character_id !== character_id
+        ) {
+            return false;
+        }
         return (
             (log.adventure.name && log.adventure.name.match(pattern))
             || (log.notes && log.notes.match(pattern))
@@ -133,17 +227,34 @@ class AdventureLeagueLogTable extends LazyComponent
 
     render() {
         const {
-            logs, search = '',
+            logs,
+            current_user,
+            search = '',
+            character: {
+                id: character_id,
+            } = {},
         } = this.props;
+        const {
+            dialog,
+        } = this.state;
 
         if (!logs) {
             return null;
         }
 
-        let pattern = new RegExp(search, "i");
+        const pattern = new RegExp(search, "i");
         const filtered = _.filter(
             logs,
-            entry => this.shouldDisplayRow(pattern, entry)
+            entry => this.shouldDisplayRow(
+                pattern,
+                character_id,
+                entry,
+            )
+        );
+
+        const canCreateNew = (
+            userHasRole(current_user, 'player')
+            && current_user.dci
         );
 
         return <div className="adventure-league-log-table">
@@ -164,16 +275,34 @@ class AdventureLeagueLogTable extends LazyComponent
                         />
                 ))}
                 </tbody>
-                <AdventureLeagueLogFooter />
+                {canCreateNew && <AdventureLeagueLogFooter
+                    onNew={this.toggleDialog}
+                    characterId={character_id}
+                />}
             </table>
+
+            {dialog && canCreateNew && (
+                <CharacterSelectDialog
+                    onCancel={this.toggleDialog}
+                    current_user={current_user}
+                />
+            )}
         </div>
     }
-}
+};
 
 export default ListDataWrapper(
     ObjectDataListWrapper(
-        AdventureLeagueLogTable,
+        ObjectDataWrapper(
+            AdventureLeagueLogTable,
+            [
+                {type: 'character', id: 'character_id'},
+            ]
+        ),
         {logs: {group: 'log', type: 'adventureleague'}}
     ),
-    ['search']
+    [
+        'current_user',
+        'search',
+    ]
 );

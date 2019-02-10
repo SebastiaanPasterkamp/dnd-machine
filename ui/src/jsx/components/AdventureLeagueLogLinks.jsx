@@ -19,7 +19,6 @@ export class AdventureLeagueLogLinks extends BaseLinkGroup
     buttonList() {
         const {
             logId, adventureleague = {}, current_user: user,
-            characterId,
         } = this.props;
 
         if (!user) {
@@ -80,18 +79,6 @@ export class AdventureLeagueLogLinks extends BaseLinkGroup
                     && !adventureleague.consumed
                 ),
             }),
-            'new': () => ({
-                label: 'New',
-                link: characterId
-                    ? "/log/adventureleague/new/" + characterId
-                    : "/log/adventureleague/new",
-                icon: 'plus',
-                available: (
-                    _.isNil(logId)
-                    && userHasRole(user, 'player')
-                    && user.dci
-                ),
-            }),
             'delete': () => ({
                 label: 'Delete',
                 action: () => {
@@ -132,7 +119,6 @@ AdventureLeagueLogLinks.propTypes = _.assign(
             consumed: PropTypes.oneOf([0, 1]).isRequired,
             character_id: PropTypes.number,
         }),
-        characterId: PropTypes.number,
     }
 );
 

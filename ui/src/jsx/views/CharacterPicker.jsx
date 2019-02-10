@@ -6,8 +6,8 @@ import '../../sass/_character-picker.scss';
 
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
+import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
 import CharacterLabel from '../components/CharacterLabel.jsx';
-import InputField from '../components/InputField.jsx';
 import UserLabel from '../components/UserLabel.jsx';
 
 export class CharacterPicker extends React.Component
@@ -18,56 +18,63 @@ export class CharacterPicker extends React.Component
 
     render() {
         const {
-            actions, characters = [], filter, showUser
+            actions, characters, filter, showUser,
         } = this.props;
 
-        const filtered = _.isFunction(filter)
-            ? _.filter(
-                characters,
-                character => filter(character)
-            )
+        const filtered = filter
+            ? _.filter(characters, filter)
             : characters;
 
-        return <table
-            className="nice-table condensed bordered character-picker"
+        return (
+            <table
+                className="nice-table condensed bordered character-picker"
             >
-            <thead>
-                <tr>
-                    {showUser ? <th>Player</th> : null }
-                    <th>Character</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>{_.map(filtered, character => (
-                <tr key={character.id}>
-                    {showUser ? <td>
-                        <UserLabel
-                            user_id={character.user_id}
+                <thead>
+                    <tr>
+                        {showUser && <th>Player</th>}
+                        <th>Character</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>{_.map(filtered, character => (
+                    <tr key={character.id}>
+                        {showUser && (
+                            <td>
+                                <UserLabel
+                                    user_id={character.user_id}
+                                />
+                            </td>
+                        )}
+                        <td>
+                            <CharacterLabel
+                                character_id={character.id}
+                                character={character}
+                                showProgress={true}
                             />
-                    </td> : null}
-                    <td>
-                        <CharacterLabel
-                            character_id={character.id}
-                            showProgress={true}
+                        </td>
+                        <td>
+                            <BaseLinkGroup
+                                extra={actions(character)}
                             />
-                    </td>
-                    <td>
-                        {actions(character)}
-                    </td>
-                </tr>
-            ))}</tbody>
-        </table>;
+                        </td>
+                    </tr>
+                ))}</tbody>
+            </table>
+        );
     }
 }
 
 CharacterPicker.propTypes = {
     actions: PropTypes.func.isRequired,
-    characters: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.array
-    ]),
+    characters: PropTypes.object,
     filter: PropTypes.func,
     showUser: PropTypes.bool,
+};
+
+CharacterPicker.defaultProps = {
+    characters: {},
+    filter: null,
+    showUser: false,
 };
 
 export default ObjectDataListWrapper(

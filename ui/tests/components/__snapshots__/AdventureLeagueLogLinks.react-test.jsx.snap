@@ -21,33 +21,9 @@ exports[`Component: AdventureLeagueLogLinks should hide consume 1`] = `
 </div>
 `;
 
-exports[`Component: AdventureLeagueLogLinks should render a new button 1`] = `
-<div
-  className="base-link-group nice-btn-group"
->
-  <a
-    className="cursor-pointer nice-btn icon fa-plus"
-    href="/log/adventureleague/new"
-    onClick={[Function]}
-  >
-    New
-  </a>
-</div>
-`;
+exports[`Component: AdventureLeagueLogLinks should render a new button 1`] = `null`;
 
-exports[`Component: AdventureLeagueLogLinks should render a new button for a character 1`] = `
-<div
-  className="base-link-group nice-btn-group"
->
-  <a
-    className="cursor-pointer nice-btn icon fa-plus"
-    href="/log/adventureleague/new/123"
-    onClick={[Function]}
-  >
-    New
-  </a>
-</div>
-`;
+exports[`Component: AdventureLeagueLogLinks should render a new button for a character 1`] = `null`;
 
 exports[`Component: AdventureLeagueLogLinks should render without props 1`] = `null`;
 

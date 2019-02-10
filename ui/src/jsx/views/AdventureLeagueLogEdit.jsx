@@ -14,6 +14,7 @@ import ButtonField from '../components/ButtonField.jsx';
 import CalculatorInputField from '../components/CalculatorInputField.jsx';
 import CharacterLabel from '../components/CharacterLabel.jsx';
 import CharacterPicker from './CharacterPicker.jsx';
+import ToggleSwitch from '../components/ToggleSwitch.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
 import Coinage from '../components/Coinage.jsx';
 import CostEditor from '../components/CostEditor.jsx';
@@ -23,6 +24,7 @@ import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import ModalDialog from '../components/ModalDialog.jsx';
 import Panel from '../components/Panel.jsx';
 import UserLabel from '../components/UserLabel.jsx';
+import TabComponent from '../components/TabComponent.jsx';
 
 export class AdventureSession extends React.Component
 {
@@ -122,26 +124,20 @@ export class AdventureDelta extends React.Component
         const total = this.computeTotal(earned);
         const { formula = earned } = this.state;
 
-        return <Panel
-            className={className}
-            header={label}
+        return (
+            <ControlGroup
+                className={className}
+                labels={ formula == earned
+                    ? [label, "±", "="]
+                    : [label, "±", "=", "="]
+                }
             >
-            <ControlGroup label="Starting">
                 <InputField
                     placeholder="Starting..."
                     disabled={true}
                     type="number"
                     value={starting}
                     />
-            </ControlGroup>
-
-            <ControlGroup
-                labels={
-                    formula != earned
-                        ? ["Earned", "="]
-                        : ["Earned"]
-                }
-                >
                 <CalculatorInputField
                     placeholder="Earned..."
                     value={earned}
@@ -151,18 +147,14 @@ export class AdventureDelta extends React.Component
                         () => this.onChange(value)
                     )}
                     />
-                {formula != earned
-                    ? <InputField
+                {formula != earned && (
+                    <InputField
                         placeholder="Earned..."
                         disabled={true}
                         type="number"
                         value={earned}
-                        />
-                    : null
-                }
-            </ControlGroup>
-
-            <ControlGroup label="Total">
+                    />
+                )}
                 <InputField
                     placeholder="Total..."
                     disabled={true}
@@ -170,7 +162,7 @@ export class AdventureDelta extends React.Component
                     value={earned ? total : starting}
                     />
             </ControlGroup>
-        </Panel>;
+        );
     }
 };
 
@@ -278,10 +270,8 @@ export class AdventureItems extends React.Component
 
             <ControlGroup label="Obtained">
                 <ListComponent
-                    list={_.map(
-                        earned.length ? earned : [''],
-                        value => ({value})
-                    )}
+                    newItem='auto'
+                    list={_.map(earned, value => ({value}))}
                     component={InputField}
                     initialItem={{value: ''}}
                     disabled={disabled}
@@ -305,29 +295,161 @@ export class AdventureItems extends React.Component
     }
 };
 
+export class TreasureCheckpoints extends React.Component
+{
+    computeTotal(tier, earned) {
+        const {
+            [tier]: current = {
+                starting: 0,
+            },
+        } = this.props;
+        return _.assign(
+            {},
+            current,
+            {
+                earned,
+                total: current.starting + earned,
+            }
+        );
+    }
+
+    onChange(tier, earned) {
+        const { disabled = false, setState } = this.props;
+        if (disabled) {
+            return;
+        }
+        const computed = this.computeTotal(tier, earned);
+        setState({ [tier]: computed });
+    }
+
+    render() {
+        const {
+            one = {},
+            two = {},
+            three = {},
+            four = {},
+            className,
+            label,
+            disabled = false,
+            currentTier = 'one',
+        } = this.props;
+
+        return <Panel
+            className={className}
+            header={label}
+            >
+            {_.map({one, two, three, four}, ({ starting = 0, earned = 0, total = 0 }, tier) => (
+                <ControlGroup
+                    key={`tier-${tier}`}
+                    className={tier === currentTier ? 'current' : undefined}
+                    labels={[
+                        tier === currentTier
+                            ? 'Curren tier'
+                            : `Tier ${tier}`,
+                        "±",
+                        "="
+                    ]}
+                >
+                    <InputField
+                        disabled={true}
+                        type="number"
+                        value={starting}
+                    />
+                    <CalculatorInputField
+                        placeholder="Earned..."
+                        value={earned}
+                        disabled={disabled}
+                        setState={(value, formula) => this.onChange(tier, value)}
+                        maxValue={currentTier === tier
+                            ? undefined
+                            : 0
+                        }
+                        minValue={(total || 0) * -1}
+                    />
+                    <InputField
+                        placeholder="Total..."
+                        disabled={true}
+                        type="number"
+                        value={disabled ? total : starting + earned}
+                    />
+                </ControlGroup>
+            ))}
+        </Panel>;
+    }
+};
+
+export class CharacterSelectDialog extends React.Component
+{
+    constructor(props) {
+        super(props);
+        this.state = {
+            character_id: null,
+        };
+    }
+
+    render() {
+        const {
+            onCancel,
+            onDone,
+            current_user,
+        } = this.props
+        const {
+            character_id,
+        } = this.state;
+
+        return (
+            <ModalDialog
+                label="Pick a Character"
+                onCancel={onCancel}
+                onDone={character_id == null
+                    ? null
+                    : () => onDone(character_id)
+                }
+            >
+                <CharacterPicker
+                    filter={character => (
+                        current_user.id == character.user_id
+                        && (
+                            character.xp == 0
+                            || character.adventure_league
+                        )
+                    )}
+                    actions={character => ({
+                        'pick': {
+                            className: character_id == character.id
+                                ? 'accent'
+                                : null,
+                            label: 'Pick',
+                            action: () => this.setState({
+                                character_id: character.id,
+                            }),
+                            icon: 'user-secret',
+                        },
+                    })}
+                />
+            </ModalDialog>
+        );
+    }
+};
+
 export class AdventureLeagueLogEdit extends React.Component
 {
     constructor(props) {
         super(props);
         this.state = {
-            dialog: false
+            forceAdventureCheckpoints: false,
         };
+
+        this.onSwitch = this.onSwitch.bind(this);
     }
 
-    toggleDialog() {
-        this.setState({
-            dialog: !this.state.dialog
-        });
+    onSwitch(forceAdventureCheckpoints) {
+        this.setState({ forceAdventureCheckpoints });
     }
 
     componentDidMount() {
-        const {
-            character_id, consumed = false, setState
-        } = this.props;
-        if (consumed || !character_id) {
-            return;
-        }
-        setState({character_id});
+        const { character_id, user_id, setState } = this.props;
+        setState({ character_id, user_id });
     }
 
     onFieldChange(field, update) {
@@ -336,58 +458,28 @@ export class AdventureLeagueLogEdit extends React.Component
         setState({[field]: value});
     }
 
-    renderDialog() {
-        if (!this.state.dialog) {
-            return null;
-        }
-
-        const {
-            characters, reload, current_user, setState, recompute,
-            character_id,
-        } = this.props;
-
-        return <ModalDialog
-            key="dialog"
-            label="Assign to Character"
-            onCancel={() => reload(() => this.toggleDialog())}
-            onDone={() => this.toggleDialog()}
-            >
-            <CharacterPicker
-                filter={character => (
-                    current_user.id == character.user_id
-                )}
-                actions={character => (
-                    <a
-                        className={utils.makeStyle({
-                            "cursor-pointer": character_id != character.id,
-                            "hidden": character_id == character.id,
-                            "accent": character_id == character.id,
-                        }, [
-                            "nice-btn-alt",
-                            "icon",
-                            "fa-user",
-                        ])}
-                        onClick={() => setState({
-                            character_id: character.id
-                        })}
-                        onCancel={() => setState({
-                            character_id: null
-                        })}
-                        >
-                        Assign
-                    </a>
-                )}
-                />
-        </ModalDialog>;
-    }
-
     render() {
         const {
-            character_id, character = {wealth: {}}, user_id,
-            current_user = {}, adventure = {}, xp = {}, gold = {},
-            downtime = {}, renown = {}, equipment = {}, items = {},
-            notes = '', consumed = false
+            character_id,
+            character = {
+                adventure_checkpoints: 0,
+                treasure_checkpoints: {},
+                wealth: {},
+                level: 1,
+                xp: 0,
+            },
+            user_id, current_user = {}, adventure = {}, xp = {},
+            gold = {}, downtime = {}, renown = {}, equipment = {},
+            items = {}, notes = '', consumed = false, setState,
+            adventure_checkpoints = {}, treasure_checkpoints = {},
         } = this.props;
+        const {
+            forceAdventureCheckpoints,
+        } = this.state;
+
+        const currentTier = ['one', 'two', 'three', 'four'][
+            Math.floor(character.level / 5.0)
+        ];
 
         return <React.Fragment>
             <AdventureSession
@@ -395,60 +487,96 @@ export class AdventureLeagueLogEdit extends React.Component
                 setState={(value) => this.onFieldChange(
                     'adventure', value
                 )}
-                />
+            />
 
             <Panel
                 key="adventurer"
                 className="adventure-league-log-edit__adventurer"
                 header="Adventurer"
-                >
+            >
                 <UserLabel
                     user_id={user_id || current_user.id}
                     showDCI={true}
-                    />
-                {character_id
-                    ? <CharacterLabel
-                        character_id={parseInt(
-                            character_id
-                        )}
+                />
+                {character_id && (
+                    <CharacterLabel
+                        character_id={character_id}
                         showProgress={true}
-                        />
-                    : <ButtonField
-                        label="Assign to Character"
-                        onClick={() => this.toggleDialog()}
-                        />
-                }
+                    />
+                )}
+                {!(
+                    consumed
+                    || adventure_checkpoints
+                    || character.adventure_checkpoints
+                ) && (
+                    <ToggleSwitch
+                        className="accent"
+                        checked={forceAdventureCheckpoints}
+                        onChange={this.onSwitch}
+                        label="Switch to Adventure Checkpoints"
+                    />
+                )}
+                {forceAdventureCheckpoints && xp && <span className="adventure-league-log-edit__acp-switch-warning clearfix">
+                    Switching a character from XP based progression
+                    to Adventure Checkpoints cannot be undone (yet?).
+                    The first time a character progresses using ACP's, the following changes are made:
+                    <ul>
+                        <li>The XP is converted to the equivalent
+                        amount of Adventure Checkpoints appropriate
+                        for the current level, as well as the current
+                        progression in the level. This will always be
+                        rounded up. Simply log 1 ACP less to round
+                        down instead.</li>
+                        <li>Renown is reset to 0. The <em>Faction Agent</em> background feature is not yet implemented.</li>
+                    </ul>
+                </span>}
             </Panel>
 
-            <AdventureDelta
-                className="adventure-league-log-edit__xp"
-                label="XP"
-                disabled={!!consumed}
-                {...xp}
-                starting={consumed
-                    ? xp.starting
-                    : character.xp
-                }
-                setState={!consumed
-                    ? (value) => this.onFieldChange('xp', value)
-                    : null
-                }
-                />
+            <Panel
+                key="rewards"
+                className="adventure-league-log-edit__rewards"
+                header="Rewards"
+            >
 
-            <AdventureGold
-                className="adventure-league-log-edit__gold"
-                label="Gold"
-                disabled={!!consumed}
-                {...gold}
-                starting={consumed
-                    ? gold.starting
-                    : character.wealth
-                }
-                setState={!consumed
-                    ? (value) => this.onFieldChange('gold', value)
-                    : null
-                }
+            {(
+                adventure_checkpoints
+                || character.adventure_checkpoints
+                || forceAdventureCheckpoints
+            ) ? (
+                <AdventureDelta
+                    key="acp"
+                    className="adventure-league-log-edit__points"
+                    label="Adventure Checkpoints"
+                    disabled={!!consumed}
+                    {...adventure_checkpoints}
+                    starting={consumed
+                        ? adventure_checkpoints.starting
+                        : character.adventure_checkpoints
+                    }
+                    setState={!consumed
+                        ? (value) => this.onFieldChange(
+                            'adventure_checkpoints',
+                            value
+                        ) : null
+                    }
                 />
+            ) : (
+                <AdventureDelta
+                    key="xp"
+                    className="adventure-league-log-edit__points"
+                    label="Experience Points"
+                    disabled={!!consumed}
+                    {...xp}
+                    starting={consumed
+                        ? xp.starting
+                        : character.xp
+                    }
+                    setState={!consumed
+                        ? (value) => this.onFieldChange('xp', value)
+                        : null
+                    }
+                />
+            )}
 
             <AdventureDelta
                 className="adventure-league-log-edit__downtime"
@@ -463,7 +591,7 @@ export class AdventureLeagueLogEdit extends React.Component
                     ? (value) => this.onFieldChange('downtime', value)
                     : null
                 }
-                />
+            />
 
             <AdventureDelta
                 className="adventure-league-log-edit__renown"
@@ -478,7 +606,47 @@ export class AdventureLeagueLogEdit extends React.Component
                     ? (value) => this.onFieldChange('renown', value)
                     : null
                 }
+            />
+            </Panel>
+
+            {(
+                adventure_checkpoints
+                || character.adventure_checkpoints
+                || forceAdventureCheckpoints
+            ) && (
+                <TreasureCheckpoints
+                    className="adventure-league-log-edit__treasure"
+                    label="Treasure Points"
+                    disabled={!!consumed}
+                    currentTier={currentTier}
+                    {..._.merge({},
+                        character.treasure_checkpoints,
+                        treasure_checkpoints
+                    )}
+                    setState={!consumed
+                        ? (value) => this.onFieldChange(
+                            'treasure_checkpoints',
+                            value
+                        )
+                        : null
+                    }
                 />
+            )}
+
+            <AdventureGold
+                className="adventure-league-log-edit__gold"
+                label="Gold"
+                disabled={!!consumed}
+                {...gold}
+                starting={consumed
+                    ? gold.starting
+                    : character.wealth
+                }
+                setState={!consumed
+                    ? (value) => this.onFieldChange('gold', value)
+                    : null
+                }
+            />
 
             <AdventureItems
                 className="adventure-league-log-edit__equipment"
@@ -492,7 +660,7 @@ export class AdventureLeagueLogEdit extends React.Component
                     )
                     : null
                 }
-                />
+            />
 
             <AdventureItems
                 className="adventure-league-log-edit__items"
@@ -507,7 +675,7 @@ export class AdventureLeagueLogEdit extends React.Component
                     ? (value) => this.onFieldChange('items', value)
                     : null
                 }
-                />
+            />
 
             <Panel
                 key="notes"
@@ -521,19 +689,21 @@ export class AdventureLeagueLogEdit extends React.Component
                     setState={(value) => this.props.setState({
                         'notes': value
                     })}
-                    />
+                />
             </Panel>
 
-            {this.renderDialog()}
+            {character_id == undefined && (
+                <CharacterSelectDialog
+                    onDone={character_id => setState({character_id})}
+                    current_user={current_user}
+                />
+            )}
         </React.Fragment>;
     }
 };
 
 AdventureLeagueLogEdit.propTypes = {
-    character_id: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string,
-    ]),
+    character_id: PropTypes.number,
     user_id: PropTypes.number,
     consumed: PropTypes.oneOfType([
         PropTypes.bool,

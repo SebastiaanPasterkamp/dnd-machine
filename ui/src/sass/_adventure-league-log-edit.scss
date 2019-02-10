@@ -17,17 +17,25 @@
             grid-column-end: span 6;
     }
 
-    .adventure-league-log-edit__xp,
-    .adventure-league-log-edit__gold,
+    .adventure-league-log-edit__points,
     .adventure-league-log-edit__downtime,
     .adventure-league-log-edit__renown {
         grid-column-end: span 3;
     }
 
+    .adventure-league-log-edit__rewards,
+    .adventure-league-log-edit__gold,
+    .adventure-league-log-edit__treasure,
     .adventure-league-log-edit__equipment,
     .adventure-league-log-edit__items,
     .adventure-league-log-edit__notes {
         grid-column: span 6;
+    }
+
+    .adventure-league-log-edit__treasure {
+        .current {
+            font-weight: bold;
+        }
     }
 
     .adventure-league-log-edit__save {
