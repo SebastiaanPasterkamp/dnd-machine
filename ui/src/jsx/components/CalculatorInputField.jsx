@@ -9,24 +9,38 @@ export class CalculatorInputField extends LazyComponent
 {
     constructor(props) {
         super(props);
-        this.state = { };
+        const {
+            value: formula = '',
+        } = props;
+        this.state = {
+            formula,
+            value: props.value,
+            validation: null,
+        };
     }
 
     onChange(formula) {
         const { value, minValue, maxValue, setState } = this.props;
 
-        if (formula == '') {
+        if (formula === "") {
             this.setState(
-                {formula},
+                {
+                    formula,
+                    validation: null,
+                },
                 () => setState(0, formula)
             );
+            return;
         }
 
         // incomplete, but potentially valid formula
         if (formula.match(
             /^(-|-?([0-9]+(\s|\s?[+-]\s?))+)$/
         )) {
-            this.setState({formula});
+            this.setState({
+                formula,
+                validation: 'warning',
+            });
             return;
         }
 
@@ -34,22 +48,22 @@ export class CalculatorInputField extends LazyComponent
         if (!formula.match(
             /^-?[0-9]+(\s?[+-]\s?[0-9]+)*$/
         )) {
+            this.setState({
+                formula,
+                validation: 'bad',
+            });
             return;
         }
 
         const calc = {
-            '+': (a, b) => maxValue == undefined
-                ? ( a + b )
-                : Math.min(maxValue, a + b),
-            '-': (a, b) => minValue == undefined
-                ? ( a - b )
-                : Math.max(minValue, a - b),
+            '+': (a, b) => ( a + b ),
+            '-': (a, b) => ( a - b ),
         };
         const prefix = formula.match(/^\s*-/) ? '' : '+';
         const steps = (prefix + formula)
             .replace(/\s+/g, '')
             .split(/\b/);
-        const newValue = _.reduce(
+        const computedValue = _.reduce(
             _.range(0, steps.length - 1, 2),
             (newValue, i) => {
                 return calc[ steps[i] ](
@@ -59,22 +73,40 @@ export class CalculatorInputField extends LazyComponent
             },
             0
         );
+        const newValue = Math.min(
+            maxValue === undefined ? computedValue : maxValue,
+            Math.max(
+                minValue === undefined ? computedValue : minValue,
+                computedValue
+            )
+        );
+
         this.setState(
-            {formula},
+            {
+                formula,
+                validation: newValue !== computedValue
+                    ? 'bad'
+                    : 'good',
+            },
             () => setState(newValue, formula)
         );
     }
 
     render() {
-        const { value, type, setState, ...props } = this.props;
-        const { formula = value } = this.state;
+        const { formula, validation } = this.state;
+        const { value, type, setState, minValue, maxValue, ...props } = this.props;
 
-        return <InputField
-            value={formula || ''}
-            {...props}
-            setState={value => this.onChange(value)}
-            type="text"
-            />;
+        return (
+            <InputField
+                value={formula}
+                className={validation}
+                min={minValue}
+                max={maxValue}
+                {...props}
+                setState={value => this.onChange(value)}
+                type="text"
+            />
+        );
     }
 }
 
