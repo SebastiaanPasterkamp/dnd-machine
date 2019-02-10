@@ -1,6 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component: CharacterLabel should render with minimum props 1`] = `null`;
+exports[`Component: CharacterLabel should render with minimum props 1`] = `
+<div
+  className="character inline"
+>
+  , Level 
+   
+   
+   (
+  )
+</div>
+`;
 
 exports[`Component: CharacterLabel should show progress with level 1`] = `
 <div
@@ -15,11 +25,10 @@ exports[`Component: CharacterLabel should show progress with level 1`] = `
   >
     Male
   </div>
-   
   Orc
-   
+   
   Fighter
-    (
+   (
   <div
     className="list-label inline"
   >
@@ -38,7 +47,7 @@ exports[`Component: CharacterLabel should show progress with level 1`] = `
         }
       }
     >
-      1
+      50
     </div>
   </div>
 </div>
@@ -57,11 +66,10 @@ exports[`Component: CharacterLabel should show progress with xp / max 1`] = `
   >
     Male
   </div>
-   
   Orc
-   
+   
   Fighter
-    (
+   (
   <div
     className="list-label inline"
   >
@@ -80,7 +88,7 @@ exports[`Component: CharacterLabel should show progress with xp / max 1`] = `
         }
       }
     >
-      299 / 300
+      Level 1 (299 / 300)
     </div>
   </div>
 </div>
@@ -99,11 +107,10 @@ exports[`Component: CharacterLabel should show without progress 1`] = `
   >
     Male
   </div>
-   
   Orc
-   
+   
   Fighter
-    (
+   (
   <div
     className="list-label inline"
   >

@@ -10,77 +10,150 @@ import Progress from '../components/Progress.jsx';
 
 export class CharacterLabel extends LazyComponent
 {
-    render() {
+    renderInfo() {
         const {
-            character, genders = [], alignments = [], showProgress,
+            character: {
+                name,
+                level,
+                gender,
+                race,
+                class: _class,
+                alignment,
+            },
+            genders,
+            alignments,
+            showInfo,
         } = this.props;
 
-        if (!character) {
+        if (!showInfo) {
             return null;
         }
 
-        return <div className="character inline">
-            {character.name},
-            Level {character.level}
-            &nbsp;
-            <ListLabel
-                items={genders}
-                value={character.gender}
-                />
-            &nbsp;
-            {character.race}
-            &nbsp;
-            {character.class}
-            &nbsp;
-            (<ListLabel
+        return (
+            <React.Fragment>
+                {name}, Level {level}
+                &nbsp;<ListLabel
+                    items={genders}
+                    value={gender}
+                    />
+                {race} {_class}
+                &nbsp;(<ListLabel
                     items={alignments}
-                    value={character.alignment}
-                    />)
-            {showProgress
-                ? <Progress
-                    value={character.xp_progress}
-                    total={character.xp_level}
-                    color={"good"}
+                    value={alignment}
+                />)
+            </React.Fragment>
+        );
+    }
+
+    renderProgress() {
+        const {
+            character: {
+                level, adventure_checkpoints,
+                xp_progress, xp_level,
+                acp_progress, acp_level,
+            },
+            showProgress,
+        } = this.props;
+
+        if (!showProgress) {
+            return null;
+        }
+
+        if (adventure_checkpoints) {
+            return (
+                <Progress
+                    value={acp_progress}
+                    total={acp_level}
+                    color={"brand"}
                     labels={[
                         {
-                            value: 0.75,
-                            label: character.xp_progress
-                                + " / "
-                                + character.xp_level
+                            value: 1.0,
+                            label: `Level ${level} (${acp_progress} / ${acp_level})`,
                         },
                         {
-                            value: 0.33,
-                            label: character.xp_progress
+                            value: 0.5,
+                            label: `${acp_progress} / ${acp_level}`,
                         },
                         {
-                            value: 0.10,
-                            label: character.level
+                            value: 0.25,
+                            label: acp_progress,
+                        },
+                        {
+                            value: 0.0,
+                            label: level,
                         }
                     ]}
-                    />
-                : null
-            }
-        </div>;
+                />
+            );
+        }
+
+        return (
+            <Progress
+                value={xp_progress}
+                total={xp_level}
+                color={"good"}
+                labels={[
+                    {
+                        value: 1.0,
+                        label: `Level ${level} (${xp_progress} / ${xp_level})`,
+                    },
+                    {
+                        value: 0.5,
+                        label: `${xp_progress} / ${xp_level}`,
+                    },
+                    {
+                        value: 0.25,
+                        label: xp_progress,
+                    },
+                    {
+                        value: 0.0,
+                        label: level,
+                    }
+                ]}
+            />
+        );
+    }
+
+    render() {
+        return (
+            <div className="character inline">
+                {this.renderInfo()}
+                {this.renderProgress()}
+            </div>
+        );
     }
 }
 
 CharacterLabel.propTypes = {
-    character_id: PropTypes.number.isRequired,
+    character_id: PropTypes.number,
+    showInfo: PropTypes.bool,
     showProgress: PropTypes.bool,
     character: PropTypes.shape({
-        race: PropTypes.string.isRequired,
-        'class': PropTypes.string.isRequired,
-        background: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        level: PropTypes.number.isRequired,
+        race: PropTypes.string,
+        'class': PropTypes.string,
+        background: PropTypes.string,
+        name: PropTypes.string,
+        level: PropTypes.number,
         gender: PropTypes.string,
         alignment: PropTypes.string,
-        xp_progress: PropTypes.number.isRequired,
-        xp_level: PropTypes.number.isRequired,
+        xp: PropTypes.number,
+        xp_progress: PropTypes.number,
+        xp_level: PropTypes.number,
+        adventure_checkpoints: PropTypes.number,
+        acp_progress: PropTypes.number,
+        acp_level: PropTypes.number,
     }),
     alignments: PropTypes.array,
     genders: PropTypes.array,
 };
+
+CharacterLabel.defaultProps = {
+    character: {},
+    genders: [],
+    alignments: [],
+    showInfo: true,
+    showProgress: false,
+}
 
 export default ListDataWrapper(
     ObjectDataWrapper(
