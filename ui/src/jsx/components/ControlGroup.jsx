@@ -1,7 +1,7 @@
 import React from 'react';
 import LazyComponent from '../components/LazyComponent.jsx';
 
-import _ from 'lodash';
+import utils from '../utils.jsx';
 
 export class ControlGroup extends LazyComponent
 {
@@ -14,11 +14,11 @@ export class ControlGroup extends LazyComponent
     }
 
     render() {
-        const { children, label } = this.props;
+        const { children, label, className } = this.props;
         const { labels = [label] } = this.props;
         const childCount = React.Children.count(children);
 
-        return <div className="nice-control-group">
+        return <div className={utils.makeStyle({}, ['nice-control-group', className])}>
             {React.Children.map(children, (child, index) => {
                 if (index >= labels.length) {
                     return [child];
