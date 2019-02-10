@@ -78,7 +78,7 @@ class BaseLinkGroup extends LazyComponent
 
     render() {
         const {
-            buttons, omit = [], className, altStyle, extra = [],
+            buttons, omit = [], className, altStyle, extra = {},
         } = this.props;
         const style = utils.makeStyle({
             [className]: className,
@@ -98,7 +98,10 @@ class BaseLinkGroup extends LazyComponent
                 'available'
             ).value();
 
-        if (_.isEmpty(filtered)) {
+        if (
+            _.isEmpty(filtered)
+            && _.isEmpty(extra)
+        ) {
             return null;
         }
 
