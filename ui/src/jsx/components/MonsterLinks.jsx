@@ -67,6 +67,17 @@ export class MonsterLinks extends BaseLinkGroup
                 icon: 'clone',
                 available,
             }),
+            'delete': () => ({
+                label: 'Delete',
+                action: () => {
+                    ObjectDataActions.deleteObject(
+                        "monster", monster_id
+                    );
+                },
+                icon: 'trash-o',
+                className: 'bad',
+                available,
+            }),
             'new': () => ({
                 label: 'New',
                 link: "/monster/new",
