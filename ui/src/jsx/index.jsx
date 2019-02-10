@@ -153,6 +153,10 @@ class DndMachine extends React.Component
                     />
 
                 <Route
+                    path="/log/adventureleague/list/:character_id"
+                    component={AdventureLeagueLogTable}
+                    />
+                <Route
                     path="/log/adventureleague/list"
                     component={AdventureLeagueLogTable}
                     />
@@ -161,11 +165,11 @@ class DndMachine extends React.Component
                     component={AdventureLeagueLogView}
                     />
                 <Route
-                    path="/log/adventureleague/edit/:id"
+                    path="/log/adventureleague/edit/:id/:character_id"
                     component={AdventureLeagueLogEdit}
                     />
                 <Route
-                    path="/log/adventureleague/new"
+                    path="/log/adventureleague/edit/:id"
                     component={AdventureLeagueLogEdit}
                     />
                 <Route
