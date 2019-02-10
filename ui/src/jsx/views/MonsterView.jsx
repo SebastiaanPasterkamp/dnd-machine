@@ -200,7 +200,7 @@ export class MonsterView extends LazyComponent
                     <tr>
                         <th colSpan={2}>
                             <MonsterLinks
-                                buttons={['edit']}
+                                omit={['view']}
                                 className="pull-right"
                                 monster_id={id}
                                 />
