@@ -11,13 +11,13 @@ import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import {ArmorLabel} from '../components/ArmorLabel.jsx';
 import Bonus from '../components/Bonus.jsx';
+import {CharacterLabel} from '../components/CharacterLabel.jsx';
 import CharacterLinks from '../components/CharacterLinks.jsx';
 import CheckBox from '../components/CheckBox.jsx';
 import DiceNotation from '../components/DiceNotation.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import ListLabel from '../components/ListLabel.jsx';
 import Panel from '../components/Panel.jsx';
-import Progress from '../components/Progress.jsx';
 import Reach from '../components/Reach.jsx';
 import UserLabel from '../components/UserLabel.jsx';
 import {SpellLabel} from '../components/SpellLabel.jsx';
@@ -35,9 +35,16 @@ export class CharacterDescription extends LazyComponent
     render() {
         const {
             id, name, race, 'class': _class, level, genders = [],
-            gender, alignments = [], alignment, xp_progress,
-            xp_level
+            gender, alignments = [], alignment,
+            adventure_checkpoints, acp_progress, acp_level,
+            xp_progress, xp_level
         } = this.props;
+
+        const character = {
+            level, adventure_checkpoints,
+            xp_progress, xp_level,
+            acp_progress, acp_level,
+        };
 
         return <Panel
                 key="description"
@@ -70,12 +77,11 @@ export class CharacterDescription extends LazyComponent
                     />)
             </h4>
 
-            <Progress
-                value={xp_progress}
-                total={xp_level}
-                color={"good"}
-                label={`${level} (${xp_progress} / ${xp_level})`}
-                />
+            <CharacterLabel
+                showInfo={false}
+                showProgress={true}
+                character={character}
+            />
         </Panel>;
     }
 };

@@ -3,6 +3,7 @@ import React from 'react';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
+import {CharacterLabel} from '../components/CharacterLabel.jsx';
 import CharacterLinks from '../components/CharacterLinks.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import ListLabel from '../components/ListLabel.jsx';
@@ -48,9 +49,15 @@ class CharactersRow extends LazyComponent
     render() {
         const {
             name, gender, genders = [], race, level, 'class': _class,
-            alignment, alignments = [], user_id, xp_progress,
-            xp_level, id
+            alignment, alignments = [], user_id, id,
+            xp_progress, xp_level,
+            adventure_checkpoints, acp_progress, acp_level,
         } = this.props;
+
+        const character = {
+            level, xp_progress, xp_level,
+            adventure_checkpoints, acp_progress, acp_level,
+        };
 
         return <React.Fragment>
             <tr data-id={id}>
@@ -59,7 +66,8 @@ class CharactersRow extends LazyComponent
                     <CharacterLinks
                         altStyle={true}
                         character_id={id}
-                        />
+                        omit={['delete', 'new_log']}
+                    />
                 </th>
                 <td>
                     <ListLabel
@@ -84,27 +92,11 @@ class CharactersRow extends LazyComponent
             </tr>
             <tr>
                 <td colSpan={4}>
-                    <Progress
-                        value={xp_progress}
-                        total={xp_level}
-                        color={"good"}
-                        labels={[
-                            {
-                                value: 0.75,
-                                label: xp_progress
-                                    + " / "
-                                    + xp_level
-                            },
-                            {
-                                value: 0.33,
-                                label: xp_progress
-                            },
-                            {
-                                value: 0.10,
-                                label: level
-                            }
-                        ]}
-                        />
+                    <CharacterLabel
+                        showInfo={false}
+                        showProgress={true}
+                        character={character}
+                    />
                 </td>
             </tr>
         </React.Fragment>;
