@@ -4,6 +4,8 @@ exports[`Component: CalculatorInputField should render a simple numeric value 1`
 <input
   className="nice-form-control"
   disabled={undefined}
+  max={undefined}
+  min={undefined}
   onChange={[Function]}
   onKeyPress={null}
   placeholder={undefined}
@@ -16,6 +18,8 @@ exports[`Component: CalculatorInputField should render a text based formula 1`] 
 <input
   className="nice-form-control"
   disabled={undefined}
+  max={undefined}
+  min={undefined}
   onChange={[Function]}
   onKeyPress={null}
   placeholder={undefined}
@@ -28,6 +32,8 @@ exports[`Component: CalculatorInputField should render without props 1`] = `
 <input
   className="nice-form-control"
   disabled={undefined}
+  max={undefined}
+  min={undefined}
   onChange={[Function]}
   onKeyPress={null}
   placeholder={undefined}
