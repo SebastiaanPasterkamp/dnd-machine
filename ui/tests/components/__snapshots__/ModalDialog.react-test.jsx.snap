@@ -74,14 +74,6 @@ exports[`Component: ModalDialog should render with minimum props 1`] = `
     <div
       className="nice-modal-header"
     >
-      <a
-        className="nice-modal-close"
-        onClick={undefined}
-      >
-        <i
-          className="icon fa-times"
-        />
-      </a>
       <h4>
         test
       </h4>

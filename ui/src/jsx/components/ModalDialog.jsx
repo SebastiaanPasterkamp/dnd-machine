@@ -58,12 +58,14 @@ export class ModalDialog extends LazyComponent
             >
             <div className="nice-modal-content">
                 <div className="nice-modal-header">
-                    <a
-                        className="nice-modal-close"
-                        onClick={ onCancel }
-                        >
-                        <i className="icon fa-times"></i>
-                    </a>
+                    {onCancel && (
+                        <a
+                            className="nice-modal-close"
+                            onClick={ onCancel }
+                            >
+                            <i className="icon fa-times"></i>
+                        </a>
+                    )}
                     <h4>{ label }</h4>
                 </div>
 
