@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+import utils from '../utils.jsx';
+
 import '../../sass/_list-component.scss';
 
 import LazyComponent from './LazyComponent.jsx';
@@ -119,7 +121,12 @@ export class ListComponent extends LazyComponent
             });
         }
 
-        return <ul className="list-component">
+        return <ul
+            className={utils.makeStyle(
+                {disabled},
+                ["list-component"]
+            )}
+        >
             {_.map(items, ({item, index, disabled}) => (
             <li key={index}>
                 <Component
@@ -128,15 +135,16 @@ export class ListComponent extends LazyComponent
                     setState={(item) => this.onSetState(index, item)}
                     {...componentProps}
                     />
-                <ButtonField
-                    className="list-component__delete"
-                    disabled={disabled}
-                    name="del"
-                    color="warning"
-                    icon="minus"
-                    label="&#8203;"
-                    onClick={() => this.onDelete(index)}
+                {!disabled && (
+                    <ButtonField
+                        className="list-component__delete"
+                        name="del"
+                        color="warning"
+                        icon="minus"
+                        label="&#8203;"
+                        onClick={() => this.onDelete(index)}
                     />
+                )}
             </li>
             ))}
             {this.renderNewItemButton()}

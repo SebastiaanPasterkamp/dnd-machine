@@ -5,21 +5,26 @@ ul.list-component {
     padding: 0;
     margin: 0;
 
-    >li {
+    &:not(.disabled) {
+        > li {
+            padding-right: 2.5em;
+        }
+    }
+
+    > li {
         position: relative;
         min-height: 2.25em;
-        padding-right: 2.5em;
-    }
 
-    > li > .list-component__delete,
-    > li > .list-component__add {
-        position: absolute;
-        top: 1px;
-        right: 1px;
-        margin-right: 0;
-    }
+        > .list-component__delete,
+        > .list-component__add {
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            margin-right: 0;
+        }
 
-    > li > .nice-btn.icon::before {
-        margin-right: 0px;
+        > .nice-btn.icon::before {
+            margin-right: 0px;
+        }
     }
 }
