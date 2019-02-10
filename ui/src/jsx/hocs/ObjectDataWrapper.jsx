@@ -9,45 +9,64 @@ import ObjectDataStore from '../stores/ObjectDataStore.jsx';
 function ObjectDataWrapper(
     WrappedComponent, loadables=[]
 ) {
-    return class extends Reflux.Component {
+    const component = class extends Reflux.Component {
         constructor(props) {
             super(props);
             this.state = {};
             this.store = ObjectDataStore;
-            this.storeKeys = _.map(loadables, (loadable) => {
-                return loadable.type;
-            }).concat(['timestamp']);
+            this.storeKeys = _.map(
+                loadables,
+                loadable => loadable.type
+            ).concat([
+                'timestamp',
+            ]);
+        }
+
+        getLoadables() {
+            return _.map(loadables, loadable => {
+                return {
+                    objectId: _.get(
+                        this.props,
+                        [loadable.id],
+                        _.get(
+                            this.props,
+                            ['match', 'params', loadable.id],
+                            undefined
+                        )
+                    ),
+                    ...loadable,
+                };
+            });
         }
 
         componentDidMount() {
-            _.map(loadables, (loadable) => {
-                let prop_id = this.props[loadable.id] || undefined;
+            const { timestamp } = this.state;
 
-                if (_.isNil(prop_id)) {
+            _.forEach(this.getLoadables(), ({
+                id, type, group = null, objectId,
+            }) => {
+                if (_.isNil(objectId)) {
                     return;
                 }
 
-                let timestamp = _.get(
-                        this.state.timestamp,
-                        [loadable.type, prop_id]
-                    ),
-                    max_age = Date.now() - 60.0 * 1000.0;
+                const timestamp = _.get(timestamp, [type, objectId]);
+                const maxAge = Date.now() - 60.0 * 1000.0;
 
-                if (!timestamp || timestamp < max_age) {
+                if (!timestamp || timestamp < maxAge) {
                     ObjectDataActions.getObject(
-                        loadable.type,
-                        prop_id,
-                        loadable.group || null
+                        type,
+                        objectId,
+                        group
                     );
                 }
             });
         }
 
         getStateProps(state) {
-            return _.reduce(loadables, (loaded, loadable) => {
-                loaded[loadable.prop || loadable.type] = _.get(
-                    state, [loadable.type, this.props[loadable.id]]
-                );
+            return _.reduce(this.getLoadables(), (
+                loaded, {prop, type, objectId}
+            ) => {
+                loaded[prop || type] = _.get(state, [type, objectId]);
                 return loaded;
             }, {});
         }
@@ -57,7 +76,7 @@ function ObjectDataWrapper(
                 return true;
             }
 
-            let old_data = this.getStateProps(this.state),
+            const old_data = this.getStateProps(this.state),
                 new_data = this.getStateProps(nextState);
 
             if (!_.isEqual(old_data, new_data)) {
@@ -68,7 +87,7 @@ function ObjectDataWrapper(
         }
 
         render() {
-            let data = this.getStateProps(this.state);
+            const data = this.getStateProps(this.state);
 
             return <WrappedComponent
                 {...this.props}
@@ -76,6 +95,15 @@ function ObjectDataWrapper(
                 />
         }
     };
+
+    component.WrappedComponent = WrappedComponent;
+
+    component.displayName = `ObjectData${
+        WrappedComponent.displayName
+        || WrappedComponent.name
+    }`;
+
+    return component;
 }
 
 export default ObjectDataWrapper;
