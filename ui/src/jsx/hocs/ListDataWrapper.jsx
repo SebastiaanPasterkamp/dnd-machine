@@ -9,7 +9,7 @@ function ListDataWrapper(
     WrappedComponent, storeKeys, storeCategory=null, mapping={}
 ) {
 
-    return class extends Reflux.Component {
+    const component = class extends Reflux.Component {
         constructor(props) {
             super(props);
             this.state = {
@@ -57,6 +57,15 @@ function ListDataWrapper(
                 />
         }
     };
+
+    component.WrappedComponent = WrappedComponent;
+
+    component.displayName = `ListData${
+        WrappedComponent.displayName
+        || WrappedComponent.name
+    }`;
+
+    return component;
 }
 
 export default ListDataWrapper;

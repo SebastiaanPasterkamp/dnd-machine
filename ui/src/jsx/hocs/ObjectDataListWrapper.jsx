@@ -8,7 +8,7 @@ import ObjectDataStore from '../stores/ObjectDataStore.jsx';
 function ObjectDataListWrapper(
     WrappedComponent, loadables={}
 ) {
-    return class extends Reflux.Component {
+    const component = class extends Reflux.Component {
 
         constructor(props) {
             super(props);
@@ -58,6 +58,15 @@ function ObjectDataListWrapper(
                 />
         }
     };
+
+    component.WrappedComponent = WrappedComponent;
+
+    component.displayName = `ObjectDataList${
+        WrappedComponent.displayName
+        || WrappedComponent.name
+    }`;
+
+    return component;
 }
 
 export default ObjectDataListWrapper;

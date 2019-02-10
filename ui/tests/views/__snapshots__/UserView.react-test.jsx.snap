@@ -13,7 +13,7 @@ exports[`UserView should render with full props 1`] = `
         <th
           colSpan="2"
         >
-          <_class
+          <ListDataUserLinks
             buttons={
               Array [
                 "edit",
@@ -138,7 +138,7 @@ exports[`UserView should render without props 1`] = `
         <th
           colSpan="2"
         >
-          <_class
+          <ListDataUserLinks
             buttons={
               Array [
                 "edit",

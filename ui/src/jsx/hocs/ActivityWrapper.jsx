@@ -6,7 +6,7 @@ import ActivityStore from '../stores/ActivityStore.jsx';
 
 function ActivityWrapper(WrappedComponent) {
 
-    return class extends Reflux.Component {
+    const component = class extends Reflux.Component {
         constructor(props) {
             super(props);
             this.store = ActivityStore;
@@ -27,6 +27,15 @@ function ActivityWrapper(WrappedComponent) {
                 />
         }
     };
+
+    component.WrappedComponent = WrappedComponent;
+
+    component.displayName = `Activity${
+        WrappedComponent.displayName
+        || WrappedComponent.name
+    }`;
+
+    return component;
 }
 
 export default ActivityWrapper;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component: SelectPropertySelect should not render anything 1`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   hidden={true}
   items={
     Array [
@@ -130,11 +130,11 @@ exports[`Component: SelectPropertySelect should not render anything 1`] = `
       type="select"
     />
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
 
 exports[`Component: SelectPropertySelect should render the list 1`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   items={
     Array [
       Object {
@@ -413,5 +413,5 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
       </SingleSelect>
     </SelectPropertySelect>
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
