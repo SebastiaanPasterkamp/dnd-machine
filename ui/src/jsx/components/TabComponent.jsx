@@ -55,39 +55,41 @@ export class TabComponent extends LazyComponent
             tabConfig,
         } = this.props;
         const isActive = (index == this.state.activeTab);
-        const tabcfg = _.isFunction(tabConfig)
+        const {
+            color,
+            disabled,
+            icon,
+            label,
+        } = _.isFunction(tabConfig)
             ? tabConfig(index)
             : tabConfig[index];
         const tabStyle = utils.makeStyle({
-            [tabcfg.color]: (
-                tabcfg.color
-                && !tabcfg.disabled
-            ),
-            muted: tabcfg.disabled,
+            [color]: (color && !disabled),
+            muted: disabled,
             current: isActive,
         }, ['tab-component__tab']);
         const linkStyle = utils.makeStyle({
-            icon: 'icon' in tabcfg,
-            [tabcfg.icon]: 'icon' in tabcfg,
-            'cursor-not-allowed': tabcfg.disabled,
-            'cursor-pointer': !tabcfg.disabled,
+            icon: icon,
+            [icon]: icon,
+            'cursor-not-allowed': disabled,
+            'cursor-pointer': !disabled,
         });
 
         return <li
             key={"tab-" + index}
             className={tabStyle}
-            >
+        >
             <a
                 className={linkStyle}
-                onClick={!(isActive || tabcfg.disabled)
+                onClick={!(isActive || disabled)
                     ? e => {
                         e.preventDefault();
                         this.switchTab(index);
                     }
                     : null
                 }
-                >
-                {tabcfg.label}
+            >
+                {label}
             </a>
         </li>;
     }
