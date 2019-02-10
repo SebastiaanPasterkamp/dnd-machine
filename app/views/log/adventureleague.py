@@ -10,8 +10,8 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
             name, *args, **kwargs
             )
         self.add_url_rule(
-            '/list/<int:obj_id>/<int:character_id>', 'show',
-            self.show)
+            '/list/<int:character_id>', 'overview',
+            self.overview)
         self.add_url_rule(
             '/api/character/<int:character_id>', 'api_list',
             self.api_list, methods=['GET'])
