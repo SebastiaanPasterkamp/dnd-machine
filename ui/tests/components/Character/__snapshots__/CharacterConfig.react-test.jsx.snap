@@ -517,7 +517,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
       className="nice-form-group"
     >
       <label />
-      <ListsToItems
+      <ListsToItemsCharacterEditorComponent
         given={
           Array [
             "wisdom",
@@ -870,7 +870,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
             </TagsContainer>
           </ListPropertySelect>
         </CharacterEditorComponent>
-      </ListsToItems>
+      </ListsToItemsCharacterEditorComponent>
     </div>
   </FormGroup>
 </CharacterConfig>
@@ -1221,7 +1221,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
       className="nice-form-group"
     >
       <label />
-      <ListsToItems
+      <ListsToItemsCharacterEditorComponent
         list={
           Array [
             "statistics",
@@ -1478,7 +1478,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
             </SingleSelect>
           </SelectPropertySelect>
         </CharacterEditorComponent>
-      </ListsToItems>
+      </ListsToItemsCharacterEditorComponent>
     </div>
   </FormGroup>
 </CharacterConfig>
@@ -1590,7 +1590,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
       className="nice-form-group"
     >
       <label />
-      <ListsToItems
+      <ListsToItemsCharacterEditorComponent
         given={
           Array [
             "bar",
@@ -1775,7 +1775,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
             </TagsContainer>
           </ListPropertySelect>
         </CharacterEditorComponent>
-      </ListsToItems>
+      </ListsToItemsCharacterEditorComponent>
     </div>
   </FormGroup>
 </CharacterConfig>
@@ -1835,7 +1835,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
       className="nice-form-group"
     >
       <label />
-      <ListsToItems
+      <ListsToItemsCharacterEditorComponent
         given={
           Array [
             "bar",
@@ -2168,7 +2168,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
             </TagsContainer>
           </ListPropertySelect>
         </CharacterEditorComponent>
-      </ListsToItems>
+      </ListsToItemsCharacterEditorComponent>
     </div>
   </FormGroup>
 </CharacterConfig>

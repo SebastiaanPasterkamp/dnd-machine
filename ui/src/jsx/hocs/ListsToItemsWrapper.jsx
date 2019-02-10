@@ -121,6 +121,11 @@ function ListsToItemsWrapper(
 
     ListsToItems.WrappedComponent = WrappedComponent;
 
+    ListsToItems.displayName = `ListsToItems${
+        WrappedComponent.displayName
+        || WrappedComponent.name
+    }`;
+
     return ListsToItems;
 };
 

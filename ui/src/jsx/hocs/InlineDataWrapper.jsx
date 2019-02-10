@@ -7,7 +7,7 @@ import ListDataStore from '../stores/ListDataStore.jsx';
 
 function InlineDataWrapper(WrappedComponent, storeKey, storeCategory=null) {
 
-    return class extends Reflux.Component {
+    const component = class extends Reflux.Component {
         constructor(props) {
             super(props);
             this.state = {}
@@ -46,6 +46,15 @@ function InlineDataWrapper(WrappedComponent, storeKey, storeCategory=null) {
                 />
         }
     };
+
+    component.WrappedComponent = WrappedComponent;
+
+    component.displayName = `InlineData${
+        WrappedComponent.displayName
+        || WrappedComponent.name
+    }`;
+
+    return component;
 }
 
 export default InlineDataWrapper;

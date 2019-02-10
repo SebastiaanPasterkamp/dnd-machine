@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component: ListPropertySelect should handle adding and deleting new 1`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   given={
     Array [
       "charisma",
@@ -333,11 +333,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
       </TagsContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
 
 exports[`Component: ListPropertySelect should handle adding and deleting new 2`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   given={
     Array [
       "charisma",
@@ -608,11 +608,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
       </TagsContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
 
 exports[`Component: ListPropertySelect should handle adding and deleting new 3`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   given={
     Array [
       "charisma",
@@ -1002,11 +1002,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
       </TagsContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
 
 exports[`Component: ListPropertySelect should handle replacing one existing 1`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   filter={
     Object {
       "code": Array [
@@ -1254,11 +1254,11 @@ exports[`Component: ListPropertySelect should handle replacing one existing 1`] 
       </TagsContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
 
 exports[`Component: ListPropertySelect should handle replacing one existing 2`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   filter={
     Object {
       "code": Array [
@@ -1538,11 +1538,11 @@ exports[`Component: ListPropertySelect should handle replacing one existing 2`] 
       </TagsContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
 
 exports[`Component: ListPropertySelect should handle replacing one existing 3`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   filter={
     Object {
       "code": Array [
@@ -1833,11 +1833,11 @@ exports[`Component: ListPropertySelect should handle replacing one existing 3`] 
       </TagsContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
 
 exports[`Component: ListPropertySelect should not render select w/ filtering all items 1`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   filter={
     Object {
       "code": Array [
@@ -2013,11 +2013,11 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
       </TagsContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
 
 exports[`Component: ListPropertySelect should not render select w/o items 1`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   limit={1}
   path="some.path"
   type="list"
@@ -2058,11 +2058,11 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
       </TagsContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
 
 exports[`Component: ListPropertySelect should not render when hidden 1`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   hidden={true}
   list={
     Array [
@@ -2168,11 +2168,11 @@ exports[`Component: ListPropertySelect should not render when hidden 1`] = `
       type="list"
     />
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
 
 exports[`Component: ListPropertySelect should omit unknown current values 1`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   given={
     Array [
       "foo",
@@ -2361,11 +2361,11 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
       </TagsContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
 
 exports[`Component: ListPropertySelect should render with full props 1`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   filter={
     Object {
       "code": Array [
@@ -2762,11 +2762,11 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       </TagsContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;
 
 exports[`Component: ListPropertySelect should render with minimum props 1`] = `
-<ListsToItems
+<ListsToItemsCharacterEditorComponent
   path="some.path"
   type="list"
 >
@@ -2804,5 +2804,5 @@ exports[`Component: ListPropertySelect should render with minimum props 1`] = `
       </TagsContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
-</ListsToItems>
+</ListsToItemsCharacterEditorComponent>
 `;

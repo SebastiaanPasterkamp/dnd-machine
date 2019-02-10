@@ -3,7 +3,7 @@ import React from 'react';
 function BaseViewWrapper(
     WrappedComponent, config
 ) {
-    return class extends React.Component {
+    const component = class extends React.Component {
         render() {
             return <div
                 className={config.className}
@@ -14,6 +14,15 @@ function BaseViewWrapper(
             </div>;
         }
     };
+
+    component.WrappedComponent = WrappedComponent;
+
+    component.displayName = `BaseView${
+        WrappedComponent.displayName
+        || WrappedComponent.name
+    }`;
+
+    return component;
 };
 
 export default BaseViewWrapper;

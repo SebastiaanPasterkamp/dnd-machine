@@ -17,7 +17,7 @@ function RoutedObjectDataWrapper(
             loadableType
             ]).join('/');
 
-    return class extends Reflux.Component {
+    const component = class extends Reflux.Component {
         constructor(props) {
             super(props);
             this.state = {
@@ -287,9 +287,17 @@ function RoutedObjectDataWrapper(
                 return null;
             }
 
+            const params = _.mapValues(match.params, value => {
+                try {
+                    return parseInt(value);
+                } catch(e) {
+                    return value;
+                };
+            });
+
             const props = _.assign(
                 {
-                    ...match.params,
+                    ...params,
                     ...rest,
                 },
                 id !== null ? { id } : null,
@@ -329,6 +337,15 @@ function RoutedObjectDataWrapper(
             </div>;
         }
     };
+
+    component.WrappedComponent = WrappedComponent;
+
+    component.displayName = `RoutedObject${
+        WrappedComponent.displayName
+        || WrappedComponent.name
+    }`;
+
+    return component;
 }
 
 export default RoutedObjectDataWrapper;
