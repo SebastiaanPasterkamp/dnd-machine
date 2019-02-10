@@ -114,6 +114,33 @@ export class CharacterLinks extends BaseLinkGroup
                     && character.user_id == user.id
                 ),
             }),
+            'new_log': () => ({
+                label: 'New log',
+                link: "/log/adventureleague/new/" + character_id,
+                icon: 'pencil-square-o',
+                available: (
+                    character_id !== undefined
+                    && character.user_id == user.id
+                    && userHasRole(user, 'player')
+                    && user.dci
+                    && (
+                        character.xp == 0
+                        || character.adventure_league
+                    )
+                ),
+            }),
+            'list_logs': () => ({
+                label: 'View logs',
+                link: "/log/adventureleague/list/" + character_id,
+                icon: 'folder-o',
+                available: (
+                    character_id !== undefined
+                    && character.user_id == user.id
+                    && userHasRole(user, 'player')
+                    && user.dci
+                    && character.adventure_league
+                ),
+            }),
         };
     }
 }
