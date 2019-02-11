@@ -22,11 +22,7 @@ class AdventureLeagueLogObject(JsonObject):
             'earned': 0,
             'total': 0,
             },
-        'treasure_checkpoints': {
-            'starting': {},
-            'earned': {},
-            'total': {},
-            },
+        'treasure_checkpoints': {},
         'gold': {
             'starting': {},
             'earned': {},
