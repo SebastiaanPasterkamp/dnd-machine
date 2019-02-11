@@ -22,4 +22,5 @@ if result.wasSuccessful():
     cov.stop()
     print('Coverage Summary:')
     cov.report(show_missing=True)
+    cov.html_report(directory='coverage/app')
     cov.erase()
