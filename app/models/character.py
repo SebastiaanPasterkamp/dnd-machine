@@ -518,6 +518,8 @@ class CharacterObject(JsonObject):
             flatMapping['xp'] = 'xp'
 
         for src, dst in flatMapping.items():
+            if log.getPath([src]) is None:
+                continue
             log.setPath([src], log.getPath([src], {}))
             log.setPath([src, 'starting'], self.getPath(dst, 0))
             self.setPath(
@@ -528,15 +530,7 @@ class CharacterObject(JsonObject):
             log.setPath([src, 'total'], self.getPath(dst))
 
         for src, dst in nestedMapping.items():
-            log.setPath([src], log.getPath([src], {}))
-            fields = set(
-                log.getPath([src], {}).keys() \
-                    + self.getPath([dst], {}).keys()
-                )
-            print 'fields', fields
-            for field in fields:
-                print 'field', field, log.getPath([src, field], {}), self.getPath([dst, field])
-
+            for field in log.getPath([src], {}).keys():
                 log.setPath(
                     [src, field, 'starting'],
                     self.getPath([dst, field], 0)
