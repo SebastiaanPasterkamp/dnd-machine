@@ -133,9 +133,7 @@ class CharacterObject(JsonObject):
         "adventure_items": int,
         "adventure_checkpoints": int,
         "treasure_checkpoints": {
-            "*": {
-                "*": int,
-                },
+            "*": int,
             },
         "acp_progress": int,
         "acp_level": int,
@@ -396,7 +394,6 @@ class CharacterObject(JsonObject):
                 self.saving_throws[stat] += ceil(self.proficiency / 2.0)
 
         self.initiative_bonus = self.statisticsModifiersDexterity
-        self.passive_perception = 10 + self.statisticsModifiersWisdom
 
         for skill in itemMapper.skills:
             stat, skill = skill["stat"], skill["code"]
@@ -407,6 +404,8 @@ class CharacterObject(JsonObject):
                 self.skills[skill] += self.proficiency
             elif skill in self.proficienciesTalent:
                 self.skills[skill] += ceil(self.proficiency / 2.0)
+
+        self.passive_perception = 10 + self.skillsPerception
 
         for path, compute in self.computed.items():
             value = 0
@@ -504,18 +503,19 @@ class CharacterObject(JsonObject):
             'downtime': 'downtime',
             'renown': 'renown',
             }
+        nestedMapping = {
+            'gold': 'wealth',
+            }
+
         if log.getPath(['adventure_checkpoints', 'earned'], 0):
             flatMapping['adventure_checkpoints'] = 'adventure_checkpoints'
+            nestedMapping['treasure_checkpoints'] =  'treasure_checkpoints'
             if not self.adventure_checkpoints:
                 self.adventure_checkpoints = \
                     self.mapper.machine.xpToAcp(self.xp)
+                self.renown = 0
         else:
             flatMapping['xp'] = 'xp'
-
-        nestedMapping = {
-            'gold': 'wealth',
-            'treasure_checkpoints': 'treasure_checkpoints',
-            }
 
         for src, dst in flatMapping.items():
             log.setPath([src], log.getPath([src], {}))
@@ -529,27 +529,27 @@ class CharacterObject(JsonObject):
 
         for src, dst in nestedMapping.items():
             log.setPath([src], log.getPath([src], {}))
-            log.setPath(
-                [src, 'starting'],
-                dict([
-                    (key, value)
-                    for key, value in self.getPath(dst, {}).items()
-                    ])
+            fields = set(
+                log.getPath([src], {}).keys() \
+                    + self.getPath([dst], {}).keys()
                 )
-            for field, value in log.getPath(
-                    ['src', 'earned'], {}
-                    ).items():
+            print 'fields', fields
+            for field in fields:
+                print 'field', field, log.getPath([src, field], {}), self.getPath([dst, field])
+
+                log.setPath(
+                    [src, field, 'starting'],
+                    self.getPath([dst, field], 0)
+                    )
                 self.setPath(
                     [dst, field],
-                    value + self.getPath([dst, field], 0)
+                    self.getPath([dst, field], 0) \
+                        + log.getPath([src, field, 'earned'], 0)
                     )
-            log.setPath(
-                [src, 'total'],
-                dict([
-                    (key, value)
-                    for key, value in self.getPath(dst, {}).items()
-                    ])
-                )
+                log.setPath(
+                    [src, field, 'total'],
+                    self.getPath([dst, field])
+                    )
 
         log.equipmentStarting = len(self.equipment)
         self.equipment += log.equipmentEarned or []
