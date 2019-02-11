@@ -63,12 +63,12 @@ class DndMachine(object):
         return int((number*2) * ((size+1)/2.0) + bonus)
 
     def diceNotation(self, size, number, bonus=0):
-        notation = []
+        notation = ""
         if number:
-            notation.append("%dd%d" % (number, size))
+            notation += "%dd%d" % (number, size)
         if bonus:
-            notation.append("%d" % bonus)
-        return '+'.join(notation)
+            notation += "+%d" % bonus
+        return notation
 
     def xpToLevel(self, xp):
         xp_level, xp_offset = 0, 0
@@ -84,24 +84,24 @@ class DndMachine(object):
     def acpToLevel(self, acp):
         level = 1
         acp_per_level = 4
-        if acp <= 16:
-            level = 1 + acp / 4
+        if acp < 16:
+            level = 1 + int(acp / 4)
             return level, acp % 4, 4
-        level = 3 + acp / 8
+        level = 3 + int(acp / 8)
         return level, acp % 8, 8
 
     def xpToAcp(self, xp):
         level, progress, max_progress = self.xpToLevel(xp)
         acp = 0
-        acp_per_level = 4
-        if level > 4:
-            acp += 4 * 4
-            level -= 4
+        if level <= 4:
+            acp_per_level = 4
+            acp = (level - 1) * acp_per_level
+        else:
             acp_per_level = 8
+            acp = 16 + (level - 5) * acp_per_level
 
-        acp += level * acp_per_level
         acp += int(math.ceil(
-            float(progress * acp_per_level) / max_progress
+            float(acp_per_level * progress) / max_progress
             ))
         return acp
 
