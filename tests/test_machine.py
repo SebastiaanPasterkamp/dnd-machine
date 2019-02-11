@@ -89,6 +89,24 @@ class DndMachineTestCase(unittest.TestCase):
         self.assertEquals(
             self.machine.findByName('default', items, 'abc'), 'abc')
 
+    def testDiceNotation(self):
+        self.assertEquals(
+            "1d4+2",
+            self.machine.diceNotation(4, 1, 2)
+            )
+        self.assertEquals(
+            "2d6",
+            self.machine.diceNotation(6, 2)
+            )
+        self.assertEquals(
+            "+3",
+            self.machine.diceNotation(8, 0, 3)
+            )
+        self.assertEquals(
+            "3d10+4",
+            self.machine.diceNotation(size=10, number=3, bonus=4)
+            )
+
     def testDiceCast(self):
         self.assertEquals(self.machine.diceCast(4, 1), {
             'average': 2,
@@ -110,6 +128,55 @@ class DndMachineTestCase(unittest.TestCase):
             self.machine.xpToLevel(20000), (6, 6000, 9000))
         self.assertEquals(
             self.machine.xpToLevel(655000), (20, 300000, 0))
+
+    def testAcpToLevel(self):
+        self.assertEquals(
+            (1, 0, 4),
+            self.machine.acpToLevel(0)
+            )
+        self.assertEquals(
+            (1, 3, 4),
+            self.machine.acpToLevel(3)
+            )
+        self.assertEquals(
+            (5, 0, 8),
+            self.machine.acpToLevel(16)
+            )
+        self.assertEquals(
+            (5, 1, 8),
+            self.machine.acpToLevel(17)
+            )
+        self.assertEquals(
+            (7, 3, 8),
+            self.machine.acpToLevel(35)
+            )
+
+    def testXpToAcp(self):
+        # Level 1.0
+        self.assertEquals(
+            0,
+            self.machine.xpToAcp(0),
+            )
+        # Level 2.0
+        self.assertEquals(
+            4,
+            self.machine.xpToAcp(300)
+            )
+        # Level 2.25
+        self.assertEquals(
+            5,
+            self.machine.xpToAcp(301),
+            )
+        # Level 7.0
+        self.assertEquals(
+            32,
+            self.machine.xpToAcp(23000),
+            )
+        # Level 7.5
+        self.assertEquals(
+            36,
+            self.machine.xpToAcp(28500)
+            )
 
     def testChallengeByLevel(self):
         self.assertEquals(
