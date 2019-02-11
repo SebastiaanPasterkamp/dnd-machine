@@ -506,7 +506,7 @@ export class AdventureLeagueLogEdit extends React.Component
                 )}
                 {!(
                     consumed
-                    || adventure_checkpoints
+                    || adventure_checkpoints.earned
                     || character.adventure_checkpoints
                 ) && (
                     <ToggleSwitch
@@ -539,7 +539,7 @@ export class AdventureLeagueLogEdit extends React.Component
             >
 
             {(
-                adventure_checkpoints
+                adventure_checkpoints.earned
                 || character.adventure_checkpoints
                 || forceAdventureCheckpoints
             ) ? (
@@ -610,7 +610,7 @@ export class AdventureLeagueLogEdit extends React.Component
             </Panel>
 
             {(
-                adventure_checkpoints
+                adventure_checkpoints.earned
                 || character.adventure_checkpoints
                 || forceAdventureCheckpoints
             ) && (
