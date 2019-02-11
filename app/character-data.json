@@ -6456,6 +6456,21 @@
                     "path": "proficiency",
                     "type": "value",
                     "value": 3
+                }, {
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "label": "Shield Master",
+                        "path": "abilities.Shield Master",
+                        "type": "dict",
+                        "dict": {
+                            "description": "You use shields not just for protection but also for offense. You gain the following benefits while you are wielding a shield:\n\n* If you take the *Attack action* on your turn, you can use a *Bonus action* to try to *Shove* a creature within 5 feet of you with your shield.\n* If you aren't incapacitated, you can add your shield's AC bonus to any **Dexterity** *Saving Throw* you make against a spell or other harmful effect that targets only you.\n* If you are subjected to an effect that allows you to make a **Dexterity** *Saving Throw* to take only half damage, you can use your reaction to take no damage if you succeed on the saving throw, interposing your shield between yourself and the source of the effect."
+                        }
+                    }]
                 }]
             },
             "fighter-6-eldritch": {
@@ -6526,18 +6541,18 @@
                     "archetype": ["Battle Master"]
                 },
                 "config": [{
-                    "label": "Combat Superiority",
-                    "path": "abilities.Combat Superiority",
-                    "type": "dict",
-                    "dict": {
-                        "uses": 5
-                    }
-                }, {
                     "label": "Know Your Enemy",
                     "path": "abilities.Know Your Enemy",
                     "type": "dict",
                     "dict": {
                         "description": "If you spend at least 1 minute observing or interacting with another creature outside combat, you can learn certain information about its capabilities compared to your own. The DM tells you if the creature is your equal, superior, or inferior in regard to two of the following characteristics of your choice:\n* Strength score\n* Dexterity score\n* Constitution score\n* Armor Class\n* Current hit points\n* Total class levels (if any)\n* Fighter class levels (if any)"
+                    }
+                }, {
+                    "label": "Combat Superiority",
+                    "path": "abilities.Combat Superiority",
+                    "type": "dict",
+                    "dict": {
+                        "uses": 5
                     }
                 }, {
                     "label": "Maneuvers",
