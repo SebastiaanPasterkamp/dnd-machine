@@ -45,6 +45,10 @@ class CharacterBlueprint(BaseApiBlueprint):
         return self.basemapper.character
 
     @property
+    def leaguelogmapper(self):
+        return self.basemapper.adventureleague
+
+    @property
     def armormapper(self):
         return self.basemapper.armor
 
@@ -138,6 +142,12 @@ class CharacterBlueprint(BaseApiBlueprint):
     @BaseApiCallback('api_post.data')
     def keepFields(self, data, obj):
         if obj is None:
+            return
+        if obj.adventure_league:
+            logs = self.leaguelogmapper.getByCharacterId(obj.id)
+            for log in logs:
+                log.consumed = False
+                self.leaguelogmapper.save(log)
             return
         keeping = [
             'xp',
