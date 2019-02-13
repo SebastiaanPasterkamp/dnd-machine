@@ -1,11 +1,11 @@
-// _adventure-league-log-edit.scss
+// _al-log-edit.scss
 
 @import 'view-grid';
 
-.adventure-league-log-edit {
+.al-log-edit {
     @extend .view-grid;
 
-    > .adventure-league-log-edit__adventurer {
+    > .al-log-edit__adventurer {
         grid-column-end: span 6;
 
         > .nice-panel-content > div {
@@ -13,32 +13,33 @@
         }
     }
 
-    .adventure-league-log-edit__session {
+    .al-log-edit__session {
             grid-column-end: span 6;
     }
 
-    .adventure-league-log-edit__points,
-    .adventure-league-log-edit__downtime,
-    .adventure-league-log-edit__renown {
+    .al-log-edit__xp,
+    .al-log-edit__acp,
+    .al-log-edit__downtime,
+    .al-log-edit__gold,
+    .al-log-edit__treasure,
+    .al-log-edit__renown {
         grid-column-end: span 3;
     }
 
-    .adventure-league-log-edit__rewards,
-    .adventure-league-log-edit__gold,
-    .adventure-league-log-edit__treasure,
-    .adventure-league-log-edit__equipment,
-    .adventure-league-log-edit__items,
-    .adventure-league-log-edit__notes {
+    .al-log-edit__rewards,
+    .al-log-edit__equipment,
+    .al-log-edit__items,
+    .al-log-edit__notes {
         grid-column: span 6;
     }
 
-    .adventure-league-log-edit__treasure {
+    .al-log-edit__treasure {
         .current {
             font-weight: bold;
         }
     }
 
-    .adventure-league-log-edit__save {
+    .al-log-edit__save {
         grid-column-end: span 6;
     }
 
