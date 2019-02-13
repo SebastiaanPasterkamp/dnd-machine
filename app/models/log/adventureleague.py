@@ -85,6 +85,9 @@ class AdventureLeagueLogObject(JsonObject):
             '*': int,
             'earned': unicode,
             },
+        'character_snapshot': {
+            '*': int,
+            },
         }
 
 class AdventureLeagueLogMapper(JsonObjectDataMapper):
