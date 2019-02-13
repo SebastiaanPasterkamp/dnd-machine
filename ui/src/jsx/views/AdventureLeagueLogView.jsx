@@ -56,41 +56,30 @@ export class AdventureSession extends React.Component
     }
 };
 
-export class AdventureDelta extends React.Component
+export class AdventureDeltaRow extends React.Component
 {
     render() {
         const {
-            starting = 0, earned = 0, className, label,
+            label, starting = 0, earned = 0,
         } = this.props;
         const total = starting + earned;
 
-        return <Panel
-            className={className}
-            header={label}
-            >
-            <tbody>
-                <tr>
-                    <th>Starting</th>
-                    <td>{starting}</td>
-                </tr>
-                <tr>
-                    <th>Earned</th>
-                    <td>{earned}</td>
-                </tr>
-                <tr>
-                    <th>Total</th>
-                    <td>{earned ? total : starting}</td>
-                </tr>
-            </tbody>
-        </Panel>;
+        return (
+            <tr>
+                <th>{label}</th>
+                <td>{starting}</td>
+                <td>{earned}</td>
+                <td>{earned ? total : starting}</td>
+            </tr>
+        );
     }
 };
 
-export class AdventureGold extends React.Component
+export class AdventureGoldRow extends React.Component
 {
     render() {
         const {
-            starting = {}, earned = {}, className, label,
+            label, starting = {}, earned = {},
         } = this.props;
         const total = _.assign(
             {},
@@ -101,40 +90,29 @@ export class AdventureGold extends React.Component
             )
         );
 
-        return <Panel
-            className={className}
-            header={label}
-            >
-            <tbody>
-                <tr>
-                    <th>Starting</th>
-                    <td>
-                        <Coinage
-                            {...starting}
-                            extended={true}
-                            />
-                    </td>
-                </tr>
-                <tr>
-                    <th>Earned</th>
-                    <td>
-                        <Coinage
-                            {...earned}
-                            extended={true}
-                            />
-                    </td>
-                </tr>
-                <tr>
-                    <th>Total</th>
-                    <td>
-                        <Coinage
-                            {...total}
-                            extended={true}
-                            />
-                    </td>
-                </tr>
-            </tbody>
-        </Panel>;
+        return (
+            <tr>
+                <th>{label}</th>
+                <td>
+                    <Coinage
+                        {...starting}
+                        extended={true}
+                        />
+                </td>
+                <td>
+                    <Coinage
+                        {...earned}
+                        extended={true}
+                        />
+                </td>
+                <td>
+                    <Coinage
+                        {...total}
+                        extended={true}
+                        />
+                </td>
+            </tr>
+        );
     }
 };
 
@@ -181,7 +159,8 @@ export class AdventureLeagueLogView extends React.Component
             id, character_id, character = {wealth: {}}, user_id,
             current_user = {}, adventure = {}, xp = {}, gold = {},
             downtime = {}, renown = {}, equipment = {}, items = {},
-            notes = '', consumed = false
+            notes = '', consumed = false, adventure_checkpoints = {},
+            character_snapshot = {},
         } = this.props;
 
         return <React.Fragment>
@@ -201,56 +180,99 @@ export class AdventureLeagueLogView extends React.Component
                     user_id={user_id || current_user.id}
                     showDCI={true}
                     />
-                {character_id
-                    ? <CharacterLabel
+                {character_id && (
+                    <CharacterLabel
                         character_id={parseInt(
                             character_id
                         )}
                         showProgress={true}
-                        />
-                    : null
-                }
+                        characterUpdate={character_snapshot}
+                    />
+                )}
             </Panel>
 
-            <AdventureDelta
-                className="adventure-league-log-view__xp"
-                label="XP"
-                {...xp}
-                starting={consumed
-                    ? xp.starting
-                    : character.xp
-                }
-                />
+            <Panel
+                className="adventure-league-log-view__earned"
+                header="Earned"
+            >
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Starting</th>
+                        <th>Earned</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {xp.earned ?
+                        <AdventureDeltaRow
+                            label="XP"
+                            {...xp}
+                            starting={consumed
+                                ? xp.starting
+                                : character.xp
+                            }
+                        />
+                    : null}
 
-            <AdventureGold
-                className="adventure-league-log-view__gold"
-                label="Gold"
-                {...gold}
-                starting={consumed
-                    ? gold.starting :
-                    character.wealth
-                }
-                />
+                    {adventure_checkpoints.earned ?
+                        <AdventureDeltaRow
+                            label="ACP"
+                            {...adventure_checkpoints}
+                            starting={consumed
+                                ? adventure_checkpoints.starting
+                                : character.adventure_checkpoints
+                            }
+                        />
+                    : null}
 
-            <AdventureDelta
-                className="adventure-league-log-view__downtime"
-                label="Downtime"
-                {...downtime}
-                starting={consumed
-                    ? downtime.starting
-                    : character.downtime
-                }
-                />
+                    {gold.earned ?
+                        <AdventureGoldRow
+                            className="adventure-league-log-view__gold"
+                            label="Gold"
+                            {...gold}
+                            starting={consumed
+                                ? gold.starting :
+                                character.wealth
+                            }
+                        />
+                    : null}
 
-            <AdventureDelta
-                className="adventure-league-log-view__renown"
-                label="Renown"
-                {...renown}
-                starting={consumed
-                    ? renown.starting
-                    : character.renown
-                }
-                />
+                    {downtime.earned ?
+                        <AdventureDeltaRow
+                            className="adventure-league-log-view__downtime"
+                            label="Downtime"
+                            {...downtime}
+                            starting={consumed
+                                ? downtime.starting
+                                : character.downtime
+                            }
+                        />
+                    : null}
+
+                    {renown.earned && (
+                        <AdventureDeltaRow
+                            className="adventure-league-log-view__renown"
+                            label="Renown"
+                            {...renown}
+                            starting={consumed
+                                ? renown.starting
+                                : character.renown
+                            }
+                        />
+                    )}
+                </tbody>
+            </Panel>
+
+            <Panel
+                key="notes"
+                className="adventure-league-log-view__notes"
+                header="Adventure Notes / Downtime Activity"
+                >
+                <MDReactComponent
+                    text={notes}
+                    />
+            </Panel>
 
             <AdventureItems
                 className="adventure-league-log-view__equipment"
@@ -263,16 +285,6 @@ export class AdventureLeagueLogView extends React.Component
                 label="Magical Items"
                 {...items}
                 />
-
-            <Panel
-                key="notes"
-                className="adventure-league-log-view__notes"
-                header="Adventure Notes / Downtime Activity"
-                >
-                <MDReactComponent
-                    text={notes}
-                    />
-            </Panel>
 
         </React.Fragment>;
     }
