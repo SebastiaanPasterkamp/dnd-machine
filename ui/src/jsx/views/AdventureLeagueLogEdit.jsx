@@ -461,6 +461,7 @@ export class AdventureLeagueLogEdit extends React.Component
     render() {
         const {
             character_id,
+            character_snapshot = {},
             character = {
                 adventure_checkpoints: 0,
                 treasure_checkpoints: {},
@@ -502,6 +503,7 @@ export class AdventureLeagueLogEdit extends React.Component
                     <CharacterLabel
                         character_id={character_id}
                         showProgress={true}
+                        characterUpdate={character_snapshot}
                     />
                 )}
                 {!(
