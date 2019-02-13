@@ -17,13 +17,7 @@
         }
     }
 
-    .adventure-league-log-view__xp,
-    .adventure-league-log-view__gold,
-    .adventure-league-log-view__downtime,
-    .adventure-league-log-view__renown {
-        grid-column-end: span 3;
-    }
-
+    .adventure-league-log-view__earned,
     .adventure-league-log-view__equipment,
     .adventure-league-log-view__items {
         grid-column: span 6;
