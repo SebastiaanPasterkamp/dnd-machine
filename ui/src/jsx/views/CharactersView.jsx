@@ -92,7 +92,7 @@ export class CharacterInformation extends LazyComponent
     render() {
         const {
             'class': _class, race, background, alignment,
-            alignments = [], xp, user_id
+            alignments = [], xp, adventure_checkpoints, user_id
         } = this.props;
 
         return <Panel
@@ -122,7 +122,13 @@ export class CharacterInformation extends LazyComponent
                 <tr>
                     <th>Race</th>
                     <th>Alignment</th>
-                    <th>XP</th>
+                    <th>{_.join(
+                        _.filter([
+                            xp ? 'XP' : null,
+                            adventure_checkpoints ? 'ACP' : null,
+                        ]),
+                        ' + '
+                    )}</th>
                 </tr>
             </thead>
             <tbody>
@@ -134,7 +140,15 @@ export class CharacterInformation extends LazyComponent
                             value={alignment}
                             />
                     </td>
-                    <td>{xp} XP</td>
+                    <td>{_.join(
+                        _.filter([
+                            xp ? `${xp} XP` : null,
+                            adventure_checkpoints
+                                ? `${adventure_checkpoints} ACP`
+                                : null,
+                        ]),
+                        ' + '
+                    )}</td>
                 </tr>
             </tbody>
         </Panel>;
