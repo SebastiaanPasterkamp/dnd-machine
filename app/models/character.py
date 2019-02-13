@@ -555,9 +555,19 @@ class CharacterObject(JsonObject):
             + len(log.itemsEarned or [])
         log.itemsTotal = self.adventure_items
 
-        log.consumed = True
         self.adventure_league = True
         self.compute()
+
+        log.consumed = True
+        log.character_snapshot = dict([
+            (prop, self.getPath(prop))
+            for prop in [
+                'level',
+                'xp', 'xp_progress', 'xp_level',
+                'adventure_checkpoints', 'acp_progress', 'acp_level',
+                ]
+            if self.getPath(prop) is not None
+            ])
 
     def getLevelUp(self):
         levelUp = {
