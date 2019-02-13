@@ -16,6 +16,19 @@ const character = {
     xp_progress: 50,
     xp_level: 300,
 };
+const acp_character = {
+    id: 1,
+    name: 'Example',
+    race: 'Orc',
+    'class': 'Fighter',
+    background: 'Noble',
+    gender: "female",
+    alignment: "lawful good",
+    level: 5,
+    adventure_checkpoints: 20,
+    acp_progress: 4,
+    acp_level: 8,
+};
 
 describe('Component: CharacterLabel', () => {
     it('should render with minimum props', () => {
@@ -62,6 +75,35 @@ describe('Component: CharacterLabel', () => {
                 character={
                     _.assign({}, character, {xp_progress: 299 })
                 }
+                showProgress={ true }
+                alignments={ alignments }
+                genders={ genders }
+                />
+        ).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should show progress with acp', () => {
+        const tree = renderer.create(
+            <CharacterLabel
+                character_id={ 1 }
+                character={ acp_character }
+                showProgress={ true }
+                alignments={ alignments }
+                genders={ genders }
+                />
+        ).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should show modified char', () => {
+        const tree = renderer.create(
+            <CharacterLabel
+                character_id={ 1 }
+                character={ character }
+                characterUpdate={ acp_character }
                 showProgress={ true }
                 alignments={ alignments }
                 genders={ genders }
