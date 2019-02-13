@@ -70,7 +70,9 @@ class AdventureLeagueRow extends LazyComponent
     render() {
         const {
             id, logId, adventure, xp = {}, gold = {}, downtime = {},
-            renown = {}, items, notes = '', character_id
+            renown = {}, items, notes = '', character_id,
+            adventure_checkpoints = {}, treasure_checkpoints = {},
+            character_snapshot = {},
         } = this.props;
 
         return <tr data-id={id}>
@@ -88,6 +90,13 @@ class AdventureLeagueRow extends LazyComponent
                     ? <span>
                         <strong>XP</strong>
                         {xp.earned} XP
+                    </span>
+                    : null
+                }
+                {adventure_checkpoints.earned
+                    ? <span>
+                        <strong>ACP</strong>
+                        {adventure_checkpoints.earned} ACP
                     </span>
                     : null
                 }
@@ -130,15 +139,15 @@ class AdventureLeagueRow extends LazyComponent
                     />
             </td>
             <td>
-                {character_id
-                    ? <CharacterLabel
+                {character_id && (
+                    <CharacterLabel
                         character_id={parseInt(
                             character_id
                         )}
                         showProgress={true}
-                        />
-                    : null
-                }
+                        characterUpdate={character_snapshot}
+                    />
+                )}
             </td>
         </tr>
     }
