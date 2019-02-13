@@ -368,8 +368,11 @@ class CharacterObject(JsonObject):
         self.version = self._version
 
         if self.adventure_checkpoints:
+            xp_to_acp = self.mapper.machine.xpToAcp(self.xp)
             self.level, self.acp_progress, self.acp_level = \
-                machine.acpToLevel(self.adventure_checkpoints)
+                machine.acpToLevel(
+                    xp_to_acp + self.adventure_checkpoints
+                    )
         else:
             self.level, self.xp_progress, self.xp_level = \
                 machine.xpToLevel(self.xp)
@@ -501,7 +504,6 @@ class CharacterObject(JsonObject):
     def consumeAdventureLeague(self, log):
         flatMapping = {
             'downtime': 'downtime',
-            'renown': 'renown',
             }
         nestedMapping = {
             'gold': 'wealth',
@@ -511,11 +513,11 @@ class CharacterObject(JsonObject):
             flatMapping['adventure_checkpoints'] = 'adventure_checkpoints'
             nestedMapping['treasure_checkpoints'] =  'treasure_checkpoints'
             if not self.adventure_checkpoints:
-                self.adventure_checkpoints = \
-                    self.mapper.machine.xpToAcp(self.xp)
+                self.adventure_checkpoints = 0
                 self.renown = 0
         else:
             flatMapping['xp'] = 'xp'
+            flatMapping['renown'] = 'renown'
 
         for src, dst in flatMapping.items():
             if log.getPath([src]) is None:
@@ -544,6 +546,14 @@ class CharacterObject(JsonObject):
                     [src, field, 'total'],
                     self.getPath([dst, field])
                     )
+
+        if self.adventure_checkpoints:
+            log.renown = {
+                'starting': self.renown,
+                'earned': int(log.adventure_checkpointsEarned / 4),
+                'total': self.renown + int(self.adventure_checkpoints / 4),
+                }
+            self.renown = int(self.adventure_checkpoints / 4)
 
         log.equipmentStarting = len(self.equipment)
         self.equipment += log.equipmentEarned or []
