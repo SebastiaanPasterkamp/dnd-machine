@@ -12,6 +12,88 @@ exports[`Component: CharacterLabel should render with minimum props 1`] = `
 </div>
 `;
 
+exports[`Component: CharacterLabel should show modified char 1`] = `
+<div
+  className="character inline"
+>
+  Example
+  , Level 
+  5
+   
+  <div
+    className="list-label inline"
+  >
+    Female
+  </div>
+  Orc
+   
+  Fighter
+   (
+  <div
+    className="list-label inline"
+  >
+    Lawful good
+  </div>
+  )
+  <div
+    className="nice-progress brand"
+  >
+    <div
+      className="nice-progress-fill"
+      style={
+        Object {
+          "height": "1.25rem",
+          "width": "50%",
+        }
+      }
+    >
+      4 / 8
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Component: CharacterLabel should show progress with acp 1`] = `
+<div
+  className="character inline"
+>
+  Example
+  , Level 
+  5
+   
+  <div
+    className="list-label inline"
+  >
+    Female
+  </div>
+  Orc
+   
+  Fighter
+   (
+  <div
+    className="list-label inline"
+  >
+    Lawful good
+  </div>
+  )
+  <div
+    className="nice-progress brand"
+  >
+    <div
+      className="nice-progress-fill"
+      style={
+        Object {
+          "height": "1.25rem",
+          "width": "50%",
+        }
+      }
+    >
+      4 / 8
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Component: CharacterLabel should show progress with level 1`] = `
 <div
   className="character inline"

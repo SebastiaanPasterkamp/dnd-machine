@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
@@ -12,18 +13,20 @@ export class CharacterLabel extends LazyComponent
 {
     renderInfo() {
         const {
-            character: {
-                name,
-                level,
-                gender,
-                race,
-                class: _class,
-                alignment,
-            },
+            character,
+            characterUpdate,
             genders,
             alignments,
             showInfo,
         } = this.props;
+        const {
+            name,
+            level,
+            gender,
+            race,
+            class: _class,
+            alignment,
+        } = _.assign(character, characterUpdate);
 
         if (!showInfo) {
             return null;
@@ -143,12 +146,14 @@ CharacterLabel.propTypes = {
         acp_progress: PropTypes.number,
         acp_level: PropTypes.number,
     }),
+    characterUpdate: PropTypes.object,
     alignments: PropTypes.array,
     genders: PropTypes.array,
 };
 
 CharacterLabel.defaultProps = {
     character: {},
+    characterUpdate: {},
     genders: [],
     alignments: [],
     showInfo: true,
