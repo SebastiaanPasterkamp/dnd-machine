@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import utils from '../utils.jsx';
-
 import '../../sass/_adventure-league-log-edit.scss';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
@@ -38,7 +36,7 @@ export class AdventureSession extends React.Component
         } = this.props;
 
         return <Panel
-            className="adventure-league-log-edit__session"
+            className="al-log-edit__session"
             header="Adventure"
             >
             <ControlGroup label="Name">
@@ -125,43 +123,38 @@ export class AdventureDelta extends React.Component
         const { formula = earned } = this.state;
 
         return (
-            <ControlGroup
+            <Panel
+                header={label}
                 className={className}
-                labels={ formula == earned
-                    ? [label, "±", "="]
-                    : [label, "±", "=", "="]
-                }
             >
-                <InputField
-                    placeholder="Starting..."
-                    disabled={true}
-                    type="number"
-                    value={starting}
-                    />
-                <CalculatorInputField
-                    placeholder="Earned..."
-                    value={earned}
-                    disabled={disabled}
-                    setState={(value, formula) => this.setState(
-                        {formula},
-                        () => this.onChange(value)
-                    )}
-                    />
-                {formula != earned && (
+                <ControlGroup label="Starting">
                     <InputField
-                        placeholder="Earned..."
+                        placeholder="Starting..."
                         disabled={true}
                         type="number"
+                        value={starting}
+                    />
+                </ControlGroup>
+                <ControlGroup label="Earned">
+                    <CalculatorInputField
+                        placeholder="Earned..."
                         value={earned}
+                        disabled={disabled}
+                        setState={(value, formula) => this.setState(
+                            {formula},
+                            () => this.onChange(value)
+                        )}
                     />
-                )}
-                <InputField
-                    placeholder="Total..."
-                    disabled={true}
-                    type="number"
-                    value={earned ? total : starting}
-                    />
-            </ControlGroup>
+                </ControlGroup>
+                <ControlGroup label="Total">
+                    <InputField
+                        placeholder="Total..."
+                        disabled={true}
+                        type="number"
+                        value={earned ? total : starting}
+                        />
+                </ControlGroup>
+            </Panel>
         );
     }
 };
@@ -344,7 +337,7 @@ export class TreasureCheckpoints extends React.Component
                     className={tier === currentTier ? 'current' : undefined}
                     labels={[
                         tier === currentTier
-                            ? 'Curren tier'
+                            ? 'Current tier'
                             : `Tier ${tier}`,
                         "±",
                         "="
@@ -482,6 +475,12 @@ export class AdventureLeagueLogEdit extends React.Component
             Math.floor(character.level / 5.0)
         ];
 
+        const acp_mode = (
+            adventure_checkpoints.earned
+            || character.adventure_checkpoints
+            || forceAdventureCheckpoints
+        );
+
         return <React.Fragment>
             <AdventureSession
                 {...adventure}
@@ -492,7 +491,7 @@ export class AdventureLeagueLogEdit extends React.Component
 
             <Panel
                 key="adventurer"
-                className="adventure-league-log-edit__adventurer"
+                className="al-log-edit__adventurer"
                 header="Adventurer"
             >
                 <UserLabel
@@ -518,7 +517,7 @@ export class AdventureLeagueLogEdit extends React.Component
                         label="Switch to Adventure Checkpoints"
                     />
                 )}
-                {forceAdventureCheckpoints && xp && <span className="adventure-league-log-edit__acp-switch-warning clearfix">
+                {forceAdventureCheckpoints && xp && <span className="al-log-edit__acp-switch-warning clearfix">
                     Switching a character from XP based progression
                     to Adventure Checkpoints cannot be undone (yet?).
                     The first time a character progresses using ACP's, the following changes are made:
@@ -529,43 +528,15 @@ export class AdventureLeagueLogEdit extends React.Component
                         progression in the level. This will always be
                         rounded up. Simply log 1 ACP less to round
                         down instead.</li>
-                        <li>Renown is reset to 0. The <em>Faction Agent</em> background feature is not yet implemented.</li>
+                        <li>Renown is reset to 0 and will increase by 1 every 4 ACP's. The <em>Faction Agent</em> background feature is not yet implemented.</li>
                     </ul>
                 </span>}
             </Panel>
 
-            <Panel
-                key="rewards"
-                className="adventure-league-log-edit__rewards"
-                header="Rewards"
-            >
-
-            {(
-                adventure_checkpoints.earned
-                || character.adventure_checkpoints
-                || forceAdventureCheckpoints
-            ) ? (
-                <AdventureDelta
-                    key="acp"
-                    className="adventure-league-log-edit__points"
-                    label="Adventure Checkpoints"
-                    disabled={!!consumed}
-                    {...adventure_checkpoints}
-                    starting={consumed
-                        ? adventure_checkpoints.starting
-                        : character.adventure_checkpoints
-                    }
-                    setState={!consumed
-                        ? (value) => this.onFieldChange(
-                            'adventure_checkpoints',
-                            value
-                        ) : null
-                    }
-                />
-            ) : (
+            {!acp_mode && (
                 <AdventureDelta
                     key="xp"
-                    className="adventure-league-log-edit__points"
+                    className="al-log-edit__xp"
                     label="Experience Points"
                     disabled={!!consumed}
                     {...xp}
@@ -580,44 +551,46 @@ export class AdventureLeagueLogEdit extends React.Component
                 />
             )}
 
-            <AdventureDelta
-                className="adventure-league-log-edit__downtime"
-                label="Downtime"
-                disabled={!!consumed}
-                {...downtime}
-                starting={consumed
-                    ? downtime.starting
-                    : character.downtime
-                }
-                setState={!consumed
-                    ? (value) => this.onFieldChange('downtime', value)
-                    : null
-                }
-            />
+            {!acp_mode && (
+                <AdventureDelta
+                    className="al-log-edit__renown"
+                    label="Renown"
+                    disabled={!!consumed}
+                    {...renown}
+                    starting={consumed
+                        ? renown.starting
+                        : character.renown
+                    }
+                    setState={!consumed
+                        ? (value) => this.onFieldChange('renown', value)
+                        : null
+                    }
+                />
+            )}
 
-            <AdventureDelta
-                className="adventure-league-log-edit__renown"
-                label="Renown"
-                disabled={!!consumed}
-                {...renown}
-                starting={consumed
-                    ? renown.starting
-                    : character.renown
-                }
-                setState={!consumed
-                    ? (value) => this.onFieldChange('renown', value)
-                    : null
-                }
-            />
-            </Panel>
+            {acp_mode && (
+                <AdventureDelta
+                    key="acp"
+                    className="al-log-edit__acp al-log-edit--acp-mode"
+                    label="Adventure Checkpoints"
+                    disabled={!!consumed}
+                    {...adventure_checkpoints}
+                    starting={consumed
+                        ? adventure_checkpoints.starting
+                        : character.adventure_checkpoints
+                    }
+                    setState={!consumed
+                        ? (value) => this.onFieldChange(
+                            'adventure_checkpoints',
+                            value
+                        ) : null
+                    }
+                />
+            )}
 
-            {(
-                adventure_checkpoints.earned
-                || character.adventure_checkpoints
-                || forceAdventureCheckpoints
-            ) && (
+            {acp_mode && (
                 <TreasureCheckpoints
-                    className="adventure-league-log-edit__treasure"
+                    className="al-log-edit__treasure"
                     label="Treasure Points"
                     disabled={!!consumed}
                     currentTier={currentTier}
@@ -635,8 +608,23 @@ export class AdventureLeagueLogEdit extends React.Component
                 />
             )}
 
+            <AdventureDelta
+                className="al-log-edit__downtime"
+                label="Downtime"
+                disabled={!!consumed}
+                {...downtime}
+                starting={consumed
+                    ? downtime.starting
+                    : character.downtime
+                }
+                setState={!consumed
+                    ? (value) => this.onFieldChange('downtime', value)
+                    : null
+                }
+            />
+
             <AdventureGold
-                className="adventure-league-log-edit__gold"
+                className="al-log-edit__gold"
                 label="Gold"
                 disabled={!!consumed}
                 {...gold}
@@ -651,7 +639,7 @@ export class AdventureLeagueLogEdit extends React.Component
             />
 
             <AdventureItems
-                className="adventure-league-log-edit__equipment"
+                className="al-log-edit__equipment"
                 label="Regular Items"
                 disabled={!!consumed}
                 {...equipment}
@@ -665,7 +653,7 @@ export class AdventureLeagueLogEdit extends React.Component
             />
 
             <AdventureItems
-                className="adventure-league-log-edit__items"
+                className="al-log-edit__items"
                 label="Magical Items"
                 disabled={!!consumed}
                 {...items}
@@ -681,7 +669,7 @@ export class AdventureLeagueLogEdit extends React.Component
 
             <Panel
                 key="notes"
-                className="adventure-league-log-edit__notes"
+                className="al-log-edit__notes"
                 header="Adventure Notes / Downtime Activity"
                 >
                 <MarkdownTextField
@@ -730,7 +718,7 @@ export default ListDataWrapper(
             ]
         ),
         {
-            className: 'adventure-league-log-edit',
+            className: 'al-log-edit',
             icon: 'fa-pencil-square-o', // fa-d-and-d
             label: 'Adventure League Log',
             buttons: ['cancel', 'reload', 'save']
