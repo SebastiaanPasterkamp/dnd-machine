@@ -532,18 +532,21 @@ class CharacterObject(JsonObject):
             log.setPath([src, 'total'], self.getPath(dst))
 
         for src, dst in nestedMapping.items():
-            for field in log.getPath([src], {}).keys():
+            fields = set(log.getPath([src, 'earned'], {}).keys()) \
+                | set(self.getPath([dst]).keys())
+            for field in fields:
                 log.setPath(
-                    [src, field, 'starting'],
+                    [src, 'starting', field],
                     self.getPath([dst, field], 0)
                     )
-                self.setPath(
-                    [dst, field],
-                    self.getPath([dst, field], 0) \
-                        + log.getPath([src, field, 'earned'], 0)
-                    )
+                if log.getPath([src, 'earned', field]):
+                    self.setPath(
+                        [dst, field],
+                        log.getPath([src, 'starting', field]) \
+                            + log.getPath([src, 'earned', field])
+                        )
                 log.setPath(
-                    [src, field, 'total'],
+                    [src, 'total', field],
                     self.getPath([dst, field])
                     )
 
@@ -565,9 +568,26 @@ class CharacterObject(JsonObject):
             + len(log.itemsEarned or [])
         log.itemsTotal = self.adventure_items
 
-        self.adventure_league = True
+        old_level = self.level
         self.compute()
 
+        levelGoldTiers = [(1, 75), (5, 150), (11, 550), (17, 5500)]
+        levelGold = 0
+        for curLevel in range(old_level + 1, self.level + 1):
+            _, gold = filter(
+                lambda (minLevel, _): minLevel <= curLevel,
+                levelGoldTiers
+                )[-1]
+            levelGold += gold
+            self.wealthGp += gold
+        if levelGold:
+            log.notes += "\n\nLeveled up from `%d` to `%d` and gained `%dGP`." % (
+                old_level,
+                self.level,
+                levelGold,
+                )
+
+        self.adventure_league = True
         log.consumed = True
         log.character_snapshot = dict([
             (prop, self.getPath(prop))
