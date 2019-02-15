@@ -251,7 +251,11 @@ class CharacterBlueprint(BaseApiBlueprint):
                 if obj.armor_class_bonus \
                 else "%s" %  obj.armor_class,
             "HD": "%dd%d" % (obj.level, obj.hit_dice),
-            "XP": obj.xp,
+            "XP": ' + '.join(filter(None, [
+                '%d XP' % obj.xp if obj.xp else None,
+                '%d ACP' % obj.adventure_checkpoints
+                    if obj.adventure_checkpoints else None,
+                    ])),
             "Race ": obj.race,
             "ClassLevel": "%s %d" % (obj.Class, obj.level),
             "Speed": obj.speed,
