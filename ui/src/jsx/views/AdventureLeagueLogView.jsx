@@ -156,11 +156,14 @@ export class AdventureLeagueLogView extends React.Component
 {
     render() {
         const {
-            id, character_id, character = {wealth: {}}, user_id,
+            id, character_id, character = {
+                wealth: {},
+                treasure_checkpoints: {},
+            }, user_id,
             current_user = {}, adventure = {}, xp = {}, gold = {},
             downtime = {}, renown = {}, equipment = {}, items = {},
             notes = '', consumed = false, adventure_checkpoints = {},
-            character_snapshot = {},
+            character_snapshot = {}, treasure_checkpoints = { earned: {} },
         } = this.props;
 
         return <React.Fragment>
@@ -226,6 +229,22 @@ export class AdventureLeagueLogView extends React.Component
                         />
                     : null}
 
+                    {treasure_checkpoints.earned ? _.map(
+                        ['one', 'two', 'three', 'four'],
+                        tier => treasure_checkpoints.earned[tier] ? (
+                            <AdventureDeltaRow
+                                key={tier}
+                                label={`Tier ${tier} TP`}
+                                starting={consumed
+                                    ? treasure_checkpoints.starting[tier]
+                                    : character.treasure_checkpoints[tier]
+                                }
+                                earned={treasure_checkpoints.earned[tier]}
+                                total={treasure_checkpoints.total[tier]}
+                            />
+                        ) : null
+                    ) : null}
+
                     {gold.earned ?
                         <AdventureGoldRow
                             className="adventure-league-log-view__gold"
@@ -250,7 +269,7 @@ export class AdventureLeagueLogView extends React.Component
                         />
                     : null}
 
-                    {renown.earned && (
+                    {renown.earned ?
                         <AdventureDeltaRow
                             className="adventure-league-log-view__renown"
                             label="Renown"
@@ -260,7 +279,7 @@ export class AdventureLeagueLogView extends React.Component
                                 : character.renown
                             }
                         />
-                    )}
+                    : null}
                 </tbody>
             </Panel>
 
