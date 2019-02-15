@@ -290,37 +290,23 @@ export class AdventureItems extends React.Component
 
 export class TreasureCheckpoints extends React.Component
 {
-    computeTotal(tier, earned) {
+    onChange(tier, value) {
         const {
-            [tier]: current = {
-                starting: 0,
-            },
+            disabled = false,
+            earned: before,
+            setState,
         } = this.props;
-        return _.assign(
-            {},
-            current,
-            {
-                earned,
-                total: current.starting + earned,
-            }
-        );
-    }
-
-    onChange(tier, earned) {
-        const { disabled = false, setState } = this.props;
         if (disabled) {
             return;
         }
-        const computed = this.computeTotal(tier, earned);
-        setState({ [tier]: computed });
+        setState({ earned: { ...before, [tier]: value }});
     }
 
     render() {
         const {
-            one = {},
-            two = {},
-            three = {},
-            four = {},
+            starting = {},
+            earned = {},
+            total = {},
             className,
             label,
             disabled = false,
@@ -331,7 +317,7 @@ export class TreasureCheckpoints extends React.Component
             className={className}
             header={label}
             >
-            {_.map({one, two, three, four}, ({ starting = 0, earned = 0, total = 0 }, tier) => (
+            {_.map(['one', 'two', 'three', 'four'], tier => (
                 <ControlGroup
                     key={`tier-${tier}`}
                     className={tier === currentTier ? 'current' : undefined}
@@ -346,24 +332,28 @@ export class TreasureCheckpoints extends React.Component
                     <InputField
                         disabled={true}
                         type="number"
-                        value={starting}
+                        value={starting[tier]}
                     />
                     <CalculatorInputField
                         placeholder="Earned..."
-                        value={earned}
+                        value={earned[tier]}
                         disabled={disabled}
                         setState={(value, formula) => this.onChange(tier, value)}
                         maxValue={currentTier === tier
                             ? undefined
                             : 0
                         }
-                        minValue={(total || 0) * -1}
+                        minValue={_.get(total, tier, 0) * -1}
                     />
                     <InputField
                         placeholder="Total..."
                         disabled={true}
                         type="number"
-                        value={disabled ? total : starting + earned}
+                        value={disabled
+                            ? total[tier]
+                            : (starting[tier] || 0)
+                                + (earned[tier] || 0)
+                        }
                     />
                 </ControlGroup>
             ))}
@@ -471,9 +461,11 @@ export class AdventureLeagueLogEdit extends React.Component
             forceAdventureCheckpoints,
         } = this.state;
 
-        const currentTier = ['one', 'two', 'three', 'four'][
-            Math.floor(character.level / 5.0)
-        ];
+        const tierLevels = {one: 4, two: 10, three: 16, four: 20};
+        const currentTier = _.last(_.filter(
+            tierLevels,
+            (tier, level) => (level <= character.level)
+        ).keys());
 
         const acp_mode = (
             adventure_checkpoints.earned
@@ -594,10 +586,11 @@ export class AdventureLeagueLogEdit extends React.Component
                     label="Treasure Points"
                     disabled={!!consumed}
                     currentTier={currentTier}
-                    {..._.merge({},
-                        character.treasure_checkpoints,
-                        treasure_checkpoints
-                    )}
+                    {...treasure_checkpoints}
+                    starting={consumed
+                        ? treasure_checkpoints.starting
+                        : character.treasure_checkpoints
+                    }
                     setState={!consumed
                         ? (value) => this.onFieldChange(
                             'treasure_checkpoints',
