@@ -571,21 +571,27 @@ class CharacterObject(JsonObject):
         old_level = self.level
         self.compute()
 
-        levelGoldTiers = [(1, 75), (5, 150), (11, 550), (17, 5500)]
-        levelGold = 0
-        for curLevel in range(old_level + 1, self.level + 1):
-            _, gold = filter(
-                lambda (minLevel, _): minLevel <= curLevel,
-                levelGoldTiers
-                )[-1]
-            levelGold += gold
-            self.wealthGp += gold
-        if levelGold:
-            log.notes += "\n\nLeveled up from `%d` to `%d` and gained `%dGP`." % (
-                old_level,
-                self.level,
-                levelGold,
-                )
+        if self.adventure_checkpoints:
+            levelGoldTiers = [
+                (1, 75),
+                (5, 150),
+                (11, 550),
+                (17, 5500),
+                ]
+            levelGold = 0
+            for curLevel in range(old_level + 1, self.level + 1):
+                _, gold = filter(
+                    lambda (minLevel, _): minLevel <= curLevel,
+                    levelGoldTiers
+                    )[-1]
+                levelGold += gold
+                self.wealthGp += gold
+            if levelGold:
+                log.notes += "\n\nLeveled up from `%d` to `%d` and gained `%dGP`." % (
+                    old_level,
+                    self.level,
+                    levelGold,
+                    )
 
         self.adventure_league = True
         log.consumed = True
