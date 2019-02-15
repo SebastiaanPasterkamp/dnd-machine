@@ -90,6 +90,36 @@ class AdventureLeagueLogObject(JsonObject):
             },
         }
 
+    def migrate(self, mapper):
+        # Fix incorrect nesting of e.g. goldEarnedEarned
+        if self.gold:
+            for group, coins in self.gold.items():
+                self.setPath(
+                    ['gold', group],
+                    dict(
+                        (coin, value)
+                        for coin, value in coins.items()
+                        if value \
+                            and coin not in [
+                                'starting',
+                                'earned',
+                                'total'
+                                ]
+                        )
+                    )
+            if not self.goldEarned:
+                del self.gold
+
+        # Fix swapped key nesting
+        if self.treasure_checkpoints \
+                and not 'earned' in self.treasure_checkpoints:
+            tp = {}
+            for tier, changes in self.treasure_checkpoints.items():
+                for change, value in changes.items():
+                    tp.setdefault(change, {})
+                    tp[change][tier] = value
+            self._config['treasure_checkpoints'] = tp
+
 class AdventureLeagueLogMapper(JsonObjectDataMapper):
     obj = AdventureLeagueLogObject
     table = "adventureleaguelog"
