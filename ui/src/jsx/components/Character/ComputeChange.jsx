@@ -42,6 +42,6 @@ export default function ComputeChange(changes, original, start={}) {
             }
 
             return _.set(character, path, update);
-        }, _.clone(start))
+        }, _.cloneDeep(start))
         .value();
 }
