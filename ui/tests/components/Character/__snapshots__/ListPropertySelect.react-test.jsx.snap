@@ -404,7 +404,6 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
               "dexterity",
               "charisma",
               "strength",
-              "intelligence",
             ],
           },
         }
@@ -1337,7 +1336,6 @@ exports[`Component: ListPropertySelect should handle replacing one existing 2`] 
           "some": Object {
             "path": Array [
               "charisma",
-              "intelligence",
             ],
           },
         }
@@ -2454,8 +2452,6 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
           "some": Object {
             "path": Array [
               "dexterity",
-              "constitution",
-              "charisma",
               "constitution",
               "charisma",
             ],
