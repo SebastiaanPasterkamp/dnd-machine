@@ -25,6 +25,7 @@ class BaseAppTestCase(unittest.TestCase):
         config = get_config()
         config.update({
             'DATABASE': ':memory:',
+            'SERVER_NAME': 'localhost.localdomain:5000',
             'TESTING': True,
             'DEBUG': True,
             })
