@@ -115,7 +115,7 @@ export class CharacterLinks extends BaseLinkGroup
                 ),
             }),
             'new_log': () => ({
-                label: 'New log',
+                label: 'Log',
                 link: "/log/adventureleague/new/" + character_id,
                 icon: 'pencil-square-o',
                 available: (
@@ -130,7 +130,7 @@ export class CharacterLinks extends BaseLinkGroup
                 ),
             }),
             'list_logs': () => ({
-                label: 'View logs',
+                label: 'Logs',
                 link: "/log/adventureleague/list/" + character_id,
                 icon: 'folder-o',
                 available: (
