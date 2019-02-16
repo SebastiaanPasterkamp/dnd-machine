@@ -2196,11 +2196,6 @@
                     }
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 5
@@ -2212,21 +2207,11 @@
                         "level_1": 3
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "2 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_known",
+                    "limit": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2246,11 +2231,6 @@
                     "value": 2
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 6
@@ -2263,21 +2243,11 @@
                         "level_2": 2
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "2 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_known",
+                    "limit": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2500,7 +2470,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
+                    "limit": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": "Cantrip"
@@ -2510,7 +2480,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "7 - spell.max_known",
+                    "limit": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2541,11 +2511,6 @@
                     }
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 3
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 8
@@ -2559,21 +2524,11 @@
                         "level_3": 2
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "8 - spell.max_known",
+                    "limit": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2628,11 +2583,6 @@
                     }
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 3
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 9
@@ -2646,21 +2596,11 @@
                         "level_3": 3
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "9 - spell.max_known",
+                    "limit": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2758,11 +2698,6 @@
                     "value": 3
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 3
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 10
@@ -2777,21 +2712,11 @@
                         "level_4": 1
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "10 - spell.max_known",
+                    "limit": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2811,11 +2736,6 @@
                     "value": 3
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 3
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 11
@@ -2830,21 +2750,11 @@
                         "level_4": 2
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "11 - spell.max_known",
+                    "limit": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2874,11 +2784,6 @@
                     }
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 3
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 12
@@ -2894,21 +2799,11 @@
                         "level_5": 1
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "12 - spell.max_known",
+                    "limit": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2959,10 +2854,20 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
+                    "limit": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": "Cantrip"
+                    }
+                }, {
+                    "label": "Spells",
+                    "path": "spell.list",
+                    "type": "list",
+                    "list": ["spell"],
+                    "replace": 1,
+                    "filter": {
+                        "classes": "Bard",
+                        "level": ["1", "2", "3", "4", "5"]
                     }
                 }, {
                     "label": "Magical Secrets",
@@ -2970,8 +2875,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "14 - spell.max_known",
-                    "replace": 1,
+                    "limit": 2,
                     "filter": {
                         "level": ["Cantrip", "1", "2", "3", "4", "5"]
                     }
@@ -3026,11 +2930,6 @@
                     "value": 4
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 15
@@ -3047,21 +2946,11 @@
                         "level_6": 1
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "15 - spell.max_known",
+                    "limit": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -3081,11 +2970,6 @@
                     "value": 4
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 15
@@ -3102,21 +2986,10 @@
                         "level_6": 1
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "15 - spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -3146,11 +3019,6 @@
                     }
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 16
@@ -3168,21 +3036,11 @@
                         "level_7": 1
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "16 - spell.max_known",
+                    "limit": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -3202,11 +3060,6 @@
                     "value": 5
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 18
@@ -3224,14 +3077,14 @@
                         "level_7": 1
                     }
                 }, {
-                    "label": "Cantrips",
+                    "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
-                        "level": "Cantrip"
+                        "level": ["1", "2", "3", "4", "5", "6", "7"]
                     }
                 }, {
                     "label": "Magical Secrets",
@@ -3239,8 +3092,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "18 - spell.max_known",
-                    "replace": 1,
+                    "limit": 2,
                     "filter": {
                         "level": ["Cantrip", "1", "2", "3", "4", "5", "6", "7"]
                     }
@@ -3334,11 +3186,6 @@
                     }
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 19
@@ -3357,21 +3204,11 @@
                         "level_8": 1
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "19 - spell.max_known",
+                    "limit": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -3420,16 +3257,6 @@
                     "value": 5
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_known",
-                    "type": "value",
-                    "value": 19
-                }, {
-                    "hidden": true,
                     "path": "spell.slots",
                     "type": "dict",
                     "dict": {
@@ -3443,21 +3270,10 @@
                         "level_8": 1
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "19 - spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -3487,11 +3303,6 @@
                     }
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 20
@@ -3511,21 +3322,11 @@
                         "level_9": 1
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "20 - spell.max_known",
+                    "limit": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -3545,11 +3346,6 @@
                     "value": 6
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 22
@@ -3569,14 +3365,14 @@
                         "level_9": 1
                     }
                 }, {
-                    "label": "Cantrips",
+                    "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
+                    "replace": 1,
                     "filter": {
                         "classes": "Bard",
-                        "level": "Cantrip"
+                        "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
                     }
                 }, {
                     "label": "Magical Secrets",
@@ -3584,8 +3380,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "22 - spell.max_known",
-                    "replace": 1,
+                    "limit": 2,
                     "filter": {
                         "level": ["Cantrip", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
                     }
@@ -3603,16 +3398,6 @@
                     "value": 6
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_known",
-                    "type": "value",
-                    "value": 22
-                }, {
-                    "hidden": true,
                     "path": "spell.slots",
                     "type": "dict",
                     "dict": {
@@ -3627,21 +3412,10 @@
                         "level_9": 1
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "22 - spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -3669,16 +3443,6 @@
                     "value": "When you roll initiative and have no uses of **Bardic Inspiration** left, you regain one use."
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_known",
-                    "type": "value",
-                    "value": 22
-                }, {
-                    "hidden": true,
                     "path": "spell.slots",
                     "type": "dict",
                     "dict": {
@@ -3693,21 +3457,10 @@
                         "level_9": 1
                     }
                 }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Bard",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "22 - spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
