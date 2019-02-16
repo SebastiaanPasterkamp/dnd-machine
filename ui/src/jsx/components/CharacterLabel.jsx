@@ -34,13 +34,13 @@ export class CharacterLabel extends LazyComponent
 
         return (
             <React.Fragment>
-                {name}, Level {level}
-                &nbsp;<ListLabel
+                {`${name}, Level ${level} `}
+                <ListLabel
                     items={genders}
                     value={gender}
                     />
-                {race} {_class}
-                &nbsp;(<ListLabel
+                {` ${race} ${_class} `}
+                (<ListLabel
                     items={alignments}
                     value={alignment}
                 />)

@@ -4,10 +4,9 @@ exports[`Component: CharacterLabel should render with minimum props 1`] = `
 <div
   className="character inline"
 >
-  , Level 
-   
-   
-   (
+  undefined, Level undefined 
+   undefined undefined 
+  (
   )
 </div>
 `;
@@ -16,19 +15,14 @@ exports[`Component: CharacterLabel should show modified char 1`] = `
 <div
   className="character inline"
 >
-  Example
-  , Level 
-  5
-   
+  Example, Level 5 
   <div
     className="list-label inline"
   >
     Female
   </div>
-  Orc
-   
-  Fighter
-   (
+   Orc Fighter 
+  (
   <div
     className="list-label inline"
   >
@@ -57,19 +51,14 @@ exports[`Component: CharacterLabel should show progress with acp 1`] = `
 <div
   className="character inline"
 >
-  Example
-  , Level 
-  5
-   
+  Example, Level 5 
   <div
     className="list-label inline"
   >
     Female
   </div>
-  Orc
-   
-  Fighter
-   (
+   Orc Fighter 
+  (
   <div
     className="list-label inline"
   >
@@ -98,19 +87,14 @@ exports[`Component: CharacterLabel should show progress with level 1`] = `
 <div
   className="character inline"
 >
-  Example
-  , Level 
-  1
-   
+  Example, Level 1 
   <div
     className="list-label inline"
   >
     Male
   </div>
-  Orc
-   
-  Fighter
-   (
+   Orc Fighter 
+  (
   <div
     className="list-label inline"
   >
@@ -139,19 +123,14 @@ exports[`Component: CharacterLabel should show progress with xp / max 1`] = `
 <div
   className="character inline"
 >
-  Example
-  , Level 
-  1
-   
+  Example, Level 1 
   <div
     className="list-label inline"
   >
     Male
   </div>
-  Orc
-   
-  Fighter
-   (
+   Orc Fighter 
+  (
   <div
     className="list-label inline"
   >
@@ -180,19 +159,14 @@ exports[`Component: CharacterLabel should show without progress 1`] = `
 <div
   className="character inline"
 >
-  Example
-  , Level 
-  1
-   
+  Example, Level 1 
   <div
     className="list-label inline"
   >
     Male
   </div>
-  Orc
-   
-  Fighter
-   (
+   Orc Fighter 
+  (
   <div
     className="list-label inline"
   >

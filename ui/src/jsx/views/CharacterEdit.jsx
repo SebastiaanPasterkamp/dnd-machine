@@ -13,6 +13,7 @@ import StatisticsSelect from '../components/Character/StatisticsSelect.jsx';
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
+import CharacterLabel from '../components/CharacterLabel.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
@@ -20,7 +21,6 @@ import MultiSelect from '../components/MultiSelect.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
-import Progress from '../components/Progress.jsx';
 import TagContainer from '../components/TagContainer.jsx';
 
 import baseConfig from '../components/Character/baseConfig.json';
@@ -57,16 +57,6 @@ export class CharacterEdit extends React.Component
             _statistics,
         } = this.props;
 
-        const {
-            name,
-            level,
-            'class': _class,
-            race,
-            background,
-            xp_progress = 0,
-            xp_level = 300,
-        } = character;
-
         return (
             <React.Fragment>
 
@@ -101,30 +91,11 @@ export class CharacterEdit extends React.Component
                     className="character-edit__description"
                     header="Description"
                 >
-
-                    Level {level} {_class} {race} ({background})
-
-                    <Progress
-                        value={xp_progress}
-                        total={xp_level}
-                        color={"good"}
-                        labels={[
-                            {
-                                value: 0.30,
-                                label: xp_progress
-                                    + " / "
-                                    + xp_level
-                            },
-                            {
-                                value: 0.20,
-                                label: xp_progress
-                            },
-                            {
-                                value: 0.10,
-                                label: level
-                            }
-                        ]}
-                    />
+                    <CharacterLabel
+                        characterUpdate={character}
+                        showInfo={true}
+                        showProgress={true}
+                        />
 
                     <CharacterConfig
                         config={ baseConfig.description }
