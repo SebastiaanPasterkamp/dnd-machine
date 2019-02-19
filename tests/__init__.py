@@ -54,7 +54,7 @@ class BaseAppTestCase(unittest.TestCase):
                 user['recovery'] = pbkdf2_sha256.encrypt(recovery)
 
         return self.dbInsertObject(
-            'users',
+            'user',
             user,
             ['username', 'password', 'email']
             )

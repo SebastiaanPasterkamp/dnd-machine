@@ -117,7 +117,7 @@ class AppTestCase(BaseAppTestCase):
         self.assertEqual(rv.status_code, 302)
         self.assertIn('/login', rv.location)
 
-        userData = self.dbGetObject('users', user['id'])
+        userData = self.dbGetObject('user', user['id'])
         self.assertIn('recovery', userData)
         self.assertDictContainsSubset(user, userData)
 
@@ -162,7 +162,7 @@ class AppTestCase(BaseAppTestCase):
         self.assertEqual(rv.status_code, 302)
         self.assertIn('/login', rv.location)
 
-        userData = self.dbGetObject('users', user['id'])
+        userData = self.dbGetObject('user', user['id'])
         self.assertNotIn('recovery', userData)
         self.assertNotEquals(user['password'], userData['password'])
 
