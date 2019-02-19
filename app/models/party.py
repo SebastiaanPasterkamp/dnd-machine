@@ -31,11 +31,10 @@ class PartyObject(JsonObject):
     @members.setter
     def members(self, members):
         self._members = members
-        if not len(self.member_ids or []):
-            self.member_ids = [
-                member.id
-                for member in members
-                ]
+        self.member_ids = [
+            member.id
+            for member in members
+            ]
         self.compute()
 
     def migrate(self, mapper):
@@ -61,6 +60,16 @@ class PartyMapper(JsonObjectDataMapper):
     table = "party"
     fields = ['name', 'user_id']
     order = 'name'
+    join_tables = {
+        'party_characters': ('id', 'party_id'),
+        }
+
+    def _read(self, dbrow):
+        obj = super(PartyMapper, self)._read(dbrow)
+        if obj is None:
+            return obj
+        obj.member_ids = self.getMemberIds(obj.id)
+        return obj
 
     def getList(self, search=None):
         """Returns a list of parties matching the search parameter"""
@@ -130,10 +139,10 @@ class PartyMapper(JsonObjectDataMapper):
     def getMemberIds(self, party_id):
         """Returns all character IDs in a party by party_id"""
         cur = self.db.execute("""
-            SELECT pc.character_id AS id
-            FROM `party_characters` AS pc
-            JOIN `character` AS c ON (pc.character_id=c.id)
+            SELECT `character_id` AS `id`
+            FROM `party_characters`
             WHERE `party_id` = ?
+            ORDER BY `character_id` ASC
             """,
             [party_id]
             )
@@ -143,45 +152,17 @@ class PartyMapper(JsonObjectDataMapper):
             for character in characters
             ]
 
-    def insert(self, obj):
-        """Insert a new party; updates party_characters table"""
-        result = super(PartyMapper, self).insert(obj)
-
+    def fillJoinTables(self, obj):
+        """Populates entries in party_characters table"""
         if not len(obj.member_ids):
-            return result
+            return
 
         self.db.executemany("""
             INSERT INTO `party_characters`
-                (party_id, character_id)
+                (`party_id`, `character_id`)
             VALUES (?, ?)
             """, [
-                (result.id, member)
+                (obj.id, member)
                 for member in obj.member_ids
                 ])
         self.db.commit()
-        return result
-
-    def update(self, obj):
-        """Insert a new party; updates party_characters table"""
-        result = super(PartyMapper, self).update(obj)
-
-        self.db.execute("""
-            DELETE FROM `party_characters`
-            WHERE `party_id` = ?
-            """,
-            [result.id]
-            )
-
-        if not len(obj.member_ids):
-            return result
-
-        self.db.executemany("""
-            INSERT INTO `party_characters`
-                (party_id, character_id)
-            VALUES (?, ?)
-            """, [
-                (result.id, member)
-                for member in obj.member_ids
-                ])
-        self.db.commit()
-        return result
