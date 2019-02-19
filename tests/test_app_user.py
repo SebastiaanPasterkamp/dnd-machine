@@ -115,7 +115,7 @@ class AppUserTestCase(BaseAppTestCase):
             self.assertResponse(page, rv, 200, 'application/json')
             userData = rv.get_json()
             self.assertNotIn(u'admin', userData['role'])
-            userData = self.dbGetObject('users', user['id'])
+            userData = self.dbGetObject('user', user['id'])
             self.assertEqual(user['role'], userData['role'])
 
         self.doLogin('admin', 'admin')
@@ -139,7 +139,7 @@ class AppUserTestCase(BaseAppTestCase):
         self.assertIn('id', userData)
         del user['password']
         self.assertDictContainsSubset(user, userData)
-        userData = self.dbGetObject('users', userData['id'])
+        userData = self.dbGetObject('user', userData['id'])
         self.assertDictContainsSubset(user, userData)
 
     def testCreateUser403(self):
@@ -159,7 +159,7 @@ class AppUserTestCase(BaseAppTestCase):
         userData = rv.get_json()
         del user['password']
         self.assertDictContainsSubset(user, userData)
-        userData = self.dbGetObject('users', user['id'])
+        userData = self.dbGetObject('user', user['id'])
         self.assertDictContainsSubset(user, userData)
 
     def testChangePassword(self):
@@ -198,7 +198,7 @@ class AppUserTestCase(BaseAppTestCase):
         page = '/user/api/%d' % user['id']
         rv = self.client.delete(page)
         self.assertResponse(page, rv, 200, 'application/json')
-        userData = self.dbGetObject('users', user['id'])
+        userData = self.dbGetObject('user', user['id'])
         self.assertIsNone(userData)
 
     def testDeleteUser403(self):
@@ -208,7 +208,7 @@ class AppUserTestCase(BaseAppTestCase):
         rv = self.client.delete(page)
         self.assertResponse(page, rv, 403)
         self.assertEqual(rv.status_code, 403)
-        userData = self.dbGetObject('users', user['id'])
+        userData = self.dbGetObject('user', user['id'])
         del user['password']
         self.assertDictContainsSubset(user, userData)
 

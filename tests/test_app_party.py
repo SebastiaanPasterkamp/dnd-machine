@@ -22,12 +22,12 @@ class AppPartyTestCase(BaseAppTestCase):
             }
         self.users = {}
         self.characters = {}
-        for name, role in users.items():
+        for name in ['alice', 'bob', 'trudy', 'dm']:
             self.users[name] = self.createUser({
                 'username': name,
                 'password': name,
                 'email': name + u'@example.com',
-                'role': role,
+                'role': users[name],
                 })
             self.users[name]['password'] = name
             self.characters[name] = self.createCharacter(

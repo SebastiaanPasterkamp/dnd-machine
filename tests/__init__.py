@@ -102,7 +102,7 @@ class BaseAppTestCase(unittest.TestCase):
         for char in members:
             self.dbInsertLink('party_characters', {
                 'party_id': obj['id'],
-                'character_id': char['id']
+                'character_id': char['id'],
                 })
         return obj
 

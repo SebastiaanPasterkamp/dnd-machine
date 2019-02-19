@@ -10,6 +10,9 @@ def connect_db(config):
     """
     rv = sqlite3.connect(config['DATABASE'], check_same_thread=False)
     rv.row_factory = sqlite3.Row
+
+    rv.execute("PRAGMA foreign_keys = 1")
+   
     return rv
 
 def get_db(app):

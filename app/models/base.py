@@ -366,6 +366,7 @@ class JsonObjectDataMapper(object):
     table = None
     fields = []
     order = 'id'
+    join_tables = {}
 
     _instance = None
     def __new__(cls, *args, **kwargs):
@@ -447,6 +448,26 @@ class JsonObjectDataMapper(object):
             if obj is not None
             ]
 
+    def clearJoinTables(self, obj):
+        """Clears entries from join tables by key=obj.id"""
+        for table, (attrib, key) in self.join_tables.items():
+            self.db.execute("""
+                DELETE FROM `%s`
+                WHERE `%s` = ?
+                """ % (table, key),
+                [
+                    obj[attrib]
+                    ]
+                )
+
+    def fillJoinTables(self, obj):
+        """Populates entries in join tables by key=obj.id"""
+        if not self.join_tables:
+            return
+        raise NotImplementedError(
+            "Needed for %r" % self.join_tables
+            )
+
     def save(self, obj):
         """Insert or Update an obj"""
         if obj.id:
@@ -472,6 +493,10 @@ class JsonObjectDataMapper(object):
             new_obj
             )
         self.db.commit()
+
+        obj.id = cur.lastrowid
+        self.fillJoinTables(obj)
+
         return self.getById(cur.lastrowid)
 
     def update(self, obj):
@@ -492,10 +517,16 @@ class JsonObjectDataMapper(object):
             new_obj
             )
         self.db.commit()
+
+        self.clearJoinTables(obj)
+        self.fillJoinTables(obj)
+
         return self.getById(obj.id)
 
     def delete(self, obj):
         """Deletes an object from the table"""
+        self.clearJoinTables(obj)
+
         cur = self.db.execute("""
             DELETE
             FROM `%s`

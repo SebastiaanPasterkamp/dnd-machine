@@ -161,22 +161,15 @@ class EncounterMapper(JsonObjectDataMapper):
     fields = [
         'name', 'user_id',
         'size', 'challenge_rating', 'xp_rating', 'xp']
+    join_tables = {
+        'encounter_monsters': ('id', 'encounter_id'),
+        }
 
-    def _readx(self, dbrow):
+    def _read(self, dbrow):
         obj = super(EncounterMapper, self)._read(dbrow)
         if obj is None:
             return obj
-        cur = self.db.execute("""
-            SELECT `monster_id` AS `id`, `count`
-            FROM `encounter_monsters`
-            WHERE `encounter_id` = ?
-            """,
-            [obj.id]
-            )
-        obj.monster_ids = [
-            dict(row)
-            for row in cur.fetchall() or []
-            ]
+        obj.monster_ids = self.getMonsterCounts(obj.id)
         return obj
 
     def getList(self, search=None):
@@ -202,47 +195,34 @@ class EncounterMapper(JsonObjectDataMapper):
             if encounter is not None
             ]
 
-    def insert(self, obj):
-        """Insert a new encounter; updates encounter_monsters table"""
-        result = super(EncounterMapper, self).insert(obj)
-
-        if not len(obj.monster_ids):
-            return result
-
-        self.db.executemany("""
-            INSERT INTO `encounter_monsters`
-                (`encounter_id`, `monster_id`, `count`)
-            VALUES (?, ?, ?)
-            """, [
-                (result.id, monster['id'], monster['count'])
-                for monster in obj.monster_ids
-                if monster['count'] > 0
-                ])
-        self.db.commit()
-        return result
-
-    def update(self, obj):
-        """Insert a new encounter; updates encounter_monsters table"""
-        result = super(EncounterMapper, self).update(obj)
-
-        self.db.execute("""
-            DELETE FROM `encounter_monsters`
+    def getMonsterCounts(self, encounter_id):
+        """Returns all monters and their counts in the encounter
+        by encounter_id"""
+        cur = self.db.execute("""
+            SELECT `monster_id` AS `id`, `count`
+            FROM `encounter_monsters`
             WHERE `encounter_id` = ?
+            ORDER BY `monster_id` ASC
             """,
-            [result.id]
+            [encounter_id]
             )
+        return [
+            dict(row)
+            for row in cur.fetchall() or []
+            ]
 
+    def fillJoinTables(self, obj):
+        """Populates entries in encounter_monsters table"""
         if not len(obj.monster_ids):
-            return result
+            return
 
         self.db.executemany("""
             INSERT INTO `encounter_monsters`
                 (`encounter_id`, `monster_id`, `count`)
             VALUES (?, ?, ?)
             """, [
-                (result.id, monster['id'], monster['count'])
+                (obj.id, monster['id'], monster['count'])
                 for monster in obj.monster_ids
                 if monster['count'] > 0
                 ])
         self.db.commit()
-        return result

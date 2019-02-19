@@ -205,7 +205,6 @@ def _updatedb(db):
                 })
             db.commit()
     db.cursor().execute("PRAGMA synchronous = ON");
-    db.close()
 
 def _dump_table(db, table):
     """Dump database content to console."""
