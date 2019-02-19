@@ -44,7 +44,7 @@ class UserObject(JsonObject):
 
 class UserMapper(JsonObjectDataMapper):
     obj = UserObject
-    table = "users"
+    table = "user"
     fields = ['username', 'password', 'email']
     order = 'username'
 
