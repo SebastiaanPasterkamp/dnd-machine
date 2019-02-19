@@ -34,7 +34,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             '/download/<int:obj_id>', 'download',
             self.download)
         self.add_url_rule(
-            '/xp/<int:obj_id>/<int:xp>', 'xp',
+            '/xp/<int:obj_id>/<signed_int:xp>', 'xp',
             self.xp, methods=['GET', 'POST'])
         self.add_url_rule(
             '/reset/<int:obj_id>', 'reset',
