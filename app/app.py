@@ -4,6 +4,7 @@ import glob
 from flask import Flask, request, session, g, redirect, \
     url_for, abort, render_template, jsonify, Markup
 from werkzeug.utils import find_modules, import_string
+from werkzeug.routing import IntegerConverter
 
 from .errors import ApiException
 from .models.base import JsonObjectDataMapper
@@ -17,6 +18,7 @@ def create_app(config={}):
     app.config.update(config)
     app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
+    register_converters(app)
     register_blueprints(app, config)
     register_filters(app)
     register_cli(app)
@@ -24,6 +26,13 @@ def create_app(config={}):
 
     return app
 
+def register_converters(app):
+    """
+    Handle signed integers as URL parameters
+    """
+    class SignedIntConverter(IntegerConverter):
+        regex = r'-?\d+'
+    app.url_map.converters['signed_int'] = SignedIntConverter
 
 def register_blueprints(app, config):
     """
@@ -196,6 +205,7 @@ def _updatedb(db):
                 })
             db.commit()
     db.cursor().execute("PRAGMA synchronous = ON");
+    db.close()
 
 def _dump_table(db, table):
     """Dump database content to console."""
