@@ -78,7 +78,7 @@ ListDataActions.doLogin.listen((credentials, success, failure) => {
         );
 
         if (success) {
-            success(content);
+            success(response);
         }
     })
     .catch((error) => {

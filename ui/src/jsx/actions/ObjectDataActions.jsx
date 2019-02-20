@@ -2,6 +2,8 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
+import ReportingActions, { jsonOrBust } from './ReportingActions.jsx';
+
 export function ObjectDataActionsFactory(id)
 {
 
@@ -32,16 +34,21 @@ export function ObjectDataActionsFactory(id)
                             'X-Requested-With': 'XMLHttpRequest'
                         }
                     })
-                    .then((response) => response.json())
-                    .then((result) => {
+                    .then(jsonOrBust)
+                    .then(result => {
                         oda.listObjects.completed(
                             type, result, callback
                         );
                     })
-                    .catch((error) => {
+                    .catch(error => {
                         console.log(error);
                         oda.listObjects.failed(
                             type, error
+                        );
+                        ReportingActions.showMessage(
+                            'bad',
+                            error.message,
+                            'Fetch list'
                         );
                     }).finally(() => {
                         oda.throttledGet[path].running = false;
@@ -81,16 +88,21 @@ export function ObjectDataActionsFactory(id)
                         'X-Requested-With': 'XMLHttpRequest'
                     }
                 })
-                .then((response) => response.json())
-                .then((result) => {
+                .then(jsonOrBust)
+                .then(result => {
                     oda.getObject.completed(
                         type, id, result, callback
                     );
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.log(error);
                     oda.getObject.failed(
                         type, id, error
+                    );
+                    ReportingActions.showMessage(
+                        'bad',
+                        error.message,
+                        'Fetch object'
                     );
                 });
 
@@ -112,16 +124,19 @@ export function ObjectDataActionsFactory(id)
             },
             body: JSON.stringify(data)
         })
-        .then((response) => response.json())
-        .then((result) => {
-            oda.postObject.completed(
-                type, result.id, result, callback
-            );
-        })
-        .catch((error) => {
+        .then(jsonOrBust)
+        .then(result => oda.postObject.completed(
+            type, result.id, result, callback
+        ))
+        .catch(error => {
             console.log(error);
             oda.postObject.failed(
                 type, error
+            );
+            ReportingActions.showMessage(
+                'bad',
+                error.message,
+                'Creation failed'
             );
         });
     });
@@ -138,16 +153,19 @@ export function ObjectDataActionsFactory(id)
             },
             body: JSON.stringify(data)
         })
-        .then((response) => response.json())
-        .then((result) => {
-            oda.patchObject.completed(
-                type, id, result, callback
-            );
-        })
-        .catch((error) => {
+        .then(jsonOrBust)
+        .then(result => oda.patchObject.completed(
+            type, id, result, callback
+        ))
+        .catch(error => {
             console.log(error);
             oda.patchObject.failed(
                 type, id, error
+            );
+            ReportingActions.showMessage(
+                'bad',
+                error.message,
+                'Update failed'
             );
         });
     });
@@ -162,16 +180,19 @@ export function ObjectDataActionsFactory(id)
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-        .then((response) => response.json())
-        .then((result) => {
-            oda.copyObject.completed(
-                type, id, result, callback
-            );
-        })
-        .catch((error) => {
+        .then(jsonOrBust)
+        .then(result => oda.copyObject.completed(
+            type, id, result, callback
+        ))
+        .catch(error => {
             console.log(error);
             oda.copyObject.failed(
                 type, id, error
+            );
+            ReportingActions.showMessage(
+                'bad',
+                error.message,
+                'Copy failed'
             );
         });
     });
@@ -190,16 +211,19 @@ export function ObjectDataActionsFactory(id)
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-        .then((response) => response.json())
-        .then((result) => {
-            oda.deleteObject.completed(
-                type, id, result, callback
-            );
-        })
-        .catch((error) => {
+        .then(jsonOrBust)
+        .then(result => oda.deleteObject.completed(
+            type, id, result, callback
+        ))
+        .catch(error => {
             console.log(error);
             oda.deleteObject.failed(
                 type, id, error
+            );
+            ReportingActions.showMessage(
+                'bad',
+                error.message,
+                'Delete failed'
             );
         });
     });
@@ -222,16 +246,19 @@ export function ObjectDataActionsFactory(id)
                         },
                         body: JSON.stringify(data)
                     })
-                    .then((response) => response.json())
-                    .then((result) => {
-                        oda.postObject.completed(
-                            type, id, result, callback
-                        );
-                    })
-                    .catch((error) => {
+                    .then(jsonOrBust)
+                    .then(result => oda.postObject.completed(
+                        type, id, result, callback
+                    ))
+                    .catch(error => {
                         console.log(error);
                         oda.postObject.failed(
                             type, error
+                        );
+                        ReportingActions.showMessage(
+                            'bad',
+                            error.message,
+                            'Refresh failed'
                         );
                     }).finally(() => {
                         oda.throttledGet[path].running = false;
