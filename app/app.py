@@ -344,17 +344,14 @@ def register_request_hooks(app):
             )
 
     @app.after_request
-    def add_header(r):
+    def add_header(response):
         """
         Add headers to force reloading resources during development
         """
-        if not app.debug:
-            return r
-        r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-        r.headers["Pragma"] = "no-cache"
-        r.headers["Expires"] = "0"
-        r.headers['Cache-Control'] = 'public, max-age=0'
-        return r
+        response.cache_control.must_revalidate = True
+        response.cache_control.max_age = 0
+        response.cache_control.public = True
+        return response
 
     @app.errorhandler(ApiException)
     def handle_api_exception(error):

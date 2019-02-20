@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 from flask import (
     Blueprint,
+    make_response,
     render_template,
     request,
     jsonify,
     redirect,
     url_for,
     )
+from sqlite3 import IntegrityError
 
 from ..errors import ApiException
 
@@ -106,32 +108,31 @@ class BaseApiBlueprint(Blueprint):
         self.doCallback('index', *args, **kwargs)
         return redirect(url_for('%s.overview' % self.name))
 
+    def _reactLayout(self):
+        response = make_response(
+            render_template('reactjs-layout.html')
+            )
+        response.add_etag()
+        return response
+
     def overview(self, *args, **kwargs):
         self.doCallback('overview', *args, **kwargs)
-        return render_template(
-            'reactjs-layout.html'
-            )
+        return self._reactLayout()
 
     def show(self, obj_id, *args, **kwargs):
         self.doCallback('show', obj_id, *args, **kwargs)
-        return render_template(
-            'reactjs-layout.html'
-            )
+        return self._reactLayout()
 
     def newObj(self, obj_id=None, *args, **kwargs):
         if obj_id is None:
             self.doCallback('new', *args, **kwargs)
         else:
             self.doCallback('reset', obj_id, *args, **kwargs)
-        return render_template(
-            'reactjs-layout.html'
-            )
+        return self._reactLayout()
 
     def edit(self, obj_id, *args, **kwargs):
         self.doCallback('edit', obj_id, *args, **kwargs)
-        return render_template(
-            'reactjs-layout.html'
-            )
+        return self._reactLayout()
 
     def raw(self, obj_id):
         self.doCallback('raw', obj_id)
@@ -142,7 +143,9 @@ class BaseApiBlueprint(Blueprint):
             obj,
             )
 
-        return jsonify(obj.config)
+        response = jsonify(obj.config)
+        response.add_etag()
+        return response
 
     def api_list(self, *args, **kwargs):
         self.doCallback('api_list', *args, **kwargs)
@@ -155,10 +158,12 @@ class BaseApiBlueprint(Blueprint):
             **kwargs
             )
 
-        return jsonify([
+        response = jsonify([
             self._exposeAttributes(obj, *args, **kwargs)
             for obj in objs
             ])
+        response.add_etag()
+        return response
 
     def api_get(self, obj_id):
         self.doCallback('api_get', obj_id)
@@ -172,7 +177,9 @@ class BaseApiBlueprint(Blueprint):
             obj,
             )
 
-        return jsonify(self._exposeAttributes(obj))
+        response = jsonify(self._exposeAttributes(obj))
+        response.add_etag()
+        return response
 
     def api_post(self, obj_id=None):
         self.doCallback('api_post', obj_id)
@@ -285,7 +292,11 @@ class BaseApiBlueprint(Blueprint):
             obj,
             )
 
-        self.datamapper.delete(obj)
+        try:
+            self.datamapper.delete(obj)
+        except IntegrityError as ie:
+            print ie
+            raise ApiException(409, "The object is used elsewhere")
 
         return jsonify(self._exposeAttributes(obj))
 
