@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import '../../sass/_login-dialog.scss';
@@ -21,21 +22,28 @@ export class LoginDialog extends React.Component
             username: '',
             password: '',
             error: false,
-            processing: false
+            processing: false,
         };
     }
 
-    doLogin() {
-        const {
-            username, password
-        } = this.state;
+    onUsernameChange = (username) => {
+        this.setState({ username, error: false });
+    }
+
+    onPasswordChange = (password) => {
+        this.setState({ password, error: false });
+    }
+
+    doLogin = () => {
+        const { onLogin } = this.props;
+        const { username, password } = this.state;
 
         this.setState({
             processing: true,
             error: false,
         }, () => ListDataActions.doLogin(
             {username, password},
-            null,
+            onLogin,
             () => this.setState({
                 processing: false,
                 error: true,
@@ -43,21 +51,12 @@ export class LoginDialog extends React.Component
         ));
     }
 
-    onFieldChange(field, value) {
-        this.setState({
-            [field]: value,
-            error: false,
-        });
-    }
-
     render() {
         const {
             processing, username, password, error
         } = this.state;
         const {
-            icon, recoverAction, title = 'Login',
-            message = 'Please log in', version = '', author = '',
-            date = ''
+            icon, recoverAction, title, message, version, author, date
         } = this.props;
 
         const logoStyle = utils.makeStyle({
@@ -93,10 +92,9 @@ export class LoginDialog extends React.Component
                             className={error ? 'bad': null}
                             placeholder="Username..."
                             value={username}
-                            onEnter={() => this.doLogin()}
-                            setState={(value) => {
-                                this.onFieldChange('username', value);
-                            }} />
+                            onEnter={this.doLogin}
+                            setState={this.onUsernameChange}
+                        />
                     </div>
 
                     <div className="nice-form-group">
@@ -106,10 +104,9 @@ export class LoginDialog extends React.Component
                             type="password"
                             placeholder="Password..."
                             value={password}
-                            onEnter={() => this.doLogin()}
-                            setState={(value) => {
-                                this.onFieldChange('password', value);
-                            }} />
+                            onEnter={this.doLogin}
+                            setState={this.onPasswordChange}
+                        />
                     </div>
                 </div>
 
@@ -131,7 +128,7 @@ export class LoginDialog extends React.Component
                         color="primary"
                         icon="sign-in"
                         label="Sign in"
-                        onClick={() => this.doLogin()}
+                        onClick={this.doLogin}
                         />
                 </div>
             </div>
@@ -145,6 +142,28 @@ export class LoginDialog extends React.Component
         </div>;
     }
 }
+
+
+LoginDialog.propTypes = {
+    onLogin: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    icon: PropTypes.string,
+    version: PropTypes.string,
+    author: PropTypes.string,
+    date: PropTypes.string,
+    recoverAction: PropTypes.string,
+};
+
+LoginDialog.defaultProps = {
+    title: 'Login',
+    message: 'Please log in',
+    icon: null,
+    version: null,
+    author: null,
+    date: null,
+    recoverAction: null,
+};
 
 export default InlineDataWrapper(
     LoginDialog,
