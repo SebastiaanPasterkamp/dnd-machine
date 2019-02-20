@@ -308,7 +308,7 @@ class DndMachine extends React.Component
 
                 <Route path="/logout" render={props => {
                     ListDataActions.doLogout(
-                        () => props.history.push('/login')
+                        () => window.location = '/login'
                     );
 
                     return null;
@@ -323,7 +323,8 @@ class DndMachine extends React.Component
                     <LoginDialog
                         message="Welcome to D&amp;D Machine. Please log in using your credentials to access this website."
                         icon="d20"
-                        />
+                        onLogin={() => props.history.push('/character/list')}
+                    />
                 )} />
 
             </Switch> }</ErrorBoundary>
