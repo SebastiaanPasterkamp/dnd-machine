@@ -1202,6 +1202,7 @@
                         "description": "For some barbarians, rage is a means to an end - that end being violence. The Path of the Berserker is a path of untrammeled fury, slick with blood. As you enter the berserker's rage, you thrill in the chaos of battle, heedless of your own health or well-being.",
                         "type": "config",
                         "config": [{
+                            "hidden": true,
                             "path": "path",
                             "type": "list",
                             "given": ["Berserker"]
@@ -1218,6 +1219,7 @@
                         "description": "Yours is a path that seeks attunement with the natural world, giving you a kinship with beasts. When you adopt this path, you gain the ability to cast the *Beast sense* and *Speak with Animals* spells, but only as rituals.\n## Totem Spirit\nWhen you adopt this path, you choose a totem spirit and gain its feature. You must make or acquire a physical totem object -an amulet or similar adornment - that incorporates fur or feathers, claws, teeth, or bones of the totem animal. At your option. you also gain minor physical attributes that are reminiscent of your totem spirit. For example. if you have a hear totem spirit, you might be unusually hairy and thick- skinned, or if your totem is the eagle, your eyes turn bright yellow.",
                         "type": "config",
                         "config": [{
+                            "hidden": true,
                             "path": "path",
                             "type": "list",
                             "given": ["Totem Warrior"]
@@ -1857,11 +1859,13 @@
                         "description": "You embody the power of the wilds. Your **Strength** and **Constitution** scores increase by 4. Your maximum for those scores is now 24."
                     }
                 }, {
+                    "hidden": true,
                     "label": "Strength",
                     "path": "statistics.strength.bonus",
                     "type": "list",
                     "given": [4]
                 }, {
+                    "hidden": true,
                     "label": "Constitution",
                     "path": "statistics.constitution.bonus",
                     "type": "list",
@@ -3480,6 +3484,11 @@
             "value": "Cleric"
         }, {
             "hidden": true,
+            "path": "domain",
+            "type": "value",
+            "value": []
+        }, {
+            "hidden": true,
             "path": "proficiency",
             "type": "value",
             "value": 2
@@ -3743,8 +3752,8 @@
                     "config": [{
                         "hidden": true,
                         "path": "domain",
-                        "type": "value",
-                        "value": ["Knowledge"]
+                        "type": "list",
+                        "given": ["Knowledge"]
                     }, {
                         "label": "Domain Spells",
                         "path": "spell.list",
@@ -3783,8 +3792,8 @@
                     "config": [{
                         "hidden": true,
                         "path": "domain",
-                        "type": "value",
-                        "value": ["Life"]
+                        "type": "list",
+                        "given": ["Life"]
                     }, {
                         "label": "Domain Spells",
                         "path": "spell.list",
@@ -3812,8 +3821,8 @@
                     "config": [{
                         "hidden": true,
                         "path": "domain",
-                        "type": "value",
-                        "value": ["Light"]
+                        "type": "list",
+                        "given": ["Light"]
                     }, {
                         "label": "Domain Spells",
                         "path": "spell.list",
@@ -3837,8 +3846,8 @@
                     "config": [{
                         "hidden": true,
                         "path": "domain",
-                        "type": "value",
-                        "value": ["Nature"]
+                        "type": "list",
+                        "given": ["Nature"]
                     }, {
                         "label": "Domain Spells",
                         "path": "spell.list",
@@ -3882,8 +3891,8 @@
                     "config": [{
                         "hidden": true,
                         "path": "domain",
-                        "type": "value",
-                        "value": ["Tempest"]
+                        "type": "list",
+                        "given": ["Tempest"]
                     }, {
                         "label": "Domain Spells",
                         "path": "spell.list",
@@ -3926,8 +3935,8 @@
                     "config": [{
                         "hidden": true,
                         "path": "domain",
-                        "type": "value",
-                        "value": ["Trickery"]
+                        "type": "list",
+                        "given": ["Trickery"]
                     }, {
                         "label": "Domain Spells",
                         "path": "spell.list",
@@ -3949,8 +3958,8 @@
                     "config": [{
                         "hidden": true,
                         "path": "domain",
-                        "type": "value",
-                        "value": ["War"]
+                        "type": "list",
+                        "given": ["War"]
                     }, {
                         "label": "Domain Spells",
                         "path": "spell.list",
@@ -7804,6 +7813,7 @@
                         "description": "The Oath of Devotion binds a paladin to the loftiest ideals of justice, virtue, and order. Sometimes called cavaliers, white knights, or holy warriors, these paladins meet the ideal of the knight in shining armor, acting with honor in pursuit of justice and the greater good. They hold themselves to the highest standards of conduct, and some, for better or worse, hold the rest of the world to the same standards. Many who swear this oath are devoted to gods of law and good and use their gods' tenets as the measure of their devotion. They hold angels-the perfect servants of good-as their ideals, and incorporate images of angelic wings into their helmets or coats of arms.\n## Tenets of Devotion\nThough the exact words and strictures of the Oath of Devotion vary, paladins of this oath share these tenets.\n\n* **Honesty.** Don't lie or cheat. Let your word be your promise.\n* **Courage.** Never fear to act, though caution is wise.\n* **Compassion.** Aid others, protect the weak, and punish those who threaten them. Show mercy to your foes, but temper it with wisdom.\n* **Honor.** Treat others with fairness, and let your honorable deeds be an example to them. Do as much good as possible while causing the least amount of harm.\n* **Duty.** Be responsible for your actions and their consequences, protect those entrusted to your care, and obey those who have just authority over you.",
                         "type": "config",
                         "config": [{
+                            "hidden": true,
                             "path": "oath",
                             "type": "list",
                             "given": ["Devotion"]
@@ -7839,6 +7849,7 @@
                         "description": "The Oath of the Ancients is as old as the race of elves and the rituals of the druids. Sometimes called fey knights, green knights, or horned knights, paladins who swear this oath cast their lot with the side of the light in the cosmic struggle against darkness because they love the beautiful and life-giving things of the world, not necessarily because they believe in principles of honor, courage, and justice. They adorn their armor and clothing with images of growing things-leaves, antlers, or flowers-to reflect their commitment to preserving life and light in the world.\n## Tenets of the Ancients\nThe tenets of the Oath of the Ancients have been preserved for uncounted centuries. This oath emphasizes the principles of good above any concerns of taw or chaos. Its four central principles are simple.\n\n* **Kindle the Light.** Through your acts of mercy, kindness, and forgiveness, kindle the light of hope in the world, beating back despair.\n* **Shelter the Light.** Where there is good, beauty, love. and laughter in the world, stand against the wickedness that would swallow it. Where life flourishes, stand against the forces that would render it barren.\n* **Preserve Your Own Light.** Delight in song and laughter, in beauty and art. If you allow the light to die in your own heart, you can't preserve it in the world.\n* **Be the Light.** Be a glorious beacon for all who live in despair. Let the light of your joy and courage shine forth in all your deeds.",
                         "type": "config",
                         "config": [{
+                            "hidden": true,
                             "path": "oath",
                             "type": "list",
                             "given": ["Ancients"]
@@ -7874,6 +7885,7 @@
                         "description": "The Oath of Vengeance is a solemn commitment to punish those who have committed a grievous sin. When evil forces slaughter helpless villagers, when an entire people turns against the will of the gods, when a thieves' guild grows too violent and powerful, when a dragon rampages through the countryside-at times like these, paladins arise and swear an Oath of Vengeance to set right that which has gone wrong. To these paladins- sometimes called avengers or dark knights-their own purity is not as important as delivering justice.\n## Tenets of Vengeance\nThe tenets of the Oath of Vengeance vary by paladin, but all the tenets revolve around punishing wrongdoers by any means necessary. Paladins who uphold these tenets are willing to sacrifice even their own righteousness to mete out justice upon those who do evil, so the paladins are often neutral or lawful neutral in alignment. The core principles of the tenets are brutally simple.\n\n* **Fight the Greater Evil.** Faced with a choice of fighting my sworn foes or combating a lesser evil, I choose the greater evil.\n* **No Mercy for the Wicked.** Ordinary foes might win my mercy, but my sworn enemies do not.\n* **By Any Means Necessary.** My qualms can't get in the way of exterminating my foes.\n* **Restitution.** if my foes wreak ruin on the world, it is because I failed to stop them. I must help those harmed by their misdeeds.",
                         "type": "config",
                         "config": [{
+                            "hidden": true,
                             "path": "oath",
                             "type": "list",
                             "given": ["Vengeance"]
@@ -12114,8 +12126,12 @@
             "list": ["spell"],
             "limit": 2,
             "filter": {
-                "classes": "Warlock",
-                "level": ["1"]
+                "or": [{
+                    "classes": "Warlock",
+                    "level": ["1"]
+                }, {
+                    "name_filter": "spell.expanded"
+                }]
             }
         }, {
             "label": "Otherworldly Patron",
@@ -12125,9 +12141,9 @@
                 "label": "The Archfey",
                 "type": "config",
                 "config": [{
+                    "hidden": true,
                     "path": "patron",
                     "type": "list",
-                    "hidden": true,
                     "given": ["Archfey"]
                 }, {
                     "label": "Expanded Spell List",
@@ -12152,9 +12168,9 @@
                 "label": "The Celestial",
                 "type": "config",
                 "config": [{
+                    "hidden": true,
                     "path": "patron",
                     "type": "list",
-                    "hidden": true,
                     "given": ["Celestial"]
                 }, {
                     "label": "Expanded Spell List",
@@ -12183,9 +12199,9 @@
                 "label": "The Fiend",
                 "type": "config",
                 "config": [{
+                    "hidden": true,
                     "path": "patron",
                     "type": "list",
-                    "hidden": true,
                     "given": ["Fiend"]
                 }, {
                     "label": "Expanded Spell List",
@@ -12210,9 +12226,9 @@
                 "label": "The Great Old One",
                 "type": "config",
                 "config": [{
+                    "hidden": true,
                     "path": "patron",
                     "type": "list",
-                    "hidden": true,
                     "given": ["Great Old One"]
                 }, {
                     "label": "Expanded Spell List",
@@ -12235,9 +12251,9 @@
                 "label": "The Hexblade",
                 "type": "config",
                 "config": [{
+                    "hidden": true,
                     "path": "patron",
                     "type": "list",
-                    "hidden": true,
                     "given": ["Hexblade"]
                 }, {
                     "label": "Expanded Spell List",
@@ -12316,7 +12332,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "2 - spell.max_cantrips",
+                    "limit": 1,
                     "filter": {
                         "classes": "Warlock",
                         "level": "Cantrip"
@@ -12326,10 +12342,14 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "3 - spell.max_known",
+                    "limit": 1,
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "label": "Eldritch Invocations",
@@ -12365,7 +12385,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -12531,7 +12551,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -12539,7 +12559,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -12555,7 +12575,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to %(mod)s",
@@ -12826,11 +12846,6 @@
                     "value": 2
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 2
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 4
@@ -12839,38 +12854,41 @@
                     "path": "spell.slots",
                     "type": "dict",
                     "dict": {
+                        "level_1": 0,
                         "level_2": 2
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "2 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
                     }
                 }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_known",
+                    "limit": 1,
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1", "2"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "label": "Pact Boon",
                     "type": "choice",
                     "options": [{
                         "label": "Pact of the Chain",
-                        "path": "abilities.Pact of the Chain",
-                        "type": "dict",
-                        "dict": {
-                            "description": "You learn the *Find Familiar spell* and can cast it as a ritual. The spell doesn't count against your number of spells known. When you cast the spell, you can choose one of the normal forms for your familiar or one of the following special forms: *imp*, *pseudodragon*, *quasit* or *sprite*. Additionally, when you take the **Attack** *action*, you can forgo one of your own attacks to allow your familiar to make one attack of its own with its *reaction*."
-                        }
+                        "type": "config",
+                        "config": [{
+                            "path": "abilities.Pact of the Chain",
+                            "type": "dict",
+                            "dict": {
+                                "description": "You learn the *Find Familiar spell* and can cast it as a ritual. The spell doesn't count against your number of spells known. When you cast the spell, you can choose one of the normal forms for your familiar or one of the following special forms: *imp*, *pseudodragon*, *quasit* or *sprite*. Additionally, when you take the **Attack** *action*, you can forgo one of your own attacks to allow your familiar to make one attack of its own with its *reaction*."
+                            }
+                        }, {
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "given": ["Find Familiar"]
+                        }]
                     }, {
                         "label": "Pact of the Blade",
                         "path": "abilities.Pact of the Blade",
@@ -12937,7 +12955,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -13103,7 +13121,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -13111,7 +13129,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -13127,7 +13145,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -13410,21 +13428,13 @@
                     "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
-                    "value": 7
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 4,
-                        "level_2": 3
-                    }
+                    "value": 5
                 }, {
                     "label": "Cantrips",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
+                    "limit": 1,
                     "filter": {
                         "classes": "Warlock",
                         "level": "Cantrip"
@@ -13434,10 +13444,14 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "7 - spell.max_known",
+                    "limit": 1,
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1", "2"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "type": "ability_score",
@@ -13476,7 +13490,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -13642,7 +13656,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -13650,7 +13664,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -13666,7 +13680,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -13942,42 +13956,30 @@
                     "value": 3
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 3
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
-                    "value": 8
+                    "value": 6
                 }, {
                     "hidden": true,
                     "path": "spell.slots",
                     "type": "dict",
                     "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
+                        "level_2": 0,
                         "level_3": 2
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
                     }
                 }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "8 - spell.max_known",
+                    "limit": 1,
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1", "2", "3"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "label": "Eldritch Invocations",
@@ -14013,7 +14015,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -14179,7 +14181,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -14187,7 +14189,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -14203,7 +14205,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -14479,42 +14481,22 @@
                     "value": 3
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 3
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
                     "value": 9
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
-                    }
                 }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "9 - spell.max_known",
+                    "limit": 1,
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1", "2", "3"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "label": "Eldritch Invocations",
@@ -14550,7 +14532,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -14716,7 +14698,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -14724,7 +14706,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -14740,7 +14722,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -15010,43 +14992,30 @@
                     "value": 3
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 3
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
-                    "value": 10
+                    "value": 8
                 }, {
                     "hidden": true,
                     "path": "spell.slots",
                     "type": "dict",
                     "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 1
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
+                        "level_3": 0,
+                        "level_4": 2
                     }
                 }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "10 - spell.max_known",
+                    "limit": 1,
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3", "4"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1", "2", "3", "4"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "label": "Eldritch Invocations",
@@ -15082,7 +15051,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -15248,7 +15217,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -15256,7 +15225,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -15272,7 +15241,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -15463,43 +15432,22 @@
                     "value": 3
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 3
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
-                    "value": 11
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 2
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
-                    }
+                    "value": 9
                 }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "11 - spell.max_known",
+                    "limit": 1,
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3", "4"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1", "2", "3"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "type": "ability_score",
@@ -15538,7 +15486,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -15704,7 +15652,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -15712,7 +15660,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -15728,7 +15676,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -15919,44 +15867,30 @@
                     "value": 4
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 3
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
-                    "value": 12
+                    "value": 10
                 }, {
                     "hidden": true,
                     "path": "spell.slots",
                     "type": "dict",
                     "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 3,
-                        "level_5": 1
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
+                        "level_4": 0,
+                        "level_5": 2
                     }
                 }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "12 - spell.max_known",
+                    "limit": 1,
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3", "4", "5"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1", "2", "3", "4", "5"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "label": "Eldritch Invocations",
@@ -15992,7 +15926,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -16158,7 +16092,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -16166,7 +16100,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -16182,7 +16116,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -16377,27 +16311,11 @@
                     "type": "value",
                     "value": 4
                 }, {
-                    "hidden": true,
-                    "path": "spell.max_known",
-                    "type": "value",
-                    "value": 14
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 3,
-                        "level_5": 2
-                    }
-                }, {
                     "label": "Cantrips",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
+                    "limit": 1,
                     "filter": {
                         "classes": "Warlock",
                         "level": "Cantrip"
@@ -16436,7 +16354,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -16602,7 +16520,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -16610,7 +16528,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -16626,7 +16544,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -16898,45 +16816,29 @@
                     "value": 4
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
-                    "value": 15
+                    "value": 11
                 }, {
                     "hidden": true,
                     "path": "spell.slots",
                     "type": "dict",
                     "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 3,
-                        "level_5": 2,
-                        "level_6": 1
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
+                        "level_5": 3
                     }
                 }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "15 - spell.max_known",
+                    "limit": 1,
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3", "4", "5", "6"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1", "2", "3", "4", "5", "6"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "label": "Mystic Arcanum",
@@ -16991,7 +16893,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -17157,7 +17059,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -17165,7 +17067,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -17181,7 +17083,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -17371,48 +17273,6 @@
                     "type": "value",
                     "value": 4
                 }, {
-                    "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_known",
-                    "type": "value",
-                    "value": 15
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 3,
-                        "level_5": 2,
-                        "level_6": 1
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
-                    }
-                }, {
-                    "label": "Spells",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "15 - spell.max_known",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3", "4", "5", "6"]
-                    }
-                }, {
                     "type": "ability_score",
                     "limit": 2
                 }, {
@@ -17449,7 +17309,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -17615,7 +17475,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -17623,7 +17483,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -17639,7 +17499,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -17830,46 +17690,22 @@
                     "value": 5
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
-                    "value": 16
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 3,
-                        "level_5": 2,
-                        "level_6": 1,
-                        "level_7": 1
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
-                    }
+                    "value": 12
                 }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "16 - spell.max_known",
+                    "limit": 1,
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3", "4", "5", "6", "7"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1", "2", "3", "4", "5", "6", "7"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "label": "Mystic Arcanum",
@@ -17915,7 +17751,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -18081,7 +17917,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -18089,7 +17925,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -18105,7 +17941,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -18295,39 +18131,6 @@
                     "type": "value",
                     "value": 5
                 }, {
-                    "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_known",
-                    "type": "value",
-                    "value": 18
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 3,
-                        "level_5": 2,
-                        "level_6": 1,
-                        "level_7": 1
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Eldritch Invocations",
                     "description": "In your study of occult lore, you have unearthed eldritch invocations, fragments of forbidden knowledge that imbue you with an abiding magical ability.",
                     "type": "multichoice",
@@ -18361,7 +18164,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -18527,7 +18330,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -18535,7 +18338,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -18551,7 +18354,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -18823,38 +18626,9 @@
                     "value": 5
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
-                    "value": 19
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 3,
-                        "level_5": 2,
-                        "level_6": 1,
-                        "level_7": 1,
-                        "level_8": 1
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
-                    }
+                    "value": 13
                 }, {
                     "label": "Spells",
                     "path": "spell.list",
@@ -18862,8 +18636,12 @@
                     "list": ["spell"],
                     "limit_formula": "19 - spell.max_known",
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3", "4", "5", "6", "7", "8"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1", "2", "3", "4", "5", "6", "7", "8"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "label": "Mystic Arcanum",
@@ -18909,7 +18687,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -19075,7 +18853,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -19083,7 +18861,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -19099,7 +18877,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -19289,50 +19067,6 @@
                     "type": "value",
                     "value": 5
                 }, {
-                    "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_known",
-                    "type": "value",
-                    "value": 19
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 3,
-                        "level_5": 2,
-                        "level_6": 1,
-                        "level_7": 1,
-                        "level_8": 1
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
-                    }
-                }, {
-                    "label": "Spells",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "19 - spell.max_known",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3", "4", "5", "6", "7", "8"]
-                    }
-                }, {
                     "type": "ability_score",
                     "limit": 2
                 }, {
@@ -19369,7 +19103,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -19535,7 +19269,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -19543,7 +19277,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -19559,7 +19293,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -19750,48 +19484,29 @@
                     "value": 6
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
-                    "value": 20
+                    "value": 14
                 }, {
                     "hidden": true,
                     "path": "spell.slots",
                     "type": "dict",
                     "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 3,
-                        "level_5": 2,
-                        "level_6": 1,
-                        "level_7": 1,
-                        "level_8": 1,
-                        "level_9": 1
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
+                        "level_5": 4
                     }
                 }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "20 - spell.max_known",
+                    "limit": 1,
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "label": "Mystic Arcanum",
@@ -19837,7 +19552,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -20003,7 +19718,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -20011,7 +19726,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -20027,7 +19742,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -20217,41 +19932,6 @@
                     "type": "value",
                     "value": 6
                 }, {
-                    "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_known",
-                    "type": "value",
-                    "value": 22
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 3,
-                        "level_5": 3,
-                        "level_6": 2,
-                        "level_7": 1,
-                        "level_8": 1,
-                        "level_9": 1
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
-                    }
-                }, {
                     "label": "Eldritch Invocations",
                     "description": "In your study of occult lore, you have unearthed eldritch invocations, fragments of forbidden knowledge that imbue you with an abiding magical ability.",
                     "type": "multichoice",
@@ -20285,7 +19965,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -20451,7 +20131,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -20459,7 +20139,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -20475,7 +20155,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -20666,48 +20346,22 @@
                     "value": 6
                 }, {
                     "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
                     "path": "spell.max_known",
                     "type": "value",
-                    "value": 22
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 3,
-                        "level_5": 3,
-                        "level_6": 2,
-                        "level_7": 1,
-                        "level_8": 1,
-                        "level_9": 1
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
-                    }
+                    "value": 15
                 }, {
                     "label": "Spells",
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "22 - spell.max_known",
+                    "limit": 1,
                     "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                        "or": [{
+                            "classes": "Warlock",
+                            "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                        }, {
+                            "name_filter": "spell.expanded"
+                        }]
                     }
                 }, {
                     "type": "ability_score",
@@ -20746,7 +20400,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -20912,7 +20566,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -20920,7 +20574,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -20936,7 +20590,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
@@ -21126,51 +20780,6 @@
                     "type": "value",
                     "value": 6
                 }, {
-                    "hidden": true,
-                    "path": "spell.max_cantrips",
-                    "type": "value",
-                    "value": 4
-                }, {
-                    "hidden": true,
-                    "path": "spell.max_known",
-                    "type": "value",
-                    "value": 22
-                }, {
-                    "hidden": true,
-                    "path": "spell.slots",
-                    "type": "dict",
-                    "dict": {
-                        "level_1": 4,
-                        "level_2": 3,
-                        "level_3": 3,
-                        "level_4": 3,
-                        "level_5": 3,
-                        "level_6": 2,
-                        "level_7": 2,
-                        "level_8": 1,
-                        "level_9": 1
-                    }
-                }, {
-                    "label": "Cantrips",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": "Cantrip"
-                    }
-                }, {
-                    "label": "Spells",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit_formula": "22 - spell.max_known",
-                    "filter": {
-                        "classes": "Warlock",
-                        "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-                    }
-                }, {
                     "label": "Eldritch Master",
                     "path": "abilities.Eldritch Master",
                     "type": "dict",
@@ -21211,7 +20820,7 @@
                     }, {
                         "label": "Aspect of the Moon",
                         "path": "abilities.Aspect of the Moon",
-                        "hidden_formula": "'Pact of the Tome' in spell.list",
+                        "hidden_formula": "'Pact of the Tome' in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You no longer need to sleep and can't be forced to sleep by any means. To gain the benefits of a long rest, you can spend all 8 hours doing light activity, such as reading your *Book of Shadows* and keeping watch."
@@ -21377,7 +20986,7 @@
                     }, {
                         "label": "Grasp of Hadar",
                         "path": "abilities.Grasp of Hadar",
-                        "hidden_formula": "'Eldritch Blade' not in spell.list",
+                        "hidden_formula": "'Eldritch Blast' not in spell.list",
                         "type": "dict",
                         "dict": {
                             "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -21385,7 +20994,7 @@
                     }, {
                         "label": "Improved Pact Weapon",
                         "path": "abilities.Improved Pact Weapon",
-                        "hidden_formula": "'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "You can use any weapon you summon with your *Pact of the Blade* feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a `+1` bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow."
@@ -21401,7 +21010,7 @@
                     }, {
                         "label": "Lifedrinker",
                         "path": "abilities.Lifedrinker",
-                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in spell.list",
+                        "hidden_formula": "character.level < 11 or 'Pact of the Blade' not in character.abilities",
                         "type": "dict",
                         "dict": {
                             "description": "When you hit a creature with your pact weapon, the creature takes extra necrotic damage equal to your Charisma modifier %(mod)s",
