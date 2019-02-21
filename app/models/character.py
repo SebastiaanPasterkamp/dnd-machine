@@ -93,6 +93,7 @@ class CharacterObject(JsonObject):
             "max_known": 0,
             "max_prepared": 0,
             "list": [],
+            "expanded": [],
             "prepared": [],
             "slots": {},
             "level": {}
