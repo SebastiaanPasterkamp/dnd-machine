@@ -145,6 +145,37 @@ export class ListPropertySelect extends LazyComponent
         ) ) );
     }
 
+    matchesFilter(item, filter) {
+        if ('or' in filter) {
+            console.assert(
+                _.keys(filter).length === 1,
+                "Cannot have OR filters with sibbling conditions"
+            );
+            return _.some(
+                filter.or,
+                option => this.matchesFilter(item, option)
+            );
+        }
+        return _.every(
+            filter,
+            (cond, path) => {
+                if (path.match(/_(formula|default)$/)) {
+                    return true;
+                }
+                if (path === 'and'
+                    && !this.matchesFilter(item, cond)
+                ) {
+                    return false;
+                }
+                const value = _.get(item, path);
+                return _.intersection(
+                    _.isArray(value) ? value : [value],
+                    _.isArray(cond) ? cond : [cond],
+                ).length;
+            }
+        );
+    }
+
     renderSelect() {
         const {
             multiple, filter = [], items = [], current = [],
@@ -164,19 +195,7 @@ export class ListPropertySelect extends LazyComponent
         const filtered = _.chain(items)
             .filter(item => (
                 _.includes(removed, _.get(item, 'code', item.name))
-                || _.every(
-                    filter,
-                    (cond, path) => {
-                        if (path.match(/_(formula|default)$/)) {
-                            return true;
-                        }
-                        const value = _.get(item, path);
-                        return _.intersection(
-                            _.isArray(value) ? value : [value],
-                            _.isArray(cond) ? cond : [cond],
-                        ).length;
-                    }
-                )
+                || this.matchesFilter(item, filter)
             ))
             .filter(item => (
                 multiple
