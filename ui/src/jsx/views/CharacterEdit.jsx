@@ -56,6 +56,23 @@ export class CharacterEdit extends React.Component
             abilityScoreIncrease,
             _statistics,
         } = this.props;
+        const {
+            spell: {
+                max_prepared = 0,
+                prepared = [],
+                list = [],
+                expanded = [],
+                slots = {},
+            } = {},
+            'class': _class,
+        } = character;
+        const levelFilter = _.chain(slots)
+            .map((count, slot) => count
+                ? slot.replace('level_', '')
+                : null
+            )
+            .filter()
+            .value();
 
         return (
             <React.Fragment>
@@ -108,6 +125,34 @@ export class CharacterEdit extends React.Component
                         />
 
                 </Panel>
+
+                {max_prepared ? <Panel
+                    key="prepared"
+                    className="character-edit__prepared"
+                    header="Spells Prepared"
+                >
+
+                    <CharacterConfig
+                        config={[{
+                            "label": "Prepared spells",
+                            "path": "spell.prepared",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": max_prepared,
+                            "replace": max_prepared,
+                            "filter": {
+                                "or": [{
+                                    "classes": _class,
+                                    "level": levelFilter
+                                }, {
+                                    "name": expanded
+                                }],
+                            },
+                            "given": list,
+                        }]}
+                    />
+
+                </Panel> : null}
 
                 <Panel
                     key="personality"
