@@ -216,17 +216,26 @@ export class MonsterEdit extends React.Component
     }
 
     onFieldChange(field, value, callback=null) {
-        this.props.setState({
-            [field]: value
+        const {
+            [field]: oldValue,
+            setState,
+            recompute,
+        } = this.props;
+
+        if (_.isEqual(value, oldValue)) {
+            return;
+        }
+
+        setState({
+            [field]: value,
         }, () => {
             if (callback) {
                 callback();
             }
-            if (
-                this.props.recompute
+            if (recompute
                 && _.includes(this.affects_rating, field)
             ) {
-                this.props.recompute();
+                recompute();
             }
         });
     }
