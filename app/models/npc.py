@@ -1,5 +1,6 @@
 import re
 import json
+from math import floor
 
 from base import JsonObject, JsonObjectDataMapper
 
@@ -274,7 +275,7 @@ class NpcObject(JsonObject):
             stat = stat["code"]
             self.statisticsBase[stat] = self.statisticsBare[stat] \
                 + sum(self.statisticsBonus[stat])
-            self.statisticsModifiers[stat] = int(
+            self.statisticsModifiers[stat] = floor(
                 (self.statisticsBase[stat] - 10.0) / 2.0
                 )
             self.saving_throws[stat] = self.statisticsModifiers[stat]
