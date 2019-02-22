@@ -1,3 +1,5 @@
+from math import floor
+
 from base import JsonObject, JsonObjectDataMapper
 
 class MonsterObject(JsonObject):
@@ -153,7 +155,7 @@ class MonsterObject(JsonObject):
         for stat in itemMapper.statistics:
             stat = stat["code"]
             self.statisticsBase[stat] = self.statisticsBare[stat]
-            self.statisticsModifiers[stat] = int(
+            self.statisticsModifiers[stat] = floor(
                 (self.statisticsBase[stat] - 10.0) / 2.0
                 )
 
