@@ -12110,30 +12110,6 @@
                 "Dagger"
             ]
         }, {
-            "label": "Cantrips",
-            "path": "spell.list",
-            "type": "list",
-            "list": ["spell"],
-            "limit": 2,
-            "filter": {
-                "classes": "Warlock",
-                "level": "Cantrip"
-            }
-        }, {
-            "label": "Spells",
-            "path": "spell.list",
-            "type": "list",
-            "list": ["spell"],
-            "limit": 2,
-            "filter": {
-                "or": [{
-                    "classes": "Warlock",
-                    "level": ["1"]
-                }, {
-                    "name_filter": "spell.expanded"
-                }]
-            }
-        }, {
             "label": "Otherworldly Patron",
             "type": "choice",
             "description": "You have struck a bargain with an otherworldly being of your choice. Your choice grants you special features.",
@@ -12299,6 +12275,30 @@
                     }
                 }]
             }]
+        }, {
+            "label": "Cantrips",
+            "path": "spell.list",
+            "type": "list",
+            "list": ["spell"],
+            "limit": 2,
+            "filter": {
+                "classes": "Warlock",
+                "level": "Cantrip"
+            }
+        }, {
+            "label": "Spells",
+            "path": "spell.list",
+            "type": "list",
+            "list": ["spell"],
+            "limit": 2,
+            "filter": {
+                "or": [{
+                    "classes": "Warlock",
+                    "level": ["1"]
+                }, {
+                    "name_formula": "spell.expanded"
+                }]
+            }
         }],
         "phases": {
             "warlock-2": {
@@ -12348,7 +12348,7 @@
                             "classes": "Warlock",
                             "level": ["1"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
@@ -12868,7 +12868,7 @@
                             "classes": "Warlock",
                             "level": ["1", "2"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
@@ -13450,7 +13450,7 @@
                             "classes": "Warlock",
                             "level": ["1", "2"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
@@ -13978,7 +13978,7 @@
                             "classes": "Warlock",
                             "level": ["1", "2", "3"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
@@ -14495,7 +14495,7 @@
                             "classes": "Warlock",
                             "level": ["1", "2", "3"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
@@ -15014,7 +15014,7 @@
                             "classes": "Warlock",
                             "level": ["1", "2", "3", "4"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
@@ -15446,7 +15446,7 @@
                             "classes": "Warlock",
                             "level": ["1", "2", "3"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
@@ -15889,7 +15889,7 @@
                             "classes": "Warlock",
                             "level": ["1", "2", "3", "4", "5"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
@@ -16837,7 +16837,7 @@
                             "classes": "Warlock",
                             "level": ["1", "2", "3", "4", "5", "6"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
@@ -17704,7 +17704,7 @@
                             "classes": "Warlock",
                             "level": ["1", "2", "3", "4", "5", "6", "7"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
@@ -18640,7 +18640,7 @@
                             "classes": "Warlock",
                             "level": ["1", "2", "3", "4", "5", "6", "7", "8"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
@@ -19505,7 +19505,7 @@
                             "classes": "Warlock",
                             "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
@@ -20360,7 +20360,7 @@
                             "classes": "Warlock",
                             "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
                         }, {
-                            "name_filter": "spell.expanded"
+                            "name_formula": "spell.expanded"
                         }]
                     }
                 }, {
