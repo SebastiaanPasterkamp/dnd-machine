@@ -16,80 +16,94 @@ class CharacterDataTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testConfig(self):
-        struct = {
-            'race': {
-                'instance': list,
+    def testMainConfig(self):
+        self.assertEquals(
+            ['race', 'class', 'background', 'sets'],
+            self.config.keys()
+            )
+        for name, config in self.config.items():
+            if name == "sets":
+                self.assertIsInstance(
+                    config, dict,
+                    'Expectd config.%s to be a dict' % name
+                    )
+            else:
+                self.assertIsInstance(
+                    config, list,
+                    'Expectd config.%s to be a list' % name
+                    )
+
+    def testRaceConfig(self):
+        structure = {
+            'label': {
+                'instance': unicode,
                 'required': True,
-                'callback': lambda c, p: self.verifyStruct(c, {
-                    'label': {
-                        'instance': unicode,
-                        'required': True,
-                        },
-                    'description': {
-                        'instance': unicode,
-                        'required': True,
-                        },
-                    'type': {
-                        'one-of': ['config'],
-                        'required': True,
-                        },
-                    'config': {
-                        'instance': list,
-                        'required': True,
-                        'callback': self.checkConfig,
-                        },
-                    'phases': {
-                        'instance': dict,
-                        'required': False,
-                        'callback': lambda d, p: self.checkPhase(
-                            d, p, True
-                            )
-                        },
-                    }, p),
                 },
-            'class': {
-                'instance': list,
+            'description': {
+                'instance': unicode,
                 'required': True,
-                'callback': lambda c, p: self.verifyStruct(c, {
-                    'label': {
-                        'instance': unicode,
-                        'required': True,
-                        },
-                    'description': {
-                        'instance': unicode,
-                        'required': True,
-                        },
-                    'type': {
-                        'one-of': ['config'],
-                        'required': True,
-                        },
-                    'config': {
-                        'instance': list,
-                        'required': True,
-                        'callback': self.checkConfig,
-                        },
-                    'phases': {
-                        'instance': dict,
-                        'required': True,
-                        'callback': lambda d, p: self.checkPhase(
-                            d, p, True
-                            )
-                        },
-                    }, p),
                 },
-            'background': {
+            'type': {
+                'one-of': ['config'],
+                'required': True,
+                },
+            'config': {
                 'instance': list,
                 'required': True,
                 'callback': self.checkConfig,
                 },
+            'phases': {
+                'instance': dict,
+                'required': False,
+                'callback': lambda d, p: self.checkPhase(
+                    d, p, True
+                    )
+                },
             }
-        character_data = get_character_data()
-        self.verifyStruct(
-            character_data,
-            struct,
-            []
-            )
+        for index, data in enumerate(self.config['race']):
+            self.verifyStruct(data, structure, ['race', str(index)])
+
+    def testClassConfig(self):
+        structure = {
+            'label': {
+                'instance': unicode,
+                'required': True,
+                },
+            'description': {
+                'instance': unicode,
+                'required': True,
+                },
+            'type': {
+                'one-of': ['config'],
+                'required': True,
+                },
+            'config': {
+                'instance': list,
+                'required': True,
+                'callback': self.checkConfig,
+                },
+            'phases': {
+                'instance': dict,
+                'required': True,
+                'callback': lambda d, p: self.checkPhase(
+                    d, p, True
+                    )
+                },
+            }
+        for index, data in enumerate(self.config['class']):
+            self.verifyStruct(data, structure, ['race', str(index)])
+
+    def testBackgroundConfig(self):
+        for index, data in enumerate(self.config['background']):
+            self.checkConfig(data, ['background', str(index)])
+
+    def testSetsConfig(self):
+        for group, items in self.config['sets'].items():
+            if "type" in items:
+                self.checkConfig(items, ['sets', group])
+            else:
+                for name, item in items.items():
+                    self.checkConfig(item, ['sets', group, name])
 
 
     def verifyStruct(self, data, struct, path):
@@ -311,6 +325,9 @@ class CharacterDataTestCase(unittest.TestCase):
                 },
             'multichoice': {
                 'path': {},
+                'filter': {
+                    'instance': dict,
+                    },
                 'limit': {
                     'instance': int,
                     },
@@ -394,6 +411,13 @@ class CharacterDataTestCase(unittest.TestCase):
                         exclude, config
                         )
                     )
+
+    def getSets(self, path):
+        path = path.split('.')
+        config = self.config['sets']
+        for step in path:
+            config = config[step]
+        return config
 
 
 if __name__ == '__main__':
