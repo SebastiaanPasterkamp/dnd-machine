@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import '../../sass/_edit-weapon.scss';
@@ -21,6 +22,9 @@ export class WeaponEdit extends React.Component
     constructor(props) {
         super(props);
         this.state = {};
+        this.callbacks = {
+            weight: lb => this.onFieldChange('weight', {lb}),
+        };
     }
 
     onComponentDidMount() {
@@ -81,6 +85,13 @@ export class WeaponEdit extends React.Component
         this.props.setState(update);
     }
 
+    onChange(field) {
+        if (!(field in this.callbacks)) {
+            this.callbacks[field] = (value) => this.onFieldChange(field, value);
+        }
+        return this.callbacks[field];
+    }
+
     render() {
         const {
             name, damage, versatile, type, weapon_types = [],
@@ -88,69 +99,56 @@ export class WeaponEdit extends React.Component
             weapon_properties = [],
         } = this.props;
 
-        const {
-            code: defaultWeaponType,
-        } = weapon_types[0] || {};
-
         return [
             <Panel
-                    key="description"
-                    className="weapon-edit__description"
-                    header="Description"
-                >
+                key="description"
+                className="weapon-edit__description"
+                header="Description"
+            >
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
                         value={name}
-                        setState={(value) =>
-                            this.onFieldChange('name', value)
-                        } />
+                        setState={this.onChange('name')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Type">
                     <SingleSelect
-                        selected={type || defaultWeaponType}
-                        items={weapon_types || []}
-                        setState={(value) =>
-                            this.onFieldChange('type', value)
-                        } />
+                        selected={type}
+                        items={weapon_types}
+                        setState={this.onChange('type')}
+                    />
                 </ControlGroup>
                 <DamageEdit
                     {...damage}
-                    setState={(value) => {
-                        this.onFieldChange('damage', value);
-                    }}
-                    />
+                    setState={this.onChange('damage')}
+                />
                 {versatile
                     ? <DamageEdit
                         label="Versatile"
                         {...versatile}
-                        setState={(value) => {
-                            this.onFieldChange('versatile', value);
-                        }}
-                        />
+                        setState={this.onChange('versatile')}
+                    />
                     : null
                 }
             </Panel>,
 
             <Panel
-                    key="properties"
-                    className="weapon-edit__properties"
-                    header="Properties"
-                >
+                key="properties"
+                className="weapon-edit__properties"
+                header="Properties"
+            >
                 <ControlGroup label="Attributes">
                     <TagContainer
                         value={property}
                         items={weapon_properties}
-                        setState={(value) => {
-                            this.onFieldChange('property', value);
-                        }} />
+                        setState={this.onChange('property')}
+                    />
                 </ControlGroup>
                 {range
                     ? <ReachEdit
                         {...range}
-                        setState={(range) => {
-                            this.onFieldChange('range', range);
-                        }}
+                        setState={this.onChange('range')}
                         />
                     : null
                 }
@@ -159,17 +157,15 @@ export class WeaponEdit extends React.Component
                         type="float"
                         placeholder="Pounds..."
                         value={weight.lb || ''}
-                        setState={(value) => {
-                            this.onFieldChange('weight', {lb: value});
-                        }} />
+                        setState={this.onChange('weight')}
+                    />
                 </ControlGroup>
 
                 <ControlGroup label="Value">
                     <CostEditor
                         value={cost}
-                        setState={(value) => {
-                            this.onFieldChange('cost', value);
-                        }} />
+                        setState={this.onChange('cost')}
+                    />
                 </ControlGroup>
             </Panel>,
 
@@ -183,14 +179,62 @@ export class WeaponEdit extends React.Component
                         placeholder="Description..."
                         value={description}
                         rows={5}
-                        setState={(value) => {
-                            this.onFieldChange('description', value);
-                        }} />
+                        setState={this.onChange('description')}
+                    />
                 </ControlGroup>
             </Panel> : null
         ];
     }
 }
+
+WeaponEdit.propTypes = {
+    property: PropTypes.arrayOf(
+        PropTypes.string
+    ),
+    type: PropTypes.oneOf([
+        'simple melee',
+        'simple ranged',
+        'martial melee',
+        'martial ranged',
+    ]),
+    range: PropTypes.shape({
+        min: PropTypes.number,
+        max: PropTypes.number,
+    }),
+    damage: PropTypes.shape({
+        dice_count: PropTypes.number.isRequired,
+        dice_size: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+    }).isRequired,
+    versatile: PropTypes.shape({
+        dice_count: PropTypes.number.isRequired,
+        dice_size: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+    }),
+    weight: PropTypes.objectOf(
+        PropTypes.number
+    ),
+    cost: PropTypes.objectOf(
+        PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string,
+        ])
+    ),
+    description: PropTypes.string,
+};
+
+WeaponEdit.defaultProps = {
+    property: [],
+    type: 'simple melee',
+    range: null,
+    versatile: null,
+    damage: {
+        dice_count: 1,
+        dice_size: 4,
+        type: 'piercing',
+    },
+    description: null,
+};
 
 export default ListDataWrapper(
     RoutedObjectDataWrapper(
