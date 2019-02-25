@@ -23,13 +23,27 @@ def get_character_data():
         return data['character-data']
     with open(os.path.join('app', 'character-data.json')) as cfg:
         data['character-data'] = json.load(cfg)
-    for section in ['class']:
-        for part in data['character-data'][section]:
-            if 'filename' not in part:
-                continue
-            mdfile = os.path.join('app', 'data', part['filename'])
-            with codecs.open(mdfile, encoding='utf-8') as fh:
-                part['description'] = fh.read()
+
+        def getSets(path):
+            path = path.split('.')
+            config = data['character-data']['sets']
+            for step in path:
+                config = config[step]
+            return config
+
+        def inlineIncludes(data):
+            if isinstance(data, dict):
+                if 'include' in data:
+                    data.update(getSets(data['include']))
+                    del data['include']
+                for key, value in data.items():
+                    inlineIncludes(value)
+            if isinstance(data, list):
+                for value in data:
+                    inlineIncludes(value)
+
+        inlineIncludes(data['character-data'])
+
     return data['character-data']
 
 def get_npc_data():
