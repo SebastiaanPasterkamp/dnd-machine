@@ -94,9 +94,9 @@ export class WeaponEdit extends React.Component
 
     render() {
         const {
-            name, damage, versatile, type, weapon_types = [],
-            property = [], range, weight = {}, cost = {}, description,
-            weapon_properties = [],
+            name, damage, versatile, type, weapon_types,
+            property, range, weight, cost, description,
+            weapon_properties,
         } = this.props;
 
         return [
@@ -215,10 +215,7 @@ WeaponEdit.propTypes = {
         PropTypes.number
     ),
     cost: PropTypes.objectOf(
-        PropTypes.oneOfType([
-            PropTypes.number,
-            PropTypes.string,
-        ])
+        PropTypes.number
     ),
     description: PropTypes.string,
 };
@@ -233,7 +230,11 @@ WeaponEdit.defaultProps = {
         dice_size: 4,
         type: 'piercing',
     },
+    cost: {},
+    weight: {},
     description: null,
+    weapon_types: [],
+    weapon_properties: [],
 };
 
 export default ListDataWrapper(
@@ -250,7 +251,6 @@ export default ListDataWrapper(
     [
         "weapon_types",
         "weapon_properties",
-        "damage_types",
     ],
     'items'
 );
