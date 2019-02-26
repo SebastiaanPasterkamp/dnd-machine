@@ -16,6 +16,18 @@ import SingleSelect from '../components/SingleSelect.jsx';
 
 export class TagValueContainer extends LazyComponent
 {
+    constructor(props) {
+        super(props);
+        this.funcCache = {};
+    }
+
+    memoize = (key, func) => {
+        if (!(key in this.funcCache)) {
+            this.funcCache[key] = func;
+        }
+        return this.funcCache[key];
+    }
+
     onChange(key, newValue) {
         const { value, onChange, setState } = this.props;
         setState(
@@ -142,9 +154,9 @@ export class TagValueContainer extends LazyComponent
                     <li
                         key={option.key}
                         data-value={option.key}
-                        onClick={() => this.onChange(
-                            tag.key,
-                            option.key
+                        onClick={this.memoize(
+                            `onClick-${tag.key}`,
+                            () => this.onChange(tag.key, option.key)
                         )}
                         >
                         <a className="cursor-pointer">
@@ -187,8 +199,14 @@ export class TagValueContainer extends LazyComponent
                 label,
                 description,
                 disabled,
-                onChange: (value) => this.onChange(key, value),
-                onDelete: () => this.onDelete(key),
+                onChange: this.memoize(
+                    `onChange-${key}`,
+                    (value) => this.onChange(key, value)
+                ),
+                onDelete: this.memoize(
+                    `onDelete-${key}`,
+                    () => this.onDelete(key)
+                ),
             };
         });
 
