@@ -1300,8 +1300,16 @@
                         "maximum_rages": 3
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "barbarian-5": {
@@ -1461,8 +1469,16 @@
                         "maximum_rages": 4
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "barbarian-9": {
@@ -1591,8 +1607,16 @@
                         "maximum_rages": 5
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "barbarian-13": {
@@ -1736,8 +1760,16 @@
                         "maximum_rages": 5
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "barbarian-17": {
@@ -1815,8 +1847,16 @@
                         "maximum_rages": 6
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "barbarian-20": {
@@ -2434,8 +2474,16 @@
                         "level": ["1", "2"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "bard-5": {
@@ -2708,8 +2756,16 @@
                         "level": ["1", "2", "3", "4"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "bard-9": {
@@ -2943,8 +2999,16 @@
                         "level": ["1", "2", "3", "4", "5", "6"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "bard-13": {
@@ -3227,8 +3291,16 @@
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "bard-17": {
@@ -3369,8 +3441,16 @@
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "bard-20": {
@@ -4233,8 +4313,16 @@
                         "level": "Cantrip"
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "cleric-5": {
@@ -4707,8 +4795,16 @@
                         "challenge_rating": "1"
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "cleric-8-knowledge-light": {
@@ -5006,8 +5102,16 @@
                         "level": "Cantrip"
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "cleric-13": {
@@ -5189,8 +5293,16 @@
                         "level": "Cantrip"
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "cleric-17": {
@@ -5436,8 +5548,16 @@
                         "level": "Cantrip"
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "cleric-20": {
@@ -5847,8 +5967,16 @@
                     "type": "value",
                     "value": 2
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "fighter-4-eldritch": {
@@ -5940,7 +6068,8 @@
                         "type": "ability_score",
                         "limit": 2
                     }, {
-                        "include": "feats"
+                        "include": "feats",
+                        "limit": 1
                     }]
                 }]
             },
@@ -6082,8 +6211,16 @@
                     "type": "value",
                     "value": 3
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "fighter-8-eldritch": {
@@ -6310,8 +6447,16 @@
                     "type": "value",
                     "value": 4
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "fighter-12-master": {
@@ -6536,8 +6681,16 @@
                     "type": "value",
                     "value": 5
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "fighter-16-eldritch": {
@@ -6685,8 +6838,16 @@
                     "type": "value",
                     "value": 6
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "fighter-19-eldritch": {
@@ -7178,8 +7339,16 @@
                         "level_1": 3
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "paladin-5": {
@@ -7386,8 +7555,16 @@
                         "level_2": 3
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "paladin-9": {
@@ -7540,8 +7717,16 @@
                         "level_3": 3
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "paladin-13": {
@@ -7736,8 +7921,16 @@
                         "level_4": 2
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "paladin-17": {
@@ -7859,8 +8052,16 @@
                         "level_5": 2
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "paladin-20": {
@@ -8291,8 +8492,16 @@
                         "level": ["1"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "ranger-5": {
@@ -8503,8 +8712,16 @@
                         "description": "Moving through nonmagical difficult terrain costs you no extra movement. You can also pass through nonmagical plants without being slowed by them and without taking damage from them if they have thorns, spines, or a similar hazard. In addition, you have **Advantage** on saving throws against plants that are magically created or manipulated to impede movement, such those created by the *entangle* spell."
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "ranger-9": {
@@ -8702,8 +8919,16 @@
                         "level": ["1", "2", "3"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "ranger-13": {
@@ -8911,8 +9136,16 @@
                         "level": ["1", "2", "3", "4"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "ranger-17": {
@@ -9035,8 +9268,16 @@
                         "level": ["1", "2", "3", "4", "5"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "ranger-20": {
@@ -9565,8 +9806,16 @@
                         "level": ["1", "2"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "sorcerer-5": {
@@ -9812,8 +10061,16 @@
                         "level": ["1", "2", "3", "4"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "sorcerer-9": {
@@ -10036,8 +10293,16 @@
                         "level": ["1", "2", "3", "4", "5", "6"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "sorcerer-13": {
@@ -10295,8 +10560,16 @@
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "sorcerer-17": {
@@ -10505,8 +10778,16 @@
                         "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }]
             },
             "sorcerer-20": {
@@ -11282,8 +11563,16 @@
                         }]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }, {
                     "include": "eldritch.invocations",
                     "replace": 1
@@ -11688,8 +11977,16 @@
                         }]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }, {
                     "include": "eldritch.invocations",
                     "replace": 1
@@ -11920,8 +12217,16 @@
                     "type": "value",
                     "value": 4
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }, {
                     "include": "eldritch.invocations",
                     "limit": 1,
@@ -12124,8 +12429,16 @@
                     "type": "value",
                     "value": 5
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }, {
                     "include": "eldritch.invocations",
                     "replace": 1
@@ -12228,8 +12541,16 @@
                         }]
                     }
                 }, {
-                    "type": "ability_score",
-                    "limit": 2
+                    "type": "choice",
+                    "options": [{
+                        "label": "Ability Score Improvement",
+                        "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                        "type": "ability_score",
+                        "limit": 2
+                    }, {
+                        "include": "feats",
+                        "limit": 1
+                    }]
                 }, {
                     "include": "eldritch.invocations",
                     "replace": 1
