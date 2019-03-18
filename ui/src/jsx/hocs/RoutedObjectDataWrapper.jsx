@@ -131,6 +131,12 @@ function RoutedObjectDataWrapper(
         onRecompute = (callback=null) => {
             const id = this.getId();
             if (id === null) {
+                this.actions.getObject.completed(
+                    loadableType,
+                    id,
+                    {},
+                    callback
+                );
                 return;
             }
 
