@@ -38,7 +38,7 @@ function RoutedObjectDataWrapper(
             return parseInt(id);
         }
 
-        setButtons(buttons) {
+        setButtons = (buttons) => {
             this.setState({buttons});
         }
 
@@ -77,7 +77,9 @@ function RoutedObjectDataWrapper(
             return false;
         }
 
-        nextView(id=null) {
+        nextView = () => {
+            const id = this.getId();
+
             this.props.history.push(
                 id === null
                 ? pathPrefix + '/list'
@@ -85,7 +87,7 @@ function RoutedObjectDataWrapper(
             );
         }
 
-        onSetState(update, callback=null) {
+        onSetState = (update, callback=null) => {
             const id = this.getId();
 
             const loadable = _.assign(
@@ -102,7 +104,7 @@ function RoutedObjectDataWrapper(
             );
         }
 
-        onReload(callback=null) {
+        onReload = (callback=null) => {
             const id = this.getId();
             if (id === null) {
                 return;
@@ -112,23 +114,46 @@ function RoutedObjectDataWrapper(
                 loadableType,
                 id,
                 loadableGroup,
-                callback
+                () => {
+                    ReportingActions.showMessage(
+                        'info',
+                        'Reloaded',
+                        config.label,
+                        5
+                    );
+                    if (callback) {
+                        callback();
+                    }
+                }
             );
         }
 
-        onRecompute(callback=null) {
+        onRecompute = (callback=null) => {
             const id = this.getId();
+            if (id === null) {
+                return;
+            }
 
             this.actions.recomputeObject(
                 loadableType,
                 id,
                 this.getStateProps(),
                 loadableGroup,
-                callback
+                () => {
+                    ReportingActions.showMessage(
+                        'info',
+                        'Recomputed',
+                        config.label,
+                        5
+                    );
+                    if (callback) {
+                        callback();
+                    }
+                }
             );
         }
 
-        onSave(callback=null) {
+        onSave = (callback=null) => {
             const id = this.getId();
 
             if (id === null) {
@@ -222,7 +247,7 @@ function RoutedObjectDataWrapper(
                         name="button"
                         color="muted"
                         icon="ban"
-                        onClick={() => this.nextView(id)}
+                        onClick={this.nextView}
                         label="Cancel"
                         />
                     : null
@@ -232,14 +257,7 @@ function RoutedObjectDataWrapper(
                         name="button"
                         color="info"
                         icon="refresh"
-                        onClick={() => this.onReload(() => {
-                            ReportingActions.showMessage(
-                                'info',
-                                'Reloaded',
-                                config.label,
-                                5
-                            );
-                        })}
+                        onClick={this.onReload}
                         label="Reload"
                         />
                     : null
@@ -249,14 +267,7 @@ function RoutedObjectDataWrapper(
                         name="button"
                         color="accent"
                         icon="calculator"
-                        onClick={() => this.onRecompute(() => {
-                            ReportingActions.showMessage(
-                                'info',
-                                'Recomputed',
-                                config.label,
-                                5
-                            );
-                        })}
+                        onClick={this.onRecompute}
                         label="Recompute"
                         />
                     : null
@@ -266,7 +277,7 @@ function RoutedObjectDataWrapper(
                         name="button"
                         color="primary"
                         icon="save"
-                        onClick={() => this.onSave()}
+                        onClick={this.onSave}
                         label="Save"
                         />
                     : null
@@ -314,21 +325,15 @@ function RoutedObjectDataWrapper(
                     className={config.className}
                     >
                     <WrappedComponent
-                        setState={(state, callback=null) => {
-                            this.onSetState(state, callback)
-                        }}
-                        setButtons={(b) => this.setButtons(b)}
-                        cancel={() => this.nextView()}
+                        setState={this.onSetState}
+                        setButtons={this.setButtons}
+                        cancel={this.nextView}
                         reload={id !== null
-                            ? (callback=null) => this.onReload(callback)
+                            ? this.onReload
                             : null
                         }
-                        recompute={(callback=null) => {
-                            this.onRecompute(callback);
-                        }}
-                        save={(callback=null) => {
-                            this.onSave(callback);
-                        }}
+                        recompute={this.onRecompute}
+                        save={this.onSave}
                         {...props}
                         />
 
