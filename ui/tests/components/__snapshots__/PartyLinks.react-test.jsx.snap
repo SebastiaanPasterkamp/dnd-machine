@@ -56,7 +56,7 @@ exports[`Component: PartyLinks should show a view and host button 1`] = `
 </div>
 `;
 
-exports[`Component: PartyLinks should show a view, host, and edit button 1`] = `
+exports[`Component: PartyLinks should show a view, host, edit, and delete button 1`] = `
 <div
   className="base-link-group nice-btn-group"
 >
@@ -79,6 +79,12 @@ exports[`Component: PartyLinks should show a view, host, and edit button 1`] = `
     onClick={[Function]}
   >
     Host
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-trash-o bad"
+    onClick={[Function]}
+  >
+    Delete
   </a>
 </div>
 `;
