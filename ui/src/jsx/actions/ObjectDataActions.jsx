@@ -35,11 +35,9 @@ export function ObjectDataActionsFactory(id)
                         }
                     })
                     .then(jsonOrBust)
-                    .then(result => {
-                        oda.listObjects.completed(
-                            type, result, callback
-                        );
-                    })
+                    .then(result => oda.listObjects.completed(
+                        type, result, callback
+                    ))
                     .catch(error => {
                         console.log(error);
                         oda.listObjects.failed(
@@ -89,11 +87,9 @@ export function ObjectDataActionsFactory(id)
                     }
                 })
                 .then(jsonOrBust)
-                .then(result => {
-                    oda.getObject.completed(
-                        type, id, result, callback
-                    );
-                })
+                .then(result => oda.getObject.completed(
+                    type, id, result, callback
+                ))
                 .catch(error => {
                     console.log(error);
                     oda.getObject.failed(
@@ -247,12 +243,12 @@ export function ObjectDataActionsFactory(id)
                         body: JSON.stringify(data)
                     })
                     .then(jsonOrBust)
-                    .then(result => oda.postObject.completed(
+                    .then(result => oda.recomputeObject.completed(
                         type, id, result, callback
                     ))
                     .catch(error => {
                         console.log(error);
-                        oda.postObject.failed(
+                        oda.recomputeObject.failed(
                             type, error
                         );
                         ReportingActions.showMessage(
