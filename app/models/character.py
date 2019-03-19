@@ -422,8 +422,7 @@ class CharacterObject(JsonObject):
             self.setPath(path, value)
 
         cr = machine.challengeByLevel(self.level)
-        for rating, value in cr.iteritems():
-            self.challenge[rating] = value
+        self.challenge.update(cr)
 
         self.update(
             machine.identifyEquipment(self.equipment)
