@@ -25,14 +25,27 @@ export class PartyEdit extends React.Component
     constructor(props) {
         super(props);
         this.state = {
-            dialog: false
+            dialog: false,
         };
+        this.memoize = {};
     }
 
-    toggleDialog() {
-        this.setState({
-            dialog: !this.state.dialog
-        });
+    callback = (name, callback) => {
+        if (!(name in this.memoize)) {
+            this.memoize[name] = callback;
+        }
+        return this.memoize[name];
+    }
+
+    onCancel = () => {
+        const { reload } = this.props;
+        reload();
+        this.toggleDialog();
+    }
+
+    toggleDialog = () => {
+        const { dialog } = this.state;
+        this.setState({ dialog: !dialog });
     }
 
     onFieldChange(field, value) {
@@ -41,28 +54,39 @@ export class PartyEdit extends React.Component
         });
     }
 
-    onRemoveMemberButton(id) {
+    onRemoveMember = (id) => {
         const {
-            member_ids, setState, recompute
+            member_ids: old_party,
+            setState,
+            recompute,
         } = this.props;
-        const update = _.without(member_ids, id);
+        const member_ids = _.without(old_party, id);
 
-        setState(
-            {member_ids: update},
-            () => recompute()
-        );
+        setState({ member_ids }, () => recompute());
     }
 
-    onAddMemberButton(id) {
+    onAddMember = (id) => {
         const {
-            member_ids, setState, recompute
+            member_ids: old_party,
+            setState,
+            recompute,
         } = this.props;
-        const update = _.union(member_ids, [id]);
+        const member_ids = _.union(old_party, [id]);
 
-        setState(
-            {member_ids: update},
-            () => recompute()
-        );
+        setState({ member_ids }, () => recompute());
+    }
+
+    actions = (character) => {
+        return ({
+            add: {
+                label: 'Add',
+                action: this.callback(
+                    `add-${character.id}`,
+                    () => this.onAddMember(character.id)
+                ),
+                icon: 'plus',
+            },
+        });
     }
 
     renderDialog() {
@@ -71,14 +95,15 @@ export class PartyEdit extends React.Component
         }
 
         const {
-            characters, member_ids = [], reload
+            characters,
+            member_ids = [],
         } = this.props;
 
         return <ModalDialog
             key="dialog"
             label="Add members"
-            onCancel={() => reload(() => this.toggleDialog())}
-            onDone={() => this.toggleDialog()}
+            onCancel={this.onCancel}
+            onDone={this.toggleDialog}
             >
             <CharacterPicker
                 characters={characters}
@@ -87,15 +112,8 @@ export class PartyEdit extends React.Component
                     member_ids,
                     character.id
                 )}
-                actions={character => (
-                    <a
-                        className="nice-btn-alt cursor-pointer icon fa-plus"
-                        onClick={() => this.onAddMemberButton(character.id)}
-                        >
-                        Add
-                    </a>
-                )}
-                />
+                actions={this.actions}
+            />
         </ModalDialog>;
     }
 
@@ -103,7 +121,7 @@ export class PartyEdit extends React.Component
         const {
             name, description, member_ids = [],
             challenge: { easy, medium, hard, deadly } = {},
-            characters
+            characters, setState,
         } = this.props;
 
         return <React.Fragment>
@@ -116,18 +134,22 @@ export class PartyEdit extends React.Component
                     <InputField
                         placeholder="Name..."
                         value={name}
-                        setState={
-                            (value) => this.onFieldChange('name', value)
-                        } />
+                        setState={this.callback(
+                            'name',
+                            (name) => setState({name})
+                        )}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Description">
                     <MarkdownTextField
                         placeholder="Description..."
                         value={description}
                         rows={5}
-                        setState={
-                            (value) => this.onFieldChange('description', value)
-                        } />
+                        setState={this.callback(
+                            'description',
+                            (description) => setState({description})
+                        )}
+                    />
                 </ControlGroup>
             </Panel>
 
@@ -180,9 +202,7 @@ export class PartyEdit extends React.Component
                     </tr>
                 </thead>
                 <tbody>{_.map(member_ids, (id) => {
-                    const character = _.get(
-                        characters, id
-                    );
+                    const character = _.get(characters, id);
 
                     if (!character) {
                         return null;
@@ -198,9 +218,12 @@ export class PartyEdit extends React.Component
                                 extra={{
                                     remove: {
                                         label: 'Remove',
-                                        action: () => {
-                                            this.onRemoveMemberButton(character.id);
-                                        },
+                                        action: this.callback(
+                                            `delete-${id}`,
+                                            () => this.onRemoveMember(
+                                                id
+                                            )
+                                        ),
                                         icon: 'times',
                                         className: 'warning'
                                     }
@@ -227,8 +250,8 @@ export class PartyEdit extends React.Component
                         <th>
                             <a
                                 className="nice-btn-alt cursor-pointer icon fa-plus"
-                                onClick={() => this.toggleDialog()}
-                                >
+                                onClick={this.toggleDialog}
+                            >
                                 Add
                             </a>
                         </th>
