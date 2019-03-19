@@ -68,7 +68,9 @@ class PartyBlueprint(BaseApiBlueprint):
                 if obj.id in visible
                 ]
         for obj in objs:
-            obj.members = self.charactermapper.getByPartyId(obj.id)
+            obj.members = self.charactermapper.getByIds(
+                obj.member_ids
+                )
 
     @BaseApiCallback('api_get')
     def filterVisibleSingle(self, obj_id, *args, **kwargs):
@@ -84,7 +86,9 @@ class PartyBlueprint(BaseApiBlueprint):
     @BaseApiCallback('xp.original')
     @BaseApiCallback('xp.object')
     def setMembers(self, obj, *args, **kwargs):
-        obj.members = self.charactermapper.getByPartyId(obj.id)
+        obj.members = self.charactermapper.getByIds(
+            obj.member_ids
+            )
 
     @BaseApiCallback('show')
     @BaseApiCallback('new')

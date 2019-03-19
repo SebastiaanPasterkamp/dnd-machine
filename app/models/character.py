@@ -664,21 +664,14 @@ class CharacterMapper(JsonObjectDataMapper):
             {"search": "%%%s%%" % search}
             )
 
-    def getByPartyId(self, party_id):
-        """Returns all characters in a party by party_id"""
-        cur = self.db.execute("""
-            SELECT c.*
-            FROM `party_characters` AS pc
-            JOIN `%s` AS c ON (pc.character_id=c.id)
-            WHERE `party_id` = ?
-            """ % self.table,
-            [party_id]
+    def getByIds(self, ids):
+        """Returns all characters in a party by list of ids"""
+        if not ids:
+            return []
+        return self.getMultiple(
+            "`id` IN (%s)" % ",".join("?" * len(ids)),
+            ids
             )
-        characters = cur.fetchall() or []
-        return [
-            self._read(dict(character))
-            for character in characters
-            ]
 
     def getByUserId(self, user_id):
         """Returns all characters from a user by user_id"""
