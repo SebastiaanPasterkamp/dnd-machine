@@ -40,6 +40,12 @@ class AppPartyTestCase(BaseAppTestCase):
             {
                 'name': 'test',
                 'description': 'Test party',
+                'challenge': {
+                    'easy': 50,
+                    'medium': 100,
+                    'hard': 150,
+                    'deadly': 200,
+                    },
                 },
             [
                 self.characters['alice'],
@@ -47,14 +53,6 @@ class AppPartyTestCase(BaseAppTestCase):
                 ],
             self.users['dm']
             )
-        self.party.update({
-            u'challenge': {
-                u'easy': 50,
-                u'medium': 100,
-                u'hard': 150,
-                u'deadly': 200,
-                }
-            })
         partyId = self.party['id']
         self.dmPages = {
             '/party/new': (200, 'text/html'),
@@ -66,7 +64,6 @@ class AppPartyTestCase(BaseAppTestCase):
             '/party/list': (200, 'text/html'),
             '/party/api/%d' % partyId: (200, 'application/json'),
             }
-
         migrate(self.app, ['user', 'character', 'party'])
 
     def testProtectedPages401(self):

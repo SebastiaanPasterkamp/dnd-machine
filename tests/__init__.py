@@ -91,7 +91,7 @@ class BaseAppTestCase(unittest.TestCase):
         obj = {
             'user_id': dm['id'],
             'size': len(members),
-            'member_ids': [char['id'] for char in members]
+            'member_ids': [char['id'] for char in members],
             }
         obj.update(party)
         obj = self.dbInsertObject(

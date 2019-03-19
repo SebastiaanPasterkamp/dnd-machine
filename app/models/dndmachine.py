@@ -118,10 +118,6 @@ class DndMachine(object):
                     + self.challenge_rating['offset'] * i
                 for i in range(len(self.challenge_rating['ratings']))
                 ]
-            return dict(zip(
-            ['easy', 'medium', 'hard', 'deadly'],
-            challenge
-            ))
         elif str(level) in self.challenge_rating['scale']:
             challenge = self.challenge_rating['scale'][str(level)]
 
