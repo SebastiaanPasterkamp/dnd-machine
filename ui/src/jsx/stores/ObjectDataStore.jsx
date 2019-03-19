@@ -19,34 +19,37 @@ export function ObjectDataStoreFactory(id, listenables = null)
         }
 
         updateObject(type, id, data, callback=null) {
-            if (_.isEqual(data, _.get(this.state, [type, id]))) {
+            const {
+                [type]: typeState,
+                timestamp,
+            } = this.state;
+
+            if (_.isEqual(data, _.get(typeState, id))) {
                 if (callback) {
                     callback(type, id, data);
                 }
                 return;
             }
 
-            let update = {
+            this.setState({
                 timestamp: _.assign(
                     {},
-                    this.state.timestamp,
+                    timestamp,
                     {[type]: _.assign(
                         {},
-                        this.state.timestamp[type],
+                        timestamp[type],
                         {[id]: Date.now()}
                     )}
                 ),
                 [type]: _.assign(
                     {},
-                    this.state[type],
+                    typeState,
                     {[id]: data}
                 )
-            };
-
-            this.setState(update);
+            });
 
             if (callback) {
-                _.defer(() => callback(type, id, data) );
+                _.defer(() => callback(type, id, data));
             }
         };
 
