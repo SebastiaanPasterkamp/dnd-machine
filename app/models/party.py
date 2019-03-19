@@ -38,21 +38,19 @@ class PartyObject(JsonObject):
         self.compute()
 
     def migrate(self, mapper):
-        self.members = mapper.character.getByPartyId(self.id)
+        self.members = mapper.character.getByIds(self.member_ids)
         for member in self.members:
             member.migrate(mapper)
         super(PartyObject, self).migrate()
 
     def compute(self):
-        if len(self.member_ids):
-            self.size = len(self.member_ids)
-        if len(self.members):
-            self.challenge = {}
-            for cr in ['easy', 'medium', 'hard', 'deadly']:
-                self.challenge[cr] = sum([
-                    member.challenge[cr]
-                    for member in self.members
-                    ])
+        self.size = len(self.member_ids)
+        self.challenge = {}
+        for cr in ['easy', 'medium', 'hard', 'deadly']:
+            self.challenge[cr] = sum([
+                member.challenge[cr]
+                for member in self.members
+                ])
 
 
 class PartyMapper(JsonObjectDataMapper):

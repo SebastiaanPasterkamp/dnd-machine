@@ -331,8 +331,8 @@ def register_request_hooks(app):
         request.party = datamapper.party.getById(
             session.get('party_id')
             )
-        request.party.members = datamapper.character.getByPartyId(
-            session.get('party_id')
+        request.party.members = datamapper.character.getByIds(
+            request.party.member_ids
             )
 
     @app.context_processor

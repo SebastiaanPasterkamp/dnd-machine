@@ -459,6 +459,7 @@ class JsonObjectDataMapper(object):
                     obj[attrib]
                     ]
                 )
+        self.db.commit()
 
     def fillJoinTables(self, obj):
         """Populates entries in join tables by key=obj.id"""
