@@ -75,7 +75,7 @@ describe('Component: PartyLinks', () => {
         expect(tree).toMatchSnapshot();
     });
 
-    it('should show a view, host, and edit button', () => {
+    it('should show a view, host, edit, and delete button', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <PartyLinks

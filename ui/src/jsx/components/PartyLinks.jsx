@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+import ObjectDataActions from '../actions/ObjectDataActions.jsx';
+
 import { userHasRole } from '../utils.jsx';
 
 import ListDataActions from '../actions/ListDataActions.jsx';
@@ -18,7 +20,10 @@ export class PartyLinks extends BaseLinkGroup
 
     buttonList() {
         const {
-            party,
+            party: {
+                user_id,
+                member_ids = [],
+            } = {},
             party_id,
             hosted_party: hosted,
             current_user: user,
@@ -34,9 +39,9 @@ export class PartyLinks extends BaseLinkGroup
                 link: "/party/show/" + party_id,
                 icon: 'eye',
                 available: (
-                    party
+                    party_id !== undefined
                     && (
-                        party.user_id == user.id
+                        user_id === user.id
                         || userHasRole(user, ['dm', 'admin'])
                     )
                 ),
@@ -46,14 +51,14 @@ export class PartyLinks extends BaseLinkGroup
                 link: "/party/edit/" + party_id,
                 icon: 'pencil',
                 available: (
-                    party
+                    party_id !== undefined
                     && (
-                        party.user_id == user.id
+                        user_id === user.id
                         || userHasRole(user, 'admin')
                     )
                 ),
             }),
-            'host': () => (hosted && party_id == hosted.id ? {
+            'host': () => (hosted && party_id === hosted.id ? {
                 label: 'Stop',
                 action: () => {
                     fetch("/party/host", {
@@ -73,7 +78,7 @@ export class PartyLinks extends BaseLinkGroup
                 icon: 'ban',
                 className: 'info',
                 available: (
-                    party_id != undefined
+                    party_id !== undefined
                     && userHasRole(user, 'dm')
                 ),
             } : {
@@ -95,7 +100,7 @@ export class PartyLinks extends BaseLinkGroup
                 },
                 icon: 'beer',
                 available: (
-                    party_id != undefined
+                    party_id !== undefined
                     && userHasRole(user, 'dm')
                 ),
             }),
@@ -104,10 +109,26 @@ export class PartyLinks extends BaseLinkGroup
                 link: "/party/new",
                 icon: 'plus',
                 available: (
-                    party_id == undefined
+                    party_id === undefined
                     && userHasRole(user, ['dm', 'admin'])
                 ),
-            })
+            }),
+            'delete': () => ({
+                label: 'Delete',
+                action: () => {
+                    ObjectDataActions.deleteObject(
+                        "party", party_id
+                    );
+                },
+                icon: 'trash-o',
+                className: 'bad',
+                available: (
+                    party_id !== undefined
+                    && userHasRole(user, ['dm', 'admin'])
+                    && user_id == user.id
+                    && !member_ids.length
+                ),
+            }),
         };
     }
 }
@@ -117,7 +138,7 @@ PartyLinks.propTypes = _.assign(
     {}, BaseLinkGroup.propTypes, {
         buttons: PropTypes.arrayOf(
             PropTypes.oneOf([
-                'view', 'edit', 'new', 'host',
+                'view', 'edit', 'new', 'host', 'delete',
             ])
         ),
         party_id: PropTypes.number,
