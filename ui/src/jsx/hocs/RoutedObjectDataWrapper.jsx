@@ -39,7 +39,7 @@ function RoutedObjectDataWrapper(
         }
 
         setButtons = (buttons) => {
-            this.setState({buttons});
+            this.setState({ buttons });
         }
 
         componentWillMount() {
@@ -77,9 +77,11 @@ function RoutedObjectDataWrapper(
             return false;
         }
 
-        nextView = () => {
-            const id = this.getId();
+        onNextView = () => {
+            this.nextView();
+        }
 
+        nextView(id=null) {
             this.props.history.push(
                 id === null
                 ? pathPrefix + '/list'
@@ -94,7 +96,7 @@ function RoutedObjectDataWrapper(
                 {},
                 this.getStateProps(),
                 update
-                );
+            );
 
             this.actions.getObject.completed(
                 loadableType,
@@ -104,9 +106,19 @@ function RoutedObjectDataWrapper(
             );
         }
 
-        onReload = (callback=null) => {
+        onReload = () => {
+            this.reload();
+        }
+
+        reload = (callback=null) => {
             const id = this.getId();
             if (id === null) {
+                this.actions.getObject.completed(
+                    loadableType,
+                    id,
+                    {},
+                    callback
+                );
                 return;
             }
 
@@ -128,15 +140,13 @@ function RoutedObjectDataWrapper(
             );
         }
 
-        onRecompute = (callback=null) => {
+        onRecompute = () => {
+            this.recompute();
+        }
+
+        recompute = (callback=null) => {
             const id = this.getId();
             if (id === null) {
-                this.actions.getObject.completed(
-                    loadableType,
-                    id,
-                    {},
-                    callback
-                );
                 return;
             }
 
@@ -159,7 +169,11 @@ function RoutedObjectDataWrapper(
             );
         }
 
-        onSave = (callback=null) => {
+        onSave = () => {
+            this.save();
+        }
+
+        save = (callback=null) => {
             const id = this.getId();
 
             if (id === null) {
@@ -253,7 +267,7 @@ function RoutedObjectDataWrapper(
                         name="button"
                         color="muted"
                         icon="ban"
-                        onClick={this.nextView}
+                        onClick={this.onNextView}
                         label="Cancel"
                         />
                     : null
@@ -338,10 +352,10 @@ function RoutedObjectDataWrapper(
                             ? this.onReload
                             : null
                         }
-                        recompute={this.onRecompute}
-                        save={this.onSave}
+                        recompute={this.recompute}
+                        save={this.save}
                         {...props}
-                        />
+                    />
 
                     {this.renderButtons()}
                 </div>
