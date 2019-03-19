@@ -102,6 +102,7 @@ class MonsterObject(JsonObject):
         'hit_points': int,
         'armor_class': int,
         'proficiency': int,
+        'passive_perception': int,
         "statistics": {
             "*": {
                 "*": int

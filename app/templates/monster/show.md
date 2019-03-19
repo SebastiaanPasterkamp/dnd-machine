@@ -54,9 +54,9 @@
 
 ---
 
-{% for trait in monster.traits -%}
-* **{{ trait.name }}** {{ trait.description }}
-{%- endfor %}
+{% for name, description in monster.traits.items() -%}
+* **{{ name }}:** {{ description }}
+{% endfor %}
 
 **Attacks**
 
