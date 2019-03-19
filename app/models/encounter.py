@@ -95,6 +95,13 @@ class EncounterObject(JsonObject):
         self._monsters = monsters
         self.compute()
 
+    @property
+    def countByMonsterId(self):
+        return dict([
+            (group['id'], group['count'])
+            for group in self.monster_ids
+            ])
+
     def modifierByPartySize(self, size):
         for data in self._encounter_modifiers['party']:
             if data['min'] <= size <= data['max']:
