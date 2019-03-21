@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import MDReactComponent from 'markdown-react-js';
 
 import '../../sass/_party-view.scss';
 
@@ -60,7 +61,11 @@ export class PartyView extends React.Component
                     </tr>
                     <tr>
                         <th>Description</th>
-                        <td>{description}</td>
+                        <td>
+                            <MDReactComponent
+                                text={description || ''}
+                            />
+                        </td>
                     </tr>
                 </tbody>
             </Panel>
