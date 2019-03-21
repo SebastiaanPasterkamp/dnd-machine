@@ -3,7 +3,7 @@ from flask import (
     request, abort, redirect, url_for, render_template, session, jsonify
     )
 
-from .baseapi import BaseApiBlueprint, BaseApiCallback
+from views.baseapi import BaseApiBlueprint, BaseApiCallback
 
 class PartyBlueprint(BaseApiBlueprint):
 

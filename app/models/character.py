@@ -2,8 +2,7 @@ import re
 from math import ceil, floor
 
 from base import JsonObject, JsonObjectDataMapper
-
-from ..config import get_character_data
+from config import get_character_data
 
 class CharacterObject(JsonObject):
     _version = '1.0'

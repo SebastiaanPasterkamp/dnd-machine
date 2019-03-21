@@ -4,6 +4,10 @@ import os
 import sys
 from optparse import OptionParser, OptionGroup
 
+sys.path.append(os.path.abspath(os.path.join(
+    os.path.dirname(__file__), 'app'
+    )))
+
 from app.app import (
     create_app,
     migrate,
@@ -12,7 +16,7 @@ from app.app import (
     import_sql,
     dump_table,
     )
-from app.config import get_config
+from config import get_config
 
 config = get_config()
 

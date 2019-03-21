@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..'
     )))
 
-from app.models.base import JsonObject
+from models.base import JsonObject
 
 class TestJsonObject(JsonObject):
     _pathPrefix = "test"

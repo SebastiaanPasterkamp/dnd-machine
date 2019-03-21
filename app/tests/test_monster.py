@@ -6,10 +6,10 @@ sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..'
     )))
 
-from app.models.dndmachine import DndMachine
-from app.models.items import ItemsObject
-from app.models.monster import MonsterObject
-from app.config import get_config, get_item_data
+from models.dndmachine import DndMachine
+from models.items import ItemsObject
+from models.monster import MonsterObject
+from config import get_config, get_item_data
 
 class TestMonsterObject(unittest.TestCase):
 
@@ -20,7 +20,6 @@ class TestMonsterObject(unittest.TestCase):
             os.path.abspath(os.path.join(
                 os.path.dirname(__file__),
                 '..',
-                'app',
                 'item-data.json'
                 ))
             )

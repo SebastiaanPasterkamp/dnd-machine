@@ -1,4 +1,5 @@
 from passlib.hash import pbkdf2_sha256
+
 from base import JsonObject, JsonObjectDataMapper
 
 class UserObject(JsonObject):

@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..'
     )))
 
-from app.config import get_character_data
+from config import get_character_data
 
 class CharacterDataTestCase(unittest.TestCase):
 

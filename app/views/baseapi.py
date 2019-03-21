@@ -10,7 +10,7 @@ from flask import (
     )
 from sqlite3 import IntegrityError
 
-from ..errors import ApiException
+from errors import ApiException
 
 def BaseApiCallback(key):
     def func_wrapper(func):

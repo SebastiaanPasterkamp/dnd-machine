@@ -3,10 +3,10 @@ from flask import request, render_template, url_for, redirect
 
 import re
 
-from .baseapi import BaseApiBlueprint, BaseApiCallback
-from ..errors import ApiException
-from ..filters import filter_unique
-from ..utils import markdownToToc, indent
+from views.baseapi import BaseApiBlueprint, BaseApiCallback
+from errors import ApiException
+from filters import filter_unique
+from utils import markdownToToc, indent
 
 class CampaignBlueprint(BaseApiBlueprint):
 
