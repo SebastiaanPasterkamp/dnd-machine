@@ -49,28 +49,28 @@
   },
   "jest": {
     "testMatch": [
-      "**/ui/tests/**/*.{js,jsx}"
+      "**/tests/**/*.{js,jsx}"
     ],
     "collectCoverageFrom": [
-      "**/ui/src/**/*.{js,jsx}"
+      "**/src/**/*.{js,jsx}"
     ],
     "testPathIgnorePatterns": [
       "__mocks__",
       "__init__"
     ],
     "setupFiles": [
-      "<rootDir>/ui/tests/__init__/shim.js",
-      "<rootDir>/ui/tests/__init__/setup.js"
+      "<rootDir>/tests/__init__/shim.js",
+      "<rootDir>/tests/__init__/setup.js"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
     "moduleNameMapper": {
-      "^.+.(css|scss)$": "<rootDir>/ui/tests/__mocks__/style.js"
+      "^.+.(css|scss)$": "<rootDir>/tests/__mocks__/style.js"
     },
     "modulePaths": [
-      "ui/src/jsx",
-      "ui/src/sass"
+      "src/jsx",
+      "src/sass"
     ]
   },
   "repository": {

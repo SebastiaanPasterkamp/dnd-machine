@@ -4,12 +4,12 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 var PROJECT = 'dnd-machine';
-var BUILD_DIR_JSX = path.resolve(__dirname, 'app/static/js');
-var APP_DIR_JSX = path.resolve(__dirname, 'ui/src/jsx');
+var BUILD_DIR_JSX = path.resolve(__dirname, '../app/static/js');
+var APP_DIR_JSX = path.resolve(__dirname, 'src/jsx');
 var BUILD_DIR_SASS = 'app/static/css';
-var APP_DIR_SASS = path.resolve(__dirname, 'ui/src/sass');
+var APP_DIR_SASS = path.resolve(__dirname, 'src/sass');
 var BUILD_DIR_IMG = '../img/';
-var APP_DIR_IMG = path.resolve(__dirname, 'ui/src/img');
+var APP_DIR_IMG = path.resolve(__dirname, 'src/img');
 
 var config = {
     entry: APP_DIR_JSX + '/index.jsx',
