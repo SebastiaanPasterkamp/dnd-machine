@@ -129,7 +129,7 @@ export class SpellsView extends React.Component
                 >
                 <MDReactComponent
                     text={description}
-                    />
+                />
             </Panel>
 
         </React.Fragment>;

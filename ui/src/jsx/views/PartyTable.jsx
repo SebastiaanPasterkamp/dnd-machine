@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import MDReactComponent from 'markdown-react-js';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
@@ -100,7 +101,9 @@ class PartyRow extends LazyComponent
                         {challenge.deadly}
                     </div>
                 </div> : null}
-                {description}
+                <MDReactComponent
+                    text={description || ''}
+                />
             </td>
             <td>
             {_.map(member_ids, id => (
