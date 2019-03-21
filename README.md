@@ -18,15 +18,15 @@ export FLASK_APP=app/app.py
 ### Building
 
 ```bash
-npm install
-npm run build
+( cd ui && npm install )
+( cd ui && npm run build )
 ```
 
 ### Testing
 
 ```bash
 python tests/run_tests.py
-npm run test
+( cd ui && npm run test )
 ```
 
 ## Running in a Development setup
@@ -34,7 +34,7 @@ npm run test
 ### NPM
 
 ```bash
-npm run dev
+( cd ui && npm run dev )
 ```
 
 ### Server
