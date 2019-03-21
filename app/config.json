@@ -13,9 +13,9 @@
 
     "info": {
         "title": "D&D Machine",
-        "version": "v0.1",
+        "version": "v0.2.0",
         "author": "Cromrots",
-        "date": "2017 - 2018"
+        "date": "2017 - 2019"
     },
     "data": {
         "roles": [
