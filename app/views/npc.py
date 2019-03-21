@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import request, abort, render_template, jsonify
+from flask import request, abort, jsonify
 
 from views.baseapi import BaseApiBlueprint, BaseApiCallback
 from config import get_npc_data

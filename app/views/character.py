@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import (
-    request, abort, render_template, send_file, jsonify,
-    redirect, url_for
+    request, abort, send_file, jsonify, redirect, url_for
     )
 import os
 import re

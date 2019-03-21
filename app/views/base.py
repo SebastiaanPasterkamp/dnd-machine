@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, request, session, redirect, url_for, \
+from flask import request, session, redirect, url_for, \
     render_template, jsonify, flash
 from flask_mail import Mail, Message
 import uuid
