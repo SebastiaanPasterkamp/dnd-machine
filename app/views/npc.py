@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from flask import request, abort, render_template, jsonify
 
-from .baseapi import BaseApiBlueprint, BaseApiCallback
-from ..config import get_npc_data
-from ..filters import filter_bonus, filter_unique
+from views.baseapi import BaseApiBlueprint, BaseApiCallback
+from config import get_npc_data
+from filters import filter_bonus, filter_unique
 
 class NpcBlueprint(BaseApiBlueprint):
 

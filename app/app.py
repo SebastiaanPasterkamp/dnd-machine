@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 import os
 import glob
-from flask import Flask, request, session, g, redirect, \
+from flask import Flask, request, session, redirect, \
     url_for, abort, render_template, jsonify, Markup
 from werkzeug.utils import find_modules, import_string
 from werkzeug.routing import IntegerConverter
 
-from .errors import ApiException
-from .models.base import JsonObjectDataMapper
-from . import get_db, get_datamapper
-from .config import get_item_data
+from errors import ApiException
+from models import get_datamapper
+from models.base import JsonObjectDataMapper
+from db import get_db
+from config import get_item_data
 import filters
 
 def create_app(config={}):
@@ -39,11 +40,11 @@ def register_blueprints(app, config):
     Auto detect blueprint modules
     """
     db = get_db(app)
-    dm = get_datamapper(db, app.config)
-    for name in find_modules('app.views', recursive=True):
+    dm = get_datamapper(app)
+    for name in find_modules('views', recursive=True):
         mod = import_string(name)
         url_prefix = '/'.join(
-            name.replace('app.views', '').split('.')
+            name.replace('views', '').split('.')
             )
         if hasattr(mod, 'get_blueprint'):
             url_prefix, bp = mod.get_blueprint(dm, config)
@@ -86,7 +87,8 @@ def register_cli(app):
     def migrate_command():
         print('Migrating objects.')
         db = get_db(app)
-        _migrate(db, app.config)
+        datamapper = get_datamapper(app)
+        _migrate(db, datamapper)
         print('Migrated objects.')
     @app.cli.command('dump-table')
     def dump_table_command(table):
@@ -114,7 +116,8 @@ def updatedb(app):
 def migrate(app, objects=None):
     with app.app_context():
         db = get_db(app)
-        _migrate(db, app.config, objects)
+        datamapper = get_datamapper(app)
+        _migrate(db, datamapper, objects)
 
 def dump_table(app, table):
     with app.app_context():
@@ -253,9 +256,8 @@ def _dump_table(db, table):
             yield(row[0])
     yield('COMMIT;')
 
-def _migrate(db, config, objects=None):
+def _migrate(db, datamapper, objects=None):
     """Migrate all Objects to any new configuration."""
-    datamapper = get_datamapper(db, config)
     objects = objects or datamapper._creators
 
     db.cursor().execute("PRAGMA synchronous = OFF");
@@ -314,7 +316,7 @@ def register_request_hooks(app):
             request.user = None
             return
         db = get_db(app)
-        datamapper = get_datamapper(db, app.config)
+        datamapper = get_datamapper(app)
         request.user = datamapper.user.getById(
             session.get('user_id')
             )
@@ -327,7 +329,7 @@ def register_request_hooks(app):
             return
 
         db = get_db(app)
-        datamapper = get_datamapper(db, app.config)
+        datamapper = get_datamapper(app)
         request.party = datamapper.party.getById(
             session.get('party_id')
             )

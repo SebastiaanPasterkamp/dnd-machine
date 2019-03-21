@@ -9,8 +9,8 @@ sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..'
     )))
 
-from app.app import create_app, _initdb
-from app.config import get_config
+from app import create_app, _initdb
+from config import get_config
 
 class Response(BaseResponse):
     def get_json(self):

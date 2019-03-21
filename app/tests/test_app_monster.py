@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..'
     )))
 
-from app.app import migrate
+from app import migrate
 
 from __init__ import BaseAppTestCase
 

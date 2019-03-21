@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import request, abort
 
-from .baseapi import BaseApiBlueprint, BaseApiCallback
+from views.baseapi import BaseApiBlueprint, BaseApiCallback
 
 class EncounterBlueprint(BaseApiBlueprint):
 

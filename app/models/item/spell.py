@@ -1,6 +1,6 @@
-from ..base import JsonObject, JsonObjectDataMapper
-
 import re
+
+from ..base import JsonObject, JsonObjectDataMapper
 
 class SpellObject(JsonObject):
     _pathPrefix = "spell"

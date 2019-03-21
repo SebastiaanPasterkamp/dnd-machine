@@ -1,9 +1,6 @@
-from flask import g
-import json
 import os
 import sys
-
-from flask import g
+import json
 
 from campaign import CampaignMapper
 from character import CharacterMapper
@@ -60,3 +57,11 @@ class Datamapper(object):
         if mapper not in self.__dict__:
             self.__dict__[mapper] = self._creators[mapper]()
         return self.__dict__[mapper]
+
+
+def get_datamapper(app):
+    """Returns all datamapper instances grouped."""
+    if not hasattr(app, 'datamapper'):
+        app.datamapper = Datamapper(app.db, app.config)
+    return app.datamapper
+

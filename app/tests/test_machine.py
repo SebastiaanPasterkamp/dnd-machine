@@ -7,8 +7,8 @@ sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..'
     )))
 
-from app.models.dndmachine import DndMachine
-from app.config import get_config
+from models.dndmachine import DndMachine
+from config import get_config
 
 class DndMachineTestCase(unittest.TestCase):
 

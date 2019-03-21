@@ -1,5 +1,6 @@
-from ..base import JsonObject, JsonObjectDataMapper
 from datetime import date
+
+from ..base import JsonObject, JsonObjectDataMapper
 
 class AdventureLeagueLogObject(JsonObject):
     _pathPrefix = "adventureleaguelog"

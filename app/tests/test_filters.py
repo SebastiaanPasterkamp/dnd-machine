@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..'
     )))
 
-import app.filters as filters
+import filters as filters
 
 class FiltersTestCase(unittest.TestCase):
 

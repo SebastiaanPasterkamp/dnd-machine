@@ -7,11 +7,11 @@ import os
 import re
 import markdown
 
-from .baseapi import BaseApiBlueprint, BaseApiCallback
-from ..config import get_character_data
-from ..errors import ApiException
-from ..filters import filter_bonus, filter_distance, filter_unique
-from . import fill_pdf
+from views.baseapi import BaseApiBlueprint, BaseApiCallback
+from config import get_character_data
+from errors import ApiException
+from filters import filter_bonus, filter_distance, filter_unique
+from __init__ import fill_pdf
 
 class CharacterBlueprint(BaseApiBlueprint):
 

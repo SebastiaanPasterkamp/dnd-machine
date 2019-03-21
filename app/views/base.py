@@ -4,7 +4,7 @@ from flask import Blueprint, request, session, redirect, url_for, \
 from flask_mail import Mail, Message
 import uuid
 
-from ..errors import ApiException
+from errors import ApiException
 
 def register_paths(app, basemapper, config):
     @app.route('/')
