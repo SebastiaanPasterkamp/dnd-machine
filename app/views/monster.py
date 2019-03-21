@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import request, abort, render_template, url_for
+from flask import request, abort
 
 from views.baseapi import BaseApiBlueprint, BaseApiCallback
 

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import (
-    request, abort, redirect, url_for, render_template, session, jsonify
-    )
+from flask import request, abort, redirect, url_for, session, jsonify
 
 from views.baseapi import BaseApiBlueprint, BaseApiCallback
 
