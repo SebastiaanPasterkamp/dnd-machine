@@ -49,7 +49,7 @@
   },
   "jest": {
     "testMatch": [
-      "**/tests/**/*.{js,jsx}"
+      "**/*.react-test.{js,jsx}"
     ],
     "collectCoverageFrom": [
       "**/src/**/*.{js,jsx}"
