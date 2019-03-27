@@ -38,7 +38,11 @@ export function ObjectDataActionsFactory(id)
                     .then(result => oda.listObjects.completed(
                         type, result, callback
                     ))
+                    .then(() => {
+                        oda.throttledGet[path].running = false;
+                    })
                     .catch(error => {
+                        oda.throttledGet[path].running = false;
                         console.log(error);
                         oda.listObjects.failed(
                             type, error
@@ -48,8 +52,6 @@ export function ObjectDataActionsFactory(id)
                             error.message,
                             'Fetch list'
                         );
-                    }).finally(() => {
-                        oda.throttledGet[path].running = false;
                     });
 
                 }, 1000, {leading: true, trailing: false})
@@ -246,7 +248,11 @@ export function ObjectDataActionsFactory(id)
                     .then(result => oda.recomputeObject.completed(
                         type, id, result, callback
                     ))
+                    .then(() => {
+                        oda.throttledGet[path].running = false;
+                    })
                     .catch(error => {
+                        oda.throttledGet[path].running = false;
                         console.log(error);
                         oda.recomputeObject.failed(
                             type, error
@@ -256,8 +262,6 @@ export function ObjectDataActionsFactory(id)
                             error.message,
                             'Refresh failed'
                         );
-                    }).finally(() => {
-                        oda.throttledGet[path].running = false;
                     });
                 }, 1000, {leading: true, trailing: true})
             };
