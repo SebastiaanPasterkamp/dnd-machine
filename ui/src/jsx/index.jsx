@@ -11,7 +11,7 @@ import UiActions from './actions/UiActions.jsx';
 import ListDataActions from './actions/ListDataActions.jsx';
 import ListDataWrapper from './hocs/ListDataWrapper.jsx';
 
-import AdventureLeagueLogEdit from './views/AdventureLeagueLogEdit.jsx';
+import AdventureLeagueLogEdit from './views/AdventureLeagueLogEdit';
 import AdventureLeagueLogTable from './views/AdventureLeagueLogTable.jsx';
 import AdventureLeagueLogView from './views/AdventureLeagueLogView.jsx';
 import ArmorEdit from './views/ArmorEdit.jsx';
@@ -167,15 +167,19 @@ class DndMachine extends React.Component
                 <Route
                     path="/log/adventureleague/edit/:id/:character_id"
                     component={AdventureLeagueLogEdit}
-                    />
+                />
                 <Route
                     path="/log/adventureleague/edit/:id"
                     component={AdventureLeagueLogEdit}
-                    />
+                />
                 <Route
                     path="/log/adventureleague/new/:character_id"
                     component={AdventureLeagueLogEdit}
-                    />
+                />
+                <Route
+                    path="/log/adventureleague/new"
+                    component={AdventureLeagueLogEdit}
+                />
 
                 <Route
                     path="/encounter/list"
