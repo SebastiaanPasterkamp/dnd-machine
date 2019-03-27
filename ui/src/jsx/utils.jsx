@@ -84,4 +84,14 @@ export function userHasRole(user, role) {
     );
 };
 
+export function memoize(name, callback) {
+    if (!('_memoize' in this)) {
+        this._memoize = {};
+    }
+    if (!(name in this._memoize)) {
+        this._memoize[name] = callback;
+    }
+    return this._memoize[name];
+}
+
 export default utils;
