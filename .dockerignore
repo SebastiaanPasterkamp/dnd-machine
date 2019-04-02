@@ -1,4 +1,5 @@
-.git
 *~
-node_modules
-coverage
+*pyc
+app/coverage
+ui/node_modules
+ui/coverage

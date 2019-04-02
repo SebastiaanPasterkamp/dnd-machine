@@ -15,7 +15,8 @@ CREATE TABLE `character_fk` (
 
 UPDATE `character`
     SET `user_id`=1
-    WHERE `user_id` NOT IN (SELECT `id` FROM `user`);
+    WHERE `user_id` IS NULL
+    OR `user_id` NOT IN (SELECT `id` FROM `user`);
 
 INSERT INTO `character_fk`
     (`id`, `name`, `user_id`, `level`, `config`)
@@ -70,8 +71,9 @@ DELETE FROM `encounter_monsters`
 
 INSERT INTO `encounter_monsters_fk`
     (`encounter_id`, `monster_id`, `count`)
-    SELECT `encounter_id`, `monster_id`, `count`
-    FROM `encounter_monsters`;
+    SELECT `encounter_id`, `monster_id`, SUM(IFNULL(`count`, 1)) AS `count`
+    FROM `encounter_monsters`
+    GROUP BY `encounter_id`, `monster_id`;
 
 DROP TABLE `encounter_monsters`;
 

@@ -4,7 +4,7 @@ set -xe
 
 DATABASE="/var/run/dnd-machine/machine.db"
 CONFIGURED="$(grep DATABASE app/config.json | grep -Po '(?<=")([^"]+)(?=",)')"
-RUNARGS="--debug --config DATABASE=$DATABASE"
+RUNARGS="--config DATABASE=$DATABASE"
 
 if [ ! -e "$DATABASE" ]; then
     if [ -e "$CONFIGURED" ]; then
@@ -22,18 +22,12 @@ fi
 echo "Upgrading DnD Machine..."
 ./run.py \
     $RUNARGS \
+    --debug \
     --updatedb
 ./run.py \
     $RUNARGS \
+    --debug \
     --migrate
 echo "Upgrade completed."
-
-echo "Building UI"
-if [ ! -L /dnd-machine/node_modules ]; then
-    rm -rf /dnd-machine/node_modules
-    ln -s /node_modules /dnd-machine/node_modules
-fi
-npm install
-npm build
 
 ./run.py $RUNARGS $@
