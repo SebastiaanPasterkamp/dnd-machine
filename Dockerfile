@@ -1,39 +1,29 @@
-FROM ubuntu:latest
+FROM node:8.15-alpine as node
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
 WORKDIR /dnd-machine
 
-COPY requirements.txt /dnd-machine/
+COPY ui ./ui
 
-RUN apt-get update \
-    && apt-get install \
-        -y \
-        --no-install-recommends \
-        python-pip python-dev python-setuptools build-essential npm \
-    && pip install -r requirements.txt \
-    && apt-get purge \
-        -y \
-        python-pip python-dev python-setuptools build-essential \
-    && apt-get clean all \
-    && apt-get autoclean \
-    && apt-get autoremove \
-        -y  \
-        --purge \
-    && rm -rf \
-        /var/lib/apt/lists/* \
-        /var/lib/{apt,dpkg,cache,log}/ \
-        /tmp/* \
-        /var/tmp/*
+RUN cd /dnd-machine/ui \
+    && npm install \
+    && npm run build:production
 
-COPY . /dnd-machine
+FROM python:2-slim
 
-RUN npm install \
-    && npm run build \
-    && mv /dnd-machine/node_modules /node_modules \
-    && ln -s /node_modules /dnd-machine/node_modules
+WORKDIR /dnd-machine
+
+COPY requirements.txt *.md *.py *.db  docker/run.sh ./
+
+RUN pip install \
+    --no-cache-dir \
+    -r requirements.txt
+
+COPY app/ ./app
+COPY --from=node /dnd-machine/app/static/ ./app/static/
 
 VOLUME [ "/var/run/dnd-machine" ]
 
-EXPOSE 5000
+EXPOSE 5000/tcp
 ENTRYPOINT [ "bash" ]
-CMD [ "docker/run.sh", "--threaded", "--host", "0.0.0.0", "--port", "5000" ]
+CMD [ "./run.sh", "--threaded", "--host", "0.0.0.0", "--port", "5000" ]

@@ -72,7 +72,6 @@ def register_cli(app):
         print('Initializing the database.')
         if os.path.exists(app.config.get('DATABASE')):
             os.remove(app.config.get('DATABASE'))
-        app.db = None
         db = get_db(app)
         _initdb(db)
         print('Initialized the database.')
@@ -103,7 +102,6 @@ def initdb(app):
     with app.app_context():
         if os.path.exists(app.config.get('DATABASE')):
             os.remove(app.config.get('DATABASE'))
-        app.db = None
         db = get_db(app)
         _initdb(db)
 

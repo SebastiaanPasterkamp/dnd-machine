@@ -45,6 +45,7 @@
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p",
+    "build:production": "npm run build --  --env prod",
     "test": "node_modules/.bin/jest"
   },
   "jest": {
