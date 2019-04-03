@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     assign,
-    filter,
     get,
-    last,
     isObject,
+    keys,
     map,
     mapValues,
+    maxBy,
 } from 'lodash/fp';
 
 import { memoize } from '../../utils';
@@ -43,10 +43,10 @@ import { deltaType, deltaDefault } from './extraProps';
 export class AdventureLeagueLogEdit extends React.Component
 {
     tierLevels = {
-        one: 4,
-        two: 10,
-        three: 16,
-        four: 20,
+        one: 1,
+        two: 5,
+        three: 11,
+        four: 17,
     };
 
     constructor(props) {
@@ -103,10 +103,12 @@ export class AdventureLeagueLogEdit extends React.Component
 
         const disabled = consumed ? true : false;
 
-        const currentTier = last(filter(
-            this.tierLevels,
-            (tier, level) => (level <= character.level)
-        ).keys());
+        const currentTier = maxBy(
+            tier => this.tierLevels[tier] <= character.level
+                ? this.tierLevels[tier]
+                : 0,
+            keys(this.tierLevels),
+        );
 
         const acp_mode = (
             adventure_checkpoints.earned
