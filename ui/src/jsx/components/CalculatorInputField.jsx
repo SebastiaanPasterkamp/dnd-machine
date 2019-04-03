@@ -19,8 +19,20 @@ export class CalculatorInputField extends LazyComponent
         };
     }
 
+    clipValue(value) {
+        const { minValue, maxValue } = this.props;
+        let clipped = value;
+        if (maxValue !== undefined) {
+            clipped = Math.min(maxValue, clipped);
+        }
+        if (minValue !== undefined) {
+            clipped = Math.max(minValue, clipped);
+        }
+        return clipped;
+    }
+
     onChange(formula) {
-        const { value, minValue, maxValue, setState } = this.props;
+        const { value, setState } = this.props;
 
         if (formula === "") {
             this.setState(
@@ -73,22 +85,16 @@ export class CalculatorInputField extends LazyComponent
             },
             0
         );
-        const newValue = Math.min(
-            maxValue === undefined ? computedValue : maxValue,
-            Math.max(
-                minValue === undefined ? computedValue : minValue,
-                computedValue
-            )
-        );
+        const clippedValue = this.clipValue(computedValue);
 
         this.setState(
             {
                 formula,
-                validation: newValue !== computedValue
+                validation: clippedValue !== computedValue
                     ? 'bad'
                     : 'good',
             },
-            () => setState(newValue, formula)
+            () => setState(clippedValue, formula)
         );
     }
 
