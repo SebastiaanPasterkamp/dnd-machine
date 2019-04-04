@@ -1,0 +1,9 @@
+// _edit-npc.scss
+
+@import 'widget-grid';
+
+.npc-edit {
+    @extend .widget-grid;
+
+    grid-auto-rows: auto;
+}

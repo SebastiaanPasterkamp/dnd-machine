@@ -1,0 +1,11 @@
+// _edit-campaign.scss
+
+@import 'widget-grid';
+
+.campaign-edit {
+    @extend .widget-grid;
+
+    > .campaign-edit__story {
+        grid-column-end: span 2;
+    }
+}

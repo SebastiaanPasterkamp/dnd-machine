@@ -1,0 +1,7 @@
+// _user-label.scss
+
+.user-label {
+    .user-label__dci:before {
+        content: ', ';
+    }
+}

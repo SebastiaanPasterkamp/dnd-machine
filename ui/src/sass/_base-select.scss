@@ -1,0 +1,9 @@
+// _base-select.scss
+
+.nice-dropdown {
+    > ul.dropdown-menu {
+        max-height: 15em;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+}

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Bonus should show + before positive bonus 1`] = `
+<div
+  className="bonus inline"
+>
+  +
+  1
+</div>
+`;
+
+exports[`Component: Bonus should show - before negative bonus 1`] = `
+<div
+  className="bonus inline"
+>
+  -1
+</div>
+`;
+
+exports[`Component: Bonus should show mdash for empty bonus 1`] = `
+<div
+  className="bonus inline"
+/>
+`;

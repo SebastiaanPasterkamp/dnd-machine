@@ -1,0 +1,5 @@
+// _grid-area.scss
+
+@mixin grid-area($id) {
+    > #$id: { grid-area: $id; }
+}

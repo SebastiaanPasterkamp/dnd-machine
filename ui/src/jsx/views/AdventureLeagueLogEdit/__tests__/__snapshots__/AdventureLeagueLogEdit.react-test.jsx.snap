@@ -1,0 +1,1421 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdventureLeagueLogEdit should render with minimum props 1`] = `
+<AdventureLeagueLogEdit
+  adventure={Object {}}
+  adventure_checkpoints={
+    Object {
+      "earned": 0,
+      "starting": 0,
+      "total": 0,
+    }
+  }
+  character={
+    Object {
+      "adventure_checkpoints": 0,
+      "level": 1,
+      "treasure_checkpoints": Object {},
+      "wealth": Object {},
+      "xp": 0,
+    }
+  }
+  character_id={null}
+  character_snapshot={Object {}}
+  consumed={false}
+  current_user={Object {}}
+  downtime={
+    Object {
+      "earned": 0,
+      "starting": 0,
+      "total": 0,
+    }
+  }
+  equipment={
+    Object {
+      "earned": Array [],
+      "starting": 0,
+      "total": 0,
+    }
+  }
+  gold={Object {}}
+  items={
+    Object {
+      "earned": Array [],
+      "starting": 0,
+      "total": 0,
+    }
+  }
+  notes=""
+  renown={
+    Object {
+      "earned": 0,
+      "starting": 0,
+      "total": 0,
+    }
+  }
+  setState={[Function]}
+  treasure_checkpoints={Object {}}
+  user_id={null}
+  xp={
+    Object {
+      "earned": 0,
+      "starting": 0,
+      "total": 0,
+    }
+  }
+>
+  <AdventureSession
+    date=""
+    dm_dci=""
+    dm_name=""
+    id=""
+    name=""
+    setState={[Function]}
+  >
+    <Panel
+      className="al-log-edit__session"
+      contentComponent="div"
+      header="Adventure"
+    >
+      <div
+        className="nice-panel al-log-edit__session"
+      >
+        <div
+          className="nice-panel-heading"
+        >
+          Adventure
+        </div>
+        <div
+          className="nice-panel-content"
+        >
+          <ControlGroup
+            label="Name"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Name
+              </span>
+              <InputField
+                data-field="name"
+                key=".0/.1"
+                placeholder="Name..."
+                setState={[Function]}
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="name"
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Name..."
+                  value=""
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Session #"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Session #
+              </span>
+              <InputField
+                data-field="id"
+                key=".0/.1"
+                placeholder="Session #..."
+                setState={[Function]}
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="id"
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Session #..."
+                  value=""
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Date"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Date
+              </span>
+              <InputField
+                data-field="date"
+                key=".0/.1"
+                placeholder="Date..."
+                setState={[Function]}
+                type="date"
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="date"
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Date..."
+                  type="date"
+                  value=""
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="DM Name"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                DM Name
+              </span>
+              <InputField
+                data-field="dm_name"
+                key=".0/.1"
+                placeholder="DM Name..."
+                setState={[Function]}
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="dm_name"
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="DM Name..."
+                  value=""
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="DM DCI"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                DM DCI
+              </span>
+              <InputField
+                data-field="dm_dci"
+                key=".0/.1"
+                placeholder="DM DCI..."
+                setState={[Function]}
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="dm_dci"
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="DM DCI..."
+                  value=""
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <div
+            className="clearfix"
+          />
+        </div>
+      </div>
+    </Panel>
+  </AdventureSession>
+  <Panel
+    className="al-log-edit__adventurer"
+    contentComponent="div"
+    header="Adventurer"
+    key="adventurer"
+  >
+    <div
+      className="nice-panel al-log-edit__adventurer"
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Adventurer
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <ObjectDataUserLabel
+          showDCI={true}
+        >
+          <UserLabel
+            showDCI={true}
+          />
+        </ObjectDataUserLabel>
+        <ToggleSwitch
+          checked={false}
+          className="accent"
+          label="Switch to Adventure Checkpoints"
+          onChange={[Function]}
+        >
+          <input
+            checked={false}
+            className="nice-toggle"
+            id="toggle-1"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <label
+            className="nice-toggle-btn accent"
+            htmlFor="toggle-1"
+          >
+            Switch to Adventure Checkpoints
+          </label>
+        </ToggleSwitch>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+  </Panel>
+  <AdventureDelta
+    className="al-log-edit__xp"
+    disabled={false}
+    earned={0}
+    key="xp"
+    label="Experience Points"
+    setState={[Function]}
+    starting={0}
+    total={0}
+  >
+    <Panel
+      className="al-log-edit__xp"
+      contentComponent="div"
+      header="Experience Points"
+    >
+      <div
+        className="nice-panel al-log-edit__xp"
+      >
+        <div
+          className="nice-panel-heading"
+        >
+          Experience Points
+        </div>
+        <div
+          className="nice-panel-content"
+        >
+          <ControlGroup
+            label="Starting"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Starting
+              </span>
+              <InputField
+                disabled={true}
+                key=".0/.1"
+                placeholder="Starting..."
+                setState={[Function]}
+                type="number"
+                value={0}
+              >
+                <input
+                  className="nice-form-control"
+                  disabled={true}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Starting..."
+                  type="number"
+                  value="0"
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Earned"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Earned
+              </span>
+              <CalculatorInputField
+                data-field="earned"
+                disabled={false}
+                key=".0/.1"
+                placeholder="Earned..."
+                setState={[Function]}
+                value={0}
+              >
+                <InputField
+                  className={null}
+                  data-field="earned"
+                  disabled={false}
+                  placeholder="Earned..."
+                  setState={[Function]}
+                  type="text"
+                  value={0}
+                >
+                  <input
+                    className="nice-form-control"
+                    data-field="earned"
+                    disabled={false}
+                    onChange={[Function]}
+                    onKeyPress={null}
+                    placeholder="Earned..."
+                    type="text"
+                    value="0"
+                  />
+                </InputField>
+              </CalculatorInputField>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Total"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Total
+              </span>
+              <InputField
+                disabled={true}
+                key=".0/.1"
+                placeholder="Total..."
+                setState={[Function]}
+                type="number"
+                value={0}
+              >
+                <input
+                  className="nice-form-control"
+                  disabled={true}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Total..."
+                  type="number"
+                  value="0"
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <div
+            className="clearfix"
+          />
+        </div>
+      </div>
+    </Panel>
+  </AdventureDelta>
+  <AdventureDelta
+    className="al-log-edit__renown"
+    disabled={false}
+    earned={0}
+    label="Renown"
+    setState={[Function]}
+    starting={0}
+    total={0}
+  >
+    <Panel
+      className="al-log-edit__renown"
+      contentComponent="div"
+      header="Renown"
+    >
+      <div
+        className="nice-panel al-log-edit__renown"
+      >
+        <div
+          className="nice-panel-heading"
+        >
+          Renown
+        </div>
+        <div
+          className="nice-panel-content"
+        >
+          <ControlGroup
+            label="Starting"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Starting
+              </span>
+              <InputField
+                disabled={true}
+                key=".0/.1"
+                placeholder="Starting..."
+                setState={[Function]}
+                type="number"
+                value={0}
+              >
+                <input
+                  className="nice-form-control"
+                  disabled={true}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Starting..."
+                  type="number"
+                  value="0"
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Earned"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Earned
+              </span>
+              <CalculatorInputField
+                data-field="earned"
+                disabled={false}
+                key=".0/.1"
+                placeholder="Earned..."
+                setState={[Function]}
+                value={0}
+              >
+                <InputField
+                  className={null}
+                  data-field="earned"
+                  disabled={false}
+                  placeholder="Earned..."
+                  setState={[Function]}
+                  type="text"
+                  value={0}
+                >
+                  <input
+                    className="nice-form-control"
+                    data-field="earned"
+                    disabled={false}
+                    onChange={[Function]}
+                    onKeyPress={null}
+                    placeholder="Earned..."
+                    type="text"
+                    value="0"
+                  />
+                </InputField>
+              </CalculatorInputField>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Total"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Total
+              </span>
+              <InputField
+                disabled={true}
+                key=".0/.1"
+                placeholder="Total..."
+                setState={[Function]}
+                type="number"
+                value={0}
+              >
+                <input
+                  className="nice-form-control"
+                  disabled={true}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Total..."
+                  type="number"
+                  value="0"
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <div
+            className="clearfix"
+          />
+        </div>
+      </div>
+    </Panel>
+  </AdventureDelta>
+  <AdventureDelta
+    className="al-log-edit__downtime"
+    disabled={false}
+    earned={0}
+    label="Downtime"
+    setState={[Function]}
+    starting={0}
+    total={0}
+  >
+    <Panel
+      className="al-log-edit__downtime"
+      contentComponent="div"
+      header="Downtime"
+    >
+      <div
+        className="nice-panel al-log-edit__downtime"
+      >
+        <div
+          className="nice-panel-heading"
+        >
+          Downtime
+        </div>
+        <div
+          className="nice-panel-content"
+        >
+          <ControlGroup
+            label="Starting"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Starting
+              </span>
+              <InputField
+                disabled={true}
+                key=".0/.1"
+                placeholder="Starting..."
+                setState={[Function]}
+                type="number"
+                value={0}
+              >
+                <input
+                  className="nice-form-control"
+                  disabled={true}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Starting..."
+                  type="number"
+                  value="0"
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Earned"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Earned
+              </span>
+              <CalculatorInputField
+                data-field="earned"
+                disabled={false}
+                key=".0/.1"
+                placeholder="Earned..."
+                setState={[Function]}
+                value={0}
+              >
+                <InputField
+                  className={null}
+                  data-field="earned"
+                  disabled={false}
+                  placeholder="Earned..."
+                  setState={[Function]}
+                  type="text"
+                  value={0}
+                >
+                  <input
+                    className="nice-form-control"
+                    data-field="earned"
+                    disabled={false}
+                    onChange={[Function]}
+                    onKeyPress={null}
+                    placeholder="Earned..."
+                    type="text"
+                    value="0"
+                  />
+                </InputField>
+              </CalculatorInputField>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Total"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Total
+              </span>
+              <InputField
+                disabled={true}
+                key=".0/.1"
+                placeholder="Total..."
+                setState={[Function]}
+                type="number"
+                value={0}
+              >
+                <input
+                  className="nice-form-control"
+                  disabled={true}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Total..."
+                  type="number"
+                  value="0"
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <div
+            className="clearfix"
+          />
+        </div>
+      </div>
+    </Panel>
+  </AdventureDelta>
+  <AdventureGold
+    className="al-log-edit__gold"
+    disabled={false}
+    earned={Object {}}
+    label="Gold"
+    setState={[Function]}
+    starting={Object {}}
+  >
+    <Panel
+      className="al-log-edit__gold"
+      contentComponent="div"
+      header="Gold"
+    >
+      <div
+        className="nice-panel al-log-edit__gold"
+      >
+        <div
+          className="nice-panel-heading"
+        >
+          Gold
+        </div>
+        <div
+          className="nice-panel-content"
+        >
+          <ControlGroup
+            label="Starting"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Starting
+              </span>
+              <Coinage
+                className="nice-form-control"
+                extended="1"
+                key=".0/.1"
+              >
+                <input
+                  className="coinage capitalize nice-form-control"
+                  disabled={true}
+                  value=""
+                />
+              </Coinage>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Earned"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Earned
+              </span>
+              <CostEditor
+                disabled={false}
+                key=".0/.1"
+                setState={[Function]}
+                value={Object {}}
+              >
+                <TagValueContainer
+                  defaultValue={1}
+                  disabled={false}
+                  items={
+                    Array [
+                      Object {
+                        "code": "cp",
+                        "label": "Copper",
+                      },
+                      Object {
+                        "code": "sp",
+                        "label": "Silver",
+                      },
+                      Object {
+                        "code": "ep",
+                        "label": "Electrum",
+                      },
+                      Object {
+                        "code": "gp",
+                        "label": "Gold",
+                      },
+                      Object {
+                        "code": "pp",
+                        "label": "Platinum",
+                      },
+                    ]
+                  }
+                  setState={[Function]}
+                  value={Object {}}
+                >
+                  <TagsContainer
+                    className="tag-value-container"
+                  >
+                    <div
+                      className="base-tag-container nice-tags-container tag-value-container"
+                    >
+                      <SingleSelect
+                        emptyLabel="Add..."
+                        isDisabled={[Function]}
+                        items={
+                          Array [
+                            Object {
+                              "code": "cp",
+                              "label": "Copper",
+                            },
+                            Object {
+                              "code": "sp",
+                              "label": "Silver",
+                            },
+                            Object {
+                              "code": "ep",
+                              "label": "Electrum",
+                            },
+                            Object {
+                              "code": "gp",
+                              "label": "Gold",
+                            },
+                            Object {
+                              "code": "pp",
+                              "label": "Platinum",
+                            },
+                          ]
+                        }
+                        setState={[Function]}
+                      >
+                        <OnClickOutside(BaseSelect)
+                          eventTypes={
+                            Array [
+                              "mousedown",
+                              "touchstart",
+                            ]
+                          }
+                          excludeScrollbar={false}
+                          label="Add..."
+                          outsideClickIgnoreClass="ignore-react-onclickoutside"
+                          preventDefault={false}
+                          stopPropagation={false}
+                        >
+                          <BaseSelect
+                            closeOnClick={true}
+                            disableOnClickOutside={[Function]}
+                            enableOnClickOutside={[Function]}
+                            eventTypes={
+                              Array [
+                                "mousedown",
+                                "touchstart",
+                              ]
+                            }
+                            label="Add..."
+                            outsideClickIgnoreClass="ignore-react-onclickoutside"
+                            preventDefault={false}
+                            stopPropagation={false}
+                          >
+                            <div
+                              className="nice-dropdown nice-form-control"
+                            >
+                              <button
+                                className="nice-btn"
+                                onClick={[Function]}
+                              >
+                                Add...
+                                <i
+                                  className="icon fa-angle-down"
+                                />
+                              </button>
+                              <ul
+                                className="dropdown-menu"
+                                onClick={[Function]}
+                              >
+                                <li
+                                  className={null}
+                                  data-value="cp"
+                                  key="cp"
+                                  onClick={[Function]}
+                                >
+                                  <a>
+                                    Copper
+                                  </a>
+                                </li>
+                                <li
+                                  className={null}
+                                  data-value="sp"
+                                  key="sp"
+                                  onClick={[Function]}
+                                >
+                                  <a>
+                                    Silver
+                                  </a>
+                                </li>
+                                <li
+                                  className={null}
+                                  data-value="ep"
+                                  key="ep"
+                                  onClick={[Function]}
+                                >
+                                  <a>
+                                    Electrum
+                                  </a>
+                                </li>
+                                <li
+                                  className={null}
+                                  data-value="gp"
+                                  key="gp"
+                                  onClick={[Function]}
+                                >
+                                  <a>
+                                    Gold
+                                  </a>
+                                </li>
+                                <li
+                                  className={null}
+                                  data-value="pp"
+                                  key="pp"
+                                  onClick={[Function]}
+                                >
+                                  <a>
+                                    Platinum
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </BaseSelect>
+                        </OnClickOutside(BaseSelect)>
+                      </SingleSelect>
+                    </div>
+                  </TagsContainer>
+                </TagValueContainer>
+              </CostEditor>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Total"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Total
+              </span>
+              <Coinage
+                className="nice-form-control"
+                extended="1"
+                key=".0/.1"
+              >
+                <input
+                  className="coinage capitalize nice-form-control"
+                  disabled={true}
+                  value=""
+                />
+              </Coinage>
+            </div>
+          </ControlGroup>
+          <div
+            className="clearfix"
+          />
+        </div>
+      </div>
+    </Panel>
+  </AdventureGold>
+  <AdventureItems
+    className="al-log-edit__equipment"
+    disabled={false}
+    earned={Array []}
+    label="Regular Items"
+    setState={[Function]}
+    starting={0}
+    tota={0}
+    total={0}
+  >
+    <Panel
+      className="al-log-edit__equipment"
+      contentComponent="div"
+      header="Regular Items"
+    >
+      <div
+        className="nice-panel al-log-edit__equipment"
+      >
+        <div
+          className="nice-panel-heading"
+        >
+          Regular Items
+        </div>
+        <div
+          className="nice-panel-content"
+        >
+          <ControlGroup
+            label="Starting"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Starting
+              </span>
+              <InputField
+                disabled={true}
+                key=".0/.1"
+                placeholder="Starting..."
+                setState={[Function]}
+                type="number"
+                value={0}
+              >
+                <input
+                  className="nice-form-control"
+                  disabled={true}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Starting..."
+                  type="number"
+                  value="0"
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Obtained"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Obtained
+              </span>
+              <ListComponent
+                component={[Function]}
+                componentProps={
+                  Object {
+                    "disabled": false,
+                  }
+                }
+                disabled={false}
+                initialItem={
+                  Object {
+                    "value": "",
+                  }
+                }
+                key=".0/.1"
+                list={Array []}
+                newItem="auto"
+                setState={[Function]}
+              >
+                <ul
+                  className="list-component"
+                >
+                  <li
+                    key="0"
+                  >
+                    <InputField
+                      disabled={false}
+                      onChange={[Function]}
+                      setState={[Function]}
+                      value=""
+                    >
+                      <input
+                        className="nice-form-control"
+                        disabled={false}
+                        onChange={[Function]}
+                        onKeyPress={null}
+                        value=""
+                      />
+                    </InputField>
+                  </li>
+                </ul>
+              </ListComponent>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Total"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Total
+              </span>
+              <InputField
+                disabled={true}
+                key=".0/.1"
+                placeholder="Total..."
+                setState={[Function]}
+                type="number"
+                value={0}
+              >
+                <input
+                  className="nice-form-control"
+                  disabled={true}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Total..."
+                  type="number"
+                  value="0"
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <div
+            className="clearfix"
+          />
+        </div>
+      </div>
+    </Panel>
+  </AdventureItems>
+  <AdventureItems
+    className="al-log-edit__items"
+    disabled={false}
+    earned={Array []}
+    label="Magical Items"
+    setState={[Function]}
+    starting={0}
+    tota={0}
+    total={0}
+  >
+    <Panel
+      className="al-log-edit__items"
+      contentComponent="div"
+      header="Magical Items"
+    >
+      <div
+        className="nice-panel al-log-edit__items"
+      >
+        <div
+          className="nice-panel-heading"
+        >
+          Magical Items
+        </div>
+        <div
+          className="nice-panel-content"
+        >
+          <ControlGroup
+            label="Starting"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Starting
+              </span>
+              <InputField
+                disabled={true}
+                key=".0/.1"
+                placeholder="Starting..."
+                setState={[Function]}
+                type="number"
+                value={0}
+              >
+                <input
+                  className="nice-form-control"
+                  disabled={true}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Starting..."
+                  type="number"
+                  value="0"
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Obtained"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Obtained
+              </span>
+              <ListComponent
+                component={[Function]}
+                componentProps={
+                  Object {
+                    "disabled": false,
+                  }
+                }
+                disabled={false}
+                initialItem={
+                  Object {
+                    "value": "",
+                  }
+                }
+                key=".0/.1"
+                list={Array []}
+                newItem="auto"
+                setState={[Function]}
+              >
+                <ul
+                  className="list-component"
+                >
+                  <li
+                    key="0"
+                  >
+                    <InputField
+                      disabled={false}
+                      onChange={[Function]}
+                      setState={[Function]}
+                      value=""
+                    >
+                      <input
+                        className="nice-form-control"
+                        disabled={false}
+                        onChange={[Function]}
+                        onKeyPress={null}
+                        value=""
+                      />
+                    </InputField>
+                  </li>
+                </ul>
+              </ListComponent>
+            </div>
+          </ControlGroup>
+          <ControlGroup
+            label="Total"
+          >
+            <div
+              className="nice-control-group"
+            >
+              <span
+                className="nice-input-addon"
+                key=".0/.$label-0"
+              >
+                Total
+              </span>
+              <InputField
+                disabled={true}
+                key=".0/.1"
+                placeholder="Total..."
+                setState={[Function]}
+                type="number"
+                value={0}
+              >
+                <input
+                  className="nice-form-control"
+                  disabled={true}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Total..."
+                  type="number"
+                  value="0"
+                />
+              </InputField>
+            </div>
+          </ControlGroup>
+          <div
+            className="clearfix"
+          />
+        </div>
+      </div>
+    </Panel>
+  </AdventureItems>
+  <Panel
+    className="al-log-edit__notes"
+    contentComponent="div"
+    header="Adventure Notes / Downtime Activity"
+    key="notes"
+  >
+    <div
+      className="nice-panel al-log-edit__notes"
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Adventure Notes / Downtime Activity
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <MarkdownTextField
+          placeholder="Adventure Notes..."
+          rows={5}
+          setState={[Function]}
+          value=""
+        >
+          <div
+            className="markdown-textedit preview"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <span
+              className="markdown-textedit__placeholder"
+            >
+              Adventure Notes...
+            </span>
+            <textarea
+              className="nice-form-control"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder="Adventure Notes..."
+              rows={5}
+              value=""
+            />
+            <MDReactComponent
+              className="markdown-textedit__preview"
+              text=""
+            >
+              <span
+                className="markdown-textedit__preview"
+                key="mdrct-html-0"
+              />
+            </MDReactComponent>
+          </div>
+        </MarkdownTextField>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+  </Panel>
+  <CharacterSelectDialog
+    filter={[Function]}
+    onCancel={null}
+    onDone={[Function]}
+  >
+    <ModalDialog
+      label="Pick a Character"
+      onCancel={null}
+      onDone={null}
+    >
+      <div
+        className="nice-modal viewport-center accent wide"
+      >
+        <div
+          className="nice-modal-content"
+        >
+          <div
+            className="nice-modal-header"
+          >
+            <h4>
+              Pick a Character
+            </h4>
+          </div>
+          <div
+            className="nice-modal-body overflow-x-scroll"
+          >
+            <ObjectDataListCharacterPicker
+              actions={[Function]}
+              filter={[Function]}
+              picked={null}
+            >
+              <CharacterPicker
+                actions={[Function]}
+                characters={Object {}}
+                filter={[Function]}
+                picked={null}
+                showUser={false}
+              >
+                <table
+                  className="nice-table condensed bordered character-picker"
+                >
+                  <thead>
+                    <tr>
+                      <th>
+                        Character
+                      </th>
+                      <th>
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody />
+                </table>
+              </CharacterPicker>
+            </ObjectDataListCharacterPicker>
+          </div>
+          <div
+            className="nice-modal-footer"
+          >
+            <ModalDialogLinks
+              className="pull-right"
+              onCancel={null}
+              onDone={null}
+            />
+          </div>
+        </div>
+      </div>
+    </ModalDialog>
+  </CharacterSelectDialog>
+</AdventureLeagueLogEdit>
+`;

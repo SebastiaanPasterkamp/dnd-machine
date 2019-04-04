@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ValuePropertySelect should not render anything when hidden 1`] = `
+<CharacterEditorComponent
+  hidden={true}
+  path="some.path"
+  type="value"
+  value="This shows _formatted_ content."
+>
+  <ValuePropertySelect
+    character={
+      Object {
+        "some": Object {
+          "path": "This shows _formatted_ content.",
+        },
+      }
+    }
+    current="This shows _formatted_ content."
+    getCurrent={[Function]}
+    hidden={true}
+    onChange={[Function]}
+    onSave={[Function]}
+    onUpdate={[Function]}
+    type="value"
+    value="This shows _formatted_ content."
+  />
+</CharacterEditorComponent>
+`;
+
+exports[`Component: ValuePropertySelect should render the formatted description 1`] = `
+<CharacterEditorComponent
+  path="some.path"
+  type="value"
+  value="This shows _formatted_ content."
+>
+  <ValuePropertySelect
+    character={
+      Object {
+        "some": Object {
+          "path": "This shows _formatted_ content.",
+        },
+      }
+    }
+    current="This shows _formatted_ content."
+    getCurrent={[Function]}
+    onChange={[Function]}
+    onSave={[Function]}
+    onUpdate={[Function]}
+    type="value"
+    value="This shows _formatted_ content."
+  >
+    <MarkdownTextField
+      className="small"
+      disabled={true}
+      setState={[Function]}
+      value="This shows _formatted_ content."
+    >
+      <div
+        className="markdown-textedit small preview"
+      >
+        <MDReactComponent
+          className="markdown-textedit__preview"
+          text="This shows _formatted_ content."
+        >
+          <span
+            className="markdown-textedit__preview"
+            key="mdrct-html-0"
+          >
+            <p
+              key="mdrct-p-0"
+            >
+              This shows 
+              <em
+                key="mdrct-em-1"
+              >
+                formatted
+              </em>
+               content.
+            </p>
+          </span>
+        </MDReactComponent>
+      </div>
+    </MarkdownTextField>
+  </ValuePropertySelect>
+</CharacterEditorComponent>
+`;

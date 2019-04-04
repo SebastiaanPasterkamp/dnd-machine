@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: PartyLinks should render a new button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-plus"
+    href="/party/new"
+    onClick={[Function]}
+  >
+    New
+  </a>
+</div>
+`;
+
+exports[`Component: PartyLinks should render without props 1`] = `null`;
+
+exports[`Component: PartyLinks should show a stop button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/party/show/10"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-ban info"
+    onClick={[Function]}
+  >
+    Stop
+  </a>
+</div>
+`;
+
+exports[`Component: PartyLinks should show a view and host button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/party/show/10"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-beer"
+    onClick={[Function]}
+  >
+    Host
+  </a>
+</div>
+`;
+
+exports[`Component: PartyLinks should show a view, host, edit, and delete button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/party/show/10"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-pencil"
+    href="/party/edit/10"
+    onClick={[Function]}
+  >
+    Edit
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-beer"
+    onClick={[Function]}
+  >
+    Host
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-trash-o bad"
+    onClick={[Function]}
+  >
+    Delete
+  </a>
+</div>
+`;
+
+exports[`Component: PartyLinks should show admin buttons 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/party/show/10"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-pencil"
+    href="/party/edit/10"
+    onClick={[Function]}
+  >
+    Edit
+  </a>
+</div>
+`;
+
+exports[`Component: PartyLinks should still show a host button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/party/show/10"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-beer"
+    onClick={[Function]}
+  >
+    Host
+  </a>
+</div>
+`;

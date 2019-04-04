@@ -1,0 +1,25 @@
+// _weapon-view.scss
+
+@import 'view-grid';
+
+.weapon-view {
+    @extend .view-grid;
+
+    > .weapon-view__information {
+        grid-column-end: span 4;
+    }
+
+    > .weapon-view__description {
+        grid-column-end: span 8;
+    }
+
+    .weapon-view__properties {
+        > div:before {
+            content: ', ';
+        }
+        > div:first-child:before {
+            content: normal;
+        }
+    }
+
+}

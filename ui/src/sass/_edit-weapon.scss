@@ -1,0 +1,7 @@
+// _edit-weapon.scss
+
+@import 'widget-grid';
+
+.weapon-edit {
+    @extend .widget-grid;
+}

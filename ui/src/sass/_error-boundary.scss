@@ -1,0 +1,10 @@
+// _error-boundary.scss
+
+.error-boundary {
+    > .nice-modal-content {
+        > .nice-modal-body {
+            overflow: auto;
+            height: 85%;
+        }
+    }
+}

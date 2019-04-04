@@ -1,0 +1,231 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdventureSession should render with full props 1`] = `
+<div
+  className="nice-panel al-log-edit__session"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Adventure
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Name
+      </span>
+      <input
+        className="nice-form-control"
+        data-field="name"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Name..."
+        type={undefined}
+        value="Session name"
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Session #
+      </span>
+      <input
+        className="nice-form-control"
+        data-field="id"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Session #..."
+        type={undefined}
+        value="DDAL-007"
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Date
+      </span>
+      <input
+        className="nice-form-control"
+        data-field="date"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Date..."
+        type="date"
+        value="1970-01-01"
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        DM Name
+      </span>
+      <input
+        className="nice-form-control"
+        data-field="dm_name"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="DM Name..."
+        type={undefined}
+        value="Foo Bar"
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        DM DCI
+      </span>
+      <input
+        className="nice-form-control"
+        data-field="dm_dci"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="DM DCI..."
+        type={undefined}
+        value="013123123123"
+      />
+    </div>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;
+
+exports[`AdventureSession should render with minimum props 1`] = `
+<div
+  className="nice-panel al-log-edit__session"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Adventure
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Name
+      </span>
+      <input
+        className="nice-form-control"
+        data-field="name"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Name..."
+        type={undefined}
+        value=""
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Session #
+      </span>
+      <input
+        className="nice-form-control"
+        data-field="id"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Session #..."
+        type={undefined}
+        value=""
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Date
+      </span>
+      <input
+        className="nice-form-control"
+        data-field="date"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Date..."
+        type="date"
+        value=""
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        DM Name
+      </span>
+      <input
+        className="nice-form-control"
+        data-field="dm_name"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="DM Name..."
+        type={undefined}
+        value=""
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        DM DCI
+      </span>
+      <input
+        className="nice-form-control"
+        data-field="dm_dci"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="DM DCI..."
+        type={undefined}
+        value=""
+      />
+    </div>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;

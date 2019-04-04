@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ArmorLabel should render just the name 1`] = `
+<div
+  className="armor-label inline"
+>
+  <strong>
+    Example
+  </strong>
+  <i>
+    (
+    <div
+      className="list-label inline"
+    >
+      Light Armor
+    </div>
+    )
+  </i>
+</div>
+`;
+
+exports[`Component: ArmorLabel should render with info and description 1`] = `
+<div
+  className="armor-label inline"
+>
+  <strong>
+    Other Example
+  </strong>
+  <i>
+    (
+    <div
+      className="list-label inline"
+    >
+      Heavy Armor
+    </div>
+    )
+  </i>
+  <span>
+    <p>
+      Looks 
+      <strong>
+        heavy
+      </strong>
+       and expensive
+    </p>
+  </span>
+  <div
+    className="armor-label__info"
+  >
+    <span>
+      <strong>
+        AC:
+      </strong>
+      16
+    </span>
+    <span>
+      <strong>
+        Strength:
+      </strong>
+      13
+    </span>
+    <span>
+      <strong>
+        Stealth:
+      </strong>
+      Disadvantage
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Component: ArmorLabel should render with info name 1`] = `
+<div
+  className="armor-label inline"
+>
+  <strong>
+    Example
+  </strong>
+  <i>
+    (
+    <div
+      className="list-label inline"
+    >
+      Light Armor
+    </div>
+    )
+  </i>
+  <div
+    className="armor-label__info"
+  >
+    <span>
+      <strong>
+        AC:
+      </strong>
+      <div
+        className="bonus inline"
+      >
+        +
+        2
+      </div>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Component: ArmorLabel should render with minimum props 1`] = `null`;
+
+exports[`Component: ArmorLabel should render with only description 1`] = `
+<div
+  className="armor-label inline"
+>
+  <strong>
+    Other Example
+  </strong>
+  <i>
+    (
+    <div
+      className="list-label inline"
+    >
+      Heavy Armor
+    </div>
+    )
+  </i>
+  <span>
+    <p>
+      Looks 
+      <strong>
+        heavy
+      </strong>
+       and expensive
+    </p>
+  </span>
+</div>
+`;

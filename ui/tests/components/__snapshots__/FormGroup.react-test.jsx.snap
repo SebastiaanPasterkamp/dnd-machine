@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: FormGroup should render 1`] = `
+<div
+  className="nice-form-group"
+>
+  <label>
+    test
+  </label>
+  Foo bar
+</div>
+`;

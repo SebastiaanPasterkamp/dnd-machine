@@ -1,0 +1,7 @@
+// _edit-monster.scss
+
+@import 'widget-grid';
+
+.monster-edit {
+    @extend .widget-grid;
+}

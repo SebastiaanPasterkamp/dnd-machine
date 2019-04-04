@@ -1,0 +1,37 @@
+// _pagination.scss
+
+@import 'media-values';
+
+.pagination {
+    > .pagination__previous {
+        > * > i {
+            font-style: normal;
+        }
+        > *::before {
+            content: '\00AB ';
+        }
+    }
+    > .pagination__next {
+        > * > i {
+            font-style: normal;
+        }
+        > *::after {
+            content: ' \00BB';
+        }
+    }
+}
+
+@media #{$media} and ($feature: $value) {
+    .pagination {
+        > li > * {
+            padding: 0.25rem 0.5rem !important;
+        }
+        > .pagination__previous {
+            content: '\00AB ';
+        }
+        > .pagination__previous > * > i,
+        > .pagination__next > * > i {
+            display: none;
+        }
+    }
+}

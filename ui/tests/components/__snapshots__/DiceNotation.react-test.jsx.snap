@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: DiceNotation should show dice notation with bonus 1`] = `
+<div
+  className="dice-notation inline capitalize"
+>
+  <code>
+    2
+    d
+    6
+    +3
+  </code>
+</div>
+`;
+
+exports[`Component: DiceNotation should show dice notation with bonus and type 1`] = `
+<div
+  className="dice-notation inline capitalize"
+>
+  <code>
+    4
+    d
+    10
+    +6
+  </code>
+  piercing
+</div>
+`;
+
+exports[`Component: DiceNotation should show dice notation with type 1`] = `
+<div
+  className="dice-notation inline capitalize"
+>
+  <code>
+    3
+    d
+    8
+    
+  </code>
+  fire
+</div>
+`;
+
+exports[`Component: DiceNotation should show simple dice notation 1`] = `
+<div
+  className="dice-notation inline capitalize"
+>
+  <code>
+    1
+    d
+    4
+    
+  </code>
+</div>
+`;

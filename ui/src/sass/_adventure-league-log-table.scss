@@ -1,0 +1,26 @@
+// _adventure-league-log-table.scss
+
+.adventure-league-log-table {
+    > table {
+        th {
+            span:before {
+                content: ', ';
+            }
+            span:first-of-type:before {
+                content: normal;
+            }
+        }
+
+        td > span {
+            display: block;
+
+            > strong:after {
+                content: ': ';
+            }
+
+            > div.coinage {
+                display: inline;
+            }
+        }
+    }
+}

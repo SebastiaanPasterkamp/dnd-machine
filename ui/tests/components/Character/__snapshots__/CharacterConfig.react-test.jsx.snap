@@ -1,0 +1,2175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: CharacterConfig should not render anything 1`] = `
+<CharacterConfig
+  config={Array []}
+/>
+`;
+
+exports[`Component: CharacterConfig should render choice 1`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "options": Array [
+          Object {
+            "config": Array [
+              Object {
+                "path": "foo.value",
+                "type": "value",
+                "value": "bar",
+              },
+            ],
+            "description": "foo",
+            "label": "a",
+            "type": "config",
+          },
+          Object {
+            "config": Array [
+              Object {
+                "dict": Object {
+                  "bar": "blah",
+                  "description": "foo %(bar)s",
+                },
+                "path": "foo.dict",
+                "type": "dict",
+              },
+            ],
+            "label": "b",
+            "type": "config",
+          },
+        ],
+        "type": "choice",
+      },
+    ]
+  }
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <ChoiceSelect
+        options={
+          Array [
+            Object {
+              "config": Array [
+                Object {
+                  "path": "foo.value",
+                  "type": "value",
+                  "value": "bar",
+                },
+              ],
+              "description": "foo",
+              "label": "a",
+              "type": "config",
+            },
+            Object {
+              "config": Array [
+                Object {
+                  "dict": Object {
+                    "bar": "blah",
+                    "description": "foo %(bar)s",
+                  },
+                  "path": "foo.dict",
+                  "type": "dict",
+                },
+              ],
+              "label": "b",
+              "type": "config",
+            },
+          ]
+        }
+        type="choice"
+      >
+        <TabComponent
+          tabConfig={
+            Array [
+              Object {
+                "config": Array [
+                  Object {
+                    "path": "foo.value",
+                    "type": "value",
+                    "value": "bar",
+                  },
+                ],
+                "description": "foo",
+                "label": "a",
+                "type": "config",
+              },
+              Object {
+                "config": Array [
+                  Object {
+                    "dict": Object {
+                      "bar": "blah",
+                      "description": "foo %(bar)s",
+                    },
+                    "path": "foo.dict",
+                    "type": "dict",
+                  },
+                ],
+                "label": "b",
+                "type": "config",
+              },
+            ]
+          }
+        >
+          <div
+            className="nice-tabs-wrapper tab-component"
+          >
+            <ul
+              className="nice-tabs bold"
+            >
+              <li
+                className="tab-component__tab current"
+                key="tab-0/.$0"
+              >
+                <a
+                  className="cursor-pointer"
+                  onClick={null}
+                >
+                  a
+                </a>
+              </li>
+              <li
+                className="tab-component__tab"
+                key="tab-1/.$1"
+              >
+                <a
+                  className="cursor-pointer"
+                  onClick={[Function]}
+                >
+                  b
+                </a>
+              </li>
+            </ul>
+            <ul
+              className="nice-tab-content"
+            >
+              <li
+                className="current"
+                key=".$0"
+              >
+                <CharacterConfig
+                  config={
+                    Array [
+                      Object {
+                        "config": Array [
+                          Object {
+                            "path": "foo.value",
+                            "type": "value",
+                            "value": "bar",
+                          },
+                        ],
+                        "description": "foo",
+                        "label": "a",
+                        "type": "config",
+                      },
+                    ]
+                  }
+                  key="0"
+                >
+                  <FormGroup
+                    key="0"
+                    label="a"
+                  >
+                    <div
+                      className="nice-form-group"
+                    >
+                      <label>
+                        a
+                      </label>
+                      <MDReactComponent
+                        text="foo"
+                      >
+                        <span
+                          key="mdrct-html-0"
+                        >
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            foo
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                      <CharacterConfig
+                        config={
+                          Array [
+                            Object {
+                              "path": "foo.value",
+                              "type": "value",
+                              "value": "bar",
+                            },
+                          ]
+                        }
+                        type="config"
+                      >
+                        <FormGroup
+                          key="0"
+                        >
+                          <div
+                            className="nice-form-group"
+                          >
+                            <label />
+                            <CharacterEditorComponent
+                              path="foo.value"
+                              type="value"
+                              value="bar"
+                            >
+                              <ValuePropertySelect
+                                character={
+                                  Object {
+                                    "foo": Object {
+                                      "dict": Object {
+                                        "description": "foo.dict goes here",
+                                      },
+                                      "list": Array [
+                                        "charisma",
+                                      ],
+                                      "select": "strength",
+                                      "value": "bar",
+                                    },
+                                  }
+                                }
+                                current="bar"
+                                getCurrent={[Function]}
+                                onChange={[Function]}
+                                onSave={[Function]}
+                                onUpdate={[Function]}
+                                type="value"
+                                value="bar"
+                              >
+                                <MarkdownTextField
+                                  className="small"
+                                  disabled={true}
+                                  setState={[Function]}
+                                  value="bar"
+                                >
+                                  <div
+                                    className="markdown-textedit small preview"
+                                  >
+                                    <MDReactComponent
+                                      className="markdown-textedit__preview"
+                                      text="bar"
+                                    >
+                                      <span
+                                        className="markdown-textedit__preview"
+                                        key="mdrct-html-0"
+                                      >
+                                        <p
+                                          key="mdrct-p-0"
+                                        >
+                                          bar
+                                        </p>
+                                      </span>
+                                    </MDReactComponent>
+                                  </div>
+                                </MarkdownTextField>
+                              </ValuePropertySelect>
+                            </CharacterEditorComponent>
+                          </div>
+                        </FormGroup>
+                      </CharacterConfig>
+                    </div>
+                  </FormGroup>
+                </CharacterConfig>
+              </li>
+            </ul>
+          </div>
+        </TabComponent>
+      </ChoiceSelect>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
+exports[`Component: CharacterConfig should render config 1`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "config": Array [
+          Object {
+            "path": "foo.value",
+            "type": "value",
+            "value": "bar",
+          },
+        ],
+        "type": "config",
+      },
+    ]
+  }
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <CharacterConfig
+        config={
+          Array [
+            Object {
+              "path": "foo.value",
+              "type": "value",
+              "value": "bar",
+            },
+          ]
+        }
+        type="config"
+      >
+        <FormGroup
+          key="0"
+        >
+          <div
+            className="nice-form-group"
+          >
+            <label />
+            <CharacterEditorComponent
+              path="foo.value"
+              type="value"
+              value="bar"
+            >
+              <ValuePropertySelect
+                character={
+                  Object {
+                    "foo": Object {
+                      "dict": Object {
+                        "description": "foo.dict goes here",
+                      },
+                      "list": Array [
+                        "charisma",
+                      ],
+                      "select": "strength",
+                      "value": "bar",
+                    },
+                  }
+                }
+                current="bar"
+                getCurrent={[Function]}
+                onChange={[Function]}
+                onSave={[Function]}
+                onUpdate={[Function]}
+                type="value"
+                value="bar"
+              >
+                <MarkdownTextField
+                  className="small"
+                  disabled={true}
+                  setState={[Function]}
+                  value="bar"
+                >
+                  <div
+                    className="markdown-textedit small preview"
+                  >
+                    <MDReactComponent
+                      className="markdown-textedit__preview"
+                      text="bar"
+                    >
+                      <span
+                        className="markdown-textedit__preview"
+                        key="mdrct-html-0"
+                      >
+                        <p
+                          key="mdrct-p-0"
+                        >
+                          bar
+                        </p>
+                      </span>
+                    </MDReactComponent>
+                  </div>
+                </MarkdownTextField>
+              </ValuePropertySelect>
+            </CharacterEditorComponent>
+          </div>
+        </FormGroup>
+      </CharacterConfig>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
+exports[`Component: CharacterConfig should render dict 1`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "dict": Object {
+          "bar": "blah",
+          "description": "foo %(bar)s",
+        },
+        "path": "foo.dict",
+        "type": "dict",
+      },
+    ]
+  }
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <CharacterEditorComponent
+        dict={
+          Object {
+            "bar": "blah",
+            "description": "foo %(bar)s",
+          }
+        }
+        path="foo.dict"
+        type="dict"
+      >
+        <DictPropertySelect
+          character={
+            Object {
+              "foo": Object {
+                "dict": Object {
+                  "bar": "blah",
+                  "description": "foo %(bar)s",
+                },
+                "list": Array [
+                  "charisma",
+                ],
+                "select": "strength",
+                "value": "foo",
+              },
+            }
+          }
+          current={
+            Object {
+              "bar": "blah",
+              "description": "foo %(bar)s",
+            }
+          }
+          dict={
+            Object {
+              "bar": "blah",
+              "description": "foo %(bar)s",
+            }
+          }
+          getCurrent={[Function]}
+          onChange={[Function]}
+          onSave={[Function]}
+          onUpdate={[Function]}
+          type="dict"
+        >
+          <MarkdownTextField
+            className="small"
+            disabled={true}
+            setState={[Function]}
+            value="foo blah"
+          >
+            <div
+              className="markdown-textedit small preview"
+            >
+              <MDReactComponent
+                className="markdown-textedit__preview"
+                text="foo blah"
+              >
+                <span
+                  className="markdown-textedit__preview"
+                  key="mdrct-html-0"
+                >
+                  <p
+                    key="mdrct-p-0"
+                  >
+                    foo blah
+                  </p>
+                </span>
+              </MDReactComponent>
+            </div>
+          </MarkdownTextField>
+        </DictPropertySelect>
+      </CharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
+exports[`Component: CharacterConfig should render list 1`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "given": Array [
+          "wisdom",
+        ],
+        "limit": 2,
+        "list": Array [
+          "statistics",
+        ],
+        "path": "foo.list",
+        "replace": 1,
+        "type": "list",
+      },
+    ]
+  }
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <ListsToItemsCharacterEditorComponent
+        given={
+          Array [
+            "wisdom",
+          ]
+        }
+        limit={2}
+        list={
+          Array [
+            "statistics",
+          ]
+        }
+        path="foo.list"
+        replace={1}
+        type="list"
+      >
+        <CharacterEditorComponent
+          given={
+            Array [
+              "wisdom",
+            ]
+          }
+          items={
+            Array [
+              Object {
+                "code": "strength",
+                "description": "Str",
+                "label": "Strength",
+              },
+              Object {
+                "code": "dexterity",
+                "description": "Dex",
+                "label": "Dexterity",
+              },
+              Object {
+                "code": "constitution",
+                "description": "Con",
+                "label": "Constitution",
+              },
+              Object {
+                "code": "intelligence",
+                "description": "Int",
+                "label": "Intelligence",
+              },
+              Object {
+                "code": "wisdom",
+                "description": "Wis",
+                "label": "Wisdom",
+              },
+              Object {
+                "code": "charisma",
+                "description": "Char",
+                "label": "Charisma",
+              },
+            ]
+          }
+          limit={2}
+          path="foo.list"
+          replace={1}
+          type="list"
+        >
+          <ListPropertySelect
+            character={
+              Object {
+                "foo": Object {
+                  "dict": Object {
+                    "description": "foo.dict goes here",
+                  },
+                  "list": Array [
+                    "charisma",
+                    "wisdom",
+                  ],
+                  "select": "strength",
+                  "value": "foo",
+                },
+              }
+            }
+            current={
+              Array [
+                "charisma",
+                "wisdom",
+              ]
+            }
+            getCurrent={[Function]}
+            given={
+              Array [
+                "wisdom",
+              ]
+            }
+            items={
+              Array [
+                Object {
+                  "code": "strength",
+                  "description": "Str",
+                  "label": "Strength",
+                },
+                Object {
+                  "code": "dexterity",
+                  "description": "Dex",
+                  "label": "Dexterity",
+                },
+                Object {
+                  "code": "constitution",
+                  "description": "Con",
+                  "label": "Constitution",
+                },
+                Object {
+                  "code": "intelligence",
+                  "description": "Int",
+                  "label": "Intelligence",
+                },
+                Object {
+                  "code": "wisdom",
+                  "description": "Wis",
+                  "label": "Wisdom",
+                },
+                Object {
+                  "code": "charisma",
+                  "description": "Char",
+                  "label": "Charisma",
+                },
+              ]
+            }
+            limit={2}
+            onChange={[Function]}
+            onSave={[Function]}
+            onUpdate={[Function]}
+            replace={1}
+            type="list"
+          >
+            <TagsContainer>
+              <div
+                className="base-tag-container nice-tags-container"
+              >
+                <SingleSelect
+                  emptyLabel="Add..."
+                  isDisabled={[Function]}
+                  items={
+                    Array [
+                      Object {
+                        "code": "strength",
+                        "description": "Str",
+                        "label": "Strength",
+                      },
+                      Object {
+                        "code": "dexterity",
+                        "description": "Dex",
+                        "label": "Dexterity",
+                      },
+                      Object {
+                        "code": "constitution",
+                        "description": "Con",
+                        "label": "Constitution",
+                      },
+                      Object {
+                        "code": "intelligence",
+                        "description": "Int",
+                        "label": "Intelligence",
+                      },
+                    ]
+                  }
+                  setState={[Function]}
+                >
+                  <OnClickOutside(BaseSelect)
+                    eventTypes={
+                      Array [
+                        "mousedown",
+                        "touchstart",
+                      ]
+                    }
+                    excludeScrollbar={false}
+                    label="Add..."
+                    outsideClickIgnoreClass="ignore-react-onclickoutside"
+                    preventDefault={false}
+                    stopPropagation={false}
+                  >
+                    <BaseSelect
+                      closeOnClick={true}
+                      disableOnClickOutside={[Function]}
+                      enableOnClickOutside={[Function]}
+                      eventTypes={
+                        Array [
+                          "mousedown",
+                          "touchstart",
+                        ]
+                      }
+                      label="Add..."
+                      outsideClickIgnoreClass="ignore-react-onclickoutside"
+                      preventDefault={false}
+                      stopPropagation={false}
+                    >
+                      <div
+                        className="nice-dropdown nice-form-control"
+                      >
+                        <button
+                          className="nice-btn"
+                          onClick={[Function]}
+                        >
+                          Add...
+                          <i
+                            className="icon fa-angle-down"
+                          />
+                        </button>
+                        <ul
+                          className="dropdown-menu"
+                          onClick={[Function]}
+                        >
+                          <li
+                            className={null}
+                            data-value="strength"
+                            key="strength"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Strength
+                            </a>
+                          </li>
+                          <li
+                            className={null}
+                            data-value="dexterity"
+                            key="dexterity"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Dexterity
+                            </a>
+                          </li>
+                          <li
+                            className={null}
+                            data-value="constitution"
+                            key="constitution"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Constitution
+                            </a>
+                          </li>
+                          <li
+                            className={null}
+                            data-value="intelligence"
+                            key="intelligence"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Intelligence
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </BaseSelect>
+                  </OnClickOutside(BaseSelect)>
+                </SingleSelect>
+                <Tag
+                  color="good"
+                  description="Wis"
+                  disabled={true}
+                  id="wisdom"
+                  key="tag-0"
+                  label="Wisdom"
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag good"
+                  >
+                    <span
+                      className="nice-tag-label"
+                    >
+                      <ToolTip
+                        content="Wis"
+                      >
+                        <div
+                          className="tool-tip inline"
+                        >
+                          Wisdom
+                          <MDReactComponent
+                            className="tool-tip--content"
+                            text="Wis"
+                          >
+                            <span
+                              className="tool-tip--content"
+                              key="mdrct-html-0"
+                            >
+                              <p
+                                key="mdrct-p-0"
+                              >
+                                Wis
+                              </p>
+                            </span>
+                          </MDReactComponent>
+                        </div>
+                      </ToolTip>
+                    </span>
+                  </div>
+                </Tag>
+                <Tag
+                  color="warning"
+                  description="Char"
+                  disabled={false}
+                  id="charisma"
+                  key="tag-1"
+                  label="Charisma"
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag warning"
+                  >
+                    <span
+                      className="nice-tag-label"
+                    >
+                      <ToolTip
+                        content="Char"
+                      >
+                        <div
+                          className="tool-tip inline"
+                        >
+                          Charisma
+                          <MDReactComponent
+                            className="tool-tip--content"
+                            text="Char"
+                          >
+                            <span
+                              className="tool-tip--content"
+                              key="mdrct-html-0"
+                            >
+                              <p
+                                key="mdrct-p-0"
+                              >
+                                Char
+                              </p>
+                            </span>
+                          </MDReactComponent>
+                        </div>
+                      </ToolTip>
+                    </span>
+                    <TagBadgeButton
+                      icon="fa-trash-o"
+                      onClick={[Function]}
+                    >
+                      <button
+                        className="nice-tag-btn"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="icon fa-trash-o"
+                        />
+                      </button>
+                    </TagBadgeButton>
+                  </div>
+                </Tag>
+              </div>
+            </TagsContainer>
+          </ListPropertySelect>
+        </CharacterEditorComponent>
+      </ListsToItemsCharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
+exports[`Component: CharacterConfig should render multichoice 1`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "options": Array [
+          Object {
+            "description": "foo",
+            "label": "a",
+            "path": "foo.value",
+            "type": "value",
+            "value": Object {
+              "path": "foo.value",
+              "type": "value",
+              "value": "bar",
+            },
+          },
+          Object {
+            "describe": "bar",
+            "dict": Object {
+              "dict": Object {
+                "bar": "blah",
+                "description": "foo %(bar)s",
+              },
+              "path": "foo.dict",
+              "type": "dict",
+            },
+            "label": "b",
+            "path": "dict",
+            "type": "dict",
+          },
+        ],
+        "type": "multichoice",
+      },
+    ]
+  }
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <CharacterEditorComponent
+        options={
+          Array [
+            Object {
+              "description": "foo",
+              "label": "a",
+              "path": "foo.value",
+              "type": "value",
+              "value": Object {
+                "path": "foo.value",
+                "type": "value",
+                "value": "bar",
+              },
+            },
+            Object {
+              "describe": "bar",
+              "dict": Object {
+                "dict": Object {
+                  "bar": "blah",
+                  "description": "foo %(bar)s",
+                },
+                "path": "foo.dict",
+                "type": "dict",
+              },
+              "label": "b",
+              "path": "dict",
+              "type": "dict",
+            },
+          ]
+        }
+        type="multichoice"
+      >
+        <MultipleChoiceSelect
+          character={
+            Object {
+              "foo": Object {
+                "dict": Object {
+                  "description": "foo.dict goes here",
+                },
+                "list": Array [
+                  "charisma",
+                ],
+                "select": "strength",
+                "value": Object {
+                  "path": "foo.value",
+                  "type": "value",
+                  "value": "bar",
+                },
+              },
+            }
+          }
+          getCurrent={[Function]}
+          onChange={[Function]}
+          onSave={[Function]}
+          onUpdate={[Function]}
+          options={
+            Array [
+              Object {
+                "description": "foo",
+                "label": "a",
+                "path": "foo.value",
+                "type": "value",
+                "value": Object {
+                  "path": "foo.value",
+                  "type": "value",
+                  "value": "bar",
+                },
+              },
+              Object {
+                "describe": "bar",
+                "dict": Object {
+                  "dict": Object {
+                    "bar": "blah",
+                    "description": "foo %(bar)s",
+                  },
+                  "path": "foo.dict",
+                  "type": "dict",
+                },
+                "label": "b",
+                "path": "dict",
+                "type": "dict",
+              },
+            ]
+          }
+          type="multichoice"
+        >
+          <div>
+            <TagContainer
+              items={
+                Array [
+                  Object {
+                    "code": "a",
+                    "color": "warning",
+                    "label": "a",
+                  },
+                  Object {
+                    "code": "b",
+                    "color": "warning",
+                    "label": "b",
+                  },
+                ]
+              }
+              onAdd={[Function]}
+              onDelete={[Function]}
+              setState={[Function]}
+              showSelect={false}
+              value={
+                Array [
+                  "a",
+                ]
+              }
+            >
+              <TagsContainer>
+                <div
+                  className="base-tag-container nice-tags-container"
+                >
+                  <Tag
+                    count={1}
+                    key="a"
+                    label="a"
+                    onDelete={[Function]}
+                  >
+                    <div
+                      className="nice-tag"
+                    >
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip>
+                          a
+                        </ToolTip>
+                      </span>
+                      <TagBadgeButton
+                        icon="fa-trash-o"
+                        onClick={[Function]}
+                      >
+                        <button
+                          className="nice-tag-btn"
+                          onClick={[Function]}
+                        >
+                          <i
+                            className="icon fa-trash-o"
+                          />
+                        </button>
+                      </TagBadgeButton>
+                    </div>
+                  </Tag>
+                </div>
+              </TagsContainer>
+            </TagContainer>
+            <CharacterConfig
+              config={
+                Array [
+                  Object {
+                    "description": "foo",
+                    "label": "a",
+                    "path": "foo.value",
+                    "type": "value",
+                    "value": Object {
+                      "path": "foo.value",
+                      "type": "value",
+                      "value": "bar",
+                    },
+                  },
+                ]
+              }
+              key="0"
+            >
+              <FormGroup
+                key="0"
+                label="a"
+              >
+                <div
+                  className="nice-form-group"
+                >
+                  <label>
+                    a
+                  </label>
+                  <MDReactComponent
+                    text="foo"
+                  >
+                    <span
+                      key="mdrct-html-0"
+                    >
+                      <p
+                        key="mdrct-p-0"
+                      >
+                        foo
+                      </p>
+                    </span>
+                  </MDReactComponent>
+                  <CharacterEditorComponent
+                    path="foo.value"
+                    type="value"
+                    value={
+                      Object {
+                        "path": "foo.value",
+                        "type": "value",
+                        "value": "bar",
+                      }
+                    }
+                  >
+                    <ValuePropertySelect
+                      character={
+                        Object {
+                          "foo": Object {
+                            "dict": Object {
+                              "description": "foo.dict goes here",
+                            },
+                            "list": Array [
+                              "charisma",
+                            ],
+                            "select": "strength",
+                            "value": Object {
+                              "path": "foo.value",
+                              "type": "value",
+                              "value": "bar",
+                            },
+                          },
+                        }
+                      }
+                      current={
+                        Object {
+                          "path": "foo.value",
+                          "type": "value",
+                          "value": "bar",
+                        }
+                      }
+                      getCurrent={[Function]}
+                      onChange={[Function]}
+                      onSave={[Function]}
+                      onUpdate={[Function]}
+                      type="value"
+                      value={
+                        Object {
+                          "path": "foo.value",
+                          "type": "value",
+                          "value": "bar",
+                        }
+                      }
+                    >
+                      <MarkdownTextField
+                        className="small"
+                        disabled={true}
+                        setState={[Function]}
+                        value="[object Object]"
+                      >
+                        <div
+                          className="markdown-textedit small preview"
+                        >
+                          <MDReactComponent
+                            className="markdown-textedit__preview"
+                            text="[object Object]"
+                          >
+                            <span
+                              className="markdown-textedit__preview"
+                              key="mdrct-html-0"
+                            >
+                              <p
+                                key="mdrct-p-0"
+                              >
+                                [object Object]
+                              </p>
+                            </span>
+                          </MDReactComponent>
+                        </div>
+                      </MarkdownTextField>
+                    </ValuePropertySelect>
+                  </CharacterEditorComponent>
+                </div>
+              </FormGroup>
+            </CharacterConfig>
+          </div>
+        </MultipleChoiceSelect>
+      </CharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
+exports[`Component: CharacterConfig should render select 1`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "list": Array [
+          "statistics",
+        ],
+        "path": "foo.select",
+        "type": "select",
+      },
+    ]
+  }
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <ListsToItemsCharacterEditorComponent
+        list={
+          Array [
+            "statistics",
+          ]
+        }
+        path="foo.select"
+        type="select"
+      >
+        <CharacterEditorComponent
+          items={
+            Array [
+              Object {
+                "code": "strength",
+                "description": "Str",
+                "label": "Strength",
+              },
+              Object {
+                "code": "dexterity",
+                "description": "Dex",
+                "label": "Dexterity",
+              },
+              Object {
+                "code": "constitution",
+                "description": "Con",
+                "label": "Constitution",
+              },
+              Object {
+                "code": "intelligence",
+                "description": "Int",
+                "label": "Intelligence",
+              },
+              Object {
+                "code": "wisdom",
+                "description": "Wis",
+                "label": "Wisdom",
+              },
+              Object {
+                "code": "charisma",
+                "description": "Char",
+                "label": "Charisma",
+              },
+            ]
+          }
+          path="foo.select"
+          type="select"
+        >
+          <SelectPropertySelect
+            character={
+              Object {
+                "foo": Object {
+                  "dict": Object {
+                    "description": "foo.dict goes here",
+                  },
+                  "list": Array [
+                    "charisma",
+                  ],
+                  "select": "strength",
+                  "value": "foo",
+                },
+              }
+            }
+            current="strength"
+            getCurrent={[Function]}
+            items={
+              Array [
+                Object {
+                  "code": "strength",
+                  "description": "Str",
+                  "label": "Strength",
+                },
+                Object {
+                  "code": "dexterity",
+                  "description": "Dex",
+                  "label": "Dexterity",
+                },
+                Object {
+                  "code": "constitution",
+                  "description": "Con",
+                  "label": "Constitution",
+                },
+                Object {
+                  "code": "intelligence",
+                  "description": "Int",
+                  "label": "Intelligence",
+                },
+                Object {
+                  "code": "wisdom",
+                  "description": "Wis",
+                  "label": "Wisdom",
+                },
+                Object {
+                  "code": "charisma",
+                  "description": "Char",
+                  "label": "Charisma",
+                },
+              ]
+            }
+            onChange={[Function]}
+            onSave={[Function]}
+            onUpdate={[Function]}
+            type="select"
+          >
+            <SingleSelect
+              className="small"
+              emptyLabel="Please select"
+              isDisabled={[Function]}
+              items={
+                Array [
+                  Object {
+                    "code": "strength",
+                    "description": "Str",
+                    "label": "Strength",
+                  },
+                  Object {
+                    "code": "dexterity",
+                    "description": "Dex",
+                    "label": "Dexterity",
+                  },
+                  Object {
+                    "code": "constitution",
+                    "description": "Con",
+                    "label": "Constitution",
+                  },
+                  Object {
+                    "code": "intelligence",
+                    "description": "Int",
+                    "label": "Intelligence",
+                  },
+                  Object {
+                    "code": "wisdom",
+                    "description": "Wis",
+                    "label": "Wisdom",
+                  },
+                  Object {
+                    "code": "charisma",
+                    "description": "Char",
+                    "label": "Charisma",
+                  },
+                ]
+              }
+              selected="strength"
+              setState={[Function]}
+            >
+              <OnClickOutside(BaseSelect)
+                className="small"
+                eventTypes={
+                  Array [
+                    "mousedown",
+                    "touchstart",
+                  ]
+                }
+                excludeScrollbar={false}
+                label="Strength"
+                outsideClickIgnoreClass="ignore-react-onclickoutside"
+                preventDefault={false}
+                stopPropagation={false}
+              >
+                <BaseSelect
+                  className="small"
+                  closeOnClick={true}
+                  disableOnClickOutside={[Function]}
+                  enableOnClickOutside={[Function]}
+                  eventTypes={
+                    Array [
+                      "mousedown",
+                      "touchstart",
+                    ]
+                  }
+                  label="Strength"
+                  outsideClickIgnoreClass="ignore-react-onclickoutside"
+                  preventDefault={false}
+                  stopPropagation={false}
+                >
+                  <div
+                    className="nice-dropdown nice-form-control"
+                  >
+                    <button
+                      className="nice-btn"
+                      onClick={[Function]}
+                    >
+                      Strength
+                      <i
+                        className="icon fa-angle-down"
+                      />
+                    </button>
+                    <ul
+                      className="dropdown-menu"
+                      onClick={[Function]}
+                    >
+                      <li
+                        className="info"
+                        data-value="strength"
+                        key="strength"
+                        onClick={[Function]}
+                      >
+                        <a>
+                          Strength
+                        </a>
+                      </li>
+                      <li
+                        className={null}
+                        data-value="dexterity"
+                        key="dexterity"
+                        onClick={[Function]}
+                      >
+                        <a>
+                          Dexterity
+                        </a>
+                      </li>
+                      <li
+                        className={null}
+                        data-value="constitution"
+                        key="constitution"
+                        onClick={[Function]}
+                      >
+                        <a>
+                          Constitution
+                        </a>
+                      </li>
+                      <li
+                        className={null}
+                        data-value="intelligence"
+                        key="intelligence"
+                        onClick={[Function]}
+                      >
+                        <a>
+                          Intelligence
+                        </a>
+                      </li>
+                      <li
+                        className={null}
+                        data-value="wisdom"
+                        key="wisdom"
+                        onClick={[Function]}
+                      >
+                        <a>
+                          Wisdom
+                        </a>
+                      </li>
+                      <li
+                        className={null}
+                        data-value="charisma"
+                        key="charisma"
+                        onClick={[Function]}
+                      >
+                        <a>
+                          Charisma
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </BaseSelect>
+              </OnClickOutside(BaseSelect)>
+            </SingleSelect>
+          </SelectPropertySelect>
+        </CharacterEditorComponent>
+      </ListsToItemsCharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
+exports[`Component: CharacterConfig should render value 1`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "path": "foo.value",
+        "type": "value",
+        "value": "bar",
+      },
+    ]
+  }
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <CharacterEditorComponent
+        path="foo.value"
+        type="value"
+        value="bar"
+      >
+        <ValuePropertySelect
+          character={
+            Object {
+              "foo": Object {
+                "dict": Object {
+                  "description": "foo.dict goes here",
+                },
+                "list": Array [
+                  "charisma",
+                ],
+                "select": "strength",
+                "value": "bar",
+              },
+            }
+          }
+          current="bar"
+          getCurrent={[Function]}
+          onChange={[Function]}
+          onSave={[Function]}
+          onUpdate={[Function]}
+          type="value"
+          value="bar"
+        >
+          <MarkdownTextField
+            className="small"
+            disabled={true}
+            setState={[Function]}
+            value="bar"
+          >
+            <div
+              className="markdown-textedit small preview"
+            >
+              <MDReactComponent
+                className="markdown-textedit__preview"
+                text="bar"
+              >
+                <span
+                  className="markdown-textedit__preview"
+                  key="mdrct-html-0"
+                >
+                  <p
+                    key="mdrct-p-0"
+                  >
+                    bar
+                  </p>
+                </span>
+              </MDReactComponent>
+            </div>
+          </MarkdownTextField>
+        </ValuePropertySelect>
+      </CharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
+exports[`Component: CharacterConfig should render with array items 1`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "given": Array [
+          "bar",
+        ],
+        "items": Array [
+          "foo",
+          "bar",
+        ],
+        "limit": 1,
+        "path": "foo.items",
+        "type": "list",
+      },
+    ]
+  }
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <ListsToItemsCharacterEditorComponent
+        given={
+          Array [
+            "bar",
+          ]
+        }
+        items={
+          Array [
+            "foo",
+            "bar",
+          ]
+        }
+        limit={1}
+        path="foo.items"
+        type="list"
+      >
+        <CharacterEditorComponent
+          given={
+            Array [
+              "bar",
+            ]
+          }
+          items={
+            Array [
+              Object {
+                "code": "foo",
+                "label": "foo",
+              },
+              Object {
+                "code": "bar",
+                "label": "bar",
+              },
+            ]
+          }
+          limit={1}
+          path="foo.items"
+          type="list"
+        >
+          <ListPropertySelect
+            character={
+              Object {
+                "foo": Object {
+                  "dict": Object {
+                    "description": "foo.dict goes here",
+                  },
+                  "items": Array [
+                    "bar",
+                  ],
+                  "list": Array [
+                    "charisma",
+                  ],
+                  "select": "strength",
+                  "value": "foo",
+                },
+              }
+            }
+            current={
+              Array [
+                "bar",
+              ]
+            }
+            getCurrent={[Function]}
+            given={
+              Array [
+                "bar",
+              ]
+            }
+            items={
+              Array [
+                Object {
+                  "code": "foo",
+                  "label": "foo",
+                },
+                Object {
+                  "code": "bar",
+                  "label": "bar",
+                },
+              ]
+            }
+            limit={1}
+            onChange={[Function]}
+            onSave={[Function]}
+            onUpdate={[Function]}
+            type="list"
+          >
+            <TagsContainer>
+              <div
+                className="base-tag-container nice-tags-container"
+              >
+                <SingleSelect
+                  emptyLabel="Add..."
+                  isDisabled={[Function]}
+                  items={
+                    Array [
+                      Object {
+                        "code": "foo",
+                        "label": "foo",
+                      },
+                    ]
+                  }
+                  setState={[Function]}
+                >
+                  <OnClickOutside(BaseSelect)
+                    eventTypes={
+                      Array [
+                        "mousedown",
+                        "touchstart",
+                      ]
+                    }
+                    excludeScrollbar={false}
+                    label="Add..."
+                    outsideClickIgnoreClass="ignore-react-onclickoutside"
+                    preventDefault={false}
+                    stopPropagation={false}
+                  >
+                    <BaseSelect
+                      closeOnClick={true}
+                      disableOnClickOutside={[Function]}
+                      enableOnClickOutside={[Function]}
+                      eventTypes={
+                        Array [
+                          "mousedown",
+                          "touchstart",
+                        ]
+                      }
+                      label="Add..."
+                      outsideClickIgnoreClass="ignore-react-onclickoutside"
+                      preventDefault={false}
+                      stopPropagation={false}
+                    >
+                      <div
+                        className="nice-dropdown nice-form-control"
+                      >
+                        <button
+                          className="nice-btn"
+                          onClick={[Function]}
+                        >
+                          Add...
+                          <i
+                            className="icon fa-angle-down"
+                          />
+                        </button>
+                        <ul
+                          className="dropdown-menu"
+                          onClick={[Function]}
+                        >
+                          <li
+                            className={null}
+                            data-value="foo"
+                            key="foo"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              foo
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </BaseSelect>
+                  </OnClickOutside(BaseSelect)>
+                </SingleSelect>
+                <Tag
+                  color="good"
+                  disabled={true}
+                  id="bar"
+                  key="tag-0"
+                  label="bar"
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag good"
+                  >
+                    <span
+                      className="nice-tag-label"
+                    >
+                      <ToolTip>
+                        bar
+                      </ToolTip>
+                    </span>
+                  </div>
+                </Tag>
+              </div>
+            </TagsContainer>
+          </ListPropertySelect>
+        </CharacterEditorComponent>
+      </ListsToItemsCharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
+exports[`Component: CharacterConfig should render with object items 1`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "given": Array [
+          "bar",
+        ],
+        "items": Array [
+          Object {
+            "code": "strength",
+            "description": "Str",
+            "label": "Strength",
+          },
+          Object {
+            "code": "dexterity",
+            "description": "Dex",
+            "label": "Dexterity",
+          },
+          Object {
+            "code": "constitution",
+            "description": "Con",
+            "label": "Constitution",
+          },
+          Object {
+            "code": "intelligence",
+            "description": "Int",
+            "label": "Intelligence",
+          },
+          Object {
+            "code": "wisdom",
+            "description": "Wis",
+            "label": "Wisdom",
+          },
+          Object {
+            "code": "charisma",
+            "description": "Char",
+            "label": "Charisma",
+          },
+        ],
+        "limit": 1,
+        "path": "foo.items",
+        "type": "list",
+      },
+    ]
+  }
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <ListsToItemsCharacterEditorComponent
+        given={
+          Array [
+            "bar",
+          ]
+        }
+        items={
+          Array [
+            Object {
+              "code": "strength",
+              "description": "Str",
+              "label": "Strength",
+            },
+            Object {
+              "code": "dexterity",
+              "description": "Dex",
+              "label": "Dexterity",
+            },
+            Object {
+              "code": "constitution",
+              "description": "Con",
+              "label": "Constitution",
+            },
+            Object {
+              "code": "intelligence",
+              "description": "Int",
+              "label": "Intelligence",
+            },
+            Object {
+              "code": "wisdom",
+              "description": "Wis",
+              "label": "Wisdom",
+            },
+            Object {
+              "code": "charisma",
+              "description": "Char",
+              "label": "Charisma",
+            },
+          ]
+        }
+        limit={1}
+        path="foo.items"
+        type="list"
+      >
+        <CharacterEditorComponent
+          given={
+            Array [
+              "bar",
+            ]
+          }
+          items={
+            Array [
+              Object {
+                "code": "strength",
+                "description": "Str",
+                "label": "Strength",
+              },
+              Object {
+                "code": "dexterity",
+                "description": "Dex",
+                "label": "Dexterity",
+              },
+              Object {
+                "code": "constitution",
+                "description": "Con",
+                "label": "Constitution",
+              },
+              Object {
+                "code": "intelligence",
+                "description": "Int",
+                "label": "Intelligence",
+              },
+              Object {
+                "code": "wisdom",
+                "description": "Wis",
+                "label": "Wisdom",
+              },
+              Object {
+                "code": "charisma",
+                "description": "Char",
+                "label": "Charisma",
+              },
+            ]
+          }
+          limit={1}
+          path="foo.items"
+          type="list"
+        >
+          <ListPropertySelect
+            character={
+              Object {
+                "foo": Object {
+                  "dict": Object {
+                    "description": "foo.dict goes here",
+                  },
+                  "items": Array [
+                    "bar",
+                  ],
+                  "list": Array [
+                    "charisma",
+                  ],
+                  "select": "strength",
+                  "value": "foo",
+                },
+              }
+            }
+            current={
+              Array [
+                "bar",
+              ]
+            }
+            getCurrent={[Function]}
+            given={
+              Array [
+                "bar",
+              ]
+            }
+            items={
+              Array [
+                Object {
+                  "code": "strength",
+                  "description": "Str",
+                  "label": "Strength",
+                },
+                Object {
+                  "code": "dexterity",
+                  "description": "Dex",
+                  "label": "Dexterity",
+                },
+                Object {
+                  "code": "constitution",
+                  "description": "Con",
+                  "label": "Constitution",
+                },
+                Object {
+                  "code": "intelligence",
+                  "description": "Int",
+                  "label": "Intelligence",
+                },
+                Object {
+                  "code": "wisdom",
+                  "description": "Wis",
+                  "label": "Wisdom",
+                },
+                Object {
+                  "code": "charisma",
+                  "description": "Char",
+                  "label": "Charisma",
+                },
+              ]
+            }
+            limit={1}
+            onChange={[Function]}
+            onSave={[Function]}
+            onUpdate={[Function]}
+            type="list"
+          >
+            <TagsContainer>
+              <div
+                className="base-tag-container nice-tags-container"
+              >
+                <SingleSelect
+                  emptyLabel="Add..."
+                  isDisabled={[Function]}
+                  items={
+                    Array [
+                      Object {
+                        "code": "strength",
+                        "description": "Str",
+                        "label": "Strength",
+                      },
+                      Object {
+                        "code": "dexterity",
+                        "description": "Dex",
+                        "label": "Dexterity",
+                      },
+                      Object {
+                        "code": "constitution",
+                        "description": "Con",
+                        "label": "Constitution",
+                      },
+                      Object {
+                        "code": "intelligence",
+                        "description": "Int",
+                        "label": "Intelligence",
+                      },
+                      Object {
+                        "code": "wisdom",
+                        "description": "Wis",
+                        "label": "Wisdom",
+                      },
+                      Object {
+                        "code": "charisma",
+                        "description": "Char",
+                        "label": "Charisma",
+                      },
+                    ]
+                  }
+                  setState={[Function]}
+                >
+                  <OnClickOutside(BaseSelect)
+                    eventTypes={
+                      Array [
+                        "mousedown",
+                        "touchstart",
+                      ]
+                    }
+                    excludeScrollbar={false}
+                    label="Add..."
+                    outsideClickIgnoreClass="ignore-react-onclickoutside"
+                    preventDefault={false}
+                    stopPropagation={false}
+                  >
+                    <BaseSelect
+                      closeOnClick={true}
+                      disableOnClickOutside={[Function]}
+                      enableOnClickOutside={[Function]}
+                      eventTypes={
+                        Array [
+                          "mousedown",
+                          "touchstart",
+                        ]
+                      }
+                      label="Add..."
+                      outsideClickIgnoreClass="ignore-react-onclickoutside"
+                      preventDefault={false}
+                      stopPropagation={false}
+                    >
+                      <div
+                        className="nice-dropdown nice-form-control"
+                      >
+                        <button
+                          className="nice-btn"
+                          onClick={[Function]}
+                        >
+                          Add...
+                          <i
+                            className="icon fa-angle-down"
+                          />
+                        </button>
+                        <ul
+                          className="dropdown-menu"
+                          onClick={[Function]}
+                        >
+                          <li
+                            className={null}
+                            data-value="strength"
+                            key="strength"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Strength
+                            </a>
+                          </li>
+                          <li
+                            className={null}
+                            data-value="dexterity"
+                            key="dexterity"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Dexterity
+                            </a>
+                          </li>
+                          <li
+                            className={null}
+                            data-value="constitution"
+                            key="constitution"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Constitution
+                            </a>
+                          </li>
+                          <li
+                            className={null}
+                            data-value="intelligence"
+                            key="intelligence"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Intelligence
+                            </a>
+                          </li>
+                          <li
+                            className={null}
+                            data-value="wisdom"
+                            key="wisdom"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Wisdom
+                            </a>
+                          </li>
+                          <li
+                            className={null}
+                            data-value="charisma"
+                            key="charisma"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Charisma
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </BaseSelect>
+                  </OnClickOutside(BaseSelect)>
+                </SingleSelect>
+                <Tag
+                  color="good"
+                  disabled={true}
+                  id="bar"
+                  key="tag-0"
+                  label="bar"
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag good"
+                  >
+                    <span
+                      className="nice-tag-label"
+                    >
+                      <ToolTip>
+                        bar
+                      </ToolTip>
+                    </span>
+                  </div>
+                </Tag>
+              </div>
+            </TagsContainer>
+          </ListPropertySelect>
+        </CharacterEditorComponent>
+      </ListsToItemsCharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;

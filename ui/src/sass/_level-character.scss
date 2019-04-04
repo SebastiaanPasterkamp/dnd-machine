@@ -1,0 +1,7 @@
+// _level-character.scss
+
+@import 'widget-grid';
+
+.character-level {
+    @extend .widget-grid;
+}

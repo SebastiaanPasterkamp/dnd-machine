@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ChoiceSelect should render with all props 1`] = `
+<ChoiceSelect
+  description="One choice please"
+  options={
+    Array [
+      Object {
+        "label": "Choice A",
+        "limit": 1,
+        "type": "ability_score",
+      },
+      Object {
+        "description": "Some *text* here",
+        "label": "Choice B",
+        "limit": 2,
+        "type": "ability_score",
+      },
+    ]
+  }
+  type="choice"
+>
+  <TabComponent
+    tabConfig={
+      Array [
+        Object {
+          "label": "Choice A",
+          "limit": 1,
+          "type": "ability_score",
+        },
+        Object {
+          "description": "Some *text* here",
+          "label": "Choice B",
+          "limit": 2,
+          "type": "ability_score",
+        },
+      ]
+    }
+  >
+    <div
+      className="nice-tabs-wrapper tab-component"
+    >
+      <ul
+        className="nice-tabs bold"
+      >
+        <li
+          className="tab-component__tab current"
+          key="tab-0/.$0"
+        >
+          <a
+            className="cursor-pointer"
+            onClick={null}
+          >
+            Choice A
+          </a>
+        </li>
+        <li
+          className="tab-component__tab"
+          key="tab-1/.$1"
+        >
+          <a
+            className="cursor-pointer"
+            onClick={[Function]}
+          >
+            Choice B
+          </a>
+        </li>
+      </ul>
+      <ul
+        className="nice-tab-content"
+      >
+        <li
+          className="current"
+          key=".$0"
+        >
+          <CharacterConfig
+            config={
+              Array [
+                Object {
+                  "label": "Choice A",
+                  "limit": 1,
+                  "type": "ability_score",
+                },
+              ]
+            }
+            key="0"
+          >
+            <FormGroup
+              key="0"
+              label="Choice A"
+            >
+              <div
+                className="nice-form-group"
+              >
+                <label>
+                  Choice A
+                </label>
+                <AbilityScoreSelect
+                  limit={1}
+                  type="ability_score"
+                />
+              </div>
+            </FormGroup>
+          </CharacterConfig>
+        </li>
+      </ul>
+    </div>
+  </TabComponent>
+</ChoiceSelect>
+`;
+
+exports[`Component: ChoiceSelect should render with minimum props 1`] = `
+<ChoiceSelect
+  options={Array []}
+  type="choice"
+>
+  <TabComponent
+    tabConfig={Array []}
+  >
+    <div
+      className="nice-tabs-wrapper tab-component"
+    >
+      <ul
+        className="nice-tabs bold"
+      />
+      <ul
+        className="nice-tab-content"
+      />
+    </div>
+  </TabComponent>
+</ChoiceSelect>
+`;

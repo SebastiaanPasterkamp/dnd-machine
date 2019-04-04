@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageStore capture a message 1`] = `
+Object {
+  "messages": Array [
+    Object {
+      "id": "id_1",
+      "message": "Hello world",
+      "timeout": 0,
+      "title": null,
+      "type": "good",
+    },
+  ],
+}
+`;
+
+exports[`MessageStore remove a message 1`] = `
+Object {
+  "messages": Array [
+    Object {
+      "id": "id_1",
+      "message": "Goodbye world",
+      "timeout": 10,
+      "title": "Bye",
+      "type": "muted",
+    },
+  ],
+}
+`;
+
+exports[`MessageStore remove a message 2`] = `
+Object {
+  "messages": Array [],
+}
+`;

@@ -1,0 +1,25 @@
+// _spell-view.scss
+
+@import 'view-grid';
+
+.spell-view {
+    @extend .view-grid;
+
+    > .spell-view__information {
+        grid-column-end: span 4;
+    }
+
+    > .spell-view__description {
+        grid-column-end: span 8;
+    }
+
+    .spell-view__properties {
+        > div:before {
+            content: ', ';
+        }
+        > div:first-child:before {
+            content: normal;
+        }
+    }
+
+}

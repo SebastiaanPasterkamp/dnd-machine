@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdventureGold should emit change for copper, a new coin 1`] = `
+Object {
+  "total": Object {
+    "cp": 10,
+    "gp": 30,
+    "sp": 20,
+  },
+}
+`;
+
+exports[`AdventureGold should emit change for silver, an existing coin 1`] = `
+Object {
+  "total": Object {
+    "gp": 30,
+    "sp": 25,
+  },
+}
+`;
+
+exports[`AdventureGold should render with full props 1`] = `
+<div
+  className="nice-panel example-gold"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Example Gold
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Starting
+      </span>
+      <input
+        className="coinage capitalize nice-form-control"
+        disabled={true}
+        value="30 Gold, 20 Silver"
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Earned
+      </span>
+      <div
+        className="base-tag-container nice-tags-container tag-value-container"
+      >
+        <div
+          className="nice-tag muted"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            Copper
+          </span>
+          <span
+            className="nice-tag-badge"
+          >
+            10
+          </span>
+        </div>
+        <div
+          className="nice-tag muted"
+        >
+          <span
+            className="nice-tag-label"
+          >
+            Silver
+          </span>
+          <span
+            className="nice-tag-badge"
+          >
+            5
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Total
+      </span>
+      <input
+        className="coinage capitalize nice-form-control"
+        disabled={true}
+        value="30 Gold, 25 Silver, 10 Copper"
+      />
+    </div>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;
+
+exports[`AdventureGold should render with minimum props 1`] = `
+<div
+  className="nice-panel"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Example Gold
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Starting
+      </span>
+      <input
+        className="coinage capitalize nice-form-control"
+        disabled={true}
+        value=""
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Earned
+      </span>
+      <div
+        className="base-tag-container nice-tags-container tag-value-container"
+      >
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Add...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          >
+            <li
+              className={null}
+              data-value="cp"
+              onClick={[Function]}
+            >
+              <a>
+                Copper
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="sp"
+              onClick={[Function]}
+            >
+              <a>
+                Silver
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="ep"
+              onClick={[Function]}
+            >
+              <a>
+                Electrum
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="gp"
+              onClick={[Function]}
+            >
+              <a>
+                Gold
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="pp"
+              onClick={[Function]}
+            >
+              <a>
+                Platinum
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Total
+      </span>
+      <input
+        className="coinage capitalize nice-form-control"
+        disabled={true}
+        value=""
+      />
+    </div>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;

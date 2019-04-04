@@ -1,0 +1,34 @@
+// _adventure-league-log-view.scss
+
+@import 'view-grid';
+
+.adventure-league-log-view {
+    @extend .view-grid;
+
+    .adventure-league-log-view__session {
+            grid-column-end: span 6;
+    }
+
+    > .adventure-league-log-view__adventurer {
+        grid-column-end: span 6;
+
+        > .nice-panel-content > div {
+            display: block;
+        }
+    }
+
+    .adventure-league-log-view__earned,
+    .adventure-league-log-view__equipment,
+    .adventure-league-log-view__items {
+        grid-column: span 6;
+        span:before {
+            content: ', ';
+        }
+        span:first-of-type:before {
+            content: normal;
+        }
+    }
+    .adventure-league-log-view__notes {
+        grid-column: span 6;
+    }
+}
