@@ -1,14 +1,19 @@
 import React from 'react';
-import _ from 'lodash';
+import { isEqual } from 'lodash/fp';
 
 class LazyComponent extends React.Component
 {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
-        if (!_.isEqual(this.props, nextProps)) {
+        if (!isEqual(this.props, nextProps)) {
             return true;
         }
 
-        if (!_.isEqual(this.state, nextState)) {
+        if (!isEqual(this.state, nextState)) {
             return true;
         }
 
