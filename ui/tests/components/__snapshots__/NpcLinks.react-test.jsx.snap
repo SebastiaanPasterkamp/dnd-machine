@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: NpcLinks should render a new button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-plus"
+    href="/npc/new"
+    onClick={[Function]}
+  >
+    New
+  </a>
+</div>
+`;
+
+exports[`Component: NpcLinks should render without props 1`] = `null`;
+
+exports[`Component: NpcLinks should show nothing 1`] = `null`;
+
+exports[`Component: NpcLinks should show the normal buttons 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/npc/show/10"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-pencil"
+    href="/npc/edit/10"
+    onClick={[Function]}
+  >
+    Edit
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-clone"
+    onClick={[Function]}
+  >
+    Copy
+  </a>
+</div>
+`;
+
+exports[`Component: NpcLinks should show the raw button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-cogs"
+    href="/npc/raw/10"
+    onClick={[Function]}
+  >
+    Raw
+  </a>
+</div>
+`;

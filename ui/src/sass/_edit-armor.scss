@@ -1,0 +1,7 @@
+// _edit-armor.scss
+
+@import 'widget-grid';
+
+.armor-edit {
+    @extend .widget-grid;
+}

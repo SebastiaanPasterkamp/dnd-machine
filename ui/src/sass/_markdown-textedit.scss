@@ -1,0 +1,62 @@
+// _markdown-textedit.scss
+
+.markdown-textedit {
+    position: relative;
+    white-space: initial;
+
+    .markdown-textedit__placeholder {
+        position: absolute;
+        color: gray;
+        margin: 4px 6px;
+    }
+
+    &.preview:not(.splitview) textarea {
+        visibility: hidden;
+    }
+
+    textarea {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-height: 8em;
+        height: 100%;
+    }
+    &.small textarea {
+        min-height: 1em;
+    }
+
+    &.edit:not(.splitview) .markdown-textedit__preview {
+        visibility: hidden;
+    }
+
+    .markdown-textedit__preview {
+        display: block;
+        min-height: 8em;
+        height: 100%;
+        border: 1px solid #D0D1D5;
+        padding: 5px;
+        width: 100%;
+        background-color: #FFF;
+    }
+    &.small .markdown-textedit__preview {
+        min-height: 1em;
+    }
+
+    &.splitview {
+        display: grid;
+        grid-template-columns: 50% 50%;
+
+        .markdown-textedit__preview,
+        textarea {
+            position: initial;
+        }
+    }
+
+    &.small .markdown-textedit__preview {
+        min-height: 2em;
+    }
+
+    .nice-btn.icon::before {
+        margin-right: 0px;
+    }
+}

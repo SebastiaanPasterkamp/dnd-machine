@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1 class="icon fa-book">Campaign</h1>
+
+<div id="view-campaign">
+    <div id="description" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Description
+        </div>
+        <div class="nice-panel-content control-wrapper">
+            <h3>{{ campaign.name }}</h3>
+
+            <div class="nice-panel-content object-control">
+                <a href="{{ url_for('campaign.edit', obj_id=campaign.id) }}" class="nice-btn icon fa-cog">Edit</a>
+                <a href="{{ url_for('campaign.api_delete', obj_id=campaign.id) }}" class="nice-btn icon bad fa-trash">Delete</a>
+            </div>
+
+            {{ campaign.description|markdown }}
+        </div>
+    </div>
+
+    <div id="story" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Story
+        </div>
+        <div class="nice-panel-content">
+            {{ campaign.story|markdown|named_headers }}
+        </div>
+    </div>
+
+    <div id="toc" class="nice-panel brand">
+        <div class="nice-panel-heading">
+            Table of Content
+        </div>
+        <div class="nice-panel-content">
+            <ul class="nice-menu stacked">
+            {%- for item in campaign.toc recursive %}
+                <li><a href="#{{ item.title|sanitize }}">{{ item.title|markdown|striptags }}</a>
+                {%- if item.children -%}
+                    <ul>{{ loop(item.children) }}</ul>
+                {%- endif %}</li>
+            {%- endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

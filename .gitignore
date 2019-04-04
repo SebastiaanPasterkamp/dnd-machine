@@ -1,2 +1,8 @@
 *~
 *pyc
+app/coverage
+app/static/js/dnd-machine.js
+app/static/css/dnd-machine.css
+ui/node_modules
+ui/coverage
+app/config.local.json

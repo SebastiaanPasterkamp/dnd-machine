@@ -1,0 +1,128 @@
+import React from 'react';
+import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
+
+import ModalDialog from 'components/ModalDialog.jsx';
+
+describe('Component: ModalDialog', () => {
+    it('should render with minimum props', () => {
+        const tree = renderer.create(
+            <ModalDialog
+                label="test"
+                >
+                Foo bar
+            </ModalDialog>
+        ).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should render with full props', () => {
+        const mockFunc = jest.fn();
+        const tree = renderer.create(
+            <ModalDialog
+                label="test"
+                subheading="more testing"
+                onCancel={ mockFunc }
+                cancelLabel="Close"
+                onDone={ mockFunc }
+                doneLabel="Save"
+                onHelp={ mockFunc }
+                helpLabel="Whut!"
+                >
+                <span>
+                    Foo bar
+                </span>
+            </ModalDialog>
+        ).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should bind onCancel to close', () => {
+        const onCancel = jest.fn();
+        const wrapper = mount(
+            <ModalDialog
+                label="test"
+                subheading="more testing"
+                onCancel={ onCancel }
+                >
+                <span>
+                    Foo bar
+                </span>
+            </ModalDialog>
+        );
+
+        wrapper
+            .find('.fa-times')
+            .simulate('click');
+
+        expect(onCancel)
+            .toBeCalled();
+    });
+
+    it('should bind onCancel to cancel', () => {
+        const onCancel = jest.fn();
+        const wrapper = mount(
+            <ModalDialog
+                label="test"
+                subheading="more testing"
+                onCancel={ onCancel }
+                >
+                <span>
+                    Foo bar
+                </span>
+            </ModalDialog>
+        );
+
+        wrapper
+            .find('a.cursor-pointer')
+            .simulate('click');
+
+        expect(onCancel)
+            .toBeCalled();
+    });
+
+    it('should bind onDone', () => {
+        const onDone = jest.fn();
+        const wrapper = mount(
+            <ModalDialog
+                label="test"
+                onDone={ onDone }
+                >
+                <span>
+                    Foo bar
+                </span>
+            </ModalDialog>
+        );
+
+        wrapper
+            .find('a.primary')
+            .simulate('click');
+
+        expect(onDone)
+            .toBeCalled();
+    });
+
+    it('should bind onHelp', () => {
+        const onHelp = jest.fn();
+        const wrapper = mount(
+            <ModalDialog
+                label="test"
+                onHelp={ onHelp }
+                >
+                <span>
+                    Foo bar
+                </span>
+            </ModalDialog>
+        );
+
+
+        wrapper
+            .find('.fa-question')
+            .simulate('click');
+
+        expect(onHelp)
+            .toBeCalled();
+    });
+});

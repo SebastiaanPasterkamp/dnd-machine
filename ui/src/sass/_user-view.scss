@@ -1,0 +1,16 @@
+// _user-view.scss
+
+@import 'widget-grid';
+
+.user-view {
+    @extend .widget-grid;
+
+    .user-view__roles {
+        > div:before {
+            content: ', ';
+        }
+        > div:first-child:before {
+            content: normal;
+        }
+    }
+}

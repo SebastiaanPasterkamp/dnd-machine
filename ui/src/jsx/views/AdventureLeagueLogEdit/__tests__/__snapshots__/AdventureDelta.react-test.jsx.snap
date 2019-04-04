@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdventureDelta AdventureDelta should emit change 1`] = `
+Object {
+  "formula": "2+3",
+  "total": 25,
+}
+`;
+
+exports[`AdventureDelta should render with full props 1`] = `
+<div
+  className="nice-panel example-delta"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Example Delta
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Starting
+      </span>
+      <input
+        className="nice-form-control"
+        disabled={true}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Starting..."
+        type="number"
+        value="20"
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Earned
+      </span>
+      <input
+        className="nice-form-control"
+        data-field="earned"
+        disabled={true}
+        max={undefined}
+        min={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Earned..."
+        type="text"
+        value="5"
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Total
+      </span>
+      <input
+        className="nice-form-control"
+        disabled={true}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Total..."
+        type="number"
+        value="25"
+      />
+    </div>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;
+
+exports[`AdventureDelta should render with minimum props 1`] = `
+<div
+  className="nice-panel"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Example Delta
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Starting
+      </span>
+      <input
+        className="nice-form-control"
+        disabled={true}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Starting..."
+        type="number"
+        value="0"
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Earned
+      </span>
+      <input
+        className="nice-form-control"
+        data-field="earned"
+        disabled={false}
+        max={undefined}
+        min={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Earned..."
+        type="text"
+        value="0"
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Total
+      </span>
+      <input
+        className="nice-form-control"
+        disabled={true}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Total..."
+        type="number"
+        value="0"
+      />
+    </div>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,51 @@
+// _table-responsive.scss
+
+@import 'media-values';
+
+@media #{$media} and ($feature: $value) {
+    table.responsive {
+        border: 0;
+
+        caption {
+            font-size: 1.3em;
+        }
+
+        thead {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+
+        td, th {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+        }
+
+        td:before, th:before {
+            /*
+            * aria-label has no advantage, it won't be read inside a table
+            content: attr(aria-label);
+            */
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td:last-child, th:last-child {
+            border-bottom: 0;
+        }
+    }
+}

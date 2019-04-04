@@ -1,0 +1,49 @@
+// _encounter-view.scss
+
+@import 'widget-grid';
+
+.encounter-view {
+    @extend .widget-grid;
+
+    > .encounter-view__description {
+        grid-row-end: span 2;
+    }
+
+    > .encounter-view__challenge {
+    }
+
+    > .encounter-view__modified {
+    }
+
+    > .encounter-view__tracker {
+        grid-column-end: span 2;
+
+        .encounter-view__tracker-cards {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-evenly;
+
+            > summary {
+                width: 15em;
+                display:flex;
+                flex-direction: column;
+
+                > .nice-card-content{
+                    flex: 1;
+                    > strong:before {
+                        content: ' ';
+                        display: block;
+                    }
+                    > strong:first-child:before {
+                        content: normal;
+                        display: inherit;
+                    }
+                }
+            }
+        }
+    }
+
+    > .encounter-view__monsters {
+        grid-column-end: span 2;
+    }
+}

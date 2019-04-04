@@ -1,0 +1,41 @@
+// _spell-label.scss
+
+.spell-label {
+    > strong:before {
+        content: ', ';
+    }
+    > strong:first-child:before {
+        content: normal;
+    }
+
+    .spell-label--info {
+        margin-left: 1em;
+
+        > strong:before {
+            content: ', ';
+        }
+        > strong:first-child:before {
+            content: normal;
+        }
+    }
+
+    .spell-label--properties {
+        &:before {
+            content: '[';
+        }
+        &:after {
+            content: ']';
+        }
+
+        > li {
+            display: inline;
+        }
+
+        > li:before {
+            content: ', ';
+        }
+        > li:first-child:before {
+            content: normal;
+        }
+    }
+}

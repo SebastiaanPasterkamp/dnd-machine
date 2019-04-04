@@ -1,0 +1,17 @@
+// _view-grid.scss
+
+@import 'media-values';
+
+div.view-grid {
+    display: grid;
+    grid-gap: 0.1em 0.8%;
+    grid-template-columns: repeat(12, 7.6%);
+    grid-auto-rows: auto;
+}
+
+@media #{$media} and ($feature: $value) {
+
+    div.view-grid {
+        display: block;
+    }
+}

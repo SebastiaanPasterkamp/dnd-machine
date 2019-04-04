@@ -1,0 +1,17 @@
+// _party-view.scss
+
+@import 'widget-grid';
+
+.party-view {
+    @extend .widget-grid;
+
+    > .party-view__description {
+    }
+
+    > .party-view__challenge {
+    }
+
+    > .party-view__members {
+        grid-column-end: span 2;
+    }
+}

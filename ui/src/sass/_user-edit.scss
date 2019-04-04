@@ -1,0 +1,7 @@
+// _user-edit.scss
+
+@import 'widget-grid';
+
+.user-edit {
+    @extend .widget-grid;
+}

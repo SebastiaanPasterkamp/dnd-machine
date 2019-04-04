@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: CharacterLinks should render a new button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-plus"
+    href="/character/new"
+    onClick={[Function]}
+  >
+    New
+  </a>
+</div>
+`;
+
+exports[`Component: CharacterLinks should render without props 1`] = `null`;
+
+exports[`Component: CharacterLinks should show a level-up button 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/character/show/10"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-level-up primary"
+    href="/character/edit/10"
+    onClick={[Function]}
+  >
+    Level Up
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-clone"
+    onClick={[Function]}
+  >
+    Copy
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-file-pdf-o"
+    href="/character/download/10"
+  >
+    PDF
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-trash-o bad"
+    onClick={[Function]}
+  >
+    Delete
+  </a>
+</div>
+`;
+
+exports[`Component: CharacterLinks should show admin buttons 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-cogs"
+    href="/character/raw/10"
+    onClick={[Function]}
+  >
+    Raw
+  </a>
+</div>
+`;
+
+exports[`Component: CharacterLinks should show only readonly buttons 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/character/show/10"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-file-pdf-o"
+    href="/character/download/10"
+  >
+    PDF
+  </a>
+</div>
+`;
+
+exports[`Component: CharacterLinks should show privileged buttons 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/character/show/10"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-pencil"
+    href="/character/edit/10"
+    onClick={[Function]}
+  >
+    Edit
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-clone"
+    onClick={[Function]}
+  >
+    Copy
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-file-pdf-o"
+    href="/character/download/10"
+  >
+    PDF
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-trash-o bad"
+    onClick={[Function]}
+  >
+    Delete
+  </a>
+</div>
+`;

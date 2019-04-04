@@ -1,0 +1,17 @@
+// _widget-grid.scss
+
+@import 'media-values';
+
+.widget-grid {
+    display: grid;
+    grid-gap: 1em .5em;
+    grid-template-columns: 50% 50%;
+}
+
+@media #{$media} and ($feature: $value) {
+
+    .widget-grid {
+        display: block;
+    }
+
+}

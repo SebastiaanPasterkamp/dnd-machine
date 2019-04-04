@@ -1,0 +1,598 @@
+{
+    "user_roles": [
+        {"code": "admin", "label": "Site Administrator"},
+        {"code": "dm", "label": "Dungeon Master"},
+        {"code": "player", "label": "Player"}
+    ],
+    "classes": [
+        {"code": "Barbarian", "label": "Barbarian", "description": "A fierce warrior of primitive background who can enter a battle rage."},
+        {"code": "Bard", "label": "Bard", "description": "An inspiring magician whose power echoes the music of creation."},
+        {"code": "Cleric", "label": "Cleric", "description": "A priestly champion who wields divine magic in service of a higher power."},
+        {"code": "Druid", "label": "Druid", "description": "A priest of the Old Faith, wielding the powers of nature — moonlight and plant growth, fire and lightning — and adopting animal forms."},
+        {"code": "Fighter", "label": "Fighter", "description": "A master of martial combat, skilled wita variety of weapons and armor."},
+        {"code": "Monk", "label": "Monk", "description": "An master of martial arts, harnessing the power of the body in pursuit of physical and spiritual perfection."},
+        {"code": "Paladin", "label": "Paladin", "description": "A holy warrior bound to a sacred oath."},
+        {"code": "Ranger", "label": "Ranger", "description": "A warrior who uses martial prowess annature magic to combat threats on the edges of civilization."},
+        {"code": "Rogue", "label": "Rogue", "description": "A scoundrel who uses stealth and trickery to overcome obstacles and enemies."},
+        {"code": "Sorcerer", "label": "Sorcerer", "description": "A spellcaster who draws on inherent magic from a gift or bloodline."},
+        {"code": "Warlock", "label": "Warlock", "description": "A wielder of magic that is derived from a bargain with an extraplanar entity."},
+        {"code": "Wizard", "label": "Wizard", "description": "A scholarly magic-user capable of manipulating the structures of reality."}
+    ],
+    "statistics": [
+        {
+            "code": "strength",
+            "label": "Strength",
+            "short": "Str",
+            "description": "Strength is being able to crush a tomato."
+        },
+        {
+            "code": "dexterity",
+            "label": "Dexterity",
+            "short": "Dex",
+            "description": "Dexterity is being able to dodge a tomato."
+
+        },
+        {
+            "code": "constitution",
+            "label": "Constitution",
+            "short": "Con",
+            "description": "Constitution is being able to eat a bad tomato."
+        },
+        {
+            "code": "intelligence",
+            "label": "Intelligence",
+            "short": "Int",
+            "description": "Intelligence is knowing a tomato is a fruit."
+        },
+        {
+            "code": "wisdom",
+            "label": "Wisdom",
+            "short": "Wis",
+            "description": "Wisdom is knowing not to put a tomato in a fruit salad."
+        },
+        {
+            "code": "charisma",
+            "label": "Charisma",
+            "short": "Cha",
+            "description": "Charisma is being able to sell a tomato based fruit salad."
+        }
+    ],
+    "alignments": [
+        {"code": "lawful good", "label": "Lawful good"},
+        {"code": "neutral good", "label": "Neutral good"},
+        {"code": "chaotic good", "label": "Chaotic good"},
+
+        {"code": "lawful neutral", "label": "Lawful neutral"},
+        {"code": "true neutral", "label": "True neutral"},
+        {"code": "chaotic neutral", "label": "Chaotic neutral"},
+
+        {"code": "lawful evil", "label": "Lawful evil"},
+        {"code": "neutral evil", "label": "Neutral evil"},
+        {"code": "chaotic evil", "label": "Chaotic evil"}
+    ],
+    "skills": [
+        {"code": "athletics", "label": "Athletics", "stat": "strength"},
+        {"code": "acrobatics", "label": "Acrobatics", "stat": "dexterity"},
+        {"code": "sleight of hand", "label": "Sleight of Hand", "stat": "dexterity"},
+        {"code": "stealth", "label": "Stealth", "stat": "dexterity"},
+        {"code": "arcana", "label": "Arcana", "stat": "intelligence"},
+        {"code": "history", "label": "History", "stat": "intelligence"},
+        {"code": "investigation", "label": "Investigation", "stat": "intelligence"},
+        {"code": "nature", "label": "Nature", "stat": "intelligence"},
+        {"code": "religion", "label": "Religion", "stat": "intelligence"},
+        {"code": "animal handling", "label": "Animal Handling", "stat": "wisdom"},
+        {"code": "insight", "label": "Insight", "stat": "wisdom"},
+        {"code": "medicine", "label": "Medicine", "stat": "wisdom"},
+        {"code": "perception", "label": "Perception", "stat": "wisdom"},
+        {"code": "survival", "label": "Survival", "stat": "wisdom"},
+        {"code": "deception", "label": "Deception", "stat": "charisma"},
+        {"code": "intimidation", "label": "Intimidation", "stat": "charisma"},
+        {"code": "performance", "label": "Performance", "stat": "charisma"},
+        {"code": "persuasion", "label": "Persuasion", "stat": "charisma"}
+    ],
+    "language_types": [
+        {"code": "common", "label": "Common"},
+        {"code": "exotic", "label": "Exotic"}
+    ],
+    "languages": [
+        {"code": "common", "label": "Common", "speakers": "Humans", "script": "Common", "type": "common"},
+        {"code": "dwarvish", "label": "Dwarvish", "speakers": "Dwarves", "script": "Dwarvish", "type": "common"},
+        {"code": "elvish", "label": "Elvish", "speakers": "Elves", "script": "Elvish", "type": "common"},
+        {"code": "giant", "label": "Giant", "speakers": "Ogres, Giants", "script": "Dwarvish", "type": "common"},
+        {"code": "gnomish", "label": "Gnomish", "speakers": "Gnomes", "script": "Dwarvish", "type": "common"},
+        {"code": "goblin", "label": "Goblin", "speakers": "Goblinoids", "script": "Dwarvish", "type": "common"},
+        {"code": "halfling", "label": "Halfling", "speakers": "Halflings", "script": "Common", "type": "common"},
+        {"code": "orc", "label": "Orc", "speakers": "Orcs", "script": "Dwarvish", "type": "common"},
+
+        {"code": "abyssal", "label": "Abyssal", "speakers": "Demons", "script": "Infernal", "type": "exotic"},
+        {"code": "celestial", "label": "Celestial", "speakers": "Celestials", "script": "Celestial", "type": "exotic"},
+        {"code": "draconic", "label": "Draconic", "speakers": "Dragons, Dragonborn", "script": "Draconic", "type": "exotic"},
+        {"code": "deep speech", "label": "Deep Speech", "speakers": "Mind flayers, Beholders", "type": "exotic"},
+        {"code": "infernal", "label": "Infernal", "speakers": "Devils", "script": "Infernal", "type": "exotic"},
+        {"code": "primordial", "label": "Primordial", "speakers": "Elementals", "script": "Dwarvish", "type": "exotic"},
+        {"code": "sylvan", "label": "Sylvan", "speakers": "Fey creatures", "script": "Elvish", "type": "exotic"},
+        {"code": "undercommon", "label": "Undercommon", "speakers": "Underdark traders", "script": "Elvish", "type": "exotic"}
+    ],
+    "target_methods": [
+        {"code": "single", "label": "Single target", "short": "ST", "description": "One target is affected."},
+        {"code": "multiple", "label": "Multi-target", "short": "MT", "description": "Multiple targets are affected. Usually when clustered together."},
+        {"code": "area", "label": "Area of Effect", "short": "AoE", "description": "An area of a specific size and shape is affected. Every designated target inside is affected."}
+    ],
+    "attack_modes": [
+        {"code": "melee", "label": "Melee Attack", "short": "M", "description": "Melee weapon attack."},
+        {"code": "ranged", "label": "Ranged Attack", "short": "R", "description": "Ranged weapon attack."},
+        {"code": "spell", "label": "Spell Attack", "short": "S", "description": "Spell attack."}
+    ],
+    "damage_types": [
+        {"code": "acid", "label": "Acid", "short": "Acd", "description": "The corrosive spray of a black dragon's breath and the dissolving enzymes secreted by a black pudding deal acid damage." },
+        {"code": "bludgeoning", "label": "Bludgeoning", "short": "Bldg", "description": "Blunt force attacks—hammers, falling, constriction, and the like—deal bludgeoning damage." },
+        {"code": "cold", "label": "Cold", "short": "Cld", "description": "The infernal chill radiating from an ice devil's spear and the frigid blast of a white dragon's breath deal cold damage." },
+        {"code": "fire", "label": "Fire", "short": "Fr", "description": "Red dragons breathe fire, and many spells conjure flames to deal fire damage." },
+        {"code": "force", "label": "Force", "short": "Frc", "description": "Force is pure magical energy focused into a damaging form. Most effects that deal force damage are spells, including magic missile and spiritual weapon." },
+        {"code": "lightning", "label": "Lightning", "short": "Ltn", "description": "A lightning bolt spell and a blue dragon's breath deal lightning damage." },
+        {"code": "necrotic", "label": "Necrotic", "short": "Ncr", "description": "Necrotic damage, dealt by certain undead and a spell such as chill touch, withers matter and even the soul." },
+        {"code": "piercing", "label": "Piercing", "short": "Pcn", "description": "Puncturing and impaling attacks, including spears and monsters' bites, deal piercing damage." },
+        {"code": "poison", "label": "Poison", "short": "Psn", "description": "Venomous stings and the toxic gas of a green dragon's breath deal poison damage." },
+        {"code": "psychic", "label": "Psychic", "short": "Psy", "description": "Mental abilities such as a mind flayer's psionic blast deal psychic damage." },
+        {"code": "radiant", "label": "Radiant", "short": "Rdnt", "description": "Radiant damage, dealt by a cleric's flame strike spell or an angel's smiting weapon, sears the flesh like fire and overloads the spirit with power." },
+        {"code": "slashing", "label": "Slashing", "short": "Slsh", "description": "Swords, axes, and monsters' claws deal slashing damage." },
+        {"code": "thunder", "label": "Thunder", "short": "Tndr", "description": "A concussive burst of sound, such as the effect of the Thunderwave spell, deals thunder damage." }
+    ],
+    "genders": [
+        {"code": "genderless", "label": "Genderless"},
+        {"code": "male", "label": "Male"},
+        {"code": "female", "label": "Female"}
+    ],
+    "magic_components": [
+        {
+            "code": "verbal", "label": "Verbal", "short": "V",
+            "description": "Most spells require the chanting of mystic words. The words themselves aren't the source of the spell's power; rather, the particular combination of sounds, with specific pitch and resonance, sets the threads of magic in motion. Thus, a character who is gagged or in an area of silence, such as one created by the **Silence** spell, can't cast a spell with a **Verbal** component."
+        },
+        {
+            "code": "somatic", "label": "Somatic", "short": "S",
+            "description": "Spellcasting gestures might include a forceful gesticulation or an intricate set of gestures. If a spell requires a **Somatic** component, the caster must have free use of at least one hand to perform these gestures."
+        },
+        {
+            "code": "material", "label": "Material", "short": "M",
+            "description": "Casting some spells requires particular objects, specified in the component entry. A character can use a *Component pouch *or a *Spellcasting focus* in place of the components specified for a spell. But if a cost is indicated for a component, a character must have that specific component before he or she can cast the spell.\n\nIf a spell states that a material component is consumed by the spell, the caster must provide this component for each casting of the spell.\nA spellcaster must have a hand free to access a spell's material components - or to hold a spellcasting focus - but it can be the same hand that he or she uses to perform somatic components."
+        }
+    ],
+    "magic_schools": [
+        {"code": "abjuration", "label": "Abjuration", "description": "Magic that blocks, banishes, or protects. Detractors of this school say that its tradition is about denial, negation rather than positive assertion. Others say that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void."},
+        {"code": "conjuration", "label": "Conjuration", "description": "Spells that produce objects and creatures out of thin air. Ranging from billowing clouds of killing fog or summon creatures from elsewhere to fight on your behalf."},
+        {"code": "divination", "label": "Divination", "description": "Spells of discernment, remote viewing, supernatural knowledge, and foresight."},
+        {"code": "enchantment", "label": "Enchantment", "description": "Abilities to magically entrance and beguile people and monsters."},
+        {"code": "evocation", "label": "Evocation", "description": "Magic that creates powerful elemental effects such as bitter cold, searing flame, rolling thunder, crackling lightning, and burning acid."},
+        {"code": "illusion", "label": "Illusion", "description": "Magic that dazzles the senses, befuddles the mind, and tricks even the wisest folk."},
+        {"code": "necromancy", "label": "Necromancy", "description": "Concerns the cosmic forces of life, death, and undeath. Manipulates the energy that animates all living things."},
+        {"code": "transmutation", "label": "Transmutation", "description": "Spells that modify energy and matter."}
+    ],
+    "humanoid_types": [
+        {"code": "Aasimar", "label": "Aasimar"},
+        {"code": "Bugbear", "label": "Bugbear"},
+        {"code": "Bullywug", "label": "Bullywug"},
+        {"code": "Catfolk", "label": "Catfolk"},
+        {"code": "Darfellan", "label": "Darfellan"},
+        {"code": "Dark One", "label": "Dark One"},
+        {"code": "Dragonborn", "label": "Dragonborn"},
+        {"code": "Drow", "label": "Drow"},
+        {"code": "Dwarf", "label": "Dwarf"},
+        {"code": "Eladrin", "label": "Eladrin"},
+        {"code": "Elf", "label": "Elf"},
+        {"code": "Genasi", "label": "Genasi"},
+        {"code": "Gibberling", "label": "Gibberling"},
+        {"code": "Githyanki", "label": "Githyanki"},
+        {"code": "Githzerai", "label": "Githzerai"},
+        {"code": "Gnoll", "label": "Gnoll"},
+        {"code": "Gnome", "label": "Gnome"},
+        {"code": "Goblin", "label": "Goblin"},
+        {"code": "Goliath", "label": "Goliath"},
+        {"code": "Grippli", "label": "Grippli"},
+        {"code": "Half-Elf", "label": "Half-Elf"},
+        {"code": "Half-Orc", "label": "Half-Orc"},
+        {"code": "Halfling", "label": "Halfling"},
+        {"code": "Hobgoblin", "label": "Hobgoblin"},
+        {"code": "Human", "label": "Human"},
+        {"code": "Kenku", "label": "Kenku"},
+        {"code": "Kobold", "label": "Kobold"},
+        {"code": "Lizardfolk", "label": "Lizardfolk"},
+        {"code": "Locathah", "label": "Locathah"},
+        {"code": "Merfolk", "label": "Merfolk"},
+        {"code": "Mongrelfolk", "label": "Mongrelfolk"},
+        {"code": "Mul", "label": "Mul"},
+        {"code": "Nilbog", "label": "Nilbog"},
+        {"code": "Norker", "label": "Norker"},
+        {"code": "Orc", "label": "Orc"},
+        {"code": "Orog", "label": "Orog"},
+        {"code": "Rakasta", "label": "Rakasta"},
+        {"code": "Saurial", "label": "Saurial"},
+        {"code": "Selkie", "label": "Selkie"},
+        {"code": "Shifter", "label": "Shifter"},
+        {"code": "Skulk", "label": "Skulk"},
+        {"code": "Swanmay", "label": "Swanmay"},
+        {"code": "Tasloi", "label": "Tasloi"},
+        {"code": "Tiefling", "label": "Tiefling"},
+        {"code": "Troglodyte", "label": "Troglodyte"}
+    ],
+    "monster_types": [
+        {"code": "Aberration", "label": "Aberration", "description": "Aberration", "intelligent": false},
+        {"code": "Beast", "label": "Beast", "description": "Beast", "intelligent": false},
+        {"code": "Celestial", "label": "Celestial", "description": "Celestial", "intelligent": true},
+        {"code": "Construct", "label": "Construct", "description": "Construct", "intelligent": false},
+        {"code": "Dragon", "label": "Dragon", "description": "Dragon", "intelligent": true},
+        {"code": "Elemental", "label": "Elemental", "description": "Elemental", "intelligent": false},
+        {"code": "Fey", "label": "Fey", "description": "Fey", "intelligent": true},
+        {"code": "Fiend", "label": "Fiend", "description": "Fiend", "intelligent": false},
+        {"code": "Giant", "label": "Giant", "description": "Giant", "intelligent": true},
+        {"code": "Humanoid", "label": "Humanoid", "description": "Humanoid", "intelligent": true},
+        {"code": "Monstrosity", "label": "Monstrosity", "description": "Monstrosity", "intelligent": false},
+        {"code": "Ooze", "label": "Ooze", "description": "Ooze", "intelligent": false},
+        {"code": "Plant", "label": "Plant", "description": "Plant", "intelligent": false},
+        {"code": "Undead", "label": "Undead", "description": "Undead", "intelligent": false}
+    ],
+    "terrain_types": [
+        {"code": "Arctic", "label": "Arctic"},
+        {"code": "Coast", "label": "Coast"},
+        {"code": "Desert", "label": "Desert"},
+        {"code": "Forest", "label": "Forest"},
+        {"code": "Grassland", "label": "Grassland"},
+        {"code": "Mountain", "label": "Mountain"},
+        {"code": "Swamp", "label": "Swamp"},
+        {"code": "Underdark", "label": "Underdark"}
+    ],
+    "size_hit_dice": [
+        {"code": "tiny", "label": "Tiny", "dice_size": 4},
+        {"code": "small", "label": "Small", "dice_size": 6},
+        {"code": "medium", "label": "Medium", "dice_size": 8},
+        {"code": "large", "label": "Large", "dice_size": 10},
+        {"code": "huge", "label": "Huge", "dice_size": 12},
+        {"code": "gargantuan", "label": "Gargantuan", "dice_size": 20}
+    ],
+    "armor_types": [
+        {"code": "light", "label": "Light Armor"},
+        {"code": "medium", "label": "Medium Armor"},
+        {"code": "heavy", "label": "Heavy Armor"},
+        {"code": "shield", "label": "Shields"}
+    ],
+    "armor": {
+        "light": {
+            "name": "Light Armor",
+            "items": [
+                {"name": "Padded Armor", "cost": {"gp": 5}, "formula": "11 + statistics.modifiers.dexterity"},
+                {"name": "Leather Armor", "cost": {"gp": 10}, "formula": "11 + statistics.modifiers.dexterity"},
+                {"name": "Studded Leather", "cost": {"gp": 45}, "formula": "12 + statistics.modifiers.dexterity"}
+            ]
+        },
+        "medium": {
+            "name": "Medium Armor",
+            "items": [
+                {"name": "Hide Armor", "cost": {"gp": 10}, "formula": "12 + min(2, statistics.modifiers.dexterity)"},
+                {"name": "Chain Shirt", "cost": {"gp": 50}, "formula": "13 + min(2, statistics.modifiers.dexterity)"},
+                {"name": "Scale Mail", "cost": {"gp": 50}, "formula": "14 + min(2, statistics.modifiers.dexterity)"},
+                {"name": "Breastplate", "cost": {"gp": 400}, "formula": "14 + min(2, statistics.modifiers.dexterity)"},
+                {"name": "Half Plate", "cost": {"gp": 750}, "formula": "15 + min(2, statistics.modifiers.dexterity)"}
+            ]
+        },
+        "heavy": {
+            "name": "Heavy Armor",
+            "items": [
+                {"name": "Ring Mail", "cost": {"gp": 30}, "value": 14},
+                {"name": "Chain Mail", "cost": {"gp": 75}, "value": 16, "strength": 13},
+                {"name": "Splint Armor", "cost": {"gp": 200}, "value": 17, "strength": 15},
+                {"name": "Plate Armor", "cost": {"gp": 1500}, "value": 18, "strength": 15}
+            ]
+        },
+        "shield": {
+            "name": "Shields",
+            "items": [
+                {"name": "Shield", "cost": {"gp": 10}, "bonus": 2}
+            ]
+        }
+    },
+    "weapon_types": [
+        {"code": "simple melee", "label": "Simple Melee Weapon", "short": "Melee"},
+        {"code": "simple ranged", "label": "Simple Ranged Weapon", "short": "Ranged"},
+        {"code": "martial melee", "label": "Martial Melee Weapon", "short": "Melee"},
+        {"code": "martial ranged", "label": "Martial Ranged Weapon", "short": "Ranged"}
+    ],
+    "weapon_properties": [
+        {
+            "code": "ammunition", "label": "Ammunition", "short": "Ammo",
+            "description": "You can use a weapon that has the ammunition property to make a ranged attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one piece of ammunition. Drawing the ammunition from a quiver, case, or other container is part of the attack. At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield. If you use a weapon that has the ammunition property to make a melee attack, you treat the weapon as an improvised weapon. A sling must be loaded to deal any damage when used in this way."
+        },
+        {
+            "code": "finesse", "label": "Finesse", "short": "Fns",
+            "description": "When making an attack with a finesse weapon, you use your choice of your **Strength** or **Dexterity** modifier for the attack and damage rolls. You must use the same modifier for both rolls."
+        },
+        {
+            "code": "heavy", "label": "Heavy", "short": "Heav",
+            "description": "Small creatures have **Disadvantage** on attack rolls with heavy weapons. A heavy weapon's size and bulk make it too large for a Small creature to use effectively."
+        },
+        {
+            "code": "light", "label": "Light", "short": "Lite",
+            "description": "A light weapon is small and easy to handle. making it ideal for use when fighting with two weapons."
+        },
+        {
+            "code": "loading", "label": "Loading", "short": "Ldng",
+            "description": "Because of the time required to load this weapon, you can fire only one piece of ammunition from it when you use an action, bonus action, or reaction to fire it, regardless of the number of attacks you can normally make."
+        },
+        {
+            "code": "reach", "label": "Reach", "short": "Rch",
+            "description": "This weapon adds 5 feet to your reach when you attack with it."
+        },
+        {
+            "code": "ranged", "label": "Ranged", "short": "Rngd", "hidden": true,
+            "description": "A weapon that can be used to make a ranged attack has a range shown in parentheses after the Ammunition or Thrown property. The range lists two numbers. The first is the weapon's normal range in feet, and the second indicates the weapon's maximum range. When attacking a target beyond normal range you have **Disadvantage** on the attack roll. You can't attack a target beyond the weapon's long range."
+        },
+        {
+            "code": "special", "label": "Special", "short": "Spcl",
+            "description": "A weapon with the special property has unusual rules governing its use, explained in the weapon's description."
+        },
+        {
+            "code": "thrown", "label": "Thrown", "short": "Trwn",
+            "description": "If a weapon has the thrown property, you can throw the weapon to make a ranged attack. If the weapon is a melee weapon, you use the same ability modifier for that attack roll and damage roll that you would use for a melee attack with the weapon. For example, if you throw a handaxe, you use your **Strength**, but if you throw a dagger, you can use either your **Strength** or your **Dexterity**, since the dagger has the **Finesse** property."
+        },
+        {
+            "code": "two-handed", "label": "Two-Handed", "short": "2H",
+            "description": "This weapon requires two hands to use."
+        },
+        {
+            "code": "versatile", "label": "Versatile", "short": "Vstl",
+            "description": "This weapon can be used with one or two hands. A damage value in parentheses appears with the property - the damage when the weapon is used with two hands to make a melee attack."
+        }
+    ],
+    "packs": {
+        "Burglar's Pack": {
+            "worth": {"gp": 16},
+            "items": [
+                "Backpack",
+                "Bag of 1,000 Ball Bearings",
+                "10 Feet of String",
+                "Bell",
+                "5 x Candle",
+                "Crowbar",
+                "Hammer",
+                "10 x Piton",
+                "Hooded Lantern",
+                "2 x Flask of Oil",
+                "5 x Day Rations",
+                "Tinderbox",
+                "Waterskin",
+                "50 Feet of Hempen Rope"
+            ]
+        },
+        "Diplomat's Pack": {
+            "worth": {"gp": 39},
+            "items": [
+                "Chest",
+                "2 x Case for Maps and Scrolls",
+                "Set of Fine Clothes",
+                "Bottle of Ink",
+                "Ink Pen",
+                "Lamp",
+                "2 x Flask of Oil",
+                "5 x Sheet of Paper",
+                "Vial of Perfume",
+                "Sealing Wax",
+                "Soap"
+            ]
+        },
+        "Dungeoneer's Pack": {
+            "worth": {"gp": 12},
+            "items": [
+                "Backpack",
+                "Crowbar",
+                "Hammer",
+                "10 x Pitons",
+                "5 x Torch",
+                "Tinderbox",
+                "10 x Day of Rations",
+                "Waterskin",
+                "50 Feet of Hempen Rope"
+            ]
+        },
+        "Entertainer's Pack": {
+            "worth": {"gp": 40},
+            "items": [
+                "Backpack",
+                "Bedroll",
+                "2 x Costume",
+                "5 x Candle",
+                "5 x Day of Rations",
+                "Waterskin",
+                "Disguise Kit"
+            ]
+        },
+        "Explorer's Pack": {
+            "worth": {"gp": 10},
+            "items": [
+                "Backpack",
+                "Bedroll",
+                "Mess Kit",
+                "Tinderbox",
+                "10 x Torch",
+                "10 x Day of Rations",
+                "Waterskin",
+                "50 Feet of Hempen Rope"
+            ]
+        },
+        "Priest's Pack": {
+            "worth": {"gp": 19},
+            "items": [
+                "Backpack",
+                "Blanket",
+                "10 x Candle",
+                "Tinderbox",
+                "Alms Box",
+                "2 x Block of Incense",
+                "Censer",
+                "Vestments",
+                "2 x Day of Rations",
+                "Waterskin"
+            ]
+        },
+        "Scholar's Pack": {
+            "worth": {"gp": 40},
+            "items": [
+                "Backpack",
+                "Book of Lore",
+                "Bottle of Ink",
+                "Ink Pen",
+                "10 x Sheet of Parchment",
+                "Little Bag of Sand",
+                "Small Knife"
+            ]
+        }
+    },
+    "tool_types": [
+        {"code": "artisan", "label": "Artisan's Tool"},
+        {"code": "gaming", "label": "Gaming Set"},
+        {"code": "kit", "label": "Kits"},
+        {"code": "musical", "label": "Musical Instrument"},
+        {"code": "gear", "label": "Adventuring Gear"},
+        {"code": "trinket", "label": "Trinkets"}
+    ],
+    "tools": [
+        {"code": "Alchemist's supplies", "label": "Alchemist's supplies", "type": "artisan", "worth": {"gp": 50}, "weight": {"lb": 8}},
+        {"code": "Brewer's supplies", "label": "Brewer's supplies", "type": "artisan", "worth": {"gp": 20}, "weight": {"lb": 9}},
+        {"code": "Calligrapher's supplies", "label": "Calligrapher's supplies", "type": "artisan", "worth": {"gp": 10}, "weight": {"lb": 5}},
+        {"code": "Carpenter's tools", "label": "Carpenter's tools", "type": "artisan", "worth": {"gp": 8}, "weight": {"lb": 6}},
+        {"code": "Cartographer's tools", "label": "Cartographer's tools", "type": "artisan", "worth": {"gp": 15}, "weight": {"lb": 6}},
+        {"code": "Cobbler's tools", "label": "Cobbler's tools", "type": "artisan", "worth": {"gp": 5}, "weight": {"lb": 5}},
+        {"code": "Cook's utensils", "label": "Cook's utensils", "type": "artisan", "worth": {"gp": 1}, "weight": {"lb": 8}},
+        {"code": "Glassblower's tools", "label": "Glassblower's tools", "type": "artisan", "worth": {"gp": 30}, "weight": {"lb": 5}},
+        {"code": "Jeweler's tools", "label": "Jeweler's tools", "type": "artisan", "worth": {"gp": 25}, "weight": {"lb": 2}},
+        {"code": "Leatherworker's tools", "label": "Leatherworker's tools", "type": "artisan", "worth": {"gp": 5}, "weight": {"lb": 5}},
+        {"code": "Mason's tools", "label": "Mason's tools", "type": "artisan", "worth": {"gp": 10}, "weight": {"lb": 8}},
+        {"code": "Painter's supplies", "label": "Painter's supplies", "type": "artisan", "worth": {"gp": 10}, "weight": {"lb": 5}},
+        {"code": "Potter's tools", "label": "Potter's tools", "type": "artisan", "worth": {"gp": 10}, "weight": {"lb": 3}},
+        {"code": "Smith's tools", "label": "Smith's tools", "type": "artisan", "worth": {"gp": 20}, "weight": {"lb": 8}},
+        {"code": "Tinker's tools", "label": "Tinker's tools", "type": "artisan", "worth": {"gp": 50}, "weight": {"lb": 10}},
+        {"code": "Weaver's tools", "label": "Weaver's tools", "type": "artisan", "worth": {"gp": 1}, "weight": {"lb": 5}},
+        {"code": "Woodcarver's tools", "label": "Woodcarver's tools", "type": "artisan", "worth": {"gp": 1}, "weight": {"lb": 5}},
+
+        {"code": "Disguise kit", "label": "Disguise kit", "type": "kit", "worth": {"gp": 25}, "weight": {"lb": 3}},
+        {"code": "Forgery kit", "label": "Forgery kit", "type": "kit", "worth": {"gp": 15}, "weight": {"lb": 5}},
+        {"code": "Herbalism kit", "label": "Herbalism kit", "type": "kit", "worth": {"gp": 5}, "weight": {"lb": 3}},
+        {"code": "Navigator's tools", "label": "Navigator's tools", "type": "kit", "worth": {"gp": 25}, "weight": {"lb": 2}},
+        {"code": "Poisoner's kit", "label": "Poisoner's kit", "type": "kit", "worth": {"gp": 50}, "weight": {"lb": 2}},
+        {"code": "Thieves' tools", "label": "Thieves' tools", "type": "kit", "worth": {"gp": 25}, "weight": {"lb": 1}},
+
+        {"code": "Dice set", "label": "Dice set", "type": "gaming", "worth": {"gp": 1}},
+        {"code": "Dragonchess set", "label": "Dragonchess set", "type": "gaming", "worth": {"gp": 1}, "weight": {"lb": 0.5}},
+        {"code": "Playing card set", "label": "Playing card set", "type": "gaming", "worth": {"sp": 5}},
+        {"code": "Three-Dragon Ante set", "label": "Three-Dragon Ante set", "type": "gaming", "worth": {"gp": 1}},
+
+        {"code": "Bagpipes", "label": "Bagpipes", "type": "musical", "worth": {"gp": 30}, "weight": {"lb": 6}},
+        {"code": "Drum", "label": "Drum", "type": "musical", "worth": {"gp": 6}, "weight": {"lb": 3}},
+        {"code": "Dulcimer", "label": "Dulcimer", "type": "musical", "worth": {"gp": 25}, "weight": {"lb": 10}},
+        {"code": "Flute", "label": "Flute", "type": "musical", "worth": {"gp": 2}, "weight": {"lb": 1}},
+        {"code": "Lute", "label": "Lute", "type": "musical", "worth": {"gp": 35}, "weight": {"lb": 2}},
+        {"code": "Lyre", "label": "Lyre", "type": "musical", "worth": {"gp": 30}, "weight": {"lb": 2}},
+        {"code": "Horn", "label": "Horn", "type": "musical", "worth": {"gp": 3}, "weight": {"lb": 2}},
+        {"code": "Pan flute", "label": "Pan flute", "type": "musical", "worth": {"gp": 12}, "weight": {"lb": 2}},
+        {"code": "Shawm", "label": "Shawm", "type": "musical", "worth": {"gp": 2}, "weight": {"lb": 1}},
+        {"code": "Viol", "label": "Viol", "type": "musical", "worth": {"gp": 30}, "weight": {"lb": 1}},
+
+        {"code": "A mummified goblin hand", "label": "A mummified goblin hand", "type": "trinket"},
+        {"code": "A piece of crystal that faintly glows in the moonlight", "label": "A piece of crystal that faintly glows in the moonlight", "type": "trinket"},
+        {"code": "A gold coin minted in an unknown land", "label": "A gold coin minted in an unknown land", "type": "trinket"},
+        {"code": "A diary written in a language you don't know", "label": "A diary written in a language you don't know", "type": "trinket"},
+        {"code": "A brass ring that never tarnishes", "label": "A brass ring that never tarnishes", "type": "trinket"},
+        {"code": "An old chess piece made from glass", "label": "An old chess piece made from glass", "type": "trinket"},
+        {"code": "A pair of knucklebone dice, each with a skull symbol on the side that would normally show six pips", "label": "A pair of knucklebone dice, each with a skull symbol on the side that would normally show six pips", "type": "trinket"},
+        {"code": "A small idol depicting a nightmarish creature that gives you unsettling dreams when you sleep near it", "label": "A small idol depicting a nightmarish creature that gives you unsettling dreams when you sleep near it", "type": "trinket"},
+        {"code": "A rope necklace from which dangles four mummified elf fingers", "label": "A rope necklace from which dangles four mummified elf fingers", "type": "trinket"},
+        {"code": "The deed for a parcel of land in a realm unknown to you", "label": "The deed for a parcel of land in a realm unknown to you", "type": "trinket"},
+        {"code": "A 1-ounce block made from an unknown material", "label": "A 1-ounce block made from an unknown material", "type": "trinket"},
+        {"code": "A small cloth doll skewered with needles", "label": "A small cloth doll skewered with needles", "type": "trinket"},
+        {"code": "A tooth from an unknown beast", "label": "A tooth from an unknown beast", "type": "trinket"},
+        {"code": "An enormous scale, perhaps from a dragon", "label": "An enormous scale, perhaps from a dragon", "type": "trinket"},
+        {"code": "A bright green feather", "label": "A bright green feather", "type": "trinket"},
+        {"code": "An old divination card bearing your likeness", "label": "An old divination card bearing your likeness", "type": "trinket"},
+        {"code": "A glass orb filled with moving smoke", "label": "A glass orb filled with moving smoke", "type": "trinket"},
+        {"code": "A 1-pound egg with a bright red shell", "label": "A 1-pound egg with a bright red shell", "type": "trinket"},
+        {"code": "A pipe that blows bubbles", "label": "A pipe that blows bubbles", "type": "trinket"},
+        {"code": "A glass jar containing a weird bit of flesh floating in pickling fluid", "label": "A glass jar containing a weird bit of flesh floating in pickling fluid", "type": "trinket"},
+        {"code": "A tiny gnome-crafted music box that plays a song you dimly remember from your childhood", "label": "A tiny gnome-crafted music box that plays a song you dimly remember from your childhood", "type": "trinket"},
+        {"code": "A small wooden statuette of a smug halfling", "label": "A small wooden statuette of a smug halfling", "type": "trinket"},
+        {"code": "A brass orb etched with strange runes", "label": "A brass orb etched with strange runes", "type": "trinket"},
+        {"code": "A multicolored stone disk", "label": "A multicolored stone disk", "type": "trinket"},
+        {"code": "A tiny silver icon of a raven", "label": "A tiny silver icon of a raven", "type": "trinket"},
+        {"code": "A bag containing forty-seven humanoid teeth, one of which is rotten", "label": "A bag containing forty-seven humanoid teeth, one of which is rotten", "type": "trinket"},
+        {"code": "A shard of obsidian that always feels warm to the touch", "label": "A shard of obsidian that always feels warm to the touch", "type": "trinket"},
+        {"code": "A dragon's bony talon hanging from a plain leather necklace", "label": "A dragon's bony talon hanging from a plain leather necklace", "type": "trinket"},
+        {"code": "A pair of old socks", "label": "A pair of old socks", "type": "trinket"},
+        {"code": "A blank book whose pages refuse to hold ink, chalk, graphite, or any other substance or marking", "label": "A blank book whose pages refuse to hold ink, chalk, graphite, or any other substance or marking", "type": "trinket"},
+        {"code": "A silver badge in the shape of a five-pointed star", "label": "A silver badge in the shape of a five-pointed star", "type": "trinket"},
+        {"code": "A knife that belonged to a relative", "label": "A knife that belonged to a relative", "type": "trinket"},
+        {"code": "A glass vial filled with nail clippings", "label": "A glass vial filled with nail clippings", "type": "trinket"},
+        {"code": "A rectangular metal device with two tiny metal cups on one end that throws sparks when wet", "label": "A rectangular metal device with two tiny metal cups on one end that throws sparks when wet", "type": "trinket"},
+        {"code": "A white, sequined glove sized for a human", "label": "A white, sequined glove sized for a human", "type": "trinket"},
+        {"code": "A vest with one hundred tiny pockets", "label": "A vest with one hundred tiny pockets", "type": "trinket"},
+        {"code": "A small, weightless stone block", "label": "A small, weightless stone block", "type": "trinket"},
+        {"code": "A tiny sketch portrait of a goblin", "label": "A tiny sketch portrait of a goblin", "type": "trinket"},
+        {"code": "An empty glass vial that smells of perfume when opened", "label": "An empty glass vial that smells of perfume when opened", "type": "trinket"},
+        {"code": "A gemstone that looks like a lump of coal when examined by anyone but you", "label": "A gemstone that looks like a lump of coal when examined by anyone but you", "type": "trinket"},
+        {"code": "A scrap of cloth from an old banner", "label": "A scrap of cloth from an old banner", "type": "trinket"},
+        {"code": "A rank insignia from a lost legionnaire", "label": "A rank insignia from a lost legionnaire", "type": "trinket"},
+        {"code": "A tiny silver bell without a clapper", "label": "A tiny silver bell without a clapper", "type": "trinket"},
+        {"code": "A mechanical canary inside a gnome-crafted lamp", "label": "A mechanical canary inside a gnome-crafted lamp", "type": "trinket"},
+        {"code": "A tiny chest carved to look like it has numerous feet on the bottom", "label": "A tiny chest carved to look like it has numerous feet on the bottom", "type": "trinket"},
+        {"code": "A dead sprite inside a clear glass bottle", "label": "A dead sprite inside a clear glass bottle", "type": "trinket"},
+        {"code": "A metal can that has no opening but sounds as if it is filled with liquid, sand, spiders, or broken glass (your choice)", "label": "A metal can that has no opening but sounds as if it is filled with liquid, sand, spiders, or broken glass (your choice)", "type": "trinket"},
+        {"code": "A glass orb filled with water, in which swims a clockwork goldfish", "label": "A glass orb filled with water, in which swims a clockwork goldfish", "type": "trinket"},
+        {"code": "A silver spoon with an M engraved on the handle", "label": "A silver spoon with an M engraved on the handle", "type": "trinket"},
+        {"code": "A whistle made from gold-colored wood", "label": "A whistle made from gold-colored wood", "type": "trinket"},
+        {"code": "A dead scarab beetle the size of your hand", "label": "A dead scarab beetle the size of your hand", "type": "trinket"},
+        {"code": "Two toy soldiers, one with a missing head", "label": "Two toy soldiers, one with a missing head", "type": "trinket"},
+        {"code": "A small box filled with different-sized buttons", "label": "A small box filled with different-sized buttons", "type": "trinket"},
+        {"code": "A candle that can't be lit", "label": "A candle that can't be lit", "type": "trinket"},
+        {"code": "A tiny cage with no door", "label": "A tiny cage with no door", "type": "trinket"},
+        {"code": "An old key", "label": "An old key", "type": "trinket"},
+        {"code": "An indecipherable treasure map", "label": "An indecipherable treasure map", "type": "trinket"},
+        {"code": "A hilt from a broken sword", "label": "A hilt from a broken sword", "type": "trinket"},
+        {"code": "A rabbit's foot", "label": "A rabbit's foot", "type": "trinket"},
+        {"code": "A glass eye", "label": "A glass eye", "type": "trinket"},
+        {"code": "A cameo carved in the likeness of a hideous person", "label": "A cameo carved in the likeness of a hideous person", "type": "trinket"},
+        {"code": "A silver skull the size of a coin", "label": "A silver skull the size of a coin", "type": "trinket"},
+        {"code": "An alabaster mask", "label": "An alabaster mask", "type": "trinket"},
+        {"code": "A pyramid of sticky black incense that smells very bad", "label": "A pyramid of sticky black incense that smells very bad", "type": "trinket"},
+        {"code": "A nightcap that, when worn, gives you pleasant dreams", "label": "A nightcap that, when worn, gives you pleasant dreams", "type": "trinket"},
+        {"code": "A single caltrop made from bone", "label": "A single caltrop made from bone", "type": "trinket"},
+        {"code": "A gold monocle frame without the lens", "label": "A gold monocle frame without the lens", "type": "trinket"},
+        {"code": "A 1-inch cube, each side painted a different color", "label": "A 1-inch cube, each side painted a different color", "type": "trinket"},
+        {"code": "A crystal knob from a door", "label": "A crystal knob from a door", "type": "trinket"},
+        {"code": "A small packet filled with pink dust", "label": "A small packet filled with pink dust", "type": "trinket"},
+        {"code": "A fragment of a beautiful song, written as musical notes on two pieces of parchment", "label": "A fragment of a beautiful song, written as musical notes on two pieces of parchment", "type": "trinket"},
+        {"code": "A silver teardrop earring made from a real teardrop", "label": "A silver teardrop earring made from a real teardrop", "type": "trinket"},
+        {"code": "The shell of an egg painted with scenes of human misery in disturbing detail", "label": "The shell of an egg painted with scenes of human misery in disturbing detail", "type": "trinket"},
+        {"code": "A fan that, when unfolded, shows a sleeping cat", "label": "A fan that, when unfolded, shows a sleeping cat", "type": "trinket"},
+        {"code": "A set of bone pipes", "label": "A set of bone pipes", "type": "trinket"},
+        {"code": "A four-leaf clover pressed inside a book discussing manners and etiquette", "label": "A four-leaf clover pressed inside a book discussing manners and etiquette", "type": "trinket"},
+        {"code": "A sheet of parchment upon which is drawn a complex mechanical contraption", "label": "A sheet of parchment upon which is drawn a complex mechanical contraption", "type": "trinket"},
+        {"code": "An ornate scabbard that fits no blade you have found so far", "label": "An ornate scabbard that fits no blade you have found so far", "type": "trinket"},
+        {"code": "An invitation to a party where a murder happened", "label": "An invitation to a party where a murder happened", "type": "trinket"},
+        {"code": "A bronze pentacle with an etching of a rat's head in its center", "label": "A bronze pentacle with an etching of a rat's head in its center", "type": "trinket"},
+        {"code": "A purple handkerchief embroidered with the name of a powerful archmage", "label": "A purple handkerchief embroidered with the name of a powerful archmage", "type": "trinket"},
+        {"code": "Half of a floorplan for a temple, castle, or some other structure", "label": "Half of a floorplan for a temple, castle, or some other structure", "type": "trinket"},
+        {"code": "A bit of folded cloth that, when unfolded, turns into a stylish cap", "label": "A bit of folded cloth that, when unfolded, turns into a stylish cap", "type": "trinket"},
+        {"code": "A receipt of deposit at a bank in a far-flung city", "label": "A receipt of deposit at a bank in a far-flung city", "type": "trinket"},
+        {"code": "A diary with seven missing pages", "label": "A diary with seven missing pages", "type": "trinket"},
+        {"code": "An empty silver snuffbox bearing an inscription on the surface that says “dreams”", "label": "An empty silver snuffbox bearing an inscription on the surface that says “dreams”", "type": "trinket"},
+        {"code": "An iron holy symbol devoted to an unknown god", "label": "An iron holy symbol devoted to an unknown god", "type": "trinket"},
+        {"code": "A book that tells the story of a legendary hero's rise and fall, with the last chapter missing", "label": "A book that tells the story of a legendary hero's rise and fall, with the last chapter missing", "type": "trinket"},
+        {"code": "A vial of dragon blood", "label": "A vial of dragon blood", "type": "trinket"},
+        {"code": "An ancient arrow of elven design", "label": "An ancient arrow of elven design", "type": "trinket"},
+        {"code": "A needle that never bends", "label": "A needle that never bends", "type": "trinket"},
+        {"code": "An ornate brooch of dwarven design", "label": "An ornate brooch of dwarven design", "type": "trinket"},
+        {"code": "An empty wine bottle bearing a pretty label that says, “The Wizard of Wines Winery, Red Dragon Crush, 331422-W”", "label": "An empty wine bottle bearing a pretty label that says, “The Wizard of Wines Winery, Red Dragon Crush, 331422-W”", "type": "trinket"},
+        {"code": "A mosaic tile with a multicolored, glazed surface", "label": "A mosaic tile with a multicolored, glazed surface", "type": "trinket"},
+        {"code": "A petrified mouse", "label": "A petrified mouse", "type": "trinket"},
+        {"code": "A black pirate flag adorned with a dragon's skull and crossbones", "label": "A black pirate flag adorned with a dragon's skull and crossbones", "type": "trinket"},
+        {"code": "A tiny mechanical crab or spider that moves about when it's not being observed", "label": "A tiny mechanical crab or spider that moves about when it's not being observed", "type": "trinket"},
+        {"code": "A glass jar containing lard with a label that reads, “Griffon Grease”", "label": "A glass jar containing lard with a label that reads, “Griffon Grease”", "type": "trinket"},
+        {"code": "A wooden box with a ceramic bottom that holds a living worm with a head on each end of its body", "label": "A wooden box with a ceramic bottom that holds a living worm with a head on each end of its body", "type": "trinket"},
+        {"code": "A metal urn containing the ashes of a hero", "label": "A metal urn containing the ashes of a hero", "type": "trinket"}
+    ]
+}

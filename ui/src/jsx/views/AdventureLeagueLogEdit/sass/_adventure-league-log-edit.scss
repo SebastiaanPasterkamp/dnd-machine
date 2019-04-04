@@ -1,0 +1,34 @@
+// _adventure-league-log-edit.scss
+
+@import 'view-grid';
+
+.al-log-edit {
+    @extend .view-grid;
+
+    &__xp,
+    &__acp,
+    &__downtime,
+    &__gold,
+    &__treasure,
+    &__renown {
+        grid-column-end: span 3;
+    }
+
+    &__adventurer,
+    &__rewards,
+    &__equipment,
+    &__session,
+    &__items,
+    &__notes,
+    &__save {
+        grid-column: span 6;
+    }
+
+    &__adventurer > .nice-panel-content > div {
+        display: block;
+    }
+
+    &__treasure .current {
+        font-weight: bold;
+    }
+}

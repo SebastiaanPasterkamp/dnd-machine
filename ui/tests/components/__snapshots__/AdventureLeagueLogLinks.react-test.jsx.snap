@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: AdventureLeagueLogLinks should hide consume 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/log/adventureleague/show/100"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-pencil"
+    href="/log/adventureleague/edit/100"
+    onClick={[Function]}
+  >
+    Edit
+  </a>
+</div>
+`;
+
+exports[`Component: AdventureLeagueLogLinks should render a new button 1`] = `null`;
+
+exports[`Component: AdventureLeagueLogLinks should render a new button for a character 1`] = `null`;
+
+exports[`Component: AdventureLeagueLogLinks should render without props 1`] = `null`;
+
+exports[`Component: AdventureLeagueLogLinks should replace assign with consume 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/log/adventureleague/show/100"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-pencil"
+    href="/log/adventureleague/edit/100"
+    onClick={[Function]}
+  >
+    Edit
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-thumb-tack warning"
+    href="/log/adventureleague/consume/100"
+  >
+    Consume
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-trash-o bad"
+    onClick={[Function]}
+  >
+    Delete
+  </a>
+</div>
+`;
+
+exports[`Component: AdventureLeagueLogLinks should show all buttons for the owner 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/log/adventureleague/show/100"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-pencil"
+    href="/log/adventureleague/edit/100"
+    onClick={[Function]}
+  >
+    Edit
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-user-o info"
+    href="/log/adventureleague/edit/100#assign"
+    onClick={[Function]}
+  >
+    Assign
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-trash-o bad"
+    onClick={[Function]}
+  >
+    Delete
+  </a>
+</div>
+`;
+
+exports[`Component: AdventureLeagueLogLinks should show some buttons for an admin 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-eye"
+    href="/log/adventureleague/show/100"
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-cogs"
+    href="/log/adventureleague/raw/100"
+    onClick={[Function]}
+  >
+    Raw
+  </a>
+</div>
+`;

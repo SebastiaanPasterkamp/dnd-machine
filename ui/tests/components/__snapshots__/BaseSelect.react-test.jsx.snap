@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: BaseSelect should show a dropdown with heading and description 1`] = `
+<div
+  className="nice-dropdown nice-form-control"
+>
+  <button
+    className="nice-btn"
+    onClick={[Function]}
+  >
+    Click me
+    <i
+      className="icon fa-angle-down"
+    />
+  </button>
+  <ul
+    className="dropdown-menu"
+    onClick={[Function]}
+  >
+    <li
+      className="heading"
+    >
+      <span>
+        Pick something
+      </span>
+    </li>
+    <li
+      className="description"
+    >
+      <span>
+        This is example text
+      </span>
+    </li>
+    <li>
+      Example
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Component: BaseSelect should show a simple dropdown with one button and item 1`] = `
+<div
+  className="nice-dropdown nice-form-control"
+>
+  <button
+    className="nice-btn"
+    onClick={[Function]}
+  >
+    Click me
+    <i
+      className="icon fa-angle-down"
+    />
+  </button>
+  <ul
+    className="dropdown-menu"
+    onClick={[Function]}
+  >
+    <li>
+      Example
+    </li>
+  </ul>
+</div>
+`;

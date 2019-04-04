@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: TagContainer should allow all items in select in multiple mode 1`] = `
+<div
+  className="base-tag-container nice-tags-container"
+>
+  <div
+    className="nice-dropdown nice-form-control"
+  >
+    <button
+      className="nice-btn"
+      onClick={[Function]}
+    >
+      Add...
+      <i
+        className="icon fa-angle-down"
+      />
+    </button>
+    <ul
+      className="dropdown-menu"
+      onClick={[Function]}
+    >
+      <li
+        className={null}
+        data-value="a"
+        onClick={[Function]}
+      >
+        <a>
+          Aaa
+        </a>
+      </li>
+      <li
+        className={null}
+        data-value="b"
+        onClick={[Function]}
+      >
+        <a>
+          Bbb
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="nice-tag"
+  >
+    <span
+      className="nice-tag-label"
+    >
+      Aaa
+    </span>
+    <button
+      className="nice-tag-btn"
+      onClick={[Function]}
+    >
+      <i
+        className="icon fa-trash-o"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Component: TagContainer should exclude selected items from select in single mode 1`] = `
+<div
+  className="base-tag-container nice-tags-container"
+>
+  <div
+    className="nice-dropdown nice-form-control"
+  >
+    <button
+      className="nice-btn"
+      onClick={[Function]}
+    >
+      Add...
+      <i
+        className="icon fa-angle-down"
+      />
+    </button>
+    <ul
+      className="dropdown-menu"
+      onClick={[Function]}
+    >
+      <li
+        className={null}
+        data-value="b"
+        onClick={[Function]}
+      >
+        <a>
+          Bbb
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="nice-tag"
+  >
+    <span
+      className="nice-tag-label"
+    >
+      Aaa
+    </span>
+    <button
+      className="nice-tag-btn"
+      onClick={[Function]}
+    >
+      <i
+        className="icon fa-trash-o"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Component: TagContainer should render with all props 1`] = `
+<div
+  className="base-tag-container nice-tags-container info"
+>
+  <div
+    className="nice-tag muted"
+  >
+    <span
+      className="nice-tag-label"
+    >
+      Aaa
+    </span>
+    <span
+      className="nice-tag-badge"
+    >
+      × 
+      2
+    </span>
+  </div>
+  <div
+    className="nice-tag muted"
+  >
+    <span
+      className="nice-tag-label"
+    >
+      <div
+        className="tool-tip inline"
+      >
+        Bbb
+        <span
+          className="tool-tip--content"
+        >
+          <p>
+            Bee
+          </p>
+        </span>
+      </div>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Component: TagContainer should render with minimal props 1`] = `
+<div
+  className="base-tag-container nice-tags-container"
+/>
+`;

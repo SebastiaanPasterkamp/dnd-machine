@@ -1,0 +1,7 @@
+// _edit-character.scss
+
+@import 'widget-grid';
+
+.character-edit {
+    @extend .widget-grid;
+}

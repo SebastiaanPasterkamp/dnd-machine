@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: XpRating should render "0 XP" 1`] = `
+<div
+  className="xp-rating inline"
+>
+  0
+   XP
+</div>
+`;
+
+exports[`Component: XpRating should render a rounded XP number 1`] = `
+<div
+  className="xp-rating inline"
+>
+  13
+   XP
+</div>
+`;
+
+exports[`Component: XpRating should render without props 1`] = `
+<div
+  className="xp-rating inline"
+>
+  — XP
+</div>
+`;

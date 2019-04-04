@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserView should render with full props 1`] = `
+<React.Fragment>
+  <Panel
+    className="user-view__description info"
+    contentComponent="div"
+    header="Description"
+    key="description"
+  >
+    <thead>
+      <tr>
+        <th
+          colSpan="2"
+        >
+          <ListDataUserLinks
+            buttons={
+              Array [
+                "edit",
+              ]
+            }
+            className="pull-right"
+            user_id={1}
+          />
+          <h3>
+            Example User
+          </h3>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          Username
+        </th>
+        <td />
+      </tr>
+      <tr>
+        <th>
+          Email
+        </th>
+        <td>
+          user@example.com
+        </td>
+      </tr>
+      <tr>
+        <th>
+          DCI
+        </th>
+        <td>
+          1234567890
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Roles
+        </th>
+        <td
+          className="user-view__roles"
+        >
+          <ListLabel
+            items={
+              Array [
+                Object {
+                  "code": "admin",
+                  "label": "Admin",
+                },
+                Object {
+                  "code": "dm",
+                  "label": "Dungeon Master",
+                },
+                Object {
+                  "code": "player",
+                  "label": "Player",
+                },
+              ]
+            }
+            key="admin"
+            value="admin"
+          />
+          <ListLabel
+            items={
+              Array [
+                Object {
+                  "code": "admin",
+                  "label": "Admin",
+                },
+                Object {
+                  "code": "dm",
+                  "label": "Dungeon Master",
+                },
+                Object {
+                  "code": "player",
+                  "label": "Player",
+                },
+              ]
+            }
+            key="dm"
+            value="dm"
+          />
+          <ListLabel
+            items={
+              Array [
+                Object {
+                  "code": "admin",
+                  "label": "Admin",
+                },
+                Object {
+                  "code": "dm",
+                  "label": "Dungeon Master",
+                },
+                Object {
+                  "code": "player",
+                  "label": "Player",
+                },
+              ]
+            }
+            key="player"
+            value="player"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </Panel>
+</React.Fragment>
+`;
+
+exports[`UserView should render without props 1`] = `
+<React.Fragment>
+  <Panel
+    className="user-view__description info"
+    contentComponent="div"
+    header="Description"
+    key="description"
+  >
+    <thead>
+      <tr>
+        <th
+          colSpan="2"
+        >
+          <ListDataUserLinks
+            buttons={
+              Array [
+                "edit",
+              ]
+            }
+            className="pull-right"
+          />
+          <h3 />
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          Username
+        </th>
+        <td />
+      </tr>
+      <tr>
+        <th>
+          Email
+        </th>
+        <td />
+      </tr>
+      <tr>
+        <th>
+          Roles
+        </th>
+        <td
+          className="user-view__roles"
+        />
+      </tr>
+    </tbody>
+  </Panel>
+</React.Fragment>
+`;

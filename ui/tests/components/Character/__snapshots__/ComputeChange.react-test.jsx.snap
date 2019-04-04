@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Function: ComputeChange should apply mutations to lists 1`] = `
+Object {
+  "some": Object {
+    "path": Array [
+      "one",
+      "foo",
+    ],
+  },
+}
+`;
+
+exports[`Function: ComputeChange should apply mutations to lists with duplicates 1`] = `
+Object {
+  "some": Object {
+    "path": Array [
+      "one",
+      "two",
+      "foo",
+      "foo",
+    ],
+  },
+}
+`;
+
+exports[`Function: ComputeChange should merge dicts 1`] = `
+Object {
+  "some": Object {
+    "path": Object {
+      "description": "foo",
+      "value": "rab",
+    },
+  },
+}
+`;
+
+exports[`Function: ComputeChange should set null value 1`] = `
+Object {
+  "some": Object {
+    "path": null,
+  },
+}
+`;
+
+exports[`Function: ComputeChange should set value for select 1`] = `
+Object {
+  "some": Object {
+    "path": "bar",
+  },
+}
+`;
+
+exports[`Function: ComputeChange should set value for value 1`] = `
+Object {
+  "some": Object {
+    "path": "foo",
+  },
+}
+`;
+
+exports[`Function: ComputeChange should skip undefined options 1`] = `Object {}`;
+
+exports[`Function: ComputeChange should skip undefined value 1`] = `
+Object {
+  "some": undefined,
+}
+`;
+
+exports[`Function: ComputeChange should undo canceled changes 1`] = `
+Object {
+  "other": undefined,
+  "some": Object {
+    "path": "Canceled value",
+  },
+}
+`;

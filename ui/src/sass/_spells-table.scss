@@ -1,0 +1,49 @@
+// _spells-table.scss
+
+@import 'view-grid';
+@import 'media-values';
+
+.spells-table {
+    nav {
+        text-align: center;
+    }
+
+    .spells-table--properties {
+        > div:before {
+            content: ', ';
+        }
+        > div:first-of-type:before {
+            content: normal;
+        }
+    }
+
+    .spells-table--summary {
+        width: 30%;
+    }
+
+    .spells-table--description {
+        width: 50%;
+    }
+
+    @media #{$media} and ($feature: $value) {
+        .spells-table--summary, .spells-table--description {
+            width: auto;
+        }
+
+        .spells-table--summary {
+            ul {
+                columns: 2;
+                -webkit-columns: 2;
+                -moz-columns: 2;
+            }
+        }
+    }
+
+    .spells-table--search {
+        @extend .view-grid;
+
+        > * {
+            grid-column-end: span 4;
+        }
+    }
+}
