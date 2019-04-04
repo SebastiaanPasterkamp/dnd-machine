@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UserView should render with full props 1`] = `
-<React.Fragment>
+<Fragment>
   <Panel
     className="user-view__description info"
     contentComponent="div"
@@ -122,11 +122,11 @@ exports[`UserView should render with full props 1`] = `
       </tr>
     </tbody>
   </Panel>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`UserView should render without props 1`] = `
-<React.Fragment>
+<Fragment>
   <Panel
     className="user-view__description info"
     contentComponent="div"
@@ -173,5 +173,5 @@ exports[`UserView should render without props 1`] = `
       </tr>
     </tbody>
   </Panel>
-</React.Fragment>
+</Fragment>
 `;
