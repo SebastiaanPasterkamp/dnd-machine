@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     assign,
-    indexOf,
     map,
-    reduce,
 } from 'lodash/fp';
 
 import { memoize } from '../../../utils';
@@ -82,6 +80,7 @@ export class TreasureCheckpoints extends React.PureComponent
                     <CalculatorInputField
                         placeholder="Earned..."
                         value={earned[tier]}
+                        data-field={`tier-${tier}`}
                         disabled={disabled}
                         setState={this.onChange(tier)}
                         maxValue={currentTier === tier
