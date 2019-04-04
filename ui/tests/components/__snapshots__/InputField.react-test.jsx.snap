@@ -20,6 +20,6 @@ exports[`Component: InputField should show a disabled number field with class an
   onKeyPress={null}
   placeholder="Fill in a number..."
   type="number"
-  value="3"
+  value={3}
 />
 `;
