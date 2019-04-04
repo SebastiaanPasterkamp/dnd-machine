@@ -22,10 +22,12 @@ export class AdventureItems extends React.PureComponent
         if (disabled) {
             return;
         }
-        const earned = map(
-            item => ( isObject(item) ? item.value : item )
-        )( items );
-        const total = starting + filter(earned).length;
+        const earned = filter(item => item)(
+            map(
+                item => ( isObject(item) ? item.value : item )
+            )(items)
+        );
+        const total = starting + earned.length;
         setState({ starting, earned, total });
     }
 
@@ -94,7 +96,7 @@ AdventureItems.propTypes = {
 AdventureItems.defaultProps = {
     starting: 0,
     earned: [],
-    tota: 0,
+    total: 0,
     className: '',
     disabled: false,
 };
