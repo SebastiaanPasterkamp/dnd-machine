@@ -10,7 +10,7 @@ export class CalculatorInputField extends LazyComponent
     constructor(props) {
         super(props);
         const {
-            value: formula = '',
+            value: formula,
         } = props;
         this.state = {
             formula,
@@ -22,16 +22,16 @@ export class CalculatorInputField extends LazyComponent
     clipValue(value) {
         const { minValue, maxValue } = this.props;
         let clipped = value;
-        if (maxValue !== undefined) {
+        if (maxValue !== null) {
             clipped = Math.min(maxValue, clipped);
         }
-        if (minValue !== undefined) {
+        if (minValue !== null) {
             clipped = Math.max(minValue, clipped);
         }
         return clipped;
     }
 
-    onChange(formula) {
+    onChange = (formula) => {
         const { value, setState } = this.props;
 
         if (formula === "") {
@@ -109,7 +109,7 @@ export class CalculatorInputField extends LazyComponent
                 min={minValue}
                 max={maxValue}
                 {...props}
-                setState={value => this.onChange(value)}
+                setState={this.onChange}
                 type="text"
             />
         );
@@ -119,7 +119,10 @@ export class CalculatorInputField extends LazyComponent
 CalculatorInputField.defaultProps = {
     setState: (value) => {
         console.log(['CalculatorInputField', value]);
-    }
+    },
+    value: '',
+    minValue: null,
+    maxValue: null,
 };
 
 CalculatorInputField.propTypes = _.assign({}, InputField.propTypes, {
@@ -131,5 +134,6 @@ CalculatorInputField.propTypes = _.assign({}, InputField.propTypes, {
     minValue: PropTypes.number,
     maxValue: PropTypes.number,
 });
+
 
 export default CalculatorInputField;
