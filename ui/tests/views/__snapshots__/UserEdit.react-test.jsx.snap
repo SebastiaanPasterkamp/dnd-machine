@@ -16,7 +16,7 @@ Object {
 `;
 
 exports[`UserEdit should render with full props 1`] = `
-<React.Fragment>
+<Fragment>
   <Panel
     className="user-edit__description"
     contentComponent="div"
@@ -72,11 +72,11 @@ exports[`UserEdit should render with full props 1`] = `
       />
     </ControlGroup>
   </Panel>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`UserEdit should render with full props as admin 1`] = `
-<React.Fragment>
+<Fragment>
   <Panel
     className="user-edit__description"
     contentComponent="div"
@@ -167,11 +167,11 @@ exports[`UserEdit should render with full props as admin 1`] = `
       />
     </ControlGroup>
   </Panel>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`UserEdit should render with minimum props 1`] = `
-<React.Fragment>
+<Fragment>
   <Panel
     className="user-edit__description"
     contentComponent="div"
@@ -227,5 +227,5 @@ exports[`UserEdit should render with minimum props 1`] = `
       />
     </ControlGroup>
   </Panel>
-</React.Fragment>
+</Fragment>
 `;
