@@ -1009,7 +1009,6 @@ exports[`AdventureLeagueLogEdit should render with minimum props 1`] = `
     label="Regular Items"
     setState={[Function]}
     starting={0}
-    tota={0}
     total={0}
   >
     <Panel
@@ -1161,7 +1160,6 @@ exports[`AdventureLeagueLogEdit should render with minimum props 1`] = `
     label="Magical Items"
     setState={[Function]}
     starting={0}
-    tota={0}
     total={0}
   >
     <Panel
