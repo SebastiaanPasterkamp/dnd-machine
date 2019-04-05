@@ -25,7 +25,10 @@ function ListDataWrapper(
                     return;
                 }
 
-                if (item in this.state && this.state[item] != null) {
+                if (
+                    item in this.state
+                    && this.state[item] !== undefined
+                ) {
                     return;
                 }
 
