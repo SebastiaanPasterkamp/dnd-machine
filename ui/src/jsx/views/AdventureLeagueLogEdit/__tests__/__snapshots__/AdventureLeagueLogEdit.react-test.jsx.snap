@@ -1048,6 +1048,8 @@ exports[`AdventureLeagueLogEdit should render with full ACP props after being co
     disabled={true}
     earned={0}
     label="Downtime"
+    maxValue={0}
+    minValue={-0}
     setState={null}
     starting={0}
     total={0}
@@ -1116,8 +1118,8 @@ exports[`AdventureLeagueLogEdit should render with full ACP props after being co
                 data-field="earned"
                 disabled={true}
                 key=".0/.1"
-                maxValue={null}
-                minValue={null}
+                maxValue={0}
+                minValue={-0}
                 placeholder="Earned..."
                 setState={[Function]}
                 value={0}
@@ -1126,8 +1128,8 @@ exports[`AdventureLeagueLogEdit should render with full ACP props after being co
                   className={null}
                   data-field="earned"
                   disabled={true}
-                  max={null}
-                  min={null}
+                  max={0}
+                  min={-0}
                   placeholder="Earned..."
                   setState={[Function]}
                   type="text"
@@ -1137,8 +1139,8 @@ exports[`AdventureLeagueLogEdit should render with full ACP props after being co
                     className="nice-form-control"
                     data-field="earned"
                     disabled={true}
-                    max={null}
-                    min={null}
+                    max={0}
+                    min={-0}
                     onChange={[Function]}
                     onKeyPress={null}
                     placeholder="Earned..."
@@ -1181,6 +1183,19 @@ exports[`AdventureLeagueLogEdit should render with full ACP props after being co
               </InputField>
             </div>
           </ControlGroup>
+          <span
+            className="al-log-edit__acp-downtime-renown clearfix"
+          >
+            Downtime and Renown are computed automatically based on Adventure Checkpoints. Downtime
+            <em>
+               can 
+            </em>
+             be 
+            <em>
+               consumed 
+            </em>
+            .
+          </span>
           <div
             className="clearfix"
           />
@@ -2831,6 +2846,8 @@ exports[`AdventureLeagueLogEdit should render with full ACP props before being c
     disabled={false}
     earned={0}
     label="Downtime"
+    maxValue={0}
+    minValue={-0}
     setState={[Function]}
     starting={0}
     total={0}
@@ -2899,8 +2916,8 @@ exports[`AdventureLeagueLogEdit should render with full ACP props before being c
                 data-field="earned"
                 disabled={false}
                 key=".0/.1"
-                maxValue={null}
-                minValue={null}
+                maxValue={0}
+                minValue={-0}
                 placeholder="Earned..."
                 setState={[Function]}
                 value={0}
@@ -2909,8 +2926,8 @@ exports[`AdventureLeagueLogEdit should render with full ACP props before being c
                   className={null}
                   data-field="earned"
                   disabled={false}
-                  max={null}
-                  min={null}
+                  max={0}
+                  min={-0}
                   placeholder="Earned..."
                   setState={[Function]}
                   type="text"
@@ -2920,8 +2937,8 @@ exports[`AdventureLeagueLogEdit should render with full ACP props before being c
                     className="nice-form-control"
                     data-field="earned"
                     disabled={false}
-                    max={null}
-                    min={null}
+                    max={0}
+                    min={-0}
                     onChange={[Function]}
                     onKeyPress={null}
                     placeholder="Earned..."
@@ -2964,6 +2981,19 @@ exports[`AdventureLeagueLogEdit should render with full ACP props before being c
               </InputField>
             </div>
           </ControlGroup>
+          <span
+            className="al-log-edit__acp-downtime-renown clearfix"
+          >
+            Downtime and Renown are computed automatically based on Adventure Checkpoints. Downtime
+            <em>
+               can 
+            </em>
+             be 
+            <em>
+               consumed 
+            </em>
+            .
+          </span>
           <div
             className="clearfix"
           />
@@ -4481,6 +4511,7 @@ exports[`AdventureLeagueLogEdit should render with full XP props after being con
     disabled={true}
     earned={5}
     label="Downtime"
+    minValue={-0}
     setState={null}
     starting={40}
     total={45}
@@ -4550,7 +4581,7 @@ exports[`AdventureLeagueLogEdit should render with full XP props after being con
                 disabled={true}
                 key=".0/.1"
                 maxValue={null}
-                minValue={null}
+                minValue={-0}
                 placeholder="Earned..."
                 setState={[Function]}
                 value={5}
@@ -4560,7 +4591,7 @@ exports[`AdventureLeagueLogEdit should render with full XP props after being con
                   data-field="earned"
                   disabled={true}
                   max={null}
-                  min={null}
+                  min={-0}
                   placeholder="Earned..."
                   setState={[Function]}
                   type="text"
@@ -4571,7 +4602,7 @@ exports[`AdventureLeagueLogEdit should render with full XP props after being con
                     data-field="earned"
                     disabled={true}
                     max={null}
-                    min={null}
+                    min={-0}
                     onChange={[Function]}
                     onKeyPress={null}
                     placeholder="Earned..."
@@ -5951,6 +5982,7 @@ exports[`AdventureLeagueLogEdit should render with full XP props before being co
     disabled={false}
     earned={5}
     label="Downtime"
+    minValue={-0}
     setState={[Function]}
     starting={0}
     total={45}
@@ -6020,7 +6052,7 @@ exports[`AdventureLeagueLogEdit should render with full XP props before being co
                 disabled={false}
                 key=".0/.1"
                 maxValue={null}
-                minValue={null}
+                minValue={-0}
                 placeholder="Earned..."
                 setState={[Function]}
                 value={5}
@@ -6030,7 +6062,7 @@ exports[`AdventureLeagueLogEdit should render with full XP props before being co
                   data-field="earned"
                   disabled={false}
                   max={null}
-                  min={null}
+                  min={-0}
                   placeholder="Earned..."
                   setState={[Function]}
                   type="text"
@@ -6041,7 +6073,7 @@ exports[`AdventureLeagueLogEdit should render with full XP props before being co
                     data-field="earned"
                     disabled={false}
                     max={null}
-                    min={null}
+                    min={-0}
                     onChange={[Function]}
                     onKeyPress={null}
                     placeholder="Earned..."
@@ -7467,6 +7499,7 @@ exports[`AdventureLeagueLogEdit should render with minimum props 1`] = `
     disabled={false}
     earned={0}
     label="Downtime"
+    minValue={-0}
     setState={[Function]}
     starting={0}
     total={0}
@@ -7536,7 +7569,7 @@ exports[`AdventureLeagueLogEdit should render with minimum props 1`] = `
                 disabled={false}
                 key=".0/.1"
                 maxValue={null}
-                minValue={null}
+                minValue={-0}
                 placeholder="Earned..."
                 setState={[Function]}
                 value={0}
@@ -7546,7 +7579,7 @@ exports[`AdventureLeagueLogEdit should render with minimum props 1`] = `
                   data-field="earned"
                   disabled={false}
                   max={null}
-                  min={null}
+                  min={-0}
                   placeholder="Earned..."
                   setState={[Function]}
                   type="text"
@@ -7557,7 +7590,7 @@ exports[`AdventureLeagueLogEdit should render with minimum props 1`] = `
                     data-field="earned"
                     disabled={false}
                     max={null}
-                    min={null}
+                    min={-0}
                     onChange={[Function]}
                     onKeyPress={null}
                     placeholder="Earned..."

@@ -162,7 +162,11 @@ export class AdventureLeagueLogEdit extends React.Component
                         progression in the level. This will always be
                         rounded up. Simply log 1 ACP less to round
                         down instead.</li>
-                        <li>Renown is reset to 0 and will increase by 1 every 4 ACP's. The <em>Faction Agent</em> background feature is not yet implemented.</li>
+                        <li>Renown is reset to 0 and will increase by 1
+                        every 4 ACP's. The <em>Faction Agent</em>
+                        background feature is not yet implemented.</li>
+                        <li>Downtime is accumulated automatically
+                        at a rate of 1 every 2.5 ACP's.</li>
                     </ul>
                 </span>}
             </Panel>
@@ -247,11 +251,21 @@ export class AdventureLeagueLogEdit extends React.Component
                     ? downtime.starting
                     : character.downtime
                 }
+                maxValue={acp_mode ? 0 : undefined}
+                minValue={(character.downtime || 0) * -1}
                 setState={!disabled
                     ? this.onFieldChange('downtime')
                     : null
                 }
-            />
+            >
+                {acp_mode && (
+                    <span className="al-log-edit__acp-downtime-renown clearfix">
+                        Downtime and Renown are computed automatically
+                        based on Adventure Checkpoints. Downtime
+                        <em> can </em> be <em> consumed </em>.
+                    </span>
+                )}
+            </AdventureDelta>
 
             <AdventureGold
                 className="al-log-edit__gold"
