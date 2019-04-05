@@ -27,7 +27,7 @@ class ListDataStore extends Reflux.Store
     onFetchItemsFailed(type, error)
     {
         this.setState({
-            [type]: null
+            [type]: undefined,
         });
     }
 }
