@@ -6879,6 +6879,10 @@ table.nice-table {
     border-color: #F42534; }
     .nice-toggle.bad:checked + .nice-toggle-btn:after, .nice-control-group.bad .nice-toggle.nice-form-control:checked + .nice-toggle-btn:after, .nice-control-group.bad .nice-toggle.nice-btn:checked + .nice-toggle-btn:after {
       background-color: #F42534; }
+  .nice-toggle.muted:checked + .nice-toggle-btn, .nice-control-group.muted .nice-toggle.nice-form-control:checked + .nice-toggle-btn, .nice-control-group.muted .nice-toggle.nice-btn:checked + .nice-toggle-btn {
+    border-color: #B2B2B2; }
+    .nice-toggle.muted:checked + .nice-toggle-btn:after, .nice-control-group.muted .nice-toggle.nice-form-control:checked + .nice-toggle-btn:after, .nice-control-group.muted .nice-toggle.nice-btn:checked + .nice-toggle-btn:after {
+      background-color: #B2B2B2; }
 
 .nice-dropdown {
   position: relative; }
