@@ -145,9 +145,7 @@ class CharacterBlueprint(BaseApiBlueprint):
         if obj.adventure_league:
             logs = self.leaguelogmapper.getByCharacterId(obj.id)
             for log in logs:
-                log.consumed = False
-                if log.character_snapshot:
-                    del log.character_snapshot
+                log = obj.unconsumeAdventureLeague(log)
                 self.leaguelogmapper.save(log)
             return
         keeping = [
