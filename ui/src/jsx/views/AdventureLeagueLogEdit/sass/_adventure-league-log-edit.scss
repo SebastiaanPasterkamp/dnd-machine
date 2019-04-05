@@ -10,15 +10,15 @@
     &__downtime,
     &__gold,
     &__treasure,
+    &__equipment,
+    &__items,
     &__renown {
-        grid-column-end: span 3;
+        grid-column-end: span 4;
     }
 
     &__adventurer,
     &__rewards,
-    &__equipment,
     &__session,
-    &__items,
     &__notes,
     &__save {
         grid-column: span 6;
