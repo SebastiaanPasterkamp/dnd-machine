@@ -360,6 +360,8 @@ class JsonObject(object):
             if step >= len(rv):
                 rv.extend([0] * (step - len(rv) + 1))
         rv[step] = value
+        return value
+
 
 class JsonObjectDataMapper(object):
     obj = JsonObject
