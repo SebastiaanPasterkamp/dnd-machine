@@ -1,0 +1,125 @@
+{
+    "xp": {
+        "character_id": 1,
+        "character_snapshot": {
+            "id": 1,
+            "level": 3,
+            "xp": 700,
+            "xp_progress": 100,
+            "xp_level": 1200
+        },
+        "character": {
+            "user_id": 2,
+            "race": "Stout Halfling",
+            "class": "Figher",
+            "background": "Soldier",
+            "name": "Testy McTestFace",
+            "level": 3,
+            "gender": "male",
+            "alignment": "lawful good",
+            "xp": 1100,
+            "xp_progress": 500,
+            "xp_level": 1200
+        },
+        "current_user": { "id": 2 },
+        "user_id": 2,
+        "consumed": false,
+        "adventure": {
+            "name": "Session name",
+            "id": "DDAL-007",
+            "date": "1970-01-01",
+            "dm_name": "Foo Bar",
+            "dm_dci": "013123123123"
+        },
+        "xp": {
+            "starting": 700,
+            "earned": 400,
+            "total": 1100
+        },
+        "gold": {
+            "starting": { "gp": 15 },
+            "earned": { "gp": -2 },
+            "total": { "gp": 13 }
+        },
+        "downtime": {
+            "starting": 40,
+            "earned": 5,
+            "total": 45
+        },
+        "renown": {
+            "starting": 6,
+            "earned": 1,
+            "total": 7
+        },
+        "equipment": {
+            "starting": 1,
+            "earned": [ "Health Potion" ],
+            "total": 2
+        },
+        "items": {
+            "starting": 0,
+            "earned": [ "+1 Handaxe" ],
+            "total": 1
+        },
+        "notes": "**Testy** found a nice **Handaxe**"
+    },
+    "acp": {
+        "character_id": 1,
+        "character_snapshot": {
+            "id": 1,
+            "level": 3,
+            "adventure_checkpoints": 9,
+            "acp_progress": 1,
+            "acp_level": 4
+        },
+        "character": {
+            "user_id": 2,
+            "race": "Stout Halfling",
+            "class": "Figher",
+            "background": "Soldier",
+            "name": "Testy McTestFace",
+            "level": 3,
+            "gender": "male",
+            "alignment": "lawful good",
+            "adventure_checkpoints": 9,
+            "acp_progress": 1,
+            "acp_level": 4
+        },
+        "current_user": { "id": 2 },
+        "user_id": 2,
+        "consumed": false,
+        "adventure": {
+            "name": "Session name",
+            "id": "DDAL-007",
+            "date": "1970-01-01",
+            "dm_name": "Foo Bar",
+            "dm_dci": "013123123123"
+        },
+        "adventure_checkpoints": {
+            "starting": 9,
+            "earned": 3,
+            "total": 12
+        },
+        "treasure_checkpoints": {
+            "starting": { "one": 9 },
+            "earned": { "one": 3 },
+            "total": { "one": 12 }
+        },
+        "gold": {
+            "starting": { "gp": 15 },
+            "earned": { "gp": -2 },
+            "total": { "gp": 13 }
+        },
+        "equipment": {
+            "starting": 1,
+            "earned": [ "Health Potion" ],
+            "total": 2
+        },
+        "items": {
+            "starting": 0,
+            "earned": [ "+1 Handaxe" ],
+            "total": 1
+        },
+        "notes": "**Testy** found a nice **Handaxe**"
+    }
+}

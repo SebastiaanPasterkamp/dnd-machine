@@ -145,6 +145,7 @@ export class AdventureLeagueLogEdit extends React.Component
                 ) && (
                     <ToggleSwitch
                         className="accent"
+                        switchId="acp-switch"
                         checked={forceAdventureCheckpoints}
                         onChange={this.onSwitch}
                         label="Switch to Adventure Checkpoints"
