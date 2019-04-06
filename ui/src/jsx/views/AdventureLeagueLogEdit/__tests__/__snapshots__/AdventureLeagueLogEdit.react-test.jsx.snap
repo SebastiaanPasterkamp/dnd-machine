@@ -96,6 +96,7 @@ exports[`AdventureLeagueLogEdit should render with full ACP props after being co
     }
   }
   setState={[Function]}
+  slow_progress={false}
   treasure_checkpoints={
     Object {
       "earned": Object {
@@ -437,6 +438,29 @@ exports[`AdventureLeagueLogEdit should render with full ACP props after being co
             </CharacterLabel>
           </ObjectDataCharacterLabel>
         </ListDataObjectDataCharacterLabel>
+        <ToggleSwitch
+          checked={false}
+          className="warning"
+          disabled={true}
+          label="Enable Slow Progress"
+          onChange={[Function]}
+          switchId="acp-slow-progress"
+        >
+          <input
+            checked={false}
+            className="nice-toggle muted"
+            disabled={true}
+            id="acp-slow-progress"
+            onChange={null}
+            type="checkbox"
+          />
+          <label
+            className="nice-toggle-btn"
+            htmlFor="acp-slow-progress"
+          >
+            Enable Slow Progress
+          </label>
+        </ToggleSwitch>
         <div
           className="clearfix"
         />
@@ -1914,6 +1938,7 @@ exports[`AdventureLeagueLogEdit should render with full ACP props before being c
     }
   }
   setState={[Function]}
+  slow_progress={false}
   treasure_checkpoints={
     Object {
       "earned": Object {
@@ -2232,6 +2257,29 @@ exports[`AdventureLeagueLogEdit should render with full ACP props before being c
             </CharacterLabel>
           </ObjectDataCharacterLabel>
         </ListDataObjectDataCharacterLabel>
+        <ToggleSwitch
+          checked={false}
+          className="warning"
+          disabled={false}
+          label="Enable Slow Progress"
+          onChange={[Function]}
+          switchId="acp-slow-progress"
+        >
+          <input
+            checked={false}
+            className="nice-toggle warning"
+            disabled={false}
+            id="acp-slow-progress"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <label
+            className="nice-toggle-btn"
+            htmlFor="acp-slow-progress"
+          >
+            Enable Slow Progress
+          </label>
+        </ToggleSwitch>
         <div
           className="clearfix"
         />
@@ -3879,6 +3927,7 @@ exports[`AdventureLeagueLogEdit should render with full XP props after being con
     }
   }
   setState={[Function]}
+  slow_progress={false}
   treasure_checkpoints={Object {}}
   user_id={2}
   xp={
@@ -5363,6 +5412,7 @@ exports[`AdventureLeagueLogEdit should render with full XP props before being co
     }
   }
   setState={[Function]}
+  slow_progress={false}
   treasure_checkpoints={Object {}}
   user_id={2}
   xp={
@@ -5661,20 +5711,20 @@ exports[`AdventureLeagueLogEdit should render with full XP props before being co
         </ListDataObjectDataCharacterLabel>
         <ToggleSwitch
           checked={false}
-          className="accent"
+          className="brand"
           label="Switch to Adventure Checkpoints"
           onChange={[Function]}
           switchId="acp-switch"
         >
           <input
             checked={false}
-            className="nice-toggle"
+            className="nice-toggle brand"
             id="acp-switch"
             onChange={[Function]}
             type="checkbox"
           />
           <label
-            className="nice-toggle-btn accent"
+            className="nice-toggle-btn"
             htmlFor="acp-switch"
           >
             Switch to Adventure Checkpoints
@@ -6959,6 +7009,7 @@ exports[`AdventureLeagueLogEdit should render with minimum props 1`] = `
     }
   }
   setState={[Function]}
+  slow_progress={false}
   treasure_checkpoints={Object {}}
   user_id={null}
   xp={
@@ -7178,20 +7229,20 @@ exports[`AdventureLeagueLogEdit should render with minimum props 1`] = `
         </ObjectDataUserLabel>
         <ToggleSwitch
           checked={false}
-          className="accent"
+          className="brand"
           label="Switch to Adventure Checkpoints"
           onChange={[Function]}
           switchId="acp-switch"
         >
           <input
             checked={false}
-            className="nice-toggle"
+            className="nice-toggle brand"
             id="acp-switch"
             onChange={[Function]}
             type="checkbox"
           />
           <label
-            className="nice-toggle-btn accent"
+            className="nice-toggle-btn"
             htmlFor="acp-switch"
           >
             Switch to Adventure Checkpoints

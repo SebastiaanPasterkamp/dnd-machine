@@ -24,6 +24,16 @@
         grid-column: span 6;
     }
 
+    &__adventurer .nice-toggle-btn {
+        display: block;
+        margin: 0.5em;
+    }
+
+    &__acp-slow-warning,
+    &__acp-switch-warning {
+        display: block;
+    }
+
     &__adventurer > .nice-panel-content > div {
         display: block;
     }
