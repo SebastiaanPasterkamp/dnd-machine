@@ -186,6 +186,16 @@ describe('AdventureLeagueLogEdit', () => {
             expect(setState).not.toBeCalled();
         });
 
+        it('the progression pace', () => {
+            wrapped
+                .find('#acp-slow-progress')
+                .simulate('change');
+
+            expect(setState).toBeCalledWith({
+                slow_progress: true,
+            });
+        });
+
         it('the acp', () => {
             wrapped
                 .find('.al-log-edit__acp input[data-field="earned"]')
