@@ -47,11 +47,16 @@
     "progress-bar-webpack-plugin": "^1.10.0",
     "react-test-renderer": "^16.2.0",
     "sass-loader": "^6.0.6",
-    "sinon": "^4.2.2"
+    "sinon": "^4.2.2",
+    "webpack-dev-server": "^2.9.7",
+    "webpack-hot-middleware": "^2.24.3"
   },
   "scripts": {
+    "start:dev": "DEBUG='express:*' webpack-dev-server",
     "dev": "webpack -d --watch",
     "build": "webpack -p",
+    "build:watch": "npm run build -- --watch",
+    "build:development": "npm run build",
     "build:production": "npm run build --  --env prod",
     "test": "node_modules/.bin/jest"
   },
