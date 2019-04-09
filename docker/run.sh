@@ -3,13 +3,13 @@
 set -xe
 
 DATABASE="/var/run/dnd-machine/machine.db"
-CONFIGURED="$(grep DATABASE app/config.json | grep -Po '(?<=")([^"]+)(?=",)')"
+CONFIGURED="$(grep DATABASE app/config.json | sed -r 's/^.*"([^"]+)",.*/\1/')"
 RUNARGS="--config DATABASE=$DATABASE"
 
 if [ ! -e "$DATABASE" ]; then
     if [ -e "$CONFIGURED" ]; then
         echo "Importing existing DnD Machine database."
-        mv "$CONFIGURED" "$DATABASE"
+        cp "$CONFIGURED" "$DATABASE"
     else
         echo "Initializing DnD Machine. Login with 'admin/admin' to get started."
         ./run.py \
