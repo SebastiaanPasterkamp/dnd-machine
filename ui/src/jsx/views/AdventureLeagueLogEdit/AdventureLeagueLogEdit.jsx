@@ -58,8 +58,15 @@ export class AdventureLeagueLogEdit extends React.Component
         this.memoize = memoize.bind(this);
     }
 
-    onSwitch = (forceAdventureCheckpoints) => {
+    onSwitchSlow = (slow_progress) => {
+        this.props.setState({ slow_progress });
+    }
+
+    onSwitchACP = (forceAdventureCheckpoints) => {
         this.setState({ forceAdventureCheckpoints });
+        if (this.state.slow_progress) {
+            this.props.setState({ slow_progress: false });
+        }
     }
 
     componentDidMount() {
@@ -96,6 +103,7 @@ export class AdventureLeagueLogEdit extends React.Component
             gold, downtime, renown, equipment,
             items, notes, consumed, setState,
             adventure_checkpoints, treasure_checkpoints,
+            slow_progress
         } = this.props;
         const {
             forceAdventureCheckpoints,
@@ -144,26 +152,61 @@ export class AdventureLeagueLogEdit extends React.Component
                     || character.adventure_checkpoints
                 ) && (
                     <ToggleSwitch
-                        className="accent"
+                        className="brand"
+                        switchId="acp-switch"
                         checked={forceAdventureCheckpoints}
-                        onChange={this.onSwitch}
+                        onChange={this.onSwitchACP}
                         label="Switch to Adventure Checkpoints"
                     />
                 )}
-                {forceAdventureCheckpoints && xp && <span className="al-log-edit__acp-switch-warning clearfix">
-                    Switching a character from XP based progression
-                    to Adventure Checkpoints cannot be undone (yet?).
-                    The first time a character progresses using ACP's, the following changes are made:
-                    <ul>
-                        <li>The XP is converted to the equivalent
-                        amount of Adventure Checkpoints appropriate
-                        for the current level, as well as the current
-                        progression in the level. This will always be
-                        rounded up. Simply log 1 ACP less to round
-                        down instead.</li>
-                        <li>Renown is reset to 0 and will increase by 1 every 4 ACP's. The <em>Faction Agent</em> background feature is not yet implemented.</li>
-                    </ul>
-                </span>}
+                {forceAdventureCheckpoints && xp && (
+                    <span className="al-log-edit__acp-switch-warning">
+                        Switching a character from XP based progression to
+                        Adventure Checkpoints cannot be undone (yet?). The first
+                        time a character progresses using ACP's, the following
+                        changes are made:
+                        <ul>
+                            <li>The XP is converted to the equivalent amount of
+                            Adventure Checkpoints appropriate for the current
+                            level, as well as the current progression in the
+                            level. This will always be rounded up. Simply log 1
+                            ACP less to round down instead.</li>
+                            <li>Renown is reset to 0 and will increase by 1
+                            every 4 ACP's. The <em>Faction Agent</em> background
+                            feature is not yet implemented.</li>
+                            <li>Downtime is accumulated automatically at a rate
+                            of 2 every 5 ACP's, but can still be spent.</li>
+                        </ul>
+                    </span>
+                )}
+                {acp_mode && (
+                    <ToggleSwitch
+                        className="warning"
+                        switchId="acp-slow-progress"
+                        checked={slow_progress}
+                        onChange={this.onSwitchSlow}
+                        disabled={disabled}
+                        label="Enable Slow Progress"
+                    />
+                )}
+                {slow_progress && (
+                    <span className="al-log-edit__acp-slow-warning">
+                        Enabling <em> slow progress </em> will be applied when
+                        consuming the log sheet. It will:
+                        <ul>
+                            <li>
+                                Half the number of Adventure Checkpoints gained.
+                            </li>
+                            <li>
+                                Half the number of Treasure Points gained.
+                            </li>
+                            <li>
+                                Half the amount of renown and downtime gained
+                                based on the full number of Adventure Checkpoints.
+                            </li>
+                        </ul>
+                    </span>
+                )}
             </Panel>
 
             {!acp_mode && (
@@ -246,11 +289,21 @@ export class AdventureLeagueLogEdit extends React.Component
                     ? downtime.starting
                     : character.downtime
                 }
+                maxValue={acp_mode ? 0 : undefined}
+                minValue={(character.downtime || 0) * -1}
                 setState={!disabled
                     ? this.onFieldChange('downtime')
                     : null
                 }
-            />
+            >
+                {acp_mode && (
+                    <span className="al-log-edit__acp-downtime-renown clearfix">
+                        Downtime and Renown are computed automatically
+                        based on Adventure Checkpoints. Downtime
+                        <em> can </em> be <em> consumed </em>.
+                    </span>
+                )}
+            </AdventureDelta>
 
             <AdventureGold
                 className="al-log-edit__gold"
@@ -342,6 +395,7 @@ AdventureLeagueLogEdit.propTypes = {
         three: deltaType,
         four: deltaType,
     }),
+    slow_progress: PropTypes.bool,
     gold: PropTypes.shape({
         starting: PropTypes.objectOf( PropTypes.number ),
         earned: PropTypes.objectOf( PropTypes.number ),
@@ -379,6 +433,7 @@ AdventureLeagueLogEdit.defaultProps = {
     xp: deltaDefault,
     adventure_checkpoints:  deltaDefault,
     treasure_checkpoints: {},
+    slow_progress: false,
     gold: {},
     downtime: deltaDefault,
     renown: deltaDefault,

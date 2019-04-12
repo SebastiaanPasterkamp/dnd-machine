@@ -10,18 +10,28 @@
     &__downtime,
     &__gold,
     &__treasure,
+    &__equipment,
+    &__items,
     &__renown {
-        grid-column-end: span 3;
+        grid-column-end: span 4;
     }
 
     &__adventurer,
     &__rewards,
-    &__equipment,
     &__session,
-    &__items,
     &__notes,
     &__save {
         grid-column: span 6;
+    }
+
+    &__adventurer .nice-toggle-btn {
+        display: block;
+        margin: 0.5em;
+    }
+
+    &__acp-slow-warning,
+    &__acp-switch-warning {
+        display: block;
     }
 
     &__adventurer > .nice-panel-content > div {

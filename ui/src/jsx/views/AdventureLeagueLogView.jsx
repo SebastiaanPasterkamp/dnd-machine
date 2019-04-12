@@ -61,16 +61,15 @@ export class AdventureDeltaRow extends React.Component
 {
     render() {
         const {
-            label, starting = 0, earned = 0,
+            label, starting = 0, earned = 0, total = 0,
         } = this.props;
-        const total = starting + earned;
 
         return (
             <tr>
                 <th>{label}</th>
                 <td>{starting}</td>
-                <td>{earned}</td>
-                <td>{earned ? total : starting}</td>
+                <td>{total ? total - starting : earned}</td>
+                <td>{total ? total : starting + earned}</td>
             </tr>
         );
     }
@@ -246,41 +245,35 @@ export class AdventureLeagueLogView extends React.Component
                         ) : null
                     ) : null}
 
-                    {gold.earned ?
-                        <AdventureGoldRow
-                            className="adventure-league-log-view__gold"
-                            label="Gold"
-                            {...gold}
-                            starting={consumed
-                                ? gold.starting :
-                                character.wealth
-                            }
-                        />
-                    : null}
+                    <AdventureGoldRow
+                        className="adventure-league-log-view__gold"
+                        label="Gold"
+                        {...gold}
+                        starting={consumed
+                            ? gold.starting :
+                            character.wealth
+                        }
+                    />
 
-                    {downtime.earned ?
-                        <AdventureDeltaRow
-                            className="adventure-league-log-view__downtime"
-                            label="Downtime"
-                            {...downtime}
-                            starting={consumed
-                                ? downtime.starting
-                                : character.downtime
-                            }
-                        />
-                    : null}
+                    <AdventureDeltaRow
+                        className="adventure-league-log-view__downtime"
+                        label="Downtime"
+                        {...downtime}
+                        starting={consumed
+                            ? downtime.starting
+                            : character.downtime
+                        }
+                    />
 
-                    {renown.earned ?
-                        <AdventureDeltaRow
-                            className="adventure-league-log-view__renown"
-                            label="Renown"
-                            {...renown}
-                            starting={consumed
-                                ? renown.starting
-                                : character.renown
-                            }
-                        />
-                    : null}
+                    <AdventureDeltaRow
+                        className="adventure-league-log-view__renown"
+                        label="Renown"
+                        {...renown}
+                        starting={consumed
+                            ? renown.starting
+                            : character.renown
+                        }
+                    />
                 </tbody>
             </Panel>
 

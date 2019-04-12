@@ -10,11 +10,25 @@ export class InputField extends LazyComponent
     constructor(props) {
         super(props);
         this.state = {
-            isFloat: false
+            isFloat: false,
+            style: 'nice-form-control',
         };
     }
 
-    onChange(value) {
+    static getDerivedStateFromProps(props, state) {
+        const { className } = props;
+        const style = utils.makeStyle({
+                [className]: className,
+            }, ['nice-form-control']
+        );
+        if (style !== state.style) {
+            return { style };
+        }
+        return null;
+    }
+
+    onChange = (e) => {
+        let value = e.target.value;
         const { type = 'text', setState } = this.props;
         const { isFloat } = this.state;
 
@@ -34,7 +48,7 @@ export class InputField extends LazyComponent
         setState(value);
     }
 
-    onKeyPress(e) {
+    onKeyPress = (e) => {
         if (e.key === 'Enter') {
             this.props.onEnter(e);
         }
@@ -45,25 +59,20 @@ export class InputField extends LazyComponent
             value, type, className, disabled, placeholder, onEnter,
             setState, ...props
         } = this.props;
-        const { isFloat } = this.state;
-        const style = utils.makeStyle({
-            [className]: className
-        }, ['nice-form-control']);
+        const { isFloat, style } = this.state;
 
-        return <input
-            className={style}
-            type={type}
-            value={value + (isFloat ? '.' : '')}
-            disabled={disabled}
-            placeholder={placeholder}
-            {...props}
-            onChange={(e) => this.onChange(e.target.value)}
-            onKeyPress={
-                onEnter
-                ? (e) => this.onKeyPress(e)
-                : null
-            }
-            />;
+        return (
+            <input
+                className={style}
+                type={type}
+                value={isFloat ? `${value}.` : value}
+                disabled={disabled}
+                placeholder={placeholder}
+                {...props}
+                onChange={this.onChange}
+                onKeyPress={onEnter ? this.onKeyPress : null}
+            />
+        );
     }
 }
 

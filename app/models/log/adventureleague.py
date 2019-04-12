@@ -24,6 +24,7 @@ class AdventureLeagueLogObject(JsonObject):
             'total': 0,
             },
         'treasure_checkpoints': {},
+        "slow_progress": False,
         'gold': {
             'starting': {},
             'earned': {},
@@ -57,14 +58,14 @@ class AdventureLeagueLogObject(JsonObject):
         'character_id': int,
         'consumed': bool,
         'adventure_checkpoints': {
-            '*': int,
+            '*': float,
             },
         'xp': {
             '*': int,
             },
         'treasure_checkpoints': {
             '*': {
-                '*': int,
+                '*': float,
                 }
             },
         'gold': {
@@ -73,10 +74,10 @@ class AdventureLeagueLogObject(JsonObject):
                 }
             },
         'downtime': {
-            '*': int,
+            '*': float,
             },
         'renown': {
-            '*': int,
+            '*': float,
             },
         'equipment': {
             '*': int,
@@ -88,6 +89,8 @@ class AdventureLeagueLogObject(JsonObject):
             },
         'character_snapshot': {
             '*': int,
+            'acp_progress': float,
+            'adventure_checkpoints': float,
             },
         }
 
@@ -120,6 +123,16 @@ class AdventureLeagueLogObject(JsonObject):
                     tp.setdefault(change, {})
                     tp[change][tier] = value
             self._config['treasure_checkpoints'] = tp
+
+        # Remove renown/downtime ; computed from ACP
+        if self.adventure_checkpointsEarned:
+            self.downtimeEarned = min(self.downtimeEarned, 0)
+            self.downtimeTotal = self.downtimeStarting \
+                + self.downtimeEarned
+            self.renownEarned = min(self.renownEarned, 0)
+            self.renownTotal = self.renownStarting \
+                + self.renownEarned
+
 
 class AdventureLeagueLogMapper(JsonObjectDataMapper):
     obj = AdventureLeagueLogObject

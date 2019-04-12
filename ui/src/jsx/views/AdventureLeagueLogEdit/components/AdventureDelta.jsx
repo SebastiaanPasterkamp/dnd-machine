@@ -28,7 +28,8 @@ export class AdventureDelta extends React.PureComponent
 
     render() {
         const {
-            starting, earned, total, className, label, disabled,
+            starting, earned, total, className, label,
+            setState, children, ...props
         } = this.props;
         const {
             formula = earned,
@@ -52,7 +53,7 @@ export class AdventureDelta extends React.PureComponent
                         placeholder="Earned..."
                         data-field="earned"
                         value={earned}
-                        disabled={disabled}
+                        {...props}
                         setState={this.onChange}
                     />
                 </ControlGroup>
@@ -64,6 +65,7 @@ export class AdventureDelta extends React.PureComponent
                         value={earned ? total : starting}
                     />
                 </ControlGroup>
+                {children}
             </Panel>
         );
     }

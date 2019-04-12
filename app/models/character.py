@@ -127,15 +127,15 @@ class CharacterObject(JsonObject):
         "xp": int,
         "xp_progress": int,
         "xp_level": int,
-        "downtime": int,
-        "renown": int,
+        "downtime": float,
+        "renown": float,
         "adventure_league": bool,
         "adventure_items": int,
-        "adventure_checkpoints": int,
+        "adventure_checkpoints": float,
         "treasure_checkpoints": {
-            "*": int,
+            "*": float,
             },
-        "acp_progress": int,
+        "acp_progress": float,
         "acp_level": int,
         "level": int,
         "hit_points": int,
@@ -500,62 +500,82 @@ class CharacterObject(JsonObject):
                 ]
         return obj
 
+    def unconsumeAdventureLeague(self, log):
+        log.consumed = False
+        if log.character_snapshot:
+            del log.character_snapshot
+        log.notes = re.sub(
+            r"\n+Leveled up from `\d+` to `\d+` and gained `\d+GP`.$",
+            "",
+            log.notes
+            )
+        return log
+
     def consumeAdventureLeague(self, log):
+        computed = {}
+        multipliers = {}
+        if log.slow_progress:
+            multipliers = {
+                'adventure_checkpoints': 0.5,
+                'treasure_checkpoints': 0.5,
+                }
         flatMapping = {
+            'renown': 'renown',
             'downtime': 'downtime',
             }
         nestedMapping = {
             'gold': 'wealth',
             }
 
-        if log.getPath(['adventure_checkpoints', 'earned'], 0):
-            flatMapping['adventure_checkpoints'] = 'adventure_checkpoints'
-            nestedMapping['treasure_checkpoints'] =  'treasure_checkpoints'
-            if not self.adventure_checkpoints:
-                self.adventure_checkpoints = 0
-                self.renown = 0
+        if not log.adventure_checkpointsEarned:
+            flatMapping.update({
+                'xp': 'xp',
+                })
         else:
-            flatMapping['xp'] = 'xp'
-            flatMapping['renown'] = 'renown'
+            flatMapping.update({
+                'adventure_checkpoints': 'adventure_checkpoints',
+                })
+            nestedMapping.update({
+                'treasure_checkpoints': 'treasure_checkpoints',
+                })
+
+            acpEarned = log.getPath(
+                ['adventure_checkpoints', 'earned'],
+                0.0
+                ) * multipliers.get('adventure_checkpoints', 1.0)
+            computed = {
+                'downtime': acpEarned * 2.5,
+                'renown': acpEarned * 0.25,
+                }
+
+        def mapLog(starting, earned, total, src, dst):
+            startVal = log.setPath(starting, self.getPath(dst, 0.0))
+            earnVal = log.setPath(earned, log.getPath(earned, 0.0))
+            totalVal = self.setPath(dst, startVal \
+                + earnVal * multipliers.get(src, 1.0) \
+                + computed.get(src, 0.0))
+            log.setPath(total, totalVal)
 
         for src, dst in flatMapping.items():
-            if log.getPath([src]) is None:
-                continue
-            log.setPath([src], log.getPath([src], {}))
-            log.setPath([src, 'starting'], self.getPath(dst, 0))
-            self.setPath(
-                dst,
-                self.getPath(dst, 0) \
-                    + log.getPath([src, 'earned'], 0)
+            mapLog(
+                starting=[src, 'starting'],
+                earned=[src, 'earned'],
+                total=[src, 'total'],
+                src=src,
+                dst=[dst],
                 )
-            log.setPath([src, 'total'], self.getPath(dst))
 
         for src, dst in nestedMapping.items():
             fields = set(log.getPath([src, 'earned'], {}).keys()) \
                 | set(self.getPath([dst]).keys())
             for field in fields:
-                log.setPath(
-                    [src, 'starting', field],
-                    self.getPath([dst, field], 0)
+                mapLog(
+                    starting=[src, 'starting', field],
+                    earned=[src, 'earned', field],
+                    total=[src, 'total', field],
+                    src=src,
+                    dst=[dst, field],
                     )
-                if log.getPath([src, 'earned', field]):
-                    self.setPath(
-                        [dst, field],
-                        log.getPath([src, 'starting', field]) \
-                            + log.getPath([src, 'earned', field])
-                        )
-                log.setPath(
-                    [src, 'total', field],
-                    self.getPath([dst, field])
-                    )
-
-        if self.adventure_checkpoints:
-            log.renown = {
-                'starting': self.renown,
-                'earned': int(log.adventure_checkpointsEarned / 4),
-                'total': self.renown + int(self.adventure_checkpoints / 4),
-                }
-            self.renown = int(self.adventure_checkpoints / 4)
 
         log.equipmentStarting = len(self.equipment)
         self.equipment += log.equipmentEarned or []
@@ -601,7 +621,6 @@ class CharacterObject(JsonObject):
                 'xp', 'xp_progress', 'xp_level',
                 'adventure_checkpoints', 'acp_progress', 'acp_level',
                 ]
-            if self.getPath(prop) is not None
             ])
 
     def getLevelUp(self):

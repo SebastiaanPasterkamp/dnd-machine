@@ -35,7 +35,7 @@ exports[`AdventureDelta should render with full props 1`] = `
         onKeyPress={null}
         placeholder="Starting..."
         type="number"
-        value="20"
+        value={20}
       />
     </div>
     <div
@@ -50,13 +50,13 @@ exports[`AdventureDelta should render with full props 1`] = `
         className="nice-form-control"
         data-field="earned"
         disabled={true}
-        max={undefined}
-        min={undefined}
+        max={null}
+        min={null}
         onChange={[Function]}
         onKeyPress={null}
         placeholder="Earned..."
         type="text"
-        value="5"
+        value={5}
       />
     </div>
     <div
@@ -74,7 +74,7 @@ exports[`AdventureDelta should render with full props 1`] = `
         onKeyPress={null}
         placeholder="Total..."
         type="number"
-        value="25"
+        value={25}
       />
     </div>
     <div
@@ -112,7 +112,7 @@ exports[`AdventureDelta should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder="Starting..."
         type="number"
-        value="0"
+        value={0}
       />
     </div>
     <div
@@ -127,13 +127,13 @@ exports[`AdventureDelta should render with minimum props 1`] = `
         className="nice-form-control"
         data-field="earned"
         disabled={false}
-        max={undefined}
-        min={undefined}
+        max={null}
+        min={null}
         onChange={[Function]}
         onKeyPress={null}
         placeholder="Earned..."
         type="text"
-        value="0"
+        value={0}
       />
     </div>
     <div
@@ -151,7 +151,7 @@ exports[`AdventureDelta should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder="Total..."
         type="number"
-        value="0"
+        value={0}
       />
     </div>
     <div

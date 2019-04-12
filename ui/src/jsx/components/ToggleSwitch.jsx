@@ -1,5 +1,6 @@
 import React from 'react';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash/fp';
 
 import utils from '../utils.jsx';
 
@@ -9,7 +10,26 @@ class ToggleSwitch extends LazyComponent
 {
     constructor(props) {
         super(props);
+        this.state = {
+            style: 'nice-toggle',
+        };
         this.onChange = this.onChange.bind(this);
+        this.switchId = `toggle-${uniqueId()}`;
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        const { className, disabled } = props;
+        const style = utils.makeStyle(
+            {
+                'muted': disabled,
+                [className]: className && !disabled,
+            },
+            ["nice-toggle"]
+        );
+        if (style !== state.style) {
+            return { style };
+        }
+        return null;
     }
 
     onChange() {
@@ -25,28 +45,24 @@ class ToggleSwitch extends LazyComponent
         const {
             checked,
             label,
-            className,
-            id = `toggle-${_.uniqueId()}`,
+            switchId = this.switchId,
             disabled,
         } = this.props;
-
-        const style = utils.makeStyle({
-            'muted': disabled,
-        }, ['nice-toggle-btn', className]);
+        const { style } = this.state;
 
         return (
             <React.Fragment>
                 <input
                     type="checkbox"
-                    className="nice-toggle"
-                    id={id}
+                    className={style}
+                    id={switchId}
                     checked={checked}
                     disabled={disabled}
                     onChange={disabled ? null : this.onChange}
                 />
                 <label
-                    className={style}
-                    htmlFor={id}
+                    className="nice-toggle-btn"
+                    htmlFor={switchId}
                 >
                     {label}
                 </label>
@@ -54,5 +70,15 @@ class ToggleSwitch extends LazyComponent
         );
     }
 }
+
+ToggleSwitch.propTypes = {
+    checked: PropTypes.bool.isRequired,
+    label: PropTypes.string.isRequired,
+    switchId: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
+    disabled: PropTypes.bool,
+};
 
 export default ToggleSwitch;
