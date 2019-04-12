@@ -79,7 +79,7 @@ export class CharacterLabel extends LazyComponent
                         },
                         {
                             value: 0.25,
-                            label: `${level}.${acp_progress}`,
+                            label: `${level+(acp_progress*0.1)}`,
                         },
                     ]}
                 />

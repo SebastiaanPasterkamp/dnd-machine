@@ -1,5 +1,103 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AdventureItems should render with full props 1`] = `
+<div
+  className="nice-panel example-items"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Example Items
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Starting
+      </span>
+      <input
+        className="nice-form-control"
+        disabled={true}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Starting..."
+        type="number"
+        value={0}
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Obtained
+      </span>
+      <ul
+        className="list-component"
+      >
+        <li>
+          <input
+            className="nice-form-control"
+            disabled={false}
+            onChange={[Function]}
+            onKeyPress={null}
+            placeholder={undefined}
+            type={undefined}
+            value="Health Potion"
+          />
+          <button
+            className="nice-btn list-component__delete warning icon fa-minus"
+            name="del"
+            onClick={[Function]}
+          >
+            ​
+          </button>
+        </li>
+        <li>
+          <input
+            className="nice-form-control"
+            disabled={false}
+            onChange={[Function]}
+            onKeyPress={null}
+            placeholder={undefined}
+            type={undefined}
+            value=""
+          />
+        </li>
+      </ul>
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Total
+      </span>
+      <input
+        className="nice-form-control"
+        disabled={true}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Total..."
+        type="number"
+        value={1}
+      />
+    </div>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;
+
 exports[`AdventureItems should render with minimum props 1`] = `
 <div
   className="nice-panel"
@@ -28,7 +126,7 @@ exports[`AdventureItems should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder="Starting..."
         type="number"
-        value="0"
+        value={0}
       />
     </div>
     <div
@@ -70,7 +168,7 @@ exports[`AdventureItems should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder="Total..."
         type="number"
-        value=""
+        value={0}
       />
     </div>
     <div

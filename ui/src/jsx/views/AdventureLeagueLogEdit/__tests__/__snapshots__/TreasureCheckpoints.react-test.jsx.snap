@@ -1,5 +1,1841 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`TreasureCheckpoints reject honor exceeding max value 1`] = `
+<TreasureCheckpoints
+  className="example-tcp"
+  currentTier="two"
+  disabled={false}
+  earned={
+    Object {
+      "one": 0,
+      "two": 3,
+    }
+  }
+  label="Example TCP"
+  setState={[Function]}
+  starting={
+    Object {
+      "one": 5,
+    }
+  }
+  total={
+    Object {
+      "one": 5,
+      "two": 3,
+    }
+  }
+>
+  <Panel
+    className="example-tcp"
+    contentComponent="div"
+    header="Example TCP"
+  >
+    <div
+      className="nice-panel example-tcp"
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Example TCP
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <ControlGroup
+          key="one"
+          labels={
+            Array [
+              "Tier one",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Tier one
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value={5}
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value={5}
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-one"
+              disabled={false}
+              key=".1/.1"
+              maxValue={0}
+              minValue={-5}
+              placeholder="Earned..."
+              setState={[Function]}
+              value={0}
+            >
+              <InputField
+                className="bad"
+                data-field="tier-one"
+                disabled={false}
+                max={0}
+                min={-5}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value="1"
+              >
+                <input
+                  className="nice-form-control bad"
+                  data-field="tier-one"
+                  disabled={false}
+                  max={0}
+                  min={-5}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value="1"
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value={5}
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value={5}
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <ControlGroup
+          className="current"
+          key="two"
+          labels={
+            Array [
+              "Current tier",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group current"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Current tier
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value=""
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-two"
+              disabled={false}
+              key=".1/.1"
+              maxValue={null}
+              minValue={-3}
+              placeholder="Earned..."
+              setState={[Function]}
+              value={3}
+            >
+              <InputField
+                className={null}
+                data-field="tier-two"
+                disabled={false}
+                max={null}
+                min={-3}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value={3}
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="tier-two"
+                  disabled={false}
+                  max={null}
+                  min={-3}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value={3}
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value={3}
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value={3}
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <ControlGroup
+          key="three"
+          labels={
+            Array [
+              "Tier three",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Tier three
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value=""
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-three"
+              disabled={false}
+              key=".1/.1"
+              maxValue={0}
+              minValue={-0}
+              placeholder="Earned..."
+              setState={[Function]}
+              value=""
+            >
+              <InputField
+                className={null}
+                data-field="tier-three"
+                disabled={false}
+                max={0}
+                min={-0}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="tier-three"
+                  disabled={false}
+                  max={0}
+                  min={-0}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value=""
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value=""
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <ControlGroup
+          key="four"
+          labels={
+            Array [
+              "Tier four",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Tier four
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value=""
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-four"
+              disabled={false}
+              key=".1/.1"
+              maxValue={0}
+              minValue={-0}
+              placeholder="Earned..."
+              setState={[Function]}
+              value=""
+            >
+              <InputField
+                className={null}
+                data-field="tier-four"
+                disabled={false}
+                max={0}
+                min={-0}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="tier-four"
+                  disabled={false}
+                  max={0}
+                  min={-0}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value=""
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value=""
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+  </Panel>
+</TreasureCheckpoints>
+`;
+
+exports[`TreasureCheckpoints reject honor exceeding min value 1`] = `
+<TreasureCheckpoints
+  className="example-tcp"
+  currentTier="two"
+  disabled={false}
+  earned={
+    Object {
+      "one": 0,
+      "two": 3,
+    }
+  }
+  label="Example TCP"
+  setState={[Function]}
+  starting={
+    Object {
+      "one": 5,
+    }
+  }
+  total={
+    Object {
+      "one": 5,
+      "two": 3,
+    }
+  }
+>
+  <Panel
+    className="example-tcp"
+    contentComponent="div"
+    header="Example TCP"
+  >
+    <div
+      className="nice-panel example-tcp"
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Example TCP
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <ControlGroup
+          key="one"
+          labels={
+            Array [
+              "Tier one",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Tier one
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value={5}
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value={5}
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-one"
+              disabled={false}
+              key=".1/.1"
+              maxValue={0}
+              minValue={-5}
+              placeholder="Earned..."
+              setState={[Function]}
+              value={0}
+            >
+              <InputField
+                className="bad"
+                data-field="tier-one"
+                disabled={false}
+                max={0}
+                min={-5}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value="-6"
+              >
+                <input
+                  className="nice-form-control bad"
+                  data-field="tier-one"
+                  disabled={false}
+                  max={0}
+                  min={-5}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value="-6"
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value={5}
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value={5}
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <ControlGroup
+          className="current"
+          key="two"
+          labels={
+            Array [
+              "Current tier",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group current"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Current tier
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value=""
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-two"
+              disabled={false}
+              key=".1/.1"
+              maxValue={null}
+              minValue={-3}
+              placeholder="Earned..."
+              setState={[Function]}
+              value={3}
+            >
+              <InputField
+                className={null}
+                data-field="tier-two"
+                disabled={false}
+                max={null}
+                min={-3}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value={3}
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="tier-two"
+                  disabled={false}
+                  max={null}
+                  min={-3}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value={3}
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value={3}
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value={3}
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <ControlGroup
+          key="three"
+          labels={
+            Array [
+              "Tier three",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Tier three
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value=""
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-three"
+              disabled={false}
+              key=".1/.1"
+              maxValue={0}
+              minValue={-0}
+              placeholder="Earned..."
+              setState={[Function]}
+              value=""
+            >
+              <InputField
+                className={null}
+                data-field="tier-three"
+                disabled={false}
+                max={0}
+                min={-0}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="tier-three"
+                  disabled={false}
+                  max={0}
+                  min={-0}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value=""
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value=""
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <ControlGroup
+          key="four"
+          labels={
+            Array [
+              "Tier four",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Tier four
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value=""
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-four"
+              disabled={false}
+              key=".1/.1"
+              maxValue={0}
+              minValue={-0}
+              placeholder="Earned..."
+              setState={[Function]}
+              value=""
+            >
+              <InputField
+                className={null}
+                data-field="tier-four"
+                disabled={false}
+                max={0}
+                min={-0}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="tier-four"
+                  disabled={false}
+                  max={0}
+                  min={-0}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value=""
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value=""
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+  </Panel>
+</TreasureCheckpoints>
+`;
+
+exports[`TreasureCheckpoints should honor max value 1`] = `
+<TreasureCheckpoints
+  className="example-tcp"
+  currentTier="two"
+  disabled={false}
+  earned={
+    Object {
+      "one": 0,
+      "two": 3,
+    }
+  }
+  label="Example TCP"
+  setState={[Function]}
+  starting={
+    Object {
+      "one": 5,
+    }
+  }
+  total={
+    Object {
+      "one": 5,
+      "two": 3,
+    }
+  }
+>
+  <Panel
+    className="example-tcp"
+    contentComponent="div"
+    header="Example TCP"
+  >
+    <div
+      className="nice-panel example-tcp"
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Example TCP
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <ControlGroup
+          key="one"
+          labels={
+            Array [
+              "Tier one",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Tier one
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value={5}
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value={5}
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-one"
+              disabled={false}
+              key=".1/.1"
+              maxValue={0}
+              minValue={-5}
+              placeholder="Earned..."
+              setState={[Function]}
+              value={0}
+            >
+              <InputField
+                className={null}
+                data-field="tier-one"
+                disabled={false}
+                max={0}
+                min={-5}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value={0}
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="tier-one"
+                  disabled={false}
+                  max={0}
+                  min={-5}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value={0}
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value={5}
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value={5}
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <ControlGroup
+          className="current"
+          key="two"
+          labels={
+            Array [
+              "Current tier",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group current"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Current tier
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value=""
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-two"
+              disabled={false}
+              key=".1/.1"
+              maxValue={null}
+              minValue={-3}
+              placeholder="Earned..."
+              setState={[Function]}
+              value={3}
+            >
+              <InputField
+                className="good"
+                data-field="tier-two"
+                disabled={false}
+                max={null}
+                min={-3}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value="1"
+              >
+                <input
+                  className="nice-form-control good"
+                  data-field="tier-two"
+                  disabled={false}
+                  max={null}
+                  min={-3}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value="1"
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value={3}
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value={3}
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <ControlGroup
+          key="three"
+          labels={
+            Array [
+              "Tier three",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Tier three
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value=""
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-three"
+              disabled={false}
+              key=".1/.1"
+              maxValue={0}
+              minValue={-0}
+              placeholder="Earned..."
+              setState={[Function]}
+              value=""
+            >
+              <InputField
+                className={null}
+                data-field="tier-three"
+                disabled={false}
+                max={0}
+                min={-0}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="tier-three"
+                  disabled={false}
+                  max={0}
+                  min={-0}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value=""
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value=""
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <ControlGroup
+          key="four"
+          labels={
+            Array [
+              "Tier four",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Tier four
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value=""
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-four"
+              disabled={false}
+              key=".1/.1"
+              maxValue={0}
+              minValue={-0}
+              placeholder="Earned..."
+              setState={[Function]}
+              value=""
+            >
+              <InputField
+                className={null}
+                data-field="tier-four"
+                disabled={false}
+                max={0}
+                min={-0}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="tier-four"
+                  disabled={false}
+                  max={0}
+                  min={-0}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value=""
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value=""
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+  </Panel>
+</TreasureCheckpoints>
+`;
+
+exports[`TreasureCheckpoints should honor min value 1`] = `
+<TreasureCheckpoints
+  className="example-tcp"
+  currentTier="two"
+  disabled={false}
+  earned={
+    Object {
+      "one": 0,
+      "two": 3,
+    }
+  }
+  label="Example TCP"
+  setState={[Function]}
+  starting={
+    Object {
+      "one": 5,
+    }
+  }
+  total={
+    Object {
+      "one": 5,
+      "two": 3,
+    }
+  }
+>
+  <Panel
+    className="example-tcp"
+    contentComponent="div"
+    header="Example TCP"
+  >
+    <div
+      className="nice-panel example-tcp"
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Example TCP
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <ControlGroup
+          key="one"
+          labels={
+            Array [
+              "Tier one",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Tier one
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value={5}
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value={5}
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-one"
+              disabled={false}
+              key=".1/.1"
+              maxValue={0}
+              minValue={-5}
+              placeholder="Earned..."
+              setState={[Function]}
+              value={0}
+            >
+              <InputField
+                className="good"
+                data-field="tier-one"
+                disabled={false}
+                max={0}
+                min={-5}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value="-5"
+              >
+                <input
+                  className="nice-form-control good"
+                  data-field="tier-one"
+                  disabled={false}
+                  max={0}
+                  min={-5}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value="-5"
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value={5}
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value={5}
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <ControlGroup
+          className="current"
+          key="two"
+          labels={
+            Array [
+              "Current tier",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group current"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Current tier
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value=""
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-two"
+              disabled={false}
+              key=".1/.1"
+              maxValue={null}
+              minValue={-3}
+              placeholder="Earned..."
+              setState={[Function]}
+              value={3}
+            >
+              <InputField
+                className="good"
+                data-field="tier-two"
+                disabled={false}
+                max={null}
+                min={-3}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value="1"
+              >
+                <input
+                  className="nice-form-control good"
+                  data-field="tier-two"
+                  disabled={false}
+                  max={null}
+                  min={-3}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value="1"
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value={3}
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value={3}
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <ControlGroup
+          key="three"
+          labels={
+            Array [
+              "Tier three",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Tier three
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value=""
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-three"
+              disabled={false}
+              key=".1/.1"
+              maxValue={0}
+              minValue={-0}
+              placeholder="Earned..."
+              setState={[Function]}
+              value=""
+            >
+              <InputField
+                className={null}
+                data-field="tier-three"
+                disabled={false}
+                max={0}
+                min={-0}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="tier-three"
+                  disabled={false}
+                  max={0}
+                  min={-0}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value=""
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value=""
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <ControlGroup
+          key="four"
+          labels={
+            Array [
+              "Tier four",
+              "±",
+              "=",
+            ]
+          }
+        >
+          <div
+            className="nice-control-group"
+          >
+            <span
+              className="nice-input-addon"
+              key=".0/.$label-0"
+            >
+              Tier four
+            </span>
+            <InputField
+              disabled={true}
+              key=".0/.1"
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                type="number"
+                value=""
+              />
+            </InputField>
+            <span
+              className="nice-input-addon"
+              key=".1/.$label-1"
+            >
+              ±
+            </span>
+            <CalculatorInputField
+              data-field="tier-four"
+              disabled={false}
+              key=".1/.1"
+              maxValue={0}
+              minValue={-0}
+              placeholder="Earned..."
+              setState={[Function]}
+              value=""
+            >
+              <InputField
+                className={null}
+                data-field="tier-four"
+                disabled={false}
+                max={0}
+                min={-0}
+                placeholder="Earned..."
+                setState={[Function]}
+                type="text"
+                value=""
+              >
+                <input
+                  className="nice-form-control"
+                  data-field="tier-four"
+                  disabled={false}
+                  max={0}
+                  min={-0}
+                  onChange={[Function]}
+                  onKeyPress={null}
+                  placeholder="Earned..."
+                  type="text"
+                  value=""
+                />
+              </InputField>
+            </CalculatorInputField>
+            <span
+              className="nice-input-addon"
+              key=".2/.$label-2"
+            >
+              =
+            </span>
+            <InputField
+              disabled={true}
+              key=".2/.1"
+              placeholder="Total..."
+              setState={[Function]}
+              type="number"
+              value=""
+            >
+              <input
+                className="nice-form-control"
+                disabled={true}
+                onChange={[Function]}
+                onKeyPress={null}
+                placeholder="Total..."
+                type="number"
+                value=""
+              />
+            </InputField>
+          </div>
+        </ControlGroup>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+  </Panel>
+</TreasureCheckpoints>
+`;
+
 exports[`TreasureCheckpoints should render with minimum props 1`] = `
 <div
   className="nice-panel"
@@ -28,7 +1864,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder={undefined}
         type="number"
-        value="0"
+        value={0}
       />
       <span
         className="nice-input-addon"
@@ -37,14 +1873,15 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
       </span>
       <input
         className="nice-form-control"
+        data-field="tier-one"
         disabled={false}
-        max={undefined}
+        max={null}
         min={-0}
         onChange={[Function]}
         onKeyPress={null}
         placeholder="Earned..."
         type="text"
-        value="0"
+        value={0}
       />
       <span
         className="nice-input-addon"
@@ -58,7 +1895,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder="Total..."
         type="number"
-        value="0"
+        value={0}
       />
     </div>
     <div
@@ -76,7 +1913,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder={undefined}
         type="number"
-        value="0"
+        value={0}
       />
       <span
         className="nice-input-addon"
@@ -85,6 +1922,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
       </span>
       <input
         className="nice-form-control"
+        data-field="tier-two"
         disabled={false}
         max={0}
         min={-0}
@@ -92,7 +1930,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder="Earned..."
         type="text"
-        value="0"
+        value={0}
       />
       <span
         className="nice-input-addon"
@@ -106,7 +1944,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder="Total..."
         type="number"
-        value="0"
+        value={0}
       />
     </div>
     <div
@@ -124,7 +1962,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder={undefined}
         type="number"
-        value="0"
+        value={0}
       />
       <span
         className="nice-input-addon"
@@ -133,6 +1971,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
       </span>
       <input
         className="nice-form-control"
+        data-field="tier-three"
         disabled={false}
         max={0}
         min={-0}
@@ -140,7 +1979,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder="Earned..."
         type="text"
-        value="0"
+        value={0}
       />
       <span
         className="nice-input-addon"
@@ -154,7 +1993,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder="Total..."
         type="number"
-        value="0"
+        value={0}
       />
     </div>
     <div
@@ -172,7 +2011,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder={undefined}
         type="number"
-        value="0"
+        value={0}
       />
       <span
         className="nice-input-addon"
@@ -181,6 +2020,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
       </span>
       <input
         className="nice-form-control"
+        data-field="tier-four"
         disabled={false}
         max={0}
         min={-0}
@@ -188,7 +2028,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder="Earned..."
         type="text"
-        value="0"
+        value={0}
       />
       <span
         className="nice-input-addon"
@@ -202,7 +2042,7 @@ exports[`TreasureCheckpoints should render with minimum props 1`] = `
         onKeyPress={null}
         placeholder="Total..."
         type="number"
-        value="0"
+        value={0}
       />
     </div>
     <div
