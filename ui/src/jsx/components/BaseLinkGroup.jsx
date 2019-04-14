@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
-import '../../sass/_base-link-group.scss';
+import './BaseLinkGroup/sass/_base-link-group.scss';
 
 import utils from '../utils.jsx';
 
