@@ -1,29 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
-import ObjectDataActions from '../actions/ObjectDataActions.jsx';
-
-import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
+import {
+    BaseLinkButton,
+    BaseLinkGroup,
+} from '../components/BaseLinkGroup/index.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
-
 import { userHasRole } from '../utils.jsx';
 
-export class CharacterLinks extends BaseLinkGroup
+
+export class CharacterLinks extends React.Component
 {
-    constructor(props, context) {
-        super(props, context);
+    onCopy = () => {
+        const { router } = this.context;
+        const { id } = this.props;
+        ObjectDataActions.copyObject(
+            "character", id, null,
+            (type, id, data) => router.history.push(
+                '/character/edit/' + data.id
+            )
+        );
     }
 
-    buttonList() {
-        const { router } = this.context;
-        const {
-            character = {}, character_id, current_user: user
+    onDelete = () => {
+        const { id } = this.props;
+        ObjectDataActions.deleteObject("character", id);
+    }
+
+    render() {
+        const { id, character, currentUser, altStyle, children,
+            ...props
         } = this.props;
 
-        if (!user) {
-            return {};
+        if (!currentUser) {
+            return null;
         }
 
         const levelUp = (
@@ -32,147 +44,165 @@ export class CharacterLinks extends BaseLinkGroup
             && character.level_up.config.length
         );
 
-        return {
-            'view': () => ({
-                label: 'View',
-                link: "/character/show/" + character_id,
-                icon: 'eye',
-                available: (
-                    character_id != undefined
-                    && userHasRole(user, ['player', 'dm'])
-                ),
-            }),
-            'raw': () => ({
-                label: 'Raw',
-                link: "/character/raw/" + character_id,
-                icon: 'cogs',
-                available: (
-                    character_id != undefined
-                    && userHasRole(user, 'admin')
-                ),
-            }),
-            'edit': () => ({
-                label: levelUp ? 'Level Up' : 'Edit',
-                link: "/character/edit/" + character_id,
-                icon: levelUp ? 'level-up' : 'pencil',
-                className: levelUp ? 'primary' : null,
-                available: (
-                    character_id != undefined
-                    && character.user_id == user.id
-                ),
-            }),
-            'copy': () => ({
-                label: 'Copy',
-                action: () => {
-                    ObjectDataActions.copyObject(
-                        "character", character_id, null,
-                        (type, id, data) => {
-                            router.history.push(
-                                '/character/edit/' + data.id
-                            );
-                        }
-                    );
-                },
-                icon: 'clone',
-                available: (
-                    character_id != undefined
-                    && (
-                        character.user_id == user.id
-                        || userHasRole(user, ['dm'])
-                    )
-                ),
-            }),
-            'pdf': () => ({
-                label: 'PDF',
-                download: "/character/download/" + character_id,
-                icon: 'file-pdf-o',
-                available: (
-                    character_id != undefined
-                    && userHasRole(user, ['player', 'dm'])
-                ),
-            }),
-            'new': () => ({
-                label: 'New',
-                link: "/character/new",
-                icon: 'plus',
-                available: (
-                    character_id == undefined
-                    && userHasRole(user, ['player', 'dm'])
-                ),
-            }),
-            'delete': () => ({
-                label: 'Delete',
-                action: () => {
-                    ObjectDataActions.deleteObject(
-                        "character", character_id
-                    );
-                },
-                icon: 'trash-o',
-                className: 'bad',
-                available: (
-                    character_id != undefined
-                    && character.user_id == user.id
-                ),
-            }),
-            'new_log': () => ({
-                label: 'Log',
-                link: "/log/adventureleague/new/" + character_id,
-                icon: 'pencil-square-o',
-                available: (
-                    character_id !== undefined
-                    && character.user_id == user.id
-                    && userHasRole(user, 'player')
-                    && user.dci
-                    && (
-                        character.xp == 0
-                        || character.adventure_league
-                    )
-                ),
-            }),
-            'list_logs': () => ({
-                label: 'Logs',
-                link: "/log/adventureleague/list/" + character_id,
-                icon: 'folder-o',
-                available: (
-                    character_id !== undefined
-                    && character.user_id == user.id
-                    && userHasRole(user, 'player')
-                    && user.dci
-                    && character.adventure_league
-                ),
-            }),
-        };
+        return (
+            <BaseLinkGroup {...props}>
+                <BaseLinkButton
+                    name="view"
+                    label="View"
+                    icon="eye"
+                    altStyle={altStyle}
+                    link={`/character/show/${id}`}
+                    available={(
+                        id !== null
+                        && userHasRole(currentUser, ['player', 'dm'])
+                    )}
+                />
+                <BaseLinkButton
+                    name="raw"
+                    label="Raw"
+                    icon="cogs"
+                    altStyle={altStyle}
+                    download={`/character/raw/${id}`}
+                    available={(
+                        id !== null
+                        && userHasRole(currentUser, 'admin')
+                    )}
+                />
+                <BaseLinkButton
+                    name="edit"
+                    label={levelUp ? 'Level Up' : 'Edit'}
+                    icon={levelUp ? 'level-up' : 'pencil'}
+                    className={levelUp ? 'primary' : null}
+                    altStyle={altStyle}
+                    link={`/character/edit/${id}`}
+                    available={(
+                        id !== null
+                        && character.user_id === currentUser.id
+                    )}
+                />
+                <BaseLinkButton
+                    name="copy"
+                    label="Copy"
+                    icon="clone"
+                    action={this.onCopy}
+                    altStyle={altStyle}
+                    available={(
+                        id !== null
+                        && (
+                            character.user_id === currentUser.id
+                            || userHasRole(currentUser, ['dm'])
+                        )
+                    )}
+                />
+                <BaseLinkButton
+                    name="download"
+                    label="PDF"
+                    icon="file-pdf-o"
+                    download={`/character/download/${id}`}
+                    altStyle={altStyle}
+                    available={(
+                        id !== null
+                        && userHasRole(currentUser, ['player', 'dm'])
+                    )}
+                />
+                <BaseLinkButton
+                    name="new"
+                    label="New"
+                    icon="plus"
+                    link="/character/new"
+                    altStyle={altStyle}
+                    available={(
+                        id === null
+                        && userHasRole(currentUser, ['player', 'dm'])
+                    )}
+                />
+                <BaseLinkButton
+                    name="delete"
+                    label="Delete"
+                    icon="trash-o"
+                    className="bad"
+                    action={this.onDelete}
+                    altStyle={altStyle}
+                    available={(
+                        id !== null
+                        && character.user_id === currentUser.id
+                    )}
+                />
+                <BaseLinkButton
+                    name="logs"
+                    label="Logs"
+                    icon="folder-o"
+                    link={`/log/adventureleague/list/${id}`}
+                    altStyle={altStyle}
+                    available={(
+                        id !== null
+                        && character.user_id === currentUser.id
+                        && userHasRole(currentUser, 'player')
+                        && !!currentUser.dci
+                        && character.adventure_league
+                    )}
+                />
+                <BaseLinkButton
+                    name="log"
+                    label="Log"
+                    icon="pencil-square-o"
+                    link={`/log/adventureleague/new/${id}`}
+                    altStyle={altStyle}
+                    available={(
+                        id !== null
+                        && character.user_id === currentUser.id
+                        && userHasRole(currentUser, 'player')
+                        && !!currentUser.dci
+                        && (
+                            (
+                                !character.adventure_checkpoints
+                                && !character.xp
+                            ) || character.adventure_league
+                        )
+                    )}
+                />
+                {children}
+            </BaseLinkGroup>
+        );
     }
-}
+};
 
 CharacterLinks.contextTypes = {
     router: PropTypes.object,
 };
 
-CharacterLinks.propTypes = _.assign(
-    {}, BaseLinkGroup.propTypes, {
-        buttons: PropTypes.arrayOf(
-            PropTypes.oneOf([
-                'view', 'edit', 'copy', 'raw', 'new', 'pdf', 'delete',
-            ])
+CharacterLinks.propTypes = {
+    altStyle: PropTypes.bool,
+    id: PropTypes.number,
+    character: PropTypes.shape({
+        user_id: PropTypes.number,
+        xp: PropTypes.number,
+        adventure_checkpoints: PropTypes.number,
+        adventure_league: PropTypes.bool,
+        level_up: PropTypes.shape({
+            config: PropTypes.array,
+        }),
+    }),
+    currentUser: PropTypes.shape({
+        id: PropTypes.number,
+        role: PropTypes.arrayOf(
+            PropTypes.oneOf(['player', 'dm', 'admin'])
         ),
-        character_id: PropTypes.number,
-        current_user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            role: PropTypes.arrayOf(
-                PropTypes.oneOf(['player', 'dm', 'admin'])
-            ),
-        }),
-        character: PropTypes.shape({
-            user_id: PropTypes.number.isRequired,
-            level_up: PropTypes.object,
-        }),
-    }
-);
+    }),
+};
+
+CharacterLinks.defaultProps = {
+    altStyle: false,
+    id: null,
+    character: {},
+    currentUser: {},
+};
 
 export default ListDataWrapper(
     ObjectDataWrapper(CharacterLinks, [
-        {type: 'character', id: 'character_id'}
+        {type: 'character', id: 'id'}
     ]),
-    ['current_user']
+    ['current_user'],
+    null,
+    { current_user: 'currentUser' }
 );

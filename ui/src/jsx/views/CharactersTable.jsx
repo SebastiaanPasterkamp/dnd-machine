@@ -37,7 +37,7 @@ class CharactersFooter extends LazyComponent
                 <td colSpan={5}>
                     <CharacterLinks
                         altStyle={true}
-                        />
+                    />
                 </td>
             </tr>
         </tbody>
@@ -65,8 +65,8 @@ class CharactersRow extends LazyComponent
                     {name}
                     <CharacterLinks
                         altStyle={true}
-                        character_id={id}
-                        omit={['delete', 'new_log']}
+                        id={id}
+                        exclude={['delete', 'new_log']}
                     />
                 </th>
                 <td>
