@@ -51,7 +51,9 @@ function ListDataWrapper(
 
         render() {
             const data = _.reduce(this.state, (data, value, key) => {
-                data[ mapping[key] || key ] = value;
+                if (storeKeys.includes(key)) {
+                    data[ mapping[key] || key ] = value;
+                }
                 return data;
             }, {});
             return <WrappedComponent

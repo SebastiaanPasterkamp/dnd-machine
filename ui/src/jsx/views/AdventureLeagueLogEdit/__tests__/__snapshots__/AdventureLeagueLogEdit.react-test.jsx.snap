@@ -352,7 +352,6 @@ exports[`AdventureLeagueLogEdit should render with full ACP props after being co
               }
             }
             character_id={1}
-            search=""
             showProgress={true}
           >
             <CharacterLabel
@@ -380,7 +379,6 @@ exports[`AdventureLeagueLogEdit should render with full ACP props after being co
               }
               character_id={1}
               genders={Array []}
-              search=""
               showInfo={true}
               showProgress={true}
             >
@@ -2178,7 +2176,6 @@ exports[`AdventureLeagueLogEdit should render with full ACP props before being c
           <ObjectDataCharacterLabel
             characterUpdate={null}
             character_id={1}
-            search=""
             showProgress={true}
           >
             <CharacterLabel
@@ -2195,7 +2192,6 @@ exports[`AdventureLeagueLogEdit should render with full ACP props before being c
               characterUpdate={null}
               character_id={1}
               genders={Array []}
-              search=""
               showInfo={true}
               showProgress={true}
             >
@@ -4171,7 +4167,6 @@ exports[`AdventureLeagueLogEdit should render with full XP props after being con
               }
             }
             character_id={1}
-            search=""
             showProgress={true}
           >
             <CharacterLabel
@@ -4196,7 +4191,6 @@ exports[`AdventureLeagueLogEdit should render with full XP props after being con
               }
               character_id={1}
               genders={Array []}
-              search=""
               showInfo={true}
               showProgress={true}
             >
@@ -5640,7 +5634,6 @@ exports[`AdventureLeagueLogEdit should render with full XP props before being co
           <ObjectDataCharacterLabel
             characterUpdate={null}
             character_id={1}
-            search=""
             showProgress={true}
           >
             <CharacterLabel
@@ -5649,7 +5642,6 @@ exports[`AdventureLeagueLogEdit should render with full XP props before being co
               characterUpdate={null}
               character_id={1}
               genders={Array []}
-              search=""
               showInfo={true}
               showProgress={true}
             >
