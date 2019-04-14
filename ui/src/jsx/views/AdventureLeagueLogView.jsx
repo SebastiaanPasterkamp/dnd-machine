@@ -32,8 +32,7 @@ export class AdventureSession extends React.Component
                     <th colSpan={3}>
                         <AdventureLeagueLogLinks
                             className="pull-right"
-                            logId={logId}
-                            omit={['view']}
+                            id={logId}
                         />
                         <h3>{name}</h3>
                         <h4>{id}</h4>
