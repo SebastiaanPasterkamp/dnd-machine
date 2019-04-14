@@ -111,6 +111,10 @@ export function ObjectDataStoreFactory(id, listenables = null)
             this.updateObject(type, id, object, callback);
         }
 
+        onConsumeObjectCompleted(type, id, object, callback=null) {
+            this.updateObject(type, object.id, object, callback);
+        }
+
         onCopyObjectCompleted(type, id, object, callback=null) {
             this.updateObject(type, object.id, object, callback);
         }

@@ -12,6 +12,7 @@ export function ObjectDataActionsFactory(id)
         "getObject": {asyncResult: true},
         "postObject": {asyncResult: true},
         "patchObject": {asyncResult: true},
+        "consumeObject": {asyncResult: true},
         "copyObject": {asyncResult: true},
         "deleteObject": {asyncResult: true},
         "recomputeObject": {asyncResult: true},
@@ -195,10 +196,41 @@ export function ObjectDataActionsFactory(id)
         });
     });
 
+    oda.consumeObject.listen((type, id, group=null, callback=null) => {
+        const path = '/' + _.filter([group, type, 'consume', id]).join('/')
+
+        if (!confirm("Are you sure you wish to consume this?")) {
+            return false;
+        }
+
+        fetch(path, {
+            credentials: 'same-origin',
+            method: 'PATCH',
+            'headers': {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(jsonOrBust)
+        .then(result => oda.consumeObject.completed(
+            type, id, result, callback
+        ))
+        .catch(error => {
+            console.log(error);
+            oda.consumeObject.failed(
+                type, id, error
+            );
+            ReportingActions.showMessage(
+                'bad',
+                error.message,
+                'Consume failed'
+            );
+        });
+    });
+
     oda.deleteObject.listen((type, id, group=null, callback=null) => {
         let path = '/' + _.filter([group, type, 'api', id]).join('/')
 
-        if (!confirm("Are you sure?")) {
+        if (!confirm("Are you sure you wish to delete this?")) {
             return false;
         }
 
