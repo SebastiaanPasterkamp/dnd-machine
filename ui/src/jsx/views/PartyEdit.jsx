@@ -7,6 +7,7 @@ import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
+import { BaseLinkButton } from '../components/BaseLinkGroup/index.jsx';
 import ButtonField from '../components/ButtonField.jsx';
 import {CharacterPicker} from './CharacterPicker.jsx';
 import CharacterLabel from '../components/CharacterLabel.jsx';
@@ -20,8 +21,10 @@ import UserLabel from '../components/UserLabel.jsx';
 
 import ModalDialog from '../components/ModalDialog.jsx';
 
-export class PartyEdit extends React.Component
+export class PartyEdit extends React.PureComponent
 {
+    characterLinks = ['view', 'remove'];
+
     constructor(props) {
         super(props);
         this.state = {
@@ -129,7 +132,7 @@ export class PartyEdit extends React.Component
                 key="description"
                 className="party-edit__description"
                 header="Description"
-                >
+            >
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
@@ -157,7 +160,7 @@ export class PartyEdit extends React.Component
                 key="challenge"
                 className="party-edit__challenge"
                 header="Challenge Rating"
-                >
+            >
                 <thead>
                     <tr>
                         <th>Party size</th>
@@ -190,7 +193,7 @@ export class PartyEdit extends React.Component
                     key="members"
                     className="party-edit__members"
                     header="Party Members"
-                    >
+                >
                 <thead>
                     <tr>
                         <th>Character Level</th>
@@ -213,22 +216,23 @@ export class PartyEdit extends React.Component
                             {character.name}
                             <CharacterLinks
                                 altStyle={true}
-                                buttons={['view']}
-                                character_id={character.id}
-                                extra={{
-                                    remove: {
-                                        label: 'Remove',
-                                        action: this.callback(
-                                            `delete-${id}`,
-                                            () => this.onRemoveMember(
-                                                id
-                                            )
-                                        ),
-                                        icon: 'times',
-                                        className: 'warning'
-                                    }
-                                }}
+                                include={this.characterLinks}
+                                id={character.id}
+                            >
+                                <BaseLinkButton
+                                    name="remove"
+                                    label="Remove"
+                                    icon="times"
+                                    className="warning"
+                                    altStyle={true}
+                                    action={this.callback(
+                                        `delete-${id}`,
+                                        () => this.onRemoveMember(
+                                            id
+                                        )
+                                    )}
                                 />
+                            </CharacterLinks>
                         </th>
                         <td>{character.level}</td>
                         <td className="info">

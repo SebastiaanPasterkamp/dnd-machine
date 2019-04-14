@@ -12,8 +12,7 @@ describe('Component: CharacterLinks', () => {
     it('should render without props', () => {
         const tree = renderer.create(
             <MemoryRouter>
-                <CharacterLinks
-                    />
+                <CharacterLinks />
             </MemoryRouter>
         ).toJSON();
 
@@ -24,11 +23,11 @@ describe('Component: CharacterLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <CharacterLinks
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -39,15 +38,15 @@ describe('Component: CharacterLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <CharacterLinks
-                    character_id={10}
+                    id={10}
                     character={{
                         user_id: 2,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -58,15 +57,15 @@ describe('Component: CharacterLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <CharacterLinks
-                    character_id={10}
+                    id={10}
                     character={{
                         user_id: 1,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -77,15 +76,15 @@ describe('Component: CharacterLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <CharacterLinks
-                    character_id={10}
+                    id={10}
                     character={{
                         user_id: 1,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 2,
                         role: ['admin'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -96,18 +95,43 @@ describe('Component: CharacterLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <CharacterLinks
-                    character_id={10}
+                    id={10}
                     character={{
                         user_id: 1,
                         level_up: {
                             config: [ 'test' ],
                         },
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
-                    />
+                />
+            </MemoryRouter>
+        ).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should show AL buttons', () => {
+        const tree = renderer.create(
+            <MemoryRouter>
+                <CharacterLinks
+                    id={10}
+                    include={['log', 'logs']}
+                    character={{
+                        user_id: 1,
+                        level_up: {
+                            config: [ 'test' ],
+                        },
+                        adventure_league: true,
+                    }}
+                    currentUser={{
+                        id: 1,
+                        role: ['player'],
+                        dci: '123123132',
+                    }}
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -125,15 +149,15 @@ describe('Component: CharacterLinks', () => {
         const wrapper = mount(
             <MemoryRouter>
                 <CharacterLinks
-                    character_id={10}
+                    id={10}
                     character={{
                         user_id: 1,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 
@@ -162,15 +186,15 @@ describe('Component: CharacterLinks', () => {
         const wrapper = mount(
             <MemoryRouter>
                 <CharacterLinks
-                    character_id={10}
+                    id={10}
                     character={{
                         user_id: 1,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 
@@ -202,15 +226,15 @@ describe('Component: CharacterLinks', () => {
         const wrapper = mount(
             <MemoryRouter>
                 <CharacterLinks
-                    character_id={10}
+                    id={10}
                     character={{
                         user_id: 1,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 

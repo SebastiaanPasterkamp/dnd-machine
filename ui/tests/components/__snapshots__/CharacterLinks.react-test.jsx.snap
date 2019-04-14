@@ -16,6 +16,27 @@ exports[`Component: CharacterLinks should render a new button 1`] = `
 
 exports[`Component: CharacterLinks should render without props 1`] = `null`;
 
+exports[`Component: CharacterLinks should show AL buttons 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn icon fa-folder-o"
+    href="/log/adventureleague/list/10"
+    onClick={[Function]}
+  >
+    Logs
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-pencil-square-o"
+    href="/log/adventureleague/new/10"
+    onClick={[Function]}
+  >
+    Log
+  </a>
+</div>
+`;
+
 exports[`Component: CharacterLinks should show a level-up button 1`] = `
 <div
   className="base-link-group nice-btn-group"
@@ -62,7 +83,6 @@ exports[`Component: CharacterLinks should show admin buttons 1`] = `
   <a
     className="cursor-pointer nice-btn icon fa-cogs"
     href="/character/raw/10"
-    onClick={[Function]}
   >
     Raw
   </a>
