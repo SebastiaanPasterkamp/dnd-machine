@@ -82,8 +82,8 @@ class AdventureLeagueRow extends LazyComponent
                 <span>{adventure.date}</span>
                 <AdventureLeagueLogLinks
                     altStyle={true}
-                    logId={logId}
-                    />
+                    id={logId}
+                />
             </th>
             <td>
                 {xp.earned
