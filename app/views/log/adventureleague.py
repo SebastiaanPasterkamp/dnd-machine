@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import ( abort, request, redirect, url_for )
+from flask import ( abort, request, redirect, url_for, jsonify )
 
 from ..baseapi import BaseApiBlueprint, BaseApiCallback
 
@@ -23,7 +23,7 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
             self.edit, methods=['GET'])
         self.add_url_rule(
             '/consume/<int:obj_id>', 'consume',
-            self.consume)
+            self.consume, methods=['PATCH'])
 
     @property
     def datamapper(self):
@@ -133,10 +133,10 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
         obj = self.datamapper.update(obj)
         character = self.charactermapper.update(character)
 
-        return redirect(url_for(
-            'character.show',
-            obj_id=character.id
-            ))
+        response = jsonify(self._exposeAttributes(obj))
+        response.add_etag()
+        return response
+
 
 def get_blueprint(basemapper, config):
     return '/log/adventureleague', AdventureLeagueBlueprint(
