@@ -31,7 +31,7 @@ class CampaignFooter extends LazyComponent
                 <td colSpan={2}>
                     <CampaignLinks
                         altStyle={true}
-                        />
+                    />
                 </td>
             </tr>
         </tbody>
@@ -50,8 +50,8 @@ class CampaignRow extends LazyComponent
                 {name}
                 <CampaignLinks
                     altStyle={true}
-                    campaign_id={id}
-                    />
+                    id={id}
+                />
             </th>
             <td>
                 <MDReactComponent

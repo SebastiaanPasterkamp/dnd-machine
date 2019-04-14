@@ -1,87 +1,93 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
-import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
+import {
+    BaseLinkButton,
+    BaseLinkGroup,
+} from '../components/BaseLinkGroup/index.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
-
 import { userHasRole } from '../utils.jsx';
 
-export class CampaignLinks extends BaseLinkGroup
-{
-    constructor(props) {
-        super(props);
+
+export const CampaignLinks = ({
+    id, campaign, currentUser, altStyle, children,
+    ...props
+}) => {
+    if (!currentUser) {
+        return null;
     }
 
-    buttonList() {
-        const {
-            campaign_id, campaign = {}, current_user: user
-        } = this.props;
-
-        if (!user) {
-            return {};
-        }
-
-        return {
-            'view': () => ({
-                label: 'View',
-                link: "/campaign/show/" + campaign_id,
-                icon: 'eye',
-                available: (
-                    campaign_id != undefined
+    return (
+        <BaseLinkGroup {...props}>
+            <BaseLinkButton
+                name="view"
+                label="View"
+                icon="eye"
+                altStyle={altStyle}
+                link={`/campaign/show/${id}`}
+                available={(
+                    id !== null
                     && (
-                        campaign.user_id == user.id
-                        || userHasRole(user, 'admin')
+                        campaign.user_id == currentUser.id
+                        || userHasRole(currentUser, 'admin')
                     )
-                ),
-            }),
-            'edit': () => ({
-                label: 'Edit',
-                link: "/campaign/edit/" + campaign_id,
-                icon: 'pencil',
-                available: (
-                    campaign_id != undefined
-                    && campaign.user_id == user.id
-                    && userHasRole(user, 'dm')
-                ),
-            }),
-            'new': () => ({
-                label: 'New',
-                link: "/campaign/new",
-                icon: 'plus',
-                available: (
-                    campaign_id == undefined
-                    && userHasRole(user, 'dm')
-                ),
-            }),
-        };
-    }
+                )}
+            />
+            <BaseLinkButton
+                name="edit"
+                label="Edit"
+                icon="pencil"
+                altStyle={altStyle}
+                link={`/campaign/edit/${id}`}
+                available={(
+                    id !== null
+                    && campaign.user_id == currentUser.id
+                    && userHasRole(currentUser, 'dm')
+                )}
+            />
+            <BaseLinkButton
+                name="new"
+                label="New"
+                icon="plus"
+                altStyle={altStyle}
+                link={`/campaign/new`}
+                available={(
+                    id === null
+                    && userHasRole(currentUser, 'dm')
+                )}
+            />
+            {children}
+        </BaseLinkGroup>
+    );
 };
 
-CampaignLinks.propTypes = _.assign(
-    {}, BaseLinkGroup.propTypes, {
-        buttons: PropTypes.arrayOf(
-            PropTypes.oneOf([
-                'view', 'edit', 'new',
-            ])
+CampaignLinks.propTypes = {
+    altStyle: PropTypes.bool,
+    id: PropTypes.number,
+    campaign: PropTypes.shape({
+        user_id: PropTypes.number,
+    }),
+    currentUser: PropTypes.shape({
+        id: PropTypes.number,
+        role: PropTypes.arrayOf(
+            PropTypes.oneOf(['player', 'dm', 'admin'])
         ),
-        campaign_id: PropTypes.number,
-        current_user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            role: PropTypes.arrayOf(
-                PropTypes.oneOf(['player', 'dm', 'admin'])
-            ),
-        }),
-        campaign: PropTypes.shape({
-            user_id: PropTypes.number.isRequired,
-        }),
-    }
-);
+    }),
+};
+
+CampaignLinks.defaultProps = {
+    altStyle: false,
+    id: null,
+    campaign: {},
+    currentUser: {},
+};
 
 export default ListDataWrapper(
     ObjectDataWrapper(CampaignLinks, [
-        {type: 'campaign', id: 'campaign_id'}
+        {type: 'campaign', id: 'id'}
     ]),
-    ['current_user']
+    ['current_user'],
+    null,
+    { current_user: 'currentUser' }
 );
