@@ -19,7 +19,7 @@ describe('Component: ArmorLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <ArmorLinks
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['admin'],
                     }}
@@ -34,8 +34,8 @@ describe('Component: ArmorLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <ArmorLinks
-                    armor_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
@@ -50,8 +50,8 @@ describe('Component: ArmorLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <ArmorLinks
-                    armor_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['dm'],
                     }}

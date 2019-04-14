@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import MDReactComponent from 'markdown-react-js';
 
 import '../../sass/_armor-label.scss';
