@@ -20,7 +20,6 @@ import InputField from '../components/InputField.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import MonsterLabel from '../components/MonsterLabel.jsx';
-import MonsterLinks from '../components/MonsterLinks.jsx';
 import Panel from '../components/Panel.jsx';
 import Progress from '../components/Progress.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
