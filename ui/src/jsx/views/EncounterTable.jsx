@@ -35,7 +35,7 @@ class EncounterFooter extends LazyComponent
                 <td colSpan={3}>
                     <EncounterLinks
                         altStyle={true}
-                        />
+                    />
                 </td>
             </tr>
         </tbody>
@@ -69,10 +69,9 @@ class EncounterRow extends LazyComponent
             <th>
                 {name}
                 <EncounterLinks
+                    id={id}
                     altStyle={true}
-                    buttons={['view', 'edit']}
-                    encounter_id={id}
-                    />
+                />
             </th>
             <td>
                 {_.map(monster_ids, monster => (
