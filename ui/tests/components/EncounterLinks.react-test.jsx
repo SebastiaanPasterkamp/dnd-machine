@@ -7,8 +7,7 @@ describe('Component: EncounterLinks', () => {
     it('should render without props', () => {
         const tree = renderer.create(
             <MemoryRouter>
-                <EncounterLinks
-                    />
+                <EncounterLinks />
             </MemoryRouter>
         ).toJSON();
 
@@ -19,11 +18,11 @@ describe('Component: EncounterLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <EncounterLinks
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['admin'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -34,12 +33,12 @@ describe('Component: EncounterLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <EncounterLinks
-                    encounter_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -50,12 +49,12 @@ describe('Component: EncounterLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <EncounterLinks
-                    encounter_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
