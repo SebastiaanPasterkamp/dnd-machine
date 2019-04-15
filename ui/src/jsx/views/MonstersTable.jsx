@@ -32,7 +32,7 @@ class MonstersFooter extends LazyComponent
                 <td colSpan={2}>
                     <MonsterLinks
                         altStyle={true}
-                        />
+                    />
                 </td>
             </tr>
         </tbody>
@@ -51,8 +51,8 @@ class MonstersRow extends LazyComponent
                 {name}
                 <MonsterLinks
                     altStyle={true}
-                    monster_id={this.props.id}
-                    />
+                    id={id}
+                />
             </th>
             <td>
                 <ChallengeRating

@@ -58,7 +58,6 @@ exports[`Component: MonsterLinks should show the raw button 1`] = `
   <a
     className="cursor-pointer nice-btn icon fa-cogs"
     href="/monster/raw/10"
-    onClick={[Function]}
   >
     Raw
   </a>

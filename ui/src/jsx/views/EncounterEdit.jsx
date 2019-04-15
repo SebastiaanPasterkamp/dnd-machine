@@ -3,13 +3,14 @@ import _ from 'lodash';
 
 import '../../sass/_encounter-edit.scss';
 
-import utils from '../utils.jsx';
+import utils, { memoize } from '../utils.jsx';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
+import { BaseLinkButton } from '../components/BaseLinkGroup/index.jsx';
 import Bonus from '../components/Bonus.jsx';
 import ButtonField from '../components/ButtonField.jsx';
 import ChallengeRating from '../components/ChallengeRating.jsx';
@@ -31,7 +32,13 @@ export class EncounterEdit extends React.Component
         this.state = {
             dialog: false
         };
+        this.memoize = memoize.bind(this);
     }
+
+    onIncMonster = (id) => this.memoize(
+        `inc-monster-${id}`,
+        () => this.setState({ character_id })
+    );
 
     toggleDialog() {
         this.setState({
@@ -45,7 +52,7 @@ export class EncounterEdit extends React.Component
         });
     }
 
-    onRemoveMonsterButton(id) {
+    onRemoveMonsterButton = (id) => this.memoize(`dec-${id}`, () => {
         const {
             monster_ids, setState, recompute
         } = this.props;
@@ -73,9 +80,9 @@ export class EncounterEdit extends React.Component
             {monster_ids: update},
             () => recompute()
         );
-    }
+    })
 
-    onAddMonsterButton(id) {
+    onAddMonsterButton = (id) => this.memoize(`inc-${id}`, () => {
         const {
             monster_ids = [], setState, recompute
         } = this.props;
@@ -105,7 +112,7 @@ export class EncounterEdit extends React.Component
             {monster_ids: update},
             () => recompute()
         );
-    }
+    })
 
     renderDialog() {
         if (!this.state.dialog) {
@@ -357,25 +364,21 @@ export class EncounterEdit extends React.Component
                             {m.count} x {monster.name}
                             <MonsterLinks
                                 altStyle={true}
-                                buttons={['view']}
-                                monster_id={monster.id}
-                                extra={{
-                                    remove: {
-                                        action: () => {
-                                            this.onRemoveMonsterButton(monster.id);
-                                        },
-                                        icon: 'minus',
-                                        className: 'warning'
-                                    },
-                                    add: {
-                                        action: () => {
-                                            this.onAddMonsterButton(monster.id);
-                                        },
-                                        icon: 'plus',
-                                        className: 'good'
-                                    },
-                                }}
+                                id={monster.id}
+                            >
+                                <BaseLinkButton
+                                    icon="minus"
+                                    altStyle={true}
+                                    className="warning"
+                                    action={this.onRemoveMonsterButton(monster.id)}
                                 />
+                                <BaseLinkButton
+                                    icon="plus"
+                                    altStyle={true}
+                                    className="good"
+                                    action={this.onAddMonsterButton(monster.id)}
+                                />
+                            </MonsterLinks>
                         </th>
                         <td>
                             <ChallengeRating

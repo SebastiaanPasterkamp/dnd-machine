@@ -1,93 +1,107 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
-import ObjectDataActions from '../actions/ObjectDataActions.jsx';
-
-import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
+import {
+    BaseLinkButton,
+    BaseLinkGroup,
+} from '../components/BaseLinkGroup/index.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-
+import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 import { userHasRole } from '../utils.jsx';
 
-export class MonsterLinks extends BaseLinkGroup
+
+export class MonsterLinks extends React.Component
 {
-    constructor(props, context) {
-        super(props, context);
+    onCopy = () => {
+        const { router } = this.context;
+        const { id } = this.props;
+        ObjectDataActions.copyObject(
+            "monster", id, null,
+            (type, id, data) => router.history.push(
+                '/monster/edit/' + data.id
+            )
+        );
     }
 
-    buttonList() {
-        const { router } = this.context;
-        const {
-            monster_id, current_user: user,
+    onDelete = () => {
+        const { id } = this.props;
+        ObjectDataActions.deleteObject("monster", id);
+    }
+
+    render() {
+        const { id, currentUser, altStyle, children,
+            ...props
         } = this.props;
 
-        if (!user) {
-            return {};
+        if (!currentUser) {
+            return null;
         }
 
         const available = (
-            monster_id != undefined
-            && userHasRole(user, 'dm')
+            id !== null
+            && userHasRole(currentUser, 'dm')
         );
 
-        return {
-            'view': () => ({
-                label: 'View',
-                link: "/monster/show/" + monster_id,
-                icon: 'eye',
-                available,
-            }),
-            'raw': () => ({
-                label: 'Raw',
-                link: "/monster/raw/" + monster_id,
-                icon: 'cogs',
-                available: (
-                    monster_id != undefined
-                    && userHasRole(user, 'admin')
-                ),
-            }),
-            'edit': () => ({
-                label: 'Edit',
-                link: "/monster/edit/" + monster_id,
-                icon: 'pencil',
-                available,
-            }),
-            'copy': () => ({
-                label: 'Copy',
-                action: () => {
-                    ObjectDataActions.copyObject(
-                        "monster", monster_id, null,
-                        (type, id, data) => {
-                            router.history.push(
-                                '/monster/edit/' + data.id
-                            );
-                        }
-                    );
-                },
-                icon: 'clone',
-                available,
-            }),
-            'delete': () => ({
-                label: 'Delete',
-                action: () => {
-                    ObjectDataActions.deleteObject(
-                        "monster", monster_id
-                    );
-                },
-                icon: 'trash-o',
-                className: 'bad',
-                available,
-            }),
-            'new': () => ({
-                label: 'New',
-                link: "/monster/new",
-                icon: 'plus',
-                available: (
-                    monster_id == undefined
-                    && userHasRole(user, 'dm')
-                ),
-            }),
-        };
+        return (
+            <BaseLinkGroup {...props}>
+                <BaseLinkButton
+                    name="view"
+                    label="View"
+                    icon="eye"
+                    altStyle={altStyle}
+                    link={`/monster/show/${id}`}
+                    available={available}
+                />
+                <BaseLinkButton
+                    name="raw"
+                    label="Raw"
+                    icon="cogs"
+                    altStyle={altStyle}
+                    download={`/monster/raw/${id}`}
+                    available={(
+                        id !== null
+                        && userHasRole(currentUser, 'admin')
+                    )}
+                />
+                <BaseLinkButton
+                    name="edit"
+                    label="Edit"
+                    icon="pencil"
+                    altStyle={altStyle}
+                    link={`/monster/edit/${id}`}
+                    available={available}
+                />
+                <BaseLinkButton
+                    name="copy"
+                    label="Copy"
+                    icon="clone"
+                    action={this.onCopy}
+                    altStyle={altStyle}
+                    available={available}
+                />
+                <BaseLinkButton
+                    name="new"
+                    label="New"
+                    icon="plus"
+                    link="/monster/new"
+                    altStyle={altStyle}
+                    available={(
+                        id === null
+                        && userHasRole(currentUser, 'dm')
+                    )}
+                />
+                <BaseLinkButton
+                    name="delete"
+                    label="Delete"
+                    icon="trash-o"
+                    className="bad"
+                    action={this.onDelete}
+                    altStyle={altStyle}
+                    available={available}
+                />
+                {children}
+            </BaseLinkGroup>
+        );
     }
 };
 
@@ -95,24 +109,26 @@ MonsterLinks.contextTypes = {
     router: PropTypes.object,
 };
 
-MonsterLinks.propTypes = _.assign(
-    {}, BaseLinkGroup.propTypes, {
-        buttons: PropTypes.arrayOf(
-            PropTypes.oneOf([
-                'view', 'edit', 'copy', 'raw', 'new',
-            ])
+MonsterLinks.propTypes = {
+    altStyle: PropTypes.bool,
+    id: PropTypes.number,
+    currentUser: PropTypes.shape({
+        id: PropTypes.number,
+        role: PropTypes.arrayOf(
+            PropTypes.oneOf(['player', 'dm', 'admin'])
         ),
-        monster_id: PropTypes.number,
-        current_user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            role: PropTypes.arrayOf(
-                PropTypes.oneOf(['player', 'dm', 'admin'])
-            ),
-        }),
-    }
-);
+    }),
+};
+
+MonsterLinks.defaultProps = {
+    altStyle: false,
+    id: null,
+    currentUser: {},
+};
 
 export default ListDataWrapper(
     MonsterLinks,
-    ['current_user']
+    ['current_user'],
+    null,
+    { current_user: 'currentUser' }
 );
