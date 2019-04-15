@@ -42,6 +42,12 @@ exports[`Component: NpcLinks should show the normal buttons 1`] = `
   >
     Copy
   </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-trash-o bad"
+    onClick={[Function]}
+  >
+    Delete
+  </a>
 </div>
 `;
 
@@ -52,7 +58,6 @@ exports[`Component: NpcLinks should show the raw button 1`] = `
   <a
     className="cursor-pointer nice-btn icon fa-cogs"
     href="/npc/raw/10"
-    onClick={[Function]}
   >
     Raw
   </a>

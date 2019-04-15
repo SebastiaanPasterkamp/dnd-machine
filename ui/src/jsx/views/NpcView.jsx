@@ -18,6 +18,8 @@ import TagContainer from '../components/TagContainer.jsx';
 
 export class NpcView extends React.Component
 {
+    npcLinks = ['view'];
+
     render() {
         const {
             id, name, location, organization, 'class': _class,
@@ -44,13 +46,12 @@ export class NpcView extends React.Component
                 <thead>
                     <tr>
                         <th colSpan={2}>
-                            <NpcLinks
-                                buttons={['edit']}
-                                className="pull-right"
-                                npc_id={id}
-                                />
-
                             <h3>{name}</h3>
+                            <NpcLinks
+                                exclude={this.npcLinks}
+                                className="pull-right"
+                                id={id}
+                            />
                         </th>
                     </tr>
                 </thead>
