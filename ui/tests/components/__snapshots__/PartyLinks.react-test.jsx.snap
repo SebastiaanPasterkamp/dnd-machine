@@ -28,7 +28,7 @@ exports[`Component: PartyLinks should show a stop button 1`] = `
     View
   </a>
   <a
-    className="cursor-pointer nice-btn icon fa-ban info"
+    className="cursor-pointer nice-btn icon fa-ban warning"
     onClick={[Function]}
   >
     Stop
@@ -48,7 +48,7 @@ exports[`Component: PartyLinks should show a view and host button 1`] = `
     View
   </a>
   <a
-    className="cursor-pointer nice-btn icon fa-beer"
+    className="cursor-pointer nice-btn icon fa-beer info"
     onClick={[Function]}
   >
     Host
@@ -75,7 +75,7 @@ exports[`Component: PartyLinks should show a view, host, edit, and delete button
     Edit
   </a>
   <a
-    className="cursor-pointer nice-btn icon fa-beer"
+    className="cursor-pointer nice-btn icon fa-beer info"
     onClick={[Function]}
   >
     Host
@@ -101,11 +101,10 @@ exports[`Component: PartyLinks should show admin buttons 1`] = `
     View
   </a>
   <a
-    className="cursor-pointer nice-btn icon fa-pencil"
-    href="/party/edit/10"
-    onClick={[Function]}
+    className="cursor-pointer nice-btn icon fa-cogs"
+    href="/party/raw/10"
   >
-    Edit
+    Raw
   </a>
 </div>
 `;
@@ -122,7 +121,7 @@ exports[`Component: PartyLinks should still show a host button 1`] = `
     View
   </a>
   <a
-    className="cursor-pointer nice-btn icon fa-beer"
+    className="cursor-pointer nice-btn icon fa-beer info"
     onClick={[Function]}
   >
     Host

@@ -31,7 +31,7 @@ class PartyFooter extends LazyComponent
                 <td colSpan={3}>
                     <PartyLinks
                         altStyle={true}
-                        />
+                    />
                 </td>
             </tr>
         </tbody>
@@ -63,8 +63,8 @@ class PartyRow extends LazyComponent
                 {name}
                 <PartyLinks
                     altStyle={true}
-                    party_id={id}
-                    />
+                    id={id}
+                />
             </th>
             <td>
                 {challenge ? <div className="nice-progress stacked">
