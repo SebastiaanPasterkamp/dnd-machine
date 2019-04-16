@@ -7,8 +7,7 @@ describe('Component: WeaponLinks', () => {
     it('should render without props', () => {
         const tree = renderer.create(
             <MemoryRouter>
-                <WeaponLinks
-                    />
+                <WeaponLinks />
             </MemoryRouter>
         ).toJSON();
 
@@ -19,11 +18,11 @@ describe('Component: WeaponLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <WeaponLinks
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['admin'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -34,12 +33,12 @@ describe('Component: WeaponLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <WeaponLinks
-                    weapon_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -50,12 +49,12 @@ describe('Component: WeaponLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <WeaponLinks
-                    weapon_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
