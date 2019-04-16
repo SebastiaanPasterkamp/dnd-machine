@@ -23,6 +23,8 @@ const viewConfig = {
 
 export class SpellsView extends React.Component
 {
+    spellLinks = ['view'];
+
     render() {
         const {
             id, name, description = '', level, casting_time, duration,
@@ -43,9 +45,9 @@ export class SpellsView extends React.Component
                         <th colSpan={2}>
                             <SpellLinks
                                 className="pull-right"
-                                spell_id={id}
-                                omit={['view']}
-                                />
+                                id={id}
+                                exclude={this.spellLinks}
+                            />
                             { name }
                         </th>
                     </tr>
