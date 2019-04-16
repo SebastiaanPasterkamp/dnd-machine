@@ -10,8 +10,7 @@ describe('Component: UserLinks', () => {
     it('should render without props', () => {
         const tree = renderer.create(
             <MemoryRouter>
-                <UserLinks
-                    />
+                <UserLinks />
             </MemoryRouter>
         ).toJSON();
 
@@ -22,11 +21,11 @@ describe('Component: UserLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <UserLinks
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['admin'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -37,12 +36,16 @@ describe('Component: UserLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <UserLinks
-                    user_id={2}
-                    current_user={{
+                    id={1}
+                    user={{
                         id: 1,
+                        role: ['admin'],
+                    }}
+                    currentUser={{
+                        id: 2,
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -53,12 +56,16 @@ describe('Component: UserLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <UserLinks
-                    user_id={1}
-                    current_user={{
+                    id={1}
+                    user={{
                         id: 1,
                         role: ['player'],
                     }}
-                    />
+                    currentUser={{
+                        id: 1,
+                        role: ['player'],
+                    }}
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -69,12 +76,12 @@ describe('Component: UserLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <UserLinks
-                    user_id={2}
-                    current_user={{
+                    id={2}
+                    currentUser={{
                         id: 1,
                         role: ['admin'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -87,12 +94,12 @@ describe('Component: UserLinks', () => {
         const wrapper = mount(
             <MemoryRouter>
                 <UserLinks
-                    user_id={2}
-                    current_user={{
+                    id={2}
+                    currentUser={{
                         id: 1,
                         role: ['admin'],
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 
