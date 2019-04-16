@@ -24,6 +24,8 @@ const viewConfig = {
 
 export class WeaponsView extends React.Component
 {
+    weaponLinks = ['view'];
+
     render() {
         const {
             id, name, damage, versatile, type, weapon_types = [],
@@ -41,12 +43,12 @@ export class WeaponsView extends React.Component
                 <tbody>
                     <tr>
                         <th colSpan={2}>
+                            { name }
                             <WeaponLinks
                                 className="pull-right"
-                                weapon_id={id}
-                                omit={['view']}
-                                />
-                            { name }
+                                id={id}
+                                exclude={this.weaponLinks}
+                            />
                         </th>
                     </tr>
                     <tr>
