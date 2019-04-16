@@ -41,7 +41,7 @@ class SpellsFooter extends LazyComponent
                 <td colSpan={3}>
                     <SpellLinks
                         altStyle={true}
-                        />
+                    />
                 </td>
             </tr>
         </tbody>
@@ -61,8 +61,8 @@ class SpellRow extends LazyComponent
                 {name}
                 <SpellLinks
                     altStyle={true}
-                    spell_id={id}
-                    />
+                    id={id}
+                />
             </th>
             <td className="spells-table--summary">
                 <ul className="nice-menu stacked">
