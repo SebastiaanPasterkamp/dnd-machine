@@ -13,6 +13,8 @@ import UserLinks from '../components/UserLinks.jsx';
 
 export class UserView extends React.Component
 {
+    userLinks = ['view'];
+
     render() {
         const {
             id, name, username, dci, email, role = [],
@@ -28,13 +30,13 @@ export class UserView extends React.Component
                 <thead>
                     <tr>
                         <th colSpan="2">
-                            <UserLinks
-                                buttons={['edit']}
-                                className="pull-right"
-                                user_id={id}
-                                />
-
                             <h3>{name || username}</h3>
+
+                            <UserLinks
+                                id={id}
+                                className="pull-right"
+                                exclude={this.userLinks}
+                            />
                         </th>
                     </tr>
                 </thead>
