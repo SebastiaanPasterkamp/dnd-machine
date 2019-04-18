@@ -1,7 +1,17 @@
-// _edit-armor.scss
+// _modal-dialog.scss
 
-.nice-modal.viewport-center {
-    div.nice-modal-body.overflow-x-scroll {
+.modal-dialog {
+    height: auto !important;
+
+    .nice-modal-content {
+        height: auto !important;
+    }
+
+    .nice-modal-body {
         max-height: 240px;
+    }
+
+    .nice-modal-footer {
+        position: initial !important;
     }
 }
