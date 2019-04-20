@@ -1,0 +1,30 @@
+// _character-picker.scss
+
+.character-picker {
+    &__row {
+        width: 100%;
+        display: grid;
+        display: inline-grid;
+        align-items: center;
+
+        grid-template-columns: 80% 20%;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "user actions"
+            "character actions";
+
+        .user-label {
+            grid-area: user;
+        }
+
+        .character {
+            grid-area: character;
+        }
+
+        .actions {
+            grid-area: actions;
+            grid-column-end: span 2;
+            justify-self: center;
+        }
+    }
+}
