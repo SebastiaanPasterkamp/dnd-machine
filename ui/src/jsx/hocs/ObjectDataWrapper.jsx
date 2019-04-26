@@ -40,7 +40,7 @@ function ObjectDataWrapper(
         }
 
         componentDidMount() {
-            const { timestamp } = this.state;
+            const { timestamps } = this.state;
 
             _.forEach(this.getLoadables(), ({
                 id, type, group = null, objectId,
@@ -49,7 +49,12 @@ function ObjectDataWrapper(
                     return;
                 }
 
-                const timestamp = _.get(timestamp, [type, objectId]);
+                const { [type]: provided = {} } = this.props;
+                if (provided.id === objectId) {
+                    return;
+                }
+
+                const timestamp = _.get(timestamps, [type, objectId]);
                 const maxAge = Date.now() - 60.0 * 1000.0;
 
                 if (!timestamp || timestamp < maxAge) {
@@ -66,7 +71,10 @@ function ObjectDataWrapper(
             return _.reduce(this.getLoadables(), (
                 loaded, {prop, type, objectId}
             ) => {
-                loaded[prop || type] = _.get(state, [type, objectId]);
+                const value = _.get(state, [type, objectId]);
+                if (value !== undefined) {
+                    loaded[prop || type] = value;
+                }
                 return loaded;
             }, {});
         }
@@ -89,10 +97,12 @@ function ObjectDataWrapper(
         render() {
             const data = this.getStateProps(this.state);
 
-            return <WrappedComponent
-                {...this.props}
-                {...data}
+            return (
+                <WrappedComponent
+                    {...this.props}
+                    {...data}
                 />
+            );
         }
     };
 

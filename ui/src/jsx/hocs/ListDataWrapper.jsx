@@ -13,27 +13,29 @@ function ListDataWrapper(
         constructor(props) {
             super(props);
             this.state = {
-                search: ''
+                search: '',
             };
             this.store = ListDataStore;
             this.storeKeys = storeKeys;
         }
 
         componentDidMount() {
-            storeKeys.map((item) => {
-                if (item == 'search') {
+            storeKeys.map((key) => {
+                if (key == 'search') {
                     return;
                 }
 
-                if (
-                    item in this.state
-                    && this.state[item] !== undefined
-                ) {
+                const { [key]: provided } = this.props;
+                if (provided !== undefined) {
                     return;
                 }
 
-                ListDataActions.fetchItems(
-                    item, storeCategory);
+                const { [key]: stored } = this.state;
+                if (stored !== undefined) {
+                    return;
+                }
+
+                ListDataActions.fetchItems(key, storeCategory);
             });
         }
 
@@ -50,16 +52,25 @@ function ListDataWrapper(
         }
 
         render() {
-            const data = _.reduce(this.state, (data, value, key) => {
-                if (storeKeys.includes(key)) {
-                    data[ mapping[key] || key ] = value;
+            const data = _.reduce(storeKeys, (data, key) => {
+                const { [key]: provided } = this.props;
+                const { [key]: stored } = this.state;
+
+                if (provided !== undefined) {
+                    data[ mapping[key] || key ] = provided;
+                } else if (stored !== undefined) {
+                    data[ mapping[key] || key ] = stored;
                 }
+
                 return data;
             }, {});
-            return <WrappedComponent
-                {...this.props}
-                {...data}
+
+            return (
+                <WrappedComponent
+                    {...this.props}
+                    {...data}
                 />
+            );
         }
     };
 
