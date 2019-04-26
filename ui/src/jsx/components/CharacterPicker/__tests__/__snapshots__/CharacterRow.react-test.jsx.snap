@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CharacterRow rendering should work with full props 1`] = `
+<div
+  className="character-picker__row"
+>
+  <div
+    className="character inline"
+  >
+    Testy McTestface, Level 1 
+    <div
+      className="list-label inline"
+    >
+      male
+    </div>
+     Human Fighter 
+    (
+    <div
+      className="list-label inline"
+    >
+      true neutral
+    </div>
+    )
+    <div
+      className="nice-progress brand"
+    >
+      <div
+        className="nice-progress-fill"
+        style={
+          Object {
+            "height": "1.25rem",
+            "width": "75%",
+          }
+        }
+      >
+        Level 1 (3 / 4)
+      </div>
+    </div>
+  </div>
+  <div
+    className="actions"
+  >
+    <div
+      className="base-link-group nice-btn-group"
+    >
+      <a
+        className="cursor-pointer nice-btn icon fa-user accent"
+        onClick={[Function]}
+      >
+        Choose
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CharacterRow rendering should work with minimum props 1`] = `
+<div
+  className="character-picker__row"
+>
+  <div
+    className="character inline"
+  >
+    Testy McTestface, Level 1 
+    <div
+      className="list-label inline"
+    >
+      male
+    </div>
+     Human Fighter 
+    (
+    <div
+      className="list-label inline"
+    >
+      true neutral
+    </div>
+    )
+    <div
+      className="nice-progress brand"
+    >
+      <div
+        className="nice-progress-fill"
+        style={
+          Object {
+            "height": "1.25rem",
+            "width": "75%",
+          }
+        }
+      >
+        Level 1 (3 / 4)
+      </div>
+    </div>
+  </div>
+  <div
+    className="actions"
+  >
+    <div
+      className="base-link-group nice-btn-group"
+    >
+      <a
+        className="cursor-pointer nice-btn icon fa-user-secret"
+        onClick={[Function]}
+      >
+        Pick
+      </a>
+    </div>
+  </div>
+</div>
+`;
