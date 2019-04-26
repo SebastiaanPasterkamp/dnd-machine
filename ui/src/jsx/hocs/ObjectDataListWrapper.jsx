@@ -19,19 +19,29 @@ function ObjectDataListWrapper(
         }
 
         componentDidMount() {
-            _.map(loadables, (loadable) => {
-                ObjectDataActions.listObjects(
-                    loadable.type,
-                    loadable.group || null
-                );
-            });
+            _.forEach(
+                loadables,
+                ({ type, group = null }) => {
+                    const { [type]: provided } = this.props;
+                    if (provided === undefined) {
+                        ObjectDataActions.listObjects(type, group);
+                    }
+                }
+            );
         }
 
         getStateProps(state) {
-            return _.reduce(loadables, (loaded, loadable, prop) => {
-                loaded[prop] = _.get(state, [loadable.type]);
-                return loaded;
-            }, {});
+            return _.reduce(
+                loadables,
+                (loaded, { type }, prop) => {
+                    const value = _.get(state, [type]);
+                    if (value !== undefined) {
+                        loaded[prop] = value;
+                    }
+                    return loaded;
+                },
+                {}
+            );
         }
 
         shouldComponentUpdate(nextProps, nextState) {
@@ -52,10 +62,12 @@ function ObjectDataListWrapper(
         render() {
             let data = this.getStateProps(this.state);
 
-            return <WrappedComponent
-                {...this.props}
-                {...data}
+            return (
+                <WrappedComponent
+                    {...this.props}
+                    {...data}
                 />
+            );
         }
     };
 
