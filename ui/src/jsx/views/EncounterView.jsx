@@ -12,6 +12,7 @@ import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 import ReportingActions from '../actions/ReportingActions.jsx';
 import ListDataActions from '../actions/ListDataActions.jsx';
 
+import { BaseLinkButton } from '../components/BaseLinkGroup/index.jsx';
 import ButtonField from '../components/ButtonField.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
 import EncounterLinks from '../components/EncounterLinks.jsx';
@@ -19,7 +20,6 @@ import InputField from '../components/InputField.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import MonsterLabel from '../components/MonsterLabel.jsx';
-import MonsterLinks from '../components/MonsterLinks.jsx';
 import Panel from '../components/Panel.jsx';
 import Progress from '../components/Progress.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
@@ -172,7 +172,31 @@ export class EncounterView extends React.Component
         };
     }
 
-    toggleCombat() {
+    awardXP = () => {
+        const { xp, hosted_party: { id, size } } = this.props;
+
+        fetch(
+            `/party/xp/${id}/${xp}`,
+            {
+                method: "POST",
+                credentials: 'same-origin',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                ListDataActions.fetchItems.completed({
+                    hosted_party: data,
+                });
+                ReportingActions.showMessage(
+                    'info',
+                    `${Math.round(xp / size)} XP Awarded`
+                );
+            });
+    }
+
+    toggleCombat = () => {
         this.setState({
             combat: !this.state.combat
         });
@@ -217,37 +241,17 @@ export class EncounterView extends React.Component
                     <tr>
                         <th colSpan="2">
                             <EncounterLinks
-                                buttons={['edit']}
+                                id={id}
                                 className="pull-right"
-                                encounter_id={id}
-                                extra={hosted_party ? {
-                                    xp: {
-                                        action: () => {
-                                            fetch(
-                                                "/party/xp/"
-                                                + hosted_party.id
-                                                + "/" + xp, {
-                                            method: "POST",
-                                                credentials: 'same-origin',
-                                                'headers': {
-                                                    'X-Requested-With': 'XMLHttpRequest'
-                                                }
-                                            })
-                                            .then((response) => response.json())
-                                            .then((data) => {
-                                                ListDataActions.fetchItems.completed({
-                                                    hosted_party: data
-                                                });
-                                                ReportingActions.showMessage('info', "XP Awarded");
-                                            });
-                                        },
-                                        icon: 'trophy',
-                                        className: 'good',
-                                        label: 'Award XP'
-                                    }
-                                } : null}
+                            >
+                                <BaseLinkButton
+                                    label="Award XP"
+                                    className="good"
+                                    icon="trophy"
+                                    action={this.awardXP}
+                                    available={!!hosted_party}
                                 />
-
+                            </EncounterLinks>
                             <h3>{name}</h3>
                         </th>
                     </tr>
@@ -383,13 +387,13 @@ export class EncounterView extends React.Component
                 {combat
                     ? <button
                         className="nice-btn pull-right icon fa-random accent"
-                        onClick={() => this.toggleCombat()}
+                        onClick={this.toggleCombat}
                         >
                         Initiative
                     </button>
                     : <button
                         className="nice-btn pull-right icon fa-gamepad warning"
-                        onClick={() => this.toggleCombat()}
+                        onClick={this.toggleCombat}
                         >
                         Combat
                     </button>

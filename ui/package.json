@@ -45,6 +45,7 @@
     "markdown-react-js": "^1.0.2",
     "node-sass": "^4.11.0",
     "progress-bar-webpack-plugin": "^1.10.0",
+    "react-mock-router": "^1.0.15",
     "react-test-renderer": "^16.2.0",
     "sass-loader": "^6.0.6",
     "sinon": "^4.2.2"

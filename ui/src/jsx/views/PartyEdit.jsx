@@ -1,5 +1,13 @@
 import React from 'react';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
+import {
+    concat,
+    filter,
+    get,
+    includes,
+    map,
+    without,
+} from 'lodash/fp';
 
 import '../../sass/_edit-party.scss';
 
@@ -7,8 +15,9 @@ import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 
+import { BaseLinkButton } from '../components/BaseLinkGroup/index.jsx';
 import ButtonField from '../components/ButtonField.jsx';
-import {CharacterPicker} from './CharacterPicker.jsx';
+import { CharacterPicker } from '../components/CharacterPicker';
 import CharacterLabel from '../components/CharacterLabel.jsx';
 import CharacterLinks from '../components/CharacterLinks.jsx';
 import ControlGroup from '../components/ControlGroup.jsx';
@@ -18,10 +27,10 @@ import SingleSelect from '../components/SingleSelect.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import UserLabel from '../components/UserLabel.jsx';
 
-import ModalDialog from '../components/ModalDialog.jsx';
-
-export class PartyEdit extends React.Component
+export class PartyEdit extends React.PureComponent
 {
+    characterLinks = ['view', 'remove'];
+
     constructor(props) {
         super(props);
         this.state = {
@@ -60,7 +69,7 @@ export class PartyEdit extends React.Component
             setState,
             recompute,
         } = this.props;
-        const member_ids = _.without(old_party, id);
+        const member_ids = without([ id ], old_party);
 
         setState({ member_ids }, () => recompute());
     }
@@ -71,56 +80,22 @@ export class PartyEdit extends React.Component
             setState,
             recompute,
         } = this.props;
-        const member_ids = _.union(old_party, [id]);
+        const member_ids = concat([ id ], old_party);
 
         setState({ member_ids }, () => recompute());
     }
 
-    actions = (character) => {
-        return ({
-            add: {
-                label: 'Add',
-                action: this.callback(
-                    `add-${character.id}`,
-                    () => this.onAddMember(character.id)
-                ),
-                icon: 'plus',
-            },
-        });
-    }
+    onCharacterFilter = (character) => {
+        const { member_ids } = this.props;
 
-    renderDialog() {
-        if (!this.state.dialog) {
-            return null;
-        }
-
-        const {
-            characters,
-            member_ids = [],
-        } = this.props;
-
-        return <ModalDialog
-            key="dialog"
-            label="Add members"
-            onCancel={this.onCancel}
-            onDone={this.toggleDialog}
-            >
-            <CharacterPicker
-                characters={characters}
-                showUser={true}
-                filter={character => !_.includes(
-                    member_ids,
-                    character.id
-                )}
-                actions={this.actions}
-            />
-        </ModalDialog>;
+        return !includes(character.id, member_ids);
     }
 
     render() {
+        const { dialog } = this.state;
         const {
-            name, description, member_ids = [],
-            challenge: { easy, medium, hard, deadly } = {},
+            name, description, member_ids,
+            challenge: { easy, medium, hard, deadly },
             characters, setState,
         } = this.props;
 
@@ -129,7 +104,7 @@ export class PartyEdit extends React.Component
                 key="description"
                 className="party-edit__description"
                 header="Description"
-                >
+            >
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
@@ -157,7 +132,7 @@ export class PartyEdit extends React.Component
                 key="challenge"
                 className="party-edit__challenge"
                 header="Challenge Rating"
-                >
+            >
                 <thead>
                     <tr>
                         <th>Party size</th>
@@ -190,7 +165,7 @@ export class PartyEdit extends React.Component
                     key="members"
                     className="party-edit__members"
                     header="Party Members"
-                    >
+                >
                 <thead>
                     <tr>
                         <th>Character Level</th>
@@ -201,8 +176,8 @@ export class PartyEdit extends React.Component
                         <th>Deadly</th>
                     </tr>
                 </thead>
-                <tbody>{_.map(member_ids, (id) => {
-                    const character = _.get(characters, id);
+                <tbody>{map((id) => {
+                    const character = get(id, characters);
 
                     if (!character) {
                         return null;
@@ -213,22 +188,23 @@ export class PartyEdit extends React.Component
                             {character.name}
                             <CharacterLinks
                                 altStyle={true}
-                                buttons={['view']}
-                                character_id={character.id}
-                                extra={{
-                                    remove: {
-                                        label: 'Remove',
-                                        action: this.callback(
-                                            `delete-${id}`,
-                                            () => this.onRemoveMember(
-                                                id
-                                            )
-                                        ),
-                                        icon: 'times',
-                                        className: 'warning'
-                                    }
-                                }}
+                                include={this.characterLinks}
+                                id={character.id}
+                            >
+                                <BaseLinkButton
+                                    name="remove"
+                                    label="Remove"
+                                    icon="times"
+                                    className="warning"
+                                    altStyle={true}
+                                    action={this.callback(
+                                        `delete-${id}`,
+                                        () => this.onRemoveMember(
+                                            id
+                                        )
+                                    )}
                                 />
+                            </CharacterLinks>
                         </th>
                         <td>{character.level}</td>
                         <td className="info">
@@ -244,7 +220,7 @@ export class PartyEdit extends React.Component
                             {character.challenge.deadly} XP
                         </td>
                     </tr>;
-                })}</tbody>
+                })(member_ids)}</tbody>
                 <tbody>
                     <tr>
                         <th>
@@ -261,10 +237,54 @@ export class PartyEdit extends React.Component
                 </tbody>
             </Panel>
 
-            {this.renderDialog()}
+            {dialog && (
+                <CharacterPicker
+                    characters={characters}
+                    onDone={this.toggleDialog}
+                    onFilter={this.onCharacterFilter}
+                    onPick={this.onAddMember}
+                    label="Add character"
+                    icon="plus"
+                />
+            )}
         </React.Fragment>;
     }
 }
+
+PartyEdit.propTypes = {
+    reload: PropTypes.func.isRequired,
+    setState: PropTypes.func.isRequired,
+    name: PropTypes.string,
+    description: PropTypes.string,
+    challenge: PropTypes.shape({
+        easy: PropTypes.number.isRequired,
+        medium: PropTypes.number.isRequired,
+        hard: PropTypes.number.isRequired,
+        deadly: PropTypes.number.isRequired,
+    }),
+    characters: PropTypes.objectOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+        })
+    ),
+    member_ids: PropTypes.arrayOf(
+        PropTypes.number,
+    ),
+
+};
+
+
+PartyEdit.defaultProps = {
+    name: '',
+    description: '',
+    challenge: {
+        easy: 0,
+        medium: 0,
+        hard: 0,
+        deadly: 0,
+    },
+    member_ids: [],
+};
 
 export default ObjectDataListWrapper(
     RoutedObjectDataWrapper(

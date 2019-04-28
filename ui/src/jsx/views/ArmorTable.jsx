@@ -52,7 +52,7 @@ class ArmorRow extends LazyComponent
                 {name}
                 <ArmorLinks
                     altStyle={true}
-                    armor_id={this.props.id}
+                    id={id}
                     />
             </th>
             <td>

@@ -12,8 +12,7 @@ describe('Component: PartyLinks', () => {
     it('should render without props', () => {
         const tree = renderer.create(
             <MemoryRouter>
-                <PartyLinks
-                    />
+                <PartyLinks />
             </MemoryRouter>
         ).toJSON();
 
@@ -24,11 +23,11 @@ describe('Component: PartyLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <PartyLinks
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -39,16 +38,16 @@ describe('Component: PartyLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <PartyLinks
-                    party_id={10}
+                    id={10}
                     party={{
                         id: 10,
                         user_id: 2,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['admin'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -59,16 +58,16 @@ describe('Component: PartyLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <PartyLinks
-                    party_id={10}
+                    id={10}
                     party={{
                         id: 10,
                         user_id: 1,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 2,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -79,16 +78,16 @@ describe('Component: PartyLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <PartyLinks
-                    party_id={10}
+                    id={10}
                     party={{
                         id: 10,
                         user_id: 1,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -99,19 +98,19 @@ describe('Component: PartyLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <PartyLinks
-                    party_id={10}
+                    id={10}
                     party={{
                         id: 10,
                         user_id: 1,
                     }}
-                    hosted_party={{
+                    hostedParty={{
                         id: 10,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 2,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -122,19 +121,19 @@ describe('Component: PartyLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <PartyLinks
-                    party_id={10}
+                    id={10}
                     party={{
                         id: 10,
                         user_id: 1,
                     }}
-                    hosted_party={{
+                    hostedParty={{
                         id: 11,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 2,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -152,16 +151,16 @@ describe('Component: PartyLinks', () => {
         const wrapper = mount(
             <MemoryRouter>
                 <PartyLinks
-                    party_id={10}
+                    id={10}
                     party={{
                         id: 10,
                         user_id: 1,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 2,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 
@@ -192,19 +191,19 @@ describe('Component: PartyLinks', () => {
         const wrapper = mount(
             <MemoryRouter>
                 <PartyLinks
-                    party_id={10}
+                    id={10}
                     party={{
                         id: 10,
                         user_id: 1,
                     }}
-                    hosted_party={{
+                    hostedParty={{
                         id: 10,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 2,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 

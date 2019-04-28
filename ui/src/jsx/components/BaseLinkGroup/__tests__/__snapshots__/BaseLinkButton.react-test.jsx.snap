@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: BaseLinkButton should render as a download link 1`] = `
+<a
+  className="cursor-pointer nice-btn"
+  href="/as/a/download"
+/>
+`;
+
+exports[`Component: BaseLinkButton should render as a router link 1`] = `
+<a
+  className="cursor-pointer nice-btn"
+  href={undefined}
+  onClick={[Function]}
+/>
+`;
+
+exports[`Component: BaseLinkButton should render as an action 1`] = `
+<a
+  className="cursor-pointer nice-btn"
+  onClick={[Function]}
+/>
+`;
+
+exports[`Component: BaseLinkButton should render as nothing for the same route 1`] = `null`;
+
+exports[`Component: BaseLinkButton should render disabled 1`] = `
+<a
+  className="cursor-pointer nice-btn muted"
+  href="/class-name"
+/>
+`;
+
+exports[`Component: BaseLinkButton should render with alt style 1`] = `
+<a
+  className="cursor-pointer nice-btn-alt"
+  href="/alt-style"
+/>
+`;
+
+exports[`Component: BaseLinkButton should render with class 1`] = `
+<a
+  className="cursor-pointer nice-btn class-name"
+  href="/class-name"
+/>
+`;
+
+exports[`Component: BaseLinkButton should render with icon 1`] = `
+<a
+  className="cursor-pointer nice-btn icon fa-pencil"
+  href="/icon"
+/>
+`;
+
+exports[`Component: BaseLinkButton should render with minimum props 1`] = `null`;

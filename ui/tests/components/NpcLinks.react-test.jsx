@@ -7,8 +7,7 @@ describe('Component: NpcLinks', () => {
     it('should render without props', () => {
         const tree = renderer.create(
             <MemoryRouter>
-                <NpcLinks
-                    />
+                <NpcLinks />
             </MemoryRouter>
         ).toJSON();
 
@@ -19,11 +18,11 @@ describe('Component: NpcLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <NpcLinks
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -34,12 +33,12 @@ describe('Component: NpcLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <NpcLinks
-                    npc_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -50,12 +49,12 @@ describe('Component: NpcLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <NpcLinks
-                    npc_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -66,12 +65,12 @@ describe('Component: NpcLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <NpcLinks
-                    npc_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['admin'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 

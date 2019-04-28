@@ -43,10 +43,9 @@ export class SpellsView extends React.Component
                         <th colSpan={2}>
                             <SpellLinks
                                 className="pull-right"
-                                spell_id={id}
-                                omit={['view']}
-                                />
-                            { name }
+                                id={id}
+                            />
+                            <h3>{ name }</h3>
                         </th>
                     </tr>
                     <tr>

@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MonsterRow rendering should work with full props 1`] = `
+<div
+  className="monster-picker__row"
+>
+  <div
+    className="monster-label inline"
+  >
+    <span
+      className="monster-label--name"
+    >
+      Beasty
+        (
+      <div
+        className="challenge-rating inline"
+      >
+        CR 
+        1
+      </div>
+       / 
+      <div
+        className="xp-rating inline"
+      >
+        50
+         XP
+      </div>
+      )
+    </span>
+    <span
+      className="monster-label--type"
+    >
+      <div
+        className="list-label inline"
+      >
+        medium
+      </div>
+       
+      <div
+        className="list-label inline"
+      >
+        humanoid
+      </div>
+        (
+      <div
+        className="list-label inline"
+      >
+        true neutral
+      </div>
+      )
+    </span>
+  </div>
+  <div
+    className="actions"
+  >
+    <div
+      className="base-link-group nice-btn-group"
+    >
+      <a
+        className="cursor-pointer nice-btn icon fa-bullhorn accent"
+        onClick={[Function]}
+      >
+        Choose
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MonsterRow rendering should work with minimum props 1`] = `
+<div
+  className="monster-picker__row"
+>
+  <div
+    className="monster-label inline"
+  >
+    <span
+      className="monster-label--name"
+    >
+      Beasty
+        (
+      <div
+        className="challenge-rating inline"
+      >
+        CR 
+        1
+      </div>
+       / 
+      <div
+        className="xp-rating inline"
+      >
+        50
+         XP
+      </div>
+      )
+    </span>
+    <span
+      className="monster-label--type"
+    >
+      <div
+        className="list-label inline"
+      >
+        medium
+      </div>
+       
+      <div
+        className="list-label inline"
+      >
+        humanoid
+      </div>
+        (
+      <div
+        className="list-label inline"
+      >
+        true neutral
+      </div>
+      )
+    </span>
+  </div>
+  <div
+    className="actions"
+  >
+    <div
+      className="base-link-group nice-btn-group"
+    >
+      <a
+        className="cursor-pointer nice-btn icon fa-paw"
+        onClick={[Function]}
+      >
+        Pick
+      </a>
+    </div>
+  </div>
+</div>
+`;

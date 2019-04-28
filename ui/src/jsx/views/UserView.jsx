@@ -29,11 +29,9 @@ export class UserView extends React.Component
                     <tr>
                         <th colSpan="2">
                             <UserLinks
-                                buttons={['edit']}
+                                id={id}
                                 className="pull-right"
-                                user_id={id}
-                                />
-
+                            />
                             <h3>{name || username}</h3>
                         </th>
                     </tr>

@@ -1,107 +1,134 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
-import ObjectDataActions from '../actions/ObjectDataActions.jsx';
-
-import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
+import {
+    BaseLinkButton,
+    BaseLinkGroup,
+} from '../components/BaseLinkGroup/index.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-
+import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 import { userHasRole } from '../utils.jsx';
 
-export class NpcLinks extends BaseLinkGroup
+
+export class NpcLinks extends React.Component
 {
-    constructor(props) {
-        super(props);
+    onCopy = () => {
+        const { router } = this.context;
+        const { id } = this.props;
+        ObjectDataActions.copyObject(
+            "npc", id, null,
+            (type, id, data) => router.history.push(
+                '/npc/edit/' + data.id
+            )
+        );
     }
 
-    buttonList() {
-        const { router } = this.context;
-        const {
-            npc_id, current_user: user
+    onDelete = () => {
+        const { id } = this.props;
+        ObjectDataActions.deleteObject("npc", id);
+    }
+
+    render() {
+        const { id, currentUser, altStyle, children,
+            ...props
         } = this.props;
 
-        if (!user) {
-            return {};
+        if (!currentUser) {
+            return null;
         }
 
         const available = (
-            npc_id != undefined
-            && userHasRole(user, 'dm')
+            id !== null
+            && userHasRole(currentUser, 'dm')
         );
 
-        return {
-            'view': () => ({
-                label: 'View',
-                link: "/npc/show/" + npc_id,
-                icon: 'eye',
-                available,
-            }),
-            'raw': () => ({
-                label: 'Raw',
-                link: "/npc/raw/" + npc_id,
-                icon: 'cogs',
-                available: (
-                    npc_id != undefined
-                    && userHasRole(user, 'admin')
-                ),
-            }),
-            'edit': () => ({
-                label: 'Edit',
-                link: "/npc/edit/" + npc_id,
-                icon: 'pencil',
-                available,
-            }),
-            'copy': () => ({
-                label: 'Copy',
-                action: () => {
-                    ObjectDataActions.copyObject(
-                        "npc", npc_id, null,
-                        (type, id, data) => {
-                            router.history.push(
-                                '/npc/edit/' + data.id
-                            );
-                        }
-                    );
-                },
-                icon: 'clone',
-                available,
-            }),
-            'new': () => ({
-                label: 'New',
-                link: "/npc/new",
-                icon: 'plus',
-                available: (
-                    npc_id == undefined
-                    && userHasRole(user, 'dm')
-                ),
-            }),
-        };
+        return (
+            <BaseLinkGroup {...props}>
+                <BaseLinkButton
+                    name="view"
+                    label="View"
+                    icon="eye"
+                    altStyle={altStyle}
+                    link={`/npc/show/${id}`}
+                    available={available}
+                />
+                <BaseLinkButton
+                    name="raw"
+                    label="Raw"
+                    icon="cogs"
+                    altStyle={altStyle}
+                    download={`/npc/raw/${id}`}
+                    available={(
+                        id !== null
+                        && userHasRole(currentUser, 'admin')
+                    )}
+                />
+                <BaseLinkButton
+                    name="edit"
+                    label="Edit"
+                    icon="pencil"
+                    altStyle={altStyle}
+                    link={`/npc/edit/${id}`}
+                    available={available}
+                />
+                <BaseLinkButton
+                    name="copy"
+                    label="Copy"
+                    icon="clone"
+                    action={this.onCopy}
+                    altStyle={altStyle}
+                    available={available}
+                />
+                <BaseLinkButton
+                    name="new"
+                    label="New"
+                    icon="plus"
+                    link="/npc/new"
+                    altStyle={altStyle}
+                    available={(
+                        id === null
+                        && userHasRole(currentUser, 'dm')
+                    )}
+                />
+                <BaseLinkButton
+                    name="delete"
+                    label="Delete"
+                    icon="trash-o"
+                    className="bad"
+                    action={this.onDelete}
+                    altStyle={altStyle}
+                    available={available}
+                />
+                {children}
+            </BaseLinkGroup>
+        );
     }
-}
+};
 
 NpcLinks.contextTypes = {
     router: PropTypes.object,
 };
 
-NpcLinks.propTypes = _.assign(
-    {}, BaseLinkGroup.propTypes, {
-        buttons: PropTypes.arrayOf(
-            PropTypes.oneOf([
-                'view', 'edit', 'copy', 'raw', 'new',
-            ])
+NpcLinks.propTypes = {
+    altStyle: PropTypes.bool,
+    id: PropTypes.number,
+    currentUser: PropTypes.shape({
+        id: PropTypes.number,
+        role: PropTypes.arrayOf(
+            PropTypes.oneOf(['player', 'dm', 'admin'])
         ),
-        npc_id: PropTypes.number,
-        current_user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            role: PropTypes.arrayOf(
-                PropTypes.oneOf(['player', 'dm', 'admin'])
-            ),
-        }),
-    }
-);
+    }),
+};
+
+NpcLinks.defaultProps = {
+    altStyle: false,
+    id: null,
+    currentUser: {},
+};
 
 export default ListDataWrapper(
     NpcLinks,
-    ['current_user']
+    ['current_user'],
+    null,
+    { current_user: 'currentUser' }
 );

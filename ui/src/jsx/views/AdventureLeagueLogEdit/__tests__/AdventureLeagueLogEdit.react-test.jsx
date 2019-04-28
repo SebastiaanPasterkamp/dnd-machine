@@ -1,5 +1,7 @@
 import React from 'react';
+import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+import MockRouter from 'react-mock-router';
 
 import { AdventureLeagueLogEdit } from '../AdventureLeagueLogEdit';
 
@@ -11,64 +13,74 @@ describe('AdventureLeagueLogEdit', () => {
         const setState = jest.fn();
 
         it('with minimum props', () => {
-            const wrapped = mount(
-                <AdventureLeagueLogEdit
-                    setState={setState}
-                />
+            const tree = renderer.create(
+                <MockRouter>
+                    <AdventureLeagueLogEdit
+                        setState={setState}
+                    />
+                </MockRouter>
             );
 
-            expect(wrapped).toMatchSnapshot();
+            expect(tree).toMatchSnapshot();
         });
 
         describe('with full XP props', () => {
             it('before being consumed', () => {
-                const wrapped = mount(
-                    <AdventureLeagueLogEdit
-                        setState={setState}
-                        {...xp}
-                        character_snapshot={null}
-                    />
+                const tree = renderer.create(
+                    <MockRouter>
+                        <AdventureLeagueLogEdit
+                            setState={setState}
+                            {...xp}
+                            character_snapshot={null}
+                        />
+                    </MockRouter>
                 );
 
-                expect(wrapped).toMatchSnapshot();
+                expect(tree).toMatchSnapshot();
             });
 
             it('after being consumed', () => {
-                const wrapped = mount(
-                    <AdventureLeagueLogEdit
-                        setState={setState}
-                        {...xp}
-                        consumed={true}
-                    />
+                const tree = renderer.create(
+                    <MockRouter>
+                        <AdventureLeagueLogEdit
+                            setState={setState}
+                            {...xp}
+                            consumed={true}
+                        />
+                    </MockRouter>
                 );
 
-                expect(wrapped).toMatchSnapshot();
+                expect(tree).toMatchSnapshot();
             });
         });
 
         describe('with full ACP props', () => {
             it('before being consumed', () => {
-                const wrapped = mount(
-                    <AdventureLeagueLogEdit
-                        setState={setState}
-                        {...acp}
-                        character_snapshot={null}
-                    />
+                const tree = renderer.create(
+                    <MockRouter>
+                        <AdventureLeagueLogEdit
+                            setState={setState}
+                            {...acp}
+                            character_snapshot={null}
+                        />
+                    </MockRouter>
                 );
 
-                expect(wrapped).toMatchSnapshot();
+                expect(tree).toMatchSnapshot();
             });
 
             it('after being consumed', () => {
-                const wrapped = mount(
-                    <AdventureLeagueLogEdit
-                        setState={setState}
-                        {...acp}
-                        consumed={true}
-                    />
+                const tree = renderer.create(
+                    <MockRouter>
+                        <AdventureLeagueLogEdit
+                            setState={setState}
+                            {...acp}
+                            consumed={true}
+                        />
+                    </MockRouter>
                 );
 
-                expect(wrapped).toMatchSnapshot();
+                expect(tree).toMatchSnapshot();
             });
         });
     });
@@ -76,9 +88,11 @@ describe('AdventureLeagueLogEdit', () => {
     describe('should handle changing', () => {
         const setState = jest.fn();
         const wrapped = mount(
-            <AdventureLeagueLogEdit
-                setState={setState}
-            />
+            <MockRouter>
+                <AdventureLeagueLogEdit
+                    setState={setState}
+                />
+            </MockRouter>
         );
 
         beforeEach(() => setState.mockClear());

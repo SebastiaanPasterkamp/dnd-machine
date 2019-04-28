@@ -31,7 +31,7 @@ class UserFooter extends LazyComponent
                 <td colSpan={3}>
                     <UserLinks
                         altStyle={true}
-                        />
+                    />
                 </td>
             </tr>
         </tbody>
@@ -51,8 +51,8 @@ class UserRow extends LazyComponent
                 <i>({name})</i>
                 <UserLinks
                     altStyle={true}
-                    user_id={id}
-                    />
+                    id={id}
+                />
             </th>
             <td className="users-table__roles">
                 {_.map(role, (r) => (

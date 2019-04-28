@@ -1,20 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import '../../sass/_encounter-edit.scss';
 
-import utils from '../utils.jsx';
+import utils, { memoize } from '../utils.jsx';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
+import { BaseLinkButton } from '../components/BaseLinkGroup/index.jsx';
 import Bonus from '../components/Bonus.jsx';
 import ButtonField from '../components/ButtonField.jsx';
 import ChallengeRating from '../components/ChallengeRating.jsx';
 import MonsterLabel from '../components/MonsterLabel.jsx';
 import MonsterLinks from '../components/MonsterLinks.jsx';
+import { MonsterPicker } from '../components/MonsterPicker';
 import ControlGroup from '../components/ControlGroup.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
@@ -22,63 +25,92 @@ import SingleSelect from '../components/SingleSelect.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import XpRating from '../components/XpRating.jsx';
 
-import ModalDialog from '../components/ModalDialog.jsx';
+const EncounterRating = ({ encounter, party }) => {
+    if (!encounter || !party) {
+        return null;
+    }
+
+    const {
+        easy = 0,
+        medium = 0,
+        hard = 0,
+        deadly = 0,
+    } = party;
+
+    const rating = utils.closest({
+        irrelevant: 0,
+        easy, medium, hard, deadly,
+        insane: deadly + deadly - hard,
+    }, encounter, 'irrelevant');
+
+    if (rating === 'easy') {
+        return (
+            <span>
+                Easy
+                (<XpRating xpRating={easy} />)
+            </span>
+        );
+    }
+    if (rating === 'medium') {
+        return (
+            <span>
+                Medium
+                (<XpRating xpRating={medium} />)
+            </span>
+        );
+    }
+    if (rating === 'hard') {
+        return (
+            <span>
+                Hard
+                (<XpRating xpRating={hard} />)
+            </span>
+        );
+    }
+    if (rating === 'deadly') {
+        return (
+            <span>
+                Deadly
+                (<XpRating xpRating={deadly} />)
+            </span>
+        );
+    }
+    if (rating === 'insane') {
+        return (
+            <span>
+                Insane
+                (&gt; <XpRating xpRating={deadly} />)
+            </span>
+        );
+    }
+    return (
+        <span>
+            Irrelevant
+            (&lt; <XpRating xpRating={easy} />)
+        </span>
+    );
+};
 
 export class EncounterEdit extends React.Component
 {
+    monsterLinks = ['view'];
+
     constructor(props) {
         super(props);
         this.state = {
-            dialog: false
+            dialog: false,
         };
+        this.memoize = memoize.bind(this);
     }
 
-    toggleDialog() {
-        this.setState({
-            dialog: !this.state.dialog
-        });
+    onMonsterFilter = ({ id }) => {
+        const { monster_ids } = this.props;
+
+        return !_.find(monster_ids, {id});
     }
 
-    onFieldChange(field, value) {
-        this.props.setState({
-            [field]: value
-        });
-    }
-
-    onRemoveMonsterButton(id) {
-        const {
-            monster_ids, setState, recompute
-        } = this.props;
-        const index = _.findIndex(monster_ids, {id});
-
-        if (
-            index < 0
-            || monster_ids[index].count <= 0
-        ) {
-            return;
-        }
-
-        const monster = _.assign(
-            {},
-            monster_ids[index],
-            {count: monster_ids[index].count - 1}
-        );
-        const update = _.concat(
-            _.slice(monster_ids, 0, index),
-            monster.count ? [monster] : [],
-            _.slice(monster_ids, index+1)
-        );
-
-        setState(
-            {monster_ids: update},
-            () => recompute()
-        );
-    }
-
-    onAddMonsterButton(id) {
-        const {
-            monster_ids = [], setState, recompute
-        } = this.props;
+    onAddMonster = (id) => {
+        const { monster_ids, setState, recompute } = this.props;
         const index = _.findIndex(monster_ids, {id});
         let update = monster_ids;
 
@@ -107,99 +139,61 @@ export class EncounterEdit extends React.Component
         );
     }
 
-    renderDialog() {
-        if (!this.state.dialog) {
-            return null;
-        }
-
-        const {
-            monsters, monster_ids, reload
-        } = this.props;
-
-        const filtered = _.filter(
-            monsters,
-            monster => !_.find(monster_ids, {id: monster.id})
-        );
-
-        return <ModalDialog
-            key="dialog"
-            label="Add monsters"
-            onCancel={() => reload(() => this.toggleDialog())}
-            onDone={() => this.toggleDialog()}
-            >
-            <table className="nice-table condensed bordered">
-                <thead>
-                    <tr>
-                        <th>Monster</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>{_.map(filtered, monster => (
-                    <tr key={monster.id}>
-                        <td>
-                            <MonsterLabel
-                                monster_id={monster.id}
-                                />
-                        </td>
-                        <td>
-                            <a
-                                className="nice-btn-alt cursor-pointer icon fa-plus"
-                                onClick={() => this.onAddMonsterButton(monster.id)}
-                                >
-                                Add
-                            </a>
-                        </td>
-                    </tr>
-                ))}</tbody>
-            </table>
-        </ModalDialog>;
+    toggleDialog = () => {
+        this.setState({
+            dialog: !this.state.dialog
+        });
     }
 
+    onFieldChange = (field) => this.memoize(
+        field,
+        (value) => this.props.setState({
+            [field]: value,
+        })
+    );
+
+    onRemoveMonsterButton = (id) => this.memoize(`dec-${id}`, () => {
+        const { monster_ids, setState, recompute } = this.props;
+        const index = _.findIndex(monster_ids, {id});
+
+        if (
+            index < 0
+            || monster_ids[index].count <= 0
+        ) {
+            return;
+        }
+
+        const monster = _.assign(
+            {},
+            monster_ids[index],
+            {count: monster_ids[index].count - 1}
+        );
+        const update = _.concat(
+            _.slice(monster_ids, 0, index),
+            monster.count ? [monster] : [],
+            _.slice(monster_ids, index+1)
+        );
+
+        setState(
+            {monster_ids: update},
+            () => recompute()
+        );
+    })
+
+    onAddMonsterButton = (id) => this.memoize(
+        `inc-${id}`,
+        () => this.onAddMonster(id)
+    )
+
     render() {
+        const { dialog } = this.state;
         const {
-            id, name, description = '', size, monster_ids = [], monsters = {},
-            modifier = {}, challenge_rating, challenge_modified,
-            challenge_rating_precise, xp, xp_modified, xp_rating, hosted_party
+            id, name, description, size, monster_ids,
+            monsters, modifier, challenge_rating,
+            challenge_modified, challenge_rating_precise,
+            xp, xp_modified, xp_rating, hosted_party,
         } = this.props;
 
-        const { challenge } = hosted_party || {};
-        const index = challenge ? utils.closest({
-            'irrelevant': 0,
-            'easy': challenge.easy,
-            'medium': challenge.medium,
-            'hard': challenge.hard,
-            'deadly': challenge.deadly,
-            'insane': challenge.deadly + (
-                    challenge.deadly
-                    - challenge.hard
-                )
-        }, xp_rating || 0, 'irrelevant') : null;
-        const classification = challenge ? {
-            'irrelevant': <span>
-                Irrelevant
-                (&lt; <XpRating xpRating={challenge.easy} />)
-            </span>,
-            'easy': <span>
-                Easy
-                (<XpRating xpRating={challenge.easy} />)
-            </span>,
-            'medium': <span>
-                Medium
-                (<XpRating xpRating={challenge.medium} />)
-            </span>,
-            'hard': <span>
-                Hard
-                (<XpRating xpRating={challenge.hard} />)
-            </span>,
-            'deadly': <span>
-                Deadly
-                (<XpRating xpRating={challenge.deadly} />)
-            </span>,
-            'insane': <span>
-                Insane
-                (&gt; <XpRating xpRating={challenge.deadly} />)
-            </span>,
-        }[index] : null;
         const summary = _.reduce(
             monster_ids, (summary, m) => {
                 if (!m) {
@@ -233,18 +227,16 @@ export class EncounterEdit extends React.Component
                     <InputField
                         placeholder="Name..."
                         value={name}
-                        setState={
-                            (value) => this.onFieldChange('name', value)
-                        } />
+                        setState={this.onFieldChange('name')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Description">
                     <MarkdownTextField
                         placeholder="Description..."
                         value={description}
                         rows={5}
-                        setState={
-                            (value) => this.onFieldChange('description', value)
-                        } />
+                        setState={this.onFieldChange('description')}
+                    />
                 </ControlGroup>
             </Panel>
 
@@ -252,7 +244,7 @@ export class EncounterEdit extends React.Component
                 key="challenge"
                 className="encounter-edit__challenge"
                 header="Challenge Rating Overview"
-                >
+            >
                 <tbody>
                     <tr>
                         <th>Monster Modifier</th>
@@ -273,52 +265,60 @@ export class EncounterEdit extends React.Component
                         <td>
                             <ChallengeRating
                                 challengeRating={challenge_rating}
-                                />
+                            />
                             &nbsp;/&nbsp;
                             <XpRating
                                 xpRating={xp}
-                                />
+                            />
                         </td>
-                        {challenge
-                            ? <td>
+                        {hosted_party.size ? (
+                            <td>
                                 <ChallengeRating
                                     challengeRating={challenge_modified}
-                                    />
+                                />
                                 &nbsp;/&nbsp;
                                 <XpRating
                                     xpRating={xp_modified}
-                                    />
+                                />
                             </td>
-                            : <td>&mdash;</td>
-                        }
+                        ) : (
+                            <td>&mdash;</td>
+                        )}
                         <td>
                             <ChallengeRating
                                 challengeRating={challenge_rating_precise}
                                 precise={true}
-                                />
+                            />
                             &nbsp;/&nbsp;
                             <XpRating
                                 xpRating={xp_rating}
                                 precise={true}
-                                />
+                            />
                         </td>
                     </tr>
-                    {hosted_party ? <React.Fragment>
-                        <tr>
-                            <th>Party Size</th>
-                            <th>XP / Party Member</th>
-                            <th>Challenge Classification</th>
-                        </tr>
-                        <tr>
-                            <td>{hosted_party.size}</td>
-                            <td>
-                                <XpRating
-                                    xpRating={(xp || 0) / hosted_party.size}
+                    {hosted_party.size ? (
+                        <React.Fragment>
+                            <tr>
+                                <th>Party Size</th>
+                                <th>XP / Party Member</th>
+                                <th>Challenge Classification</th>
+                            </tr>
+                            <tr>
+                                <td>{hosted_party.size}</td>
+                                <td>
+                                    <XpRating
+                                        xpRating={xp / hosted_party.size}
                                     />
-                            </td>
-                            <td>{classification}</td>
-                        </tr>
-                    </React.Fragment> : null}
+                                </td>
+                                <td>
+                                    <EncounterRating
+                                        encounter={xp_rating}
+                                        party={hosted_party.challenge}
+                                    />
+                                </td>
+                            </tr>
+                        </React.Fragment>
+                    ) : null}
                 </tbody>
             </Panel>
 
@@ -326,7 +326,7 @@ export class EncounterEdit extends React.Component
                 key="monsters"
                 className="encounter-edit__monsters"
                 header="Encounter Monsters"
-                >
+            >
                 <thead>
                     <tr>
                         <th rowSpan="2">Monster Name</th>
@@ -357,78 +357,79 @@ export class EncounterEdit extends React.Component
                             {m.count} x {monster.name}
                             <MonsterLinks
                                 altStyle={true}
-                                buttons={['view']}
-                                monster_id={monster.id}
-                                extra={{
-                                    remove: {
-                                        action: () => {
-                                            this.onRemoveMonsterButton(monster.id);
-                                        },
-                                        icon: 'minus',
-                                        className: 'warning'
-                                    },
-                                    add: {
-                                        action: () => {
-                                            this.onAddMonsterButton(monster.id);
-                                        },
-                                        icon: 'plus',
-                                        className: 'good'
-                                    },
-                                }}
+                                id={monster.id}
+                                include={this.monsterLinks}
+                            >
+                                <BaseLinkButton
+                                    icon="minus"
+                                    altStyle={true}
+                                    className="warning"
+                                    action={this.onRemoveMonsterButton(monster.id)}
                                 />
+                                <BaseLinkButton
+                                    icon="plus"
+                                    altStyle={true}
+                                    className="good"
+                                    action={this.onAddMonsterButton(monster.id)}
+                                />
+                            </MonsterLinks>
                         </th>
                         <td>
                             <ChallengeRating
                                 challengeRating={monster.challenge_rating_precise}
                                 precise={true}
-                                />
-                            {m.count > 1 ? <span>(
-                                <ChallengeRating
-                                    challengeRating={
-                                        monster.challenge_rating_precise
-                                        * m.count
-                                    }
-                                    precise={true}
+                            />
+                            {m.count > 1 ? (
+                                <span>(
+                                    <ChallengeRating
+                                        challengeRating={
+                                            monster.challenge_rating_precise
+                                            * m.count
+                                        }
+                                        precise={true}
                                     />
-                             )</span> : null}
+                                )</span>
+                            ) : null}
                         </td>
                         <td>
                             <XpRating
                                 xpRating={monster.xp_rating}
-                                />
-                            {m.count > 1 ? <span>(
-                                <XpRating
-                                    xpRating={
-                                        monster.xp_rating
-                                        * m.count
-                                    }
+                            />
+                            {m.count > 1 ? (
+                                <span>(
+                                    <XpRating
+                                        xpRating={
+                                            monster.xp_rating
+                                            * m.count
+                                        }
                                     />
-                             )</span> : null}
+                                )</span>
+                            ) : null}
                         </td>
                         <td>{monster.hit_points}</td>
                         <td>{monster.armor_class}</td>
                         <td>
                             {monster.average_damage}
-                            {m.count > 1 ? <span>(
-                                {monster.average_damage * m.count}
-                             )</span> : null}
+                            {m.count > 1 ? (
+                                <span>(
+                                    {monster.average_damage * m.count}
+                                )</span>
+                            ) : null}
                         </td>
                         <td>
-                            {monster.attack_bonus
-                                ? <span>
+                            {monster.attack_bonus ? (
+                                <span>
                                     Hit&nbsp;
                                     <Bonus
                                         bonus={monster.attack_bonus}
                                         />
                                 </span>
-                                : null
-                            }
-                            {monster.spell_save_dc
-                                ? <span>
+                            ) : null}
+                            {monster.spell_save_dc ? (
+                                <span>
                                     DC &ge; {monster.spell_save_dc}
                                 </span>
-                                : null
-                            }
+                            ) : null}
                         </td>
                     </tr>;
                 })}</tbody>
@@ -437,7 +438,7 @@ export class EncounterEdit extends React.Component
                         <th>
                             <a
                                 className="nice-btn-alt cursor-pointer icon fa-plus"
-                                onClick={() => this.toggleDialog()}
+                                onClick={this.toggleDialog}
                                 >
                                 Add
                             </a>
@@ -446,13 +447,13 @@ export class EncounterEdit extends React.Component
                             <ChallengeRating
                                 challengeRating={summary.challenge_rating}
                                 precise={true}
-                                />
+                            />
                         </td>
                         <td>
                             <XpRating
                                 xpRating={summary.xp}
                                 precise={true}
-                                />
+                            />
                         </td>
                         <td colSpan="2"></td>
                         <td>
@@ -463,10 +464,82 @@ export class EncounterEdit extends React.Component
                 </tbody>
             </Panel>
 
-            {this.renderDialog()}
+            {dialog ? (
+                <MonsterPicker
+                    monsters={monsters}
+                    onDone={this.toggleDialog}
+                    onFilter={this.onMonsterFilter}
+                    onPick={this.onAddMonster}
+                    label="Add monster"
+                    icon="plus"
+                />
+            ) : null}
         </React.Fragment>;
     }
 }
+
+EncounterEdit.propTypes = {
+    setState: PropTypes.func.isRequired,
+    recompute: PropTypes.func.isRequired,
+    id: PropTypes.number,
+    name: PropTypes.string,
+    description: PropTypes.string,
+    size: PropTypes.number,
+    monsters: PropTypes.objectOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+        })
+    ),
+    monster_ids: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+        })
+    ),
+    modifier: PropTypes.shape({
+        monster: PropTypes.number.isRequired,
+        party: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired,
+    }),
+    challenge_rating: PropTypes.number,
+    challenge_modified: PropTypes.number,
+    challenge_rating_precise: PropTypes.number,
+    xp: PropTypes.number,
+    xp_modified: PropTypes.number,
+    xp_rating: PropTypes.number,
+    hosted_party: PropTypes.shape({
+        id: PropTypes.number,
+        size: PropTypes.number.isRequired,
+        challenge: PropTypes.shape({
+            easy: PropTypes.number.isRequired,
+            medium: PropTypes.number.isRequired,
+            hard: PropTypes.number.isRequired,
+            deadly: PropTypes.number.isRequired,
+        }),
+    }),
+};
+
+EncounterEdit.defaultProps = {
+    id: null,
+    name: '',
+    description: '',
+    size: 0,
+    monsters: {},
+    monster_ids: [],
+    modifier: {
+        monster: 1.0,
+        party: 1.0,
+        total: 1.0,
+    },
+    challenge_rating: 0,
+    challenge_modified: 0,
+    challenge_rating_precise: 0,
+    xp: 0,
+    xp_modified: 0,
+    xp_rating: 0,
+    hosted_party: {
+        size: 0,
+    },
+};
 
 export default ListDataWrapper(
     ObjectDataListWrapper(

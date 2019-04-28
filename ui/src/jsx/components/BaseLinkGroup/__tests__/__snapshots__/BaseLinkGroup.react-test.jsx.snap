@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: BaseLinkGroup should filter using exclude list 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <div
+    name="include"
+  >
+    Included
+  </div>
+  <div>
+    Unaffected
+  </div>
+</div>
+`;
+
+exports[`Component: BaseLinkGroup should filter using include list 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <div
+    name="include"
+  >
+    Included
+  </div>
+  <div>
+    Unaffected
+  </div>
+</div>
+`;
+
+exports[`Component: BaseLinkGroup should render with one child 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <div
+    name="child"
+  >
+    Child
+  </div>
+</div>
+`;
+
+exports[`Component: BaseLinkGroup should render without props 1`] = `null`;

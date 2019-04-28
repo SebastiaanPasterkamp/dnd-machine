@@ -53,9 +53,8 @@ export class CharacterDescription extends LazyComponent
             >
             <CharacterLinks
                 className="pull-right"
-                character_id={id}
-                omit={['view']}
-                />
+                id={id}
+            />
 
             <h3>{name}</h3>
 
