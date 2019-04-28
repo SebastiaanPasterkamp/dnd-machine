@@ -54,7 +54,6 @@ export class CharacterDescription extends LazyComponent
             <CharacterLinks
                 className="pull-right"
                 id={id}
-                exclude={['view']}
             />
 
             <h3>{name}</h3>

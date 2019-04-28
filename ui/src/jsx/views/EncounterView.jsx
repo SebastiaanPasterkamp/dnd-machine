@@ -240,7 +240,6 @@ export class EncounterView extends React.Component
                 <thead>
                     <tr>
                         <th colSpan="2">
-                            <h3>{name}</h3>
                             <EncounterLinks
                                 id={id}
                                 className="pull-right"
@@ -253,6 +252,7 @@ export class EncounterView extends React.Component
                                     available={!!hosted_party}
                                 />
                             </EncounterLinks>
+                            <h3>{name}</h3>
                         </th>
                     </tr>
                 </thead>

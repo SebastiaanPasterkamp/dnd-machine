@@ -13,18 +13,13 @@ exports[`UserView should render with full props 1`] = `
         <th
           colSpan="2"
         >
+          <ListDataUserLinks
+            className="pull-right"
+            id={1}
+          />
           <h3>
             Example User
           </h3>
-          <ListDataUserLinks
-            className="pull-right"
-            exclude={
-              Array [
-                "view",
-              ]
-            }
-            id={1}
-          />
         </th>
       </tr>
     </thead>
@@ -138,15 +133,10 @@ exports[`UserView should render without props 1`] = `
         <th
           colSpan="2"
         >
-          <h3 />
           <ListDataUserLinks
             className="pull-right"
-            exclude={
-              Array [
-                "view",
-              ]
-            }
           />
+          <h3 />
         </th>
       </tr>
     </thead>

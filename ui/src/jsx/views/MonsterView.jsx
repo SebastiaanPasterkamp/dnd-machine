@@ -177,8 +177,6 @@ class MultiAttackView extends LazyComponent
 
 export class MonsterView extends LazyComponent
 {
-    monsterLinks = ['view'];
-
     render() {
         const {
             id, name, size, type, alignment, level, armor_class,
@@ -201,12 +199,11 @@ export class MonsterView extends LazyComponent
                 <thead>
                     <tr>
                         <th colSpan={2}>
-                            <h3>{name}</h3>
                             <MonsterLinks
-                                exclude={this.monsterLinks}
                                 className="pull-right"
                                 id={id}
                             />
+                            <h3>{name}</h3>
                         </th>
                     </tr>
                 </thead>

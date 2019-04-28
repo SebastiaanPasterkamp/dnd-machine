@@ -22,7 +22,6 @@ import PartyLinks from '../components/PartyLinks.jsx';
 export class PartyView extends React.Component
 {
     characterLinks = ['view'];
-    partyLinks = ['view'];
 
     render() {
         const {
@@ -43,12 +42,8 @@ export class PartyView extends React.Component
                             <PartyLinks
                                 className="pull-right"
                                 id={id}
-                                exclude={this.partyLinks}
                             />
-
-                            <h3>
-                                {name}
-                            </h3>
+                            <h3>{name}</h3>
                         </th>
                     </tr>
                 </thead>
