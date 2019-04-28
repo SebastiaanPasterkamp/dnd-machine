@@ -12,8 +12,7 @@ describe('Component: MonsterLinks', () => {
     it('should render without props', () => {
         const tree = renderer.create(
             <MemoryRouter>
-                <MonsterLinks
-                    />
+                <MonsterLinks />
             </MemoryRouter>
         ).toJSON();
 
@@ -24,11 +23,11 @@ describe('Component: MonsterLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <MonsterLinks
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -39,12 +38,12 @@ describe('Component: MonsterLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <MonsterLinks
-                    monster_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -55,12 +54,12 @@ describe('Component: MonsterLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <MonsterLinks
-                    monster_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -71,12 +70,12 @@ describe('Component: MonsterLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <MonsterLinks
-                    monster_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['admin'],
                     }}
-                    />
+                />
             </MemoryRouter>
         ).toJSON();
 
@@ -93,12 +92,12 @@ describe('Component: MonsterLinks', () => {
         const wrapper = mount(
             <MemoryRouter>
                 <MonsterLinks
-                    monster_id={10}
-                    current_user={{
+                    id={10}
+                    currentUser={{
                         id: 1,
                         role: ['dm'],
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 

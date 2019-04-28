@@ -1,4 +1,5 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 
@@ -7,11 +8,13 @@ import ModalDialog from 'components/ModalDialog.jsx';
 describe('Component: ModalDialog', () => {
     it('should render with minimum props', () => {
         const tree = renderer.create(
-            <ModalDialog
-                label="test"
+            <MemoryRouter>
+                <ModalDialog
+                    label="test"
                 >
-                Foo bar
-            </ModalDialog>
+                    Foo bar
+                </ModalDialog>
+            </MemoryRouter>
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -20,20 +23,22 @@ describe('Component: ModalDialog', () => {
     it('should render with full props', () => {
         const mockFunc = jest.fn();
         const tree = renderer.create(
-            <ModalDialog
-                label="test"
-                subheading="more testing"
-                onCancel={ mockFunc }
-                cancelLabel="Close"
-                onDone={ mockFunc }
-                doneLabel="Save"
-                onHelp={ mockFunc }
-                helpLabel="Whut!"
+            <MemoryRouter>
+                <ModalDialog
+                    label="test"
+                    subheading="more testing"
+                    onCancel={ mockFunc }
+                    cancelLabel="Close"
+                    onDone={ mockFunc }
+                    doneLabel="Save"
+                    onHelp={ mockFunc }
+                    helpLabel="Whut!"
                 >
-                <span>
-                    Foo bar
-                </span>
-            </ModalDialog>
+                    <span>
+                        Foo bar
+                    </span>
+                </ModalDialog>
+            </MemoryRouter>
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -42,15 +47,17 @@ describe('Component: ModalDialog', () => {
     it('should bind onCancel to close', () => {
         const onCancel = jest.fn();
         const wrapper = mount(
-            <ModalDialog
-                label="test"
-                subheading="more testing"
-                onCancel={ onCancel }
+            <MemoryRouter>
+                <ModalDialog
+                    label="test"
+                    subheading="more testing"
+                    onCancel={ onCancel }
                 >
-                <span>
-                    Foo bar
-                </span>
-            </ModalDialog>
+                    <span>
+                        Foo bar
+                    </span>
+                </ModalDialog>
+            </MemoryRouter>
         );
 
         wrapper
@@ -64,15 +71,17 @@ describe('Component: ModalDialog', () => {
     it('should bind onCancel to cancel', () => {
         const onCancel = jest.fn();
         const wrapper = mount(
-            <ModalDialog
-                label="test"
-                subheading="more testing"
-                onCancel={ onCancel }
+            <MemoryRouter>
+                <ModalDialog
+                    label="test"
+                    subheading="more testing"
+                    onCancel={ onCancel }
                 >
-                <span>
-                    Foo bar
-                </span>
-            </ModalDialog>
+                    <span>
+                        Foo bar
+                    </span>
+                </ModalDialog>
+            </MemoryRouter>
         );
 
         wrapper
@@ -86,14 +95,16 @@ describe('Component: ModalDialog', () => {
     it('should bind onDone', () => {
         const onDone = jest.fn();
         const wrapper = mount(
-            <ModalDialog
-                label="test"
-                onDone={ onDone }
+            <MemoryRouter>
+                <ModalDialog
+                    label="test"
+                    onDone={ onDone }
                 >
-                <span>
-                    Foo bar
-                </span>
-            </ModalDialog>
+                    <span>
+                        Foo bar
+                    </span>
+                </ModalDialog>
+            </MemoryRouter>
         );
 
         wrapper
@@ -107,14 +118,16 @@ describe('Component: ModalDialog', () => {
     it('should bind onHelp', () => {
         const onHelp = jest.fn();
         const wrapper = mount(
-            <ModalDialog
-                label="test"
-                onHelp={ onHelp }
+            <MemoryRouter>
+                <ModalDialog
+                    label="test"
+                    onHelp={ onHelp }
                 >
-                <span>
-                    Foo bar
-                </span>
-            </ModalDialog>
+                    <span>
+                        Foo bar
+                    </span>
+                </ModalDialog>
+            </MemoryRouter>
         );
 
 

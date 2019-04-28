@@ -1,0 +1,174 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseFilterListDialog rendering should work with filtered items 1`] = `
+<div
+  className="modal-dialog nice-modal viewport-center accent wide"
+>
+  <div
+    className="nice-modal-content"
+  >
+    <div
+      className="nice-modal-header"
+    >
+      <a
+        className="nice-modal-close"
+        onClick={[Function]}
+      >
+        <i
+          className="icon fa-times"
+        />
+      </a>
+      <h4>
+        Base Item Picker
+      </h4>
+    </div>
+    <div
+      className="nice-modal-body overflow-y-auto overflow-x-hidden"
+    >
+      <div>
+        two
+      </div>
+    </div>
+    <div
+      className="nice-modal-footer"
+    >
+      <div
+        className="base-link-group nice-btn-group pull-right"
+      >
+        <a
+          className="cursor-pointer nice-btn icon fa-cross"
+          onClick={[Function]}
+        >
+          Cancel
+        </a>
+        <a
+          className="cursor-pointer nice-btn icon fa-check primary"
+          onClick={[Function]}
+        >
+          Done
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BaseFilterListDialog rendering should work with full props 1`] = `
+<div
+  className="modal-dialog nice-modal viewport-center accent wide"
+>
+  <div
+    className="nice-modal-content"
+  >
+    <div
+      className="nice-modal-header"
+    >
+      <a
+        className="nice-modal-close"
+        onClick={[Function]}
+      >
+        <i
+          className="icon fa-times"
+        />
+      </a>
+      <h4>
+        Base Item Picker
+      </h4>
+    </div>
+    <div
+      className="nice-modal-body overflow-y-auto overflow-x-hidden"
+    >
+      <div
+        extraProp="passed"
+      >
+        one
+      </div>
+      <div
+        extraProp="passed"
+      >
+        two
+      </div>
+    </div>
+    <div
+      className="nice-modal-footer"
+    >
+      <div
+        className="base-link-group nice-btn-group pull-right"
+      >
+        <a
+          className="cursor-pointer nice-btn icon fa-cross"
+          onClick={[Function]}
+        >
+          Cancel
+        </a>
+        <a
+          className="cursor-pointer nice-btn icon fa-check primary"
+          onClick={[Function]}
+        >
+          Done
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BaseFilterListDialog rendering should work with minimum props 1`] = `
+<div
+  className="modal-dialog nice-modal viewport-center accent wide"
+>
+  <div
+    className="nice-modal-content"
+  >
+    <div
+      className="nice-modal-header"
+    >
+      <a
+        className="nice-modal-close"
+        onClick={[Function]}
+      >
+        <i
+          className="icon fa-times"
+        />
+      </a>
+      <h4>
+        Base Item Picker
+      </h4>
+    </div>
+    <div
+      className="nice-modal-body overflow-y-auto overflow-x-hidden"
+    />
+    <div
+      className="nice-modal-footer"
+    >
+      <div
+        className="base-link-group nice-btn-group pull-right"
+      >
+        <a
+          className="cursor-pointer nice-btn icon fa-cross"
+          onClick={[Function]}
+        >
+          Cancel
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BaseFilterListDialog should filter items when rendering 1`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+      "value": "one",
+    },
+  ],
+  Array [
+    Object {
+      "id": 2,
+      "value": "two",
+    },
+  ],
+]
+`;

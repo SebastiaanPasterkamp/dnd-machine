@@ -43,7 +43,7 @@ class WeaponsFooter extends LazyComponent
                 <td colSpan={5}>
                     <WeaponLinks
                         altStyle={true}
-                        />
+                    />
                 </td>
             </tr>
         </tbody>
@@ -63,8 +63,8 @@ class WeaponsRow extends LazyComponent
                 {name}
                 <WeaponLinks
                     altStyle={true}
-                    weapon_id={id}
-                    />
+                    id={id}
+                />
             </th>
             <td><DiceNotation {...damage}/></td>
             <td>{range

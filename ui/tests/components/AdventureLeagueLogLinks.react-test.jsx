@@ -12,8 +12,7 @@ describe('Component: AdventureLeagueLogLinks', () => {
     it('should render without props', () => {
         const tree = renderer.create(
             <MemoryRouter>
-                <AdventureLeagueLogLinks
-                    />
+                <AdventureLeagueLogLinks />
             </MemoryRouter>
         );
 
@@ -24,12 +23,12 @@ describe('Component: AdventureLeagueLogLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <AdventureLeagueLogLinks
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         dci: "1234",
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 
@@ -41,12 +40,12 @@ describe('Component: AdventureLeagueLogLinks', () => {
             <MemoryRouter>
                 <AdventureLeagueLogLinks
                     characterId={123}
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         dci: "1234",
                         role: ['player'],
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 
@@ -57,16 +56,16 @@ describe('Component: AdventureLeagueLogLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <AdventureLeagueLogLinks
-                    logId={100}
-                    current_user={{
+                    id={100}
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
                     adventureleague={{
                         user_id: 1,
-                        consumed: 0,
+                        consumed: false,
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 
@@ -77,16 +76,16 @@ describe('Component: AdventureLeagueLogLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <AdventureLeagueLogLinks
-                    logId={100}
-                    current_user={{
+                    id={100}
+                    currentUser={{
                         id: 2,
                         role: ['admin'],
                     }}
                     adventureleague={{
                         user_id: 1,
-                        consumed: 0,
+                        consumed: false,
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 
@@ -97,17 +96,17 @@ describe('Component: AdventureLeagueLogLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <AdventureLeagueLogLinks
-                    logId={100}
-                    current_user={{
+                    id={100}
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
                     adventureleague={{
                         user_id: 1,
                         character_id: 10,
-                        consumed: 0,
+                        consumed: false,
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 
@@ -118,93 +117,172 @@ describe('Component: AdventureLeagueLogLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <AdventureLeagueLogLinks
-                    logId={100}
-                    current_user={{
+                    id={100}
+                    currentUser={{
                         id: 1,
                         role: ['player'],
                     }}
                     adventureleague={{
                         user_id: 1,
                         character_id: 10,
-                        consumed: 1,
+                        consumed: true,
                     }}
-                    />
+                />
             </MemoryRouter>
         );
 
         expect(tree).toMatchSnapshot();
     });
 
-    it('delete should confirm, then submit', () => {
-        global.confirm = jest.fn();
-        global.confirm.mockReturnValueOnce(true);
+    describe('delete should', () => {
+        it('confirm, then submit', () => {
+            global.confirm = jest.fn();
+            global.confirm.mockReturnValueOnce(true);
 
-        fetch.mockResponseOnce('{}');
+            fetch.mockResponseOnce('{}');
 
-        const wrapper = mount(
-            <MemoryRouter>
-                <AdventureLeagueLogLinks
-                    logId={100}
-                    current_user={{
-                        id: 1,
-                        role: ['player'],
-                    }}
-                    adventureleague={{
-                        user_id: 1,
-                        consumed: 0,
-                    }}
+            const wrapper = mount(
+                <MemoryRouter>
+                    <AdventureLeagueLogLinks
+                        id={100}
+                        currentUser={{
+                            id: 1,
+                            role: ['player'],
+                        }}
+                        adventureleague={{
+                            user_id: 1,
+                            consumed: false,
+                        }}
                     />
-            </MemoryRouter>
-        );
+                </MemoryRouter>
+            );
 
-        wrapper
-            .find('a.fa-trash-o')
-            .simulate('click');
+            wrapper
+                .find('a.fa-trash-o')
+                .simulate('click');
 
-        expect(global.confirm).toHaveBeenCalled();
-        global.confirm.mockRestore();
+            expect(global.confirm).toHaveBeenCalled();
+            global.confirm.mockRestore();
 
-        expect(fetch).toBeCalledWith(
-            '/log/adventureleague/api/100',
-            {
-                credentials: 'same-origin',
-                method: 'DELETE',
-                'headers': {
-                    'X-Requested-With': 'XMLHttpRequest'
+            expect(fetch).toBeCalledWith(
+                '/log/adventureleague/api/100',
+                {
+                    credentials: 'same-origin',
+                    method: 'DELETE',
+                    'headers': {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
                 }
-            }
-        );
+            );
+        });
+
+        it('not submit without confirm', () => {
+            global.confirm = jest.fn();
+            global.confirm.mockReturnValueOnce(false);
+
+            fetch.mockResponseOnce('{}');
+
+            const wrapper = mount(
+                <MemoryRouter>
+                    <AdventureLeagueLogLinks
+                        id={100}
+                        currentUser={{
+                            id: 1,
+                            role: ['player'],
+                        }}
+                        adventureleague={{
+                            user_id: 1,
+                            consumed: false,
+                        }}
+                    />
+                </MemoryRouter>
+            );
+
+            wrapper
+                .find('a.fa-trash-o')
+                .simulate('click');
+
+            expect(global.confirm).toHaveBeenCalled();
+            global.confirm.mockRestore();
+
+            expect(fetch).not.toBeCalled();
+        });
     });
 
-    it('delete should not submit without confirm', () => {
-        global.confirm = jest.fn();
-        global.confirm.mockReturnValueOnce(false);
+    describe('consume should', () => {
+        it('confirm, then submit', () => {
+            global.confirm = jest.fn();
+            global.confirm.mockReturnValueOnce(true);
 
-        fetch.mockResponseOnce('{}');
+            fetch.mockResponseOnce('{}');
 
-        const wrapper = mount(
-            <MemoryRouter>
-                <AdventureLeagueLogLinks
-                    logId={100}
-                    current_user={{
-                        id: 1,
-                        role: ['player'],
-                    }}
-                    adventureleague={{
-                        user_id: 1,
-                        consumed: 0,
-                    }}
+            const wrapper = mount(
+                <MemoryRouter>
+                    <AdventureLeagueLogLinks
+                        id={100}
+                        currentUser={{
+                            id: 1,
+                            role: ['player'],
+                        }}
+                        adventureleague={{
+                            user_id: 1,
+                            character_id: 2,
+                            consumed: false,
+                        }}
                     />
-            </MemoryRouter>
-        );
+                </MemoryRouter>
+            );
 
-        wrapper
-            .find('a.fa-trash-o')
-            .simulate('click');
+            wrapper
+                .find('a.fa-thumb-tack')
+                .simulate('click');
 
-        expect(global.confirm).toHaveBeenCalled();
-        global.confirm.mockRestore();
+            expect(global.confirm).toHaveBeenCalled();
+            global.confirm.mockRestore();
 
-        expect(fetch).not.toBeCalled();
+            expect(fetch).toBeCalledWith(
+                '/log/adventureleague/consume/100',
+                {
+                    credentials: 'same-origin',
+                    method: 'PATCH',
+                    'headers': {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                }
+            );
+        });
+
+        it('not submit without confirm', () => {
+            global.confirm = jest.fn();
+            global.confirm.mockReturnValueOnce(false);
+
+            fetch.mockResponseOnce('{}');
+
+            const wrapper = mount(
+                <MemoryRouter>
+                    <AdventureLeagueLogLinks
+                        id={100}
+                        currentUser={{
+                            id: 1,
+                            role: ['player'],
+                        }}
+                        adventureleague={{
+                            user_id: 1,
+                            character_id: 2,
+                            consumed: false,
+                        }}
+                    />
+                </MemoryRouter>
+            );
+
+            wrapper
+                .find('a.fa-thumb-tack')
+                .simulate('click');
+
+            expect(global.confirm).toHaveBeenCalled();
+            global.confirm.mockRestore();
+
+            expect(fetch).not.toBeCalled();
+        });
     });
 });

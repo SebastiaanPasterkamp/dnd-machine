@@ -18,7 +18,7 @@ import RoutedObjectDataWrapper from '../../hocs/RoutedObjectDataWrapper.jsx';
 
 import CalculatorInputField from '../../components/CalculatorInputField.jsx';
 import CharacterLabel from '../../components/CharacterLabel.jsx';
-import CharacterSelectDialog from '../../components/CharacterSelectDialog.jsx';
+import CharacterPicker from '../../components/CharacterPicker';
 import ToggleSwitch from '../../components/ToggleSwitch.jsx';
 import ControlGroup from '../../components/ControlGroup.jsx';
 import Coinage from '../../components/Coinage.jsx';
@@ -26,7 +26,6 @@ import CostEditor from '../../components/CostEditor.jsx';
 import InputField from '../../components/InputField.jsx';
 import ListComponent from '../../components/ListComponent.jsx';
 import MarkdownTextField from '../../components/MarkdownTextField.jsx';
-import ModalDialog from '../../components/ModalDialog.jsx';
 import Panel from '../../components/Panel.jsx';
 import UserLabel from '../../components/UserLabel.jsx';
 import TabComponent from '../../components/TabComponent.jsx';
@@ -85,7 +84,7 @@ export class AdventureLeagueLogEdit extends React.Component
         });
     };
 
-    characterFilter = (character) => {
+    onCharacterFilter = (character) => {
         const { current_user } = this.props;
         return (
             current_user.id === character.user_id
@@ -94,6 +93,11 @@ export class AdventureLeagueLogEdit extends React.Component
                 || character.adventure_league
             )
         );
+    }
+
+    onCharacterSelect = ({ id }) => {
+        const { setState } = this.props;
+        setState({ character_id: id });
     }
 
     render() {
@@ -363,12 +367,9 @@ export class AdventureLeagueLogEdit extends React.Component
             </Panel>
 
             {character_id === null && (
-                <CharacterSelectDialog
-                    filter={this.characterFilter}
-                    onDone={this.memoize(
-                        'character_id',
-                        character_id => setState({ character_id })
-                    )}
+                <CharacterPicker
+                    filter={this.onCharacterFilter}
+                    onDone={this.onCharacterSelect}
                 />
             )}
         </React.Fragment>;

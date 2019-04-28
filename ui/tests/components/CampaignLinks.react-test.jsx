@@ -19,7 +19,7 @@ describe('Component: CampaignLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <CampaignLinks
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['dm'],
                     }}
@@ -34,11 +34,11 @@ describe('Component: CampaignLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <CampaignLinks
-                    campaign_id={10}
+                    id={10}
                     campaign={{
                         user_id: 2,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['admin'],
                     }}
@@ -53,11 +53,11 @@ describe('Component: CampaignLinks', () => {
         const tree = renderer.create(
             <MemoryRouter>
                 <CampaignLinks
-                    campaign_id={10}
+                    id={10}
                     campaign={{
                         user_id: 1,
                     }}
-                    current_user={{
+                    currentUser={{
                         id: 1,
                         role: ['dm'],
                     }}

@@ -34,8 +34,7 @@ class NpcFooter extends LazyComponent
                 <td colSpan={5}>
                     <NpcLinks
                         altStyle={true}
-                        buttons={['new']}
-                        />
+                    />
                 </td>
             </tr>
         </tbody>
@@ -55,8 +54,8 @@ class NpcRow extends LazyComponent
                 {name}
                 <NpcLinks
                     altStyle={true}
-                    npc_id={id}
-                    />
+                    id={id}
+                />
             </th>
             <td>{race}</td>
             <td>{_class}</td>

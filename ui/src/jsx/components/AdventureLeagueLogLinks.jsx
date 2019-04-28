@@ -2,129 +2,178 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import ObjectDataActions from '../actions/ObjectDataActions.jsx';
-
-import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
+import {
+    BaseLinkButton,
+    BaseLinkGroup,
+} from '../components/BaseLinkGroup/index.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
-
 import { userHasRole } from '../utils.jsx';
 
-export class AdventureLeagueLogLinks extends BaseLinkGroup
+
+export class AdventureLeagueLogLinks extends React.Component
 {
-    constructor(props) {
-        super(props);
+    onConsume = () => {
+        const {
+            id,
+            adventureleague: { character_id },
+        } = this.props;
+        ObjectDataActions.consumeObject(
+            "adventureleague", id, "log",
+            () => ObjectDataActions.getObject(
+                "character", character_id
+            )
+        );
     }
 
-    buttonList() {
-        const {
-            logId, adventureleague = {}, current_user: user,
+    onDelete = () => {
+        const { id } = this.props;
+        ObjectDataActions.deleteObject("adventureleague", id,  "log");
+    }
+
+    render() {
+        const { id, adventureleague, characterId, currentUser,
+            altStyle, children, ...props
         } = this.props;
 
-        if (!user) {
+        if (!currentUser) {
             return {};
         }
 
-        return {
-            'view': () => ({
-                label: 'View',
-                link: "/log/adventureleague/show/" + logId,
-                icon: 'eye',
-                available: (
-                    !_.isNil(logId)
-                    && (
-                        adventureleague.user_id == user.id
-                        || userHasRole(user, 'admin')
-                    )
-                ),
-            }),
-            'raw': () => ({
-                label: 'Raw',
-                link: "/log/adventureleague/raw/" + logId,
-                icon: 'cogs',
-                available: (
-                    !_.isNil(logId)
-                    && userHasRole(user, 'admin')
-                ),
-            }),
-            'edit': () => ({
-                label: 'Edit',
-                link: "/log/adventureleague/edit/" + logId,
-                icon: 'pencil',
-                available: (
-                    !_.isNil(logId)
-                    && adventureleague.user_id == user.id
-                ),
-            }),
-            'assign': () => ({
-                label: 'Assign',
-                icon: 'user-o',
-                link: "/log/adventureleague/edit/" + logId + "#assign",
-                className: 'info',
-                available: (
-                    !_.isNil(logId)
-                    && adventureleague.user_id == user.id
-                    && !adventureleague.character_id
-                ),
-            }),
-            'consume': () => ({
-                label: 'Consume',
-                download: "/log/adventureleague/consume/" + logId,
-                icon: 'thumb-tack',
-                className: 'warning',
-                available: (
-                    !_.isNil(logId)
-                    && adventureleague.user_id == user.id
-                    && adventureleague.character_id
-                    && !adventureleague.consumed
-                ),
-            }),
-            'delete': () => ({
-                label: 'Delete',
-                action: () => {
-                    ObjectDataActions.deleteObject(
-                        "adventureleague", logId, "log"
-                    );
-                },
-                icon: 'trash-o',
-                className: 'bad',
-                available: (
-                    !_.isNil(logId)
-                    && adventureleague.user_id == user.id
-                    && !adventureleague.consumed
-                ),
-            }),
-        };
+        return (
+            <BaseLinkGroup {...props}>
+                <BaseLinkButton
+                    name="view"
+                    label="View"
+                    icon="eye"
+                    altStyle={altStyle}
+                    link={`/log/adventureleague/show/${id}`}
+                    available={(
+                        id !== null
+                        && (
+                            adventureleague.user_id === currentUser.id
+                            || userHasRole(currentUser, 'admin')
+                        )
+                    )}
+                />
+                <BaseLinkButton
+                    name="raw"
+                    label="Raw"
+                    icon="cogs"
+                    altStyle={altStyle}
+                    download={`/log/adventureleague/raw/${id}`}
+                    available={(
+                        id !== null
+                        && userHasRole(currentUser, 'admin')
+                    )}
+                />
+                <BaseLinkButton
+                    name="edit"
+                    label="Edit"
+                    icon="pencil"
+                    altStyle={altStyle}
+                    link={`/log/adventureleague/edit/${id}`}
+                    available={(
+                        id !== null
+                        && adventureleague.user_id === currentUser.id
+                    )}
+                />
+                <BaseLinkButton
+                    name="assign"
+                    label="Assign"
+                    icon="user-o"
+                    altStyle={altStyle}
+                    className="info"
+                    link={`/log/adventureleague/edit/${id}#assign`}
+                    available={(
+                        id !== null
+                        && adventureleague.user_id === currentUser.id
+                        && !adventureleague.character_id
+                    )}
+                />
+                <BaseLinkButton
+                    name="consume"
+                    label="Consume"
+                    icon="thumb-tack"
+                    altStyle={altStyle}
+                    className="warning"
+                    action={this.onConsume}
+                    available={(
+                        id !== null
+                        && adventureleague.user_id === currentUser.id
+                        && !!adventureleague.character_id
+                        && !adventureleague.consumed
+                    )}
+                />
+                <BaseLinkButton
+                    name="new"
+                    label="New"
+                    icon="plus"
+                    link={characterId
+                        ? `/log/adventureleague/new/${characterId}`
+                        : "/log/adventureleague/new"
+                    }
+                    altStyle={altStyle}
+                    available={(
+                        id === null
+                        && characterId !== null
+                        && userHasRole(currentUser, ['player', 'dm'])
+                        && !!currentUser.dci
+                    )}
+                />
+                <BaseLinkButton
+                    name="delete"
+                    label="Delete"
+                    icon="trash-o"
+                    className="bad"
+                    action={this.onDelete}
+                    altStyle={altStyle}
+                    available={(
+                        id !== null
+                        && adventureleague.user_id == currentUser.id
+                        && !adventureleague.consumed
+                    )}
+                />
+                {children}
+            </BaseLinkGroup>
+        );
     }
-}
+};
 
-AdventureLeagueLogLinks.propTypes = _.assign(
-    {}, BaseLinkGroup.propTypes, {
-        buttons: PropTypes.arrayOf(
-            PropTypes.oneOf([
-                'view', 'edit', 'assign', 'consume', 'delete',
-                'raw', 'new',
-            ])
+AdventureLeagueLogLinks.propTypes = {
+    altStyle: PropTypes.bool,
+    id: PropTypes.number,
+    adventureleague: PropTypes.shape({
+        user_id: PropTypes.number,
+        character_id: PropTypes.number,
+        consumed: PropTypes.oneOfType([
+            PropTypes.bool,
+            PropTypes.number,
+        ]),
+    }),
+    characterId: PropTypes.number,
+    currentUser: PropTypes.shape({
+        id: PropTypes.number,
+        role: PropTypes.arrayOf(
+            PropTypes.oneOf(['player', 'dm', 'admin'])
         ),
-        logId: PropTypes.number,
-        current_user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            dci: PropTypes.string,
-            role: PropTypes.arrayOf(
-                PropTypes.oneOf(['player', 'dm', 'admin'])
-            ),
-        }),
-        adventureleague: PropTypes.shape({
-            user_id: PropTypes.number.isRequired,
-            consumed: PropTypes.oneOf([0, 1]).isRequired,
-            character_id: PropTypes.number,
-        }),
-    }
-);
+    }),
+};
+
+AdventureLeagueLogLinks.defaultProps = {
+    altStyle: false,
+    id: null,
+    adventureleague: {},
+    characterId: null,
+    currentUser: {},
+};
 
 export default ListDataWrapper(
     ObjectDataWrapper(AdventureLeagueLogLinks, [
-        {group: 'log', type: 'adventureleague', id: 'logId'}
+        {group: 'log', type: 'adventureleague', id: 'id'}
     ]),
-    ['current_user']
+    ['current_user'],
+    null,
+    { current_user: 'currentUser' }
 );

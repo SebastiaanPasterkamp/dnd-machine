@@ -1,6 +1,10 @@
 import _ from 'lodash';
 import math from 'mathjs';
 
+const styleCache = {
+    '': null,
+};
+
 const utils = {
     randomColor() {
         var letters = '0123456789ABCDEF';
@@ -24,10 +28,11 @@ const utils = {
                 styles
             )
         );
-        if (!active.length) {
-            return null;
+        const style = _.join(active, ' ');
+        if (styleCache[style] === undefined) {
+            styleCache[style] = style;
         }
-        return _.join(active, ' ');
+        return styleCache[style];
     },
 
     closest(options, target, defaultOption=null) {

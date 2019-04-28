@@ -1,110 +1,95 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {
+    BaseLinkButton,
+    BaseLinkGroup,
+} from '../components/BaseLinkGroup/index.jsx';
+
 import '../../sass/_modal-dialog.scss';
 
-import LazyComponent from '../components/LazyComponent.jsx';
 
-import BaseLinkGroup from './BaseLinkGroup.jsx';
-
-class ModalDialogLinks extends BaseLinkGroup
-{
-    constructor(props) {
-        super(props);
-    }
-
-    buttonList() {
-        const {
-            onDone,
-            doneLabel = 'Done',
-            onCancel,
-            cancelLabel = 'Cancel',
-        } = this.props;
-
-        return {
-            'cancel': () => ({
-                label: cancelLabel,
-                icon: 'fa-cross',
-                action: onCancel,
-                available: !!onCancel,
-            }),
-            'done': () => ({
-                label: doneLabel,
-                icon: 'fa-check',
-                action: onDone,
-                className: 'primary',
-                available: !!onDone,
-            })
-        };
-    }
-}
-
-ModalDialogLinks.propTypes = {
-    onCancel: PropTypes.func,
-    onSave: PropTypes.func,
-    onDone: PropTypes.func,
-};
-
-export class ModalDialog extends LazyComponent
-{
-    render() {
-        const {
-            onCancel, label, subheading, children,
-            onHelp, helpLabel = 'Help', ...props
-        } = this.props;
-
-        return <div
-            className="nice-modal viewport-center accent wide"
-            >
+const ModalDialog = function({
+    label, subheading, children, onHelp, helpLabel,
+    onDone, doneLabel, onCancel, cancelLabel,
+}) {
+    return (
+        <div
+            className="modal-dialog nice-modal viewport-center accent wide"
+        >
             <div className="nice-modal-content">
                 <div className="nice-modal-header">
                     {onCancel && (
                         <a
                             className="nice-modal-close"
                             onClick={ onCancel }
-                            >
-                            <i className="icon fa-times"></i>
+                        >
+                            <i className="icon fa-times" />
                         </a>
                     )}
                     <h4>{ label }</h4>
                 </div>
 
-                {subheading && <div className="nice-modal-sub">
-                    { subheading }
-                </div>  }
+                {subheading && (
+                    <div className="nice-modal-sub">
+                        { subheading }
+                    </div>
+                )}
 
-                <div className="nice-modal-body overflow-x-scroll">
+                <div className="nice-modal-body overflow-y-auto overflow-x-hidden">
                     { children }
                 </div>
 
                 <div className="nice-modal-footer">
-                    {onHelp && <a
-                        className="nice-btn link icon fa-question"
-                        onClick={ onHelp }
+                    {onHelp && (
+                        <a
+                            className="nice-btn link icon fa-question"
+                            onClick={ onHelp }
                         >
-                        { helpLabel }
-                    </a> }
-                    <ModalDialogLinks
-                        className="pull-right"
-                        {...props}
-                        onCancel={ onCancel }
+                            { helpLabel }
+                        </a>
+                    )}
+                    <BaseLinkGroup className="pull-right">
+                        <BaseLinkButton
+                            label={cancelLabel}
+                            icon="cross"
+                            action={onCancel}
+                            available={!!onCancel}
                         />
+                        <BaseLinkButton
+                            label={doneLabel}
+                            icon="check"
+                            className="primary"
+                            action={onDone}
+                            available={!!onDone}
+                        />
+                    </BaseLinkGroup>
                 </div>
             </div>
-        </div>;
-    }
-}
+        </div>
+    );
+};
 
 ModalDialog.propTypes = {
     label: PropTypes.string.isRequired,
     children: PropTypes.any.isRequired,
-    subheading: PropTypes.string,
+    subheading: PropTypes.any,
     onCancel: PropTypes.func,
     cancelLabel: PropTypes.string,
     onDone: PropTypes.func,
     doneLabel: PropTypes.string,
     onHelp: PropTypes.func,
     helpLabel: PropTypes.string,
+};
+
+ModalDialog.defaultProps = {
+    subheading: null,
+    onCancel: null,
+    cancelLabel: 'Cancel',
+    onDone: null,
+    doneLabel: 'Done',
+    onHelp: null,
+    helpLabel: 'Help',
 };
 
 export default ModalDialog;

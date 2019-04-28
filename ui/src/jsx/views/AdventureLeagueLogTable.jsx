@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MDReactComponent from 'markdown-react-js';
 
 import '../../sass/_adventure-league-log-table.scss';
@@ -8,9 +9,9 @@ import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 
 import AdventureLeagueLogLinks from '../components/AdventureLeagueLogLinks.jsx';
-import BaseLinkGroup from '../components/BaseLinkGroup.jsx';
+import { BaseLinkButton } from '../components/BaseLinkGroup/index.jsx';
 import CharacterLabel from '../components/CharacterLabel.jsx';
-import CharacterPicker from './CharacterPicker.jsx';
+import CharacterPicker from '../components/CharacterPicker';
 import Coinage from '../components/Coinage.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import ListLabel from '../components/ListLabel.jsx';
@@ -35,28 +36,23 @@ const AdventureLeagueLogFooter = function({
     onNew,
     characterId,
 }) {
-    const extra = characterId !== undefined ? ({
-        'new': {
-            label: 'New',
-            link: "/log/adventureleague/new/" + characterId,
-            icon: 'plus',
-        },
-    }) : ({
-        'new': {
-            label: 'New',
-            action: onNew,
-            icon: 'plus',
-        },
-    });
-
     return (
         <tbody>
             <tr>
                 <th>
-                    <BaseLinkGroup
+                    <AdventureLeagueLogLinks
                         altStyle={true}
-                        extra={extra}
+                        characterId={characterId}
+                    >
+                        <BaseLinkButton
+                            name="new"
+                            label="New"
+                            icon="plus"
+                            altStyle={true}
+                            available={!characterId}
+                            action={onNew}
                         />
+                    </AdventureLeagueLogLinks>
                 </th>
                 <td colSpan={3}>
                 </td>
@@ -82,8 +78,8 @@ class AdventureLeagueRow extends LazyComponent
                 <span>{adventure.date}</span>
                 <AdventureLeagueLogLinks
                     altStyle={true}
-                    logId={logId}
-                    />
+                    id={logId}
+                />
             </th>
             <td>
                 {xp.earned
@@ -153,54 +149,6 @@ class AdventureLeagueRow extends LazyComponent
     }
 };
 
-export class CharacterSelectDialog extends React.Component
-{
-    constructor(props) {
-        super(props);
-        this.state = {
-            character_id: null,
-        };
-    }
-
-    render() {
-        const {
-            onCancel,
-            current_user,
-        } = this.props
-        const {
-            character_id,
-        } = this.state;
-
-        return (
-            <ModalDialog
-                label="Pick a Character"
-                onCancel={onCancel}
-                onDone={character_id == null
-                    ? null
-                    : () => onDone(character_id)
-                }
-            >
-                <CharacterPicker
-                    filter={character => (
-                        current_user.id == character.user_id
-                        && (
-                            character.xp == 0
-                            || character.adventure_league
-                        )
-                    )}
-                    actions={character => ({
-                        'pick': {
-                            label: 'Pick',
-                            link: "/log/adventureleague/new/" + character.id,
-                            icon: 'user-secret',
-                        },
-                    })}
-                />
-            </ModalDialog>
-        );
-    }
-};
-
 class AdventureLeagueLogTable extends LazyComponent
 {
     constructor(props) {
@@ -210,6 +158,22 @@ class AdventureLeagueLogTable extends LazyComponent
         };
 
         this.toggleDialog = this.toggleDialog.bind(this);
+    }
+
+    onCharacterFilter = (character) => {
+        const { currentUser } = this.props;
+        return (
+            currentUser.id == character.user_id
+            && (
+                character.xp == 0
+                || character.adventure_league
+            )
+        );
+    }
+
+    onCharacterSelect = (id) => {
+        const { router: { history } } = this.context;
+        history.push(`/log/adventureleague/new/${id}`);
     }
 
     toggleDialog() {
@@ -237,7 +201,7 @@ class AdventureLeagueLogTable extends LazyComponent
     render() {
         const {
             logs,
-            current_user,
+            currentUser,
             search = '',
             character: {
                 id: character_id,
@@ -262,8 +226,8 @@ class AdventureLeagueLogTable extends LazyComponent
         );
 
         const canCreateNew = (
-            userHasRole(current_user, 'player')
-            && current_user.dci
+            userHasRole(currentUser, 'player')
+            && currentUser.dci
         );
 
         return <div className="adventure-league-log-table">
@@ -291,13 +255,18 @@ class AdventureLeagueLogTable extends LazyComponent
             </table>
 
             {dialog && canCreateNew && (
-                <CharacterSelectDialog
+                <CharacterPicker
                     onCancel={this.toggleDialog}
-                    current_user={current_user}
+                    onDone={this.onCharacterSelect}
+                    onFilter={this.onCharacterFilter}
                 />
             )}
         </div>
     }
+};
+
+AdventureLeagueLogTable.contextTypes = {
+    router: PropTypes.object,
 };
 
 export default ListDataWrapper(
@@ -313,5 +282,7 @@ export default ListDataWrapper(
     [
         'current_user',
         'search',
-    ]
+    ],
+    null,
+    { current_user: 'currentUser' }
 );

@@ -21,6 +21,8 @@ import PartyLinks from '../components/PartyLinks.jsx';
 
 export class PartyView extends React.Component
 {
+    characterLinks = ['view'];
+
     render() {
         const {
             id, name, user_id, description, size, member_ids,
@@ -39,13 +41,9 @@ export class PartyView extends React.Component
                         <th colSpan="2">
                             <PartyLinks
                                 className="pull-right"
-                                party_id={id}
-                                omit={['view']}
-                                />
-
-                            <h3>
-                                {name}
-                            </h3>
+                                id={id}
+                            />
+                            <h3>{name}</h3>
                         </th>
                     </tr>
                 </thead>
@@ -134,9 +132,9 @@ export class PartyView extends React.Component
                             {name}
                             <CharacterLinks
                                 altStyle={true}
-                                buttons={['view']}
-                                character_id={id}
-                                />
+                                include={this.characterLinks}
+                                id={id}
+                            />
                         </th>
                         <td>{level}</td>
                         <td className="info">

@@ -1,0 +1,16 @@
+// _monster-label.scss
+
+.monster-label {
+    > .list-label:after {
+        content: ' ';
+    }
+
+    &--name {
+        display: block;
+    }
+
+    &--type {
+        display: block;
+        color: #B2B2B2;
+    }
+}

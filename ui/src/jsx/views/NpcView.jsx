@@ -45,11 +45,9 @@ export class NpcView extends React.Component
                     <tr>
                         <th colSpan={2}>
                             <NpcLinks
-                                buttons={['edit']}
                                 className="pull-right"
-                                npc_id={id}
-                                />
-
+                                id={id}
+                            />
                             <h3>{name}</h3>
                         </th>
                     </tr>

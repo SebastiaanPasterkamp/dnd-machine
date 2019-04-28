@@ -43,10 +43,9 @@ export class WeaponsView extends React.Component
                         <th colSpan={2}>
                             <WeaponLinks
                                 className="pull-right"
-                                weapon_id={id}
-                                omit={['view']}
-                                />
-                            { name }
+                                id={id}
+                            />
+                            <h3>{ name }</h3>
                         </th>
                     </tr>
                     <tr>

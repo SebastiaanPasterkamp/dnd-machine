@@ -2,7 +2,7 @@
 
 exports[`Component: ModalDialog should render with full props 1`] = `
 <div
-  className="nice-modal viewport-center accent wide"
+  className="modal-dialog nice-modal viewport-center accent wide"
 >
   <div
     className="nice-modal-content"
@@ -28,7 +28,7 @@ exports[`Component: ModalDialog should render with full props 1`] = `
       more testing
     </div>
     <div
-      className="nice-modal-body overflow-x-scroll"
+      className="nice-modal-body overflow-y-auto overflow-x-hidden"
     >
       <span>
         Foo bar
@@ -47,13 +47,13 @@ exports[`Component: ModalDialog should render with full props 1`] = `
         className="base-link-group nice-btn-group pull-right"
       >
         <a
-          className="cursor-pointer nice-btn icon fa-fa-cross pull-right"
+          className="cursor-pointer nice-btn icon fa-cross"
           onClick={[Function]}
         >
           Close
         </a>
         <a
-          className="cursor-pointer nice-btn icon fa-fa-check primary"
+          className="cursor-pointer nice-btn icon fa-check primary"
           onClick={[Function]}
         >
           Save
@@ -66,7 +66,7 @@ exports[`Component: ModalDialog should render with full props 1`] = `
 
 exports[`Component: ModalDialog should render with minimum props 1`] = `
 <div
-  className="nice-modal viewport-center accent wide"
+  className="modal-dialog nice-modal viewport-center accent wide"
 >
   <div
     className="nice-modal-content"
@@ -79,13 +79,17 @@ exports[`Component: ModalDialog should render with minimum props 1`] = `
       </h4>
     </div>
     <div
-      className="nice-modal-body overflow-x-scroll"
+      className="nice-modal-body overflow-y-auto overflow-x-hidden"
     >
       Foo bar
     </div>
     <div
       className="nice-modal-footer"
-    />
+    >
+      <div
+        className="base-link-group nice-btn-group pull-right"
+      />
+    </div>
   </div>
 </div>
 `;
