@@ -9,13 +9,13 @@ RUNARGS="--config DATABASE=$DATABASE"
 if [ ! -e "$DATABASE" ]; then
     if [ -e "$CONFIGURED" ]; then
         echo "Importing existing DnD Machine database."
-        cp "$CONFIGURED" "$DATABASE"
+        cp -v "$CONFIGURED" "$DATABASE"
     else
         echo "Initializing DnD Machine. Login with 'admin/admin' to get started."
         ./run.py \
-            $RUNARGS \
             --debug \
             --initdb
+        cp -v "$CONFIGURED" "$DATABASE"
     fi
 fi
 

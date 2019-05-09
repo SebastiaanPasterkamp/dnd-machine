@@ -52,12 +52,12 @@
     "webpack-hot-middleware": "^2.24.3"
   },
   "scripts": {
-    "start:dev": "DEBUG='express:*' webpack-dev-server",
-    "dev": "webpack -d --watch",
-    "build": "webpack -p",
-    "build:watch": "npm run build -- --watch",
+    "start:dev": "webpack-dev-server",
+    "start:debug": "DEBUG='express:*' npm run start:dev",
+    "build": "webpack",
+    "build:watch": "npm run build -- -d --watch",
     "build:development": "npm run build",
-    "build:production": "npm run build --  --env prod",
+    "build:production": "npm run build -- -p",
     "test": "node_modules/.bin/jest"
   },
   "jest": {
