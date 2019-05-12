@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     filter,
     isEmpty,
@@ -74,7 +75,6 @@ export class CharacterEdit extends React.Component
 
         return (
             <React.Fragment>
-
                 { !isEmpty(config) ? (
                     <Panel
                         key="level-up"
@@ -149,6 +149,20 @@ export class CharacterEdit extends React.Component
             </React.Fragment>
         );
     }
+};
+
+CharacterEdit.propTypes = {
+    onUpdate: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    character: PropTypes.object,
+    config: PropTypes.arrayOf(
+        PropTypes.object
+    ),
+};
+
+CharacterEdit.defaultProps = {
+    character: {},
+    config: {},
 };
 
 export const CharacterEditView = BaseViewWrapper(

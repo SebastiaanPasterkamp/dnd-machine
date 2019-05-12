@@ -1,40 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { sprintf } from 'sprintf-js';
-import _ from 'lodash';
 
 import utils from '../../utils.jsx';
 
-import LazyComponent from '../LazyComponent.jsx';
 import MarkdownTextField from '../MarkdownTextField.jsx';
 import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
 
-export class DictPropertySelect extends LazyComponent
+export class DictPropertySelect extends React.Component
 {
+    constructor(props) {
+        super(props);
+        this.state = this.constructor.getDerivedStateFromProps(props, {});
+    }
+
     componentDidMount() {
         this.props.onChange(
             this.props.dict
         );
     }
 
+    static getDerivedStateFromProps(props, state) {
+        const { current, dict } = props;
+        const content = {
+            ...current,
+            ...dict,
+        };
+        const value = sprintf(
+            content.description || '',
+            content
+        );
+
+        if (value !== state.value) {
+            return { value };
+        }
+        return null;
+    }
+
     render() {
-        const {
-            hidden,
-            current,
-            dict,
-        } = this.props;
+        const { hidden } = this.props;
+        const { value } = this.state;
 
         if (hidden) {
             return null;
         }
 
-        const content = current || dict;
-
-        return <MarkdownTextField
-            className="small"
-            disabled={true}
-            value={sprintf(content.description || '', content)}
-            />;
+        return (
+            <MarkdownTextField
+                className="small"
+                disabled={true}
+                value={value}
+            />
+        );
     }
 };
 
@@ -46,4 +63,9 @@ DictPropertySelect.propTypes = {
     hidden: PropTypes.bool,
 };
 
-export default CharacterEditorWrapper(DictPropertySelect);
+export default CharacterEditorWrapper(
+    DictPropertySelect,
+    {
+        current: true,
+    }
+);

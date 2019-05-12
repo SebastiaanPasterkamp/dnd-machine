@@ -16,15 +16,15 @@ export class MultipleChoiceSelect extends LazyComponent
             added: [],
             removed: [],
             filtered: [],
+            showSelect: props.limit > 0,
+            disabled: props.removed <= 0,
         };
-        this.onAdd = this.onAdd.bind(this);
-        this.onDelete = this.onDelete.bind(this);
     }
 
-    onAdd(label) {
-        const { limit = 0, replace = 0 } = this.props;
+    onAdd = (label) => {
+        const { limit , replace } = this.props;
         const { added, removed, filtered } = this.state;
-        let state = {};
+        let state = { added, removed, filtered };
 
         if (_.includes(filtered, label)) {
             state.filtered = _.without(filtered, label);
@@ -35,16 +35,15 @@ export class MultipleChoiceSelect extends LazyComponent
         if (added.length < (limit + removed.length)) {
             state.added = _.concat(added, [label]);
         }
-        if (_.isEmpty(state)) {
-            return;
-        }
+        state.showSelect = (state.added.length - state.removed.length) < limit;
+        state.disabled = state.removed.length >= replace;
         this.setState(state);
     }
 
-    onDelete(label) {
-        const { replace = 0 } = this.props;
+    onDelete = (label) => {
+        const { limit, replace } = this.props;
         const { added, removed, filtered } = this.state;
-        let state = {};
+        let state = { added, removed, filtered };
 
         if (!_.includes(filtered, label)) {
             state.filtered = _.concat(filtered, [label]);
@@ -55,20 +54,21 @@ export class MultipleChoiceSelect extends LazyComponent
         if (removed.length < replace) {
             state.removed = _.concat(removed, [label]);
         }
-        if (_.isEmpty(state)) {
-            return;
-        }
+        state.showSelect = (state.added.length - state.removed.length) < limit;
+        state.disabled = state.removed.length >= replace;
+
         this.setState(state);
     }
 
+    onSetState = () => null;
+
     render() {
         const {
-            options, limit = 0, replace = 0,
-            getCurrent,
+            options, limit, replace, getCurrent,
         } = this.props;
-        const { added, removed, filtered } = this.state;
-        const showSelect = (added.length - removed.length) < limit;
-        const disabled = removed.length >= replace;
+        const {
+            added, removed, filtered, showSelect, disabled,
+        } = this.state;
 
         const value = _.chain(options)
             .filter(option => {
@@ -98,30 +98,33 @@ export class MultipleChoiceSelect extends LazyComponent
             })
             .value();
 
-        return <div>
-            <TagContainer
-                value={value}
-                items={items}
-                onAdd={ this.onAdd }
-                onDelete={ this.onDelete }
-                setState={() => null}
-                showSelect={showSelect}
+        return (
+            <div>
+                <TagContainer
+                    value={value}
+                    items={items}
+                    onAdd={ this.onAdd }
+                    onDelete={ this.onDelete }
+                    setState={ this.onSetState }
+                    showSelect={ showSelect }
                 />
-            {_.map(
-                options,
-                (config, i) => _.includes(value, config.label)
-                    ? <CharacterConfig
-                        key={i}
-                        config={ [config] }
+                {_.map(
+                    options,
+                    (config, i) => _.includes(value, config.label) ? (
+                        <CharacterConfig
+                            key={i}
+                            config={ [config] }
                         />
-                    : null
-            )}
-        </div>;
+                    ) : null
+                )}
+            </div>
+        );
     }
 };
 
-MultipleChoiceSelect.defaultTypes = {
-    replace: 0
+MultipleChoiceSelect.defaultProps = {
+    limit: 0,
+    replace: 0,
 };
 
 MultipleChoiceSelect.propTypes = {
@@ -133,4 +136,9 @@ MultipleChoiceSelect.propTypes = {
     replace: PropTypes.number,
 };
 
-export default CharacterEditorWrapper(MultipleChoiceSelect);
+export default CharacterEditorWrapper(
+    MultipleChoiceSelect,
+    {
+        character: true,
+    }
+);

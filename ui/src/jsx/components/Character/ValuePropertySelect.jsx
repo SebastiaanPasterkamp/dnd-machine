@@ -7,27 +7,42 @@ import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
 
 export class ValuePropertySelect extends LazyComponent
 {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: '',
+        };
+    }
+
     componentDidMount() {
         this.props.onChange(
             this.props.value
         );
     }
 
+    static getDerivedStateFromProps(props, state) {
+        const value = props.value.toString();
+        if (value !== state.value) {
+            return { value };
+        }
+        return null;
+    }
+
     render() {
-        const {
-            hidden,
-            value,
-        } = this.props;
+        const { hidden } = this.props;
+        const { value } = this.state;
 
         if (hidden) {
             return null;
         }
 
-        return <MarkdownTextField
-            className="small"
-            disabled={true}
-            value={value.toString()}
-            />;
+        return (
+            <MarkdownTextField
+                className="small"
+                disabled={true}
+                value={value}
+            />
+        );
     }
 };
 

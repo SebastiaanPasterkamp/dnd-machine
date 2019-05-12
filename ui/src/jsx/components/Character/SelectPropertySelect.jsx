@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import LazyComponent from '../LazyComponent.jsx';
 import SingleSelect from '../SingleSelect.jsx';
@@ -27,13 +28,15 @@ export class SelectPropertySelect extends LazyComponent
             return null;
         }
 
-        return <SingleSelect
-            className="small"
-            items={items}
-            setState={onChange}
-            selected={current}
-            emptyLabel="Please select"
-            />;
+        return (
+            <SingleSelect
+                className="small"
+                items={items}
+                setState={onChange}
+                selected={current}
+                emptyLabel="Please select"
+            />
+        );
     }
 };
 
@@ -46,6 +49,11 @@ SelectPropertySelect.propTypes = {
 };
 
 export default ListsToItemsWrapper(
-    CharacterEditorWrapper(SelectPropertySelect),
+    CharacterEditorWrapper(
+        SelectPropertySelect,
+        {
+            current: true,
+        }
+    ),
     'items'
 );
