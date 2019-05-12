@@ -100,7 +100,7 @@ class CharacterEditorStore extends Reflux.Store
 
         this.setState({
             character,
-            config: ComputeConfig(oldConfig || config, character),
+            config: ComputeConfig(config, character),
         });
     }
 

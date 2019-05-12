@@ -7,37 +7,24 @@ import TabComponent from '../TabComponent.jsx';
 
 import CharacterConfig from './CharacterConfig.jsx';
 
-export class ChoiceSelect extends LazyComponent
-{
-    constructor(props) {
-        super(props);
-    }
+export const ChoiceSelect = function({ options }) {
+    const filtered = _.chain(options)
+        .filter( option => !option.hidden )
+        .value();
 
-    render() {
-        const {
-            options,
-        } = this.props;
-        const props = {
-            label: undefined,
-        };
-
-        const filtered = _.chain(options)
-            .filter( option => !option.hidden )
-            .value();
-
-        return <TabComponent
-            tabConfig={filtered}
-            >
+    return (
+        <TabComponent tabConfig={filtered}>
             {_.map(
                 filtered,
-                (option, index) => <CharacterConfig
-                    {...props}
-                    key={ index }
-                    config={ [option] }
+                (option, index) => (
+                    <CharacterConfig
+                        key={ index }
+                        config={ [option] }
                     />
+                )
             )}
-        </TabComponent>;
-    }
+        </TabComponent>
+    );
 };
 
 ChoiceSelect.propTypes = {

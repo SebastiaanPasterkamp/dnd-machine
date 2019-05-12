@@ -10,6 +10,8 @@ import {
 import LazyComponent from '../LazyComponent.jsx';
 import SingleSelect from '../SingleSelect.jsx';
 
+import { memoize } from '../../utils';
+
 import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
 import ListsToItemsWrapper from '../../hocs/ListsToItemsWrapper.jsx';
 
@@ -21,6 +23,7 @@ export class ListPropertySelect extends LazyComponent
             added: [],
             removed: [],
         };
+        this.memoize = memoize.bind(this);
     }
 
     componentDidMount() {
@@ -42,19 +45,22 @@ export class ListPropertySelect extends LazyComponent
         });
     }
 
-    onDelete(value) {
-        const { replace = 0 } = this.props;
-        const { added, removed } = this.state;
-        let state = { added, removed };
-        if (_.includes(added, value)) {
-            state.added = _.without(state.added, value);
-        } else if (removed.length < replace) {
-            state.removed = _.concat(state.removed, [value]);
+    onDelete = (value) => this.memoize(
+        `delete-${value}`,
+        () => {
+            const { replace = 0 } = this.props;
+            const { added, removed } = this.state;
+            let state = { added, removed };
+            if (_.includes(added, value)) {
+                state.added = _.without(state.added, value);
+            } else if (removed.length < replace) {
+                state.removed = _.concat(state.removed, [value]);
+            }
+            this.setState(state, () => this.onSetState());
         }
-        this.setState(state, () => this.onSetState());
-    }
+    );
 
-    onAdd(value) {
+    onAdd = (value) => {
         const { limit = 0, replace = 0 } = this.props;
         const { added, removed } = this.state;
         let state = { added, removed };
@@ -89,9 +95,7 @@ export class ListPropertySelect extends LazyComponent
     }
 
     getValue() {
-        const {
-            given = [], current = [], replace = 0,
-        } = this.props;
+        const { given, current, replace } = this.props;
         const { added, removed } = this.state;
 
         const tags = _.map(
@@ -178,8 +182,8 @@ export class ListPropertySelect extends LazyComponent
 
     renderSelect() {
         const {
-            multiple, filter = [], items = [], current = [],
-            given = [], limit = 0, replace = 0,
+            multiple, filter, items, current, given,
+            limit, replace,
         } = this.props;
         const { added, removed } = this.state;
 
@@ -206,11 +210,13 @@ export class ListPropertySelect extends LazyComponent
 
         if (!filtered.length) return null;
 
-        return <SingleSelect
-            emptyLabel="Add..."
-            items={filtered}
-            setState={item => this.onAdd(item)}
-            />;
+        return (
+            <SingleSelect
+                emptyLabel="Add..."
+                items={filtered}
+                setState={this.onAdd}
+            />
+        );
     }
 
     render() {
@@ -224,7 +230,7 @@ export class ListPropertySelect extends LazyComponent
         const tags = _.map(
             this.getValue(),
             tag => _.assign(tag, {
-                onDelete: () => this.onDelete(tag.id),
+                onDelete: this.onDelete(tag.id),
             })
         );
 
@@ -235,7 +241,7 @@ export class ListPropertySelect extends LazyComponent
                 <Tag
                     key={`tag-${i}`}
                     {...tag}
-                    />
+                />
             ))}
         </TagsContainer>;
     }
@@ -260,7 +266,22 @@ ListPropertySelect.propTypes = {
     hidden: PropTypes.bool,
 };
 
+ListPropertySelect.defaultProps = {
+    given: [],
+    current: [],
+    limit: 0,
+    replace: 0,
+    multiple: false,
+    filter: {},
+    items: [],
+};
+
 export default ListsToItemsWrapper(
-    CharacterEditorWrapper(ListPropertySelect),
+    CharacterEditorWrapper(
+        ListPropertySelect,
+        {
+            current: true,
+        }
+    ),
     'items'
 );
