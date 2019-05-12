@@ -99,23 +99,26 @@ class CharacterBlueprint(BaseApiBlueprint):
             if not obj or key not in immutable
             )
 
-    def get_races(self):
+    def get_character_data(self, field):
+        items = []
+        for item in self.character_data[field]:
+            item = dict(item)
+            if 'phases' in item:
+                del item['phases']
+            items.append(item)
         return jsonify([{
             'type': 'choice',
-            'options': self.character_data['race'],
+            'options': items,
             }])
+
+    def get_races(self):
+        return self.get_character_data('race')
 
     def get_classes(self):
-        return jsonify([{
-            'type': 'choice',
-            'options': self.character_data['class'],
-            }])
+        return self.get_character_data('class')
 
     def get_backgrounds(self):
-        return jsonify([{
-            'type': 'choice',
-            'options': self.character_data['background'],
-            }])
+        return self.get_character_data('background')
 
     @BaseApiCallback('new')
     @BaseApiCallback('edit')
