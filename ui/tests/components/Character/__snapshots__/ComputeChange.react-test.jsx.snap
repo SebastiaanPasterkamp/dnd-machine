@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Function: ComputeChange should apply mutations to lists 1`] = `
+exports[`Function: ComputeChange mutations to lists should apply 1`] = `
 Object {
+  "other": Object {
+    "is": "immutable",
+  },
   "some": Object {
     "path": Array [
       "one",
@@ -11,11 +14,30 @@ Object {
 }
 `;
 
-exports[`Function: ComputeChange should apply mutations to lists with duplicates 1`] = `
+exports[`Function: ComputeChange mutations to lists should not affect original 1`] = `
 Object {
+  "other": Object {
+    "is": "immutable",
+  },
   "some": Object {
     "path": Array [
       "one",
+      "bar",
+      "one",
+      "foo",
+    ],
+  },
+}
+`;
+
+exports[`Function: ComputeChange mutations to lists with duplicates should apply and keep duplicates 1`] = `
+Object {
+  "other": Object {
+    "is": "immutable",
+  },
+  "some": Object {
+    "path": Array [
+      "bar",
       "two",
       "foo",
       "foo",
@@ -24,8 +46,27 @@ Object {
 }
 `;
 
-exports[`Function: ComputeChange should merge dicts 1`] = `
+exports[`Function: ComputeChange mutations to lists with duplicates should not affect original 1`] = `
 Object {
+  "other": Object {
+    "is": "immutable",
+  },
+  "some": Object {
+    "path": Array [
+      "one",
+      "bar",
+      "two",
+      "foo",
+    ],
+  },
+}
+`;
+
+exports[`Function: ComputeChange received dicts should be merged 1`] = `
+Object {
+  "other": Object {
+    "is": "immutable",
+  },
   "some": Object {
     "path": Object {
       "description": "foo",
@@ -35,43 +76,81 @@ Object {
 }
 `;
 
-exports[`Function: ComputeChange should set null value 1`] = `
+exports[`Function: ComputeChange received dicts should not affect original 1`] = `
 Object {
+  "other": Object {
+    "is": "immutable",
+  },
+  "some": Object {
+    "path": Object {
+      "description": "foo",
+      "value": "bar",
+    },
+  },
+}
+`;
+
+exports[`Function: ComputeChange received null value should be set 1`] = `
+Object {
+  "other": Object {
+    "is": "immutable",
+  },
   "some": Object {
     "path": null,
   },
 }
 `;
 
-exports[`Function: ComputeChange should set value for select 1`] = `
+exports[`Function: ComputeChange received null value should not affect original 1`] = `
 Object {
+  "other": Object {
+    "is": "immutable",
+  },
+}
+`;
+
+exports[`Function: ComputeChange received undefined options should be ignored 1`] = `Object {}`;
+
+exports[`Function: ComputeChange received undefined options should not affect original 1`] = `Object {}`;
+
+exports[`Function: ComputeChange received undefined value should be ignored 1`] = `Object {}`;
+
+exports[`Function: ComputeChange received undefined value should not affect original 1`] = `Object {}`;
+
+exports[`Function: ComputeChange received value for select should be set 1`] = `
+Object {
+  "other": Object {
+    "is": "immutable",
+  },
   "some": Object {
     "path": "bar",
   },
 }
 `;
 
-exports[`Function: ComputeChange should set value for value 1`] = `
+exports[`Function: ComputeChange received value for select should not affect original 1`] = `
 Object {
+  "other": Object {
+    "is": "immutable",
+  },
+}
+`;
+
+exports[`Function: ComputeChange received value for value should be set 1`] = `
+Object {
+  "other": Object {
+    "is": "immutable",
+  },
   "some": Object {
     "path": "foo",
   },
 }
 `;
 
-exports[`Function: ComputeChange should skip undefined options 1`] = `Object {}`;
-
-exports[`Function: ComputeChange should skip undefined value 1`] = `
+exports[`Function: ComputeChange received value for value should not affect original 1`] = `
 Object {
-  "some": undefined,
-}
-`;
-
-exports[`Function: ComputeChange should undo canceled changes 1`] = `
-Object {
-  "other": undefined,
-  "some": Object {
-    "path": "Canceled value",
+  "other": Object {
+    "is": "immutable",
   },
 }
 `;

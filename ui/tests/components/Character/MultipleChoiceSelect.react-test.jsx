@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import fp from 'lodash/fp';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 jest.useFakeTimers();
@@ -42,7 +43,7 @@ const mockedIds = [
 describe('Component: MultipleChoiceSelect', () => {
 
     beforeEach(() => {
-        _.uniqueId = jest.fn();
+        fp.uniqueId = _.uniqueId = jest.fn();
         _.uniqueId.mockReturnValue('unexpected');
 
         actions.editCharacter.completed({
@@ -191,7 +192,7 @@ describe('Component: MultipleChoiceSelect', () => {
             <MultipleChoiceSelect
                 {...props}
                 limit={1}
-                />
+            />
         );
 
         addChange.mockClear();

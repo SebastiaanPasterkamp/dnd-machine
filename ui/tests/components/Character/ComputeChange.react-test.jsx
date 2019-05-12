@@ -1,43 +1,81 @@
 import React from 'react';
-import ComputeChange from 'components/Character/ComputeChange.jsx';
+import {
+    ComputeChange,
+} from 'components/Character/ComputeChange.jsx';
 
 describe('Function: ComputeChange', () => {
-    it('should skip undefined value', () => {
+    describe('received undefined value', () => {
+        const original = {};
         const change = ComputeChange({
             'id_1': {
                 path: 'some.path',
                 value: undefined,
                 option: {},
             },
-        }, {});
+        }, original);
 
-        expect(change)
-            .toMatchSnapshot();
+        it('should be ignored', () => {
+            expect(change).toMatchSnapshot()
+        });
+
+        it('should not affect original', () => {
+            expect(original).toMatchSnapshot()
+        });
+
+        it('should not mutate unrelated paths', () => {
+            expect(change === original).toBeTruthy();
+        });
     });
 
-    it('should skip undefined options', () => {
+    describe('received undefined options', () => {
+        const original = {};
         const change = ComputeChange({
             'id_1': undefined,
-        }, {});
+        }, original);
 
-        expect(change)
-            .toMatchSnapshot();
+        it('should be ignored', () => {
+            expect(change)
+                .toMatchSnapshot();
+        });
+
+        it('should not affect original', () => {
+            expect(original).toMatchSnapshot()
+        });
+
+        it('should not mutate unrelated paths', () => {
+            expect(change === original).toBeTruthy();
+        });
     });
 
-    it('should set null value', () => {
+    describe('received null value', () => {
+        const original = {other: {is: 'immutable'}};
         const change = ComputeChange({
             'id_1': {
                 path: 'some.path',
                 value: null,
                 option: {},
             },
-        }, {});
+        }, original);
 
-        expect(change)
-            .toMatchSnapshot();
+        it('should be set', () => {
+            expect(change).toMatchSnapshot();
+        });
+
+        it('should not affect original', () => {
+            expect(original).toMatchSnapshot()
+        });
+
+        it('should mutate affected paths', () => {
+            expect(change === original).toBeFalsy();
+        });
+
+        it('should not mutate unrelated paths', () => {
+            expect(change.other === original.other).toBeTruthy();
+        });
     });
 
-    it('should set value for value', () => {
+    describe('received value for value', () => {
+        const original = {other: {is: 'immutable'}};
         const change = ComputeChange({
             'id_1': {
                 path: 'some.path',
@@ -46,13 +84,27 @@ describe('Function: ComputeChange', () => {
                     type: 'value',
                 }
             },
-        }, {});
+        }, original);
 
-        expect(change)
-            .toMatchSnapshot();
+        it('should be set', () => {
+            expect(change).toMatchSnapshot();
+        });
+
+        it('should not affect original', () => {
+            expect(original).toMatchSnapshot()
+        });
+
+        it('should mutate affected paths', () => {
+            expect(change === original).toBeFalsy();
+        });
+
+        it('should not mutate unrelated paths', () => {
+            expect(change.other === original.other).toBeTruthy();
+        });
     });
 
-    it('should set value for select', () => {
+    describe('received value for select', () => {
+        const original = {other: {is: 'immutable'}};
         const change = ComputeChange({
             'id_1': {
                 path: 'some.path',
@@ -61,13 +113,35 @@ describe('Function: ComputeChange', () => {
                     type: 'select',
                 }
             },
-        }, {});
+        }, original);
 
-        expect(change)
-            .toMatchSnapshot();
+        it('should be set', () => {
+            expect(change).toMatchSnapshot();
+        });
+
+        it('should not affect original', () => {
+            expect(original).toMatchSnapshot()
+        });
+
+        it('should mutate affected paths', () => {
+            expect(change === original).toBeFalsy();
+        });
+
+        it('should not mutate unrelated paths', () => {
+            expect(change.other === original.other).toBeTruthy();
+        });
     });
 
-    it('should merge dicts', () => {
+    describe('received dicts', () => {
+        const original = {
+            some: {
+                path: {
+                    description: 'foo',
+                    value: 'bar',
+                }
+            },
+            other: {is: 'immutable'},
+        };
         const change = ComputeChange({
             'id_1': {
                 path: 'some.path',
@@ -78,20 +152,34 @@ describe('Function: ComputeChange', () => {
                     type: 'dict',
                 }
             },
-        }, {
-            some: {
-                path: {
-                    description: 'foo',
-                    value: 'bar',
-                }
-            }
+        }, original);
+
+        it('should be merged', () => {
+            expect(change).toMatchSnapshot();
         });
 
-        expect(change)
-            .toMatchSnapshot();
+        it('should not affect original', () => {
+            expect(original).toMatchSnapshot()
+        });
+
+        it('should mutate affected paths', () => {
+            expect(change === original).toBeFalsy();
+            expect(change.some === original.some).toBeFalsy();
+            expect(change.some.path === original.some.path).toBeFalsy();
+        });
+
+        it('should not mutate unrelated paths', () => {
+            expect(change.other === original.other).toBeTruthy();
+        });
     });
 
-    it('should apply mutations to lists', () => {
+    describe('mutations to lists', () => {
+        const original = {
+            some: {
+                path: ['one', 'bar', 'one', 'foo',],
+            },
+            other: {is: 'immutable'},
+        };
         const change = ComputeChange({
             'id_1': {
                 path: 'some.path',
@@ -103,67 +191,68 @@ describe('Function: ComputeChange', () => {
                     type: 'list',
                 }
             },
-        }, {
-            some: {
-                path: ['one', 'bar', 'one', 'foo',],
-            }
+        }, original);
+
+        it('should apply', () => {
+            expect(change).toMatchSnapshot();
         });
 
-        expect(change)
-            .toMatchSnapshot();
+        it('should not affect original', () => {
+            expect(original).toMatchSnapshot()
+        });
+
+        it('should mutate affected paths', () => {
+            expect(change === original).toBeFalsy();
+            expect(change.some === original.some).toBeFalsy();
+            expect(change.some.path === original.some.path).toBeFalsy();
+        });
+
+        it('should not mutate unrelated paths', () => {
+            expect(change.other === original.other).toBeTruthy();
+        });
     });
 
-    it('should apply mutations to lists with duplicates', () => {
+    describe('mutations to lists with duplicates', () => {
+        const original = {
+            some: {
+                path: ['one', 'bar', 'two', 'foo',],
+            },
+            other: {is: 'immutable'},
+        };
         const change = ComputeChange({
             'id_1': {
                 path: 'some.path',
                 value: {
                     added: ['foo'],
-                    removed: ['bar'],
+                    removed: ['one'],
                 },
                 option: {
                     type: 'list',
                     multiple: true,
                 }
             },
-        }, {
-            some: {
-                path: ['one', 'bar', 'two', 'foo',],
-            }
+        }, original);
+
+        it('should apply and keep duplicates', () => {
+            expect(change).toMatchSnapshot();
         });
 
-        expect(change)
-            .toMatchSnapshot();
-    });
-
-    it('should undo canceled changes', () => {
-        const change = ComputeChange({
-            'id_1': {
-                path: 'some.path',
-                value: undefined,
-                option: {
-                    type: 'value',
-                }
-            },
-            'id_2': {
-                path: 'other.path',
-                value: undefined,
-                option: {
-                    type: 'value',
-                }
-            },
-        }, {
-            some: {
-                path: "Canceled value",
-            },
-            other: undefined,
+        it('should not affect original', () => {
+            expect(original).toMatchSnapshot()
         });
 
-        expect(change)
-            .toMatchSnapshot();
+        it('should mutate affected paths', () => {
+            expect(change === original).toBeFalsy();
+            expect(change.some === original.some).toBeFalsy();
+            expect(change.some.path === original.some.path).toBeFalsy();
+        });
+
+        it('should not mutate unrelated paths', () => {
+            expect(change.other === original.other).toBeTruthy();
+        });
     });
 
-    it('complain about unknown option type', () => {
+    it('should complain about unknown option type', () => {
         expect(
             () => ComputeChange({
                 'id_1': {
