@@ -149,9 +149,15 @@ export class StatsBlock extends Reflux.Component
                 });
 
                 if (bonusChange) {
-                    bonusChange(
-                        bonus
+                    const improvements = _.reduce(
+                        improvement,
+                        (cntr, stat) => {
+                            cntr[stat] = (cntr[stat] || 0) + 1;
+                            return cntr;
+                        },
+                        {}
                     );
+                    bonusChange(improvements);
                 }
             }
         );

@@ -1,5 +1,9 @@
 import React from 'react';
-import _ from 'lodash';
+import {
+    filter,
+    isEmpty,
+    map,
+} from 'lodash/fp';
 
 import '../../sass/_edit-character.scss';
 
@@ -50,12 +54,7 @@ export class CharacterEdit extends React.Component
     }
 
     render() {
-        const {
-            character = {},
-            config,
-            abilityScoreIncrease,
-            _statistics,
-        } = this.props;
+        const { character, config } = this.props;
         const {
             spell: {
                 max_prepared = 0,
@@ -66,18 +65,17 @@ export class CharacterEdit extends React.Component
             } = {},
             'class': _class,
         } = character;
-        const levelFilter = _.chain(slots)
-            .map((count, slot) => count
+        const levelFilter = filter(
+            map((count, slot) => count
                 ? slot.replace('level_', '')
                 : null
-            )
-            .filter()
-            .value();
+            )(slots)
+        );
 
         return (
             <React.Fragment>
 
-                { !_.isEmpty(config) ? (
+                { !isEmpty(config) ? (
                     <Panel
                         key="level-up"
                         className="character-edit__level-up"
@@ -86,20 +84,7 @@ export class CharacterEdit extends React.Component
                         <CharacterConfig
                             key="level-up"
                             config={ config }
-                            />
-                    </Panel>
-                ) : null }
-
-                { abilityScoreIncrease ? (
-                    <Panel
-                        key="statistics"
-                        className="character-edit__statistics"
-                        header="Statistics"
-                    >
-                        <StatisticsSelect
-                            editBase={ false }
-                            increase={ abilityScoreIncrease }
-                            />
+                        />
                     </Panel>
                 ) : null }
 
@@ -112,18 +97,17 @@ export class CharacterEdit extends React.Component
                         characterUpdate={character}
                         showInfo={true}
                         showProgress={true}
-                        />
+                    />
 
                     <CharacterConfig
                         config={ baseConfig.description }
-                        />
+                    />
 
                     <ButtonField
                         label="Save"
                         className="primary"
                         onClick={this.onSave}
-                        />
-
+                    />
                 </Panel>
 
                 {max_prepared ? <Panel
@@ -131,7 +115,6 @@ export class CharacterEdit extends React.Component
                     className="character-edit__prepared"
                     header="Spells Prepared"
                 >
-
                     <CharacterConfig
                         config={[{
                             "label": "Prepared spells",
@@ -151,7 +134,6 @@ export class CharacterEdit extends React.Component
                             "given": list,
                         }]}
                     />
-
                 </Panel> : null}
 
                 <Panel
@@ -159,11 +141,9 @@ export class CharacterEdit extends React.Component
                     className="character-edit__personality"
                     header="Personality"
                 >
-
                     <CharacterConfig
                         config={ baseConfig.personality }
-                        />
-
+                    />
                 </Panel>
 
             </React.Fragment>
@@ -177,5 +157,8 @@ export const CharacterEditView = BaseViewWrapper(
 
 export default CharacterEditorWrapper(
     CharacterEditView,
-    ['character', 'config', 'abilityScoreIncrease'],
+    {
+        character: true,
+        config: true,
+    }
 );
