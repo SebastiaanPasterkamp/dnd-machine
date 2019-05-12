@@ -1,5 +1,8 @@
 import React from 'react';
-import _ from 'lodash';
+import {
+    concat,
+    isEqual,
+} from 'lodash/fp';
 import MDReactComponent from 'markdown-react-js';
 
 // import '../../sass/_create-character.scss';
@@ -22,6 +25,10 @@ import SingleSelect from '../components/SingleSelect.jsx';
 import TabComponent from '../components/TabComponent.jsx';
 
 import CharacterConfig from '../components/Character/CharacterConfig.jsx';
+import {
+    ComputeConfig,
+} from '../components/Character/ComputeChange.jsx';
+
 import StatisticsSelect from '../components/Character/StatisticsSelect.jsx';
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
@@ -29,94 +36,25 @@ import baseConfig from '../components/Character/baseConfig.json';
 
 export class CharacterCreate extends React.Component
 {
-    constructor(props) {
-        super(props);
-        this.tabConfig = [{
-            label: 'Race',
-            color: 'info',
-        }, {
-            label: 'Class',
-            color: 'info',
-        }, {
-            label: 'Background',
-            color: 'info',
-        }, {
-            label: 'Statistics',
-            color: 'info',
-        }, {
-            label: 'Description',
-            color: 'info',
-        }, {
-            label: 'Result',
-            color: 'info',
-        }];
-    }
-
-    computeConfig(config, character) {
-        if (_.isPlainObject(config)) {
-            let changed = false;
-            const newConfig = _.reduce(
-                config,
-                (newConfig, value, key) => {
-                    newConfig[key] = value;
-                    if (key.match(/_formula$/)) {
-                        const root = _.replace(key, /_formula$/, '');
-                        try {
-                            const newValue = utils.resolveMath(
-                                character,
-                                value,
-                                'character'
-                            );
-                            if (newValue != value) {
-                                changed = true;
-                                newConfig[root] = newValue;
-                            }
-                        } catch(error) {
-                            if (config[root + '_default'] != value) {
-                                changed = true;
-                                newConfig[root] = config[root + '_default'];
-                            }
-                        }
-                    } else {
-                        const newValue = this.computeConfig(
-                            value,
-                            character,
-                        );
-                        if (newValue != value) {
-                            changed = true;
-                            newConfig[key] = newValue;
-                        }
-                    }
-                    return newConfig;
-                },
-                {}
-            );
-            if (changed) {
-                return newConfig;
-            }
-        } else if (_.isObject(config)) {
-            let changed = false;
-            const newConfig = _.map(
-                config,
-                value => {
-                    const newValue = this.computeConfig(
-                        value,
-                        character,
-                    );
-                    if (newValue != value) {
-                        changed = true;
-                        return newValue;
-                    }
-                    return value;
-                }
-            );
-            if (changed) {
-                return newConfig;
-            }
-        }
-
-        return config;
-    }
+    tabConfig = [{
+        label: 'Race',
+        color: 'info',
+    }, {
+        label: 'Class',
+        color: 'info',
+    }, {
+        label: 'Background',
+        color: 'info',
+    }, {
+        label: 'Statistics',
+        color: 'info',
+    }, {
+        label: 'Description',
+        color: 'info',
+    }, {
+        label: 'Result',
+        color: 'info',
+    }];
 
     onSave = () => {
         const {
@@ -129,92 +67,105 @@ export class CharacterCreate extends React.Component
 
     render() {
         const {
-            getCurrent,
-            races = [], classes = [], backgrounds = [],
-            genders = [], alignments = [],
+            character,
+            races, classes, backgrounds,
+            genders, alignments,
         } = this.props;
-        const character = getCurrent();
         const {
             race = 'Race',
             'class': _class = 'Class',
             background = 'Background',
-            level = 1, gender, alignment,
-            xp_progress = 0, xp_level = 300, name = '',
+            level = 1,
+            xp_progress = 0,
+            xp_level = 300,
+            name = '',
+            gender,
+            alignment,
         } = character;
 
-        return <TabComponent
-            tabConfig={ this.tabConfig }
-            mountAll={ true }
-        >
-            <CharacterConfig
-                config={ this.computeConfig(races, character) }
+        return (
+            <TabComponent
+                tabConfig={ this.tabConfig }
+                mountAll={ true }
+            >
+                <CharacterConfig
+                    config={ ComputeConfig(races, character) }
                 />
-            <CharacterConfig
-                config={ this.computeConfig(classes, character) }
+                <CharacterConfig
+                    config={ ComputeConfig(classes, character) }
                 />
-            <CharacterConfig
-                config={ this.computeConfig(backgrounds, character) }
+                <CharacterConfig
+                    config={ ComputeConfig(backgrounds, character) }
                 />
-            <StatisticsSelect
-                budget={ 27 }
-                maxBare={ 15 }
+                <StatisticsSelect
+                    editBase={true}
+                    budget={ 27 }
+                    minBare={ 8 }
+                    maxBare={ 15 }
                 />
-            <CharacterConfig
-                config={ _.concat(
-                    baseConfig.description,
-                    baseConfig.personality,
-                ) }
+                <CharacterConfig
+                    config={ concat(
+                        baseConfig.description,
+                        baseConfig.personality,
+                    ) }
                 />
-            <Panel
-                header="Result"
+                <Panel
+                    header="Result"
                 >
-                <h3>{name}</h3>
+                    <h3>{name}</h3>
 
-                <h4>
-                    Level {level}
-                    &nbsp;
-                    <ListLabel
-                        items={genders}
-                        value={gender}
+                    <h4>
+                        Level {level}
+                        &nbsp;
+                        <ListLabel
+                            items={genders}
+                            value={gender}
                         />
-                    &nbsp;
-                    {race}
-                    &nbsp;
-                    {_class}
-                    &nbsp;
-                    (<ListLabel
-                        items={alignments}
-                        value={alignment}
+                        &nbsp;
+                        {race}
+                        &nbsp;
+                        {_class}
+                        &nbsp;
+                        (<ListLabel
+                            items={alignments}
+                            value={alignment}
                         />)
-                </h4>
+                    </h4>
 
-                <Progress
-                    value={xp_progress}
-                    total={xp_level}
-                    color={"good"}
-                    label={`${level} (${xp_progress} / ${xp_level})`}
+                    <Progress
+                        value={xp_progress}
+                        total={xp_level}
+                        color={"good"}
+                        label={`${level} (${xp_progress} / ${xp_level})`}
                     />
 
-                <ButtonField
-                    label="Save"
-                    className="primary"
-                    onClick={this.onSave}
+                    <ButtonField
+                        label="Save"
+                        className="primary"
+                        onClick={this.onSave}
                     />
-            </Panel>
-        </TabComponent>;
+                </Panel>
+            </TabComponent>
+        );
     }
 }
 
-const foo = {
-    className: 'character-create',
-    icon: 'fa-user-secret',
-    label: 'Create Character',
+CharacterCreate.defaultProps = {
+    character: {},
+    races: [],
+    classes: [],
+    backgrounds: [],
+    genders: [],
+    alignments: [],
 };
 
 export default ListDataWrapper(
     ListDataWrapper(
         CharacterEditorWrapper(
-            CharacterCreate
+            CharacterCreate,
+            {
+                character: true,
+            }
         ),
         ['races', 'classes', 'backgrounds'],
         'character',
