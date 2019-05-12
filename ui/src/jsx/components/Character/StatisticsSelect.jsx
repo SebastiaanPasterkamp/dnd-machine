@@ -1,8 +1,13 @@
 import React from 'react';
 import Reflux from 'reflux';
-import _ from 'lodash';
+import {
+    forEach,
+    isEqual,
+    uniqueId,
+} from 'lodash/fp';
 
 import actions from '../../actions/CharacterEditorActions.jsx';
+import ListDataWrapper from '../../hocs/ListDataWrapper.jsx';
 import store from '../../stores/CharacterEditorStore.jsx';
 
 import StatsBlock from '../StatsBlock.jsx';
@@ -12,96 +17,111 @@ class StatisticsSelect extends Reflux.Component
     constructor(props) {
         super(props);
         this.store = store;
-        this.storeKeys = ['character', 'abilityScoreIncrease'];
-        this._id = _.uniqueId();
+        this.storeKeys = ['character'];
+        this._id = uniqueId();
     }
 
     componentWillUnmount() {
         super.componentWillUnmount.call(this);
-
-        const {
-            character,
-        } = this.state;
-        const {
-            statistics = {},
-        } = character;
+        const { statistics } = this.props;
 
         actions.removeChange(`${ this._id }-bare`);
         actions.removeChange(`${ this._id }-base`);
         actions.removeChange(`${ this._id }-modifiers`);
 
-        _.forEach(
-            statistics.bare,
-            (stat) => actions.removeChange(
-                `${ this._id }-bonus-${ stat }`
-            )
-        );
+        forEach(({ code }) => actions.removeChange(
+            `${ this._id }-bonus-${ code }`
+        ))(statistics);
     }
 
-    onStatisticsChange = (statistics) => {
+    onStatisticsChange = ({ bare, base, modifiers }) => {
         const {
-            bare, base, bonus, modifiers,
-        } = statistics;
+            character: {
+                statistics = {},
+            },
+        } = this.state;
 
-        actions.addChange(
-            'statistics.bare',
-            bare,
-            `${ this._id }-bare`,
-            { type: 'dict' },
-        );
-        actions.addChange(
-            'statistics.base',
-            base,
-            `${ this._id }-base`,
-            { type: 'dict' },
-        );
-        actions.addChange(
-            'statistics.modifiers',
-            modifiers,
-            `${ this._id }-modifiers`,
-            { type: 'dict' },
-        );
+        if (!isEqual(bare, statistics.bare)) {
+            actions.addChange(
+                'statistics.bare',
+                bare,
+                `${ this._id }-bare`,
+                { type: 'dict' },
+            );
+        }
+        if (!isEqual(base, statistics.base)) {
+            actions.addChange(
+                'statistics.base',
+                base,
+                `${ this._id }-base`,
+                { type: 'dict' },
+            );
+        }
+        if (!isEqual(modifiers, statistics.modifiers)) {
+            actions.addChange(
+                'statistics.modifiers',
+                modifiers,
+                `${ this._id }-modifiers`,
+                { type: 'dict' },
+            );
+        }
     }
 
     onBonusChange = (bonus) => {
-        const {
-            character,
-        } = this.state;
-        const {
-            statistics = {},
-        } = character;
+        const { statistics } = this.props;
 
-        actions.addChange(
-            `statistics.bonus`,
-            bonus,
-            `${ this._id }-bonus`,
-            { type: 'dict' },
-        );
+        forEach(({ code }) => {
+            if(code in bonus) {
+                actions.addChange(
+                    `statistics.bonus.${code}`,
+                    {
+                        removed: [],
+                        added: bonus[code],
+                    },
+                    `${ this._id }-bonus-${ code }`,
+                    {
+                        type: 'list',
+                        multiple: true,
+                    },
+                );
+            } else {
+                actions.removeChange(
+                    `${ this._id }-bonus-${ code }`
+                );
+            }
+        })(statistics);
     }
 
     render() {
         const {
-            onChange, getCurrent, current,
+            onChange, getCurrent, current, limit,
             ...props
         } = this.props;
         const {
-            character,
-            abilityScoreIncrease,
+            character: {
+                statistics = {},
+            }
         } = this.state;
-        const {
-            statistics = {},
-        } = character;
 
         return (
             <StatsBlock
-                { ...props }
-                { ...statistics }
-                increase={ abilityScoreIncrease }
+                editBase={false}
+                {...props}
+                {...statistics}
+                increase={ limit }
                 setState={ this.onStatisticsChange }
                 bonusChange={ this.onBonusChange }
-                />
+            />
         );
     }
 };
 
-export default StatisticsSelect;
+StatisticsSelect.defaultProps = {
+    statistics: [],
+};
+
+export default ListDataWrapper(
+    StatisticsSelect,
+    ['statistics'],
+    'items'
+);

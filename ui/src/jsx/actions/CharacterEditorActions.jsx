@@ -9,8 +9,6 @@ const CharacterEditorActions = Reflux.createActions({
     "patchCharacter": {asyncResult: true},
     "addChange": {},
     "removeChange": {},
-    "addAbilityScoreIncrease": {},
-    "removeAbilityScoreIncrease": {},
 });
 
 function getCharacter(action, id) {

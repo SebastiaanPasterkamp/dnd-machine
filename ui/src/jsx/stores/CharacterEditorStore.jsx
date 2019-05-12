@@ -1,10 +1,12 @@
 import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
-import utils from '../utils.jsx';
 
 import CharacterEditorActions from '../actions/CharacterEditorActions.jsx';
-import ComputeChange from '../components/Character/ComputeChange.jsx';
+import {
+    ComputeChange,
+    ComputeConfig,
+} from '../components/Character/ComputeChange.jsx';
 
 class CharacterEditorStore extends Reflux.Store
 {
@@ -13,22 +15,15 @@ class CharacterEditorStore extends Reflux.Store
         super();
         this.state = {
             original: {},
-            abilityScoreIncrease: 0,
             character: {},
             config: {},
         };
         this.listenables = CharacterEditorActions;
-
-        this.delayedComputeChange = _.debounce(
-            this.computeChange,
-            50,
-        );
     }
 
     reset() {
         const {
             original,
-            abilityScoreIncrease,
             character,
             config,
             ...rest
@@ -36,7 +31,6 @@ class CharacterEditorStore extends Reflux.Store
         const state = _.assign(
             {
                 original: {},
-                abilityScoreIncrease: 0,
                 character: {},
                 config: {},
             },
@@ -47,10 +41,9 @@ class CharacterEditorStore extends Reflux.Store
         this.setState(state);
     }
 
-    computeChange = () => {
+    previewChange(id, path, change) {
         const {
             original,
-            abilityScoreIncrease,
             character: old,
             config: oldConfig,
             ...changes,
@@ -58,95 +51,67 @@ class CharacterEditorStore extends Reflux.Store
         const {
             level_up: {
                 config = [],
-                creation,
             } = {},
         } = original;
 
+        const preview = _.reduce(
+            {
+                ...changes,
+                [id]: change,
+            },
+            (preview, previewChange, previewId) => {
+                if (
+                    previewChange
+                    && previewChange.path === path
+                ) {
+                    preview[previewId] = previewChange;
+                }
+                return preview;
+            },
+            {}
+        );
+
         const character = ComputeChange(
-            changes,
-            original,
-            original,
+            preview,
+            _.set(old, path, _.get(original, path))
         );
 
         this.setState({
             character,
-            config: this.computeConfig(
-                config,
-                character,
-            ),
+            config: ComputeConfig(config, character),
+            [id]: change,
         });
     }
 
-    computeConfig(config, character) {
-        if (_.isPlainObject(config)) {
-            let changed = false;
-            const newConfig = _.reduce(
-                config,
-                (newConfig, value, key) => {
-                    newConfig[key] = value;
-                    if (key.match(/_formula$/)) {
-                        const root = _.replace(key, /_formula$/, '');
-                        try {
-                            const newValue = utils.resolveMath(
-                                character,
-                                value,
-                                'character'
-                            );
-                            if (newValue != value) {
-                                changed = true;
-                                newConfig[root] = newValue;
-                            }
-                        } catch(error) {
-                            if (config[root + '_default'] != value) {
-                                changed = true;
-                                newConfig[root] = config[root + '_default'];
-                            }
-                        }
-                    } else {
-                        const newValue = this.computeConfig(
-                            value,
-                            character,
-                        );
-                        if (newValue != value) {
-                            changed = true;
-                            newConfig[key] = newValue;
-                        }
-                    }
-                    return newConfig;
-                },
-                {}
-            );
-            if (changed) {
-                return newConfig;
-            }
-        } else if (_.isObject(config)) {
-            let changed = false;
-            const newConfig = _.map(
-                config,
-                value => {
-                    const newValue = this.computeConfig(
-                        value,
-                        character,
-                    );
-                    if (newValue != value) {
-                        changed = true;
-                        return newValue;
-                    }
-                    return value;
-                }
-            );
-            if (changed) {
-                return newConfig;
-            }
-        }
+    computeChange = () => {
+        const {
+            original,
+            character: old,
+            config: oldConfig,
+            ...changes,
+        } = this.state;
+        const {
+            level_up: {
+                config = [],
+            } = {},
+        } = original;
 
-        return config;
+        const character = ComputeChange(changes, original);
+
+        this.setState({
+            character,
+            config: ComputeConfig(oldConfig || config, character),
+        });
     }
+
+    delayedComputeChange = _.debounce(
+        this.computeChange,
+        50
+    );
 
     onEditCharacterCompleted(original) {
         this.setState({
             original,
-            abilityScoreIncrease: 0,
             character: {},
         });
         this.computeChange();
@@ -165,7 +130,6 @@ class CharacterEditorStore extends Reflux.Store
                 name, personality, gender, appearance,
                 alignment, backstory, age, weight, height,
             },
-            abilityScoreIncrease: 0,
             character: {},
         });
         this.computeChange();
@@ -174,7 +138,6 @@ class CharacterEditorStore extends Reflux.Store
     onSaveCharacterCompleted(id, original, callback) {
         this.setState({
             original,
-            abilityScoreIncrease: 0,
             character: original,
         });
         if (callback) {
@@ -200,34 +163,18 @@ class CharacterEditorStore extends Reflux.Store
             value,
             option,
         };
-        this.setState({
-            character: ComputeChange({[id]: change}, original, start),
-            [id]: change,
-        });
-        this.delayedComputeChange();
+
+        this.previewChange(id, path, change);
+        this.computeChange();
     }
 
     onRemoveChange(id) {
-        this.setState({
-            [id]: undefined,
-        });
+        const { [id]: change } = this.state;
+        if (change === undefined) {
+            return;
+        }
+        this.previewChange(id, change.path, undefined);
         this.delayedComputeChange();
-    }
-
-    onAddAbilityScoreIncrease(increase) {
-        const { abilityScoreIncrease } = this.state;
-
-        this.setState({
-            abilityScoreIncrease: abilityScoreIncrease + increase,
-        });
-    }
-
-    onRemoveAbilityScoreIncrease(increase) {
-        const { abilityScoreIncrease } = this.state;
-
-        this.setState({
-            abilityScoreIncrease: Math.max(0, abilityScoreIncrease - increase),
-        });
     }
 }
 
