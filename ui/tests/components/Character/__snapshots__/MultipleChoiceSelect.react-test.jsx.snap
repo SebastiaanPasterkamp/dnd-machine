@@ -79,6 +79,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
         },
       ]
     }
+    replace={0}
     type="multichoice"
   >
     <div>
@@ -212,20 +213,6 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
               type="dict"
             >
               <DictPropertySelect
-                character={
-                  Object {
-                    "bar": Object {
-                      "foo": Object {
-                        "description": "Foo is okay",
-                      },
-                    },
-                    "foo": Object {
-                      "bar": Object {
-                        "description": "Bar is good",
-                      },
-                    },
-                  }
-                }
                 current={
                   Object {
                     "description": "Bar is good",
@@ -334,20 +321,6 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
                     type="dict"
                   >
                     <DictPropertySelect
-                      character={
-                        Object {
-                          "bar": Object {
-                            "foo": Object {
-                              "description": "Foo is okay",
-                            },
-                          },
-                          "foo": Object {
-                            "bar": Object {
-                              "description": "Bar is good",
-                            },
-                          },
-                        }
-                      }
                       current={
                         Object {
                           "description": "Foo is okay",
@@ -443,11 +416,6 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
             "description": "Foo is okay",
           },
         },
-        "foo": Object {
-          "bar": Object {
-            "description": "Bar is good",
-          },
-        },
       }
     }
     description="Pick some"
@@ -482,6 +450,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
         },
       ]
     }
+    replace={0}
     type="multichoice"
   >
     <div>
@@ -681,20 +650,6 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
                     type="dict"
                   >
                     <DictPropertySelect
-                      character={
-                        Object {
-                          "bar": Object {
-                            "foo": Object {
-                              "description": "Foo is okay",
-                            },
-                          },
-                          "foo": Object {
-                            "bar": Object {
-                              "description": "Bar is good",
-                            },
-                          },
-                        }
-                      }
                       current={
                         Object {
                           "description": "Foo is okay",
@@ -796,6 +751,7 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
     description="Pick some"
     getCurrent={[Function]}
     label="Example"
+    limit={0}
     onChange={[Function]}
     onSave={[Function]}
     onUpdate={[Function]}

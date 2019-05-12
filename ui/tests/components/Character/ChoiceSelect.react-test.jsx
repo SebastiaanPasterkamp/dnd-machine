@@ -51,11 +51,11 @@ describe('Component: ChoiceSelect', () => {
     it('should emit changes while switching tabs', () => {
         const add = jest.spyOn(
             actions,
-            'addAbilityScoreIncrease'
+            'addChange'
         );
         const remove = jest.spyOn(
             actions,
-            'removeAbilityScoreIncrease'
+            'removeChange'
         );
         const wrapper = mount(
             <ChoiceSelect
@@ -63,19 +63,26 @@ describe('Component: ChoiceSelect', () => {
                 />
         );
 
-        expect(add)
-            .toBeCalledWith(1);
-
-        add.mockClear();
-
         wrapper
             .find('.tab-component__tab a')
             .at(1)
             .simulate('click');
 
         expect(remove)
-            .toBeCalledWith(1);
+            .toBeCalledWith('2-modifiers');
+
+        remove.mockClear();
+
+        wrapper
+            .find('.tab-component__tab a')
+            .at(0)
+            .simulate('click');
+
+        expect(remove)
+            .toBeCalledWith('3-modifiers');
+
         expect(add)
-            .toBeCalledWith(2);
+            .not
+            .toBeCalled();
     });
 });

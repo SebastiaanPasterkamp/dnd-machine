@@ -1336,6 +1336,7 @@ exports[`Component: ListPropertySelect should handle replacing one existing 2`] 
           "some": Object {
             "path": Array [
               "charisma",
+              "intelligence",
             ],
           },
         }
@@ -2447,17 +2448,6 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
     type="list"
   >
     <ListPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": Array [
-              "dexterity",
-              "constitution",
-              "charisma",
-            ],
-          },
-        }
-      }
       current={
         Array [
           "dexterity",

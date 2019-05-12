@@ -95,10 +95,75 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
                 <label>
                   Choice A
                 </label>
-                <AbilityScoreSelect
+                <ListDataStatisticsSelect
                   limit={1}
                   type="ability_score"
-                />
+                >
+                  <StatisticsSelect
+                    limit={1}
+                    statistics={Array []}
+                    type="ability_score"
+                  >
+                    <ListDataStatsBlock
+                      bonusChange={[Function]}
+                      editBase={false}
+                      increase={1}
+                      setState={[Function]}
+                      statistics={Array []}
+                      type="ability_score"
+                    >
+                      <StatsBlock
+                        bare={Object {}}
+                        base={Object {}}
+                        bonus={Object {}}
+                        bonusChange={[Function]}
+                        budget={0}
+                        editBase={false}
+                        increase={1}
+                        maxBare={30}
+                        minBare={8}
+                        modifiers={Object {}}
+                        setState={[Function]}
+                        statistics={Array []}
+                        type="ability_score"
+                      >
+                        <table
+                          className="nice-table stats-block condensed bordered"
+                        >
+                          <thead>
+                            <tr>
+                              <th>
+                                Statistic
+                              </th>
+                              <th
+                                className="text-align-center"
+                              >
+                                Base
+                              </th>
+                              <th
+                                className="text-align-center"
+                                colSpan={1}
+                              >
+                                Increase
+                              </th>
+                              <th
+                                className="text-align-center"
+                              >
+                                Final
+                              </th>
+                              <th
+                                className="text-align-center"
+                              >
+                                Modifier
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody />
+                        </table>
+                      </StatsBlock>
+                    </ListDataStatsBlock>
+                  </StatisticsSelect>
+                </ListDataStatisticsSelect>
               </div>
             </FormGroup>
           </CharacterConfig>

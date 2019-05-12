@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import fp from 'lodash/fp';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 jest.useFakeTimers();
@@ -109,7 +110,7 @@ describe('Component: CharacterConfig', () => {
     beforeEach(() => {
         mockedId = 1;
 
-        _.uniqueId = jest.fn();
+        fp.uniqueId = _.uniqueId = jest.fn();
         _.uniqueId
             .mockReturnValue('id_' + mockedId++);
 

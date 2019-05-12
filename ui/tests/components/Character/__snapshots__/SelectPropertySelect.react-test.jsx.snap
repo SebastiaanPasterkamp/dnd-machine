@@ -80,13 +80,6 @@ exports[`Component: SelectPropertySelect should not render anything 1`] = `
     type="select"
   >
     <SelectPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": "charisma",
-          },
-        }
-      }
       current="charisma"
       getCurrent={[Function]}
       hidden={true}
@@ -211,13 +204,6 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
     type="select"
   >
     <SelectPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": "charisma",
-          },
-        }
-      }
       current="charisma"
       getCurrent={[Function]}
       items={

@@ -219,21 +219,6 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                               value="bar"
                             >
                               <ValuePropertySelect
-                                character={
-                                  Object {
-                                    "foo": Object {
-                                      "dict": Object {
-                                        "description": "foo.dict goes here",
-                                      },
-                                      "list": Array [
-                                        "charisma",
-                                      ],
-                                      "select": "strength",
-                                      "value": "bar",
-                                    },
-                                  }
-                                }
-                                current="bar"
                                 getCurrent={[Function]}
                                 onChange={[Function]}
                                 onSave={[Function]}
@@ -334,21 +319,6 @@ exports[`Component: CharacterConfig should render config 1`] = `
               value="bar"
             >
               <ValuePropertySelect
-                character={
-                  Object {
-                    "foo": Object {
-                      "dict": Object {
-                        "description": "foo.dict goes here",
-                      },
-                      "list": Array [
-                        "charisma",
-                      ],
-                      "select": "strength",
-                      "value": "bar",
-                    },
-                  }
-                }
-                current="bar"
                 getCurrent={[Function]}
                 onChange={[Function]}
                 onSave={[Function]}
@@ -425,21 +395,6 @@ exports[`Component: CharacterConfig should render dict 1`] = `
         type="dict"
       >
         <DictPropertySelect
-          character={
-            Object {
-              "foo": Object {
-                "dict": Object {
-                  "bar": "blah",
-                  "description": "foo %(bar)s",
-                },
-                "list": Array [
-                  "charisma",
-                ],
-                "select": "strength",
-                "value": "foo",
-              },
-            }
-          }
           current={
             Object {
               "bar": "blah",
@@ -579,27 +534,13 @@ exports[`Component: CharacterConfig should render list 1`] = `
           type="list"
         >
           <ListPropertySelect
-            character={
-              Object {
-                "foo": Object {
-                  "dict": Object {
-                    "description": "foo.dict goes here",
-                  },
-                  "list": Array [
-                    "charisma",
-                    "wisdom",
-                  ],
-                  "select": "strength",
-                  "value": "foo",
-                },
-              }
-            }
             current={
               Array [
                 "charisma",
                 "wisdom",
               ]
             }
+            filter={Object {}}
             getCurrent={[Function]}
             given={
               Array [
@@ -641,6 +582,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
               ]
             }
             limit={2}
+            multiple={false}
             onChange={[Function]}
             onSave={[Function]}
             onUpdate={[Function]}
@@ -972,6 +914,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
             }
           }
           getCurrent={[Function]}
+          limit={0}
           onChange={[Function]}
           onSave={[Function]}
           onUpdate={[Function]}
@@ -1004,6 +947,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
               },
             ]
           }
+          replace={0}
           type="multichoice"
         >
           <div>
@@ -1123,31 +1067,6 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                     }
                   >
                     <ValuePropertySelect
-                      character={
-                        Object {
-                          "foo": Object {
-                            "dict": Object {
-                              "description": "foo.dict goes here",
-                            },
-                            "list": Array [
-                              "charisma",
-                            ],
-                            "select": "strength",
-                            "value": Object {
-                              "path": "foo.value",
-                              "type": "value",
-                              "value": "bar",
-                            },
-                          },
-                        }
-                      }
-                      current={
-                        Object {
-                          "path": "foo.value",
-                          "type": "value",
-                          "value": "bar",
-                        }
-                      }
                       getCurrent={[Function]}
                       onChange={[Function]}
                       onSave={[Function]}
@@ -1269,20 +1188,6 @@ exports[`Component: CharacterConfig should render select 1`] = `
           type="select"
         >
           <SelectPropertySelect
-            character={
-              Object {
-                "foo": Object {
-                  "dict": Object {
-                    "description": "foo.dict goes here",
-                  },
-                  "list": Array [
-                    "charisma",
-                  ],
-                  "select": "strength",
-                  "value": "foo",
-                },
-              }
-            }
             current="strength"
             getCurrent={[Function]}
             items={
@@ -1509,21 +1414,6 @@ exports[`Component: CharacterConfig should render value 1`] = `
         value="bar"
       >
         <ValuePropertySelect
-          character={
-            Object {
-              "foo": Object {
-                "dict": Object {
-                  "description": "foo.dict goes here",
-                },
-                "list": Array [
-                  "charisma",
-                ],
-                "select": "strength",
-                "value": "bar",
-              },
-            }
-          }
-          current="bar"
           getCurrent={[Function]}
           onChange={[Function]}
           onSave={[Function]}
@@ -1629,28 +1519,12 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
           type="list"
         >
           <ListPropertySelect
-            character={
-              Object {
-                "foo": Object {
-                  "dict": Object {
-                    "description": "foo.dict goes here",
-                  },
-                  "items": Array [
-                    "bar",
-                  ],
-                  "list": Array [
-                    "charisma",
-                  ],
-                  "select": "strength",
-                  "value": "foo",
-                },
-              }
-            }
             current={
               Array [
                 "bar",
               ]
             }
+            filter={Object {}}
             getCurrent={[Function]}
             given={
               Array [
@@ -1670,9 +1544,11 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
               ]
             }
             limit={1}
+            multiple={false}
             onChange={[Function]}
             onSave={[Function]}
             onUpdate={[Function]}
+            replace={0}
             type="list"
           >
             <TagsContainer>
@@ -1924,28 +1800,12 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
           type="list"
         >
           <ListPropertySelect
-            character={
-              Object {
-                "foo": Object {
-                  "dict": Object {
-                    "description": "foo.dict goes here",
-                  },
-                  "items": Array [
-                    "bar",
-                  ],
-                  "list": Array [
-                    "charisma",
-                  ],
-                  "select": "strength",
-                  "value": "foo",
-                },
-              }
-            }
             current={
               Array [
                 "bar",
               ]
             }
+            filter={Object {}}
             getCurrent={[Function]}
             given={
               Array [
@@ -1987,9 +1847,11 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
               ]
             }
             limit={1}
+            multiple={false}
             onChange={[Function]}
             onSave={[Function]}
             onUpdate={[Function]}
+            replace={0}
             type="list"
           >
             <TagsContainer>
