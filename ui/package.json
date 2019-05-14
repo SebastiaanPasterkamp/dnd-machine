@@ -48,12 +48,17 @@
     "react-mock-router": "^1.0.15",
     "react-test-renderer": "^16.2.0",
     "sass-loader": "^6.0.6",
-    "sinon": "^4.2.2"
+    "sinon": "^4.2.2",
+    "webpack-dev-server": "^2.9.7",
+    "webpack-hot-middleware": "^2.24.3"
   },
   "scripts": {
-    "dev": "webpack -d --watch",
-    "build": "webpack -p",
-    "build:production": "npm run build --  --env prod",
+    "start:dev": "webpack-dev-server",
+    "start:debug": "DEBUG='express:*' npm run start:dev",
+    "build": "webpack",
+    "build:watch": "npm run build -- -d --watch",
+    "build:development": "npm run build",
+    "build:production": "npm run build -- -p",
     "test": "node_modules/.bin/jest"
   },
   "jest": {

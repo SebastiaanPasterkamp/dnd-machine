@@ -2,20 +2,44 @@ var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var ProgressBarPlugin = require('progress-bar-webpack-plugin');
+var HotModuleReplacementPlugin = require('webpack-hot-middleware');
 
 var PROJECT = 'dnd-machine';
-var OUTPUT_PATH_JSX = path.resolve(__dirname, '..', 'app', 'static', 'js');
+var OUTPUT_PATH_JSX = path.resolve(__dirname, '..', 'app', 'static');
 var SOURCE_PATH_JSX = path.resolve(__dirname, 'src', 'jsx');
-var OUTPUT_PATH_SASS = '../css';
+var OUTPUT_PATH_SASS = 'css';
 var SOURCE_PATH_SASS = path.resolve(__dirname, 'src', 'sass');
 var OUTPUT_PATH_IMG = '../img/';
 var SOURCE_PATH_IMG = path.resolve(__dirname, 'src', 'img');
 
 var config = {
     entry: SOURCE_PATH_JSX + '/index.jsx',
+    devServer: {
+        host: "0.0.0.0",
+        port: 8080,
+        disableHostCheck: true,
+        compress: true,
+        contentBase: "../app/static/",
+        publicPath: "/static/",
+        open: false,
+        overlay: true,
+        hot: true,
+        hotOnly: true,
+        inline: true,
+        proxy: {
+            '/': {
+                target: 'http://api.in.uprintf.com/',
+                secure: false
+                // changeOrigin: true
+            }
+        }
+
+    },
     output: {
         path: OUTPUT_PATH_JSX,
-        filename: PROJECT + '.js'
+        filename: `js/${PROJECT}.js`,
+        hotUpdateMainFilename: '__hmr/[hash].hot-update.json',
+        hotUpdateChunkFilename: '__hmr/[id].[hash].hot-update.js',
     },
     resolve: {
         extensions: ['.js', '.jsx', '.scss', '.json'],
@@ -67,7 +91,8 @@ var config = {
             filename: `${OUTPUT_PATH_SASS}/${PROJECT}.css`,
             allChunks: true
         }),
-        new ProgressBarPlugin()
+        new ProgressBarPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
     ]
 };
 

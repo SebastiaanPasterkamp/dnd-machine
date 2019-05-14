@@ -13,7 +13,7 @@ FROM python:2-slim
 
 WORKDIR /dnd-machine
 
-COPY requirements.txt *.md *.py *.db  docker/run.sh ./
+COPY requirements.txt *.md *.py ./
 
 RUN pip install \
     --no-cache-dir \
@@ -25,5 +25,5 @@ COPY --from=node /dnd-machine/app/static/ ./app/static/
 VOLUME [ "/var/run/dnd-machine" ]
 
 EXPOSE 5000/tcp
-ENTRYPOINT [ "bash" ]
-CMD [ "./run.sh", "--threaded", "--host", "0.0.0.0", "--port", "5000" ]
+
+CMD [ "app/docker/run.sh", "--threaded", "--host", "0.0.0.0", "--port", "5000" ]
