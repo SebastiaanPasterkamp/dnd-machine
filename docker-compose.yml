@@ -4,7 +4,7 @@ services:
     nginx:
         build:
             context: .
-            dockerfile: docker/Dockerfile
+            dockerfile: nginx/Dockerfile
         container_name: dnd-nginx
         ports:
             - 8080:80
@@ -14,6 +14,9 @@ services:
                     - proxy
         volumes:
             - .:/dnd-machine
+        depends_on:
+          - flask
+          - node
 
     flask:
         build:
