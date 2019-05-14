@@ -1,0 +1,47 @@
+version: '2'
+
+services:
+    nginx:
+        build:
+            context: .
+            dockerfile: nginx/Dockerfile
+        container_name: dnd-nginx
+        ports:
+            - 8080:80
+        networks:
+            dnd-network:
+                aliases:
+                    - proxy
+        volumes:
+            - .:/dnd-machine
+        depends_on:
+          - flask
+          - node
+
+    flask:
+        build:
+            context: .
+            dockerfile: app/Dockerfile
+        container_name: dnd-flask
+        networks:
+            dnd-network:
+                aliases:
+                    - api
+        volumes:
+            - .:/dnd-machine
+
+    node:
+        build:
+            context: .
+            dockerfile: ui/Dockerfile
+        container_name: dnd-node
+        networks:
+            dnd-network:
+                aliases:
+                    - ui
+        volumes:
+            - .:/dnd-machine
+
+networks:
+    dnd-network:
+        driver: bridge
