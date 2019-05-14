@@ -7,6 +7,4 @@ WORKDIR /dnd-machine/ui
 COPY app/static /dnd-machine/app/static
 COPY ui /dnd-machine/ui
 
-RUN npm install
-
-CMD [ "npm", "run", "start:dev" ]
+CMD [ "/bin/sh", "docker/run.sh" ]

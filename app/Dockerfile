@@ -4,7 +4,7 @@ MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
 WORKDIR /dnd-machine
 
-COPY requirements.txt *.md *.py *.db ./
+COPY requirements.txt *.md *.py ./
 
 RUN apk \
         --no-cache add \
@@ -13,11 +13,8 @@ RUN apk \
         --no-cache-dir \
         -r requirements.txt
 
-COPY app ./app
-COPY docker ./docker
+COPY app/ ./app
 
 VOLUME [ "/var/run/dnd-machine" ]
 
-ENTRYPOINT [ "sh" ]
-
-CMD [ "./docker/run.sh", "--threaded", "--host", "0.0.0.0", "--port", "8080" ]
+CMD [ "/bin/sh", "app/docker/run.sh", "--debug", "--threaded", "--host", "0.0.0.0", "--port", "8080" ]
