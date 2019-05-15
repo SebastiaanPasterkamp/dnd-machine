@@ -1,6 +1,13 @@
 import React from 'react';
 import Reflux from 'reflux';
-import _ from 'lodash';
+import {
+    assign,
+    fromPairs,
+    get,
+    map,
+    reduce,
+    set,
+} from 'lodash/fp';
 
 import CharacterEditorActions from '../actions/CharacterEditorActions.jsx';
 import {
@@ -28,15 +35,15 @@ class CharacterEditorStore extends Reflux.Store
             config,
             ...rest
         } = this.state;
-        const state = _.assign(
+        const state = assign(
+            fromPairs(
+                map((value, key) => [key, undefined])(rest)
+            ),
             {
                 original: {},
                 character: {},
                 config: {},
-            },
-            _.fromPairs(
-                _.map(rest, (value, key) => [key, undefined])
-            ),
+            }
         );
         this.setState(state);
     }
@@ -54,11 +61,7 @@ class CharacterEditorStore extends Reflux.Store
             } = {},
         } = original;
 
-        const preview = _.reduce(
-            {
-                ...changes,
-                [id]: change,
-            },
+        const preview = reduce(
             (preview, previewChange, previewId) => {
                 if (
                     previewChange
@@ -67,13 +70,15 @@ class CharacterEditorStore extends Reflux.Store
                     preview[previewId] = previewChange;
                 }
                 return preview;
-            },
-            {}
-        );
+            }
+        )({
+            ...changes,
+            [id]: change,
+        });
 
         const character = ComputeChange(
             preview,
-            _.set(old, path, _.get(original, path))
+            set(path, get(path, original), old)
         );
 
         this.setState({
@@ -103,11 +108,6 @@ class CharacterEditorStore extends Reflux.Store
             config: ComputeConfig(config, character),
         });
     }
-
-    delayedComputeChange = _.debounce(
-        this.computeChange,
-        50
-    );
 
     onEditCharacterCompleted(original) {
         this.setState({
@@ -174,7 +174,7 @@ class CharacterEditorStore extends Reflux.Store
             return;
         }
         this.previewChange(id, change.path, undefined);
-        this.delayedComputeChange();
+        this.computeChange();
     }
 }
 
