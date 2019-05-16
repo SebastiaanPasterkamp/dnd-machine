@@ -4,10 +4,10 @@ import fp from 'lodash/fp';
 import { mount } from 'enzyme';
 jest.useFakeTimers();
 
-import ValuePropertySelect from 'components/Character/ValuePropertySelect.jsx';
+import ValuePropertySelect from '../components/ValuePropertySelect.jsx';
 
-import actions from 'actions/CharacterEditorActions.jsx';
-import store from 'stores/CharacterEditorStore.jsx';
+import actions from '../actions/CharacterEditorActions.jsx';
+import store from '../stores/CharacterEditorStore.jsx';
 
 const props = {
     path: 'some.path',

@@ -1,6 +1,8 @@
 import React from 'react';
 import Reflux from 'reflux';
-import _ from 'lodash';
+import {
+    filter,
+} from 'lodash/fp';
 
 const CharacterEditorActions = Reflux.createActions({
     "editCharacter": {asyncResult: true},
@@ -49,7 +51,7 @@ CharacterEditorActions.resetCharacter.listen(
 const saveCharacter = (
     action, method, data, id=null, callback=null
 ) => {
-    const path = '/' + _.filter(
+    const path = '/' + filter(
         ['character', 'api', id]
     ).join('/');
 

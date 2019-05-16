@@ -2,12 +2,13 @@ import React from 'react';
 import _ from 'lodash';
 import fp from 'lodash/fp';
 import { mount } from 'enzyme';
+
 jest.useFakeTimers();
 
-import DictPropertySelect from 'components/Character/DictPropertySelect.jsx';
+import DictPropertySelect from '../components/DictPropertySelect.jsx';
 
-import actions from 'actions/CharacterEditorActions.jsx';
-import store from 'stores/CharacterEditorStore.jsx';
+import actions from '../actions/CharacterEditorActions.jsx';
+import store from '../stores/CharacterEditorStore.jsx';
 
 const props = {
     type: 'dict',

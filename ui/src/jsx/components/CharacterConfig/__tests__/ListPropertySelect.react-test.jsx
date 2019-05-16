@@ -2,17 +2,17 @@ import React from 'react';
 import _ from 'lodash';
 import fp from 'lodash/fp';
 import { mount } from 'enzyme';
+
+const { statistics } = require('./__mocks__/apiCalls.js');
+
 jest.useFakeTimers();
+jest.mock('../../../actions/ListDataActions.jsx');
 
-jest.mock('actions/ListDataActions.jsx');
+import ListPropertySelect from '../components/ListPropertySelect.jsx';
 
-import ListPropertySelect from 'components/Character/ListPropertySelect.jsx';
-
-import actions from 'actions/CharacterEditorActions.jsx';
-import store from 'stores/CharacterEditorStore.jsx';
-import ListDataStore from 'stores/ListDataStore.jsx';
-
-const { statistics } = require('../../__mocks__/apiCalls.js');
+import actions from '../actions/CharacterEditorActions.jsx';
+import store from '../stores/CharacterEditorStore.jsx';
+import ListDataStore from '../../../stores/ListDataStore.jsx';
 
 const props = {
     type: 'list',
@@ -46,12 +46,12 @@ describe('Component: ListPropertySelect', () => {
 
     afterEach(() => store.reset());
 
-    it.skip('should render with minimum props', () => {
+    it('should render with minimum props', () => {
         const wrapper = mount(
             <ListPropertySelect
                 path="some.path"
                 type="list"
-                />
+            />
         );
         jest.runAllTimers();
 
@@ -59,13 +59,13 @@ describe('Component: ListPropertySelect', () => {
             .toMatchSnapshot();
     });
 
-    it.skip('should not render select w/o items', () => {
+    it('should not render select w/o items', () => {
         const wrapper = mount(
             <ListPropertySelect
                 {...props}
                 list={undefined}
                 limit={1}
-                />
+            />
         );
         jest.runAllTimers();
 
@@ -73,13 +73,13 @@ describe('Component: ListPropertySelect', () => {
             .toMatchSnapshot();
     });
 
-    it.skip('should not render select w/ filtering all items', () => {
+    it('should not render select w/ filtering all items', () => {
         const wrapper = mount(
             <ListPropertySelect
                 {...props}
                 limit={1}
                 filter={{ code: ['impossible'] }}
-                />
+            />
         );
         jest.runAllTimers();
 
@@ -87,7 +87,7 @@ describe('Component: ListPropertySelect', () => {
             .toMatchSnapshot();
     });
 
-    it.skip('should not render when hidden', () => {
+    it('should not render when hidden', () => {
         const wrapper = mount(
             <ListPropertySelect
                 {...props}
@@ -126,7 +126,7 @@ describe('Component: ListPropertySelect', () => {
             .toMatchSnapshot();
     });
 
-    it.skip('should omit unknown current values', () => {
+    it('should omit unknown current values', () => {
         const wrapper = mount(
             <ListPropertySelect
                 {...props}
@@ -141,7 +141,7 @@ describe('Component: ListPropertySelect', () => {
             .toMatchSnapshot();
     });
 
-    it.skip('should emit *Change actions on mount and umount', () => {
+    it('should emit *Change actions on mount and umount', () => {
         const addChange = jest.spyOn(
             actions,
             'addChange'
@@ -157,7 +157,7 @@ describe('Component: ListPropertySelect', () => {
                     'strength',
                     'charisma',
                 ]}
-                />
+            />
         );
 
         expect(addChange)
@@ -184,7 +184,7 @@ describe('Component: ListPropertySelect', () => {
             .toBeCalledWith(mockedId);
     });
 
-    it.skip('should handle replacing one existing', () => {
+    it('should handle replacing one existing', () => {
         const addChange = jest.spyOn(
             actions,
             'addChange'
@@ -197,7 +197,7 @@ describe('Component: ListPropertySelect', () => {
                 ]}
                 filter={{ code: ['strength'] }}
                 replace={1}
-                />
+            />
         );
 
         expect(wrapper)
@@ -272,7 +272,7 @@ describe('Component: ListPropertySelect', () => {
             .toMatchSnapshot();
     });
 
-    it.skip('should handle adding and deleting new', () => {
+    it('should handle adding and deleting new', () => {
         const addChange = jest.spyOn(
             actions,
             'addChange'
@@ -284,8 +284,9 @@ describe('Component: ListPropertySelect', () => {
                     'charisma',
                 ]}
                 limit={1}
-                />
+            />
         );
+        jest.runAllTimers();
 
         expect(wrapper)
             .toMatchSnapshot();
@@ -297,6 +298,7 @@ describe('Component: ListPropertySelect', () => {
         wrapper
             .find('[data-value="strength"]')
             .simulate('click');
+        jest.runAllTimers();
 
         expect(addChange)
             .toBeCalledWith(
@@ -316,12 +318,15 @@ describe('Component: ListPropertySelect', () => {
                 },
             );
 
+        expect(wrapper).toMatchSnapshot();
+
         actions.addChange(
             'some.path',
             {added: ['intelligence'], removed: []},
             'id_2',
             {type: 'list'},
         );
+        jest.runAllTimers();
 
         addChange.mockClear();
 
@@ -333,6 +338,8 @@ describe('Component: ListPropertySelect', () => {
             .find('.nice-tag-btn')
             .at(0)
             .simulate('click');
+        jest.runAllTimers();
+
         expect(addChange)
             .toBeCalledWith(
                 props.path,

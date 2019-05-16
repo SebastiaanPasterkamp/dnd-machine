@@ -13,9 +13,10 @@ import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
-import CharacterConfig from '../components/Character/CharacterConfig.jsx';
-import StatisticsSelect from '../components/Character/StatisticsSelect.jsx';
-import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
+import CharacterConfig, {
+    baseConfig,
+    CharacterEditorWrapper,
+} from '../components/CharacterConfig';
 
 import ButtonField from '../components/ButtonField.jsx';
 import CharacterLabel from '../components/CharacterLabel.jsx';
@@ -27,8 +28,6 @@ import SingleSelect from '../components/SingleSelect.jsx';
 import StatsBlock from '../components/StatsBlock.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import TagContainer from '../components/TagContainer.jsx';
-
-import baseConfig from '../components/Character/baseConfig.json';
 
 const viewConfig = {
     className: 'character-edit',

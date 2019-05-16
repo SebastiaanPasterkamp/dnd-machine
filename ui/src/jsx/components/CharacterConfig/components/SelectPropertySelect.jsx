@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
-import LazyComponent from '../LazyComponent.jsx';
-import SingleSelect from '../SingleSelect.jsx';
+import LazyComponent from '../../LazyComponent.jsx';
+import SingleSelect from '../../SingleSelect.jsx';
 
-import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
-import ListsToItemsWrapper from '../../hocs/ListsToItemsWrapper.jsx';
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
+import ListsToItemsWrapper from '../../../hocs/ListsToItemsWrapper.jsx';
 
 export class SelectPropertySelect extends LazyComponent
 {

@@ -6,14 +6,14 @@ import {
     TagsContainer,
     Tag,
     TagBadge,
-} from '../BaseTagContainer.jsx';
-import LazyComponent from '../LazyComponent.jsx';
-import SingleSelect from '../SingleSelect.jsx';
+} from '../../BaseTagContainer.jsx';
+import LazyComponent from '../../LazyComponent.jsx';
+import SingleSelect from '../../SingleSelect.jsx';
 
-import { memoize } from '../../utils';
+import { memoize } from '../../../utils';
 
-import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
-import ListsToItemsWrapper from '../../hocs/ListsToItemsWrapper.jsx';
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
+import ListsToItemsWrapper from '../../../hocs/ListsToItemsWrapper.jsx';
 
 export class ListPropertySelect extends LazyComponent
 {

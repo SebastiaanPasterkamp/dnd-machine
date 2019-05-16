@@ -61,22 +61,14 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
     type="list"
   >
     <ListPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": Array [
-              "dexterity",
-              "charisma",
-            ],
-          },
-        }
-      }
       current={
         Array [
           "dexterity",
           "charisma",
+          "intelligence",
         ]
       }
+      filter={Object {}}
       getCurrent={[Function]}
       given={
         Array [
@@ -118,9 +110,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
         ]
       }
       limit={1}
+      multiple={false}
       onChange={[Function]}
       onSave={[Function]}
       onUpdate={[Function]}
+      replace={0}
       type="list"
     >
       <TagsContainer>
@@ -141,11 +135,6 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
                   "code": "constitution",
                   "description": "Con",
                   "label": "Constitution",
-                },
-                Object {
-                  "code": "intelligence",
-                  "description": "Int",
-                  "label": "Intelligence",
                 },
                 Object {
                   "code": "wisdom",
@@ -218,16 +207,6 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
                     >
                       <a>
                         Constitution
-                      </a>
-                    </li>
-                    <li
-                      className={null}
-                      data-value="intelligence"
-                      key="intelligence"
-                      onClick={[Function]}
-                    >
-                      <a>
-                        Intelligence
                       </a>
                     </li>
                     <li
@@ -329,6 +308,48 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
               </span>
             </div>
           </Tag>
+          <Tag
+            color={null}
+            description="Int"
+            disabled={true}
+            id="intelligence"
+            key="tag-2"
+            label="Intelligence"
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag muted"
+            >
+              <span
+                className="nice-tag-label"
+              >
+                <ToolTip
+                  content="Int"
+                >
+                  <div
+                    className="tool-tip inline"
+                  >
+                    Intelligence
+                    <MDReactComponent
+                      className="tool-tip--content"
+                      text="Int"
+                    >
+                      <span
+                        className="tool-tip--content"
+                        key="mdrct-html-0"
+                      >
+                        <p
+                          key="mdrct-p-0"
+                        >
+                          Int
+                        </p>
+                      </span>
+                    </MDReactComponent>
+                  </div>
+                </ToolTip>
+              </span>
+            </div>
+          </Tag>
         </div>
       </TagsContainer>
     </ListPropertySelect>
@@ -397,24 +418,15 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
     type="list"
   >
     <ListPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": Array [
-              "dexterity",
-              "charisma",
-              "strength",
-            ],
-          },
-        }
-      }
       current={
         Array [
           "dexterity",
-          "charisma",
           "strength",
+          "charisma",
+          "intelligence",
         ]
       }
+      filter={Object {}}
       getCurrent={[Function]}
       given={
         Array [
@@ -456,9 +468,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
         ]
       }
       limit={1}
+      multiple={false}
       onChange={[Function]}
       onSave={[Function]}
       onUpdate={[Function]}
+      replace={0}
       type="list"
     >
       <TagsContainer>
@@ -603,6 +617,48 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
               </span>
             </div>
           </Tag>
+          <Tag
+            color={null}
+            description="Int"
+            disabled={true}
+            id="intelligence"
+            key="tag-3"
+            label="Intelligence"
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag muted"
+            >
+              <span
+                className="nice-tag-label"
+              >
+                <ToolTip
+                  content="Int"
+                >
+                  <div
+                    className="tool-tip inline"
+                  >
+                    Intelligence
+                    <MDReactComponent
+                      className="tool-tip--content"
+                      text="Int"
+                    >
+                      <span
+                        className="tool-tip--content"
+                        key="mdrct-html-0"
+                      >
+                        <p
+                          key="mdrct-p-0"
+                        >
+                          Int
+                        </p>
+                      </span>
+                    </MDReactComponent>
+                  </div>
+                </ToolTip>
+              </span>
+            </div>
+          </Tag>
         </div>
       </TagsContainer>
     </ListPropertySelect>
@@ -671,26 +727,15 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
     type="list"
   >
     <ListPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": Array [
-              "dexterity",
-              "charisma",
-              "strength",
-              "intelligence",
-            ],
-          },
-        }
-      }
       current={
         Array [
           "dexterity",
-          "charisma",
           "strength",
+          "charisma",
           "intelligence",
         ]
       }
+      filter={Object {}}
       getCurrent={[Function]}
       given={
         Array [
@@ -732,9 +777,319 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
         ]
       }
       limit={1}
+      multiple={false}
       onChange={[Function]}
       onSave={[Function]}
       onUpdate={[Function]}
+      replace={0}
+      type="list"
+    >
+      <TagsContainer>
+        <div
+          className="base-tag-container nice-tags-container"
+        >
+          <Tag
+            color="info"
+            description="Str"
+            id="strength"
+            key="tag-0"
+            label="Strength"
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag info"
+            >
+              <span
+                className="nice-tag-label"
+              >
+                <ToolTip
+                  content="Str"
+                >
+                  <div
+                    className="tool-tip inline"
+                  >
+                    Strength
+                    <MDReactComponent
+                      className="tool-tip--content"
+                      text="Str"
+                    >
+                      <span
+                        className="tool-tip--content"
+                        key="mdrct-html-0"
+                      >
+                        <p
+                          key="mdrct-p-0"
+                        >
+                          Str
+                        </p>
+                      </span>
+                    </MDReactComponent>
+                  </div>
+                </ToolTip>
+              </span>
+              <TagBadgeButton
+                icon="fa-trash-o"
+                onClick={[Function]}
+              >
+                <button
+                  className="nice-tag-btn"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="icon fa-trash-o"
+                  />
+                </button>
+              </TagBadgeButton>
+            </div>
+          </Tag>
+          <Tag
+            color="good"
+            description="Char"
+            disabled={true}
+            id="charisma"
+            key="tag-1"
+            label="Charisma"
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag good"
+            >
+              <span
+                className="nice-tag-label"
+              >
+                <ToolTip
+                  content="Char"
+                >
+                  <div
+                    className="tool-tip inline"
+                  >
+                    Charisma
+                    <MDReactComponent
+                      className="tool-tip--content"
+                      text="Char"
+                    >
+                      <span
+                        className="tool-tip--content"
+                        key="mdrct-html-0"
+                      >
+                        <p
+                          key="mdrct-p-0"
+                        >
+                          Char
+                        </p>
+                      </span>
+                    </MDReactComponent>
+                  </div>
+                </ToolTip>
+              </span>
+            </div>
+          </Tag>
+          <Tag
+            color={null}
+            description="Dex"
+            disabled={true}
+            id="dexterity"
+            key="tag-2"
+            label="Dexterity"
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag muted"
+            >
+              <span
+                className="nice-tag-label"
+              >
+                <ToolTip
+                  content="Dex"
+                >
+                  <div
+                    className="tool-tip inline"
+                  >
+                    Dexterity
+                    <MDReactComponent
+                      className="tool-tip--content"
+                      text="Dex"
+                    >
+                      <span
+                        className="tool-tip--content"
+                        key="mdrct-html-0"
+                      >
+                        <p
+                          key="mdrct-p-0"
+                        >
+                          Dex
+                        </p>
+                      </span>
+                    </MDReactComponent>
+                  </div>
+                </ToolTip>
+              </span>
+            </div>
+          </Tag>
+          <Tag
+            color={null}
+            description="Int"
+            disabled={true}
+            id="intelligence"
+            key="tag-3"
+            label="Intelligence"
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag muted"
+            >
+              <span
+                className="nice-tag-label"
+              >
+                <ToolTip
+                  content="Int"
+                >
+                  <div
+                    className="tool-tip inline"
+                  >
+                    Intelligence
+                    <MDReactComponent
+                      className="tool-tip--content"
+                      text="Int"
+                    >
+                      <span
+                        className="tool-tip--content"
+                        key="mdrct-html-0"
+                      >
+                        <p
+                          key="mdrct-p-0"
+                        >
+                          Int
+                        </p>
+                      </span>
+                    </MDReactComponent>
+                  </div>
+                </ToolTip>
+              </span>
+            </div>
+          </Tag>
+        </div>
+      </TagsContainer>
+    </ListPropertySelect>
+  </CharacterEditorComponent>
+</ListsToItemsCharacterEditorComponent>
+`;
+
+exports[`Component: ListPropertySelect should handle adding and deleting new 4`] = `
+<ListsToItemsCharacterEditorComponent
+  given={
+    Array [
+      "charisma",
+    ]
+  }
+  limit={1}
+  list={
+    Array [
+      "statistics",
+    ]
+  }
+  path="some.path"
+  type="list"
+>
+  <CharacterEditorComponent
+    given={
+      Array [
+        "charisma",
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "code": "strength",
+          "description": "Str",
+          "label": "Strength",
+        },
+        Object {
+          "code": "dexterity",
+          "description": "Dex",
+          "label": "Dexterity",
+        },
+        Object {
+          "code": "constitution",
+          "description": "Con",
+          "label": "Constitution",
+        },
+        Object {
+          "code": "intelligence",
+          "description": "Int",
+          "label": "Intelligence",
+        },
+        Object {
+          "code": "wisdom",
+          "description": "Wis",
+          "label": "Wisdom",
+        },
+        Object {
+          "code": "charisma",
+          "description": "Char",
+          "label": "Charisma",
+        },
+      ]
+    }
+    limit={1}
+    path="some.path"
+    type="list"
+  >
+    <ListPropertySelect
+      current={
+        Array [
+          "dexterity",
+          "charisma",
+          "intelligence",
+        ]
+      }
+      filter={Object {}}
+      getCurrent={[Function]}
+      given={
+        Array [
+          "charisma",
+        ]
+      }
+      items={
+        Array [
+          Object {
+            "code": "strength",
+            "description": "Str",
+            "label": "Strength",
+          },
+          Object {
+            "code": "dexterity",
+            "description": "Dex",
+            "label": "Dexterity",
+          },
+          Object {
+            "code": "constitution",
+            "description": "Con",
+            "label": "Constitution",
+          },
+          Object {
+            "code": "intelligence",
+            "description": "Int",
+            "label": "Intelligence",
+          },
+          Object {
+            "code": "wisdom",
+            "description": "Wis",
+            "label": "Wisdom",
+          },
+          Object {
+            "code": "charisma",
+            "description": "Char",
+            "label": "Charisma",
+          },
+        ]
+      }
+      limit={1}
+      multiple={false}
+      onChange={[Function]}
+      onSave={[Function]}
+      onUpdate={[Function]}
+      replace={0}
       type="list"
     >
       <TagsContainer>
@@ -746,6 +1101,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
             isDisabled={[Function]}
             items={
               Array [
+                Object {
+                  "code": "strength",
+                  "description": "Str",
+                  "label": "Strength",
+                },
                 Object {
                   "code": "constitution",
                   "description": "Con",
@@ -804,6 +1164,16 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
                     className="dropdown-menu"
                     onClick={[Function]}
                   >
+                    <li
+                      className={null}
+                      data-value="strength"
+                      key="strength"
+                      onClick={[Function]}
+                    >
+                      <a>
+                        Strength
+                      </a>
+                    </li>
                     <li
                       className={null}
                       data-value="constitution"
@@ -915,52 +1285,10 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
           </Tag>
           <Tag
             color={null}
-            description="Str"
-            disabled={true}
-            id="strength"
-            key="tag-2"
-            label="Strength"
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
-            >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Str"
-                >
-                  <div
-                    className="tool-tip inline"
-                  >
-                    Strength
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Str"
-                    >
-                      <span
-                        className="tool-tip--content"
-                        key="mdrct-html-0"
-                      >
-                        <p
-                          key="mdrct-p-0"
-                        >
-                          Str
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
-            </div>
-          </Tag>
-          <Tag
-            color={null}
             description="Int"
             disabled={true}
             id="intelligence"
-            key="tag-3"
+            key="tag-2"
             label="Intelligence"
             onDelete={[Function]}
           >
@@ -1079,16 +1407,6 @@ exports[`Component: ListPropertySelect should handle replacing one existing 1`] 
     type="list"
   >
     <ListPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": Array [
-              "dexterity",
-              "charisma",
-            ],
-          },
-        }
-      }
       current={
         Array [
           "dexterity",
@@ -1142,6 +1460,8 @@ exports[`Component: ListPropertySelect should handle replacing one existing 1`] 
           },
         ]
       }
+      limit={0}
+      multiple={false}
       onChange={[Function]}
       onSave={[Function]}
       onUpdate={[Function]}
@@ -1331,16 +1651,6 @@ exports[`Component: ListPropertySelect should handle replacing one existing 2`] 
     type="list"
   >
     <ListPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": Array [
-              "charisma",
-              "intelligence",
-            ],
-          },
-        }
-      }
       current={
         Array [
           "charisma",
@@ -1393,6 +1703,8 @@ exports[`Component: ListPropertySelect should handle replacing one existing 2`] 
           },
         ]
       }
+      limit={0}
+      multiple={false}
       onChange={[Function]}
       onSave={[Function]}
       onUpdate={[Function]}
@@ -1615,22 +1927,11 @@ exports[`Component: ListPropertySelect should handle replacing one existing 3`] 
     type="list"
   >
     <ListPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": Array [
-              "charisma",
-              "intelligence",
-              "strength",
-            ],
-          },
-        }
-      }
       current={
         Array [
+          "strength",
           "charisma",
           "intelligence",
-          "strength",
         ]
       }
       filter={
@@ -1680,6 +1981,8 @@ exports[`Component: ListPropertySelect should handle replacing one existing 3`] 
           },
         ]
       }
+      limit={0}
+      multiple={false}
       onChange={[Function]}
       onSave={[Function]}
       onUpdate={[Function]}
@@ -1900,15 +2203,6 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
     type="list"
   >
     <ListPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": Array [
-              "dexterity",
-            ],
-          },
-        }
-      }
       current={
         Array [
           "dexterity",
@@ -1922,6 +2216,7 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
         }
       }
       getCurrent={[Function]}
+      given={Array []}
       items={
         Array [
           Object {
@@ -1957,9 +2252,11 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
         ]
       }
       limit={1}
+      multiple={false}
       onChange={[Function]}
       onSave={[Function]}
       onUpdate={[Function]}
+      replace={0}
       type="list"
     >
       <TagsContainer>
@@ -2028,26 +2325,21 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
     type="list"
   >
     <ListPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": Array [
-              "dexterity",
-            ],
-          },
-        }
-      }
       current={
         Array [
           "dexterity",
         ]
       }
+      filter={Object {}}
       getCurrent={[Function]}
+      given={Array []}
       items={Array []}
       limit={1}
+      multiple={false}
       onChange={[Function]}
       onSave={[Function]}
       onUpdate={[Function]}
+      replace={0}
       type="list"
     >
       <TagsContainer>
@@ -2111,21 +2403,14 @@ exports[`Component: ListPropertySelect should not render when hidden 1`] = `
     type="list"
   >
     <ListPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": Array [
-              "dexterity",
-            ],
-          },
-        }
-      }
       current={
         Array [
           "dexterity",
         ]
       }
+      filter={Object {}}
       getCurrent={[Function]}
+      given={Array []}
       hidden={true}
       items={
         Array [
@@ -2161,9 +2446,12 @@ exports[`Component: ListPropertySelect should not render when hidden 1`] = `
           },
         ]
       }
+      limit={0}
+      multiple={false}
       onChange={[Function]}
       onSave={[Function]}
       onUpdate={[Function]}
+      replace={0}
       type="list"
     />
   </CharacterEditorComponent>
@@ -2229,22 +2517,13 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
     type="list"
   >
     <ListPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": Array [
-              "dexterity",
-              "foo",
-            ],
-          },
-        }
-      }
       current={
         Array [
           "dexterity",
           "foo",
         ]
       }
+      filter={Object {}}
       getCurrent={[Function]}
       given={
         Array [
@@ -2285,9 +2564,12 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
           },
         ]
       }
+      limit={0}
+      multiple={false}
       onChange={[Function]}
       onSave={[Function]}
       onUpdate={[Function]}
+      replace={0}
       type="list"
     >
       <TagsContainer>
@@ -2762,25 +3044,21 @@ exports[`Component: ListPropertySelect should render with minimum props 1`] = `
     type="list"
   >
     <ListPropertySelect
-      character={
-        Object {
-          "some": Object {
-            "path": Array [
-              "dexterity",
-            ],
-          },
-        }
-      }
       current={
         Array [
           "dexterity",
         ]
       }
+      filter={Object {}}
       getCurrent={[Function]}
+      given={Array []}
       items={Array []}
+      limit={0}
+      multiple={false}
       onChange={[Function]}
       onSave={[Function]}
       onUpdate={[Function]}
+      replace={0}
       type="list"
     >
       <TagsContainer>

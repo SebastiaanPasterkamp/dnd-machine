@@ -13,7 +13,7 @@ import CharacterEditorActions from '../actions/CharacterEditorActions.jsx';
 import {
     ComputeChange,
     ComputeConfig,
-} from '../components/Character/ComputeChange.jsx';
+} from '../utils/ComputeChange.jsx';
 
 class CharacterEditorStore extends Reflux.Store
 {
