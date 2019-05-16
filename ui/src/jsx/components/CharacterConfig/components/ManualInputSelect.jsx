@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import LazyComponent from '../LazyComponent.jsx';
-import InputField from '../InputField.jsx';
-import MarkdownTextField from '../MarkdownTextField.jsx';
+import LazyComponent from '../../LazyComponent.jsx';
+import InputField from '../../InputField.jsx';
+import MarkdownTextField from '../../MarkdownTextField.jsx';
 
-import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
 export const ManualInputSelect = function({
     onChange, current, placeholder, markup,

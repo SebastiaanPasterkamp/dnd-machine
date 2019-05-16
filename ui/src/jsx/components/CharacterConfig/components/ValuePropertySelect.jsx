@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import LazyComponent from '../LazyComponent.jsx';
-import MarkdownTextField from '../MarkdownTextField.jsx';
-import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
+import LazyComponent from '../../LazyComponent.jsx';
+import MarkdownTextField from '../../MarkdownTextField.jsx';
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
 export class ValuePropertySelect extends LazyComponent
 {

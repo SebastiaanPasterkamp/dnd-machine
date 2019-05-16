@@ -3,15 +3,16 @@ import _ from 'lodash';
 import fp from 'lodash/fp';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+
+const { statistics } = require('./__mocks__/apiCalls.js');
+
 jest.useFakeTimers();
 
-import SelectPropertySelect from 'components/Character/SelectPropertySelect.jsx';
+import SelectPropertySelect from '../components/SelectPropertySelect.jsx';
 
-import actions from 'actions/CharacterEditorActions.jsx';
-import store from 'stores/CharacterEditorStore.jsx';
-import ListDataStore from 'stores/ListDataStore.jsx';
-
-const { statistics } = require('../../__mocks__/apiCalls.js');
+import actions from '../actions/CharacterEditorActions.jsx';
+import store from '../stores/CharacterEditorStore.jsx';
+import ListDataStore from '../../../stores/ListDataStore.jsx';
 
 const props = {
     type: 'select',

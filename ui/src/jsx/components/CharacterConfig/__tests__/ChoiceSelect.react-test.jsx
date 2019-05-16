@@ -1,10 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import ChoiceSelect from 'components/Character/ChoiceSelect.jsx';
+import ChoiceSelect from '../components/ChoiceSelect.jsx';
 
-import actions from 'actions/CharacterEditorActions.jsx';
-import store from 'stores/CharacterEditorStore.jsx';
+import actions from '../actions/CharacterEditorActions.jsx';
+import store from '../stores/CharacterEditorStore.jsx';
 
 const props = {
     type: 'choice',

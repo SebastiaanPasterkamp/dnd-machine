@@ -17,7 +17,7 @@ import {
 } from 'lodash/fp';
 const forEach = forEachCapped.convert({ cap: false });
 
-import utils from '../../utils.jsx';
+import utils from '../../../utils.jsx';
 
 export function ComputeChange(changes, original) {
     const filtered = pickBy(

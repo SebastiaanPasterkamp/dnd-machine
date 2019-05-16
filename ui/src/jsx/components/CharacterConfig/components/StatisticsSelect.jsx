@@ -6,11 +6,11 @@ import {
     uniqueId,
 } from 'lodash/fp';
 
-import actions from '../../actions/CharacterEditorActions.jsx';
-import ListDataWrapper from '../../hocs/ListDataWrapper.jsx';
-import store from '../../stores/CharacterEditorStore.jsx';
+import actions from '../actions/CharacterEditorActions.jsx';
+import ListDataWrapper from '../../../hocs/ListDataWrapper.jsx';
+import store from '../stores/CharacterEditorStore.jsx';
 
-import StatsBlock from '../StatsBlock.jsx';
+import StatsBlock from '../../StatsBlock.jsx';
 
 class StatisticsSelect extends Reflux.Component
 {

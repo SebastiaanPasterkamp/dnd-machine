@@ -1,28 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    entries,
+    filter,
+    flow,
+    map,
+} from 'lodash/fp';
 
-import LazyComponent from '../LazyComponent.jsx';
-import TabComponent from '../TabComponent.jsx';
+import LazyComponent from '../../LazyComponent.jsx';
+import TabComponent from '../../TabComponent.jsx';
 
-import CharacterConfig from './CharacterConfig.jsx';
+import CharacterConfig from '../CharacterConfig.jsx';
 
 export const ChoiceSelect = function({ options }) {
-    const filtered = _.chain(options)
-        .filter( option => !option.hidden )
-        .value();
+    const filtered = filter(
+        (option) => !option.hidden
+    )(options);
 
     return (
         <TabComponent tabConfig={filtered}>
-            {_.map(
-                filtered,
-                (option, index) => (
+            {flow(entries, map(
+                ([index, option]) => (
                     <CharacterConfig
                         key={ index }
                         config={ [option] }
                     />
                 )
-            )}
+            ))(filtered)}
         </TabComponent>
     );
 };

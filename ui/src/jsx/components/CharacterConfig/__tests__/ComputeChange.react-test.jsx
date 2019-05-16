@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     ComputeChange,
-} from 'components/Character/ComputeChange.jsx';
+} from '../utils/ComputeChange.jsx';
 
 describe('Function: ComputeChange', () => {
     describe('received undefined value', () => {

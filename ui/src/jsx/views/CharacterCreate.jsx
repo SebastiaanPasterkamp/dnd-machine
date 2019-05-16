@@ -24,15 +24,12 @@ import Progress from '../components/Progress.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
 import TabComponent from '../components/TabComponent.jsx';
 
-import CharacterConfig from '../components/Character/CharacterConfig.jsx';
-import {
+import CharacterConfig, {
+    baseConfig,
+    CharacterEditorWrapper,
     ComputeConfig,
-} from '../components/Character/ComputeChange.jsx';
-
-import StatisticsSelect from '../components/Character/StatisticsSelect.jsx';
-import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
-
-import baseConfig from '../components/Character/baseConfig.json';
+    StatisticsSelect,
+} from '../components/CharacterConfig';
 
 export class CharacterCreate extends React.Component
 {

@@ -3,12 +3,13 @@ import _ from 'lodash';
 import fp from 'lodash/fp';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+
 jest.useFakeTimers();
 
-import MultipleChoiceSelect from 'components/Character/MultipleChoiceSelect.jsx';
+import MultipleChoiceSelect from '../components/MultipleChoiceSelect.jsx';
 
-import actions from 'actions/CharacterEditorActions.jsx';
-import store from 'stores/CharacterEditorStore.jsx';
+import actions from '../actions/CharacterEditorActions.jsx';
+import store from '../stores/CharacterEditorStore.jsx';
 
 const props = {
     type: 'multichoice',

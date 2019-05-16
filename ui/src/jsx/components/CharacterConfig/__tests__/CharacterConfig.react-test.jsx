@@ -1,19 +1,18 @@
 import React from 'react';
-import _ from 'lodash';
 import fp from 'lodash/fp';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+
+const { statistics } = require('./__mocks__/apiCalls.js');
+
 jest.useFakeTimers();
+jest.mock('../../../actions/ListDataActions.jsx');
 
-jest.mock('actions/ListDataActions.jsx');
+import CharacterConfig from '../CharacterConfig.jsx';
 
-import CharacterConfig from 'components/Character/CharacterConfig.jsx';
-
-import actions from 'actions/CharacterEditorActions.jsx';
-import store from 'stores/CharacterEditorStore.jsx';
-import ListDataStore from 'stores/ListDataStore.jsx';
-
-const api = require('../../__mocks__/apiCalls.js');
+import actions from '../actions/CharacterEditorActions.jsx';
+import store from '../stores/CharacterEditorStore.jsx';
+import ListDataStore from '../../../stores/ListDataStore.jsx';
 
 const value = {
     type: 'value',
@@ -55,7 +54,7 @@ const list_array = {
 
 const list_object = {
     type: 'list',
-    items: api.statistics,
+    items: statistics,
     path: 'foo.items',
     given: ['bar'],
     limit: 1,
@@ -110,9 +109,8 @@ describe('Component: CharacterConfig', () => {
     beforeEach(() => {
         mockedId = 1;
 
-        fp.uniqueId = _.uniqueId = jest.fn();
-        _.uniqueId
-            .mockReturnValue('id_' + mockedId++);
+        fp.uniqueId = jest.fn();
+        fp.uniqueId.mockReturnValue('id_' + mockedId++);
 
         actions.editCharacter.completed({
             foo: {
@@ -127,7 +125,7 @@ describe('Component: CharacterConfig', () => {
 
         ListDataStore.onFetchItemsCompleted(
             {
-                statistics: api.statistics,
+                statistics: statistics,
             },
             'statistics'
         );
@@ -226,10 +224,10 @@ describe('Component: CharacterConfig', () => {
         expect(addChange)
             .toBeCalledWith(
                 select.path,
-                api.statistics[0].code,
+                statistics[0].code,
                 'id_1',
                 {
-                    items: api.statistics,
+                    items: statistics,
                     type: select.type,
                 },
             );
@@ -259,7 +257,7 @@ describe('Component: CharacterConfig', () => {
                 'id_1',
                 {
                     given: list.given,
-                    items: api.statistics,
+                    items: statistics,
                     limit: list.limit,
                     replace: list.replace,
                     type: list.type,
@@ -278,7 +276,7 @@ describe('Component: CharacterConfig', () => {
                 config={[
                     list_array,
                 ]}
-                />
+            />
         );
 
         expect(wrapper)
@@ -291,13 +289,12 @@ describe('Component: CharacterConfig', () => {
                 'id_1',
                 {
                     given: list_array.given,
-                    items: _.map(
-                        list_array.items,
+                    items: fp.map(
                         item => ({
                             code: item,
                             label: item,
                         })
-                    ),
+                    )(list_array.items),
                     limit: list_array.limit,
                     type: list_array.type,
                 },
@@ -328,7 +325,7 @@ describe('Component: CharacterConfig', () => {
                 'id_1',
                 {
                     given: list_object.given,
-                    items: api.statistics,
+                    items: statistics,
                     limit: list_object.limit,
                     type: list_object.type,
                 },

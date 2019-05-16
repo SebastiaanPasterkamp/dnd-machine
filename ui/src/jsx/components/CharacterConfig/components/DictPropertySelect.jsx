@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { sprintf } from 'sprintf-js';
 
-import utils from '../../utils.jsx';
-
-import MarkdownTextField from '../MarkdownTextField.jsx';
-import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
+import MarkdownTextField from '../../MarkdownTextField.jsx';
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
 export class DictPropertySelect extends React.Component
 {

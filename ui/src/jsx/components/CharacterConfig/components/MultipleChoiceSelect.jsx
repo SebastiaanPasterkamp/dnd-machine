@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import LazyComponent from '../LazyComponent.jsx';
-import TagContainer from '../TagContainer.jsx';
+import LazyComponent from '../../LazyComponent.jsx';
+import TagContainer from '../../TagContainer.jsx';
 
-import CharacterConfig from './CharacterConfig.jsx';
-import CharacterEditorWrapper from '../../hocs/CharacterEditorWrapper.jsx';
+import CharacterConfig from '../CharacterConfig.jsx';
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
 export class MultipleChoiceSelect extends LazyComponent
 {
