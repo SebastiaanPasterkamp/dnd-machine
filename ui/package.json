@@ -26,6 +26,7 @@
     "reflux": "^6.4.1",
     "sprintf-js": "^1.1.1",
     "sshpk": "^1.16.1",
+    "tar": "^4.4.8",
     "webpack": "^3.10.0"
   },
   "devDependencies": {
@@ -49,7 +50,7 @@
     "react-test-renderer": "^16.2.0",
     "sass-loader": "^6.0.6",
     "sinon": "^4.2.2",
-    "webpack-dev-server": "^2.9.7",
+    "webpack-dev-server": "^3.3.1",
     "webpack-hot-middleware": "^2.24.3"
   },
   "scripts": {
