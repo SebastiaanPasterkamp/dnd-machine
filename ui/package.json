@@ -26,6 +26,7 @@
     "reflux": "^6.4.1",
     "sprintf-js": "^1.1.1",
     "sshpk": "^1.16.1",
+    "tar": "^4.4.8",
     "webpack": "^3.10.0"
   },
   "devDependencies": {
