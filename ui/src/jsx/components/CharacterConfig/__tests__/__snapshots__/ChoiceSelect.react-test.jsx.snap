@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ChoiceSelect should render with all props 1`] = `
+<ChoiceSelect
+  description="One choice please"
+  options={
+    Array [
+      Object {
+        "label": "Choice A",
+        "limit": 1,
+        "type": "ability_score",
+      },
+      Object {
+        "description": "Some *text* here",
+        "label": "Choice B",
+        "limit": 2,
+        "type": "ability_score",
+      },
+    ]
+  }
+  type="choice"
+>
+  <TabComponent
+    tabConfig={
+      Array [
+        Object {
+          "label": "Choice A",
+          "limit": 1,
+          "type": "ability_score",
+        },
+        Object {
+          "description": "Some *text* here",
+          "label": "Choice B",
+          "limit": 2,
+          "type": "ability_score",
+        },
+      ]
+    }
+  >
+    <div
+      className="nice-tabs-wrapper tab-component"
+    >
+      <ul
+        className="nice-tabs bold"
+      >
+        <li
+          className="tab-component__tab current"
+          key="tab-0/.$0"
+        >
+          <a
+            className="cursor-pointer"
+            onClick={null}
+          >
+            Choice A
+          </a>
+        </li>
+        <li
+          className="tab-component__tab"
+          key="tab-1/.$1"
+        >
+          <a
+            className="cursor-pointer"
+            onClick={[Function]}
+          >
+            Choice B
+          </a>
+        </li>
+      </ul>
+      <ul
+        className="nice-tab-content"
+      >
+        <li
+          className="current"
+          key=".$0"
+        >
+          <CharacterConfig
+            config={
+              Array [
+                Object {
+                  "label": "Choice A",
+                  "limit": 1,
+                  "type": "ability_score",
+                },
+              ]
+            }
+            key="0"
+          >
+            <FormGroup
+              key="0"
+              label="Choice A"
+            >
+              <div
+                className="nice-form-group"
+              >
+                <label>
+                  Choice A
+                </label>
+                <ListDataStatisticsSelect
+                  limit={1}
+                  type="ability_score"
+                >
+                  <StatisticsSelect
+                    limit={1}
+                    statistics={Array []}
+                    type="ability_score"
+                  >
+                    <ListDataStatsBlock
+                      bonusChange={[Function]}
+                      editBase={false}
+                      increase={1}
+                      setState={[Function]}
+                      statistics={Array []}
+                      type="ability_score"
+                    >
+                      <StatsBlock
+                        bare={Object {}}
+                        base={Object {}}
+                        bonus={Object {}}
+                        bonusChange={[Function]}
+                        budget={0}
+                        editBase={false}
+                        increase={1}
+                        maxBare={30}
+                        minBare={8}
+                        modifiers={Object {}}
+                        setState={[Function]}
+                        statistics={Array []}
+                        type="ability_score"
+                      >
+                        <table
+                          className="nice-table stats-block condensed bordered"
+                        >
+                          <thead>
+                            <tr>
+                              <th>
+                                Statistic
+                              </th>
+                              <th
+                                className="text-align-center"
+                              >
+                                Base
+                              </th>
+                              <th
+                                className="text-align-center"
+                                colSpan={1}
+                              >
+                                Increase
+                              </th>
+                              <th
+                                className="text-align-center"
+                              >
+                                Final
+                              </th>
+                              <th
+                                className="text-align-center"
+                              >
+                                Modifier
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody />
+                        </table>
+                      </StatsBlock>
+                    </ListDataStatsBlock>
+                  </StatisticsSelect>
+                </ListDataStatisticsSelect>
+              </div>
+            </FormGroup>
+          </CharacterConfig>
+        </li>
+      </ul>
+    </div>
+  </TabComponent>
+</ChoiceSelect>
+`;
+
+exports[`Component: ChoiceSelect should render with minimum props 1`] = `
+<ChoiceSelect
+  options={Array []}
+  type="choice"
+>
+  <TabComponent
+    tabConfig={Array []}
+  >
+    <div
+      className="nice-tabs-wrapper tab-component"
+    >
+      <ul
+        className="nice-tabs bold"
+      />
+      <ul
+        className="nice-tab-content"
+      />
+    </div>
+  </TabComponent>
+</ChoiceSelect>
+`;

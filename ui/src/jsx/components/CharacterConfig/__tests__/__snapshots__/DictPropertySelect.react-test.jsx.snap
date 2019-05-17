@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: DictPropertySelect should not render anything while hidden 1`] = `
+<CharacterEditorComponent
+  dict={
+    Object {
+      "type": "new",
+    }
+  }
+  hidden={true}
+  path="some.path"
+  type="dict"
+>
+  <DictPropertySelect
+    current={
+      Object {
+        "description": "This shows _%(type)s_ content",
+        "type": "new",
+      }
+    }
+    dict={
+      Object {
+        "type": "new",
+      }
+    }
+    getCurrent={[Function]}
+    hidden={true}
+    onChange={[Function]}
+    onSave={[Function]}
+    onUpdate={[Function]}
+    type="dict"
+  />
+</CharacterEditorComponent>
+`;
+
+exports[`Component: DictPropertySelect should render the updated description 1`] = `
+<CharacterEditorComponent
+  dict={
+    Object {
+      "type": "new",
+    }
+  }
+  path="some.path"
+  type="dict"
+>
+  <DictPropertySelect
+    current={
+      Object {
+        "description": "This shows _%(type)s_ content",
+        "type": "new",
+      }
+    }
+    dict={
+      Object {
+        "type": "new",
+      }
+    }
+    getCurrent={[Function]}
+    onChange={[Function]}
+    onSave={[Function]}
+    onUpdate={[Function]}
+    type="dict"
+  >
+    <MarkdownTextField
+      className="small"
+      disabled={true}
+      setState={[Function]}
+      value="This shows _new_ content"
+    >
+      <div
+        className="markdown-textedit small preview"
+      >
+        <MDReactComponent
+          className="markdown-textedit__preview"
+          text="This shows _new_ content"
+        >
+          <span
+            className="markdown-textedit__preview"
+            key="mdrct-html-0"
+          >
+            <p
+              key="mdrct-p-0"
+            >
+              This shows 
+              <em
+                key="mdrct-em-1"
+              >
+                new
+              </em>
+               content
+            </p>
+          </span>
+        </MDReactComponent>
+      </div>
+    </MarkdownTextField>
+  </DictPropertySelect>
+</CharacterEditorComponent>
+`;

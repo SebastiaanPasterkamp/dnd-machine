@@ -60,7 +60,9 @@
     "build:watch": "npm run build -- -d --watch",
     "build:development": "npm run build",
     "build:production": "npm run build -- -p",
-    "test": "node_modules/.bin/jest"
+    "test": "node_modules/.bin/jest --ci",
+    "test:watch": "npm run test -- --watchAll",
+    "test:coverage": "npm run test -- --coverage"
   },
   "jest": {
     "testMatch": [

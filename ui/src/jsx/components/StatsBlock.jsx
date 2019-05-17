@@ -99,15 +99,18 @@ export class StatsBlock extends Reflux.Component
             );
         });
 
-        if (!_.isEqual(props.base, base)) {
+        if (!(
+            _.isEqual(props.base, base)
+            && _.isEqual(props.modifiers, modifiers)
+        )) {
             setState(props);
         }
     }
 
-//     componentWillReceiveProps(nextProps) {
-//         const { bare, bonus, base, modifiers } = nextProps;
-//         this.sendUpdate({ bare, bonus, base, modifiers });
-//     }
+    componentWillReceiveProps(nextProps) {
+        const { bare, bonus, base, modifiers } = nextProps;
+        this.sendUpdate({ bare, bonus, base, modifiers });
+    }
 
     changeBareStat(stat, value) {
         const bare = _.assign(
@@ -149,9 +152,15 @@ export class StatsBlock extends Reflux.Component
                 });
 
                 if (bonusChange) {
-                    bonusChange(
-                        bonus
+                    const improvements = _.reduce(
+                        improvement,
+                        (cntr, stat) => {
+                            cntr[stat] = (cntr[stat] || 0) + 1;
+                            return cntr;
+                        },
+                        {}
                     );
+                    bonusChange(improvements);
                 }
             }
         );
