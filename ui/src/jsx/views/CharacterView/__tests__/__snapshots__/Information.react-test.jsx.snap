@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Information should render with full props 1`] = `
+<div
+  className="nice-panel character-view__info info"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Info
+  </div>
+  <table
+    className="nice-panel-content nice-table bordered"
+  >
+    <thead>
+      <tr>
+        <th>
+          Class
+        </th>
+        <th>
+          Background
+        </th>
+        <th>
+          Player
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Bard
+        </td>
+        <td>
+          Tester
+        </td>
+        <td />
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th>
+          Race
+        </th>
+        <th>
+          Alignment
+        </th>
+        <th>
+          XP + ACP
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Human
+        </td>
+        <td>
+          <div
+            className="list-label inline"
+          >
+            True neutral
+          </div>
+        </td>
+        <td>
+          150 XP + 3 ACP
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Information should render without props 1`] = `null`;

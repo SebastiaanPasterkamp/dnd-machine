@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Statistics should render with full props 1`] = `
+<div
+  className="nice-panel character-view__statistics info"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Statistics
+  </div>
+  <table
+    className="nice-panel-content nice-table bordered"
+  >
+    <thead>
+      <tr>
+        <th />
+        <th>
+          Statistic
+        </th>
+        <th>
+          Modifier
+        </th>
+        <th>
+          Saving Throw
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          Strength
+        </th>
+        <td>
+          12
+        </td>
+        <td>
+          <div
+            className="bonus inline"
+          >
+            +
+            1
+          </div>
+        </td>
+        <td>
+          <span
+            className="icon fa-check-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            3
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Wisdom
+        </th>
+        <td>
+          9
+        </td>
+        <td>
+          <div
+            className="bonus inline"
+          >
+            -1
+          </div>
+        </td>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            -1
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Statistics should render without props 1`] = `
+<div
+  className="nice-panel character-view__statistics info"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Statistics
+  </div>
+  <table
+    className="nice-panel-content nice-table bordered"
+  >
+    <thead>
+      <tr>
+        <th />
+        <th>
+          Statistic
+        </th>
+        <th>
+          Modifier
+        </th>
+        <th>
+          Saving Throw
+        </th>
+      </tr>
+    </thead>
+    <tbody />
+  </table>
+</div>
+`;
