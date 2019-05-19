@@ -1,26 +1,34 @@
-var webpack = require('webpack');
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var ProgressBarPlugin = require('progress-bar-webpack-plugin');
-var HotModuleReplacementPlugin = require('webpack-hot-middleware');
+const webpack = require('webpack');
+const path = require('path');
 
-var PROJECT = 'dnd-machine';
-var OUTPUT_PATH_JSX = path.resolve(__dirname, '..', 'app', 'static');
-var SOURCE_PATH_JSX = path.resolve(__dirname, 'src', 'jsx');
-var OUTPUT_PATH_SASS = 'css';
-var SOURCE_PATH_SASS = path.resolve(__dirname, 'src', 'sass');
-var OUTPUT_PATH_IMG = '../img/';
-var SOURCE_PATH_IMG = path.resolve(__dirname, 'src', 'img');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const HotModuleReplacementPlugin = require('webpack-hot-middleware');
 
-var config = {
-    entry: SOURCE_PATH_JSX + '/index.jsx',
+const devMode = process.env.NODE_ENV !== 'production';
+
+const PROJECT = 'dnd-machine';
+const OUTPUT_PATH_JSX = path.resolve(__dirname, '..', 'app', 'static', 'js');
+const SOURCE_PATH_JSX = path.resolve(__dirname, 'src', 'jsx');
+const OUTPUT_PATH_SASS = '../css';
+const SOURCE_PATH_SASS = path.resolve(__dirname, 'src', 'sass');
+const OUTPUT_PATH_IMG = '../img/';
+const SOURCE_PATH_IMG = path.resolve(__dirname, 'src', 'img');
+
+const config = {
+    mode: process.env.NODE_ENV,
+    entry: {
+        [PROJECT]: SOURCE_PATH_JSX + '/index.jsx',
+    },
     devServer: {
         host: "0.0.0.0",
         port: 8080,
         disableHostCheck: true,
         compress: true,
         contentBase: "../app/static/",
-        publicPath: "/static/",
+        publicPath: "/static/js/",
         open: false,
         overlay: true,
         hot: true,
@@ -37,7 +45,7 @@ var config = {
     },
     output: {
         path: OUTPUT_PATH_JSX,
-        filename: `js/${PROJECT}.js`,
+        filename: '[name].js',
         hotUpdateMainFilename: '__hmr/[hash].hot-update.json',
         hotUpdateChunkFilename: '__hmr/[id].[hash].hot-update.js',
     },
@@ -45,9 +53,9 @@ var config = {
         extensions: ['.js', '.jsx', '.scss', '.json'],
     },
     module : {
-        loaders : [
+        rules : [
             {
-                test: /\.jsx?/,
+                test: /\.jsx?$/,
                 include: SOURCE_PATH_JSX,
                 loader: 'babel-loader',
             },
@@ -60,40 +68,45 @@ var config = {
                 }
             },
             {
-                test: /\.json$/i,
-                include : SOURCE_PATH_JSX,
-                loader : 'json-loader'
-            },
-            {
-                test: /\.(sass|scss)$/,
-                loader: ExtractTextPlugin.extract([
+                test: /\.(s[ac]ss|css)$/,
+                use: [
                     {
-                        loader: require.resolve('css-loader'),
+                        loader: MiniCssExtractPlugin.loader,
                         options: {
-                            importLoaders: 1,
+                            publicPath: '../',
+                            // only enable hot in development
+                            hmr: process.env.NODE_ENV === 'development',
+                            // if hmr does not work, this is a forceful method.
+                            reloadAll: true,
                         },
                     },
-                    {
-                        loader: require.resolve('sass-loader'),
-                        options: {
-                            sourceMap: true,
-                            includePaths: [
-                                SOURCE_PATH_SASS,
-                            ],
-                        },
-                    }
-                ]),
-            }
+                    'css-loader',
+                    'sass-loader',
+                ],
+            },
         ],
     },
     plugins: [
-        new ExtractTextPlugin({
-            filename: `${OUTPUT_PATH_SASS}/${PROJECT}.css`,
-            allChunks: true
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: `${OUTPUT_PATH_SASS}/[name].css`,
+            chunkFilename: '${OUTPUT_PATH_SASS}/[id].css',
         }),
         new ProgressBarPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-    ]
+    ],
+    optimization: {
+        minimizer: [
+            new TerserJSPlugin({}),
+            new OptimizeCSSAssetsPlugin({}),
+        ],
+        namedModules: true,
+        splitChunks: {
+            name: 'vendor',
+            minChunks: 2,
+        },
+    }
 };
 
 module.exports = config;
