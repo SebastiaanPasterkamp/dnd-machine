@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spells should render with full props 1`] = `
+<div
+  className="nice-panel character-view__spells info"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Spells
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <div
+      className="spell-label inline"
+    >
+      <div
+        className="tool-tip inline"
+      >
+        <strong>
+          Minor Illusion
+        </strong>
+        <span
+          className="tool-tip--content"
+        >
+          <p>
+            You create a sound or an image.
+          </p>
+        </span>
+      </div>
+      <div
+        className="spell-label--info"
+      >
+        <strong>
+          Level:
+        </strong>
+         
+        Cantrip
+        <strong>
+          Casting Time:
+        </strong>
+         
+        1 action
+        <strong>
+          School:
+        </strong>
+         
+        <div
+          className="list-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            Illusion
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                Magic that dazzles the senses.
+              </p>
+            </span>
+          </div>
+        </div>
+        <strong>
+          Range:
+        </strong>
+         
+        <div
+          className="reach inline"
+        >
+          30 feet
+        </div>
+        <strong>
+          Components:
+        </strong>
+        <ul
+          className="spell-label--properties inline"
+        >
+          <li>
+            <div
+              className="list-label inline"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Somatic
+                <span
+                  className="tool-tip--content"
+                >
+                  <p>
+                    Gestures
+                  </p>
+                </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <strong>
+          Duration:
+        </strong>
+         
+        1 minute
+      </div>
+    </div>
+    <div
+      className="spell-label inline"
+    >
+      <div
+        className="tool-tip inline"
+      >
+        <strong>
+          Dissonant Whispers
+        </strong>
+        <span
+          className="tool-tip--content"
+        >
+          <p>
+            You whisper a discordant melody.
+          </p>
+        </span>
+      </div>
+      <div
+        className="spell-label--info"
+      >
+        <strong>
+          Level:
+        </strong>
+         
+        1
+        <strong>
+          Casting Time:
+        </strong>
+         
+        1 action
+        <strong>
+          School:
+        </strong>
+         
+        <div
+          className="list-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            Enchantment
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                Magically entrance people.
+              </p>
+            </span>
+          </div>
+        </div>
+        <strong>
+          Range:
+        </strong>
+         
+        <div
+          className="reach inline"
+        >
+          60 feet
+        </div>
+        <strong>
+          Components:
+        </strong>
+        <ul
+          className="spell-label--properties inline"
+        >
+          <li>
+            <div
+              className="list-label inline"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Verbal
+                <span
+                  className="tool-tip--content"
+                >
+                  <p>
+                    Spoken
+                  </p>
+                </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <strong>
+          Duration:
+        </strong>
+         
+        Instantaneous
+      </div>
+    </div>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;
+
+exports[`Spells should render without props 1`] = `null`;
