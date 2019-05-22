@@ -2,51 +2,57 @@
 
 exports[`BaseFilterListDialog rendering should work with filtered items 1`] = `
 <div
-  className="modal-dialog nice-modal viewport-center accent wide"
+  className="nice-modal-overlay"
+  onClick={[Function]}
 >
   <div
-    className="nice-modal-content"
+    className="modal-dialog nice-modal viewport-center accent tall wide"
+    onClick={[Function]}
   >
     <div
-      className="nice-modal-header"
-    >
-      <a
-        className="nice-modal-close"
-        onClick={[Function]}
-      >
-        <i
-          className="icon fa-times"
-        />
-      </a>
-      <h4>
-        Base Item Picker
-      </h4>
-    </div>
-    <div
-      className="nice-modal-body overflow-y-auto overflow-x-hidden"
-    >
-      <div>
-        two
-      </div>
-    </div>
-    <div
-      className="nice-modal-footer"
+      className="nice-modal-content"
     >
       <div
-        className="base-link-group nice-btn-group pull-right"
+        className="nice-modal-header"
       >
         <a
-          className="cursor-pointer nice-btn icon fa-cross"
+          className="nice-modal-close"
           onClick={[Function]}
         >
-          Cancel
+          <i
+            className="icon fa-times"
+          />
         </a>
-        <a
-          className="cursor-pointer nice-btn icon fa-check primary"
-          onClick={[Function]}
+        <h4>
+          Base Item Picker
+        </h4>
+      </div>
+      <div
+        className="nice-modal-body overflow-y-auto overflow-x-hidden"
+      >
+        <div>
+          two
+        </div>
+      </div>
+      <div
+        className="nice-modal-footer"
+      >
+        <div
+          className="base-link-group nice-btn-group pull-right"
         >
-          Done
-        </a>
+          <a
+            className="cursor-pointer nice-btn icon fa-cross"
+            onClick={[Function]}
+          >
+            Cancel
+          </a>
+          <a
+            className="cursor-pointer nice-btn icon fa-check primary"
+            onClick={[Function]}
+          >
+            Done
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -55,58 +61,64 @@ exports[`BaseFilterListDialog rendering should work with filtered items 1`] = `
 
 exports[`BaseFilterListDialog rendering should work with full props 1`] = `
 <div
-  className="modal-dialog nice-modal viewport-center accent wide"
+  className="nice-modal-overlay"
+  onClick={[Function]}
 >
   <div
-    className="nice-modal-content"
+    className="modal-dialog nice-modal viewport-center accent tall wide"
+    onClick={[Function]}
   >
     <div
-      className="nice-modal-header"
-    >
-      <a
-        className="nice-modal-close"
-        onClick={[Function]}
-      >
-        <i
-          className="icon fa-times"
-        />
-      </a>
-      <h4>
-        Base Item Picker
-      </h4>
-    </div>
-    <div
-      className="nice-modal-body overflow-y-auto overflow-x-hidden"
+      className="nice-modal-content"
     >
       <div
-        extraProp="passed"
-      >
-        one
-      </div>
-      <div
-        extraProp="passed"
-      >
-        two
-      </div>
-    </div>
-    <div
-      className="nice-modal-footer"
-    >
-      <div
-        className="base-link-group nice-btn-group pull-right"
+        className="nice-modal-header"
       >
         <a
-          className="cursor-pointer nice-btn icon fa-cross"
+          className="nice-modal-close"
           onClick={[Function]}
         >
-          Cancel
+          <i
+            className="icon fa-times"
+          />
         </a>
-        <a
-          className="cursor-pointer nice-btn icon fa-check primary"
-          onClick={[Function]}
+        <h4>
+          Base Item Picker
+        </h4>
+      </div>
+      <div
+        className="nice-modal-body overflow-y-auto overflow-x-hidden"
+      >
+        <div
+          extraProp="passed"
         >
-          Done
-        </a>
+          one
+        </div>
+        <div
+          extraProp="passed"
+        >
+          two
+        </div>
+      </div>
+      <div
+        className="nice-modal-footer"
+      >
+        <div
+          className="base-link-group nice-btn-group pull-right"
+        >
+          <a
+            className="cursor-pointer nice-btn icon fa-cross"
+            onClick={[Function]}
+          >
+            Cancel
+          </a>
+          <a
+            className="cursor-pointer nice-btn icon fa-check primary"
+            onClick={[Function]}
+          >
+            Done
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -115,41 +127,47 @@ exports[`BaseFilterListDialog rendering should work with full props 1`] = `
 
 exports[`BaseFilterListDialog rendering should work with minimum props 1`] = `
 <div
-  className="modal-dialog nice-modal viewport-center accent wide"
+  className="nice-modal-overlay"
+  onClick={[Function]}
 >
   <div
-    className="nice-modal-content"
+    className="modal-dialog nice-modal viewport-center accent tall wide"
+    onClick={[Function]}
   >
     <div
-      className="nice-modal-header"
-    >
-      <a
-        className="nice-modal-close"
-        onClick={[Function]}
-      >
-        <i
-          className="icon fa-times"
-        />
-      </a>
-      <h4>
-        Base Item Picker
-      </h4>
-    </div>
-    <div
-      className="nice-modal-body overflow-y-auto overflow-x-hidden"
-    />
-    <div
-      className="nice-modal-footer"
+      className="nice-modal-content"
     >
       <div
-        className="base-link-group nice-btn-group pull-right"
+        className="nice-modal-header"
       >
         <a
-          className="cursor-pointer nice-btn icon fa-cross"
+          className="nice-modal-close"
           onClick={[Function]}
         >
-          Cancel
+          <i
+            className="icon fa-times"
+          />
         </a>
+        <h4>
+          Base Item Picker
+        </h4>
+      </div>
+      <div
+        className="nice-modal-body overflow-y-auto overflow-x-hidden"
+      />
+      <div
+        className="nice-modal-footer"
+      >
+        <div
+          className="base-link-group nice-btn-group pull-right"
+        >
+          <a
+            className="cursor-pointer nice-btn icon fa-cross"
+            onClick={[Function]}
+          >
+            Cancel
+          </a>
+        </div>
       </div>
     </div>
   </div>
