@@ -15,55 +15,61 @@ const ModalDialog = function({
 }) {
     return (
         <div
-            className="modal-dialog nice-modal viewport-center accent wide"
+            className="nice-modal-overlay"
+            onClick={(e) => e.defaultPrevented || (onCancel || onDone)()}
         >
-            <div className="nice-modal-content">
-                <div className="nice-modal-header">
-                    {onCancel && (
-                        <a
-                            className="nice-modal-close"
-                            onClick={ onCancel }
-                        >
-                            <i className="icon fa-times" />
-                        </a>
-                    )}
-                    <h4>{ label }</h4>
-                </div>
-
-                {subheading && (
-                    <div className="nice-modal-sub">
-                        { subheading }
+            <div
+                className="modal-dialog nice-modal viewport-center accent tall wide"
+                onClick={(e) => e.preventDefault()}
+            >
+                <div className="nice-modal-content">
+                    <div className="nice-modal-header">
+                        {onCancel ? (
+                            <a
+                                className="nice-modal-close"
+                                onClick={onCancel}
+                            >
+                                <i className="icon fa-times" />
+                            </a>
+                        ) : null}
+                        <h4>{ label }</h4>
                     </div>
-                )}
 
-                <div className="nice-modal-body overflow-y-auto overflow-x-hidden">
-                    { children }
-                </div>
+                    {subheading ? (
+                        <div className="nice-modal-sub">
+                            { subheading }
+                        </div>
+                    ) : null}
 
-                <div className="nice-modal-footer">
-                    {onHelp && (
-                        <a
-                            className="nice-btn link icon fa-question"
-                            onClick={ onHelp }
-                        >
-                            { helpLabel }
-                        </a>
-                    )}
-                    <BaseLinkGroup className="pull-right">
-                        <BaseLinkButton
-                            label={cancelLabel}
-                            icon="cross"
-                            action={onCancel}
-                            available={!!onCancel}
-                        />
-                        <BaseLinkButton
-                            label={doneLabel}
-                            icon="check"
-                            className="primary"
-                            action={onDone}
-                            available={!!onDone}
-                        />
-                    </BaseLinkGroup>
+                    <div className="nice-modal-body overflow-y-auto overflow-x-hidden">
+                        { children }
+                    </div>
+
+                    <div className="nice-modal-footer">
+                        {onHelp ? (
+                            <a
+                                className="nice-btn link icon fa-question"
+                                onClick={ onHelp }
+                            >
+                                { helpLabel }
+                            </a>
+                        ) : null}
+                        <BaseLinkGroup className="pull-right">
+                            <BaseLinkButton
+                                label={cancelLabel}
+                                icon="cross"
+                                action={onCancel}
+                                available={!!onCancel}
+                            />
+                            <BaseLinkButton
+                                label={doneLabel}
+                                icon="check"
+                                className="primary"
+                                action={onDone}
+                                available={!!onDone}
+                            />
+                        </BaseLinkGroup>
+                    </div>
                 </div>
             </div>
         </div>
