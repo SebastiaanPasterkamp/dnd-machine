@@ -162,30 +162,23 @@ export class PartyEdit extends React.PureComponent
             </Panel>
 
             <Panel
-                    key="members"
-                    className="party-edit__members"
-                    header="Party Members"
-                >
-                <thead>
-                    <tr>
-                        <th>Character Level</th>
-                        <th>Level</th>
-                        <th>Easy</th>
-                        <th>Medium</th>
-                        <th>Hard</th>
-                        <th>Deadly</th>
-                    </tr>
-                </thead>
-                <tbody>{map((id) => {
+                key="members"
+                className="party-edit__members"
+                header="Party Members"
+            >
+                {map((id) => {
                     const character = get(id, characters);
 
                     if (!character) {
                         return null;
                     }
 
-                    return <tr key={id}>
-                        <th>
-                            {character.name}
+                    return (
+                        <div>
+                            <CharacterLabel
+                                character={character}
+                                showProgress={true}
+                            />
                             <CharacterLinks
                                 altStyle={true}
                                 include={this.characterLinks}
@@ -205,36 +198,18 @@ export class PartyEdit extends React.PureComponent
                                     )}
                                 />
                             </CharacterLinks>
-                        </th>
-                        <td>{character.level}</td>
-                        <td className="info">
-                            {character.challenge.easy} XP
-                        </td>
-                        <td className="good">
-                            {character.challenge.medium} XP
-                        </td>
-                        <td className="warning">
-                            {character.challenge.hard} XP
-                        </td>
-                        <td className="bad">
-                            {character.challenge.deadly} XP
-                        </td>
-                    </tr>;
-                })(member_ids)}</tbody>
-                <tbody>
-                    <tr>
-                        <th>
-                            <a
-                                className="nice-btn-alt cursor-pointer icon fa-plus"
-                                onClick={this.toggleDialog}
-                            >
-                                Add
-                            </a>
-                        </th>
-                        <td colSpan={4}>
-                        </td>
-                    </tr>
-                </tbody>
+                        </div>
+                    );
+                })(member_ids)}
+
+                <BaseLinkButton
+                    name="add"
+                    label="Add"
+                    icon="plus"
+                    className="default"
+                    altStyle={true}
+                    action={this.toggleDialog}
+                />
             </Panel>
 
             {dialog && (
