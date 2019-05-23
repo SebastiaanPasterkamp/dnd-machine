@@ -45,7 +45,7 @@ exports[`Component: ArmorLabel should render with info and description 1`] = `
     </p>
   </span>
   <div
-    className="armor-label__info"
+    className="armor-label__info inline"
   >
     <span>
       <strong>
@@ -86,7 +86,7 @@ exports[`Component: ArmorLabel should render with info name 1`] = `
     )
   </i>
   <div
-    className="armor-label__info"
+    className="armor-label__info inline"
   >
     <span>
       <strong>
