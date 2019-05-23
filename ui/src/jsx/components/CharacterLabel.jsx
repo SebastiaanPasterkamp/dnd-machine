@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    assign,
+} from 'lodash/fp';
+
+import '../../sass/_character-label.scss';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
@@ -17,8 +21,14 @@ export class CharacterLabel extends LazyComponent
             characterUpdate,
             genders,
             alignments,
+            showName,
             showInfo,
         } = this.props;
+
+        if (!showInfo) {
+            return null;
+        }
+
         const {
             name,
             level,
@@ -26,41 +36,53 @@ export class CharacterLabel extends LazyComponent
             race,
             class: _class,
             alignment,
-        } = _.assign(character, characterUpdate);
-
-        if (!showInfo) {
-            return null;
-        }
+        } = assign(character, characterUpdate);
 
         return (
-            <React.Fragment>
-                {`${name}, Level ${level} `}
+            <div className="character-label">
+                {name && showName ? (
+                    <span className="character-label__name">
+                        {name}
+                    </span>
+                ) : null}
+                <span className="character-label__item">
+                    Level {level}
+                </span>
                 <ListLabel
                     items={genders}
                     value={gender}
-                    />
-                {` ${race} ${_class} `}
-                (<ListLabel
+                />
+                <span className="character-label__item">
+                    {race}
+                </span>
+                <span className="character-label__item">
+                     {_class}
+                 </span>
+                <ListLabel
+                    className="character-label__alignment"
                     items={alignments}
                     value={alignment}
-                />)
-            </React.Fragment>
+                />
+            </div>
         );
     }
 
     renderProgress() {
         const {
-            character: {
-                level, adventure_checkpoints,
-                xp_progress, xp_level,
-                acp_progress, acp_level,
-            },
+            character,
+            characterUpdate,
             showProgress,
         } = this.props;
 
         if (!showProgress) {
             return null;
         }
+
+        const {
+            level, adventure_checkpoints,
+            xp_progress, xp_level,
+            acp_progress, acp_level,
+        } = assign(character, characterUpdate);
 
         if (adventure_checkpoints) {
             return (
@@ -125,6 +147,7 @@ export class CharacterLabel extends LazyComponent
 
 CharacterLabel.propTypes = {
     character_id: PropTypes.number,
+    showName: PropTypes.bool,
     showInfo: PropTypes.bool,
     showProgress: PropTypes.bool,
     character: PropTypes.shape({
@@ -152,6 +175,7 @@ CharacterLabel.defaultProps = {
     characterUpdate: {},
     genders: [],
     alignments: [],
+    showName: true,
     showInfo: true,
     showProgress: false,
 }
@@ -161,6 +185,9 @@ export default ListDataWrapper(
         CharacterLabel,
         [{type: 'character', id: 'character_id'}]
     ),
-    ['alignments', 'genders'],
+    [
+        'alignments',
+        'genders',
+    ],
     'items'
 );
