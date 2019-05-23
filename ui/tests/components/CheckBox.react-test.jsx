@@ -3,15 +3,6 @@ import CheckBox from 'components/CheckBox.jsx';
 import renderer from 'react-test-renderer';
 
 describe('Component: CheckBox', () => {
-    it('should render without props', () => {
-        const tree = renderer.create(
-            <CheckBox
-                />
-        ).toJSON();
-
-        expect(tree).toMatchSnapshot();
-    });
-
     it('should render an empty box', () => {
         const tree = renderer.create(
             <CheckBox
