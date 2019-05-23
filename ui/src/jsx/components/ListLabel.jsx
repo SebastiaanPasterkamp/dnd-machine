@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    find,
+} from 'lodash/fp';
+
+import utils from '../utils.jsx';
 
 import LazyComponent from '../components/LazyComponent.jsx';
 import ToolTip from '../components/ToolTip.jsx';
@@ -9,7 +13,7 @@ class ListLabel extends LazyComponent
 {
     render() {
         const {
-            emptyLabel, items, value, short, tooltip
+            emptyLabel, className, items, value, short, tooltip
         } = this.props;
         if (value == null) {
             return null;
@@ -18,7 +22,7 @@ class ListLabel extends LazyComponent
         let label = emptyLabel || value;
         let description = null;
 
-        let item = _.find(items, {code: value});
+        let item = find({code: value}, items);
         if (item) {
             label = (short && 'short' in item)
                 ? item.short
@@ -28,16 +32,26 @@ class ListLabel extends LazyComponent
                 : null;
         }
 
-        return <div className="list-label inline">
-            <ToolTip content={description}>
-            {label}
-            </ToolTip>
-        </div>;
+
+
+        return (
+            <div
+                className={utils.makeStyle(
+                    {},
+                    ["list-label", "inline", className]
+                )}
+            >
+                <ToolTip content={description}>
+                    {label}
+                </ToolTip>
+            </div>
+        );
     }
 }
 
 ListLabel.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    className: PropTypes.string,
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
