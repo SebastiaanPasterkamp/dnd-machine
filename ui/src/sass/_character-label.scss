@@ -1,0 +1,20 @@
+// _character-label.scss
+
+.character-label {
+    &__name::after {
+        content: ", ";
+    }
+
+    &__item, .list-label {
+        padding-right: .33em;
+    }
+
+    &__alignment {
+        &::before {
+            content: '(';
+        }
+        &::after {
+            content: ')';
+        }
+    }
+}

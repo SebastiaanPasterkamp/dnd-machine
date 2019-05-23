@@ -4,10 +4,21 @@ exports[`Component: CharacterLabel should render with minimum props 1`] = `
 <div
   className="character inline"
 >
-  undefined, Level undefined 
-   undefined undefined 
-  (
-  )
+  <div
+    className="character-label"
+  >
+    <span
+      className="character-label__item"
+    >
+      Level 
+    </span>
+    <span
+      className="character-label__item"
+    />
+    <span
+      className="character-label__item"
+    />
+  </div>
 </div>
 `;
 
@@ -15,20 +26,41 @@ exports[`Component: CharacterLabel should show modified char 1`] = `
 <div
   className="character inline"
 >
-  Example, Level 5 
   <div
-    className="list-label inline"
+    className="character-label"
   >
-    Female
+    <span
+      className="character-label__name"
+    >
+      Example
+    </span>
+    <span
+      className="character-label__item"
+    >
+      Level 
+      5
+    </span>
+    <div
+      className="list-label inline"
+    >
+      Female
+    </div>
+    <span
+      className="character-label__item"
+    >
+      Orc
+    </span>
+    <span
+      className="character-label__item"
+    >
+      Fighter
+    </span>
+    <div
+      className="list-label inline character-label__alignment"
+    >
+      Lawful good
+    </div>
   </div>
-   Orc Fighter 
-  (
-  <div
-    className="list-label inline"
-  >
-    Lawful good
-  </div>
-  )
   <div
     className="nice-progress brand"
   >
@@ -51,20 +83,41 @@ exports[`Component: CharacterLabel should show progress with acp 1`] = `
 <div
   className="character inline"
 >
-  Example, Level 5 
   <div
-    className="list-label inline"
+    className="character-label"
   >
-    Female
+    <span
+      className="character-label__name"
+    >
+      Example
+    </span>
+    <span
+      className="character-label__item"
+    >
+      Level 
+      5
+    </span>
+    <div
+      className="list-label inline"
+    >
+      Female
+    </div>
+    <span
+      className="character-label__item"
+    >
+      Orc
+    </span>
+    <span
+      className="character-label__item"
+    >
+      Fighter
+    </span>
+    <div
+      className="list-label inline character-label__alignment"
+    >
+      Lawful good
+    </div>
   </div>
-   Orc Fighter 
-  (
-  <div
-    className="list-label inline"
-  >
-    Lawful good
-  </div>
-  )
   <div
     className="nice-progress brand"
   >
@@ -87,20 +140,41 @@ exports[`Component: CharacterLabel should show progress with level 1`] = `
 <div
   className="character inline"
 >
-  Example, Level 1 
   <div
-    className="list-label inline"
+    className="character-label"
   >
-    Male
+    <span
+      className="character-label__name"
+    >
+      Example
+    </span>
+    <span
+      className="character-label__item"
+    >
+      Level 
+      1
+    </span>
+    <div
+      className="list-label inline"
+    >
+      Male
+    </div>
+    <span
+      className="character-label__item"
+    >
+      Orc
+    </span>
+    <span
+      className="character-label__item"
+    >
+      Fighter
+    </span>
+    <div
+      className="list-label inline character-label__alignment"
+    >
+      Lawful good
+    </div>
   </div>
-   Orc Fighter 
-  (
-  <div
-    className="list-label inline"
-  >
-    Lawful good
-  </div>
-  )
   <div
     className="nice-progress good"
   >
@@ -123,20 +197,41 @@ exports[`Component: CharacterLabel should show progress with xp / max 1`] = `
 <div
   className="character inline"
 >
-  Example, Level 1 
   <div
-    className="list-label inline"
+    className="character-label"
   >
-    Male
+    <span
+      className="character-label__name"
+    >
+      Example
+    </span>
+    <span
+      className="character-label__item"
+    >
+      Level 
+      1
+    </span>
+    <div
+      className="list-label inline"
+    >
+      Male
+    </div>
+    <span
+      className="character-label__item"
+    >
+      Orc
+    </span>
+    <span
+      className="character-label__item"
+    >
+      Fighter
+    </span>
+    <div
+      className="list-label inline character-label__alignment"
+    >
+      Lawful good
+    </div>
   </div>
-   Orc Fighter 
-  (
-  <div
-    className="list-label inline"
-  >
-    Lawful good
-  </div>
-  )
   <div
     className="nice-progress good"
   >
@@ -159,19 +254,40 @@ exports[`Component: CharacterLabel should show without progress 1`] = `
 <div
   className="character inline"
 >
-  Example, Level 1 
   <div
-    className="list-label inline"
+    className="character-label"
   >
-    Male
+    <span
+      className="character-label__name"
+    >
+      Example
+    </span>
+    <span
+      className="character-label__item"
+    >
+      Level 
+      1
+    </span>
+    <div
+      className="list-label inline"
+    >
+      Male
+    </div>
+    <span
+      className="character-label__item"
+    >
+      Orc
+    </span>
+    <span
+      className="character-label__item"
+    >
+      Fighter
+    </span>
+    <div
+      className="list-label inline character-label__alignment"
+    >
+      Lawful good
+    </div>
   </div>
-   Orc Fighter 
-  (
-  <div
-    className="list-label inline"
-  >
-    Lawful good
-  </div>
-  )
 </div>
 `;
