@@ -15,11 +15,3 @@ exports[`Component: CheckBox should render ticked box 1`] = `
    
 </span>
 `;
-
-exports[`Component: CheckBox should render without props 1`] = `
-<span
-  className="icon fa-square-o"
->
-   
-</span>
-`;
