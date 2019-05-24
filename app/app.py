@@ -2,6 +2,7 @@
 import os
 import glob
 from flask import Flask, request, session, redirect, url_for, jsonify
+from flask_compress import Compress
 from werkzeug.utils import find_modules, import_string
 from werkzeug.routing import IntegerConverter
 
@@ -12,11 +13,14 @@ from db import get_db
 from config import get_item_data
 import filters
 
+compress = Compress()
+
 def create_app(config={}):
     app = Flask(__name__)
 
     app.config.update(config)
     app.config.from_envvar('FLASKR_SETTINGS', silent=True)
+    compress.init_app(app);
 
     register_converters(app)
     register_blueprints(app, config)
