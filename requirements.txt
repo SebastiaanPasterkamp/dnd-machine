@@ -1,5 +1,6 @@
 Flask>=0.12.3
 Flask-Mail>=0.9.1
+Flask-Compress==1.4.0
 passlib>=1.5.3
 pytest>=2.5.1
 testtools>=0.9.22
