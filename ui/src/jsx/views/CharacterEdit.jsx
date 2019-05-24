@@ -66,7 +66,7 @@ export class CharacterEdit extends React.Component
             'class': _class,
         } = character;
         const levelFilter = filter(
-            map((count, slot) => count
+            map((slot, count) => count
                 ? slot.replace('level_', '')
                 : null
             )(slots)
@@ -161,7 +161,7 @@ CharacterEdit.propTypes = {
 
 CharacterEdit.defaultProps = {
     character: {},
-    config: {},
+    config: [],
 };
 
 export const CharacterEditView = BaseViewWrapper(

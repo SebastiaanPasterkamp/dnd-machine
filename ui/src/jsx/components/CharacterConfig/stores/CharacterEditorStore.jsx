@@ -23,7 +23,7 @@ class CharacterEditorStore extends Reflux.Store
         this.state = {
             original: {},
             character: {},
-            config: {},
+            config: [],
         };
         this.listenables = CharacterEditorActions;
     }
@@ -42,7 +42,7 @@ class CharacterEditorStore extends Reflux.Store
             {
                 original: {},
                 character: {},
-                config: {},
+                config: [],
             }
         );
         this.setState(state);
