@@ -1,0 +1,302 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Basics should render with full props 1`] = `
+<div
+  className="nice-panel character-view__base info"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Base
+  </div>
+  <table
+    className="nice-panel-content nice-table bordered"
+  >
+    <tbody>
+      <tr>
+        <th>
+          Armor Class
+        </th>
+        <td>
+          12
+           / 
+          <div
+            className="bonus inline"
+          >
+            +
+            2
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Hit Points
+        </th>
+        <td>
+          13
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Hit Dice
+        </th>
+        <td>
+          <div
+            className="dice-notation inline capitalize"
+          >
+            <code>
+              1
+              d
+              10
+              
+            </code>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Speed
+        </th>
+        <td>
+          <div
+            className="reach inline"
+          >
+            <span>
+              30
+               ft.
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Height
+        </th>
+        <td>
+          <div
+            className="reach inline"
+          >
+            <span>
+              4
+               ft.
+            </span>
+            <span>
+              2
+               inch
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Weight
+        </th>
+        <td>
+          <div
+            className="weight inline"
+          >
+            <span>
+              40
+              lb
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Age
+        </th>
+        <td>
+          25 years
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Initiative Modifier
+        </th>
+        <td>
+          <div
+            className="bonus inline"
+          >
+            +
+            2
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Passive Perception
+        </th>
+        <td>
+          11
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Proficiency Bonus
+        </th>
+        <td>
+          <div
+            className="bonus inline"
+          >
+            +
+            2
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Spell Ability
+        </th>
+        <td>
+          <div
+            className="list-label inline"
+          >
+            Intelligence
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Spell DC
+        </th>
+        <td>
+          14
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Spell Attack Modifier
+        </th>
+        <td>
+          <div
+            className="bonus inline"
+          >
+            +
+            4
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Basics should render without props 1`] = `
+<div
+  className="nice-panel character-view__base info"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Base
+  </div>
+  <table
+    className="nice-panel-content nice-table bordered"
+  >
+    <tbody>
+      <tr>
+        <th>
+          Armor Class
+        </th>
+        <td>
+          10
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Hit Points
+        </th>
+        <td>
+          1
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Hit Dice
+        </th>
+        <td>
+          <div
+            className="dice-notation inline capitalize"
+          >
+            <code>
+              1
+              d
+              4
+              
+            </code>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Speed
+        </th>
+        <td>
+          <div
+            className="reach inline"
+          >
+            <span>
+              30
+               ft.
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Height
+        </th>
+        <td />
+      </tr>
+      <tr>
+        <th>
+          Weight
+        </th>
+        <td />
+      </tr>
+      <tr>
+        <th>
+          Age
+        </th>
+        <td />
+      </tr>
+      <tr>
+        <th>
+          Initiative Modifier
+        </th>
+        <td>
+          <div
+            className="bonus inline"
+          >
+            0
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Passive Perception
+        </th>
+        <td>
+          10
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Proficiency Bonus
+        </th>
+        <td>
+          <div
+            className="bonus inline"
+          >
+            +
+            2
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

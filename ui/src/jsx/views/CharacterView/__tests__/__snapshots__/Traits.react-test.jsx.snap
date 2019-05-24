@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Traits should render with full props 1`] = `
+<div
+  className="nice-panel character-view__traits info"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Traits
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <ul>
+      <li>
+        <strong>
+          Yay
+        </strong>
+        <span>
+          <p>
+            Some 
+            <strong>
+              cool
+            </strong>
+             stuff.
+          </p>
+        </span>
+      </li>
+      <li>
+        <strong>
+          Nay
+        </strong>
+        <span>
+          <p>
+            Some 
+            <em>
+              "RP"
+            </em>
+             stuff.
+          </p>
+        </span>
+      </li>
+    </ul>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;
+
+exports[`Traits should render without props 1`] = `null`;

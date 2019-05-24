@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Personality should render with full props 1`] = `
+<div
+  className="nice-panel character-view__personality info"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Personality
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <strong>
+      Traits
+    </strong>
+    <span>
+      <p>
+        I am a 
+        <em>
+          good eater
+        </em>
+        .
+      </p>
+    </span>
+    <strong>
+      Ideals
+    </strong>
+    <span>
+      <p>
+        Eat the whole day.
+      </p>
+    </span>
+    <strong>
+      Bonds
+    </strong>
+    <span>
+      <p>
+        I like anyone who will feed me.
+      </p>
+    </span>
+    <strong>
+      Flaws
+    </strong>
+    <span>
+      <p>
+        I sometimes eat 
+        <strong>
+          too
+        </strong>
+         much.
+      </p>
+    </span>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;
+
+exports[`Personality should render without props 1`] = `null`;

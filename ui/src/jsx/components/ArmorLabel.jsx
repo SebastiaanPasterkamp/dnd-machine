@@ -20,7 +20,7 @@ export class ArmorLabel extends LazyComponent
             return null;
         }
 
-        return <div className="armor-label__info">
+        return <div className="armor-label__info inline">
             <span>
                 <strong>AC:</strong>
                 {armor.value}

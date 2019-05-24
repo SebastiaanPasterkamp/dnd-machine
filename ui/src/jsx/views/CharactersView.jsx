@@ -3,7 +3,7 @@ import _ from 'lodash';
 import MDReactComponent from 'markdown-react-js';
 import {sprintf} from 'sprintf-js';
 
-import '../../sass/_view-character.scss';
+import './CharacterView/sass/_character-view.scss';
 
 import BaseViewWrapper from '../hocs/BaseViewWrapper.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';

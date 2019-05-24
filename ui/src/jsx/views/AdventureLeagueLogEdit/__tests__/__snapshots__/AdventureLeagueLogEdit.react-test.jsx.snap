@@ -129,10 +129,22 @@ Array [
       <div
         className="character inline"
       >
-        undefined, Level 3 
-         undefined undefined 
-        (
-        )
+        <div
+          className="character-label"
+        >
+          <span
+            className="character-label__item"
+          >
+            Level 
+            3
+          </span>
+          <span
+            className="character-label__item"
+          />
+          <span
+            className="character-label__item"
+          />
+        </div>
         <div
           className="nice-progress brand"
         >
@@ -968,10 +980,21 @@ Array [
       <div
         className="character inline"
       >
-        undefined, Level 3 
-         undefined undefined 
-        (
-        )
+        <div
+          className="character-label"
+        >
+          <span
+            className="character-label__item"
+          >
+            Level 
+          </span>
+          <span
+            className="character-label__item"
+          />
+          <span
+            className="character-label__item"
+          />
+        </div>
         <div
           className="nice-progress good"
         >
@@ -980,11 +1003,11 @@ Array [
             style={
               Object {
                 "height": "1.25rem",
-                "width": "8.333333333333332%",
+                "width": "100%",
               }
             }
           >
-            3
+            Level undefined (undefined / undefined)
           </div>
         </div>
       </div>
@@ -1888,10 +1911,22 @@ Array [
       <div
         className="character inline"
       >
-        undefined, Level 3 
-         undefined undefined 
-        (
-        )
+        <div
+          className="character-label"
+        >
+          <span
+            className="character-label__item"
+          >
+            Level 
+            3
+          </span>
+          <span
+            className="character-label__item"
+          />
+          <span
+            className="character-label__item"
+          />
+        </div>
         <div
           className="nice-progress good"
         >
@@ -2561,10 +2596,21 @@ Array [
       <div
         className="character inline"
       >
-        undefined, Level undefined 
-         undefined undefined 
-        (
-        )
+        <div
+          className="character-label"
+        >
+          <span
+            className="character-label__item"
+          >
+            Level 
+          </span>
+          <span
+            className="character-label__item"
+          />
+          <span
+            className="character-label__item"
+          />
+        </div>
         <div
           className="nice-progress good"
         >

@@ -35,7 +35,7 @@ describe('Component: CharacterLabel', () => {
         const tree = renderer.create(
             <CharacterLabel
                 character_id={ 1 }
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -48,7 +48,7 @@ describe('Component: CharacterLabel', () => {
                 character={ character }
                 alignments={ alignments }
                 genders={ genders }
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -62,7 +62,7 @@ describe('Component: CharacterLabel', () => {
                 showProgress={ true }
                 alignments={ alignments }
                 genders={ genders }
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -78,7 +78,7 @@ describe('Component: CharacterLabel', () => {
                 showProgress={ true }
                 alignments={ alignments }
                 genders={ genders }
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -92,7 +92,7 @@ describe('Component: CharacterLabel', () => {
                 showProgress={ true }
                 alignments={ alignments }
                 genders={ genders }
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -107,7 +107,7 @@ describe('Component: CharacterLabel', () => {
                 showProgress={ true }
                 alignments={ alignments }
                 genders={ genders }
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();

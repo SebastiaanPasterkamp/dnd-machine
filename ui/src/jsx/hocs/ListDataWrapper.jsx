@@ -1,6 +1,10 @@
 import React from 'react';
 import Reflux from 'reflux';
-import _ from 'lodash';
+import {
+    isEqual,
+    get,
+    reduce,
+} from 'lodash/fp';
 
 import ListDataActions from '../actions/ListDataActions.jsx';
 import ListDataStore from '../stores/ListDataStore.jsx';
@@ -40,11 +44,11 @@ function ListDataWrapper(
         }
 
         shouldComponentUpdate(nextProps, nextState) {
-            if (!_.isEqual(this.props, nextProps)) {
+            if (!isEqual(this.props, nextProps)) {
                 return true;
             }
 
-            if (!_.isEqual(this.state, nextState)) {
+            if (!isEqual(this.state, nextState)) {
                 return true;
             }
 
@@ -52,18 +56,19 @@ function ListDataWrapper(
         }
 
         render() {
-            const data = _.reduce(storeKeys, (data, key) => {
+            const data = reduce((data, key) => {
                 const { [key]: provided } = this.props;
                 const { [key]: stored } = this.state;
+                const prop = get(key, mapping) || key;
 
                 if (provided !== undefined) {
-                    data[ mapping[key] || key ] = provided;
+                    data[ prop ] = provided;
                 } else if (stored !== undefined) {
-                    data[ mapping[key] || key ] = stored;
+                    data[ prop ] = stored;
                 }
 
                 return data;
-            }, {});
+            }, {})(storeKeys);
 
             return (
                 <WrappedComponent

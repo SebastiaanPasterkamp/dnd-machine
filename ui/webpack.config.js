@@ -10,11 +10,11 @@ const HotModuleReplacementPlugin = require('webpack-hot-middleware');
 const devMode = process.env.NODE_ENV !== 'production';
 
 const PROJECT = 'dnd-machine';
-const OUTPUT_PATH_JSX = path.resolve(__dirname, '..', 'app', 'static', 'js');
+const OUTPUT_PATH_JSX = path.resolve(__dirname, '..', 'app', 'static');
 const SOURCE_PATH_JSX = path.resolve(__dirname, 'src', 'jsx');
-const OUTPUT_PATH_SASS = '../css';
+const OUTPUT_PATH_SASS = 'css';
 const SOURCE_PATH_SASS = path.resolve(__dirname, 'src', 'sass');
-const OUTPUT_PATH_IMG = '../img/';
+const OUTPUT_PATH_IMG = 'img';
 const SOURCE_PATH_IMG = path.resolve(__dirname, 'src', 'img');
 
 const config = {
@@ -28,7 +28,7 @@ const config = {
         disableHostCheck: true,
         compress: true,
         contentBase: "../app/static/",
-        publicPath: "/static/js/",
+        publicPath: "/static/",
         open: false,
         overlay: true,
         hot: true,
@@ -45,7 +45,7 @@ const config = {
     },
     output: {
         path: OUTPUT_PATH_JSX,
-        filename: '[name].js',
+        filename: 'js/[name].js',
         hotUpdateMainFilename: '__hmr/[hash].hot-update.json',
         hotUpdateChunkFilename: '__hmr/[id].[hash].hot-update.js',
     },
