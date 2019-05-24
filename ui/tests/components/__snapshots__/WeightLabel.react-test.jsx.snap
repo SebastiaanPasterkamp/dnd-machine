@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeightLabel should render nothing without props 1`] = `null`;
+
+exports[`WeightLabel with computed weight should render both 1`] = `
+<div
+  className="weight inline"
+>
+  <span>
+    3
+    lb
+  </span>
+  <span>
+    4
+    oz
+  </span>
+</div>
+`;
+
+exports[`WeightLabel with computed weight should render only lb 1`] = `
+<div
+  className="weight inline"
+>
+  <span>
+    1
+    lb
+  </span>
+</div>
+`;
+
+exports[`WeightLabel with computed weight should render only oz 1`] = `
+<div
+  className="weight inline"
+>
+  <span>
+    2
+    oz
+  </span>
+</div>
+`;
+
+exports[`WeightLabel with explicity lb and/or oz should render both 1`] = `
+<div
+  className="weight inline"
+>
+  <span>
+    3
+    lb
+  </span>
+  <span>
+    4
+    oz
+  </span>
+</div>
+`;
+
+exports[`WeightLabel with explicity lb and/or oz should render only lb 1`] = `
+<div
+  className="weight inline"
+>
+  <span>
+    1
+    lb
+  </span>
+</div>
+`;
+
+exports[`WeightLabel with explicity lb and/or oz should render only oz 1`] = `
+<div
+  className="weight inline"
+>
+  <span>
+    2
+    oz
+  </span>
+</div>
+`;

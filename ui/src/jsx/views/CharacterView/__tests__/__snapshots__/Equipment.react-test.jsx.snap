@@ -1,0 +1,202 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Equipment should render with full props 1`] = `
+<div
+  className="nice-panel character-view__equipment info"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Equipment
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <strong>
+      Weapons
+    </strong>
+    <ul>
+      <li>
+        <div
+          className="weapon-label inline"
+        >
+          <strong>
+            Dagger
+          </strong>
+           
+          <i>
+            (
+            <div
+              className="list-label inline"
+            >
+              Simple Melee Weapon
+            </div>
+            )
+          </i>
+          <div
+            className="weapon-label--info inline"
+          >
+            <code>
+              <div
+                className="dice-notation inline capitalize"
+              >
+                <code>
+                  1
+                  d
+                  4
+                  +2
+                </code>
+                piercing
+              </div>
+            </code>
+            <strong>
+              Hit:
+            </strong>
+             
+            <div
+              className="bonus inline"
+            >
+              +
+              4
+            </div>
+            <ul
+              className="weapon-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  <div
+                    className="tool-tip inline"
+                  >
+                    Light
+                    <span
+                      className="tool-tip--content"
+                    >
+                      <p>
+                        A light weapon.
+                      </p>
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  <div
+                    className="tool-tip inline"
+                  >
+                    Thrown
+                    <span
+                      className="tool-tip--content"
+                    >
+                      <p>
+                        You can throw the weapon.
+                      </p>
+                    </span>
+                  </div>
+                </div>
+                <i>
+                   (
+                  <div
+                    className="reach inline"
+                  >
+                    20
+                     ft. / 
+                    60
+                     ft.
+                  </div>
+                  ) 
+                </i>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <strong>
+      Armor
+    </strong>
+    <ul>
+      <li>
+        <div
+          className="armor-label inline"
+        >
+          <strong>
+            Cloth
+          </strong>
+          <i>
+            (
+            <div
+              className="list-label inline"
+            >
+              Light Armor
+            </div>
+            )
+          </i>
+          <div
+            className="armor-label__info inline"
+          >
+            <span>
+              <strong>
+                AC:
+              </strong>
+              14
+            </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <strong>
+      Gear
+    </strong>
+    <ul>
+      <li>
+        4
+         × 
+        torch
+      </li>
+      <li>
+        rope
+      </li>
+    </ul>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;
+
+exports[`Equipment should render without props 1`] = `
+<div
+  className="nice-panel character-view__equipment info"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Equipment
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <strong>
+      Weapons
+    </strong>
+    <ul />
+    <strong>
+      Armor
+    </strong>
+    <ul />
+    <strong>
+      Gear
+    </strong>
+    <ul />
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;

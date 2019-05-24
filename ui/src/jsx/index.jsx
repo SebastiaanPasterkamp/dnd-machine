@@ -21,7 +21,7 @@ import CampaignTable from './views/CampaignTable.jsx';
 import CharacterCreate from './views/CharacterCreate.jsx';
 import CharacterEdit from './views/CharacterEdit.jsx';
 import CharactersTable from './views/CharactersTable.jsx';
-import CharactersView from './views/CharactersView.jsx';
+import CharacterView from './views/CharacterView';
 import EncounterEdit from './views/EncounterEdit.jsx';
 import EncounterTable from './views/EncounterTable.jsx';
 import EncounterView from './views/EncounterView.jsx';
@@ -137,7 +137,7 @@ class DndMachine extends React.Component
                     />
                 <Route
                     path="/character/show/:id"
-                    component={CharactersView}
+                    component={CharacterView}
                     />
                 <Route
                     path="/character/edit/:id"

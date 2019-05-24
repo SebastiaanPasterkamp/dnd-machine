@@ -1,4 +1,4 @@
-export const alignments = [
+const alignments = [
     {
         "code": "lawful good",
         "label": "Lawful good"
@@ -37,7 +37,7 @@ export const alignments = [
     }
 ];
 
-export const genders = [
+const genders = [
     {
         "code": "genderless",
         "label": "Genderless"
@@ -52,7 +52,7 @@ export const genders = [
     }
 ];
 
-export const size_hit_dice = [
+const size_hit_dice = [
     {
         "code": "tiny",
         "dice_size": 4,
@@ -85,7 +85,7 @@ export const size_hit_dice = [
     }
 ];
 
-export const statistics = [
+const statistics = [
     {
         "description": "Str",
         "label": "Strength",
@@ -112,3 +112,10 @@ export const statistics = [
         "code": "charisma"
     }
 ];
+
+export {
+    alignments,
+    genders,
+    size_hit_dice,
+    statistics,
+};

@@ -44,20 +44,41 @@ exports[`CharacterPicker rendering should work with full props 1`] = `
         <div
           className="character inline"
         >
-          Testy McTestface, Level 1 
           <div
-            className="list-label inline"
+            className="character-label"
           >
-            male
+            <span
+              className="character-label__name"
+            >
+              Testy McTestface
+            </span>
+            <span
+              className="character-label__item"
+            >
+              Level 
+              1
+            </span>
+            <div
+              className="list-label inline"
+            >
+              male
+            </div>
+            <span
+              className="character-label__item"
+            >
+              Human
+            </span>
+            <span
+              className="character-label__item"
+            >
+              Fighter
+            </span>
+            <div
+              className="list-label inline character-label__alignment"
+            >
+              true neutral
+            </div>
           </div>
-           Human Fighter 
-          (
-          <div
-            className="list-label inline"
-          >
-            true neutral
-          </div>
-          )
           <div
             className="nice-progress brand"
           >
@@ -95,20 +116,41 @@ exports[`CharacterPicker rendering should work with full props 1`] = `
         <div
           className="character inline"
         >
-          Beasty McBeastface, Level 2 
           <div
-            className="list-label inline"
+            className="character-label"
           >
-            female
+            <span
+              className="character-label__name"
+            >
+              Beasty McBeastface
+            </span>
+            <span
+              className="character-label__item"
+            >
+              Level 
+              2
+            </span>
+            <div
+              className="list-label inline"
+            >
+              female
+            </div>
+            <span
+              className="character-label__item"
+            >
+              Half-Orc
+            </span>
+            <span
+              className="character-label__item"
+            >
+              Druid
+            </span>
+            <div
+              className="list-label inline character-label__alignment"
+            >
+              neutral good
+            </div>
           </div>
-           Half-Orc Druid 
-          (
-          <div
-            className="list-label inline"
-          >
-            neutral good
-          </div>
-          )
           <div
             className="nice-progress good"
           >

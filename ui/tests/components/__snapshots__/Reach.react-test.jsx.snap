@@ -1,33 +1,114 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component: Reach should show a simple number for min==max with unit 1`] = `
+exports[`Reach should render nothing without props 1`] = `null`;
+
+exports[`Reach with computed feet and/or inch should render both 1`] = `
 <div
   className="reach inline"
 >
-  5 ft.
+  <span>
+    3
+     ft.
+  </span>
+  <span>
+    4
+     inch
+  </span>
 </div>
 `;
 
-exports[`Component: Reach should show just a text label for a non-numeric distance 1`] = `
+exports[`Reach with computed feet and/or inch should render only feet 1`] = `
+<div
+  className="reach inline"
+>
+  <span>
+    1
+     ft.
+  </span>
+</div>
+`;
+
+exports[`Reach with computed feet and/or inch should render only inches 1`] = `
+<div
+  className="reach inline"
+>
+  <span>
+    2
+     inch
+  </span>
+</div>
+`;
+
+exports[`Reach with explicit feet and/or inch should render both 1`] = `
+<div
+  className="reach inline"
+>
+  <span>
+    3
+     ft.
+  </span>
+  <span>
+    4
+     inch
+  </span>
+</div>
+`;
+
+exports[`Reach with explicit feet and/or inch should render only feet 1`] = `
+<div
+  className="reach inline"
+>
+  <span>
+    1
+     ft.
+  </span>
+</div>
+`;
+
+exports[`Reach with explicit feet and/or inch should render only inches 1`] = `
+<div
+  className="reach inline"
+>
+  <span>
+    2
+     inch
+  </span>
+</div>
+`;
+
+exports[`Reach with min/max should show full range with units when min<max 1`] = `
+<div
+  className="reach inline"
+>
+  10
+   ft. / 
+  20
+   ft.
+</div>
+`;
+
+exports[`Reach with min/max should show min with unit when min==max 1`] = `
+<div
+  className="reach inline"
+>
+  5
+   ft.
+</div>
+`;
+
+exports[`Reach with min/max should show min with unit when min>max 1`] = `
+<div
+  className="reach inline"
+>
+  5
+   ft.
+</div>
+`;
+
+exports[`Reach with non-numeric distance should show just a text label 1`] = `
 <div
   className="reach inline"
 >
   touch
-</div>
-`;
-
-exports[`Component: Reach should show min<max range with unit 1`] = `
-<div
-  className="reach inline"
->
-  10/20 ft.
-</div>
-`;
-
-exports[`Component: Reach should show simple number with unit 1`] = `
-<div
-  className="reach inline"
->
-  10 ft.
 </div>
 `;

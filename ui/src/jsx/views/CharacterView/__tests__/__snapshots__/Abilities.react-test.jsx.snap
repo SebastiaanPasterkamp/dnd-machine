@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Abilities should render with full props 1`] = `
+<div
+  className="nice-panel character-view__abilities info"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Abilities
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <ul>
+      <li>
+        <strong>
+          Simple
+        </strong>
+        <span>
+          <p>
+            Something simple
+          </p>
+        </span>
+      </li>
+      <li>
+        <strong>
+          Complex
+        </strong>
+        <span>
+          <p>
+            Formatted: 1.12
+          </p>
+        </span>
+      </li>
+    </ul>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;
+
+exports[`Abilities should render without props 1`] = `
+<div
+  className="nice-panel character-view__abilities info"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Abilities
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <ul />
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;

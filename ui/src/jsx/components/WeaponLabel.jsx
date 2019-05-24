@@ -22,45 +22,40 @@ export class WeaponLabel extends LazyComponent
             return null;
         }
 
-        return <div className="weapon-label--info">
+        return <div className="weapon-label--info inline">
             <code>
-                <DiceNotation
-                    {...weapon.damage}
-                    />
+                <DiceNotation {...weapon.damage} />
             </code>
-            {weapon.bonus
-                ? <React.Fragment>
-                    <strong>Hit:</strong>&nbsp;<Bonus
-                        bonus={weapon.bonus}
-                        />
+            {weapon.bonus ? (
+                <React.Fragment>
+                    <strong>Hit:</strong>
+                    &nbsp;<Bonus bonus={weapon.bonus} />
                 </React.Fragment>
-                : null
-            }
-            {weapon.type.match('ranged')
-                ? <React.Fragment>
-                    <strong>Range:</strong>&nbsp;<Reach {...weapon.range}/>
+            ) : null}
+            {weapon.type.match('ranged') ? (
+                <React.Fragment>
+                    <strong>Range:</strong>
+                    &nbsp;<Reach {...weapon.range}/>
                 </React.Fragment>
-                : null
-            }
+            ) : null}
             {weapon.property.length
-                ? <ul className="weapon-label--properties">
+                ? <ul className="weapon-label--properties inline">
                     {_.map(weapon.property || [], (prop) => {
                         return <li key={prop}>
                             <ListLabel
                                 items={weapon_properties || []}
                                 value={prop}
                                 tooltip={true}
-                                />
+                            />
                             {prop == 'thrown'
-                                ? <i> (<Reach {...weapon.range}/>)</i>
+                                ? <i> (<Reach {...weapon.range}/>) </i>
                                 : null
                             }
-                            {prop == 'versatile'
-                                ? <i> (<DiceNotation
-                                    {...weapon.versatile}
-                                    />)</i>
-                                : null
-                            }
+                            {prop == 'versatile' ? (
+                                <i>
+                                    (<DiceNotation {...weapon.versatile} />)
+                                </i>
+                            ) : null}
                         </li>;
                     })}
                 </ul>
@@ -96,7 +91,7 @@ export class WeaponLabel extends LazyComponent
                 (<ListLabel
                     items={weapon_types || []}
                     value={weapon.type}
-                    />)
+                />)
             </i>
             {this.renderDescription(weapon)}
             {this.renderInfo(weapon)}

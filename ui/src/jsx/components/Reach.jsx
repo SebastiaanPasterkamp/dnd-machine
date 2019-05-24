@@ -1,34 +1,69 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {
+    isNumber,
+} from 'lodash/fp';
 
-import _ from 'lodash';
+const Reach = function(props) {
+    const { distance, min, max } = props;
+    const { feet, inch } = isNumber(distance) ? {
+        feet: Math.floor(distance),
+        inch: Math.floor((distance % 1) * 12),
+    } : props;
 
-import LazyComponent from '../components/LazyComponent.jsx';
-
-class Reach extends LazyComponent
-{
-    renderMinMax() {
-        return <div className="reach inline">
-            {this.props.min >= this.props.max
-                ? this.props.min + " ft."
-                : this.props.min + "/" + this.props.max + " ft."
-            }
-        </div>;
+    if (distance !== null && !isNumber(distance)) {
+        return (
+            <div className="reach inline">
+                {distance}
+            </div>
+        );
     }
 
-    renderSimple() {
-        return <div className="reach inline">
-            {_.isNumber(this.props.distance)
-                ? this.props.distance + " ft."
-                : this.props.distance
-            }
-        </div>;
+    if (min !== null) {
+        if (min >= max) {
+            return (
+                <div className="reach inline">
+                    {min} ft.
+                </div>
+            )
+        }
+
+        return (
+            <div className="reach inline">
+                {min} ft. / {max} ft.
+            </div>
+        );
     }
 
-    render() {
-        return 'distance' in this.props
-            ? this.renderSimple()
-            : this.renderMinMax();
+    if (feet === null && inch === null) {
+        return null;
     }
+
+    return (
+        <div className="reach inline">
+            {feet ? (<span>{ feet } ft.</span>) : null}
+            {inch ? (<span>{ inch } inch</span>) : null}
+        </div>
+    );
 }
+
+Reach.propTypes = {
+    distance: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+    ]),
+    feet: PropTypes.number,
+    inch: PropTypes.number,
+    min: PropTypes.number,
+    max: PropTypes.number,
+};
+
+Reach.defaultProps = {
+    distance: null,
+    feet: null,
+    inch: null,
+    min: null,
+    max: null,
+};
 
 export default Reach;
