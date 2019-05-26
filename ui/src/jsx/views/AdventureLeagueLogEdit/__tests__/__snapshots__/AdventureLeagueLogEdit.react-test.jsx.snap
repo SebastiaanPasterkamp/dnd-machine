@@ -3930,46 +3930,52 @@ Array [
     </div>
   </div>,
   <div
-    className="modal-dialog nice-modal viewport-center accent wide"
+    className="nice-modal-overlay"
+    onClick={[Function]}
   >
     <div
-      className="nice-modal-content"
+      className="modal-dialog nice-modal viewport-center accent tall wide"
+      onClick={[Function]}
     >
       <div
-        className="nice-modal-header"
-      >
-        <h4>
-          Pick a Character
-        </h4>
-      </div>
-      <div
-        className="nice-modal-sub"
-      >
-        <input
-          className="nice-form-control"
-          disabled={undefined}
-          onChange={[Function]}
-          onKeyPress={null}
-          placeholder="Filter..."
-          type={undefined}
-          value=""
-        />
-      </div>
-      <div
-        className="nice-modal-body overflow-y-auto overflow-x-hidden"
-      />
-      <div
-        className="nice-modal-footer"
+        className="nice-modal-content"
       >
         <div
-          className="base-link-group nice-btn-group pull-right"
+          className="nice-modal-header"
         >
-          <a
-            className="cursor-pointer nice-btn icon fa-check primary"
-            onClick={[Function]}
+          <h4>
+            Pick a Character
+          </h4>
+        </div>
+        <div
+          className="nice-modal-sub"
+        >
+          <input
+            className="nice-form-control"
+            disabled={undefined}
+            onChange={[Function]}
+            onKeyPress={null}
+            placeholder="Filter..."
+            type={undefined}
+            value=""
+          />
+        </div>
+        <div
+          className="nice-modal-body overflow-y-auto overflow-x-hidden"
+        />
+        <div
+          className="nice-modal-footer"
+        >
+          <div
+            className="base-link-group nice-btn-group pull-right"
           >
-            Done
-          </a>
+            <a
+              className="cursor-pointer nice-btn icon fa-check primary"
+              onClick={[Function]}
+            >
+              Done
+            </a>
+          </div>
         </div>
       </div>
     </div>

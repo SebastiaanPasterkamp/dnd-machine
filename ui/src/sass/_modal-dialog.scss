@@ -1,17 +1,33 @@
 // _modal-dialog.scss
 
+@import 'media-values';
+
 .modal-dialog {
     height: auto !important;
 
-    .nice-modal-content {
-        height: auto !important;
-    }
-
     .nice-modal-body {
-        max-height: 240px;
+        max-height: 50vh !important;
+    }
+    &.tall {
+        .nice-modal-body {
+            max-height: 65vh !important;
+        }
     }
 
     .nice-modal-footer {
         position: initial !important;
+    }
+}
+
+
+@media #{$media} and ($feature: $value) {
+    .modal-dialog {
+        width: 90% !important;
+        margin-left: -45% !important;
+        margin-top: -45vh !important;
+
+        .nice-modal-body {
+            max-height: 65vh !important;
+        }
     }
 }
