@@ -1,0 +1,203 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeaponView should render with full props 1`] = `
+<div>
+  <h2
+    className="icon fa-cutlery"
+  >
+    Weapon
+  </h2>
+  <div
+    className="weapon-view"
+  >
+    <div
+      className="nice-panel weapon-view__information info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Information
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <tbody>
+          <tr>
+            <th
+              colSpan={2}
+            >
+              <div
+                className="base-link-group nice-btn-group pull-right"
+              />
+              <h3>
+                Rapier
+              </h3>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Type:
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                Simple Melee Weapon
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Damage:
+            </th>
+            <td>
+              <div
+                className="dice-notation inline capitalize"
+              >
+                <code>
+                  1
+                  d
+                  6
+                  
+                </code>
+                slashing
+              </div>
+              /
+              <div
+                className="dice-notation inline capitalize"
+              >
+                <code>
+                  1
+                  d
+                  8
+                  
+                </code>
+                slashing
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Attributes:
+            </th>
+            <td
+              className="weapon-view__properties"
+            >
+              <div
+                className="list-label inline"
+              >
+                <div
+                  className="tool-tip inline"
+                >
+                  Finesse
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Use 
+                      <strong>
+                        Str
+                      </strong>
+                       or 
+                      <strong>
+                        Dex
+                      </strong>
+                    </p>
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Weight
+            </th>
+            <td>
+              2
+               lb.
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Cost
+            </th>
+            <td>
+              <input
+                className="coinage capitalize nice-form-control"
+                disabled={true}
+                value="3 Gold"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      className="nice-panel weapon-view__description info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Description
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <span>
+          <p>
+            En guarde
+          </p>
+        </span>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`WeaponView should render without props 1`] = `
+<div>
+  <h2
+    className="icon fa-cutlery"
+  >
+    Weapon
+  </h2>
+  <div
+    className="weapon-view"
+  >
+    <div
+      className="nice-panel weapon-view__information info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Information
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <tbody>
+          <tr>
+            <th
+              colSpan={2}
+            >
+              <h3 />
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Type:
+            </th>
+            <td />
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
