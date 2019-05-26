@@ -2,189 +2,195 @@
 
 exports[`MonsterPicker rendering should work with full props 1`] = `
 <div
-  className="modal-dialog nice-modal viewport-center accent wide"
+  className="nice-modal-overlay"
+  onClick={[Function]}
 >
   <div
-    className="nice-modal-content"
+    className="modal-dialog nice-modal viewport-center accent tall wide"
+    onClick={[Function]}
   >
     <div
-      className="nice-modal-header"
+      className="nice-modal-content"
     >
-      <a
-        className="nice-modal-close"
-        onClick={[Function]}
+      <div
+        className="nice-modal-header"
       >
-        <i
-          className="icon fa-times"
+        <a
+          className="nice-modal-close"
+          onClick={[Function]}
+        >
+          <i
+            className="icon fa-times"
+          />
+        </a>
+        <h4>
+          Renamed dialog
+        </h4>
+      </div>
+      <div
+        className="nice-modal-sub"
+      >
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Filter..."
+          type={undefined}
+          value=""
         />
-      </a>
-      <h4>
-        Renamed dialog
-      </h4>
-    </div>
-    <div
-      className="nice-modal-sub"
-    >
-      <input
-        className="nice-form-control"
-        disabled={undefined}
-        onChange={[Function]}
-        onKeyPress={null}
-        placeholder="Filter..."
-        type={undefined}
-        value=""
-      />
-    </div>
-    <div
-      className="nice-modal-body overflow-y-auto overflow-x-hidden"
-    >
+      </div>
       <div
-        className="monster-picker__row"
+        className="nice-modal-body overflow-y-auto overflow-x-hidden"
       >
         <div
-          className="monster-label inline"
-        >
-          <span
-            className="monster-label--name"
-          >
-            Onsy
-              (
-            <div
-              className="challenge-rating inline"
-            >
-              CR 
-              1
-            </div>
-             / 
-            <div
-              className="xp-rating inline"
-            >
-              50
-               XP
-            </div>
-            )
-          </span>
-          <span
-            className="monster-label--type"
-          >
-            <div
-              className="list-label inline"
-            >
-              small
-            </div>
-             
-            <div
-              className="list-label inline"
-            >
-              humanoid
-            </div>
-              (
-            <div
-              className="list-label inline"
-            >
-              lawful neutral
-            </div>
-            )
-          </span>
-        </div>
-        <div
-          className="actions"
+          className="monster-picker__row"
         >
           <div
-            className="base-link-group nice-btn-group"
+            className="monster-label inline"
           >
-            <a
-              className="cursor-pointer nice-btn icon fa-paw"
-              onClick={[Function]}
+            <span
+              className="monster-label--name"
             >
-              Pick
-            </a>
+              Onsy
+                (
+              <div
+                className="challenge-rating inline"
+              >
+                CR 
+                1
+              </div>
+               / 
+              <div
+                className="xp-rating inline"
+              >
+                50
+                 XP
+              </div>
+              )
+            </span>
+            <span
+              className="monster-label--type"
+            >
+              <div
+                className="list-label inline"
+              >
+                small
+              </div>
+               
+              <div
+                className="list-label inline"
+              >
+                humanoid
+              </div>
+                (
+              <div
+                className="list-label inline"
+              >
+                lawful neutral
+              </div>
+              )
+            </span>
+          </div>
+          <div
+            className="actions"
+          >
+            <div
+              className="base-link-group nice-btn-group"
+            >
+              <a
+                className="cursor-pointer nice-btn icon fa-paw"
+                onClick={[Function]}
+              >
+                Pick
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          className="monster-picker__row"
+        >
+          <div
+            className="monster-label inline"
+          >
+            <span
+              className="monster-label--name"
+            >
+              Threesy
+                (
+              <div
+                className="challenge-rating inline"
+              >
+                CR 
+                3
+              </div>
+               / 
+              <div
+                className="xp-rating inline"
+              >
+                50
+                 XP
+              </div>
+              )
+            </span>
+            <span
+              className="monster-label--type"
+            >
+              <div
+                className="list-label inline"
+              >
+                large
+              </div>
+               
+              <div
+                className="list-label inline"
+              >
+                humanoid
+              </div>
+                (
+              <div
+                className="list-label inline"
+              >
+                chaotic neutral
+              </div>
+              )
+            </span>
+          </div>
+          <div
+            className="actions"
+          >
+            <div
+              className="base-link-group nice-btn-group"
+            >
+              <a
+                className="cursor-pointer nice-btn icon fa-paw"
+                onClick={[Function]}
+              >
+                Pick
+              </a>
+            </div>
           </div>
         </div>
       </div>
       <div
-        className="monster-picker__row"
+        className="nice-modal-footer"
       >
         <div
-          className="monster-label inline"
+          className="base-link-group nice-btn-group pull-right"
         >
-          <span
-            className="monster-label--name"
+          <a
+            className="cursor-pointer nice-btn icon fa-cross"
+            onClick={[Function]}
           >
-            Threesy
-              (
-            <div
-              className="challenge-rating inline"
-            >
-              CR 
-              3
-            </div>
-             / 
-            <div
-              className="xp-rating inline"
-            >
-              50
-               XP
-            </div>
-            )
-          </span>
-          <span
-            className="monster-label--type"
+            Cancel
+          </a>
+          <a
+            className="cursor-pointer nice-btn icon fa-check primary"
+            onClick={[Function]}
           >
-            <div
-              className="list-label inline"
-            >
-              large
-            </div>
-             
-            <div
-              className="list-label inline"
-            >
-              humanoid
-            </div>
-              (
-            <div
-              className="list-label inline"
-            >
-              chaotic neutral
-            </div>
-            )
-          </span>
+            Done
+          </a>
         </div>
-        <div
-          className="actions"
-        >
-          <div
-            className="base-link-group nice-btn-group"
-          >
-            <a
-              className="cursor-pointer nice-btn icon fa-paw"
-              onClick={[Function]}
-            >
-              Pick
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="nice-modal-footer"
-    >
-      <div
-        className="base-link-group nice-btn-group pull-right"
-      >
-        <a
-          className="cursor-pointer nice-btn icon fa-cross"
-          onClick={[Function]}
-        >
-          Cancel
-        </a>
-        <a
-          className="cursor-pointer nice-btn icon fa-check primary"
-          onClick={[Function]}
-        >
-          Done
-        </a>
       </div>
     </div>
   </div>
@@ -193,46 +199,52 @@ exports[`MonsterPicker rendering should work with full props 1`] = `
 
 exports[`MonsterPicker rendering should work with minimum props 1`] = `
 <div
-  className="modal-dialog nice-modal viewport-center accent wide"
+  className="nice-modal-overlay"
+  onClick={[Function]}
 >
   <div
-    className="nice-modal-content"
+    className="modal-dialog nice-modal viewport-center accent tall wide"
+    onClick={[Function]}
   >
     <div
-      className="nice-modal-header"
-    >
-      <h4>
-        Pick a Monster
-      </h4>
-    </div>
-    <div
-      className="nice-modal-sub"
-    >
-      <input
-        className="nice-form-control"
-        disabled={undefined}
-        onChange={[Function]}
-        onKeyPress={null}
-        placeholder="Filter..."
-        type={undefined}
-        value=""
-      />
-    </div>
-    <div
-      className="nice-modal-body overflow-y-auto overflow-x-hidden"
-    />
-    <div
-      className="nice-modal-footer"
+      className="nice-modal-content"
     >
       <div
-        className="base-link-group nice-btn-group pull-right"
+        className="nice-modal-header"
       >
-        <a
-          className="cursor-pointer nice-btn icon fa-check primary"
-          onClick={[Function]}
+        <h4>
+          Pick a Monster
+        </h4>
+      </div>
+      <div
+        className="nice-modal-sub"
+      >
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Filter..."
+          type={undefined}
+          value=""
+        />
+      </div>
+      <div
+        className="nice-modal-body overflow-y-auto overflow-x-hidden"
+      />
+      <div
+        className="nice-modal-footer"
+      >
+        <div
+          className="base-link-group nice-btn-group pull-right"
         >
-          Done
-        </a>
+          <a
+            className="cursor-pointer nice-btn icon fa-check primary"
+            onClick={[Function]}
+          >
+            Done
+          </a>
+        </div>
       </div>
     </div>
   </div>

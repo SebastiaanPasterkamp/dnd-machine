@@ -2,205 +2,211 @@
 
 exports[`CharacterPicker rendering should work with full props 1`] = `
 <div
-  className="modal-dialog nice-modal viewport-center accent wide"
+  className="nice-modal-overlay"
+  onClick={[Function]}
 >
   <div
-    className="nice-modal-content"
+    className="modal-dialog nice-modal viewport-center accent tall wide"
+    onClick={[Function]}
   >
     <div
-      className="nice-modal-header"
+      className="nice-modal-content"
     >
-      <a
-        className="nice-modal-close"
-        onClick={[Function]}
+      <div
+        className="nice-modal-header"
       >
-        <i
-          className="icon fa-times"
+        <a
+          className="nice-modal-close"
+          onClick={[Function]}
+        >
+          <i
+            className="icon fa-times"
+          />
+        </a>
+        <h4>
+          Renamed dialog
+        </h4>
+      </div>
+      <div
+        className="nice-modal-sub"
+      >
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Filter..."
+          type={undefined}
+          value=""
         />
-      </a>
-      <h4>
-        Renamed dialog
-      </h4>
-    </div>
-    <div
-      className="nice-modal-sub"
-    >
-      <input
-        className="nice-form-control"
-        disabled={undefined}
-        onChange={[Function]}
-        onKeyPress={null}
-        placeholder="Filter..."
-        type={undefined}
-        value=""
-      />
-    </div>
-    <div
-      className="nice-modal-body overflow-y-auto overflow-x-hidden"
-    >
+      </div>
       <div
-        className="character-picker__row"
+        className="nice-modal-body overflow-y-auto overflow-x-hidden"
       >
         <div
-          className="character inline"
+          className="character-picker__row"
         >
           <div
-            className="character-label"
+            className="character inline"
           >
-            <span
-              className="character-label__name"
-            >
-              Testy McTestface
-            </span>
-            <span
-              className="character-label__item"
-            >
-              Level 
-              1
-            </span>
             <div
-              className="list-label inline"
+              className="character-label"
             >
-              male
+              <span
+                className="character-label__name"
+              >
+                Testy McTestface
+              </span>
+              <span
+                className="character-label__item"
+              >
+                Level 
+                1
+              </span>
+              <div
+                className="list-label inline"
+              >
+                male
+              </div>
+              <span
+                className="character-label__item"
+              >
+                Human
+              </span>
+              <span
+                className="character-label__item"
+              >
+                Fighter
+              </span>
+              <div
+                className="list-label inline character-label__alignment"
+              >
+                true neutral
+              </div>
             </div>
-            <span
-              className="character-label__item"
-            >
-              Human
-            </span>
-            <span
-              className="character-label__item"
-            >
-              Fighter
-            </span>
             <div
-              className="list-label inline character-label__alignment"
+              className="nice-progress brand"
             >
-              true neutral
+              <div
+                className="nice-progress-fill"
+                style={
+                  Object {
+                    "height": "1.25rem",
+                    "width": "75%",
+                  }
+                }
+              >
+                Level 1 (3 / 4)
+              </div>
             </div>
           </div>
           <div
-            className="nice-progress brand"
+            className="actions"
           >
             <div
-              className="nice-progress-fill"
-              style={
-                Object {
-                  "height": "1.25rem",
-                  "width": "75%",
-                }
-              }
+              className="base-link-group nice-btn-group"
             >
-              Level 1 (3 / 4)
+              <a
+                className="cursor-pointer nice-btn icon fa-user-secret"
+                onClick={[Function]}
+              >
+                Pick
+              </a>
             </div>
           </div>
         </div>
         <div
-          className="actions"
+          className="character-picker__row"
         >
           <div
-            className="base-link-group nice-btn-group"
+            className="character inline"
           >
-            <a
-              className="cursor-pointer nice-btn icon fa-user-secret"
-              onClick={[Function]}
+            <div
+              className="character-label"
             >
-              Pick
-            </a>
+              <span
+                className="character-label__name"
+              >
+                Beasty McBeastface
+              </span>
+              <span
+                className="character-label__item"
+              >
+                Level 
+                2
+              </span>
+              <div
+                className="list-label inline"
+              >
+                female
+              </div>
+              <span
+                className="character-label__item"
+              >
+                Half-Orc
+              </span>
+              <span
+                className="character-label__item"
+              >
+                Druid
+              </span>
+              <div
+                className="list-label inline character-label__alignment"
+              >
+                neutral good
+              </div>
+            </div>
+            <div
+              className="nice-progress good"
+            >
+              <div
+                className="nice-progress-fill"
+                style={
+                  Object {
+                    "height": "1.25rem",
+                    "width": "83.33333333333334%",
+                  }
+                }
+              >
+                Level 2 (500 / 600)
+              </div>
+            </div>
+          </div>
+          <div
+            className="actions"
+          >
+            <div
+              className="base-link-group nice-btn-group"
+            >
+              <a
+                className="cursor-pointer nice-btn icon fa-user-secret"
+                onClick={[Function]}
+              >
+                Pick
+              </a>
+            </div>
           </div>
         </div>
       </div>
       <div
-        className="character-picker__row"
+        className="nice-modal-footer"
       >
         <div
-          className="character inline"
+          className="base-link-group nice-btn-group pull-right"
         >
-          <div
-            className="character-label"
+          <a
+            className="cursor-pointer nice-btn icon fa-cross"
+            onClick={[Function]}
           >
-            <span
-              className="character-label__name"
-            >
-              Beasty McBeastface
-            </span>
-            <span
-              className="character-label__item"
-            >
-              Level 
-              2
-            </span>
-            <div
-              className="list-label inline"
-            >
-              female
-            </div>
-            <span
-              className="character-label__item"
-            >
-              Half-Orc
-            </span>
-            <span
-              className="character-label__item"
-            >
-              Druid
-            </span>
-            <div
-              className="list-label inline character-label__alignment"
-            >
-              neutral good
-            </div>
-          </div>
-          <div
-            className="nice-progress good"
+            Cancel
+          </a>
+          <a
+            className="cursor-pointer nice-btn icon fa-check primary"
+            onClick={[Function]}
           >
-            <div
-              className="nice-progress-fill"
-              style={
-                Object {
-                  "height": "1.25rem",
-                  "width": "83.33333333333334%",
-                }
-              }
-            >
-              Level 2 (500 / 600)
-            </div>
-          </div>
+            Done
+          </a>
         </div>
-        <div
-          className="actions"
-        >
-          <div
-            className="base-link-group nice-btn-group"
-          >
-            <a
-              className="cursor-pointer nice-btn icon fa-user-secret"
-              onClick={[Function]}
-            >
-              Pick
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="nice-modal-footer"
-    >
-      <div
-        className="base-link-group nice-btn-group pull-right"
-      >
-        <a
-          className="cursor-pointer nice-btn icon fa-cross"
-          onClick={[Function]}
-        >
-          Cancel
-        </a>
-        <a
-          className="cursor-pointer nice-btn icon fa-check primary"
-          onClick={[Function]}
-        >
-          Done
-        </a>
       </div>
     </div>
   </div>
@@ -209,46 +215,52 @@ exports[`CharacterPicker rendering should work with full props 1`] = `
 
 exports[`CharacterPicker rendering should work with minimum props 1`] = `
 <div
-  className="modal-dialog nice-modal viewport-center accent wide"
+  className="nice-modal-overlay"
+  onClick={[Function]}
 >
   <div
-    className="nice-modal-content"
+    className="modal-dialog nice-modal viewport-center accent tall wide"
+    onClick={[Function]}
   >
     <div
-      className="nice-modal-header"
-    >
-      <h4>
-        Pick a Character
-      </h4>
-    </div>
-    <div
-      className="nice-modal-sub"
-    >
-      <input
-        className="nice-form-control"
-        disabled={undefined}
-        onChange={[Function]}
-        onKeyPress={null}
-        placeholder="Filter..."
-        type={undefined}
-        value=""
-      />
-    </div>
-    <div
-      className="nice-modal-body overflow-y-auto overflow-x-hidden"
-    />
-    <div
-      className="nice-modal-footer"
+      className="nice-modal-content"
     >
       <div
-        className="base-link-group nice-btn-group pull-right"
+        className="nice-modal-header"
       >
-        <a
-          className="cursor-pointer nice-btn icon fa-check primary"
-          onClick={[Function]}
+        <h4>
+          Pick a Character
+        </h4>
+      </div>
+      <div
+        className="nice-modal-sub"
+      >
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Filter..."
+          type={undefined}
+          value=""
+        />
+      </div>
+      <div
+        className="nice-modal-body overflow-y-auto overflow-x-hidden"
+      />
+      <div
+        className="nice-modal-footer"
+      >
+        <div
+          className="base-link-group nice-btn-group pull-right"
         >
-          Done
-        </a>
+          <a
+            className="cursor-pointer nice-btn icon fa-check primary"
+            onClick={[Function]}
+          >
+            Done
+          </a>
+        </div>
       </div>
     </div>
   </div>
