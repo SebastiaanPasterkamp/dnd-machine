@@ -1,0 +1,533 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SpellView render should work with all props 1`] = `
+Array [
+  <div
+    className="nice-panel spell-view__information info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Information
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <tbody>
+        <tr>
+          <th
+            colSpan={2}
+          >
+            <div
+              className="base-link-group nice-btn-group pull-right"
+            />
+            <h3>
+              Mage Hand
+            </h3>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            Level
+          </th>
+          <td>
+            Cantrip
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Casting Time
+          </th>
+          <td>
+            1 action
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Duration:
+          </th>
+          <td>
+            10 minutes
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Concentration:
+          </th>
+          <td>
+            Yes
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Range
+          </th>
+          <td>
+            <div
+              className="reach inline"
+            >
+              <span>
+                60
+                 ft.
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            School
+          </th>
+          <td>
+            <div
+              className="list-label inline"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Illusion
+                <span
+                  className="tool-tip--content"
+                >
+                  <p>
+                    Dazzles the senses
+                  </p>
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Components
+          </th>
+          <td
+            className="spell-view__properties"
+          >
+            <div
+              className="list-label inline"
+            >
+              vocal
+            </div>
+            <div
+              className="list-label inline"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Somatic
+                <span
+                  className="tool-tip--content"
+                >
+                  <p>
+                    Gestured
+                  </p>
+                </span>
+              </div>
+            </div>
+            <div
+              className="list-label inline"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Material
+                <span
+                  className="tool-tip--content"
+                >
+                  <p>
+                    Stuff
+                  </p>
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Cost
+          </th>
+          <td>
+            Entangled photon
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Classes
+          </th>
+          <td
+            className="spell-view__properties"
+          >
+            <div
+              className="list-label inline"
+            >
+              <div
+                className="tool-tip inline"
+              >
+                Wizard
+                <span
+                  className="tool-tip--content"
+                >
+                  <p>
+                    Especially
+                  </p>
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel spell-view__description info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <span>
+        <p>
+          Spooky action
+        </p>
+      </span>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+]
+`;
+
+exports[`SpellView render should work with only list 1`] = `
+Array [
+  <div
+    className="nice-panel spell-view__information info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Information
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <tbody>
+        <tr>
+          <th
+            colSpan={2}
+          >
+            <h3 />
+          </th>
+        </tr>
+        <tr>
+          <th>
+            Level
+          </th>
+          <td />
+        </tr>
+        <tr>
+          <th>
+            Casting Time
+          </th>
+          <td />
+        </tr>
+        <tr>
+          <th>
+            Duration:
+          </th>
+          <td />
+        </tr>
+        <tr>
+          <th>
+            Concentration:
+          </th>
+          <td>
+            No
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Range
+          </th>
+          <td />
+        </tr>
+        <tr>
+          <th>
+            School
+          </th>
+          <td />
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel spell-view__description info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <span />
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+]
+`;
+
+exports[`SpellView render should work with only spell 1`] = `
+Array [
+  <div
+    className="nice-panel spell-view__information info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Information
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <tbody>
+        <tr>
+          <th
+            colSpan={2}
+          >
+            <div
+              className="base-link-group nice-btn-group pull-right"
+            />
+            <h3>
+              Mage Hand
+            </h3>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            Level
+          </th>
+          <td>
+            Cantrip
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Casting Time
+          </th>
+          <td>
+            1 action
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Duration:
+          </th>
+          <td>
+            10 minutes
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Concentration:
+          </th>
+          <td>
+            Yes
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Range
+          </th>
+          <td>
+            <div
+              className="reach inline"
+            >
+              <span>
+                60
+                 ft.
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            School
+          </th>
+          <td>
+            <div
+              className="list-label inline"
+            >
+              illusion
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Components
+          </th>
+          <td
+            className="spell-view__properties"
+          >
+            <div
+              className="list-label inline"
+            >
+              vocal
+            </div>
+            <div
+              className="list-label inline"
+            >
+              somatic
+            </div>
+            <div
+              className="list-label inline"
+            >
+              material
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Cost
+          </th>
+          <td>
+            Entangled photon
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Classes
+          </th>
+          <td
+            className="spell-view__properties"
+          >
+            <div
+              className="list-label inline"
+            >
+              Wizard
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel spell-view__description info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <span>
+        <p>
+          Spooky action
+        </p>
+      </span>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+]
+`;
+
+exports[`SpellView render should work without props 1`] = `
+Array [
+  <div
+    className="nice-panel spell-view__information info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Information
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <tbody>
+        <tr>
+          <th
+            colSpan={2}
+          >
+            <h3 />
+          </th>
+        </tr>
+        <tr>
+          <th>
+            Level
+          </th>
+          <td />
+        </tr>
+        <tr>
+          <th>
+            Casting Time
+          </th>
+          <td />
+        </tr>
+        <tr>
+          <th>
+            Duration:
+          </th>
+          <td />
+        </tr>
+        <tr>
+          <th>
+            Concentration:
+          </th>
+          <td>
+            No
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Range
+          </th>
+          <td />
+        </tr>
+        <tr>
+          <th>
+            School
+          </th>
+          <td />
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel spell-view__description info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <span />
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+]
+`;
