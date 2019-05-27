@@ -127,23 +127,45 @@ Array [
       className="nice-panel-content"
     >
       <div
+        className="user-label inline"
+      />
+      <div
         className="character inline"
       >
         <div
           className="character-label"
         >
           <span
+            className="character-label__name"
+          >
+            Testy McTestFace
+          </span>
+          <span
             className="character-label__item"
           >
             Level 
             3
           </span>
+          <div
+            className="list-label inline"
+          >
+            Male
+          </div>
           <span
             className="character-label__item"
-          />
+          >
+            Stout Halfling
+          </span>
           <span
             className="character-label__item"
-          />
+          >
+            Figher
+          </span>
+          <div
+            className="list-label inline character-label__alignment"
+          >
+            Lawful Good
+          </div>
         </div>
         <div
           className="nice-progress brand"
@@ -977,6 +999,9 @@ Array [
     <div
       className="nice-panel-content"
     >
+      <div
+        className="user-label inline"
+      />
       <div
         className="character inline"
       >
@@ -1909,23 +1934,45 @@ Array [
       className="nice-panel-content"
     >
       <div
+        className="user-label inline"
+      />
+      <div
         className="character inline"
       >
         <div
           className="character-label"
         >
           <span
+            className="character-label__name"
+          >
+            Testy McTestFace
+          </span>
+          <span
             className="character-label__item"
           >
             Level 
             3
           </span>
+          <div
+            className="list-label inline"
+          >
+            Male
+          </div>
           <span
             className="character-label__item"
-          />
+          >
+            Stout Halfling
+          </span>
           <span
             className="character-label__item"
-          />
+          >
+            Figher
+          </span>
+          <div
+            className="list-label inline character-label__alignment"
+          >
+            Lawful Good
+          </div>
         </div>
         <div
           className="nice-progress good"
