@@ -3,11 +3,33 @@ import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import MockRouter from 'react-mock-router';
 
+import { mockedApi } from '../../../../../tests/__mocks__';
+
 import { AdventureLeagueLogEdit } from '../AdventureLeagueLogEdit';
 
 import { xp, acp } from './__mocks__/AdventureLeagueLogEdit.props.json';
 
 describe('AdventureLeagueLogEdit', () => {
+    beforeAll(() => {
+        fetch.mockImplementation( mockedApi({
+            alignment: [{
+                code: 'lawful good',
+                label: 'Lawful Good',
+            }],
+            genders: [{
+                code: 'male',
+                label: 'Male',
+            }],
+            user: {},
+            'character/api$': {},
+            'character/api/1': xp.character,
+            'character/api/2': acp.character,
+        }) );
+    })
+
+    afterAll(() => {
+        fetch.resetMocks()
+    })
 
     describe('should render', () => {
         const setState = jest.fn();
@@ -87,15 +109,19 @@ describe('AdventureLeagueLogEdit', () => {
 
     describe('should handle changing', () => {
         const setState = jest.fn();
-        const wrapped = mount(
-            <MockRouter>
-                <AdventureLeagueLogEdit
-                    setState={setState}
-                />
-            </MockRouter>
-        );
+        let wrapped;
 
-        beforeEach(() => setState.mockClear());
+        beforeAll(() => {
+            wrapped = mount(
+               <MockRouter>
+                   <AdventureLeagueLogEdit
+                       setState={setState}
+                   />
+               </MockRouter>
+           );
+       });
+
+       beforeEach(() => setState.mockClear());
 
         it('the session', () => {
             wrapped
