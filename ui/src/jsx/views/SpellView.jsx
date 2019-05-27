@@ -12,7 +12,6 @@ import DiceNotation from '../components/DiceNotation.jsx';
 import Panel from '../components/Panel.jsx';
 import ListLabel from '../components/ListLabel.jsx';
 import Reach from '../components/Reach.jsx';
-import {SpellLabel} from '../components/SpellLabel.jsx';
 import SpellLinks from '../components/SpellLinks.jsx';
 
 const viewConfig = {
@@ -21,14 +20,14 @@ const viewConfig = {
     label: 'Spell'
 };
 
-export class SpellsView extends React.Component
+export class SpellView extends React.Component
 {
     render() {
         const {
-            id, name, description = '', level, casting_time, duration,
-            concentration, components = [], magic_components = [],
-            cost,  range, school, magic_schools = [], damage,
-            classes = [], _classes = []
+            id, name, description, level, casting_time, duration,
+            concentration, components, magic_components,
+            cost,  range, school, magic_schools, damage,
+            classes, _classes
         } = this.props;
 
         return <React.Fragment>
@@ -72,12 +71,14 @@ export class SpellsView extends React.Component
                             />
                         </td>
                     </tr>
-                    {damage && damage.dice_count ? <tr>
-                        <th>Damage</th>
-                        <td>
-                            <DiceNotation {...damage}/>
-                        </td>
-                    </tr> : null}
+                    {damage && damage.dice_count ? (
+                        <tr>
+                            <th>Damage</th>
+                            <td>
+                                <DiceNotation {...damage}/>
+                            </td>
+                        </tr>
+                    ) : null}
                     <tr>
                         <th>School</th>
                         <td>
@@ -135,13 +136,19 @@ export class SpellsView extends React.Component
     }
 };
 
-export const SpellView = BaseViewWrapper(
-    SpellsView, viewConfig
-);
+SpellView.defaultProps = {
+    description: '',
+    components: [],
+    classes: [],
+    damage: null,
+    magic_components: [],
+    magic_schools: [],
+    _classes: [],
+};
 
 export default ListDataWrapper(
     RoutedObjectDataWrapper(
-        SpellsView, viewConfig, "spell", "items"
+        SpellView, viewConfig, "spell", "items"
     ),
     [
         "magic_components",
