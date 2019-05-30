@@ -26,8 +26,7 @@ export class PartyView extends React.Component
     render() {
         const {
             id, name, user_id, description, size, member_ids,
-            challenge: { easy, medium, hard, deadly } = {},
-            characters = []
+            challenge: { easy, medium, hard, deadly }, characters,
         } = this.props;
 
         return <React.Fragment>
@@ -35,7 +34,7 @@ export class PartyView extends React.Component
                 key="description"
                 className="party-view__description info"
                 header="Description"
-                >
+            >
                 <thead>
                     <tr>
                         <th colSpan="2">
@@ -54,7 +53,7 @@ export class PartyView extends React.Component
                         <td>
                             <UserLabel
                                 user_id={user_id}
-                                />
+                            />
                         </td>
                     </tr>
                     <tr>
@@ -155,7 +154,12 @@ export class PartyView extends React.Component
             </Panel>
         </React.Fragment>;
     }
-}
+};
+
+PartyView.defaultProps = {
+    challenge: {},
+    characters: [],
+};
 
 export default ObjectDataListWrapper(
     RoutedObjectDataWrapper(
