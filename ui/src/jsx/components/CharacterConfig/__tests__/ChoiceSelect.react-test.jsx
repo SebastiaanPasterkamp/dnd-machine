@@ -1,6 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
+import { mockedApi, statistics } from '../../../../../tests/__mocks__';
+
 import ChoiceSelect from '../components/ChoiceSelect.jsx';
 
 import actions from '../actions/CharacterEditorActions.jsx';
@@ -22,6 +24,16 @@ const props = {
 };
 
 describe('Component: ChoiceSelect', () => {
+
+    beforeAll(() => {
+        fetch.mockImplementation( mockedApi({
+            statistics,
+        }) );
+    })
+
+    afterAll(() => {
+        fetch.resetMocks();
+    })
 
     afterEach(() => store.reset());
 
