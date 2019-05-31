@@ -33,7 +33,7 @@ exports[`MonsterRow rendering should work with full props 1`] = `
       <div
         className="list-label inline"
       >
-        medium
+        Medium
       </div>
        
       <div
