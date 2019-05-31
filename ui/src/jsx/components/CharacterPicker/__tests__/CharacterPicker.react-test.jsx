@@ -3,6 +3,12 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import MockRouter from 'react-mock-router';
 
+import {
+    mockedApi,
+    alignments,
+    genders,
+} from '../../../../../tests/__mocks__';
+
 import CharacterPicker from '../CharacterPicker.jsx';
 
 describe('CharacterPicker', () => {
@@ -50,6 +56,24 @@ describe('CharacterPicker', () => {
         },
     };
 
+    beforeEach(() => {
+        fetch.mockImplementation( mockedApi({
+            alignments: [
+                alignments[1],
+                alignments[9],
+            ],
+            genders,
+            user: {
+                name: "User",
+            },
+            'character/api': fullProps.characters,
+        }) );
+    })
+
+    afterEach(() => {
+        fetch.resetMocks();
+    })
+
     describe('rendering', () => {
         it('should work with minimum props', () => {
             const tree = renderer.create(
@@ -78,15 +102,17 @@ describe('CharacterPicker', () => {
     });
 
     describe('filtering', () => {
-        const wrapper = mount(
-            <MockRouter>
-                <CharacterPicker
-                    {...fullProps}
-                />
-            </MockRouter>
-        );
+        let wrapper;
 
-        afterEach(() => jest.clearAllMocks());
+        beforeEach(() => {
+            wrapper = mount(
+                <MockRouter>
+                    <CharacterPicker
+                        {...fullProps}
+                    />
+                </MockRouter>
+            );
+        });
 
         it('should use provided filter', () => {
             expect(wrapper.text())
@@ -127,13 +153,17 @@ describe('CharacterPicker', () => {
     });
 
     describe('allows picking a Character', () => {
-        const wrapper = mount(
-            <MockRouter>
-                <CharacterPicker
-                    {...fullProps}
-                />
-            </MockRouter>
-        );
+        let wrapper;
+
+        beforeEach(() => {
+            wrapper = mount(
+                <MockRouter>
+                    <CharacterPicker
+                        {...fullProps}
+                    />
+                </MockRouter>
+            );
+        });
 
         afterEach(() => jest.clearAllMocks());
 
@@ -147,6 +177,10 @@ describe('CharacterPicker', () => {
         });
 
         it('should emit the current selection', () => {
+            wrapper
+                .find('.fa-user-secret')
+                .at(0)
+                .simulate('click');
             wrapper
                 .find('.fa-check')
                 .simulate('click');
