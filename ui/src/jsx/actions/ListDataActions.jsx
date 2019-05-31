@@ -1,6 +1,8 @@
 import React from 'react';
 import Reflux from 'reflux';
-import _ from 'lodash';
+import {
+    filter,
+} from 'lodash/fp';
 
 import ReportingActions from './ReportingActions.jsx';
 import LoadingActions from '../actions/LoadingActions.jsx';
@@ -17,40 +19,6 @@ var ListDataActions = Reflux.createActions({
     "doLogin": {children: ['completed', 'failed']},
     "doLogout": {children: ['completed', 'failed']},
     "fetchItems": {children: ['completed', 'failed']},
-});
-let throttledGet = {};
-
-ListDataActions.fetchItems.listen((type, category=null) => {
-    let path = '/' + _.filter([
-        category, type, category ? 'api' : null
-    ]).join('/');
-
-    if (!(path in throttledGet)) {
-        throttledGet[path] = _.throttle((path, type) => {
-            LoadingActions.start(type);
-
-            fetch(path, {
-                credentials: 'same-origin',
-                'headers': {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(jsonOrBust)
-            .then((response) => {
-                LoadingActions.finish(type);
-                ListDataActions.fetchItems.completed({
-                    [type]: response
-                }, type);
-            })
-            .catch((error) => {
-                LoadingActions.finish(type);
-                console.log(error);
-                ListDataActions.fetchItems.failed(type, error);
-            });
-        }, 1000, {leading: true, trailing: false});
-    }
-
-    throttledGet[path](path, type);
 });
 
 ListDataActions.doLogin.listen((credentials, success, failure) => {

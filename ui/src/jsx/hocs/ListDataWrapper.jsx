@@ -2,6 +2,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import {
     isEqual,
+    forEach,
     get,
     reduce,
 } from 'lodash/fp';
@@ -9,10 +10,9 @@ import {
 import ListDataActions from '../actions/ListDataActions.jsx';
 import ListDataStore from '../stores/ListDataStore.jsx';
 
-function ListDataWrapper(
+const ListDataWrapper = function(
     WrappedComponent, storeKeys, storeCategory=null, mapping={}
 ) {
-
     const component = class extends Reflux.Component {
         constructor(props) {
             super(props);
@@ -24,23 +24,19 @@ function ListDataWrapper(
         }
 
         componentDidMount() {
-            storeKeys.map((key) => {
+            forEach((key) => {
                 if (key == 'search') {
                     return;
                 }
+                const prop = get(key, mapping) || key;
 
-                const { [key]: provided } = this.props;
+                const { [prop]: provided } = this.props;
                 if (provided !== undefined) {
                     return;
                 }
 
-                const { [key]: stored } = this.state;
-                if (stored !== undefined) {
-                    return;
-                }
-
                 ListDataActions.fetchItems(key, storeCategory);
-            });
+            })(storeKeys);
         }
 
         shouldComponentUpdate(nextProps, nextState) {
@@ -57,9 +53,9 @@ function ListDataWrapper(
 
         render() {
             const data = reduce((data, key) => {
-                const { [key]: provided } = this.props;
-                const { [key]: stored } = this.state;
                 const prop = get(key, mapping) || key;
+                const { [prop]: provided } = this.props;
+                const { [key]: stored } = this.state;
 
                 if (provided !== undefined) {
                     data[ prop ] = provided;

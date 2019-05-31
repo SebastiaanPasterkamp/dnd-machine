@@ -1,6 +1,12 @@
 import React from 'react';
 import Reflux from 'reflux';
-import _ from 'lodash';
+import {
+    forEach,
+    isEqual,
+    keys,
+    map,
+    reduce,
+} from 'lodash/fp';
 
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 import ObjectDataStore from '../stores/ObjectDataStore.jsx';
@@ -12,47 +18,50 @@ function ObjectDataListWrapper(
 
         constructor(props) {
             super(props);
+            this.state = {};
             this.store = Reflux.initStore(ObjectDataStore);
-            this.storeKeys = _.map(loadables, (loadable) => {
-                return loadable.type;
-            });
+            this.storeKeys = map((loadable) => loadable.type)(loadables);
         }
 
         componentDidMount() {
-            _.forEach(
-                loadables,
-                ({ type, group = null }) => {
-                    const { [type]: provided } = this.props;
-                    if (provided === undefined) {
-                        ObjectDataActions.listObjects(type, group);
-                    }
+            forEach((prop) => {
+                const { type, group = null } = loadables[prop];
+
+                const {
+                    [prop]: provided,
+                } = this.props;
+
+                if (provided !== undefined) {
+                    return;
                 }
-            );
+
+                ObjectDataActions.listObjects(type, group);
+            })(keys(loadables));
         }
 
         getStateProps(state) {
-            return _.reduce(
-                loadables,
-                (loaded, { type }, prop) => {
-                    const value = _.get(state, [type]);
-                    if (value !== undefined) {
-                        loaded[prop] = value;
+            return reduce(
+                (loaded, prop) => {
+                    const { type } = loadables[prop];
+                    const { [type]: list } = state;
+                    if (list !== undefined) {
+                        loaded[prop] = list;
                     }
                     return loaded;
                 },
                 {}
-            );
+            )(keys(loadables));
         }
 
         shouldComponentUpdate(nextProps, nextState) {
-            if (!_.isEqual(this.props, nextProps)) {
+            if (!isEqual(this.props, nextProps)) {
                 return true;
             }
 
             let old_data = this.getStateProps(this.state),
                 new_data = this.getStateProps(nextState);
 
-            if (!_.isEqual(old_data, new_data)) {
+            if (!isEqual(old_data, new_data)) {
                 return true;
             }
 
@@ -60,7 +69,7 @@ function ObjectDataListWrapper(
         }
 
         render() {
-            let data = this.getStateProps(this.state);
+            const data = this.getStateProps(this.state);
 
             return (
                 <WrappedComponent

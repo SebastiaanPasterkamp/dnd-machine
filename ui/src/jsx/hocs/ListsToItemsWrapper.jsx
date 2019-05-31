@@ -57,17 +57,14 @@ function ListsToItemsWrapper(
 
         componentDidMount() {
             const { list } = this.props;
-            const { listed } = this.state;
+            const { loading, listed } = this.state;
             _.forEach(
                 list,
                 (item) => {
-                    if (item in listed) {
+                    if (item in listed || loading[item]) {
                         return;
                     }
-                    actions.fetchItems(
-                        item,
-                        storeCategory
-                    );
+                    actions.fetchItems(item, storeCategory);
                 }
             );
         }
