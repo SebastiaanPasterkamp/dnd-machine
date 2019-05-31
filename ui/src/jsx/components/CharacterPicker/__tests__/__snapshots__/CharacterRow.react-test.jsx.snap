@@ -5,6 +5,11 @@ exports[`CharacterRow rendering should work with full props 1`] = `
   className="character-picker__row"
 >
   <div
+    className="user-label inline"
+  >
+    User
+  </div>
+  <div
     className="character inline"
   >
     <div
@@ -24,7 +29,7 @@ exports[`CharacterRow rendering should work with full props 1`] = `
       <div
         className="list-label inline"
       >
-        male
+        Male
       </div>
       <span
         className="character-label__item"
