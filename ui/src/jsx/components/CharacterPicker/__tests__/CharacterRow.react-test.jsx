@@ -3,6 +3,12 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import MockRouter from 'react-mock-router';
 
+import {
+    mockedApi,
+    alignments,
+    genders,
+} from '../../../../../tests/__mocks__';
+
 import CharacterRow from '../components/CharacterRow.jsx';
 
 describe('CharacterRow', () => {
@@ -26,6 +32,23 @@ describe('CharacterRow', () => {
         label: "Choose",
         icon: "user",
     };
+
+    beforeEach(() => {
+        fetch.mockImplementation( mockedApi({
+            alignments: [
+                alignments[1],
+                alignments[9],
+            ],
+            genders,
+            user: {
+                name: "User",
+            },
+        }) );
+    })
+
+    afterEach(() => {
+        fetch.resetMocks();
+    })
 
     describe('rendering', () => {
         it('should work with minimum props', () => {
