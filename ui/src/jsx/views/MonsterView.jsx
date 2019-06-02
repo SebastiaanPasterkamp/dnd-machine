@@ -20,31 +20,34 @@ import TagContainer from '../components/TagContainer.jsx';
 import TagValueContainer from '../components/TagValueContainer.jsx';
 import XpRating from '../components/XpRating.jsx';
 
-class AttackView extends LazyComponent
-{
-    render() {
-        const {
-            name, mode, notation, damage, description = '',
-            average, critical, target, target_methods = [], bonus,
-            spell_save_dc, reach, on_hit, on_mis
-        } = this.props;
-
-        return <Panel
-                className="monster-view__attack info"
-                header="Attack"
-                >
+const AttackViewComponent = function({
+    name, mode, notation, damage, description,
+    average, critical, target, target_methods,
+    attack_modes, bonus, spell_save_dc, reach,
+    on_hit, on_mis,
+}) {
+    return (
+        <Panel
+            className="monster-view__attack info"
+            header="Attack"
+        >
             <tbody>
                 <tr>
                     <th colSpan={2}>
                         <h4>{name}</h4>
                         <MDReactComponent
                             text={description}
-                            />
+                        />
                     </th>
                 </tr>
                 <tr>
                     <th>Mode</th>
-                    <td>{mode}</td>
+                    <td>
+                        <ListLabel
+                            items={attack_modes}
+                            value={mode}
+                        />
+                    </td>
                 </tr>
                 <tr>
                     <th>Attack Notation</th>
@@ -53,7 +56,7 @@ class AttackView extends LazyComponent
                             <DiceNotation
                                 key={dmg.type}
                                 {...dmg}
-                                />
+                            />
                         ))}
                     </td>
                 </tr>
@@ -66,8 +69,8 @@ class AttackView extends LazyComponent
                             items={[
                                 {code: 'average', label: 'Average'},
                                 {code: 'critical', label: 'Critical'}
-                                ]}
-                            />
+                            ]}
+                        />
                     </td>
                 </tr>
                 {bonus ? <tr>
@@ -84,7 +87,7 @@ class AttackView extends LazyComponent
                         <ListLabel
                             items={target_methods}
                             value={target}
-                            />
+                        />
                     </td>
                 </tr>
                 <tr>
@@ -98,7 +101,7 @@ class AttackView extends LazyComponent
                     <td>
                         <MDReactComponent
                             text={on_hit}
-                            />
+                        />
                     </td>
                 </tr> : null}
                 {on_mis ? <tr>
@@ -106,19 +109,43 @@ class AttackView extends LazyComponent
                     <td>
                         <MDReactComponent
                             text={on_mis}
-                            />
+                        />
                     </td>
                 </tr> : null}
             </tbody>
-        </Panel>;
-    }
+        </Panel>
+    );
 }
+
+AttackViewComponent.defaultProps = {
+    name: '',
+    mode: 'melee',
+    notation: '',
+    damage: [],
+    description: '',
+    average: 0,
+    critical: 0,
+    target: 'single',
+    bonus: 0,
+    spell_save_dc: 0,
+    reach: {},
+    on_hit: '',
+    on_mis: '',
+    attack_modes: [],
+    target_methods: [],
+};
+
+const AttackView = ListDataWrapper(
+    AttackViewComponent,
+    ['attack_modes', 'target_methods'],
+    'items'
+);
 
 class MultiAttackView extends LazyComponent
 {
     render() {
         const {
-            name, description = '', condition = '', sequence = [], attacks = [], average, critical
+            name, description, condition, sequence, attacks, average, critical
         } = this.props;
 
         return <Panel
@@ -180,10 +207,10 @@ export class MonsterView extends LazyComponent
     render() {
         const {
             id, name, size, type, alignment, level, armor_class,
-            description = '', challenge_rating_precise: cr, xp_rating,
+            description, challenge_rating_precise: cr, xp_rating,
             motion, languages, traits, attacks, multiattack, proficiency,
-            statistics, dice_size, hit_points, monster_types = [],
-            size_hit_dice = [], _languages = [], alignments = [],
+            statistics, dice_size, hit_points, monster_types,
+            size_hit_dice, _languages, alignments,
         } = this.props;
 
         if (!name) {
@@ -215,7 +242,7 @@ export class MonsterView extends LazyComponent
                             <ListLabel
                                 items={size_hit_dice}
                                 value={size}
-                                />
+                            />
                         </td>
                     </tr>
                     <tr>
@@ -224,7 +251,7 @@ export class MonsterView extends LazyComponent
                             <ListLabel
                                 items={monster_types}
                                 value={type}
-                                />
+                            />
                         </td>
                     </tr>
                     <tr>
@@ -344,7 +371,7 @@ export class MonsterView extends LazyComponent
                 <StatsBlock
                     editBase={false}
                     {...statistics}
-                    />
+                />
             </Panel>
 
             {_.map(attacks, attack => (
@@ -364,6 +391,27 @@ export class MonsterView extends LazyComponent
         </React.Fragment>
     }
 }
+
+MonsterView.defaultProps = {
+    description: '',
+    level: 1,
+    dice_size: 4,
+    motion: {},
+    languages: [],
+    traits: {},
+    attacks: [],
+    multiattack: [],
+    statistics: {
+        bare: {},
+        bonus: {},
+        base: {},
+        modifiers: {},
+    },
+    monster_types: [],
+    size_hit_dice: [],
+    _languages: [],
+    alignments: [],
+};
 
 export default ListDataWrapper(
     RoutedObjectDataWrapper(
