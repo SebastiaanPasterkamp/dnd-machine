@@ -1,0 +1,1513 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MonsterView should not render without props 1`] = `
+<div>
+  <h2
+    className="icon fa-paw"
+  >
+    Monster
+  </h2>
+  <div
+    className="monster-view"
+  />
+</div>
+`;
+
+exports[`MonsterView should render a kobol 1`] = `
+<div>
+  <h2
+    className="icon fa-paw"
+  >
+    Monster
+  </h2>
+  <div
+    className="monster-view"
+  >
+    <div
+      className="nice-panel monster-view__description info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Description
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <thead>
+          <tr>
+            <th
+              colSpan={2}
+            >
+              <div
+                className="base-link-group nice-btn-group pull-right"
+              >
+                <a
+                  className="cursor-pointer nice-btn icon fa-pencil"
+                  href={undefined}
+                  onClick={[Function]}
+                >
+                  Edit
+                </a>
+                <a
+                  className="cursor-pointer nice-btn icon fa-clone"
+                  onClick={[Function]}
+                >
+                  Copy
+                </a>
+                <a
+                  className="cursor-pointer nice-btn icon fa-trash-o bad"
+                  onClick={[Function]}
+                >
+                  Delete
+                </a>
+              </div>
+              <h3>
+                Kobol
+              </h3>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>
+              Size
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                Small
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Type
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                Humanoid
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Alignment
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                Lawful evil
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              colSpan={2}
+            >
+              <span />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      className="nice-panel monster-view__properties info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Properties
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <tbody>
+          <tr>
+            <th>
+              Challenge Rating
+            </th>
+            <td>
+              <div
+                className="challenge-rating inline"
+              >
+                CR 
+                0.813
+              </div>
+               / 
+              <div
+                className="xp-rating inline"
+              >
+                162
+                 XP
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Proficiency
+            </th>
+            <td>
+              <div
+                className="bonus inline"
+              >
+                +
+                2
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Level
+            </th>
+            <td>
+              2
+            </td>
+          </tr>
+          <tr>
+            <th>
+              AC
+            </th>
+            <td>
+              12
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Hit Points
+            </th>
+            <td>
+              5
+                (
+              <div
+                className="dice-notation inline capitalize"
+              >
+                <code>
+                  2
+                  d
+                  6
+                  
+                </code>
+              </div>
+              )
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Motion
+            </th>
+            <td>
+              <div
+                className="base-tag-container nice-tags-container tag-value-container"
+              >
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Walk
+                  </span>
+                  <span
+                    className="nice-tag-badge"
+                  >
+                    30
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Languages
+            </th>
+            <td>
+              <div
+                className="base-tag-container nice-tags-container"
+              >
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Common
+                  </span>
+                </div>
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Draconic
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      className="nice-panel monster-view__statistics info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Statistics
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <table
+          className="nice-table stats-block condensed bordered"
+        >
+          <thead>
+            <tr>
+              <th>
+                Statistic
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Base
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Modifier
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              className="text-align-center"
+            >
+              <th>
+                Strength
+              </th>
+              <td>
+                8
+              </td>
+              <td>
+                <div
+                  className="bonus inline"
+                >
+                  -1
+                </div>
+              </td>
+            </tr>
+            <tr
+              className="text-align-center"
+            >
+              <th>
+                Dexterity
+              </th>
+              <td>
+                15
+              </td>
+              <td>
+                <div
+                  className="bonus inline"
+                >
+                  +
+                  2
+                </div>
+              </td>
+            </tr>
+            <tr
+              className="text-align-center"
+            >
+              <th>
+                Constitution
+              </th>
+              <td>
+                9
+              </td>
+              <td>
+                <div
+                  className="bonus inline"
+                >
+                  -1
+                </div>
+              </td>
+            </tr>
+            <tr
+              className="text-align-center"
+            >
+              <th>
+                Intelligence
+              </th>
+              <td>
+                8
+              </td>
+              <td>
+                <div
+                  className="bonus inline"
+                >
+                  -1
+                </div>
+              </td>
+            </tr>
+            <tr
+              className="text-align-center"
+            >
+              <th>
+                Wisdom
+              </th>
+              <td>
+                8
+              </td>
+              <td>
+                <div
+                  className="bonus inline"
+                >
+                  -1
+                </div>
+              </td>
+            </tr>
+            <tr
+              className="text-align-center"
+            >
+              <th>
+                Charisma
+              </th>
+              <td>
+                8
+              </td>
+              <td>
+                <div
+                  className="bonus inline"
+                >
+                  -1
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+    <div
+      className="nice-panel monster-view__attack info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Attack
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <tbody>
+          <tr>
+            <th
+              colSpan={2}
+            >
+              <h4>
+                Dagger
+              </h4>
+              <span />
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Mode
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                Melee Attack
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Attack Notation
+            </th>
+            <td>
+              <div
+                className="dice-notation inline capitalize"
+              >
+                <code>
+                  1
+                  d
+                  4
+                  
+                </code>
+                piercing
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Attack Damage
+            </th>
+            <td>
+              <div
+                className="base-tag-container nice-tags-container tag-value-container"
+              >
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Average
+                  </span>
+                  <span
+                    className="nice-tag-badge"
+                  >
+                    1
+                  </span>
+                </div>
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Critical
+                  </span>
+                  <span
+                    className="nice-tag-badge"
+                  >
+                    4
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Attack Bonus
+            </th>
+            <td>
+              Hit 
+              <div
+                className="bonus inline"
+              >
+                +
+                1
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Target
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                Single target
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Reach
+            </th>
+            <td>
+              <div
+                className="reach inline"
+              >
+                5
+                 ft.
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      className="nice-panel monster-view__attack info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Attack
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <tbody>
+          <tr>
+            <th
+              colSpan={2}
+            >
+              <h4>
+                Sling
+              </h4>
+              <span />
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Mode
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                Ranged Attack
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Attack Notation
+            </th>
+            <td>
+              <div
+                className="dice-notation inline capitalize"
+              >
+                <code>
+                  1
+                  d
+                  4
+                  +2
+                </code>
+                bludgeoning
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Attack Damage
+            </th>
+            <td>
+              <div
+                className="base-tag-container nice-tags-container tag-value-container"
+              >
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Average
+                  </span>
+                  <span
+                    className="nice-tag-badge"
+                  >
+                    4
+                  </span>
+                </div>
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Critical
+                  </span>
+                  <span
+                    className="nice-tag-badge"
+                  >
+                    7
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Attack Bonus
+            </th>
+            <td>
+              Hit 
+              <div
+                className="bonus inline"
+              >
+                +
+                4
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Target
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                Single target
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Reach
+            </th>
+            <td />
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MonsterView should render with full props 1`] = `
+<div>
+  <h2
+    className="icon fa-paw"
+  >
+    Monster
+  </h2>
+  <div
+    className="monster-view"
+  >
+    <div
+      className="nice-panel monster-view__description info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Description
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <thead>
+          <tr>
+            <th
+              colSpan={2}
+            >
+              <div
+                className="base-link-group nice-btn-group pull-right"
+              >
+                <a
+                  className="cursor-pointer nice-btn icon fa-pencil"
+                  href={undefined}
+                  onClick={[Function]}
+                >
+                  Edit
+                </a>
+                <a
+                  className="cursor-pointer nice-btn icon fa-clone"
+                  onClick={[Function]}
+                >
+                  Copy
+                </a>
+                <a
+                  className="cursor-pointer nice-btn icon fa-trash-o bad"
+                  onClick={[Function]}
+                >
+                  Delete
+                </a>
+              </div>
+              <h3>
+                Floof
+              </h3>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>
+              Size
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                Medium
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Type
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                beast
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Alignment
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                True neutral
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              colSpan={2}
+            >
+              <span>
+                <p>
+                  Something 
+                  <em>
+                    fluffy
+                  </em>
+                  !
+                </p>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      className="nice-panel monster-view__properties info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Properties
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <tbody>
+          <tr>
+            <th>
+              Challenge Rating
+            </th>
+            <td>
+              <div
+                className="challenge-rating inline"
+              >
+                CR 
+                0.270
+              </div>
+               / 
+              <div
+                className="xp-rating inline"
+              >
+                10
+                 XP
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Proficiency
+            </th>
+            <td>
+              <div
+                className="bonus inline"
+              >
+                +
+                2
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Level
+            </th>
+            <td>
+              1
+            </td>
+          </tr>
+          <tr>
+            <th>
+              AC
+            </th>
+            <td>
+              12
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Hit Points
+            </th>
+            <td>
+                (
+              <div
+                className="dice-notation inline capitalize"
+              >
+                <code>
+                  1
+                  d
+                  4
+                  
+                </code>
+              </div>
+              )
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Motion
+            </th>
+            <td>
+              <div
+                className="base-tag-container nice-tags-container tag-value-container"
+              >
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Fly
+                  </span>
+                  <span
+                    className="nice-tag-badge"
+                  >
+                    10
+                  </span>
+                </div>
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Walk
+                  </span>
+                  <span
+                    className="nice-tag-badge"
+                  >
+                    30
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Languages
+            </th>
+            <td>
+              <div
+                className="base-tag-container nice-tags-container"
+              >
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Common
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Traits
+            </th>
+            <td>
+              <ul>
+                <li>
+                  <strong>
+                    Fluffy float
+                  </strong>
+                  <span>
+                    <p>
+                      It 
+                      <strong>
+                        floats
+                      </strong>
+                      ?!
+                    </p>
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      className="nice-panel monster-view__statistics info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Statistics
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <table
+          className="nice-table stats-block condensed bordered"
+        >
+          <thead>
+            <tr>
+              <th>
+                Statistic
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Base
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Modifier
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              className="text-align-center"
+            >
+              <th>
+                Strength
+              </th>
+              <td>
+                5
+              </td>
+              <td>
+                <div
+                  className="bonus inline"
+                >
+                  -3
+                </div>
+              </td>
+            </tr>
+            <tr
+              className="text-align-center"
+            >
+              <th>
+                Dexterity
+              </th>
+              <td />
+              <td>
+                <div
+                  className="bonus inline"
+                >
+                  —
+                </div>
+              </td>
+            </tr>
+            <tr
+              className="text-align-center"
+            >
+              <th>
+                Constitution
+              </th>
+              <td />
+              <td>
+                <div
+                  className="bonus inline"
+                >
+                  —
+                </div>
+              </td>
+            </tr>
+            <tr
+              className="text-align-center"
+            >
+              <th>
+                Intelligence
+              </th>
+              <td />
+              <td>
+                <div
+                  className="bonus inline"
+                >
+                  —
+                </div>
+              </td>
+            </tr>
+            <tr
+              className="text-align-center"
+            >
+              <th>
+                Wisdom
+              </th>
+              <td />
+              <td>
+                <div
+                  className="bonus inline"
+                >
+                  —
+                </div>
+              </td>
+            </tr>
+            <tr
+              className="text-align-center"
+            >
+              <th>
+                Charisma
+              </th>
+              <td />
+              <td>
+                <div
+                  className="bonus inline"
+                >
+                  —
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+    <div
+      className="nice-panel monster-view__attack info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Attack
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <tbody>
+          <tr>
+            <th
+              colSpan={2}
+            >
+              <h4>
+                Puff ball
+              </h4>
+              <span>
+                <p>
+                  Pillow fight :)
+                </p>
+              </span>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Mode
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                melee
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Attack Notation
+            </th>
+            <td>
+              <div
+                className="dice-notation inline capitalize"
+              >
+                <code>
+                  1
+                  d
+                  4
+                  +1
+                </code>
+                bludgeoning
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Attack Damage
+            </th>
+            <td>
+              <div
+                className="base-tag-container nice-tags-container tag-value-container"
+              >
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Average
+                  </span>
+                  <span
+                    className="nice-tag-badge"
+                  >
+                    3
+                  </span>
+                </div>
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Critical
+                  </span>
+                  <span
+                    className="nice-tag-badge"
+                  >
+                    5
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Attack Bonus
+            </th>
+            <td>
+              Hit 
+              <div
+                className="bonus inline"
+              >
+                +
+                3
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Target
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                single
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Reach
+            </th>
+            <td>
+              <div
+                className="reach inline"
+              >
+                5
+                 ft.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              On Hit
+            </th>
+            <td>
+              <span>
+                <p>
+                  You're floofed
+                </p>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      className="nice-panel monster-view__multiattack info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Multi Attack
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <tbody>
+          <tr>
+            <th
+              colSpan={2}
+            >
+              <h4>
+                Poof poof
+              </h4>
+              <span>
+                <p>
+                  Double puffing
+                </p>
+              </span>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Condition
+            </th>
+            <td>
+              <span>
+                <p>
+                  If attacking with 
+                  <em>
+                    Advantage
+                  </em>
+                </p>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Sequence
+            </th>
+            <td>
+              <div
+                className="base-tag-container nice-tags-container"
+              >
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Puff ball
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Combo Damage
+            </th>
+            <td>
+              <div
+                className="base-tag-container nice-tags-container tag-value-container"
+              >
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Average
+                  </span>
+                  <span
+                    className="nice-tag-badge"
+                  >
+                    6
+                  </span>
+                </div>
+                <div
+                  className="nice-tag muted"
+                >
+                  <span
+                    className="nice-tag-label"
+                  >
+                    Critical
+                  </span>
+                  <span
+                    className="nice-tag-badge"
+                  >
+                    10
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MonsterView should render with minimum props 1`] = `
+<div>
+  <h2
+    className="icon fa-paw"
+  >
+    Monster
+  </h2>
+  <div
+    className="monster-view"
+  >
+    <div
+      className="nice-panel monster-view__description info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Description
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <thead>
+          <tr>
+            <th
+              colSpan={2}
+            >
+              <h3>
+                Floof
+              </h3>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>
+              Size
+            </th>
+            <td />
+          </tr>
+          <tr>
+            <th>
+              Type
+            </th>
+            <td />
+          </tr>
+          <tr>
+            <th>
+              Alignment
+            </th>
+            <td />
+          </tr>
+          <tr>
+            <td
+              colSpan={2}
+            >
+              <span />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      className="nice-panel monster-view__properties info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Properties
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <tbody>
+          <tr>
+            <th>
+              Challenge Rating
+            </th>
+            <td>
+              <div
+                className="challenge-rating inline"
+              >
+                CR —
+              </div>
+               / 
+              <div
+                className="xp-rating inline"
+              >
+                — XP
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Proficiency
+            </th>
+            <td>
+              <div
+                className="bonus inline"
+              >
+                —
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Level
+            </th>
+            <td>
+              1
+            </td>
+          </tr>
+          <tr>
+            <th>
+              AC
+            </th>
+            <td />
+          </tr>
+          <tr>
+            <th>
+              Hit Points
+            </th>
+            <td>
+                (
+              <div
+                className="dice-notation inline capitalize"
+              >
+                <code>
+                  1
+                  d
+                  4
+                  
+                </code>
+              </div>
+              )
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Motion
+            </th>
+            <td>
+              <div
+                className="base-tag-container nice-tags-container tag-value-container"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Languages
+            </th>
+            <td>
+              <div
+                className="base-tag-container nice-tags-container"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      className="nice-panel monster-view__statistics info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Statistics
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
