@@ -2,46 +2,16 @@ import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
+import { statistics, skills } from '../../../../../tests/__mocks__';
 import { Skills } from '../components/Skills';
+import character from '../__mocks__/character';
 
 describe('Skills', () => {
     const fullProps = {
-        statistics: [
-            {
-                code: "strength",
-                label: "Strength",
-            },
-            {
-                code: "wisdom",
-                label: "Wisdom",
-            },
-        ],
-        skills: [
-            {
-                code: "athletics",
-                label: "Athletics",
-                stat: "strength",
-            },
-            {
-                code: "insight",
-                label: "Insight",
-                stat: "wisdom",
-            },
-            {
-                code: "survival",
-                label: "Survival",
-                stat: "wisdom",
-            },
-        ],
-        skillBonus: {
-            athletics: 7,
-            insight: -1,
-            survival: 1,
-        },
-        proficiencies: {
-            skills: [ "athletics", "survival" ],
-            expertise: [ "athletics" ],
-        },
+        statistics,
+        skills,
+        skillBonus: character.skills,
+        proficiencies: character.proficiencies,
     };
 
     it('should render without props', () => {

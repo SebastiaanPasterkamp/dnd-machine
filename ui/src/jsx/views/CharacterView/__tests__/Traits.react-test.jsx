@@ -3,13 +3,11 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
 import Traits from '../components/Traits';
+import { info } from '../__mocks__/character';
 
 describe('Traits', () => {
     const fullProps = {
-        info: {
-            Yay: "Some **cool** stuff.",
-            Nay: "Some *\"RP\"* stuff.",
-        },
+        info,
     };
 
     it('should render without props', () => {

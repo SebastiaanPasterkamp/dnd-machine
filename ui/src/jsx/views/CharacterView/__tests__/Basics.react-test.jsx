@@ -3,28 +3,15 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
 import { mockedApi } from '../../../../../tests/__mocks__';
+import character from '../__mocks__/character';
 
 import Basics from '../components/Basics';
 
 describe('Basics', () => {
     const fullProps = {
-        armor_class: 12,
-        armor_class_bonus: 2,
-        hit_points: 13,
-        level: 1,
-        hit_dice: 10,
-        speed: 30,
-        height: 4.2,
-        weight: 40,
-        age: 25,
-        initiative_bonus: 2,
-        passive_perception: 11,
-        proficiency: 2,
-        spell: {
-            stat: 'intelligence',
-            safe_dc: 14,
-            attack_modifier: 4,
-        },
+        ...character,
+        statistics: undefined,
+        stats: character.statistics,
     };
 
     beforeEach(() => {
