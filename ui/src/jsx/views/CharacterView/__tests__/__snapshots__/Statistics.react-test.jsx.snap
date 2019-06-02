@@ -33,14 +33,41 @@ exports[`Statistics should render with full props 1`] = `
           Strength
         </th>
         <td>
-          12
+          10
+        </td>
+        <td>
+          <div
+            className="bonus inline"
+          >
+            0
+          </div>
+        </td>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            0
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Dexterity
+        </th>
+        <td>
+          16
         </td>
         <td>
           <div
             className="bonus inline"
           >
             +
-            1
+            3
           </div>
         </td>
         <td>
@@ -53,22 +80,23 @@ exports[`Statistics should render with full props 1`] = `
             className="bonus inline"
           >
             +
-            3
+            6
           </div>
         </td>
       </tr>
       <tr>
         <th>
-          Wisdom
+          Constitution
         </th>
         <td>
-          9
+          12
         </td>
         <td>
           <div
             className="bonus inline"
           >
-            -1
+            +
+            1
           </div>
         </td>
         <td>
@@ -80,7 +108,94 @@ exports[`Statistics should render with full props 1`] = `
           <div
             className="bonus inline"
           >
-            -1
+            +
+            1
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Intelligence
+        </th>
+        <td>
+          12
+        </td>
+        <td>
+          <div
+            className="bonus inline"
+          >
+            +
+            1
+          </div>
+        </td>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            1
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Wisdom
+        </th>
+        <td>
+          10
+        </td>
+        <td>
+          <div
+            className="bonus inline"
+          >
+            0
+          </div>
+        </td>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            2
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Charisma
+        </th>
+        <td>
+          16
+        </td>
+        <td>
+          <div
+            className="bonus inline"
+          >
+            +
+            3
+          </div>
+        </td>
+        <td>
+          <span
+            className="icon fa-check-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            6
           </div>
         </td>
       </tr>

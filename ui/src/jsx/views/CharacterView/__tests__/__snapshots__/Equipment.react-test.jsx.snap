@@ -22,6 +22,63 @@ exports[`Equipment should render with full props 1`] = `
           className="weapon-label inline"
         >
           <strong>
+            Rapier
+          </strong>
+           
+          <i>
+            (
+            <div
+              className="list-label inline"
+            >
+              martial melee
+            </div>
+            )
+          </i>
+          <div
+            className="weapon-label--info inline"
+          >
+            <code>
+              <div
+                className="dice-notation inline capitalize"
+              >
+                <code>
+                  1
+                  d
+                  8
+                  +3
+                </code>
+                piercing
+              </div>
+            </code>
+            <strong>
+              Hit:
+            </strong>
+             
+            <div
+              className="bonus inline"
+            >
+              +
+              6
+            </div>
+            <ul
+              className="weapon-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  finesse
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div
+          className="weapon-label inline"
+        >
+          <strong>
             Dagger
           </strong>
            
@@ -45,7 +102,7 @@ exports[`Equipment should render with full props 1`] = `
                   1
                   d
                   4
-                  +2
+                  +3
                 </code>
                 piercing
               </div>
@@ -58,29 +115,11 @@ exports[`Equipment should render with full props 1`] = `
               className="bonus inline"
             >
               +
-              4
+              6
             </div>
             <ul
               className="weapon-label--properties inline"
             >
-              <li>
-                <div
-                  className="list-label inline"
-                >
-                  <div
-                    className="tool-tip inline"
-                  >
-                    Light
-                    <span
-                      className="tool-tip--content"
-                    >
-                      <p>
-                        A light weapon.
-                      </p>
-                    </span>
-                  </div>
-                </div>
-              </li>
               <li>
                 <div
                   className="list-label inline"
@@ -111,6 +150,31 @@ exports[`Equipment should render with full props 1`] = `
                   ) 
                 </i>
               </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  finesse
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  <div
+                    className="tool-tip inline"
+                  >
+                    Light
+                    <span
+                      className="tool-tip--content"
+                    >
+                      <p>
+                        A light weapon.
+                      </p>
+                    </span>
+                  </div>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
@@ -125,7 +189,7 @@ exports[`Equipment should render with full props 1`] = `
           className="armor-label inline"
         >
           <strong>
-            Cloth
+            Leather Armor
           </strong>
           <i>
             (
@@ -154,12 +218,43 @@ exports[`Equipment should render with full props 1`] = `
     </strong>
     <ul>
       <li>
-        4
-         × 
-        torch
+        Disguise kit
       </li>
       <li>
-        rope
+        Flute
+      </li>
+      <li>
+        Viol
+      </li>
+      <li>
+        3
+         × 
+        Costume
+      </li>
+      <li>
+        Belt Pouch
+      </li>
+      <li>
+        Backpack
+      </li>
+      <li>
+        Bedroll
+      </li>
+      <li>
+        5
+         × 
+        Candle
+      </li>
+      <li>
+        5
+         × 
+        Day of Rations
+      </li>
+      <li>
+        Waterskin
+      </li>
+      <li>
+        A pipe that blows bubbles
       </li>
     </ul>
     <div

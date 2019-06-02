@@ -3,14 +3,10 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
 import Personality from '../components/Personality';
+import { personality } from '../__mocks__/character';
 
 describe('Personality', () => {
-    const fullProps = {
-        traits: "I am a _good eater_.",
-        ideals: "Eat the whole day.",
-        bonds: "I like anyone who will feed me.",
-        flaws: "I sometimes eat **too** much.",
-    };
+    const fullProps = personality;
 
     it('should render without props', () => {
         const tree = renderer.create(

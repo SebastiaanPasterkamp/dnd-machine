@@ -1,0 +1,2257 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CharacterView should render with full props 1`] = `
+<div>
+  <h2
+    className="icon fa-user-secret"
+  >
+    Character
+  </h2>
+  <div
+    className="character-view"
+  >
+    <div
+      className="nice-panel character-view__description info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Description
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <div
+          className="base-link-group nice-btn-group pull-right"
+        >
+          <a
+            className="cursor-pointer nice-btn icon fa-pencil"
+            href={undefined}
+            onClick={[Function]}
+          >
+            Edit
+          </a>
+          <a
+            className="cursor-pointer nice-btn icon fa-clone"
+            onClick={[Function]}
+          >
+            Copy
+          </a>
+          <a
+            className="cursor-pointer nice-btn icon fa-trash-o bad"
+            onClick={[Function]}
+          >
+            Delete
+          </a>
+        </div>
+        <h3>
+          "Lucky"
+        </h3>
+        <h4>
+          <div
+            className="character inline"
+          >
+            <div
+              className="character-label"
+            >
+              <span
+                className="character-label__item"
+              >
+                Level 
+                5
+              </span>
+              <div
+                className="list-label inline"
+              >
+                female
+              </div>
+              <span
+                className="character-label__item"
+              >
+                Forest Gnome
+              </span>
+              <span
+                className="character-label__item"
+              >
+                Bard
+              </span>
+              <div
+                className="list-label inline character-label__alignment"
+              >
+                chaotic good
+              </div>
+            </div>
+          </div>
+        </h4>
+        <div
+          className="character inline"
+        >
+          <div
+            className="nice-progress good"
+          >
+            <div
+              className="nice-progress-fill"
+              style={
+                Object {
+                  "height": "1.25rem",
+                  "width": "13.653333333333334%",
+                }
+              }
+            >
+              1024
+            </div>
+          </div>
+        </div>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+    <div
+      className="nice-panel character-view__info info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Info
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <thead>
+          <tr>
+            <th>
+              Class
+            </th>
+            <th>
+              Background
+            </th>
+            <th>
+              Player
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              Bard
+            </td>
+            <td>
+              Entertainer
+            </td>
+            <td />
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th>
+              Race
+            </th>
+            <th>
+              Alignment
+            </th>
+            <th>
+              XP
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              Forest Gnome
+            </td>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                chaotic good
+              </div>
+            </td>
+            <td>
+              7524 XP
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      className="nice-panel character-view__base info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Base
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <tbody>
+          <tr>
+            <th>
+              Armor Class
+            </th>
+            <td>
+              14
+               / 
+              <div
+                className="bonus inline"
+              >
+                +
+                2
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Hit Points
+            </th>
+            <td>
+              33
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Hit Dice
+            </th>
+            <td>
+              <div
+                className="dice-notation inline capitalize"
+              >
+                <code>
+                  5
+                  d
+                  8
+                  
+                </code>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Speed
+            </th>
+            <td>
+              <div
+                className="reach inline"
+              >
+                <span>
+                  25
+                   ft.
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Height
+            </th>
+            <td>
+              <div
+                className="reach inline"
+              >
+                <span>
+                  4
+                   ft.
+                </span>
+                <span>
+                  2
+                   inch
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Weight
+            </th>
+            <td>
+              <div
+                className="weight inline"
+              >
+                <span>
+                  50
+                  lb
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Age
+            </th>
+            <td>
+              25 years
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Initiative Modifier
+            </th>
+            <td>
+              <div
+                className="bonus inline"
+              >
+                +
+                3
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Passive Perception
+            </th>
+            <td>
+              12
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Proficiency Bonus
+            </th>
+            <td>
+              <div
+                className="bonus inline"
+              >
+                +
+                3
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Spell Ability
+            </th>
+            <td>
+              <div
+                className="list-label inline"
+              >
+                charisma
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Spell DC
+            </th>
+            <td>
+              14
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Spell Attack Modifier
+            </th>
+            <td>
+              <div
+                className="bonus inline"
+              >
+                +
+                6
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      className="nice-panel character-view__equipment info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Equipment
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <strong>
+          Weapons
+        </strong>
+        <ul>
+          <li>
+            <div
+              className="weapon-label inline"
+            >
+              <strong>
+                Rapier
+              </strong>
+               
+              <i>
+                (
+                <div
+                  className="list-label inline"
+                >
+                  martial melee
+                </div>
+                )
+              </i>
+              <div
+                className="weapon-label--info inline"
+              >
+                <code>
+                  <div
+                    className="dice-notation inline capitalize"
+                  >
+                    <code>
+                      1
+                      d
+                      8
+                      +3
+                    </code>
+                    piercing
+                  </div>
+                </code>
+                <strong>
+                  Hit:
+                </strong>
+                 
+                <div
+                  className="bonus inline"
+                >
+                  +
+                  6
+                </div>
+                <ul
+                  className="weapon-label--properties inline"
+                >
+                  <li>
+                    <div
+                      className="list-label inline"
+                    >
+                      finesse
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              className="weapon-label inline"
+            >
+              <strong>
+                Dagger
+              </strong>
+               
+              <i>
+                (
+                <div
+                  className="list-label inline"
+                >
+                  simple melee
+                </div>
+                )
+              </i>
+              <div
+                className="weapon-label--info inline"
+              >
+                <code>
+                  <div
+                    className="dice-notation inline capitalize"
+                  >
+                    <code>
+                      1
+                      d
+                      4
+                      +3
+                    </code>
+                    piercing
+                  </div>
+                </code>
+                <strong>
+                  Hit:
+                </strong>
+                 
+                <div
+                  className="bonus inline"
+                >
+                  +
+                  6
+                </div>
+                <ul
+                  className="weapon-label--properties inline"
+                >
+                  <li>
+                    <div
+                      className="list-label inline"
+                    >
+                      thrown
+                    </div>
+                    <i>
+                       (
+                      <div
+                        className="reach inline"
+                      >
+                        20
+                         ft. / 
+                        60
+                         ft.
+                      </div>
+                      ) 
+                    </i>
+                  </li>
+                  <li>
+                    <div
+                      className="list-label inline"
+                    >
+                      finesse
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      className="list-label inline"
+                    >
+                      light
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <strong>
+          Armor
+        </strong>
+        <ul>
+          <li>
+            <div
+              className="armor-label inline"
+            >
+              <strong>
+                Leather Armor
+              </strong>
+              <i>
+                (
+                <div
+                  className="list-label inline"
+                >
+                  light
+                </div>
+                )
+              </i>
+              <div
+                className="armor-label__info inline"
+              >
+                <span>
+                  <strong>
+                    AC:
+                  </strong>
+                  14
+                </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <strong>
+          Gear
+        </strong>
+        <ul>
+          <li>
+            Disguise kit
+          </li>
+          <li>
+            Flute
+          </li>
+          <li>
+            Viol
+          </li>
+          <li>
+            3
+             × 
+            Costume
+          </li>
+          <li>
+            Belt Pouch
+          </li>
+          <li>
+            Backpack
+          </li>
+          <li>
+            Bedroll
+          </li>
+          <li>
+            5
+             × 
+            Candle
+          </li>
+          <li>
+            5
+             × 
+            Day of Rations
+          </li>
+          <li>
+            Waterskin
+          </li>
+          <li>
+            A pipe that blows bubbles
+          </li>
+        </ul>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+    <div
+      className="nice-panel character-view__skills info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Skills
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      />
+    </div>
+    <div
+      className="nice-panel character-view__statistics info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Statistics
+      </div>
+      <table
+        className="nice-panel-content nice-table bordered"
+      >
+        <thead>
+          <tr>
+            <th />
+            <th>
+              Statistic
+            </th>
+            <th>
+              Modifier
+            </th>
+            <th>
+              Saving Throw
+            </th>
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+    </div>
+    <div
+      className="nice-panel character-view__backstory info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Backstory
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <span>
+          <p>
+            Now this is the story ...
+          </p>
+        </span>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+    <div
+      className="nice-panel character-view__personality info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Personality
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <strong>
+          Traits
+        </strong>
+        <span>
+          <p>
+            I am a 
+            <em>
+              good eater
+            </em>
+            .
+          </p>
+        </span>
+        <strong>
+          Ideals
+        </strong>
+        <span>
+          <p>
+            Eat the whole day.
+          </p>
+        </span>
+        <strong>
+          Bonds
+        </strong>
+        <span>
+          <p>
+            I like anyone who will feed me.
+          </p>
+        </span>
+        <strong>
+          Flaws
+        </strong>
+        <span>
+          <p>
+            I sometimes eat 
+            <strong>
+              too
+            </strong>
+             much.
+          </p>
+        </span>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+    <div
+      className="nice-panel character-view__spells info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Spells
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <div
+          className="spell-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            <strong>
+              Minor Illusion
+            </strong>
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                You create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again.
+              </p>
+              <p>
+                If you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a lion's roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.
+              </p>
+              <p>
+                If you create an image of an object-such as a chair, muddy footprints, or a small chest-it must be no larger than a 5-foot cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.
+              </p>
+              <p>
+                If a creature uses its action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.
+              </p>
+            </span>
+          </div>
+          <div
+            className="spell-label--info"
+          >
+            <strong>
+              Level:
+            </strong>
+             
+            Cantrip
+            <strong>
+              Casting Time:
+            </strong>
+             
+            1 action
+            <strong>
+              School:
+            </strong>
+             
+            <div
+              className="list-label inline"
+            >
+              illusion
+            </div>
+            <strong>
+              Range:
+            </strong>
+             
+            <div
+              className="reach inline"
+            >
+              30 feet
+            </div>
+            <strong>
+              Components:
+            </strong>
+            <ul
+              className="spell-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  material
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  somatic
+                </div>
+              </li>
+            </ul>
+            <strong>
+              Cost:
+            </strong>
+             
+            A bit of fleece
+            <strong>
+              Duration:
+            </strong>
+             
+            1 minute
+          </div>
+        </div>
+        <div
+          className="spell-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            <strong>
+              Vicious Mockery
+            </strong>
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                You unleash a string of insults laced with subtle enchantments at a creature you can see within range. If the target can hear you (though it need not understand you), it must succeed on a wisdom saving throw or take 
+                <code>
+                  1d4
+                </code>
+                 
+                <em>
+                  psychic damage
+                </em>
+                 and have 
+                <strong>
+                  disadvantage
+                </strong>
+                 on the next attack roll it makes before the end of its next turn.
+              </p>
+              <p>
+                This spell's damage increases by 
+                <code>
+                  1d4
+                </code>
+                 when you reach 5th level (
+                <code>
+                  2d4
+                </code>
+                ), 11th level (
+                <code>
+                  3d4
+                </code>
+                ), and 17th level (
+                <code>
+                  4d4
+                </code>
+                ).
+              </p>
+            </span>
+          </div>
+          <div
+            className="spell-label--info"
+          >
+            <strong>
+              Level:
+            </strong>
+             
+            Cantrip
+            <strong>
+              Casting Time:
+            </strong>
+             
+            1 action
+            <strong>
+              School:
+            </strong>
+             
+            <div
+              className="list-label inline"
+            >
+              enchantment
+            </div>
+            <strong>
+              Range:
+            </strong>
+             
+            <div
+              className="reach inline"
+            >
+              60
+            </div>
+            <strong>
+              Components:
+            </strong>
+            <ul
+              className="spell-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  verbal
+                </div>
+              </li>
+            </ul>
+            <strong>
+              Duration:
+            </strong>
+             
+            Instantaneous
+          </div>
+        </div>
+        <div
+          className="spell-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            <strong>
+              Thunderclap
+            </strong>
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                You create a burst of thunderous sound, which can be heard 100 feet away. Each creature other than you within 5 feet of you must make a 
+                <strong>
+                  Constitution
+                </strong>
+                 
+                <em>
+                  saving throw
+                </em>
+                . On a failed save, the creature takes 
+                <code>
+                  1d6
+                </code>
+                 
+                <em>
+                  thunder damage
+                </em>
+                .
+              </p>
+              <p>
+                <strong>
+                  At Higher Levels
+                </strong>
+                : The spell's damage increases by 
+                <code>
+                  1d6
+                </code>
+                 when you reach 5th level (
+                <code>
+                  2d6
+                </code>
+                ), 11th level (
+                <code>
+                  3d6
+                </code>
+                ), and 17th level (
+                <code>
+                  4d6
+                </code>
+                ).
+              </p>
+            </span>
+          </div>
+          <div
+            className="spell-label--info"
+          >
+            <strong>
+              Level:
+            </strong>
+             
+            Cantrip
+            <strong>
+              Casting Time:
+            </strong>
+             
+            1 action
+            <strong>
+              School:
+            </strong>
+             
+            <div
+              className="list-label inline"
+            >
+              evocation
+            </div>
+            <strong>
+              Range:
+            </strong>
+             
+            <div
+              className="reach inline"
+            >
+              Self (5-foot radius)
+            </div>
+            <strong>
+              Components:
+            </strong>
+            <ul
+              className="spell-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  somatic
+                </div>
+              </li>
+            </ul>
+            <strong>
+              Duration:
+            </strong>
+             
+            Instantaneous
+          </div>
+        </div>
+        <div
+          className="spell-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            <strong>
+              Dancing Lights
+            </strong>
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                You create up to four torch-sized lights within range, making them appear as torches, lanterns, or glowing orbs that hover in the air for the duration. You can also combine the four Iights into one glowing vaguely humanoid form of Medium size. Whichever form you choose, each light sheds dim light in a 10-foot radius.
+              </p>
+              <p>
+                As a 
+                <em>
+                  bonus action
+                </em>
+                 on your turn, you can move the lights up to 60 feet to a new spot within range. A light must be within 20 feet of another light created by this spell, and a light winks out if it exceeds the spell's range.
+              </p>
+            </span>
+          </div>
+          <div
+            className="spell-label--info"
+          >
+            <strong>
+              Level:
+            </strong>
+             
+            Cantrip
+            <strong>
+              Casting Time:
+            </strong>
+             
+            1 action
+            <strong>
+              School:
+            </strong>
+             
+            <div
+              className="list-label inline"
+            >
+              evocation
+            </div>
+            <strong>
+              Range:
+            </strong>
+             
+            <div
+              className="reach inline"
+            >
+              120 feet
+            </div>
+            <strong>
+              Components:
+            </strong>
+            <ul
+              className="spell-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  material
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  verbal
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  somatic
+                </div>
+              </li>
+            </ul>
+            <strong>
+              Cost:
+            </strong>
+             
+            A bit of phosphorus or wychwood, or a glow worm
+            <strong>
+              Duration:
+            </strong>
+             
+            Concentration, up to 1 minute
+          </div>
+        </div>
+        <div
+          className="spell-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            <strong>
+              Dissonant Whispers
+            </strong>
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                You whisper a discordant melody that only one creature of your choice within range can hear, wracking it with terrible pain. The target must make a 
+                <strong>
+                  Wisdom
+                </strong>
+                 
+                <em>
+                  saving throw
+                </em>
+                . On a failed save, it takes 
+                <code>
+                  3d6
+                </code>
+                 
+                <em>
+                  psychic damage
+                </em>
+                 and must immediately use its 
+                <em>
+                  reaction
+                </em>
+                , if available, to move as far as its speed allows away from you. The creature doesn't move into obviously dangerous ground, such as a fire or a pit. On a successful save, the target takes half as much damage and doesn't have to move away. A deafened creature automatically succeeds on the save.
+              </p>
+              <p>
+                <strong>
+                  At Higher Levels
+                </strong>
+                : When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 
+                <code>
+                  1d6
+                </code>
+                 for each slot level above 1st.
+              </p>
+            </span>
+          </div>
+          <div
+            className="spell-label--info"
+          >
+            <strong>
+              Level:
+            </strong>
+             
+            1
+            <strong>
+              Casting Time:
+            </strong>
+             
+            1 action
+            <strong>
+              School:
+            </strong>
+             
+            <div
+              className="list-label inline"
+            >
+              enchantment
+            </div>
+            <strong>
+              Range:
+            </strong>
+             
+            <div
+              className="reach inline"
+            >
+              60 feet
+            </div>
+            <strong>
+              Components:
+            </strong>
+            <ul
+              className="spell-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  verbal
+                </div>
+              </li>
+            </ul>
+            <strong>
+              Duration:
+            </strong>
+             
+            Instantaneous
+          </div>
+        </div>
+        <div
+          className="spell-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            <strong>
+              Thunderwave
+            </strong>
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                A wave of thunderous force sweeps out from you. Each creature in a 15-foot cube originating from you must make a 
+                <strong>
+                  Constitution
+                </strong>
+                 
+                <em>
+                  saving throw
+                </em>
+                . On a failed save, a creature takes 
+                <code>
+                  2d8
+                </code>
+                 
+                <em>
+                  thunder damage
+                </em>
+                 and is pushed 10 feet away from you. On a successful save, the creature takes half as much damage and isn't pushed.
+              </p>
+              <p>
+                In addition, unsecured objects that are completely within the area of effect are automatically pushed 10 feet away from you by the spell's effect, and the spell emits a thunderous boom audible out to 300 feet.
+              </p>
+              <p>
+                <strong>
+                  At Higher Levels
+                </strong>
+                : When you cast this spell using a spell slot of 2nd level or higher, the damage increases by a 
+                <code>
+                  1d8
+                </code>
+                 for each slot level above first.
+              </p>
+            </span>
+          </div>
+          <div
+            className="spell-label--info"
+          >
+            <strong>
+              Level:
+            </strong>
+             
+            1
+            <strong>
+              Casting Time:
+            </strong>
+             
+            1 Action
+            <strong>
+              School:
+            </strong>
+             
+            <div
+              className="list-label inline"
+            >
+              evocation
+            </div>
+            <strong>
+              Range:
+            </strong>
+             
+            <div
+              className="reach inline"
+            >
+              Self (15-foot cube)
+            </div>
+            <strong>
+              Components:
+            </strong>
+            <ul
+              className="spell-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  verbal
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  somatic
+                </div>
+              </li>
+            </ul>
+            <strong>
+              Duration:
+            </strong>
+             
+            Instantaneous
+          </div>
+        </div>
+        <div
+          className="spell-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            <strong>
+              Cure Wounds
+            </strong>
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                A creature you touch regains a number of hit points
+                
+
+                equal to 
+                <code>
+                  1d8
+                </code>
+                 + your spellcasting ability modifier. This spell has no effect on undead or constructs.
+              </p>
+            </span>
+          </div>
+          <div
+            className="spell-label--info"
+          >
+            <strong>
+              Level:
+            </strong>
+             
+            1
+            <strong>
+              Casting Time:
+            </strong>
+             
+            1 action
+            <strong>
+              School:
+            </strong>
+             
+            <div
+              className="list-label inline"
+            >
+              evocation
+            </div>
+            <strong>
+              Range:
+            </strong>
+             
+            <div
+              className="reach inline"
+            >
+              Touch
+            </div>
+            <strong>
+              Components:
+            </strong>
+            <ul
+              className="spell-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  verbal
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  somatic
+                </div>
+              </li>
+            </ul>
+            <strong>
+              Duration:
+            </strong>
+             
+            Instantaneous
+          </div>
+        </div>
+        <div
+          className="spell-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            <strong>
+              Tasha's Hideous Laughter
+            </strong>
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                A creature of your choice that you can see within range perceives everything as hilariously funny and falls into fits of laughter if this spell affects it. The target must succeed on a 
+                <strong>
+                  Wisdom
+                </strong>
+                 
+                <em>
+                  saving throw
+                </em>
+                 or fall prone, becoming incapacitated and unable to stand up for the duration. A creature with an Intelligence score of 4 or less isn't affected.
+              </p>
+              <p>
+                At the end of each of its turns, and each time it takes damage, the target can make another 
+                <strong>
+                  Wisdom
+                </strong>
+                 
+                <em>
+                  saving throw
+                </em>
+                . The target has 
+                <strong>
+                  advantage
+                </strong>
+                 on the saving throw if it's triggered by damage. On a success, the spell ends.
+              </p>
+            </span>
+          </div>
+          <div
+            className="spell-label--info"
+          >
+            <strong>
+              Level:
+            </strong>
+             
+            1
+            <strong>
+              Casting Time:
+            </strong>
+             
+            1 action
+            <strong>
+              School:
+            </strong>
+             
+            <div
+              className="list-label inline"
+            >
+              enchantment
+            </div>
+            <strong>
+              Range:
+            </strong>
+             
+            <div
+              className="reach inline"
+            >
+              1 action
+            </div>
+            <strong>
+              Components:
+            </strong>
+            <ul
+              className="spell-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  material
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  verbal
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  somatic
+                </div>
+              </li>
+            </ul>
+            <strong>
+              Cost:
+            </strong>
+             
+            Tiny tarts and a feather that is waved in the air
+            <strong>
+              Duration:
+            </strong>
+             
+            1 action
+          </div>
+        </div>
+        <div
+          className="spell-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            <strong>
+              Shatter
+            </strong>
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                A sudden loud ringing noise, painfully intense, erupts from a point of your choice within range. Each creature in a 10-foot-radius sphere centered on that point must make a 
+                <strong>
+                  Constitution
+                </strong>
+                 
+                <em>
+                  saving throw
+                </em>
+                . A creature takes 
+                <code>
+                  3d8
+                </code>
+                 
+                <em>
+                  thunder damage
+                </em>
+                 on a failed save, or half as much damage on a successful one. A creature made of inorganic material such as stone or metal has 
+                <strong>
+                  disadvantage
+                </strong>
+                 on this saving throw.
+              </p>
+              <p>
+                A nonmagical object that isn't being worn or carried also takes the damage if it's in the spell's area.
+              </p>
+              <p>
+                <strong>
+                  At Higher Levels
+                </strong>
+                : When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 
+                <code>
+                  1d8
+                </code>
+                 for each slot level above 2nd.
+              </p>
+            </span>
+          </div>
+          <div
+            className="spell-label--info"
+          >
+            <strong>
+              Level:
+            </strong>
+             
+            2
+            <strong>
+              Casting Time:
+            </strong>
+             
+            1 action
+            <strong>
+              School:
+            </strong>
+             
+            <div
+              className="list-label inline"
+            >
+              evocation
+            </div>
+            <strong>
+              Range:
+            </strong>
+             
+            <div
+              className="reach inline"
+            >
+              60 feet
+            </div>
+            <strong>
+              Components:
+            </strong>
+            <ul
+              className="spell-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  material
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  verbal
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  somatic
+                </div>
+              </li>
+            </ul>
+            <strong>
+              Cost:
+            </strong>
+             
+            A chip of mica
+            <strong>
+              Duration:
+            </strong>
+             
+            Instantaneous
+          </div>
+        </div>
+        <div
+          className="spell-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            <strong>
+              Crown of Madness
+            </strong>
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                One humanoid of your choice that you can see within range must succeed on a 
+                <strong>
+                  Wisdom
+                </strong>
+                 
+                <em>
+                  saving throw
+                </em>
+                 or become 
+                <em>
+                  charmed
+                </em>
+                 by you for the duration. While the target is 
+                <em>
+                  charmed
+                </em>
+                 in this way, a twisted crown of jagged iron appears on its head, and a madness glows in its eyes.
+              </p>
+              <p>
+                The 
+                <em>
+                  charmed
+                </em>
+                 target must use its action before moving on each of its turns to make a melee attack against a creature other than itself that you mentally choose.
+              </p>
+              <p>
+                The target can act normally on its turn if you choose no creature or if none are within its reach.
+              </p>
+              <p>
+                On your subsequent turns, you must use your action to maintain control over the target, or the spell ends. Also the target can make a 
+                <strong>
+                  Wisdom
+                </strong>
+                 
+                <em>
+                  saving throw
+                </em>
+                 at the end of each of its turns. On a success, the spell ends.
+              </p>
+            </span>
+          </div>
+          <div
+            className="spell-label--info"
+          >
+            <strong>
+              Level:
+            </strong>
+             
+            2
+            <strong>
+              Casting Time:
+            </strong>
+             
+            1 action
+            <strong>
+              School:
+            </strong>
+             
+            <div
+              className="list-label inline"
+            >
+              enchantment
+            </div>
+            <strong>
+              Range:
+            </strong>
+             
+            <div
+              className="reach inline"
+            >
+              120 feet
+            </div>
+            <strong>
+              Components:
+            </strong>
+            <ul
+              className="spell-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  verbal
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  somatic
+                </div>
+              </li>
+            </ul>
+            <strong>
+              Duration:
+            </strong>
+             
+            concentration, up to 1 minute
+          </div>
+        </div>
+        <div
+          className="spell-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            <strong>
+              Bestow Curse
+            </strong>
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                You touch a creature, and that creature must succeed on a 
+                <strong>
+                  Wisdom
+                </strong>
+                 
+                <em>
+                  saving throw
+                </em>
+                 or become cursed for the duration of the spell. When you cast this spell, choose the nature of the curse from the following options
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    Choose one ability score. While cursed, the target has 
+                    <strong>
+                      disadvantage
+                    </strong>
+                     on ability checks and saving throws made with that ability score.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    While cursed, the target has 
+                    <strong>
+                      disadvantage
+                    </strong>
+                     on attack rolls against you.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    While cursed, the target must make a 
+                    <strong>
+                      Wisdom
+                    </strong>
+                     
+                    <em>
+                      saving throw
+                    </em>
+                     at the start of each of its turns. If it fails, it wastes its action that turn doing nothing.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    While the target is cursed, your attacks and spells deal an extra 
+                    <code>
+                      1d8
+                    </code>
+                     
+                    <em>
+                      necrotic damage
+                    </em>
+                     to the target.
+                  </p>
+                </li>
+              </ul>
+              <p>
+                A remove curse spell ends this effect. At the DM's option, you may choose an alternative curse effect, but it should be no more  powerful than those described above. The DM has final say on such a curse's effect.
+              </p>
+              <p>
+                <strong>
+                  At Higher Levels
+                </strong>
+                : If you cast this spell using a spell slot of 4th level or higher, the duration is concentration, up to 10 minutes. If you use a spell slot of 5th level or higher, the duration is 8 hours. If you use a spell slot of 7th level or higher, the duration is 24 hours. If you use a 9th level spell slot, the spell lasts until it is dispelled. Using a spell slot of 5th level or higher grants a duration that doesn't require concentration.
+              </p>
+            </span>
+          </div>
+          <div
+            className="spell-label--info"
+          >
+            <strong>
+              Level:
+            </strong>
+             
+            3
+            <strong>
+              Casting Time:
+            </strong>
+             
+            1 action
+            <strong>
+              School:
+            </strong>
+             
+            <div
+              className="list-label inline"
+            >
+              necromancy
+            </div>
+            <strong>
+              Range:
+            </strong>
+             
+            <div
+              className="reach inline"
+            >
+              Touch
+            </div>
+            <strong>
+              Components:
+            </strong>
+            <ul
+              className="spell-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  verbal
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  somatic
+                </div>
+              </li>
+            </ul>
+            <strong>
+              Duration:
+            </strong>
+             
+            Concentration, up to 1 minute
+          </div>
+        </div>
+        <div
+          className="spell-label inline"
+        >
+          <div
+            className="tool-tip inline"
+          >
+            <strong>
+              Fear
+            </strong>
+            <span
+              className="tool-tip--content"
+            >
+              <p>
+                You project a phantasmal image of a creature's worst fears. Each creature in a 30-foot cone must succeed on a 
+                <strong>
+                  Wisdom
+                </strong>
+                 
+                <em>
+                  saving throw
+                </em>
+                 or drop whatever it is holding and become frightened for the duration.
+              </p>
+              <p>
+                While frightened by this spell, a creature must take the Dash action and move away from you by the safest available route on each of its turns, unless there is nowhere to move. If the creature ends its turn in a location where it doesn't have line of sight to you, the creature can make a 
+                <strong>
+                  Wisdom
+                </strong>
+                 
+                <em>
+                  saving throw
+                </em>
+                . On a successful save, the spell ends for that creature.
+              </p>
+            </span>
+          </div>
+          <div
+            className="spell-label--info"
+          >
+            <strong>
+              Level:
+            </strong>
+             
+            3
+            <strong>
+              Casting Time:
+            </strong>
+             
+            1 Action
+            <strong>
+              School:
+            </strong>
+             
+            <div
+              className="list-label inline"
+            >
+              illusion
+            </div>
+            <strong>
+              Range:
+            </strong>
+             
+            <div
+              className="reach inline"
+            >
+              Self
+            </div>
+            <strong>
+              Components:
+            </strong>
+            <ul
+              className="spell-label--properties inline"
+            >
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  material
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  verbal
+                </div>
+              </li>
+              <li>
+                <div
+                  className="list-label inline"
+                >
+                  somatic
+                </div>
+              </li>
+            </ul>
+            <strong>
+              Cost:
+            </strong>
+             
+            A white feather or the heart of a hen
+            <strong>
+              Duration:
+            </strong>
+             
+            Up to 1 minute
+          </div>
+        </div>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+    <div
+      className="nice-panel character-view__abilities info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Abilities
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <ul>
+          <li>
+            <strong>
+              Bardic Inspiration
+            </strong>
+            <span>
+              <p>
+                You can inspire others through stirring words or music. To do so, you use a 
+                <em>
+                  bonus action
+                </em>
+                 on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one 
+                <strong>
+                  Bardic Inspiration
+                </strong>
+                 die, a d8.
+                
+
+                Once within the next 10 minutes, the creature can roll the die and add the number rolled to one 
+                <em>
+                  Ability Check
+                </em>
+                , 
+                <em>
+                  Attack Roll
+                </em>
+                , or 
+                <em>
+                  Saving Throw
+                </em>
+                 it makes. The creature can wait until after it rolls the 
+                <code>
+                  d20
+                </code>
+                 before deciding to use the 
+                <strong>
+                  Bardic Inspiration
+                </strong>
+                 die, but must decide before the DM says whether the roll succeeds or fails. Once the 
+                <strong>
+                  Bardic Inspiration
+                </strong>
+                 die is rolled, it is lost. A creature can have only one 
+                <strong>
+                  Bardic Inspiration
+                </strong>
+                 die at a time.
+                
+
+                You can use this feature 3 times. You regain any expended uses when you finish a 
+                <em>
+                  short
+                </em>
+                 rest.
+              </p>
+            </span>
+          </li>
+          <li>
+            <strong>
+              Jack of All Trades
+            </strong>
+            <span>
+              <p>
+                You can add half your 
+                <strong>
+                  Proficiency Bonus
+                </strong>
+                , rounded down, to any 
+                <strong>
+                  Ability Check
+                </strong>
+                 you make that doesn't already include your proficiency bonus.
+              </p>
+            </span>
+          </li>
+          <li>
+            <strong>
+              Psychic Blades
+            </strong>
+            <span>
+              <p>
+                You gain the ability to ma ke your weapon attacks magically toxic to a creature's mind. When you hit a creature with a weapon attack, you can expend one use of your 
+                <em>
+                  Bardic Inspiration
+                </em>
+                 to deal an extra 
+                <code>
+                  3d6
+                </code>
+                 
+                <strong>
+                  psychic damage
+                </strong>
+                 to that target. You can do so only once per round on your turn.
+              </p>
+            </span>
+          </li>
+          <li>
+            <strong>
+              Song of Rest
+            </strong>
+            <span>
+              <p>
+                You can use soothing music or oration to help revitalize your wounded allies during a short rest. If you or any friendly creatures who can hear your performance regain hit points at the end of the short rest, each of those creatures regains an extra d6 hit points.
+              </p>
+            </span>
+          </li>
+          <li>
+            <strong>
+              Words of Terror
+            </strong>
+            <span>
+              <p>
+                You learn to infuse innocent-seeming words with an insidious magic that can inspire terror. If you speak to a humanoid alone for at least 1 minute, you can attempt to seed paranoia in its mind. At the end of the conversation, the target must succeed on a 
+                <em>
+                  Wisdom
+                </em>
+                 saving throw against your spell save DC or be 
+                <em>
+                  frightened
+                </em>
+                 of you or another creature of your choice. The target is frightened in this way for 1 hour, until it is attacked or damaged, or until it witnesses its allies being attacked or damaged. If the target succeeds on its saving throw, the target has no hint that you tried to frighten it. Once you use this feature, you can't use it again until you finish a short or long rest.
+              </p>
+            </span>
+          </li>
+        </ul>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+    <div
+      className="nice-panel character-view__traits info"
+      id={undefined}
+    >
+      <div
+        className="nice-panel-heading"
+      >
+        Traits
+      </div>
+      <div
+        className="nice-panel-content"
+      >
+        <ul>
+          <li>
+            <strong>
+              By Popular Demand
+            </strong>
+            <span>
+              <p>
+                You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble's court. At such a place, you receive free lodging and food of a modest or comfortable standard (depending on the quality of the establishment), as long as you perform each night. In addition, your performance makes you something of a local figure. When strangers recognize you in a town where you have performed, they typically take a liking to you.
+              </p>
+            </span>
+          </li>
+          <li>
+            <strong>
+              Darkvision
+            </strong>
+            <span>
+              <p>
+                Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.
+              </p>
+            </span>
+          </li>
+          <li>
+            <strong>
+              Entertainer Routines
+            </strong>
+            <span>
+              <p>
+                Instrumentalist
+              </p>
+            </span>
+          </li>
+          <li>
+            <strong>
+              Gnome Cunning
+            </strong>
+            <span>
+              <p>
+                You have 
+                <strong>
+                  Advantage
+                </strong>
+                 on all 
+                <strong>
+                  Intelligence
+                </strong>
+                , 
+                <strong>
+                  Wisdom
+                </strong>
+                , and 
+                <strong>
+                  Charisma
+                </strong>
+                 
+                <em>
+                  Saving Throws
+                </em>
+                 against magic.
+              </p>
+            </span>
+          </li>
+          <li>
+            <strong>
+              Speak with Small Beasts
+            </strong>
+            <span>
+              <p>
+                Through sounds and gestures, you can communicate simple ideas with 
+                <em>
+                  Small
+                </em>
+                 or smaller beasts. Forest gnomes love animals and often keep squirrels, badgers, rabbits, moles, woodpeckers, and other creatures as beloved pets.
+              </p>
+            </span>
+          </li>
+        </ul>
+        <div
+          className="clearfix"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CharacterView should render without props 1`] = `
+<div>
+  <h2
+    className="icon fa-user-secret"
+  >
+    Character
+  </h2>
+  <div
+    className="character-view"
+  />
+</div>
+`;
