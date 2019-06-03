@@ -34,7 +34,14 @@ class CombatantCard extends LazyComponent
     constructor(props) {
         super(props);
 
-        const cache = JSON.parse(localStorage.getItem(this.getCacheKey()));
+        const cache = (function(cache) {
+            try {
+                return JSON.parse(cache);
+            } catch (err) {
+                return false;
+            }
+        })(localStorage.getItem(this.getCacheKey()));
+
         this.state = cache || {
             initiative: 0,
             hp_missing: 0,
@@ -96,7 +103,7 @@ class CombatantCard extends LazyComponent
 
     render() {
         const {
-            name, hit_points, armor_class, spell_save_dc, spell,
+            name, hit_points, armor_class, spell,
             defaultStyle, combat
         } = this.props;
         const {
@@ -131,10 +138,10 @@ class CombatantCard extends LazyComponent
                     }
                     />
                 <strong>AC:</strong>&nbsp;{armor_class}
-                {spell_save_dc || spell
+                {spell
                     ? <React.Fragment>
                         <strong>Spell DC:</strong>&nbsp;
-                        {spell_save_dc || spell.safe_dc}
+                        {spell.safe_dc}
                     </React.Fragment>
                     : null
                 }
@@ -204,11 +211,11 @@ export class EncounterView extends React.Component
 
     render() {
         const {
-            id, name, description = '', size, monster_ids = [],
-            hosted_party, monsters = [], characters = [],
+            id, name, description, size, monster_ids,
+            hosted_party, monsters, characters,
             challenge_rating, xp, xp_rating, modifier, xp_modified,
             challenge_modified, combatants, alignments,
-            size_hit_dice, monster_types, _languages
+            size_hit_dice, monster_types, _languages,
         } = this.props;
         const { combat } = this.state;
 
@@ -216,13 +223,21 @@ export class EncounterView extends React.Component
             return null;
         }
 
-        const { challenge } = hosted_party || {};
-        const classification = challenge ? utils.closest({
-            'info': challenge.easy,
-            'good': challenge.medium,
-            'warning': challenge.hard,
-            'bad': challenge.deadly
-        }, xp, 'info') : null;
+        const {
+            id: partyId,
+            name: partyName,
+            size: partySize,
+            challenge = {},
+        } = hosted_party || {};
+
+        const classification = partyId !== undefined
+            ? utils.closest({
+                'info': challenge.easy,
+                'good': challenge.medium,
+                'warning': challenge.hard,
+                'bad': challenge.deadly
+            }, xp, 'info')
+            : null;
         const monsterProps = {
             alignments, size_hit_dice, monster_types, _languages
         };
@@ -249,7 +264,7 @@ export class EncounterView extends React.Component
                                     className="good"
                                     icon="trophy"
                                     action={this.awardXP}
-                                    available={!!hosted_party}
+                                    available={!!partyId}
                                 />
                             </EncounterLinks>
                             <h3>{name}</h3>
@@ -269,7 +284,7 @@ export class EncounterView extends React.Component
                 </tbody>
             </Panel>
 
-            {hosted_party ? <Panel
+            {partyId ? <Panel
                 key="challenge"
                 className="encounter-view__challenge info"
                 header="Party Encounter Challenge Rating"
@@ -286,8 +301,8 @@ export class EncounterView extends React.Component
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{hosted_party.name}</td>
-                        <td>{hosted_party.size}</td>
+                        <td>{partyName}</td>
+                        <td>{partySize}</td>
                         <td className="info">
                             {challenge.easy}XP
                         </td>
@@ -427,6 +442,27 @@ export class EncounterView extends React.Component
         </React.Fragment>;
     }
 }
+
+EncounterView.defaultProps = {
+    name: '',
+    description: '',
+    size: 0,
+    monster_ids: [],
+    hosted_party: null,
+    monsters: {},
+    characters: {},
+    challenge_rating: 0,
+    xp: 0,
+    xp_rating: 0,
+    xp_modified: 0,
+    modifier: 0,
+    challenge_modified: 0,
+    combatants: [],
+    alignments: [],
+    size_hit_dice: [],
+    monster_types: [],
+    _languages: [],
+};
 
 export default ListDataWrapper(
     ListDataWrapper(
