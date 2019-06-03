@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+    filter,
+    map,
+} from 'lodash/fp';
 
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
@@ -9,51 +13,45 @@ import Bonus from '../components/Bonus.jsx';
 import Reach from '../components/Reach.jsx';
 import Coinage from '../components/Coinage.jsx';
 import ListLabel from '../components/ListLabel.jsx';
+import WeightLabel from '../components/WeightLabel.jsx';
 
-class ArmorHeader extends LazyComponent
-{
-    render() {
-        return <thead>
+const ArmorHeader = function({ name }) {
+    return (
+        <thead>
             <tr>
-                <th>{this.props.name}</th>
+                <th>{name}</th>
                 <th>Armor</th>
                 <th>Cost</th>
                 <th>Properties</th>
             </tr>
         </thead>
-    }
+    );
 };
 
-class ArmorFooter extends LazyComponent
-{
-    render() {
-        return <tbody>
+const ArmorFooter = function() {
+    return (
+        <tbody>
             <tr>
                 <td colSpan={4}>
-                    <ArmorLinks
-                        altStyle={true}
-                        />
+                    <ArmorLinks altStyle={true} />
                 </td>
             </tr>
         </tbody>
-    }
+    );
 };
 
-class ArmorRow extends LazyComponent
-{
-    render() {
-        const {
-            id, name, type, armor_types = [], value, formula, bonus,
-            cost, weight, requirements, disadvantage
-        } = this.props;
-
-        return <tr data-id={id}>
+const ArmorRow = function({
+    id, name, type, armor_types, value, formula, bonus,
+    cost, weight, requirements, disadvantage,
+}) {
+    return (
+        <tr data-id={id}>
             <th>
                 {name}
                 <ArmorLinks
                     altStyle={true}
                     id={id}
-                    />
+                />
             </th>
             <td>
                 {value}
@@ -73,37 +71,33 @@ class ArmorRow extends LazyComponent
                         <ListLabel
                             items={armor_types}
                             value={type}
-                            />
+                        />
                     </li>
-                    {weight
-                        ? <li key="weight">
+                    {weight ? (
+                        <li key="weight">
                             <strong>Weight:</strong>
                             &nbsp;
-                            {weight.lb}
-                            lb.
-                            </li>
-                        : null
-                    }
-                    {requirements && requirements.strength
-                        ? <li key="requirements">
+                            <WeightLabel {...weight} />
+                        </li>
+                    ) : null}
+                    {requirements && requirements.strength ? (
+                        <li key="requirements">
                             <strong>Strength:</strong>
                             &nbsp;
                             {requirements.strength}
-                            </li>
-                        : null
-                    }
-                    {disadvantage
-                        ? <li key="disadvantage">
+                        </li>
+                    ) : null}
+                    {disadvantage ? (
+                        <li key="disadvantage">
                             <strong>Stealth:</strong>
                             &nbsp;
                             Disadvantage
-                            </li>
-                        : null
-                    }
+                        </li>
+                    ) : null}
                 </ul>
             </td>
         </tr>
-    }
+    );
 };
 
 class ArmorTable extends LazyComponent
@@ -115,20 +109,13 @@ class ArmorTable extends LazyComponent
     }
 
     render() {
-        const {
-            armor, search = '', armor_types
-        } = this.props;
+        const { armor, search, armor_types } = this.props;
 
-        if (!armor) {
-            return null;
-        }
-
-        let pattern = new RegExp(search, "i");
-        const filtered = _.filter(
-            armor,
-            (a) => this.shouldDisplayRow(pattern, a)
+        const pattern = new RegExp(search, "i");
+        const filtered = filter(
+            (a) => this.shouldDisplayRow(pattern, a),
+            armor
         );
-
 
         return <div>
             <h2 className="icon fa-shield">Armor</h2>
@@ -136,19 +123,24 @@ class ArmorTable extends LazyComponent
             <table className="nice-table condensed bordered responsive">
                 <ArmorHeader />
                 <tbody key="tbody">
-                    {_.map(filtered, (armor) => (
+                    {map((armor) => (
                         <ArmorRow
                             key={armor.id}
                             {...armor}
                             armor_types={armor_types}
-                            />
-                    ))}
+                        />
+                    ))(filtered)}
                 </tbody>
                 <ArmorFooter />
             </table>
         </div>
     }
 }
+
+ArmorTable.defaultProps = {
+    armor: {},
+    armor_types: [],
+};
 
 export default ListDataWrapper(
     ObjectDataListWrapper(
