@@ -36,9 +36,8 @@ const config = {
         inline: true,
         proxy: {
             '/': {
-                target: 'http://api.in.uprintf.com/',
-                secure: false
-                // changeOrigin: true
+                target: 'http://nginx:8080',
+                secure: false,
             }
         }
 
@@ -46,6 +45,7 @@ const config = {
     output: {
         path: OUTPUT_PATH_JSX,
         filename: 'js/[name].js',
+        chunkFilename: 'js/[name].js',
         hotUpdateMainFilename: '__hmr/[hash].hot-update.json',
         hotUpdateChunkFilename: '__hmr/[id].[hash].hot-update.js',
     },
@@ -91,21 +91,39 @@ const config = {
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: `${OUTPUT_PATH_SASS}/[name].css`,
-            chunkFilename: '${OUTPUT_PATH_SASS}/[id].css',
+            chunkFilename: `${OUTPUT_PATH_SASS}/[name].css`,
         }),
         new ProgressBarPlugin(),
         new webpack.HotModuleReplacementPlugin(),
     ],
     optimization: {
+        splitChunks: {
+            chunks: 'all',
+            minSize: 30000,
+            maxSize: 0,
+            minChunks: 1,
+            maxInitialRequests: 3,
+            name: true,
+            cacheGroups: {
+                components: {
+                    test: /[\\/]components[\\/](?!.*\.s?css$)/,
+                    priority: -30,
+                },
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true,
+                },
+            }
+        },
         minimizer: [
             new TerserJSPlugin({}),
             new OptimizeCSSAssetsPlugin({}),
         ],
-        namedModules: true,
-        splitChunks: {
-            name: 'vendor',
-            minChunks: 2,
-        },
     }
 };
 
