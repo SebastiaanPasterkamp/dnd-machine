@@ -114,14 +114,22 @@ const config = {
                 components: {
                     test: /[\\/]components[\\/](?!.*\.s?css$)/,
                     priority: -30,
+                    reuseExistingChunk: true,
                 },
                 views: {
                     test: /[\\/]views[\\/](?!.*\.s?css$)/,
                     priority: -30,
+                    reuseExistingChunk: true,
                 },
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
-                    priority: -10
+                    name(module) {
+                        const { context } = module;
+                        const packageName = context.match(/[\\/]node_modules[\\/](.*?)(?:[\\/]|$)/)[1];
+                        return `npm.${packageName.replace('@', '')}`;
+                    },
+                    priority: -10,
+                    reuseExistingChunk: true,
                 },
                 [PROJECT]: {
                     minChunks: 2,
