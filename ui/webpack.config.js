@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HotModuleReplacementPlugin = require('webpack-hot-middleware');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -96,6 +97,10 @@ const config = {
         }),
         new ProgressBarPlugin(),
         new webpack.HotModuleReplacementPlugin(),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false,
+        }),
     ],
     optimization: {
         splitChunks: {
