@@ -44,6 +44,7 @@ const config = {
     },
     output: {
         path: OUTPUT_PATH_JSX,
+        publicPath: "/static/",
         filename: 'js/[name].js',
         chunkFilename: 'js/[name].js',
         hotUpdateMainFilename: '__hmr/[hash].hot-update.json',
@@ -109,11 +110,15 @@ const config = {
                     test: /[\\/]components[\\/](?!.*\.s?css$)/,
                     priority: -30,
                 },
+                views: {
+                    test: /[\\/]views[\\/](?!.*\.s?css$)/,
+                    priority: -30,
+                },
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     priority: -10
                 },
-                default: {
+                [PROJECT]: {
                     minChunks: 2,
                     priority: -20,
                     reuseExistingChunk: true,
