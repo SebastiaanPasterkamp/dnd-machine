@@ -1,52 +1,123 @@
 "use strict";
+import "core-js/modules/es6.promise";
+import "core-js/modules/es6.array.iterator";
 
 import '../sass/base.scss';
 
 import React from 'react';
 import ReactDom from 'react-dom';
 import {BrowserRouter as Router, Switch, Route, Link, Redirect} from 'react-router-dom';
+import Loadable from 'react-loadable';
 
 import ActivityWrapper from './hocs/ActivityWrapper.jsx';
 import UiActions from './actions/UiActions.jsx';
 import ListDataActions from './actions/ListDataActions.jsx';
 import ListDataWrapper from './hocs/ListDataWrapper.jsx';
 
-import AdventureLeagueLogEdit from './views/AdventureLeagueLogEdit';
+import LoadingSplash from './components/LoadingSplash.jsx';
+
+const AdventureLeagueLogEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'AdventureLeagueLogEdit' */
+          './views/AdventureLeagueLogEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
+
 import AdventureLeagueLogTable from './views/AdventureLeagueLogTable.jsx';
 import AdventureLeagueLogView from './views/AdventureLeagueLogView.jsx';
-import ArmorEdit from './views/ArmorEdit.jsx';
+const ArmorEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'ArmorEdit' */
+          './views/ArmorEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import ArmorTable from './views/ArmorTable.jsx';
-import CampaignEdit from './views/CampaignEdit.jsx';
+const CampaignEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'CampaignEdit' */
+          './views/CampaignEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import CampaignTable from './views/CampaignTable.jsx';
 import CharacterCreate from './views/CharacterCreate.jsx';
-import CharacterEdit from './views/CharacterEdit.jsx';
+const CharacterEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'CharacterEdit' */
+          './views/CharacterEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import CharactersTable from './views/CharactersTable.jsx';
 import CharacterView from './views/CharacterView';
-import EncounterEdit from './views/EncounterEdit.jsx';
+const EncounterEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'EncounterEdit' */
+          './views/EncounterEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import EncounterTable from './views/EncounterTable.jsx';
 import EncounterView from './views/EncounterView.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import PageFooter from './views/PageFooter.jsx';
-import PartyEdit from './views/PartyEdit.jsx';
+const PartyEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'PartyEdit' */
+          './views/PartyEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import PartyTable from './views/PartyTable.jsx';
 import PartyView from './views/PartyView.jsx';
 import LanguageTable from './views/LanguagesTable.jsx';
-import LoadingSplash from './components/LoadingSplash.jsx';
 import LoginDialog from './views/LoginDialog.jsx';
 import MessageStack from './components/MessageStack.jsx';
-import MonsterEdit from './views/MonsterEdit.jsx';
+const MonsterEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'MonsterEdit' */
+          './views/MonsterEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import MonstersTable from './views/MonstersTable.jsx';
 import MonsterView from './views/MonsterView.jsx';
-import NpcEdit from './views/NpcEdit.jsx';
+const NpcEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'NpcEdit' */
+          './views/NpcEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import NpcTable from './views/NpcTable.jsx';
 import NpcView from './views/NpcView.jsx';
-import SpellEdit from './views/SpellEdit.jsx';
+const SpellEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'SpellEdit' */
+          './views/SpellEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import SpellView from './views/SpellView.jsx';
 import SpellsTable from './views/SpellsTable.jsx';
-import UserEdit from './views/UserEdit.jsx';
+const UserEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'UserEdit' */
+          './views/UserEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import UsersTable from './views/UsersTable.jsx';
 import UserView from './views/UserView.jsx';
-import WeaponEdit from './views/WeaponEdit.jsx';
+const WeaponEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'WeaponEdit' */
+          './views/WeaponEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import WeaponView from './views/WeaponView.jsx';
 import WeaponsTable from './views/WeaponsTable.jsx';
 

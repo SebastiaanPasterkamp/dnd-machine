@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HotModuleReplacementPlugin = require('webpack-hot-middleware');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -44,6 +45,7 @@ const config = {
     },
     output: {
         path: OUTPUT_PATH_JSX,
+        publicPath: "/static/",
         filename: 'js/[name].js',
         chunkFilename: 'js/[name].js',
         hotUpdateMainFilename: '__hmr/[hash].hot-update.json',
@@ -95,6 +97,10 @@ const config = {
         }),
         new ProgressBarPlugin(),
         new webpack.HotModuleReplacementPlugin(),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false,
+        }),
     ],
     optimization: {
         splitChunks: {
@@ -108,12 +114,24 @@ const config = {
                 components: {
                     test: /[\\/]components[\\/](?!.*\.s?css$)/,
                     priority: -30,
+                    reuseExistingChunk: true,
+                },
+                views: {
+                    test: /[\\/]views[\\/](?!.*\.s?css$)/,
+                    priority: -30,
+                    reuseExistingChunk: true,
                 },
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
-                    priority: -10
+                    name(module) {
+                        const { context } = module;
+                        const packageName = context.match(/[\\/]node_modules[\\/](.*?)(?:[\\/]|$)/)[1];
+                        return `npm.${packageName.replace('@', '')}`;
+                    },
+                    priority: -10,
+                    reuseExistingChunk: true,
                 },
-                default: {
+                [PROJECT]: {
                     minChunks: 2,
                     priority: -20,
                     reuseExistingChunk: true,
