@@ -1,4 +1,15 @@
-import _ from 'lodash';
+import {
+    entries,
+    filter,
+    forEach,
+    flow,
+    get,
+    intersection,
+    isArray,
+    keys,
+    reduce,
+    replace,
+} from 'lodash/fp';
 import core from 'mathjs/core';
 const math = core.create();
 math.import(require('mathjs/lib/expression/function/eval'));
@@ -66,19 +77,19 @@ const utils = {
     },
 
     makeStyle(conditionals, styles=[]) {
-        const active = _.filter(
-            _.reduce(
-                conditionals,
-                (active, use, style) => {
-                    if (use) {
+        const active = filter(
+            null,
+            reduce(
+                (active, style) => {
+                    if (conditionals[style]) {
                         active.push(style);
                     }
                     return active;
                 },
                 styles
-            )
+            )(keys(conditionals))
         );
-        const style = _.join(active, ' ');
+        const style = active.join(' ');
         if (styleCache[style] === undefined) {
             styleCache[style] = style;
         }
@@ -86,38 +97,35 @@ const utils = {
     },
 
     closest(options, target, defaultOption=null) {
-        let matched = _.reduce(
-            options,
-            (match, value, option) => {
-                let delta = Math.abs(value - target);
+        let matched = reduce(
+            (match, option) => {
+                const delta = Math.abs(options[option] - target);
                 if (delta < match.delta) {
-                    match = {delta, option};
+                    return { delta, option };
                 }
                 return match;
             },
-            {option: defaultOption, delta: Number.MAX_SAFE_INTEGER}
-        );
+            { option: defaultOption, delta: Number.MAX_SAFE_INTEGER }
+        )(keys(options));
         return matched.option;
     },
 
     resolveMath(obj, formula, name='') {
-        let replace = {};
+        const replacings = {};
         const re = new RegExp(/\b[a-z_]+\.[a-z_.]+\b/g);
         const prefix = new RegExp(`^${name}\.`);
 
-        _.forEach(formula.match(re), match => {
-            const path = _.replace(match, prefix, '');
-            const value = _.get(obj, path);
-            if (value !== undefined
-                || path !== match
-            ) {
-                replace[match] = JSON.stringify(value);
+        forEach((match) => {
+            const path = replace(prefix, '', match);
+            const value = get(path, obj);
+            if (value !== undefined || path !== match) {
+                replacings[match] = JSON.stringify(value);
             }
-        });
+        })(formula.match(re));
 
-        _.forEach(replace, (replace, match) => {
-            formula = _.replace(formula, match, replace);
-        });
+        flow(entries, forEach(([match, value]) => {
+            formula = replace(match, value, formula);
+        }))(replacings);
 
         try {
             const result = math.eval(formula);
@@ -132,9 +140,9 @@ const utils = {
 };
 
 export function userHasRole(user, role) {
-    const roles = _.isArray(role) ? role : [role];
+    const roles = isArray(role) ? role : [role];
     return (
-        _.intersection(
+        intersection(
             user.role || [],
             roles
         ).length > 0
