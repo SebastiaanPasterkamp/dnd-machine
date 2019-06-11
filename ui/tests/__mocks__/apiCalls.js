@@ -50,6 +50,21 @@ const alignments = [
     }
 ];
 
+const classes = [
+    {"code": "Barbarian", "label": "Barbarian", "description": "A fierce warrior of primitive background who can enter a battle rage."},
+    {"code": "Bard", "label": "Bard", "description": "An inspiring magician whose power echoes the music of creation."},
+    {"code": "Cleric", "label": "Cleric", "description": "A priestly champion who wields divine magic in service of a higher power."},
+    {"code": "Druid", "label": "Druid", "description": "A priest of the Old Faith, wielding the powers of nature — moonlight and plant growth, fire and lightning — and adopting animal forms."},
+    {"code": "Fighter", "label": "Fighter", "description": "A master of martial combat, skilled wita variety of weapons and armor."},
+    {"code": "Monk", "label": "Monk", "description": "An master of martial arts, harnessing the power of the body in pursuit of physical and spiritual perfection."},
+    {"code": "Paladin", "label": "Paladin", "description": "A holy warrior bound to a sacred oath."},
+    {"code": "Ranger", "label": "Ranger", "description": "A warrior who uses martial prowess annature magic to combat threats on the edges of civilization."},
+    {"code": "Rogue", "label": "Rogue", "description": "A scoundrel who uses stealth and trickery to overcome obstacles and enemies."},
+    {"code": "Sorcerer", "label": "Sorcerer", "description": "A spellcaster who draws on inherent magic from a gift or bloodline."},
+    {"code": "Warlock", "label": "Warlock", "description": "A wielder of magic that is derived from a bargain with an extraplanar entity."},
+    {"code": "Wizard", "label": "Wizard", "description": "A scholarly magic-user capable of manipulating the structures of reality."}
+];
+
 const damage_types = [
     {
         code: "acid",
@@ -379,6 +394,20 @@ const target_methods = [
     {"code": "multiple", "label": "Multi-target", "short": "MT", "description": "Multiple targets are affected. Usually when clustered together."},
     {"code": "area", "label": "Area of Effect", "short": "AoE", "description": "An area of a specific size and shape is affected. Every designated target inside is affected."}
 ];
+
+const user_roles = [{
+        "code": "admin",
+        "label": "Site Administrator"
+    },
+    {
+        "code": "dm",
+        "label": "Dungeon Master"
+    },
+    {
+        "code": "player",
+        "label": "Player"
+    }
+];
 const weapon_properties = [{
         "code": "ammunition",
         "label": "Ammunition",
@@ -474,6 +503,7 @@ export {
     armor_types,
     attack_modes,
     alignments,
+    classes,
     damage_types,
     genders,
     languages,
@@ -484,6 +514,7 @@ export {
     skills,
     statistics,
     target_methods,
+    user_roles,
     weapon_properties,
     weapon_types,
 };
