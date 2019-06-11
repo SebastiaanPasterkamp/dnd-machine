@@ -1,4 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {
+    filter,
+    isEmpty,
+    map,
+} from 'lodash/fp';
 import {Link} from 'react-router-dom';
 
 import '../../sass/_users-table.scss';
@@ -10,108 +16,124 @@ import LazyComponent from '../components/LazyComponent.jsx';
 import ListLabel from '../components/ListLabel.jsx';
 import UserLinks from '../components/UserLinks.jsx';
 
-class UserHeader extends LazyComponent
-{
-    render() {
-        return <thead>
+const UserHeader = function() {
+    return (
+        <thead>
             <tr>
                 <th>Name</th>
                 <th>Role</th>
                 <th>Email</th>
             </tr>
         </thead>
-    }
+    );
 };
 
-class UserFooter extends LazyComponent
-{
-    render() {
-        return <tbody>
+const UserFooter = function() {
+    return (
+        <tbody>
             <tr>
                 <td colSpan={3}>
-                    <UserLinks
-                        altStyle={true}
-                    />
+                    <UserLinks altStyle={true} />
                 </td>
             </tr>
         </tbody>
-    }
+    );
 };
 
-class UserRow extends LazyComponent
-{
-    render() {
-        const {
-            id, username, name, role, email, user_roles = []
-        } = this.props;
-
-        return <tr data-id={id}>
+const UserRow = function({
+    id, username, name, role, email, user_roles,
+}) {
+    return (
+        <tr data-id={id}>
             <th>
                 {username}<br/>
                 <i>({name})</i>
-                <UserLinks
-                    altStyle={true}
-                    id={id}
-                />
+                <UserLinks altStyle={true} id={id} />
             </th>
             <td className="users-table__roles">
-                {_.map(role, (r) => (
+                {map((r) => (
                     <ListLabel
                         key={r}
                         items={user_roles}
                         value={r}
-                        />
-                ))}
+                    />
+                ))(role)}
             </td>
             <td>{email}</td>
         </tr>
-    }
+    );
+};
+
+UserRow.propTypes = {
+    id: PropTypes.number.isRequired,
+    username: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    role: PropTypes.arrayOf(PropTypes.string),
+    email: PropTypes.string,
+    user_roles: PropTypes.array,
+};
+
+UserRow.defaultProps = {
+    name: '',
+    email: '',
+    user_roles: [],
 };
 
 class UserTable extends LazyComponent
 {
-    shouldDisplayRow(pattern, user) {
+    shouldDisplayRow(pattern, {name, username, email}) {
         return (
-            (user.name && user.name.match(pattern))
-            || (user.username && user.username.match(pattern))
-            || (user.email && user.email.match(pattern))
+            (name && name.match(pattern))
+            || (username && username.match(pattern))
+            || (email && email.match(pattern))
         );
     }
 
     render() {
-        const {
-            users, user_roles, search = ''
-        } = this.props;
+        const { users, user_roles, search } = this.props;
 
-        if (!users) {
+        if (isEmpty(users)) {
             return null;
         }
 
-        let pattern = new RegExp(search, "i");
-        const filtered = _.filter(
-            users,
+        const pattern = new RegExp(search, "i");
+        const filtered = filter(
             (user) => this.shouldDisplayRow(pattern, user)
-        );
+        )(users);
 
-        return <div>
-            <h2 className="icon fa-user">Users</h2>
+        return (
+            <div>
+                <h2 className="icon fa-user">Users</h2>
 
-            <table className="nice-table users-table condensed bordered responsive">
-                <UserHeader />
-                <tbody key="tbody">
-                    {_.map(this.props.users, (user) => (
-                        <UserRow
-                            key={user.id}
-                            user_roles={user_roles}
-                            {...user}
+                <table className="nice-table users-table condensed bordered responsive">
+                    <UserHeader />
+                    <tbody key="tbody">
+                        {map((user) => (
+                            <UserRow
+                                key={user.id}
+                                user_roles={user_roles}
+                                {...user}
                             />
-                    ))}
-                </tbody>
-                <UserFooter />
-            </table>
-        </div>
+                        ))(filtered)}
+                    </tbody>
+                    <UserFooter />
+                </table>
+            </div>
+        );
     }
 }
+
+UserTable.propTypes = {
+    users: PropTypes.object,
+    user_roles: PropTypes.array,
+    search: PropTypes.string,
+};
+
+UserTable.defaultProps = {
+    search: '',
+    user_roles: [],
+    users: {},
+};
 
 export default ListDataWrapper(
     ObjectDataListWrapper(
