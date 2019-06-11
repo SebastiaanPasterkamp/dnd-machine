@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UsersTable render should work with all props 1`] = `
+<div>
+  <h2
+    className="icon fa-user"
+  >
+    Users
+  </h2>
+  <table
+    className="nice-table users-table condensed bordered responsive"
+  >
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Role
+        </th>
+        <th>
+          Email
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        data-id={1}
+      >
+        <th>
+          yankees
+          <br />
+          <i>
+            (
+            Jan Kees
+            )
+          </i>
+          <div
+            className="base-link-group nice-btn-group"
+          >
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-eye"
+              href={undefined}
+              onClick={[Function]}
+            >
+              View
+            </a>
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-cogs"
+              href="/user/raw/1"
+            >
+              Raw
+            </a>
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-pencil"
+              href={undefined}
+              onClick={[Function]}
+            >
+              Edit
+            </a>
+          </div>
+        </th>
+        <td
+          className="users-table__roles"
+        >
+          <div
+            className="list-label inline"
+          >
+            Site Administrator
+          </div>
+          <div
+            className="list-label inline"
+          >
+            Player
+          </div>
+          <div
+            className="list-label inline"
+          >
+            Dungeon Master
+          </div>
+        </td>
+        <td>
+          foo@bar.com
+        </td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <td
+          colSpan={3}
+        >
+          <div
+            className="base-link-group nice-btn-group"
+          >
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-plus"
+              href={undefined}
+              onClick={[Function]}
+            >
+              New
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`UsersTable render should work without props 1`] = `null`;
