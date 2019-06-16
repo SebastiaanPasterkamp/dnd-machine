@@ -1,0 +1,50 @@
+---
+kind: pipeline
+name: default
+
+platform:
+    os: linux
+    arch: arm
+
+steps:
+  - name: backend
+    image: python:2-alpine
+    commands:
+      - apk add build-base
+      - pip install -r requirements.txt
+      - python app/tests/run_tests.py
+
+  - name: frontend
+    image: node:8.15-alpine
+    volumes:
+      - name: cache
+        path: /drone/src/ui/node_modules
+    commands:
+      - apk add python build-base
+      - cd ui
+      - npm install
+      - npm run test
+
+  - name: build
+    image: node:8.15-alpine
+    volumes:
+      - name: cache
+        path: /drone/src/ui/node_modules
+    commands:
+      - apk add python build-base
+      - cd ui
+      - npm install
+      - npm run build:production
+    depends_on:
+      - frontend
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/drone/cache/node_modules
+
+---
+kind: signature
+hmac: 161325a67cfc696bd2c65dd85eef890fada7640eba4d0202d323f6219b171ce8
+
+...

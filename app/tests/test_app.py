@@ -36,13 +36,13 @@ class AppTestCase(BaseAppTestCase):
             "title": "D&D Machine",
             }, rv.get_json())
 
-        rv = self.client.get('/static/js/dnd-machine.js')
-        self.assertEqual(rv.status_code, 200)
-        self.assertEqual(rv.mimetype, 'application/javascript')
+        #rv = self.client.get('/static/js/dnd-machine.js')
+        #self.assertEqual(rv.status_code, 200)
+        #self.assertEqual(rv.mimetype, 'application/javascript')
 
-        rv = self.client.get('/static/css/dnd-machine.css')
-        self.assertEqual(rv.status_code, 200)
-        self.assertEqual(rv.mimetype, 'text/css')
+        #rv = self.client.get('/static/css/dnd-machine.css')
+        #self.assertEqual(rv.status_code, 200)
+        #self.assertEqual(rv.mimetype, 'text/css')
 
 
     def testPrivatePages401(self):

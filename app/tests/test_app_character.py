@@ -20,7 +20,7 @@ class AppCharacterTestCase(BaseAppTestCase):
             '/character/api': (200, 'application/json'),
             '/character/api/999': (404, None),
             '/character/copy/999': (404, None),
-            '/character/download/999': (404, None),
+            #'/character/download/999': (404, None),
             '/character/races/api': (200, 'application/json'),
             '/character/classes/api': (200, 'application/json'),
             '/character/backgrounds/api': (200, 'application/json'),
@@ -56,7 +56,7 @@ class AppCharacterTestCase(BaseAppTestCase):
             '/character/api/%d' % charId: (200, 'application/json'),
             '/character/reset/%d' % charId: (200, 'text/html'),
             '/character/copy/%d' % charId: (302, None),
-            '/character/download/%d' % charId: (200, 'application/pdf'),
+            #'/character/download/%d' % charId: (200, 'application/pdf'),
             }
         self.adminPages = {
             '/character/raw/%d' % charId: (200, 'application/json'),

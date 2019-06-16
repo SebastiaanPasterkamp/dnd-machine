@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import unittest
 import coverage
 
@@ -23,3 +24,6 @@ if result.wasSuccessful():
     cov.report(show_missing=True)
     cov.html_report(directory='coverage')
     cov.erase()
+    sys.exit(0)
+
+sys.exit(1)
