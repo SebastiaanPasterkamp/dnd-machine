@@ -3,9 +3,16 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import MockRouter from 'react-mock-router';
 
-import { mockedApi, damage_types } from '../__mocks__';
+import ListDataActions from 'actions/ListDataActions';
+import {
+    mockedApi,
+    classes,
+    damage_types,
+    magic_components,
+    magic_schools,
+} from '../__mocks__';
 
-import { SpellEdit } from 'views/SpellEdit.jsx';
+import SpellEdit from 'views/SpellEdit.jsx';
 
 describe('SpellEdit', () => {
     const fullProps = {
@@ -28,17 +35,25 @@ describe('SpellEdit', () => {
         classes: ["Wizard"],
     };
 
-    beforeEach(() => {
+    beforeAll(() => {
         fetch.mockImplementation( mockedApi({
             current_user: {},
+            classes,
             damage_types: [
                 damage_types[0],
                 damage_types[3],
             ],
+            magic_components,
+            magic_schools,
         }) );
+        ListDataActions.fetchItems('classes', 'items');
+        ListDataActions.fetchItems('magic_components', 'items');
+        ListDataActions.fetchItems('magic_schools', 'items');
+        ListDataActions.fetchItems('damage_types', 'items');
+        ListDataActions.fetchItems('current_user');
     })
 
-    afterEach(() => {
+    afterAll(() => {
         fetch.resetMocks()
     })
 
@@ -92,14 +107,10 @@ describe('SpellEdit', () => {
         ],
     };
 
-    afterEach(() => {
-        fetch.resetMocks()
-    })
-
     describe('render', () => {
         it('should work without props', () => {
             const tree = renderer.create(
-                <SpellEdit />
+                <SpellEdit.WrappedComponent.WrappedComponent />
             );
 
             expect(tree).toMatchSnapshot();
@@ -108,7 +119,7 @@ describe('SpellEdit', () => {
         it('should work with only list', () => {
             const tree = renderer.create(
                 <MockRouter location={{pathname: `/items/spell/show/${fullProps.id}`}}>
-                    <SpellEdit
+                    <SpellEdit.WrappedComponent.WrappedComponent
                         {...listProps}
                     />
                 </MockRouter>
@@ -120,7 +131,7 @@ describe('SpellEdit', () => {
         it('should work with only spell', () => {
             const tree = renderer.create(
                 <MockRouter location={{pathname: `/items/spell/show/${fullProps.id}`}}>
-                    <SpellEdit
+                    <SpellEdit.WrappedComponent.WrappedComponent
                         {...fullProps}
                     />
                 </MockRouter>
@@ -132,7 +143,7 @@ describe('SpellEdit', () => {
         it('should work with all props', () => {
             const tree = renderer.create(
                 <MockRouter location={{pathname: `/items/spell/show/${fullProps.id}`}}>
-                    <SpellEdit
+                    <SpellEdit.WrappedComponent.WrappedComponent
                         {...listProps}
                         {...fullProps}
                     />
@@ -141,5 +152,56 @@ describe('SpellEdit', () => {
 
             expect(tree).toMatchSnapshot();
         });
+    });
+
+    describe('when editing the basics', () => {
+        let wrapper;
+        let component;
+        const setState = jest.fn();
+
+        beforeEach(() => {
+            wrapper = mount(
+                <MockRouter location={{pathname: '/items/spell/new'}}>
+                    <SpellEdit setState={setState}/>
+                </MockRouter>
+            );
+            component = wrapper.find(SpellEdit);
+        });
+
+        afterEach(() => setState.mockClear());
+
+        it('can change the name', () => {
+            const { name } = fullProps;
+            wrapper
+                .find('input[placeholder="Name..."]')
+                .simulate('change', {target: {value: name}});
+            expect(setState).toBeCalledWith({ name });
+        });
+
+        it('set material should issue cost', () => {
+            const { cost } = fullProps;
+            wrapper
+                .find('li[data-value="material"]')
+                .simulate('click');
+            expect(setState).toBeCalledWith({
+                cost: '',
+                components: ['material'],
+            });
+        });
+    });
+
+    it('should emit corrections when loading invalid combinations', () => {
+        const setState = jest.fn();
+        const wrapper = mount(
+            <MockRouter location={{pathname: '/items/spell/new'}}>
+                <SpellEdit
+                    setState={setState}
+                    components={[]}
+                    cost={fullProps.cost}
+                />
+            </MockRouter>
+        );
+
+        expect(setState).toBeCalledWith({ cost: undefined });
     });
 });

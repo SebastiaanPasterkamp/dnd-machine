@@ -866,6 +866,7 @@ Array [
             className="nice-btn"
             onClick={[Function]}
           >
+            Cantrip
             <i
               className="icon fa-angle-down"
             />
@@ -875,7 +876,7 @@ Array [
             onClick={[Function]}
           >
             <li
-              className={null}
+              className="info"
               data-value="Cantrip"
               onClick={[Function]}
             >
@@ -2342,6 +2343,7 @@ Array [
             className="nice-btn"
             onClick={[Function]}
           >
+            Cantrip
             <i
               className="icon fa-angle-down"
             />
@@ -2351,7 +2353,7 @@ Array [
             onClick={[Function]}
           >
             <li
-              className={null}
+              className="info"
               data-value="Cantrip"
               onClick={[Function]}
             >
@@ -2853,7 +2855,26 @@ Array [
           <ul
             className="dropdown-menu"
             onClick={[Function]}
-          />
+          >
+            <li
+              className={null}
+              data-value="acid"
+              onClick={[Function]}
+            >
+              <a>
+                Acid
+              </a>
+            </li>
+            <li
+              className={null}
+              data-value="fire"
+              onClick={[Function]}
+            >
+              <a>
+                Fire
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
       <div
