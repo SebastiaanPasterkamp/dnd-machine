@@ -32,7 +32,7 @@ export class WeaponEdit extends React.Component
         this.memoize = memoize.bind(this);
     }
 
-    onComponentDidMount() {
+    componentDidMount() {
         const { setState } = this.props;
         const fix = this.fixConditionalFields();
         if (!isEmpty(fix)) {
