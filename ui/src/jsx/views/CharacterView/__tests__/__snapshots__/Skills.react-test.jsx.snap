@@ -30,6 +30,41 @@ exports[`Skills should render with full props 1`] = `
         </th>
         <td>
           <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            2
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th
+          className="text-align-center"
+          colSpan="2"
+        >
+          Dexterity
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          Acrobatics
+        </th>
+        <td>
+          <span
             className="icon fa-check-square-o"
           >
              
@@ -43,7 +78,191 @@ exports[`Skills should render with full props 1`] = `
             className="bonus inline"
           >
             +
-            7
+            9
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Sleight of Hand
+        </th>
+        <td>
+          <span
+            className="icon fa-check-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            6
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Stealth
+        </th>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            5
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th
+          className="text-align-center"
+          colSpan="2"
+        >
+          Constitution
+        </th>
+      </tr>
+    </thead>
+    <tbody />
+    <thead>
+      <tr>
+        <th
+          className="text-align-center"
+          colSpan="2"
+        >
+          Intelligence
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          Arcana
+        </th>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            3
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          History
+        </th>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            3
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Investigation
+        </th>
+        <td>
+          <span
+            className="icon fa-check-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            4
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Nature
+        </th>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            3
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Religion
+        </th>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            3
           </div>
         </td>
       </tr>
@@ -59,6 +278,29 @@ exports[`Skills should render with full props 1`] = `
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <th>
+          Animal Handling
+        </th>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            2
+          </div>
+        </td>
+      </tr>
       <tr>
         <th>
           Insight
@@ -77,13 +319,141 @@ exports[`Skills should render with full props 1`] = `
           <div
             className="bonus inline"
           >
-            -1
+            +
+            2
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Medicine
+        </th>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            2
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Perception
+        </th>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            2
           </div>
         </td>
       </tr>
       <tr>
         <th>
           Survival
+        </th>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            2
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th
+          className="text-align-center"
+          colSpan="2"
+        >
+          Charisma
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          Deception
+        </th>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            5
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Intimidation
+        </th>
+        <td>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            5
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Performance
         </th>
         <td>
           <span
@@ -100,7 +470,30 @@ exports[`Skills should render with full props 1`] = `
             className="bonus inline"
           >
             +
-            1
+            6
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Persuasion
+        </th>
+        <td>
+          <span
+            className="icon fa-check-square-o"
+          >
+             
+          </span>
+          <span
+            className="icon fa-check-square-o"
+          >
+             
+          </span>
+          <div
+            className="bonus inline"
+          >
+            +
+            9
           </div>
         </td>
       </tr>

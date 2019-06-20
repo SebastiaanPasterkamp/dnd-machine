@@ -1,12 +1,17 @@
 import React from 'react';
 import Reflux from 'reflux';
-import _ from 'lodash';
+import {
+    forEach,
+    isEqual,
+    isNil,
+    map,
+    reduce,
+} from 'lodash/fp';
 
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 import ObjectDataStore from '../stores/ObjectDataStore.jsx';
 
-
-function ObjectDataWrapper(
+const ObjectDataWrapper = function(
     WrappedComponent, loadables=[]
 ) {
     const component = class extends Reflux.Component {
@@ -14,80 +19,75 @@ function ObjectDataWrapper(
             super(props);
             this.state = {};
             this.store = ObjectDataStore;
-            this.storeKeys = _.map(
-                loadables,
-                loadable => loadable.type
-            ).concat([
-                'timestamp',
-            ]);
+            this.storeKeys = map((loadable) => loadable.type)(loadables);
         }
 
         getLoadables() {
-            return _.map(loadables, loadable => {
+            return map((loadable) => {
+                const {
+                    [loadable.id]: propId,
+                    match: {
+                        params: {
+                            [loadable.id]: matchId,
+                        } = {},
+                    } = {},
+                } = this.props;
                 return {
-                    objectId: _.get(
-                        this.props,
-                        [loadable.id],
-                        _.get(
-                            this.props,
-                            ['match', 'params', loadable.id],
-                            undefined
-                        )
-                    ),
                     ...loadable,
+                    objectId: propId === undefined
+                        ? matchId
+                        : propId
                 };
-            });
+            })(loadables);
         }
 
         componentDidMount() {
-            const { timestamps } = this.state;
-
-            _.forEach(this.getLoadables(), ({
-                id, type, group = null, objectId,
-            }) => {
-                if (_.isNil(objectId)) {
+            forEach(({ id, type, group = null, objectId }) => {
+                if (isNil(objectId)) {
                     return;
                 }
 
-                const { [type]: provided = {} } = this.props;
+                const {
+                    [type]: provided = {}
+                } = this.props;
                 if (provided.id === objectId) {
                     return;
                 }
 
-                const timestamp = _.get(timestamps, [type, objectId]);
-                const maxAge = Date.now() - 60.0 * 1000.0;
-
-                if (!timestamp || timestamp < maxAge) {
-                    ObjectDataActions.getObject(
-                        type,
-                        objectId,
-                        group
-                    );
-                }
-            });
+                ObjectDataActions.getObject(
+                    type,
+                    objectId,
+                    group
+                );
+            })(this.getLoadables());
         }
 
         getStateProps(state) {
-            return _.reduce(this.getLoadables(), (
-                loaded, {prop, type, objectId}
-            ) => {
-                const value = _.get(state, [type, objectId]);
-                if (value !== undefined) {
-                    loaded[prop || type] = value;
-                }
-                return loaded;
-            }, {});
+            return reduce(
+                ( loaded, {prop, type, objectId} ) => {
+                    const {
+                        [type]: {
+                            [objectId]: object,
+                        } = {},
+                    } = this.state;
+                    if (object !== undefined) {
+                        loaded[prop || type] = object;
+                    }
+                    return loaded;
+                },
+                {}
+            )(this.getLoadables());
         }
 
         shouldComponentUpdate(nextProps, nextState) {
-            if (!_.isEqual(this.props, nextProps)) {
+            if (!isEqual(this.props, nextProps)) {
                 return true;
             }
 
             const old_data = this.getStateProps(this.state),
                 new_data = this.getStateProps(nextState);
 
-            if (!_.isEqual(old_data, new_data)) {
+            if (!isEqual(old_data, new_data)) {
                 return true;
             }
 

@@ -1,5 +1,9 @@
 import React from 'react';
-import _ from 'lodash';
+import {
+    reduce,
+} from 'lodash/fp';
+
+import { memoize } from '../utils';
 
 import '../../sass/_edit-armor.scss';
 
@@ -32,44 +36,63 @@ export class ArmorEdit extends React.Component
             {code: true, label: "Disadvantage"}
         ];
 
-        this.state = {
-            armor_method: null,
-        };
+        this.state = this.constructor.getDerivedStateFromProps(
+            props,
+            {},
+        );
+
+        this.memoize = memoize.bind(this);
     }
 
-    onArmorMethod(from, to) {
+    onArmorMethod = (to) => {
+        const { armor_method: from } = this.state;
         this.setState(
             {
                 armor_method: to,
-                [from]: this.props[from]
+                [from]: this.props[from],
             },
             () => this.props.setState({
                 [from]: undefined,
-                [to]: this.state[to]
+                [to]: this.state[to],
             })
         );
     }
 
-    onFieldChange(field, value) {
-        this.props.setState({[field]: value});
+    onFieldChange = (field) => {
+        const { setState } = this.props;
+        return this.memoize(field, value => {
+            setState({ [field]: value });
+        });
     }
 
-    render() {
-        let armor_method = this.state.armor_method || _.reduce(
-            this.armor_method,
+    onFieldChangeDefault = (field, alternative) => {
+        const { setState } = this.props;
+        return this.memoize(field, value => {
+            setState({ [field]: value || alternative });
+        });
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        const armor_method = reduce(
             (armor_method, method) => {
-                if (!_.isNil(this.props[method.code])) {
-                    armor_method = method.code;
+                if (props[method]) {
+                    return method;
                 }
                 return armor_method;
             },
-            this.armor_method[0].code
-        );
+            state.armor_method || "value"
+        )([ "value", "bonus", "formula" ]);
+        if (armor_method === state.armor_method) {
+            return null;
+        }
+        return { armor_method };
+    }
 
+    render() {
+        const { armor_method } = this.state;
         const {
-            type, armor_types = [], name, description, bonus, value, formula,
-            requirements = {}, weight = {}, disadvantage,
-            cost = {}
+            type, armor_types, name, description, bonus, value, formula,
+            requirements, weight, disadvantage, cost, setState,
         } = this.props;
 
         const {
@@ -85,60 +108,50 @@ export class ArmorEdit extends React.Component
                 <ControlGroup label="Type">
                     <SingleSelect
                         selected={type || defaultArmorType}
-                        items={armor_types || []}
-                        setState={(value) =>
-                            this.onFieldChange('type', value)
-                        } />
+                        items={armor_types}
+                        setState={this.onFieldChange('type')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
                         value={name}
-                        setState={(value) =>
-                            this.onFieldChange('name', value)
-                        } />
+                        setState={this.onFieldChange('name')}
+                    />
                 </ControlGroup>
                 <ControlGroup labels={["AC", ":"]}>
                     <SingleSelect
                         header="Armor method"
                         selected={armor_method}
                         items={this.armor_method}
-                        setState={(value) => {
-                            this.onArmorMethod(
-                                armor_method,
-                                value
-                            );
-                        }} />
-                    {armor_method == 'bonus'
+                        setState={this.onArmorMethod}
+                    />
+                    {armor_method === 'bonus'
                         ? <InputField
                             type="number"
                             placeholder="Bonus..."
                             value={bonus}
-                            setState={(value) => {
-                                this.onFieldChange(
-                                    'bonus',
-                                    value || undefined
-                                )
-                            }} />
+                            setState={this.onFieldChangeDefault(
+                                'bonus', undefined
+                            )}
+                        />
                         : null
                     }
-                    {armor_method == 'value'
+                    {armor_method === 'value'
                         ? <InputField
                             type="number"
                             placeholder="Value..."
                             value={value}
-                            setState={(value) => {
-                                this.onFieldChange('value', value)
-                            }} />
+                            setState={this.onFieldChange('value')}
+                        />
                         : null
                     }
-                    {armor_method == 'formula'
+                    {armor_method === 'formula'
                         ? <InputField
                             placeholder="Formula..."
                             value={formula}
-                            setState={(value) => {
-                                this.onFieldChange('formula', value)
-                            }} />
+                            setState={this.onFieldChange('formula')}
+                        />
                         : null
                     }
                 </ControlGroup>
@@ -153,36 +166,35 @@ export class ArmorEdit extends React.Component
                     <InputField
                         type="number"
                         placeholder="Strength..."
-                        value={requirements.strength || null}
-                        setState={(value) => {
-                            this.onFieldChange('requirements', {
-                                strength: value || undefined
-                            })
-                        }} />
+                        value={requirements.strength || ''}
+                        setState={this.onFieldChangeDefault(
+                            'requirements', undefined
+                        )}
+                    />
                 </ControlGroup>
                 <ControlGroup labels={["Weight", "lb."]}>
                     <InputField
                         type="float"
                         placeholder="Pounds..."
                         value={weight.lb || ''}
-                        setState={(value) => {
-                            this.onFieldChange('weight', {lb: value});
-                        }} />
+                        setState={this.memoize(
+                            'weight',
+                            (value) => setState({weight: {lb: value}})
+                        )}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Stealth">
                     <SingleSelect
                         selected={disadvantage || false}
                         items={this.stealth}
-                        setState={(value) => {
-                            this.onFieldChange('disadvantage', value);
-                        }} />
+                        setState={this.onFieldChange('disadvantage')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Value">
                     <CostEditor
                         value={cost}
-                        setState={(value) => {
-                            this.onFieldChange('cost', value);
-                        }} />
+                        setState={this.onFieldChange('cost')}
+                    />
                 </ControlGroup>
             </Panel>,
 
@@ -194,16 +206,32 @@ export class ArmorEdit extends React.Component
                 <ControlGroup label="Description">
                     <MarkdownTextField
                         placeholder="Description..."
-                        value={description || ''}
+                        value={description}
                         rows={5}
-                        setState={value => {
-                            this.onFieldChange('description', value);
-                        }} />
+                        setState={this.onFieldChange('description')}
+                    />
                 </ControlGroup>
             </Panel>,
         ];
     }
 }
+
+ArmorEdit.defaultProps = {
+    name: '',
+    bonus: 0,
+    value: 0,
+    formula: '',
+    disadvantage: false,
+    armor_types: [],
+    description: '',
+    requirements: {
+        strength: null,
+    },
+    weight: {
+        lb: '',
+    },
+    cost: {},
+};
 
 export default ListDataWrapper(
     RoutedObjectDataWrapper(

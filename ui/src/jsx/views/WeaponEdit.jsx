@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    assign,
+    cloneDeep,
+    includes,
+    isEmpty,
+} from 'lodash';
+
+import { memoize } from '../utils';
 
 import '../../sass/_edit-weapon.scss';
 
@@ -22,74 +29,69 @@ export class WeaponEdit extends React.Component
     constructor(props) {
         super(props);
         this.state = {};
-        this.callbacks = {
-            weight: lb => this.onFieldChange('weight', {lb}),
-        };
+        this.memoize = memoize.bind(this);
     }
 
-    onComponentDidMount() {
-        let fix = this.fixConditionalFields();
-        if (!_.isEmpty(fix)) {
-            this.props.setState(fix);
+    componentDidMount() {
+        const { setState } = this.props;
+        const fix = this.fixConditionalFields();
+        if (!isEmpty(fix)) {
+            setState(fix);
         }
     }
 
     fixConditionalFields(update={}) {
         const {
             property, type, range, versatile, damage, description
-        } = _.assign({}, this.props, update);
+        } = {...this.props, ...update};
         let state = {};
         if (
             type.match('ranged')
-            || _.includes(property, 'thrown')
+            || includes(property, 'thrown')
         ) {
-            if (range == null) {
+            if (range === null) {
                 update.range = this.state.range || {
                     min: 5,
                     max: 5
                 };
             }
-        } else if (range != null) {
+        } else if (range !== null) {
             state.range = range;
             update.range = undefined;
         }
 
-        if (_.includes(property, 'versatile')) {
-            if (versatile == null) {
-                update.versatile = this.state.versatile || _.cloneDeep(damage);
+        if (includes(property, 'versatile')) {
+            if (versatile === null) {
+                update.versatile = this.state.versatile || cloneDeep(damage);
             }
-        } else if (versatile != null) {
+        } else if (versatile !== null) {
             state.versatile = versatile;
             update.versatile = undefined;
         }
 
-        if (_.includes(property, 'special')) {
-            if (description == null) {
+        if (includes(property, 'special')) {
+            if (description === null) {
                 update.description = this.state.description || '';
             }
-        } else if (description != null) {
+        } else if (description !== null) {
             state.description = description;
             update.description = undefined;
         }
 
-        if (!_.isEmpty(state)) {
+        if (!isEmpty(state)) {
             this.setState(state);
         }
         return update;
     }
 
-    onFieldChange(field, value) {
-        const update = this.fixConditionalFields({
-            [field]: value
+    onFieldChange = (field) => {
+        const { setState } = this.props;
+        return this.memoize(field, (value) => {
+            const update = this.fixConditionalFields({
+                [field]: value
+            });
+            setState(update);
         });
-        this.props.setState(update);
-    }
-
-    onChange(field) {
-        if (!(field in this.callbacks)) {
-            this.callbacks[field] = (value) => this.onFieldChange(field, value);
-        }
-        return this.callbacks[field];
     }
 
     render() {
@@ -109,25 +111,25 @@ export class WeaponEdit extends React.Component
                     <InputField
                         placeholder="Name..."
                         value={name}
-                        setState={this.onChange('name')}
+                        setState={this.onFieldChange('name')}
                     />
                 </ControlGroup>
                 <ControlGroup label="Type">
                     <SingleSelect
                         selected={type}
                         items={weapon_types}
-                        setState={this.onChange('type')}
+                        setState={this.onFieldChange('type')}
                     />
                 </ControlGroup>
                 <DamageEdit
                     {...damage}
-                    setState={this.onChange('damage')}
+                    setState={this.onFieldChange('damage')}
                 />
                 {versatile
                     ? <DamageEdit
                         label="Versatile"
                         {...versatile}
-                        setState={this.onChange('versatile')}
+                        setState={this.onFieldChange('versatile')}
                     />
                     : null
                 }
@@ -142,13 +144,13 @@ export class WeaponEdit extends React.Component
                     <TagContainer
                         value={property}
                         items={weapon_properties}
-                        setState={this.onChange('property')}
+                        setState={this.onFieldChange('property')}
                     />
                 </ControlGroup>
                 {range
                     ? <ReachEdit
                         {...range}
-                        setState={this.onChange('range')}
+                        setState={this.onFieldChange('range')}
                         />
                     : null
                 }
@@ -157,19 +159,19 @@ export class WeaponEdit extends React.Component
                         type="float"
                         placeholder="Pounds..."
                         value={weight.lb || ''}
-                        setState={this.onChange('weight')}
+                        setState={this.onFieldChange('weight')}
                     />
                 </ControlGroup>
 
                 <ControlGroup label="Value">
                     <CostEditor
                         value={cost}
-                        setState={this.onChange('cost')}
+                        setState={this.onFieldChange('cost')}
                     />
                 </ControlGroup>
             </Panel>,
 
-            description != null ? <Panel
+            description !== null ? <Panel
                     key="special"
                     className="weapon-edit__special"
                     header="Special"
@@ -179,7 +181,7 @@ export class WeaponEdit extends React.Component
                         placeholder="Description..."
                         value={description}
                         rows={5}
-                        setState={this.onChange('description')}
+                        setState={this.onFieldChange('description')}
                     />
                 </ControlGroup>
             </Panel> : null

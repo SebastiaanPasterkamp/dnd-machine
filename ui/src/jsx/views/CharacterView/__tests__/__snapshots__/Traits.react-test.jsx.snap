@@ -16,29 +16,75 @@ exports[`Traits should render with full props 1`] = `
     <ul>
       <li>
         <strong>
-          Yay
+          By Popular Demand
         </strong>
         <span>
           <p>
-            Some 
-            <strong>
-              cool
-            </strong>
-             stuff.
+            You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble's court. At such a place, you receive free lodging and food of a modest or comfortable standard (depending on the quality of the establishment), as long as you perform each night. In addition, your performance makes you something of a local figure. When strangers recognize you in a town where you have performed, they typically take a liking to you.
           </p>
         </span>
       </li>
       <li>
         <strong>
-          Nay
+          Darkvision
         </strong>
         <span>
           <p>
-            Some 
+            Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.
+          </p>
+        </span>
+      </li>
+      <li>
+        <strong>
+          Entertainer Routines
+        </strong>
+        <span>
+          <p>
+            Instrumentalist
+          </p>
+        </span>
+      </li>
+      <li>
+        <strong>
+          Gnome Cunning
+        </strong>
+        <span>
+          <p>
+            You have 
+            <strong>
+              Advantage
+            </strong>
+             on all 
+            <strong>
+              Intelligence
+            </strong>
+            , 
+            <strong>
+              Wisdom
+            </strong>
+            , and 
+            <strong>
+              Charisma
+            </strong>
+             
             <em>
-              "RP"
+              Saving Throws
             </em>
-             stuff.
+             against magic.
+          </p>
+        </span>
+      </li>
+      <li>
+        <strong>
+          Speak with Small Beasts
+        </strong>
+        <span>
+          <p>
+            Through sounds and gestures, you can communicate simple ideas with 
+            <em>
+              Small
+            </em>
+             or smaller beasts. Forest gnomes love animals and often keep squirrels, badgers, rabbits, moles, woodpeckers, and other creatures as beloved pets.
           </p>
         </span>
       </li>

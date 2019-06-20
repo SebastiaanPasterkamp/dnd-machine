@@ -37,7 +37,7 @@ exports[`Description should render with full props 1`] = `
       </a>
     </div>
     <h3>
-      FooBar McFooBarface
+      "Lucky"
     </h3>
     <h4>
       <div
@@ -50,17 +50,17 @@ exports[`Description should render with full props 1`] = `
             className="character-label__item"
           >
             Level 
-            1
+            5
           </span>
           <div
             className="list-label inline"
           >
-            Male
+            Female
           </div>
           <span
             className="character-label__item"
           >
-            Human
+            Forest Gnome
           </span>
           <span
             className="character-label__item"
@@ -70,7 +70,7 @@ exports[`Description should render with full props 1`] = `
           <div
             className="list-label inline character-label__alignment"
           >
-            True neutral
+            Chaotic Good
           </div>
         </div>
       </div>
@@ -86,11 +86,11 @@ exports[`Description should render with full props 1`] = `
           style={
             Object {
               "height": "1.25rem",
-              "width": "100%",
+              "width": "13.653333333333334%",
             }
           }
         >
-          Level 1 (undefined / undefined)
+          1024
         </div>
       </div>
     </div>

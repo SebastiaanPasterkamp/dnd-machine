@@ -59,16 +59,22 @@ export class WeaponsView extends React.Component
 
                         </td>
                     </tr>
-                    <tr>
-                        <th>Damage:</th>
-                        <td>
-                            {damage && <DiceNotation {...damage} />}
-                            {versatile && [
-                                ` / `,
-                                <DiceNotation {...versatile} />
-                            ]}
-                        </td>
-                    </tr>
+                    {damage ? (
+                        <tr>
+                            <th>Damage:</th>
+                            {versatile ? (
+                                <td>
+                                    <DiceNotation {...damage} />
+                                    /
+                                    <DiceNotation {...versatile} />
+                                </td>
+                            ) : (
+                                <td>
+                                    <DiceNotation {...damage} />
+                                </td>
+                            )}
+                        </tr>
+                    ) : null}
                     { !_.isEmpty(properties) && <tr>
                         <th>Attributes:</th>
                         <td className="weapon-view__properties">
@@ -123,6 +129,15 @@ export const WeaponView = BaseViewWrapper(
     WeaponsView, viewConfig
 );
 
+WeaponsView.defaultProps = {
+    property: [],
+    range: {},
+    weight: {},
+    cost: {},
+    weapon_types: [],
+    weapon_properties: [],
+}
+
 export default ListDataWrapper(
     RoutedObjectDataWrapper(
         WeaponsView, viewConfig, "weapon", "items"
@@ -130,7 +145,6 @@ export default ListDataWrapper(
     [
         "weapon_types",
         "weapon_properties",
-        "damage_types",
     ],
     'items'
 );

@@ -3,6 +3,13 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import MockRouter from 'react-mock-router';
 
+import {
+    mockedApi,
+    alignments,
+    monster_types,
+    size_hit_dice,
+} from '../../../../../tests/__mocks__';
+
 import MonsterPicker from '../MonsterPicker.jsx';
 
 describe('MonsterPicker', () => {
@@ -42,6 +49,28 @@ describe('MonsterPicker', () => {
         },
     };
 
+    beforeEach(() => {
+        fetch.mockImplementation( mockedApi({
+            alignments: [
+                alignments[1],
+                alignments[9],
+            ],
+            monster_types: [
+                monster_types[0],
+                monster_types[1],
+            ],
+            size_hit_dice: [
+                size_hit_dice[1],
+                size_hit_dice[2],
+            ],
+            'monster/api': fullProps.monsters,
+        }) );
+    })
+
+    afterEach(() => {
+        fetch.resetMocks();
+    })
+
     describe('rendering', () => {
         it('should work with minimum props', () => {
             const tree = renderer.create(
@@ -70,13 +99,17 @@ describe('MonsterPicker', () => {
     });
 
     describe('filtering', () => {
-        const wrapper = mount(
-            <MockRouter>
-                <MonsterPicker
-                    {...fullProps}
-                />
-            </MockRouter>
-        );
+        let wrapper;
+
+        beforeEach(() => {
+            wrapper = mount(
+                <MockRouter>
+                    <MonsterPicker
+                        {...fullProps}
+                    />
+                </MockRouter>
+            );
+        });
 
         afterEach(() => jest.clearAllMocks());
 
@@ -119,13 +152,17 @@ describe('MonsterPicker', () => {
     });
 
     describe('allows picking a Monster', () => {
-        const wrapper = mount(
-            <MockRouter>
-                <MonsterPicker
-                    {...fullProps}
-                />
-            </MockRouter>
-        );
+        let wrapper;
+
+        beforeEach(() => {
+            wrapper = mount(
+                <MockRouter>
+                    <MonsterPicker
+                        {...fullProps}
+                    />
+                </MockRouter>
+            );
+        });
 
         afterEach(() => jest.clearAllMocks());
 
@@ -139,6 +176,11 @@ describe('MonsterPicker', () => {
         });
 
         it('should emit the current selection', () => {
+            wrapper
+                .find('.fa-paw')
+                .at(0)
+                .simulate('click');
+
             wrapper
                 .find('.fa-check')
                 .simulate('click');

@@ -3,7 +3,7 @@ import _ from 'lodash';
 import fp from 'lodash/fp';
 import { mount } from 'enzyme';
 
-const { statistics } = require('./__mocks__/apiCalls.js');
+import { statistics } from '../../../../../tests/__mocks__';
 
 jest.useFakeTimers();
 jest.mock('../../../actions/ListDataActions.jsx');

@@ -16,21 +16,125 @@ exports[`Abilities should render with full props 1`] = `
     <ul>
       <li>
         <strong>
-          Simple
+          Bardic Inspiration
         </strong>
         <span>
           <p>
-            Something simple
+            You can inspire others through stirring words or music. To do so, you use a 
+            <em>
+              bonus action
+            </em>
+             on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one 
+            <strong>
+              Bardic Inspiration
+            </strong>
+             die, a d8.
+            
+
+            Once within the next 10 minutes, the creature can roll the die and add the number rolled to one 
+            <em>
+              Ability Check
+            </em>
+            , 
+            <em>
+              Attack Roll
+            </em>
+            , or 
+            <em>
+              Saving Throw
+            </em>
+             it makes. The creature can wait until after it rolls the 
+            <code>
+              d20
+            </code>
+             before deciding to use the 
+            <strong>
+              Bardic Inspiration
+            </strong>
+             die, but must decide before the DM says whether the roll succeeds or fails. Once the 
+            <strong>
+              Bardic Inspiration
+            </strong>
+             die is rolled, it is lost. A creature can have only one 
+            <strong>
+              Bardic Inspiration
+            </strong>
+             die at a time.
+            
+
+            You can use this feature 3 times. You regain any expended uses when you finish a 
+            <em>
+              short
+            </em>
+             rest.
           </p>
         </span>
       </li>
       <li>
         <strong>
-          Complex
+          Jack of All Trades
         </strong>
         <span>
           <p>
-            Formatted: 1.12
+            You can add half your 
+            <strong>
+              Proficiency Bonus
+            </strong>
+            , rounded down, to any 
+            <strong>
+              Ability Check
+            </strong>
+             you make that doesn't already include your proficiency bonus.
+          </p>
+        </span>
+      </li>
+      <li>
+        <strong>
+          Psychic Blades
+        </strong>
+        <span>
+          <p>
+            You gain the ability to ma ke your weapon attacks magically toxic to a creature's mind. When you hit a creature with a weapon attack, you can expend one use of your 
+            <em>
+              Bardic Inspiration
+            </em>
+             to deal an extra 
+            <code>
+              3d6
+            </code>
+             
+            <strong>
+              psychic damage
+            </strong>
+             to that target. You can do so only once per round on your turn.
+          </p>
+        </span>
+      </li>
+      <li>
+        <strong>
+          Song of Rest
+        </strong>
+        <span>
+          <p>
+            You can use soothing music or oration to help revitalize your wounded allies during a short rest. If you or any friendly creatures who can hear your performance regain hit points at the end of the short rest, each of those creatures regains an extra d6 hit points.
+          </p>
+        </span>
+      </li>
+      <li>
+        <strong>
+          Words of Terror
+        </strong>
+        <span>
+          <p>
+            You learn to infuse innocent-seeming words with an insidious magic that can inspire terror. If you speak to a humanoid alone for at least 1 minute, you can attempt to seed paranoia in its mind. At the end of the conversation, the target must succeed on a 
+            <em>
+              Wisdom
+            </em>
+             saving throw against your spell save DC or be 
+            <em>
+              frightened
+            </em>
+             of you or another creature of your choice. The target is frightened in this way for 1 hour, until it is attacked or damaged, or until it witnesses its allies being attacked or damaged. If the target succeeds on its saving throw, the target has no hint that you tried to frighten it. Once you use this feature, you can't use it again until you finish a short or long rest.
           </p>
         </span>
       </li>

@@ -1,0 +1,415 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PartyView should render with full props 1`] = `
+Array [
+  <div
+    className="nice-panel party-view__description info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th
+            colSpan="2"
+          >
+            <div
+              className="base-link-group nice-btn-group pull-right"
+            >
+              <a
+                className="cursor-pointer nice-btn icon fa-eye"
+                href={undefined}
+                onClick={[Function]}
+              >
+                View
+              </a>
+              <a
+                className="cursor-pointer nice-btn icon fa-beer info"
+                onClick={[Function]}
+              >
+                Host
+              </a>
+            </div>
+            <h3>
+              PartyBoat
+            </h3>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>
+            Dungeon Master
+          </th>
+          <td />
+        </tr>
+        <tr>
+          <th>
+            Description
+          </th>
+          <td>
+            <span>
+              <p>
+                I'm on 
+                <em>
+                  a boat
+                </em>
+                !
+              </p>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel party-view__challenge info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Party Encounter Challenge Rating
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th>
+            Party size
+          </th>
+          <th
+            className="info"
+          >
+            Easy
+          </th>
+          <th
+            className="good"
+          >
+            Medium
+          </th>
+          <th
+            className="warning"
+          >
+            Hard
+          </th>
+          <th
+            className="bad"
+          >
+            Deadly
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            2
+          </td>
+          <td
+            className="info"
+          >
+            50
+            XP
+          </td>
+          <td
+            className="good"
+          >
+            100
+            XP
+          </td>
+          <td
+            className="warning"
+          >
+            200
+            XP
+          </td>
+          <td
+            className="bad"
+          >
+            400
+            XP
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel party-view__members info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Individual Challenge Rating
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th>
+            Character
+          </th>
+          <th>
+            Level
+          </th>
+          <th>
+            Easy
+          </th>
+          <th>
+            Medium
+          </th>
+          <th>
+            Hard
+          </th>
+          <th>
+            Deadly
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>
+            Foo Fighter
+            <div
+              className="base-link-group nice-btn-group"
+            >
+              <a
+                className="cursor-pointer nice-btn-alt icon fa-eye"
+                href={undefined}
+                onClick={[Function]}
+              >
+                View
+              </a>
+            </div>
+          </th>
+          <td>
+            1
+          </td>
+          <td
+            className="info"
+          >
+            25
+            XP
+          </td>
+          <td
+            className="good"
+          >
+            50
+            XP
+          </td>
+          <td
+            className="warning"
+          >
+            100
+            XP
+          </td>
+          <td
+            className="bad"
+          >
+            200
+            XP
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Bar Brawler
+            <div
+              className="base-link-group nice-btn-group"
+            >
+              <a
+                className="cursor-pointer nice-btn-alt icon fa-eye"
+                href={undefined}
+                onClick={[Function]}
+              >
+                View
+              </a>
+            </div>
+          </th>
+          <td>
+            1
+          </td>
+          <td
+            className="info"
+          >
+            25
+            XP
+          </td>
+          <td
+            className="good"
+          >
+            50
+            XP
+          </td>
+          <td
+            className="warning"
+          >
+            100
+            XP
+          </td>
+          <td
+            className="bad"
+          >
+            200
+            XP
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+]
+`;
+
+exports[`PartyView should render without props 1`] = `
+Array [
+  <div
+    className="nice-panel party-view__description info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th
+            colSpan="2"
+          >
+            <h3 />
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>
+            Dungeon Master
+          </th>
+          <td />
+        </tr>
+        <tr>
+          <th>
+            Description
+          </th>
+          <td>
+            <span />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel party-view__challenge info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Party Encounter Challenge Rating
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th>
+            Party size
+          </th>
+          <th
+            className="info"
+          >
+            Easy
+          </th>
+          <th
+            className="good"
+          >
+            Medium
+          </th>
+          <th
+            className="warning"
+          >
+            Hard
+          </th>
+          <th
+            className="bad"
+          >
+            Deadly
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td />
+          <td
+            className="info"
+          >
+            XP
+          </td>
+          <td
+            className="good"
+          >
+            XP
+          </td>
+          <td
+            className="warning"
+          >
+            XP
+          </td>
+          <td
+            className="bad"
+          >
+            XP
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel party-view__members info"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Individual Challenge Rating
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th>
+            Character
+          </th>
+          <th>
+            Level
+          </th>
+          <th>
+            Easy
+          </th>
+          <th>
+            Medium
+          </th>
+          <th>
+            Hard
+          </th>
+          <th>
+            Deadly
+          </th>
+        </tr>
+      </thead>
+      <tbody />
+    </table>
+  </div>,
+]
+`;

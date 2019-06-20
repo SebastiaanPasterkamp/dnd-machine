@@ -19,7 +19,7 @@ exports[`Basics should render with full props 1`] = `
           Armor Class
         </th>
         <td>
-          12
+          14
            / 
           <div
             className="bonus inline"
@@ -34,7 +34,7 @@ exports[`Basics should render with full props 1`] = `
           Hit Points
         </th>
         <td>
-          13
+          33
         </td>
       </tr>
       <tr>
@@ -46,9 +46,9 @@ exports[`Basics should render with full props 1`] = `
             className="dice-notation inline capitalize"
           >
             <code>
-              1
+              5
               d
-              10
+              8
               
             </code>
           </div>
@@ -63,7 +63,7 @@ exports[`Basics should render with full props 1`] = `
             className="reach inline"
           >
             <span>
-              30
+              25
                ft.
             </span>
           </div>
@@ -97,7 +97,7 @@ exports[`Basics should render with full props 1`] = `
             className="weight inline"
           >
             <span>
-              40
+              50
               lb
             </span>
           </div>
@@ -120,7 +120,7 @@ exports[`Basics should render with full props 1`] = `
             className="bonus inline"
           >
             +
-            2
+            3
           </div>
         </td>
       </tr>
@@ -129,7 +129,7 @@ exports[`Basics should render with full props 1`] = `
           Passive Perception
         </th>
         <td>
-          11
+          12
         </td>
       </tr>
       <tr>
@@ -141,7 +141,7 @@ exports[`Basics should render with full props 1`] = `
             className="bonus inline"
           >
             +
-            2
+            3
           </div>
         </td>
       </tr>
@@ -153,7 +153,7 @@ exports[`Basics should render with full props 1`] = `
           <div
             className="list-label inline"
           >
-            Intelligence
+            charisma
           </div>
         </td>
       </tr>
@@ -174,7 +174,7 @@ exports[`Basics should render with full props 1`] = `
             className="bonus inline"
           >
             +
-            4
+            6
           </div>
         </td>
       </tr>

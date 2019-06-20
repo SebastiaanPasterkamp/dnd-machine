@@ -4,7 +4,7 @@ import fp from 'lodash/fp';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 
-const { statistics } = require('./__mocks__/apiCalls.js');
+import { statistics } from '../../../../../tests/__mocks__';
 
 jest.useFakeTimers();
 

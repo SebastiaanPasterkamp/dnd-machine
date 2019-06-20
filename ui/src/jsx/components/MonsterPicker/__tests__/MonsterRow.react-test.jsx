@@ -3,6 +3,13 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import MockRouter from 'react-mock-router';
 
+import {
+    mockedApi,
+    alignments,
+    monster_types,
+    size_hit_dice,
+} from '../../../../../tests/__mocks__';
+
 import MonsterRow from '../components/MonsterRow.jsx';
 
 describe('MonsterRow', () => {
@@ -21,6 +28,27 @@ describe('MonsterRow', () => {
         label: "Choose",
         icon: "bullhorn",
     };
+
+    beforeEach(() => {
+        fetch.mockImplementation( mockedApi({
+            alignment: [
+                alignments[0],
+                alignments[1],
+            ],
+            monster_types: [
+                monster_types[1],
+                monster_types[9],
+            ],
+            size_hit_dice: [
+                size_hit_dice[1],
+                size_hit_dice[2],
+            ],
+        }) );
+    })
+
+    afterEach(() => {
+        fetch.resetMocks();
+    })
 
     describe('rendering', () => {
         it('should work with minimum props', () => {

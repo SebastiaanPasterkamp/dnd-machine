@@ -3,10 +3,11 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
 import Backstory from '../components/Backstory';
+import { backstory } from '../__mocks__/character';
 
 describe('Backstory', () => {
     const fullProps = {
-        backstory: "Now this is the story ...",
+        backstory,
     };
 
     it('should render without props', () => {

@@ -2,43 +2,21 @@ import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
-import { mockedApi } from '../../../../../tests/__mocks__';
+import { mockedApi, statistics } from '../../../../../tests/__mocks__';
+import { statistics as stats, proficiencies, saving_throws } from '../__mocks__/character';
 
 import Statistics from '../components/Statistics';
 
 describe('Statistics', () => {
     const fullProps = {
-        stats: {
-            base: {
-                strength: 12,
-                wisdom: 9,
-            },
-            modifiers: {
-                strength: 1,
-                wisdom: -1,
-            },
-        },
-        proficiencies: {
-            saving_throws: [ "strength" ],
-        },
-        saving_throws: {
-            strength: 3,
-            wisdom: -1,
-        },
+        stats,
+        proficiencies,
+        saving_throws,
     };
 
     beforeEach(() => {
         fetch.mockImplementation( mockedApi({
-            statistics: [
-                {
-                    code: "strength",
-                    label: "Strength",
-                },
-                {
-                    code: "wisdom",
-                    label: "Wisdom",
-                },
-            ],
+            statistics,
         }) );
     })
 

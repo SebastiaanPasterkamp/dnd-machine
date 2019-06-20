@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArmorTable render should filter 1`] = `
+<div>
+  <h2
+    className="icon fa-shield"
+  >
+    Armor
+  </h2>
+  <table
+    className="nice-table condensed bordered responsive"
+  >
+    <thead>
+      <tr>
+        <th />
+        <th>
+          Armor
+        </th>
+        <th>
+          Cost
+        </th>
+        <th>
+          Properties
+        </th>
+      </tr>
+    </thead>
+    <tbody />
+    <tbody>
+      <tr>
+        <td
+          colSpan={4}
+        />
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`ArmorTable render should work with all props 1`] = `
+<div>
+  <h2
+    className="icon fa-shield"
+  >
+    Armor
+  </h2>
+  <table
+    className="nice-table condensed bordered responsive"
+  >
+    <thead>
+      <tr>
+        <th />
+        <th>
+          Armor
+        </th>
+        <th>
+          Cost
+        </th>
+        <th>
+          Properties
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        data-id={1}
+      >
+        <th>
+          T-shirt
+          <div
+            className="base-link-group nice-btn-group"
+          >
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-eye"
+              href={undefined}
+              onClick={[Function]}
+            >
+              View
+            </a>
+          </div>
+        </th>
+        <td>
+          <div
+            className="bonus inline"
+          >
+            +
+            2
+          </div>
+        </td>
+        <td>
+          <div
+            className="coinage capitalize"
+          >
+            2 Silver
+          </div>
+        </td>
+        <td>
+          <ul>
+            <li>
+              <div
+                className="list-label inline"
+              >
+                Medium Armor
+              </div>
+            </li>
+            <li>
+              <strong>
+                Weight:
+              </strong>
+               
+              <div
+                className="weight inline"
+              >
+                <span>
+                  0.3
+                  lb
+                </span>
+              </div>
+            </li>
+            <li>
+              <strong>
+                Strength:
+              </strong>
+               
+              13
+            </li>
+            <li>
+              <strong>
+                Stealth:
+              </strong>
+                Disadvantage
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <td
+          colSpan={4}
+        />
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`ArmorTable render should work without props 1`] = `
+<div>
+  <h2
+    className="icon fa-shield"
+  >
+    Armor
+  </h2>
+  <table
+    className="nice-table condensed bordered responsive"
+  >
+    <thead>
+      <tr>
+        <th />
+        <th>
+          Armor
+        </th>
+        <th>
+          Cost
+        </th>
+        <th>
+          Properties
+        </th>
+      </tr>
+    </thead>
+    <tbody />
+    <tbody>
+      <tr>
+        <td
+          colSpan={4}
+        />
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

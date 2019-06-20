@@ -1,0 +1,116 @@
+{
+    "alignment": "lawful evil",
+    "armor_class": 12,
+    "attack_bonus": 4,
+    "attack_modifier": {
+        "melee": "strength",
+        "ranged": "dexterity",
+        "spell": "charisma"
+    },
+    "attacks": [{
+            "average": 1,
+            "bonus": 1.0,
+            "critical": 4,
+            "damage": [{
+                "average": 1,
+                "bonus": -1.0,
+                "critical": 4,
+                "dice_count": 1,
+                "dice_size": 4,
+                "notation": "1d4+-1",
+                "type": "piercing"
+            }],
+            "mode": "melee",
+            "name": "Dagger",
+            "notation": "1d4+-1 piercing",
+            "reach": {
+                "max": 5,
+                "min": 5
+            },
+            "spell_save_dc": 0,
+            "target": "single"
+        },
+        {
+            "average": 4,
+            "bonus": 4.0,
+            "critical": 7,
+            "damage": [{
+                "average": 4,
+                "bonus": 2.0,
+                "critical": 7,
+                "dice_count": 1,
+                "dice_size": 4,
+                "notation": "1d4+2",
+                "type": "bludgeoning"
+            }],
+            "mode": "ranged",
+            "name": "Sling",
+            "notation": "1d4+2 bludgeoning",
+            "spell_save_dc": 0,
+            "target": "single"
+        }
+    ],
+    "average_damage": 4,
+    "challenge": 0.0,
+    "challenge_rating": 0.5,
+    "challenge_rating_precise": 0.8125,
+    "critical_damage": 7,
+    "dice_size": 6,
+    "features": [],
+    "hit_points": 5,
+    "hit_points_notation": "2d6+-2",
+    "languages": [
+        "common",
+        "draconic"
+    ],
+    "level": 2,
+    "motion": {
+        "walk": 30
+    },
+    "multiattack": [],
+    "name": "Kobol",
+    "passive_perception": 9,
+    "proficiency": 2,
+    "size": "small",
+    "spell_save_dc": 0,
+    "statistics": {
+        "bare": {
+            "charisma": 8,
+            "constitution": 9,
+            "dexterity": 15,
+            "intelligence": 8,
+            "strength": 8,
+            "wisdom": 8
+        },
+        "base": {
+            "charisma": 8,
+            "constitution": 9,
+            "dexterity": 15,
+            "intelligence": 8,
+            "strength": 8,
+            "wisdom": 8
+        },
+        "bonus": {
+            "charisma": [],
+            "constitution": [],
+            "dexterity": [],
+            "intelligence": [],
+            "strength": [],
+            "wisdom": []
+        },
+        "modifiers": {
+            "charisma": -1.0,
+            "constitution": -1.0,
+            "dexterity": 2.0,
+            "intelligence": -1.0,
+            "strength": -1.0,
+            "wisdom": -1.0
+        }
+    },
+    "traits": {},
+    "type": "Humanoid",
+    "user_id": 2,
+    "version": "1.0",
+    "xp": 100,
+    "xp_rating": 162
+}

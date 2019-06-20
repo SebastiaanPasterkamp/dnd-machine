@@ -1,5 +1,12 @@
 import React from 'react';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
+import {
+    includes,
+    isEmpty,
+    range,
+} from 'lodash/fp';
+
+import { memoize } from '../utils';
 
 import '../../sass/_spell-edit.scss';
 
@@ -15,7 +22,6 @@ import MarkdownTextField from '../components/MarkdownTextField.jsx';
 import MultiSelect from '../components/MultiSelect.jsx';
 import ReachEdit from '../components/ReachEdit.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
-import StatsBlock from '../components/StatsBlock.jsx';
 import TextField from '../components/TextField.jsx';
 import TagContainer from '../components/TagContainer.jsx';
 
@@ -23,8 +29,10 @@ export class SpellEdit extends React.Component
 {
     constructor(props) {
         super(props);
-        this.state = {};
-        this.levels = _.range(0, 11).map((level) => {
+        this.state = {
+            cost: '',
+        };
+        this.levels = range(0, 11).map((level) => {
             return {
                 code: level
                     ? level.toString()
@@ -34,132 +42,129 @@ export class SpellEdit extends React.Component
                     : 'Cantrip',
             };
         });
+        this.memoize = memoize.bind(this);
+    }
+
+    componentDidMount() {
+        const { setState } = this.props;
+        const fix = this.fixConditionalFields();
+        if (!isEmpty(fix)) {
+            setState(fix);
+        }
     }
 
     fixConditionalFields(update={}) {
         const {
             components, cost
-        } = _.assign({}, this.props, update);
+        } = {...this.props, ...update};
         let state = {};
 
-        if (_.includes(components, 'material')) {
-            if (cost == null) {
-                update.cost = this.state.cost || '';
+        if (includes('material', components)) {
+            if (cost === null || cost === undefined) {
+                update.cost = this.state.cost;
             }
-        } else if (cost != null) {
+        } else if (cost !== null) {
             state.cost = cost;
             update.cost = undefined;
         }
 
-        if (!_.isEmpty(state)) {
+        if (!isEmpty(state)) {
             this.setState(state);
         }
 
         return update;
     }
 
-    onFieldChange(field, value) {
-        const update = this.fixConditionalFields({
-            [field]: value
+    onFieldChange = (field) => {
+        const { setState } = this.props;
+        return this.memoize(field, (value) => {
+            const update = this.fixConditionalFields({
+                [field]: value,
+            });
+            setState(update);
         });
-        this.props.setState(update);
     }
 
     render() {
         const {
-            casting_time, classes = [], _classes = [],
-            components = [], magic_components = [], cost, damage,
+            casting_time, classes, _classes,
+            components, magic_components, cost, damage,
             description, duration, level, name, range, school,
             magic_schools,
         } = this.props;
 
         return <React.Fragment>
             <Panel
-                    key="properties"
-                    className="spell-edit__properties"
-                    header="Description"
-                >
+                key="properties"
+                className="spell-edit__properties"
+                header="Description"
+            >
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
                         value={name}
-                        setState={(value) =>
-                            this.onFieldChange('name', value)
-                        } />
+                        setState={this.onFieldChange('name')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Level">
                     <SingleSelect
                         selected={level}
                         items={this.levels}
-                        setState={(value) =>
-                            this.onFieldChange('level', value)
-                        } />
+                        setState={this.onFieldChange('level')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Classes">
                     <TagContainer
                         value={classes}
                         items={_classes}
-                        setState={(value) => {
-                            this.onFieldChange('classes', value);
-                        }}
-                        />
+                        setState={this.onFieldChange('classes')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="School">
                     <SingleSelect
                         selected={school}
-                        items={magic_schools || []}
-                        setState={(value) =>
-                            this.onFieldChange('school', value)
-                        } />
+                        items={magic_schools}
+                        setState={this.onFieldChange('school')}
+                    />
                 </ControlGroup>
                 <ReachEdit
                     distance={range}
-                    setState={(range) => {
-                        this.onFieldChange('range', range);
-                    }}
-                    />
+                    setState={this.onFieldChange('range')}
+                />
                 <ControlGroup label="Casting Time">
                     <InputField
                         placeholder="Casting Time..."
                         value={casting_time}
-                        setState={(value) =>
-                            this.onFieldChange('casting_time', value)
-                        } />
+                        setState={this.onFieldChange('casting_time')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Duration">
                     <InputField
                         placeholder="Duration..."
                         value={duration}
-                        setState={(value) =>
-                            this.onFieldChange('duration', value)
-                        } />
+                        setState={this.onFieldChange('duration')}
+                    />
                 </ControlGroup>
                 <DamageEdit
                     {...damage}
-                    setState={(value) => {
-                        this.onFieldChange('damage', value);
-                    }}
-                    />
+                    setState={this.onFieldChange('damage')}
+                />
                 <ControlGroup label="Components">
                     <TagContainer
                         value={components}
                         items={magic_components}
-                        setState={(value) => {
-                            this.onFieldChange('components', value);
-                        }}
-                        />
+                        setState={this.onFieldChange('components')}
+                    />
                 </ControlGroup>
-                {cost != undefined
-                    ? <ControlGroup label="Cost">
+                {cost !== null ? (
+                    <ControlGroup label="Cost">
                         <InputField
                             placeholder="Cost..."
                             value={cost}
-                            setState={(value) =>
-                                this.onFieldChange('cost', value)
-                            } />
+                            setState={this.onFieldChange('cost')}
+                        />
                     </ControlGroup>
-                    : null
-                }
+                ) : null}
             </Panel>
 
             <Panel
@@ -172,13 +177,40 @@ export class SpellEdit extends React.Component
                         placeholder="Description..."
                         value={description}
                         rows={5}
-                        setState={(value) => {
-                            this.onFieldChange('description', value);
-                        }} />
+                        setState={this.onFieldChange('description')}
+                    />
                 </ControlGroup>
             </Panel>
         </React.Fragment>;
     }
+};
+
+SpellEdit.propTypes = {
+    casting_time: PropTypes.string,
+    cost: PropTypes.string,
+    damage: PropTypes.object,
+    description: PropTypes.string,
+    duration: PropTypes.string,
+    level: PropTypes.string,
+    name: PropTypes.string,
+    range: PropTypes.number,
+    school: PropTypes.string,
+    classes: PropTypes.array,
+    _classes: PropTypes.array,
+    components: PropTypes.array,
+    magic_components: PropTypes.array,
+    magic_schools: PropTypes.array,
+};
+
+SpellEdit.defaultProps = {
+    classes: [],
+    cost: null,
+    description: '',
+    level: 'Cantrip',
+    _classes: [],
+    components: [],
+    magic_components: [],
+    magic_schools: [],
 };
 
 export default ListDataWrapper(

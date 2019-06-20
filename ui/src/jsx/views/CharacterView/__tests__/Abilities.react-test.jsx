@@ -3,19 +3,11 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
 import Abilities from '../components/Abilities';
+import { abilities } from '../__mocks__/character';
 
 describe('Abilities', () => {
     const fullProps = {
-        abilities: {
-            Simple: {
-                description: "Something simple",
-            },
-            Complex: {
-                description: "%(prefix)s: %(number).2f",
-                prefix: "Formatted",
-                number: 1.12345,
-            },
-        },
+        abilities,
     };
 
     it('should render without props', () => {

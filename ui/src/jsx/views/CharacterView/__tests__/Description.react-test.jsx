@@ -4,33 +4,31 @@ import renderer from 'react-test-renderer';
 import MockRouter from 'react-mock-router';
 
 import { mockedApi } from '../../../../../tests/__mocks__';
+import {
+    id, name, level, gender, alignment, race, background, class as _class,
+    xp, xp_progress, xp_level,
+} from '../__mocks__/character';
 
 import Description from '../components/Description';
 
 describe('Description', () => {
     const fullProps = {
-        id: 1,
-        name: "FooBar McFooBarface",
-        level: 1,
-        gender: 'male',
-        alignment: 'true neutral',
-        race: 'Human',
-        'class': 'Bard',
-        background: 'Tester',
+        id, name, level, gender, alignment, race, background,
+        xp, xp_progress, xp_level, "class": _class,
     };
 
     beforeEach(() => {
         fetch.mockImplementation( mockedApi({
             alignments: [
                 {
-                    code: 'true neutral',
-                    label: 'True neutral',
+                    code: 'chaotic good',
+                    label: 'Chaotic Good',
                 },
             ],
             genders: [
                 {
-                    code: 'male',
-                    label: 'Male',
+                    code: 'female',
+                    label: 'Female',
                 },
             ],
             '(user|character)' : {},

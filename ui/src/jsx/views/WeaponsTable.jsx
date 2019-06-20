@@ -1,5 +1,13 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {
+    filter,
+    includes,
+    intersection,
+    map,
+} from 'lodash/fp';
+
+import { memoize } from '../utils';
 
 import '../../sass/_weapons-table.scss';
 
@@ -16,14 +24,9 @@ import MultiSelect from '../components/MultiSelect.jsx';
 import Reach from '../components/Reach.jsx';
 import WeaponLinks from '../components/WeaponLinks.jsx';
 
-class WeaponsHeader extends React.Component
-{
-    shouldComponentUpdate() {
-        return false;
-    }
-
-    render() {
-        return <thead key="thead">
+const WeaponsHeader = function() {
+    return (
+        <thead key="thead">
             <tr>
                 <th>Name</th>
                 <th>Damage</th>
@@ -31,34 +34,28 @@ class WeaponsHeader extends React.Component
                 <th>Cost</th>
                 <th>Properties</th>
             </tr>
-        </thead>;
-    }
+        </thead>
+    );
 };
 
-class WeaponsFooter extends LazyComponent
-{
-    render() {
-        return <tbody>
+const WeaponsFooter = function() {
+    return (
+        <tbody>
             <tr>
                 <td colSpan={5}>
-                    <WeaponLinks
-                        altStyle={true}
-                    />
+                    <WeaponLinks altStyle={true} />
                 </td>
             </tr>
         </tbody>
-    }
+    );
 };
 
-class WeaponsRow extends LazyComponent
-{
-    render() {
-        const {
-            id, name, type, damage, range, cost, property,
-            weapon_properties = [], weapon_types = [],
-        } = this.props;
-
-        return <tr data-id={id}>
+const WeaponsRow = function({
+    id, name, type, damage, range, cost, property,
+    weapon_properties, weapon_types,
+}) {
+    return (
+        <tr data-id={id}>
             <th>
                 {name}
                 <WeaponLinks
@@ -83,32 +80,121 @@ class WeaponsRow extends LazyComponent
                             value={type}
                             />
                     </li>
-                    {_.map(property || [], prop => (
-                    <li key={prop}>
-                        <ListLabel
-                            items={weapon_properties}
-                            value={prop}
+                    {map(prop => (
+                        <li key={prop}>
+                            <ListLabel
+                                items={weapon_properties}
+                                value={prop}
                             />
-                    </li>
-                    ))}
+                        </li>
+                    ))(property)}
                 </ul>
             </td>
         </tr>
+    );
+};
+
+WeaponsRow.defaultProps = {
+    property: [],
+    weapon_properties: [],
+    weapon_types: [],
+};
+
+class WeaponsFilter extends React.Component
+{
+    constructor(props) {
+        super(props);
+
+        this.dice_size = map(
+            size => ({
+                code: size,
+                label: size,
+            })
+        )([4, 6, 8, 10, 12]);
+
+        this.memoize = memoize.bind(this);
     }
+
+    onChange = (field) => {
+        const { setState } = this.props;
+        return this.memoize(field, (value) => {
+            setState({ [field]: value });
+        });
+    }
+
+    render() {
+        const {
+            name, dice_count, dice_size, damage_type, weapon_type,
+            weapon_property, weapon_types, damage_types,
+            weapon_properties,
+        } = this.props;
+
+        return (
+            <div className="weapons-table--search">
+                <ControlGroup label="Name">
+                    <InputField
+                        id="name"
+                        type="text"
+                        value={name}
+                        placeholder="Name..."
+                        setState={this.onChange('name')}
+                    />
+                </ControlGroup>
+                <ControlGroup label="Properties">
+                    <MultiSelect
+                        id="properties"
+                        items={weapon_properties}
+                        selected={weapon_property}
+                        emptyLabel="All Properties"
+                        setState={this.onChange('weapon_property')}
+                    />
+                </ControlGroup>
+                <ControlGroup label="Weapon Types">
+                    <MultiSelect
+                        id="weapon-types"
+                        items={weapon_types}
+                        selected={weapon_type}
+                        emptyLabel="All Weapon Types"
+                        setState={this.onChange('weapon_type')}
+                    />
+                </ControlGroup>
+                <ControlGroup labels={["Damage", "d", "Type"]}>
+                    <InputField
+                        type="number"
+                        placeholder="Dice count"
+                        value={ dice_count }
+                        setState={this.onChange('dice_count')}
+                    />
+                    <MultiSelect
+                        items={ this.dice_size }
+                        selected={ dice_size }
+                        emptyLabel="Dice Sizes"
+                        setState={this.onChange('dice_size')}
+                    />
+                    <MultiSelect
+                        id="damage-types"
+                        items={ damage_types }
+                        selected={ damage_type }
+                        emptyLabel="All Damage Types"
+                        setState={this.onChange('damage_type')}
+                    />
+                </ControlGroup>
+            </div>
+        );
+    }
+};
+
+WeaponsFilter.defaultProps = {
+    property: [],
+    damage_types: [],
+    weapon_properties: [],
+    weapon_types: [],
 };
 
 class WeaponsTable extends LazyComponent
 {
     constructor(props) {
         super(props);
-
-        this.dice_size = _.map(
-            [4, 6, 8, 10, 12],
-            size => ({
-                code: size,
-                label: size
-            })
-        );
 
         this.state = {
             name: '',
@@ -120,119 +206,45 @@ class WeaponsTable extends LazyComponent
         };
     }
 
-    shouldDisplayRow(row, filter={}) {
+    onSearch = (update) => {
+        this.setState(update);
+    };
+
+    shouldDisplayRow(row, {
+        pattern, weapon_type, dice_count, dice_size, damage_type,
+        weapon_property,
+    }) {
         return (
-            row.name.match(filter.pattern)
+            row.name.match(pattern)
             && (
-                !filter.weapon_type.length
-                || _.includes(filter.weapon_type, row.type)
+                !weapon_type.length
+                || includes(weapon_type, row.type)
             )
             && (
-                !filter.dice_count
-                || filter.dice_count == row.damage.dice_count
+                !dice_count
+                || dice_count === row.damage.dice_count
             )
             && (
-                !filter.dice_size.length
-                || _.includes(filter.dice_size, row.damage.dice_size)
+                !dice_size.length
+                || includes(dice_size, row.damage.dice_size)
             )
             && (
-                !filter.damage_type.length
-                || _.includes(filter.damage_type, row.damage.type)
+                !damage_type.length
+                || includes(damage_type, row.damage.type)
             )
-            && _.intersection(
-                filter.weapon_property,
+            && intersection(
+                weapon_property,
                 row.property
-            ).length == filter.weapon_property.length
+            ).length === weapon_property.length
         );
-    }
-
-    renderFilters() {
-        const {
-            weapon_types = [],
-            damage_types = [],
-            weapon_properties = [],
-        } = this.props;
-        const {
-            name,
-            dice_count,
-            dice_size,
-            damage_type,
-            weapon_type,
-            weapon_property,
-        } = this.state;
-
-        return <div className="weapons-table--search">
-            <ControlGroup label="Name">
-                <InputField
-                    id="name"
-                    type="text"
-                    value={name}
-                    placeholder="Name..."
-                    setState={
-                        name => this.setState({name})
-                    } />
-            </ControlGroup>
-            <ControlGroup label="Properties">
-                <MultiSelect
-                    id="properties"
-                    items={weapon_properties}
-                    selected={weapon_property}
-                    emptyLabel="All Properties"
-                    setState={
-                        weapon_property => this.setState({
-                            weapon_property
-                        })
-                    } />
-            </ControlGroup>
-            <ControlGroup label="Weapon Types">
-                <MultiSelect
-                    id="weapon-types"
-                    items={weapon_types}
-                    selected={weapon_type}
-                    emptyLabel="All Weapon Types"
-                    setState={
-                        weapon_type => this.setState({
-                            weapon_type
-                        })
-                    } />
-            </ControlGroup>
-            <ControlGroup labels={["Damage", "d", "Type"]}>
-                <InputField
-                    type="number"
-                    placeholder="Dice count"
-                    value={ dice_count || '' }
-                    setState={
-                        dice_count => this.setState({dice_count})
-                    }
-                    />
-                <MultiSelect
-                    items={ this.dice_size }
-                    selected={ dice_size }
-                    emptyLabel="Dice Sizes"
-                    setState={
-                        dice_size => this.setState({
-                            dice_size
-                        })
-                    } />
-                <MultiSelect
-                    id="damage-types"
-                    items={ damage_types }
-                    selected={ damage_type }
-                    emptyLabel="All Damage Types"
-                    setState={
-                        damage_type => this.setState({
-                            damage_type
-                        })
-                    } />
-            </ControlGroup>
-        </div>;
     }
 
     render() {
         const {
-            weapons = [], search = '',
-            weapon_properties = [], weapon_types = [],
+            weapons, search,
+            damage_types, weapon_properties, weapon_types,
         } = this.props;
+
         const {
             name,
             dice_count,
@@ -246,7 +258,7 @@ class WeaponsTable extends LazyComponent
             return null;
         }
 
-        const filter = {
+        const filters = {
             pattern: new RegExp(name || search || '', "i"),
             dice_count,
             dice_size,
@@ -254,31 +266,63 @@ class WeaponsTable extends LazyComponent
             weapon_type,
             weapon_property,
         }
-        const filtered = _.filter(
-            weapons,
-            weapon => this.shouldDisplayRow(weapon, filter)
-        );
+        const filtered = filter(
+            weapon => this.shouldDisplayRow(weapon, filters)
+        )(weapons);
 
-        return <div className="weapons-table">
-            <h2 className="icon fa-cutlery">Weapons</h2>
-            {this.renderFilters()}
-            <table className="nice-table condensed bordered responsive">
-                <WeaponsHeader />
-                <tbody key="tbody">
-                    {_.map(filtered, (weapon) => (
-                        <WeaponsRow
-                            key={weapon.id}
-                            {...weapon}
-                            weapon_properties={weapon_properties}
-                            weapon_types={weapon_types}
+        return (
+            <div className="weapons-table">
+                <h2 className="icon fa-cutlery">Weapons</h2>
+                <WeaponsFilter
+                    {...this.state}
+                    damage_types={damage_types}
+                    weapon_properties={weapon_properties}
+                    weapon_types={weapon_types}
+                    setState={this.onSearch}
+                />
+                <table className="nice-table condensed bordered responsive">
+                    <WeaponsHeader />
+                    <tbody key="tbody">
+                        {map((weapon) => (
+                            <WeaponsRow
+                                key={weapon.id}
+                                {...weapon}
+                                weapon_properties={weapon_properties}
+                                weapon_types={weapon_types}
                             />
-                    ))}
-                </tbody>
-                <WeaponsFooter />
-            </table>
-        </div>
+                        ))(filtered)}
+                    </tbody>
+                    <WeaponsFooter />
+                </table>
+            </div>
+        );
     }
 }
+
+WeaponsTable.propTypes = {
+    search: PropTypes.string,
+    weapons: PropTypes.objectOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        damage: PropTypes.object,
+        versatile: PropTypes.object,
+        type: PropTypes.string.isRequired,
+        property: PropTypes.arrayOf( PropTypes.string ),
+        range: PropTypes.object,
+        weight: PropTypes.object,
+        cost: PropTypes.object,
+        description: PropTypes.string,
+    })),
+    weapon_properties: PropTypes.array,
+    weapon_types: PropTypes.array,
+};
+
+WeaponsTable.defaultProps = {
+    search: '',
+    weapons: {},
+    weapon_properties: [],
+    weapon_types: [],
+};
 
 export default ListDataWrapper(
     ObjectDataListWrapper(

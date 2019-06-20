@@ -1,6 +1,16 @@
 import React from 'react';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
+import {
+    filter,
+    includes,
+    intersection,
+    map,
+    range,
+    slice,
+} from 'lodash/fp';
 import MDReactComponent from 'markdown-react-js';
+
+import { memoize } from '../utils';
 
 import '../../sass/_spells-table.scss';
 
@@ -9,6 +19,7 @@ import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 
 import ControlGroup from '../components/ControlGroup.jsx';
 import DiceNotation from '../components/DiceNotation.jsx';
+import InputField from '../components/InputField.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
 import ListLabel from '../components/ListLabel.jsx';
 import MultiSelect from '../components/MultiSelect.jsx';
@@ -16,27 +27,21 @@ import Pagination from '../components/Pagination.jsx';
 import SpellLinks from '../components/SpellLinks.jsx';
 import Reach from '../components/Reach.jsx';
 
-class SpellsHeader extends React.Component
-{
-    shouldComponentUpdate() {
-        return false;
-    }
-
-    render() {
-        return <thead key="thead">
+const SpellsHeader = function() {
+    return (
+        <thead key="thead">
             <tr>
                 <th>Name</th>
                 <th>Information</th>
                 <th>Description</th>
             </tr>
-        </thead>;
-    }
-}
+        </thead>
+    );
+};
 
-class SpellsFooter extends LazyComponent
-{
-    render() {
-        return <tbody>
+const SpellsFooter = function() {
+    return (
+        <tbody>
             <tr>
                 <td colSpan={3}>
                     <SpellLinks
@@ -45,24 +50,18 @@ class SpellsFooter extends LazyComponent
                 </td>
             </tr>
         </tbody>
-    }
+    );
 };
 
-class SpellRow extends LazyComponent
-{
-    render() {
-        const {
-            id, name, level, range, cost, description, damage, casting_time, duration, concentration,
-            classes = [], _classes = []
-        } = this.props;
-
-        return <tr data-id={id}>
+const SpellRow = function({
+    id, name, level, range, cost, description, damage, casting_time, duration,
+    concentration, classes = [], _classes = []
+}) {
+    return (
+        <tr data-id={id}>
             <th className="spells-table--name">
                 {name}
-                <SpellLinks
-                    altStyle={true}
-                    id={id}
-                />
+                <SpellLinks altStyle={true} id={id} />
             </th>
             <td className="spells-table--summary">
                 <ul className="nice-menu stacked">
@@ -96,33 +95,39 @@ class SpellRow extends LazyComponent
                     {classes.length
                         ? <li className="spells-table--properties">
                             <strong>Classes:</strong>&nbsp;
-                            {_.map(classes, _class => (
+                            {map((_class) => (
                                 <ListLabel
                                     key={_class}
                                     items={_classes}
                                     value={_class}
                                     tooltip={true}
-                                    />
-                            ))}
+                                />
+                            ))(classes)}
                         </li>
                         : null
                     }
                 </ul>
             </td>
             <td className="spells-table--description">
-                <MDReactComponent
-                    text={this.props.description || ''}
-                    />
+                <MDReactComponent text={description} />
             </td>
         </tr>
-    }
+    );
 };
 
-class SpellsTable extends React.Component
+SpellRow.defaultProps = {
+    description: '',
+    concentration: false,
+    classes: [],
+    _classes: [],
+};
+
+class SpellsFilter extends React.Component
 {
     constructor(props) {
         super(props);
-        this.levels = _.range(0, 11).map((level) => {
+
+        this.levels = range(0, 11).map((level) => {
             return {
                 code: level
                     ? level.toString()
@@ -132,6 +137,66 @@ class SpellsTable extends React.Component
                     : 'Cantrip',
             };
         });
+
+        this.memoize = memoize.bind(this);
+    }
+
+    onChange = (field) => {
+        const { setState } = this.props;
+        return this.memoize(field, (value) => {
+            setState({ [field]: value });
+        });
+    }
+
+    render() {
+        const { classes, levels, name, _classes } = this.props;
+
+        return (
+            <div className="spells-table--search">
+                <ControlGroup label="Name">
+                    <InputField
+                        id="name"
+                        className="nice-form-control"
+                        type="text"
+                        value={name}
+                        placeholder="Name..."
+                        setState={this.onChange('name')}
+                    />
+                </ControlGroup>
+                <ControlGroup label="Class">
+                    <MultiSelect
+                        id="classes"
+                        items={_classes || []}
+                        selected={classes}
+                        emptyLabel="All classes"
+                        setState={this.onChange('classes')}
+                    />
+                </ControlGroup>
+                <ControlGroup label="Level">
+                    <MultiSelect
+                        id="levels"
+                        items={this.levels}
+                        selected={levels}
+                        emptyLabel="All levels"
+                        setState={this.onChange('levels')}
+                    />
+                </ControlGroup>
+            </div>
+        );
+    }
+};
+
+SpellsFilter.defaultProps = {
+    classes: [],
+    levels: [],
+    name: '',
+    _classes: [],
+};
+
+class SpellsTable extends React.Component
+{
+    constructor(props) {
+        super(props);
         this.state = {
             classes: [],
             levels: [],
@@ -141,134 +206,99 @@ class SpellsTable extends React.Component
         };
     }
 
-    filterClasses(classes) {
-        this.setState({classes});
-    }
+    onSearch = (update) => {
+        this.setState(update);
+    };
 
-    filterLevels(levels) {
-        this.setState({levels});
-    }
-
-    filterName(name) {
-        this.setState({name});
-    }
-
-    shouldDisplayRow(row, filter={}) {
+    shouldDisplayRow(row, {pattern, classes, levels}) {
         return (
-            row.name.match(filter.pattern)
+            row.name.match(pattern)
             && (
-                !filter.classes.length
-                || _.intersection(filter.classes, row.classes).length
+                !classes.length
+                || intersection(classes, row.classes).length
             )
             && (
-                !filter.levels.length
-                || _.includes(filter.levels, row.level)
+                !levels.length
+                || includes(row.level, levels)
             )
         );
-    }
-
-    renderPager(total) {
-        const {
-            offset, limit
-        } = this.state;
-
-        return <Pagination
-            offset={offset}
-            limit={limit}
-            total={total}
-            setOffset={(offset) => this.setState({offset})}
-            />;
-    }
-
-    renderFilters() {
-        const {
-            _classes
-        } = this.props;
-        const {
-            classes, levels, name
-        } = this.state;
-
-        return <div className="spells-table--search">
-            <ControlGroup label="Name">
-                <input
-                    id="name"
-                    className="nice-form-control"
-                    type="text"
-                    value={name}
-                    placeholder="Name..."
-                    onChange={
-                        (e) => this.filterName(e.target.value)
-                    } />
-            </ControlGroup>
-            <ControlGroup label="Class">
-                <MultiSelect
-                    id="classes"
-                    items={_classes || []}
-                    selected={classes}
-                    emptyLabel="All classes"
-                    setState={
-                        (classes) => this.filterClasses(classes)
-                    } />
-            </ControlGroup>
-            <ControlGroup label="Level">
-                <MultiSelect
-                    id="levels"
-                    items={this.levels}
-                    selected={levels}
-                    emptyLabel="All levels"
-                    setState={
-                        (levels) => this.filterLevels(levels)
-                    } />
-            </ControlGroup>
-        </div>;
     }
 
     render() {
         const {
             search, spells, magic_components, magic_schools, _classes
         } = this.props;
-        const {
-            classes, levels, name, offset, limit
-        } = this.state;
+        const { classes, levels, name, offset, limit } = this.state;
 
         if (!spells) {
             return null;
         }
 
-        const filter = {
+        const filters = {
             classes,
             levels,
             pattern: new RegExp(name || search || '', "i"),
         }
-        const filtered = _.filter(
-            spells,
-            (spell) => this.shouldDisplayRow(spell, filter)
-        );
-        const paged = _.slice(filtered, offset, offset + limit);
+        const filtered = filter(
+            (spell) => this.shouldDisplayRow(spell, filters)
+        )(spells);
+        const paged = slice(offset, offset + limit, filtered);
 
-        return <div className="spells-table">
-            <h2 className="icon fa-magic">Spells</h2>
-            {this.renderFilters()}
-            {this.renderPager(filtered.length)}
-            <table className="nice-table condensed bordered responsive">
-                <SpellsHeader/>
-                <tbody key="tbody">
-                    {_.map(paged, (spell) => (
-                        <SpellRow
-                            key={spell.name}
-                            magic_components={magic_components}
-                            magic_schools={magic_schools}
-                            _classes={_classes}
-                            {...spell}
-                            />
-                    ))}
-                </tbody>
-                <SpellsFooter />
-            </table>
-            {this.renderPager(filtered.length)}
-        </div>;
+        return (
+            <div className="spells-table">
+                <h2 className="icon fa-magic">Spells</h2>
+                <SpellsFilter
+                    {...this.state}
+                    _classes={_classes}
+                    setState={this.onSearch}
+                />
+                <Pagination
+                    offset={offset}
+                    limit={limit}
+                    total={filtered.length}
+                    setOffset={(offset) => this.setState({offset})}
+                />
+                <table className="nice-table condensed bordered responsive">
+                    <SpellsHeader/>
+                    <tbody key="tbody">
+                        {map((spell) => (
+                            <SpellRow
+                                key={spell.name}
+                                magic_components={magic_components}
+                                magic_schools={magic_schools}
+                                _classes={_classes}
+                                {...spell}
+                                />
+                        ))(paged)}
+                    </tbody>
+                    <SpellsFooter />
+                </table>
+                <Pagination
+                    offset={offset}
+                    limit={limit}
+                    total={filtered.length}
+                    setOffset={(offset) => this.setState({offset})}
+                />
+            </div>
+        );
     }
 }
+
+SpellsTable.propTypes = {
+    search: PropTypes.string,
+    spells: PropTypes.object,
+    magic_components: PropTypes.array,
+    magic_schools: PropTypes.array,
+    _classes: PropTypes.array,
+};
+
+SpellsTable.defaultProps = {
+    search: '',
+    spells: {},
+    magic_components: [],
+    magic_schools: [],
+    _classes: [],
+};
 
 export default ListDataWrapper(
     ObjectDataListWrapper(

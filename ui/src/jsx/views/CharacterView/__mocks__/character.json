@@ -1,0 +1,761 @@
+{
+    "abilities": {
+        "Bardic Inspiration": {
+            "description": "You can inspire others through stirring words or music. To do so, you use a *bonus action* on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one **Bardic Inspiration** die, a %(dice_size)s.\nOnce within the next 10 minutes, the creature can roll the die and add the number rolled to one *Ability Check*, *Attack Roll*, or *Saving Throw* it makes. The creature can wait until after it rolls the `d20` before deciding to use the **Bardic Inspiration** die, but must decide before the DM says whether the roll succeeds or fails. Once the **Bardic Inspiration** die is rolled, it is lost. A creature can have only one **Bardic Inspiration** die at a time.\nYou can use this feature %(uses)s times. You regain any expended uses when you finish a *%(rest)s* rest.",
+            "dice_size": "d8",
+            "rest": "short",
+            "uses": 3,
+            "uses_default": "your **Charisma modifier** number of",
+            "uses_formula": "max(1, statistics.modifiers.charisma)"
+        },
+        "Jack of All Trades": {
+            "description": "You can add half your **Proficiency Bonus**, rounded down, to any **Ability Check** you make that doesn't already include your proficiency bonus."
+        },
+        "Psychic Blades": {
+            "description": "You gain the ability to ma ke your weapon attacks magically toxic to a creature's mind. When you hit a creature with a weapon attack, you can expend one use of your *Bardic Inspiration* to deal an extra `%(dice)s` **psychic damage** to that target. You can do so only once per round on your turn.",
+            "dice": "3d6"
+        },
+        "Song of Rest": {
+            "description": "You can use soothing music or oration to help revitalize your wounded allies during a short rest. If you or any friendly creatures who can hear your performance regain hit points at the end of the short rest, each of those creatures regains an extra %(dice_size)s hit points.",
+            "dice_size": "d6"
+        },
+        "Words of Terror": {
+            "description": "You learn to infuse innocent-seeming words with an insidious magic that can inspire terror. If you speak to a humanoid alone for at least 1 minute, you can attempt to seed paranoia in its mind. At the end of the conversation, the target must succeed on a *Wisdom* saving throw against your spell save DC or be *frightened* of you or another creature of your choice. The target is frightened in this way for 1 hour, until it is attacked or damaged, or until it witnesses its allies being attacked or damaged. If the target succeeds on its saving throw, the target has no hint that you tried to frighten it. Once you use this feature, you can't use it again until you finish a short or long rest."
+        }
+    },
+    "adventure_league": false,
+    "age": 25,
+    "alignment": "chaotic good",
+    "appearance": "",
+    "armor": [{
+        "cost": {
+            "gp": 10
+        },
+        "disadvantage": false,
+        "formula": "11 + statistics.modifiers.dexterity",
+        "id": 40,
+        "name": "Leather Armor",
+        "requirements": {},
+        "type": "light",
+        "value": 14,
+        "weight": {
+            "lb": 10
+        }
+    }],
+    "armor_class": 14,
+    "armor_class_bonus": 2,
+    "background": "Entertainer",
+    "backstory": "Now this is the story ...",
+    "challenge": {
+        "deadly": 1100,
+        "easy": 250,
+        "hard": 750,
+        "medium": 500
+    },
+    "class": "Bard",
+    "college": [
+        "Whispers"
+    ],
+    "computed": {
+        "hit_points": {
+            "formula": "(8 + statistics.modifiers.constitution) + (5 + statistics.modifiers.constitution) * (level - 1)"
+        },
+        "spellAttack_modifier": {
+            "formula": "character.proficiency + statistics.modifiers.charisma"
+        },
+        "spellSafe_dc": {
+            "formula": "8 + character.proficiency + statistics.modifiers.charisma"
+        },
+        "unarmored": {
+            "formula": "10 + statistics.modifiers.dexterity"
+        }
+    },
+    "creation": [
+        "bard-2",
+        "bard-3",
+        "bard-4",
+        "bard-5",
+        "bard-5-whispers"
+    ],
+    "equipment": [{
+            "count": 1,
+            "id": 25,
+            "name": "Rapier",
+            "path": "weapons"
+        },
+        {
+            "count": 1,
+            "id": 40,
+            "name": "Leather Armor",
+            "path": "armor"
+        },
+        {
+            "count": 1,
+            "id": 1,
+            "name": "Dagger",
+            "path": "weapons"
+        },
+        {
+            "count": 1,
+            "name": "Flute",
+            "path": "itemsMusical"
+        },
+        {
+            "count": 3,
+            "name": "Costume",
+            "path": "itemsTrinket"
+        },
+        {
+            "count": 1,
+            "name": "Belt Pouch",
+            "path": "itemsTrinket"
+        },
+        {
+            "count": 1,
+            "name": "Backpack",
+            "path": "itemsTrinket"
+        },
+        {
+            "count": 1,
+            "name": "Bedroll",
+            "path": "itemsTrinket"
+        },
+        {
+            "count": 5,
+            "name": "Candle",
+            "path": "itemsTrinket"
+        },
+        {
+            "count": 5,
+            "name": "Day of Rations",
+            "path": "itemsTrinket"
+        },
+        {
+            "count": 1,
+            "name": "Waterskin",
+            "path": "itemsTrinket"
+        },
+        {
+            "count": 1,
+            "name": "Disguise Kit",
+            "path": "itemsKit"
+        },
+        {
+            "count": 1,
+            "name": "Viol",
+            "path": "itemsMusical"
+        },
+        {
+            "count": 1,
+            "name": "A pipe that blows bubbles",
+            "path": "itemsTrinket"
+        }
+    ],
+    "gender": "female",
+    "height": 4.2,
+    "hit_dice": 8,
+    "hit_points": 33,
+    "id": 15,
+    "info": {
+        "By Popular Demand": "You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble's court. At such a place, you receive free lodging and food of a modest or comfortable standard (depending on the quality of the establishment), as long as you perform each night. In addition, your performance makes you something of a local figure. When strangers recognize you in a town where you have performed, they typically take a liking to you.",
+        "Darkvision": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
+        "Entertainer Routines": "Instrumentalist",
+        "Gnome Cunning": "You have **Advantage** on all **Intelligence**, **Wisdom**, and **Charisma** *Saving Throws* against magic.",
+        "Speak with Small Beasts": "Through sounds and gestures, you can communicate simple ideas with *Small* or smaller beasts. Forest gnomes love animals and often keep squirrels, badgers, rabbits, moles, woodpeckers, and other creatures as beloved pets."
+    },
+    "initiative_bonus": 3,
+    "items": {
+        "artisan": [],
+        "gaming": [],
+        "kit": [{
+            "code": "Disguise kit",
+            "label": "Disguise kit",
+            "type": "kit",
+            "weight": {
+                "lb": 3
+            },
+            "worth": {
+                "gp": 25
+            }
+        }],
+        "musical": [{
+                "code": "Flute",
+                "label": "Flute",
+                "type": "musical",
+                "weight": {
+                    "lb": 1
+                },
+                "worth": {
+                    "gp": 2
+                }
+            },
+            {
+                "code": "Viol",
+                "label": "Viol",
+                "type": "musical",
+                "weight": {
+                    "lb": 1
+                },
+                "worth": {
+                    "gp": 30
+                }
+            }
+        ],
+        "trinket": [
+            "Costume",
+            "Costume",
+            "Costume",
+            "Belt Pouch",
+            "Backpack",
+            "Bedroll",
+            "Candle",
+            "Candle",
+            "Candle",
+            "Candle",
+            "Candle",
+            "Day of Rations",
+            "Day of Rations",
+            "Day of Rations",
+            "Day of Rations",
+            "Day of Rations",
+            "Waterskin",
+            {
+                "code": "A pipe that blows bubbles",
+                "label": "A pipe that blows bubbles",
+                "type": "trinket"
+            }
+        ]
+    },
+    "languages": [
+        "common",
+        "gnomish"
+    ],
+    "level": 5,
+    "level_up": {
+        "config": [],
+        "creation": []
+    },
+    "name": "\"Lucky\"",
+    "passive_perception": 12,
+    "personality": {
+        "bonds": "I like anyone who will feed me.",
+        "flaws": "I sometimes eat **too** much.",
+        "ideals": "Eat the whole day.",
+        "traits": "I am a _good eater_."
+    },
+    "proficiencies": {
+        "advantages": [],
+        "armor": [
+            "light"
+        ],
+        "expertise": [
+            "acrobatics",
+            "persuasion"
+        ],
+        "musical": [
+            "Lyre",
+            "Flute",
+            "Bagpipes"
+        ],
+        "saving_throws": [
+            "dexterity",
+            "charisma"
+        ],
+        "skills": [
+            "sleight of hand",
+            "investigation",
+            "persuasion",
+            "acrobatics",
+            "performance"
+        ],
+        "talent": [
+            "athletics",
+            "acrobatics",
+            "sleight of hand",
+            "stealth",
+            "arcana",
+            "history",
+            "investigation",
+            "nature",
+            "religion",
+            "animal handling",
+            "wisdom",
+            "insight",
+            "medicine",
+            "perception",
+            "survival",
+            "deception",
+            "intimidation",
+            "performance",
+            "persuasion"
+        ],
+        "tools": [
+            "Drum",
+            "Disguise Kit"
+        ],
+        "weapons": [
+            "simple melee",
+            "Crossbow, light",
+            "Longsword",
+            "Rapier",
+            "Shortsword"
+        ]
+    },
+    "proficiency": 3,
+    "race": "Forest Gnome",
+    "saving_throws": {
+        "charisma": 6,
+        "constitution": 1,
+        "dexterity": 6,
+        "intelligence": 1,
+        "strength": 0,
+        "wisdom": 2
+    },
+    "size": "small",
+    "skills": {
+        "acrobatics": 9,
+        "animal handling": 2,
+        "arcana": 3,
+        "athletics": 2,
+        "deception": 5,
+        "history": 3,
+        "insight": 2,
+        "intimidation": 5,
+        "investigation": 4,
+        "medicine": 2,
+        "nature": 3,
+        "perception": 2,
+        "performance": 6,
+        "persuasion": 9,
+        "religion": 3,
+        "sleight of hand": 6,
+        "stealth": 5,
+        "survival": 2
+    },
+    "speed": 25,
+    "spell": {
+        "attack_modifier": 6,
+        "expanded": [],
+        "level": {
+            "cantrip": [{
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Bard",
+                        "Sorcerer",
+                        "Warlock",
+                        "Wizard"
+                    ],
+                    "components": [
+                        "material",
+                        "somatic"
+                    ],
+                    "concentration": false,
+                    "cost": "A bit of fleece",
+                    "description": "You create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again.\n\nIf you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a lion's roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.\n\nIf you create an image of an object-such as a chair, muddy footprints, or a small chest-it must be no larger than a 5-foot cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.\n\nIf a creature uses its action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.",
+                    "duration": "1 minute",
+                    "id": 205,
+                    "level": "Cantrip",
+                    "name": "Minor Illusion",
+                    "range": "30 feet",
+                    "school": "illusion"
+                },
+                {
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Bard"
+                    ],
+                    "components": [
+                        "verbal"
+                    ],
+                    "concentration": false,
+                    "cost": "",
+                    "damage": {
+                        "bonus": 0,
+                        "dice_count": 1,
+                        "dice_size": 4,
+                        "type": "psychic"
+                    },
+                    "description": "You unleash a string of insults laced with subtle enchantments at a creature you can see within range. If the target can hear you (though it need not understand you), it must succeed on a wisdom saving throw or take `1d4` *psychic damage* and have **disadvantage** on the next attack roll it makes before the end of its next turn.\n\nThis spell's damage increases by `1d4` when you reach 5th level (`2d4`), 11th level (`3d4`), and 17th level (`4d4`).",
+                    "duration": "Instantaneous",
+                    "id": 304,
+                    "level": "Cantrip",
+                    "name": "Vicious Mockery",
+                    "range": "60",
+                    "save": "Wisdom",
+                    "school": "enchantment"
+                },
+                {
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Bard",
+                        "Druid",
+                        "Sorcerer",
+                        "Warlock",
+                        "Wizard"
+                    ],
+                    "components": [
+                        "somatic"
+                    ],
+                    "concentration": false,
+                    "description": "You create a burst of thunderous sound, which can be heard 100 feet away. Each creature other than you within 5 feet of you must make a **Constitution** *saving throw*. On a failed save, the creature takes `1d6` *thunder damage*.\n\n**At Higher Levels**: The spell's damage increases by `1d6` when you reach 5th level (`2d6`), 11th level (`3d6`), and 17th level (`4d6`).",
+                    "duration": "Instantaneous",
+                    "id": 382,
+                    "level": "Cantrip",
+                    "name": "Thunderclap",
+                    "range": "Self (5-foot radius)",
+                    "school": "evocation"
+                },
+                {
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Bard",
+                        "Sorcerer",
+                        "Wizard"
+                    ],
+                    "components": [
+                        "material",
+                        "verbal",
+                        "somatic"
+                    ],
+                    "concentration": true,
+                    "cost": "A bit of phosphorus or wychwood, or a glow worm",
+                    "description": "You create up to four torch-sized lights within range, making them appear as torches, lanterns, or glowing orbs that hover in the air for the duration. You can also combine the four Iights into one glowing vaguely humanoid form of Medium size. Whichever form you choose, each light sheds dim light in a 10-foot radius.\n\nAs a *bonus action* on your turn, you can move the lights up to 60 feet to a new spot within range. A light must be within 20 feet of another light created by this spell, and a light winks out if it exceeds the spell's range.",
+                    "duration": "Concentration, up to 1 minute",
+                    "id": 71,
+                    "level": "Cantrip",
+                    "name": "Dancing Lights",
+                    "range": "120 feet",
+                    "school": "evocation"
+                }
+            ],
+            "level_1": [{
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Bard"
+                    ],
+                    "components": [
+                        "verbal"
+                    ],
+                    "concentration": false,
+                    "description": "You whisper a discordant melody that only one creature of your choice within range can hear, wracking it with terrible pain. The target must make a **Wisdom** *saving throw*. On a failed save, it takes `3d6` *psychic damage* and must immediately use its *reaction*, if available, to move as far as its speed allows away from you. The creature doesn't move into obviously dangerous ground, such as a fire or a pit. On a successful save, the target takes half as much damage and doesn't have to move away. A deafened creature automatically succeeds on the save.\n\n**At Higher Levels**: When you cast this spell using a spell slot of 2nd level or higher, the damage increases by `1d6` for each slot level above 1st.",
+                    "duration": "Instantaneous",
+                    "id": 404,
+                    "level": "1",
+                    "name": "Dissonant Whispers",
+                    "range": "60 feet",
+                    "school": "enchantment"
+                },
+                {
+                    "casting_time": "1 Action",
+                    "classes": [
+                        "Bard",
+                        "Druid",
+                        "Sorcerer",
+                        "Wizard"
+                    ],
+                    "components": [
+                        "verbal",
+                        "somatic"
+                    ],
+                    "concentration": false,
+                    "cost": "",
+                    "damage": {
+                        "bonus": 0,
+                        "dice_count": 2,
+                        "dice_size": 8,
+                        "type": "thunder"
+                    },
+                    "description": "A wave of thunderous force sweeps out from you. Each creature in a 15-foot cube originating from you must make a **Constitution** *saving throw*. On a failed save, a creature takes `2d8` *thunder damage* and is pushed 10 feet away from you. On a successful save, the creature takes half as much damage and isn't pushed.\n\nIn addition, unsecured objects that are completely within the area of effect are automatically pushed 10 feet away from you by the spell's effect, and the spell emits a thunderous boom audible out to 300 feet.\n\n**At Higher Levels**: When you cast this spell using a spell slot of 2nd level or higher, the damage increases by a `1d8` for each slot level above first.",
+                    "duration": "Instantaneous",
+                    "id": 292,
+                    "level": "1",
+                    "name": "Thunderwave",
+                    "range": "Self (15-foot cube)",
+                    "save": "Constitution",
+                    "school": "evocation"
+                },
+                {
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Bard",
+                        "Cleric",
+                        "Druid",
+                        "Paladin",
+                        "Ranger"
+                    ],
+                    "components": [
+                        "verbal",
+                        "somatic"
+                    ],
+                    "concentration": false,
+                    "cost": "",
+                    "description": "A creature you touch regains a number of hit points\nequal to `1d8` + your spellcasting ability modifier. This spell has no effect on undead or constructs.",
+                    "duration": "Instantaneous",
+                    "id": 70,
+                    "level": "1",
+                    "name": "Cure Wounds",
+                    "range": "Touch",
+                    "school": "evocation"
+                },
+                {
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Bard",
+                        "Wizard"
+                    ],
+                    "components": [
+                        "material",
+                        "verbal",
+                        "somatic"
+                    ],
+                    "concentration": false,
+                    "cost": "Tiny tarts and a feather that is waved in the air",
+                    "description": "A creature of your choice that you can see within range perceives everything as hilariously funny and falls into fits of laughter if this spell affects it. The target must succeed on a **Wisdom** *saving throw* or fall prone, becoming incapacitated and unable to stand up for the duration. A creature with an Intelligence score of 4 or less isn't affected.\n\nAt the end of each of its turns, and each time it takes damage, the target can make another **Wisdom** *saving throw*. The target has **advantage** on the saving throw if it's triggered by damage. On a success, the spell ends.",
+                    "duration": "1 action",
+                    "id": 419,
+                    "level": "1",
+                    "name": "Tasha's Hideous Laughter",
+                    "range": "1 action",
+                    "school": "enchantment"
+                }
+            ],
+            "level_2": [{
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Bard",
+                        "Sorcerer",
+                        "Warlock",
+                        "Wizard"
+                    ],
+                    "components": [
+                        "material",
+                        "verbal",
+                        "somatic"
+                    ],
+                    "concentration": false,
+                    "cost": "A chip of mica",
+                    "damage": {
+                        "bonus": 0,
+                        "dice_count": 3,
+                        "dice_size": 8,
+                        "type": "thunder"
+                    },
+                    "description": "A sudden loud ringing noise, painfully intense, erupts from a point of your choice within range. Each creature in a 10-foot-radius sphere centered on that point must make a **Constitution** *saving throw*. A creature takes `3d8` *thunder damage* on a failed save, or half as much damage on a successful one. A creature made of inorganic material such as stone or metal has **disadvantage** on this saving throw.\n\nA nonmagical object that isn't being worn or carried also takes the damage if it's in the spell's area.\n\n**At Higher Levels**: When you cast this spell using a spell slot of 3rd level or higher, the damage increases by `1d8` for each slot level above 2nd.",
+                    "duration": "Instantaneous",
+                    "id": 260,
+                    "level": "2",
+                    "name": "Shatter",
+                    "range": "60 feet",
+                    "save": "Constitution",
+                    "school": "evocation"
+                },
+                {
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Wizard",
+                        "Bard",
+                        "Sorcerer",
+                        "Warlock"
+                    ],
+                    "components": [
+                        "verbal",
+                        "somatic"
+                    ],
+                    "concentration": true,
+                    "description": "One humanoid of your choice that you can see within range must succeed on a **Wisdom** *saving throw* or become *charmed* by you for the duration. While the target is *charmed* in this way, a twisted crown of jagged iron appears on its head, and a madness glows in its eyes.\n\nThe *charmed* target must use its action before moving on each of its turns to make a melee attack against a creature other than itself that you mentally choose.\n\nThe target can act normally on its turn if you choose no creature or if none are within its reach.\n\nOn your subsequent turns, you must use your action to maintain control over the target, or the spell ends. Also the target can make a **Wisdom** *saving throw* at the end of each of its turns. On a success, the spell ends.",
+                    "duration": "concentration, up to 1 minute",
+                    "id": 397,
+                    "level": "2",
+                    "name": "Crown of Madness",
+                    "range": "120 feet",
+                    "school": "enchantment"
+                }
+            ],
+            "level_3": [{
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Bard",
+                        "Cleric",
+                        "Wizard"
+                    ],
+                    "components": [
+                        "verbal",
+                        "somatic"
+                    ],
+                    "concentration": true,
+                    "cost": "",
+                    "description": "You touch a creature, and that creature must succeed on a **Wisdom** *saving throw* or become cursed for the duration of the spell. When you cast this spell, choose the nature of the curse from the following options\n\n* Choose one ability score. While cursed, the target has **disadvantage** on ability checks and saving throws made with that ability score.\n\n* While cursed, the target has **disadvantage** on attack rolls against you.\n\n* While cursed, the target must make a **Wisdom** *saving throw* at the start of each of its turns. If it fails, it wastes its action that turn doing nothing.\n\n* While the target is cursed, your attacks and spells deal an extra `1d8` *necrotic damage* to the target.\n\nA remove curse spell ends this effect. At the DM's option, you may choose an alternative curse effect, but it should be no more  powerful than those described above. The DM has final say on such a curse's effect.\n\n**At Higher Levels**: If you cast this spell using a spell slot of 4th level or higher, the duration is concentration, up to 10 minutes. If you use a spell slot of 5th level or higher, the duration is 8 hours. If you use a spell slot of 7th level or higher, the duration is 24 hours. If you use a 9th level spell slot, the spell lasts until it is dispelled. Using a spell slot of 5th level or higher grants a duration that doesn't require concentration.",
+                    "duration": "Concentration, up to 1 minute",
+                    "id": 26,
+                    "level": "3",
+                    "name": "Bestow Curse",
+                    "range": "Touch",
+                    "save": "Wisdom",
+                    "school": "necromancy"
+                },
+                {
+                    "casting_time": "1 Action",
+                    "classes": [
+                        "Bard",
+                        "Sorcerer",
+                        "Warlock",
+                        "Wizard"
+                    ],
+                    "components": [
+                        "material",
+                        "verbal",
+                        "somatic"
+                    ],
+                    "concentration": false,
+                    "cost": "A white feather or the heart of a hen",
+                    "description": "You project a phantasmal image of a creature's worst fears. Each creature in a 30-foot cone must succeed on a **Wisdom** *saving throw* or drop whatever it is holding and become frightened for the duration.\n\nWhile frightened by this spell, a creature must take the Dash action and move away from you by the safest available route on each of its turns, unless there is nowhere to move. If the creature ends its turn in a location where it doesn't have line of sight to you, the creature can make a **Wisdom** *saving throw*. On a successful save, the spell ends for that creature.",
+                    "duration": "Up to 1 minute",
+                    "id": 108,
+                    "level": "3",
+                    "name": "Fear",
+                    "range": "Self",
+                    "save": "Wisdom",
+                    "school": "illusion"
+                }
+            ]
+        },
+        "list": [
+            "Minor Illusion",
+            "Dancing Lights",
+            "Vicious Mockery",
+            "Cure Wounds",
+            "Dissonant Whispers",
+            "Thunderwave",
+            "Tasha's Hideous Laughter",
+            "Shatter",
+            "Thunderclap",
+            "Crown of Madness",
+            "Fear",
+            "Bestow Curse"
+        ],
+        "max_cantrips": 3,
+        "max_known": 8,
+        "max_prepared": 0,
+        "prepared": [],
+        "safe_dc": 14,
+        "slots": {
+            "level_1": 4,
+            "level_2": 3,
+            "level_3": 2
+        },
+        "stat": "charisma"
+    },
+    "statistics": {
+        "bare": {
+            "charisma": 15,
+            "constitution": 12,
+            "dexterity": 15,
+            "intelligence": 10,
+            "strength": 10,
+            "wisdom": 9
+        },
+        "base": {
+            "charisma": 16,
+            "constitution": 12,
+            "dexterity": 16,
+            "intelligence": 12,
+            "strength": 10,
+            "wisdom": 10
+        },
+        "bonus": {
+            "charisma": [
+                1
+            ],
+            "constitution": [],
+            "dexterity": [
+                1
+            ],
+            "intelligence": [
+                2
+            ],
+            "strength": [],
+            "wisdom": [
+                1
+            ]
+        },
+        "modifiers": {
+            "charisma": 3,
+            "constitution": 1,
+            "dexterity": 3,
+            "intelligence": 1,
+            "strength": 0,
+            "wisdom": 0
+        }
+    },
+    "treasure_checkpoints": {},
+    "unarmored": 13,
+    "user_id": 1,
+    "version": "1.0",
+    "wealth": {
+        "cp": 0,
+        "ep": 0,
+        "gp": 15,
+        "pp": 0,
+        "sp": 0
+    },
+    "weapon": [],
+    "weapons": [{
+            "bonus": 6,
+            "cost": {
+                "gp": 25
+            },
+            "damage": {
+                "bonus": 3,
+                "dice_count": 1,
+                "dice_size": 8,
+                "notation": "1d8+3",
+                "type": "piercing",
+                "type_label": "Piercing",
+                "type_short": "Pcn"
+            },
+            "id": 25,
+            "name": "Rapier",
+            "property": [
+                "finesse"
+            ],
+            "type": "martial melee",
+            "weight": {
+                "lb": 2
+            }
+        },
+        {
+            "bonus": 6,
+            "cost": {
+                "gp": 2
+            },
+            "damage": {
+                "bonus": 3,
+                "dice_count": 1,
+                "dice_size": 4,
+                "notation": "1d4+3",
+                "type": "piercing",
+                "type_label": "Piercing",
+                "type_short": "Pcn"
+            },
+            "id": 1,
+            "name": "Dagger",
+            "property": [
+                "thrown",
+                "finesse",
+                "light"
+            ],
+            "range": {
+                "max": 60,
+                "min": 20
+            },
+            "type": "simple melee",
+            "weight": {
+                "lb": 1
+            }
+        }
+    ],
+    "weight": 50,
+    "xp": 7524,
+    "xp_level": 7500,
+    "xp_progress": 1024
+}

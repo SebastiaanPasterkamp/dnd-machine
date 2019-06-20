@@ -16,12 +16,7 @@ function InlineDataWrapper(WrappedComponent, storeKey, storeCategory=null) {
         }
 
         componentDidMount() {
-            if (storeKey in this.state && this.state[storeKey] != null) {
-                return;
-            }
-
-            ListDataActions.fetchItems(
-                storeKey, storeCategory);
+            ListDataActions.fetchItems(storeKey, storeCategory);
         }
 
         shouldComponentUpdate(nextProps, nextState) {
@@ -37,13 +32,17 @@ function InlineDataWrapper(WrappedComponent, storeKey, storeCategory=null) {
         }
 
         render() {
-            if (!(storeKey in this.state)) {
+            const {
+                [storeKey]: list,
+            } = this.state;
+
+            if (list === undefined) {
                 return null;
             }
             return <WrappedComponent
                 {...this.props}
-                {...this.state[storeKey]}
-                />
+                {...list}
+            />
         }
     };
 
