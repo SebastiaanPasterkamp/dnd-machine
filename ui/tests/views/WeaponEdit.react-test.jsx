@@ -3,7 +3,10 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import MockRouter from 'react-mock-router';
 
-import { mockedApi } from '../__mocks__';
+import ListDataActions from 'actions/ListDataActions';
+import {
+    mockedApi,
+} from '../__mocks__';
 
 import WeaponEdit from 'views/WeaponEdit.jsx';
 
@@ -79,15 +82,17 @@ describe('WeaponEdit', () => {
             ],
             current_user: {},
         }) );
-    })
+        ListDataActions.fetchItems('weapon_types', 'items');
+        ListDataActions.fetchItems('weapon_properties', 'items');
+        ListDataActions.fetchItems('damage_types', 'items');
+        ListDataActions.fetchItems('current_user');
+    });
 
-    afterAll(() => {
-        fetch.resetMocks()
-    })
+    afterAll(() => fetch.resetMocks());
 
     it('should render without props', () => {
         const tree = renderer.create(
-            <WeaponEdit />
+            <WeaponEdit.WrappedComponent.WrappedComponent />
         );
 
         expect(tree).toMatchSnapshot();
@@ -96,7 +101,7 @@ describe('WeaponEdit', () => {
     it('should render with full props', () => {
         const tree = renderer.create(
             <MockRouter location={{pathname: `/items/weapon/edit/${fullProps.id}`}}>
-                <WeaponEdit {...fullProps} />
+                <WeaponEdit.WrappedComponent.WrappedComponent {...fullProps} />
             </MockRouter>
         );
 
@@ -202,6 +207,28 @@ describe('WeaponEdit', () => {
                 property: ['special'],
                 description: "",
             });
+        });
+    });
+
+    it('when loading invalid combinations', () => {
+        const setState = jest.fn();
+        const wrapper = mount(
+            <MockRouter location={{pathname: '/items/weapon/new'}}>
+                <WeaponEdit
+                    setState={setState}
+                    type="simple melee"
+                    property={[]}
+                    range={{min: 30, max: 60}}
+                    versatile={fullProps.versatile}
+                    description="Not very special"
+                />
+            </MockRouter>
+        );
+
+        expect(setState).toBeCalledWith({
+            range: undefined,
+            versatile: undefined,
+            description: undefined,
         });
     });
 });
