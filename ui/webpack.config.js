@@ -77,9 +77,7 @@ const config = {
                         options: {
                             publicPath: '../',
                             // only enable hot in development
-                            hmr: process.env.NODE_ENV === 'development',
-                            // if hmr does not work, this is a forceful method.
-                            reloadAll: true,
+                            hmr: devMode,
                         },
                     },
                     'css-loader',
