@@ -174,7 +174,7 @@ export class PartyEdit extends React.PureComponent
                     }
 
                     return (
-                        <div>
+                        <div key={`character-${id}`}>
                             <CharacterLabel
                                 character={character}
                                 showProgress={true}
