@@ -1,0 +1,635 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PartyEdit render should work with all props 1`] = `
+Array [
+  <div
+    className="nice-panel party-edit__description"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Name
+        </span>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Name..."
+          type={undefined}
+          value="Party boat"
+        />
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Description
+        </span>
+        <div
+          className="markdown-textedit preview"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <textarea
+            className="nice-form-control"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Description..."
+            rows={5}
+            value="Choo choo, mothers/fathers!"
+          />
+          <span
+            className="markdown-textedit__preview"
+          >
+            <p>
+              Choo choo, mothers/fathers!
+            </p>
+          </span>
+        </div>
+      </div>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+  <div
+    className="nice-panel party-edit__challenge"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Challenge Rating
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th>
+            Party size
+          </th>
+          <th
+            className="info"
+          >
+            Easy
+          </th>
+          <th
+            className="good"
+          >
+            Medium
+          </th>
+          <th
+            className="warning"
+          >
+            Hard
+          </th>
+          <th
+            className="bad"
+          >
+            Deadly
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            2
+          </td>
+          <td
+            className="info"
+          >
+            10
+             XP
+          </td>
+          <td
+            className="good"
+          >
+            20
+             XP
+          </td>
+          <td
+            className="warning"
+          >
+            40
+             XP
+          </td>
+          <td
+            className="bad"
+          >
+            80
+             XP
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel party-edit__members"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Party Members
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <div>
+        <div
+          className="character inline"
+        >
+          <div
+            className="character-label"
+          >
+            <span
+              className="character-label__name"
+            >
+              Thing One
+            </span>
+            <span
+              className="character-label__item"
+            >
+              Level 
+              1
+            </span>
+            <div
+              className="list-label inline"
+            >
+              Male
+            </div>
+            <span
+              className="character-label__item"
+            >
+              Drow
+            </span>
+            <span
+              className="character-label__item"
+            >
+              Rogue
+            </span>
+            <div
+              className="list-label inline character-label__alignment"
+            >
+              Chaotic good
+            </div>
+          </div>
+          <div
+            className="nice-progress good"
+          >
+            <div
+              className="nice-progress-fill"
+              style={
+                Object {
+                  "height": "1.25rem",
+                  "width": "16.666666666666664%",
+                }
+              }
+            >
+              50
+            </div>
+          </div>
+        </div>
+        <div
+          className="base-link-group nice-btn-group"
+        >
+          <a
+            className="cursor-pointer nice-btn-alt icon fa-times warning"
+            onClick={[Function]}
+          >
+            Remove
+          </a>
+        </div>
+      </div>
+      <div>
+        <div
+          className="character inline"
+        >
+          <div
+            className="character-label"
+          >
+            <span
+              className="character-label__name"
+            >
+              Thing Two
+            </span>
+            <span
+              className="character-label__item"
+            >
+              Level 
+              1
+            </span>
+            <div
+              className="list-label inline"
+            >
+              Female
+            </div>
+            <span
+              className="character-label__item"
+            >
+              Drow
+            </span>
+            <span
+              className="character-label__item"
+            >
+              Rogue
+            </span>
+            <div
+              className="list-label inline character-label__alignment"
+            >
+              Chaotic good
+            </div>
+          </div>
+          <div
+            className="nice-progress good"
+          >
+            <div
+              className="nice-progress-fill"
+              style={
+                Object {
+                  "height": "1.25rem",
+                  "width": "16.666666666666664%",
+                }
+              }
+            >
+              50
+            </div>
+          </div>
+        </div>
+        <div
+          className="base-link-group nice-btn-group"
+        >
+          <a
+            className="cursor-pointer nice-btn-alt icon fa-times warning"
+            onClick={[Function]}
+          >
+            Remove
+          </a>
+        </div>
+      </div>
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-plus default"
+        onClick={[Function]}
+      >
+        Add
+      </a>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+]
+`;
+
+exports[`PartyEdit render should work without characters 1`] = `
+Array [
+  <div
+    className="nice-panel party-edit__description"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Name
+        </span>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Name..."
+          type={undefined}
+          value="Party boat"
+        />
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Description
+        </span>
+        <div
+          className="markdown-textedit preview"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <textarea
+            className="nice-form-control"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Description..."
+            rows={5}
+            value="Choo choo, mothers/fathers!"
+          />
+          <span
+            className="markdown-textedit__preview"
+          >
+            <p>
+              Choo choo, mothers/fathers!
+            </p>
+          </span>
+        </div>
+      </div>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+  <div
+    className="nice-panel party-edit__challenge"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Challenge Rating
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th>
+            Party size
+          </th>
+          <th
+            className="info"
+          >
+            Easy
+          </th>
+          <th
+            className="good"
+          >
+            Medium
+          </th>
+          <th
+            className="warning"
+          >
+            Hard
+          </th>
+          <th
+            className="bad"
+          >
+            Deadly
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            2
+          </td>
+          <td
+            className="info"
+          >
+            10
+             XP
+          </td>
+          <td
+            className="good"
+          >
+            20
+             XP
+          </td>
+          <td
+            className="warning"
+          >
+            40
+             XP
+          </td>
+          <td
+            className="bad"
+          >
+            80
+             XP
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel party-edit__members"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Party Members
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-plus default"
+        onClick={[Function]}
+      >
+        Add
+      </a>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+]
+`;
+
+exports[`PartyEdit render should work without props 1`] = `
+Array [
+  <div
+    className="nice-panel party-edit__description"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Name
+        </span>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Name..."
+          type={undefined}
+          value=""
+        />
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Description
+        </span>
+        <div
+          className="markdown-textedit preview"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <span
+            className="markdown-textedit__placeholder"
+          >
+            Description...
+          </span>
+          <textarea
+            className="nice-form-control"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Description..."
+            rows={5}
+            value=""
+          />
+          <span
+            className="markdown-textedit__preview"
+          />
+        </div>
+      </div>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+  <div
+    className="nice-panel party-edit__challenge"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Challenge Rating
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th>
+            Party size
+          </th>
+          <th
+            className="info"
+          >
+            Easy
+          </th>
+          <th
+            className="good"
+          >
+            Medium
+          </th>
+          <th
+            className="warning"
+          >
+            Hard
+          </th>
+          <th
+            className="bad"
+          >
+            Deadly
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            0
+          </td>
+          <td
+            className="info"
+          >
+            0
+             XP
+          </td>
+          <td
+            className="good"
+          >
+            0
+             XP
+          </td>
+          <td
+            className="warning"
+          >
+            0
+             XP
+          </td>
+          <td
+            className="bad"
+          >
+            0
+             XP
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel party-edit__members"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Party Members
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-plus default"
+        onClick={[Function]}
+      >
+        Add
+      </a>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+]
+`;
