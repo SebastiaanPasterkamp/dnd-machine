@@ -48,7 +48,9 @@ export class PartyEdit extends React.PureComponent
 
     onCancel = () => {
         const { reload } = this.props;
-        reload();
+        if (reload) {
+            reload();
+        }
         this.toggleDialog();
     }
 
@@ -227,7 +229,7 @@ export class PartyEdit extends React.PureComponent
 }
 
 PartyEdit.propTypes = {
-    reload: PropTypes.func.isRequired,
+    reload: PropTypes.func,
     setState: PropTypes.func.isRequired,
     name: PropTypes.string,
     description: PropTypes.string,
@@ -259,6 +261,7 @@ PartyEdit.defaultProps = {
         deadly: 0,
     },
     member_ids: [],
+    characters: {},
 };
 
 export default ObjectDataListWrapper(
