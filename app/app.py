@@ -105,6 +105,8 @@ def register_cli(app):
 def initdb(app):
     with app.app_context():
         if os.path.exists(app.config.get('DATABASE')):
+            if hasattr(app, 'db'):
+                del app.db
             os.remove(app.config.get('DATABASE'))
         db = get_db(app)
         _initdb(db)
