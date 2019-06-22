@@ -5,7 +5,7 @@
 .party-edit {
     @extend .widget-grid;
 
-    .party-edit__challenge {
+    &__challenge {
         table {
             th {
                 text-align: center;
@@ -17,20 +17,13 @@
         }
     }
 
-    .party-edit__members {
-        grid-column-end: span 2;
+    &__members {
+        .nice-panel-content > div {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
 
-        table {
-            th {
-                text-align: center;
-
-                &:first-child {
-                    text-align: inherit;
-                }
-            }
-            td {
-                text-align: center;
-                vertical-align: middle;
+            .base-link-group {
+                justify-self: center;
             }
         }
     }
