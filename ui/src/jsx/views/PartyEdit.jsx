@@ -59,12 +59,6 @@ export class PartyEdit extends React.PureComponent
         this.setState({ dialog: !dialog });
     }
 
-    onFieldChange(field, value) {
-        this.props.setState({
-            [field]: value
-        });
-    }
-
     onRemoveMember = (id) => {
         const {
             member_ids: old_party,
