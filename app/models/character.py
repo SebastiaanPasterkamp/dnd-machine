@@ -91,6 +91,7 @@ class CharacterObject(JsonObject):
             "max_cantrips": 0,
             "max_known": 0,
             "max_prepared": 0,
+            "cantrips": [],
             "list": [],
             "expanded": [],
             "prepared": [],
@@ -321,25 +322,28 @@ class CharacterObject(JsonObject):
                 }
             del self.config["spell_slots"]
         if "spells" in self.config:
-            level = self.spells
+            levels = self.spells or {}
             del self.config["spells"]
-            if not isinstance(level, dict):
-                level = {}
             self.spellLevel = {
-                "cantrip": level.get("cantrip", []),
-                "level_1": level.get("1st_level", []),
-                "level_2": level.get("2nd_level", []),
-                "level_3": level.get("3rd_level", []),
-                "level_4": level.get("4th_level", []),
-                "level_5": level.get("5th_level", []),
-                "level_6": level.get("6th_level", []),
-                "level_7": level.get("7th_level", []),
-                "level_8": level.get("8th_level", []),
-                "level_9": level.get("9th_level", []),
+                "cantrip": levels.get("cantrip", []),
+                "level_1": levels.get("1st_level", []),
+                "level_2": levels.get("2nd_level", []),
+                "level_3": levels.get("3rd_level", []),
+                "level_4": levels.get("4th_level", []),
+                "level_5": levels.get("5th_level", []),
+                "level_6": levels.get("6th_level", []),
+                "level_7": levels.get("7th_level", []),
+                "level_8": levels.get("8th_level", []),
+                "level_9": levels.get("9th_level", []),
                 }
-            if not self.spellList:
-                self.spellList = []
-                for spells in level.values():
+        if self.spellStat and not (self.spellList and self.spellCantrips):
+            self.spellList = []
+            self.spellCantrips = []
+            for level, spells in levels.items():
+                spells = [spell.name for spell in spells]
+                if level == "cantrip":
+                    self.spellCantrips.extend(spells)
+                else:
                     self.spellList.extend(spells)
         if 'weapon' in self.config:
             del self.config['weapon']
@@ -442,7 +446,7 @@ class CharacterObject(JsonObject):
             self.armor_class_bonus += armor.get('bonus', 0)
 
         self.spellLevel = {}
-        for spell in set(self.spellList).union(self.spellPrepared):
+        for spell in set(self.spellList).union(self.spellPrepared).union(self.spellCantrips):
             objs = self.mapper.spell.getMultiple(
                 'name COLLATE nocase = :name',
                 {'name': spell}

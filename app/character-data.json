@@ -197,7 +197,7 @@
                 }, {
                     "label": "Cantrip",
                     "description": "You know one *Cantrip* of your choice from the **Wizard** spell list. **Intelligence** is your spellcasting ability for it.",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit": 1,
@@ -341,7 +341,7 @@
                 }, {
                     "label": "Natural Illusionist",
                     "description": "You know the *Minor Illusion* *Cantrip*. **Intelligence** is your spellcasting ability for it.",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "given": ["Minor Illusion"]
@@ -908,7 +908,7 @@
         }, {
             "label": "Infernal Legacy",
             "description": "You know the *thaumaturgy* cantrip.",
-            "path": "spell.list",
+            "path": "spell.cantrips",
             "type": "list",
             "list": ["spell"],
             "given": ["thaumaturgy"]
@@ -1211,7 +1211,7 @@
                             "given": ["Totem Warrior"]
                         }, {
                             "label": "Path Spells",
-                            "path": "spell.list",
+                            "path": "spell.cantrips",
                             "type": "list",
                             "list": ["spell"],
                             "given": [
@@ -2082,7 +2082,7 @@
             }, {
                 "label": "Cantrips",
                 "description": "You know two cantrips of your choice from the bard spell list. You learn additional bard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Bard table.",
-                "path": "spell.list",
+                "path": "spell.cantrips",
                 "type": "list",
                 "list": ["spell"],
                 "limit": 2,
@@ -2454,7 +2454,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit": 1,
@@ -2612,13 +2612,52 @@
                 "config": [{
                     "label": "Additional Magical Secrets",
                     "description": "You learn two spells of your choice from any class. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. The chosen spells count as bard spells for you but don't count against the number of bard spells you know.",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 2,
-                    "filter": {
-                        "level": ["Cantrip", "1", "2", "3"]
-                    }
+                    "type": "config",
+                    "config": [{
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "level": ["1", "2", "3"]
+                            }
+                        }]
+                    }, {
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "level": ["1", "2", "3"]
+                            }
+                        }]
+                    }]
                 }]
             },
             "bard-6-valor": {
@@ -2854,7 +2893,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit": 1,
@@ -2875,13 +2914,52 @@
                 }, {
                     "label": "Magical Secrets",
                     "description": "You have plundered magical knowledge from a wide spectrum of disciplines. Choose two spells from any class, including this one. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. The chosen spells count as bard spells for you and are included in the number in the Spells Known column of the Bard table.",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 2,
-                    "filter": {
-                        "level": ["Cantrip", "1", "2", "3", "4", "5"]
-                    }
+                    "type": "config",
+                    "config": [{
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "level": ["1", "2", "3", "4", "5"]
+                            }
+                        }]
+                    }, {
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "level": ["1", "2", "3", "4", "5"]
+                            }
+                        }]
+                    }]
                 }, {
                     "label": "Expertise",
                     "path": "proficiencies.expertise",
@@ -3100,13 +3178,52 @@
                 }, {
                     "label": "Magical Secrets",
                     "description": "You have plundered magical knowledge from a wide spectrum of disciplines. Choose two spells from any class, including this one. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. The chosen spells count as bard spells for you and are included in the number in the Spells Known column of the Bard table.",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 2,
-                    "filter": {
-                        "level": ["Cantrip", "1", "2", "3", "4", "5", "6", "7"]
-                    }
+                    "type": "config",
+                    "config": [{
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "level": ["1", "2", "3", "4", "5", "6", "7"]
+                            }
+                        }]
+                    }, {
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "level": ["1", "2", "3", "4", "5", "6", "7"]
+                            }
+                        }]
+                    }]
                 }]
             },
             "bard-14-lore": {
@@ -3396,13 +3513,52 @@
                 }, {
                     "label": "Magical Secrets",
                     "description": "You have plundered magical knowledge from a wide spectrum of disciplines. Choose two spells from any class, including this one. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. The chosen spells count as bard spells for you and are included in the number in the Spells Known column of the Bard table.",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 2,
-                    "filter": {
-                        "level": ["Cantrip", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-                    }
+                    "type": "config",
+                    "config": [{
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                            }
+                        }]
+                    }, {
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "limit": 1,
+                            "filter": {
+                                "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                            }
+                        }]
+                    }]
                 }]
             },
             "bard-19": {
@@ -3686,7 +3842,7 @@
             }, {
                 "label": "Cantrips",
                 "description": "You know three cantrips of your choice from the cleric spell list. You learn additional cleric cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Cleric table.",
-                "path": "spell.list",
+                "path": "spell.cantrips",
                 "type": "list",
                 "list": ["spell"],
                 "limit_formula": "3 - spell.max_cantrips",
@@ -3852,7 +4008,7 @@
                         "type": "config",
                         "config": [{
                             "label": "Druid Cantrip",
-                            "path": "spell.list",
+                            "path": "spell.cantrips",
                             "type": "list",
                             "list": ["spell"],
                             "limit": 1,
@@ -4015,7 +4171,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "3 - spell.max_cantrips",
@@ -4171,7 +4327,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "3 - spell.max_cantrips",
@@ -4304,7 +4460,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "4 - spell.max_cantrips",
@@ -4351,7 +4507,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "4 - spell.max_cantrips",
@@ -4493,7 +4649,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "4 - spell.max_cantrips",
@@ -4644,7 +4800,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "4 - spell.max_cantrips",
@@ -4779,7 +4935,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "4 - spell.max_cantrips",
@@ -4866,7 +5022,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "4 - spell.max_cantrips",
@@ -5002,7 +5158,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -5048,7 +5204,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -5093,7 +5249,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -5143,7 +5299,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -5182,7 +5338,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -5244,7 +5400,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -5284,7 +5440,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -5336,7 +5492,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -5491,7 +5647,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -5539,7 +5695,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -5591,7 +5747,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -5880,7 +6036,7 @@
                             "type": "config",
                             "config": [{
                                 "label": "Cantrips",
-                                "path": "spell.list",
+                                "path": "spell.cantrips",
                                 "type": "list",
                                 "list": ["spell"],
                                 "limit": 2,
@@ -6342,7 +6498,7 @@
                 },
                 "config": [{
                     "label": "Cantrip",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit": 1,
@@ -9418,7 +9574,7 @@
             "given": ["constitution", "charisma"]
         }, {
             "label": "Cantrips",
-            "path": "spell.list",
+            "path": "spell.cantrips",
             "type": "list",
             "list": ["spell"],
             "limit": 4,
@@ -9664,7 +9820,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "4 - spell.max_cantrips",
@@ -9731,7 +9887,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "4 - spell.max_cantrips",
@@ -9786,7 +9942,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -9849,7 +10005,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -9901,7 +10057,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -9988,7 +10144,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -10041,7 +10197,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -10106,7 +10262,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "5 - spell.max_cantrips",
@@ -10160,7 +10316,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "6 - spell.max_cantrips",
@@ -10218,7 +10374,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "6 - spell.max_cantrips",
@@ -10273,7 +10429,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "6 - spell.max_cantrips",
@@ -10340,7 +10496,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "6 - spell.max_cantrips",
@@ -10396,7 +10552,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "6 - spell.max_cantrips",
@@ -10483,7 +10639,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "6 - spell.max_cantrips",
@@ -10540,7 +10696,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "6 - spell.max_cantrips",
@@ -10609,7 +10765,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "6 - spell.max_cantrips",
@@ -10670,7 +10826,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "6 - spell.max_cantrips",
@@ -10758,7 +10914,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "6 - spell.max_cantrips",
@@ -10827,7 +10983,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit_formula": "6 - spell.max_cantrips",
@@ -11181,7 +11337,7 @@
             }]
         }, {
             "label": "Cantrips",
-            "path": "spell.list",
+            "path": "spell.cantrips",
             "type": "list",
             "list": ["spell"],
             "limit": 2,
@@ -11233,7 +11389,7 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit": 1,
@@ -11419,7 +11575,7 @@
                             "list": ["tools"],
                             "given": ["Book of Shadows"]
                         }, {
-                            "path": "spell.list",
+                            "path": "spell.cantrips",
                             "type": "list",
                             "list": ["spell"],
                             "limit": 3,
@@ -11540,7 +11696,7 @@
                     "value": 5
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit": 1,
@@ -12052,7 +12208,7 @@
                     "value": 4
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "limit": 1,
@@ -13347,7 +13503,7 @@
                 "options": [{
                     "label": "Agonizing Blast",
                     "path": "abilities.Agonizing Blast",
-                    "hidden_formula": "'Eldritch Blast' not in spell.list",
+                    "hidden_formula": "'Eldritch Blast' not in spell.cantrips",
                     "type": "dict",
                     "dict": {
                         "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -13485,7 +13641,7 @@
                 }, {
                     "label": "Eldritch Spear",
                     "path": "abilities.Eldritch Spear",
-                    "hidden_formula": "'Eldritch Blast' in spell.list",
+                    "hidden_formula": "'Eldritch Blast' in spell.cantrips",
                     "type": "dict",
                     "dict": {
                         "description": "When you cast *Eldritch Blast*, its range is 300 feet."
@@ -13538,7 +13694,7 @@
                 }, {
                     "label": "Grasp of Hadar",
                     "path": "abilities.Grasp of Hadar",
-                    "hidden_formula": "'Eldritch Blast' not in spell.list",
+                    "hidden_formula": "'Eldritch Blast' not in spell.cantrips",
                     "type": "dict",
                     "dict": {
                         "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -13554,7 +13710,7 @@
                 }, {
                     "label": "Lance of Lethargy",
                     "path": "abilities.Lance of Lethargy",
-                    "hidden_formula": "'Eldritch Blast' not in spell.list",
+                    "hidden_formula": "'Eldritch Blast' not in spell.cantrips",
                     "type": "dict",
                     "dict": {
                         "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can reduce that creature's speed by 10 feet until the end of your next turn."
@@ -13646,7 +13802,7 @@
                 }, {
                     "label": "Repelling Blast",
                     "path": "abilities.Repelling Blast",
-                    "hidden_formula": "'Eldritch Blast' not in spell.list",
+                    "hidden_formula": "'Eldritch Blast' not in spell.cantrips",
                     "type": "dict",
                     "dict": {
                         "description": "When you hit a creature with Eldritch Blast, you can push the creature up to 10 feet away from you in a straight line."
@@ -13685,7 +13841,7 @@
                 }, {
                     "label": "Thirsting Blade",
                     "path": "abilities.Thirsting Blade",
-                    "hidden_formula": "character.level < 5 or 'Pat of the Blade' not in spell.list",
+                    "hidden_formula": "character.level < 5 or 'Pact of the Blade' not in character.abilities",
                     "type": "dict",
                     "dict": {
                         "description": "You can attack with your pact weapon twice, instead of once, whenever you take the Attack action on your turn."
