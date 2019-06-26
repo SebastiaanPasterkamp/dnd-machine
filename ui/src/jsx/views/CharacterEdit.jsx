@@ -59,6 +59,7 @@ export class CharacterEdit extends React.Component
             spell: {
                 max_prepared = 0,
                 prepared = [],
+                cantrips = [],
                 list = [],
                 expanded = [],
                 slots = {},
