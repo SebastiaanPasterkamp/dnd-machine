@@ -2,12 +2,12 @@
 
 exports[`Component: ListPropertySelect should handle adding and deleting new 1`] = `
 <ListsToItemsCharacterEditorComponent
+  add={1}
   given={
     Array [
       "charisma",
     ]
   }
-  limit={1}
   list={
     Array [
       "statistics",
@@ -17,6 +17,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
   type="list"
 >
   <CharacterEditorComponent
+    add={1}
     given={
       Array [
         "charisma",
@@ -56,16 +57,15 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
         },
       ]
     }
-    limit={1}
     path="some.path"
     type="list"
   >
     <ListPropertySelect
+      add={1}
       current={
         Array [
           "dexterity",
           "charisma",
-          "intelligence",
         ]
       }
       filter={Object {}}
@@ -109,7 +109,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
           },
         ]
       }
-      limit={1}
+      limit={0}
       multiple={false}
       onChange={[Function]}
       onSave={[Function]}
@@ -135,6 +135,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
                   "code": "constitution",
                   "description": "Con",
                   "label": "Constitution",
+                },
+                Object {
+                  "code": "intelligence",
+                  "description": "Int",
+                  "label": "Intelligence",
                 },
                 Object {
                   "code": "wisdom",
@@ -207,6 +212,16 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
                     >
                       <a>
                         Constitution
+                      </a>
+                    </li>
+                    <li
+                      className={null}
+                      data-value="intelligence"
+                      key="intelligence"
+                      onClick={[Function]}
+                    >
+                      <a>
+                        Intelligence
                       </a>
                     </li>
                     <li
@@ -308,48 +323,6 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
               </span>
             </div>
           </Tag>
-          <Tag
-            color={null}
-            description="Int"
-            disabled={true}
-            id="intelligence"
-            key="tag-2"
-            label="Intelligence"
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
-            >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Int"
-                >
-                  <div
-                    className="tool-tip inline"
-                  >
-                    Intelligence
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Int"
-                    >
-                      <span
-                        className="tool-tip--content"
-                        key="mdrct-html-0"
-                      >
-                        <p
-                          key="mdrct-p-0"
-                        >
-                          Int
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
-            </div>
-          </Tag>
         </div>
       </TagsContainer>
     </ListPropertySelect>
@@ -359,12 +332,12 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
 
 exports[`Component: ListPropertySelect should handle adding and deleting new 2`] = `
 <ListsToItemsCharacterEditorComponent
+  add={1}
   given={
     Array [
       "charisma",
     ]
   }
-  limit={1}
   list={
     Array [
       "statistics",
@@ -374,6 +347,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
   type="list"
 >
   <CharacterEditorComponent
+    add={1}
     given={
       Array [
         "charisma",
@@ -413,17 +387,16 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
         },
       ]
     }
-    limit={1}
     path="some.path"
     type="list"
   >
     <ListPropertySelect
+      add={1}
       current={
         Array [
           "dexterity",
           "strength",
           "charisma",
-          "intelligence",
         ]
       }
       filter={Object {}}
@@ -467,7 +440,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
           },
         ]
       }
-      limit={1}
+      limit={0}
       multiple={false}
       onChange={[Function]}
       onSave={[Function]}
@@ -617,48 +590,6 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
               </span>
             </div>
           </Tag>
-          <Tag
-            color={null}
-            description="Int"
-            disabled={true}
-            id="intelligence"
-            key="tag-3"
-            label="Intelligence"
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
-            >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Int"
-                >
-                  <div
-                    className="tool-tip inline"
-                  >
-                    Intelligence
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Int"
-                    >
-                      <span
-                        className="tool-tip--content"
-                        key="mdrct-html-0"
-                      >
-                        <p
-                          key="mdrct-p-0"
-                        >
-                          Int
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
-            </div>
-          </Tag>
         </div>
       </TagsContainer>
     </ListPropertySelect>
@@ -668,12 +599,12 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
 
 exports[`Component: ListPropertySelect should handle adding and deleting new 3`] = `
 <ListsToItemsCharacterEditorComponent
+  add={1}
   given={
     Array [
       "charisma",
     ]
   }
-  limit={1}
   list={
     Array [
       "statistics",
@@ -683,6 +614,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
   type="list"
 >
   <CharacterEditorComponent
+    add={1}
     given={
       Array [
         "charisma",
@@ -722,11 +654,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
         },
       ]
     }
-    limit={1}
     path="some.path"
     type="list"
   >
     <ListPropertySelect
+      add={1}
       current={
         Array [
           "dexterity",
@@ -776,7 +708,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
           },
         ]
       }
-      limit={1}
+      limit={0}
       multiple={false}
       onChange={[Function]}
       onSave={[Function]}
@@ -977,12 +909,12 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
 
 exports[`Component: ListPropertySelect should handle adding and deleting new 4`] = `
 <ListsToItemsCharacterEditorComponent
+  add={1}
   given={
     Array [
       "charisma",
     ]
   }
-  limit={1}
   list={
     Array [
       "statistics",
@@ -992,6 +924,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 4`]
   type="list"
 >
   <CharacterEditorComponent
+    add={1}
     given={
       Array [
         "charisma",
@@ -1031,11 +964,11 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 4`]
         },
       ]
     }
-    limit={1}
     path="some.path"
     type="list"
   >
     <ListPropertySelect
+      add={1}
       current={
         Array [
           "dexterity",
@@ -1084,7 +1017,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 4`]
           },
         ]
       }
-      limit={1}
+      limit={0}
       multiple={false}
       onChange={[Function]}
       onSave={[Function]}
@@ -1407,6 +1340,7 @@ exports[`Component: ListPropertySelect should handle replacing one existing 1`] 
     type="list"
   >
     <ListPropertySelect
+      add={0}
       current={
         Array [
           "dexterity",
@@ -1651,9 +1585,11 @@ exports[`Component: ListPropertySelect should handle replacing one existing 2`] 
     type="list"
   >
     <ListPropertySelect
+      add={0}
       current={
         Array [
           "charisma",
+          "intelligence",
         ]
       }
       filter={
@@ -1845,6 +1781,48 @@ exports[`Component: ListPropertySelect should handle replacing one existing 2`] 
               </span>
             </div>
           </Tag>
+          <Tag
+            color={null}
+            description="Int"
+            disabled={true}
+            id="intelligence"
+            key="tag-1"
+            label="Intelligence"
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag muted"
+            >
+              <span
+                className="nice-tag-label"
+              >
+                <ToolTip
+                  content="Int"
+                >
+                  <div
+                    className="tool-tip inline"
+                  >
+                    Intelligence
+                    <MDReactComponent
+                      className="tool-tip--content"
+                      text="Int"
+                    >
+                      <span
+                        className="tool-tip--content"
+                        key="mdrct-html-0"
+                      >
+                        <p
+                          key="mdrct-p-0"
+                        >
+                          Int
+                        </p>
+                      </span>
+                    </MDReactComponent>
+                  </div>
+                </ToolTip>
+              </span>
+            </div>
+          </Tag>
         </div>
       </TagsContainer>
     </ListPropertySelect>
@@ -1927,6 +1905,7 @@ exports[`Component: ListPropertySelect should handle replacing one existing 3`] 
     type="list"
   >
     <ListPropertySelect
+      add={0}
       current={
         Array [
           "strength",
@@ -2140,6 +2119,7 @@ exports[`Component: ListPropertySelect should handle replacing one existing 3`] 
 
 exports[`Component: ListPropertySelect should not render select w/ filtering all items 1`] = `
 <ListsToItemsCharacterEditorComponent
+  add={1}
   filter={
     Object {
       "code": Array [
@@ -2147,7 +2127,6 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
       ],
     }
   }
-  limit={1}
   list={
     Array [
       "statistics",
@@ -2157,6 +2136,7 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
   type="list"
 >
   <CharacterEditorComponent
+    add={1}
     filter={
       Object {
         "code": Array [
@@ -2198,11 +2178,11 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
         },
       ]
     }
-    limit={1}
     path="some.path"
     type="list"
   >
     <ListPropertySelect
+      add={1}
       current={
         Array [
           "dexterity",
@@ -2251,7 +2231,7 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
           },
         ]
       }
-      limit={1}
+      limit={0}
       multiple={false}
       onChange={[Function]}
       onSave={[Function]}
@@ -2314,17 +2294,18 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
 
 exports[`Component: ListPropertySelect should not render select w/o items 1`] = `
 <ListsToItemsCharacterEditorComponent
-  limit={1}
+  add={1}
   path="some.path"
   type="list"
 >
   <CharacterEditorComponent
+    add={1}
     items={Array []}
-    limit={1}
     path="some.path"
     type="list"
   >
     <ListPropertySelect
+      add={1}
       current={
         Array [
           "dexterity",
@@ -2334,7 +2315,7 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
       getCurrent={[Function]}
       given={Array []}
       items={Array []}
-      limit={1}
+      limit={0}
       multiple={false}
       onChange={[Function]}
       onSave={[Function]}
@@ -2403,6 +2384,7 @@ exports[`Component: ListPropertySelect should not render when hidden 1`] = `
     type="list"
   >
     <ListPropertySelect
+      add={0}
       current={
         Array [
           "dexterity",
@@ -2517,6 +2499,7 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
     type="list"
   >
     <ListPropertySelect
+      add={0}
       current={
         Array [
           "dexterity",
@@ -2647,6 +2630,7 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
 
 exports[`Component: ListPropertySelect should render with full props 1`] = `
 <ListsToItemsCharacterEditorComponent
+  add={2}
   filter={
     Object {
       "code": Array [
@@ -2662,7 +2646,6 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       "charisma",
     ]
   }
-  limit={2}
   list={
     Array [
       "statistics",
@@ -2674,6 +2657,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
   type="list"
 >
   <CharacterEditorComponent
+    add={2}
     filter={
       Object {
         "code": Array [
@@ -2723,13 +2707,13 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
         },
       ]
     }
-    limit={2}
     multiple={true}
     path="some.path"
     replace={1}
     type="list"
   >
     <ListPropertySelect
+      add={2}
       current={
         Array [
           "dexterity",
@@ -2787,7 +2771,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
           },
         ]
       }
-      limit={2}
+      limit={0}
       multiple={true}
       onChange={[Function]}
       onSave={[Function]}
@@ -3044,6 +3028,7 @@ exports[`Component: ListPropertySelect should render with minimum props 1`] = `
     type="list"
   >
     <ListPropertySelect
+      add={0}
       current={
         Array [
           "dexterity",

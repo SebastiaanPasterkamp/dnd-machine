@@ -64,7 +64,7 @@ describe('Component: ListPropertySelect', () => {
             <ListPropertySelect
                 {...props}
                 list={undefined}
-                limit={1}
+                add={1}
             />
         );
         jest.runAllTimers();
@@ -77,7 +77,7 @@ describe('Component: ListPropertySelect', () => {
         const wrapper = mount(
             <ListPropertySelect
                 {...props}
-                limit={1}
+                add={1}
                 filter={{ code: ['impossible'] }}
             />
         );
@@ -108,7 +108,7 @@ describe('Component: ListPropertySelect', () => {
                     'constitution',
                     'charisma',
                 ]}
-                limit={2}
+                add={2}
                 replace={1}
                 filter={{
                     code: [
@@ -233,15 +233,13 @@ describe('Component: ListPropertySelect', () => {
             'id_2',
             {type: 'list'},
         );
-
-        addChange.mockClear();
-
-        expect(addChange).not.toBeCalled();
-
         jest.runAllTimers();
+        wrapper.update();
+
         expect(wrapper)
             .toMatchSnapshot();
 
+        addChange.mockClear();
         wrapper
             .find('.nice-btn')
             .simulate('click');
@@ -283,7 +281,7 @@ describe('Component: ListPropertySelect', () => {
                 given={[
                     'charisma',
                 ]}
-                limit={1}
+                add={1}
             />
         );
         jest.runAllTimers();
@@ -312,7 +310,7 @@ describe('Component: ListPropertySelect', () => {
                     given: [
                         'charisma',
                     ],
-                    limit: 1,
+                    add: 1,
                     type: props.type,
                     items: statistics,
                 },
@@ -327,12 +325,11 @@ describe('Component: ListPropertySelect', () => {
             {type: 'list'},
         );
         jest.runAllTimers();
-
-        addChange.mockClear();
-
-        expect(addChange).not.toBeCalled();
+        wrapper.update();
 
         expect(wrapper).toMatchSnapshot();
+
+        addChange.mockClear();
 
         wrapper
             .find('.nice-tag-btn')
@@ -352,7 +349,7 @@ describe('Component: ListPropertySelect', () => {
                     given: [
                         'charisma',
                     ],
-                    limit: 1,
+                    add: 1,
                     type: props.type,
                     items: statistics,
                 },
