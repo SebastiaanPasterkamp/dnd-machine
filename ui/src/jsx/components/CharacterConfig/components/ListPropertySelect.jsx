@@ -1,6 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    concat,
+    countBy,
+    entries,
+    every,
+    find,
+    filter,
+    flow,
+    forEach,
+    get,
+    includes,
+    isArray,
+    isNil,
+    intersection,
+    map,
+    keys,
+    some,
+    without,
+} from 'lodash/fp';
 
 import {
     TagsContainer,
@@ -27,20 +45,17 @@ export class ListPropertySelect extends LazyComponent
     }
 
     componentDidMount() {
-        this.onSetState();
+        const { given } = this.props;
+        if (given.length) {
+            this.onSetState();
+        }
     }
 
     onSetState() {
-        const {
-            onChange,
-            given = [],
-        } = this.props;
-        const {
-            added,
-            removed,
-        } = this.state;
+        const { onChange, given } = this.props;
+        const { added, removed } = this.state;
         onChange({
-            added: _.concat(added, given),
+            added: concat(added, given),
             removed,
         });
     }
@@ -51,45 +66,45 @@ export class ListPropertySelect extends LazyComponent
             const { replace = 0 } = this.props;
             const { added, removed } = this.state;
             let state = { added, removed };
-            if (_.includes(added, value)) {
-                state.added = _.without(state.added, value);
+            if (includes(value, added)) {
+                state.added = without(added, value);
             } else if (removed.length < replace) {
-                state.removed = _.concat(state.removed, [value]);
+                state.removed = concat(removed, [value]);
             }
             this.setState(state, () => this.onSetState());
         }
     );
 
     onAdd = (value) => {
-        const { limit = 0, replace = 0 } = this.props;
+        const { limit, add, replace } = this.props;
         const { added, removed } = this.state;
         let state = { added, removed };
-        if (_.includes(removed, value)) {
-            state.removed = _.without(state.removed, value);
-        } else if (added.length < (limit + removed.length)) {
-            state.added = _.concat(state.added, [value]);
+        if (includes(value, removed)) {
+            state.removed = without(removed, value);
+        } else if (added.length < (add + removed.length)) {
+            state.added = concat(added, [value]);
         }
         this.setState(state, () => this.onSetState());
     }
 
     findItem(value, _default={label: value, color: 'bad'}) {
         const { items = [] } = this.props;
-        const match = _.find(items, {code: value})
-            || _.find(items, {name: value});
+        const match = find({code: value}, items)
+            || find({name: value}, items);
 
         if (!match && !_default) {
             return _default;
         }
 
-        const item = match || _.assign(
-            {},
-            _default,
-            {code: value, label: value}
-        );
+        const item = match || {
+            ..._default,
+            code: value,
+            label: value,
+        };
 
         return {
-            id: _.get(item, 'code', item.name),
-            label: _.get(item, 'label', item.name),
+            id: isNil(item.code) ? item.name : item.code,
+            label: isNil(item.label) ? item.name : item.label,
             description: item.description,
         };
     }
@@ -98,115 +113,119 @@ export class ListPropertySelect extends LazyComponent
         const { given, current, replace } = this.props;
         const { added, removed } = this.state;
 
-        const tags = _.map(
-            added,
-            code => _.assign(
-                {},
-                this.findItem(code),
-                {
+        const tags = concat(
+            map(
+                code => ({
+                    ...this.findItem(code),
                     color: 'info',
-                }
-            )
-        ).concat( _.map(
-            given,
-            code => _.assign(
-                {},
-                this.findItem(code),
-                {
+                })
+            )(added),
+            map(
+                code => ({
+                    ...this.findItem(code),
                     color: 'good',
                     disabled: true,
-                }
-            )
-        ) );
+                })
+            )(given)
+        );
 
-        let upgrade = _.countBy(tags, 'id');
-        let downgrade = _.countBy(removed, 'id');
-        _.forEach(downgrade, (count, code) => {
-            upgrade[code] = _.get(upgrade, code, 0) - count;
-        });
+        let upgrade = countBy('id', tags);
+        let downgrade = countBy('id', removed);
+        forEach(
+            (count, code) => {
+                upgrade[code] = (upgrade[code] || 0) - count;
+            }
+        )(downgrade);
 
         const disabled = (replace - removed.length) <= 0;
-        return tags.concat( _.filter( _.map(
-            _.without(current, removed),
-            code => {
-                if (_.get(upgrade, code, 0) > 0) {
-                    upgrade[code] -= 1;
-                    return null;
-                }
-                const _current = this.findItem(code, null);
-                if (!_current) {
-                    return null;
-                }
-                return _.assign(
-                    {},
-                    _current,
-                    {
-                        color: disabled ? null : 'warning',
-                        disabled
+        return concat(
+            tags,
+            filter(null, map(
+                code => {
+                    if ((upgrade[code] || 0) > 0) {
+                        upgrade[code] -= 1;
+                        return null;
                     }
-                );
-            }
-        ) ) );
+                    const _current = this.findItem(code, null);
+                    if (!_current) {
+                        return null;
+                    }
+                    return ({
+                        ..._current,
+                        color: disabled ? null : 'warning',
+                        disabled,
+                    });
+                }
+            )(without(removed, current)))
+        );
     }
 
-    matchesFilter(item, filter) {
-        if ('or' in filter) {
+    matchesFilters(item, filters) {
+        if ('or' in filters) {
             console.assert(
-                _.keys(filter).length === 1,
+                keys(filters).length === 1,
                 "Cannot have OR filters with sibbling conditions"
             );
-            return _.some(
-                filter.or,
-                option => this.matchesFilter(item, option)
-            );
+            return some(
+                option => this.matchesFilters(item, option)
+            )(filters.or);
         }
-        return _.every(
-            filter,
-            (cond, path) => {
+        return flow(entries, every(
+            ([path, cond]) => {
                 if (path.match(/_(formula|default)$/)) {
                     return true;
                 }
                 if (path === 'and'
-                    && !this.matchesFilter(item, cond)
+                    && !this.matchesFilters(item, cond)
                 ) {
                     return false;
                 }
-                const value = _.get(item, path);
-                return _.intersection(
-                    _.isArray(value) ? value : [value],
-                    _.isArray(cond) ? cond : [cond],
+                const value = get(path, item);
+                return intersection(
+                    isArray(value) ? value : [value],
+                    isArray(cond) ? cond : [cond],
                 ).length;
             }
-        );
+        ))(filters);
     }
 
     renderSelect() {
         const {
-            multiple, filter, items, current, given,
-            limit, replace,
+            multiple, filter: filters, items, current, given,
+            limit, add, replace,
         } = this.props;
         const { added, removed } = this.state;
 
         if (!items.length) return null;
 
-        if ((limit - added.length + removed.length) <= 0) {
+        if ((add - added.length + removed.length) <= 0) {
             return null;
         }
 
-        const values = _.concat(
-            given, current, added
-        );
-        const filtered = _.chain(items)
-            .filter(item => (
-                _.includes(removed, _.get(item, 'code', item.name))
-                || this.matchesFilter(item, filter)
-            ))
-            .filter(item => (
+        const values = [...given, ...current, ...added];
+        const filtered = filter(
+            item => (
                 multiple
-                || _.includes(removed, _.get(item, 'code', item.name))
-                || !_.includes(values, _.get(item, 'code', item.name))
-            ))
-            .value();
+                || includes(
+                    isNil(item.code) ? item.name : item.code,
+                    removed
+                )
+                || !includes(
+                    isNil(item.code) ? item.name : item.code,
+                    values
+                )
+            ),
+            filter(
+                item => (
+                    includes(
+                        isNil(item.code) ? item.name : item.code,
+                        removed
+                    )
+                    || this.matchesFilters(item, filters)
+                ),
+                items
+            )
+        );
 
         if (!filtered.length) return null;
 
@@ -220,30 +239,30 @@ export class ListPropertySelect extends LazyComponent
     }
 
     render() {
-        const {
-            hidden,
-        } = this.props;
+        const { hidden } = this.props;
         if (hidden) {
             return null;
         }
 
-        const tags = _.map(
-            this.getValue(),
-            tag => _.assign(tag, {
+        const tags = map(
+            tag => ({
+                ...tag,
                 onDelete: this.onDelete(tag.id),
             })
+        )(this.getValue());
+
+        return (
+            <TagsContainer>
+                {this.renderSelect()}
+
+                {flow(entries, map(([i, tag]) => (
+                    <Tag
+                        key={`tag-${i}`}
+                        {...tag}
+                    />
+                )))(tags)}
+            </TagsContainer>
         );
-
-        return <TagsContainer>
-            {this.renderSelect()}
-
-            {_.map(tags, (tag, i) => (
-                <Tag
-                    key={`tag-${i}`}
-                    {...tag}
-                />
-            ))}
-        </TagsContainer>;
     }
 
 };
@@ -259,8 +278,9 @@ ListPropertySelect.propTypes = {
         ])
     ),
     current: PropTypes.array,
-    replace: PropTypes.number,
     limit: PropTypes.number,
+    add: PropTypes.number,
+    replace: PropTypes.number,
     filter: PropTypes.object,
     multiple: PropTypes.bool,
     hidden: PropTypes.bool,
@@ -270,6 +290,7 @@ ListPropertySelect.defaultProps = {
     given: [],
     current: [],
     limit: 0,
+    add: 0,
     replace: 0,
     multiple: false,
     filter: {},

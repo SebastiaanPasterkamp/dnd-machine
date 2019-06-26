@@ -87,10 +87,11 @@ function CharacterEditorWrapper(
         }
 
         getCurrent = (path) => {
+            const { character } = this.state;
             if (!path) {
-                return this.state.character;
+                return character;
             }
-            return get(path, this.state.character);
+            return get(path, character);
         }
 
         componentWillUnmount() {

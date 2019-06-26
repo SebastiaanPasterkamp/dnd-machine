@@ -29,23 +29,12 @@ class CharacterEditorStore extends Reflux.Store
     }
 
     reset() {
-        const {
-            original,
-            character,
-            config,
-            ...rest
-        } = this.state;
-        const state = assign(
-            fromPairs(
-                map((value, key) => [key, undefined])(rest)
-            ),
-            {
-                original: {},
-                character: {},
-                config: [],
-            }
-        );
-        this.setState(state);
+        this.state = {};
+        this.setState({
+            original: {},
+            character: {},
+            config: [],
+        });
     }
 
     previewChange(id, path, change) {
@@ -62,15 +51,16 @@ class CharacterEditorStore extends Reflux.Store
         } = original;
 
         const preview = reduce(
-            (preview, previewChange, previewId) => {
+            (preview, previewChange) => {
                 if (
                     previewChange
                     && previewChange.path === path
                 ) {
-                    preview[previewId] = previewChange;
+                    preview.push(previewChange);
                 }
                 return preview;
-            }
+            },
+            []
         )({
             ...changes,
             [id]: change,
@@ -154,10 +144,6 @@ class CharacterEditorStore extends Reflux.Store
     }
 
     onAddChange(path, value, id, option) {
-        const {
-            original,
-            character: start,
-        } = this.state;
         const change = {
             path,
             value,
