@@ -788,39 +788,60 @@
                 }]
             }]
         }, {
-            "label": "Ability Score Increase",
-            "description": "Your ability scores each increase by 1.",
-            "type": "config",
-            "config": [{
-                "hidden": true,
-                "path": "statistics.bonus.strength",
-                "type": "list",
-                "given": [1]
+            "label": "Variations",
+            "description": "You can choose between two different Human builds.",
+            "type": "choice",
+            "options": [{
+                "label": "Regular",
+                "type": "config",
+                "config": [{
+                    "label": "Ability Score Increase",
+                    "description": "Your ability scores each increase by 1.",
+                    "type": "config",
+                    "config": [{
+                        "hidden": true,
+                        "path": "statistics.bonus.strength",
+                        "type": "list",
+                        "given": [1]
+                    }, {
+                        "hidden": true,
+                        "path": "statistics.bonus.dexterity",
+                        "type": "list",
+                        "given": [1]
+                    }, {
+                        "hidden": true,
+                        "path": "statistics.bonus.constitution",
+                        "type": "list",
+                        "given": [1]
+                    }, {
+                        "hidden": true,
+                        "path": "statistics.bonus.intelligence",
+                        "type": "list",
+                        "given": [1]
+                    }, {
+                        "hidden": true,
+                        "path": "statistics.bonus.wisdom",
+                        "type": "list",
+                        "given": [1]
+                    }, {
+                        "hidden": true,
+                        "path": "statistics.bonus.charisma",
+                        "type": "list",
+                        "given": [1]
+                    }]
+                }]
             }, {
-                "hidden": true,
-                "path": "statistics.bonus.dexterity",
-                "type": "list",
-                "given": [1]
-            }, {
-                "hidden": true,
-                "path": "statistics.bonus.constitution",
-                "type": "list",
-                "given": [1]
-            }, {
-                "hidden": true,
-                "path": "statistics.bonus.intelligence",
-                "type": "list",
-                "given": [1]
-            }, {
-                "hidden": true,
-                "path": "statistics.bonus.wisdom",
-                "type": "list",
-                "given": [1]
-            }, {
-                "hidden": true,
-                "path": "statistics.bonus.charisma",
-                "type": "list",
-                "given": [1]
+                "label": "Variant",
+                "type": "config",
+                "config": [{
+                    "label": "Ability Score Improvement",
+                    "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                    "type": "ability_score",
+                    "limit": 2
+                }, {
+                    "include": "feats",
+                    "add": 1
+                }]
             }]
         }, {
             "label": "Size",
