@@ -132,9 +132,9 @@ Basics.propTypes = {
     passive_perception: PropTypes.number,
     proficiency: PropTypes.number,
     spell: PropTypes.shape({
-        stat: PropTypes.string.isRequired,
-        safe_dc: PropTypes.number.isRequired,
-        attack_modifier: PropTypes.number.isRequired,
+        stat: PropTypes.string,
+        safe_dc: PropTypes.number,
+        attack_modifier: PropTypes.number,
     }),
     statistics: PropTypes.array,
 };
