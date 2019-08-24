@@ -16,45 +16,39 @@ export class MultipleChoiceSelect extends LazyComponent
             added: [],
             removed: [],
             filtered: [],
-            showSelect: props.limit > 0,
-            disabled: props.removed <= 0,
+            showSelect: props.limit > 0 || props.add > 0,
+            disabled: props.replace <= 0,
         };
     }
 
     onAdd = (label) => {
-        const { limit , replace } = this.props;
+        const { limit, add, replace } = this.props;
         const { added, removed, filtered } = this.state;
-        let state = { added, removed, filtered };
+        const state = { added, removed, filtered };
 
-        if (_.includes(filtered, label)) {
-            state.filtered = _.without(filtered, label);
-        }
         if (_.includes(removed, label)) {
             state.removed = _.without(removed, label);
-        }
-        if (added.length < (limit + removed.length)) {
+        } else if (added.length < (add + removed.length)) {
+            state.filtered = _.without(filtered, label);
             state.added = _.concat(added, [label]);
         }
-        state.showSelect = (state.added.length - state.removed.length) < limit;
+        state.showSelect = (state.added.length - state.removed.length) < add;
         state.disabled = state.removed.length >= replace;
         this.setState(state);
     }
 
     onDelete = (label) => {
-        const { limit, replace } = this.props;
+        const { limit, add, replace } = this.props;
         const { added, removed, filtered } = this.state;
         let state = { added, removed, filtered };
 
-        if (!_.includes(filtered, label)) {
-            state.filtered = _.concat(filtered, [label]);
-        }
         if (_.includes(added, label)) {
             state.added = _.without(added, label);
-        }
-        if (removed.length < replace) {
+            state.filtered = _.concat(removed, [label]);
+        } else if (removed.length < replace) {
             state.removed = _.concat(removed, [label]);
         }
-        state.showSelect = (state.added.length - state.removed.length) < limit;
+        state.showSelect = (state.added.length - state.removed.length) < add;
         state.disabled = state.removed.length >= replace;
 
         this.setState(state);
@@ -64,7 +58,7 @@ export class MultipleChoiceSelect extends LazyComponent
 
     render() {
         const {
-            options, limit, replace, getCurrent,
+            options, limit, add, replace, getCurrent,
         } = this.props;
         const {
             added, removed, filtered, showSelect, disabled,
@@ -76,6 +70,9 @@ export class MultipleChoiceSelect extends LazyComponent
                     return true;
                 }
                 if (_.includes(filtered, option.label)) {
+                    return false;
+                }
+                if (_.includes(removed, option.label)) {
                     return false;
                 }
                 const path = (
@@ -124,6 +121,7 @@ export class MultipleChoiceSelect extends LazyComponent
 
 MultipleChoiceSelect.defaultProps = {
     limit: 0,
+    add: 0,
     replace: 0,
 };
 
@@ -133,6 +131,7 @@ MultipleChoiceSelect.propTypes = {
     getCurrent: PropTypes.func.isRequired,
     description: PropTypes.string,
     limit: PropTypes.number,
+    add: PropTypes.number,
     replace: PropTypes.number,
 };
 
