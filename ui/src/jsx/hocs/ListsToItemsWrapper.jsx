@@ -15,6 +15,7 @@ function ListsToItemsWrapper(
             super(props);
             this.WrappedComponent = WrappedComponent;
             this.state = {
+                loading: {},
                 items: [],
                 listed: {},
                 loading: {},
