@@ -7404,7 +7404,7 @@
                             "type": "list",
                             "list": ["spell"],
                             "given": [
-                                "Protection From Evil and Good",
+                                "Protection from Evil and Good",
                                 "Sanctuary"
                             ]
                         }, {
@@ -7796,7 +7796,7 @@
                     "list": ["spell"],
                     "given": [
                         "Plant Growth",
-                        "Protection From Energy"
+                        "Protection from Energy"
                     ]
                 }]
             },
@@ -7813,7 +7813,7 @@
                     "list": ["spell"],
                     "given": [
                         "Haste",
-                        "Protection From Energy"
+                        "Protection from Energy"
                     ]
                 }]
             },
@@ -8044,7 +8044,7 @@
                     "path": "abilities.Purity of Spirit",
                     "type": "dict",
                     "dict": {
-                        "description": "You are always under the effects of a **Protection From Evil and Good** spell."
+                        "description": "You are always under the effects of a **Protection from Evil and Good** spell."
                     }
                 }]
             },
