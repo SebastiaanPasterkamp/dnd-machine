@@ -40,8 +40,28 @@ export class ListPropertySelect extends LazyComponent
         this.state = {
             added: [],
             removed: [],
+            showSelect: false,
+            disabled: true,
         };
         this.memoize = memoize.bind(this);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        const { add, limit, replace, current } = props;
+        const { added, removed } = state;
+
+        const showSelect = Boolean(
+            (state.added.length - state.removed.length) < add
+            || current.length < limit
+        );
+        const disabled = removed.length >= replace;
+
+        if (showSelect !== state.showSelect
+            || disabled !== state.disabled
+        ) {
+            return { showSelect, disabled };
+        }
+        return null;
     }
 
     componentDidMount() {
@@ -63,7 +83,7 @@ export class ListPropertySelect extends LazyComponent
     onDelete = (value) => this.memoize(
         `delete-${value}`,
         () => {
-            const { replace = 0 } = this.props;
+            const { replace } = this.props;
             const { added, removed } = this.state;
             let state = { added, removed };
             if (includes(value, added)) {
@@ -76,7 +96,7 @@ export class ListPropertySelect extends LazyComponent
     );
 
     onAdd = (value) => {
-        const { limit, add, replace } = this.props;
+        const { add } = this.props;
         const { added, removed } = this.state;
         let state = { added, removed };
         if (includes(value, removed)) {
@@ -161,24 +181,21 @@ export class ListPropertySelect extends LazyComponent
     }
 
     matchesFilters(item, filters) {
-        if ('or' in filters) {
-            console.assert(
-                keys(filters).length === 1,
-                "Cannot have OR filters with sibbling conditions"
-            );
-            return some(
-                option => this.matchesFilters(item, option)
-            )(filters.or);
-        }
         return flow(entries, every(
             ([path, cond]) => {
                 if (path.match(/_(formula|default)$/)) {
                     return true;
                 }
-                if (path === 'and'
-                    && !this.matchesFilters(item, cond)
-                ) {
-                    return false;
+                if (path === 'or') {
+                    return some(
+                        option => this.matchesFilters(item, option)
+                    )(cond);
+                }
+                if (path === 'and') {
+                    return this.matchesFilters(item, cond);
+                }
+                if (path === 'not') {
+                    return !this.matchesFilters(item, cond);
                 }
                 const value = get(path, item);
                 return intersection(
@@ -194,11 +211,11 @@ export class ListPropertySelect extends LazyComponent
             multiple, filter: filters, items, current, given,
             limit, add, replace,
         } = this.props;
-        const { added, removed } = this.state;
+        const { added, removed, showSelect } = this.state;
 
         if (!items.length) return null;
 
-        if ((add - added.length + removed.length) <= 0) {
+        if (!showSelect) {
             return null;
         }
 

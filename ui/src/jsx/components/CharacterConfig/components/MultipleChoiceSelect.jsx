@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import LazyComponent from '../../LazyComponent.jsx';
 import TagContainer from '../../TagContainer.jsx';
 
 import CharacterConfig from '../CharacterConfig.jsx';
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
-export class MultipleChoiceSelect extends LazyComponent
+export class MultipleChoiceSelect extends React.Component
 {
     constructor(props) {
         super(props);
@@ -16,9 +15,28 @@ export class MultipleChoiceSelect extends LazyComponent
             added: [],
             removed: [],
             filtered: [],
-            showSelect: props.limit > 0 || props.add > 0,
-            disabled: props.replace <= 0,
+            showSelect: false,
+            disabled: true,
         };
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        const { add, limit, replace } = props;
+        const { added, removed } = state;
+        const current = MultipleChoiceSelect.getCurrent(props, state);
+
+        const showSelect = Boolean(
+            (added.length - removed.length) < add
+            || current.length < limit
+        );
+        const disabled = removed.length >= replace;
+
+        if (showSelect !== state.showSelect
+            || disabled != state.disabled
+        ) {
+            return { showSelect, disabled };
+        }
+        return null;
     }
 
     onAdd = (label) => {
@@ -32,13 +50,11 @@ export class MultipleChoiceSelect extends LazyComponent
             state.filtered = _.without(filtered, label);
             state.added = _.concat(added, [label]);
         }
-        state.showSelect = (state.added.length - state.removed.length) < add;
-        state.disabled = state.removed.length >= replace;
         this.setState(state);
     }
 
     onDelete = (label) => {
-        const { limit, add, replace } = this.props;
+        const { limit, add, replace, current } = this.props;
         const { added, removed, filtered } = this.state;
         let state = { added, removed, filtered };
 
@@ -48,23 +64,16 @@ export class MultipleChoiceSelect extends LazyComponent
         } else if (removed.length < replace) {
             state.removed = _.concat(removed, [label]);
         }
-        state.showSelect = (state.added.length - state.removed.length) < add;
-        state.disabled = state.removed.length >= replace;
-
         this.setState(state);
     }
 
     onSetState = () => null;
 
-    render() {
-        const {
-            options, limit, add, replace, getCurrent,
-        } = this.props;
-        const {
-            added, removed, filtered, showSelect, disabled,
-        } = this.state;
+    static getCurrent(props, state) {
+        const { options, getCurrent } = props;
+        const { added, removed, filtered } = state;
 
-        const value = _.chain(options)
+        const current = _.chain(options)
             .filter(option => {
                 if (_.includes(added, option.label)) {
                     return true;
@@ -83,6 +92,19 @@ export class MultipleChoiceSelect extends LazyComponent
             })
             .map(option => option.label)
             .value();
+        return current;
+    }
+
+    render() {
+        const { options, limit, add, replace } = this.props;
+        const {
+            added, removed, filtered, showSelect, disabled,
+        } = this.state;
+
+        const current = MultipleChoiceSelect.getCurrent(
+            this.props,
+            this.state
+        );
         const items = _.chain(options)
             .filter(option => !option.hidden)
             .map(option => {
@@ -98,7 +120,7 @@ export class MultipleChoiceSelect extends LazyComponent
         return (
             <div>
                 <TagContainer
-                    value={value}
+                    value={current}
                     items={items}
                     onAdd={ this.onAdd }
                     onDelete={ this.onDelete }
@@ -107,7 +129,7 @@ export class MultipleChoiceSelect extends LazyComponent
                 />
                 {_.map(
                     options,
-                    (config, i) => _.includes(value, config.label) ? (
+                    (config, i) => _.includes(current, config.label) ? (
                         <CharacterConfig
                             key={i}
                             config={ [config] }

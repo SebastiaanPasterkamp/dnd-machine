@@ -77,15 +77,17 @@ describe('Component: MultipleChoiceSelect', () => {
     });
 
     it('should render with full props', () => {
-        const tree = renderer.create(
+        const wrapper = mount(
             <MultipleChoiceSelect
                 {...props}
                 add={2}
                 replace={1}
             />
-        ).toJSON();
+        );
 
-        expect(tree).toMatchSnapshot();
+        expect(wrapper.find('button.nice-btn').length).toEqual(1);
+        expect(wrapper.find('button.nice-tag-btn').length).toEqual(1);
+        expect(wrapper.find('.markdown-textedit').length).toEqual(1);
     });
 
     it('should emit *Change actions on mount and umount', () => {

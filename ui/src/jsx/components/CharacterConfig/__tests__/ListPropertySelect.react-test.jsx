@@ -184,7 +184,7 @@ describe('Component: ListPropertySelect', () => {
             .toBeCalledWith(mockedId);
     });
 
-    it('should handle replacing one existing', () => {
+    it('should replacing one existing', () => {
         const addChange = jest.spyOn(
             actions,
             'addChange'
@@ -200,12 +200,9 @@ describe('Component: ListPropertySelect', () => {
             />
         );
 
-        expect(wrapper)
-            .toMatchSnapshot();
-
         addChange.mockClear();
         wrapper
-            .find('.nice-tag-btn')
+            .find('.fa-trash-o')
             .at(0)
             .simulate('click');
         expect(addChange)
@@ -226,20 +223,9 @@ describe('Component: ListPropertySelect', () => {
                     items: statistics,
                 },
             );
-
-        actions.addChange(
-            'some.path',
-            {added: ['intelligence'], removed: []},
-            'id_2',
-            {type: 'list'},
-        );
-        jest.runAllTimers();
-        wrapper.update();
-
         expect(wrapper)
             .toMatchSnapshot();
 
-        addChange.mockClear();
         wrapper
             .find('.nice-btn')
             .simulate('click');
