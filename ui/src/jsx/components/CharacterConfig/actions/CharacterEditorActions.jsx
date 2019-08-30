@@ -51,9 +51,7 @@ CharacterEditorActions.resetCharacter.listen(
 const saveCharacter = (
     action, method, data, id=null, callback=null
 ) => {
-    const path = '/' + filter(
-        ['character', 'api', id]
-    ).join('/');
+    const path = '/' + filter(null, [ 'character', 'api', id ]).join('/');
 
     fetch(path, {
         credentials: 'same-origin',
