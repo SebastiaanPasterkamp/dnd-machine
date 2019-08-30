@@ -17,6 +17,7 @@ function ListsToItemsWrapper(
             this.state = {
                 items: [],
                 listed: {},
+                loading: {},
             };
 
             this.mapStoreToState(
