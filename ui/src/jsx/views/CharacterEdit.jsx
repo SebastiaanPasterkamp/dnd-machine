@@ -76,8 +76,6 @@ export class CharacterEdit extends React.Component
             ))(slots)
         );
 
-        console.log({ slots, levelFilter });
-
         return (
             <React.Fragment>
                 { !isEmpty(config) ? (
