@@ -42,8 +42,21 @@ export class MultipleChoiceSelect extends React.Component
     onAdd = (label) => {
         const { limit, add, replace } = this.props;
         const { added, removed, filtered } = this.state;
-        const state = { added, removed, filtered };
 
+        const current = MultipleChoiceSelect.getCurrent(
+            this.props,
+            this.state
+        );
+
+        if (limit) {
+            if (current.length >= limit) {
+                return false;
+            }
+        } else if (added.length >= (add + removed.length)) {
+            return false;
+        }
+
+        const state = { added, removed, filtered };
         if (_.includes(removed, label)) {
             state.removed = _.without(removed, label);
         } else if (added.length < (add + removed.length)) {
@@ -54,9 +67,9 @@ export class MultipleChoiceSelect extends React.Component
     }
 
     onDelete = (label) => {
-        const { limit, add, replace, current } = this.props;
+        const { limit, add, replace } = this.props;
         const { added, removed, filtered } = this.state;
-        let state = { added, removed, filtered };
+        const state = { added, removed, filtered };
 
         if (_.includes(added, label)) {
             state.added = _.without(added, label);
