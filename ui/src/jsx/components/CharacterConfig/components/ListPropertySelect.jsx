@@ -85,9 +85,9 @@ export class ListPropertySelect extends LazyComponent
         () => {
             const { replace } = this.props;
             const { added, removed } = this.state;
-            let state = { added, removed };
+            const state = { added, removed };
             if (includes(value, added)) {
-                state.added = without(added, value);
+                state.added = without([ value ], added);
             } else if (removed.length < replace) {
                 state.removed = concat(removed, [value]);
             }
@@ -96,12 +96,21 @@ export class ListPropertySelect extends LazyComponent
     );
 
     onAdd = (value) => {
-        const { add } = this.props;
+        const { add, limit, current } = this.props;
         const { added, removed } = this.state;
-        let state = { added, removed };
+
+        if (limit) {
+            if (current.length >= limit) {
+                return false;
+            }
+        } else if (added.length >= (add + removed.length)) {
+            return false;
+        }
+
+        const state = { added, removed };
         if (includes(value, removed)) {
-            state.removed = without(removed, value);
-        } else if (added.length < (add + removed.length)) {
+            state.removed = without([ value ], removed);
+        } else {
             state.added = concat(added, [value]);
         }
         this.setState(state, () => this.onSetState());

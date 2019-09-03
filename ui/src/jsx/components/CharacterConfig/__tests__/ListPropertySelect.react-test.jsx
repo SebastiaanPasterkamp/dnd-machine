@@ -184,7 +184,7 @@ describe('Component: ListPropertySelect', () => {
             .toBeCalledWith(mockedId);
     });
 
-    it('should replacing one existing', () => {
+    it('should allow replacing one existing', () => {
         const addChange = jest.spyOn(
             actions,
             'addChange'

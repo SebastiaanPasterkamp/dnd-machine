@@ -2204,7 +2204,7 @@ exports[`Component: ListPropertySelect should render with minimum props 1`] = `
 </ListsToItemsCharacterEditorComponent>
 `;
 
-exports[`Component: ListPropertySelect should replacing one existing 1`] = `
+exports[`Component: ListPropertySelect should allow replacing one existing 1`] = `
 <ListsToItemsCharacterEditorComponent
   filter={
     Object {
@@ -2481,7 +2481,7 @@ exports[`Component: ListPropertySelect should replacing one existing 1`] = `
 </ListsToItemsCharacterEditorComponent>
 `;
 
-exports[`Component: ListPropertySelect should replacing one existing 2`] = `
+exports[`Component: ListPropertySelect should allow replacing one existing 2`] = `
 <ListsToItemsCharacterEditorComponent
   filter={
     Object {
