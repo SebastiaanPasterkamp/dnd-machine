@@ -840,7 +840,7 @@
                     "limit": 2
                 }, {
                     "include": "feats",
-                    "add": 1
+                    "limit": 1
                 }]
             }]
         }, {
@@ -1329,7 +1329,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "add": 1
+                        "limit": 1
                     }]
                 }]
             },
@@ -1498,7 +1498,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "add": 1
+                        "limit": 1
                     }]
                 }]
             },
@@ -12856,7 +12856,7 @@
             "description": "Every charlatan has an angle he or she uses in preference to other schemes. Choose a favorite scam or roll a `d6` on the table below.",
             "path": "info.Scam",
             "type": "select",
-            "add": 1,
+            "limit": 1,
             "items": [
                 "I cheat at games of chance.",
                 "I shave coins or forge documents.",
@@ -12928,7 +12928,7 @@
             "description": "There are many kinds of criminals, and within a thieves' guild or similar criminal organization, individual members have particular specialties. Even criminals who operate outside of such organizations have strong preferences for certain kinds of crimes over others. Choose the role you played in your criminal life, or roll a `d8` on the table below.",
             "path": "info.Specialty",
             "type": "select",
-            "add": 1,
+            "limit": 1,
             "items": [
                 "Blackmailer",
                 "Burglar",
@@ -13046,7 +13046,7 @@
             "description": "A good entertainer is versatile, spicing up every performance with a variety of different routines. Choose one to three routines or roll a `d10` on the table below to define your expertise as an entertainer.",
             "path": "info.Entertainer Routines",
             "type": "select",
-            "add": 1,
+            "limit": 1,
             "items": [
                 "Actor",
                 "Dancer",
@@ -13115,7 +13115,7 @@
             "description": "You previously pursued a simple profession among the peasantry, perhaps as a farmer, miner, servant, shepherd, woodcutter, or gravedigger. But something happened that set you on a different path and marked you for greater things. Choose or roll a `d10` to determine a defining event that marked you as a hero of the people.",
             "path": "info.Defining Event",
             "type": "select",
-            "add": 1,
+            "limit": 1,
             "items": [
                 "I stood up to a tyrant's agents.",
                 "I saved people during a natural disaster.",
@@ -13184,7 +13184,7 @@
             "description": "What was the reason for your isolation, and what changed to allow you to end your solitude? You can work with your DM to determine the exact nature of your seclusion, or you can choose or roll a `d8` on the table below to determine the reason behind your seclusion.",
             "path": "info.Life of Seclusion",
             "type": "select",
-            "add": 1,
+            "limit": 1,
             "items": [
                 "I was searching for spiritual enlightenment.",
                 "I was partaking of communal living in accordance with the dictates of a religious order.",
@@ -13310,7 +13310,7 @@
             "description": "You've been to strange places and seen things that others cannot begin to fathom. Consider some of the distant lands you have visited, and how they impacted you. You can roll a `d10` on the following table to determine your occupation during your time in the wild, or choose one that best fits your character.",
             "path": "info.Origin",
             "type": "select",
-            "add": 1,
+            "limit": 1,
             "items": [
                 "Forester",
                 "Trapper",
@@ -13375,7 +13375,7 @@
             "description": "To determine the nature of your scholarly training, roll a `d8` or choose from the options in the table below.",
             "path": "info.Specialty",
             "type": "select",
-            "add": 1,
+            "limit": 1,
             "items": [
                 "Alchemist",
                 "Astronomer",
@@ -13453,7 +13453,7 @@
             "description": "During your time as a soldier, you had a specific role to play in your unit or army. Roll a `d8` or choose from the options in the table below to determine your role.",
             "path": "info.Specialty",
             "type": "select",
-            "add": 1,
+            "limit": 1,
             "items": [
                 "Officer",
                 "Scout",
