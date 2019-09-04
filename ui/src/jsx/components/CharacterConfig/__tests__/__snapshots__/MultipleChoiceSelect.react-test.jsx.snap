@@ -2,9 +2,9 @@
 
 exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] = `
 <CharacterEditorComponent
+  add={1}
   description="Pick some"
   label="Example"
-  limit={1}
   options={
     Array [
       Object {
@@ -33,6 +33,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
   type="multichoice"
 >
   <MultipleChoiceSelect
+    add={1}
     character={
       Object {
         "bar": Object {
@@ -50,7 +51,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
     description="Pick some"
     getCurrent={[Function]}
     label="Example"
-    limit={1}
+    limit={0}
     onChange={[Function]}
     onSave={[Function]}
     onUpdate={[Function]}
@@ -378,9 +379,9 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
 
 exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] = `
 <CharacterEditorComponent
+  add={1}
   description="Pick some"
   label="Example"
-  limit={1}
   options={
     Array [
       Object {
@@ -409,6 +410,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
   type="multichoice"
 >
   <MultipleChoiceSelect
+    add={1}
     character={
       Object {
         "bar": Object {
@@ -416,12 +418,17 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
             "description": "Foo is okay",
           },
         },
+        "foo": Object {
+          "bar": Object {
+            "description": "Bar is good",
+          },
+        },
       }
     }
     description="Pick some"
     getCurrent={[Function]}
     label="Example"
-    limit={1}
+    limit={0}
     onChange={[Function]}
     onSave={[Function]}
     onUpdate={[Function]}
@@ -708,7 +715,6 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
 exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`] = `
 <CharacterEditorComponent
   description="Pick some"
-  getCurrent={[Function]}
   label="Example"
   options={
     Array [
@@ -739,6 +745,7 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
   type="multichoice"
 >
   <MultipleChoiceSelect
+    add={0}
     character={
       Object {
         "bar": Object {
@@ -901,82 +908,6 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
     </div>
   </MultipleChoiceSelect>
 </CharacterEditorComponent>
-`;
-
-exports[`Component: MultipleChoiceSelect should render with full props 1`] = `
-<div>
-  <div
-    className="base-tag-container nice-tags-container"
-  >
-    <div
-      className="nice-dropdown nice-form-control"
-    >
-      <button
-        className="nice-btn"
-        onClick={[Function]}
-      >
-        Add...
-        <i
-          className="icon fa-angle-down"
-        />
-      </button>
-      <ul
-        className="dropdown-menu"
-        onClick={[Function]}
-      >
-        <li
-          className={null}
-          data-value="Simple"
-          onClick={[Function]}
-        >
-          <a>
-            Simple
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div
-      className="nice-tag"
-    >
-      <span
-        className="nice-tag-label"
-      >
-        Complex
-      </span>
-      <button
-        className="nice-tag-btn"
-        onClick={[Function]}
-      >
-        <i
-          className="icon fa-trash-o"
-        />
-      </button>
-    </div>
-  </div>
-  <div
-    className="nice-form-group"
-  >
-    <label>
-      Complex
-    </label>
-    <div
-      className="nice-form-group"
-    >
-      <label />
-      <div
-        className="markdown-textedit small preview"
-      >
-        <span
-          className="markdown-textedit__preview"
-        >
-          <p>
-            Foo is okay
-          </p>
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
 `;
 
 exports[`Component: MultipleChoiceSelect should render with minimum props 1`] = `

@@ -41,7 +41,7 @@ const list = {
     path: 'foo.list',
     given: ['wisdom'],
     replace: 1,
-    limit: 2,
+    add: 2,
 };
 
 const list_array = {
@@ -49,7 +49,7 @@ const list_array = {
     items: ['foo', 'bar'],
     path: 'foo.items',
     given: ['bar'],
-    limit: 1,
+    add: 1,
 };
 
 const list_object = {
@@ -57,7 +57,7 @@ const list_object = {
     items: statistics,
     path: 'foo.items',
     given: ['bar'],
-    limit: 1,
+    add: 1,
 };
 
 const config = {
@@ -258,7 +258,7 @@ describe('Component: CharacterConfig', () => {
                 {
                     given: list.given,
                     items: statistics,
-                    limit: list.limit,
+                    add: list.add,
                     replace: list.replace,
                     type: list.type,
                 },
@@ -295,7 +295,7 @@ describe('Component: CharacterConfig', () => {
                             label: item,
                         })
                     )(list_array.items),
-                    limit: list_array.limit,
+                    add: list_array.add,
                     type: list_array.type,
                 },
             );
@@ -326,7 +326,7 @@ describe('Component: CharacterConfig', () => {
                 {
                     given: list_object.given,
                     items: statistics,
-                    limit: list_object.limit,
+                    add: list_object.add,
                     type: list_object.type,
                 },
             );

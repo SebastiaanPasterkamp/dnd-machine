@@ -77,15 +77,17 @@ describe('Component: MultipleChoiceSelect', () => {
     });
 
     it('should render with full props', () => {
-        const tree = renderer.create(
+        const wrapper = mount(
             <MultipleChoiceSelect
                 {...props}
-                limit={2}
+                add={2}
                 replace={1}
-                />
-        ).toJSON();
+            />
+        );
 
-        expect(tree).toMatchSnapshot();
+        expect(wrapper.find('button.nice-btn').length).toEqual(1);
+        expect(wrapper.find('button.nice-tag-btn').length).toEqual(1);
+        expect(wrapper.find('.markdown-textedit').length).toEqual(1);
     });
 
     it('should emit *Change actions on mount and umount', () => {
@@ -101,8 +103,8 @@ describe('Component: MultipleChoiceSelect', () => {
         const wrapper = mount(
             <MultipleChoiceSelect
                 {...props}
-                limit={1}
-                />
+                add={1}
+            />
         );
 
         expect(addChange)
@@ -132,7 +134,7 @@ describe('Component: MultipleChoiceSelect', () => {
             <MultipleChoiceSelect
                 {...props}
                 replace={1}
-                />
+            />
         );
 
         wrapper
@@ -150,10 +152,6 @@ describe('Component: MultipleChoiceSelect', () => {
                     type: props.options[1].config[0].type,
                 }
             );
-
-        wrapper.setProps({
-            getCurrent: jest.fn(() => null),
-        });
 
         expect(wrapper)
             .toMatchSnapshot();
@@ -192,7 +190,7 @@ describe('Component: MultipleChoiceSelect', () => {
         const wrapper = mount(
             <MultipleChoiceSelect
                 {...props}
-                limit={1}
+                add={1}
             />
         );
 
@@ -205,9 +203,6 @@ describe('Component: MultipleChoiceSelect', () => {
             .find('li[data-value="Simple"]')
             .simulate('click');
 
-        expect(wrapper)
-            .toMatchSnapshot();
-
         expect(addChange)
             .toBeCalledWith(
                 props.options[0].path,
@@ -219,6 +214,9 @@ describe('Component: MultipleChoiceSelect', () => {
                 }
             );
 
+        expect(wrapper)
+            .toMatchSnapshot();
+
         addChange.mockClear();
 
         wrapper
@@ -227,7 +225,7 @@ describe('Component: MultipleChoiceSelect', () => {
             .simulate('click');
 
         expect(removeChange)
-            .toBeCalledWith(mockedIds[0]);
+            .toBeCalledWith(mockedIds[2]);
 
         expect(wrapper)
             .toMatchSnapshot();

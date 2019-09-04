@@ -124,7 +124,7 @@
             "path": "proficiencies.tools",
             "type": "list",
             "list": ["tools"],
-            "limit": 1,
+            "add": 1,
             "filter": {
                 "code": [
                     "Smith's tools",
@@ -197,10 +197,10 @@
                 }, {
                     "label": "Cantrip",
                     "description": "You know one *Cantrip* of your choice from the **Wizard** spell list. **Intelligence** is your spellcasting ability for it.",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "classes": "Wizard",
                         "level": "Cantrip"
@@ -211,7 +211,7 @@
                     "path": "languages",
                     "type": "list",
                     "list": ["languages"],
-                    "limit": 1
+                    "add": 1
                 }]
             }, {
                 "label": "Wood Elf",
@@ -341,7 +341,7 @@
                 }, {
                     "label": "Natural Illusionist",
                     "description": "You know the *Minor Illusion* *Cantrip*. **Intelligence** is your spellcasting ability for it.",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
                     "given": ["Minor Illusion"]
@@ -493,7 +493,7 @@
             "path": "proficiencies.skills",
             "type": "list",
             "list": ["skills"],
-            "limit": 2
+            "add": 2
         }, {
             "label": "Languages",
             "description": "You can speak, read, and write **Common**, **Elvish**, and one extra language of your choice.",
@@ -501,7 +501,7 @@
             "type": "list",
             "list": ["languages"],
             "given": ["common", "elvish"],
-            "limit": 1
+            "add": 1
         }]
     }, {
         "label": "Half-Orc",
@@ -788,39 +788,60 @@
                 }]
             }]
         }, {
-            "label": "Ability Score Increase",
-            "description": "Your ability scores each increase by 1.",
-            "type": "config",
-            "config": [{
-                "hidden": true,
-                "path": "statistics.bonus.strength",
-                "type": "list",
-                "given": [1]
+            "label": "Variations",
+            "description": "You can choose between two different Human builds.",
+            "type": "choice",
+            "options": [{
+                "label": "Regular",
+                "type": "config",
+                "config": [{
+                    "label": "Ability Score Increase",
+                    "description": "Your ability scores each increase by 1.",
+                    "type": "config",
+                    "config": [{
+                        "hidden": true,
+                        "path": "statistics.bonus.strength",
+                        "type": "list",
+                        "given": [1]
+                    }, {
+                        "hidden": true,
+                        "path": "statistics.bonus.dexterity",
+                        "type": "list",
+                        "given": [1]
+                    }, {
+                        "hidden": true,
+                        "path": "statistics.bonus.constitution",
+                        "type": "list",
+                        "given": [1]
+                    }, {
+                        "hidden": true,
+                        "path": "statistics.bonus.intelligence",
+                        "type": "list",
+                        "given": [1]
+                    }, {
+                        "hidden": true,
+                        "path": "statistics.bonus.wisdom",
+                        "type": "list",
+                        "given": [1]
+                    }, {
+                        "hidden": true,
+                        "path": "statistics.bonus.charisma",
+                        "type": "list",
+                        "given": [1]
+                    }]
+                }]
             }, {
-                "hidden": true,
-                "path": "statistics.bonus.dexterity",
-                "type": "list",
-                "given": [1]
-            }, {
-                "hidden": true,
-                "path": "statistics.bonus.constitution",
-                "type": "list",
-                "given": [1]
-            }, {
-                "hidden": true,
-                "path": "statistics.bonus.intelligence",
-                "type": "list",
-                "given": [1]
-            }, {
-                "hidden": true,
-                "path": "statistics.bonus.wisdom",
-                "type": "list",
-                "given": [1]
-            }, {
-                "hidden": true,
-                "path": "statistics.bonus.charisma",
-                "type": "list",
-                "given": [1]
+                "label": "Variant",
+                "type": "config",
+                "config": [{
+                    "label": "Ability Score Improvement",
+                    "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                    "type": "ability_score",
+                    "limit": 2
+                }, {
+                    "include": "feats",
+                    "limit": 1
+                }]
             }]
         }, {
             "label": "Size",
@@ -849,7 +870,7 @@
             "type": "list",
             "list": ["languages"],
             "given": ["common"],
-            "limit": 1
+            "add": 1
         }]
     }, {
         "label": "Tiefling",
@@ -908,7 +929,7 @@
         }, {
             "label": "Infernal Legacy",
             "description": "You know the *thaumaturgy* cantrip.",
-            "path": "spell.list",
+            "path": "spell.cantrips",
             "type": "list",
             "list": ["spell"],
             "given": ["thaumaturgy"]
@@ -1030,7 +1051,7 @@
                 "path": "proficiencies.skills",
                 "type": "list",
                 "list": ["skills"],
-                "limit": 2,
+                "add": 2,
                 "filter": {
                     "code": [
                         "animal handling",
@@ -1061,7 +1082,7 @@
                     "list": ["weapon"],
                     "path": "equipment",
                     "multiple": true,
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "type": "martial melee"
                     }
@@ -1081,7 +1102,7 @@
                     "list": ["weapon"],
                     "path": "equipment",
                     "multiple": true,
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "type": [
                             "simple melee",
@@ -1211,7 +1232,7 @@
                             "given": ["Totem Warrior"]
                         }, {
                             "label": "Path Spells",
-                            "path": "spell.list",
+                            "path": "spell.cantrips",
                             "type": "list",
                             "list": ["spell"],
                             "given": [
@@ -1615,7 +1636,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -1768,7 +1789,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -1855,7 +1876,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -1973,7 +1994,7 @@
                 "filter": {
                     "type": "musical"
                 },
-                "limit": 3
+                "add": 3
             }, {
                 "label": "Saving Throws",
                 "path": "proficiencies.saving_throws",
@@ -1988,7 +2009,7 @@
                 "path": "proficiencies.skills",
                 "type": "list",
                 "list": ["skills"],
-                "limit": 3
+                "add": 3
             }]
         }, {
             "label": "Equipment",
@@ -2016,7 +2037,7 @@
                     "list": ["weapon"],
                     "path": "equipment",
                     "multiple": true,
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "type": "simple melee"
                     }
@@ -2046,7 +2067,7 @@
                         "type": "musical"
                     },
                     "multiple": true,
-                    "limit": 1
+                    "add": 1
                 }]
             }, {
                 "path": "equipment",
@@ -2082,10 +2103,10 @@
             }, {
                 "label": "Cantrips",
                 "description": "You know two cantrips of your choice from the bard spell list. You learn additional bard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Bard table.",
-                "path": "spell.list",
+                "path": "spell.cantrips",
                 "type": "list",
                 "list": ["spell"],
-                "limit": 2,
+                "add": 2,
                 "filter": {
                     "classes": "Bard",
                     "level": "Cantrip"
@@ -2096,7 +2117,7 @@
                 "path": "spell.list",
                 "type": "list",
                 "list": ["spell"],
-                "limit": 4,
+                "add": 4,
                 "filter": {
                     "classes": "Bard",
                     "level": ["1"]
@@ -2211,7 +2232,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2247,7 +2268,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2258,7 +2279,7 @@
                     "path": "proficiencies.expertise",
                     "type": "list",
                     "list": ["skills"],
-                    "limit": 2,
+                    "add": 2,
                     "filter": {
                         "code_formula": "proficiencies.skills"
                     }
@@ -2287,7 +2308,7 @@
                             "path": "proficiencies.skills",
                             "type": "list",
                             "list": ["skills"],
-                            "limit": 3
+                            "add": 3
                         }]
                     }, {
                         "label": "College of Valor",
@@ -2379,7 +2400,7 @@
                             }]
                         }, {
                             "include": "fighting.style",
-                            "limit": 1,
+                            "add": 1,
                             "filter": {
                                 "label": [
                                     "Dueling",
@@ -2454,10 +2475,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": "Cantrip"
@@ -2467,7 +2488,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2482,7 +2503,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -2523,7 +2544,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2595,7 +2616,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2612,13 +2633,52 @@
                 "config": [{
                     "label": "Additional Magical Secrets",
                     "description": "You learn two spells of your choice from any class. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. The chosen spells count as bard spells for you but don't count against the number of bard spells you know.",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 2,
-                    "filter": {
-                        "level": ["Cantrip", "1", "2", "3"]
-                    }
+                    "type": "config",
+                    "config": [{
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "level": ["1", "2", "3"]
+                            }
+                        }]
+                    }, {
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "level": ["1", "2", "3"]
+                            }
+                        }]
+                    }]
                 }]
             },
             "bard-6-valor": {
@@ -2711,7 +2771,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2749,7 +2809,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2764,7 +2824,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -2806,7 +2866,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -2854,10 +2914,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "classes": "Bard",
                         "level": "Cantrip"
@@ -2875,19 +2935,58 @@
                 }, {
                     "label": "Magical Secrets",
                     "description": "You have plundered magical knowledge from a wide spectrum of disciplines. Choose two spells from any class, including this one. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. The chosen spells count as bard spells for you and are included in the number in the Spells Known column of the Bard table.",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 2,
-                    "filter": {
-                        "level": ["Cantrip", "1", "2", "3", "4", "5"]
-                    }
+                    "type": "config",
+                    "config": [{
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "level": ["1", "2", "3", "4", "5"]
+                            }
+                        }]
+                    }, {
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "level": ["1", "2", "3", "4", "5"]
+                            }
+                        }]
+                    }]
                 }, {
                     "label": "Expertise",
                     "path": "proficiencies.expertise",
                     "type": "list",
                     "list": ["skills"],
-                    "limit": 2,
+                    "add": 2,
                     "filter": {
                         "code_formula": "proficiencies.skills"
                     }
@@ -2953,7 +3052,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -3007,7 +3106,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -3051,7 +3150,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -3100,13 +3199,52 @@
                 }, {
                     "label": "Magical Secrets",
                     "description": "You have plundered magical knowledge from a wide spectrum of disciplines. Choose two spells from any class, including this one. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. The chosen spells count as bard spells for you and are included in the number in the Spells Known column of the Bard table.",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 2,
-                    "filter": {
-                        "level": ["Cantrip", "1", "2", "3", "4", "5", "6", "7"]
-                    }
+                    "type": "config",
+                    "config": [{
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "level": ["1", "2", "3", "4", "5", "6", "7"]
+                            }
+                        }]
+                    }, {
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "level": ["1", "2", "3", "4", "5", "6", "7"]
+                            }
+                        }]
+                    }]
                 }]
             },
             "bard-14-lore": {
@@ -3219,7 +3357,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -3299,7 +3437,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -3345,7 +3483,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1,
                     "filter": {
                         "classes": "Bard",
@@ -3396,13 +3534,52 @@
                 }, {
                     "label": "Magical Secrets",
                     "description": "You have plundered magical knowledge from a wide spectrum of disciplines. Choose two spells from any class, including this one. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. The chosen spells count as bard spells for you and are included in the number in the Spells Known column of the Bard table.",
-                    "path": "spell.list",
-                    "type": "list",
-                    "list": ["spell"],
-                    "limit": 2,
-                    "filter": {
-                        "level": ["Cantrip", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-                    }
+                    "type": "config",
+                    "config": [{
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                            }
+                        }]
+                    }, {
+                        "type": "choice",
+                        "options": [{
+                            "label": "Cantrip",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "classes": "Bard",
+                                "level": "Cantrip"
+                            }
+                        }, {
+                            "label": "Spell",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                            "add": 1,
+                            "filter": {
+                                "level": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                            }
+                        }]
+                    }]
                 }]
             },
             "bard-19": {
@@ -3449,7 +3626,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -3572,7 +3749,7 @@
                 "path": "proficiencies.skills",
                 "type": "list",
                 "list": ["skills"],
-                "limit": 2,
+                "add": 2,
                 "filter": {
                     "code": ["history", "insight", "medicine", "pursuasion", "religion"]
                 }
@@ -3641,7 +3818,7 @@
                     "list": ["weapon"],
                     "path": "equipment",
                     "multiple": true,
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "type": [
                             "simple melee",
@@ -3686,10 +3863,10 @@
             }, {
                 "label": "Cantrips",
                 "description": "You know three cantrips of your choice from the cleric spell list. You learn additional cleric cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Cleric table.",
-                "path": "spell.list",
+                "path": "spell.cantrips",
                 "type": "list",
                 "list": ["spell"],
-                "limit_formula": "3 - spell.max_cantrips",
+                "limit_formula": "spell.max_cantrips",
                 "filter": {
                     "classes": "Cleric",
                     "level": "Cantrip"
@@ -3761,13 +3938,13 @@
                             "path": "languages",
                             "type": "list",
                             "list": ["languages"],
-                            "limit": 2
+                            "add": 2
                         }, {
                             "label": "Expertise",
                             "path": "proficiencies.expertise",
                             "type": "list",
                             "list": ["skills"],
-                            "limit": 2,
+                            "add": 2,
                             "filter": {
                                 "code": [
                                     "arcana",
@@ -3852,10 +4029,10 @@
                         "type": "config",
                         "config": [{
                             "label": "Druid Cantrip",
-                            "path": "spell.list",
+                            "path": "spell.cantrips",
                             "type": "list",
                             "list": ["spell"],
-                            "limit": 1,
+                            "add": 1,
                             "filter": {
                                 "classes": "Druid",
                                 "level": "Cantrip"
@@ -3865,7 +4042,7 @@
                             "path": "proficiencies.skills",
                             "type": "list",
                             "list": ["skills"],
-                            "limit": 1,
+                            "add": 1,
                             "filter": {
                                 "code": ["animal handling", "nature", "survival"]
                             }
@@ -4015,10 +4192,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -4171,10 +4348,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "3 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -4304,10 +4481,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -4321,7 +4498,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -4351,10 +4528,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -4493,10 +4670,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -4644,10 +4821,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -4779,10 +4956,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -4803,7 +4980,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -4866,10 +5043,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -5002,10 +5179,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -5048,10 +5225,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -5093,10 +5270,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -5110,7 +5287,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -5143,10 +5320,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -5182,10 +5359,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -5244,10 +5421,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -5284,10 +5461,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -5301,7 +5478,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -5336,10 +5513,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -5491,10 +5668,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -5539,10 +5716,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -5556,7 +5733,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -5591,10 +5768,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Cleric",
                         "level": "Cantrip"
@@ -5674,7 +5851,7 @@
             "path": "proficiencies.skills",
             "type": "list",
             "list": ["skills"],
-            "limit": 2,
+            "add": 2,
             "filter": {
                 "code": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]
             }
@@ -5710,7 +5887,7 @@
                     "type": "list",
                     "list": ["weapon"],
                     "multiple": true,
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "type": [
                             "martial melee",
@@ -5723,7 +5900,7 @@
                     "type": "list",
                     "list": ["armor"],
                     "multiple": true,
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "type": ["shield"]
                     }
@@ -5735,7 +5912,7 @@
                 "type": "list",
                 "list": ["weapon"],
                 "multiple": true,
-                "limit": 2,
+                "add": 2,
                 "filter": {
                     "type": [
                         "martial melee",
@@ -5769,7 +5946,7 @@
             }]
         }, {
             "include": "fighting.style",
-            "limit": 1
+            "add": 1
         }, {
             "label": "Second Wind",
             "path": "abilities.Second Wind",
@@ -5845,7 +6022,7 @@
                             "path": "proficiencies.tools",
                             "type": "list",
                             "list": ["tools"],
-                            "limit": 1,
+                            "add": 1,
                             "filter": {
                                 "type": "artisan"
                             }
@@ -5862,7 +6039,7 @@
                             }
                         }, {
                             "include": "fighting.maneuvers",
-                            "limit": 3,
+                            "add": 3,
                             "replace": 1
                         }]
                     }, {
@@ -5880,10 +6057,10 @@
                             "type": "config",
                             "config": [{
                                 "label": "Cantrips",
-                                "path": "spell.list",
+                                "path": "spell.cantrips",
                                 "type": "list",
                                 "list": ["spell"],
-                                "limit": 2,
+                                "add": 2,
                                 "filter": {
                                     "classes": "Wizard",
                                     "level": "Cantrip"
@@ -5928,7 +6105,7 @@
                                 "path": "spell.list",
                                 "type": "list",
                                 "list": ["spell"],
-                                "limit": 2,
+                                "add": 2,
                                 "filter": {
                                     "classes": "Wizard",
                                     "school": ["Abjuration", "Evocation"],
@@ -5939,7 +6116,7 @@
                                 "path": "spell.list",
                                 "type": "list",
                                 "list": ["spell"],
-                                "limit": 1,
+                                "add": 1,
                                 "filter": {
                                     "classes": "Wizard",
                                     "level": ["1"]
@@ -5975,7 +6152,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -6002,7 +6179,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Wizard",
@@ -6069,7 +6246,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -6156,7 +6333,7 @@
                     }
                 }, {
                     "include": "fighting.maneuvers",
-                    "limit": 2,
+                    "add": 2,
                     "replace": 1
                 }]
             },
@@ -6184,7 +6361,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Wizard",
@@ -6219,7 +6396,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -6247,7 +6424,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Wizard",
                         "level": ["1", "2"]
@@ -6313,7 +6490,7 @@
                 },
                 "config": [{
                     "include": "fighting.style",
-                    "limit": 1
+                    "add": 1
                 }]
             },
             "fighter-10-master": {
@@ -6330,7 +6507,8 @@
                         "dice_size": "d10"
                     }
                 }, {
-                    "include": "fighting.maneuvers",                    "limit": 2,
+                    "include": "fighting.maneuvers",
+                    "add": 2,
                     "replace": 1
                 }]
             },
@@ -6342,10 +6520,10 @@
                 },
                 "config": [{
                     "label": "Cantrip",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "classes": "Wizard",
                         "level": "Cantrip"
@@ -6368,7 +6546,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "7 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Wizard",
@@ -6427,7 +6605,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "8 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Wizard",
@@ -6455,7 +6633,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -6537,7 +6715,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "9 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Wizard",
@@ -6583,7 +6761,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "10 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Wizard",
@@ -6640,7 +6818,7 @@
                     }
                 }, {
                     "include": "fighting.maneuvers",
-                    "limit": 2,
+                    "add": 2,
                     "replace": 1
                 }]
             },
@@ -6689,7 +6867,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -6718,7 +6896,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "11 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Wizard",
@@ -6846,7 +7024,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -6876,7 +7054,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "12 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Wizard",
@@ -6930,7 +7108,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "13 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Wizard",
@@ -6996,7 +7174,7 @@
             "path": "proficiencies.skills",
             "type": "list",
             "list": ["skills"],
-            "limit": 2,
+            "add": 2,
             "filter": {
                 "code": [
                     "athletics",
@@ -7018,7 +7196,7 @@
                     "type": "list",
                     "list": ["weapon"],
                     "multiple": true,
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "type": [
                             "martial melee",
@@ -7031,7 +7209,7 @@
                     "type": "list",
                     "list": ["armor"],
                     "multiple": true,
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "type": ["shield"]
                     }
@@ -7043,7 +7221,7 @@
                 "type": "list",
                 "list": ["weapon"],
                 "multiple": true,
-                "limit": 2,
+                "add": 2,
                 "filter": {
                     "type": [
                         "martial melee",
@@ -7072,7 +7250,7 @@
                 "type": "list",
                 "list": ["weapon"],
                 "multiple": true,
-                "limit": 1,
+                "add": 1,
                 "filter": {
                     "type": ["simple melee"]
                 }
@@ -7157,7 +7335,7 @@
                     "value": "You can use a Holy Symbol as a spellcasting focus for your Paladin spells."
                 }, {
                     "include": "fighting.style",
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "label": [
                             "Defense",
@@ -7226,7 +7404,7 @@
                             "type": "list",
                             "list": ["spell"],
                             "given": [
-                                "Protection From Evil and Good",
+                                "Protection from Evil and Good",
                                 "Sanctuary"
                             ]
                         }, {
@@ -7347,7 +7525,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -7563,7 +7741,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -7618,7 +7796,7 @@
                     "list": ["spell"],
                     "given": [
                         "Plant Growth",
-                        "Protection From Energy"
+                        "Protection from Energy"
                     ]
                 }]
             },
@@ -7635,7 +7813,7 @@
                     "list": ["spell"],
                     "given": [
                         "Haste",
-                        "Protection From Energy"
+                        "Protection from Energy"
                     ]
                 }]
             },
@@ -7725,7 +7903,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -7866,7 +8044,7 @@
                     "path": "abilities.Purity of Spirit",
                     "type": "dict",
                     "dict": {
-                        "description": "You are always under the effects of a **Protection From Evil and Good** spell."
+                        "description": "You are always under the effects of a **Protection from Evil and Good** spell."
                     }
                 }]
             },
@@ -7929,7 +8107,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -8060,7 +8238,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -8198,7 +8376,7 @@
             "path": "proficiencies.skills",
             "type": "list",
             "list": ["skills"],
-            "limit": 3,
+            "add": 3,
             "filter": {
                 "code": [
                     "animal handling",
@@ -8246,7 +8424,7 @@
                 "list": ["weapon"],
                 "path": "equipment",
                 "multiple": true,
-                "limit": 2,
+                "add": 2,
                 "filter": {
                     "type": [
                         "simple melee",
@@ -8299,7 +8477,7 @@
                 }
             }, {
                 "include": "favored.terrain",
-                "limit": 1
+                "add": 1
             }]
         }],
         "phases": {
@@ -8344,14 +8522,14 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "2 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1"]
                     }
                 }, {
                     "include": "fighting.style",
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "label": [
                             "Archery",
@@ -8389,7 +8567,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "3 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1"]
@@ -8486,7 +8664,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "3 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1"]
@@ -8500,7 +8678,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -8532,7 +8710,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2"]
@@ -8574,7 +8752,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2"]
@@ -8585,7 +8763,7 @@
                 }, {
                     "label": "Natural Explorer",
                     "include": "favored.terrain",
-                    "limit": 1
+                    "add": 1
                 }]
             },
             "ranger-7": {
@@ -8616,7 +8794,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2"]
@@ -8699,7 +8877,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2"]
@@ -8720,7 +8898,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -8753,7 +8931,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2", "3"]
@@ -8789,7 +8967,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2", "3"]
@@ -8797,7 +8975,7 @@
                 }, {
                     "label": "Natural Explorer",
                     "include": "favored.terrain",
-                    "limit": 1
+                    "add": 1
                 }, {
                     "label": "Hide in Plain Sight",
                     "path": "abilities.Hide in Plain Sight",
@@ -8836,7 +9014,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "7 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2", "3"]
@@ -8913,7 +9091,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "7 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2", "3"]
@@ -8927,7 +9105,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -8961,7 +9139,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "8 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2", "3", "4"]
@@ -8998,7 +9176,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "8 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2", "3", "4"]
@@ -9045,7 +9223,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "9 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2", "3", "4"]
@@ -9130,7 +9308,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "9 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2", "3", "4"]
@@ -9144,7 +9322,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -9179,7 +9357,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "10 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2", "3", "4", "5"]
@@ -9217,7 +9395,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "10 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2", "3", "4", "5"]
@@ -9262,7 +9440,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "11 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2", "3", "4", "5"]
@@ -9276,7 +9454,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -9311,7 +9489,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "11 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "classes": "Ranger",
                         "level": ["1", "2", "3", "4", "5"]
@@ -9399,7 +9577,7 @@
             "path": "proficiencies.skills",
             "type": "list",
             "list": ["skills"],
-            "limit": 2,
+            "add": 2,
             "filter": {
                 "code": [
                     "arcana",
@@ -9418,10 +9596,10 @@
             "given": ["constitution", "charisma"]
         }, {
             "label": "Cantrips",
-            "path": "spell.list",
+            "path": "spell.cantrips",
             "type": "list",
             "list": ["spell"],
-            "limit": 4,
+            "add": 4,
             "filter": {
                 "classes": "Sorcerer",
                 "level": "Cantrip"
@@ -9431,7 +9609,7 @@
             "path": "spell.list",
             "type": "list",
             "list": ["spell"],
-            "limit": 2,
+            "add": 2,
             "filter": {
                 "classes": "Sorcerer",
                 "level": ["1"]
@@ -9451,7 +9629,7 @@
                 "list": ["weapon"],
                 "path": "equipment",
                 "multiple": true,
-                "limit": 1,
+                "add": 1,
                 "filter": {
                     "type": [
                         "simple melee",
@@ -9664,10 +9842,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -9677,7 +9855,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "3 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -9731,10 +9909,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -9744,7 +9922,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "4 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -9753,7 +9931,7 @@
                 }, {
                     "include": "metamagic",
                     "description": "You have the ability to twist your spells to suit your needs. You gain two of the following Metamagic options of your choice. You can use only one Metamagic option on a spell when you cast it, unless otherwise noted.",
-                    "limit": 2
+                    "add": 2
                 }]
             },
             "sorcerer-4": {
@@ -9786,10 +9964,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -9799,7 +9977,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -9814,7 +9992,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -9849,10 +10027,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -9862,7 +10040,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -9901,10 +10079,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -9914,7 +10092,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "7 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -9988,10 +10166,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10001,7 +10179,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "8 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10041,10 +10219,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10054,7 +10232,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "9 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10069,7 +10247,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -10106,10 +10284,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "5 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10119,7 +10297,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "10 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10160,10 +10338,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10173,7 +10351,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "11 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10181,7 +10359,7 @@
                     }
                 }, {
                     "include": "metamagic",
-                    "limit": 1
+                    "add": 1
                 }]
             },
             "sorcerer-11": {
@@ -10218,10 +10396,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10231,7 +10409,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "12 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10273,10 +10451,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10286,7 +10464,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "12 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10301,7 +10479,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -10340,10 +10518,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10353,7 +10531,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "13 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10396,10 +10574,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10409,7 +10587,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "13 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10483,10 +10661,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10496,7 +10674,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "14 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10540,10 +10718,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10553,7 +10731,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "14 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10568,7 +10746,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -10609,10 +10787,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10622,7 +10800,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "15 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10630,7 +10808,7 @@
                     }
                 }, {
                     "include": "metamagic",
-                    "limit": 1
+                    "add": 1
                 }]
             },
             "sorcerer-18": {
@@ -10670,10 +10848,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10683,7 +10861,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "15 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10758,10 +10936,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10771,7 +10949,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "15 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10786,7 +10964,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
@@ -10827,10 +11005,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "6 - spell.max_cantrips",
+                    "limit_formula": "spell.max_cantrips",
                     "filter": {
                         "classes": "Sorcerer",
                         "level": "Cantrip"
@@ -10840,7 +11018,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "15 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "replace": 1,
                     "filter": {
                         "classes": "Sorcerer",
@@ -10929,7 +11107,7 @@
             "path": "proficiencies.skills",
             "type": "list",
             "list": ["skills"],
-            "limit": 2,
+            "add": 2,
             "filter": {
                 "code": [
                     "arcana",
@@ -10965,7 +11143,7 @@
                 "list": ["weapon"],
                 "path": "equipment",
                 "multiple": true,
-                "limit": 1,
+                "add": 1,
                 "filter": {
                     "type": [
                         "simple melee",
@@ -11001,7 +11179,7 @@
             "type": "list",
             "list": ["armor", "weapon"],
             "multiple": true,
-            "limit": 1,
+            "add": 1,
             "filter": {
                 "type": [
                     "simple melee",
@@ -11181,10 +11359,10 @@
             }]
         }, {
             "label": "Cantrips",
-            "path": "spell.list",
+            "path": "spell.cantrips",
             "type": "list",
             "list": ["spell"],
-            "limit": 2,
+            "add": 2,
             "filter": {
                 "classes": "Warlock",
                 "level": "Cantrip"
@@ -11194,7 +11372,7 @@
             "path": "spell.list",
             "type": "list",
             "list": ["spell"],
-            "limit": 2,
+            "add": 2,
             "filter": {
                 "or": [{
                     "classes": "Warlock",
@@ -11233,10 +11411,10 @@
                     }
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "classes": "Warlock",
                         "level": "Cantrip"
@@ -11246,7 +11424,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -11257,7 +11435,7 @@
                     }
                 }, {
                     "include": "eldritch.invocations",
-                    "limit": 2,
+                    "add": 2,
                     "replace": 1
                 }]
             },
@@ -11369,7 +11547,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -11419,10 +11597,10 @@
                             "list": ["tools"],
                             "given": ["Book of Shadows"]
                         }, {
-                            "path": "spell.list",
+                            "path": "spell.cantrips",
                             "type": "list",
                             "list": ["spell"],
-                            "limit": 3,
+                            "add": 3,
                             "filter": {
                                 "level": "Cantrip"
                             }
@@ -11540,10 +11718,10 @@
                     "value": 5
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "classes": "Warlock",
                         "level": "Cantrip"
@@ -11553,7 +11731,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -11571,7 +11749,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }, {
                     "include": "eldritch.invocations",
@@ -11691,7 +11869,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -11702,7 +11880,7 @@
                     }
                 }, {
                     "include": "eldritch.invocations",
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1
                 }]
             },
@@ -11811,7 +11989,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -11932,7 +12110,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -11943,7 +12121,7 @@
                     }
                 }, {
                     "include": "eldritch.invocations",
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1
                 }]
             },
@@ -11967,7 +12145,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -11985,7 +12163,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }, {
                     "include": "eldritch.invocations",
@@ -12020,7 +12198,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -12031,7 +12209,7 @@
                     }
                 }, {
                     "include": "eldritch.invocations",
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1
                 }]
             },
@@ -12052,10 +12230,10 @@
                     "value": 4
                 }, {
                     "label": "Cantrips",
-                    "path": "spell.list",
+                    "path": "spell.cantrips",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "classes": "Warlock",
                         "level": "Cantrip"
@@ -12173,7 +12351,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -12195,7 +12373,7 @@
                         "path": "spell.list",
                         "type": "list",
                         "list": ["spell"],
-                        "limit": 1,
+                        "add": 1,
                         "filter": {
                             "classes": "Warlock",
                             "level": "6"
@@ -12225,11 +12403,11 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }, {
                     "include": "eldritch.invocations",
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1
                 }]
             },
@@ -12253,7 +12431,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -12267,7 +12445,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "classes": "Warlock",
                         "level": "7"
@@ -12393,7 +12571,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit_formula": "19 - spell.max_known",
+                    "limit_formula": "spell.max_known",
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -12407,14 +12585,14 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "classes": "Warlock",
                         "level": "8"
                     }
                 }, {
                     "include": "eldritch.invocations",
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1
                 }]
             },
@@ -12437,7 +12615,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }, {
                     "include": "eldritch.invocations",
@@ -12471,7 +12649,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -12485,7 +12663,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "classes": "Warlock",
                         "level": "9"
@@ -12507,7 +12685,7 @@
                     "value": 6
                 }, {
                     "include": "eldritch.invocations",
-                    "limit": 1,
+                    "add": 1,
                     "replace": 1
                 }]
             },
@@ -12531,7 +12709,7 @@
                     "path": "spell.list",
                     "type": "list",
                     "list": ["spell"],
-                    "limit": 1,
+                    "add": 1,
                     "filter": {
                         "or": [{
                             "classes": "Warlock",
@@ -12549,7 +12727,7 @@
                         "limit": 2
                     }, {
                         "include": "feats",
-                        "limit": 1
+                        "add": 1
                     }]
                 }, {
                     "include": "eldritch.invocations",
@@ -12608,7 +12786,7 @@
             "path": "languages",
             "type": "list",
             "list": ["languages"],
-            "limit": 2
+            "add": 2
         }, {
             "label": "Equipment",
             "path": "equipment",
@@ -12621,7 +12799,7 @@
                 "Set of Common Clothes",
                 "Belt Pouch"
             ],
-            "limit": 1,
+            "add": 1,
             "filter": {
                 "code": ["Prayer Book", "Prayer Wheel"]
             }
@@ -12664,7 +12842,7 @@
                 "Disguise Kit",
                 "Belt Pouch"
             ],
-            "limit": 1,
+            "add": 1,
             "filter": {
                 "code": [
                     "Ten Stoppered Bottles filled with Colored Liquid",
@@ -12720,7 +12898,7 @@
             "path": "proficiencies.tools",
             "type": "list",
             "list": ["tools"],
-            "limit": 1,
+            "add": 1,
             "filter": {
                 "code": ["Gaming Set", "Thieves' tools"]
             }
@@ -12735,7 +12913,7 @@
                 "Set of Dark Common Clothes, Including a Hood",
                 "Belt Pouch"
             ],
-            "limit": 1,
+            "add": 1,
             "filter": {
                 "code": [
                     "Dice set",
@@ -12795,7 +12973,7 @@
             "type": "list",
             "list": ["tools"],
             "given": ["Disguise Kit"],
-            "limit": 1,
+            "add": 1,
             "filter": {
                 "type": "musical"
             }
@@ -12811,7 +12989,7 @@
                     "Costume",
                     "Belt Pouch"
                 ],
-                "limit": 1,
+                "add": 1,
                 "filter": {
                     "type": "musical"
                 }
@@ -12825,7 +13003,7 @@
                     "Costume",
                     "Belt Pouch"
                 ],
-                "limit": 1,
+                "add": 1,
                 "filter": {
                     "name": [
                         "Spear",
@@ -12842,7 +13020,7 @@
                 "type": "list",
                 "path": "equipment",
                 "multiple": true,
-                "limit": 1,
+                "add": 1,
                 "items": [
                     "Love Letter; the Favor of an Admirer",
                     "Lock of Hair; the Favor of an Admirer"
@@ -12853,7 +13031,7 @@
                 "list": ["tools"],
                 "path": "equipment",
                 "multiple": true,
-                "limit": 1,
+                "add": 1,
                 "filter": {
                     "type": "trinket"
                 }
@@ -12909,7 +13087,7 @@
             "path": "proficiencies.tools",
             "type": "list",
             "list": ["tools"],
-            "limit": 1,
+            "add": 1,
             "filter": {
                 "type": "artisan"
             },
@@ -12928,7 +13106,7 @@
                 "Set of Common Clothes",
                 "Pouch"
             ],
-            "limit": 1,
+            "add": 1,
             "filter": {
                 "type": "artisan"
             }
@@ -12989,7 +13167,7 @@
             "path": "languages",
             "type": "list",
             "list": ["languages"],
-            "limit": 1
+            "add": 1
         }, {
             "label": "Equipment",
             "path": "equipment",
@@ -13050,7 +13228,7 @@
             "path": "proficiencies.tools",
             "type": "list",
             "list": ["tools"],
-            "limit": 1,
+            "add": 1,
             "filter": {
                 "type": "gaming"
             }
@@ -13059,7 +13237,7 @@
             "path": "languages",
             "type": "list",
             "list": ["languages"],
-            "limit": 1
+            "add": 1
 
         }, {
             "label": "Equipment",
@@ -13108,13 +13286,13 @@
             "filter": {
                 "type": "musical"
             },
-            "limit": 1
+            "add": 1
         }, {
             "label": "Language",
             "path": "languages",
             "type": "list",
             "list": ["languages"],
-            "limit": 1
+            "add": 1
         }, {
             "label": "Equipment",
             "path": "equipment",
@@ -13178,7 +13356,7 @@
             "path": "languages",
             "type": "list",
             "list": ["languages"],
-            "limit": 2
+            "add": 2
         }, {
             "label": "Equipment",
             "path": "equipment",
@@ -13239,7 +13417,7 @@
             "path": "proficiencies.tools",
             "type": "list",
             "list": ["tools"],
-            "limit": 1,
+            "add": 1,
             "given": ["Vehicles (land)"],
             "filter": {
                 "type": "gaming"
@@ -13254,7 +13432,7 @@
                 "Set of Common Clothes",
                 "Pouch"
             ],
-            "limit": 1,
+            "add": 1,
             "items": [
                 "Set of Bone Dice",
                 "Deck of cards"
@@ -13264,7 +13442,7 @@
             "label": "A trophy taken from a fallen enemy:",
             "path": "equipment",
             "multiple": true,
-            "limit": 1,
+            "add": 1,
             "items": [
                 "Dagger",
                 "Broken Blade",
@@ -13347,7 +13525,7 @@
                 "options": [{
                     "label": "Agonizing Blast",
                     "path": "abilities.Agonizing Blast",
-                    "hidden_formula": "'Eldritch Blast' not in spell.list",
+                    "hidden_formula": "'Eldritch Blast' not in spell.cantrips",
                     "type": "dict",
                     "dict": {
                         "description": "When you cast *Eldritch Blast*, add your `+%(bonus)s` Charisma modifier to the damage it deals on a hit.",
@@ -13428,7 +13606,7 @@
                         "path": "spell.list",
                         "type": "list",
                         "list": ["spell"],
-                        "limit": 2,
+                        "add": 2,
                         "filter": {
                             "level": "1",
                             "ritual": true
@@ -13485,7 +13663,7 @@
                 }, {
                     "label": "Eldritch Spear",
                     "path": "abilities.Eldritch Spear",
-                    "hidden_formula": "'Eldritch Blast' in spell.list",
+                    "hidden_formula": "'Eldritch Blast' in spell.cantrips",
                     "type": "dict",
                     "dict": {
                         "description": "When you cast *Eldritch Blast*, its range is 300 feet."
@@ -13538,7 +13716,7 @@
                 }, {
                     "label": "Grasp of Hadar",
                     "path": "abilities.Grasp of Hadar",
-                    "hidden_formula": "'Eldritch Blast' not in spell.list",
+                    "hidden_formula": "'Eldritch Blast' not in spell.cantrips",
                     "type": "dict",
                     "dict": {
                         "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can move that creature in a straight line 10 feet closer to you."
@@ -13554,7 +13732,7 @@
                 }, {
                     "label": "Lance of Lethargy",
                     "path": "abilities.Lance of Lethargy",
-                    "hidden_formula": "'Eldritch Blast' not in spell.list",
+                    "hidden_formula": "'Eldritch Blast' not in spell.cantrips",
                     "type": "dict",
                     "dict": {
                         "description": "Once on each of your turns when you hit a creature with your eldritch blast, you can reduce that creature's speed by 10 feet until the end of your next turn."
@@ -13646,7 +13824,7 @@
                 }, {
                     "label": "Repelling Blast",
                     "path": "abilities.Repelling Blast",
-                    "hidden_formula": "'Eldritch Blast' not in spell.list",
+                    "hidden_formula": "'Eldritch Blast' not in spell.cantrips",
                     "type": "dict",
                     "dict": {
                         "description": "When you hit a creature with Eldritch Blast, you can push the creature up to 10 feet away from you in a straight line."
@@ -13685,7 +13863,7 @@
                 }, {
                     "label": "Thirsting Blade",
                     "path": "abilities.Thirsting Blade",
-                    "hidden_formula": "character.level < 5 or 'Pat of the Blade' not in spell.list",
+                    "hidden_formula": "character.level < 5 or 'Pact of the Blade' not in character.abilities",
                     "type": "dict",
                     "dict": {
                         "description": "You can attack with your pact weapon twice, instead of once, whenever you take the Attack action on your turn."
@@ -13754,7 +13932,7 @@
                         "type": "list",
                         "list": ["monster_types"],
                         "path": "favored.enemy",
-                        "limit": 1,
+                        "add": 1,
                         "filter": {
                             "intelligent": false
                         }
@@ -13831,20 +14009,20 @@
                         "path": "favored.enemy",
                         "type": "list",
                         "list": ["humanoid_types"],
-                        "limit": 2
+                        "add": 2
                     }, {
                         "label": "Language",
                         "type": "list",
                         "list": ["languages"],
                         "path": "languages",
-                        "limit": 1
+                        "add": 1
                     }]
                 }]
             },
             "terrain": {
                 "description": "Choose one type of favored terrain:",
                 "type": "list",
-                "limit": 1,
+                "add": 1,
                 "list": ["terrain_types"],
                 "path": "favored.terrain"
             }

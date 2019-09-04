@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+    entries,
     filter,
+    flow,
     isEmpty,
     map,
 } from 'lodash/fp';
@@ -59,6 +61,7 @@ export class CharacterEdit extends React.Component
             spell: {
                 max_prepared = 0,
                 prepared = [],
+                cantrips = [],
                 list = [],
                 expanded = [],
                 slots = {},
@@ -66,10 +69,11 @@ export class CharacterEdit extends React.Component
             'class': _class,
         } = character;
         const levelFilter = filter(
-            map((slot, count) => count
+            null,
+            flow(entries, map(([slot, count]) => count
                 ? slot.replace('level_', '')
                 : null
-            )(slots)
+            ))(slots)
         );
 
         return (
@@ -109,12 +113,12 @@ export class CharacterEdit extends React.Component
                     />
                 </Panel>
 
-                {max_prepared ? <Panel
+                {max_prepared || list.length || cantrips.length ? <Panel
                     key="prepared"
                     className="character-edit__prepared"
                     header="Spells Prepared"
                 >
-                    <CharacterConfig
+                    {max_prepared ? <CharacterConfig
                         config={[{
                             "label": "Prepared spells",
                             "path": "spell.prepared",
@@ -125,14 +129,32 @@ export class CharacterEdit extends React.Component
                             "filter": {
                                 "or": [{
                                     "classes": _class,
-                                    "level": levelFilter
+                                    "level": levelFilter,
                                 }, {
-                                    "name": expanded
+                                    "name": expanded,
                                 }],
+                                "not": {
+                                    "name": list,
+                                },
                             },
-                            "given": list,
                         }]}
-                    />
+                    /> : null }
+                    {cantrips.length ? <CharacterConfig
+                        config={[{
+                            "label": "Known cantrips",
+                            "path": "spell.cantrips",
+                            "type": "list",
+                            "list": ["spell"],
+                        }]}
+                    /> : null}
+                    {list.length ? <CharacterConfig
+                        config={[{
+                            "label": "Known spells",
+                            "path": "spell.list",
+                            "type": "list",
+                            "list": ["spell"],
+                        }]}
+                    /> : null }
                 </Panel> : null}
 
                 <Panel

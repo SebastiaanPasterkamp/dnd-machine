@@ -2,6 +2,5 @@
 *pyc
 coverage
 app/config.local.json
-app/static/js/dnd-machine.js
-app/static/css/dnd-machine.css
+app/static/
 ui/node_modules

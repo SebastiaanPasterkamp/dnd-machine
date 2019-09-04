@@ -261,6 +261,12 @@ class CharacterDataTestCase(unittest.TestCase):
                 'filter': {
                     'instance': dict,
                     },
+                'add': {
+                    'instance': int,
+                    },
+                'add_formula': {
+                    'instance': unicode,
+                    },
                 'limit': {
                     'instance': int,
                     },
@@ -331,6 +337,9 @@ class CharacterDataTestCase(unittest.TestCase):
                 'limit': {
                     'instance': int,
                     },
+                'add': {
+                    'instance': int,
+                    },
                 'replace': {
                     'instance': int,
                     },
@@ -396,7 +405,7 @@ class CharacterDataTestCase(unittest.TestCase):
         self.verifyStruct(config, struct, path)
 
         if config['type'] == 'list':
-            need_one = ['given', 'limit', 'limit_formula', 'replace']
+            need_one = ['add', 'add_formula', 'given', 'limit', 'limit_formula', 'replace']
             self.assertTrue(
                 any(f in config for f in need_one),
                 "Need one of '%r' in '%r'" % (

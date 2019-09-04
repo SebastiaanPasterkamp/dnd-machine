@@ -64,7 +64,7 @@ describe('Component: ListPropertySelect', () => {
             <ListPropertySelect
                 {...props}
                 list={undefined}
-                limit={1}
+                add={1}
             />
         );
         jest.runAllTimers();
@@ -77,7 +77,7 @@ describe('Component: ListPropertySelect', () => {
         const wrapper = mount(
             <ListPropertySelect
                 {...props}
-                limit={1}
+                add={1}
                 filter={{ code: ['impossible'] }}
             />
         );
@@ -108,7 +108,7 @@ describe('Component: ListPropertySelect', () => {
                     'constitution',
                     'charisma',
                 ]}
-                limit={2}
+                add={2}
                 replace={1}
                 filter={{
                     code: [
@@ -184,7 +184,7 @@ describe('Component: ListPropertySelect', () => {
             .toBeCalledWith(mockedId);
     });
 
-    it('should handle replacing one existing', () => {
+    it('should allow replacing one existing', () => {
         const addChange = jest.spyOn(
             actions,
             'addChange'
@@ -200,12 +200,9 @@ describe('Component: ListPropertySelect', () => {
             />
         );
 
-        expect(wrapper)
-            .toMatchSnapshot();
-
         addChange.mockClear();
         wrapper
-            .find('.nice-tag-btn')
+            .find('.fa-trash-o')
             .at(0)
             .simulate('click');
         expect(addChange)
@@ -226,19 +223,6 @@ describe('Component: ListPropertySelect', () => {
                     items: statistics,
                 },
             );
-
-        actions.addChange(
-            'some.path',
-            {added: ['intelligence'], removed: []},
-            'id_2',
-            {type: 'list'},
-        );
-
-        addChange.mockClear();
-
-        expect(addChange).not.toBeCalled();
-
-        jest.runAllTimers();
         expect(wrapper)
             .toMatchSnapshot();
 
@@ -283,7 +267,7 @@ describe('Component: ListPropertySelect', () => {
                 given={[
                     'charisma',
                 ]}
-                limit={1}
+                add={1}
             />
         );
         jest.runAllTimers();
@@ -312,7 +296,7 @@ describe('Component: ListPropertySelect', () => {
                     given: [
                         'charisma',
                     ],
-                    limit: 1,
+                    add: 1,
                     type: props.type,
                     items: statistics,
                 },
@@ -327,12 +311,11 @@ describe('Component: ListPropertySelect', () => {
             {type: 'list'},
         );
         jest.runAllTimers();
-
-        addChange.mockClear();
-
-        expect(addChange).not.toBeCalled();
+        wrapper.update();
 
         expect(wrapper).toMatchSnapshot();
+
+        addChange.mockClear();
 
         wrapper
             .find('.nice-tag-btn')
@@ -352,12 +335,61 @@ describe('Component: ListPropertySelect', () => {
                     given: [
                         'charisma',
                     ],
-                    limit: 1,
+                    add: 1,
                     type: props.type,
                     items: statistics,
                 },
             );
 
         expect(wrapper).toMatchSnapshot();
+    });
+
+    describe('should allow a limited number of tags', () => {
+        let wrapper;
+
+        it('accepts limit parameter', () => {
+            wrapper = mount(
+                <ListPropertySelect
+                    {...props}
+                    limit={3}
+                />
+            );
+            jest.runAllTimers();
+        });
+
+        it('shows existing tab without delete button, and a select', () => {
+            expect(wrapper.find('.nice-tag-label').length).toBe(1);
+            expect(wrapper.find('.fa-trash-o').length).toBe(0);
+            expect(wrapper.find('.nice-btn').length).toBe(1);
+        });
+
+        it('add a new item adds a tag, delete button, but keeps select', () => {
+            wrapper.find('.nice-btn').simulate('click');
+            wrapper.find('[data-value="strength"]').simulate('click');
+            jest.runAllTimers();
+
+            expect(wrapper.find('.nice-tag-label').length).toBe(2);
+            expect(wrapper.find('.fa-trash-o').length).toBe(1);
+            expect(wrapper.find('.nice-btn').length).toBe(1);
+        });
+
+        it('add last item adds a tag and delete button, but removes select', () => {
+            wrapper.find('.nice-btn').simulate('click');
+            wrapper.find('[data-value="charisma"]').simulate('click');
+            jest.runAllTimers();
+
+            expect(wrapper.find('.nice-tag-label').length).toBe(3);
+            expect(wrapper.find('.fa-trash-o').length).toBe(2);
+            expect(wrapper.find('.nice-btn').length).toBe(0);
+        });
+
+        it('remove a new item removes a tag and delete button, but re-adds the select', () => {
+            wrapper.find('.fa-trash-o').at(0).simulate('click');
+            jest.runAllTimers();
+
+            expect(wrapper.find('.nice-btn').length).toBe(1);
+            expect(wrapper.find('.nice-tag-label').length).toBe(2);
+            expect(wrapper.find('.fa-trash-o').length).toBe(1);
+        });
     });
 });
