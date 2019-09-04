@@ -58,6 +58,8 @@
         }
     ],
     "alignments": [
+        {"code": "unaligned", "label": "Unaligned"},
+
         {"code": "lawful good", "label": "Lawful good"},
         {"code": "neutral good", "label": "Neutral good"},
         {"code": "chaotic good", "label": "Chaotic good"},
