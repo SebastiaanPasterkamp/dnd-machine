@@ -343,4 +343,53 @@ describe('Component: ListPropertySelect', () => {
 
         expect(wrapper).toMatchSnapshot();
     });
+
+    describe('should allow a limited number of tags', () => {
+        let wrapper;
+
+        it('accepts limit parameter', () => {
+            wrapper = mount(
+                <ListPropertySelect
+                    {...props}
+                    limit={3}
+                />
+            );
+            jest.runAllTimers();
+        });
+
+        it('shows existing tab without delete button, and a select', () => {
+            expect(wrapper.find('.nice-tag-label').length).toBe(1);
+            expect(wrapper.find('.fa-trash-o').length).toBe(0);
+            expect(wrapper.find('.nice-btn').length).toBe(1);
+        });
+
+        it('add a new item adds a tag, delete button, but keeps select', () => {
+            wrapper.find('.nice-btn').simulate('click');
+            wrapper.find('[data-value="strength"]').simulate('click');
+            jest.runAllTimers();
+
+            expect(wrapper.find('.nice-tag-label').length).toBe(2);
+            expect(wrapper.find('.fa-trash-o').length).toBe(1);
+            expect(wrapper.find('.nice-btn').length).toBe(1);
+        });
+
+        it('add last item adds a tag and delete button, but removes select', () => {
+            wrapper.find('.nice-btn').simulate('click');
+            wrapper.find('[data-value="charisma"]').simulate('click');
+            jest.runAllTimers();
+
+            expect(wrapper.find('.nice-tag-label').length).toBe(3);
+            expect(wrapper.find('.fa-trash-o').length).toBe(2);
+            expect(wrapper.find('.nice-btn').length).toBe(0);
+        });
+
+        it('remove a new item removes a tag and delete button, but re-adds the select', () => {
+            wrapper.find('.fa-trash-o').at(0).simulate('click');
+            jest.runAllTimers();
+
+            expect(wrapper.find('.nice-btn').length).toBe(1);
+            expect(wrapper.find('.nice-tag-label').length).toBe(2);
+            expect(wrapper.find('.fa-trash-o').length).toBe(1);
+        });
+    });
 });
