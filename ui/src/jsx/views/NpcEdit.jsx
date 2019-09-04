@@ -14,8 +14,10 @@ import FormGroup from '../components/FormGroup.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
-import {StatsBlock} from '../components/StatsBlock.jsx';
+import { StatsBlock } from '../components/StatsBlock.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
+
+import { memoize } from '../utils';
 
 export class NpcEdit extends React.Component
 {
@@ -26,67 +28,74 @@ export class NpcEdit extends React.Component
             .map((i) => {
                 return {code: i, label: i}
             });
+        this.memoize = memoize.bind(this);
+        this.onStatisticsChange = this.onStatisticsChange.bind(this);
     }
 
-    onFieldChange(field, value) {
-        this.props.setState({
-            [field]: value
+    componentDidMount() {
+        const { recompute } = this.props;
+        if (recompute) recompute();
+    }
+
+    onFieldChange(field) {
+        return this.memoize(field, (value) => {
+            this.props.setState({ [field]: value });
         });
     }
 
-    onBaseChange(field, items, value) {
-        const { statistics, setState } = this.props
-        const oldConfig = this.getConfig(items, this.props[field]);
-        const newConfig = this.getConfig(items, value);
-        const emptyBonus = _.reduce(
-            statistics.base,
-            (emptyBonus, value, key) => {
-                emptyBonus[key] = [];
-                return emptyBonus;
-            },
-            {}
-        );
-
-        let newState = _.assign(
-            {},
-            _.reduce(
-                oldConfig || {},
-                (reset, value, key) => {
-                    reset[key] = undefined;
-                    return reset;
+    onBaseChange(field, items) {
+        return this.memoize(field, (value) => {
+            const { statistics, setState } = this.props
+            const oldConfig = this.getConfig(items, this.props[field]);
+            const newConfig = this.getConfig(items, value);
+            const emptyBonus = _.reduce(
+                statistics.base,
+                (emptyBonus, value, key) => {
+                    emptyBonus[key] = [];
+                    return emptyBonus;
                 },
                 {}
-            ),
-            newConfig,
-            {
-                statistics,
-                hit_dice: 8,
-                [field]: value,
-            }
-        );
-
-        if (oldConfig && oldConfig.statistics) {
-            newState.statistics.bonus = emptyBonus;
-        }
-
-        if (newConfig && newConfig.statistics) {
-            newState.statistics.bonus = _.assign(
-                {},
-                emptyBonus,
-                newConfig.statistics.bonus
             );
-        }
 
-        setState(newState);
+            let newState = _.assign(
+                {},
+                _.reduce(
+                    oldConfig || {},
+                    (reset, value, key) => {
+                        reset[key] = undefined;
+                        return reset;
+                    },
+                    {}
+                ),
+                newConfig,
+                {
+                    statistics,
+                    hit_dice: 8,
+                    [field]: value,
+                }
+            );
+
+            if (oldConfig && oldConfig.statistics) {
+                newState.statistics.bonus = emptyBonus;
+            }
+
+            if (newConfig && newConfig.statistics) {
+                newState.statistics.bonus = _.assign(
+                    {},
+                    emptyBonus,
+                    newConfig.statistics.bonus
+                );
+            }
+
+            setState(newState);
+        });
     }
 
     onStatisticsChange(value) {
-        const statistics = _.assign(
-            {},
-            this.props.statistics,
-            value
-        );
-        this.props.setState({statistics});
+        const { statistics, setState } = this.props;
+        setState({
+            statistics: { ...statistics, ...value }
+        });
     }
 
     getConfig(items, name) {
@@ -141,7 +150,7 @@ export class NpcEdit extends React.Component
             classes = [], race, races = [], gender, genders = [],
             description = '', alignment, alignments = [], size,
             size_hit_dice = [], level, traits = {}, statistics,
-            _statistics = []
+            _statistics,
         } = this.props;
 
         return <React.Fragment>
@@ -154,88 +163,78 @@ export class NpcEdit extends React.Component
                     <InputField
                         placeholder="Name..."
                         value={name}
-                        setState={
-                            (value) => this.onFieldChange('name', value)
-                        } />
+                        setState={this.onFieldChange('name')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Location">
                     <InputField
                         placeholder="Location..."
                         value={location}
-                        setState={
-                            (value) => this.onFieldChange('location', value)
-                        } />
+                        setState={this.onFieldChange('location')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Organization">
                     <InputField
                         placeholder="Organization..."
                         value={organization}
-                        setState={
-                            (value) => this.onFieldChange('organization', value)
-                        } />
+                        setState={this.onFieldChange('organization')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Race">
                     <SingleSelect
                         emptyLabel="Race..."
                         selected={race}
                         items={this.flattenSubs(races)}
-                        setState={
-                            (value) => this.onBaseChange('race', races, value)
-                        } />
+                        setState={this.onBaseChange('race', races)}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Class">
                     <AutoCompleteInput
                         placeholder="Class..."
                         value={_class}
                         items={this.flattenSubs(classes)}
-                        setState={
-                            (value) => this.onBaseChange('class', classes, value)
-                        } />
+                        setState={this.onBaseChange('class', classes)}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Gender">
                     <SingleSelect
                         emptyLabel="Gender..."
                         selected={gender}
                         items={genders}
-                        setState={
-                            (value) => this.onFieldChange('gender', value)
-                        } />
+                        setState={this.onFieldChange('gender')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Alignment">
                     <SingleSelect
                         emptyLabel="Alignment..."
                         selected={alignment}
                         items={alignments}
-                        setState={
-                            (value) => this.onFieldChange('alignment', value)
-                        } />
+                        setState={this.onFieldChange('alignment')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Size">
                     <SingleSelect
                         emptyLabel="Size..."
                         selected={size}
                         items={size_hit_dice}
-                        setState={
-                            (value) => this.onFieldChange('size', value)
-                        } />
+                        setState={this.onFieldChange('size')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Level">
                     <SingleSelect
                         emptyLabel="Level..."
                         selected={level}
                         items={this.levels}
-                        setState={
-                            (value) => this.onFieldChange('level', value)
-                        } />
+                        setState={this.onFieldChange('level')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Description">
                     <MarkdownTextField
                         placeholder="Description..."
                         value={description}
                         rows={5}
-                        setState={
-                            (value) => this.onFieldChange('description', value)
-                        } />
+                        setState={this.onFieldChange('description')}
+                    />
                 </ControlGroup>
             </Panel>
 
@@ -243,13 +242,13 @@ export class NpcEdit extends React.Component
                 key="statistics"
                 className="npc-edit__statistics"
                 header="Statistics"
-                >
+            >
                 <StatsBlock
                     {...statistics}
                     statistics={_statistics}
-                    setState={
-                        (update) => this.onStatisticsChange(update)
-                    } />
+                    minBare={1}
+                    setState={this.onStatisticsChange}
+                />
             </Panel>
 
             <Panel
@@ -261,10 +260,8 @@ export class NpcEdit extends React.Component
                     <DefinitionList
                         list={traits}
                         newItem="initial"
-                        setState={(value) => {
-                            this.onFieldChange('traits', value);
-                        }}
-                        />
+                        setState={this.onFieldChange('traits')}
+                    />
                 </FormGroup>
             </Panel>
         </React.Fragment>;
@@ -288,7 +285,7 @@ export default ListDataWrapper(
             'statistics',
         ],
         'items',
-        {'statistics': '_statistics'}
+        { statistics: '_statistics' },
     ),
     ['races', 'classes'],
     'npc'
