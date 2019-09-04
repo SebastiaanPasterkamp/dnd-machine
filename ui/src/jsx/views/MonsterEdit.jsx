@@ -376,6 +376,7 @@ export class MonsterEdit extends React.Component
                 >
                 <StatsBlock
                     {...statistics}
+                    minBare={1}
                     setState={
                         (update) => this.onStatisticsChange(update)
                     } />
