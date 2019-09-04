@@ -14,7 +14,7 @@ import FormGroup from '../components/FormGroup.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
 import SingleSelect from '../components/SingleSelect.jsx';
-import { StatsBlock } from '../components/StatsBlock.jsx';
+import StatsBlock from '../components/StatsBlock.jsx';
 import MarkdownTextField from '../components/MarkdownTextField.jsx';
 
 import { memoize } from '../utils';
