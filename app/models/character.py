@@ -341,7 +341,7 @@ class CharacterObject(JsonObject):
             self.spellCantrips = []
             for level, spells in self.spellLevel.items():
                 spells = [
-                    spell['name'] if isinstance(spell, object) else spell
+                    spell if isinstance(spell, basestring) else spell['name']
                     for spell in spells
                     ]
                 if level == "cantrip":

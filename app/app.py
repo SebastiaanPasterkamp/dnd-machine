@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import glob
+import datetime
 from flask import Flask, request, session, redirect, url_for, jsonify
 from flask_compress import Compress
 from werkzeug.utils import find_modules, import_string
@@ -345,7 +346,8 @@ def register_request_hooks(app):
         items = get_item_data()
         return dict(
             info=app.config.get('info', {}),
-            items=items
+            items=items,
+            now=datetime.datetime.utcnow,
             )
 
     @app.after_request
