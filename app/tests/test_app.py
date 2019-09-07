@@ -109,6 +109,8 @@ class AppTestCase(BaseAppTestCase):
             })
         self.assertNotIn('recovery', user)
 
+        self.app.static_folder = '../ui/src'
+
         rv = self.client.post(
             '/recover',
             data=dict(match=user['username']),
