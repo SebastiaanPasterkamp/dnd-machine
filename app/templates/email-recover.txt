@@ -1,6 +1,6 @@
 Greetings {{ user.name }},
 
-It has come to my knowledge that you've may have forgotten your
+It has come to my attention that you may have forgotten your
 credentials for your account on D&D Machine. Fear not! It is but a
 simple matter of entering a new password for your account by following
 the link provided below.

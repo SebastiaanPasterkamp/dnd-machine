@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 from flask import request, session, redirect, url_for, \
     render_template, jsonify, flash
 from flask_mail import Mail, Message
@@ -259,6 +260,17 @@ def register_paths(app, basemapper, config):
                 key=key,
                 )
             )
+
+        img_path = os.path.join(app.static_folder, 'img', 'd20.png')
+        with open(img_path, 'rb') as img:
+            msg.attach(
+                'd20.png',
+                'image/png',
+                img.read(),
+                'inline',
+                headers=[['Content-ID','<d20>']],
+                )
+
         mail.send(msg)
         return redirect(url_for('login'))
 

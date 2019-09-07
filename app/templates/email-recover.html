@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>D&amp;&D Machine</title>
+    <title>D&amp;D Machine</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body style="margin: 0; padding: 0; font-family: Open Sans, sans-serif, helvetica;">
@@ -10,16 +10,16 @@
         <tr>
             <td align="center" bgcolor="#009CC1" style="padding: 20px;">
                 <a
-                    href={{ url_for('login', _external=True, _scheme='http') }}
+                    href={{ url_for('login', _external=True, _scheme='https') }}
                     style="background-color: #182642; color: white;"
-                    >
+                >
                     <img
-		    src={{ url_for('static', filename='img/d20.png', _external=true, _scheme='http') }}
+                        src="cid:d20"
                         alt="D&amp;D Machine"
                         width="128"
                         height="150 "
                         style="display: block;"
-                        />
+                    />
                 </a>
             </td>
         </tr>
@@ -28,12 +28,12 @@
                 Greetings <strong>{{ user.name }}</strong>,
 
                 <p>
-                It has come to my knowledge that you've may have forgotten your
+                It has come to my attention that you may have forgotten your
                 credentials for your account on
-                <a href={{ url_for('login', _external=True, _scheme='http') }}>
+                <a href={{ url_for('login', _external=True, _scheme='https') }}>
                 D&amp;DMachine</a>. Fear not! It is but a simple matter of
                 entering a new password for your account by following
-                <a href={{ url_for('recovery', id=user.id, key=key, _external=true, _scheme='http') }}>
+                <a href={{ url_for('recovery', id=user.id, key=key, _external=true) }}>
                 this link</a>.
                 </p>
 
@@ -45,11 +45,11 @@
         </tr>
         <tr>
             <td style="background-color: #182642; color: white; padding: 20px">
-                © 2017 - 2018
+                &copy; 2017 &mdash; {{ now.year }}
                 <a
-                    href={{ url_for('login', _external=True, _scheme='http') }}
+                    href={{ url_for('login', _external=True, _scheme='https') }}
                     style="background-color: #182642; color: white;"
-                    >
+                >
                     <strong color="#009CC1">D&amp;D Machine</strong>
                 </a>
             </td>
