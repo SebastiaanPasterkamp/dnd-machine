@@ -146,9 +146,6 @@ function RoutedObjectDataWrapper(
 
         recompute = (callback=null) => {
             const id = this.getId();
-            if (id === null) {
-                return;
-            }
 
             this.actions.recomputeObject(
                 loadableType,

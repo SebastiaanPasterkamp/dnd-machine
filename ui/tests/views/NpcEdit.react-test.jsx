@@ -4,7 +4,17 @@ import {shallow, mount} from 'enzyme';
 import 'jest-enzyme';
 import renderer from 'react-test-renderer';
 
-import {statistics, alignments, genders, size_hit_dice} from '../__mocks__/apiCalls.js';
+jest.useFakeTimers();
+
+import ListDataActions from 'actions/ListDataActions';
+import {
+    mockedApi,
+    alignments,
+    genders,
+    monster_types,
+    size_hit_dice,
+    statistics,
+} from '../../tests/__mocks__';
 
 import {NpcEdit} from '../../src/jsx/views/NpcEdit.jsx';
 
@@ -23,54 +33,37 @@ describe('View NpcEdit', () => {
         level: 10,
         description: "Example NPC here",
         statistics: _.reduce(
-            [
-                'strength', 'dexterity', 'constitution',
-                'intelligence', 'wisdom', 'charisma'
-            ], (statistics, stat) => {
-                statistics.bare[stat] = 12;
-                statistics.bonus[stat] = [1, 2];
-                statistics.base[stat] = 12;
-                statistics.modifiers[stat] = -1;
+            statistics,
+            (statistics, stat) => {
+                statistics.bare[stat.label] = 12;
+                statistics.bonus[stat.label] = [1, 2];
+                statistics.base[stat.label] = 12;
+                statistics.modifiers[stat.label] = -1;
                 return statistics;
             },
             {
                 bare: {},
                 bonus: {},
                 base: {},
-                modifiers: {}
+                modifiers: {},
             }
         )
     };
 
-    it('should show an npc editor', () => {
+    beforeAll(() => {
+        fetch.mockImplementation( mockedApi({
+            statistics,
+        }) );
+        ListDataActions.fetchItems('statistics', 'items');
 
-        fetch.mockResponseOnce(JSON.stringify([
-            {
-                "description": "Str",
-                "label": "Strength",
-                "code": "strength"
-            }, {
-                "description": "Dex",
-                "label": "Dexterity",
-                "code": "dexterity"
-            }, {
-                "description": "Con",
-                "label": "Constitution",
-                "code": "constitution"
-            }, {
-                "description": "Int",
-                "label": "Intelligence",
-                "code": "intelligence"
-            }, {
-                "description": "Wis",
-                "label": "Wisdom",
-                "code": "wisdom"
-            }, {
-                "description": "Char",
-                "label": "Charisma",
-                "code": "charisma"
-            }
-        ]));
+        jest.runAllTimers();
+    })
+
+    afterAll(() => {
+        fetch.resetMocks()
+    })
+
+    it('should show an npc editor', () => {
 
         const tree = renderer.create(
             <NpcEdit {...props} />
