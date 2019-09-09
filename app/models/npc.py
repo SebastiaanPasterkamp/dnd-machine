@@ -194,7 +194,7 @@ class NpcObject(JsonObject):
         if "base_stats" in self._config:
             re_mod = re.compile(r"(?<!statistics\.)modifiers")
 
-            for path, compute in list(self._config['computed'].items()):
+            for path, compute in list(self._config.get('computed', {}).items()):
                 if 'formula' not in compute:
                     continue
                 compute['formula'] = re_mod.sub(
@@ -221,7 +221,7 @@ class NpcObject(JsonObject):
 
         def fixComputed(old, new, pattern=None):
             re_mod = re.compile(pattern or re.escape(old))
-            computed = self._config['computed']
+            computed = self._config.get('computed', {})
             if old in computed:
                 if new not in computed:
                     computed[new] = computed[old]

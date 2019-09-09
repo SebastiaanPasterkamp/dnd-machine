@@ -22,12 +22,23 @@ class NpcBlueprint(BaseApiBlueprint):
         return self.basemapper.npc
 
     @property
+    def campaignmapper(self):
+        return self.basemapper.campaign
+
+    def get_allowed_campaign_ids(self, user_id):
+        return [None] + [
+            c.id for c in self.campaignmapper.getByDmUserId(user_id)
+            ]
+
+    @property
     def npc_data(self):
         if '_npc_data' not in self.__dict__:
             self._npc_data = get_npc_data()
         return self._npc_data
 
     def get_races(self):
+        if not self.checkRole(['admin', 'dm']):
+            abort(403)
         def _race_attribs(race):
             return dict(
                 (attrib, race.get(attrib))
@@ -42,22 +53,9 @@ class NpcBlueprint(BaseApiBlueprint):
         return jsonify(races)
 
     def get_classes(self):
+        if not self.checkRole(['admin', 'dm']):
+            abort(403)
         return jsonify(self.npc_data['class'])
-
-    def _exposeAttributes(self, obj):
-        fields = [
-            'id', 'name', 'race', 'class', 'gender',
-            'level', 'size', 'alignment', 'statistics', 'languages',
-            'location', 'organization', 'description', 'traits',
-            'armor_class', 'spell', 'hit_points', 'size',
-            ]
-
-        result = dict([
-            (key, obj[key])
-            for key in fields
-            ])
-
-        return result
 
     @BaseApiCallback('index')
     @BaseApiCallback('overview')
@@ -66,6 +64,7 @@ class NpcBlueprint(BaseApiBlueprint):
     @BaseApiCallback('edit')
     @BaseApiCallback('api_list')
     @BaseApiCallback('api_get')
+    @BaseApiCallback('api_copy')
     @BaseApiCallback('api_post')
     @BaseApiCallback('api_patch')
     @BaseApiCallback('api_delete')
@@ -75,8 +74,40 @@ class NpcBlueprint(BaseApiBlueprint):
             abort(403)
 
     @BaseApiCallback('raw')
-    def adminOnly(self):
+    def adminOnly(self, *args, **kwargs):
         if not self.checkRole(['admin']):
+            abort(403)
+
+    @BaseApiCallback('api_list.objects')
+    def adminOrGenericMultiple(self, objs):
+        if self.checkRole(['admin']):
+            return
+        campaign_ids = self.get_allowed_campaign_ids(
+            request.user.id
+            )
+        objs[:] = [
+            obj
+            for obj in objs
+            if obj.campaign_id in campaign_ids
+            ]
+
+    @BaseApiCallback('api_copy.object')
+    @BaseApiCallback('api_get.object')
+    def adminOrGenericSingle(self, obj):
+        if self.checkRole(['admin']):
+            return
+        campaign_ids = self.get_allowed_campaign_ids(
+            request.user.id
+            )
+        if obj.campaign_id not in campaign_ids:
+            abort(403)
+
+    @BaseApiCallback('api_patch.object')
+    @BaseApiCallback('api_delete.object')
+    def adminOrOwnedSingle(self, obj):
+        if self.checkRole(['admin']):
+            return
+        if obj.user_id != request.user.id:
             abort(403)
 
     @BaseApiCallback('api_post.object')

@@ -155,6 +155,7 @@ class AppEncounterTestCase(BaseAppTestCase):
         encounter = dict(self.encounters['small'])
         encounter.update({
             'name': 'harder',
+            'campaign_id': None,
             'description': 'It got tougher',
             'monster_ids': [{
                 'id': self.monsters['Medium']['id'],

@@ -137,7 +137,26 @@ class BaseAppTestCase(unittest.TestCase):
         return self.dbInsertObject(
             'monster',
             obj,
-            ['name', 'challenge_rating', 'xp_rating', 'xp']
+            ['name', 'campaign_id', 'challenge_rating', 'xp_rating', 'xp']
+            )
+
+    def createNpc(self, npc):
+        obj = {
+            "name": "NPC",
+            "size": "medium",
+            "race": "Human",
+            "gender": "male",
+            "location": "",
+            "organization": "",
+            "class": "",
+            "alignment": "true neutral",
+            "level": 1,
+            }
+        obj.update(npc)
+        return self.dbInsertObject(
+            'npc',
+            obj,
+            ['name', 'campaign_id', 'location', 'organization']
             )
 
     def createEncounter(self, encounter, monster_ids, monsters, dm):
@@ -160,7 +179,7 @@ class BaseAppTestCase(unittest.TestCase):
             'encounter',
             obj,
             [
-                'name', 'user_id', 'size',
+                'name', 'campaign_id', 'user_id', 'size',
                 'challenge_rating', 'xp_rating', 'xp'
                 ]
             )
@@ -175,6 +194,13 @@ class BaseAppTestCase(unittest.TestCase):
                 'count': count,
                 })
         return obj
+
+    def createCampaign(self, campaign):
+        return self.dbInsertObject(
+            'campaign',
+            campaign,
+            ['name', 'user_id'],
+            )
 
     def dbInsertObject(self, table, obj, columns=[]):
         data = dict(

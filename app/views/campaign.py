@@ -68,8 +68,9 @@ class CampaignBlueprint(BaseApiBlueprint):
     @BaseApiCallback('api_patch.original')
     @BaseApiCallback('api_delete.object')
     def adminOrOwnedSingle(self, obj):
-        if obj.id != request.user.id \
-                and not self.checkRole(['admin', 'dm']):
+        if self.checkRole(['admin']):
+            return
+        if obj.user_id != request.user.id:
             raise ApiException(403, "Insufficient permissions")
 
     @BaseApiCallback('api_post.object')

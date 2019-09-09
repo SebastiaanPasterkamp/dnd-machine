@@ -70,11 +70,11 @@ class EncounterBlueprint(BaseApiBlueprint):
     def adminOrOwnedSingle(self, obj):
         if self.checkRole(['admin']):
             return
-        if not self.checkRole(['dm']) \
-                or obj.user_id != request.user.id:
+        if obj.user_id != request.user.id:
             abort(403)
 
     @BaseApiCallback('api_post.object')
+    @BaseApiCallback('api_copy.object')
     def setOwner(self, obj):
         obj.user_id = request.user.id
 
