@@ -9,6 +9,7 @@ class NpcObject(JsonObject):
     _pathPrefix = "npc"
     _defaultConfig = {
         "name": "",
+        "campaign_id": None,
         "race": "",
         "size": "medium",
         "gender": "",
@@ -97,6 +98,7 @@ class NpcObject(JsonObject):
         }
     _fieldTypes = {
         'id': int,
+        'campaign_id': int,
         "level": int,
         "hit_dice": int,
         "hit_points": int,
@@ -338,7 +340,7 @@ class NpcObject(JsonObject):
 class NpcMapper(JsonObjectDataMapper):
     obj = NpcObject
     table = "npc"
-    fields = ["name", "location", "organization"]
+    fields = ["name", "campaign_id", "location", "organization"]
     order = 'name'
 
     def __init__(self, db, mapper, config={}):
@@ -365,3 +367,9 @@ class NpcMapper(JsonObjectDataMapper):
             {"search": "%%%s%%" % search}
             )
 
+    def getByCampaignId(self, campaign_id):
+        """Returns a list of npc associated with a campaign"""
+        return self.getMultiple(
+            "`campaign_id` = :campaignId",
+            {"campaignId": campaign_id}
+            )

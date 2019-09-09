@@ -7,6 +7,7 @@ class MonsterObject(JsonObject):
     _pathPrefix = "monster"
     _defaultConfig = {
         "name": "",
+        "campaign_id": None,
         "size": "small",
         "type": "beast",
         "level": 1,
@@ -66,6 +67,7 @@ class MonsterObject(JsonObject):
         }
     _fieldTypes = {
         'id': int,
+        'campaign_id': int,
         'xp': int,
         'level': int,
         'dice_size': int,
@@ -260,7 +262,10 @@ class MonsterObject(JsonObject):
 class MonsterMapper(JsonObjectDataMapper):
     obj = MonsterObject
     table = "monster"
-    fields = ['name', 'challenge_rating', 'xp_rating', 'xp']
+    fields = [
+        'name', 'campaign_id',
+        'challenge_rating', 'xp_rating', 'xp',
+        ]
     order = 'name'
 
     def __init__(self, db, mapper, config={}):
@@ -291,9 +296,30 @@ class MonsterMapper(JsonObjectDataMapper):
                 SELECT m.*
                 FROM `encounter_monsters` AS em
                 JOIN `monster` AS m ON (em.monster_id=m.id)
-                WHERE `encounter_id` = ?
+                WHERE `encounter_id` = :encounterId
                 """,
-                [encounter_id]
+                {"encounterId": encounter_id}
+                )
+            monsters = cur.fetchall() or []
+
+        return [
+            self._read(dict(monster))
+            for monster in monsters
+            if monster
+            ]
+
+    def getByCampaignId(self, campaign_id):
+        """Returns all campaign-specific monsters by campaign_id"""
+        with self._db.connect() as db:
+            cur = db.execute("""
+                SELECT m.*
+                FROM `encounter` AS e
+                    LEFT JOIN `encounter_monsters` AS em
+                    LEFT JOIN `monster` AS m ON (em.monster_id=m.id)
+                WHERE e.`campaign_id` = :campaignId
+                GROUP BY m.id
+                """,
+                {"campaignId": campaign_id}
                 )
             monsters = cur.fetchall() or []
 

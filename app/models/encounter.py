@@ -4,6 +4,7 @@ class EncounterObject(JsonObject):
     _version = '1.0'
     _pathPrefix = "encounter"
     _defaultConfig = {
+        'campaign_id': None,
         'size': 0,
         'monster_ids': [],
         'loot': [],
@@ -11,6 +12,7 @@ class EncounterObject(JsonObject):
     _fieldTypes = {
         'id': int,
         'user_id': int,
+        'campaign_id': int,
         'size': int,
         'monster_ids': {
             '*': int,
@@ -166,7 +168,7 @@ class EncounterMapper(JsonObjectDataMapper):
     obj = EncounterObject
     table = "encounter"
     fields = [
-        'name', 'user_id',
+        'name', 'user_id', 'campaign_id',
         'size', 'challenge_rating', 'xp_rating', 'xp']
     join_tables = {
         'encounter_monsters': ('id', 'encounter_id'),
@@ -187,22 +189,18 @@ class EncounterMapper(JsonObjectDataMapper):
             )
 
     def getByDmUserId(self, user_id):
-        """Returns all encounterx created by DM by user_id"""
-        with self._db.connect() as db:
-            cur = db.execute("""
-                SELECT *
-                FROM `%s`
-                WHERE `user_id` = ?
-                """ % self.table,
-                [user_id]
-                )
-            encounters = cur.fetchall() or []
+        """Returns all encounters created by DM by user_id"""
+        return self.getMultiple(
+            "`user_id` = :userId",
+            {"userId": user_id}
+            )
 
-        return [
-            self._read(dict(encounter))
-            for encounter in encounters
-            if encounter is not None
-            ]
+    def getByCampaignId(self, campaign_id):
+        """Returns all encounters associated with campaign_id"""
+        return self.getMultiple(
+            "`campaign_id` = :campaignId",
+            {"campaignId": campaign_id}
+            )
 
     def getMonsterCounts(self, encounter_id):
         """Returns all monters and their counts in the encounter
@@ -211,10 +209,10 @@ class EncounterMapper(JsonObjectDataMapper):
             cur = db.execute("""
                 SELECT `monster_id` AS `id`, `count`
                 FROM `encounter_monsters`
-                WHERE `encounter_id` = ?
+                WHERE `encounter_id` = :encounterId
                 ORDER BY `monster_id` ASC
                 """,
-                [encounter_id]
+                {"encounterId": encounter_id}
                 )
             rows = cur.fetchall() or []
 
