@@ -101,7 +101,7 @@ class JsonObject(object):
                         )
                 else:
                     a[key] = self._merge(
-                        a[key],
+                        a.get(key),
                         b[key],
                         self._getCast(cast, key),
                         path + [key]
@@ -114,8 +114,11 @@ class JsonObject(object):
                 for _b in b
                 ]
 
-        if cast == int and b in [None, '']:
-            return 0
+        if cast == int:
+            if b is None:
+                return b
+            if b == '':
+                return 0
 
         if b in [None, 'None'] or cast == 'auto':
             return b
@@ -303,10 +306,13 @@ class JsonObject(object):
                 for step, v in value.items()
                 ])
 
-        if cast == int and value in [None, '']:
-            if debug:
-                print('empty int', path)
-            return 0
+        if cast == int:
+            if debug and value in [None, '']:
+                print('empty int %s %r' % (path, value))
+            if value is None:
+                return value
+            if value == '':
+                return 0
 
         if value in [None, 'None'] or cast == 'auto':
             if debug:
