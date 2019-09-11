@@ -6,14 +6,12 @@ import sys
 import unittest
 import coverage
 
-appDir = os.path.abspath(os.path.join(
-    os.path.dirname(__file__),
-    '..'
-    ))
+testDir = os.path.dirname(__file__)
+appDir = os.path.abspath(os.path.join(testDir, '..'))
 
 loader = unittest.TestLoader()
-suite = loader.discover(os.path.join(appDir, 'tests'))
-cov = coverage.coverage(branch=True, source=[appDir])
+suite = loader.discover(testDir)
+cov = coverage.coverage(branch=True, source=[appDir], omit=[testDir])
 
 runner = unittest.TextTestRunner(verbosity=2)
 cov.start()
