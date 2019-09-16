@@ -2,6 +2,11 @@ import unittest
 import os
 import sys
 
+try:
+    basestring
+except NameError:
+    basestring = str
+
 sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..'
     )))
@@ -36,11 +41,11 @@ class CharacterDataTestCase(unittest.TestCase):
     def testRaceConfig(self):
         structure = {
             'label': {
-                'instance': unicode,
+                'instance': basestring,
                 'required': True,
                 },
             'description': {
-                'instance': unicode,
+                'instance': basestring,
                 'required': True,
                 },
             'type': {
@@ -66,11 +71,11 @@ class CharacterDataTestCase(unittest.TestCase):
     def testClassConfig(self):
         structure = {
             'label': {
-                'instance': unicode,
+                'instance': basestring,
                 'required': True,
                 },
             'description': {
-                'instance': unicode,
+                'instance': basestring,
                 'required': True,
                 },
             'type': {
@@ -196,13 +201,13 @@ class CharacterDataTestCase(unittest.TestCase):
                         'required': True,
                         },
                     'creation': {
-                        'instance': unicode,
+                        'instance': basestring,
                         },
                     'race': {
-                        'instance': unicode,
+                        'instance': basestring,
                         },
                     'class': {
-                        'instance': unicode,
+                        'instance': basestring,
                         },
                     'path': {
                         'instance': list,
@@ -240,7 +245,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     },
                 'hidden_formula': {
-                    'instance': unicode,
+                    'instance': basestring,
                     },
                 'given': {
                     'instance': list,
@@ -265,13 +270,13 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': int,
                     },
                 'add_formula': {
-                    'instance': unicode,
+                    'instance': basestring,
                     },
                 'limit': {
                     'instance': int,
                     },
                 'limit_formula': {
-                    'instance': unicode,
+                    'instance': basestring,
                     },
                 'replace': {
                     'instance': int,
@@ -286,7 +291,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': int,
                     },
                 'limit_formula': {
-                    'instance': unicode,
+                    'instance': basestring,
                     },
                 },
             'config': {
@@ -295,7 +300,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     },
                 'hidden_formula': {
-                    'instance': unicode,
+                    'instance': basestring,
                     },
                 'config': {
                     'instance': list,
@@ -308,7 +313,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     },
                 'hidden_formula': {
-                    'instance': unicode,
+                    'instance': basestring,
                     },
                 'value': {
                     'required': True,
@@ -354,7 +359,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     },
                 'hidden_formula': {
-                    'instance': unicode,
+                    'instance': basestring,
                     },
                 'dict': {
                     'instance': dict,
@@ -370,7 +375,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'one-of': [True]
                     },
                 'type': {
-                    'instance': unicode,
+                    'instance': basestring,
                     'required': True,
                     'one-of': ['list'],
                     },
@@ -378,17 +383,17 @@ class CharacterDataTestCase(unittest.TestCase):
             }
         base = {
             'label': {
-                'instance': unicode,
+                'instance': basestring,
                 },
             'description': {
-                'instance': unicode,
+                'instance': basestring,
                 },
             'path': {
-                'instance': unicode,
+                'instance': basestring,
                 'required': True,
                 },
             'type': {
-                'instance': unicode,
+                'instance': basestring,
                 'required': True,
                 'one-of': list(typeSpecific.keys()),
                 },
