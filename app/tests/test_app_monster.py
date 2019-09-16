@@ -8,22 +8,22 @@ sys.path.append(os.path.abspath(os.path.join(
 
 from app import migrate
 
-from __init__ import BaseAppTestCase
+from baseapptest import BaseAppTestCase
 
 class AppMonsterTestCase(BaseAppTestCase):
 
     def setUp(self):
         super(AppMonsterTestCase, self).setUp()
         users = {
-            u'player': [u'player'],
-            u'dm': [u'dm'],
+            'player': ['player'],
+            'dm': ['dm'],
             }
         self.users = {}
-        for name, role in users.items():
+        for name, role in list(users.items()):
             self.users[name] = self.createUser({
                 'username': name,
                 'password': name,
-                'email': name + u'@example.com',
+                'email': name + '@example.com',
                 'role': role,
                 })
             self.users[name]['password'] = name
@@ -60,7 +60,7 @@ class AppMonsterTestCase(BaseAppTestCase):
             )
 
     def testProtectedPages401(self):
-        for page, expected in self.dmPages.items():
+        for page, expected in list(self.dmPages.items()):
             rv = self.client.get(
                 page,
                 headers={'X-Requested-With': 'XMLHttpRequest'}
@@ -69,13 +69,13 @@ class AppMonsterTestCase(BaseAppTestCase):
 
     def testDmPages200(self):
         self.doLogin('dm', 'dm')
-        for page, expected in self.dmPages.items():
+        for page, expected in list(self.dmPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
 
     def testDmPages403(self):
         self.doLogin('player', 'player')
-        for page, expected in self.dmPages.items():
+        for page, expected in list(self.dmPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, 403)
 
@@ -100,7 +100,7 @@ class AppMonsterTestCase(BaseAppTestCase):
         self.assertResponse(page, rv, 200, 'application/json')
         monsterData = rv.get_json()
         self.assertIn('id', monsterData)
-        self.assertNotEquals(self.monster['id'], monsterData['id'])
+        self.assertNotEqual(self.monster['id'], monsterData['id'])
         self._assertSameMonster(monster, monsterData)
         monsterData = self.dbGetObject('monster', monsterData['id'])
         self._assertSameMonster(monster, monsterData)

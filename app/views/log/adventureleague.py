@@ -64,7 +64,7 @@ class AdventureLeagueBlueprint(BaseApiBlueprint):
 
     @BaseApiCallback('api_copy.object')
     def updateName(self, obj, *args, **kwargs):
-        obj.adventureName += u" (Copy)"
+        obj.adventureName += " (Copy)"
 
     @BaseApiCallback('api_patch.object')
     @BaseApiCallback('api_delete.object')

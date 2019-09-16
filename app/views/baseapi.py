@@ -33,7 +33,7 @@ class BaseApiBlueprint(Blueprint):
         self.config = config
 
         self._callbacks = {}
-        for func in self.__class__.__dict__.values():
+        for func in list(self.__class__.__dict__.values()):
             if not callable(func):
                 continue
             if not hasattr(func, '_callbacks'):
@@ -295,7 +295,7 @@ class BaseApiBlueprint(Blueprint):
         try:
             self.datamapper.delete(obj)
         except IntegrityError as ie:
-            print ie
+            print(ie)
             raise ApiException(409, "The object is used elsewhere")
 
         return jsonify(self._exposeAttributes(obj))

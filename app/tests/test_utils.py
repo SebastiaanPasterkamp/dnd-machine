@@ -19,8 +19,8 @@ class UtilsTestCase(unittest.TestCase):
     def testMarkdownToToc(self):
         toc = markdownToToc("")
         self.assertIsInstance(toc, list)
-        self.assertEquals(len(toc), 0)
-        self.assertEquals(toc, [])
+        self.assertEqual(len(toc), 0)
+        self.assertEqual(toc, [])
 
         toc = markdownToToc("\n".join([
             "# Main title",
@@ -28,10 +28,10 @@ class UtilsTestCase(unittest.TestCase):
             "Foo bar"
             ]))
         self.assertIsInstance(toc, list)
-        self.assertEquals(len(toc), 1)
+        self.assertEqual(len(toc), 1)
         self.assertIn('title', toc[0])
         self.assertNotIn('children', toc[0])
-        self.assertEquals(toc, [{
+        self.assertEqual(toc, [{
             'title': 'Main title'
             }])
 
@@ -47,10 +47,10 @@ class UtilsTestCase(unittest.TestCase):
             "## Part 2"
             ]))
         self.assertIsInstance(toc, list)
-        self.assertEquals(len(toc), 1)
+        self.assertEqual(len(toc), 1)
         self.assertIn('title', toc[0])
         self.assertIn('children', toc[0])
-        self.assertEquals(toc, [{
+        self.assertEqual(toc, [{
             'title': 'Main title',
             'children': [
                 {'title': 'Part 1'},
@@ -76,8 +76,8 @@ class UtilsTestCase(unittest.TestCase):
             "### Level 3.b"
             ]))
         self.assertIsInstance(toc, list)
-        self.assertEquals(len(toc), 1)
-        self.assertEquals(toc, [{
+        self.assertEqual(len(toc), 1)
+        self.assertEqual(toc, [{
             'title': 'Main title',
             'children': [
                 {'title': 'Level 2.a'},

@@ -3,8 +3,8 @@ from ..base import JsonObject, JsonObjectDataMapper
 class ArmorObject(JsonObject):
     _pathPrefix = "armor"
     _defaultConfig = {
-        "type": u"light",
-        "name": u"",
+        "type": "light",
+        "name": "",
         "cost": {},
         "disadvantage": False,
         "requirements": {}

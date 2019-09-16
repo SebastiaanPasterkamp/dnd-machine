@@ -1,4 +1,4 @@
-from base import JsonObject, JsonObjectDataMapper
+from .base import JsonObject, JsonObjectDataMapper
 
 class CampaignObject(JsonObject):
     _pathPrefix = "campaign"

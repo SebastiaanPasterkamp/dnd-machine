@@ -2,7 +2,7 @@ import parser
 import re
 import math
 
-from base import JsonObject, JsonObjectDataMapper
+from .base import JsonObject, JsonObjectDataMapper
 
 class DndMachine(object):
     _instance = None
@@ -28,13 +28,13 @@ class DndMachine(object):
 
     def resolveMath(self, obj, formula):
         replace = {}
-        for m in re.finditer(ur'\b[a-z_.]+\b', formula):
+        for m in re.finditer(r'\b[a-z_.]+\b', formula):
             path = m.group(0)
             if obj.hasPath(path):
                 replace[path] = obj.getPath(path)
             elif path.startswith(obj._pathPrefix):
                 replace[path] = None
-        for var, val in replace.iteritems():
+        for var, val in replace.items():
             formula = formula.replace(var, str(val))
         code = parser.expr(formula).compile()
         return eval(code, self.ns)
@@ -121,10 +121,10 @@ class DndMachine(object):
         elif str(level) in self.challenge_rating['scale']:
             challenge = self.challenge_rating['scale'][str(level)]
 
-        return dict(zip(
+        return dict(list(zip(
             self.challenge_rating['ratings'],
             challenge
-            ))
+            )))
 
     def monsterStatByChallengeRating(
             self, challenge_rating, stat=None, nextUp=False):
@@ -257,7 +257,7 @@ class DndMachine(object):
             'armor': self.mapper.armor,
             'weapons': self.mapper.weapon,
             }
-        re_cnt_item = re.compile(ur"^(\d+)\s+x\s+(.*)$")
+        re_cnt_item = re.compile(r"^(\d+)\s+x\s+(.*)$")
 
         data = {
             'armor': [],
@@ -317,9 +317,9 @@ class DndMachine(object):
 
     def computeWeaponStats(self, weapon, wielder, autoProf=False):
         attack_modifier = "strength"
-        if u"ranged" in weapon["type"]:
+        if "ranged" in weapon["type"]:
             attack_modifier = "dexterity"
-        if u"finesse" in weapon['property']:
+        if "finesse" in weapon['property']:
             finesse = {
                 "strength": wielder.statisticsModifiersStrength,
                 "dexterity": wielder.statisticsModifiersDexterity,

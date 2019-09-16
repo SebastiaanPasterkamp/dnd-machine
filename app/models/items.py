@@ -1,7 +1,7 @@
 import json
 import re
 
-from base import JsonObject
+from .base import JsonObject
 
 class ItemsObject(JsonObject):
     _pathPrefix = "items"
@@ -28,9 +28,9 @@ class ItemsObject(JsonObject):
                 }
             },
         'weapons': {
-            'name': unicode,
+            'name': str,
             '*': {
-                'name': unicode,
+                'name': str,
                 '*': {
                     'items': {
                         'cost': {

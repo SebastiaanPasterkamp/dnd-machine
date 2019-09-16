@@ -17,11 +17,11 @@ class CharacterDataTestCase(unittest.TestCase):
         pass
 
     def testMainConfig(self):
-        self.assertEquals(
+        self.assertEqual(
             ['race', 'class', 'background', 'sets'],
-            self.config.keys()
+            list(self.config.keys())
             )
-        for name, config in self.config.items():
+        for name, config in list(self.config.items()):
             if name == "sets":
                 self.assertIsInstance(
                     config, dict,
@@ -36,11 +36,11 @@ class CharacterDataTestCase(unittest.TestCase):
     def testRaceConfig(self):
         structure = {
             'label': {
-                'instance': unicode,
+                'instance': str,
                 'required': True,
                 },
             'description': {
-                'instance': unicode,
+                'instance': str,
                 'required': True,
                 },
             'type': {
@@ -66,11 +66,11 @@ class CharacterDataTestCase(unittest.TestCase):
     def testClassConfig(self):
         structure = {
             'label': {
-                'instance': unicode,
+                'instance': str,
                 'required': True,
                 },
             'description': {
-                'instance': unicode,
+                'instance': str,
                 'required': True,
                 },
             'type': {
@@ -98,11 +98,11 @@ class CharacterDataTestCase(unittest.TestCase):
             self.checkConfig(data, ['background', str(index)])
 
     def testSetsConfig(self):
-        for group, items in self.config['sets'].items():
+        for group, items in list(self.config['sets'].items()):
             if "type" in items:
                 self.checkConfig(items, ['sets', group])
             else:
-                for name, item in items.items():
+                for name, item in list(items.items()):
                     self.checkConfig(item, ['sets', group, name])
 
 
@@ -114,7 +114,7 @@ class CharacterDataTestCase(unittest.TestCase):
             '%s, verifyStruct Expected dict' % name
             )
 
-        for key in data.keys():
+        for key in list(data.keys()):
             self.assertIn(
                 key, struct,
                 "Unexpected key '%s' in %r: %r" % (
@@ -122,7 +122,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     )
                 )
 
-        for key, settings in struct.items():
+        for key, settings in list(struct.items()):
             p = path + [data.get('label', key)]
             name = '.'.join(p)
 
@@ -166,7 +166,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     for vi, vdata in enumerate(value):
                         callback(vdata, p + ['c(%d)' % vi])
                 elif isinstance(value, dict):
-                    for vkey, vdata in value.items():
+                    for vkey, vdata in list(value.items()):
                         callback(vdata, p + ['c(%s)' % vkey])
                 else:
                     callback(value, p + ['c()'])
@@ -196,13 +196,13 @@ class CharacterDataTestCase(unittest.TestCase):
                         'required': True,
                         },
                     'creation': {
-                        'instance': unicode,
+                        'instance': str,
                         },
                     'race': {
-                        'instance': unicode,
+                        'instance': str,
                         },
                     'class': {
-                        'instance': unicode,
+                        'instance': str,
                         },
                     'path': {
                         'instance': list,
@@ -240,7 +240,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     },
                 'hidden_formula': {
-                    'instance': unicode,
+                    'instance': str,
                     },
                 'given': {
                     'instance': list,
@@ -265,13 +265,13 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': int,
                     },
                 'add_formula': {
-                    'instance': unicode,
+                    'instance': str,
                     },
                 'limit': {
                     'instance': int,
                     },
                 'limit_formula': {
-                    'instance': unicode,
+                    'instance': str,
                     },
                 'replace': {
                     'instance': int,
@@ -286,7 +286,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': int,
                     },
                 'limit_formula': {
-                    'instance': unicode,
+                    'instance': str,
                     },
                 },
             'config': {
@@ -295,7 +295,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     },
                 'hidden_formula': {
-                    'instance': unicode,
+                    'instance': str,
                     },
                 'config': {
                     'instance': list,
@@ -308,7 +308,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     },
                 'hidden_formula': {
-                    'instance': unicode,
+                    'instance': str,
                     },
                 'value': {
                     'required': True,
@@ -354,7 +354,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     },
                 'hidden_formula': {
-                    'instance': unicode,
+                    'instance': str,
                     },
                 'dict': {
                     'instance': dict,
@@ -370,7 +370,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'one-of': [True]
                     },
                 'type': {
-                    'instance': unicode,
+                    'instance': str,
                     'required': True,
                     'one-of': ['list'],
                     },
@@ -378,19 +378,19 @@ class CharacterDataTestCase(unittest.TestCase):
             }
         base = {
             'label': {
-                'instance': unicode,
+                'instance': str,
                 },
             'description': {
-                'instance': unicode,
+                'instance': str,
                 },
             'path': {
-                'instance': unicode,
+                'instance': str,
                 'required': True,
                 },
             'type': {
-                'instance': unicode,
+                'instance': str,
                 'required': True,
-                'one-of': typeSpecific.keys(),
+                'one-of': list(typeSpecific.keys()),
                 },
             }
 

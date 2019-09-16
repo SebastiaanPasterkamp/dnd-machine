@@ -1,14 +1,14 @@
 from passlib.hash import pbkdf2_sha256
 
-from base import JsonObject, JsonObjectDataMapper
+from .base import JsonObject, JsonObjectDataMapper
 
 class UserObject(JsonObject):
     _pathPrefix = "user"
     _defaultConfig = {
-        'username': u'',
-        'password': u'',
-        'email': u'',
-        'dci': u'',
+        'username': '',
+        'password': '',
+        'email': '',
+        'dci': '',
         'role': []
         }
 

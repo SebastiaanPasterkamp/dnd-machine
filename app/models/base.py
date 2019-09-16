@@ -10,7 +10,7 @@ class JsonObject(object):
     _fieldTypes = {
         'id': int
         }
-    _camelCaseRe = re.compile(ur""".+?(?<!^)(?:
+    _camelCaseRe = re.compile(r""".+?(?<!^)(?:
         (?<=[a-z])(?=[A-Z])
         |(?<=[0-9])(?=[a-zA-Z])
         |(?<=[a-zA-Z])(?=[0-9])
@@ -34,7 +34,7 @@ class JsonObject(object):
         if '_config' in self._config:
             raise Exception("%d) Configception" % (self.id))
 
-        for key, val in self._config.items():
+        for key, val in list(self._config.items()):
             if val is None:
                 del self._config[key]
 
@@ -75,7 +75,7 @@ class JsonObject(object):
         self._config.update(
             self.castFieldType(update)
             )
-        for field in self._config.keys():
+        for field in list(self._config.keys()):
             if self._config[field] is None:
                 del self._config[field]
 
@@ -123,11 +123,11 @@ class JsonObject(object):
         try:
             return cast(b)
         except Exception as error:
-            print error, path, cast, type(b), b
+            print(error, path, cast, type(b), b)
             raise
 
     def updateFromPost(self, form):
-        for field, value in form.iteritems():
+        for field, value in form.items():
             if '[]' in field or '.+' in field:
                 value = form.getlist(field)
                 field = field.replace('[]', '')
@@ -145,7 +145,7 @@ class JsonObject(object):
         pass
 
     def __iter__(self):
-        return self._config.iteritems()
+        return iter(self._config.items())
 
     def __getattr__(self, field):
         if field.startswith('_') \
@@ -234,7 +234,7 @@ class JsonObject(object):
                     if "*" in match
                     ])
                 found = ""
-                for match, replace in matches.iteritems():
+                for match, replace in matches.items():
                     if match in step and len(replace) > len(found):
                         found = replace
                 if found:
@@ -277,11 +277,11 @@ class JsonObject(object):
                 structure=self._fieldTypes
                 )
             if debug:
-                print 'Cast', path, '=', cast
+                print('Cast', path, '=', cast)
 
         if isinstance(value, list):
             if debug:
-                print 'list', path
+                print('list', path)
             return [
                 self.castFieldType(v, path, cast, debug)
                 for v in value
@@ -289,7 +289,7 @@ class JsonObject(object):
 
         if isinstance(value, dict) and (cast == 'auto' or isinstance(cast, dict)):
             if debug:
-                print 'dict', path
+                print('dict', path)
             return dict([
                 (
                     step,
@@ -300,25 +300,25 @@ class JsonObject(object):
                         debug
                         )
                     )
-                for step, v in value.iteritems()
+                for step, v in value.items()
                 ])
 
         if cast == int and value in [None, '']:
             if debug:
-                print 'empty int', path
+                print('empty int', path)
             return 0
 
         if value in [None, 'None'] or cast == 'auto':
             if debug:
-                print 'blank', cast, value
+                print('blank', cast, value)
             return value
 
         try:
             if debug:
-                print 'casting', cast, value
+                print('casting', cast, value)
             return cast(value)
         except Exception as error:
-            print error, path, cast, type(value), value
+            print(error, path, cast, type(value), value)
             raise
 
 
@@ -452,7 +452,7 @@ class JsonObjectDataMapper(object):
 
     def clearJoinTables(self, obj):
         """Clears entries from join tables by key=obj.id"""
-        for table, (attrib, key) in self.join_tables.items():
+        for table, (attrib, key) in list(self.join_tables.items()):
             self.db.execute("""
                 DELETE FROM `%s`
                 WHERE `%s` = ?

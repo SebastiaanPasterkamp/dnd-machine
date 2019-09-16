@@ -7,11 +7,11 @@ class AdventureLeagueLogObject(JsonObject):
     _defaultConfig = {
         'consumed': False,
         'adventure': {
-            'name': u'',
-            'id': u'',
+            'name': '',
+            'id': '',
             'date': date.today(),
-            'dm_name': u'',
-            'dm_dci': u'',
+            'dm_name': '',
+            'dm_dci': '',
             },
         'adventure_checkpoints': {
             'starting': 0,
@@ -50,7 +50,7 @@ class AdventureLeagueLogObject(JsonObject):
             'earned': [],
             'total': 0,
             },
-        'notes': u'',
+        'notes': '',
         }
     _fieldTypes = {
         'id': int,
@@ -81,11 +81,11 @@ class AdventureLeagueLogObject(JsonObject):
             },
         'equipment': {
             '*': int,
-            'earned': unicode,
+            'earned': str,
             },
         'items': {
             '*': int,
-            'earned': unicode,
+            'earned': str,
             },
         'character_snapshot': {
             '*': int,
@@ -97,12 +97,12 @@ class AdventureLeagueLogObject(JsonObject):
     def migrate(self, mapper):
         # Fix incorrect nesting of e.g. goldEarnedEarned
         if self.gold:
-            for group, coins in self.gold.items():
+            for group, coins in list(self.gold.items()):
                 self.setPath(
                     ['gold', group],
                     dict(
                         (coin, value)
-                        for coin, value in coins.items()
+                        for coin, value in list(coins.items())
                         if value \
                             and coin not in [
                                 'starting',
@@ -118,8 +118,8 @@ class AdventureLeagueLogObject(JsonObject):
         if self.treasure_checkpoints \
                 and not 'earned' in self.treasure_checkpoints:
             tp = {}
-            for tier, changes in self.treasure_checkpoints.items():
-                for change, value in changes.items():
+            for tier, changes in list(self.treasure_checkpoints.items()):
+                for change, value in list(changes.items()):
                     tp.setdefault(change, {})
                     tp[change][tier] = value
             self._config['treasure_checkpoints'] = tp

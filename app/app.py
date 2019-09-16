@@ -97,7 +97,7 @@ def register_cli(app):
     def dump_table_command(table):
         db = get_db(app)
         for line in _dump_table(db, table):
-            print line
+            print(line)
     @app.cli.command('import-sql')
     def import_sql_command(filename):
         db = get_db(app)
@@ -127,7 +127,7 @@ def dump_table(app, table):
     with app.app_context():
         db = get_db(app)
         for line in _dump_table(db, table):
-            print line
+            print(line)
 
 def import_sql(app, filename=None):
     with app.app_context():
@@ -164,7 +164,7 @@ def _updatedb(db):
         return a < b
 
     def version_string(version):
-        return u'.'.join(list(map(unicode, version)))
+        return '.'.join(list(map(str, version)))
 
     latest = {'version': '0.0.0'}
     try:

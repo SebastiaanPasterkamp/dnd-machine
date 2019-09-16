@@ -24,7 +24,7 @@ class DndMachineTestCase(unittest.TestCase):
         obj.hasPath = Mock(return_value=True)
         obj.getPath = Mock(return_value=5)
 
-        self.assertEquals(
+        self.assertEqual(
             self.machine.resolveMath(obj, 'test.path * 2'), 10)
         obj.hasPath.assert_called_once_with('test.path')
         obj.getPath.assert_called_once_with('test.path')
@@ -34,7 +34,7 @@ class DndMachineTestCase(unittest.TestCase):
         obj.hasPath = Mock(return_value=False)
         obj._pathPrefix = 'test'
 
-        self.assertEquals(
+        self.assertEqual(
             self.machine.resolveMath(obj, 'test.path'), None)
         obj.hasPath.assert_called_once_with('test.path')
         obj.getPath.assert_not_called()
@@ -44,13 +44,13 @@ class DndMachineTestCase(unittest.TestCase):
         obj.hasPath = Mock(return_value=False)
         obj._pathPrefix = 'test'
 
-        self.assertEquals(
+        self.assertEqual(
             self.machine.resolveMath(obj, 'min(3, 5)'), 3)
-        self.assertEquals(
+        self.assertEqual(
             self.machine.resolveMath(obj, 'max(3, 5)'), 5)
-        self.assertEquals(
+        self.assertEqual(
             self.machine.resolveMath(obj, 'ceil(5 / 2.0)'), 3)
-        self.assertEquals(
+        self.assertEqual(
             self.machine.resolveMath(obj, 'floor(5 / 2.0)'), 2)
 
     def testFindByNameByName(self):
@@ -60,9 +60,9 @@ class DndMachineTestCase(unittest.TestCase):
             {'name': 'foo', 'value': 3},
             {'name': 'bar', 'value': 4},
             ]
-        self.assertEquals(
+        self.assertEqual(
             self.machine.findByName('foo', items), items[0])
-        self.assertEquals(
+        self.assertEqual(
             self.machine.findByName('bar', items), items[1])
 
     def testFindByNameByCode(self):
@@ -72,9 +72,9 @@ class DndMachineTestCase(unittest.TestCase):
             {'name': 'foo', 'value': 3},
             {'name': 'bar', 'value': 4},
             ]
-        self.assertEquals(
+        self.assertEqual(
             self.machine.findByName('foo', items), items[0])
-        self.assertEquals(
+        self.assertEqual(
             self.machine.findByName('bar', items), items[1])
 
     def testFindByNameDefault(self):
@@ -84,102 +84,102 @@ class DndMachineTestCase(unittest.TestCase):
             {'name': 'foo', 'value': 3},
             {'name': 'bar', 'value': 4},
             ]
-        self.assertEquals(
+        self.assertEqual(
             self.machine.findByName('default', items), None)
-        self.assertEquals(
+        self.assertEqual(
             self.machine.findByName('default', items, 'abc'), 'abc')
 
     def testDiceNotation(self):
-        self.assertEquals(
+        self.assertEqual(
             "1d4+2",
             self.machine.diceNotation(4, 1, 2)
             )
-        self.assertEquals(
+        self.assertEqual(
             "2d6",
             self.machine.diceNotation(6, 2)
             )
-        self.assertEquals(
+        self.assertEqual(
             "+3",
             self.machine.diceNotation(8, 0, 3)
             )
-        self.assertEquals(
+        self.assertEqual(
             "3d10+4",
             self.machine.diceNotation(size=10, number=3, bonus=4)
             )
 
     def testDiceCast(self):
-        self.assertEquals(self.machine.diceCast(4, 1), {
+        self.assertEqual(self.machine.diceCast(4, 1), {
             'average': 2,
             'critical': 5,
             'notation': '1d4'
             })
-        self.assertEquals(self.machine.diceCast(6, 2, 1), {
+        self.assertEqual(self.machine.diceCast(6, 2, 1), {
             'average': 8,
             'critical': 15,
             'notation': '2d6+1'
             })
 
     def testXpToLevel(self):
-        self.assertEquals(
+        self.assertEqual(
             self.machine.xpToLevel(0), (1, 0, 300))
-        self.assertEquals(
+        self.assertEqual(
             self.machine.xpToLevel(300), (2, 0, 600))
-        self.assertEquals(
+        self.assertEqual(
             self.machine.xpToLevel(20000), (6, 6000, 9000))
-        self.assertEquals(
+        self.assertEqual(
             self.machine.xpToLevel(655000), (20, 300000, 0))
 
     def testAcpToLevel(self):
-        self.assertEquals(
+        self.assertEqual(
             (1, 0, 4),
             self.machine.acpToLevel(0)
             )
-        self.assertEquals(
+        self.assertEqual(
             (1, 3, 4),
             self.machine.acpToLevel(3)
             )
-        self.assertEquals(
+        self.assertEqual(
             (5, 0, 8),
             self.machine.acpToLevel(16)
             )
-        self.assertEquals(
+        self.assertEqual(
             (5, 1, 8),
             self.machine.acpToLevel(17)
             )
-        self.assertEquals(
+        self.assertEqual(
             (7, 3, 8),
             self.machine.acpToLevel(35)
             )
 
     def testXpToAcp(self):
         # Level 1.0
-        self.assertEquals(
+        self.assertEqual(
             0,
             self.machine.xpToAcp(0),
             )
         # Level 2.0
-        self.assertEquals(
+        self.assertEqual(
             4,
             self.machine.xpToAcp(300)
             )
         # Level 2.25
-        self.assertEquals(
+        self.assertEqual(
             5,
             self.machine.xpToAcp(301),
             )
         # Level 7.0
-        self.assertEquals(
+        self.assertEqual(
             32,
             self.machine.xpToAcp(23000),
             )
         # Level 7.5
-        self.assertEquals(
+        self.assertEqual(
             36,
             self.machine.xpToAcp(28500)
             )
 
     def testChallengeByLevel(self):
-        self.assertEquals(
+        self.assertEqual(
             self.machine.challengeByLevel(1), {
                 'easy': 25,
                 'medium': 50,
@@ -187,7 +187,7 @@ class DndMachineTestCase(unittest.TestCase):
                 'deadly': 100
                 }
             )
-        self.assertEquals(
+        self.assertEqual(
             self.machine.challengeByLevel(2), {
                 'easy': 50,
                 'medium': 100,
@@ -195,7 +195,7 @@ class DndMachineTestCase(unittest.TestCase):
                 'deadly': 200
                 }
             )
-        self.assertEquals(
+        self.assertEqual(
             self.machine.challengeByLevel(20), {
                 'easy': 2800,
                 'medium': 5700,
@@ -205,63 +205,63 @@ class DndMachineTestCase(unittest.TestCase):
             )
 
     def testMonsterStatByChallengeRating(self):
-        self.assertEquals(
+        self.assertEqual(
             self.machine.monsterStatByChallengeRating(0.1), {
-                u"proficiency": 2,
-                u"armor_class": {u"min": 13, u"max": 13},
-                u"hit_points": {u"min": 7, u"max": 35},
-                u"attack_bonus": {u"min": 3, u"max": 3},
-                u"average_damage": {u"min": 2, u"max": 3},
-                u"spell_save_dc": {u"min": 13, u"max": 13},
-                u"xp": 25,
-                u"challenge": 0.125
+                "proficiency": 2,
+                "armor_class": {"min": 13, "max": 13},
+                "hit_points": {"min": 7, "max": 35},
+                "attack_bonus": {"min": 3, "max": 3},
+                "average_damage": {"min": 2, "max": 3},
+                "spell_save_dc": {"min": 13, "max": 13},
+                "xp": 25,
+                "challenge": 0.125
                 }
             )
-        self.assertEquals(
+        self.assertEqual(
             self.machine.monsterStatByChallengeRating(1.4), {
-                u"proficiency": 2,
-                u"armor_class": {u"min": 13, u"max": 13},
-                u"hit_points": {u"min": 71, u"max": 85},
-                u"attack_bonus": {u"min": 3, u"max": 3},
-                u"average_damage": {u"min": 9, u"max": 14},
-                u"spell_save_dc": {u"min": 13, u"max": 13},
-                u"xp": 200,
-                u"challenge": 1
+                "proficiency": 2,
+                "armor_class": {"min": 13, "max": 13},
+                "hit_points": {"min": 71, "max": 85},
+                "attack_bonus": {"min": 3, "max": 3},
+                "average_damage": {"min": 9, "max": 14},
+                "spell_save_dc": {"min": 13, "max": 13},
+                "xp": 200,
+                "challenge": 1
                 }
             )
-        self.assertEquals(
+        self.assertEqual(
             self.machine.monsterStatByChallengeRating(10.8), {
-                u"proficiency": 4,
-                u"armor_class": {u"min": 17, u"max": 17},
-                u"hit_points": {u"min": 221, u"max": 235},
-                u"attack_bonus": {u"min": 8, u"max": 8},
-                u"average_damage": {u"min": 69, u"max": 69},
-                u"spell_save_dc": {u"min": 17, u"max": 17},
-                u"xp": 7200,
-                u"challenge": 11
+                "proficiency": 4,
+                "armor_class": {"min": 17, "max": 17},
+                "hit_points": {"min": 221, "max": 235},
+                "attack_bonus": {"min": 8, "max": 8},
+                "average_damage": {"min": 69, "max": 69},
+                "spell_save_dc": {"min": 17, "max": 17},
+                "xp": 7200,
+                "challenge": 11
                 }
             )
 
     def testMonsterChallengeRatingByStat(self):
-        self.assertEquals(
+        self.assertEqual(
             self.machine.monsterChallengeRatingByStat(
                 'hit_points', 8
                 ),
             (0.125, 1)
             )
-        self.assertEquals(
+        self.assertEqual(
             self.machine.monsterChallengeRatingByStat(
                 'spell_save_dc', 13, 3
                 ),
             (0.5, 3)
             )
-        self.assertEquals(
+        self.assertEqual(
             self.machine.monsterChallengeRatingByStat(
                 'armor_class', 13, 8
                 ),
             (3, 6)
             )
-        self.assertEquals(
+        self.assertEqual(
             self.machine.monsterChallengeRatingByStat(
                 'armor_class', 15, 7
                 ),
@@ -277,7 +277,7 @@ class DndMachineTestCase(unittest.TestCase):
             'xp': 10,
             'xp_rating': 10
             }
-        self.assertEquals(
+        self.assertEqual(
             self.machine.computeMonsterChallengeRating(
                 hit_points=6,
                 armor_class=12,
@@ -287,7 +287,7 @@ class DndMachineTestCase(unittest.TestCase):
                 ),
             cr_0
             )
-        self.assertEquals(
+        self.assertEqual(
             self.machine.computeMonsterChallengeRating(
                 hit_points=6,
                 armor_class=12,
@@ -306,7 +306,7 @@ class DndMachineTestCase(unittest.TestCase):
             'xp': 50,
             'xp_rating': 50
             }
-        self.assertEquals(
+        self.assertEqual(
             self.machine.computeMonsterChallengeRating(
                 hit_points=49,
                 armor_class=13,
@@ -316,7 +316,7 @@ class DndMachineTestCase(unittest.TestCase):
                 ),
             cr_1_4
             )
-        self.assertEquals(
+        self.assertEqual(
             self.machine.computeMonsterChallengeRating(
                 hit_points=49,
                 armor_class=13,
@@ -335,7 +335,7 @@ class DndMachineTestCase(unittest.TestCase):
             'xp': 5900,
             'xp_rating': 5900
             }
-        self.assertEquals(
+        self.assertEqual(
             self.machine.computeMonsterChallengeRating(
                 hit_points=206,
                 armor_class=17,
@@ -345,7 +345,7 @@ class DndMachineTestCase(unittest.TestCase):
                 ),
             cr_10
             )
-        self.assertEquals(
+        self.assertEqual(
             self.machine.computeMonsterChallengeRating(
                 hit_points=206,
                 armor_class=17,
@@ -364,7 +364,7 @@ class DndMachineTestCase(unittest.TestCase):
             'xp': 18000,
             'xp_rating': 18000
             }
-        self.assertEquals(
+        self.assertEqual(
             self.machine.computeMonsterChallengeRating(
                 hit_points=296,
                 armor_class=18,
@@ -374,7 +374,7 @@ class DndMachineTestCase(unittest.TestCase):
                 ),
             cr_17
             )
-        self.assertEquals(
+        self.assertEqual(
             self.machine.computeMonsterChallengeRating(
                 hit_points=296,
                 armor_class=18,
@@ -386,7 +386,7 @@ class DndMachineTestCase(unittest.TestCase):
             )
 
         # Aarakocra
-        self.assertEquals(
+        self.assertEqual(
             self.machine.computeMonsterChallengeRating(
                 hit_points=13,
                 armor_class=12,
@@ -405,7 +405,7 @@ class DndMachineTestCase(unittest.TestCase):
             )
 
         # Lamia
-        self.assertEquals(
+        self.assertEqual(
             self.machine.computeMonsterChallengeRating(
                 hit_points=97,
                 armor_class=13,
@@ -425,7 +425,7 @@ class DndMachineTestCase(unittest.TestCase):
             )
 
         # Magma Mephit
-        self.assertEquals(
+        self.assertEqual(
             self.machine.computeMonsterChallengeRating(
                 hit_points=22,
                 armor_class=11,

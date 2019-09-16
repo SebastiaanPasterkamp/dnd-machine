@@ -1,19 +1,19 @@
 import re
 from math import ceil, floor
 
-from base import JsonObject, JsonObjectDataMapper
+from .base import JsonObject, JsonObjectDataMapper
 from config import get_character_data
 
 class CharacterObject(JsonObject):
     _version = '1.0'
     _pathPrefix = "character"
     _defaultConfig = {
-        "name": u"",
+        "name": "",
         "creation": [],
-        "race": u"",
-        "class": u"",
-        "background": u"",
-        "alignment": u"true neutral",
+        "race": "",
+        "class": "",
+        "background": "",
+        "alignment": "true neutral",
         "adventure_league": False,
         "treasure_checkpoints": {},
         "level": 1,
@@ -254,7 +254,7 @@ class CharacterObject(JsonObject):
                 if new not in computed:
                     computed[new] = computed[old]
                 del computed[old]
-            for path, compute in computed.items():
+            for path, compute in list(computed.items()):
                 if 'formula' not in compute:
                     continue
                 compute['formula'] = re_mod.sub(
@@ -262,8 +262,8 @@ class CharacterObject(JsonObject):
                     compute['formula']
                     )
             abilities = self.config.get('abilities', {})
-            for ability in abilities.values():
-                for key, val in ability.items():
+            for ability in list(abilities.values()):
+                for key, val in list(ability.items()):
                     if not key.endswith('_formula'):
                         continue
                     ability[key] = re_mod.sub(new, val)
@@ -302,7 +302,7 @@ class CharacterObject(JsonObject):
             "spell_attack_modifier": "spell.attack_modifier",
             "spell_safe_dc": "spell.safe_dc",
             }
-        for old, new in migrate.items():
+        for old, new in list(migrate.items()):
             fixComputed(old, new)
             if old in self.config:
                 self[new] = self[old]
@@ -339,11 +339,15 @@ class CharacterObject(JsonObject):
         if self.spellStat and not (self.spellList and self.spellCantrips):
             self.spellList = []
             self.spellCantrips = []
-            for level, spells in self.spellLevel.items():
-                spells = [
-                    spell if isinstance(spell, basestring) else spell['name']
-                    for spell in spells
-                    ]
+            for level, spells in list(self.spellLevel.items()):
+                try:
+                    spells = [
+                        spell['name'] if isinstance(spell, dict) else spell
+                        for spell in spells
+                        ]
+                except:
+                    print spells
+                    raise
                 if level == "cantrip":
                     self.spellCantrips.extend(spells)
                 else:
@@ -417,7 +421,7 @@ class CharacterObject(JsonObject):
 
         self.passive_perception = 10 + self.skillsPerception
 
-        for path, compute in self.computed.items():
+        for path, compute in list(self.computed.items()):
             value = 0
             if 'formula' in compute:
                 value += machine.resolveMath(
@@ -473,7 +477,7 @@ class CharacterObject(JsonObject):
         if not len(phase.get('config', [])):
             return False
         conditions = phase.get('conditions', {})
-        for check, condition in conditions.items():
+        for check, condition in list(conditions.items()):
             if check == 'level':
                 if self.level < condition:
                     return False
@@ -493,7 +497,7 @@ class CharacterObject(JsonObject):
         machine = self.mapper.machine
         if isinstance(obj, dict):
             computed = {}
-            for key, val in obj.items():
+            for key, val in list(obj.items()):
                 if key.endswith('_formula'):
                     _key = key.replace('_formula', '')
                     computed[_key] = machine.resolveMath(self, val)
@@ -563,7 +567,7 @@ class CharacterObject(JsonObject):
                 + computed.get(src, 0.0))
             log.setPath(total, totalVal)
 
-        for src, dst in flatMapping.items():
+        for src, dst in list(flatMapping.items()):
             mapLog(
                 starting=[src, 'starting'],
                 earned=[src, 'earned'],
@@ -572,7 +576,7 @@ class CharacterObject(JsonObject):
                 dst=[dst],
                 )
 
-        for src, dst in nestedMapping.items():
+        for src, dst in list(nestedMapping.items()):
             fields = set(log.getPath([src, 'earned'], {}).keys()) \
                 | set(self.getPath([dst]).keys())
             for field in fields:
@@ -607,7 +611,7 @@ class CharacterObject(JsonObject):
             levelGold = 0
             for curLevel in range(old_level + 1, self.level + 1):
                 _, gold = filter(
-                    lambda (minLevel, _): minLevel <= curLevel,
+                    lambda minLevel__: minLevel__[0] <= curLevel,
                     levelGoldTiers
                     )[-1]
                 levelGold += gold
@@ -638,13 +642,13 @@ class CharacterObject(JsonObject):
 
         for field in ['race', 'class', 'background']:
             data, sub = self._find_caracter_field(field, self[field])
-            for creation, phase in data.get('phases', {}).items():
+            for creation, phase in list(data.get('phases', {}).items()):
                 if self._meetsCondition(creation, phase):
                     levelUp["creation"].add(creation)
                     levelUp["config"] += phase["config"]
             if sub is None:
                 continue
-            for creation, phase in sub.get('phases', {}).items():
+            for creation, phase in list(sub.get('phases', {}).items()):
                 if self._meetsCondition(creation, phase):
                     levelUp["creation"].add(creation)
                     levelUp["config"] += phase["config"]

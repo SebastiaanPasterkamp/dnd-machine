@@ -19,8 +19,8 @@ def fill_pdf(pdf_file, text, html={}, fdf_file=None, debug=False):
     fdf_template = p.stdout.read()
 
     # Populate FDF
-    re_value = re.compile(ur'(<<\s+/V \(.*?\)\s+\/T \((.*?)\)\s+>>)')
-    re_bool = re.compile(ur'(<<\s+/V /\S*\s+/T \((.*?)\)\s+>>)')
+    re_value = re.compile(r'(<<\s+/V \(.*?\)\s+\/T \((.*?)\)\s+>>)')
+    re_bool = re.compile(r'(<<\s+/V /\S*\s+/T \((.*?)\)\s+>>)')
 
     fdf_data = fdf_template
     for val in re_value.finditer(fdf_template):
@@ -34,7 +34,7 @@ def fill_pdf(pdf_file, text, html={}, fdf_file=None, debug=False):
             params['html'] = html.get(field)
             template = """<<\n/RV (<?xml version="1.0"?>%(html)s)\n/T (%(field)s)\n/V (%(text)s)\n>>"""
         for field in params:
-            if isinstance(params[field], basestring):
+            if isinstance(params[field], str):
                 params[field] = params[field].encode('utf-8')
             if params[field] is None:
                 params[field] = ''

@@ -10,7 +10,7 @@ from views.baseapi import BaseApiBlueprint, BaseApiCallback
 from config import get_character_data
 from errors import ApiException
 from filters import filter_bonus, filter_distance, filter_unique
-from __init__ import fill_pdf
+from .__init__ import fill_pdf
 
 class CharacterBlueprint(BaseApiBlueprint):
 
@@ -81,7 +81,7 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         return dict(
             (key, value)
-            for key, value in obj.config.iteritems()
+            for key, value in obj.config.items()
             if key not in protected
             )
 
@@ -95,7 +95,7 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         return dict(
             (key, obj[key] if obj and key in immutable else value)
-            for key, value in update.iteritems()
+            for key, value in update.items()
             if not obj or key not in immutable
             )
 
@@ -251,11 +251,11 @@ class CharacterBlueprint(BaseApiBlueprint):
                 if obj.armor_class_bonus \
                 else "%s" %  obj.armor_class,
             "HD": "%dd%d" % (obj.level, obj.hit_dice),
-            "XP": ' + '.join(filter(None, [
+            "XP": ' + '.join([_f for _f in [
                 '%d XP' % obj.xp if obj.xp else None,
                 '%d ACP' % obj.adventure_checkpoints
                     if obj.adventure_checkpoints else None,
-                    ])),
+                    ] if _f]),
             "Race ": obj.race,
             "ClassLevel": "%s %d" % (obj.Class, obj.level),
             "Speed": obj.speed,
@@ -307,7 +307,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                 "level_8": "SlotsTotal 26",
                 "level_9": "SlotsTotal 27"
                 }
-            for level, slots in obj.spellSlots.items():
+            for level, slots in list(obj.spellSlots.items()):
                 fdf_text[ fdf_spell_slots[level] ] = slots
 
         if obj.spellList:
@@ -323,7 +323,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                 "level_8": ["10101", "10100", "10102", "10103", "10104", "10105", "10106"],
                 "level_9": ["10108", "10107", "10109", "101010", "101011", "101012", "101013"]
                 }
-            for level, spells in obj.spellLevel.items():
+            for level, spells in list(obj.spellLevel.items()):
                 fdf_spell_list = fdf_spell_lists[ level ]
                 for i, spell in enumerate(spells):
                     fdf_text[ "Spells %s" % fdf_spell_list[i] ] = spell['name']
@@ -411,39 +411,39 @@ class CharacterBlueprint(BaseApiBlueprint):
             "%s:\n    %s" % (
                 key, ", ".join(lines)
                 )
-            for key, lines in proficiencies.iteritems()
+            for key, lines in proficiencies.items()
             ])
         fdf_html["ProficienciesLang"] = "\n\n".join([
             "**%s:**\n    %s" % (
                 key, ", ".join(lines)
                 )
-            for key, lines in proficiencies.iteritems()
+            for key, lines in proficiencies.items()
             ])
 
         fdf_text["Features and Traits"] = "\n\n".join([
             "* %s: %s" % (
                 key, desc
                 )
-            for key, desc in obj.info.iteritems()
+            for key, desc in obj.info.items()
             ])
         fdf_html["Features and Traits"] = "\n".join([
             "* **%s**: %s" % (
                 key, desc
                 )
-            for key, desc in obj.info.iteritems()
+            for key, desc in obj.info.items()
             ])
 
         fdf_text["Feat+Traits"] = "\n\n".join([
             "* %s: %s" % (
                 key, ability['description'] % ability
                 )
-            for key, ability in obj.abilities.iteritems()
+            for key, ability in obj.abilities.items()
             ])
         fdf_html["Feat+Traits"] = "\n".join([
             "* **%s**: %s" % (
                 key, ability['description'] % ability
                 )
-            for key, ability in obj.abilities.iteritems()
+            for key, ability in obj.abilities.items()
             ])
 
         equipment = []
@@ -504,7 +504,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                         ])
                 equipment[-1].append(" ".join(desc))
 
-        for toolType, tools in obj.items.items():
+        for toolType, tools in list(obj.items.items()):
             if not len(tools):
                 continue
             _type = items.itemByNameOrCode(
@@ -554,7 +554,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             'SavingThrow Wisdom': 'SavingThrows5',
             'SavingThrow Charisma': 'SavingThrows6',
             }
-        for old, new in fdf_translation.iteritems():
+        for old, new in fdf_translation.items():
             if old in fdf_text:
                 fdf_text[new] = fdf_text[old]
 
@@ -565,8 +565,8 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         pdf_file = os.path.join('app', 'static', 'pdf', 'Current Standard v1.4.pdf')
 
-        filename = re.sub(ur'[^\w\d]+', '_', obj.name)
-        filename = re.sub(ur'^_+|_+$', '', filename)
+        filename = re.sub(r'[^\w\d]+', '_', obj.name)
+        filename = re.sub(r'^_+|_+$', '', filename)
         filename +=  '.pdf'
         return send_file(
             fill_pdf(
@@ -582,7 +582,7 @@ class CharacterBlueprint(BaseApiBlueprint):
 
     @BaseApiCallback('api_copy.object')
     def changeName(self, obj, *args, **kwargs):
-        obj.name += u" (Copy)"
+        obj.name += " (Copy)"
 
     def xp(self, obj_id, xp):
         self.doCallback('xp', obj_id, xp)

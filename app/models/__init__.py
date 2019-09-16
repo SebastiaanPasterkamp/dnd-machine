@@ -2,19 +2,19 @@ import os
 import sys
 import json
 
-from campaign import CampaignMapper
-from character import CharacterMapper
-from dndmachine import DndMachine
-from encounter import EncounterMapper
-from monster import MonsterMapper
-from log.adventureleague import AdventureLeagueLogMapper
-from npc import NpcMapper
-from party import PartyMapper
-from user import UserMapper
-from item.armor import ArmorMapper
-from item.weapons import WeaponMapper
-from item.spell import SpellMapper
-from items import ItemsObject
+from .campaign import CampaignMapper
+from .character import CharacterMapper
+from .dndmachine import DndMachine
+from .encounter import EncounterMapper
+from .monster import MonsterMapper
+from .log.adventureleague import AdventureLeagueLogMapper
+from .npc import NpcMapper
+from .party import PartyMapper
+from .user import UserMapper
+from .item.armor import ArmorMapper
+from .item.weapons import WeaponMapper
+from .item.spell import SpellMapper
+from .items import ItemsObject
 
 class Datamapper(object):
     """Contains instances for each type.

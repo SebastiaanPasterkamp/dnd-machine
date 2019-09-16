@@ -1,21 +1,21 @@
 import unittest
 
-from __init__ import BaseAppTestCase
+from baseapptest import BaseAppTestCase
 
 class AppUserTestCase(BaseAppTestCase):
 
     def setUp(self):
         super(AppUserTestCase, self).setUp()
         users = {
-            u'user': [],
-            u'dm': [u'dm']
+            'user': [],
+            'dm': ['dm']
             }
         self.users = {}
-        for name, role in users.items():
+        for name, role in list(users.items()):
             self.users[name] = self.createUser({
                 'username': name,
                 'password': name,
-                'email': name + u'@example.com',
+                'email': name + '@example.com',
                 'role': role,
                 })
             self.users[name]['password'] = name
@@ -42,7 +42,7 @@ class AppUserTestCase(BaseAppTestCase):
         pages = {}
         pages.update(self.adminPages)
         pages.update(self.userPages)
-        for page, expected in pages.items():
+        for page, expected in list(pages.items()):
             rv = self.client.get(
                 page,
                 headers={'X-Requested-With': 'XMLHttpRequest'}
@@ -51,7 +51,7 @@ class AppUserTestCase(BaseAppTestCase):
 
     def testProtectedPages403(self):
         self.doLogin('user', 'user')
-        for page, expected in self.adminPages.items():
+        for page, expected in list(self.adminPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, 403)
 
@@ -60,19 +60,19 @@ class AppUserTestCase(BaseAppTestCase):
         pages = {}
         pages.update(self.adminPages)
         pages.update(self.userPages)
-        for page, expected in pages.items():
+        for page, expected in list(pages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
 
     def testPrivilegedPages200(self):
         self.doLogin('user', 'user')
-        for page, expected in self.userPages.items():
+        for page, expected in list(self.userPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
 
     def testPrivilegedPages403(self):
         self.doLogin('dm', 'dm')
-        for page, expected in self.userPages.items():
+        for page, expected in list(self.userPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, 403)
 
@@ -114,7 +114,7 @@ class AppUserTestCase(BaseAppTestCase):
                 })
             self.assertResponse(page, rv, 200, 'application/json')
             userData = rv.get_json()
-            self.assertNotIn(u'admin', userData['role'])
+            self.assertNotIn('admin', userData['role'])
             userData = self.dbGetObject('user', user['id'])
             self.assertEqual(user['role'], userData['role'])
 
@@ -127,7 +127,7 @@ class AppUserTestCase(BaseAppTestCase):
                 })
             self.assertResponse(page, rv, 200, 'application/json')
             userData = rv.get_json()
-            self.assertEqual([u'admin'], userData['role'])
+            self.assertEqual(['admin'], userData['role'])
 
     def testCreateUser(self):
         user = self.newUser

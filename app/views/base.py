@@ -18,7 +18,7 @@ def register_paths(app, basemapper, config):
     @app.route('/error', methods=["POST"])
     def error():
         data = request.get_json()
-        print data
+        print(data)
         return jsonify({"status": "Received"})
 
     @app.route('/authenticate')
@@ -231,7 +231,7 @@ def register_paths(app, basemapper, config):
             return redirect(url_for('login'))
         user = users[0]
 
-        key = unicode(
+        key = str(
             uuid.uuid4().get_hex().upper()[:32]
             )
         user.setRecovery(key)

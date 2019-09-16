@@ -8,17 +8,17 @@ sys.path.append(os.path.abspath(os.path.join(
 
 from app import migrate
 
-from __init__ import BaseAppTestCase
+from baseapptest import BaseAppTestCase
 
 class AppPartyTestCase(BaseAppTestCase):
 
     def setUp(self):
         super(AppPartyTestCase, self).setUp()
         users = {
-            u'alice': [u'player'],
-            u'bob': [u'player'],
-            u'trudy': [u'player'],
-            u'dm': [u'dm']
+            'alice': ['player'],
+            'bob': ['player'],
+            'trudy': ['player'],
+            'dm': ['dm']
             }
         self.users = {}
         self.characters = {}
@@ -26,7 +26,7 @@ class AppPartyTestCase(BaseAppTestCase):
             self.users[name] = self.createUser({
                 'username': name,
                 'password': name,
-                'email': name + u'@example.com',
+                'email': name + '@example.com',
                 'role': users[name],
                 })
             self.users[name]['password'] = name
@@ -70,7 +70,7 @@ class AppPartyTestCase(BaseAppTestCase):
         pages = {}
         pages.update(self.dmPages)
         pages.update(self.partyPages)
-        for page, expected in pages.items():
+        for page, expected in list(pages.items()):
             rv = self.client.get(
                 page,
                 headers={'X-Requested-With': 'XMLHttpRequest'}
@@ -79,31 +79,31 @@ class AppPartyTestCase(BaseAppTestCase):
 
     def testDmPages200(self):
         self.doLogin('dm', 'dm')
-        for page, expected in self.dmPages.items():
+        for page, expected in list(self.dmPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
 
     def testDmPages403(self):
         self.doLogin('alice', 'alice')
-        for page, expected in self.dmPages.items():
+        for page, expected in list(self.dmPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, 403)
 
     def testPartyPagesDm200(self):
         self.doLogin('dm', 'dm')
-        for page, expected in self.partyPages.items():
+        for page, expected in list(self.partyPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
 
     def testPartyPagesUser200(self):
         self.doLogin('alice', 'alice')
-        for page, expected in self.partyPages.items():
+        for page, expected in list(self.partyPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
 
     def testPartyPages403(self):
         self.doLogin('trudy', 'trudy')
-        for page, expected in self.dmPages.items():
+        for page, expected in list(self.dmPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, 403)
 
@@ -142,7 +142,7 @@ class AppPartyTestCase(BaseAppTestCase):
         rv = self.client.get(page)
         self.assertResponse(page, rv, 200, 'application/json')
         partyData = rv.get_json()
-        self.assertEquals([], partyData)
+        self.assertEqual([], partyData)
 
     def testListPopulatedAdmin(self):
         self.doLogin('admin', 'admin')
@@ -151,7 +151,7 @@ class AppPartyTestCase(BaseAppTestCase):
         rv = self.client.get(page)
         self.assertResponse(page, rv, 200, 'application/json')
         partyData = rv.get_json()
-        self.assertEquals(
+        self.assertEqual(
             1,
             len(partyData)
             )
@@ -167,7 +167,7 @@ class AppPartyTestCase(BaseAppTestCase):
         rv = self.client.get(page)
         self.assertResponse(page, rv, 200, 'application/json')
         partyData = rv.get_json()
-        self.assertEquals(
+        self.assertEqual(
             1,
             len(partyData)
             )
@@ -184,11 +184,11 @@ class AppPartyTestCase(BaseAppTestCase):
         rv = self.client.get(page)
         self.assertResponse(page, rv, 200, 'application/json')
         partyData = rv.get_json()
-        self.assertEquals(
+        self.assertEqual(
             1,
             len(partyData)
             )
-        self.assertEquals(
+        self.assertEqual(
             party,
             partyData[0]
             )
@@ -201,7 +201,7 @@ class AppPartyTestCase(BaseAppTestCase):
         rv = self.client.get(page)
         self.assertResponse(page, rv, 200, 'application/json')
         partyData = rv.get_json()
-        self.assertEquals(None, partyData)
+        self.assertEqual(None, partyData)
 
         page = '/party/host/%s' % self.party['id']
         rv = self.postJSON(page, None)
@@ -211,19 +211,19 @@ class AppPartyTestCase(BaseAppTestCase):
         rv = self.client.get(page, follow_redirects=True)
         self.assertResponse(page, rv, 200, 'application/json')
         partyData = rv.get_json()
-        self.assertEquals(party, partyData)
+        self.assertEqual(party, partyData)
 
         page = '/party/host'
         rv = self.postJSON(page, None)
         self.assertResponse(page, rv, 200, 'application/json')
         partyData = rv.get_json()
-        self.assertEquals(None, partyData)
+        self.assertEqual(None, partyData)
 
         page = '/party/hosting'
         rv = self.client.get(page)
         self.assertResponse(page, rv, 200, 'application/json')
         partyData = rv.get_json()
-        self.assertEquals(None, partyData)
+        self.assertEqual(None, partyData)
 
     def testHosting403(self):
         self.doLogin('alice', 'alice')
@@ -241,7 +241,7 @@ class AppPartyTestCase(BaseAppTestCase):
         self.assertResponse(page, rv, 200, 'application/json')
         partyData = rv.get_json()
         self.assertIn('id', partyData)
-        self.assertNotEquals(self.party['id'], partyData['id'])
+        self.assertNotEqual(self.party['id'], partyData['id'])
         self.assertDictContainsSubset(party, partyData)
         partyData = self.dbGetObject('party', partyData['id'])
         self.assertDictContainsSubset(party, partyData)
@@ -309,7 +309,7 @@ class AppPartyTestCase(BaseAppTestCase):
         self.assertResponse(page, rv, 302)
         for charId in party['member_ids']:
             charData = self.dbGetObject('character', charId)
-            self.assertEquals(
+            self.assertEqual(
                 charData['xp'],
                 xp / len(party['member_ids'])
                 )
@@ -331,7 +331,7 @@ class AppPartyTestCase(BaseAppTestCase):
         self.assertResponse(page, rv, 403)
         for charId in party['member_ids']:
             charData = self.dbGetObject('character', charId)
-            self.assertEquals(charData['xp'], 0)
+            self.assertEqual(charData['xp'], 0)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -12,7 +12,7 @@ class TestJsonObject(JsonObject):
     _pathPrefix = "test"
     _defaultConfig = {
         "default": {
-            "unicode": u"Unicode string",
+            "unicode": "Unicode string",
             "float": 1.5,
             "int": 7
             },
@@ -25,16 +25,16 @@ class TestJsonObject(JsonObject):
             },
         "string": {
             "list": [
-                u"foo",
-                u"bar"
+                "foo",
+                "bar"
             ],
             "dict": {
-                "one": u"foo",
-                "two": u"bar"
+                "one": "foo",
+                "two": "bar"
                 }
             }
         }
-    _defaultFieldType = unicode
+    _defaultFieldType = str
     _fieldTypes = {
         "default": {
             # unicode through default type
@@ -48,9 +48,9 @@ class TestJsonObject(JsonObject):
                 }
             },
         "string": {
-            "list": unicode,
+            "list": str,
             "dict": {
-                '*': unicode
+                '*': str
                 }
             }
         }
@@ -68,9 +68,9 @@ class JsonObjectTestCase(unittest.TestCase):
             "default": {"float": "3.0"},
             "new_field": "foo bar"
             })
-        self.assertEquals(obj.config, {
+        self.assertEqual(obj.config, {
             "default": {
-                "unicode": u"Unicode string",
+                "unicode": "Unicode string",
                 "float": 3.0,
                 "int": 7
                 },
@@ -83,26 +83,26 @@ class JsonObjectTestCase(unittest.TestCase):
                 },
             "string": {
                 "list": [
-                    u"foo",
-                    u"bar"
+                    "foo",
+                    "bar"
                 ],
                 "dict": {
-                    "one": u"foo",
-                    "two": u"bar"
+                    "one": "foo",
+                    "two": "bar"
                     }
                 },
-            "new_field": u"foo bar"
+            "new_field": "foo bar"
             })
 
     def test_getPath(self):
         obj = TestJsonObject()
-        self.assertEquals(obj.getPath('default.unicode'), u"Unicode string")
-        self.assertEquals(obj.getPath('default.float'), 1.5)
-        self.assertEquals(obj.getPath('default.int'), 7)
-        self.assertEquals(obj.getPath('int.list.0'), 1)
-        self.assertEquals(obj.getPath('int.dict.one'), 1)
-        self.assertEquals(obj.getPath('string.list.1'), u"bar")
-        self.assertEquals(obj.getPath('string.dict.two'), u"bar")
+        self.assertEqual(obj.getPath('default.unicode'), "Unicode string")
+        self.assertEqual(obj.getPath('default.float'), 1.5)
+        self.assertEqual(obj.getPath('default.int'), 7)
+        self.assertEqual(obj.getPath('int.list.0'), 1)
+        self.assertEqual(obj.getPath('int.dict.one'), 1)
+        self.assertEqual(obj.getPath('string.list.1'), "bar")
+        self.assertEqual(obj.getPath('string.dict.two'), "bar")
 
     def test_setPath(self):
         obj = TestJsonObject()
@@ -118,12 +118,12 @@ class JsonObjectTestCase(unittest.TestCase):
         obj.setPath('string.dict.add', "new")
         obj.setPath('string.dict.two', "changed")
 
-        self.assertEquals(obj.config, {
+        self.assertEqual(obj.config, {
             "default": {
-                "unicode": u"Unicode string",
+                "unicode": "Unicode string",
                 "float": 3.0,
                 "int": 7,
-                "new": u"hello"
+                "new": "hello"
                 },
             "int": {
                 "list": [1, 10, 5],
@@ -135,28 +135,28 @@ class JsonObjectTestCase(unittest.TestCase):
                 },
             "string": {
                 "list": [
-                    u"foo",
-                    u"changed",
-                    u"new"
+                    "foo",
+                    "changed",
+                    "new"
                 ],
                 "dict": {
-                    "one": u"foo",
-                    "two": u"changed",
-                    "add": u"new"
+                    "one": "foo",
+                    "two": "changed",
+                    "add": "new"
                     }
                 },
-            "new_field": u"foo bar"
+            "new_field": "foo bar"
             })
 
     def test_getItem(self):
         obj = TestJsonObject()
-        self.assertEquals(obj['default.unicode'], u"Unicode string")
-        self.assertEquals(obj['default.float'], 1.5)
-        self.assertEquals(obj['default.int'], 7)
-        self.assertEquals(obj['int.list.0'], 1)
-        self.assertEquals(obj['int.dict.one'], 1)
-        self.assertEquals(obj['string.list.1'], u"bar")
-        self.assertEquals(obj['string.dict.two'], u"bar")
+        self.assertEqual(obj['default.unicode'], "Unicode string")
+        self.assertEqual(obj['default.float'], 1.5)
+        self.assertEqual(obj['default.int'], 7)
+        self.assertEqual(obj['int.list.0'], 1)
+        self.assertEqual(obj['int.dict.one'], 1)
+        self.assertEqual(obj['string.list.1'], "bar")
+        self.assertEqual(obj['string.dict.two'], "bar")
 
     def test_setItem(self):
         obj = TestJsonObject()
@@ -172,12 +172,12 @@ class JsonObjectTestCase(unittest.TestCase):
         obj['string.dict.add'] = "new"
         obj['string.dict.two'] = "changed"
 
-        self.assertEquals(obj.config, {
+        self.assertEqual(obj.config, {
             "default": {
-                "unicode": u"Unicode string",
+                "unicode": "Unicode string",
                 "float": 3.0,
                 "int": 7,
-                "new": u"hello"
+                "new": "hello"
                 },
             "int": {
                 "list": [1, 10, 5],
@@ -189,28 +189,28 @@ class JsonObjectTestCase(unittest.TestCase):
                 },
             "string": {
                 "list": [
-                    u"foo",
-                    u"changed",
-                    u"new"
+                    "foo",
+                    "changed",
+                    "new"
                 ],
                 "dict": {
-                    "one": u"foo",
-                    "two": u"changed",
-                    "add": u"new"
+                    "one": "foo",
+                    "two": "changed",
+                    "add": "new"
                     }
                 },
-            "new_field": u"foo bar"
+            "new_field": "foo bar"
             })
 
     def test_getAttribute(self):
         obj = TestJsonObject()
-        self.assertEquals(obj.defaultUnicode, u"Unicode string")
-        self.assertEquals(obj.defaultFloat, 1.5)
-        self.assertEquals(obj.defaultInt, 7)
-        self.assertEquals(obj.intList0, 1)
-        self.assertEquals(obj.intDictOne, 1)
-        self.assertEquals(obj.stringList1, u"bar")
-        self.assertEquals(obj.stringDictTwo, u"bar")
+        self.assertEqual(obj.defaultUnicode, "Unicode string")
+        self.assertEqual(obj.defaultFloat, 1.5)
+        self.assertEqual(obj.defaultInt, 7)
+        self.assertEqual(obj.intList0, 1)
+        self.assertEqual(obj.intDictOne, 1)
+        self.assertEqual(obj.stringList1, "bar")
+        self.assertEqual(obj.stringDictTwo, "bar")
 
     def test_setAttribute(self):
         obj = TestJsonObject()
@@ -219,19 +219,19 @@ class JsonObjectTestCase(unittest.TestCase):
         obj.defaultNew = "hello"
         obj.intList.append(5)
         obj.intList1 = "10"
-        obj.stringList.append(u"new")
+        obj.stringList.append("new")
         obj.stringList1 = "changed"
         obj.intDictAdd = "5"
         obj.intDictTwo = "10"
         obj.stringDictAdd = "new"
         obj.stringDictTwo = "changed"
 
-        self.assertEquals(obj.config, {
+        self.assertEqual(obj.config, {
             "default": {
-                "unicode": u"Unicode string",
+                "unicode": "Unicode string",
                 "float": 3.0,
                 "int": 7,
-                "new": u"hello"
+                "new": "hello"
                 },
             "int": {
                 "list": [1, 10, 5],
@@ -243,17 +243,17 @@ class JsonObjectTestCase(unittest.TestCase):
                 },
             "string": {
                 "list": [
-                    u"foo",
-                    u"changed",
-                    u"new"
+                    "foo",
+                    "changed",
+                    "new"
                 ],
                 "dict": {
-                    "one": u"foo",
-                    "two": u"changed",
-                    "add": u"new"
+                    "one": "foo",
+                    "two": "changed",
+                    "add": "new"
                     }
                 },
-            "new_field": u"foo bar"
+            "new_field": "foo bar"
             })
 
     def test_updateFromPost(self):
@@ -270,12 +270,12 @@ class JsonObjectTestCase(unittest.TestCase):
             'test.string.dict.two': "changed"
             })
 
-        self.assertEquals(obj.config, {
+        self.assertEqual(obj.config, {
             "default": {
-                "unicode": u"Unicode string",
+                "unicode": "Unicode string",
                 "float": 3.0,
                 "int": 7,
-                "new": u"hello"
+                "new": "hello"
                 },
             "int": {
                 "list": [5],
@@ -286,14 +286,14 @@ class JsonObjectTestCase(unittest.TestCase):
                     }
                 },
             "string": {
-                "list": [u"changed"],
+                "list": ["changed"],
                 "dict": {
-                    "one": u"foo",
-                    "two": u"changed",
-                    "add": u"new"
+                    "one": "foo",
+                    "two": "changed",
+                    "add": "new"
                     }
                 },
-            "new_field": u"foo bar"
+            "new_field": "foo bar"
             })
 
     def test_update(self):
@@ -320,10 +320,10 @@ class JsonObjectTestCase(unittest.TestCase):
                 }
             })
 
-        self.assertEquals(obj.config, {
+        self.assertEqual(obj.config, {
             "default": {
                 "float": 3.0,
-                "new": u"hello"
+                "new": "hello"
                 },
             "int": {
                 "list": [5],
@@ -333,13 +333,13 @@ class JsonObjectTestCase(unittest.TestCase):
                     }
                 },
             "string": {
-                "list": [u"new"],
+                "list": ["new"],
                 "dict": {
-                    "two": u"changed",
-                    "add": u"new"
+                    "two": "changed",
+                    "add": "new"
                     }
                 },
-            "new_field": u"foo bar"
+            "new_field": "foo bar"
             })
 
     def test_create(self):
@@ -369,12 +369,12 @@ class JsonObjectTestCase(unittest.TestCase):
                 }
             })
 
-        self.assertEquals(obj.config, {
+        self.assertEqual(obj.config, {
             "default": {
-                "unicode": u"Unicode string",
+                "unicode": "Unicode string",
                 "float": 3.0,
                 "int": 7,
-                "new": u"hello"
+                "new": "hello"
                 },
             "int": {
                 "list": [5],
@@ -386,17 +386,17 @@ class JsonObjectTestCase(unittest.TestCase):
                 },
             "string": {
                 "list": [
-                    u"foo",
-                    u"changed",
-                    u"new"
+                    "foo",
+                    "changed",
+                    "new"
                 ],
                 "dict": {
-                    "one": u"foo",
-                    "two": u"changed",
-                    "add": u"new"
+                    "one": "foo",
+                    "two": "changed",
+                    "add": "new"
                     }
                 },
-            "new_field": u"foo bar"
+            "new_field": "foo bar"
             })
 
 if __name__ == '__main__':
