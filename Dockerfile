@@ -9,7 +9,7 @@ RUN cd /dnd-machine/ui \
     && npm install \
     && npm run build:production
 
-FROM python:2-slim
+FROM python:3-slim
 
 WORKDIR /dnd-machine
 
