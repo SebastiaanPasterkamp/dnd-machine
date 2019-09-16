@@ -7,8 +7,15 @@ platform:
     arch: arm
 
 steps:
-  - name: backend
+  - name: backend2
     image: python:2-alpine
+    commands:
+      - apk add build-base
+      - pip install -r requirements.txt
+      - python app/tests/run_tests.py
+
+  - name: backend3
+    image: python:3-alpine
     commands:
       - apk add build-base
       - pip install -r requirements.txt
@@ -190,6 +197,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 2c930b90402b24bd90af7c90296538f98761783bc47781d72dd6fa26c6ac1a24
+hmac: 16d9fef6059c0dbe3aebf70cad1082ced1bbf8ebeab4eb6ca6c68d6440998114
 
 ...
