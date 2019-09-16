@@ -5,7 +5,7 @@ from markdown.util import etree
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 import re
-import md5
+import json
 from functools import reduce
 
 def filter_max(items):
@@ -20,7 +20,7 @@ def filter_unique(listing):
     unique = dict()
     order = []
     for item in listing:
-        key = item['id'] if 'id' in item else filter_md5(item)
+        key = item['id'] if 'id' in item else json.dumps(item)
         if key not in order:
             order.append(key)
         u = unique[key] = unique.get(key, {
@@ -110,11 +110,6 @@ def filter_json(structure):
         indent=4,
         separators=(',', ': ')
         )
-
-def filter_md5(data):
-    if not isinstance(data, str):
-        data = str(data)
-    return md5.new(data).hexdigest()
 
 class SpecialBlockQuoteProcessor(BlockProcessor):
     RE = re.compile(r'(^|\n)[ ]{0,3}\|(?:\(([^)]+)\))?[ ]?(.*)', re.M)

@@ -232,7 +232,7 @@ def register_paths(app, basemapper, config):
         user = users[0]
 
         key = str(
-            uuid.uuid4().get_hex().upper()[:32]
+            uuid.uuid4().hex.upper()[:32]
             )
         user.setRecovery(key)
         basemapper.user.update(user)

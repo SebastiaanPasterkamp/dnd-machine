@@ -5,12 +5,6 @@ import math
 from .base import JsonObject, JsonObjectDataMapper
 
 class DndMachine(object):
-    _instance = None
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(DndMachine, cls).__new__(
-                                cls, *args, **kwargs)
-        return cls._instance
 
     def __init__(self, config, mapper):
         self.xp_at_level = config['xp_at_level']
