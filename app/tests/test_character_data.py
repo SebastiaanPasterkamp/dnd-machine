@@ -36,11 +36,11 @@ class CharacterDataTestCase(unittest.TestCase):
     def testRaceConfig(self):
         structure = {
             'label': {
-                'instance': str,
+                'instance': unicode,
                 'required': True,
                 },
             'description': {
-                'instance': str,
+                'instance': unicode,
                 'required': True,
                 },
             'type': {
@@ -66,11 +66,11 @@ class CharacterDataTestCase(unittest.TestCase):
     def testClassConfig(self):
         structure = {
             'label': {
-                'instance': str,
+                'instance': unicode,
                 'required': True,
                 },
             'description': {
-                'instance': str,
+                'instance': unicode,
                 'required': True,
                 },
             'type': {
@@ -196,13 +196,13 @@ class CharacterDataTestCase(unittest.TestCase):
                         'required': True,
                         },
                     'creation': {
-                        'instance': str,
+                        'instance': unicode,
                         },
                     'race': {
-                        'instance': str,
+                        'instance': unicode,
                         },
                     'class': {
-                        'instance': str,
+                        'instance': unicode,
                         },
                     'path': {
                         'instance': list,
@@ -240,7 +240,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     },
                 'hidden_formula': {
-                    'instance': str,
+                    'instance': unicode,
                     },
                 'given': {
                     'instance': list,
@@ -265,13 +265,13 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': int,
                     },
                 'add_formula': {
-                    'instance': str,
+                    'instance': unicode,
                     },
                 'limit': {
                     'instance': int,
                     },
                 'limit_formula': {
-                    'instance': str,
+                    'instance': unicode,
                     },
                 'replace': {
                     'instance': int,
@@ -286,7 +286,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': int,
                     },
                 'limit_formula': {
-                    'instance': str,
+                    'instance': unicode,
                     },
                 },
             'config': {
@@ -295,7 +295,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     },
                 'hidden_formula': {
-                    'instance': str,
+                    'instance': unicode,
                     },
                 'config': {
                     'instance': list,
@@ -308,7 +308,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     },
                 'hidden_formula': {
-                    'instance': str,
+                    'instance': unicode,
                     },
                 'value': {
                     'required': True,
@@ -354,7 +354,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'instance': bool,
                     },
                 'hidden_formula': {
-                    'instance': str,
+                    'instance': unicode,
                     },
                 'dict': {
                     'instance': dict,
@@ -370,7 +370,7 @@ class CharacterDataTestCase(unittest.TestCase):
                     'one-of': [True]
                     },
                 'type': {
-                    'instance': str,
+                    'instance': unicode,
                     'required': True,
                     'one-of': ['list'],
                     },
@@ -378,17 +378,17 @@ class CharacterDataTestCase(unittest.TestCase):
             }
         base = {
             'label': {
-                'instance': str,
+                'instance': unicode,
                 },
             'description': {
-                'instance': str,
+                'instance': unicode,
                 },
             'path': {
-                'instance': str,
+                'instance': unicode,
                 'required': True,
                 },
             'type': {
-                'instance': str,
+                'instance': unicode,
                 'required': True,
                 'one-of': list(typeSpecific.keys()),
                 },
