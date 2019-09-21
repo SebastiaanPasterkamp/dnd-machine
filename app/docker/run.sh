@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/bin/env sh
 
 set -xe
 

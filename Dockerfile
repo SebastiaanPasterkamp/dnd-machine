@@ -6,7 +6,14 @@ WORKDIR /dnd-machine
 COPY ui ./ui
 
 RUN cd /dnd-machine/ui \
+    && apk \
+        --virtual .build-deps \
+        --no-cache \
+        add \
+            build-base \
+            python \
     && npm install \
+    && apk del .build-deps \
     && npm run build:production
 
 FROM python:3-alpine
