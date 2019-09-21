@@ -39,6 +39,56 @@ volumes:
 
 ---
 kind: pipeline
+name: dockerize
+
+platform:
+    os: linux
+    arch: arm
+
+trigger:
+  event:
+  - push
+  status:
+  - success
+
+depends_on:
+  - test
+
+steps:
+  - name: docker
+    image: docker
+    commands:
+        - docker build -t dnd-machine:staging .
+    volumes:
+      - name: socket
+        path: /var/run/docker.sock
+
+  - name: restart
+    image: appleboy/drone-ssh:linux-arm
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_user
+      key:
+        from_secret: ssh_key
+      script:
+        - >
+          docker restart dndmachine_staging || docker run \
+            --detach \
+            --publish 5005:5000/tcp \
+            --mount "type=bind,src=/etc/dnd-machine/staging.json\,dst=/dnd-machine/app/config.local.json" \
+            --restart on-failure:3 \
+            --name dndmachine_staging \
+            dnd-machine:staging
+
+volumes:
+- name: socket
+  host:
+    path: /var/run/docker.sock
+
+---
+kind: pipeline
 name: stage
 
 platform:
@@ -197,6 +247,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 8d1a47655c23e1159806104358289721b0e59d07a532ac6d34128297b749afac
+hmac: 3cffccf6fa79d3c9cbe18fe0956d39cf30c46bd16597edd8ad1c22b795bd462a
 
 ...
