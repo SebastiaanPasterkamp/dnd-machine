@@ -2,4 +2,18 @@
 
 .login-dialog {
     min-width: auto;
+
+    &__google {
+        img {
+            content: url("../img/btn_google_signin_light_normal_web.png");
+        }
+
+        &:hover img {
+            content: url("../img/btn_google_signin_light_focus_web.png");
+        }
+
+        &:active img {
+            content: url("../img/btn_google_signin_light_pressed_web.png");
+        }
+    }
 }

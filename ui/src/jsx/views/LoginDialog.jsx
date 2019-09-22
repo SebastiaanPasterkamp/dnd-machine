@@ -56,7 +56,7 @@ export class LoginDialog extends React.Component
             processing, username, password, error
         } = this.state;
         const {
-            icon, recoverAction, title, message, version, author, date
+            icon, recoverAction, googleAuth, title, message, version, author, date
         } = this.props;
 
         const logoStyle = utils.makeStyle({
@@ -110,6 +110,20 @@ export class LoginDialog extends React.Component
                     </div>
                 </div>
 
+                {googleAuth ? (
+                    <div className="nice-btn-group pull-right">
+                        <a
+                            href="/login/google"
+                            className="login-dialog__google"
+                        >
+                            <img
+                                src="/static/img/btn_google_signin_light_normal_web.png"
+                                alt="Login with Google"
+                            />
+                        </a>
+                    </div>
+                ) : null}
+
             </div>
 
             <div className="nice-login-footer">
@@ -117,7 +131,7 @@ export class LoginDialog extends React.Component
                     ? <a
                         href={recoverAction}
                         className="nice-btn link icon fa-question"
-                        >
+                    >
                         Lost your credentials?
                     </a>
                     : null
@@ -129,7 +143,7 @@ export class LoginDialog extends React.Component
                         icon="sign-in"
                         label="Sign in"
                         onClick={this.doLogin}
-                        />
+                    />
                 </div>
             </div>
 
@@ -153,6 +167,7 @@ LoginDialog.propTypes = {
     author: PropTypes.string,
     date: PropTypes.string,
     recoverAction: PropTypes.string,
+    googleAuth: PropTypes.bool,
 };
 
 LoginDialog.defaultProps = {
@@ -163,6 +178,7 @@ LoginDialog.defaultProps = {
     author: null,
     date: null,
     recoverAction: null,
+    googleAuth: false,
 };
 
 export default InlineDataWrapper(

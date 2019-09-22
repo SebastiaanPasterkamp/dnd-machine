@@ -28,6 +28,8 @@ def register_paths(app, basemapper, config):
         info = config.get('info', {})
         if config.get('MAIL_USERNAME'):
             info['recoverAction'] = '/recover'
+        if config.get('GOOGLE_CLIENT_ID'):
+            info['googleAuth'] = True
         return jsonify(info)
 
 
