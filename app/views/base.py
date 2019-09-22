@@ -4,6 +4,8 @@ from flask import request, session, redirect, url_for, \
     render_template, jsonify, flash
 from flask_mail import Mail, Message
 import uuid
+from oauthlib.oauth2 import WebApplicationClient
+import requests
 
 from errors import ApiException
 
@@ -202,13 +204,6 @@ def register_paths(app, basemapper, config):
         return jsonify(navigation)
 
 
-    @app.route('/login', methods=['GET'])
-    def login():
-        return render_template(
-            'reactjs-layout.html'
-            )
-
-
     @app.route('/recover', methods=['GET', 'POST'])
     def recover():
         if request.method != 'POST':
@@ -317,9 +312,13 @@ def register_paths(app, basemapper, config):
         return redirect(url_for('login'))
 
 
+    @app.route('/login', methods=['GET', 'POST'])
+    def login():
+        if request.method != 'POST':
+            return render_template(
+                'reactjs-layout.html'
+                )
 
-    @app.route('/login', methods=['POST'])
-    def doLogin():
         credentials = request.get_json()
         user = basemapper.user.getByCredentials(
             credentials.get('username'),
@@ -337,12 +336,78 @@ def register_paths(app, basemapper, config):
             return redirect(url_for('current_user'))
 
 
+    @app.route('/login/google', methods=['GET', 'POST'])
+    def login_with_google():
+        client = WebApplicationClient(config.get('GOOGLE_CLIENT_ID'))
+        google_provider_cfg = requests.get(config.get('GOOGLE_DISCOVERY_URL')).json()
+        code = request.args.get("code")
+
+        print(google_provider_cfg)
+
+        if not code:
+            authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+
+            # Use library to construct the request for Google login and provide
+            # scopes that let you retrieve user's profile from Google
+            request_uri = client.prepare_request_uri(
+                authorization_endpoint,
+                redirect_uri=request.base_url + "/callback",
+                scope=["openid"],
+            )
+            return redirect(request_uri)
+        else:
+            token_endpoint = google_provider_cfg["token_endpoint"]
+
+            token_url, headers, body = client.prepare_token_request(
+                token_endpoint,
+                authorization_response=request.url,
+                redirect_url=request.base_url,
+                code=code,
+            )
+            token_response = requests.post(
+                token_url,
+                headers=headers,
+                data=body,
+                auth=(
+                    config.get('GOOGLE_CLIENT_ID'),
+                    config.get('GOOGLE_CLIENT_SECRET'),
+                    ),
+                )
+            print(token_response)
+
+            # Parse the tokens!
+            client.parse_request_body_response(token_response)
+
+            userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
+            uri, headers, body = client.add_token(userinfo_endpoint)
+            userinfo_response = requests.get(uri, headers=headers, data=body).json()
+
+            print(userinfo_response)
+
+            if not userinfo_response.get("email_verified"):
+                response = jsonify({
+                    'message': 'User email not available or not verified by Google'
+                    })
+                response.status_code = 401
+                return response
+
+            unique_id = userinfo_response["sub"]
+
+
     @app.route('/logout')
     def logout():
         session.pop('user_id', None)
         session.pop('user', None)
         session.pop('party_id', None)
         return jsonify(None)
+
+
+    @app.route('/privacy-policy', methods=['GET'])
+    def privacy_policy():
+        return render_template(
+            'privacy-policy.html'
+            )
+
 
 def with_app(app, basemapper, config):
     register_paths(app, basemapper, config)
