@@ -396,7 +396,6 @@ class JsonObjectDataMapper(object):
         dbrow = dict(
             (field, obj[field])
             for field in fields
-            if field in obj
             )
         dbrow['config'] = dict(
             (field, value)

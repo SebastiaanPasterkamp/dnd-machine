@@ -5,11 +5,12 @@ from .base import JsonObject, JsonObjectDataMapper
 class UserObject(JsonObject):
     _pathPrefix = "user"
     _defaultConfig = {
+        'google_id': None,
         'username': '',
         'password': '',
         'email': '',
         'dci': '',
-        'role': []
+        'role': [],
         }
 
     def compute(self):
@@ -43,10 +44,11 @@ class UserObject(JsonObject):
             return True
         return False
 
+
 class UserMapper(JsonObjectDataMapper):
     obj = UserObject
     table = "user"
-    fields = ['username', 'password', 'email']
+    fields = ['username', 'password', 'email', 'google_id']
     order = 'username'
 
     def getList(self, search=None):
@@ -77,3 +79,12 @@ class UserMapper(JsonObjectDataMapper):
         if user.checkPassword(password):
             return user
         return None
+
+    def getByGoogleId(self, google_id):
+        objs = self.getMultiple(
+            """`google_id` = :google_id""",
+            {"google_id": google_id}
+            )
+        if not objs:
+            return None
+        return objs[0]
