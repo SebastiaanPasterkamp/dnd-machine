@@ -5,6 +5,7 @@ from flask import request, session, redirect, url_for, \
 from flask_mail import Mail, Message
 import uuid
 from oauthlib.oauth2 import WebApplicationClient
+import json
 import requests
 
 from errors import ApiException
@@ -338,62 +339,64 @@ def register_paths(app, basemapper, config):
             return redirect(url_for('current_user'))
 
 
-    @app.route('/login/google', methods=['GET', 'POST'])
+    @app.route('/login/google', methods=['GET'])
     def login_with_google():
+        client = WebApplicationClient(config.get('GOOGLE_CLIENT_ID'))
+        google_provider_cfg = requests.get(config.get('GOOGLE_DISCOVERY_URL')).json()
+
+        authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+
+        # Use library to construct the request for Google login and provide
+        # scopes that let you retrieve user's profile from Google
+        request_uri = client.prepare_request_uri(
+            authorization_endpoint,
+            redirect_uri=request.base_url + "/callback",
+            scope=["profile"],
+            )
+        return redirect(request_uri)
+
+
+    @app.route('/login/google/callback', methods=['GET'])
+    def login_with_google_callback():
         client = WebApplicationClient(config.get('GOOGLE_CLIENT_ID'))
         google_provider_cfg = requests.get(config.get('GOOGLE_DISCOVERY_URL')).json()
         code = request.args.get("code")
 
-        print(google_provider_cfg)
+        token_endpoint = google_provider_cfg["token_endpoint"]
 
-        if not code:
-            authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+        token_url, headers, body = client.prepare_token_request(
+            token_endpoint,
+            authorization_response=request.url,
+            redirect_url=request.base_url,
+            code=code,
+        )
+        token_response = requests.post(
+            token_url,
+            headers=headers,
+            data=body,
+            auth=(
+                config.get('GOOGLE_CLIENT_ID'),
+                config.get('GOOGLE_CLIENT_SECRET'),
+                ),
+            ).json()
 
-            # Use library to construct the request for Google login and provide
-            # scopes that let you retrieve user's profile from Google
-            request_uri = client.prepare_request_uri(
-                authorization_endpoint,
-                redirect_uri=request.base_url + "/callback",
-                scope=["openid"],
-            )
-            return redirect(request_uri)
+        client.parse_request_body_response(json.dumps(token_response))
+
+        userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
+        uri, headers, body = client.add_token(userinfo_endpoint)
+        userinfo_response = requests.get(uri, headers=headers, data=body).json()
+
+        user = basemapper.user.getByGoogleId(userinfo_response["sub"])
+
+        if user is None:
+            response = redirect(url_for('login'))
+            flash("Login failed")
+            return response
+
         else:
-            token_endpoint = google_provider_cfg["token_endpoint"]
-
-            token_url, headers, body = client.prepare_token_request(
-                token_endpoint,
-                authorization_response=request.url,
-                redirect_url=request.base_url,
-                code=code,
-            )
-            token_response = requests.post(
-                token_url,
-                headers=headers,
-                data=body,
-                auth=(
-                    config.get('GOOGLE_CLIENT_ID'),
-                    config.get('GOOGLE_CLIENT_SECRET'),
-                    ),
-                )
-            print(token_response)
-
-            # Parse the tokens!
-            client.parse_request_body_response(token_response)
-
-            userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
-            uri, headers, body = client.add_token(userinfo_endpoint)
-            userinfo_response = requests.get(uri, headers=headers, data=body).json()
-
-            print(userinfo_response)
-
-            if not userinfo_response.get("email_verified"):
-                response = jsonify({
-                    'message': 'User email not available or not verified by Google'
-                    })
-                response.status_code = 401
-                return response
-
-            unique_id = userinfo_response["sub"]
+            session['user_id'] = user.id
+            flash("Welcome %s" % userinfo_response.get('name', user.name))
+            return redirect(url_for('home'))
 
 
     @app.route('/logout')
