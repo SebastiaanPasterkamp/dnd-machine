@@ -44,6 +44,7 @@ describe('UserEdit', () => {
                 current_user={{
                     role: [],
                 }}
+                google_id="whatever"
             />
         );
 

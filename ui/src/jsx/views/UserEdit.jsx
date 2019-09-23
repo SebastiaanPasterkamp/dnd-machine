@@ -11,16 +11,31 @@ import ControlGroup from '../components/ControlGroup.jsx';
 import InputField from '../components/InputField.jsx';
 import Panel from '../components/Panel.jsx';
 import TagContainer from '../components/TagContainer.jsx';
+import ToggleSwitch from '../components/ToggleSwitch';
+
+import { memoize } from '../utils';
 
 export class UserEdit extends React.Component
 {
-    onFieldChange(field, value) {
-        this.props.setState({[field]: value});
+    constructor(props) {
+        super(props);
+        this.memoize = memoize.bind(this);
+        this.onRemoveGoogleID = this.onRemoveGoogleID.bind(this);
+    }
+
+    onFieldChange(field) {
+        return this.memoize(field, (value) => {
+            this.props.setState({ [field]: value });
+        });
+    }
+
+    onRemoveGoogleID() {
+        this.props.setState({ google_id: undefined });
     }
 
     render() {
         const {
-            id, name, username, password, email, dci, role = [],
+            id, name, username, password, email, dci, google_id, role = [],
             user_roles = [], current_user: { role: current_role = [] }
         } = this.props;
         const isAdmin = _.includes(current_role, 'admin');
@@ -37,40 +52,54 @@ export class UserEdit extends React.Component
                         value={username}
                         disabled={!isAdmin}
                         setState={isAdmin
-                            ? (value) => this.onFieldChange('username', value)
+                            ? this.onFieldChange('username')
                             : null
-                        } />
+                        }
+                    />
                 </ControlGroup>
                 <ControlGroup label="Full name">
                     <InputField
                         placeholder="Full name..."
                         value={name}
-                        setState={(value) => this.onFieldChange('name', value)
-                        } />
+                        setState={this.onFieldChange('name')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Password">
                     <InputField
                         placeholder="Password..."
                         type="password"
                         value={password}
-                        setState={(value) => this.onFieldChange('password', value)
-                        } />
+                        setState={this.onFieldChange('password')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Email">
                     <InputField
                         placeholder="Email..."
                         value={email}
                         type="email"
-                        setState={(value) => this.onFieldChange('email', value)
-                        } />
+                        setState={this.onFieldChange('email')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="DCI">
                     <InputField
                         placeholder="DCI..."
                         value={dci}
-                        setState={(value) => this.onFieldChange('dci', value)
-                        } />
+                        setState={this.onFieldChange('dci')}
+                    />
                 </ControlGroup>
+
+                <ToggleSwitch
+                    value={google_id}
+                    checked={!!google_id}
+                    disabled={!google_id}
+                    onChange={this.onRemoveGoogleID}
+                    label={google_id ? (
+                        "Login with Google enabled"
+                        ) : (
+                            <a href="/user/google">Enable login with Google</a>
+                        )
+                    }
+                />
             </Panel>
 
             {isAdmin
@@ -83,10 +112,8 @@ export class UserEdit extends React.Component
                         <TagContainer
                             value={role}
                             items={user_roles}
-                            setState={(value) => {
-                                this.onFieldChange('role', value);
-                            }}
-                            />
+                            setState={this.onFieldChange('role')}
+                        />
                     </ControlGroup>
                 </Panel>
                 : null
@@ -98,6 +125,7 @@ export class UserEdit extends React.Component
 UserEdit.propTypes = {
     setState: PropTypes.func.isRequired,
     id: PropTypes.number,
+    google_id: PropTypes.string,
     name: PropTypes.string,
     dci: PropTypes.string,
     email: PropTypes.string,
