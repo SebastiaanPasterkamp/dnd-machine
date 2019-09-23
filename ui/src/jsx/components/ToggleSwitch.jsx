@@ -73,7 +73,7 @@ class ToggleSwitch extends LazyComponent
 
 ToggleSwitch.propTypes = {
     checked: PropTypes.bool.isRequired,
-    label: PropTypes.string.isRequired,
+    label: PropTypes.node.isRequired,
     switchId: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
