@@ -6,12 +6,19 @@ WORKDIR /dnd-machine
 
 COPY requirements.txt *.md *.py ./
 
-RUN apk \
-        --no-cache add \
+RUN apk add \
+        --no-cache \
+        --virtual .build-deps \
         build-base \
+    && apk add \
+        --no-cache \
+        openssl-dev \
+        libffi-dev \
     && pip install \
         --no-cache-dir \
-        -r requirements.txt
+        -r requirements.txt \
+    && apk del \
+        .build-deps
 
 COPY app/ ./app
 

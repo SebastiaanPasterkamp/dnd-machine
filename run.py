@@ -45,6 +45,9 @@ parser.add_option("--config", default={}, type='string', action="callback",
 
 group = OptionGroup(parser, "Enable SSL")
 
+group.add_option("--ssl-adhoc", default=False, action="store_true",
+                 help="Enable development SSL usage [default: %default]")
+
 group.add_option("--ssl-key", default=None,
                  help="Enable SSL using this key [default: %default]")
 
@@ -91,6 +94,8 @@ args = {
 context = (options.ssl_crt, options.ssl_key)
 if all(context):
     args['ssl_context'] = context
+elif options.ssl_adhoc:
+    args['ssl_context'] = "adhoc"
 
 if options.initdb:
     print('Initializing the database.')
