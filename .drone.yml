@@ -10,14 +10,14 @@ steps:
   - name: backend2
     image: python:2-alpine
     commands:
-      - apk add build-base
+      - apk add build-base openssl-dev libffi-dev
       - pip install -r requirements.txt
       - python app/tests/run_tests.py
 
   - name: backend3
     image: python:3-alpine
     commands:
-      - apk add build-base
+      - apk add build-base openssl-dev libffi-dev
       - pip install -r requirements.txt
       - python app/tests/run_tests.py
 
@@ -197,6 +197,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 16d9fef6059c0dbe3aebf70cad1082ced1bbf8ebeab4eb6ca6c68d6440998114
+hmac: 8d1a47655c23e1159806104358289721b0e59d07a532ac6d34128297b749afac
 
 ...
