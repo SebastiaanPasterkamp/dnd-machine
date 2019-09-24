@@ -8,7 +8,7 @@ sys.path.append(os.path.abspath(os.path.join(
 
 from app import migrate
 
-from __init__ import BaseAppTestCase
+from baseapptest import BaseAppTestCase
 
 class AppCharacterTestCase(BaseAppTestCase):
 
@@ -27,18 +27,18 @@ class AppCharacterTestCase(BaseAppTestCase):
             }
 
         users = {
-            u'user': [],
-            u'alice': ['player'],
-            u'bob': ['player'],
-            u'dm': ['dm']
+            'user': [],
+            'alice': ['player'],
+            'bob': ['player'],
+            'dm': ['dm']
             }
         self.users = {}
         self.characters = {}
-        for name, role in users.items():
+        for name, role in list(users.items()):
             self.users[name] = self.createUser({
                 'username': name,
                 'password': name,
-                'email': name + u'@example.com',
+                'email': name + '@example.com',
                 'role': role,
                 })
             self.users[name]['password'] = name
@@ -68,7 +68,7 @@ class AppCharacterTestCase(BaseAppTestCase):
         pages.update(self.privatePages)
         pages.update(self.protectedPages)
         pages.update(self.adminPages)
-        for page, expected in pages.items():
+        for page, expected in list(pages.items()):
             rv = self.client.get(
                 page,
                 headers={'X-Requested-With': 'XMLHttpRequest'}
@@ -80,14 +80,14 @@ class AppCharacterTestCase(BaseAppTestCase):
         pages = {}
         pages.update(self.privatePages)
         pages.update(self.protectedPages)
-        for page, expected in pages.items():
+        for page, expected in list(pages.items()):
             code, mimetype = expected
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
 
     def testProtectedPages403(self):
         self.doLogin('bob', 'bob')
-        for page, expected in self.protectedPages.items():
+        for page, expected in list(self.protectedPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, 403)
 
@@ -95,7 +95,7 @@ class AppCharacterTestCase(BaseAppTestCase):
         self.doLogin('bob', 'bob')
         memberIds = [
             char['id']
-            for char in self.characters.values()
+            for char in list(self.characters.values())
             ]
         party = self.dbInsertObject(
             'party',
@@ -111,20 +111,20 @@ class AppCharacterTestCase(BaseAppTestCase):
                 'party_id': party['id'],
                 'character_id': charId,
                 })
-        for page, expected in self.protectedPages.items():
+        for page, expected in list(self.protectedPages.items()):
             code, mimetype = expected
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
 
     def testPrivilegedPages403(self):
         self.doLogin('alice', 'alice')
-        for page, expected in self.adminPages.items():
+        for page, expected in list(self.adminPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, 403)
 
     def testPrivilegedPages200(self):
         self.doLogin('admin', 'admin')
-        for page, expected in self.adminPages.items():
+        for page, expected in list(self.adminPages.items()):
             code, mimetype = expected
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
@@ -176,7 +176,7 @@ class AppCharacterTestCase(BaseAppTestCase):
         self.doLogin('dm', 'dm')
         charIds = sorted([
             char['id']
-            for char in self.characters.values()
+            for char in list(self.characters.values())
             ])
         page = '/character/api'
         rv = self.client.get(page)
@@ -313,17 +313,17 @@ class AppCharacterTestCase(BaseAppTestCase):
 
         self.doLogin('alice', 'alice')
         beforeData = self.dbGetObject('character', char['id'])
-        self.assertEquals([], beforeData['creation'])
+        self.assertEqual([], beforeData['creation'])
 
         page = '/character/api/%s' % char['id']
         rv = self.patchJSON(page, beforeData)
         self.assertResponse(page, rv, 200, 'application/json')
         afterData = self.dbGetObject('character', char['id'])
-        self.assertEquals(
+        self.assertEqual(
             afterData['creation'],
             beforeData['level_up']['creation']
             )
-        self.assertNotEquals(
+        self.assertNotEqual(
             afterData['level_up'],
             beforeData['level_up']
             )

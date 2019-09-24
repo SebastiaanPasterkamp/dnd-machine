@@ -8,16 +8,16 @@ sys.path.append(os.path.abspath(os.path.join(
 
 from app import migrate
 
-from __init__ import BaseAppTestCase
+from baseapptest import BaseAppTestCase
 
 class AppEncounterTestCase(BaseAppTestCase):
 
     def setUp(self):
         super(AppEncounterTestCase, self).setUp()
         users = {
-            u'player': [u'player'],
-            u'dm': [u'dm'],
-            u'trudy': [u'dm'],
+            'player': ['player'],
+            'dm': ['dm'],
+            'trudy': ['dm'],
             }
         monsters = {
             'Small': {'size': 'small'},
@@ -25,16 +25,16 @@ class AppEncounterTestCase(BaseAppTestCase):
             'Large': {'size': 'large'},
             }
         self.users = {}
-        for name, role in users.items():
+        for name, role in list(users.items()):
             self.users[name] = self.createUser({
                 'username': name,
                 'password': name,
-                'email': name + u'@example.com',
+                'email': name + '@example.com',
                 'role': role,
                 })
             self.users[name]['password'] = name
         self.monsters = {}
-        for name, monster in monsters.items():
+        for name, monster in list(monsters.items()):
             monster.update({'name': name})
             self.monsters[name] = self.createMonster(monster)
         self.encounters = {}
@@ -67,7 +67,7 @@ class AppEncounterTestCase(BaseAppTestCase):
         pages = {}
         pages.update(self.dmPages)
         pages.update(self.ownedPages)
-        for page, expected in pages.items():
+        for page, expected in list(pages.items()):
             rv = self.client.get(
                 page,
                 headers={'X-Requested-With': 'XMLHttpRequest'}
@@ -79,7 +79,7 @@ class AppEncounterTestCase(BaseAppTestCase):
         pages = {}
         pages.update(self.dmPages)
         pages.update(self.ownedPages)
-        for page, expected in pages.items():
+        for page, expected in list(pages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
 
@@ -88,7 +88,7 @@ class AppEncounterTestCase(BaseAppTestCase):
         pages = {}
         pages.update(self.dmPages)
         pages.update(self.ownedPages)
-        for page, expected in pages.items():
+        for page, expected in list(pages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
 
@@ -97,13 +97,13 @@ class AppEncounterTestCase(BaseAppTestCase):
         pages = {}
         pages.update(self.dmPages)
         pages.update(self.ownedPages)
-        for page, expected in pages.items():
+        for page, expected in list(pages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, 403)
 
     def testDmOwnedPages403(self):
         self.doLogin('trudy', 'trudy')
-        for page, expected in self.ownedPages.items():
+        for page, expected in list(self.ownedPages.items()):
             rv = self.client.get(page)
             self.assertResponse(page, rv, 403)
 
@@ -113,7 +113,7 @@ class AppEncounterTestCase(BaseAppTestCase):
         rv = self.client.get(page)
         self.assertResponse(page, rv, 200, 'application/json')
         encounterData = rv.get_json()
-        self.assertEquals([], encounterData)
+        self.assertEqual([], encounterData)
 
     def testRawAdmin200(self):
         self.doLogin('admin', 'admin')
@@ -137,7 +137,7 @@ class AppEncounterTestCase(BaseAppTestCase):
         self.assertResponse(page, rv, 200, 'application/json')
         encounterData = rv.get_json()
         self.assertIn('id', encounterData)
-        self.assertNotEquals(orig['id'], encounterData['id'])
+        self.assertNotEqual(orig['id'], encounterData['id'])
         self.assertDictContainsSubset(encounter, encounterData)
         encounterData = self.dbGetObject('encounter', encounterData['id'])
         self.assertDictContainsSubset(encounter, encounterData)

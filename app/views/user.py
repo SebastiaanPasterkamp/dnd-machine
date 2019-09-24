@@ -15,7 +15,7 @@ class UserBlueprint(BaseApiBlueprint):
             exposed |= set(['username', 'email', 'role'])
         retval = dict([
             (key, value)
-            for key, value in obj.config.items()
+            for key, value in list(obj.config.items())
             if key in exposed
             ])
         return retval
@@ -33,7 +33,7 @@ class UserBlueprint(BaseApiBlueprint):
                 ])
         return dict([
             (key, value)
-            for key, value in config.items()
+            for key, value in list(config.items())
             if key in mutable
             ])
 

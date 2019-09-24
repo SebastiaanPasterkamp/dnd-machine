@@ -5,13 +5,14 @@ from markdown.util import etree
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 import re
-import md5
+import json
+from functools import reduce
 
 def filter_max(items):
     return max(items)
 
 def filter_sanitize(text):
-    sanitize = re.compile(ur'[^a-zA-Z0-9]+')
+    sanitize = re.compile(r'[^a-zA-Z0-9]+')
     cleaned = sanitize.sub('_', text)
     return cleaned
 
@@ -19,7 +20,7 @@ def filter_unique(listing):
     unique = dict()
     order = []
     for item in listing:
-        key = item['id'] if 'id' in item else filter_md5(item)
+        key = item['id'] if 'id' in item else json.dumps(item)
         if key not in order:
             order.append(key)
         u = unique[key] = unique.get(key, {
@@ -37,7 +38,7 @@ def filter_field_title(field):
         '.+': '',
         '_': ' '
         }
-    field = reduce(lambda a, kv: a.replace(*kv), replace.iteritems(), field)
+    field = reduce(lambda a, kv: a.replace(*kv), iter(replace.items()), field)
     field = field.split('.')[-1]
     return field.capitalize()
 
@@ -110,11 +111,6 @@ def filter_json(structure):
         separators=(',', ': ')
         )
 
-def filter_md5(data):
-    if not isinstance(data, basestring):
-        data = unicode(data)
-    return md5.new(data).hexdigest()
-
 class SpecialBlockQuoteProcessor(BlockProcessor):
     RE = re.compile(r'(^|\n)[ ]{0,3}\|(?:\(([^)]+)\))?[ ]?(.*)', re.M)
 
@@ -184,14 +180,14 @@ def filter_markdown(md):
 def filter_named_headers(html):
     if isinstance(html, Markup):
         html = html.unescape()
-    namedHeaders = re.compile(ur'(<(h\d+)>([^<]+)</h\d+>)')
+    namedHeaders = re.compile(r'(<(h\d+)>([^<]+)</h\d+>)')
 
     for match in namedHeaders.finditer(html):
         full, header, title = match.groups()
         name = filter_sanitize(title)
         html = html.replace(
             full,
-            u'<a name="%(name)s"><%(header)s>%(title)s</%(header)s></a>' % {
+            '<a name="%(name)s"><%(header)s>%(title)s</%(header)s></a>' % {
                 'name': filter_sanitize(title),
                 'header': header,
                 'title': title

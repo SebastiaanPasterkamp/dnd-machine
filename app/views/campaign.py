@@ -7,6 +7,7 @@ from views.baseapi import BaseApiBlueprint, BaseApiCallback
 from errors import ApiException
 from filters import filter_unique
 from utils import markdownToToc, indent
+from functools import reduce
 
 class CampaignBlueprint(BaseApiBlueprint):
 
@@ -86,7 +87,7 @@ class CampaignBlueprint(BaseApiBlueprint):
 
         replace = {}
         for match in re.finditer(
-                ur"^/encounter/(\d+)\b", obj.story, re.M):
+                r"^/encounter/(\d+)\b", obj.story, re.M):
 
             pattern, encounter_id = \
                 match.group(0), int(match.group(1))
@@ -129,7 +130,7 @@ class CampaignBlueprint(BaseApiBlueprint):
             replace[pattern] += "\n"
 
         for match in re.finditer(
-                ur"^/npc/(\d+)\b", obj.story, re.M):
+                r"^/npc/(\d+)\b", obj.story, re.M):
 
             pattern, npc_id = \
                 match.group(0), int(match.group(1))
@@ -152,7 +153,7 @@ class CampaignBlueprint(BaseApiBlueprint):
             lambda subject, kv: re.sub(
                 r"%s\b" % kv[0], kv[1], subject
                 ),
-            replace.iteritems(),
+            iter(replace.items()),
             obj.story
             )
 

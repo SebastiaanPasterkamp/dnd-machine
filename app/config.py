@@ -36,7 +36,7 @@ def get_character_data():
                 if 'include' in data:
                     data.update(getSets(data['include']))
                     del data['include']
-                for key, value in data.items():
+                for key, value in list(data.items()):
                     inlineIncludes(value)
             if isinstance(data, list):
                 for value in data:

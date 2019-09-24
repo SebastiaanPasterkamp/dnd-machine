@@ -1,19 +1,19 @@
 from math import floor
 
-from base import JsonObject, JsonObjectDataMapper
+from .base import JsonObject, JsonObjectDataMapper
 
 class MonsterObject(JsonObject):
     _version = '1.0'
     _pathPrefix = "monster"
     _defaultConfig = {
-        "name": u"",
-        "size": u"small",
-        "type": u"beast",
+        "name": "",
+        "size": "small",
+        "type": "beast",
         "level": 1,
         "motion": {},
-        "alignment": u"Neutral Evil",
+        "alignment": "Neutral Evil",
         "hit_points": 2,
-        "hit_points_notation": u"1d4",
+        "hit_points_notation": "1d4",
         "armor_class": 10,
         "proficiency": 2,
         "passive_perception": 0,
@@ -78,7 +78,7 @@ class MonsterObject(JsonObject):
             "*": int
             },
         'traits': {
-            '*': unicode
+            '*': str
             },
         'multiattack': {
             'average': int,
@@ -94,9 +94,9 @@ class MonsterObject(JsonObject):
                 },
             'damage': {
                 '*': int,
-                'mode': unicode,
-                'type': unicode,
-                'notation': unicode,
+                'mode': str,
+                'type': str,
+                'notation': str,
                 }
             },
         'hit_points': int,
@@ -143,7 +143,7 @@ class MonsterObject(JsonObject):
                 attack['reach'] = attack['range']
                 del attack['range']
 
-        self.motion = {k:v for k, v in self.motion.items() if v}
+        self.motion = {k:v for k, v in list(self.motion.items()) if v}
 
         super(MonsterObject, self).migrate()
 

@@ -1,4 +1,4 @@
-from base import JsonObject, JsonObjectDataMapper
+from .base import JsonObject, JsonObjectDataMapper
 
 class EncounterObject(JsonObject):
     _version = '1.0'
@@ -65,7 +65,7 @@ class EncounterObject(JsonObject):
                 )
             self.monster_ids = [
                 {'id': monster_id, 'count': count}
-                for monster_id, count in monster_ids.items()
+                for monster_id, count in list(monster_ids.items())
                 ]
 
         monsters = []

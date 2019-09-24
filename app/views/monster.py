@@ -36,7 +36,7 @@ class MonsterBlueprint(BaseApiBlueprint):
 
     @BaseApiCallback('api_copy.object')
     def changeName(self, obj, *args, **kwargs):
-        obj.name += u" (Copy)"
+        obj.name += " (Copy)"
 
 def get_blueprint(basemapper, config):
     return '/monster', MonsterBlueprint(

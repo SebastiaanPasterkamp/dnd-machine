@@ -2,24 +2,24 @@ import re
 import json
 from math import floor
 
-from base import JsonObject, JsonObjectDataMapper
+from .base import JsonObject, JsonObjectDataMapper
 
 class NpcObject(JsonObject):
     _version = '1.0'
     _pathPrefix = "npc"
     _defaultConfig = {
-        "name": u"",
-        "race": u"",
-        "size": u"medium",
-        "gender": u"",
-        "class": u"",
-        "description": u"",
-        "location": u"",
-        "organization": u"",
-        "alignment": u"true neutral",
+        "name": "",
+        "race": "",
+        "size": "medium",
+        "gender": "",
+        "class": "",
+        "description": "",
+        "location": "",
+        "organization": "",
+        "alignment": "true neutral",
         "level": 1,
         "hit_dice": 8,
-        "hit_points_notation": u"1d4",
+        "hit_points_notation": "1d4",
         "hit_points": 2,
         "statistics": {
             "bare": {
@@ -167,7 +167,7 @@ class NpcObject(JsonObject):
             },
         "abilities": {
             "*": {
-                "*": unicode,
+                "*": str,
                 "uses": int,
                 "bonus": int
                 }
@@ -192,7 +192,7 @@ class NpcObject(JsonObject):
         if "base_stats" in self._config:
             re_mod = re.compile(r"(?<!statistics\.)modifiers")
 
-            for path, compute in self._config['computed'].items():
+            for path, compute in list(self._config['computed'].items()):
                 if 'formula' not in compute:
                     continue
                 compute['formula'] = re_mod.sub(
@@ -224,7 +224,7 @@ class NpcObject(JsonObject):
                 if new not in computed:
                     computed[new] = computed[old]
                 del computed[old]
-            for path, compute in computed.items():
+            for path, compute in list(computed.items()):
                 if 'formula' not in compute:
                     continue
                 compute['formula'] = re_mod.sub(
@@ -237,7 +237,7 @@ class NpcObject(JsonObject):
             "spell_attack_modifier": "spell.attack_modifier",
             "spell_safe_dc": "spell.safe_dc",
             }
-        for old, new in migrate.items():
+        for old, new in list(migrate.items()):
             fixComputed(old, new)
             if old in self:
                 if isinstance(self[old], dict):
@@ -246,7 +246,7 @@ class NpcObject(JsonObject):
                 try:
                     self[new] = self[old]
                 except Exception as e:
-                    print e
+                    print(e)
                     pass
                 finally:
                     del self[old]
@@ -283,7 +283,7 @@ class NpcObject(JsonObject):
         self.initiative_bonus = self.statisticsModifiersDexterity
         self.passive_perception = 10 + self.statisticsModifiersWisdom
 
-        for path, compute in self.computed.items():
+        for path, compute in list(self.computed.items()):
             value = machine.resolveMath(
                 self, compute.get("formula", ""))
             for bonus in compute.get("bonus", []):
@@ -329,8 +329,8 @@ class NpcObject(JsonObject):
                 self.armor_class_bonus = armor["bonus"]
 
         if 'abilities' in self:
-            for ability in self.abilities.values():
-                for key, val in ability.items():
+            for ability in list(self.abilities.values()):
+                for key, val in list(ability.items()):
                     if key.endswith('_formula'):
                         ability[key[:-8]] = machine.resolveMath(
                             self, val)

@@ -1,6 +1,6 @@
 import unittest
 
-from __init__ import BaseAppTestCase
+from baseapptest import BaseAppTestCase
 
 class AppTestCase(BaseAppTestCase):
 
@@ -46,7 +46,7 @@ class AppTestCase(BaseAppTestCase):
 
 
     def testPrivatePages401(self):
-        for page, expected in self.privatePages.items():
+        for page, expected in list(self.privatePages.items()):
             rv = self.client.get(
                 page,
                 headers={'X-Requested-With': 'XMLHttpRequest'}
@@ -55,7 +55,7 @@ class AppTestCase(BaseAppTestCase):
 
     def testPrivatePages200(self):
         self.doLogin('admin', 'admin')
-        for page, expected in self.privatePages.items():
+        for page, expected in list(self.privatePages.items()):
             code, mimetype = expected
             rv = self.client.get(page)
             self.assertEqual(rv.status_code, code)
@@ -105,7 +105,7 @@ class AppTestCase(BaseAppTestCase):
         user = self.createUser({
             'username': 'testRecoverStart',
             'password': 'testRecoverStart',
-            'email': u'testRecoverStart@example.com',
+            'email': 'testRecoverStart@example.com',
             })
         self.assertNotIn('recovery', user)
 
@@ -125,11 +125,11 @@ class AppTestCase(BaseAppTestCase):
 
 
     def testRecoverClaim(self):
-        key = u'R3C0V3R'
+        key = 'R3C0V3R'
         user = self.createUser({
             'username': 'testRecoverStart',
             'password': 'testRecoverStart',
-            'email': u'testRecoverStart@example.com',
+            'email': 'testRecoverStart@example.com',
             'recovery': key,
             })
 
@@ -166,7 +166,7 @@ class AppTestCase(BaseAppTestCase):
 
         userData = self.dbGetObject('user', user['id'])
         self.assertNotIn('recovery', userData)
-        self.assertNotEquals(user['password'], userData['password'])
+        self.assertNotEqual(user['password'], userData['password'])
 
 
 if __name__ == '__main__':

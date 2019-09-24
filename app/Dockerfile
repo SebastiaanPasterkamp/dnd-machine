@@ -1,4 +1,4 @@
-FROM python:2-alpine
+FROM python:3-alpine
 
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 

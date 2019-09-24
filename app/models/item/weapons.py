@@ -3,14 +3,14 @@ from ..base import JsonObject, JsonObjectDataMapper
 class WeaponObject(JsonObject):
     _pathPrefix = "weapon"
     _defaultConfig = {
-        "type": u"Melee Weapon",
-        "name": u"",
+        "type": "Melee Weapon",
+        "name": "",
         "cost": {},
         "weight": {},
         "damage": {
             "dice_count": 1,
             "dice_size": 4,
-            "type": u"slashing"
+            "type": "slashing"
             },
         "property": []
         }
