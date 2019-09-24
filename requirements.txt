@@ -1,9 +1,12 @@
 Flask>=0.12.3
 Flask-Mail>=0.9.1
-Flask-Compress==1.4.0
+Flask-Compress>=1.4.0
 passlib>=1.5.3
 pytest>=2.5.1
 testtools>=0.9.22
 coverage>=4.5.1
 mock>=2.0.0
 Markdown>=2.4
+pyOpenSSL>=19.0.0
+requests>=2.22.0
+oauthlib>=3.1.0

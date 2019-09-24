@@ -294,11 +294,12 @@ def register_request_hooks(app):
         """
         if session.get('user_id') is not None:
             return
+
         publicPages = (
-            'home',
             'login',
+            'login_with_google',
+            'login_with_google_callback',
             'current_user',
-            'doLogin',
             'static',
             'authenticate',
             'recover',

@@ -71,6 +71,13 @@ exports[`UserEdit should render with full props 1`] = `
         value="1234567890"
       />
     </ControlGroup>
+    <ToggleSwitch
+      checked={true}
+      disabled={false}
+      label="Login with Google enabled"
+      onChange={[Function]}
+      value="whatever"
+    />
   </Panel>
 </Fragment>
 `;
@@ -131,6 +138,18 @@ exports[`UserEdit should render with full props as admin 1`] = `
         value="1234567890"
       />
     </ControlGroup>
+    <ToggleSwitch
+      checked={false}
+      disabled={true}
+      label={
+        <a
+          href="/user/google"
+        >
+          Enable login with Google
+        </a>
+      }
+      onChange={[Function]}
+    />
   </Panel>
   <Panel
     className="user-edit__permissions"
@@ -226,6 +245,18 @@ exports[`UserEdit should render with minimum props 1`] = `
         value=""
       />
     </ControlGroup>
+    <ToggleSwitch
+      checked={false}
+      disabled={true}
+      label={
+        <a
+          href="/user/google"
+        >
+          Enable login with Google
+        </a>
+      }
+      onChange={[Function]}
+    />
   </Panel>
 </Fragment>
 `;
