@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from flask import request, session, redirect, url_for, \
-    render_template, jsonify, flash
+    render_template, jsonify, flash, get_flashed_messages
 from flask_mail import Mail, Message
 import uuid
 from oauthlib.oauth2 import WebApplicationClient
@@ -44,6 +44,11 @@ def register_paths(app, basemapper, config):
             'user.api_get',
             obj_id=session.get('user_id')
             ))
+
+
+    @app.route('/messages')
+    def messages():
+        return jsonify(get_flashed_messages(True))
 
 
     @app.route('/hosted_party')
@@ -294,14 +299,14 @@ def register_paths(app, basemapper, config):
             request.form['pwd2'],
             )
         if pwd1 != pwd2:
-            flash("The passwords didn't match")
+            flash("The passwords didn't match", 'error')
             return redirect(url_for(
                 'recovery',
                 id=id,
                 key=key,
                 ))
         if len(pwd1) < 8:
-            flash("The password is too short")
+            flash("The password is too short", 'error')
             return redirect(url_for(
                 'recovery',
                 id=id,
@@ -312,7 +317,7 @@ def register_paths(app, basemapper, config):
         del user.recovery
         users = basemapper.user.update(user)
 
-        flash("credentials updated. You can log in now.")
+        flash("Credentials updated. You can log in now.", 'success')
         return redirect(url_for('login'))
 
 
@@ -396,12 +401,12 @@ def register_paths(app, basemapper, config):
 
         if user is None:
             response = redirect(url_for('login'))
-            flash("Login failed")
+            flash("Login failed", 'error')
             return response
 
         else:
             session['user_id'] = user.id
-            flash("Welcome %s" % userinfo_response.get('name', user.name))
+            flash("Welcome %s" % userinfo_response.get('name', user.name), 'success')
             return redirect(url_for('home'))
 
 

@@ -301,6 +301,7 @@ def register_request_hooks(app):
             'login_with_google_callback',
             'privacy_policy',
             'current_user',
+            'messages',
             'static',
             'authenticate',
             'recover',
