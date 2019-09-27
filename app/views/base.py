@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from flask import request, session, redirect, url_for, \
-    render_template, jsonify, flash
+    render_template, jsonify, flash, get_flashed_messages
 from flask_mail import Mail, Message
 import uuid
 from oauthlib.oauth2 import WebApplicationClient
@@ -27,6 +27,7 @@ def register_paths(app, basemapper, config):
     @app.route('/authenticate')
     def authenticate():
         info = config.get('info', {})
+        info['footer'] = config.get('footer', [])
         if config.get('MAIL_USERNAME'):
             info['recoverAction'] = '/recover'
         if config.get('GOOGLE_CLIENT_ID'):
@@ -43,6 +44,11 @@ def register_paths(app, basemapper, config):
             'user.api_get',
             obj_id=session.get('user_id')
             ))
+
+
+    @app.route('/messages')
+    def messages():
+        return jsonify(get_flashed_messages(True))
 
 
     @app.route('/hosted_party')
@@ -293,14 +299,14 @@ def register_paths(app, basemapper, config):
             request.form['pwd2'],
             )
         if pwd1 != pwd2:
-            flash("The passwords didn't match")
+            flash("The passwords didn't match", 'error')
             return redirect(url_for(
                 'recovery',
                 id=id,
                 key=key,
                 ))
         if len(pwd1) < 8:
-            flash("The password is too short")
+            flash("The password is too short", 'error')
             return redirect(url_for(
                 'recovery',
                 id=id,
@@ -311,7 +317,7 @@ def register_paths(app, basemapper, config):
         del user.recovery
         users = basemapper.user.update(user)
 
-        flash("credentials updated. You can log in now.")
+        flash("Credentials updated. You can log in now.", 'success')
         return redirect(url_for('login'))
 
 
@@ -350,7 +356,7 @@ def register_paths(app, basemapper, config):
         # scopes that let you retrieve user's profile from Google
         request_uri = client.prepare_request_uri(
             authorization_endpoint,
-            redirect_uri=request.base_url + "/callback",
+            redirect_uri=url_for('login_with_google_callback', _external=True),
             scope=["profile"],
             )
         return redirect(request_uri)
@@ -358,6 +364,11 @@ def register_paths(app, basemapper, config):
 
     @app.route('/login/google/callback', methods=['GET'])
     def login_with_google_callback():
+        if config.get('GOOGLE_CLIENT_ID') \
+                and not request.is_secure \
+                and request.headers.get('X-Forwarded-Proto', 'http') == 'https':
+            os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
         client = WebApplicationClient(config.get('GOOGLE_CLIENT_ID'))
         google_provider_cfg = requests.get(config.get('GOOGLE_DISCOVERY_URL')).json()
         code = request.args.get("code")
@@ -366,8 +377,8 @@ def register_paths(app, basemapper, config):
 
         token_url, headers, body = client.prepare_token_request(
             token_endpoint,
-            authorization_response=request.url,
-            redirect_url=request.base_url,
+            authorization_response=url_for('login_with_google_callback', _external=True),
+            redirect_url=url_for('home', _external=True),
             code=code,
         )
         token_response = requests.post(
@@ -390,12 +401,12 @@ def register_paths(app, basemapper, config):
 
         if user is None:
             response = redirect(url_for('login'))
-            flash("Login failed")
+            flash("Login failed", 'error')
             return response
 
         else:
             session['user_id'] = user.id
-            flash("Welcome %s" % userinfo_response.get('name', user.name))
+            flash("Welcome %s" % userinfo_response.get('name', user.name), 'success')
             return redirect(url_for('home'))
 
 
