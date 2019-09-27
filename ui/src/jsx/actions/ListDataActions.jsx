@@ -5,7 +5,6 @@ import {
 } from 'lodash/fp';
 
 import ReportingActions from './ReportingActions.jsx';
-import LoadingActions from '../actions/LoadingActions.jsx';
 
 function jsonOrBust(response) {
     if (response.ok) {
@@ -48,6 +47,8 @@ ListDataActions.doLogin.listen((credentials, success, failure) => {
         if (success) {
             success(response);
         }
+
+        ReportingActions.getMessages();
     })
     .catch((error) => {
         console.log(error);
@@ -64,6 +65,8 @@ ListDataActions.doLogin.listen((credentials, success, failure) => {
         if (failure) {
             failure();
         }
+
+        ReportingActions.getMessages();
     });
 });
 
@@ -111,6 +114,8 @@ ListDataActions.doLogout.listen((callback) => {
             callback();
         }
     });
+
+    ReportingActions.getMessages();
 });
 
 export default ListDataActions;

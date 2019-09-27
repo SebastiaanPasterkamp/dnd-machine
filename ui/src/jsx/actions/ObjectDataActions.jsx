@@ -5,7 +5,6 @@ import {
 } from 'lodash/fp';
 
 import ReportingActions, { jsonOrBust } from './ReportingActions.jsx';
-import LoadingActions from '../actions/LoadingActions.jsx';
 
 export function ObjectDataActionsFactory(id)
 {

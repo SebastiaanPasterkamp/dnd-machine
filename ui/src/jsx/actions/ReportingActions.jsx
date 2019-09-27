@@ -1,12 +1,42 @@
 import React from 'react';
 import Reflux from 'reflux';
-import _ from 'lodash';
+import {
+    debounce,
+} from 'lodash';
 
 const ReportingActions = Reflux.createActions({
     "reportError": {children: ['completed', 'failed']},
+    "getMessages": {children: ['completed', 'failed']},
     "showMessage": {children: ['completed', 'failed']},
     "hideMessage": {children: ['completed', 'failed']},
 });
+
+const messageTypes = {
+    message: 'info',
+    success: 'good',
+    warning: 'warning',
+    error: 'bad',
+};
+
+ReportingActions.getMessages.listen(debounce(() => {
+    fetch('/messages', {
+        credentials: 'same-origin',
+        method: 'GET',
+        'headers': {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(jsonOrBust)
+    .then((messages) => messages.map(([type, message]) => ReportingActions.showMessage(
+        messageTypes[type],
+        message,
+    )))
+    .catch((error) => {
+        console.error(error);
+        ReportingActions.reportError.failed();
+    });
+}, 1000));
 
 ReportingActions.reportError.listen((error, info) => {
     fetch('/error', {

@@ -3,6 +3,7 @@ import Reflux from 'reflux';
 import _ from 'lodash';
 
 import LoadingActions from '../actions/LoadingActions.jsx';
+import ReportingActions from '../actions/ReportingActions.jsx';
 
 export class ActivityStore extends Reflux.Store
 {
@@ -42,6 +43,8 @@ export class ActivityStore extends Reflux.Store
                 _.pickBy(activity)
             ),
         });
+
+        ReportingActions.getMessages();
     }
 }
 
