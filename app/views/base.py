@@ -27,6 +27,7 @@ def register_paths(app, basemapper, config):
     @app.route('/authenticate')
     def authenticate():
         info = config.get('info', {})
+        info['footer'] = config.get('footer', [])
         if config.get('MAIL_USERNAME'):
             info['recoverAction'] = '/recover'
         if config.get('GOOGLE_CLIENT_ID'):

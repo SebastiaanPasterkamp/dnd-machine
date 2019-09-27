@@ -26,6 +26,33 @@
         "author": "Cromrots",
         "date": "2017 - 2019"
     },
+    "footer": [
+        {
+            "link": "https://github.com/SebastiaanPasterkamp/dnd-machine/blob/master/LICENSE.md",
+            "class": "icon fa-balance-scale",
+            "label": "Project License"
+        },
+        {
+            "link": "/privacy-policy",
+            "class": "icon fa-shield",
+            "label": "Privacy Policy"
+        },
+        {
+            "link": "https://github.com/SebastiaanPasterkamp/dnd-machine",
+            "class": "icon fa-github",
+            "label": "Source"
+        },
+        {
+            "link": "https://nice.textkernel.nl",
+            "class": "product-icon textkernel",
+            "label": "Nice!"
+        },
+        {
+            "link": "http://dnd.wizards.com/articles/features/basicrules",
+            "class": "icon fa-book",
+            "label": "Basic Rules for Dungeons & Dragons"
+        }
+    ],
     "data": {
         "roles": [
             {"name": "admin", "label": "Site Administrator"},
