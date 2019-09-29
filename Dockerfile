@@ -29,6 +29,8 @@ RUN apk add \
         build-base \
     && apk add \
         --no-cache \
+        pcre \
+        pcre-dev \
         openssl-dev \
         libffi-dev \
     && pip install \
@@ -44,4 +46,9 @@ VOLUME [ "/var/run/dnd-machine" ]
 
 EXPOSE 5000/tcp
 
-CMD [ "/bin/sh", "app/docker/run.sh", "--threaded", "--host", "0.0.0.0", "--port", "5000" ]
+CMD [ "uwsgi", "--socket", "0.0.0.0:5000", \
+               "--master", \
+               "--plugins", "python3", \
+               "--callable", "app", \
+               "--protocol", "uwsgi", \
+               "--wsgi", "run:app" ]

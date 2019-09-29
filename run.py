@@ -85,44 +85,45 @@ parser.add_option_group(group)
 
 app = create_app(config)
 
-args = {
-    "host": options.host,
-    "port": options.port,
-    "debug": options.debug,
-    "threaded": options.threaded,
-    }
-context = (options.ssl_crt, options.ssl_key)
-if all(context):
-    args['ssl_context'] = context
-elif options.ssl_adhoc:
-    args['ssl_context'] = "adhoc"
+if __name__ == '__main__':
+    args = {
+        "host": options.host,
+        "port": options.port,
+        "debug": options.debug,
+        "threaded": options.threaded,
+        }
+    context = (options.ssl_crt, options.ssl_key)
+    if all(context):
+        args['ssl_context'] = context
+    elif options.ssl_adhoc:
+        args['ssl_context'] = "adhoc"
 
-if options.initdb:
-    print('Initializing the database.')
-    initdb(app)
-    print('Initialized the database.')
-    exit()
+    if options.initdb:
+        print('Initializing the database.')
+        initdb(app)
+        print('Initialized the database.')
+        exit()
 
-if options.updatedb:
-    print('Updating the database.')
-    updatedb(app)
-    print('Updated the database.')
-    exit()
+    if options.updatedb:
+        print('Updating the database.')
+        updatedb(app)
+        print('Updated the database.')
+        exit()
 
-if options.import_sql:
-    print('Importing custom SQL into the database.')
-    import_sql(app, options.import_sql)
-    print('Imported custom SQL into the database.')
-    exit()
+    if options.import_sql:
+        print('Importing custom SQL into the database.')
+        import_sql(app, options.import_sql)
+        print('Imported custom SQL into the database.')
+        exit()
 
-if options.migrate or options.migrate_object:
-    print('Migrating objects.')
-    migrate(app, options.migrate_object)
-    print('Migrated objects.')
-    exit()
+    if options.migrate or options.migrate_object:
+        print('Migrating objects.')
+        migrate(app, options.migrate_object)
+        print('Migrated objects.')
+        exit()
 
-if options.dump_table:
-    dump_table(app, options.dump_table)
-    exit()
+    if options.dump_table:
+        dump_table(app, options.dump_table)
+        exit()
 
-app.run(**args)
+    app.run(**args)

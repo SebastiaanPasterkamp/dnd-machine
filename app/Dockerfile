@@ -12,6 +12,8 @@ RUN apk add \
         build-base \
     && apk add \
         --no-cache \
+        pcre \
+        pcre-dev \
         openssl-dev \
         libffi-dev \
     && pip install \
@@ -24,4 +26,9 @@ COPY app/ ./app
 
 VOLUME [ "/var/run/dnd-machine" ]
 
-CMD [ "/bin/sh", "app/docker/run.sh", "--debug", "--threaded", "--host", "0.0.0.0", "--port", "8080" ]
+CMD [ "uwsgi", "--socket", "0.0.0.0:8080", \
+               "--master", \
+               "--plugins", "python3", \
+               "--callable", "app", \
+               "--protocol", "uwsgi", \
+               "--wsgi", "run:app" ]
