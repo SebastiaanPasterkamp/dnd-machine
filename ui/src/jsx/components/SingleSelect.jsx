@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    find,
+    isNil,
+    map,
+} from 'lodash/fp';
 
 import BaseSelect from './BaseSelect.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
@@ -8,14 +12,32 @@ import utils from '../utils.jsx';
 
 class SingleSelect extends LazyComponent
 {
+    getItemValue(item) {
+        const { code, id, name } = item;
+        if (code !== undefined) {
+            return code;
+        }
+        if (id !== undefined) {
+            return id;
+        }
+        return name;
+    }
+
+    getItemText(item) {
+        const { label, name } = item;
+        if (label !== undefined) {
+            return label;
+        }
+        return name;
+    }
+
     onClick(item) {
-        if (this.props.isDisabled(item)) {
+        const { isDisabled, setState } = this.props;
+        if (isDisabled(item)) {
             return;
         }
 
-        this.props.setState(
-            _.get(item, 'code', item.name)
-        );
+        setState(this.getItemValue(item));
     }
 
     getLabel() {
@@ -26,20 +48,21 @@ class SingleSelect extends LazyComponent
         } = this.props;
 
         const item = (
-            _.find(items, {code: selected})
-            || _.find(items, {name: selected})
+            find({code: selected}, items)
+            || find({id: selected}, items)
+            || find({name: selected}, items)
         );
 
-        if (_.isNil(item)) {
+        if (isNil(item)) {
             return emptyLabel;
         }
 
-        return _.get(item, 'label', item.name);
+        return this.getItemText(item);
     }
 
     renderItem(item) {
-        const id = _.get(item, 'code', item.name);
-        if (_.isNil(id)) {
+        const id = this.getItemValue(item)
+        if (isNil(id)) {
             return null;
         }
 
@@ -54,20 +77,21 @@ class SingleSelect extends LazyComponent
             disabled,
         });
 
-        return <li
-            key={ id }
-            className={ style }
-            data-value={ id }
-            onClick={
-                disabled
-                ? null
-                : () => this.onClick(item)
-            }
+        return (
+            <li
+                key={ id }
+                className={ style }
+                data-value={ id }
+                onClick={ disabled
+                    ? null
+                    : () => this.onClick(item)
+                }
             >
-            <a>
-                { _.get(item, 'label', item.name) }
-            </a>
-        </li>;
+                <a>
+                    { this.getItemText(item) }
+                </a>
+            </li>
+        );
     }
 
     render() {
@@ -80,15 +104,14 @@ class SingleSelect extends LazyComponent
             ...props,
         } = this.props;
 
-        return <BaseSelect
-            label={ this.getLabel() }
-            {...props}
+        return (
+            <BaseSelect
+                label={ this.getLabel() }
+                {...props}
             >
-            {_.map(
-                items,
-                item => this.renderItem(item)
-            )}
-        </BaseSelect>;
+                {map(item => this.renderItem(item))(items)}
+            </BaseSelect>
+        );
     }
 }
 
@@ -96,7 +119,7 @@ SingleSelect.defaultProps = {
     isDisabled: (item) => item.disabled,
     setState: (selected) => {
         console.log(['SingleSelect', selected]);
-    }
+    },
 };
 
 SingleSelect.propTypes = {
