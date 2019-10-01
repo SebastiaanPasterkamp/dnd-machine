@@ -4,30 +4,30 @@ import MDReactComponent from 'markdown-react-js';
 
 import '../../sass/_encounter-view.scss';
 
-import utils from '../utils.jsx';
+import utils from '../utils';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
-import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
-import ReportingActions from '../actions/ReportingActions.jsx';
-import ListDataActions from '../actions/ListDataActions.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
+import ReportingActions from '../actions/ReportingActions';
+import ListDataActions from '../actions/ListDataActions';
 
-import { BaseLinkButton } from '../components/BaseLinkGroup/index.jsx';
-import ButtonField from '../components/ButtonField.jsx';
-import ControlGroup from '../components/ControlGroup.jsx';
-import EncounterLinks from '../components/EncounterLinks.jsx';
-import InputField from '../components/InputField.jsx';
-import LazyComponent from '../components/LazyComponent.jsx';
-import MarkdownTextField from '../components/MarkdownTextField.jsx';
-import MonsterLabel from '../components/MonsterLabel.jsx';
-import Panel from '../components/Panel.jsx';
-import Progress from '../components/Progress.jsx';
-import SingleSelect from '../components/SingleSelect.jsx';
-import TabComponent from '../components/TabComponent.jsx';
-import TextField from '../components/TextField.jsx';
-import UserLabel from '../components/UserLabel.jsx';
+import { BaseLinkButton } from '../components/BaseLinkGroup/index';
+import ButtonField from '../components/ButtonField';
+import ControlGroup from '../components/ControlGroup';
+import EncounterLinks from '../components/EncounterLinks';
+import InputField from '../components/InputField';
+import LazyComponent from '../components/LazyComponent';
+import MarkdownTextField from '../components/MarkdownTextField';
+import MonsterLabel from '../components/MonsterLabel';
+import Panel from '../components/Panel';
+import Progress from '../components/Progress';
+import SingleSelect from '../components/SingleSelect';
+import TabComponent from '../components/TabComponent';
+import TextField from '../components/TextField';
+import UserLabel from '../components/UserLabel';
 
-import MonsterView from './MonsterView.jsx';
+import MonsterView from './MonsterView';
 
 class CombatantCard extends LazyComponent
 {

@@ -2,13 +2,13 @@ import React from 'react';
 
 import '../../sass/_encounter-table.scss';
 
-import utils from '../utils.jsx';
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
+import utils from '../utils';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper';
 
-import LazyComponent from '../components/LazyComponent.jsx';
-import EncounterLinks from '../components/EncounterLinks.jsx';
-import MonsterLabel from '../components/MonsterLabel.jsx';
+import LazyComponent from '../components/LazyComponent';
+import EncounterLinks from '../components/EncounterLinks';
+import MonsterLabel from '../components/MonsterLabel';
 
 class EncounterHeader extends React.Component
 {

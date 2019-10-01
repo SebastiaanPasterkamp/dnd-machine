@@ -1,12 +1,13 @@
 import React from 'react';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper';
 
-import ChallengeRating from '../components/ChallengeRating.jsx';
-import XpRating from '../components/XpRating.jsx';
-import LazyComponent from '../components/LazyComponent.jsx';
-import MonsterLinks from '../components/MonsterLinks.jsx';
+import ChallengeRating from '../components/ChallengeRating';
+import XpRating from '../components/XpRating';
+import LazyComponent from '../components/LazyComponent';
+import MonsterLabel from '../components/MonsterLabel';
+import MonsterLinks from '../components/MonsterLinks';
 
 class MonstersHeader extends React.Component
 {
@@ -18,7 +19,9 @@ class MonstersHeader extends React.Component
         return <thead key="thead">
             <tr>
                 <th>Name</th>
+                <th>Type</th>
                 <th>Challenge</th>
+                <th>Campaign</th>
             </tr>
         </thead>;
     }
@@ -29,7 +32,7 @@ class MonstersFooter extends LazyComponent
     render() {
         return <tbody>
             <tr>
-                <td colSpan={2}>
+                <td colSpan={4}>
                     <MonsterLinks
                         altStyle={true}
                     />
@@ -48,20 +51,34 @@ class MonstersRow extends LazyComponent
 
         return <tr data-name={id}>
             <th>
-                {name}
+                <MonsterLabel
+                    monster={this.props}
+                />
                 <MonsterLinks
                     altStyle={true}
                     id={id}
                 />
             </th>
             <td>
-                <ChallengeRating
-                    challengeRating={challenge_rating}
-                    />
-                &nbsp;/&nbsp;
-                <XpRating
-                    xpRating={xp}
-                    />
+                <MonsterLabel
+                    monster={this.props}
+                    showName={false}
+                    showType={true}
+                />
+            </td>
+            <td>
+                <MonsterLabel
+                    monster={this.props}
+                    showName={false}
+                    showRating={true}
+                />
+            </td>
+            <td>
+                <MonsterLabel
+                    monster={this.props}
+                    showName={false}
+                    showCampaign={true}
+                />
             </td>
         </tr>
     }

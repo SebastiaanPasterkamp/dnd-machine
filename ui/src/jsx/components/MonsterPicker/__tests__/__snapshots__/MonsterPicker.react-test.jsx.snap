@@ -53,21 +53,23 @@ exports[`MonsterPicker rendering should work with full props 1`] = `
               className="monster-label--name"
             >
               Onsy
-                (
+            </span>
+            <span
+              className="monster-label--rating"
+            >
               <div
                 className="challenge-rating inline"
               >
                 CR 
                 1
               </div>
-               / 
+               / 
               <div
                 className="xp-rating inline"
               >
                 50
                  XP
               </div>
-              )
             </span>
             <span
               className="monster-label--type"
@@ -77,19 +79,16 @@ exports[`MonsterPicker rendering should work with full props 1`] = `
               >
                 Small
               </div>
-               
               <div
                 className="list-label inline"
               >
                 humanoid
               </div>
-                (
               <div
                 className="list-label inline"
               >
                 lawful neutral
               </div>
-              )
             </span>
           </div>
           <div
@@ -117,21 +116,23 @@ exports[`MonsterPicker rendering should work with full props 1`] = `
               className="monster-label--name"
             >
               Threesy
-                (
+            </span>
+            <span
+              className="monster-label--rating"
+            >
               <div
                 className="challenge-rating inline"
               >
                 CR 
                 3
               </div>
-               / 
+               / 
               <div
                 className="xp-rating inline"
               >
                 50
                  XP
               </div>
-              )
             </span>
             <span
               className="monster-label--type"
@@ -141,19 +142,16 @@ exports[`MonsterPicker rendering should work with full props 1`] = `
               >
                 large
               </div>
-               
               <div
                 className="list-label inline"
               >
                 humanoid
               </div>
-                (
               <div
                 className="list-label inline"
               >
                 chaotic neutral
               </div>
-              )
             </span>
           </div>
           <div

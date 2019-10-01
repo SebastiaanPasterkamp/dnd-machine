@@ -4,26 +4,26 @@ import _ from 'lodash';
 
 import '../../sass/_encounter-edit.scss';
 
-import utils, { memoize } from '../utils.jsx';
+import utils, { memoize } from '../utils';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataActions from '../actions/ObjectDataActions.jsx';
-import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
-import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import ObjectDataActions from '../actions/ObjectDataActions';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
 
-import { BaseLinkButton } from '../components/BaseLinkGroup/index.jsx';
-import Bonus from '../components/Bonus.jsx';
-import ButtonField from '../components/ButtonField.jsx';
-import ChallengeRating from '../components/ChallengeRating.jsx';
-import MonsterLabel from '../components/MonsterLabel.jsx';
-import MonsterLinks from '../components/MonsterLinks.jsx';
+import { BaseLinkButton } from '../components/BaseLinkGroup/index';
+import Bonus from '../components/Bonus';
+import ButtonField from '../components/ButtonField';
+import ChallengeRating from '../components/ChallengeRating';
+import MonsterLabel from '../components/MonsterLabel';
+import MonsterLinks from '../components/MonsterLinks';
 import { MonsterPicker } from '../components/MonsterPicker';
-import ControlGroup from '../components/ControlGroup.jsx';
-import InputField from '../components/InputField.jsx';
-import Panel from '../components/Panel.jsx';
-import SingleSelect from '../components/SingleSelect.jsx';
-import MarkdownTextField from '../components/MarkdownTextField.jsx';
-import XpRating from '../components/XpRating.jsx';
+import ControlGroup from '../components/ControlGroup';
+import InputField from '../components/InputField';
+import Panel from '../components/Panel';
+import SingleSelect from '../components/SingleSelect';
+import MarkdownTextField from '../components/MarkdownTextField';
+import XpRating from '../components/XpRating';
 
 const EncounterRating = ({ encounter, party }) => {
     if (!encounter || !party) {
