@@ -1,9 +1,21 @@
 import React from 'react';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
+import {
+    get,
+    includes,
+    isEqual,
+    map,
+    pull,
+    range,
+    values,
+} from 'lodash/fp';
 
 import '../../sass/_edit-monster.scss';
 
+import { memoize } from '../utils.jsx';
+
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import ButtonField from '../components/ButtonField.jsx';
@@ -25,85 +37,81 @@ class AttackEdit extends React.Component
 {
     constructor(props) {
         super(props);
+        this.memoize = memoize.bind(this);
     }
 
-    onFieldChange(field, value, callback=null) {
-        this.props.setState({
-            [field]: value
-        }, callback);
+    onFieldChange(field) {
+        const { setState } = this.props;
+        return this.memoize(
+            field,
+            (value, callback=null) => setState(
+                {[field]: value },
+                callback
+            )
+        );
     }
 
     render() {
         const {
-            name, description = '', damage = [], target,
-            target_methods = [], mode, attack_modes = [], reach,
-            on_hit = '', on_mis = ''
+            name, description, damage, target, target_methods,
+            mode, attack_modes, reach, on_hit, on_mis,
         } = this.props;
-        const damageTypes = _.get(damage, 'type');
+        const damageTypes = get('type', damage);
 
         return <div className="edit-attack">
             <ControlGroup label="Name">
                 <InputField
                     placeholder="Name..."
                     value={name}
-                    setState={(value) => {
-                        this.onFieldChange('name', value);
-                    }} />
+                    setState={this.onFieldChange('name')}
+                />
             </ControlGroup>
             <ControlGroup label="Description">
                 <MarkdownTextField
                     placeholder="Description..."
                     value={description}
                     rows={5}
-                    setState={(value) => {
-                        this.onFieldChange('description', value);
-                    }} />
+                    setState={this.onFieldChange('description')}
+                />
             </ControlGroup>
             <ListComponent
                 list={damage}
                 component={DamageEdit}
                 newItem="initial"
                 keyProp="type"
-                setState={(value) => {
-                    this.onFieldChange('damage', value);
-                }}
+                setState={this.onFieldChange('damage')}
                 componentProps={{
                     disabledTypes: damageTypes
                 }}
-                />
+            />
             <ControlGroup label="Target">
                 <SingleSelect
                     emptyLabel="Target..."
                     selected={target}
                     items={target_methods}
-                    setState={(value) => {
-                        this.onFieldChange('target', value);
-                    }} />
+                    setState={this.onFieldChange('target')}
+                />
             </ControlGroup>
             <ControlGroup label="Mode">
                 <SingleSelect
                     emptyLabel="Mode..."
                     selected={mode}
                     items={attack_modes}
-                    setState={(value) => {
-                        this.onFieldChange('mode', value);
-                    }} />
+                    setState={this.onFieldChange('mode')}
+                />
             </ControlGroup>
             <ReachEdit
                 {...reach}
-                setState={(value) => {
-                    this.onFieldChange('reach', value);
-                }}
-                />
+                setState={this.onFieldChange('reach')}
+            />
             <ControlGroup label="On Hit">
                 <MarkdownTextField
                     className="small"
                     placeholder="Bad stuff..."
                     value={on_hit}
                     rows={5}
-                    setState={(value) => {
-                        this.onFieldChange('on_hit', value);
-                    }} />
+                    setState={this.onFieldChange('on_hit')}
+                />
             </ControlGroup>
             <ControlGroup label="On Mis">
                 <MarkdownTextField
@@ -111,74 +119,39 @@ class AttackEdit extends React.Component
                     placeholder="Still bad stuff..."
                     value={on_mis}
                     rows={5}
-                    setState={(value) => {
-                        this.onFieldChange('on_mis', value);
-                    }} />
-            </ControlGroup>
-        </div>;
-    }
-}
-
-class MultiAttackEditor extends React.Component
-{
-    constructor(props) {
-        super(props);
-    }
-
-    onFieldChange(field, value, callback=null) {
-        this.props.setState({
-            [field]: value
-        }, callback);
-    }
-
-    render() {
-        const {
-            name, description = '', damage = [], condition = '',
-            sequence = [], attacks = []
-        } = this.props;
-        const attackOptions = _.map(attacks, attack => ({
-            code: attack.name,
-            label: attack.name
-        }));
-
-        return <div className="edit-multiattack">
-            <ControlGroup label="Name">
-                <InputField
-                    placeholder="Rotation name..."
-                    value={name}
-                    setState={(value) => {
-                        this.onFieldChange('name', value);
-                    }} />
-            </ControlGroup>
-            <ControlGroup label="Description">
-                <MarkdownTextField
-                    placeholder="Rotation does an average of %average% damage..."
-                    value={description}
-                    rows={5}
-                    setState={(value) => {
-                        this.onFieldChange('description', value);
-                    }} />
-            </ControlGroup>
-            <ControlGroup label="Condition">
-                <MarkdownTextField
-                    placeholder="Condition..."
-                    value={condition}
-                    rows={5}
-                    setState={(value) => {
-                        this.onFieldChange('condition', value);
-                    }} />
-            </ControlGroup>
-            <TagContainer
-                value={sequence}
-                items={attackOptions}
-                multiple={true}
-                setState={(value) => {
-                    this.onFieldChange('sequence', value);
-                }}
+                    setState={this.onFieldChange('on_mis')}
                 />
+            </ControlGroup>
         </div>;
     }
 }
+
+AttackEdit.propTypes = {
+    name: PropTypes.string,
+    description: PropTypes.string,
+    damage: PropTypes.array,
+    target: PropTypes.string,
+    target_methods: PropTypes.array,
+    mode: PropTypes.string,
+    attack_modes: PropTypes.array,
+    reach: PropTypes.object,
+    on_hit: PropTypes.string,
+    on_mis: PropTypes.string,
+    setState: PropTypes.func.isRequired,
+};
+
+AttackEdit.defaultProps = {
+    name: '',
+    description: '',
+    damage: [],
+    target: '',
+    target_methods: [],
+    mode: '',
+    attack_modes: [],
+    reach: {},
+    on_hit: '',
+    on_mis: '',
+};
 
 const AttackEditor = ListDataWrapper(
     AttackEdit,
@@ -186,140 +159,235 @@ const AttackEditor = ListDataWrapper(
     'items'
 );
 
+class MultiAttackEditor extends React.Component
+{
+    constructor(props) {
+        super(props);
+        this.memoize = memoize.bind(this);
+    }
+
+    onFieldChange(field) {
+        const { setState } = this.props;
+        return this.memoize(
+            field,
+            (value, callback=null) => setState(
+                {[field]: value },
+                callback
+            )
+        );
+    }
+
+    render() {
+        const {
+            name, description, damage, condition = '',
+            sequence = [], attacks = []
+        } = this.props;
+        const attackOptions = map(attack => ({
+            code: attack.name,
+            label: attack.name
+        }))(attacks);
+
+        return <div className="edit-multiattack">
+            <ControlGroup label="Name">
+                <InputField
+                    placeholder="Rotation name..."
+                    value={name}
+                    setState={this.onFieldChange('name')}
+                />
+            </ControlGroup>
+            <ControlGroup label="Description">
+                <MarkdownTextField
+                    placeholder="Rotation does an average of %average% damage..."
+                    value={description}
+                    rows={5}
+                    setState={this.onFieldChange('description')}
+                />
+            </ControlGroup>
+            <ControlGroup label="Condition">
+                <MarkdownTextField
+                    placeholder="Condition..."
+                    value={condition}
+                    rows={5}
+                    setState={this.onFieldChange('condition')}
+                />
+            </ControlGroup>
+            <TagContainer
+                value={sequence}
+                items={attackOptions}
+                multiple={true}
+                setState={this.onFieldChange('sequence')}
+            />
+        </div>;
+    }
+}
+
+MultiAttackEditor.propTypes = {
+    name: PropTypes.string,
+    description: PropTypes.string,
+    damage: PropTypes.array,
+    condition: PropTypes.string,
+    sequence: PropTypes.array,
+    attacks: PropTypes.array,
+    attack_modes: PropTypes.array,
+    reach: PropTypes.object,
+    on_hit: PropTypes.string,
+    on_mis: PropTypes.string,
+    setState: PropTypes.func.isRequired,
+};
+
+MultiAttackEditor.defaultProps = {
+    name: '',
+    description: '',
+    damage: [],
+    condition: '',
+    sequence: [],
+    attacks: [],
+};
+
 export class MonsterEdit extends React.Component
 {
     constructor(props) {
         super(props);
 
-        this.levels = _.range(1, 30)
-            .map((i) => {
-                return {code: i, label: i}
-            });
-        this.armor_classes = _.range(10, 20)
-            .map((i) => {
-                return {code: i, label: i}
-            });
+        this.levels = map(i => ({
+            code: i,
+            label: i,
+        }))(range(1, 30));
+        this.armor_classes = map(i => ({
+            code: i,
+            label: i,
+        }))(range(10, 20))
         this.affects_rating = [
             'level',
             'armor_class',
             'attacks',
             'multiattack',
-            'statistics'
+            'statistics',
         ];
         this.motion = [
             {code: 'walk', label: 'Walk'},
             {code: 'burrow', label: 'Burrow'},
             {code: 'climb', label: 'Climb'},
             {code: 'fly', label: 'Fly'},
-            {code: 'swim', label: 'Swim'}
+            {code: 'swim', label: 'Swim'},
         ];
+        this.memoize = memoize.bind(this);
     }
 
-    onFieldChange(field, value, callback=null) {
+    onFieldChange(field) {
         const {
             [field]: oldValue,
             setState,
             recompute,
         } = this.props;
 
-        if (_.isEqual(value, oldValue)) {
-            return;
-        }
-
-        setState({
-            [field]: value,
-        }, () => {
-            if (callback) {
-                callback();
+        return this.memoize(
+            field,
+            (value, callback=null) => {
+                if (isEqual(value, oldValue)) {
+                    return;
+                }
+                setState(
+                    {[field]: value},
+                    () => {
+                        if (callback) {
+                            callback();
+                        }
+                        if (recompute
+                            && includes(field, this.affects_rating)
+                        ) {
+                            recompute();
+                        }
+                    }
+                );
             }
-            if (recompute
-                && _.includes(this.affects_rating, field)
-            ) {
-                recompute();
-            }
-        });
+        );
     }
 
     onStatisticsChange(value) {
-        let statistics = _.assign({}, this.props.statistics, value);
-        this.onFieldChange('statistics', statistics);
+        let statistics = {
+            ...this.props.statistics,
+            ...value,
+        };
+        this.onFieldChange('statistics')(statistics);
     }
 
     render() {
         const {
-            name, size, size_hit_dice = [], type, monster_types = [],
-            alignment, alignments = [], level, armor_class,
-            description = '', challenge_rating_precise = 0.0,
-            xp_rating = 0, motion = {}, languages = [],
-            _languages = [], traits = {}, statistics, attacks = [],
-            multiattack = []
+            name, size, size_hit_dice, type, monster_types,
+            alignment, alignments, level, armor_class,
+            description, challenge_rating_precise,
+            xp_rating, motion, languages,
+            _languages, traits, statistics, attacks,
+            multiattack, campaign_id, campaigns,
         } = this.props;
 
         return <React.Fragment>
             <Panel
-                    key="description"
-                    className="monster-edit__description"
-                    header="Description"
-                >
+                key="description"
+                className="monster-edit__description"
+                header="Description"
+            >
+            <ControlGroup label="Campaign">
+                <SingleSelect
+                    emptyLabel="Campaign..."
+                    selected={campaign_id}
+                    items={values(campaigns)}
+                    setState={this.onFieldChange('campaign_id')}
+                />
+            </ControlGroup>
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
                         value={name}
-                        setState={(value) => {
-                            this.onFieldChange('name', value);
-                        }} />
+                        setState={this.onFieldChange('name')}
+                    />
                 </ControlGroup>
                 <ControlGroup labels={["Size", "Type"]}>
                     <SingleSelect
                         emptyLabel="Size..."
                         selected={size}
                         items={size_hit_dice}
-                        setState={(value) => {
-                            this.onFieldChange('size', value);
-                        }} />
+                        setState={this.onFieldChange('size')}
+                    />
                     <SingleSelect
                         emptyLabel="Type..."
                         selected={type}
                         items={monster_types}
-                        setState={(value) => {
-                            this.onFieldChange('type', value);
-                        }} />
+                        setState={this.onFieldChange('type')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Alignment">
                     <SingleSelect
                         emptyLabel="Alignment..."
                         selected={alignment}
                         items={alignments}
-                        setState={(value) => {
-                            this.onFieldChange('alignment', value);
-                        }} />
+                        setState={this.onFieldChange('alignment')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Level">
                     <SingleSelect
                         emptyLabel="Level..."
                         selected={level}
                         items={this.levels}
-                        setState={(value) => {
-                            this.onFieldChange('level', value);
-                        }} />
+                        setState={this.onFieldChange('level')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Armor Class">
                     <SingleSelect
                         emptyLabel="Armor Class..."
                         selected={armor_class}
                         items={this.armor_classes}
-                        setState={(value) => {
-                            this.onFieldChange('armor_class', value);
-                        }} />
+                        setState={this.onFieldChange('armor_class')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Description">
                     <MarkdownTextField
                         placeholder="Description..."
                         value={description}
                         rows={5}
-                        setState={(value) => {
-                            this.onFieldChange('description', value);
-                        }} />
+                        setState={this.onFieldChange('description')}
+                    />
                 </ControlGroup>
             </Panel>
 
@@ -332,40 +400,34 @@ export class MonsterEdit extends React.Component
                         type="float"
                         value={challenge_rating_precise}
                         disabled={true}
-                        />
+                    />
                     <InputField
                         type="number"
                         value={ xp_rating }
                         disabled={true}
-                        />
+                    />
                 </ControlGroup>
                 <ControlGroup label="Motion">
                     <TagValueContainer
                         value={motion}
                         items={this.motion}
                         defaultValue={30}
-                        setState={(value) => {
-                            this.onFieldChange('motion', value);
-                        }}
-                        />
+                        setState={this.onFieldChange('motion')}
+                    />
                 </ControlGroup>
                 <ControlGroup label="Languages">
                     <TagContainer
                         value={languages}
                         items={_languages}
-                        setState={(value) => {
-                            this.onFieldChange('languages', value);
-                        }}
-                        />
+                        setState={this.onFieldChange('languages')}
+                    />
                 </ControlGroup>
                 <FormGroup label="Traits">
                     <DefinitionList
                         list={traits}
                         newItem="auto"
-                        setState={(value) => {
-                            this.onFieldChange('traits', value);
-                        }}
-                        />
+                        setState={this.onFieldChange('traits')}
+                    />
                 </FormGroup>
             </Panel>
 
@@ -379,54 +441,52 @@ export class MonsterEdit extends React.Component
                     minBare={1}
                     setState={
                         (update) => this.onStatisticsChange(update)
-                    } />
+                    }
+                />
             </Panel>
 
             <Panel
-                    key="attacks"
-                    className="monster-edit__attacks"
-                    header="Attacks"
-                >
+                key="attacks"
+                className="monster-edit__attacks"
+                header="Attacks"
+            >
                 <ListComponent
                     component={AttackEditor}
                     list={attacks}
                     newItem="initial"
-                    setState={(value, callback=null) => {
-                        this.onFieldChange('attacks', value, callback);
-                    }}
+                    setState={this.onFieldChange('attacks')}
                     onDelete={(index, item) => {
-                        const mas = _.map(multiattack, ma => {
-                            if (!_.includes(ma.sequence, item.name)) {
+                        const mas = map(ma => {
+                            if (!includes(item.name, ma.sequence)) {
                                 return ma;
                             }
-                            return _.assign({}, ma, {
-                                sequence: _.pull(
-                                    ma.sequence,
-                                    item.name
-                                )
-                            });
-                        });
-                        this.onFieldChange('multiattack', mas);
+                            return {
+                                ...ma,
+                                sequence: pull(
+                                    item.name,
+                                    ma.sequence
+                                ),
+                            };
+                        })(multiattack);
+                        this.onFieldChange('multiattack')(mas);
                     }}
                     onChange={(index, beforeItem, afterItem) => {
-                        const mas = _.map(multiattack, ma => {
-                            if (!_.includes(ma.sequence, item.name)) {
+                        const mas = map(ma => {
+                            if (!includes(item.name, ma.sequence)) {
                                 return ma;
                             }
-                            return _.assign({}, ma, {
-                                sequence: _.map(
-                                    ma.sequence,
-                                    attack => (
-                                        attack == beforeItem.name
+                            return {
+                                ...ma,
+                                sequence: map(attack => (
+                                    attack == beforeItem.name
                                         ? afterItem.name
                                         : attack
-                                    )
-                                )
-                            });
-                        });
-                        this.onFieldChange('multiattack', mas);
+                                ))(ma.sequence),
+                            };
+                        })(multiattack);
+                        this.onFieldChange('multiattack')(mas);
                     }}
-                    />
+                />
             </Panel>
 
             <Panel
@@ -439,30 +499,84 @@ export class MonsterEdit extends React.Component
                     list={multiattack}
                     newItem="initial"
                     componentProps={{attacks}}
-                    setState={(value) => {
-                        this.onFieldChange('multiattack', value);
-                    }}
-                    />
+                    setState={this.onFieldChange('multiattack')}
+                />
             </Panel>
         </React.Fragment>
     }
 }
 
-export default ListDataWrapper(
-    RoutedObjectDataWrapper(
-        MonsterEdit, {
-            className: 'monster-edit',
-            icon: 'fa-paw',
-            label: 'Monster',
-            buttons: ['cancel', 'reload', 'recompute', 'save']
-        }, "monster"
+MonsterEdit.propTypes = {
+    id: PropTypes.number,
+    name: PropTypes.string,
+    campaign_id: PropTypes.number,
+    campaigns: PropTypes.object,
+    size: PropTypes.string,
+    size_hit_dice: PropTypes.array,
+    type: PropTypes.string,
+    monster_types: PropTypes.array,
+    alignment: PropTypes.string,
+    alignments: PropTypes.array,
+    level: PropTypes.number,
+    armor_class: PropTypes.number,
+    description: PropTypes.string,
+    challenge_rating_precise: PropTypes.number,
+    xp_rating: PropTypes.number,
+    motion: PropTypes.object,
+    languages: PropTypes.array,
+    _languages: PropTypes.array,
+    traits: PropTypes.object,
+    statistics: PropTypes.object,
+    attacks: PropTypes.array,
+    multiattack: PropTypes.array,
+    setState: PropTypes.func.isRequired,
+    recompute: PropTypes.func,
+};
+
+MonsterEdit.defaultProps = {
+    id: null,
+    campaign_id: null,
+    campaigns: {},
+    name: '',
+    size: '',
+    size_hit_dice: [],
+    type: '',
+    monster_types: [],
+    alignment: '',
+    alignments: [],
+    level: 1,
+    armor_class: 10,
+    description: '',
+    challenge_rating_precise: 0.0,
+    xp_rating: 0,
+    motion: {},
+    languages: [],
+    _languages: [],
+    traits: {},
+    statistics: {},
+    attacks: [],
+    multiattack: [],
+    recompute: null,
+};
+
+export default ObjectDataListWrapper(
+    ListDataWrapper(
+        RoutedObjectDataWrapper(
+            MonsterEdit, {
+                className: 'monster-edit',
+                icon: 'fa-paw',
+                label: 'Monster',
+                buttons: ['cancel', 'reload', 'recompute', 'save']
+            }, "monster"
+        ),
+        [
+            'alignments',
+            'size_hit_dice',
+            'monster_types',
+            'languages'
+        ],
+        'items',
+        {'languages': '_languages'}
     ),
-    [
-        'alignments',
-        'size_hit_dice',
-        'monster_types',
-        'languages'
-    ],
-    'items',
-    {'languages': '_languages'}
+    {campaigns: {type: 'campaign'}}
 );
