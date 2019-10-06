@@ -69,7 +69,7 @@ const ObjectDataWrapper = function(
                         [type]: {
                             [objectId]: object,
                         } = {},
-                    } = this.state;
+                    } = state || this.state;
                     if (object !== undefined) {
                         loaded[prop || type] = object;
                     }
