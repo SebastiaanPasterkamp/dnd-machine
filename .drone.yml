@@ -27,7 +27,7 @@ steps:
       - name: cache
         path: /drone/src/ui/node_modules
     commands:
-      - apk add build-base
+      - apk add build-base python
       - cd ui
       - npm install
       - npm run test
@@ -247,6 +247,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 3cffccf6fa79d3c9cbe18fe0956d39cf30c46bd16597edd8ad1c22b795bd462a
+hmac: a610011675df0cf639b54448a71bcfde3c547a178be26004a22de17678cc8a04
 
 ...
