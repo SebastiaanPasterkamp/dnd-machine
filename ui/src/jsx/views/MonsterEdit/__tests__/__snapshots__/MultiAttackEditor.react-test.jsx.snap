@@ -1,0 +1,242 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MultiAttackEditor should render with full props 1`] = `
+<div
+  className="edit-multiattack"
+>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Name
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Rotation name..."
+      type={undefined}
+      value="Double punch"
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Description
+    </span>
+    <div
+      className="markdown-textedit preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Rotation does an average of %average% damage..."
+        rows={5}
+        value="We punch twice"
+      />
+      <span
+        className="markdown-textedit__preview"
+      >
+        <p>
+          We punch twice
+        </p>
+      </span>
+    </div>
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Condition
+    </span>
+    <div
+      className="markdown-textedit preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Condition..."
+        rows={5}
+        value="We're _not_ holding a drink"
+      />
+      <span
+        className="markdown-textedit__preview"
+      >
+        <p>
+          We're 
+          <em>
+            not
+          </em>
+           holding a drink
+        </p>
+      </span>
+    </div>
+  </div>
+  <div
+    className="base-tag-container nice-tags-container"
+  >
+    <div
+      className="nice-dropdown nice-form-control"
+    >
+      <button
+        className="nice-btn"
+        onClick={[Function]}
+      >
+        Add...
+        <i
+          className="icon fa-angle-down"
+        />
+      </button>
+      <ul
+        className="dropdown-menu"
+        onClick={[Function]}
+      >
+        <li
+          className={null}
+          data-value="Punch"
+          onClick={[Function]}
+        >
+          <a>
+            Punch
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      className="nice-tag"
+    >
+      <span
+        className="nice-tag-label"
+      >
+        Punch
+      </span>
+      <span
+        className="nice-tag-badge"
+      >
+        × 
+        2
+      </span>
+      <button
+        className="nice-tag-btn"
+        onClick={[Function]}
+      >
+        <i
+          className="icon fa-trash-o"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MultiAttackEditor should render without props 1`] = `
+<div
+  className="edit-multiattack"
+>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Name
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Rotation name..."
+      type={undefined}
+      value=""
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Description
+    </span>
+    <div
+      className="markdown-textedit preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <span
+        className="markdown-textedit__placeholder"
+      >
+        Rotation does an average of %average% damage...
+      </span>
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Rotation does an average of %average% damage..."
+        rows={5}
+        value=""
+      />
+      <span
+        className="markdown-textedit__preview"
+      />
+    </div>
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Condition
+    </span>
+    <div
+      className="markdown-textedit preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <span
+        className="markdown-textedit__placeholder"
+      >
+        Condition...
+      </span>
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Condition..."
+        rows={5}
+        value=""
+      />
+      <span
+        className="markdown-textedit__preview"
+      />
+    </div>
+  </div>
+  <div
+    className="base-tag-container nice-tags-container"
+  />
+</div>
+`;
