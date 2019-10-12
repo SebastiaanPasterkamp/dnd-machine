@@ -16,7 +16,7 @@ RUN cd /dnd-machine/ui \
     && apk del .build-deps \
     && npm run build:production
 
-FROM python:3-alpine
+FROM python:3.6-alpine
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
 WORKDIR /dnd-machine
@@ -37,18 +37,14 @@ RUN apk add \
         --no-cache-dir \
         -r requirements.txt \
     && apk del \
-        .build-deps
+        .build-deps \
+    && mkdir /data
 
 COPY app/ /dnd-machine/app
 COPY --from=node /dnd-machine/app/static/ /dnd-machine/app/static/
 
-VOLUME [ "/var/run/dnd-machine" ]
+VOLUME [ "/data" ]
 
 EXPOSE 5000/tcp
 
-CMD [ "uwsgi", "--socket", "0.0.0.0:5000", \
-               "--master", \
-               "--plugins", "python3", \
-               "--callable", "app", \
-               "--protocol", "uwsgi", \
-               "--wsgi", "run:app" ]
+CMD [ "/bin/sh", "app/docker/run.sh" ]

@@ -1,4 +1,4 @@
-FROM python:3-alpine
+FROM python:3.6-alpine
 
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
@@ -20,15 +20,11 @@ RUN apk add \
         --no-cache-dir \
         -r requirements.txt \
     && apk del \
-        .build-deps
+        .build-deps \
+    && mkdir /data
 
 COPY app/ ./app
 
-VOLUME [ "/var/run/dnd-machine" ]
+VOLUME [ "/data" ]
 
-CMD [ "uwsgi", "--socket", "0.0.0.0:8080", \
-               "--master", \
-               "--plugins", "python3", \
-               "--callable", "app", \
-               "--protocol", "uwsgi", \
-               "--wsgi", "run:app" ]
+CMD [ "/bin/sh", "app/docker/run.sh" ]

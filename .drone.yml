@@ -1,5 +1,6 @@
 ---
 kind: pipeline
+type: docker
 name: test
 
 platform:
@@ -20,6 +21,8 @@ steps:
       - apk add build-base openssl-dev libffi-dev
       - pip install -r requirements.txt
       - python app/tests/run_tests.py
+    depends_on:
+      - backend2
 
   - name: frontend
     image: node:8.15-alpine
@@ -39,6 +42,7 @@ volumes:
 
 ---
 kind: pipeline
+type: docker
 name: dockerize
 
 platform:
@@ -55,7 +59,25 @@ depends_on:
   - test
 
 steps:
-  - name: docker
+  - name: backup
+    image: appleboy/drone-ssh:linux-arm
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_user
+      key:
+        from_secret: ssh_key
+      script:
+        - >
+          docker cp \
+            "dndmachine_staging:/data/machine.db" \
+            "backups/machine.staging.db.latest"
+        - >
+          cp "backups/machine.staging.db.latest" \
+             "backups/machine.staging.db.$(date '+%Y%m%d')"
+ 
+  - name: build 
     image: docker
     commands:
         - docker build -t dnd-machine:staging .
@@ -73,14 +95,23 @@ steps:
       key:
         from_secret: ssh_key
       script:
+        - docker stop dndmachine_staging || true
+        - docker rm dndmachine_staging || true
         - >
-          docker restart dndmachine_staging || docker run \
+          docker cp \
+            "code/production/flaskr.db" \
+            "dndmachine_staging:/data/machine.db"
+        - >
+          docker run \
             --detach \
-            --publish 5005:5000/tcp \
-            --mount "type=bind,src=/etc/dnd-machine/staging.json\,dst=/dnd-machine/app/config.local.json" \
+            --publish "5005:5000/tcp" \
+            --volume "stagingdata:/data" \
+            --volume "/etc/dnd-machine/staging.json:/dnd-machine/app/config.local.json:ro" \
             --restart on-failure:3 \
             --name dndmachine_staging \
-            dnd-machine:staging
+            "dnd-machine:staging"
+    depends_on:
+      - build
 
 volumes:
 - name: socket
@@ -89,6 +120,7 @@ volumes:
 
 ---
 kind: pipeline
+type: docker
 name: stage
 
 platform:
@@ -102,7 +134,7 @@ trigger:
   - success
 
 depends_on:
-  - test
+  - dockerize 
 
 steps:
   - name: package
@@ -167,6 +199,7 @@ volumes:
 
 ---
 kind: pipeline
+type: docker
 name: deploy
 
 platform:
@@ -247,6 +280,6 @@ volumes:
 
 ---
 kind: signature
-hmac: a610011675df0cf639b54448a71bcfde3c547a178be26004a22de17678cc8a04
+hmac: e5f23f6888c5a107d2d88e2620220fb1e27e0a6d215d9cf4dbd659999a0ef71c
 
 ...

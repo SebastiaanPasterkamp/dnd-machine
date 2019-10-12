@@ -2,12 +2,12 @@
 
 set -xe
 
-DATABASE="/var/run/dnd-machine/machine.db"
+DATABASE="/data/machine.db"
 CONFIGURED="$(grep DATABASE app/config.json | sed -r 's/^.*"([^"]+)",.*/\1/')"
 RUNARGS="--config DATABASE=$DATABASE"
 
 if [ ! -e "$DATABASE" ]; then
-    if [ -e "$CONFIGURED" ]; then
+    if [ -s "$CONFIGURED" ]; then
         echo "Importing existing DnD Machine database."
         cp -v "$CONFIGURED" "$DATABASE"
     else
@@ -30,4 +30,11 @@ echo "Upgrading DnD Machine..."
     --migrate
 echo "Upgrade completed."
 
-./run.py $RUNARGS $@
+uwsgi \
+    --socket 0.0.0.0:5000 \
+    --master \
+    --plugins python3 \
+    --callable app \
+    --protocol uwsgi \
+    --pyargv "$RUNARGS $@" \
+    --wsgi run:app
