@@ -52,7 +52,7 @@ class MonsterBlueprint(BaseApiBlueprint):
                 or obj.campaign_id in campaign_ids
             ]
 
-    @BaseApiCallback('api_copy.object')
+    @BaseApiCallback('api_copy.original')
     @BaseApiCallback('api_get.object')
     def adminOrGenericSingle(self, obj):
         if self.checkRole(['admin']):
@@ -69,7 +69,9 @@ class MonsterBlueprint(BaseApiBlueprint):
     def adminOrOwnedSingle(self, obj):
         if self.checkRole(['admin']):
             return
-        if obj.user_id != request.user.id:
+        if obj.user_id is None:
+            obj.user_id = request.user.id
+        elif obj.user_id != request.user.id:
             abort(403)
 
     @BaseApiCallback('api_post.object')

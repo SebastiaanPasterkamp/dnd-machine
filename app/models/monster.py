@@ -68,6 +68,7 @@ class MonsterObject(JsonObject):
     _fieldTypes = {
         'id': int,
         'campaign_id': int,
+        'user_id': int,
         'xp': int,
         'level': int,
         'dice_size': int,
