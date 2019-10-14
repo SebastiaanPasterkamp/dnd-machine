@@ -99,6 +99,7 @@ class NpcObject(JsonObject):
     _fieldTypes = {
         'id': int,
         'campaign_id': int,
+        'user_id': int,
         "level": int,
         "hit_dice": int,
         "hit_points": int,
