@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {shallow, mount} from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import 'jest-enzyme';
 import renderer from 'react-test-renderer';
 
@@ -11,15 +11,14 @@ import {
     mockedApi,
     alignments,
     genders,
-    monster_types,
     size_hit_dice,
     statistics,
-} from '../../tests/__mocks__';
+} from '../../../../../tests/__mocks__';
 
-import {NpcEdit} from '../../src/jsx/views/NpcEdit.jsx';
+import { NpcEdit } from '../NpcEdit';
 
 describe('View NpcEdit', () => {
-    const props = {
+    const fullProps = {
         id: null,
         name: "Example NPC",
         location: "Somewhere",
@@ -47,28 +46,42 @@ describe('View NpcEdit', () => {
                 base: {},
                 modifiers: {},
             }
-        )
+        ),
+        _statistics: statistics,
+        races: [],
+        classes: [],
     };
 
-    beforeAll(() => {
-        fetch.mockImplementation( mockedApi({
-            statistics,
-        }) );
-        ListDataActions.fetchItems('statistics', 'items');
+    beforeAll(() => fetch.mockImplementation(mockedApi({statistics})));
 
-        jest.runAllTimers();
-    })
+    afterAll(() => fetch.resetMocks());
 
-    afterAll(() => {
-        fetch.resetMocks()
-    })
-
-    it('should show an npc editor', () => {
+    it('should render w/ minimum props', () => {
+        const onRecompute = jest.fn();
+        const onSetState = jest.fn();
 
         const tree = renderer.create(
-            <NpcEdit {...props} />
-        ).toJSON();
+            <NpcEdit
+                recompute={onRecompute}
+                setState={onSetState}
+            />
+        );
 
-        expect(tree).toMatchSnapshot();
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    it('should show an npc editor', () => {
+        const onRecompute = jest.fn();
+        const onSetState = jest.fn();
+
+        const tree = renderer.create(
+            <NpcEdit
+                {...fullProps}
+                recompute={onRecompute}
+                setState={onSetState}
+            />
+        );
+
+        expect(tree.toJSON()).toMatchSnapshot();
     });
 });

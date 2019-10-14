@@ -1,23 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import '../../sass/_edit-npc.scss';
+import './sass/_npc-edit.scss';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
+import ListDataWrapper from '../../hocs/ListDataWrapper.jsx';
+import RoutedObjectDataWrapper from '../../hocs/RoutedObjectDataWrapper.jsx';
 
-import AutoCompleteInput from '../components/AutoCompleteInput.jsx';
-import ButtonField from '../components/ButtonField.jsx';
-import ControlGroup from '../components/ControlGroup.jsx';
-import DefinitionList from '../components/DefinitionList.jsx';
-import FormGroup from '../components/FormGroup.jsx';
-import InputField from '../components/InputField.jsx';
-import Panel from '../components/Panel.jsx';
-import SingleSelect from '../components/SingleSelect.jsx';
-import StatsBlock from '../components/StatsBlock.jsx';
-import MarkdownTextField from '../components/MarkdownTextField.jsx';
+import AutoCompleteInput from '../../components/AutoCompleteInput.jsx';
+import ButtonField from '../../components/ButtonField.jsx';
+import ControlGroup from '../../components/ControlGroup.jsx';
+import DefinitionList from '../../components/DefinitionList.jsx';
+import FormGroup from '../../components/FormGroup.jsx';
+import InputField from '../../components/InputField.jsx';
+import Panel from '../../components/Panel.jsx';
+import SingleSelect from '../../components/SingleSelect.jsx';
+import StatsBlock from '../../components/StatsBlock.jsx';
+import MarkdownTextField from '../../components/MarkdownTextField.jsx';
 
-import { memoize } from '../utils';
+import { memoize } from '../../utils';
 
 export class NpcEdit extends React.Component
 {
@@ -38,9 +39,11 @@ export class NpcEdit extends React.Component
     }
 
     onFieldChange(field) {
-        return this.memoize(field, (value) => {
-            this.props.setState({ [field]: value });
-        });
+        const { setState } = this.props;
+        return this.memoize(
+            field,
+            (value) => setState({ [field]: value })
+        );
     }
 
     onBaseChange(field, items) {
@@ -146,11 +149,9 @@ export class NpcEdit extends React.Component
 
     render() {
         const {
-            name, location, organization, 'class': _class,
-            classes = [], race, races = [], gender, genders = [],
-            description = '', alignment, alignments = [], size,
-            size_hit_dice = [], level, traits = {}, statistics,
-            _statistics,
+            name, location, organization, class: _class, classes, race, races,
+            gender, genders, description, alignment, alignments, size,
+            size_hit_dice, level, traits, statistics, _statistics,
         } = this.props;
 
         return <React.Fragment>
@@ -266,7 +267,51 @@ export class NpcEdit extends React.Component
             </Panel>
         </React.Fragment>;
     }
-}
+};
+
+NpcEdit.propTypes = {
+    name: PropTypes.string,
+    location: PropTypes.string,
+    organization: PropTypes.string,
+    class: PropTypes.string,
+    classes: PropTypes.array,
+    race: PropTypes.string,
+    races: PropTypes.array,
+    gender: PropTypes.string,
+    genders: PropTypes.array,
+    description: PropTypes.string,
+    alignment: PropTypes.string,
+    alignments: PropTypes.array,
+    size: PropTypes.string,
+    size_hit_dice: PropTypes.array,
+    level: PropTypes.number,
+    traits: PropTypes.objectOf( PropTypes.string ),
+    statistics: PropTypes.object,
+    _statistics: PropTypes.array,
+    recompute: PropTypes.func.isRequired,
+    setState: PropTypes.func.isRequired,
+};
+
+NpcEdit.defaultProps = {
+    name: '',
+    location: '',
+    organization: '',
+    class: '',
+    classes: [],
+    race: '',
+    races: [],
+    gender: '',
+    genders: [],
+    description: '',
+    alignment: '',
+    alignments: [],
+    size: '',
+    size_hit_dice: [],
+    level: 1,
+    traits: {},
+    statistics: {},
+    _statistics: [],
+};
 
 export default ListDataWrapper(
     ListDataWrapper(
