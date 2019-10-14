@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`View EncounterRating should render w/ minimum props 1`] = `null`;
+
+exports[`View EncounterRating should render w/ various props; should identify an easy encounter 1`] = `
+<span>
+  Easy (
+  <div
+    className="xp-rating inline"
+  >
+    10
+     XP
+  </div>
+  )
+</span>
+`;
+
+exports[`View EncounterRating should render w/ various props; should identify an insane encounter 1`] = `
+<span>
+  Insane (&gt; 
+  <div
+    className="xp-rating inline"
+  >
+    200
+     XP
+  </div>
+  )
+</span>
+`;
+
+exports[`View EncounterRating should render w/ various props; should identify an medium encounter 1`] = `
+<span>
+  Medium (
+  <div
+    className="xp-rating inline"
+  >
+    50
+     XP
+  </div>
+  )
+</span>
+`;

@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`View DescriptionPanel rendering should work w/ full props 1`] = `
+<div
+  className="nice-panel encounter-edit__description"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Description
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Name
+      </span>
+      <input
+        className="nice-form-control"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Name..."
+        type={undefined}
+        value="Bar fight"
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Description
+      </span>
+      <div
+        className="markdown-textedit preview"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <textarea
+          className="nice-form-control"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="Description..."
+          rows={5}
+          value="A _fight_ in a **bar**!"
+        />
+        <span
+          className="markdown-textedit__preview"
+        >
+          <p>
+            A 
+            <em>
+              fight
+            </em>
+             in a 
+            <strong>
+              bar
+            </strong>
+            !
+          </p>
+        </span>
+      </div>
+    </div>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;
+
+exports[`View DescriptionPanel rendering should work w/ minimum props 1`] = `
+<div
+  className="nice-panel encounter-edit__description"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Description
+  </div>
+  <div
+    className="nice-panel-content"
+  >
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Name
+      </span>
+      <input
+        className="nice-form-control"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Name..."
+        type={undefined}
+        value=""
+      />
+    </div>
+    <div
+      className="nice-control-group"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Description
+      </span>
+      <div
+        className="markdown-textedit preview"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <span
+          className="markdown-textedit__placeholder"
+        >
+          Description...
+        </span>
+        <textarea
+          className="nice-form-control"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="Description..."
+          rows={5}
+          value=""
+        />
+        <span
+          className="markdown-textedit__preview"
+        />
+      </div>
+    </div>
+    <div
+      className="clearfix"
+    />
+  </div>
+</div>
+`;
