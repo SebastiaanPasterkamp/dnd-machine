@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: docker
-name: test
+name: Test
 
 platform:
     os: linux
@@ -21,8 +21,6 @@ steps:
       - apk add build-base openssl-dev libffi-dev
       - pip install -r requirements.txt
       - python app/tests/run_tests.py
-    depends_on:
-      - backend2
 
   - name: frontend
     image: node:8.15-alpine
@@ -43,7 +41,7 @@ volumes:
 ---
 kind: pipeline
 type: docker
-name: dockerize
+name: Docker Staging
 
 platform:
     os: linux
@@ -56,7 +54,7 @@ trigger:
   - success
 
 depends_on:
-  - test
+  - Test
 
 steps:
   - name: backup
@@ -76,8 +74,8 @@ steps:
         - >
           cp "backups/machine.staging.db.latest" \
              "backups/machine.staging.db.$(date '+%Y%m%d')"
- 
-  - name: build 
+
+  - name: build
     image: docker
     commands:
         - docker build -t dnd-machine:staging .
@@ -121,7 +119,7 @@ volumes:
 ---
 kind: pipeline
 type: docker
-name: stage
+name: Stage
 
 platform:
     os: linux
@@ -134,7 +132,7 @@ trigger:
   - success
 
 depends_on:
-  - dockerize 
+  - Docker Staging
 
 steps:
   - name: package
@@ -200,7 +198,7 @@ volumes:
 ---
 kind: pipeline
 type: docker
-name: deploy
+name: Deploy
 
 platform:
     os: linux
@@ -215,7 +213,7 @@ trigger:
   - success
 
 depends_on:
-  - stage
+  - Stage
 
 steps:
   - name: package
@@ -279,7 +277,88 @@ volumes:
       path: /var/cache/drone/node_modules
 
 ---
+kind: pipeline
+type: docker
+name: Docker Production
+
+platform:
+    os: linux
+    arch: arm
+
+trigger:
+  branch:
+  - pi-docker-image-build
+  event:
+  - push
+  status:
+  - success
+
+depends_on:
+  - Deploy
+
+steps:
+  - name: backup
+    image: appleboy/drone-ssh:linux-arm
+    failure: ignore
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_user
+      key:
+        from_secret: ssh_key
+      script:
+        - >
+          docker cp \
+            "dndmachine_production:/data/machine.db" \
+            "backups/machine.production.db.latest"
+        - >
+          cp "backups/machine.production.db.latest" \
+             "backups/machine.production.db.$(date '+%Y%m%d')"
+
+  - name: build
+    image: docker
+    commands:
+        - docker build -t dnd-machine:latest .
+    volumes:
+      - name: socket
+        path: /var/run/docker.sock
+
+  - name: restart
+    image: appleboy/drone-ssh:linux-arm
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_user
+      key:
+        from_secret: ssh_key
+      script:
+        - docker stop dndmachine_production || true
+        - docker rm dndmachine_production || true
+        - >
+          docker cp \
+            "code/production/flaskr.db" \
+            "dndmachine_production:/data/machine.db"
+        - >
+          docker run \
+            --detach \
+            --publish "5000:5000/tcp" \
+            --volume "productiondata:/data" \
+            --volume "/etc/dnd-machine/production.json:/dnd-machine/app/config.local.json:ro" \
+            --restart on-failure:3 \
+            --name dndmachine_production \
+            "dnd-machine:latest"
+    depends_on:
+      - build
+
+volumes:
+- name: socket
+  host:
+    path: /var/run/docker.sock
+
+---
 kind: signature
-hmac: e5f23f6888c5a107d2d88e2620220fb1e27e0a6d215d9cf4dbd659999a0ef71c
+hmac: 2090e5b22fc98a970eaea04b93f5baf7fbeae379ab86f9f299a52e2f9d807792
 
 ...
