@@ -18,10 +18,6 @@ class ListDataStore extends Reflux.Store
         this.listenables = ListDataActions;
     }
 
-    onSetState(data) {
-        this.setState(data);
-    }
-
     onFetchItems(type, category=null) {
         const { loading } = this.state;
         if (loading[type]) {
