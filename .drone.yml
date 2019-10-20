@@ -97,7 +97,7 @@ steps:
         - docker rm dndmachine_staging || true
         - >
           docker cp \
-            "code/production/flaskr.db" \
+            "dndmachine_production:/data/machine.db" \
             "dndmachine_staging:/data/machine.db"
         - >
           docker run \
@@ -287,7 +287,7 @@ platform:
 
 trigger:
   branch:
-  - pi-docker-image-build
+  - master
   event:
   - push
   status:
@@ -359,6 +359,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 2090e5b22fc98a970eaea04b93f5baf7fbeae379ab86f9f299a52e2f9d807792
+hmac: 06ad957593dc4bea7ad80ff4fb6f188d7da13f7e5cbd838901b603478732d20b
 
 ...
