@@ -37,9 +37,15 @@ class AppEncounterTestCase(BaseAppTestCase):
         for name, monster in list(monsters.items()):
             monster.update({'name': name})
             self.monsters[name] = self.createMonster(monster)
+
+        self.campaign = self.createCampaign({
+            'name': 'Test',
+            'user_id': self.users['dm']['id'],
+            })
+
         self.encounters = {}
         self.encounters['small'] = self.createEncounter(
-            {'name': 'Small'},
+            {'name': 'Small', 'campaign_id': self.campaign['id']},
             {'Small': 2},
             self.monsters,
             self.users['dm'],
