@@ -30,11 +30,6 @@ echo "Upgrading DnD Machine..."
     --migrate
 echo "Upgrade completed."
 
-uwsgi \
-    --socket 0.0.0.0:5000 \
-    --master \
-    --plugins python3 \
-    --callable app \
-    --protocol uwsgi \
-    --pyargv "$RUNARGS $@" \
-    --wsgi run:app
+uwsgi app/uwsgi.ini \
+    --pyargv "$RUNARGS" \
+    $@

@@ -27,4 +27,4 @@ COPY app/ ./app
 
 VOLUME [ "/data" ]
 
-CMD [ "/bin/sh", "app/docker/run.sh" ]
+CMD [ "/bin/sh", "app/docker/run.sh", "--py-autoreload", "1" ]
