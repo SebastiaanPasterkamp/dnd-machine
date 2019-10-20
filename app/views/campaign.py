@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import request, render_template
+from flask import request, render_template, session, jsonify, url_for, redirect
 
 import re
 
@@ -10,6 +10,19 @@ from utils import markdownToToc, indent
 from functools import reduce
 
 class CampaignBlueprint(BaseApiBlueprint):
+
+    def __init__(self, name, *args, **kwargs):
+        super(CampaignBlueprint, self).__init__(name, *args, **kwargs)
+
+        self.add_url_rule(
+            '/current', 'get_current',
+            self.get_current, methods=['GET'])
+        self.add_url_rule(
+            '/current', 'set_current',
+            self.set_current, methods=['POST'])
+        self.add_url_rule(
+            '/current/<int:obj_id>', 'set_current',
+            self.set_current, methods=['POST'])
 
     @property
     def datamapper(self):
@@ -42,6 +55,8 @@ class CampaignBlueprint(BaseApiBlueprint):
     @BaseApiCallback('api_patch')
     @BaseApiCallback('api_delete')
     @BaseApiCallback('api_recompute')
+    @BaseApiCallback('get_current')
+    @BaseApiCallback('set_current')
     def adminOrDmOnly(self, *args, **kwargs):
         if not self.checkRole(['admin', 'dm']):
             raise ApiException(403, "Insufficient permissions")
@@ -165,6 +180,25 @@ class CampaignBlueprint(BaseApiBlueprint):
             campaign=obj,
             user=user
             )
+
+    def get_current(self):
+        self.doCallback('get_current')
+        if session.get('campaign_id') is None:
+            return jsonify(None)
+        return redirect(url_for(
+            '%s.api_get' % self.name,
+            obj_id=session.get('campaign_id'),
+            ))
+
+    def set_current(self, obj_id=None):
+        self.doCallback('set_current', obj_id)
+        session['campaign_id'] = obj_id
+        if not obj_id:
+            return jsonify(None)
+        return redirect(url_for(
+            '%s.api_get' % self.name,
+            obj_id=obj_id,
+            ))
 
 def get_blueprint(basemapper, config):
     return '/campaign', CampaignBlueprint(
