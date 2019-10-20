@@ -310,14 +310,18 @@ class MonsterMapper(JsonObjectDataMapper):
             ]
 
     def getByCampaignId(self, campaign_id):
-        """Returns all campaign-specific monsters by campaign_id"""
+        """Returns all monsters created for, or used in a campaign by
+        campaign_id
+        """
         with self._db.connect() as db:
             cur = db.execute("""
                 SELECT m.*
                 FROM `encounter` AS e
                     LEFT JOIN `encounter_monsters` AS em
                     LEFT JOIN `monster` AS m ON (em.monster_id=m.id)
-                WHERE e.`campaign_id` = :campaignId
+                WHERE
+                    e.`campaign_id` = :campaignId
+                    OR m.`campaign_id` = :campaignId
                 GROUP BY m.id
                 """,
                 {"campaignId": campaign_id}
