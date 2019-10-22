@@ -4,6 +4,12 @@ MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
 WORKDIR /dnd-machine/ui
 
+RUN apk \
+    --no-cache \
+    add \
+        build-base \
+        python
+
 COPY app/static /dnd-machine/app/static
 COPY ui /dnd-machine/ui
 

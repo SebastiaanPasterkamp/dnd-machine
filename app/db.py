@@ -8,7 +8,10 @@ from models import Datamapper
 def connect_db(config):
     """Connects to the specific database.
     """
-    rv = sqlite3.connect(config['DATABASE'], check_same_thread=False)
+    rv = sqlite3.connect(
+        config['DATABASE'],
+        check_same_thread=True,
+        )
     rv.row_factory = sqlite3.Row
 
     rv.execute("PRAGMA foreign_keys = 1")

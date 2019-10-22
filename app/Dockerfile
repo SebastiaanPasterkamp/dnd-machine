@@ -1,4 +1,4 @@
-FROM python:3-alpine
+FROM python:3.6-alpine
 
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
@@ -12,16 +12,19 @@ RUN apk add \
         build-base \
     && apk add \
         --no-cache \
+        pcre \
+        pcre-dev \
         openssl-dev \
         libffi-dev \
     && pip install \
         --no-cache-dir \
         -r requirements.txt \
     && apk del \
-        .build-deps
+        .build-deps \
+    && mkdir /data
 
 COPY app/ ./app
 
-VOLUME [ "/var/run/dnd-machine" ]
+VOLUME [ "/data" ]
 
-CMD [ "/bin/sh", "app/docker/run.sh", "--debug", "--threaded", "--host", "0.0.0.0", "--port", "8080" ]
+CMD [ "/bin/sh", "app/docker/run.sh", "--py-autoreload", "1" ]

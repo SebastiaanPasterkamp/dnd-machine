@@ -1,6 +1,7 @@
 ---
 kind: pipeline
-name: test
+type: docker
+name: Test
 
 platform:
     os: linux
@@ -27,7 +28,7 @@ steps:
       - name: cache
         path: /drone/src/ui/node_modules
     commands:
-      - apk add build-base
+      - apk add build-base python
       - cd ui
       - npm install
       - npm run test
@@ -39,7 +40,8 @@ volumes:
 
 ---
 kind: pipeline
-name: stage
+type: docker
+name: Docker Staging
 
 platform:
     os: linux
@@ -52,7 +54,85 @@ trigger:
   - success
 
 depends_on:
-  - test
+  - Test
+
+steps:
+  - name: backup
+    image: appleboy/drone-ssh:linux-arm
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_user
+      key:
+        from_secret: ssh_key
+      script:
+        - >
+          docker cp \
+            "dndmachine_staging:/data/machine.db" \
+            "backups/machine.staging.db.latest"
+        - >
+          cp "backups/machine.staging.db.latest" \
+             "backups/machine.staging.db.$(date '+%Y%m%d')"
+
+  - name: build
+    image: docker
+    commands:
+        - docker build -t dnd-machine:staging .
+    volumes:
+      - name: socket
+        path: /var/run/docker.sock
+
+  - name: restart
+    image: appleboy/drone-ssh:linux-arm
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_user
+      key:
+        from_secret: ssh_key
+      script:
+        - docker stop dndmachine_staging || true
+        - docker rm dndmachine_staging || true
+        - >
+          docker cp \
+            "dndmachine_production:/data/machine.db" \
+            "dndmachine_staging:/data/machine.db"
+        - >
+          docker run \
+            --detach \
+            --publish "5005:5000/tcp" \
+            --volume "stagingdata:/data" \
+            --volume "/etc/dnd-machine/staging.json:/dnd-machine/app/config.local.json:ro" \
+            --restart on-failure:3 \
+            --name dndmachine_staging \
+            "dnd-machine:staging"
+    depends_on:
+      - build
+
+volumes:
+- name: socket
+  host:
+    path: /var/run/docker.sock
+
+---
+kind: pipeline
+type: docker
+name: Stage
+
+platform:
+    os: linux
+    arch: arm
+
+trigger:
+  event:
+  - push
+  status:
+  - success
+
+depends_on:
+  - Docker Staging
 
 steps:
   - name: package
@@ -117,7 +197,8 @@ volumes:
 
 ---
 kind: pipeline
-name: deploy
+type: docker
+name: Deploy
 
 platform:
     os: linux
@@ -132,7 +213,7 @@ trigger:
   - success
 
 depends_on:
-  - stage
+  - Stage
 
 steps:
   - name: package
@@ -196,7 +277,88 @@ volumes:
       path: /var/cache/drone/node_modules
 
 ---
+kind: pipeline
+type: docker
+name: Docker Production
+
+platform:
+    os: linux
+    arch: arm
+
+trigger:
+  branch:
+  - master
+  event:
+  - push
+  status:
+  - success
+
+depends_on:
+  - Deploy
+
+steps:
+  - name: backup
+    image: appleboy/drone-ssh:linux-arm
+    failure: ignore
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_user
+      key:
+        from_secret: ssh_key
+      script:
+        - >
+          docker cp \
+            "dndmachine_production:/data/machine.db" \
+            "backups/machine.production.db.latest"
+        - >
+          cp "backups/machine.production.db.latest" \
+             "backups/machine.production.db.$(date '+%Y%m%d')"
+
+  - name: build
+    image: docker
+    commands:
+        - docker build -t dnd-machine:latest .
+    volumes:
+      - name: socket
+        path: /var/run/docker.sock
+
+  - name: restart
+    image: appleboy/drone-ssh:linux-arm
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_user
+      key:
+        from_secret: ssh_key
+      script:
+        - docker stop dndmachine_production || true
+        - docker rm dndmachine_production || true
+        - >
+          docker cp \
+            "code/production/flaskr.db" \
+            "dndmachine_production:/data/machine.db"
+        - >
+          docker run \
+            --detach \
+            --publish "5000:5000/tcp" \
+            --volume "productiondata:/data" \
+            --volume "/etc/dnd-machine/production.json:/dnd-machine/app/config.local.json:ro" \
+            --restart on-failure:3 \
+            --name dndmachine_production \
+            "dnd-machine:latest"
+    depends_on:
+      - build
+
+volumes:
+- name: socket
+  host:
+    path: /var/run/docker.sock
+
+---
 kind: signature
-hmac: 8d1a47655c23e1159806104358289721b0e59d07a532ac6d34128297b749afac
+hmac: 06ad957593dc4bea7ad80ff4fb6f188d7da13f7e5cbd838901b603478732d20b
 
 ...

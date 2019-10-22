@@ -6,10 +6,17 @@ WORKDIR /dnd-machine
 COPY ui ./ui
 
 RUN cd /dnd-machine/ui \
+    && apk \
+        --virtual .build-deps \
+        --no-cache \
+        add \
+            build-base \
+            python \
     && npm install \
+    && apk del .build-deps \
     && npm run build:production
 
-FROM python:3-alpine
+FROM python:3.6-alpine
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
 WORKDIR /dnd-machine
@@ -22,19 +29,22 @@ RUN apk add \
         build-base \
     && apk add \
         --no-cache \
+        pcre \
+        pcre-dev \
         openssl-dev \
         libffi-dev \
     && pip install \
         --no-cache-dir \
         -r requirements.txt \
     && apk del \
-        .build-deps
+        .build-deps \
+    && mkdir /data
 
 COPY app/ /dnd-machine/app
 COPY --from=node /dnd-machine/app/static/ /dnd-machine/app/static/
 
-VOLUME [ "/var/run/dnd-machine" ]
+VOLUME [ "/data" ]
 
 EXPOSE 5000/tcp
 
-CMD [ "/bin/sh", "app/docker/run.sh", "--threaded", "--host", "0.0.0.0", "--port", "5000" ]
+CMD [ "/bin/sh", "app/docker/run.sh" ]

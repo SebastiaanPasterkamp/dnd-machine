@@ -8,4 +8,4 @@ the link provided below.
 Safe travels!
 D&D Machine
 
-{{ url_for('recovery', id=user.id, key=key, _external=True, _scheme='http') }}
+{{ url_for('recovery', id=user.id, key=key, _external=True) }}
