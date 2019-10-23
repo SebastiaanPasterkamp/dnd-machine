@@ -1,0 +1,19 @@
+// _monsters-table.scss
+
+@import '../../../../sass/view-grid';
+
+.monsters-table {
+
+    &--filter {
+        @extend .view-grid;
+
+        > .monsters-table--filter-select {
+            grid-column-end: span 4;
+        }
+
+        > .monsters-table--filter-min-max {
+            grid-column-end: span 6;
+        }
+    }
+
+}

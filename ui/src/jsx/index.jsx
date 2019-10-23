@@ -82,7 +82,13 @@ const MonsterEdit = Loadable({
       ),
       loading: () => <LoadingSplash loading={true} overlay={true} />,
 });
-import MonstersTable from './views/MonstersTable.jsx';
+const MonstersTable = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'MonstersTable' */
+          './views/MonstersTable'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import MonsterView from './views/MonsterView.jsx';
 const NpcEdit = Loadable({
       loader: () => import(
