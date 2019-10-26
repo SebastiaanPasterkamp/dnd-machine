@@ -1303,7 +1303,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
                   stopPropagation={false}
                 >
                   <div
-                    className="nice-dropdown nice-form-control"
+                    className="nice-dropdown nice-form-control small"
                   >
                     <button
                       className="nice-btn"

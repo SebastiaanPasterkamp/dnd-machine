@@ -1305,6 +1305,7 @@ Array [
             className="nice-btn"
             onClick={[Function]}
           >
+            Damage type
             <i
               className="icon fa-angle-down"
             />

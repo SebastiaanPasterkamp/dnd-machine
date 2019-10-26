@@ -56,14 +56,14 @@ export class DamageEdit extends LazyComponent
 
         return <ControlGroup labels={[label, "d", "+", "Type"]}>
             <SingleSelect
-                header="Dice count"
+                emptyLabel="Dice count"
                 selected={dice_count}
                 items={this.dice_count}
                 setState={(value) => {
                     this.onFieldChange('dice_count', parseInt(value));
                 }} />
             <SingleSelect
-                header="Dice size"
+                emptyLabel="Dice size"
                 selected={dice_size}
                 items={this.dice_size}
                 setState={(value) => {
@@ -80,7 +80,7 @@ export class DamageEdit extends LazyComponent
                 }}
                 />
             <SingleSelect
-                header="Damage type"
+                emptyLabel="Damage type"
                 selected={type}
                 items={damage_types}
                 setState={(value) => {

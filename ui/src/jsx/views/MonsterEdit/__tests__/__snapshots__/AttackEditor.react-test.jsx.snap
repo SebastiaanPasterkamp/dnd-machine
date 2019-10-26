@@ -793,6 +793,7 @@ exports[`AttackEditor should render without props 1`] = `
             className="nice-btn"
             onClick={[Function]}
           >
+            Dice count
             <i
               className="icon fa-angle-down"
             />
@@ -995,6 +996,7 @@ exports[`AttackEditor should render without props 1`] = `
             className="nice-btn"
             onClick={[Function]}
           >
+            Dice size
             <i
               className="icon fa-angle-down"
             />
@@ -1076,6 +1078,7 @@ exports[`AttackEditor should render without props 1`] = `
             className="nice-btn"
             onClick={[Function]}
           >
+            Damage type
             <i
               className="icon fa-angle-down"
             />

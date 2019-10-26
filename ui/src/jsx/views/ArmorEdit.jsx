@@ -121,7 +121,7 @@ export class ArmorEdit extends React.Component
                 </ControlGroup>
                 <ControlGroup labels={["AC", ":"]}>
                     <SingleSelect
-                        header="Armor method"
+                        emptyLabel="Armor method"
                         selected={armor_method}
                         items={this.armor_method}
                         setState={this.onArmorMethod}

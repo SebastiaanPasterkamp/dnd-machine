@@ -41,6 +41,7 @@ exports[`SpellsTable render should work with all props 1`] = `
       </span>
       <div
         className="nice-dropdown nice-form-control"
+        id="classes"
       >
         <button
           className="nice-btn"
@@ -236,6 +237,7 @@ exports[`SpellsTable render should work with all props 1`] = `
       </span>
       <div
         className="nice-dropdown nice-form-control"
+        id="levels"
       >
         <button
           className="nice-btn"
@@ -588,6 +590,7 @@ exports[`SpellsTable render should work without props 1`] = `
       </span>
       <div
         className="nice-dropdown nice-form-control"
+        id="classes"
       >
         <button
           className="nice-btn"
@@ -783,6 +786,7 @@ exports[`SpellsTable render should work without props 1`] = `
       </span>
       <div
         className="nice-dropdown nice-form-control"
+        id="levels"
       >
         <button
           className="nice-btn"

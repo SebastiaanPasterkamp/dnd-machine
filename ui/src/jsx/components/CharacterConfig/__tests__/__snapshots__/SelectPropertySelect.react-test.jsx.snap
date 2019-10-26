@@ -317,7 +317,7 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
             stopPropagation={false}
           >
             <div
-              className="nice-dropdown nice-form-control"
+              className="nice-dropdown nice-form-control small"
             >
               <button
                 className="nice-btn"
