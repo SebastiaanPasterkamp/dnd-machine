@@ -44,31 +44,53 @@ export class BaseSelect extends LazyComponent
     }
 
     render() {
-        let style = utils.makeStyle({
+        const {
+            label,
+            closeOnClick,
+            heading,
+            className,
+            description,
+            children,
+            /* onClickOutside */
+            eventTypes,
+            enableOnClickOutside,
+            disableOnClickOutside,
+            outsideClickIgnoreClass,
+            stopPropagation,
+            preventDefault,
+            ...props
+        } = this.props;
+
+        const divStyle = utils.makeStyle({}, [
+            "nice-dropdown",
+            "nice-form-control",
+            className,
+        ]);
+        const ulStyle = utils.makeStyle({
             "shown": this.state.shown,
         }, ["dropdown-menu"]);
 
-        return <div className="nice-dropdown nice-form-control">
+        return <div className={divStyle} {...props}>
             {this.renderButton()}
             <ul
-                    className={style}
-                    onClick={this.props.closeOnClick
+                    className={ulStyle}
+                    onClick={closeOnClick
                         ? () => this.onClick()
                         : null
                     }>
-                {this.props.heading
+                {heading
                     ? <li className="heading">
-                        <span>{this.props.heading}</span>
+                        <span>{heading}</span>
                     </li>
                     : null
                 }
-                {this.props.description
+                {description
                     ? <li className="description">
-                        <span>{this.props.description}</span>
+                        <span>{description}</span>
                     </li>
                     : null
                 }
-                {this.props.children}
+                {children}
             </ul>
         </div>;
     }
