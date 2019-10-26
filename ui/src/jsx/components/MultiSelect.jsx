@@ -1,43 +1,69 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    concat,
+    difference,
+    find,
+    includes,
+    map,
+} from 'lodash/fp';
 
 import BaseSelect from './BaseSelect.jsx';
-import LazyComponent from '../components/LazyComponent.jsx';
-import utils from '../utils.jsx';
+import utils, { memoize } from '../utils.jsx';
 
-class MultiSelect extends LazyComponent
+class MultiSelect extends React.Component
 {
-    onChange(item, checked) {
-        const {
-            selected,
-            isDisabled,
-            setState
-        } = this.props;
+    constructor(props) {
+        super(props);
+        this.memoize = memoize.bind(this);
+    }
 
-        if (isDisabled(item)) {
-            return;
+    getItemValue(item) {
+        const { code, id, name } = item;
+        if (code !== undefined) {
+            return code;
         }
+        if (id !== undefined) {
+            return id;
+        }
+        return name;
+    }
 
-        const id = _.get(item, 'code', item.name);
-        const newState = checked
-            ? _.concat(selected, [id])
-            : _.difference(selected, [id]);
+    getItemText(item) {
+        const { label, name } = item;
+        if (label !== undefined) {
+            return label;
+        }
+        return name;
+    }
 
-        setState(newState);
+    onAdd(id) {
+        return this.memoize(`add-${id}`, () => {
+            const { selected, setState } = this.props;
+            setState(concat(selected, [id]));
+        });
+    }
+
+    onDel(id) {
+        return this.memoize(`del-${id}`, () => {
+            const { selected, setState } = this.props;
+            setState(difference(selected, [id]));
+        });
     }
 
     getLabel() {
         const {
-            items, label, selected, emptyLabel,
+            items, selected, emptyLabel,
         } = this.props;
 
         if (selected.length == 1) {
-            const { label = emptyLabel } = _.find(items, {
-                code: selected[0]
-            }) || {};
+            const current = find(
+                (item) => this.getItemValue(item) == selected[0]
+            )(items);
 
-            return label;
+            if (current) {
+                return this.getItemText(current);
+            }
         }
 
         if (selected.length > 1) {
@@ -52,33 +78,35 @@ class MultiSelect extends LazyComponent
             selected,
             isDisabled,
         } = this.props;
-        const id = _.get(item, 'code', item.name);
-        const checked = _.includes(selected, id);
+        const id = this.getItemValue(item);
+        const checked = includes(id, selected);
         const disabled = isDisabled(item);
         const style = utils.makeStyle({
             info: checked,
             disabled,
         });
 
-        return <li
-            key={id}
-            data-value={id}
-            className={style}
+        return (
+            <li
+                key={id}
+                data-value={id}
+                className={style}
             >
-            <label>
-                <input
-                    type="checkbox"
-                    checked={ checked }
-                    disabled={ disabled }
-                    onChange={
-                        disabled
-                        ? null
-                        : () => this.onChange(item, !checked)
-                    }
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={ checked }
+                        disabled={ disabled }
+                        onChange={ disabled ? null : (
+                            checked
+                            ? this.onDel(id)
+                            : this.onAdd(id)
+                        ) }
                     />
-                { _.get(item, 'label', item.name) }
-            </label>
-        </li>
+                    { this.getItemText(item) }
+                </label>
+            </li>
+        );
     }
 
     render() {
@@ -91,16 +119,15 @@ class MultiSelect extends LazyComponent
             ...props,
         } = this.props;
 
-        return <BaseSelect
-            label={ this.getLabel() }
-            closeOnClick={ false }
-            {...props}
+        return (
+            <BaseSelect
+                label={ this.getLabel() }
+                closeOnClick={ false }
+                {...props}
             >
-            {_.map(
-                items,
-                item => this.renderItem(item)
-            )}
-        </BaseSelect>;
+                {map(item => this.renderItem(item))(items)}
+            </BaseSelect>
+        );
     }
 }
 

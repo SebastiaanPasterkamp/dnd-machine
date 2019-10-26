@@ -148,14 +148,33 @@ describe('Component: MultiSelect', () => {
                 {...disabled}
                 selected={selected}
                 setState={onClickCallback}
-                />
+            />
         );
 
         wrapper.find('button').simulate('click');
         wrapper.find('li[data-value=2] input').simulate('change');
         expect(onClickCallback.callCount).toEqual(1);
-        expect(selected).toBe(selected);
         expect(selected).toEqual(expect.arrayContaining([3, 2]));
+    });
+
+    it('should callback for the removed item', () => {
+        const onClickCallback = stub();
+        let selected = [2, 3];
+        onClickCallback.callsFake((state) => {
+            selected = state;
+        });
+        const wrapper = mount(
+            <MultiSelect
+                {...disabled}
+                selected={selected}
+                setState={onClickCallback}
+            />
+        );
+
+        wrapper.find('button').simulate('click');
+        wrapper.find('li[data-value=2] input').simulate('change');
+        expect(onClickCallback.callCount).toEqual(1);
+        expect(selected).toEqual(expect.arrayContaining([3]));
     });
 
     it('should not callback for disabled item', () => {

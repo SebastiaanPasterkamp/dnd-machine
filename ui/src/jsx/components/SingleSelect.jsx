@@ -7,11 +7,15 @@ import {
 } from 'lodash/fp';
 
 import BaseSelect from './BaseSelect.jsx';
-import LazyComponent from '../components/LazyComponent.jsx';
-import utils from '../utils.jsx';
+import utils, { memoize } from '../utils.jsx';
 
-class SingleSelect extends LazyComponent
+class SingleSelect extends React.Component
 {
+    constructor(props) {
+        super(props);
+        this.memoize = memoize.bind(this);
+    }
+
     getItemValue(item) {
         const { code, id, name } = item;
         if (code !== undefined) {
@@ -31,13 +35,11 @@ class SingleSelect extends LazyComponent
         return name;
     }
 
-    onClick(item) {
-        const { isDisabled, setState } = this.props;
-        if (isDisabled(item)) {
-            return;
-        }
-
-        setState(this.getItemValue(item));
+    onClick(id) {
+        return this.memoize(id, () => {
+            const { setState } = this.props;
+            setState(id);
+        });
     }
 
     getLabel() {
@@ -84,7 +86,7 @@ class SingleSelect extends LazyComponent
                 data-value={ id }
                 onClick={ disabled
                     ? null
-                    : () => this.onClick(item)
+                    : this.onClick(id)
                 }
             >
                 <a>
