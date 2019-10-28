@@ -97,7 +97,13 @@ const NpcEdit = Loadable({
       ),
       loading: () => <LoadingSplash loading={true} overlay={true} />,
 });
-import NpcTable from './views/NpcTable.jsx';
+const NpcsTable = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'NpcsTable' */
+          './views/NpcsTable'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import NpcView from './views/NpcView.jsx';
 const SpellEdit = Loadable({
       loader: () => import(
@@ -350,7 +356,7 @@ class DndMachine extends React.Component
 
                 <Route
                     path="/npc/list"
-                    component={NpcTable}
+                    component={NpcsTable}
                     />
                 <Route
                     path="/npc/new"

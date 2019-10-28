@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableRow should render 1`] = `
+<tr
+  data-name={1}
+>
+  <th>
+    Annie
+    <div
+      className="base-link-group nice-btn-group"
+    >
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-eye"
+        href={undefined}
+        onClick={[Function]}
+      >
+        View
+      </a>
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-pencil"
+        href={undefined}
+        onClick={[Function]}
+      >
+        Edit
+      </a>
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-clone"
+        onClick={[Function]}
+      >
+        Copy
+      </a>
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-trash-o bad"
+        onClick={[Function]}
+      >
+        Delete
+      </a>
+    </div>
+  </th>
+  <td>
+    Human
+  </td>
+  <td>
+    Innkeeper
+  </td>
+  <td>
+    true neutral
+  </td>
+  <td>
+    Town
+  </td>
+  <td>
+    Beer Guild
+  </td>
+  <td />
+</tr>
+`;
+
+exports[`TableRow should render with campaign 1`] = `
+<tr
+  data-name={1}
+>
+  <th>
+    Annie
+    <div
+      className="base-link-group nice-btn-group"
+    >
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-eye"
+        href={undefined}
+        onClick={[Function]}
+      >
+        View
+      </a>
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-pencil"
+        href={undefined}
+        onClick={[Function]}
+      >
+        Edit
+      </a>
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-clone"
+        onClick={[Function]}
+      >
+        Copy
+      </a>
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-trash-o bad"
+        onClick={[Function]}
+      >
+        Delete
+      </a>
+    </div>
+  </th>
+  <td>
+    Human
+  </td>
+  <td>
+    Innkeeper
+  </td>
+  <td>
+    true neutral
+  </td>
+  <td>
+    Town
+  </td>
+  <td>
+    Beer Guild
+  </td>
+  <td>
+    <div
+      className="campaign-label inline"
+    />
+  </td>
+</tr>
+`;
