@@ -5,6 +5,7 @@ import _ from 'lodash';
 import './sass/_npc-edit.scss';
 
 import ListDataWrapper from '../../hocs/ListDataWrapper.jsx';
+import ObjectDataListWrapper from '../../hocs/ObjectDataListWrapper';
 import RoutedObjectDataWrapper from '../../hocs/RoutedObjectDataWrapper.jsx';
 
 import AutoCompleteInput from '../../components/AutoCompleteInput.jsx';
@@ -152,6 +153,7 @@ export class NpcEdit extends React.Component
             name, location, organization, class: _class, classes, race, races,
             gender, genders, description, alignment, alignments, size,
             size_hit_dice, level, traits, statistics, _statistics,
+            campaign_id, campaigns,
         } = this.props;
 
         return <React.Fragment>
@@ -159,7 +161,15 @@ export class NpcEdit extends React.Component
                 key="description"
                 className="npc-edit__description"
                 header="Description"
-                >
+            >
+                <ControlGroup label="Campaign">
+                    <SingleSelect
+                        emptyLabel="Campaign..."
+                        selected={campaign_id}
+                        items={_.values(campaigns)}
+                        setState={this.onFieldChange('campaign_id')}
+                    />
+                </ControlGroup>
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
@@ -270,7 +280,10 @@ export class NpcEdit extends React.Component
 };
 
 NpcEdit.propTypes = {
+    id: PropTypes.number,
     name: PropTypes.string,
+    campaign_id: PropTypes.number,
+    campaigns: PropTypes.object,
     location: PropTypes.string,
     organization: PropTypes.string,
     class: PropTypes.string,
@@ -293,6 +306,9 @@ NpcEdit.propTypes = {
 };
 
 NpcEdit.defaultProps = {
+    id: null,
+    campaign_id: null,
+    campaigns: {},
     name: '',
     location: '',
     organization: '',
@@ -313,25 +329,28 @@ NpcEdit.defaultProps = {
     _statistics: [],
 };
 
-export default ListDataWrapper(
+export default ObjectDataListWrapper(
     ListDataWrapper(
-        RoutedObjectDataWrapper(
-            NpcEdit, {
-                className: 'npc-edit',
-                icon: 'fa-commenting-o',
-                label: 'NPC',
-                buttons: ['cancel', 'reload', 'recompute', 'save']
-            }, "npc"
+        ListDataWrapper(
+            RoutedObjectDataWrapper(
+                NpcEdit, {
+                    className: 'npc-edit',
+                    icon: 'fa-commenting-o',
+                    label: 'NPC',
+                    buttons: ['cancel', 'reload', 'recompute', 'save']
+                }, "npc"
+            ),
+            [
+                'alignments',
+                'genders',
+                'size_hit_dice',
+                'statistics',
+            ],
+            'items',
+            { statistics: '_statistics' },
         ),
-        [
-            'alignments',
-            'genders',
-            'size_hit_dice',
-            'statistics',
-        ],
-        'items',
-        { statistics: '_statistics' },
+        ['races', 'classes'],
+        'npc'
     ),
-    ['races', 'classes'],
-    'npc'
+    {campaigns: {type: 'campaign'}}
 );
