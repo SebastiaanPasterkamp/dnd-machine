@@ -1,0 +1,274 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EncountersFilter should render with full props 1`] = `
+<div
+  className="encounters-table--filter"
+>
+  <div
+    className="nice-control-group encounters-table--filter-select"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Name
+    </span>
+    <input
+      className="nice-form-control"
+      data-name="search"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Search..."
+      type="text"
+      value="bar"
+    />
+  </div>
+  <div
+    className="nice-control-group encounters-table--filter-select"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Campaign
+    </span>
+    <div
+      className="nice-dropdown nice-form-control"
+      data-name="campaign"
+    >
+      <button
+        className="nice-btn"
+        onClick={[Function]}
+      >
+        Some campaign
+        <i
+          className="icon fa-angle-down"
+        />
+      </button>
+      <ul
+        className="dropdown-menu"
+        onClick={null}
+      >
+        <li
+          className="info"
+          data-value={2}
+        >
+          <label>
+            <input
+              checked={true}
+              disabled={undefined}
+              onChange={[Function]}
+              type="checkbox"
+            />
+            Some campaign
+          </label>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    className="nice-control-group encounters-table--filter-min-max"
+    data-name="cr"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      CR
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Min..."
+      type="number"
+      value={0.1}
+    />
+    <span
+      className="nice-input-addon"
+    >
+      min
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Max..."
+      type="number"
+      value={0.75}
+    />
+    <span
+      className="nice-input-addon"
+    >
+      max
+    </span>
+  </div>
+  <div
+    className="nice-control-group encounters-table--filter-min-max"
+    data-name="xp"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      XP
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Min..."
+      type="number"
+      value={5}
+    />
+    <span
+      className="nice-input-addon"
+    >
+      min
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Max..."
+      type="number"
+      value={50}
+    />
+    <span
+      className="nice-input-addon"
+    >
+      max
+    </span>
+  </div>
+</div>
+`;
+
+exports[`EncountersFilter should render without props 1`] = `
+<div
+  className="encounters-table--filter"
+>
+  <div
+    className="nice-control-group encounters-table--filter-select"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Name
+    </span>
+    <input
+      className="nice-form-control"
+      data-name="search"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Search..."
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="nice-control-group encounters-table--filter-select"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Campaign
+    </span>
+    <div
+      className="nice-dropdown nice-form-control"
+      data-name="campaign"
+    >
+      <button
+        className="nice-btn"
+        onClick={[Function]}
+      >
+        All Campaigns...
+        <i
+          className="icon fa-angle-down"
+        />
+      </button>
+      <ul
+        className="dropdown-menu"
+        onClick={null}
+      />
+    </div>
+  </div>
+  <div
+    className="nice-control-group encounters-table--filter-min-max"
+    data-name="cr"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      CR
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Min..."
+      type="number"
+      value=""
+    />
+    <span
+      className="nice-input-addon"
+    >
+      min
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Max..."
+      type="number"
+      value=""
+    />
+    <span
+      className="nice-input-addon"
+    >
+      max
+    </span>
+  </div>
+  <div
+    className="nice-control-group encounters-table--filter-min-max"
+    data-name="xp"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      XP
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Min..."
+      type="number"
+      value=""
+    />
+    <span
+      className="nice-input-addon"
+    >
+      min
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Max..."
+      type="number"
+      value=""
+    />
+    <span
+      className="nice-input-addon"
+    >
+      max
+    </span>
+  </div>
+</div>
+`;

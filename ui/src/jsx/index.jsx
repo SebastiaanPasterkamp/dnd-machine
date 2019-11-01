@@ -59,7 +59,13 @@ const EncounterEdit = Loadable({
       ),
       loading: () => <LoadingSplash loading={true} overlay={true} />,
 });
-import EncounterTable from './views/EncounterTable.jsx';
+const EncountersTable = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'EncountersTable' */
+          './views/EncountersTable'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import EncounterView from './views/EncounterView.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import PageFooter from './views/PageFooter.jsx';
@@ -266,7 +272,7 @@ class DndMachine extends React.Component
 
                 <Route
                     path="/encounter/list"
-                    component={EncounterTable}
+                    component={EncountersTable}
                     />
                 <Route
                     path="/encounter/show/:id"
