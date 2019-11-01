@@ -1,51 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    isNil,
+} from 'lodash/fp';
 
 import utils from '../utils.jsx';
 
-import LazyComponent from '../components/LazyComponent.jsx';
-
-class ChallengeRating extends LazyComponent
+export const ChallengeRating = function({ challengeRating, precise })
 {
-    render() {
-        const {
-            challengeRating, precise = false
-        } = this.props;
-
-        if (_.isNil(challengeRating)) {
-            return <div className="challenge-rating inline">
+    if (isNil(challengeRating)) {
+        return (
+            <div className="challenge-rating inline">
                 CR&nbsp;&mdash;
-            </div>;
-        }
+            </div>
+        );
+    }
 
-        if (precise) {
-            return <div className="challenge-rating inline">
+    if (precise) {
+        return (
+            <div className="challenge-rating inline">
                 CR&nbsp;{challengeRating.toFixed(3)}
-            </div>;
-        }
+            </div>
+        );
+    }
 
-        const value = utils.closest({
-            '0': 0.0,
-            '\u215B': 0.125,
-            '\u00BC': 0.25,
-            '\u00BD': 0.5,
-            'round': 1.0,
-        }, challengeRating, challengeRating);
+    const value = utils.closest({
+        '0': 0.0,
+        '\u215B': 0.125,
+        '\u00BC': 0.25,
+        '\u00BD': 0.5,
+        'round': 1.0,
+    }, challengeRating, challengeRating);
 
-        return <div className="challenge-rating inline">
+    return (
+        <div className="challenge-rating inline">
             CR&nbsp;{
                 value == 'round'
                 ? Math.round(challengeRating)
                 : value
             }
-        </div>;
-    }
-}
+        </div>
+    );
+};
 
 ChallengeRating.propTypes = {
     challengeRating: PropTypes.number,
     precise: PropTypes.bool,
-}
+};
+
+ChallengeRating.defaultProps = {
+    challengeRating: null,
+    precise: false,
+};
 
 export default ChallengeRating;
