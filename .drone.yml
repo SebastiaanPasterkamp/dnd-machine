@@ -33,7 +33,7 @@ steps:
       - python app/tests/run_tests.py
 
   - name: frontend
-    image: node:8.15-alpine
+    image: node:8.16-alpine
     volumes:
       - name: npm-cache
         path: /drone/src/ui/node_modules
@@ -154,7 +154,7 @@ depends_on:
 
 steps:
   - name: package
-    image: node:8.15-alpine
+    image: node:8.16-alpine
     volumes:
       - name: npm-cache
         path: /drone/src/ui/node_modules
@@ -240,7 +240,7 @@ depends_on:
 
 steps:
   - name: package
-    image: node:8.15-alpine
+    image: node:8.16-alpine
     volumes:
       - name: npm-cache
         path: /drone/src/ui/node_modules
@@ -387,6 +387,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 4c034c9a907f65bdddadc10895437430587986d1245879606f44098ed3fa8361
+hmac: 4954dd40bd82380c0fc0639b2013eb8deaa1ad4698d64e2e29beecddf23c5803
 
 ...
