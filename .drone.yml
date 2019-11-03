@@ -161,7 +161,7 @@ steps:
       - name: apk-cache
         path: /etc/apk/cache
     commands:
-      - apk add build-base
+      - apk add build-base python
       - ( cd ui && npm install && npm run build:production )
       - |
         tar \
@@ -247,7 +247,7 @@ steps:
       - name: apk-cache
         path: /etc/apk/cache
     commands:
-      - apk add build-base
+      - apk add build-base python
       - ( cd ui && npm install && npm run build:production )
       - |
         tar \
@@ -387,6 +387,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 4954dd40bd82380c0fc0639b2013eb8deaa1ad4698d64e2e29beecddf23c5803
+hmac: a1636a074a031197a1d8dec367689c539c7029aabe67576f7a716b56dd9ed8da
 
 ...
