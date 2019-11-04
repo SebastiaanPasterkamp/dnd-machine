@@ -10,6 +10,11 @@ platform:
 steps:
   - name: backend2
     image: python:2-alpine
+    volumes:
+      - name: pip-cache
+        path: /root/.cache/pip
+      - name: apk-cache
+        path: /etc/apk/cache
     commands:
       - apk add build-base openssl-dev libffi-dev
       - pip install -r requirements.txt
@@ -17,16 +22,23 @@ steps:
 
   - name: backend3
     image: python:3-alpine
+    volumes:
+      - name: pip-cache
+        path: /root/.cache/pip
+      - name: apk-cache
+        path: /etc/apk/cache
     commands:
       - apk add build-base openssl-dev libffi-dev
       - pip install -r requirements.txt
       - python app/tests/run_tests.py
 
   - name: frontend
-    image: node:8.15-alpine
+    image: node:8.16-alpine
     volumes:
-      - name: cache
+      - name: npm-cache
         path: /drone/src/ui/node_modules
+      - name: apk-cache
+        path: /etc/apk/cache
     commands:
       - apk add build-base python
       - cd ui
@@ -34,9 +46,15 @@ steps:
       - npm run test
 
 volumes:
-  - name: cache
+  - name: npm-cache
     host:
-      path: /var/cache/drone/node_modules
+      path: /var/cache/drone/npm
+  - name: pip-cache
+    host:
+      path: /var/cache/drone/pip
+  - name: apk-cache
+    host:
+      path: /var/cache/drone/apk
 
 ---
 kind: pipeline
@@ -136,12 +154,14 @@ depends_on:
 
 steps:
   - name: package
-    image: node:8.15-alpine
+    image: node:8.16-alpine
     volumes:
-      - name: cache
+      - name: npm-cache
         path: /drone/src/ui/node_modules
+      - name: apk-cache
+        path: /etc/apk/cache
     commands:
-      - apk add build-base
+      - apk add build-base python
       - ( cd ui && npm install && npm run build:production )
       - |
         tar \
@@ -191,9 +211,12 @@ steps:
         - sudo systemctl restart dndmachine-beta
 
 volumes:
-  - name: cache
+  - name: npm-cache
     host:
-      path: /var/cache/drone/node_modules
+      path: /var/cache/drone/npm
+  - name: apk-cache
+    host:
+      path: /var/cache/drone/apk
 
 ---
 kind: pipeline
@@ -217,12 +240,14 @@ depends_on:
 
 steps:
   - name: package
-    image: node:8.15-alpine
+    image: node:8.16-alpine
     volumes:
-      - name: cache
+      - name: npm-cache
         path: /drone/src/ui/node_modules
+      - name: apk-cache
+        path: /etc/apk/cache
     commands:
-      - apk add build-base
+      - apk add build-base python
       - ( cd ui && npm install && npm run build:production )
       - |
         tar \
@@ -272,9 +297,12 @@ steps:
         - sudo systemctl restart dndmachine
 
 volumes:
-  - name: cache
+  - name: npm-cache
     host:
-      path: /var/cache/drone/node_modules
+      path: /var/cache/drone/npm
+  - name: apk-cache
+    host:
+      path: /var/cache/drone/apk
 
 ---
 kind: pipeline
@@ -359,6 +387,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 06ad957593dc4bea7ad80ff4fb6f188d7da13f7e5cbd838901b603478732d20b
+hmac: a1636a074a031197a1d8dec367689c539c7029aabe67576f7a716b56dd9ed8da
 
 ...
