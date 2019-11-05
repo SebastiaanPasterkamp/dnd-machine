@@ -1,27 +1,62 @@
 import sqlite3
 
-from flask import g
+import threading
+try:
+    import queue
+except:
+    import Queue as queue
+from contextlib import contextmanager
 
 from config import get_item_data
 from models import Datamapper
 
-def connect_db(config):
-    """Connects to the specific database.
-    """
-    rv = sqlite3.connect(
-        config['DATABASE'],
-        check_same_thread=True,
-        )
-    rv.row_factory = sqlite3.Row
+class Database:
+    def __init__(self, database=None):
+        self.database = database
+        self.max_size = 1
+        self._pool = queue.Queue()
+        self._lock = threading.RLock()
+        self._opened = 0
 
-    rv.execute("PRAGMA foreign_keys = 1")
+    def init_app(self, app):
+        self.database = app.config.get('DATABASE')
+        self.max_size = app.config.get('MAX_CONNECTIONS', 0)
+        app.db = self
 
-    return rv
+    @contextmanager
+    def connect(self):
+        """Opens a db connection."""
+        try:
+            db = self._pool.get_nowait()
+        except queue.Empty:
+            with self._lock:
+                if not self.max_size or self._opened < self.max_size:
+                    self._opened += 1
+                    db = self._connect()
+                else:
+                    raise Exception("Reached max DB connections")
+        yield db
+        self._pool.put(db)
 
-def get_db(app):
-    """Opens a new database connection if there is none yet for the
-    current application context.
-    """
-    if not hasattr(app, 'db'):
-        app.db = connect_db(app.config)
-    return app.db
+
+    def close(self):
+        """Closes the database connections, if connected."""
+        with self._lock:
+            try:
+                while True:
+                    db = self._pool.get_nowait()
+                    self._opened -= 1
+                    db.close()
+            except queue.Empty:
+                self._opened = 0
+                pass
+
+    def _connect(self):
+        """Connects to the specific database."""
+        rv = sqlite3.connect(
+            self.database,
+            check_same_thread=False,
+            )
+        rv.row_factory = sqlite3.Row
+        rv.execute("PRAGMA foreign_keys = 1")
+        return rv

@@ -10,7 +10,7 @@ import requests
 
 from errors import ApiException
 
-def register_paths(app, basemapper, config):
+def register_paths(app):
     @app.route('/')
     def home():
         if session.get('user_id') is None:
@@ -26,11 +26,11 @@ def register_paths(app, basemapper, config):
 
     @app.route('/authenticate')
     def authenticate():
-        info = config.get('info', {})
-        info['footer'] = config.get('footer', [])
-        if config.get('MAIL_USERNAME'):
+        info = app.config.get('info', {})
+        info['footer'] = app.config.get('footer', [])
+        if app.config.get('MAIL_USERNAME'):
             info['recoverAction'] = '/recover'
-        if config.get('GOOGLE_CLIENT_ID'):
+        if app.config.get('GOOGLE_CLIENT_ID'):
             info['googleAuth'] = True
         return jsonify(info)
 
@@ -227,7 +227,7 @@ def register_paths(app, basemapper, config):
             )
 
         match = request.form.get("match")
-        users = basemapper.user.getMultiple(
+        users = app.datamapper.user.getMultiple(
             where="username = :match OR email = :match",
             values={"match": match}
             )
@@ -239,7 +239,7 @@ def register_paths(app, basemapper, config):
             uuid.uuid4().hex.upper()[:32]
             )
         user.setRecovery(key)
-        basemapper.user.update(user)
+        app.datamapper.user.update(user)
 
         mail = Mail(app)
         msg = Message(
@@ -281,7 +281,7 @@ def register_paths(app, basemapper, config):
 
     @app.route('/recover/<int:id>/<string:key>', methods=['GET', 'POST'])
     def recovery(id, key):
-        user = basemapper.user.getById(id)
+        user = app.datamapper.user.getById(id)
         if user is None:
             return redirect(url_for('recover'))
         if not user.checkRecovery(key):
@@ -315,7 +315,7 @@ def register_paths(app, basemapper, config):
 
         user.setPassword(pwd1)
         del user.recovery
-        users = basemapper.user.update(user)
+        users = app.datamapper.user.update(user)
 
         flash("Credentials updated. You can log in now.", 'success')
         return redirect(url_for('login'))
@@ -329,7 +329,7 @@ def register_paths(app, basemapper, config):
                 )
 
         credentials = request.get_json()
-        user = basemapper.user.getByCredentials(
+        user = app.datamapper.user.getByCredentials(
             credentials.get('username'),
             credentials.get('password')
             )
@@ -347,8 +347,8 @@ def register_paths(app, basemapper, config):
 
     @app.route('/login/google', methods=['GET'])
     def login_with_google():
-        client = WebApplicationClient(config.get('GOOGLE_CLIENT_ID'))
-        google_provider_cfg = requests.get(config.get('GOOGLE_DISCOVERY_URL')).json()
+        client = WebApplicationClient(app.config.get('GOOGLE_CLIENT_ID'))
+        google_provider_cfg = requests.get(app.config.get('GOOGLE_DISCOVERY_URL')).json()
 
         authorization_endpoint = google_provider_cfg["authorization_endpoint"]
 
@@ -364,13 +364,13 @@ def register_paths(app, basemapper, config):
 
     @app.route('/login/google/callback', methods=['GET'])
     def login_with_google_callback():
-        if config.get('GOOGLE_CLIENT_ID') \
+        if app.config.get('GOOGLE_CLIENT_ID') \
                 and not request.is_secure \
                 and request.headers.get('X-Forwarded-Proto', 'http') == 'https':
             os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-        client = WebApplicationClient(config.get('GOOGLE_CLIENT_ID'))
-        google_provider_cfg = requests.get(config.get('GOOGLE_DISCOVERY_URL')).json()
+        client = WebApplicationClient(app.config.get('GOOGLE_CLIENT_ID'))
+        google_provider_cfg = requests.get(app.config.get('GOOGLE_DISCOVERY_URL')).json()
         code = request.args.get("code")
 
         token_endpoint = google_provider_cfg["token_endpoint"]
@@ -386,8 +386,8 @@ def register_paths(app, basemapper, config):
             headers=headers,
             data=body,
             auth=(
-                config.get('GOOGLE_CLIENT_ID'),
-                config.get('GOOGLE_CLIENT_SECRET'),
+                app.config.get('GOOGLE_CLIENT_ID'),
+                app.config.get('GOOGLE_CLIENT_SECRET'),
                 ),
             ).json()
 
@@ -397,7 +397,7 @@ def register_paths(app, basemapper, config):
         uri, headers, body = client.add_token(userinfo_endpoint)
         userinfo_response = requests.get(uri, headers=headers, data=body).json()
 
-        user = basemapper.user.getByGoogleId(userinfo_response["sub"])
+        user = app.datamapper.user.getByGoogleId(userinfo_response["sub"])
 
         if user is None:
             response = redirect(url_for('login'))
@@ -425,5 +425,5 @@ def register_paths(app, basemapper, config):
             )
 
 
-def with_app(app, basemapper, config):
-    register_paths(app, basemapper, config)
+def with_app(app):
+    register_paths(app)

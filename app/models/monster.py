@@ -286,15 +286,17 @@ class MonsterMapper(JsonObjectDataMapper):
 
     def getByEncounterId(self, encounter_id):
         """Returns all monsters in an encounter by encounter_id"""
-        cur = self.db.execute("""
-            SELECT m.*
-            FROM `encounter_monsters` AS em
-            JOIN `monster` AS m ON (em.monster_id=m.id)
-            WHERE `encounter_id` = ?
-            """,
-            [encounter_id]
-            )
-        monsters = cur.fetchall() or []
+        with self._db.connect() as db:
+            cur = db.execute("""
+                SELECT m.*
+                FROM `encounter_monsters` AS em
+                JOIN `monster` AS m ON (em.monster_id=m.id)
+                WHERE `encounter_id` = ?
+                """,
+                [encounter_id]
+                )
+            monsters = cur.fetchall() or []
+
         return [
             self._read(dict(monster))
             for monster in monsters

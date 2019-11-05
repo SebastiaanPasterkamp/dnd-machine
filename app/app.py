@@ -8,27 +8,30 @@ from werkzeug.utils import find_modules, import_string
 from werkzeug.routing import IntegerConverter
 
 from errors import ApiException
-from models import get_datamapper
+from models import Datamapper
 from models.base import JsonObjectDataMapper
-from db import get_db
+from db import Database
 from config import get_item_data
 import filters
 
 compress = Compress()
+datamapper = Datamapper()
+db = Database()
 
 def create_app(config={}):
     app = Flask(__name__)
 
     app.config.update(config)
     app.config.from_envvar('FLASKR_SETTINGS', silent=True)
-    compress.init_app(app);
+    compress.init_app(app)
+    db.init_app(app)
+    datamapper.init_app(app)
 
     register_converters(app)
-    register_blueprints(app, config)
+    register_blueprints(app)
     register_filters(app)
     register_cli(app)
     register_request_hooks(app)
-
     return app
 
 def register_converters(app):
@@ -39,22 +42,20 @@ def register_converters(app):
         regex = r'-?\d+'
     app.url_map.converters['signed_int'] = SignedIntConverter
 
-def register_blueprints(app, config):
+def register_blueprints(app):
     """
     Auto detect blueprint modules
     """
-    db = get_db(app)
-    dm = get_datamapper(app)
     for name in find_modules('views', recursive=True):
         mod = import_string(name)
         url_prefix = '/'.join(
             name.replace('views', '').split('.')
             )
         if hasattr(mod, 'get_blueprint'):
-            url_prefix, bp = mod.get_blueprint(dm, config)
+            url_prefix, bp = mod.get_blueprint(app.datamapper, app.config)
             app.register_blueprint(bp, url_prefix=url_prefix)
         if hasattr(mod, 'with_app'):
-            mod.with_app(app, dm, config)
+            mod.with_app(app)
 
 
 def register_filters(app):
@@ -77,71 +78,66 @@ def register_cli(app):
         print('Initializing the database.')
         if os.path.exists(app.config.get('DATABASE')):
             os.remove(app.config.get('DATABASE'))
-        db = get_db(app)
-        _initdb(db)
+        with app.db.connect() as db:
+            _initdb(db)
         print('Initialized the database.')
     @app.cli.command('updatedb')
     def updatedb_command():
         print('Updating the database.')
-        db = get_db(app)
-        _updatedb(db)
+        with app.db.connect() as db:
+            _updatedb(db)
         print('Updated the database.')
     @app.cli.command('migrate')
     def migrate_command():
         print('Migrating objects.')
-        db = get_db(app)
-        datamapper = get_datamapper(app)
-        _migrate(db, datamapper)
+        _migrate(app)
         print('Migrated objects.')
     @app.cli.command('dump-table')
     def dump_table_command(table):
-        db = get_db(app)
-        for line in _dump_table(db, table):
-            print(line)
+        with app.db.connect() as db:
+            for line in _dump_table(db, table):
+                print(line)
     @app.cli.command('import-sql')
     def import_sql_command(filename):
-        db = get_db(app)
-        _import_sql(db, filename)
+        with app.db.connect() as db:
+            _import_sql(db, filename)
 
 def initdb(app):
     with app.app_context():
         if os.path.exists(app.config.get('DATABASE')):
-            if hasattr(app, 'db'):
-                del app.db
+            app.db.close()
             os.remove(app.config.get('DATABASE'))
-        db = get_db(app)
-        _initdb(db)
+        with app.db.connect() as db:
+            _initdb(db)
 
 def updatedb(app):
     with app.app_context():
-        db = get_db(app)
-        _updatedb(db)
+        with app.db.connect() as db:
+            _updatedb(db)
 
 def migrate(app, objects=None):
     with app.app_context():
-        db = get_db(app)
-        datamapper = get_datamapper(app)
-        _migrate(db, datamapper, objects)
+        _migrate(app, objects)
 
 def dump_table(app, table):
     with app.app_context():
-        db = get_db(app)
-        for line in _dump_table(db, table):
-            print(line)
+        with app.db.connect() as db:
+            for line in _dump_table(db, table):
+                print(line)
 
 def import_sql(app, filename=None):
     with app.app_context():
-        db = get_db(app)
-        _import_sql(db, filename)
+        with app.db.connect() as db:
+            _import_sql(db, filename)
 
 
 def _initdb(db):
     """Initializes the database."""
     fn = os.path.join('app', 'schema', '0.0.0.baseline.sql')
     with open(fn, mode='r') as f:
-        db.cursor().execute("PRAGMA synchronous = OFF");
-        db.cursor().executescript(f.read())
-        db.cursor().execute("PRAGMA synchronous = ON");
+        db.execute("PRAGMA synchronous = OFF")
+        db.executescript(f.read())
+        db.execute("PRAGMA synchronous = ON")
     db.commit()
     _updatedb(db)
 
@@ -195,7 +191,7 @@ def _updatedb(db):
         glob.glob(os.path.join('app', 'schema', '*.sql')),
         key=lambda change: get_version(change)
         )
-    db.cursor().execute("PRAGMA synchronous = OFF");
+    db.execute("PRAGMA synchronous = OFF")
     for change in changes:
         version = get_version(change)
 
@@ -204,18 +200,17 @@ def _updatedb(db):
 
         with open(os.path.abspath(change), mode='r') as f:
             comment = f.readline().strip("\n\t\r- ")
-            db.cursor().executescript(f.read())
+            db.executescript(f.read())
             db.execute(record_schema, {
                 'version': version_string(version),
                 'path': change,
                 'comment': comment
                 })
             db.commit()
-    db.cursor().execute("PRAGMA synchronous = ON");
+    db.execute("PRAGMA synchronous = ON")
 
 def _dump_table(db, table):
     """Dump database content to console."""
-    cursor = db.cursor()
 
     yield('BEGIN TRANSACTION;')
 
@@ -227,7 +222,7 @@ def _dump_table(db, table):
             `type` == 'table' AND
             name == :table
         """
-    result = cursor.execute(schema, {'table': table})
+    result = db.execute(schema, {'table': table})
     for name, sql in result.fetchall():
         if name == 'sqlite_sequence':
             yield '-- '  + sql
@@ -242,7 +237,7 @@ def _dump_table(db, table):
             yield(sql + ';')
 
         # Build the insert statement for each row of the current table
-        pragma = cursor.execute("PRAGMA table_info('%s')" % name)
+        pragma = db.execute("PRAGMA table_info('%s')" % name)
         columns = [
             str(table_info[1])
             for table_info in pragma.fetchall()
@@ -255,33 +250,35 @@ def _dump_table(db, table):
                 for col in columns
                 ])
             }
-        values_res = cursor.execute(values)
+        values_res = db.execute(values)
         for row in values_res:
             yield(row[0])
     yield('COMMIT;')
 
-def _migrate(db, datamapper, objects=None):
+def _migrate(app, objects=None):
     """Migrate all Objects to any new configuration."""
-    objects = objects or datamapper._creators
+    objects = objects or app.datamapper._CREATORS.keys()
 
-    db.cursor().execute("PRAGMA synchronous = OFF");
-    for mapperType in objects:
-        mapper = datamapper[mapperType]
-        if not isinstance(mapper, JsonObjectDataMapper):
-            continue
-        objs = mapper.getMultiple()
-        for obj in objs:
-            obj.migrate(datamapper)
-            mapper.update(obj)
-    db.cursor().execute("PRAGMA synchronous = ON");
+    with app.db.connect() as db:
+        db.execute("PRAGMA synchronous = OFF")
+        for mapperType in objects:
+            mapper = app.datamapper[mapperType]
+            if not isinstance(mapper, JsonObjectDataMapper):
+                continue
+            objs = mapper.getMultiple()
+            for obj in objs:
+                obj.migrate(app.datamapper)
+                mapper.update(obj)
+        db.execute("PRAGMA synchronous = ON")
+        db.commit()
 
 def _import_sql(db, filename=None):
     """Import sql file into the database."""
-    db.cursor().execute("PRAGMA synchronous = OFF")
+    db.execute("PRAGMA synchronous = OFF")
     with open(filename, mode='r') as f:
-        db.cursor().executescript(f.read())
+        db.executescript(f.read())
         db.commit()
-    db.cursor().execute("PRAGMA synchronous = ON")
+    db.execute("PRAGMA synchronous = ON")
 
 def register_request_hooks(app):
     """
@@ -322,9 +319,7 @@ def register_request_hooks(app):
         if session.get('user_id') is None:
             request.user = None
             return
-        db = get_db(app)
-        datamapper = get_datamapper(app)
-        request.user = datamapper.user.getById(
+        request.user = app.datamapper.user.getById(
             session.get('user_id')
             )
 
@@ -335,12 +330,10 @@ def register_request_hooks(app):
             request.party = None
             return
 
-        db = get_db(app)
-        datamapper = get_datamapper(app)
-        request.party = datamapper.party.getById(
+        request.party = app.datamapper.party.getById(
             session.get('party_id')
             )
-        request.party.members = datamapper.character.getByIds(
+        request.party.members = app.datamapper.character.getByIds(
             request.party.member_ids
             )
 
