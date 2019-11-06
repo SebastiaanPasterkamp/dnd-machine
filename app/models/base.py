@@ -371,7 +371,7 @@ class JsonObjectDataMapper(object):
     join_tables = {}
 
     def __init__(self, db):
-        self.db = db
+        self._db = db
 
     def _read(self, dbrow):
         if dbrow is None \
@@ -416,26 +416,30 @@ class JsonObjectDataMapper(object):
 
     def getById(self, obj_id):
         """Returns an object from table by obj_id"""
-        cur = self.db.execute("""
-            SELECT *
-            FROM `%s`
-            WHERE `id` = ?
-            """ % self.table,
-            [obj_id]
-            )
-        obj = cur.fetchone()
+        with self._db.connect() as db:
+            cur = db.execute("""
+                SELECT *
+                FROM `%s`
+                WHERE `id` = ?
+                """ % self.table,
+                [obj_id]
+                )
+            obj = cur.fetchone()
+
         if obj is None:
             return None
         return self._read(dict(obj))
 
     def getMultiple(self, where="1", values={}):
         """Returns a list of obj matching the where clause"""
-        cur = self.db.execute("""
-            SELECT * FROM `%s` WHERE %s ORDER BY `%s`
-            """ % (self.table, where, self.order),
-            values
-            )
-        objs = cur.fetchall() or []
+        with self._db.connect() as db:
+            cur = db.execute("""
+                SELECT * FROM `%s` WHERE %s ORDER BY `%s`
+                """ % (self.table, where, self.order),
+                values
+                )
+            objs = cur.fetchall() or []
+
         return [
             self._read(dict(obj))
             for obj in objs
@@ -444,16 +448,17 @@ class JsonObjectDataMapper(object):
 
     def clearJoinTables(self, obj):
         """Clears entries from join tables by key=obj.id"""
-        for table, (attrib, key) in list(self.join_tables.items()):
-            self.db.execute("""
-                DELETE FROM `%s`
-                WHERE `%s` = ?
-                """ % (table, key),
-                [
-                    obj[attrib]
-                    ]
-                )
-        self.db.commit()
+        with self._db.connect() as db:
+            for table, (attrib, key) in list(self.join_tables.items()):
+                db.execute("""
+                    DELETE FROM `%s`
+                    WHERE `%s` = ?
+                    """ % (table, key),
+                    [
+                        obj[attrib]
+                        ]
+                    )
+            db.commit()
 
     def fillJoinTables(self, obj):
         """Populates entries in join tables by key=obj.id"""
@@ -475,21 +480,22 @@ class JsonObjectDataMapper(object):
         if 'id' in new_obj:
             del new_obj['id']
 
-        cur = self.db.execute("""
-            INSERT INTO `%s`
-                (`config`, %s)
-            VALUES
-                (:config, %s)
-            """ % (
-                self.table,
-                ', '.join(["`%s`" % f for f in new_obj]),
-                ', '.join([":%s" % f for f in new_obj])
-                ),
-            new_obj
-            )
-        self.db.commit()
+        with self._db.connect() as db:
+            cur = db.execute("""
+                INSERT INTO `%s`
+                    (`config`, %s)
+                VALUES
+                    (:config, %s)
+                """ % (
+                    self.table,
+                    ', '.join(["`%s`" % f for f in new_obj]),
+                    ', '.join([":%s" % f for f in new_obj])
+                    ),
+                new_obj
+                )
+            db.commit()
+            obj.id = cur.lastrowid
 
-        obj.id = cur.lastrowid
         self.fillJoinTables(obj)
 
         return self.getById(cur.lastrowid)
@@ -498,20 +504,21 @@ class JsonObjectDataMapper(object):
         """Updates an existing obj"""
         new_obj = self._write(obj)
 
-        cur = self.db.execute("""
-            UPDATE `%s`
-            SET `config` = :config, %s
-            WHERE `id` = :id
-            """ % (
-                self.table,
-                ', '.join([
-                    "`%s` = :%s" % (f, f)
-                    for f in self.fields
-                    ])
-                ),
-            new_obj
-            )
-        self.db.commit()
+        with self._db.connect() as db:
+            cur = db.execute("""
+                UPDATE `%s`
+                SET `config` = :config, %s
+                WHERE `id` = :id
+                """ % (
+                    self.table,
+                    ', '.join([
+                        "`%s` = :%s" % (f, f)
+                        for f in self.fields
+                        ])
+                    ),
+                new_obj
+                )
+            db.commit()
 
         self.clearJoinTables(obj)
         self.fillJoinTables(obj)
@@ -522,11 +529,12 @@ class JsonObjectDataMapper(object):
         """Deletes an object from the table"""
         self.clearJoinTables(obj)
 
-        cur = self.db.execute("""
-            DELETE
-            FROM `%s`
-            WHERE `id` = ?
-            """ % self.table,
-            [obj.id]
-            )
-        self.db.commit()
+        with self._db.connect() as db:
+            cur = db.execute("""
+                DELETE
+                FROM `%s`
+                WHERE `id` = ?
+                """ % self.table,
+                [obj.id]
+                )
+            db.commit()

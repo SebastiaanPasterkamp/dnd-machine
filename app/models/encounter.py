@@ -188,14 +188,16 @@ class EncounterMapper(JsonObjectDataMapper):
 
     def getByDmUserId(self, user_id):
         """Returns all encounterx created by DM by user_id"""
-        cur = self.db.execute("""
-            SELECT *
-            FROM `%s`
-            WHERE `user_id` = ?
-            """ % self.table,
-            [user_id]
-            )
-        encounters = cur.fetchall() or []
+        with self._db.connect() as db:
+            cur = db.execute("""
+                SELECT *
+                FROM `%s`
+                WHERE `user_id` = ?
+                """ % self.table,
+                [user_id]
+                )
+            encounters = cur.fetchall() or []
+
         return [
             self._read(dict(encounter))
             for encounter in encounters
@@ -205,31 +207,32 @@ class EncounterMapper(JsonObjectDataMapper):
     def getMonsterCounts(self, encounter_id):
         """Returns all monters and their counts in the encounter
         by encounter_id"""
-        cur = self.db.execute("""
-            SELECT `monster_id` AS `id`, `count`
-            FROM `encounter_monsters`
-            WHERE `encounter_id` = ?
-            ORDER BY `monster_id` ASC
-            """,
-            [encounter_id]
-            )
-        return [
-            dict(row)
-            for row in cur.fetchall() or []
-            ]
+        with self._db.connect() as db:
+            cur = db.execute("""
+                SELECT `monster_id` AS `id`, `count`
+                FROM `encounter_monsters`
+                WHERE `encounter_id` = ?
+                ORDER BY `monster_id` ASC
+                """,
+                [encounter_id]
+                )
+            rows = cur.fetchall() or []
+
+        return [dict(row) for row in rows]
 
     def fillJoinTables(self, obj):
         """Populates entries in encounter_monsters table"""
         if not len(obj.monster_ids):
             return
 
-        self.db.executemany("""
-            INSERT INTO `encounter_monsters`
-                (`encounter_id`, `monster_id`, `count`)
-            VALUES (?, ?, ?)
-            """, [
-                (obj.id, monster['id'], monster['count'])
-                for monster in obj.monster_ids
-                if monster['count'] > 0
-                ])
-        self.db.commit()
+        with self._db.connect() as db:
+            db.executemany("""
+                INSERT INTO `encounter_monsters`
+                    (`encounter_id`, `monster_id`, `count`)
+                VALUES (?, ?, ?)
+                """, [
+                    (obj.id, monster['id'], monster['count'])
+                    for monster in obj.monster_ids
+                    if monster['count'] > 0
+                    ])
+            db.commit()

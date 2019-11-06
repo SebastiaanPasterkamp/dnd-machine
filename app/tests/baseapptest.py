@@ -24,7 +24,8 @@ class BaseAppTestCase(unittest.TestCase):
     def setUp(self):
         config = get_config()
         config.update({
-            'DATABASE': ':memory:',
+            'DATABASE': 'file:memory.db?mode=memory&cache=shared',
+            'MAX_CONNECTIONS': 2,
             'SERVER_NAME': 'localhost.localdomain:5000',
             'TESTING': True,
             'DEBUG': True,
@@ -34,7 +35,8 @@ class BaseAppTestCase(unittest.TestCase):
         self.app.response_class = Response
         self.client = self.app.test_client(use_cookies=True)
         self.app.testing = True
-        _initdb(self.app.db)
+        with self.app.db.connect() as db:
+            _initdb(db)
 
     def tearDown(self):
         self.app.db.close()
@@ -186,45 +188,48 @@ class BaseAppTestCase(unittest.TestCase):
             if key not in columns
             ))
 
-        result = self.app.db.execute("""
-            INSERT INTO `%s`
-                (`%s`)
-            VALUES
-                (:%s)
-            """ % (
-                table,
-                '`, `'.join(list(data.keys())),
-                ', :'.join(list(data.keys())),
-                ),
-            data
-            )
-        self.app.db.commit()
+        with self.app.db.connect() as db:
+            result = db.execute("""
+                INSERT INTO `%s`
+                    (`%s`)
+                VALUES
+                    (:%s)
+                """ % (
+                    table,
+                    '`, `'.join(list(data.keys())),
+                    ', :'.join(list(data.keys())),
+                    ),
+                data
+                )
+            db.commit()
         return self.dbGetObject(table, result.lastrowid)
 
     def dbInsertLink(self, table, data={}):
-        result = self.app.db.execute("""
-            INSERT INTO `%s` (`%s`)
-            VALUES (:%s)
-            """ % (
-                table,
-                '`, `'.join(list(data.keys())),
-                ', :'.join(list(data.keys())),
-                ),
-            data
-            )
-        self.app.db.commit()
+        with self.app.db.connect() as db:
+            result = db.execute("""
+                INSERT INTO `%s` (`%s`)
+                VALUES (:%s)
+                """ % (
+                    table,
+                    '`, `'.join(list(data.keys())),
+                    ', :'.join(list(data.keys())),
+                    ),
+                data
+                )
+            db.commit()
 
     def dbGetObject(self, table, objId):
-        cur = self.app.db.execute("""
-            SELECT *
-            FROM `%s`
-            WHERE `id` = :objId
-            """ % table,
-            {
-                'objId': objId,
-                }
-            )
-        obj = cur.fetchone()
+        with self.app.db.connect() as db:
+            rows = db.execute("""
+                SELECT *
+                FROM `%s`
+                WHERE `id` = :objId
+                """ % table,
+                {
+                    'objId': objId,
+                    }
+                )
+            obj = rows.fetchone()
         if obj is None:
             return None
         obj = dict(obj)

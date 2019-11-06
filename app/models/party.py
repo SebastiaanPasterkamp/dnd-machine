@@ -90,14 +90,16 @@ class PartyMapper(JsonObjectDataMapper):
 
     def getIdsByDmUserId(self, user_id):
         """Returns all party IDs run by the DM by user_id"""
-        cur = self.db.execute("""
-            SELECT id
-            FROM `%s`
-            WHERE `user_id` = ?
-            """ % self.table,
-            [user_id]
-            )
-        parties = cur.fetchall() or []
+        with self._db.connect() as db:
+            cur = db.execute("""
+                SELECT id
+                FROM `%s`
+                WHERE `user_id` = ?
+                """ % self.table,
+                [user_id]
+                )
+            parties = cur.fetchall() or []
+
         return [
             party['id']
             for party in parties
@@ -106,16 +108,18 @@ class PartyMapper(JsonObjectDataMapper):
     def getByUserId(self, user_id):
         """Returns all parties where a user by user_id
         has characters involved"""
-        cur = self.db.execute("""
-            SELECT p.*
-            FROM `%s` AS p
-            JOIN `party_characters` AS pc ON (p.id = pc.party_id)
-            JOIN `character` AS c ON (c.id = pc.character_id)
-            WHERE c.`user_id` = ?
-            """ % self.table,
-            [user_id]
-            )
-        parties = cur.fetchall() or []
+        with self._db.connect() as db:
+            cur = db.execute("""
+                SELECT p.*
+                FROM `%s` AS p
+                JOIN `party_characters` AS pc ON (p.id = pc.party_id)
+                JOIN `character` AS c ON (c.id = pc.character_id)
+                WHERE c.`user_id` = ?
+                """ % self.table,
+                [user_id]
+                )
+            parties = cur.fetchall() or []
+
         return [
             self._read(dict(party))
             for party in parties
@@ -125,15 +129,17 @@ class PartyMapper(JsonObjectDataMapper):
     def getIdsByUserId(self, user_id):
         """Returns all party IDs where a user by user_id
         has characters involved"""
-        cur = self.db.execute("""
-            SELECT pc.party_id as id
-            FROM `party_characters` AS pc
-            JOIN `character` AS c ON (c.id = pc.character_id)
-            WHERE c.`user_id` = ?
-            """,
-            [user_id]
-            )
-        parties = cur.fetchall() or []
+        with self._db.connect() as db:
+            cur = db.execute("""
+                SELECT pc.party_id as id
+                FROM `party_characters` AS pc
+                JOIN `character` AS c ON (c.id = pc.character_id)
+                WHERE c.`user_id` = ?
+                """,
+                [user_id]
+                )
+            parties = cur.fetchall() or []
+
         return [
             party['id']
             for party in parties
@@ -141,15 +147,17 @@ class PartyMapper(JsonObjectDataMapper):
 
     def getMemberIds(self, party_id):
         """Returns all character IDs in a party by party_id"""
-        cur = self.db.execute("""
-            SELECT `character_id` AS `id`
-            FROM `party_characters`
-            WHERE `party_id` = ?
-            ORDER BY `character_id` ASC
-            """,
-            [party_id]
-            )
-        characters = cur.fetchall() or []
+        with self._db.connect() as db:
+            cur = db.execute("""
+                SELECT `character_id` AS `id`
+                FROM `party_characters`
+                WHERE `party_id` = ?
+                ORDER BY `character_id` ASC
+                """,
+                [party_id]
+                )
+            characters = cur.fetchall() or []
+
         return [
             character['id']
             for character in characters
@@ -160,12 +168,13 @@ class PartyMapper(JsonObjectDataMapper):
         if not len(obj.member_ids):
             return
 
-        self.db.executemany("""
-            INSERT INTO `party_characters`
-                (`party_id`, `character_id`)
-            VALUES (?, ?)
-            """, [
-                (obj.id, member)
-                for member in obj.member_ids
-                ])
-        self.db.commit()
+        with self._db.connect() as db:
+            db.executemany("""
+                INSERT INTO `party_characters`
+                    (`party_id`, `character_id`)
+                VALUES (?, ?)
+                """, [
+                    (obj.id, member)
+                    for member in obj.member_ids
+                    ])
+            db.commit()

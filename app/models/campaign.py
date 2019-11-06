@@ -23,14 +23,16 @@ class CampaignMapper(JsonObjectDataMapper):
 
     def getByDmUserId(self, user_id):
         """Returns all campaigns created by DM by user_id"""
-        cur = self.db.execute("""
-            SELECT *
-            FROM `%s`
-            WHERE `user_id` = ?
-            """ % self.table,
-            [user_id]
-            )
-        campaigns = cur.fetchall() or []
+        with self._db.connect() as db:
+            cur = db.execute("""
+                SELECT *
+                FROM `%s`
+                WHERE `user_id` = ?
+                """ % self.table,
+                [user_id]
+                )
+            campaigns = cur.fetchall() or []
+
         return [
             self._read(dict(campaign))
             for campaign in campaigns
