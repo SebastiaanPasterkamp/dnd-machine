@@ -1195,6 +1195,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                     },
                   ]
                 }
+                campaign_id={null}
                 cancel={[Function]}
                 challenge_modified={0}
                 challenge_rating={0}
@@ -6141,6 +6142,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                     },
                   ]
                 }
+                campaign_id={null}
                 cancel={[Function]}
                 challenge_modified={0}
                 challenge_rating={0}
@@ -11087,6 +11089,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                     },
                   ]
                 }
+                campaign_id={null}
                 cancel={[Function]}
                 challenge_modified={0}
                 challenge_rating={0}

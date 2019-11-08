@@ -14,6 +14,7 @@ import ListDataActions from '../actions/ListDataActions';
 
 import { BaseLinkButton } from '../components/BaseLinkGroup/index';
 import ButtonField from '../components/ButtonField';
+import CampaignLabel from '../components/CampaignLabel';
 import ControlGroup from '../components/ControlGroup';
 import EncounterLinks from '../components/EncounterLinks';
 import InputField from '../components/InputField';
@@ -211,7 +212,7 @@ export class EncounterView extends React.Component
 
     render() {
         const {
-            id, name, description, size, monster_ids,
+            id, name, description, size, monster_ids, campaign_id,
             hosted_party, monsters, characters,
             challenge_rating, xp, xp_rating, modifier, xp_modified,
             challenge_modified, combatants, alignments,
@@ -273,6 +274,14 @@ export class EncounterView extends React.Component
                 </thead>
 
                 <tbody>
+                    {campaign_id ? (
+                        <tr>
+                            <th>Campaign</th>
+                            <td>
+                                <CampaignLabel id={campaign_id} />
+                            </td>
+                        </tr>
+                    ) : null}
                     <tr>
                         <th>Description</th>
                         <td>
@@ -444,6 +453,7 @@ export class EncounterView extends React.Component
 }
 
 EncounterView.defaultProps = {
+    campaign_id: null,
     name: '',
     description: '',
     size: 0,
