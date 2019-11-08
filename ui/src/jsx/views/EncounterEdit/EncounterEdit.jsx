@@ -121,7 +121,7 @@ export class EncounterEdit extends React.Component
             monsters, modifier, challenge_rating,
             challenge_modified, challenge_rating_precise,
             xp, xp_modified, xp_rating, hosted_party,
-            setState,
+            campaign_id, setState,
         } = this.props;
 
         const summary = reduce(
@@ -148,7 +148,7 @@ export class EncounterEdit extends React.Component
         )(monster_ids);
 
         const descriptionProps = {
-            name, description, setState,
+            campaign_id, name, description, setState,
         };
         const challengeProps = {
             modifier, hosted_party,
@@ -244,6 +244,7 @@ EncounterEdit.propTypes = {
     setState: PropTypes.func.isRequired,
     recompute: PropTypes.func.isRequired,
     id: PropTypes.number,
+    campaign_id: PropTypes.number,
     name: PropTypes.string,
     description: PropTypes.string,
     size: PropTypes.number,
@@ -283,6 +284,7 @@ EncounterEdit.propTypes = {
 
 EncounterEdit.defaultProps = {
     id: null,
+    campaign_id: null,
     name: '',
     description: '',
     size: 0,

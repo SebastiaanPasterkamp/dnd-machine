@@ -3,6 +3,9 @@ import { shallow, mount } from 'enzyme';
 import 'jest-enzyme';
 import renderer from 'react-test-renderer';
 
+import {
+    mockedApi,
+} from '../../../../../tests/__mocks__';
 import DescriptionPanel from '../components/DescriptionPanel';
 
 describe('View DescriptionPanel', () => {
@@ -10,6 +13,18 @@ describe('View DescriptionPanel', () => {
         name: 'Bar fight',
         description: 'A _fight_ in a **bar**!',
     };
+
+    beforeAll(() => {
+        fetch.mockImplementation(mockedApi({
+            campaign: {
+                2: { id: 2, name: "Some campaign" },
+            },
+        }));
+    });
+
+    afterAll(() => {
+        fetch.resetMocks();
+    });
 
     describe('rendering', () => {
         it('should work w/ minimum props', () => {

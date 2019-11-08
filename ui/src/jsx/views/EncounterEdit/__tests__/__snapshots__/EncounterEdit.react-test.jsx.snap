@@ -20,6 +20,32 @@ Array [
         <span
           className="nice-input-addon"
         >
+          Campaign
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Campaign...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          />
+        </div>
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
           Name
         </span>
         <input
@@ -265,6 +291,42 @@ Array [
     <div
       className="nice-panel-content"
     >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Campaign
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Campaign...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          >
+            <li
+              className={null}
+              data-value={2}
+              onClick={[Function]}
+            >
+              <a>
+                Some campaign
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div
         className="nice-control-group"
       >
@@ -650,6 +712,42 @@ Array [
         <span
           className="nice-input-addon"
         >
+          Campaign
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Campaign...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          >
+            <li
+              className={null}
+              data-value={2}
+              onClick={[Function]}
+            >
+              <a>
+                Some campaign
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
           Name
         </span>
         <input
@@ -894,6 +992,42 @@ Array [
     <div
       className="nice-panel-content"
     >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Campaign
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Campaign...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          >
+            <li
+              className={null}
+              data-value={2}
+              onClick={[Function]}
+            >
+              <a>
+                Some campaign
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div
         className="nice-control-group"
       >
@@ -1145,6 +1279,42 @@ Array [
     <div
       className="nice-panel-content"
     >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Campaign
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Campaign...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          >
+            <li
+              className={null}
+              data-value={2}
+              onClick={[Function]}
+            >
+              <a>
+                Some campaign
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div
         className="nice-control-group"
       >
@@ -1433,6 +1603,42 @@ Array [
     <div
       className="nice-panel-content"
     >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Campaign
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Campaign...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          >
+            <li
+              className={null}
+              data-value={2}
+              onClick={[Function]}
+            >
+              <a>
+                Some campaign
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div
         className="nice-control-group"
       >

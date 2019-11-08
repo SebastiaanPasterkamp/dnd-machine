@@ -8,7 +8,9 @@ import MockRouter from 'react-mock-router';
 jest.useFakeTimers();
 
 import ListDataActions from 'actions/ListDataActions';
-import { mockedApi, } from '../../../../../tests/__mocks__';
+import {
+    mockedApi,
+} from '../../../../../tests/__mocks__';
 
 import { EncounterEdit } from '../EncounterEdit';
 
@@ -61,6 +63,9 @@ describe('View EncounterEdit', () => {
 
     beforeAll(() => fetch.mockImplementation(mockedApi({
         current_user: {},
+        campaign: {
+            2: { id: 2, name: "Some campaign" },
+        },
     })));
 
     afterAll(() => fetch.resetMocks());

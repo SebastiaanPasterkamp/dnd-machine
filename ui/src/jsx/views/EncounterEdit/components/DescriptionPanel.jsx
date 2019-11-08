@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+    values,
+} from 'lodash/fp';
 
 import { memoize } from '../../../utils';
+
+import ObjectDataListWrapper from '../../../hocs/ObjectDataListWrapper';
 
 import ControlGroup from '../../../components/ControlGroup';
 import InputField from '../../../components/InputField';
 import Panel from '../../../components/Panel';
+import SingleSelect from '../../../components/SingleSelect';
 import MarkdownTextField from '../../../components/MarkdownTextField';
 
 export class DescriptionPanel extends React.Component
@@ -25,7 +31,7 @@ export class DescriptionPanel extends React.Component
     }
 
     render() {
-        const { name, description } = this.props;
+        const { campaign_id, campaigns, name, description } = this.props;
 
         return (
             <Panel
@@ -33,6 +39,14 @@ export class DescriptionPanel extends React.Component
                 className="encounter-edit__description"
                 header="Description"
             >
+                <ControlGroup label="Campaign">
+                    <SingleSelect
+                        emptyLabel="Campaign..."
+                        selected={campaign_id}
+                        items={values(campaigns)}
+                        setState={this.onFieldChange('campaign_id')}
+                    />
+                </ControlGroup>
                 <ControlGroup label="Name">
                     <InputField
                         placeholder="Name..."
@@ -55,13 +69,20 @@ export class DescriptionPanel extends React.Component
 
 DescriptionPanel.propTypes = {
     setState: PropTypes.func.isRequired,
+    campaign_id: PropTypes.number,
+    campaigns: PropTypes.object,
     name: PropTypes.string,
     description: PropTypes.string,
 };
 
 DescriptionPanel.defaultProps = {
+    campaign_id: null,
+    campaigns: {},
     name: '',
     description: '',
 };
 
-export default DescriptionPanel;
+export default ObjectDataListWrapper(
+    DescriptionPanel,
+    {campaigns: {type: 'campaign'}}
+);
