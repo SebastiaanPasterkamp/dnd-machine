@@ -34,6 +34,7 @@ exports[`MonstersFilter should render with full props 1`] = `
     <div
       className="nice-dropdown nice-form-control"
       data-name="campaign"
+      defaultValue={Array []}
     >
       <button
         className="nice-btn"
@@ -46,8 +47,22 @@ exports[`MonstersFilter should render with full props 1`] = `
       </button>
       <ul
         className="dropdown-menu"
-        onClick={null}
+        onClick={[Function]}
       >
+        <li
+          className={null}
+          data-value={null}
+        >
+          <label>
+            <input
+              checked={false}
+              disabled={undefined}
+              onChange={[Function]}
+              type="checkbox"
+            />
+            Unassigned
+          </label>
+        </li>
         <li
           className="info"
           data-value={2}
@@ -55,7 +70,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={true}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -76,6 +91,7 @@ exports[`MonstersFilter should render with full props 1`] = `
     <div
       className="nice-dropdown nice-form-control"
       data-name="size"
+      defaultValue={Array []}
     >
       <button
         className="nice-btn"
@@ -88,7 +104,7 @@ exports[`MonstersFilter should render with full props 1`] = `
       </button>
       <ul
         className="dropdown-menu"
-        onClick={null}
+        onClick={[Function]}
       >
         <li
           className={null}
@@ -97,7 +113,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -111,7 +127,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={true}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -125,7 +141,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={true}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -139,7 +155,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -153,7 +169,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -167,7 +183,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -188,6 +204,7 @@ exports[`MonstersFilter should render with full props 1`] = `
     <div
       className="nice-dropdown nice-form-control"
       data-name="types"
+      defaultValue={Array []}
     >
       <button
         className="nice-btn"
@@ -200,7 +217,7 @@ exports[`MonstersFilter should render with full props 1`] = `
       </button>
       <ul
         className="dropdown-menu"
-        onClick={null}
+        onClick={[Function]}
       >
         <li
           className={null}
@@ -209,7 +226,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -223,7 +240,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -237,7 +254,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -251,7 +268,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -265,7 +282,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -279,7 +296,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -293,7 +310,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -307,7 +324,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -321,7 +338,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -335,7 +352,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -349,7 +366,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -363,7 +380,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -377,7 +394,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -391,7 +408,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -412,6 +429,7 @@ exports[`MonstersFilter should render with full props 1`] = `
     <div
       className="nice-dropdown nice-form-control"
       data-name="alignment"
+      defaultValue={Array []}
     >
       <button
         className="nice-btn"
@@ -424,7 +442,7 @@ exports[`MonstersFilter should render with full props 1`] = `
       </button>
       <ul
         className="dropdown-menu"
-        onClick={null}
+        onClick={[Function]}
       >
         <li
           className={null}
@@ -433,7 +451,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -447,7 +465,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -461,7 +479,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -475,7 +493,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -489,7 +507,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -503,7 +521,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -517,7 +535,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -531,7 +549,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -545,7 +563,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -566,6 +584,7 @@ exports[`MonstersFilter should render with full props 1`] = `
     <div
       className="nice-dropdown nice-form-control"
       data-name="levels"
+      defaultValue={Array []}
     >
       <button
         className="nice-btn"
@@ -578,7 +597,7 @@ exports[`MonstersFilter should render with full props 1`] = `
       </button>
       <ul
         className="dropdown-menu"
-        onClick={null}
+        onClick={[Function]}
       >
         <li
           className="info"
@@ -587,7 +606,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={true}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -601,7 +620,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={true}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -615,7 +634,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={true}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -629,7 +648,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -643,7 +662,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -657,7 +676,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -671,7 +690,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -685,7 +704,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -699,7 +718,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -713,7 +732,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -727,7 +746,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -741,7 +760,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -755,7 +774,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -769,7 +788,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -783,7 +802,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -797,7 +816,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -811,7 +830,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -825,7 +844,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -839,7 +858,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -853,7 +872,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -867,7 +886,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -881,7 +900,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -895,7 +914,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -909,7 +928,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -923,7 +942,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -937,7 +956,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -951,7 +970,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -965,7 +984,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -979,7 +998,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -993,7 +1012,7 @@ exports[`MonstersFilter should render with full props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1116,6 +1135,7 @@ exports[`MonstersFilter should render without props 1`] = `
     <div
       className="nice-dropdown nice-form-control"
       data-name="campaign"
+      defaultValue={Array []}
     >
       <button
         className="nice-btn"
@@ -1128,8 +1148,23 @@ exports[`MonstersFilter should render without props 1`] = `
       </button>
       <ul
         className="dropdown-menu"
-        onClick={null}
-      />
+        onClick={[Function]}
+      >
+        <li
+          className={null}
+          data-value={null}
+        >
+          <label>
+            <input
+              checked={false}
+              disabled={undefined}
+              onChange={[Function]}
+              type="checkbox"
+            />
+            Unassigned
+          </label>
+        </li>
+      </ul>
     </div>
   </div>
   <div
@@ -1143,6 +1178,7 @@ exports[`MonstersFilter should render without props 1`] = `
     <div
       className="nice-dropdown nice-form-control"
       data-name="size"
+      defaultValue={Array []}
     >
       <button
         className="nice-btn"
@@ -1155,7 +1191,7 @@ exports[`MonstersFilter should render without props 1`] = `
       </button>
       <ul
         className="dropdown-menu"
-        onClick={null}
+        onClick={[Function]}
       >
         <li
           className={null}
@@ -1164,7 +1200,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1178,7 +1214,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1192,7 +1228,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1206,7 +1242,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1220,7 +1256,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1234,7 +1270,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1255,6 +1291,7 @@ exports[`MonstersFilter should render without props 1`] = `
     <div
       className="nice-dropdown nice-form-control"
       data-name="types"
+      defaultValue={Array []}
     >
       <button
         className="nice-btn"
@@ -1267,7 +1304,7 @@ exports[`MonstersFilter should render without props 1`] = `
       </button>
       <ul
         className="dropdown-menu"
-        onClick={null}
+        onClick={[Function]}
       >
         <li
           className={null}
@@ -1276,7 +1313,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1290,7 +1327,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1304,7 +1341,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1318,7 +1355,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1332,7 +1369,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1346,7 +1383,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1360,7 +1397,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1374,7 +1411,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1388,7 +1425,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1402,7 +1439,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1416,7 +1453,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1430,7 +1467,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1444,7 +1481,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1458,7 +1495,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1479,6 +1516,7 @@ exports[`MonstersFilter should render without props 1`] = `
     <div
       className="nice-dropdown nice-form-control"
       data-name="alignment"
+      defaultValue={Array []}
     >
       <button
         className="nice-btn"
@@ -1491,7 +1529,7 @@ exports[`MonstersFilter should render without props 1`] = `
       </button>
       <ul
         className="dropdown-menu"
-        onClick={null}
+        onClick={[Function]}
       >
         <li
           className={null}
@@ -1500,7 +1538,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1514,7 +1552,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1528,7 +1566,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1542,7 +1580,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1556,7 +1594,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1570,7 +1608,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1584,7 +1622,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1598,7 +1636,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1612,7 +1650,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1633,6 +1671,7 @@ exports[`MonstersFilter should render without props 1`] = `
     <div
       className="nice-dropdown nice-form-control"
       data-name="levels"
+      defaultValue={Array []}
     >
       <button
         className="nice-btn"
@@ -1645,7 +1684,7 @@ exports[`MonstersFilter should render without props 1`] = `
       </button>
       <ul
         className="dropdown-menu"
-        onClick={null}
+        onClick={[Function]}
       >
         <li
           className={null}
@@ -1654,7 +1693,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1668,7 +1707,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1682,7 +1721,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1696,7 +1735,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1710,7 +1749,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1724,7 +1763,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1738,7 +1777,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1752,7 +1791,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1766,7 +1805,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1780,7 +1819,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1794,7 +1833,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1808,7 +1847,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1822,7 +1861,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1836,7 +1875,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1850,7 +1889,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1864,7 +1903,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1878,7 +1917,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1892,7 +1931,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1906,7 +1945,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1920,7 +1959,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1934,7 +1973,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1948,7 +1987,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1962,7 +2001,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1976,7 +2015,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -1990,7 +2029,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -2004,7 +2043,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -2018,7 +2057,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -2032,7 +2071,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -2046,7 +2085,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />
@@ -2060,7 +2099,7 @@ exports[`MonstersFilter should render without props 1`] = `
           <label>
             <input
               checked={false}
-              disabled={undefined}
+              disabled={false}
               onChange={[Function]}
               type="checkbox"
             />

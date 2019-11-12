@@ -53,8 +53,13 @@ class MonstersTable extends React.Component
             items: filter(
                 (monster) => (
                     (
-                        monster.name
-                        && monster.name.match(pattern)
+                        (
+                            monster.name
+                            && monster.name.match(pattern)
+                        ) || (
+                            monster.description
+                            && monster.description.match(pattern)
+                        )
                     ) && (
                         !campaign.length
                         || contains(monster.campaign_id, campaign)
