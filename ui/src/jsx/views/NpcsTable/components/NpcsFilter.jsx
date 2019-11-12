@@ -52,6 +52,7 @@ export class NpcsFilter extends React.Component
                         selected={campaign}
                         emptyLabel="All Campaigns..."
                         setState={this.onChange('campaign')}
+                        renderEmpty="Unassigned"
                     />
                 </ControlGroup>
                 <ControlGroup className="npcs-table--filter-select" label="Alignment">
