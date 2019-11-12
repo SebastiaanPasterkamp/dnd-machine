@@ -1,10 +1,19 @@
 import React from 'react';
-import {shallow, mount} from 'enzyme';
+import { mount } from 'enzyme';
 import 'jest-enzyme';
 import renderer from 'react-test-renderer';
-import {BaseSelect} from '../../src/jsx/components/BaseSelect.jsx';
+
+import { BaseSelect } from '../BaseSelect';
 
 describe('Component: BaseSelect', () => {
+    it('should render without props', () => {
+        const tree = renderer.create(
+            <BaseSelect />
+        ).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
     it('should show a simple dropdown with one button and item', () => {
         const props = {
             label: 'Click me'
@@ -37,7 +46,7 @@ describe('Component: BaseSelect', () => {
         const props = {
             label: 'Click me'
         };
-        const wrapper = shallow(
+        const wrapper = mount(
             <BaseSelect {...props}>
                 <li className="item">Example</li>
             </BaseSelect>
@@ -76,7 +85,6 @@ describe('Component: BaseSelect', () => {
         expect(wrapper.state('shown')).toBe(true);
         expect(wrapper.find('ul.shown').exists()).toBe(true);
 
-//         wrapper.instance().onClick();
         wrapper.find('li').simulate('click');
         expect(wrapper.state('shown')).toBe(false);
         expect(wrapper.find('ul.shown').exists()).toBe(false);

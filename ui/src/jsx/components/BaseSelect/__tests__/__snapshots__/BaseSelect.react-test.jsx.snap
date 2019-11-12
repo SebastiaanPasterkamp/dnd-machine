@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Component: BaseSelect should render without props 1`] = `
+<div
+  className="nice-dropdown nice-form-control"
+>
+  <button
+    className="nice-btn"
+    onClick={[Function]}
+  >
+    
+    <i
+      className="icon fa-angle-down"
+    />
+  </button>
+  <ul
+    className="dropdown-menu"
+    onClick={[Function]}
+  />
+</div>
+`;
+
 exports[`Component: BaseSelect should show a dropdown with heading and description 1`] = `
 <div
   className="nice-dropdown nice-form-control"
