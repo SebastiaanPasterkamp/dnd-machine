@@ -65,6 +65,7 @@ export class EncountersFilter extends React.Component
                         selected={campaign}
                         emptyLabel="All Campaigns..."
                         setState={this.onChange('campaign')}
+                        renderEmpty="Unassigned"
                     />
                 </ControlGroup>
                 <ControlGroup
