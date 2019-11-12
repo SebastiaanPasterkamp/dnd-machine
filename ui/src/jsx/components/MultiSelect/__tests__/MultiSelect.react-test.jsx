@@ -3,7 +3,8 @@ import { mount } from 'enzyme';
 import 'jest-enzyme';
 import renderer from 'react-test-renderer';
 import { stub } from 'sinon';
-import MultiSelect from '../../src/jsx/components/MultiSelect.jsx';
+
+import MultiSelect from '../MultiSelect';
 
 const props = {
     items: [

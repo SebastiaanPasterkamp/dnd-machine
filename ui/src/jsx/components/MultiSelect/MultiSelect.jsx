@@ -8,14 +8,25 @@ import {
     map,
 } from 'lodash/fp';
 
-import BaseSelect from './BaseSelect.jsx';
-import utils, { memoize } from '../utils.jsx';
+import BaseSelect from '../BaseSelect';
+import utils, { memoize } from '../../utils';
+
+import SelectItem from './components/SelectItem';
 
 class MultiSelect extends React.Component
 {
     constructor(props) {
         super(props);
+        this.state = {};
         this.memoize = memoize.bind(this);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        const { defaultValue, selected, setState } = props;
+        if (!selected.length && defaultValue.length) {
+            setState(defaultValue);
+        }
+        return null;
     }
 
     getItemValue(item) {
@@ -53,10 +64,13 @@ class MultiSelect extends React.Component
 
     getLabel() {
         const {
-            items, selected, emptyLabel,
+            items, selected, renderEmpty, emptyLabel,
         } = this.props;
 
         if (selected.length == 1) {
+            if (renderEmpty && selected[0] === null) {
+                return renderEmpty;
+            }
             const current = find(
                 (item) => this.getItemValue(item) == selected[0]
             )(items);
@@ -116,6 +130,7 @@ class MultiSelect extends React.Component
             setState,
             isDisabled,
             emptyLabel,
+            renderEmpty,
             ...props,
         } = this.props;
 
@@ -125,7 +140,24 @@ class MultiSelect extends React.Component
                 closeOnClick={ false }
                 {...props}
             >
-                {map(item => this.renderItem(item))(items)}
+                {renderEmpty ? this.renderItem({
+                    id: null,
+                    label: renderEmpty,
+                }) : null}
+                {map(item => {
+                    const id = this.getItemValue(item);
+                    return (
+                        <SelectItem
+                            key={id}
+                            id={id}
+                            label={this.getItemText(item)}
+                            checked={includes(id, selected)}
+                            disabled={isDisabled(item)}
+                            onSelect={this.onAdd(id)}
+                            onDeselect={this.onDel(id)}
+                        />
+                    );
+                })(items)}
             </BaseSelect>
         );
     }
@@ -134,6 +166,9 @@ class MultiSelect extends React.Component
 MultiSelect.defaultProps = {
     emptyLabel: "0 selected",
     isDisabled: (item) => item.disabled,
+    selected: [],
+    defaultValue: [],
+    renderEmpty: null,
     setState: (selected) => {
         console.log(['MultiSelect', selected]);
     }
@@ -145,6 +180,7 @@ MultiSelect.propTypes = {
     setState: PropTypes.func.isRequired,
     isDisabled: PropTypes.func.isRequired,
     emptyLabel: PropTypes.string,
+    renderEmpty: PropTypes.string,
 };
 
 export default MultiSelect;

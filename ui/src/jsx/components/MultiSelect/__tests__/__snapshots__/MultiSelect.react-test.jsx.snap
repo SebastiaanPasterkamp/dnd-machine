@@ -3,6 +3,7 @@
 exports[`Component: MultiSelect should handle unknown value 1`] = `
 <div
   className="nice-dropdown nice-form-control"
+  defaultValue={Array []}
 >
   <button
     className="nice-btn"
@@ -15,7 +16,7 @@ exports[`Component: MultiSelect should handle unknown value 1`] = `
   </button>
   <ul
     className="dropdown-menu"
-    onClick={null}
+    onClick={[Function]}
   >
     <li
       className={null}
@@ -24,7 +25,7 @@ exports[`Component: MultiSelect should handle unknown value 1`] = `
       <label>
         <input
           checked={false}
-          disabled={undefined}
+          disabled={false}
           onChange={[Function]}
           type="checkbox"
         />
@@ -38,7 +39,7 @@ exports[`Component: MultiSelect should handle unknown value 1`] = `
       <label>
         <input
           checked={false}
-          disabled={undefined}
+          disabled={false}
           onChange={[Function]}
           type="checkbox"
         />
@@ -52,7 +53,7 @@ exports[`Component: MultiSelect should handle unknown value 1`] = `
       <label>
         <input
           checked={false}
-          disabled={undefined}
+          disabled={false}
           onChange={[Function]}
           type="checkbox"
         />
@@ -66,7 +67,7 @@ exports[`Component: MultiSelect should handle unknown value 1`] = `
       <label>
         <input
           checked={false}
-          disabled={undefined}
+          disabled={false}
           onChange={[Function]}
           type="checkbox"
         />
@@ -80,6 +81,7 @@ exports[`Component: MultiSelect should handle unknown value 1`] = `
 exports[`Component: MultiSelect should show a dropdown with 4 items disabled by callback 1`] = `
 <div
   className="nice-dropdown nice-form-control"
+  defaultValue={Array []}
 >
   <button
     className="nice-btn"
@@ -92,7 +94,7 @@ exports[`Component: MultiSelect should show a dropdown with 4 items disabled by 
   </button>
   <ul
     className="dropdown-menu"
-    onClick={null}
+    onClick={[Function]}
   >
     <li
       className={null}
@@ -157,6 +159,7 @@ exports[`Component: MultiSelect should show a dropdown with 4 items disabled by 
 exports[`Component: MultiSelect should show a dropdown with 4 items in various states 1`] = `
 <div
   className="nice-dropdown nice-form-control"
+  defaultValue={Array []}
 >
   <button
     className="nice-btn"
@@ -169,7 +172,7 @@ exports[`Component: MultiSelect should show a dropdown with 4 items in various s
   </button>
   <ul
     className="dropdown-menu"
-    onClick={null}
+    onClick={[Function]}
   >
     <li
       className={null}
@@ -178,7 +181,7 @@ exports[`Component: MultiSelect should show a dropdown with 4 items in various s
       <label>
         <input
           checked={false}
-          disabled={undefined}
+          disabled={false}
           onChange={[Function]}
           type="checkbox"
         />
@@ -220,7 +223,7 @@ exports[`Component: MultiSelect should show a dropdown with 4 items in various s
       <label>
         <input
           checked={true}
-          disabled={undefined}
+          disabled={false}
           onChange={[Function]}
           type="checkbox"
         />
@@ -234,6 +237,7 @@ exports[`Component: MultiSelect should show a dropdown with 4 items in various s
 exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] = `
 <div
   className="nice-dropdown nice-form-control"
+  defaultValue={Array []}
 >
   <button
     className="nice-btn"
@@ -246,7 +250,7 @@ exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] =
   </button>
   <ul
     className="dropdown-menu"
-    onClick={null}
+    onClick={[Function]}
   >
     <li
       className={null}
@@ -255,7 +259,7 @@ exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] =
       <label>
         <input
           checked={false}
-          disabled={undefined}
+          disabled={false}
           onChange={[Function]}
           type="checkbox"
         />
@@ -269,7 +273,7 @@ exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] =
       <label>
         <input
           checked={false}
-          disabled={undefined}
+          disabled={false}
           onChange={[Function]}
           type="checkbox"
         />
@@ -283,7 +287,7 @@ exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] =
       <label>
         <input
           checked={false}
-          disabled={undefined}
+          disabled={false}
           onChange={[Function]}
           type="checkbox"
         />
@@ -297,7 +301,7 @@ exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] =
       <label>
         <input
           checked={false}
-          disabled={undefined}
+          disabled={false}
           onChange={[Function]}
           type="checkbox"
         />
