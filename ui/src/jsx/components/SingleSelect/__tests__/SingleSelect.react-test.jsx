@@ -1,9 +1,10 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 import 'jest-enzyme';
 import renderer from 'react-test-renderer';
 import { stub } from 'sinon';
-import SingleSelect from '../../src/jsx/components/SingleSelect.jsx';
+
+import SingleSelect from '../SingleSelect';
 
 const props = {
     items: [
@@ -26,7 +27,7 @@ describe('Component: SingleSelect', () => {
         const tree = renderer.create(
             <SingleSelect
                 {...props}
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -37,7 +38,7 @@ describe('Component: SingleSelect', () => {
             <SingleSelect
                 {...disabled}
                 selected={3}
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -49,7 +50,7 @@ describe('Component: SingleSelect', () => {
                 {...props}
                 selected={3}
                 isDisabled={(item) => { return item.code != 2; }}
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -60,7 +61,7 @@ describe('Component: SingleSelect', () => {
             <SingleSelect
                 {...props}
                 selected={4}
-                />
+            />
         );
 
         expect(tree)
@@ -72,7 +73,7 @@ describe('Component: SingleSelect', () => {
             <SingleSelect
                 {...disabled}
                 selected={2}
-                />
+            />
         );
 
         expect(
@@ -96,7 +97,7 @@ describe('Component: SingleSelect', () => {
         const wrapper = mount(
             <SingleSelect
                 {...disabled}
-                />
+            />
         );
 
         expect(wrapper.find('ul.shown').exists()).toBe(false);
@@ -115,7 +116,7 @@ describe('Component: SingleSelect', () => {
             <SingleSelect
                 {...disabled}
                 isDisabled={onIsDisabled}
-                />
+            />
         );
 
         expect(onIsDisabled.callCount).toEqual(3);
@@ -127,7 +128,7 @@ describe('Component: SingleSelect', () => {
             <SingleSelect
                 {...disabled}
                 setState={onClickCallback}
-                />
+            />
         );
 
         wrapper.find('button').simulate('click');
@@ -142,7 +143,7 @@ describe('Component: SingleSelect', () => {
             <SingleSelect
                 {...disabled}
                 setState={onClickCallback}
-                />
+            />
         );
 
         wrapper.find('button').simulate('click');

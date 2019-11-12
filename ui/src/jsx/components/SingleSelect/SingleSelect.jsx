@@ -6,14 +6,25 @@ import {
     map,
 } from 'lodash/fp';
 
-import BaseSelect from './BaseSelect.jsx';
-import utils, { memoize } from '../utils.jsx';
+import BaseSelect from '../BaseSelect';
+import utils, { memoize } from '../../utils';
+
+import SelectItem from './components/SelectItem';
 
 class SingleSelect extends React.Component
 {
     constructor(props) {
         super(props);
+        this.state = {};
         this.memoize = memoize.bind(this);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        const { defaultValue, selected, setState } = props;
+        if (isNil(selected) && !isNil(defaultValue)) {
+            setState(defaultValue);
+        }
+        return null;
     }
 
     getItemValue(item) {
@@ -46,8 +57,13 @@ class SingleSelect extends React.Component
         const {
             items,
             selected,
+            renderEmpty,
             emptyLabel,
         } = this.props;
+
+        if (renderEmpty && selected === null) {
+            return renderEmpty;
+        }
 
         const item = (
             find({code: selected}, items)
@@ -62,40 +78,6 @@ class SingleSelect extends React.Component
         return this.getItemText(item);
     }
 
-    renderItem(item) {
-        const id = this.getItemValue(item)
-        if (isNil(id)) {
-            return null;
-        }
-
-        const {
-            selected,
-            isDisabled,
-        } = this.props;
-
-        const disabled = isDisabled(item);
-        const style = utils.makeStyle({
-            info: id === selected,
-            disabled,
-        });
-
-        return (
-            <li
-                key={ id }
-                className={ style }
-                data-value={ id }
-                onClick={ disabled
-                    ? null
-                    : this.onClick(id)
-                }
-            >
-                <a>
-                    { this.getItemText(item) }
-                </a>
-            </li>
-        );
-    }
-
     render() {
         const {
             items,
@@ -103,6 +85,7 @@ class SingleSelect extends React.Component
             setState,
             isDisabled,
             emptyLabel,
+            defaultValue,
             ...props,
         } = this.props;
 
@@ -111,7 +94,19 @@ class SingleSelect extends React.Component
                 label={ this.getLabel() }
                 {...props}
             >
-                {map(item => this.renderItem(item))(items)}
+                {map(item => {
+                    const id = this.getItemValue(item);
+                    return (
+                        <SelectItem
+                            key={id}
+                            id={id}
+                            label={this.getItemText(item)}
+                            selected={id === selected}
+                            disabled={isDisabled(item)}
+                            onClick={this.onClick(id)}
+                        />
+                    );
+                })(items)}
             </BaseSelect>
         );
     }
@@ -119,6 +114,8 @@ class SingleSelect extends React.Component
 
 SingleSelect.defaultProps = {
     isDisabled: (item) => item.disabled,
+    selected: null,
+    defaultValue: null,
     setState: (selected) => {
         console.log(['SingleSelect', selected]);
     },

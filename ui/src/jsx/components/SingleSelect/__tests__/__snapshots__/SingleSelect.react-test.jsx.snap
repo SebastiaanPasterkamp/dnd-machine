@@ -8,6 +8,7 @@ exports[`Component: SingleSelect should handle unknown value 1`] = `
     className="nice-btn"
     onClick={[Function]}
   >
+    
     <i
       className="icon fa-angle-down"
     />
@@ -151,6 +152,7 @@ exports[`Component: SingleSelect should show a simple dropdown with 3 items 1`] 
     className="nice-btn"
     onClick={[Function]}
   >
+    
     <i
       className="icon fa-angle-down"
     />
