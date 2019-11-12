@@ -4,20 +4,20 @@ import _ from 'lodash';
 
 import './sass/_npc-edit.scss';
 
-import ListDataWrapper from '../../hocs/ListDataWrapper.jsx';
+import ListDataWrapper from '../../hocs/ListDataWrapper';
 import ObjectDataListWrapper from '../../hocs/ObjectDataListWrapper';
-import RoutedObjectDataWrapper from '../../hocs/RoutedObjectDataWrapper.jsx';
+import RoutedObjectDataWrapper from '../../hocs/RoutedObjectDataWrapper';
 
-import AutoCompleteInput from '../../components/AutoCompleteInput.jsx';
-import ButtonField from '../../components/ButtonField.jsx';
-import ControlGroup from '../../components/ControlGroup.jsx';
-import DefinitionList from '../../components/DefinitionList.jsx';
-import FormGroup from '../../components/FormGroup.jsx';
-import InputField from '../../components/InputField.jsx';
-import Panel from '../../components/Panel.jsx';
-import SingleSelect from '../../components/SingleSelect.jsx';
-import StatsBlock from '../../components/StatsBlock.jsx';
-import MarkdownTextField from '../../components/MarkdownTextField.jsx';
+import AutoCompleteInput from '../../components/AutoCompleteInput';
+import ButtonField from '../../components/ButtonField';
+import ControlGroup from '../../components/ControlGroup';
+import DefinitionList from '../../components/DefinitionList';
+import FormGroup from '../../components/FormGroup';
+import InputField from '../../components/InputField';
+import Panel from '../../components/Panel';
+import SingleSelect from '../../components/SingleSelect';
+import StatsBlock from '../../components/StatsBlock';
+import MarkdownTextField from '../../components/MarkdownTextField';
 
 import { memoize } from '../../utils';
 

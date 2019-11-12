@@ -11,18 +11,18 @@ import { memoize } from '../utils';
 
 import '../../sass/_weapons-table.scss';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper';
 
-import LazyComponent from '../components/LazyComponent.jsx';
-import ControlGroup from '../components/ControlGroup.jsx';
-import Coinage from '../components/Coinage.jsx';
-import DiceNotation from '../components/DiceNotation.jsx';
-import InputField from '../components/InputField.jsx';
-import ListLabel from '../components/ListLabel.jsx';
-import MultiSelect from '../components/MultiSelect.jsx';
-import Reach from '../components/Reach.jsx';
-import WeaponLinks from '../components/WeaponLinks.jsx';
+import LazyComponent from '../components/LazyComponent';
+import ControlGroup from '../components/ControlGroup';
+import Coinage from '../components/Coinage';
+import DiceNotation from '../components/DiceNotation';
+import InputField from '../components/InputField';
+import ListLabel from '../components/ListLabel';
+import MultiSelect from '../components/MultiSelect';
+import Reach from '../components/Reach';
+import WeaponLinks from '../components/WeaponLinks';
 
 const WeaponsHeader = function() {
     return (

@@ -7,22 +7,22 @@ import MDReactComponent from 'markdown-react-js';
 
 // import '../../sass/_create-character.scss';
 
-import utils from '../utils.jsx';
+import utils from '../utils';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
-import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
 
-import ButtonField from '../components/ButtonField.jsx';
-import ControlGroup from '../components/ControlGroup.jsx';
-import InputField from '../components/InputField.jsx';
-import LazyComponent from '../components/LazyComponent.jsx';
-import ListLabel from '../components/ListLabel.jsx';
-import MarkdownTextField from '../components/MarkdownTextField.jsx';
-import Panel from '../components/Panel.jsx';
-import Progress from '../components/Progress.jsx';
-import SingleSelect from '../components/SingleSelect.jsx';
-import TabComponent from '../components/TabComponent.jsx';
+import ButtonField from '../components/ButtonField';
+import ControlGroup from '../components/ControlGroup';
+import InputField from '../components/InputField';
+import LazyComponent from '../components/LazyComponent';
+import ListLabel from '../components/ListLabel';
+import MarkdownTextField from '../components/MarkdownTextField';
+import Panel from '../components/Panel';
+import Progress from '../components/Progress';
+import SingleSelect from '../components/SingleSelect';
+import TabComponent from '../components/TabComponent';
 
 import CharacterConfig, {
     baseConfig,

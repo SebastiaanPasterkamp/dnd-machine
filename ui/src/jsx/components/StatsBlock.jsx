@@ -5,10 +5,10 @@ import _ from 'lodash';
 
 import '../../sass/_stats-block.scss';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
 
-import Bonus from '../components/Bonus.jsx';
-import SingleSelect from '../components/SingleSelect.jsx';
+import Bonus from '../components/Bonus';
+import SingleSelect from '../components/SingleSelect';
 
 export class StatsBlock extends Reflux.Component
 {

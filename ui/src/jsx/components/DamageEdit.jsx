@@ -1,13 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
 
-import LazyComponent from './LazyComponent.jsx';
+import LazyComponent from './LazyComponent';
 
-import ControlGroup from './ControlGroup.jsx';
-import InputField from './InputField.jsx';
-import SingleSelect from './SingleSelect.jsx';
+import ControlGroup from './ControlGroup';
+import InputField from './InputField';
+import SingleSelect from './SingleSelect';
 
 export class DamageEdit extends LazyComponent
 {
