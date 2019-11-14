@@ -1032,6 +1032,7 @@ Array [
             className="nice-btn"
             onClick={[Function]}
           >
+            
             <i
               className="icon fa-angle-down"
             />
@@ -1767,6 +1768,7 @@ Array [
             className="nice-btn"
             onClick={[Function]}
           >
+            
             <i
               className="icon fa-angle-down"
             />
@@ -2484,6 +2486,7 @@ Array [
             className="nice-btn"
             onClick={[Function]}
           >
+            
             <i
               className="icon fa-angle-down"
             />
