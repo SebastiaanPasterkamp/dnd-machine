@@ -251,6 +251,7 @@ export class StatsBlock extends Reflux.Component
                     ? <SingleSelect
                         heading={stat.label}
                         description={stat.description}
+                        defaultValue={8}
                         items={this.getRange()}
                         setState={(value) => this.changeBareStat(code, value)}
                         isDisabled={(item) => this.isDisabled(code, item)}
