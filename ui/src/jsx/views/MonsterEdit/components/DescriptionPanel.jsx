@@ -61,7 +61,7 @@ export class DescriptionPanel extends React.Component
                     <SingleSelect
                         emptyLabel="Campaign..."
                         selected={campaign_id}
-                        defaultValue={currentCampaign.id}
+                        defaultValue={currentCampaign ? currentCampaign.id : null}
                         items={values(campaigns)}
                         setState={this.onFieldChange('campaign_id')}
                     />
@@ -143,8 +143,8 @@ DescriptionPanel.propTypes = {
 
 DescriptionPanel.defaultProps = {
     campaign_id: null,
-    currentCampaign: {},
     campaigns: {},
+    currentCampaign: {},
     name: '',
     size: '',
     size_hit_dice: [],

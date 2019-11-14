@@ -153,7 +153,7 @@ export class NpcEdit extends React.Component
             name, location, organization, class: _class, classes, race, races,
             gender, genders, description, alignment, alignments, size,
             size_hit_dice, level, traits, statistics, _statistics,
-            campaign_id, campaigns,
+            campaign_id, campaigns, currentCampaign,
         } = this.props;
 
         return <React.Fragment>
@@ -166,6 +166,7 @@ export class NpcEdit extends React.Component
                     <SingleSelect
                         emptyLabel="Campaign..."
                         selected={campaign_id}
+                        defaultValue={currentCampaign ? currentCampaign.id : null}
                         items={_.values(campaigns)}
                         setState={this.onFieldChange('campaign_id')}
                     />
@@ -308,6 +309,7 @@ NpcEdit.propTypes = {
 NpcEdit.defaultProps = {
     id: null,
     campaign_id: null,
+    currentCampaign: {},
     campaigns: {},
     name: '',
     location: '',
@@ -329,28 +331,33 @@ NpcEdit.defaultProps = {
     _statistics: [],
 };
 
-export default ObjectDataListWrapper(
-    ListDataWrapper(
+export default ListDataWrapper(
+    ObjectDataListWrapper(
         ListDataWrapper(
-            RoutedObjectDataWrapper(
-                NpcEdit, {
-                    className: 'npc-edit',
-                    icon: 'fa-commenting-o',
-                    label: 'NPC',
-                    buttons: ['cancel', 'reload', 'recompute', 'save']
-                }, "npc"
+            ListDataWrapper(
+                RoutedObjectDataWrapper(
+                    NpcEdit, {
+                        className: 'npc-edit',
+                        icon: 'fa-commenting-o',
+                        label: 'NPC',
+                        buttons: ['cancel', 'reload', 'recompute', 'save']
+                    }, "npc"
+                ),
+                [
+                    'alignments',
+                    'genders',
+                    'size_hit_dice',
+                    'statistics',
+                ],
+                'items',
+                { statistics: '_statistics' },
             ),
-            [
-                'alignments',
-                'genders',
-                'size_hit_dice',
-                'statistics',
-            ],
-            'items',
-            { statistics: '_statistics' },
+            ['races', 'classes'],
+            'npc'
         ),
-        ['races', 'classes'],
-        'npc'
+        {campaigns: {type: 'campaign'}}
     ),
-    {campaigns: {type: 'campaign'}}
+    ['current_campaign'],
+    null,
+    { current_campaign: 'currentCampaign' }
 );

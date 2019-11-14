@@ -6,6 +6,7 @@ import {
 
 import { memoize } from '../../../utils';
 
+import ListDataWrapper from '../../../hocs/ListDataWrapper';
 import ObjectDataListWrapper from '../../../hocs/ObjectDataListWrapper';
 
 import ControlGroup from '../../../components/ControlGroup';
@@ -31,7 +32,7 @@ export class DescriptionPanel extends React.Component
     }
 
     render() {
-        const { campaign_id, campaigns, name, description } = this.props;
+        const { campaign_id, campaigns, currentCampaign, name, description } = this.props;
 
         return (
             <Panel
@@ -43,6 +44,7 @@ export class DescriptionPanel extends React.Component
                     <SingleSelect
                         emptyLabel="Campaign..."
                         selected={campaign_id}
+                        defaultValue={currentCampaign ? currentCampaign.id : null}
                         items={values(campaigns)}
                         setState={this.onFieldChange('campaign_id')}
                     />
@@ -71,6 +73,7 @@ DescriptionPanel.propTypes = {
     setState: PropTypes.func.isRequired,
     campaign_id: PropTypes.number,
     campaigns: PropTypes.object,
+    currentCampaign: PropTypes.object,
     name: PropTypes.string,
     description: PropTypes.string,
 };
@@ -78,11 +81,17 @@ DescriptionPanel.propTypes = {
 DescriptionPanel.defaultProps = {
     campaign_id: null,
     campaigns: {},
+    currentCampaign: {},
     name: '',
     description: '',
 };
 
-export default ObjectDataListWrapper(
-    DescriptionPanel,
-    {campaigns: {type: 'campaign'}}
+export default ListDataWrapper(
+    ObjectDataListWrapper(
+        DescriptionPanel,
+        {campaigns: {type: 'campaign'}}
+    ),
+    ['current_campaign'],
+    null,
+    { current_campaign: 'currentCampaign' }
 );
