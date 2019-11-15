@@ -98,6 +98,8 @@ steps:
     commands:
         - docker build -t dnd-machine:staging .
     volumes:
+      - name: npm-cache
+        path: /dnd-machine/ui/node_modules
       - name: socket
         path: /var/run/docker.sock
 
@@ -130,9 +132,12 @@ steps:
       - build
 
 volumes:
-- name: socket
-  host:
-    path: /var/run/docker.sock
+  - name: npm-cache
+    host:
+      path: /var/cache/drone/npm
+  - name: socket
+    host:
+      path: /var/run/docker.sock
 
 ---
 kind: pipeline
@@ -349,6 +354,8 @@ steps:
     commands:
         - docker build -t dnd-machine:latest .
     volumes:
+      - name: npm-cache
+        path: /dnd-machine/ui/node_modules
       - name: socket
         path: /var/run/docker.sock
 
@@ -381,12 +388,15 @@ steps:
       - build
 
 volumes:
-- name: socket
-  host:
-    path: /var/run/docker.sock
+  - name: npm-cache
+    host:
+      path: /var/cache/drone/npm
+  - name: socket
+    host:
+      path: /var/run/docker.sock
 
 ---
 kind: signature
-hmac: a1636a074a031197a1d8dec367689c539c7029aabe67576f7a716b56dd9ed8da
+hmac: edca32cb1ca076dcb095683def9daf62efa47f09deb54c84a8ddf09e3f76aeb9
 
 ...
