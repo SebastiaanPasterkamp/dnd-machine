@@ -21,7 +21,7 @@ export class ListComponent extends LazyComponent
         setState(
             update,
             onChange
-                ? () => onChange(index, update, item)
+                ? () => onChange(index, list, update)
                 : null
         );
     }
