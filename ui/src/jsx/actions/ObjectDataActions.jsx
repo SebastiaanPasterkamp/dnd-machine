@@ -1,8 +1,11 @@
 import React from 'react';
 import Reflux from 'reflux';
 import {
+    debounce,
     filter,
 } from 'lodash/fp';
+
+import { memoize } from '../utils';
 
 import ReportingActions, { jsonOrBust } from './ReportingActions.jsx';
 
@@ -18,6 +21,12 @@ export function ObjectDataActionsFactory(id)
         "deleteObject": {asyncResult: true},
         "recomputeObject": {asyncResult: true},
     });
+
+    oda.memoize = memoize.bind(oda);
+
+    oda.debounce = function(path, func) {
+        return this.memoize(path, debounce(1000, func));
+    };
 
     oda.postObject.listen((type, data, group=null, callback=null) => {
         const path = '/' + filter(null, [
@@ -191,32 +200,38 @@ export function ObjectDataActionsFactory(id)
             group, type, 'recompute', id
         ]).join('/');
 
-        fetch(path, {
-            credentials: 'same-origin',
-            method: 'POST',
-            'headers': {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-        .then(jsonOrBust)
-        .then((result) => {
-            oda.recomputeObject.completed(
-                type, id, result, callback
-            );
-        })
-        .catch((error) => {
-            console.log(error);
-            oda.recomputeObject.failed(
-                type, error
-            );
-            ReportingActions.showMessage(
-                'bad',
-                error.message,
-                'Refresh failed'
-            );
+        const delayedRecompute = oda.debounce(path, (path, type, id, data, group, callback) => {
+            fetch(path, {
+                credentials: 'same-origin',
+                method: 'POST',
+                'headers': {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(jsonOrBust)
+            .then((result) => {
+                oda.recomputeObject.completed(
+                    type, id, result, callback
+                );
+                ReportingActions.getMessages();
+            })
+            .catch((error) => {
+                console.log(error);
+                oda.recomputeObject.failed(
+                    type, error
+                );
+                ReportingActions.showMessage(
+                    'bad',
+                    error.message,
+                    'Refresh failed'
+                );
+                ReportingActions.getMessages();
+            })
         });
+
+        delayedRecompute(path, type, id, data, group, callback);
     });
 
     oda.id = id;
