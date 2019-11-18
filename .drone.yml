@@ -117,7 +117,7 @@ steps:
         - docker rm dndmachine_staging || true
         - >
           docker cp \
-            "dndmachine_production:/data/machine.db" \
+            "backups/machine.production.db.latest" \
             "dndmachine_staging:/data/machine.db"
         - >
           docker run \
@@ -397,6 +397,6 @@ volumes:
 
 ---
 kind: signature
-hmac: edca32cb1ca076dcb095683def9daf62efa47f09deb54c84a8ddf09e3f76aeb9
+hmac: b6c61801fd3d869f88524583deabab5dedb0a5a6893c9f204530f834260ff059
 
 ...
