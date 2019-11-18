@@ -105,18 +105,21 @@ Array [
         <div
           className="nice-dropdown nice-form-control"
         >
-          <button
-            className="nice-btn"
-            onClick={[Function]}
-          >
-            Race...
-            <i
-              className="icon fa-angle-down"
-            />
-          </button>
+          <input
+            className="nice-form-control"
+            disabled={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyPress={null}
+            placeholder="Race..."
+            type={undefined}
+            value=""
+          />
           <ul
             className="dropdown-menu"
-            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
           />
         </div>
       </div>
@@ -765,18 +768,21 @@ Array [
         <div
           className="nice-dropdown nice-form-control"
         >
-          <button
-            className="nice-btn"
-            onClick={[Function]}
-          >
-            Race...
-            <i
-              className="icon fa-angle-down"
-            />
-          </button>
+          <input
+            className="nice-form-control"
+            disabled={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyPress={null}
+            placeholder="Race..."
+            type={undefined}
+            value=""
+          />
           <ul
             className="dropdown-menu"
-            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
           />
         </div>
       </div>

@@ -47,10 +47,10 @@ export class NpcEdit extends React.Component
         );
     }
 
-    onBaseChange(field, items) {
+    onBaseChange(field, list) {
         return this.memoize(field, (value) => {
-            const { statistics, setState } = this.props
-            const oldConfig = this.getConfig(items, this.props[field]);
+            const { statistics, setState, [field]: before, [list]: items } = this.props
+            const oldConfig = this.getConfig(items, before);
             const newConfig = this.getConfig(items, value);
             const emptyBonus = _.reduce(
                 statistics.base,
@@ -193,11 +193,11 @@ export class NpcEdit extends React.Component
                     />
                 </ControlGroup>
                 <ControlGroup label="Race">
-                    <SingleSelect
-                        emptyLabel="Race..."
-                        selected={race}
+                    <AutoCompleteInput
+                        placeholder="Race..."
+                        value={race}
                         items={this.flattenSubs(races)}
-                        setState={this.onBaseChange('race', races)}
+                        setState={this.onBaseChange('race', 'races')}
                     />
                 </ControlGroup>
                 <ControlGroup label="Class">
@@ -205,7 +205,7 @@ export class NpcEdit extends React.Component
                         placeholder="Class..."
                         value={_class}
                         items={this.flattenSubs(classes)}
-                        setState={this.onBaseChange('class', classes)}
+                        setState={this.onBaseChange('class', 'classes')}
                     />
                 </ControlGroup>
                 <ControlGroup label="Gender">
