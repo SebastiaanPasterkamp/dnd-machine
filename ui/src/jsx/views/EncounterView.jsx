@@ -181,7 +181,7 @@ export class EncounterView extends React.Component
     }
 
     awardXP = () => {
-        const { xp, hosted_party: { id, size } } = this.props;
+        const { xp, hosted_party: { id, size } = {} } = this.props;
 
         fetch(
             `/party/xp/${id}/${xp}`,

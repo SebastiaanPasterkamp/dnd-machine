@@ -87,7 +87,8 @@ export class AdventureLeagueLogEdit extends React.Component
     onCharacterFilter = (character) => {
         const { current_user } = this.props;
         return (
-            current_user.id === character.user_id
+            current_user
+            && current_user.id === character.user_id
             && (
                 character.xp == 0
                 || character.adventure_league
@@ -140,7 +141,7 @@ export class AdventureLeagueLogEdit extends React.Component
                 header="Adventurer"
             >
                 <UserLabel
-                    user_id={user_id || current_user.id}
+                    user_id={user_id || (current_user || {}).id}
                     showDCI={true}
                 />
                 {character_id && (
