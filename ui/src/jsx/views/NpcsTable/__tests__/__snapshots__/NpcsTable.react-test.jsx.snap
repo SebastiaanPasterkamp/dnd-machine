@@ -275,7 +275,7 @@ exports[`NpcsTable should render with full props 1`] = `
     <tbody>
       <tr>
         <td
-          colSpan={6}
+          colSpan={7}
         >
           <div
             className="base-link-group nice-btn-group"
@@ -556,7 +556,7 @@ exports[`NpcsTable should render without props 1`] = `
     <tbody>
       <tr>
         <td
-          colSpan={6}
+          colSpan={7}
         >
           <div
             className="base-link-group nice-btn-group"

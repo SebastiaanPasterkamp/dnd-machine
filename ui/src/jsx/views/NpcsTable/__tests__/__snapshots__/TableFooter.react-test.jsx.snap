@@ -3,7 +3,7 @@
 exports[`TableFooter should render 1`] = `
 <tr>
   <td
-    colSpan={6}
+    colSpan={7}
   >
     <div
       className="base-link-group nice-btn-group"

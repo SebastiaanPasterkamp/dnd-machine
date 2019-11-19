@@ -5,7 +5,7 @@ import NpcLinks from '../../../components/NpcLinks.jsx';
 export const TableFooter = function() {
     return (
         <tr>
-            <td colSpan={6}>
+            <td colSpan={7}>
                 <NpcLinks
                     altStyle={true}
                 />
