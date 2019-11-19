@@ -42,10 +42,10 @@ export class DescriptionPanel extends React.Component
             >
                 <ControlGroup label="Campaign">
                     <SingleSelect
-                        emptyLabel="Campaign..."
                         selected={campaign_id}
                         defaultValue={currentCampaign ? currentCampaign.id : null}
                         items={values(campaigns)}
+                        renderEmpty="Shared"
                         setState={this.onFieldChange('campaign_id')}
                     />
                 </ControlGroup>

@@ -29,7 +29,7 @@ Array [
             className="nice-btn"
             onClick={[Function]}
           >
-            Campaign...
+            Shared
             <i
               className="icon fa-angle-down"
             />
@@ -37,7 +37,17 @@ Array [
           <ul
             className="dropdown-menu"
             onClick={[Function]}
-          />
+          >
+            <li
+              className="info"
+              data-value={null}
+              onClick={[Function]}
+            >
+              <a>
+                Shared
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
       <div
@@ -692,7 +702,7 @@ Array [
             className="nice-btn"
             onClick={[Function]}
           >
-            Campaign...
+            Shared
             <i
               className="icon fa-angle-down"
             />
@@ -700,7 +710,17 @@ Array [
           <ul
             className="dropdown-menu"
             onClick={[Function]}
-          />
+          >
+            <li
+              className="info"
+              data-value={null}
+              onClick={[Function]}
+            >
+              <a>
+                Shared
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
       <div

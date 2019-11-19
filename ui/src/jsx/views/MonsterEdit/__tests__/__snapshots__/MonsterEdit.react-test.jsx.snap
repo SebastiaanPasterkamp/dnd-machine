@@ -47,6 +47,15 @@ exports[`MonsterEdit should render with full props 1`] = `
               onClick={[Function]}
             >
               <li
+                className={null}
+                data-value={null}
+                onClick={[Function]}
+              >
+                <a>
+                  Shared
+                </a>
+              </li>
+              <li
                 className="info"
                 data-value={2}
                 onClick={[Function]}
@@ -4125,7 +4134,7 @@ exports[`MonsterEdit should render without props 1`] = `
               className="nice-btn"
               onClick={[Function]}
             >
-              Campaign...
+              Shared
               <i
                 className="icon fa-angle-down"
               />
@@ -4133,7 +4142,17 @@ exports[`MonsterEdit should render without props 1`] = `
             <ul
               className="dropdown-menu"
               onClick={[Function]}
-            />
+            >
+              <li
+                className="info"
+                data-value={null}
+                onClick={[Function]}
+              >
+                <a>
+                  Shared
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
         <div

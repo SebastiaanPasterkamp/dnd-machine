@@ -28,7 +28,7 @@ exports[`View DescriptionPanel rendering should work w/ full props 1`] = `
           className="nice-btn"
           onClick={[Function]}
         >
-          Campaign...
+          Shared
           <i
             className="icon fa-angle-down"
           />
@@ -37,6 +37,15 @@ exports[`View DescriptionPanel rendering should work w/ full props 1`] = `
           className="dropdown-menu"
           onClick={[Function]}
         >
+          <li
+            className="info"
+            data-value={null}
+            onClick={[Function]}
+          >
+            <a>
+              Shared
+            </a>
+          </li>
           <li
             className={null}
             data-value={2}
@@ -142,7 +151,7 @@ exports[`View DescriptionPanel rendering should work w/ minimum props 1`] = `
           className="nice-btn"
           onClick={[Function]}
         >
-          Campaign...
+          Shared
           <i
             className="icon fa-angle-down"
           />
@@ -150,7 +159,17 @@ exports[`View DescriptionPanel rendering should work w/ minimum props 1`] = `
         <ul
           className="dropdown-menu"
           onClick={[Function]}
-        />
+        >
+          <li
+            className="info"
+            data-value={null}
+            onClick={[Function]}
+          >
+            <a>
+              Shared
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
     <div
