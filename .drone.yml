@@ -95,13 +95,13 @@ steps:
 
   - name: build
     image: docker
-    commands:
-        - docker build -t dnd-machine:staging .
     volumes:
       - name: npm-cache
-        path: /dnd-machine/ui/node_modules
+        path: /drone/src/ui/node_modules
       - name: socket
         path: /var/run/docker.sock
+    commands:
+        - docker build -t dnd-machine:staging .
 
   - name: restart
     image: appleboy/drone-ssh:linux-arm
@@ -351,13 +351,13 @@ steps:
 
   - name: build
     image: docker
-    commands:
-        - docker build -t dnd-machine:latest .
     volumes:
       - name: npm-cache
-        path: /dnd-machine/ui/node_modules
+        path: /drone/src/ui/node_modules
       - name: socket
         path: /var/run/docker.sock
+    commands:
+        - docker build -t dnd-machine:latest .
 
   - name: restart
     image: appleboy/drone-ssh:linux-arm
@@ -397,6 +397,6 @@ volumes:
 
 ---
 kind: signature
-hmac: b6c61801fd3d869f88524583deabab5dedb0a5a6893c9f204530f834260ff059
+hmac: 079d4a7680d70cf09f2e336b3fc2b412608c985f412756b247c970394a483039
 
 ...
