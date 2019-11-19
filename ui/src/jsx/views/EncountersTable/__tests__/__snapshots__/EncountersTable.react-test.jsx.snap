@@ -64,7 +64,7 @@ exports[`EncountersTable should render with full props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -344,7 +344,7 @@ exports[`EncountersTable should render without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />

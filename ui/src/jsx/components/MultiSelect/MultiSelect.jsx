@@ -87,42 +87,6 @@ class MultiSelect extends React.Component
         return emptyLabel;
     }
 
-    renderItem(item) {
-        const {
-            selected,
-            isDisabled,
-        } = this.props;
-        const id = this.getItemValue(item);
-        const checked = includes(id, selected);
-        const disabled = isDisabled(item);
-        const style = utils.makeStyle({
-            info: checked,
-            disabled,
-        });
-
-        return (
-            <li
-                key={id}
-                data-value={id}
-                className={style}
-            >
-                <label>
-                    <input
-                        type="checkbox"
-                        checked={ checked }
-                        disabled={ disabled }
-                        onChange={ disabled ? null : (
-                            checked
-                            ? this.onDel(id)
-                            : this.onAdd(id)
-                        ) }
-                    />
-                    { this.getItemText(item) }
-                </label>
-            </li>
-        );
-    }
-
     render() {
         const {
             items,
@@ -140,10 +104,15 @@ class MultiSelect extends React.Component
                 closeOnClick={ false }
                 {...props}
             >
-                {renderEmpty ? this.renderItem({
-                    id: null,
-                    label: renderEmpty,
-                }) : null}
+                {renderEmpty ? (
+                    <SelectItem
+                        id={null}
+                        label={renderEmpty}
+                        checked={includes(null, selected)}
+                        onSelect={this.onAdd(null)}
+                        onDeselect={this.onDel(null)}
+                    />
+                ) : null}
                 {map(item => {
                     const id = this.getItemValue(item);
                     return (

@@ -622,6 +622,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
                       },
                     ]
                   }
+                  renderEmpty={null}
                   selected={null}
                   setState={[Function]}
                 >
@@ -1312,6 +1313,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
                   },
                 ]
               }
+              renderEmpty={null}
               selected="strength"
               setState={[Function]}
             >
@@ -1668,6 +1670,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                       },
                     ]
                   }
+                  renderEmpty={null}
                   selected={null}
                   setState={[Function]}
                 >
@@ -2016,6 +2019,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                       },
                     ]
                   }
+                  renderEmpty={null}
                   selected={null}
                   setState={[Function]}
                 >

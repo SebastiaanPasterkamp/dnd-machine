@@ -85,6 +85,7 @@ class SingleSelect extends React.Component
             setState,
             isDisabled,
             emptyLabel,
+            renderEmpty,
             defaultValue,
             ...props,
         } = this.props;
@@ -94,6 +95,14 @@ class SingleSelect extends React.Component
                 label={ this.getLabel() }
                 {...props}
             >
+                {renderEmpty ? (
+                    <SelectItem
+                        id={null}
+                        label={renderEmpty}
+                        selected={null === selected}
+                        onClick={this.onClick(null)}
+                    />
+                ) : null}
                 {map(item => {
                     const id = this.getItemValue(item);
                     return (
@@ -116,6 +125,7 @@ SingleSelect.defaultProps = {
     isDisabled: (item) => item.disabled,
     selected: null,
     defaultValue: null,
+    renderEmpty: null,
     setState: (selected) => {
         console.log(['SingleSelect', selected]);
     },
@@ -127,6 +137,7 @@ SingleSelect.propTypes = {
     setState: PropTypes.func.isRequired,
     isDisabled: PropTypes.func.isRequired,
     emptyLabel: PropTypes.string,
+    renderEmpty: PropTypes.string,
 };
 
 export default SingleSelect;

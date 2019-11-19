@@ -502,6 +502,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
                   },
                 ]
               }
+              renderEmpty={null}
               selected={null}
               setState={[Function]}
             >
@@ -850,6 +851,7 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
                   },
                 ]
               }
+              renderEmpty={null}
               selected={null}
               setState={[Function]}
             >
