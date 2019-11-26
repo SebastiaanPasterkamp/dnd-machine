@@ -77,6 +77,7 @@ depends_on:
 steps:
   - name: backup
     image: appleboy/drone-ssh:linux-arm
+    failure: ignore
     settings:
       host:
         from_secret: ssh_host
@@ -118,7 +119,7 @@ steps:
         - >
           docker cp \
             "backups/machine.production.db.latest" \
-            "dndmachine_staging:/data/machine.db"
+            "dndmachine_staging:/data/machine.db" || true
         - >
           docker run \
             --detach \
@@ -374,7 +375,7 @@ steps:
         - >
           docker cp \
             "code/production/flaskr.db" \
-            "dndmachine_production:/data/machine.db"
+            "dndmachine_production:/data/machine.db" || true
         - >
           docker run \
             --detach \
@@ -397,6 +398,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 079d4a7680d70cf09f2e336b3fc2b412608c985f412756b247c970394a483039
+hmac: 023bd4f8cf36680b0ed790e9841d779ae8b98ab22473adf0cac52ea87511c6e9
 
 ...
