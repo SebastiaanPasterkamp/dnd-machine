@@ -164,10 +164,10 @@ export class NpcEdit extends React.Component
             >
                 <ControlGroup label="Campaign">
                     <SingleSelect
+                        emptyLabel="Campaign..."
                         selected={campaign_id}
                         defaultValue={currentCampaign ? currentCampaign.id : null}
                         items={_.values(campaigns)}
-                        renderEmpty="Shared"
                         setState={this.onFieldChange('campaign_id')}
                     />
                 </ControlGroup>
