@@ -6,6 +6,7 @@ import {
     BaseLinkGroup,
 } from '../components/BaseLinkGroup/index.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 import ObjectDataActions from '../actions/ObjectDataActions.jsx';
 import { userHasRole } from '../utils.jsx';
 
@@ -29,7 +30,7 @@ export class MonsterLinks extends React.Component
     }
 
     render() {
-        const { id, currentUser, altStyle, children,
+        const { id, monster, currentUser, altStyle, children,
             ...props
         } = this.props;
 
@@ -39,6 +40,16 @@ export class MonsterLinks extends React.Component
 
         const available = (
             id !== null
+            && userHasRole(currentUser, 'dm')
+        );
+
+        const owned = (
+            id !== null
+            && (
+                monster.user_id === null
+                || monster.user_id === undefined
+                || monster.user_id === currentUser.id
+            )
             && userHasRole(currentUser, 'dm')
         );
 
@@ -69,7 +80,7 @@ export class MonsterLinks extends React.Component
                     icon="pencil"
                     altStyle={altStyle}
                     link={`/monster/edit/${id}`}
-                    available={available}
+                    available={owned}
                 />
                 <BaseLinkButton
                     name="copy"
@@ -97,7 +108,7 @@ export class MonsterLinks extends React.Component
                     className="bad"
                     action={this.onDelete}
                     altStyle={altStyle}
-                    available={available}
+                    available={owned}
                 />
                 {children}
             </BaseLinkGroup>
@@ -112,6 +123,10 @@ MonsterLinks.contextTypes = {
 MonsterLinks.propTypes = {
     altStyle: PropTypes.bool,
     id: PropTypes.number,
+    monster: PropTypes.shape({
+        user_id: PropTypes.number,
+    }),
+    user_id: PropTypes.number,
     currentUser: PropTypes.shape({
         id: PropTypes.number,
         role: PropTypes.arrayOf(
@@ -123,11 +138,17 @@ MonsterLinks.propTypes = {
 MonsterLinks.defaultProps = {
     altStyle: false,
     id: null,
+    monster: {},
     currentUser: {},
 };
 
 export default ListDataWrapper(
-    MonsterLinks,
+    ObjectDataWrapper(
+        MonsterLinks,
+        [
+            {type: 'monster', id: 'id'}
+        ]
+    ),
     ['current_user'],
     null,
     { current_user: 'currentUser' }
