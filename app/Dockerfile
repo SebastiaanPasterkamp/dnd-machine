@@ -1,4 +1,4 @@
-FROM python:3.6-alpine
+FROM python:3.6-alpine3.8
 
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
@@ -10,12 +10,14 @@ RUN apk add \
         --no-cache \
         --virtual .build-deps \
         build-base \
+        linux-headers \
     && apk add \
         --no-cache \
         pcre \
         pcre-dev \
         openssl-dev \
         libffi-dev \
+        pdftk \
     && pip install \
         --no-cache-dir \
         -r requirements.txt \
