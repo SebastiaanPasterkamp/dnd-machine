@@ -734,6 +734,7 @@ class CharacterMapper(JsonObjectDataMapper):
                     ]
                 )
             character_ids = cur.fetchall() or []
+            cur.close()
 
         return [
             character['id']

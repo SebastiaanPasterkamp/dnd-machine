@@ -99,6 +99,7 @@ class PartyMapper(JsonObjectDataMapper):
                 [user_id]
                 )
             parties = cur.fetchall() or []
+            cur.close()
 
         return [
             party['id']
@@ -119,6 +120,7 @@ class PartyMapper(JsonObjectDataMapper):
                 [user_id]
                 )
             parties = cur.fetchall() or []
+            cur.close()
 
         return [
             self._read(dict(party))
@@ -139,6 +141,7 @@ class PartyMapper(JsonObjectDataMapper):
                 [user_id]
                 )
             parties = cur.fetchall() or []
+            cur.close()
 
         return [
             party['id']
@@ -157,6 +160,7 @@ class PartyMapper(JsonObjectDataMapper):
                 [party_id]
                 )
             characters = cur.fetchall() or []
+            cur.close()
 
         return [
             character['id']

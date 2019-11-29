@@ -302,6 +302,7 @@ class MonsterMapper(JsonObjectDataMapper):
                 {"encounterId": encounter_id}
                 )
             monsters = cur.fetchall() or []
+            cur.close()
 
         return [
             self._read(dict(monster))
@@ -327,6 +328,7 @@ class MonsterMapper(JsonObjectDataMapper):
                 {"campaignId": campaign_id}
                 )
             monsters = cur.fetchall() or []
+            cur.close()
 
         return [
             self._read(dict(monster))

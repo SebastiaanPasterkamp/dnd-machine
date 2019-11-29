@@ -215,6 +215,7 @@ class EncounterMapper(JsonObjectDataMapper):
                 {"encounterId": encounter_id}
                 )
             rows = cur.fetchall() or []
+            cur.close()
 
         return [dict(row) for row in rows]
 

@@ -429,6 +429,7 @@ class JsonObjectDataMapper(object):
                 [obj_id]
                 )
             obj = cur.fetchone()
+            cur.close()
 
         if obj is None:
             return None
@@ -443,6 +444,7 @@ class JsonObjectDataMapper(object):
                 values
                 )
             objs = cur.fetchall() or []
+            cur.close()
 
         return [
             self._read(dict(obj))
@@ -499,6 +501,7 @@ class JsonObjectDataMapper(object):
                 )
             db.commit()
             obj.id = cur.lastrowid
+            cur.close()
 
         self.fillJoinTables(obj)
 
@@ -509,7 +512,7 @@ class JsonObjectDataMapper(object):
         new_obj = self._write(obj)
 
         with self._db.connect() as db:
-            cur = db.execute("""
+            db.execute("""
                 UPDATE `%s`
                 SET `config` = :config, %s
                 WHERE `id` = :id
@@ -534,7 +537,7 @@ class JsonObjectDataMapper(object):
         self.clearJoinTables(obj)
 
         with self._db.connect() as db:
-            cur = db.execute("""
+            db.execute("""
                 DELETE
                 FROM `%s`
                 WHERE `id` = ?
