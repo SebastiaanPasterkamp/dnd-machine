@@ -107,6 +107,7 @@ steps:
   - name: restart
     image: appleboy/drone-ssh:linux-arm
     settings:
+      command_timeout: 5m
       host:
         from_secret: ssh_host
       username:
@@ -363,6 +364,7 @@ steps:
   - name: restart
     image: appleboy/drone-ssh:linux-arm
     settings:
+      command_timeout: 5m
       host:
         from_secret: ssh_host
       username:
@@ -398,6 +400,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 023bd4f8cf36680b0ed790e9841d779ae8b98ab22473adf0cac52ea87511c6e9
+hmac: 1ac087b2e4d3b8e8befcdcf8ed0ecdd2c20e2880efbbcdd5f755faef99800805
 
 ...
