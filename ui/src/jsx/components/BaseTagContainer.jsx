@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import utils from '../utils.jsx';
+import utils from '../utils';
 
 import '../../sass/_base-tag-container.scss';
 
-import LazyComponent from './LazyComponent.jsx';
-import SingleSelect from '../components/SingleSelect.jsx';
-import ToolTip from '../components/ToolTip.jsx';
+import LazyComponent from './LazyComponent';
+import SingleSelect from '../components/SingleSelect';
+import ToolTip from '../components/ToolTip';
 
 export class TagBadge extends LazyComponent
 {

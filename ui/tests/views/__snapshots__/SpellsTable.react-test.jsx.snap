@@ -41,6 +41,8 @@ exports[`SpellsTable render should work with all props 1`] = `
       </span>
       <div
         className="nice-dropdown nice-form-control"
+        defaultValue={Array []}
+        id="classes"
       >
         <button
           className="nice-btn"
@@ -53,7 +55,7 @@ exports[`SpellsTable render should work with all props 1`] = `
         </button>
         <ul
           className="dropdown-menu"
-          onClick={null}
+          onClick={[Function]}
         >
           <li
             className={null}
@@ -62,7 +64,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -76,7 +78,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -90,7 +92,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -104,7 +106,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -118,7 +120,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -132,7 +134,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -146,7 +148,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -160,7 +162,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -174,7 +176,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -188,7 +190,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -202,7 +204,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -216,7 +218,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -236,6 +238,8 @@ exports[`SpellsTable render should work with all props 1`] = `
       </span>
       <div
         className="nice-dropdown nice-form-control"
+        defaultValue={Array []}
+        id="levels"
       >
         <button
           className="nice-btn"
@@ -248,7 +252,7 @@ exports[`SpellsTable render should work with all props 1`] = `
         </button>
         <ul
           className="dropdown-menu"
-          onClick={null}
+          onClick={[Function]}
         >
           <li
             className={null}
@@ -257,7 +261,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -271,7 +275,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -285,7 +289,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -299,7 +303,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -313,7 +317,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -327,7 +331,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -341,7 +345,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -355,7 +359,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -369,7 +373,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -383,7 +387,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -397,7 +401,7 @@ exports[`SpellsTable render should work with all props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -588,6 +592,8 @@ exports[`SpellsTable render should work without props 1`] = `
       </span>
       <div
         className="nice-dropdown nice-form-control"
+        defaultValue={Array []}
+        id="classes"
       >
         <button
           className="nice-btn"
@@ -600,7 +606,7 @@ exports[`SpellsTable render should work without props 1`] = `
         </button>
         <ul
           className="dropdown-menu"
-          onClick={null}
+          onClick={[Function]}
         >
           <li
             className={null}
@@ -609,7 +615,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -623,7 +629,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -637,7 +643,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -651,7 +657,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -665,7 +671,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -679,7 +685,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -693,7 +699,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -707,7 +713,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -721,7 +727,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -735,7 +741,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -749,7 +755,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -763,7 +769,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -783,6 +789,8 @@ exports[`SpellsTable render should work without props 1`] = `
       </span>
       <div
         className="nice-dropdown nice-form-control"
+        defaultValue={Array []}
+        id="levels"
       >
         <button
           className="nice-btn"
@@ -795,7 +803,7 @@ exports[`SpellsTable render should work without props 1`] = `
         </button>
         <ul
           className="dropdown-menu"
-          onClick={null}
+          onClick={[Function]}
         >
           <li
             className={null}
@@ -804,7 +812,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -818,7 +826,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -832,7 +840,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -846,7 +854,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -860,7 +868,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -874,7 +882,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -888,7 +896,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -902,7 +910,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -916,7 +924,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -930,7 +938,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -944,7 +952,7 @@ exports[`SpellsTable render should work without props 1`] = `
             <label>
               <input
                 checked={false}
-                disabled={undefined}
+                disabled={false}
                 onChange={[Function]}
                 type="checkbox"
               />

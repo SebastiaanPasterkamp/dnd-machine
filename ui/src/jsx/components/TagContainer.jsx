@@ -6,9 +6,9 @@ import {
     TagsContainer,
     Tag,
     TagBadge,
-} from './BaseTagContainer.jsx';
-import LazyComponent from './LazyComponent.jsx';
-import SingleSelect from './SingleSelect.jsx';
+} from './BaseTagContainer';
+import LazyComponent from './LazyComponent';
+import SingleSelect from './SingleSelect';
 
 export class TagContainer extends LazyComponent
 {

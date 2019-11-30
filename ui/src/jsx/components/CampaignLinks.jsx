@@ -5,61 +5,141 @@ import {
     BaseLinkButton,
     BaseLinkGroup,
 } from '../components/BaseLinkGroup/index.jsx';
+import ListDataActions from '../actions/ListDataActions.jsx';
 import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
 import { userHasRole } from '../utils.jsx';
 
 
-export const CampaignLinks = ({
-    id, campaign, currentUser, altStyle, children,
-    ...props
-}) => {
-    if (!currentUser) {
-        return null;
+export class CampaignLinks extends React.Component
+{
+    constructor(props) {
+        super(props);
+        this.onSetCurrent = this.onSetCurrent.bind(this);
+        this.onUnsetCurrent = this.onUnsetCurrent.bind(this);
     }
 
-    return (
-        <BaseLinkGroup {...props}>
-            <BaseLinkButton
-                name="view"
-                label="View"
-                icon="eye"
-                altStyle={altStyle}
-                link={`/campaign/show/${id}`}
-                available={(
-                    id !== null
-                    && (
-                        campaign.user_id == currentUser.id
-                        || userHasRole(currentUser, 'admin')
-                    )
-                )}
-            />
-            <BaseLinkButton
-                name="edit"
-                label="Edit"
-                icon="pencil"
-                altStyle={altStyle}
-                link={`/campaign/edit/${id}`}
-                available={(
-                    id !== null
-                    && campaign.user_id == currentUser.id
-                    && userHasRole(currentUser, 'dm')
-                )}
-            />
-            <BaseLinkButton
-                name="new"
-                label="New"
-                icon="plus"
-                altStyle={altStyle}
-                link={`/campaign/new`}
-                available={(
-                    id === null
-                    && userHasRole(currentUser, 'dm')
-                )}
-            />
-            {children}
-        </BaseLinkGroup>
-    );
+    onSetCurrent() {
+        const { id } = this.props;
+        fetch(`/campaign/current/${id}`, {
+            method: "POST",
+            credentials: 'same-origin',
+            'headers': {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            ListDataActions.fetchItems.completed({
+                current_campaign: data,
+            });
+        });
+    }
+
+    onUnsetCurrent() {
+        fetch("/campaign/current", {
+            method: "POST",
+            credentials: 'same-origin',
+            'headers': {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            ListDataActions.fetchItems.completed({
+                current_campaign: data,
+            });
+        });
+    }
+
+    render() {
+        const {
+            id,
+            campaign,
+            currentCampaign,
+            currentUser,
+            altStyle,
+            children,
+            ...props
+        } = this.props;
+
+        if (!currentUser) {
+            return null;
+        }
+
+        return (
+            <BaseLinkGroup {...props}>
+                <BaseLinkButton
+                    name="view"
+                    label="View"
+                    icon="eye"
+                    altStyle={altStyle}
+                    link={`/campaign/show/${id}`}
+                    available={(
+                        id !== null
+                        && (
+                            campaign.user_id == currentUser.id
+                            || userHasRole(currentUser, 'admin')
+                        )
+                    )}
+                />
+                <BaseLinkButton
+                    name="edit"
+                    label="Edit"
+                    icon="pencil"
+                    altStyle={altStyle}
+                    link={`/campaign/edit/${id}`}
+                    available={(
+                        id !== null
+                        && campaign.user_id == currentUser.id
+                        && userHasRole(currentUser, 'dm')
+                    )}
+                />
+                <BaseLinkButton
+                    name="open"
+                    label="Activate"
+                    icon="folder-open-o"
+                    className="info"
+                    altStyle={altStyle}
+                    action={this.onSetCurrent}
+                    available={(
+                        id !== null
+                        && (
+                            !currentCampaign
+                            || currentCampaign.id !== id
+                        )
+                        && userHasRole(currentUser, 'dm')
+                    )}
+                />
+                <BaseLinkButton
+                    name="close"
+                    label="Deactivate"
+                    icon="folder-o"
+                    className="warning"
+                    altStyle={altStyle}
+                    action={this.onUnsetCurrent}
+                    available={(
+                        id !== null
+                        && currentCampaign
+                        && currentCampaign.id === id
+                        && userHasRole(currentUser, 'dm')
+                    )}
+                />
+                <BaseLinkButton
+                    name="new"
+                    label="New"
+                    icon="plus"
+                    altStyle={altStyle}
+                    link={`/campaign/new`}
+                    available={(
+                        id === null
+                        && userHasRole(currentUser, 'dm')
+                    )}
+                />
+                {children}
+            </BaseLinkGroup>
+        );
+    }
 };
 
 CampaignLinks.propTypes = {
@@ -74,6 +154,9 @@ CampaignLinks.propTypes = {
             PropTypes.oneOf(['player', 'dm', 'admin'])
         ),
     }),
+    currentCampaign: PropTypes.shape({
+        id: PropTypes.number,
+    }),
 };
 
 CampaignLinks.defaultProps = {
@@ -81,13 +164,17 @@ CampaignLinks.defaultProps = {
     id: null,
     campaign: {},
     currentUser: {},
+    currentCampaign: {},
 };
 
 export default ListDataWrapper(
     ObjectDataWrapper(CampaignLinks, [
         {type: 'campaign', id: 'id'}
     ]),
-    ['current_user'],
+    ['current_user', 'current_campaign'],
     null,
-    { current_user: 'currentUser' }
+    {
+        current_user: 'currentUser',
+        current_campaign: 'currentCampaign',
+    }
 );

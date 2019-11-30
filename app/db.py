@@ -35,7 +35,11 @@ class Database:
                     db = self._connect()
                 else:
                     raise Exception("Reached max DB connections")
-        yield db
+        try:
+            yield db
+        except:
+            db.close()
+            raise
         self._pool.put(db)
 
 
@@ -56,6 +60,7 @@ class Database:
         rv = sqlite3.connect(
             self.database,
             check_same_thread=False,
+            timeout=15,
             )
         rv.row_factory = sqlite3.Row
         rv.execute("PRAGMA foreign_keys = 1")

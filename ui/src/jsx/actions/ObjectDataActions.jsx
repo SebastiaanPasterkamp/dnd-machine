@@ -47,6 +47,7 @@ export function ObjectDataActionsFactory(id)
             oda.postObject.completed(
                 type, result.id, result, callback
             );
+            ReportingActions.getMessages();
         })
         .catch((error) => {
             console.log(error);
@@ -58,6 +59,7 @@ export function ObjectDataActionsFactory(id)
                 error.message,
                 'Creation failed'
             );
+            ReportingActions.getMessages();
         });
     });
 
@@ -80,6 +82,7 @@ export function ObjectDataActionsFactory(id)
             oda.patchObject.completed(
                 type, id, result, callback
             );
+            ReportingActions.getMessages();
         })
         .catch((error) => {
             console.log(error);
@@ -91,6 +94,7 @@ export function ObjectDataActionsFactory(id)
                 error.message,
                 'Update failed'
             );
+            ReportingActions.getMessages();
         });
     });
 
@@ -111,6 +115,7 @@ export function ObjectDataActionsFactory(id)
             oda.copyObject.completed(
                 type, id, result, callback
             );
+            ReportingActions.getMessages();
         })
         .catch((error) => {
             console.log(error);
@@ -122,6 +127,7 @@ export function ObjectDataActionsFactory(id)
                 error.message,
                 'Copy failed'
             );
+            ReportingActions.getMessages();
         });
     });
 
@@ -146,6 +152,7 @@ export function ObjectDataActionsFactory(id)
             oda.consumeObject.completed(
                 type, id, result, callback
             );
+            ReportingActions.getMessages();
         })
         .catch((error) => {
             console.log(error);
@@ -157,6 +164,7 @@ export function ObjectDataActionsFactory(id)
                 error.message,
                 'Consume failed'
             );
+            ReportingActions.getMessages();
         });
     });
 
@@ -181,6 +189,7 @@ export function ObjectDataActionsFactory(id)
             oda.deleteObject.completed(
                 type, id, result, callback
             );
+            ReportingActions.getMessages();
         })
         .catch((error) => {
             console.log(error);
@@ -192,6 +201,7 @@ export function ObjectDataActionsFactory(id)
                 error.message,
                 'Delete failed'
             );
+            ReportingActions.getMessages();
         });
     });
 

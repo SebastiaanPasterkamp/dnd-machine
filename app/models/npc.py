@@ -9,6 +9,7 @@ class NpcObject(JsonObject):
     _pathPrefix = "npc"
     _defaultConfig = {
         "name": "",
+        "campaign_id": None,
         "race": "",
         "size": "medium",
         "gender": "",
@@ -97,6 +98,8 @@ class NpcObject(JsonObject):
         }
     _fieldTypes = {
         'id': int,
+        'campaign_id': int,
+        'user_id': int,
         "level": int,
         "hit_dice": int,
         "hit_points": int,
@@ -192,7 +195,7 @@ class NpcObject(JsonObject):
         if "base_stats" in self._config:
             re_mod = re.compile(r"(?<!statistics\.)modifiers")
 
-            for path, compute in list(self._config['computed'].items()):
+            for path, compute in list(self._config.get('computed', {}).items()):
                 if 'formula' not in compute:
                     continue
                 compute['formula'] = re_mod.sub(
@@ -219,7 +222,7 @@ class NpcObject(JsonObject):
 
         def fixComputed(old, new, pattern=None):
             re_mod = re.compile(pattern or re.escape(old))
-            computed = self._config['computed']
+            computed = self._config.get('computed', {})
             if old in computed:
                 if new not in computed:
                     computed[new] = computed[old]
@@ -338,7 +341,7 @@ class NpcObject(JsonObject):
 class NpcMapper(JsonObjectDataMapper):
     obj = NpcObject
     table = "npc"
-    fields = ["name", "location", "organization"]
+    fields = ["name", "campaign_id", "location", "organization"]
     order = 'name'
 
     def __init__(self, db, mapper, config={}):
@@ -365,3 +368,9 @@ class NpcMapper(JsonObjectDataMapper):
             {"search": "%%%s%%" % search}
             )
 
+    def getByCampaignId(self, campaign_id):
+        """Returns a list of npc associated with a campaign"""
+        return self.getMultiple(
+            "`campaign_id` = :campaignId",
+            {"campaignId": campaign_id}
+            )

@@ -1195,6 +1195,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                     },
                   ]
                 }
+                campaign_id={null}
                 cancel={[Function]}
                 challenge_modified={0}
                 challenge_rating={0}
@@ -3331,23 +3332,153 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                             <th
                                               colSpan={2}
                                             >
-                                              <ListDataMonsterLinks
+                                              <ListDataObjectDataMonsterLinks
                                                 className="pull-right"
                                                 id={2}
                                               >
-                                                <MonsterLinks
-                                                  altStyle={false}
+                                                <ObjectDataMonsterLinks
                                                   className="pull-right"
                                                   currentUser={Object {}}
                                                   id={2}
                                                 >
-                                                  <BaseLinkGroup
+                                                  <MonsterLinks
+                                                    altStyle={false}
                                                     className="pull-right"
-                                                    exclude={null}
-                                                    include={null}
-                                                  />
-                                                </MonsterLinks>
-                                              </ListDataMonsterLinks>
+                                                    currentUser={Object {}}
+                                                    id={2}
+                                                    monster={
+                                                      Object {
+                                                        "alignment": "lawful evil",
+                                                        "armor_class": 12,
+                                                        "attack_bonus": 4,
+                                                        "attack_modifier": Object {
+                                                          "melee": "strength",
+                                                          "ranged": "dexterity",
+                                                          "spell": "charisma",
+                                                        },
+                                                        "attacks": Array [
+                                                          Object {
+                                                            "average": 1,
+                                                            "bonus": 1,
+                                                            "critical": 4,
+                                                            "damage": Array [
+                                                              Object {
+                                                                "average": 1,
+                                                                "bonus": -1,
+                                                                "critical": 4,
+                                                                "dice_count": 1,
+                                                                "dice_size": 4,
+                                                                "notation": "1d4+-1",
+                                                                "type": "piercing",
+                                                              },
+                                                            ],
+                                                            "mode": "melee",
+                                                            "name": "Dagger",
+                                                            "notation": "1d4+-1 piercing",
+                                                            "reach": Object {
+                                                              "max": 5,
+                                                              "min": 5,
+                                                            },
+                                                            "spell_save_dc": 0,
+                                                            "target": "single",
+                                                          },
+                                                          Object {
+                                                            "average": 4,
+                                                            "bonus": 4,
+                                                            "critical": 7,
+                                                            "damage": Array [
+                                                              Object {
+                                                                "average": 4,
+                                                                "bonus": 2,
+                                                                "critical": 7,
+                                                                "dice_count": 1,
+                                                                "dice_size": 4,
+                                                                "notation": "1d4+2",
+                                                                "type": "bludgeoning",
+                                                              },
+                                                            ],
+                                                            "mode": "ranged",
+                                                            "name": "Sling",
+                                                            "notation": "1d4+2 bludgeoning",
+                                                            "spell_save_dc": 0,
+                                                            "target": "single",
+                                                          },
+                                                        ],
+                                                        "average_damage": 4,
+                                                        "challenge": 0,
+                                                        "challenge_rating": 0.5,
+                                                        "challenge_rating_precise": 0.8125,
+                                                        "critical_damage": 7,
+                                                        "dice_size": 6,
+                                                        "features": Array [],
+                                                        "hit_points": 5,
+                                                        "hit_points_notation": "2d6+-2",
+                                                        "id": 2,
+                                                        "languages": Array [
+                                                          "common",
+                                                          "draconic",
+                                                        ],
+                                                        "level": 2,
+                                                        "motion": Object {
+                                                          "walk": 30,
+                                                        },
+                                                        "multiattack": Array [],
+                                                        "name": "Kobol",
+                                                        "passive_perception": 9,
+                                                        "proficiency": 2,
+                                                        "size": "small",
+                                                        "spell_save_dc": 0,
+                                                        "statistics": Object {
+                                                          "bare": Object {
+                                                            "charisma": 8,
+                                                            "constitution": 9,
+                                                            "dexterity": 15,
+                                                            "intelligence": 8,
+                                                            "strength": 8,
+                                                            "wisdom": 8,
+                                                          },
+                                                          "base": Object {
+                                                            "charisma": 8,
+                                                            "constitution": 9,
+                                                            "dexterity": 15,
+                                                            "intelligence": 8,
+                                                            "strength": 8,
+                                                            "wisdom": 8,
+                                                          },
+                                                          "bonus": Object {
+                                                            "charisma": Array [],
+                                                            "constitution": Array [],
+                                                            "dexterity": Array [],
+                                                            "intelligence": Array [],
+                                                            "strength": Array [],
+                                                            "wisdom": Array [],
+                                                          },
+                                                          "modifiers": Object {
+                                                            "charisma": -1,
+                                                            "constitution": -1,
+                                                            "dexterity": 2,
+                                                            "intelligence": -1,
+                                                            "strength": -1,
+                                                            "wisdom": -1,
+                                                          },
+                                                        },
+                                                        "traits": Object {},
+                                                        "type": "Humanoid",
+                                                        "user_id": 2,
+                                                        "version": "1.0",
+                                                        "xp": 100,
+                                                        "xp_rating": 162,
+                                                      }
+                                                    }
+                                                  >
+                                                    <BaseLinkGroup
+                                                      className="pull-right"
+                                                      exclude={null}
+                                                      include={null}
+                                                    />
+                                                  </MonsterLinks>
+                                                </ObjectDataMonsterLinks>
+                                              </ListDataObjectDataMonsterLinks>
                                               <h3>
                                                 Kobol x 2
                                               </h3>
@@ -6141,6 +6272,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                     },
                   ]
                 }
+                campaign_id={null}
                 cancel={[Function]}
                 challenge_modified={0}
                 challenge_rating={0}
@@ -8277,23 +8409,153 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                             <th
                                               colSpan={2}
                                             >
-                                              <ListDataMonsterLinks
+                                              <ListDataObjectDataMonsterLinks
                                                 className="pull-right"
                                                 id={2}
                                               >
-                                                <MonsterLinks
-                                                  altStyle={false}
+                                                <ObjectDataMonsterLinks
                                                   className="pull-right"
                                                   currentUser={Object {}}
                                                   id={2}
                                                 >
-                                                  <BaseLinkGroup
+                                                  <MonsterLinks
+                                                    altStyle={false}
                                                     className="pull-right"
-                                                    exclude={null}
-                                                    include={null}
-                                                  />
-                                                </MonsterLinks>
-                                              </ListDataMonsterLinks>
+                                                    currentUser={Object {}}
+                                                    id={2}
+                                                    monster={
+                                                      Object {
+                                                        "alignment": "lawful evil",
+                                                        "armor_class": 12,
+                                                        "attack_bonus": 4,
+                                                        "attack_modifier": Object {
+                                                          "melee": "strength",
+                                                          "ranged": "dexterity",
+                                                          "spell": "charisma",
+                                                        },
+                                                        "attacks": Array [
+                                                          Object {
+                                                            "average": 1,
+                                                            "bonus": 1,
+                                                            "critical": 4,
+                                                            "damage": Array [
+                                                              Object {
+                                                                "average": 1,
+                                                                "bonus": -1,
+                                                                "critical": 4,
+                                                                "dice_count": 1,
+                                                                "dice_size": 4,
+                                                                "notation": "1d4+-1",
+                                                                "type": "piercing",
+                                                              },
+                                                            ],
+                                                            "mode": "melee",
+                                                            "name": "Dagger",
+                                                            "notation": "1d4+-1 piercing",
+                                                            "reach": Object {
+                                                              "max": 5,
+                                                              "min": 5,
+                                                            },
+                                                            "spell_save_dc": 0,
+                                                            "target": "single",
+                                                          },
+                                                          Object {
+                                                            "average": 4,
+                                                            "bonus": 4,
+                                                            "critical": 7,
+                                                            "damage": Array [
+                                                              Object {
+                                                                "average": 4,
+                                                                "bonus": 2,
+                                                                "critical": 7,
+                                                                "dice_count": 1,
+                                                                "dice_size": 4,
+                                                                "notation": "1d4+2",
+                                                                "type": "bludgeoning",
+                                                              },
+                                                            ],
+                                                            "mode": "ranged",
+                                                            "name": "Sling",
+                                                            "notation": "1d4+2 bludgeoning",
+                                                            "spell_save_dc": 0,
+                                                            "target": "single",
+                                                          },
+                                                        ],
+                                                        "average_damage": 4,
+                                                        "challenge": 0,
+                                                        "challenge_rating": 0.5,
+                                                        "challenge_rating_precise": 0.8125,
+                                                        "critical_damage": 7,
+                                                        "dice_size": 6,
+                                                        "features": Array [],
+                                                        "hit_points": 5,
+                                                        "hit_points_notation": "2d6+-2",
+                                                        "id": 2,
+                                                        "languages": Array [
+                                                          "common",
+                                                          "draconic",
+                                                        ],
+                                                        "level": 2,
+                                                        "motion": Object {
+                                                          "walk": 30,
+                                                        },
+                                                        "multiattack": Array [],
+                                                        "name": "Kobol",
+                                                        "passive_perception": 9,
+                                                        "proficiency": 2,
+                                                        "size": "small",
+                                                        "spell_save_dc": 0,
+                                                        "statistics": Object {
+                                                          "bare": Object {
+                                                            "charisma": 8,
+                                                            "constitution": 9,
+                                                            "dexterity": 15,
+                                                            "intelligence": 8,
+                                                            "strength": 8,
+                                                            "wisdom": 8,
+                                                          },
+                                                          "base": Object {
+                                                            "charisma": 8,
+                                                            "constitution": 9,
+                                                            "dexterity": 15,
+                                                            "intelligence": 8,
+                                                            "strength": 8,
+                                                            "wisdom": 8,
+                                                          },
+                                                          "bonus": Object {
+                                                            "charisma": Array [],
+                                                            "constitution": Array [],
+                                                            "dexterity": Array [],
+                                                            "intelligence": Array [],
+                                                            "strength": Array [],
+                                                            "wisdom": Array [],
+                                                          },
+                                                          "modifiers": Object {
+                                                            "charisma": -1,
+                                                            "constitution": -1,
+                                                            "dexterity": 2,
+                                                            "intelligence": -1,
+                                                            "strength": -1,
+                                                            "wisdom": -1,
+                                                          },
+                                                        },
+                                                        "traits": Object {},
+                                                        "type": "Humanoid",
+                                                        "user_id": 2,
+                                                        "version": "1.0",
+                                                        "xp": 100,
+                                                        "xp_rating": 162,
+                                                      }
+                                                    }
+                                                  >
+                                                    <BaseLinkGroup
+                                                      className="pull-right"
+                                                      exclude={null}
+                                                      include={null}
+                                                    />
+                                                  </MonsterLinks>
+                                                </ObjectDataMonsterLinks>
+                                              </ListDataObjectDataMonsterLinks>
                                               <h3>
                                                 Kobol x 2
                                               </h3>
@@ -11087,6 +11349,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                     },
                   ]
                 }
+                campaign_id={null}
                 cancel={[Function]}
                 challenge_modified={0}
                 challenge_rating={0}
@@ -13265,23 +13528,153 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                             <th
                                               colSpan={2}
                                             >
-                                              <ListDataMonsterLinks
+                                              <ListDataObjectDataMonsterLinks
                                                 className="pull-right"
                                                 id={2}
                                               >
-                                                <MonsterLinks
-                                                  altStyle={false}
+                                                <ObjectDataMonsterLinks
                                                   className="pull-right"
                                                   currentUser={Object {}}
                                                   id={2}
                                                 >
-                                                  <BaseLinkGroup
+                                                  <MonsterLinks
+                                                    altStyle={false}
                                                     className="pull-right"
-                                                    exclude={null}
-                                                    include={null}
-                                                  />
-                                                </MonsterLinks>
-                                              </ListDataMonsterLinks>
+                                                    currentUser={Object {}}
+                                                    id={2}
+                                                    monster={
+                                                      Object {
+                                                        "alignment": "lawful evil",
+                                                        "armor_class": 12,
+                                                        "attack_bonus": 4,
+                                                        "attack_modifier": Object {
+                                                          "melee": "strength",
+                                                          "ranged": "dexterity",
+                                                          "spell": "charisma",
+                                                        },
+                                                        "attacks": Array [
+                                                          Object {
+                                                            "average": 1,
+                                                            "bonus": 1,
+                                                            "critical": 4,
+                                                            "damage": Array [
+                                                              Object {
+                                                                "average": 1,
+                                                                "bonus": -1,
+                                                                "critical": 4,
+                                                                "dice_count": 1,
+                                                                "dice_size": 4,
+                                                                "notation": "1d4+-1",
+                                                                "type": "piercing",
+                                                              },
+                                                            ],
+                                                            "mode": "melee",
+                                                            "name": "Dagger",
+                                                            "notation": "1d4+-1 piercing",
+                                                            "reach": Object {
+                                                              "max": 5,
+                                                              "min": 5,
+                                                            },
+                                                            "spell_save_dc": 0,
+                                                            "target": "single",
+                                                          },
+                                                          Object {
+                                                            "average": 4,
+                                                            "bonus": 4,
+                                                            "critical": 7,
+                                                            "damage": Array [
+                                                              Object {
+                                                                "average": 4,
+                                                                "bonus": 2,
+                                                                "critical": 7,
+                                                                "dice_count": 1,
+                                                                "dice_size": 4,
+                                                                "notation": "1d4+2",
+                                                                "type": "bludgeoning",
+                                                              },
+                                                            ],
+                                                            "mode": "ranged",
+                                                            "name": "Sling",
+                                                            "notation": "1d4+2 bludgeoning",
+                                                            "spell_save_dc": 0,
+                                                            "target": "single",
+                                                          },
+                                                        ],
+                                                        "average_damage": 4,
+                                                        "challenge": 0,
+                                                        "challenge_rating": 0.5,
+                                                        "challenge_rating_precise": 0.8125,
+                                                        "critical_damage": 7,
+                                                        "dice_size": 6,
+                                                        "features": Array [],
+                                                        "hit_points": 5,
+                                                        "hit_points_notation": "2d6+-2",
+                                                        "id": 2,
+                                                        "languages": Array [
+                                                          "common",
+                                                          "draconic",
+                                                        ],
+                                                        "level": 2,
+                                                        "motion": Object {
+                                                          "walk": 30,
+                                                        },
+                                                        "multiattack": Array [],
+                                                        "name": "Kobol",
+                                                        "passive_perception": 9,
+                                                        "proficiency": 2,
+                                                        "size": "small",
+                                                        "spell_save_dc": 0,
+                                                        "statistics": Object {
+                                                          "bare": Object {
+                                                            "charisma": 8,
+                                                            "constitution": 9,
+                                                            "dexterity": 15,
+                                                            "intelligence": 8,
+                                                            "strength": 8,
+                                                            "wisdom": 8,
+                                                          },
+                                                          "base": Object {
+                                                            "charisma": 8,
+                                                            "constitution": 9,
+                                                            "dexterity": 15,
+                                                            "intelligence": 8,
+                                                            "strength": 8,
+                                                            "wisdom": 8,
+                                                          },
+                                                          "bonus": Object {
+                                                            "charisma": Array [],
+                                                            "constitution": Array [],
+                                                            "dexterity": Array [],
+                                                            "intelligence": Array [],
+                                                            "strength": Array [],
+                                                            "wisdom": Array [],
+                                                          },
+                                                          "modifiers": Object {
+                                                            "charisma": -1,
+                                                            "constitution": -1,
+                                                            "dexterity": 2,
+                                                            "intelligence": -1,
+                                                            "strength": -1,
+                                                            "wisdom": -1,
+                                                          },
+                                                        },
+                                                        "traits": Object {},
+                                                        "type": "Humanoid",
+                                                        "user_id": 2,
+                                                        "version": "1.0",
+                                                        "xp": 100,
+                                                        "xp_rating": 162,
+                                                      }
+                                                    }
+                                                  >
+                                                    <BaseLinkGroup
+                                                      className="pull-right"
+                                                      exclude={null}
+                                                      include={null}
+                                                    />
+                                                  </MonsterLinks>
+                                                </ObjectDataMonsterLinks>
+                                              </ListDataObjectDataMonsterLinks>
                                               <h3>
                                                 Kobol x 2
                                               </h3>

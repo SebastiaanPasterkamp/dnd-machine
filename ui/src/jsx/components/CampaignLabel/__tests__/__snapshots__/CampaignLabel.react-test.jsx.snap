@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CampaignLabel rendering should work with full props 1`] = `
+<div
+  className="campaign-label inline"
+>
+  <div
+    className="tool-tip inline"
+  >
+    Test
+    <span
+      className="tool-tip--content"
+    >
+      <p>
+        Testing 
+        <em>
+          this
+        </em>
+      </p>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`CampaignLabel rendering should work with minimum props 1`] = `
+<div
+  className="campaign-label inline"
+/>
+`;
+
+exports[`CampaignLabel rendering should work without tooltip 1`] = `
+<div
+  className="campaign-label inline"
+>
+  Test
+</div>
+`;

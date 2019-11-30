@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ResponsiveTable should render with full props 1`] = `
+<table
+  className="responsive-table nice-table condensed bordered responsive"
+>
+  <thead>
+    <tr>
+      <td>
+        Name
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td
+        id={1}
+      >
+        One
+      </td>
+    </tr>
+    <tr>
+      <td
+        id={2}
+      >
+        Two
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Footer
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Component: ResponsiveTable should render with minimum props 1`] = `
+<table
+  className="responsive-table nice-table condensed bordered responsive"
+>
+  <tbody />
+</table>
+`;

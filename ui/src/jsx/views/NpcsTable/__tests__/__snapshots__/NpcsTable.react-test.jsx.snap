@@ -1,0 +1,577 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NpcsTable should render with full props 1`] = `
+<div
+  className="npcs-table"
+>
+  <h2
+    className="icon fa-paw"
+  >
+    NPC list
+  </h2>
+  <div
+    className="npcs-table--filter"
+  >
+    <div
+      className="nice-control-group npcs-table--filter-select"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Name
+      </span>
+      <input
+        className="nice-form-control"
+        data-name="search"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Search..."
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="nice-control-group npcs-table--filter-select"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Campaign
+      </span>
+      <div
+        className="nice-dropdown nice-form-control"
+        data-name="campaign"
+        defaultValue={Array []}
+      >
+        <button
+          className="nice-btn"
+          onClick={[Function]}
+        >
+          All Campaigns...
+          <i
+            className="icon fa-angle-down"
+          />
+        </button>
+        <ul
+          className="dropdown-menu"
+          onClick={[Function]}
+        >
+          <li
+            className={null}
+            data-value={null}
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Unassigned
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value={2}
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Some campaign
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      className="nice-control-group npcs-table--filter-select"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Alignment
+      </span>
+      <div
+        className="nice-dropdown nice-form-control"
+        data-name="alignment"
+        defaultValue={Array []}
+      >
+        <button
+          className="nice-btn"
+          onClick={[Function]}
+        >
+          All Alignments
+          <i
+            className="icon fa-angle-down"
+          />
+        </button>
+        <ul
+          className="dropdown-menu"
+          onClick={[Function]}
+        >
+          <li
+            className={null}
+            data-value="lawful good"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Lawful good
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="neutral good"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Neutral good
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="chaotic good"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Chaotic good
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="lawful neutral"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Lawful neutral
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="true neutral"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              True neutral
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="chaotic neutral"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Chaotic neutral
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="lawful evil"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Lawful evil
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="neutral evil"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Neutral evil
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="chaotic evil"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Chaotic evil
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <table
+    className="responsive-table nice-table condensed bordered responsive"
+  >
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Race
+        </th>
+        <th>
+          Class
+        </th>
+        <th>
+          Alignment
+        </th>
+        <th>
+          Location
+        </th>
+        <th>
+          Organization
+        </th>
+        <th>
+          Campaign
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          colSpan={7}
+        >
+          <div
+            className="base-link-group nice-btn-group"
+          >
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-plus"
+              href={undefined}
+              onClick={[Function]}
+            >
+              New
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`NpcsTable should render without props 1`] = `
+<div
+  className="npcs-table"
+>
+  <h2
+    className="icon fa-paw"
+  >
+    NPC list
+  </h2>
+  <div
+    className="npcs-table--filter"
+  >
+    <div
+      className="nice-control-group npcs-table--filter-select"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Name
+      </span>
+      <input
+        className="nice-form-control"
+        data-name="search"
+        disabled={undefined}
+        onChange={[Function]}
+        onKeyPress={null}
+        placeholder="Search..."
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="nice-control-group npcs-table--filter-select"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Campaign
+      </span>
+      <div
+        className="nice-dropdown nice-form-control"
+        data-name="campaign"
+        defaultValue={Array []}
+      >
+        <button
+          className="nice-btn"
+          onClick={[Function]}
+        >
+          All Campaigns...
+          <i
+            className="icon fa-angle-down"
+          />
+        </button>
+        <ul
+          className="dropdown-menu"
+          onClick={[Function]}
+        >
+          <li
+            className={null}
+            data-value={null}
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Unassigned
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      className="nice-control-group npcs-table--filter-select"
+    >
+      <span
+        className="nice-input-addon"
+      >
+        Alignment
+      </span>
+      <div
+        className="nice-dropdown nice-form-control"
+        data-name="alignment"
+        defaultValue={Array []}
+      >
+        <button
+          className="nice-btn"
+          onClick={[Function]}
+        >
+          All Alignments
+          <i
+            className="icon fa-angle-down"
+          />
+        </button>
+        <ul
+          className="dropdown-menu"
+          onClick={[Function]}
+        >
+          <li
+            className={null}
+            data-value="lawful good"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Lawful good
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="neutral good"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Neutral good
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="chaotic good"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Chaotic good
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="lawful neutral"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Lawful neutral
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="true neutral"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              True neutral
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="chaotic neutral"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Chaotic neutral
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="lawful evil"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Lawful evil
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="neutral evil"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Neutral evil
+            </label>
+          </li>
+          <li
+            className={null}
+            data-value="chaotic evil"
+          >
+            <label>
+              <input
+                checked={false}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              Chaotic evil
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <table
+    className="responsive-table nice-table condensed bordered responsive"
+  >
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Race
+        </th>
+        <th>
+          Class
+        </th>
+        <th>
+          Alignment
+        </th>
+        <th>
+          Location
+        </th>
+        <th>
+          Organization
+        </th>
+        <th>
+          Campaign
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          colSpan={7}
+        >
+          <div
+            className="base-link-group nice-btn-group"
+          >
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-plus"
+              href={undefined}
+              onClick={[Function]}
+            >
+              New
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

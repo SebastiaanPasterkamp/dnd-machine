@@ -129,7 +129,7 @@ class AppCharacterTestCase(BaseAppTestCase):
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)
 
-    def listCharactersProtected(self):
+    def testListCharactersProtected(self):
         self.doLogin('alice', 'alice')
         charIds = [
             self.characters['alice']['id']
@@ -141,9 +141,9 @@ class AppCharacterTestCase(BaseAppTestCase):
             char['id']
             for char in rv.get_json()
             ]
-        self.assertListEqual(charData, charIds)
+        self.assertListEqual(sorted(charData), sorted(charIds))
 
-    def listCharactersParty(self):
+    def testListCharactersParty(self):
         self.doLogin('alice', 'alice')
         charIds = sorted([
             self.characters['alice']['id'],
@@ -170,9 +170,9 @@ class AppCharacterTestCase(BaseAppTestCase):
             char['id']
             for char in rv.get_json()
             ]
-        self.assertListEqual(charData, charIds)
+        self.assertListEqual(sorted(charData), sorted(charIds))
 
-    def listCharactersPrivileged(self):
+    def testListCharactersPrivileged(self):
         self.doLogin('dm', 'dm')
         charIds = sorted([
             char['id']
@@ -185,7 +185,7 @@ class AppCharacterTestCase(BaseAppTestCase):
             char['id']
             for char in rv.get_json()
             ]
-        self.assertListEqual(charData, charIds)
+        self.assertListEqual(sorted(charData), sorted(charIds))
 
     def testCreateCharacter200(self):
         self.doLogin('alice', 'alice')

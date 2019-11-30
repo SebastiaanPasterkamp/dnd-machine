@@ -8,6 +8,7 @@ import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
 
 import Bonus from '../components/Bonus.jsx';
+import CampaignLabel from '../components/CampaignLabel';
 import ChallengeRating from '../components/ChallengeRating.jsx';
 import DiceNotation from '../components/DiceNotation.jsx';
 import LazyComponent from '../components/LazyComponent.jsx';
@@ -210,7 +211,7 @@ export class MonsterView extends LazyComponent
             description, challenge_rating_precise: cr, xp_rating,
             motion, languages, traits, attacks, multiattack, proficiency,
             statistics, dice_size, hit_points, monster_types,
-            size_hit_dice, _languages, alignments,
+            size_hit_dice, _languages, alignments, campaign_id,
         } = this.props;
 
         if (!name) {
@@ -236,6 +237,14 @@ export class MonsterView extends LazyComponent
                 </thead>
 
                 <tbody>
+                    {campaign_id ? (
+                        <tr>
+                            <th>Campaign</th>
+                            <td>
+                                <CampaignLabel id={campaign_id} />
+                            </td>
+                        </tr>
+                    ) : null}
                     <tr>
                         <th>Size</th>
                         <td>

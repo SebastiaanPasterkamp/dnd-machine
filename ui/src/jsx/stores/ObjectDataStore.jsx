@@ -176,7 +176,7 @@ export function ObjectDataStoreFactory(id, listenables = null)
             });
         }
 
-        onGetObject(type, id, group=null, callback=null) {
+        onGetObject(type, id, group=null, callback=null, forced=false) {
             const {
                 loading,
                 timestamp: {
@@ -189,9 +189,11 @@ export function ObjectDataStoreFactory(id, listenables = null)
             } = loading;
             const maxAge = Date.now() - 60.0 * 1000.0;
             if (
-                loadingList
-                || loadingObject
-                || timeObject >= maxAge
+                !forced && (
+                    loadingList
+                    || loadingObject
+                    || timeObject >= maxAge
+                )
             ) {
                 return;
             }

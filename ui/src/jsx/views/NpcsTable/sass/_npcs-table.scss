@@ -1,0 +1,15 @@
+// _npcs-table.scss
+
+@import '../../../../sass/view-grid';
+
+.npcs-table {
+
+    &--filter {
+        @extend .view-grid;
+
+        > .npcs-table--filter-select {
+            grid-column-end: span 4;
+        }
+    }
+
+}

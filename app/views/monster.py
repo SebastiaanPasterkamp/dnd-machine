@@ -8,6 +8,15 @@ class MonsterBlueprint(BaseApiBlueprint):
     def datamapper(self):
         return self.basemapper.monster
 
+    @property
+    def campaignmapper(self):
+        return self.basemapper.campaign
+
+    def get_allowed_campaign_ids(self, user_id):
+        return [None] + [
+            c.id for c in self.campaignmapper.getByDmUserId(user_id)
+            ]
+
     @BaseApiCallback('index')
     @BaseApiCallback('overview')
     @BaseApiCallback('show')
@@ -27,6 +36,42 @@ class MonsterBlueprint(BaseApiBlueprint):
     @BaseApiCallback('raw')
     def adminOnly(self, *args, **kwargs):
         if not self.checkRole(['admin']):
+            abort(403)
+
+    @BaseApiCallback('api_list.objects')
+    def adminOrGenericMultiple(self, objs):
+        if self.checkRole(['admin']):
+            return
+        campaign_ids = self.get_allowed_campaign_ids(
+            request.user.id
+            )
+        objs[:] = [
+            obj
+            for obj in objs
+            if obj.user_id == request.user.id \
+                or obj.campaign_id in campaign_ids
+            ]
+
+    @BaseApiCallback('api_copy.original')
+    @BaseApiCallback('api_get.object')
+    def adminOrGenericSingle(self, obj):
+        if self.checkRole(['admin']):
+            return
+        campaign_ids = self.get_allowed_campaign_ids(
+            request.user.id
+            )
+        if obj.user_id != request.user.id \
+                and obj.campaign_id not in campaign_ids:
+            abort(403)
+
+    @BaseApiCallback('api_patch.object')
+    @BaseApiCallback('api_delete.object')
+    def adminOrOwnedSingle(self, obj):
+        if self.checkRole(['admin']):
+            return
+        if obj.user_id is None:
+            obj.user_id = request.user.id
+        elif obj.user_id != request.user.id:
             abort(403)
 
     @BaseApiCallback('api_post.object')

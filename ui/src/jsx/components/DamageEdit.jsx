@@ -1,13 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
 
-import LazyComponent from './LazyComponent.jsx';
+import LazyComponent from './LazyComponent';
 
-import ControlGroup from './ControlGroup.jsx';
-import InputField from './InputField.jsx';
-import SingleSelect from './SingleSelect.jsx';
+import ControlGroup from './ControlGroup';
+import InputField from './InputField';
+import SingleSelect from './SingleSelect';
 
 export class DamageEdit extends LazyComponent
 {
@@ -56,14 +56,14 @@ export class DamageEdit extends LazyComponent
 
         return <ControlGroup labels={[label, "d", "+", "Type"]}>
             <SingleSelect
-                header="Dice count"
+                emptyLabel="Dice count"
                 selected={dice_count}
                 items={this.dice_count}
                 setState={(value) => {
                     this.onFieldChange('dice_count', parseInt(value));
                 }} />
             <SingleSelect
-                header="Dice size"
+                emptyLabel="Dice size"
                 selected={dice_size}
                 items={this.dice_size}
                 setState={(value) => {
@@ -80,7 +80,7 @@ export class DamageEdit extends LazyComponent
                 }}
                 />
             <SingleSelect
-                header="Damage type"
+                emptyLabel="Damage type"
                 selected={type}
                 items={damage_types}
                 setState={(value) => {

@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MonsterLabel rendering should work with full props 1`] = `
+<div
+  className="monster-label inline"
+>
+  <span
+    className="monster-label--name"
+  >
+    Wolf
+  </span>
+  <span
+    className="monster-label--rating"
+  >
+    <div
+      className="challenge-rating inline"
+    >
+      CR 
+      ¼
+    </div>
+     / 
+    <div
+      className="xp-rating inline"
+    >
+      10
+       XP
+    </div>
+  </span>
+  <span
+    className="monster-label--type"
+  >
+    <div
+      className="list-label inline"
+    >
+      medium
+    </div>
+    <div
+      className="list-label inline"
+    >
+      beast
+    </div>
+    <div
+      className="list-label inline"
+    >
+      Unaligned
+    </div>
+  </span>
+  <span
+    className="monster-label--campaign"
+  >
+    <div
+      className="campaign-label inline"
+    />
+  </span>
+</div>
+`;
+
+exports[`MonsterLabel rendering should work with minimum props 1`] = `null`;
+
+exports[`MonsterLabel rendering should work without any fields shown 1`] = `
+<div
+  className="monster-label inline"
+/>
+`;

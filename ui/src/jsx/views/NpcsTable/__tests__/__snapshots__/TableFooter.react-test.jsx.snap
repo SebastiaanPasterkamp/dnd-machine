@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableFooter should render 1`] = `
+<tr>
+  <td
+    colSpan={7}
+  >
+    <div
+      className="base-link-group nice-btn-group"
+    >
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-plus"
+        href={undefined}
+        onClick={[Function]}
+      >
+        New
+      </a>
+    </div>
+  </td>
+</tr>
+`;

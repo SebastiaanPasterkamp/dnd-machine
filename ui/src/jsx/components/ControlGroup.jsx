@@ -14,24 +14,24 @@ export class ControlGroup extends LazyComponent
     }
 
     render() {
-        const { children, label, className } = this.props;
-        const { labels = [label] } = this.props;
+        const { children, label, labels, className, ...props } = this.props;
+        const { labels: l = [label] } = this.props;
         const childCount = React.Children.count(children);
 
-        return <div className={utils.makeStyle({}, ['nice-control-group', className])}>
+        return <div className={utils.makeStyle({}, ['nice-control-group', className])} {...props}>
             {React.Children.map(children, (child, index) => {
-                if (index >= labels.length) {
+                if (index >= l.length) {
                     return [child];
                 }
                 return [
-                    this.renderLabel(index, labels[index]),
+                    this.renderLabel(index, l[index]),
                     child
                 ];
             })}
-            {labels.length > childCount
+            {l.length > childCount
                 ? this.renderLabel(
                     childCount,
-                    labels[childCount]
+                    l[childCount]
                 ) : null
             }
         </div>;

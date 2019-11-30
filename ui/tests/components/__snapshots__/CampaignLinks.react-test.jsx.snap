@@ -16,7 +16,7 @@ exports[`Component: CampaignLinks should render a new button 1`] = `
 
 exports[`Component: CampaignLinks should render without props 1`] = `null`;
 
-exports[`Component: CampaignLinks should show a view and edit button 1`] = `
+exports[`Component: CampaignLinks should show a view, edit, and activate button 1`] = `
 <div
   className="base-link-group nice-btn-group"
 >
@@ -33,6 +33,12 @@ exports[`Component: CampaignLinks should show a view and edit button 1`] = `
     onClick={[Function]}
   >
     Edit
+  </a>
+  <a
+    className="cursor-pointer nice-btn icon fa-folder-open-o info"
+    onClick={[Function]}
+  >
+    Activate
   </a>
 </div>
 `;

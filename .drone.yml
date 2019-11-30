@@ -77,6 +77,7 @@ depends_on:
 steps:
   - name: backup
     image: appleboy/drone-ssh:linux-arm
+    failure: ignore
     settings:
       host:
         from_secret: ssh_host
@@ -95,15 +96,18 @@ steps:
 
   - name: build
     image: docker
-    commands:
-        - docker build -t dnd-machine:staging .
     volumes:
+      - name: npm-cache
+        path: /drone/src/ui/node_modules
       - name: socket
         path: /var/run/docker.sock
+    commands:
+        - docker build -t dnd-machine:staging .
 
   - name: restart
     image: appleboy/drone-ssh:linux-arm
     settings:
+      command_timeout: 5m
       host:
         from_secret: ssh_host
       username:
@@ -115,8 +119,8 @@ steps:
         - docker rm dndmachine_staging || true
         - >
           docker cp \
-            "dndmachine_production:/data/machine.db" \
-            "dndmachine_staging:/data/machine.db"
+            "backups/machine.production.db.latest" \
+            "dndmachine_staging:/data/machine.db" || true
         - >
           docker run \
             --detach \
@@ -130,9 +134,12 @@ steps:
       - build
 
 volumes:
-- name: socket
-  host:
-    path: /var/run/docker.sock
+  - name: npm-cache
+    host:
+      path: /var/cache/drone/npm
+  - name: socket
+    host:
+      path: /var/run/docker.sock
 
 ---
 kind: pipeline
@@ -346,15 +353,18 @@ steps:
 
   - name: build
     image: docker
-    commands:
-        - docker build -t dnd-machine:latest .
     volumes:
+      - name: npm-cache
+        path: /drone/src/ui/node_modules
       - name: socket
         path: /var/run/docker.sock
+    commands:
+        - docker build -t dnd-machine:latest .
 
   - name: restart
     image: appleboy/drone-ssh:linux-arm
     settings:
+      command_timeout: 5m
       host:
         from_secret: ssh_host
       username:
@@ -367,7 +377,7 @@ steps:
         - >
           docker cp \
             "code/production/flaskr.db" \
-            "dndmachine_production:/data/machine.db"
+            "dndmachine_production:/data/machine.db" || true
         - >
           docker run \
             --detach \
@@ -381,12 +391,15 @@ steps:
       - build
 
 volumes:
-- name: socket
-  host:
-    path: /var/run/docker.sock
+  - name: npm-cache
+    host:
+      path: /var/cache/drone/npm
+  - name: socket
+    host:
+      path: /var/run/docker.sock
 
 ---
 kind: signature
-hmac: a1636a074a031197a1d8dec367689c539c7029aabe67576f7a716b56dd9ed8da
+hmac: 1ac087b2e4d3b8e8befcdcf8ed0ecdd2c20e2880efbbcdd5f755faef99800805
 
 ...

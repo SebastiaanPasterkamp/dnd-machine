@@ -9,6 +9,7 @@ class AppTestCase(BaseAppTestCase):
         self.privatePages = {
             '/navigation': (200, 'application/json'),
             '/hosted_party': (302, None),
+            '/current_campaign': (302, None),
             }
 
     def testPublicPages(self):

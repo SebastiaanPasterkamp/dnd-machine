@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`View MonsterRow rendering should work multiple monsters 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <th>
+        2
+         × 
+        Bear
+        <div
+          className="base-link-group nice-btn-group"
+        />
+      </th>
+      <td>
+        <div
+          className="challenge-rating inline"
+        >
+          CR 
+          0.250
+        </div>
+        <span>
+          (
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            0.500
+          </div>
+          )
+        </span>
+      </td>
+      <td>
+        <div
+          className="xp-rating inline"
+        >
+          10
+           XP
+        </div>
+        <span>
+          (
+          <div
+            className="xp-rating inline"
+          >
+            20
+             XP
+          </div>
+          )
+        </span>
+      </td>
+      <td>
+        7
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        3
+        <span>
+          (
+          6
+          )
+        </span>
+      </td>
+      <td>
+        <span>
+          Hit   
+          <div
+            className="bonus inline"
+          >
+            +
+            2
+          </div>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`View MonsterRow rendering should work one monster 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <th>
+        1
+         × 
+        Spider
+        <div
+          className="base-link-group nice-btn-group"
+        />
+      </th>
+      <td>
+        <div
+          className="challenge-rating inline"
+        >
+          CR 
+          0.500
+        </div>
+      </td>
+      <td>
+        <div
+          className="xp-rating inline"
+        >
+          25
+           XP
+        </div>
+      </td>
+      <td>
+        15
+      </td>
+      <td>
+        14
+      </td>
+      <td>
+        7
+      </td>
+      <td>
+        <span>
+          DC ≥ 
+          13
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`View MonsterRow rendering should work w/ minimum props 1`] = `
+<table>
+  <tbody />
+</table>
+`;

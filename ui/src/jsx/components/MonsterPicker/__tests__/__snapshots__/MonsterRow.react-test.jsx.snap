@@ -11,21 +11,23 @@ exports[`MonsterRow rendering should work with full props 1`] = `
       className="monster-label--name"
     >
       Beasty
-        (
+    </span>
+    <span
+      className="monster-label--rating"
+    >
       <div
         className="challenge-rating inline"
       >
         CR 
         1
       </div>
-       / 
+       / 
       <div
         className="xp-rating inline"
       >
         50
          XP
       </div>
-      )
     </span>
     <span
       className="monster-label--type"
@@ -35,19 +37,16 @@ exports[`MonsterRow rendering should work with full props 1`] = `
       >
         Medium
       </div>
-       
       <div
         className="list-label inline"
       >
         humanoid
       </div>
-        (
       <div
         className="list-label inline"
       >
         true neutral
       </div>
-      )
     </span>
   </div>
   <div
@@ -78,21 +77,23 @@ exports[`MonsterRow rendering should work with minimum props 1`] = `
       className="monster-label--name"
     >
       Beasty
-        (
+    </span>
+    <span
+      className="monster-label--rating"
+    >
       <div
         className="challenge-rating inline"
       >
         CR 
         1
       </div>
-       / 
+       / 
       <div
         className="xp-rating inline"
       >
         50
          XP
       </div>
-      )
     </span>
     <span
       className="monster-label--type"
@@ -102,19 +103,16 @@ exports[`MonsterRow rendering should work with minimum props 1`] = `
       >
         medium
       </div>
-       
       <div
         className="list-label inline"
       >
         humanoid
       </div>
-        (
       <div
         className="list-label inline"
       >
         true neutral
       </div>
-      )
     </span>
   </div>
   <div

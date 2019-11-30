@@ -58,6 +58,13 @@ def register_paths(app):
             ))
 
 
+    @app.route('/current_campaign')
+    def current_campaign():
+        return redirect(url_for(
+            'campaign.get_current'
+            ))
+
+
     @app.route('/navigation')
     def navigation():
         navigation = []

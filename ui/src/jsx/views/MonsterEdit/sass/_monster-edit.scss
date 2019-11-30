@@ -1,0 +1,9 @@
+// _monster-edit.scss
+
+@import '../../../../sass/widget-grid';
+
+.monster-edit {
+    @extend .widget-grid;
+
+    grid-auto-rows: auto;
+}

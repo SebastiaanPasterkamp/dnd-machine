@@ -499,6 +499,7 @@ exports[`ArmorEdit render should work without props 1`] = `
               className="nice-btn"
               onClick={[Function]}
             >
+              Light Armor
               <i
                 className="icon fa-angle-down"
               />
@@ -506,7 +507,44 @@ exports[`ArmorEdit render should work without props 1`] = `
             <ul
               className="dropdown-menu"
               onClick={[Function]}
-            />
+            >
+              <li
+                className="info"
+                data-value="light"
+                onClick={[Function]}
+              >
+                <a>
+                  Light Armor
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="medium"
+                onClick={[Function]}
+              >
+                <a>
+                  Medium Armor
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="heavy"
+                onClick={[Function]}
+              >
+                <a>
+                  Heavy Armor
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="shield"
+                onClick={[Function]}
+              >
+                <a>
+                  Shields
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
         <div

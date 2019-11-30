@@ -95,7 +95,7 @@ class PartyBlueprint(BaseApiBlueprint):
     @BaseApiCallback('api_post')
     @BaseApiCallback('api_copy')
     @BaseApiCallback('api_patch')
-    @BaseApiCallback('recompute')
+    @BaseApiCallback('api_recompute')
     @BaseApiCallback('get_hosting')
     @BaseApiCallback('set_hosting')
     def adminOrDmOnly(self, *args, **kwargs):

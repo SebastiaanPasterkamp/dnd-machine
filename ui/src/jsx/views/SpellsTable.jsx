@@ -14,18 +14,18 @@ import { memoize } from '../utils';
 
 import '../../sass/_spells-table.scss';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper';
 
-import ControlGroup from '../components/ControlGroup.jsx';
-import DiceNotation from '../components/DiceNotation.jsx';
-import InputField from '../components/InputField.jsx';
-import LazyComponent from '../components/LazyComponent.jsx';
-import ListLabel from '../components/ListLabel.jsx';
-import MultiSelect from '../components/MultiSelect.jsx';
-import Pagination from '../components/Pagination.jsx';
-import SpellLinks from '../components/SpellLinks.jsx';
-import Reach from '../components/Reach.jsx';
+import ControlGroup from '../components/ControlGroup';
+import DiceNotation from '../components/DiceNotation';
+import InputField from '../components/InputField';
+import LazyComponent from '../components/LazyComponent';
+import ListLabel from '../components/ListLabel';
+import MultiSelect from '../components/MultiSelect';
+import Pagination from '../components/Pagination';
+import SpellLinks from '../components/SpellLinks';
+import Reach from '../components/Reach';
 
 const SpellsHeader = function() {
     return (

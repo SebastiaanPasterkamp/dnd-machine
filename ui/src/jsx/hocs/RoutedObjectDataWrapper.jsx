@@ -136,7 +136,8 @@ function RoutedObjectDataWrapper(
                     if (callback) {
                         callback();
                     }
-                }
+                },
+                true
             );
         }
 

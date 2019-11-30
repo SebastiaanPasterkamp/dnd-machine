@@ -1,0 +1,25 @@
+// _monster-label.scss
+
+.monster-label {
+    > span {
+        display: block;
+
+        > .list-label:after {
+            content: ' ';
+        }
+    }
+
+    span + span {
+        color: #B2B2B2;
+        font-size: smaller;
+    }
+
+    &--name + .monster-label--rating {
+        &:before { content: '('; }
+        &:after { content: ')'; }
+    }
+
+    &--campaign {
+        font-style: italic;
+    }
+}

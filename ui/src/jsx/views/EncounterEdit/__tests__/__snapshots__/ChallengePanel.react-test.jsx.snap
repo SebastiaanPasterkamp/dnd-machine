@@ -1,0 +1,521 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`View ChallengePanel rendering should work w/ minimum props 1`] = `
+<div
+  className="nice-panel encounter-edit__challenge"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Challenge Rating Overview
+  </div>
+  <table
+    className="nice-panel-content nice-table bordered"
+  >
+    <tbody>
+      <tr>
+        <th>
+          Monster Modifier
+        </th>
+        <th>
+          Party Modifier
+        </th>
+        <th>
+          Final Modifier
+        </th>
+      </tr>
+      <tr>
+        <td>
+          1
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          1
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Challenge Rating
+        </th>
+        <th>
+          Modified for party
+        </th>
+        <th>
+          Exact Challenge Rating
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            0
+          </div>
+           / 
+          <div
+            className="xp-rating inline"
+          >
+            0
+             XP
+          </div>
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            0.000
+          </div>
+           / 
+          <div
+            className="xp-rating inline"
+          >
+            0
+             XP
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`View ChallengePanel rendering should work with all props 1`] = `
+<div
+  className="nice-panel encounter-edit__challenge"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Challenge Rating Overview
+  </div>
+  <table
+    className="nice-panel-content nice-table bordered"
+  >
+    <tbody>
+      <tr>
+        <th>
+          Monster Modifier
+        </th>
+        <th>
+          Party Modifier
+        </th>
+        <th>
+          Final Modifier
+        </th>
+      </tr>
+      <tr>
+        <td>
+          1
+        </td>
+        <td>
+          0
+        </td>
+        <td>
+          1
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Challenge Rating
+        </th>
+        <th>
+          Modified for party
+        </th>
+        <th>
+          Exact Challenge Rating
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            2
+          </div>
+           / 
+          <div
+            className="xp-rating inline"
+          >
+            50
+             XP
+          </div>
+        </td>
+        <td>
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            2
+          </div>
+           / 
+          <div
+            className="xp-rating inline"
+          >
+            50
+             XP
+          </div>
+        </td>
+        <td>
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            2.200
+          </div>
+           / 
+          <div
+            className="xp-rating inline"
+          >
+            55
+             XP
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Party Size
+        </th>
+        <th>
+          XP / Party Member
+        </th>
+        <th>
+          Challenge Classification
+        </th>
+      </tr>
+      <tr>
+        <td>
+          4
+        </td>
+        <td>
+          <div
+            className="xp-rating inline"
+          >
+            13
+             XP
+          </div>
+        </td>
+        <td>
+          <span>
+            Hard (
+            <div
+              className="xp-rating inline"
+            >
+              60
+               XP
+            </div>
+            )
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`View ChallengePanel rendering should work with only the encounter loaded 1`] = `
+<div
+  className="nice-panel encounter-edit__challenge"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Challenge Rating Overview
+  </div>
+  <table
+    className="nice-panel-content nice-table bordered"
+  >
+    <tbody>
+      <tr>
+        <th>
+          Monster Modifier
+        </th>
+        <th>
+          Party Modifier
+        </th>
+        <th>
+          Final Modifier
+        </th>
+      </tr>
+      <tr>
+        <td>
+          1
+        </td>
+        <td>
+          0
+        </td>
+        <td>
+          1
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Challenge Rating
+        </th>
+        <th>
+          Modified for party
+        </th>
+        <th>
+          Exact Challenge Rating
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            2
+          </div>
+           / 
+          <div
+            className="xp-rating inline"
+          >
+            50
+             XP
+          </div>
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            2.200
+          </div>
+           / 
+          <div
+            className="xp-rating inline"
+          >
+            55
+             XP
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`View ChallengePanel rendering should work with only the party loaded 1`] = `
+<div
+  className="nice-panel encounter-edit__challenge"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Challenge Rating Overview
+  </div>
+  <table
+    className="nice-panel-content nice-table bordered"
+  >
+    <tbody>
+      <tr>
+        <th>
+          Monster Modifier
+        </th>
+        <th>
+          Party Modifier
+        </th>
+        <th>
+          Final Modifier
+        </th>
+      </tr>
+      <tr>
+        <td>
+          1
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          1
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Challenge Rating
+        </th>
+        <th>
+          Modified for party
+        </th>
+        <th>
+          Exact Challenge Rating
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            0
+          </div>
+           / 
+          <div
+            className="xp-rating inline"
+          >
+            0
+             XP
+          </div>
+        </td>
+        <td>
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            0
+          </div>
+           / 
+          <div
+            className="xp-rating inline"
+          >
+            0
+             XP
+          </div>
+        </td>
+        <td>
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            0.000
+          </div>
+           / 
+          <div
+            className="xp-rating inline"
+          >
+            0
+             XP
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Party Size
+        </th>
+        <th>
+          XP / Party Member
+        </th>
+        <th>
+          Challenge Classification
+        </th>
+      </tr>
+      <tr>
+        <td>
+          4
+        </td>
+        <td>
+          <div
+            className="xp-rating inline"
+          >
+            0
+             XP
+          </div>
+        </td>
+        <td />
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`View ChallengePanel rendering should work without a party 1`] = `
+<div
+  className="nice-panel encounter-edit__challenge"
+  id={undefined}
+>
+  <div
+    className="nice-panel-heading"
+  >
+    Challenge Rating Overview
+  </div>
+  <table
+    className="nice-panel-content nice-table bordered"
+  >
+    <tbody>
+      <tr>
+        <th>
+          Monster Modifier
+        </th>
+        <th>
+          Party Modifier
+        </th>
+        <th>
+          Final Modifier
+        </th>
+      </tr>
+      <tr>
+        <td>
+          1
+        </td>
+        <td>
+          0
+        </td>
+        <td>
+          1
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Challenge Rating
+        </th>
+        <th>
+          Modified for party
+        </th>
+        <th>
+          Exact Challenge Rating
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            2
+          </div>
+           / 
+          <div
+            className="xp-rating inline"
+          >
+            50
+             XP
+          </div>
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          <div
+            className="challenge-rating inline"
+          >
+            CR 
+            2.200
+          </div>
+           / 
+          <div
+            className="xp-rating inline"
+          >
+            55
+             XP
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

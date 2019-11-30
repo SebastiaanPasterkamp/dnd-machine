@@ -67,7 +67,7 @@
     "build:production": "webpack --mode production",
     "test": "node_modules/.bin/jest --ci",
     "test:watch": "npm run test -- --watchAll",
-    "test:coverage": "npm run test -- --coverage"
+    "test:coverage": "npm run test -- --coverage && sed -ri 's/\\/dnd-machine/./g' coverage/lcov.info"
   },
   "jest": {
     "testMatch": [

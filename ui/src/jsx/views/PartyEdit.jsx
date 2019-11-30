@@ -11,21 +11,21 @@ import {
 
 import '../../sass/_edit-party.scss';
 
-import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper.jsx';
-import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
-import ObjectDataActions from '../actions/ObjectDataActions.jsx';
+import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
+import ObjectDataActions from '../actions/ObjectDataActions';
 
-import { BaseLinkButton } from '../components/BaseLinkGroup/index.jsx';
-import ButtonField from '../components/ButtonField.jsx';
+import { BaseLinkButton } from '../components/BaseLinkGroup/index';
+import ButtonField from '../components/ButtonField';
 import { CharacterPicker } from '../components/CharacterPicker';
-import CharacterLabel from '../components/CharacterLabel.jsx';
-import CharacterLinks from '../components/CharacterLinks.jsx';
-import ControlGroup from '../components/ControlGroup.jsx';
-import InputField from '../components/InputField.jsx';
-import Panel from '../components/Panel.jsx';
-import SingleSelect from '../components/SingleSelect.jsx';
-import MarkdownTextField from '../components/MarkdownTextField.jsx';
-import UserLabel from '../components/UserLabel.jsx';
+import CharacterLabel from '../components/CharacterLabel';
+import CharacterLinks from '../components/CharacterLinks';
+import ControlGroup from '../components/ControlGroup';
+import InputField from '../components/InputField';
+import Panel from '../components/Panel';
+import SingleSelect from '../components/SingleSelect';
+import MarkdownTextField from '../components/MarkdownTextField';
+import UserLabel from '../components/UserLabel';
 
 export class PartyEdit extends React.PureComponent
 {

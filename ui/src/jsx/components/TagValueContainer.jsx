@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import utils from '../utils.jsx';
+import utils from '../utils';
 
 import '../../sass/_tag-value-container.scss';
 
@@ -10,9 +10,9 @@ import {
     TagsContainer,
     Tag,
     TagBadge,
-} from './BaseTagContainer.jsx';
-import LazyComponent from './LazyComponent.jsx';
-import SingleSelect from '../components/SingleSelect.jsx';
+} from './BaseTagContainer';
+import LazyComponent from './LazyComponent';
+import SingleSelect from '../components/SingleSelect';
 
 export class TagValueContainer extends LazyComponent
 {

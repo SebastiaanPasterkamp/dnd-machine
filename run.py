@@ -68,6 +68,10 @@ group.add_option("--initdb", default=False, action="store_true",
 group.add_option("--updatedb", default=False, action="store_true",
                  help="Update database schema. Then exit.")
 
+group.add_option("--force-skipped", default=False, action="store_true",
+                 help="Force executing database update versions that have been "
+                 "skipped. Used with --updatedb.")
+
 group.add_option("--import-sql", default=None, metavar="FILE",
                  help="Import custom SQL into the database."
                  " Then exit.")
@@ -106,7 +110,7 @@ if __name__ == '__main__':
 
     if options.updatedb:
         print('Updating the database.')
-        updatedb(app)
+        updatedb(app, options.force_skipped)
         print('Updated the database.')
         exit()
 

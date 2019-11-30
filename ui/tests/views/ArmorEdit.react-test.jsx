@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import MockRouter from 'react-mock-router';
 
+import ListDataActions from 'actions/ListDataActions';
 import {
     mockedApi,
     armor_types,
@@ -33,6 +34,7 @@ describe('ArmorEdit', () => {
         fetch.mockImplementation( mockedApi({
             armor_types,
         }) );
+        ListDataActions.fetchItems('armor_types', 'items');
     })
 
     afterAll(() => {

@@ -59,7 +59,13 @@ const EncounterEdit = Loadable({
       ),
       loading: () => <LoadingSplash loading={true} overlay={true} />,
 });
-import EncounterTable from './views/EncounterTable.jsx';
+const EncountersTable = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'EncountersTable' */
+          './views/EncountersTable'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import EncounterView from './views/EncounterView.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import PageFooter from './views/PageFooter.jsx';
@@ -82,7 +88,13 @@ const MonsterEdit = Loadable({
       ),
       loading: () => <LoadingSplash loading={true} overlay={true} />,
 });
-import MonstersTable from './views/MonstersTable.jsx';
+const MonstersTable = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'MonstersTable' */
+          './views/MonstersTable'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import MonsterView from './views/MonsterView.jsx';
 const NpcEdit = Loadable({
       loader: () => import(
@@ -91,7 +103,13 @@ const NpcEdit = Loadable({
       ),
       loading: () => <LoadingSplash loading={true} overlay={true} />,
 });
-import NpcTable from './views/NpcTable.jsx';
+const NpcsTable = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'NpcsTable' */
+          './views/NpcsTable'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 import NpcView from './views/NpcView.jsx';
 const SpellEdit = Loadable({
       loader: () => import(
@@ -254,7 +272,7 @@ class DndMachine extends React.Component
 
                 <Route
                     path="/encounter/list"
-                    component={EncounterTable}
+                    component={EncountersTable}
                     />
                 <Route
                     path="/encounter/show/:id"
@@ -344,7 +362,7 @@ class DndMachine extends React.Component
 
                 <Route
                     path="/npc/list"
-                    component={NpcTable}
+                    component={NpcsTable}
                     />
                 <Route
                     path="/npc/new"

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import {
     BaseLinkButton,
     BaseLinkGroup,
-} from '../../BaseLinkGroup/index.jsx';
-import MonsterLabel from '../../MonsterLabel.jsx';
+} from '../../BaseLinkGroup';
+import MonsterLabel from '../../MonsterLabel';
 
 
 class MonsterRow extends React.PureComponent
@@ -29,6 +29,7 @@ class MonsterRow extends React.PureComponent
                     monster_id={monster.id}
                     monster={monster}
                     showType={true}
+                    showRating={true}
                 />
                 <div className="actions">
                     <BaseLinkGroup>

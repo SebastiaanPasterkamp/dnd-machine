@@ -38,7 +38,7 @@ export class AdventureLeagueLogLinks extends React.Component
         } = this.props;
 
         if (!currentUser) {
-            return {};
+            return null;
         }
 
         return (

@@ -101,7 +101,7 @@ class JsonObject(object):
                         )
                 else:
                     a[key] = self._merge(
-                        a[key],
+                        a.get(key),
                         b[key],
                         self._getCast(cast, key),
                         path + [key]
@@ -114,8 +114,11 @@ class JsonObject(object):
                 for _b in b
                 ]
 
-        if cast == int and b in [None, '']:
-            return 0
+        if cast == int:
+            if b is None:
+                return b
+            if b == '':
+                return 0
 
         if b in [None, 'None'] or cast == 'auto':
             return b
@@ -303,10 +306,13 @@ class JsonObject(object):
                 for step, v in value.items()
                 ])
 
-        if cast == int and value in [None, '']:
-            if debug:
-                print('empty int', path)
-            return 0
+        if cast == int:
+            if debug and value in [None, '']:
+                print('empty int %s %r' % (path, value))
+            if value is None:
+                return value
+            if value == '':
+                return 0
 
         if value in [None, 'None'] or cast == 'auto':
             if debug:
@@ -382,8 +388,6 @@ class JsonObjectDataMapper(object):
 
         dbrow['config'] = json.loads(dbrow['config'])
         for field in self.fields:
-            if dbrow[field] is None:
-                continue
             dbrow['config'][field] = dbrow[field]
         dbrow['config']['id'] = dbrow['id']
         return self.obj(dbrow['config'])
@@ -394,7 +398,7 @@ class JsonObjectDataMapper(object):
 
         fields = self.fields + ['id']
         dbrow = dict(
-            (field, obj[field])
+            (field, obj.getPath(field, None))
             for field in fields
             )
         dbrow['config'] = dict(
@@ -425,6 +429,7 @@ class JsonObjectDataMapper(object):
                 [obj_id]
                 )
             obj = cur.fetchone()
+            cur.close()
 
         if obj is None:
             return None
@@ -439,6 +444,7 @@ class JsonObjectDataMapper(object):
                 values
                 )
             objs = cur.fetchall() or []
+            cur.close()
 
         return [
             self._read(dict(obj))
@@ -495,6 +501,7 @@ class JsonObjectDataMapper(object):
                 )
             db.commit()
             obj.id = cur.lastrowid
+            cur.close()
 
         self.fillJoinTables(obj)
 
@@ -505,7 +512,7 @@ class JsonObjectDataMapper(object):
         new_obj = self._write(obj)
 
         with self._db.connect() as db:
-            cur = db.execute("""
+            db.execute("""
                 UPDATE `%s`
                 SET `config` = :config, %s
                 WHERE `id` = :id
@@ -530,7 +537,7 @@ class JsonObjectDataMapper(object):
         self.clearJoinTables(obj)
 
         with self._db.connect() as db:
-            cur = db.execute("""
+            db.execute("""
                 DELETE
                 FROM `%s`
                 WHERE `id` = ?

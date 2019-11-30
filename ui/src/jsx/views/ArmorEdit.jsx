@@ -7,19 +7,19 @@ import { memoize } from '../utils';
 
 import '../../sass/_edit-armor.scss';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
 
-import ButtonField from '../components/ButtonField.jsx';
-import ControlGroup from '../components/ControlGroup.jsx';
-import CostEditor from '../components/CostEditor.jsx';
-import InputField from '../components/InputField.jsx';
-import Panel from '../components/Panel.jsx';
-import MarkdownTextField from '../components/MarkdownTextField.jsx';
-import MultiSelect from '../components/MultiSelect.jsx';
-import SingleSelect from '../components/SingleSelect.jsx';
-import StatsBlock from '../components/StatsBlock.jsx';
-import TextField from '../components/TextField.jsx';
+import ButtonField from '../components/ButtonField';
+import ControlGroup from '../components/ControlGroup';
+import CostEditor from '../components/CostEditor';
+import InputField from '../components/InputField';
+import Panel from '../components/Panel';
+import MarkdownTextField from '../components/MarkdownTextField';
+import MultiSelect from '../components/MultiSelect';
+import SingleSelect from '../components/SingleSelect';
+import StatsBlock from '../components/StatsBlock';
+import TextField from '../components/TextField';
 
 export class ArmorEdit extends React.Component
 {
@@ -121,7 +121,7 @@ export class ArmorEdit extends React.Component
                 </ControlGroup>
                 <ControlGroup labels={["AC", ":"]}>
                     <SingleSelect
-                        header="Armor method"
+                        emptyLabel="Armor method"
                         selected={armor_method}
                         items={this.armor_method}
                         setState={this.onArmorMethod}

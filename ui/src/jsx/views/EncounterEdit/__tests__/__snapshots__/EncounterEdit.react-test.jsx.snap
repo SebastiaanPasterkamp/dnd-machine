@@ -1,0 +1,1957 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`View EncounterEdit rendering should work w/ minimum props 1`] = `
+Array [
+  <div
+    className="nice-panel encounter-edit__description"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Campaign
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Campaign...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          />
+        </div>
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Name
+        </span>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Name..."
+          type={undefined}
+          value=""
+        />
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Description
+        </span>
+        <div
+          className="markdown-textedit preview"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <span
+            className="markdown-textedit__placeholder"
+          >
+            Description...
+          </span>
+          <textarea
+            className="nice-form-control"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Description..."
+            rows={5}
+            value=""
+          />
+          <span
+            className="markdown-textedit__preview"
+          />
+        </div>
+      </div>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+  <div
+    className="nice-panel encounter-edit__challenge"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Challenge Rating Overview
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <tbody>
+        <tr>
+          <th>
+            Monster Modifier
+          </th>
+          <th>
+            Party Modifier
+          </th>
+          <th>
+            Final Modifier
+          </th>
+        </tr>
+        <tr>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Challenge Rating
+          </th>
+          <th>
+            Modified for party
+          </th>
+          <th>
+            Exact Challenge Rating
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              0
+               XP
+            </div>
+          </td>
+          <td>
+            —
+          </td>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0.000
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              0
+               XP
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel encounter-edit__monsters"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Encounter Monsters
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th
+            rowSpan="2"
+          >
+            Monster Name
+          </th>
+          <th
+            colSpan="2"
+          >
+            Monster Stats
+          </th>
+          <th
+            colSpan="2"
+          >
+            Defensive
+          </th>
+          <th
+            colSpan="2"
+          >
+            Offensive
+          </th>
+        </tr>
+        <tr>
+          <th>
+            Challenge Rating
+          </th>
+          <th>
+            Challenge XP
+          </th>
+          <th>
+            Hit Points
+          </th>
+          <th>
+            Armor Class
+          </th>
+          <th>
+            Damage / Round
+          </th>
+          <th>
+            Attack Bonus / Spell Save DC
+          </th>
+        </tr>
+      </thead>
+      <tbody />
+      <tbody>
+        <tr>
+          <th>
+            <a
+              className="nice-btn-alt cursor-pointer icon fa-plus"
+              onClick={[Function]}
+            >
+              Add
+            </a>
+          </th>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0.000
+            </div>
+          </td>
+          <td>
+            <div
+              className="xp-rating inline"
+            >
+              0
+               XP
+            </div>
+          </td>
+          <td
+            colSpan="2"
+          />
+          <td>
+            0
+          </td>
+          <td />
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+]
+`;
+
+exports[`View EncounterEdit rendering should work with all props 1`] = `
+Array [
+  <div
+    className="nice-panel encounter-edit__description"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Campaign
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Campaign...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          >
+            <li
+              className={null}
+              data-value={2}
+              onClick={[Function]}
+            >
+              <a>
+                Some campaign
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Name
+        </span>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Name..."
+          type={undefined}
+          value="Bar fight!"
+        />
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Description
+        </span>
+        <div
+          className="markdown-textedit preview"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <textarea
+            className="nice-form-control"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Description..."
+            rows={5}
+            value="There is a fight in a bar"
+          />
+          <span
+            className="markdown-textedit__preview"
+          >
+            <p>
+              There is a fight in a bar
+            </p>
+          </span>
+        </div>
+      </div>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+  <div
+    className="nice-panel encounter-edit__challenge"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Challenge Rating Overview
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <tbody>
+        <tr>
+          <th>
+            Monster Modifier
+          </th>
+          <th>
+            Party Modifier
+          </th>
+          <th>
+            Final Modifier
+          </th>
+        </tr>
+        <tr>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Challenge Rating
+          </th>
+          <th>
+            Modified for party
+          </th>
+          <th>
+            Exact Challenge Rating
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              2
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              50
+               XP
+            </div>
+          </td>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              2
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              50
+               XP
+            </div>
+          </td>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              2.200
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              55
+               XP
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Party Size
+          </th>
+          <th>
+            XP / Party Member
+          </th>
+          <th>
+            Challenge Classification
+          </th>
+        </tr>
+        <tr>
+          <td>
+            4
+          </td>
+          <td>
+            <div
+              className="xp-rating inline"
+            >
+              13
+               XP
+            </div>
+          </td>
+          <td>
+            <span>
+              Hard (
+              <div
+                className="xp-rating inline"
+              >
+                60
+                 XP
+              </div>
+              )
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel encounter-edit__monsters"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Encounter Monsters
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th
+            rowSpan="2"
+          >
+            Monster Name
+          </th>
+          <th
+            colSpan="2"
+          >
+            Monster Stats
+          </th>
+          <th
+            colSpan="2"
+          >
+            Defensive
+          </th>
+          <th
+            colSpan="2"
+          >
+            Offensive
+          </th>
+        </tr>
+        <tr>
+          <th>
+            Challenge Rating
+          </th>
+          <th>
+            Challenge XP
+          </th>
+          <th>
+            Hit Points
+          </th>
+          <th>
+            Armor Class
+          </th>
+          <th>
+            Damage / Round
+          </th>
+          <th>
+            Attack Bonus / Spell Save DC
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>
+            3
+             × 
+            Patron
+            <div
+              className="base-link-group nice-btn-group"
+            >
+              <a
+                className="cursor-pointer nice-btn-alt icon fa-minus warning"
+                onClick={[Function]}
+              />
+              <a
+                className="cursor-pointer nice-btn-alt icon fa-plus good"
+                onClick={[Function]}
+              />
+            </div>
+          </th>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0.660
+            </div>
+            <span>
+              (
+              <div
+                className="challenge-rating inline"
+              >
+                CR 
+                1.980
+              </div>
+              )
+            </span>
+          </td>
+          <td>
+            <div
+              className="xp-rating inline"
+            >
+              18
+               XP
+            </div>
+            <span>
+              (
+              <div
+                className="xp-rating inline"
+              >
+                55
+                 XP
+              </div>
+              )
+            </span>
+          </td>
+          <td>
+            7
+          </td>
+          <td>
+            12
+          </td>
+          <td>
+            3
+            <span>
+              (
+              9
+              )
+            </span>
+          </td>
+          <td>
+            <span>
+              Hit   
+              <div
+                className="bonus inline"
+              >
+                +
+                2
+              </div>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <th>
+            <a
+              className="nice-btn-alt cursor-pointer icon fa-plus"
+              onClick={[Function]}
+            >
+              Add
+            </a>
+          </th>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              1.980
+            </div>
+          </td>
+          <td>
+            <div
+              className="xp-rating inline"
+            >
+              55
+               XP
+            </div>
+          </td>
+          <td
+            colSpan="2"
+          />
+          <td>
+            9
+          </td>
+          <td />
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+]
+`;
+
+exports[`View EncounterEdit rendering should work with only the encounter loaded 1`] = `
+Array [
+  <div
+    className="nice-panel encounter-edit__description"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Campaign
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Campaign...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          >
+            <li
+              className={null}
+              data-value={2}
+              onClick={[Function]}
+            >
+              <a>
+                Some campaign
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Name
+        </span>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Name..."
+          type={undefined}
+          value="Bar fight!"
+        />
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Description
+        </span>
+        <div
+          className="markdown-textedit preview"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <textarea
+            className="nice-form-control"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Description..."
+            rows={5}
+            value="There is a fight in a bar"
+          />
+          <span
+            className="markdown-textedit__preview"
+          >
+            <p>
+              There is a fight in a bar
+            </p>
+          </span>
+        </div>
+      </div>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+  <div
+    className="nice-panel encounter-edit__challenge"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Challenge Rating Overview
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <tbody>
+        <tr>
+          <th>
+            Monster Modifier
+          </th>
+          <th>
+            Party Modifier
+          </th>
+          <th>
+            Final Modifier
+          </th>
+        </tr>
+        <tr>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Challenge Rating
+          </th>
+          <th>
+            Modified for party
+          </th>
+          <th>
+            Exact Challenge Rating
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              2
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              50
+               XP
+            </div>
+          </td>
+          <td>
+            —
+          </td>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              2.200
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              55
+               XP
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel encounter-edit__monsters"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Encounter Monsters
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th
+            rowSpan="2"
+          >
+            Monster Name
+          </th>
+          <th
+            colSpan="2"
+          >
+            Monster Stats
+          </th>
+          <th
+            colSpan="2"
+          >
+            Defensive
+          </th>
+          <th
+            colSpan="2"
+          >
+            Offensive
+          </th>
+        </tr>
+        <tr>
+          <th>
+            Challenge Rating
+          </th>
+          <th>
+            Challenge XP
+          </th>
+          <th>
+            Hit Points
+          </th>
+          <th>
+            Armor Class
+          </th>
+          <th>
+            Damage / Round
+          </th>
+          <th>
+            Attack Bonus / Spell Save DC
+          </th>
+        </tr>
+      </thead>
+      <tbody />
+      <tbody>
+        <tr>
+          <th>
+            <a
+              className="nice-btn-alt cursor-pointer icon fa-plus"
+              onClick={[Function]}
+            >
+              Add
+            </a>
+          </th>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0.000
+            </div>
+          </td>
+          <td>
+            <div
+              className="xp-rating inline"
+            >
+              0
+               XP
+            </div>
+          </td>
+          <td
+            colSpan="2"
+          />
+          <td>
+            0
+          </td>
+          <td />
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+]
+`;
+
+exports[`View EncounterEdit rendering should work with only the monsters loaded 1`] = `
+Array [
+  <div
+    className="nice-panel encounter-edit__description"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Campaign
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Campaign...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          >
+            <li
+              className={null}
+              data-value={2}
+              onClick={[Function]}
+            >
+              <a>
+                Some campaign
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Name
+        </span>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Name..."
+          type={undefined}
+          value=""
+        />
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Description
+        </span>
+        <div
+          className="markdown-textedit preview"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <span
+            className="markdown-textedit__placeholder"
+          >
+            Description...
+          </span>
+          <textarea
+            className="nice-form-control"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Description..."
+            rows={5}
+            value=""
+          />
+          <span
+            className="markdown-textedit__preview"
+          />
+        </div>
+      </div>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+  <div
+    className="nice-panel encounter-edit__challenge"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Challenge Rating Overview
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <tbody>
+        <tr>
+          <th>
+            Monster Modifier
+          </th>
+          <th>
+            Party Modifier
+          </th>
+          <th>
+            Final Modifier
+          </th>
+        </tr>
+        <tr>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Challenge Rating
+          </th>
+          <th>
+            Modified for party
+          </th>
+          <th>
+            Exact Challenge Rating
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              0
+               XP
+            </div>
+          </td>
+          <td>
+            —
+          </td>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0.000
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              0
+               XP
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel encounter-edit__monsters"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Encounter Monsters
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th
+            rowSpan="2"
+          >
+            Monster Name
+          </th>
+          <th
+            colSpan="2"
+          >
+            Monster Stats
+          </th>
+          <th
+            colSpan="2"
+          >
+            Defensive
+          </th>
+          <th
+            colSpan="2"
+          >
+            Offensive
+          </th>
+        </tr>
+        <tr>
+          <th>
+            Challenge Rating
+          </th>
+          <th>
+            Challenge XP
+          </th>
+          <th>
+            Hit Points
+          </th>
+          <th>
+            Armor Class
+          </th>
+          <th>
+            Damage / Round
+          </th>
+          <th>
+            Attack Bonus / Spell Save DC
+          </th>
+        </tr>
+      </thead>
+      <tbody />
+      <tbody>
+        <tr>
+          <th>
+            <a
+              className="nice-btn-alt cursor-pointer icon fa-plus"
+              onClick={[Function]}
+            >
+              Add
+            </a>
+          </th>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0.000
+            </div>
+          </td>
+          <td>
+            <div
+              className="xp-rating inline"
+            >
+              0
+               XP
+            </div>
+          </td>
+          <td
+            colSpan="2"
+          />
+          <td>
+            0
+          </td>
+          <td />
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+]
+`;
+
+exports[`View EncounterEdit rendering should work with only the party loaded 1`] = `
+Array [
+  <div
+    className="nice-panel encounter-edit__description"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Campaign
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Campaign...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          >
+            <li
+              className={null}
+              data-value={2}
+              onClick={[Function]}
+            >
+              <a>
+                Some campaign
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Name
+        </span>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Name..."
+          type={undefined}
+          value=""
+        />
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Description
+        </span>
+        <div
+          className="markdown-textedit preview"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <span
+            className="markdown-textedit__placeholder"
+          >
+            Description...
+          </span>
+          <textarea
+            className="nice-form-control"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Description..."
+            rows={5}
+            value=""
+          />
+          <span
+            className="markdown-textedit__preview"
+          />
+        </div>
+      </div>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+  <div
+    className="nice-panel encounter-edit__challenge"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Challenge Rating Overview
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <tbody>
+        <tr>
+          <th>
+            Monster Modifier
+          </th>
+          <th>
+            Party Modifier
+          </th>
+          <th>
+            Final Modifier
+          </th>
+        </tr>
+        <tr>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Challenge Rating
+          </th>
+          <th>
+            Modified for party
+          </th>
+          <th>
+            Exact Challenge Rating
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              0
+               XP
+            </div>
+          </td>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              0
+               XP
+            </div>
+          </td>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0.000
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              0
+               XP
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Party Size
+          </th>
+          <th>
+            XP / Party Member
+          </th>
+          <th>
+            Challenge Classification
+          </th>
+        </tr>
+        <tr>
+          <td>
+            4
+          </td>
+          <td>
+            <div
+              className="xp-rating inline"
+            >
+              0
+               XP
+            </div>
+          </td>
+          <td />
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel encounter-edit__monsters"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Encounter Monsters
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th
+            rowSpan="2"
+          >
+            Monster Name
+          </th>
+          <th
+            colSpan="2"
+          >
+            Monster Stats
+          </th>
+          <th
+            colSpan="2"
+          >
+            Defensive
+          </th>
+          <th
+            colSpan="2"
+          >
+            Offensive
+          </th>
+        </tr>
+        <tr>
+          <th>
+            Challenge Rating
+          </th>
+          <th>
+            Challenge XP
+          </th>
+          <th>
+            Hit Points
+          </th>
+          <th>
+            Armor Class
+          </th>
+          <th>
+            Damage / Round
+          </th>
+          <th>
+            Attack Bonus / Spell Save DC
+          </th>
+        </tr>
+      </thead>
+      <tbody />
+      <tbody>
+        <tr>
+          <th>
+            <a
+              className="nice-btn-alt cursor-pointer icon fa-plus"
+              onClick={[Function]}
+            >
+              Add
+            </a>
+          </th>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0.000
+            </div>
+          </td>
+          <td>
+            <div
+              className="xp-rating inline"
+            >
+              0
+               XP
+            </div>
+          </td>
+          <td
+            colSpan="2"
+          />
+          <td>
+            0
+          </td>
+          <td />
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+]
+`;
+
+exports[`View EncounterEdit rendering should work without a party 1`] = `
+Array [
+  <div
+    className="nice-panel encounter-edit__description"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Description
+    </div>
+    <div
+      className="nice-panel-content"
+    >
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Campaign
+        </span>
+        <div
+          className="nice-dropdown nice-form-control"
+        >
+          <button
+            className="nice-btn"
+            onClick={[Function]}
+          >
+            Campaign...
+            <i
+              className="icon fa-angle-down"
+            />
+          </button>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          >
+            <li
+              className={null}
+              data-value={2}
+              onClick={[Function]}
+            >
+              <a>
+                Some campaign
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Name
+        </span>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder="Name..."
+          type={undefined}
+          value="Bar fight!"
+        />
+      </div>
+      <div
+        className="nice-control-group"
+      >
+        <span
+          className="nice-input-addon"
+        >
+          Description
+        </span>
+        <div
+          className="markdown-textedit preview"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <textarea
+            className="nice-form-control"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Description..."
+            rows={5}
+            value="There is a fight in a bar"
+          />
+          <span
+            className="markdown-textedit__preview"
+          >
+            <p>
+              There is a fight in a bar
+            </p>
+          </span>
+        </div>
+      </div>
+      <div
+        className="clearfix"
+      />
+    </div>
+  </div>,
+  <div
+    className="nice-panel encounter-edit__challenge"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Challenge Rating Overview
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <tbody>
+        <tr>
+          <th>
+            Monster Modifier
+          </th>
+          <th>
+            Party Modifier
+          </th>
+          <th>
+            Final Modifier
+          </th>
+        </tr>
+        <tr>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Challenge Rating
+          </th>
+          <th>
+            Modified for party
+          </th>
+          <th>
+            Exact Challenge Rating
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              2
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              50
+               XP
+            </div>
+          </td>
+          <td>
+            —
+          </td>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              2.200
+            </div>
+             / 
+            <div
+              className="xp-rating inline"
+            >
+              55
+               XP
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="nice-panel encounter-edit__monsters"
+    id={undefined}
+  >
+    <div
+      className="nice-panel-heading"
+    >
+      Encounter Monsters
+    </div>
+    <table
+      className="nice-panel-content nice-table bordered"
+    >
+      <thead>
+        <tr>
+          <th
+            rowSpan="2"
+          >
+            Monster Name
+          </th>
+          <th
+            colSpan="2"
+          >
+            Monster Stats
+          </th>
+          <th
+            colSpan="2"
+          >
+            Defensive
+          </th>
+          <th
+            colSpan="2"
+          >
+            Offensive
+          </th>
+        </tr>
+        <tr>
+          <th>
+            Challenge Rating
+          </th>
+          <th>
+            Challenge XP
+          </th>
+          <th>
+            Hit Points
+          </th>
+          <th>
+            Armor Class
+          </th>
+          <th>
+            Damage / Round
+          </th>
+          <th>
+            Attack Bonus / Spell Save DC
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>
+            3
+             × 
+            Patron
+            <div
+              className="base-link-group nice-btn-group"
+            >
+              <a
+                className="cursor-pointer nice-btn-alt icon fa-minus warning"
+                onClick={[Function]}
+              />
+              <a
+                className="cursor-pointer nice-btn-alt icon fa-plus good"
+                onClick={[Function]}
+              />
+            </div>
+          </th>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              0.660
+            </div>
+            <span>
+              (
+              <div
+                className="challenge-rating inline"
+              >
+                CR 
+                1.980
+              </div>
+              )
+            </span>
+          </td>
+          <td>
+            <div
+              className="xp-rating inline"
+            >
+              18
+               XP
+            </div>
+            <span>
+              (
+              <div
+                className="xp-rating inline"
+              >
+                55
+                 XP
+              </div>
+              )
+            </span>
+          </td>
+          <td>
+            7
+          </td>
+          <td>
+            12
+          </td>
+          <td>
+            3
+            <span>
+              (
+              9
+              )
+            </span>
+          </td>
+          <td>
+            <span>
+              Hit   
+              <div
+                className="bonus inline"
+              >
+                +
+                2
+              </div>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <th>
+            <a
+              className="nice-btn-alt cursor-pointer icon fa-plus"
+              onClick={[Function]}
+            >
+              Add
+            </a>
+          </th>
+          <td>
+            <div
+              className="challenge-rating inline"
+            >
+              CR 
+              1.980
+            </div>
+          </td>
+          <td>
+            <div
+              className="xp-rating inline"
+            >
+              55
+               XP
+            </div>
+          </td>
+          <td
+            colSpan="2"
+          />
+          <td>
+            9
+          </td>
+          <td />
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+]
+`;

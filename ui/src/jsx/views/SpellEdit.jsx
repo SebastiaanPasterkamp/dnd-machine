@@ -10,20 +10,20 @@ import { memoize } from '../utils';
 
 import '../../sass/_spell-edit.scss';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
 
-import ControlGroup from '../components/ControlGroup.jsx';
-import CostEditor from '../components/CostEditor.jsx';
-import DamageEdit from '../components/DamageEdit.jsx';
-import InputField from '../components/InputField.jsx';
-import Panel from '../components/Panel.jsx';
-import MarkdownTextField from '../components/MarkdownTextField.jsx';
-import MultiSelect from '../components/MultiSelect.jsx';
-import ReachEdit from '../components/ReachEdit.jsx';
-import SingleSelect from '../components/SingleSelect.jsx';
-import TextField from '../components/TextField.jsx';
-import TagContainer from '../components/TagContainer.jsx';
+import ControlGroup from '../components/ControlGroup';
+import CostEditor from '../components/CostEditor';
+import DamageEdit from '../components/DamageEdit';
+import InputField from '../components/InputField';
+import Panel from '../components/Panel';
+import MarkdownTextField from '../components/MarkdownTextField';
+import MultiSelect from '../components/MultiSelect';
+import ReachEdit from '../components/ReachEdit';
+import SingleSelect from '../components/SingleSelect';
+import TextField from '../components/TextField';
+import TagContainer from '../components/TagContainer';
 
 export class SpellEdit extends React.Component
 {

@@ -18,16 +18,13 @@ class ListDataStore extends Reflux.Store
         this.listenables = ListDataActions;
     }
 
-    onSetState(data) {
-        this.setState(data);
-    }
-
     onFetchItems(type, category=null) {
         const { loading } = this.state;
         if (loading[type]) {
             return;
         }
 
+        LoadingActions.start(type);
         this.setState({
             loading: {
                 ...loading,
@@ -42,7 +39,7 @@ class ListDataStore extends Reflux.Store
         fetch(path, {
             credentials: 'same-origin',
             'headers': {
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest',
             }
         })
         .then((response) => {
@@ -54,7 +51,7 @@ class ListDataStore extends Reflux.Store
         .then((response) => {
             LoadingActions.finish(type);
             ListDataActions.fetchItems.completed({
-                [type]: response
+                [type]: response,
             }, type);
         })
         .catch((error) => {

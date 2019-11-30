@@ -1,0 +1,313 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: MultiSelect should handle unknown value 1`] = `
+<div
+  className="nice-dropdown nice-form-control"
+  defaultValue={Array []}
+>
+  <button
+    className="nice-btn"
+    onClick={[Function]}
+  >
+    0 selected
+    <i
+      className="icon fa-angle-down"
+    />
+  </button>
+  <ul
+    className="dropdown-menu"
+    onClick={[Function]}
+  >
+    <li
+      className={null}
+      data-value={1}
+    >
+      <label>
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        One
+      </label>
+    </li>
+    <li
+      className={null}
+      data-value={2}
+    >
+      <label>
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        Two
+      </label>
+    </li>
+    <li
+      className={null}
+      data-value={3}
+    >
+      <label>
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        Three
+      </label>
+    </li>
+    <li
+      className={null}
+      data-value={4}
+    >
+      <label>
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        Four
+      </label>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Component: MultiSelect should show a dropdown with 4 items disabled by callback 1`] = `
+<div
+  className="nice-dropdown nice-form-control"
+  defaultValue={Array []}
+>
+  <button
+    className="nice-btn"
+    onClick={[Function]}
+  >
+    2 selected
+    <i
+      className="icon fa-angle-down"
+    />
+  </button>
+  <ul
+    className="dropdown-menu"
+    onClick={[Function]}
+  >
+    <li
+      className={null}
+      data-value={1}
+    >
+      <label>
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        One
+      </label>
+    </li>
+    <li
+      className="disabled"
+      data-value={2}
+    >
+      <label>
+        <input
+          checked={false}
+          disabled={true}
+          onChange={null}
+          type="checkbox"
+        />
+        Two
+      </label>
+    </li>
+    <li
+      className="info"
+      data-value={3}
+    >
+      <label>
+        <input
+          checked={true}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        Three
+      </label>
+    </li>
+    <li
+      className="info disabled"
+      data-value={4}
+    >
+      <label>
+        <input
+          checked={true}
+          disabled={true}
+          onChange={null}
+          type="checkbox"
+        />
+        Four
+      </label>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Component: MultiSelect should show a dropdown with 4 items in various states 1`] = `
+<div
+  className="nice-dropdown nice-form-control"
+  defaultValue={Array []}
+>
+  <button
+    className="nice-btn"
+    onClick={[Function]}
+  >
+    2 selected
+    <i
+      className="icon fa-angle-down"
+    />
+  </button>
+  <ul
+    className="dropdown-menu"
+    onClick={[Function]}
+  >
+    <li
+      className={null}
+      data-value={1}
+    >
+      <label>
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        One
+      </label>
+    </li>
+    <li
+      className="disabled"
+      data-value={2}
+    >
+      <label>
+        <input
+          checked={false}
+          disabled={true}
+          onChange={null}
+          type="checkbox"
+        />
+        Two
+      </label>
+    </li>
+    <li
+      className="info disabled"
+      data-value={3}
+    >
+      <label>
+        <input
+          checked={true}
+          disabled={true}
+          onChange={null}
+          type="checkbox"
+        />
+        Three
+      </label>
+    </li>
+    <li
+      className="info"
+      data-value={4}
+    >
+      <label>
+        <input
+          checked={true}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        Four
+      </label>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] = `
+<div
+  className="nice-dropdown nice-form-control"
+  defaultValue={Array []}
+>
+  <button
+    className="nice-btn"
+    onClick={[Function]}
+  >
+    0 selected
+    <i
+      className="icon fa-angle-down"
+    />
+  </button>
+  <ul
+    className="dropdown-menu"
+    onClick={[Function]}
+  >
+    <li
+      className={null}
+      data-value={1}
+    >
+      <label>
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        One
+      </label>
+    </li>
+    <li
+      className={null}
+      data-value={2}
+    >
+      <label>
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        Two
+      </label>
+    </li>
+    <li
+      className={null}
+      data-value={3}
+    >
+      <label>
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        Three
+      </label>
+    </li>
+    <li
+      className={null}
+      data-value={4}
+    >
+      <label>
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        Four
+      </label>
+    </li>
+  </ul>
+</div>
+`;

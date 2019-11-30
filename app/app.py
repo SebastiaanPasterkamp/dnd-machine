@@ -82,10 +82,10 @@ def register_cli(app):
             _initdb(db)
         print('Initialized the database.')
     @app.cli.command('updatedb')
-    def updatedb_command():
+    def updatedb_command(force_skipped):
         print('Updating the database.')
         with app.db.connect() as db:
-            _updatedb(db)
+            _updatedb(db, force_skipped)
         print('Updated the database.')
     @app.cli.command('migrate')
     def migrate_command():
@@ -110,10 +110,10 @@ def initdb(app):
         with app.db.connect() as db:
             _initdb(db)
 
-def updatedb(app):
+def updatedb(app, force_skipped=False):
     with app.app_context():
         with app.db.connect() as db:
-            _updatedb(db)
+            _updatedb(db, force_skipped)
 
 def migrate(app, objects=None):
     with app.app_context():
@@ -141,7 +141,7 @@ def _initdb(db):
     db.commit()
     _updatedb(db)
 
-def _updatedb(db):
+def _updatedb(db, force_skipped=False):
     """Updates the database."""
     record_schema = """
         INSERT INTO `schema` (`version`, `path`, `comment`)
@@ -162,15 +162,13 @@ def _updatedb(db):
     def version_string(version):
         return '.'.join(list(map(str, version)))
 
-    latest = {'version': '0.0.0'}
+    executed = set(['0.0.0'])
+    latest = '0.0.0'
     try:
-        cur = db.execute("""
-            SELECT *
-            FROM `schema`
-            ORDER BY `id` DESC
-            LIMIT 1
-            """)
-        latest = cur.fetchone()
+        cur = db.execute("""SELECT version FROM `schema` ORDER BY `id` ASC""")
+        for row in cur.fetchall():
+            executed.add(row['version'])
+            latest = row['version']
     except:
         db.execute("""
             CREATE TABLE `schema` (
@@ -195,8 +193,19 @@ def _updatedb(db):
     for change in changes:
         version = get_version(change)
 
-        if not newer_version(latest['version'], version):
+        if version_string(version) in executed:
             continue
+
+        if not newer_version(latest, version):
+            if not force_skipped:
+                print(
+                    "Skipped change %s (%s) detected! Use --force-skipped to ammend." % (
+                    version_string(version), change))
+                continue
+            else:
+                print(
+                    "Executing skipped change %s (%s) out of order!" % (
+                    version_string(version), change))
 
         with open(os.path.abspath(change), mode='r') as f:
             comment = f.readline().strip("\n\t\r- ")

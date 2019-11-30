@@ -58,10 +58,14 @@ ReportingActions.reportError.listen((error, info) => {
 });
 
 export function jsonOrBust(response) {
-    return new Promise(
-        (resolve, reject) => response.json().then(
-            (response.ok || response.redirected) ? resolve : reject
-        )
+    return new Promise((resolve, reject) => {
+        response.json()
+            .then((response.ok || response.redirected)
+                ? resolve
+                : reject
+            )
+            .catch(reject)
+        }
     );
 };
 

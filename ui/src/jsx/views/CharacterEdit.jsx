@@ -10,26 +10,26 @@ import {
 
 import '../../sass/_edit-character.scss';
 
-import BaseViewWrapper from '../hocs/BaseViewWrapper.jsx';
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
-import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
+import BaseViewWrapper from '../hocs/BaseViewWrapper';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import ObjectDataWrapper from '../hocs/ObjectDataWrapper';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
 
 import CharacterConfig, {
     baseConfig,
     CharacterEditorWrapper,
 } from '../components/CharacterConfig';
 
-import ButtonField from '../components/ButtonField.jsx';
-import CharacterLabel from '../components/CharacterLabel.jsx';
-import ControlGroup from '../components/ControlGroup.jsx';
-import InputField from '../components/InputField.jsx';
-import Panel from '../components/Panel.jsx';
-import MultiSelect from '../components/MultiSelect.jsx';
-import SingleSelect from '../components/SingleSelect.jsx';
-import StatsBlock from '../components/StatsBlock.jsx';
-import MarkdownTextField from '../components/MarkdownTextField.jsx';
-import TagContainer from '../components/TagContainer.jsx';
+import ButtonField from '../components/ButtonField';
+import CharacterLabel from '../components/CharacterLabel';
+import ControlGroup from '../components/ControlGroup';
+import InputField from '../components/InputField';
+import Panel from '../components/Panel';
+import MultiSelect from '../components/MultiSelect';
+import SingleSelect from '../components/SingleSelect';
+import StatsBlock from '../components/StatsBlock';
+import MarkdownTextField from '../components/MarkdownTextField';
+import TagContainer from '../components/TagContainer';
 
 const viewConfig = {
     className: 'character-edit',

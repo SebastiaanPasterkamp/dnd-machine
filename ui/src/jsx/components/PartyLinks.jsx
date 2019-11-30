@@ -171,7 +171,7 @@ PartyLinks.propTypes = {
     party: PropTypes.shape({
         user_id: PropTypes.number,
     }),
-    hosted_party: PropTypes.shape({
+    hostedParty: PropTypes.shape({
         id: PropTypes.number,
     }),
     currentUser: PropTypes.shape({

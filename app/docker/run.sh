@@ -23,7 +23,8 @@ echo "Upgrading DnD Machine..."
 ./run.py \
     $RUNARGS \
     --debug \
-    --updatedb
+    --updatedb \
+    --force-skipped
 ./run.py \
     $RUNARGS \
     --debug \
