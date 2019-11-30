@@ -17,6 +17,7 @@ steps:
         path: /etc/apk/cache
     commands:
       - apk add build-base openssl-dev libffi-dev linux-headers pdftk
+      - pip install --upgrade pip --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org
       - pip install -r requirements.txt
       - python app/tests/run_tests.py
 
@@ -29,6 +30,7 @@ steps:
         path: /etc/apk/cache
     commands:
       - apk add build-base openssl-dev libffi-dev linux-headers pdftk
+      - pip install --upgrade pip --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org
       - pip install -r requirements.txt
       - python app/tests/run_tests.py
 
@@ -400,6 +402,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 2280ce9bd8f68a858267b85db2b945efbce550010b0f50012050ec8ae52d7011
+hmac: cca44a1c8207024da8da8f64a9a89b1f4e3e7d24183f662ff11ebe88b7252823
 
 ...
