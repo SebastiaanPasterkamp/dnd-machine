@@ -9,26 +9,28 @@ platform:
 
 steps:
   - name: backend2
-    image: python:2-alpine
+    image: python:2-alpine3.8
     volumes:
       - name: pip-cache
         path: /root/.cache/pip
       - name: apk-cache
         path: /etc/apk/cache
     commands:
-      - apk add build-base openssl-dev libffi-dev
+      - apk add build-base openssl-dev libffi-dev linux-headers pdftk
+      - pip install --upgrade pip --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org
       - pip install -r requirements.txt
       - python app/tests/run_tests.py
 
   - name: backend3
-    image: python:3-alpine
+    image: python:3.6-alpine3.8
     volumes:
       - name: pip-cache
         path: /root/.cache/pip
       - name: apk-cache
         path: /etc/apk/cache
     commands:
-      - apk add build-base openssl-dev libffi-dev
+      - apk add build-base openssl-dev libffi-dev linux-headers pdftk
+      - pip install --upgrade pip --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org
       - pip install -r requirements.txt
       - python app/tests/run_tests.py
 
@@ -400,6 +402,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 1ac087b2e4d3b8e8befcdcf8ed0ecdd2c20e2880efbbcdd5f755faef99800805
+hmac: cca44a1c8207024da8da8f64a9a89b1f4e3e7d24183f662ff11ebe88b7252823
 
 ...

@@ -239,7 +239,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                 damage.get('dice_bonus', 0)
                 )
 
-        fdf_text = {
+        fdf_txt = {
             "CharacterName": obj.name,
             "CharacterName 2": obj.name,
             "PlayerName": user.name or user.username,
@@ -280,7 +280,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             }
         fdf_html = {
             "Appearance": obj.appearance or "",
-            "Background": obj.backstory or "",
+            "Backstory": obj.backstory or "",
             "PersonalityTraits ": obj.personalityTraits,
             "Ideals": obj.personalityIdeals,
             "Bonds": obj.personalityBonds,
@@ -288,7 +288,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             }
 
         if obj.spellSafe_dc:
-            fdf_text.update({
+            fdf_txt.update({
                 "SpellSaveDC  2": obj.spellSafe_dc,
                 "SpellAtkBonus 2": filter_bonus(obj.spellAttack_modifier),
                 "Spellcasting Class 2": obj.Class,
@@ -308,7 +308,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                 "level_9": "SlotsTotal 27"
                 }
             for level, slots in list(obj.spellSlots.items()):
-                fdf_text[ fdf_spell_slots[level] ] = slots
+                fdf_txt[ fdf_spell_slots[level] ] = slots
 
         if obj.spellList:
             fdf_spell_lists = {
@@ -326,39 +326,39 @@ class CharacterBlueprint(BaseApiBlueprint):
             for level, spells in list(obj.spellLevel.items()):
                 fdf_spell_list = fdf_spell_lists[ level ]
                 for i, spell in enumerate(spells):
-                    fdf_text[ "Spells %s" % fdf_spell_list[i] ] = spell['name']
+                    fdf_txt[ "Spells %s" % fdf_spell_list[i] ] = spell['name']
 
         for stat in items.statistics:
             stat_prefix = stat['code'][:3].upper()
-            fdf_text[stat_prefix] = obj.statisticsBase[stat['code']]
-            fdf_text[stat_prefix + 'mod'] = filter_bonus(obj.statisticsModifiers[stat['code']])
-            fdf_text['SavingThrow ' + stat['label']] = filter_bonus(obj.saving_throws[stat['code']])
+            fdf_txt[stat_prefix] = obj.statisticsBase[stat['code']]
+            fdf_txt[stat_prefix + 'mod'] = filter_bonus(obj.statisticsModifiers[stat['code']])
+            fdf_txt['SavingThrow ' + stat['label']] = filter_bonus(obj.saving_throws[stat['code']])
             if stat['code'] in obj.proficienciesAdvantages:
-                fdf_text['SavingThrow ' + stat['label']] += 'A'
+                fdf_txt['SavingThrow ' + stat['label']] += 'A'
             if stat['code'] in obj.proficienciesSaving_throws:
-                fdf_text['ST ' + stat['label']] = True
+                fdf_txt['ST ' + stat['label']] = True
 
         for skill in items.skills:
-            fdf_text[skill['label']] = filter_bonus(obj.skills[skill['code']])
+            fdf_txt[skill['label']] = filter_bonus(obj.skills[skill['code']])
             if skill['code'] in obj.proficienciesSkills:
-                fdf_text['ChBx ' + skill['label']] = True
+                fdf_txt['ChBx ' + skill['label']] = True
 
         i = 0
         for count, weapon in filter_unique(obj.weapons):
-            fdf_text['Wpn Name %d' % (i+1)] = \
+            fdf_txt['Wpn Name %d' % (i+1)] = \
                 "%d x %s" % (count, weapon['name']) if count > 1 \
                 else weapon['name']
-            fdf_text['Wpn%d Damage' % (i+1)] = "%s %s" % (
+            fdf_txt['Wpn%d Damage' % (i+1)] = "%s %s" % (
                 weapon['damage'].get('notation', ''),
                 weapon['damage'].get('type_short', '')
                 )
-            fdf_text['Wpn%d AtkBonus' % (i+1)] = filter_bonus(weapon.get('bonus', 0))
+            fdf_txt['Wpn%d AtkBonus' % (i+1)] = filter_bonus(weapon.get('bonus', 0))
             i += 1
 
         for coin in ['cp', 'sp', 'ep', 'gp', 'pp']:
             if coin not in obj.wealth:
                 continue
-            fdf_text[coin.upper()] = obj.wealth[coin]
+            fdf_txt[coin.upper()] = obj.wealth[coin]
 
         proficiencies = {}
         if obj.languages:
@@ -407,7 +407,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                 if prof is None:
                     continue
                 proficiencies["Tools"].append(prof)
-        fdf_text["ProficienciesLang"] = "\n\n".join([
+        fdf_txt["ProficienciesLang"] = "\n\n".join([
             "%s:\n    %s" % (
                 key, ", ".join(lines)
                 )
@@ -420,7 +420,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             for key, lines in proficiencies.items()
             ])
 
-        fdf_text["Features and Traits"] = "\n\n".join([
+        fdf_txt["Features and Traits"] = "\n\n".join([
             "* %s: %s" % (
                 key, desc
                 )
@@ -433,7 +433,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             for key, desc in obj.info.items()
             ])
 
-        fdf_text["Feat+Traits"] = "\n\n".join([
+        fdf_txt["Feat+Traits"] = "\n\n".join([
             "* %s: %s" % (
                 key, ability['description'] % ability
                 )
@@ -448,7 +448,7 @@ class CharacterBlueprint(BaseApiBlueprint):
 
         equipment = []
         if obj.weapons:
-            equipment.append(["Weapons:"])
+            equipment.append(["Weapons:\n"])
             for count, weapon in filter_unique(obj.weapons):
                 desc = [
                     "*",
@@ -479,7 +479,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                     equipment[-1].append("  " + ", ".join(desc))
 
         if obj.armor:
-            equipment.append(["Armor:"])
+            equipment.append(["Armor:\n"])
             for armor in obj.armor:
                 if "value" in armor:
                     desc = [
@@ -511,7 +511,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                 toolType, 'tool_types'
                 )
 
-            equipment.append([_type['label'] + ":"])
+            equipment.append([_type['label'] + ":\n"])
             for count, item in filter_unique(tools):
                 label = item['label'] \
                     if isinstance(item, dict) \
@@ -531,13 +531,13 @@ class CharacterBlueprint(BaseApiBlueprint):
             )
         keys = ["Equipment", "Equipment2"]
         for key in keys:
-            fdf_text[key] = []
+            fdf_txt[key] = []
         for equip in sorted(equipment, key=lambda equip: -len(equip)):
-            key = min(keys, key=lambda key: len(fdf_text[key]))
-            fdf_text[key].append("")
-            fdf_text[key].extend(equip)
+            key = min(keys, key=lambda key: len(fdf_txt[key]))
+            fdf_txt[key].append("")
+            fdf_txt[key].extend(equip)
         for key in keys:
-            fdf_text[key] = fdf_html[key] = "\n".join(fdf_text[key])
+            fdf_txt[key] = fdf_html[key] = "\n".join(fdf_txt[key])
 
         fdf_translation = {
             'Wpn Name 1': 'Wpn Name',
@@ -555,13 +555,11 @@ class CharacterBlueprint(BaseApiBlueprint):
             'SavingThrow Charisma': 'SavingThrows6',
             }
         for old, new in fdf_translation.items():
-            if old in fdf_text:
-                fdf_text[new] = fdf_text[old]
+            if old in fdf_txt:
+                fdf_txt[new] = fdf_txt[old]
 
         for field in fdf_html:
-            fdf_html[field] = """<body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/" xfa:APIVersion="Acroform:2.7.0.0" xfa:spec="2.1" >%s</body>""" % (
-                markdown.markdown(fdf_html[field])
-                )
+            fdf_html[field] = markdown.markdown(fdf_html[field])
 
         pdf_file = os.path.join('app', 'static', 'pdf', 'Current Standard v1.4.pdf')
 
@@ -571,8 +569,9 @@ class CharacterBlueprint(BaseApiBlueprint):
         return send_file(
             fill_pdf(
                 pdf_file,
-                fdf_text, fdf_html,
-                '/tmp/%s.fdf' % obj.name,
+                fdf_txt,
+                fdf_html,
+                '/tmp/%s.xfdf' % obj.name,
                 debug=request.args.get('debug', False)
                 ),
             mimetype="application/pdf",
