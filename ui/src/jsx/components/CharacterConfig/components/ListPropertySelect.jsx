@@ -119,6 +119,7 @@ export class ListPropertySelect extends LazyComponent
     findItem(value, _default={label: value, color: 'bad'}) {
         const { items = [] } = this.props;
         const match = find({code: value}, items)
+            || find({id: value}, items)
             || find({name: value}, items);
 
         if (!match && !_default) {
@@ -132,7 +133,7 @@ export class ListPropertySelect extends LazyComponent
         };
 
         return {
-            id: isNil(item.code) ? item.name : item.code,
+            id: isNil(item.id) ? ( isNil(item.code) ? item.name : item.code ) : item.id,
             label: isNil(item.label) ? item.name : item.label,
             description: item.description,
         };
