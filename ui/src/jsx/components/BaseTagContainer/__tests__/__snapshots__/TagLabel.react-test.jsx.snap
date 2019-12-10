@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: TagLabel works with all props 1`] = `
+<span
+  className="nice-tag-label"
+>
+  Hello Tag
+</span>
+`;
+
+exports[`Component: TagLabel works with minimum props 1`] = `
+<span
+  className="nice-tag-label"
+/>
+`;

@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Tag rendering works with full props 1`] = `
+<div
+  className="nice-tag custom class red"
+>
+  <span
+    className="nice-tag-label"
+  >
+    <div
+      className="tool-tip inline"
+    >
+      Foo
+      <span
+        className="tool-tip--content"
+      >
+        <p>
+          Bar
+        </p>
+      </span>
+    </div>
+  </span>
+  My Tag
+  <span
+    className="nice-tag-badge"
+  >
+    <input
+      disabled={true}
+      onChange={[Function]}
+      value="foo"
+    />
+  </span>
+  <span
+    className="nice-tag-badge"
+  >
+    <input
+      checked={true}
+      disabled={true}
+      onChange={[Function]}
+      type="checkbox"
+    />
+  </span>
+</div>
+`;
+
+exports[`Component: Tag rendering works with full props while not disabled 1`] = `
+<div
+  className="nice-tag custom class red"
+>
+  <span
+    className="nice-tag-label"
+  >
+    <div
+      className="tool-tip inline"
+    >
+      Foo
+      <span
+        className="tool-tip--content"
+      >
+        <p>
+          Bar
+        </p>
+      </span>
+    </div>
+  </span>
+  My Tag
+  <span
+    className="nice-tag-badge"
+  >
+    <input
+      disabled={false}
+      onChange={[Function]}
+      value="foo"
+    />
+  </span>
+  <span
+    className="nice-tag-badge"
+  >
+    <input
+      checked={true}
+      disabled={false}
+      onChange={[Function]}
+      type="checkbox"
+    />
+  </span>
+  <button
+    className="nice-tag-btn"
+    onClick={[Function]}
+  >
+    <i
+      className="icon fa-trash-o"
+    />
+  </button>
+</div>
+`;
+
+exports[`Component: Tag rendering works with minimum props 1`] = `
+<div
+  className="nice-tag"
+>
+  <span
+    className="nice-tag-label"
+  />
+</div>
+`;
