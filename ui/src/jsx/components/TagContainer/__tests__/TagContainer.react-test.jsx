@@ -1,7 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import TagContainer from 'components/TagContainer.jsx';
 import renderer from 'react-test-renderer';
+
+import TagContainer from '..';
 
 const items = [
     { code: "a", label: "Aaa" },
