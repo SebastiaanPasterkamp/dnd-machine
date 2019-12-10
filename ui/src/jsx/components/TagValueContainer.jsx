@@ -7,7 +7,7 @@ import utils from '../utils';
 import '../../sass/_tag-value-container.scss';
 
 import {
-    TagsContainer,
+    BaseTagContainer,
     Tag,
     TagBadge,
 } from './BaseTagContainer';
@@ -210,7 +210,7 @@ export class TagValueContainer extends LazyComponent
             };
         });
 
-        return <TagsContainer className={ style }>
+        return <BaseTagContainer className={ style }>
             {this.renderSelect()}
 
             {_.map(tags, tag => (
@@ -218,7 +218,7 @@ export class TagValueContainer extends LazyComponent
                     {this.renderBadge(badgeItems, tag)}
                 </Tag>
             ))}
-        </TagsContainer>;
+        </BaseTagContainer>;
     }
 }
 

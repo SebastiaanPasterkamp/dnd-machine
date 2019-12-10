@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import {
-    TagsContainer,
+    BaseTagContainer,
     Tag,
     TagBadge,
 } from './BaseTagContainer';
@@ -99,7 +99,7 @@ export class TagContainer extends LazyComponent
             };
         });
 
-        return <TagsContainer className={className}>
+        return <BaseTagContainer className={className}>
             {this.renderSelect()}
 
             {_.map(tags, tag => (
@@ -111,7 +111,7 @@ export class TagContainer extends LazyComponent
                     }
                 </Tag>
             ))}
-        </TagsContainer>
+        </BaseTagContainer>
     }
 };
 

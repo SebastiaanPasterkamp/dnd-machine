@@ -590,7 +590,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
             replace={1}
             type="list"
           >
-            <TagsContainer>
+            <BaseTagContainer>
               <div
                 className="base-tag-container nice-tags-container"
               >
@@ -756,89 +756,53 @@ exports[`Component: CharacterConfig should render list 1`] = `
                   </OnClickOutside(BaseSelect)>
                 </SingleSelect>
                 <Tag
+                  badges={Array []}
+                  className={null}
                   color="good"
                   description="Wis"
-                  disabled={true}
+                  disabled={false}
                   id="wisdom"
                   key="tag-0"
                   label="Wisdom"
+                  onChange={null}
                   onDelete={[Function]}
                 >
                   <div
                     className="nice-tag good"
                   >
-                    <span
-                      className="nice-tag-label"
-                    >
-                      <ToolTip
-                        content="Wis"
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
                       >
-                        <div
-                          className="tool-tip inline"
+                        <ToolTip
+                          content="Wis"
                         >
-                          Wisdom
-                          <MDReactComponent
-                            className="tool-tip--content"
-                            text="Wis"
+                          <div
+                            className="tool-tip inline"
                           >
-                            <span
+                            Wisdom
+                            <MDReactComponent
                               className="tool-tip--content"
-                              key="mdrct-html-0"
+                              text="Wis"
                             >
-                              <p
-                                key="mdrct-p-0"
+                              <span
+                                className="tool-tip--content"
+                                key="mdrct-html-0"
                               >
-                                Wis
-                              </p>
-                            </span>
-                          </MDReactComponent>
-                        </div>
-                      </ToolTip>
-                    </span>
-                  </div>
-                </Tag>
-                <Tag
-                  color="warning"
-                  description="Char"
-                  disabled={false}
-                  id="charisma"
-                  key="tag-1"
-                  label="Charisma"
-                  onDelete={[Function]}
-                >
-                  <div
-                    className="nice-tag warning"
-                  >
-                    <span
-                      className="nice-tag-label"
-                    >
-                      <ToolTip
-                        content="Char"
-                      >
-                        <div
-                          className="tool-tip inline"
-                        >
-                          Charisma
-                          <MDReactComponent
-                            className="tool-tip--content"
-                            text="Char"
-                          >
-                            <span
-                              className="tool-tip--content"
-                              key="mdrct-html-0"
-                            >
-                              <p
-                                key="mdrct-p-0"
-                              >
-                                Char
-                              </p>
-                            </span>
-                          </MDReactComponent>
-                        </div>
-                      </ToolTip>
-                    </span>
-                    <TagBadgeButton
+                                <p
+                                  key="mdrct-p-0"
+                                >
+                                  Wis
+                                </p>
+                              </span>
+                            </MDReactComponent>
+                          </div>
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                    <TagButton
                       icon="fa-trash-o"
+                      label={null}
                       onClick={[Function]}
                     >
                       <button
@@ -849,11 +813,72 @@ exports[`Component: CharacterConfig should render list 1`] = `
                           className="icon fa-trash-o"
                         />
                       </button>
-                    </TagBadgeButton>
+                    </TagButton>
+                  </div>
+                </Tag>
+                <Tag
+                  badges={Array []}
+                  className={null}
+                  color="warning"
+                  description="Char"
+                  disabled={false}
+                  id="charisma"
+                  key="tag-1"
+                  label="Charisma"
+                  onChange={null}
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag warning"
+                  >
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content="Char"
+                        >
+                          <div
+                            className="tool-tip inline"
+                          >
+                            Charisma
+                            <MDReactComponent
+                              className="tool-tip--content"
+                              text="Char"
+                            >
+                              <span
+                                className="tool-tip--content"
+                                key="mdrct-html-0"
+                              >
+                                <p
+                                  key="mdrct-p-0"
+                                >
+                                  Char
+                                </p>
+                              </span>
+                            </MDReactComponent>
+                          </div>
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                    <TagButton
+                      icon="fa-trash-o"
+                      label={null}
+                      onClick={[Function]}
+                    >
+                      <button
+                        className="nice-tag-btn"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="icon fa-trash-o"
+                        />
+                      </button>
+                    </TagButton>
                   </div>
                 </Tag>
               </div>
-            </TagsContainer>
+            </BaseTagContainer>
           </ListPropertySelect>
         </CharacterEditorComponent>
       </ListsToItemsCharacterEditorComponent>
@@ -1021,28 +1046,39 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                 ]
               }
             >
-              <TagsContainer>
+              <BaseTagContainer>
                 <div
                   className="base-tag-container nice-tags-container"
                 >
                   <Tag
+                    badges={Array []}
+                    className={null}
+                    color={null}
                     count={1}
+                    description={null}
+                    disabled={false}
                     key="a"
                     label="a"
+                    onChange={null}
                     onDelete={[Function]}
                   >
                     <div
                       className="nice-tag"
                     >
-                      <span
-                        className="nice-tag-label"
-                      >
-                        <ToolTip>
-                          a
-                        </ToolTip>
-                      </span>
-                      <TagBadgeButton
+                      <TagLabel>
+                        <span
+                          className="nice-tag-label"
+                        >
+                          <ToolTip
+                            content={null}
+                          >
+                            a
+                          </ToolTip>
+                        </span>
+                      </TagLabel>
+                      <TagButton
                         icon="fa-trash-o"
+                        label={null}
                         onClick={[Function]}
                       >
                         <button
@@ -1053,11 +1089,11 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                             className="icon fa-trash-o"
                           />
                         </button>
-                      </TagBadgeButton>
+                      </TagButton>
                     </div>
                   </Tag>
                 </div>
-              </TagsContainer>
+              </BaseTagContainer>
             </TagContainer>
             <CharacterConfig
               config={
@@ -1654,7 +1690,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
             replace={0}
             type="list"
           >
-            <TagsContainer>
+            <BaseTagContainer>
               <div
                 className="base-tag-container nice-tags-container"
               >
@@ -1750,27 +1786,49 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                   </OnClickOutside(BaseSelect)>
                 </SingleSelect>
                 <Tag
+                  badges={Array []}
+                  className={null}
                   color="good"
-                  disabled={true}
+                  description={null}
+                  disabled={false}
                   id="bar"
                   key="tag-0"
                   label="bar"
+                  onChange={null}
                   onDelete={[Function]}
                 >
                   <div
                     className="nice-tag good"
                   >
-                    <span
-                      className="nice-tag-label"
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content={null}
+                        >
+                          bar
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                    <TagButton
+                      icon="fa-trash-o"
+                      label={null}
+                      onClick={[Function]}
                     >
-                      <ToolTip>
-                        bar
-                      </ToolTip>
-                    </span>
+                      <button
+                        className="nice-tag-btn"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="icon fa-trash-o"
+                        />
+                      </button>
+                    </TagButton>
                   </div>
                 </Tag>
               </div>
-            </TagsContainer>
+            </BaseTagContainer>
           </ListPropertySelect>
         </CharacterEditorComponent>
       </ListsToItemsCharacterEditorComponent>
@@ -1977,7 +2035,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
             replace={0}
             type="list"
           >
-            <TagsContainer>
+            <BaseTagContainer>
               <div
                 className="base-tag-container nice-tags-container"
               >
@@ -2189,27 +2247,49 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                   </OnClickOutside(BaseSelect)>
                 </SingleSelect>
                 <Tag
+                  badges={Array []}
+                  className={null}
                   color="good"
-                  disabled={true}
+                  description={null}
+                  disabled={false}
                   id="bar"
                   key="tag-0"
                   label="bar"
+                  onChange={null}
                   onDelete={[Function]}
                 >
                   <div
                     className="nice-tag good"
                   >
-                    <span
-                      className="nice-tag-label"
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content={null}
+                        >
+                          bar
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                    <TagButton
+                      icon="fa-trash-o"
+                      label={null}
+                      onClick={[Function]}
                     >
-                      <ToolTip>
-                        bar
-                      </ToolTip>
-                    </span>
+                      <button
+                        className="nice-tag-btn"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="icon fa-trash-o"
+                        />
+                      </button>
+                    </TagButton>
                   </div>
                 </Tag>
               </div>
-            </TagsContainer>
+            </BaseTagContainer>
           </ListPropertySelect>
         </CharacterEditorComponent>
       </ListsToItemsCharacterEditorComponent>

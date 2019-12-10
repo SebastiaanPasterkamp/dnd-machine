@@ -110,28 +110,39 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
           ]
         }
       >
-        <TagsContainer>
+        <BaseTagContainer>
           <div
             className="base-tag-container nice-tags-container"
           >
             <Tag
+              badges={Array []}
+              className={null}
+              color={null}
               count={1}
+              description={null}
+              disabled={false}
               key="Simple"
               label="Simple"
+              onChange={null}
               onDelete={[Function]}
             >
               <div
                 className="nice-tag"
               >
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip>
-                    Simple
-                  </ToolTip>
-                </span>
-                <TagBadgeButton
+                <TagLabel>
+                  <span
+                    className="nice-tag-label"
+                  >
+                    <ToolTip
+                      content={null}
+                    >
+                      Simple
+                    </ToolTip>
+                  </span>
+                </TagLabel>
+                <TagButton
                   icon="fa-trash-o"
+                  label={null}
                   onClick={[Function]}
                 >
                   <button
@@ -142,27 +153,38 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
                       className="icon fa-trash-o"
                     />
                   </button>
-                </TagBadgeButton>
+                </TagButton>
               </div>
             </Tag>
             <Tag
+              badges={Array []}
+              className={null}
+              color={null}
               count={1}
+              description={null}
+              disabled={false}
               key="Complex"
               label="Complex"
+              onChange={null}
               onDelete={[Function]}
             >
               <div
                 className="nice-tag"
               >
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip>
-                    Complex
-                  </ToolTip>
-                </span>
-                <TagBadgeButton
+                <TagLabel>
+                  <span
+                    className="nice-tag-label"
+                  >
+                    <ToolTip
+                      content={null}
+                    >
+                      Complex
+                    </ToolTip>
+                  </span>
+                </TagLabel>
+                <TagButton
                   icon="fa-trash-o"
+                  label={null}
                   onClick={[Function]}
                 >
                   <button
@@ -173,11 +195,11 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
                       className="icon fa-trash-o"
                     />
                   </button>
-                </TagBadgeButton>
+                </TagButton>
               </div>
             </Tag>
           </div>
-        </TagsContainer>
+        </BaseTagContainer>
       </TagContainer>
       <CharacterConfig
         config={
@@ -486,7 +508,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
           ]
         }
       >
-        <TagsContainer>
+        <BaseTagContainer>
           <div
             className="base-tag-container nice-tags-container"
           >
@@ -582,23 +604,34 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
               </OnClickOutside(BaseSelect)>
             </SingleSelect>
             <Tag
+              badges={Array []}
+              className={null}
+              color={null}
               count={1}
+              description={null}
+              disabled={false}
               key="Complex"
               label="Complex"
+              onChange={null}
               onDelete={[Function]}
             >
               <div
                 className="nice-tag"
               >
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip>
-                    Complex
-                  </ToolTip>
-                </span>
-                <TagBadgeButton
+                <TagLabel>
+                  <span
+                    className="nice-tag-label"
+                  >
+                    <ToolTip
+                      content={null}
+                    >
+                      Complex
+                    </ToolTip>
+                  </span>
+                </TagLabel>
+                <TagButton
                   icon="fa-trash-o"
+                  label={null}
                   onClick={[Function]}
                 >
                   <button
@@ -609,11 +642,11 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
                       className="icon fa-trash-o"
                     />
                   </button>
-                </TagBadgeButton>
+                </TagButton>
               </div>
             </Tag>
           </div>
-        </TagsContainer>
+        </BaseTagContainer>
       </TagContainer>
       <CharacterConfig
         config={
@@ -831,7 +864,7 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
         showSelect={true}
         value={Array []}
       >
-        <TagsContainer>
+        <BaseTagContainer>
           <div
             className="base-tag-container nice-tags-container"
           >
@@ -949,7 +982,7 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
               </OnClickOutside(BaseSelect)>
             </SingleSelect>
           </div>
-        </TagsContainer>
+        </BaseTagContainer>
       </TagContainer>
     </div>
   </MultipleChoiceSelect>

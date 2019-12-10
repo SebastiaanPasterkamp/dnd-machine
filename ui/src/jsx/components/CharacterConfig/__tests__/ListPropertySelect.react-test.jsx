@@ -203,7 +203,7 @@ describe('Component: ListPropertySelect', () => {
         addChange.mockClear();
         wrapper
             .find('.fa-trash-o')
-            .at(0)
+            .at(1)
             .simulate('click');
         expect(addChange)
             .toBeCalledWith(

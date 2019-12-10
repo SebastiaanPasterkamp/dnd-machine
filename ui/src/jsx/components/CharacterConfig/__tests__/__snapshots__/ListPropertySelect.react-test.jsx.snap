@@ -136,7 +136,7 @@ exports[`Component: ListPropertySelect should allow replacing one existing 1`] =
       replace={1}
       type="list"
     >
-      <TagsContainer>
+      <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
         >
@@ -256,49 +256,68 @@ exports[`Component: ListPropertySelect should allow replacing one existing 1`] =
             </OnClickOutside(BaseSelect)>
           </SingleSelect>
           <Tag
+            badges={Array []}
+            className={null}
             color="good"
             description="Char"
-            disabled={true}
+            disabled={false}
             id="charisma"
             key="tag-0"
             label="Charisma"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag good"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Char"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Char"
                   >
-                    Charisma
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Char"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Charisma
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Char"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Char
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Char
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
+                icon="fa-trash-o"
+                label={null}
+                onClick={[Function]}
+              >
+                <button
+                  className="nice-tag-btn"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="icon fa-trash-o"
+                  />
+                </button>
+              </TagButton>
             </div>
           </Tag>
         </div>
-      </TagsContainer>
+      </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
 </ListsToItemsCharacterEditorComponent>
@@ -441,51 +460,58 @@ exports[`Component: ListPropertySelect should allow replacing one existing 2`] =
       replace={1}
       type="list"
     >
-      <TagsContainer>
+      <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
         >
           <Tag
+            badges={Array []}
+            className={null}
             color="info"
             description="Str"
+            disabled={false}
             id="strength"
             key="tag-0"
             label="Strength"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag info"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Str"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Str"
                   >
-                    Strength
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Str"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Strength
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Str"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Str
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
-              <TagBadgeButton
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Str
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
                 icon="fa-trash-o"
+                label={null}
                 onClick={[Function]}
               >
                 <button
@@ -496,53 +522,72 @@ exports[`Component: ListPropertySelect should allow replacing one existing 2`] =
                     className="icon fa-trash-o"
                   />
                 </button>
-              </TagBadgeButton>
+              </TagButton>
             </div>
           </Tag>
           <Tag
+            badges={Array []}
+            className={null}
             color="good"
             description="Char"
-            disabled={true}
+            disabled={false}
             id="charisma"
             key="tag-1"
             label="Charisma"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag good"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Char"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Char"
                   >
-                    Charisma
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Char"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Charisma
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Char"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Char
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Char
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
+                icon="fa-trash-o"
+                label={null}
+                onClick={[Function]}
+              >
+                <button
+                  className="nice-tag-btn"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="icon fa-trash-o"
+                  />
+                </button>
+              </TagButton>
             </div>
           </Tag>
         </div>
-      </TagsContainer>
+      </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
 </ListsToItemsCharacterEditorComponent>
@@ -665,7 +710,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
       replace={0}
       type="list"
     >
-      <TagsContainer>
+      <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
         >
@@ -831,91 +876,115 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
             </OnClickOutside(BaseSelect)>
           </SingleSelect>
           <Tag
+            badges={Array []}
+            className={null}
             color="good"
             description="Char"
-            disabled={true}
+            disabled={false}
             id="charisma"
             key="tag-0"
             label="Charisma"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag good"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Char"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Char"
                   >
-                    Charisma
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Char"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Charisma
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Char"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Char
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Char
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
+                icon="fa-trash-o"
+                label={null}
+                onClick={[Function]}
+              >
+                <button
+                  className="nice-tag-btn"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="icon fa-trash-o"
+                  />
+                </button>
+              </TagButton>
             </div>
           </Tag>
           <Tag
-            color={null}
+            badges={Array []}
+            className={null}
+            color="warning"
             description="Dex"
             disabled={true}
             id="dexterity"
             key="tag-1"
             label="Dexterity"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag muted"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Dex"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Dex"
                   >
-                    Dexterity
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Dex"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Dexterity
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Dex"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Dex
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Dex
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
             </div>
           </Tag>
         </div>
-      </TagsContainer>
+      </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
 </ListsToItemsCharacterEditorComponent>
@@ -1039,51 +1108,58 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
       replace={0}
       type="list"
     >
-      <TagsContainer>
+      <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
         >
           <Tag
+            badges={Array []}
+            className={null}
             color="info"
             description="Str"
+            disabled={false}
             id="strength"
             key="tag-0"
             label="Strength"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag info"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Str"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Str"
                   >
-                    Strength
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Str"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Strength
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Str"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Str
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
-              <TagBadgeButton
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Str
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
                 icon="fa-trash-o"
+                label={null}
                 onClick={[Function]}
               >
                 <button
@@ -1094,95 +1170,119 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
                     className="icon fa-trash-o"
                   />
                 </button>
-              </TagBadgeButton>
+              </TagButton>
             </div>
           </Tag>
           <Tag
+            badges={Array []}
+            className={null}
             color="good"
             description="Char"
-            disabled={true}
+            disabled={false}
             id="charisma"
             key="tag-1"
             label="Charisma"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag good"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Char"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Char"
                   >
-                    Charisma
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Char"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Charisma
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Char"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Char
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Char
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
+                icon="fa-trash-o"
+                label={null}
+                onClick={[Function]}
+              >
+                <button
+                  className="nice-tag-btn"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="icon fa-trash-o"
+                  />
+                </button>
+              </TagButton>
             </div>
           </Tag>
           <Tag
-            color={null}
+            badges={Array []}
+            className={null}
+            color="warning"
             description="Dex"
             disabled={true}
             id="dexterity"
             key="tag-2"
             label="Dexterity"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag muted"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Dex"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Dex"
                   >
-                    Dexterity
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Dex"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Dexterity
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Dex"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Dex
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Dex
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
             </div>
           </Tag>
         </div>
-      </TagsContainer>
+      </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
 </ListsToItemsCharacterEditorComponent>
@@ -1307,51 +1407,58 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
       replace={0}
       type="list"
     >
-      <TagsContainer>
+      <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
         >
           <Tag
+            badges={Array []}
+            className={null}
             color="info"
             description="Str"
+            disabled={false}
             id="strength"
             key="tag-0"
             label="Strength"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag info"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Str"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Str"
                   >
-                    Strength
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Str"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Strength
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Str"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Str
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
-              <TagBadgeButton
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Str
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
                 icon="fa-trash-o"
+                label={null}
                 onClick={[Function]}
               >
                 <button
@@ -1362,137 +1469,166 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
                     className="icon fa-trash-o"
                   />
                 </button>
-              </TagBadgeButton>
+              </TagButton>
             </div>
           </Tag>
           <Tag
+            badges={Array []}
+            className={null}
             color="good"
             description="Char"
-            disabled={true}
+            disabled={false}
             id="charisma"
             key="tag-1"
             label="Charisma"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag good"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Char"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Char"
                   >
-                    Charisma
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Char"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Charisma
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Char"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Char
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Char
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
+                icon="fa-trash-o"
+                label={null}
+                onClick={[Function]}
+              >
+                <button
+                  className="nice-tag-btn"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="icon fa-trash-o"
+                  />
+                </button>
+              </TagButton>
             </div>
           </Tag>
           <Tag
-            color={null}
+            badges={Array []}
+            className={null}
+            color="warning"
             description="Dex"
             disabled={true}
             id="dexterity"
             key="tag-2"
             label="Dexterity"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag muted"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Dex"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Dex"
                   >
-                    Dexterity
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Dex"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Dexterity
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Dex"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Dex
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Dex
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
             </div>
           </Tag>
           <Tag
-            color={null}
+            badges={Array []}
+            className={null}
+            color="warning"
             description="Int"
             disabled={true}
             id="intelligence"
             key="tag-3"
             label="Intelligence"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag muted"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Int"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Int"
                   >
-                    Intelligence
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Int"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Intelligence
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Int"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Int
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Int
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
             </div>
           </Tag>
         </div>
-      </TagsContainer>
+      </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
 </ListsToItemsCharacterEditorComponent>
@@ -1616,7 +1752,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 4`]
       replace={0}
       type="list"
     >
-      <TagsContainer>
+      <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
         >
@@ -1759,133 +1895,162 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 4`]
             </OnClickOutside(BaseSelect)>
           </SingleSelect>
           <Tag
+            badges={Array []}
+            className={null}
             color="good"
             description="Char"
-            disabled={true}
+            disabled={false}
             id="charisma"
             key="tag-0"
             label="Charisma"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag good"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Char"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Char"
                   >
-                    Charisma
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Char"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Charisma
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Char"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Char
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Char
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
+                icon="fa-trash-o"
+                label={null}
+                onClick={[Function]}
+              >
+                <button
+                  className="nice-tag-btn"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="icon fa-trash-o"
+                  />
+                </button>
+              </TagButton>
             </div>
           </Tag>
           <Tag
-            color={null}
+            badges={Array []}
+            className={null}
+            color="warning"
             description="Dex"
             disabled={true}
             id="dexterity"
             key="tag-1"
             label="Dexterity"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag muted"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Dex"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Dex"
                   >
-                    Dexterity
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Dex"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Dexterity
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Dex"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Dex
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Dex
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
             </div>
           </Tag>
           <Tag
-            color={null}
+            badges={Array []}
+            className={null}
+            color="warning"
             description="Int"
             disabled={true}
             id="intelligence"
             key="tag-2"
             label="Intelligence"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag muted"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Int"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Int"
                   >
-                    Intelligence
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Int"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Intelligence
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Int"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Int
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Int
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
             </div>
           </Tag>
         </div>
-      </TagsContainer>
+      </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
 </ListsToItemsCharacterEditorComponent>
@@ -2013,54 +2178,59 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
       replace={0}
       type="list"
     >
-      <TagsContainer>
+      <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
         >
           <Tag
-            color={null}
+            badges={Array []}
+            className={null}
+            color="warning"
             description="Dex"
             disabled={true}
             id="dexterity"
             key="tag-0"
             label="Dexterity"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag muted"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Dex"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Dex"
                   >
-                    Dexterity
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Dex"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Dexterity
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Dex"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Dex
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Dex
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
             </div>
           </Tag>
         </div>
-      </TagsContainer>
+      </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
 </ListsToItemsCharacterEditorComponent>
@@ -2097,11 +2267,11 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
       replace={0}
       type="list"
     >
-      <TagsContainer>
+      <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
         />
-      </TagsContainer>
+      </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
 </ListsToItemsCharacterEditorComponent>
@@ -2329,74 +2499,101 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
       replace={0}
       type="list"
     >
-      <TagsContainer>
+      <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
         >
           <Tag
+            badges={Array []}
+            className={null}
             color="good"
-            disabled={true}
+            description={null}
+            disabled={false}
             id="foo"
             key="tag-0"
             label="foo"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag good"
             >
-              <span
-                className="nice-tag-label"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
+                >
+                  <ToolTip
+                    content={null}
+                  >
+                    foo
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
+                icon="fa-trash-o"
+                label={null}
+                onClick={[Function]}
               >
-                <ToolTip>
-                  foo
-                </ToolTip>
-              </span>
+                <button
+                  className="nice-tag-btn"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="icon fa-trash-o"
+                  />
+                </button>
+              </TagButton>
             </div>
           </Tag>
           <Tag
-            color={null}
+            badges={Array []}
+            className={null}
+            color="warning"
             description="Dex"
             disabled={true}
             id="dexterity"
             key="tag-1"
             label="Dexterity"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag muted"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Dex"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Dex"
                   >
-                    Dexterity
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Dex"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Dexterity
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Dex"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Dex
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Dex
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
             </div>
           </Tag>
         </div>
-      </TagsContainer>
+      </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
 </ListsToItemsCharacterEditorComponent>
@@ -2553,7 +2750,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       replace={1}
       type="list"
     >
-      <TagsContainer>
+      <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
         >
@@ -2673,131 +2870,53 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
             </OnClickOutside(BaseSelect)>
           </SingleSelect>
           <Tag
+            badges={Array []}
+            className={null}
             color="good"
             description="Con"
-            disabled={true}
+            disabled={false}
             id="constitution"
             key="tag-0"
             label="Constitution"
+            onChange={null}
             onDelete={[Function]}
           >
             <div
               className="nice-tag good"
             >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Con"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
                 >
-                  <div
-                    className="tool-tip inline"
+                  <ToolTip
+                    content="Con"
                   >
-                    Constitution
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Con"
+                    <div
+                      className="tool-tip inline"
                     >
-                      <span
+                      Constitution
+                      <MDReactComponent
                         className="tool-tip--content"
-                        key="mdrct-html-0"
+                        text="Con"
                       >
-                        <p
-                          key="mdrct-p-0"
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
                         >
-                          Con
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
-            </div>
-          </Tag>
-          <Tag
-            color="good"
-            description="Char"
-            disabled={true}
-            id="charisma"
-            key="tag-1"
-            label="Charisma"
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag good"
-            >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Char"
-                >
-                  <div
-                    className="tool-tip inline"
-                  >
-                    Charisma
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Char"
-                    >
-                      <span
-                        className="tool-tip--content"
-                        key="mdrct-html-0"
-                      >
-                        <p
-                          key="mdrct-p-0"
-                        >
-                          Char
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
-            </div>
-          </Tag>
-          <Tag
-            color="warning"
-            description="Dex"
-            disabled={false}
-            id="dexterity"
-            key="tag-2"
-            label="Dexterity"
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag warning"
-            >
-              <span
-                className="nice-tag-label"
-              >
-                <ToolTip
-                  content="Dex"
-                >
-                  <div
-                    className="tool-tip inline"
-                  >
-                    Dexterity
-                    <MDReactComponent
-                      className="tool-tip--content"
-                      text="Dex"
-                    >
-                      <span
-                        className="tool-tip--content"
-                        key="mdrct-html-0"
-                      >
-                        <p
-                          key="mdrct-p-0"
-                        >
-                          Dex
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </ToolTip>
-              </span>
-              <TagBadgeButton
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Con
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
                 icon="fa-trash-o"
+                label={null}
                 onClick={[Function]}
               >
                 <button
@@ -2808,11 +2927,133 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
                     className="icon fa-trash-o"
                   />
                 </button>
-              </TagBadgeButton>
+              </TagButton>
+            </div>
+          </Tag>
+          <Tag
+            badges={Array []}
+            className={null}
+            color="good"
+            description="Char"
+            disabled={false}
+            id="charisma"
+            key="tag-1"
+            label="Charisma"
+            onChange={null}
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag good"
+            >
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
+                >
+                  <ToolTip
+                    content="Char"
+                  >
+                    <div
+                      className="tool-tip inline"
+                    >
+                      Charisma
+                      <MDReactComponent
+                        className="tool-tip--content"
+                        text="Char"
+                      >
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
+                        >
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Char
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
+                icon="fa-trash-o"
+                label={null}
+                onClick={[Function]}
+              >
+                <button
+                  className="nice-tag-btn"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="icon fa-trash-o"
+                  />
+                </button>
+              </TagButton>
+            </div>
+          </Tag>
+          <Tag
+            badges={Array []}
+            className={null}
+            color="warning"
+            description="Dex"
+            disabled={false}
+            id="dexterity"
+            key="tag-2"
+            label="Dexterity"
+            onChange={null}
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag warning"
+            >
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
+                >
+                  <ToolTip
+                    content="Dex"
+                  >
+                    <div
+                      className="tool-tip inline"
+                    >
+                      Dexterity
+                      <MDReactComponent
+                        className="tool-tip--content"
+                        text="Dex"
+                      >
+                        <span
+                          className="tool-tip--content"
+                          key="mdrct-html-0"
+                        >
+                          <p
+                            key="mdrct-p-0"
+                          >
+                            Dex
+                          </p>
+                        </span>
+                      </MDReactComponent>
+                    </div>
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
+                icon="fa-trash-o"
+                label={null}
+                onClick={[Function]}
+              >
+                <button
+                  className="nice-tag-btn"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="icon fa-trash-o"
+                  />
+                </button>
+              </TagButton>
             </div>
           </Tag>
         </div>
-      </TagsContainer>
+      </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
 </ListsToItemsCharacterEditorComponent>
@@ -2847,11 +3088,11 @@ exports[`Component: ListPropertySelect should render with minimum props 1`] = `
       replace={0}
       type="list"
     >
-      <TagsContainer>
+      <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
         />
-      </TagsContainer>
+      </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
 </ListsToItemsCharacterEditorComponent>

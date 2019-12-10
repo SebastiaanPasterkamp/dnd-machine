@@ -21,7 +21,7 @@ import {
 } from 'lodash/fp';
 
 import {
-    TagsContainer,
+    BaseTagContainer,
     Tag,
     TagBadge,
 } from '../../BaseTagContainer';
@@ -154,7 +154,6 @@ export class ListPropertySelect extends LazyComponent
                 code => ({
                     ...this.findItem(code),
                     color: 'good',
-                    disabled: true,
                 })
             )(given)
         );
@@ -182,7 +181,7 @@ export class ListPropertySelect extends LazyComponent
                     }
                     return ({
                         ..._current,
-                        color: disabled ? null : 'warning',
+                        color: 'warning',
                         disabled,
                     });
                 }
@@ -279,7 +278,7 @@ export class ListPropertySelect extends LazyComponent
         )(this.getValue());
 
         return (
-            <TagsContainer>
+            <BaseTagContainer>
                 {this.renderSelect()}
 
                 {flow(entries, map(([i, tag]) => (
@@ -288,7 +287,7 @@ export class ListPropertySelect extends LazyComponent
                         {...tag}
                     />
                 )))(tags)}
-            </TagsContainer>
+            </BaseTagContainer>
         );
     }
 
