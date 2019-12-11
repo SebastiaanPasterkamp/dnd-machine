@@ -4,22 +4,22 @@ import MDReactComponent from 'markdown-react-js';
 
 import '../../sass/_monster-view.scss';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
 
-import Bonus from '../components/Bonus.jsx';
+import Bonus from '../components/Bonus';
 import CampaignLabel from '../components/CampaignLabel';
-import ChallengeRating from '../components/ChallengeRating.jsx';
-import DiceNotation from '../components/DiceNotation.jsx';
-import LazyComponent from '../components/LazyComponent.jsx';
-import ListLabel from '../components/ListLabel.jsx';
-import MonsterLinks from '../components/MonsterLinks.jsx';
-import Panel from '../components/Panel.jsx';
-import Reach from '../components/Reach.jsx';
-import StatsBlock from '../components/StatsBlock.jsx';
-import TagContainer from '../components/TagContainer.jsx';
-import TagValueContainer from '../components/TagValueContainer.jsx';
-import XpRating from '../components/XpRating.jsx';
+import ChallengeRating from '../components/ChallengeRating';
+import DiceNotation from '../components/DiceNotation';
+import LazyComponent from '../components/LazyComponent';
+import ListLabel from '../components/ListLabel';
+import MonsterLinks from '../components/MonsterLinks';
+import Panel from '../components/Panel';
+import Reach from '../components/Reach';
+import StatsBlock from '../components/StatsBlock';
+import TagContainer from '../components/TagContainer';
+import TagValueContainer from '../components/TagValueContainer';
+import XpRating from '../components/XpRating';
 
 const AttackViewComponent = function({
     name, mode, notation, damage, description,

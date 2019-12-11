@@ -3921,6 +3921,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                             </th>
                                             <td>
                                               <TagContainer
+                                                className={null}
                                                 disabled={true}
                                                 items={
                                                   Array [
@@ -3947,6 +3948,11 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                     },
                                                   ]
                                                 }
+                                                multiple={false}
+                                                onAdd={null}
+                                                onDelete={null}
+                                                setState={null}
+                                                showSelect={true}
                                                 value={
                                                   Array [
                                                     "common",
@@ -3954,7 +3960,9 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                   ]
                                                 }
                                               >
-                                                <BaseTagContainer>
+                                                <BaseTagContainer
+                                                  className={null}
+                                                >
                                                   <div
                                                     className="base-tag-container nice-tags-container"
                                                   >
@@ -9066,6 +9074,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                             </th>
                                             <td>
                                               <TagContainer
+                                                className={null}
                                                 disabled={true}
                                                 items={
                                                   Array [
@@ -9092,6 +9101,11 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                     },
                                                   ]
                                                 }
+                                                multiple={false}
+                                                onAdd={null}
+                                                onDelete={null}
+                                                setState={null}
+                                                showSelect={true}
                                                 value={
                                                   Array [
                                                     "common",
@@ -9099,7 +9113,9 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                   ]
                                                 }
                                               >
-                                                <BaseTagContainer>
+                                                <BaseTagContainer
+                                                  className={null}
+                                                >
                                                   <div
                                                     className="base-tag-container nice-tags-container"
                                                   >
@@ -14253,6 +14269,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                             </th>
                                             <td>
                                               <TagContainer
+                                                className={null}
                                                 disabled={true}
                                                 items={
                                                   Array [
@@ -14279,6 +14296,11 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                     },
                                                   ]
                                                 }
+                                                multiple={false}
+                                                onAdd={null}
+                                                onDelete={null}
+                                                setState={null}
+                                                showSelect={true}
                                                 value={
                                                   Array [
                                                     "common",
@@ -14286,7 +14308,9 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                   ]
                                                 }
                                               >
-                                                <BaseTagContainer>
+                                                <BaseTagContainer
+                                                  className={null}
+                                                >
                                                   <div
                                                     className="base-tag-container nice-tags-container"
                                                   >

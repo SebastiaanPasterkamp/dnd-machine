@@ -760,7 +760,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
                   className={null}
                   color="good"
                   description="Wis"
-                  disabled={false}
+                  disabled={true}
                   id="wisdom"
                   key="tag-0"
                   label="Wisdom"
@@ -768,7 +768,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
                   onDelete={[Function]}
                 >
                   <div
-                    className="nice-tag good"
+                    className="nice-tag muted"
                   >
                     <TagLabel>
                       <span
@@ -800,20 +800,6 @@ exports[`Component: CharacterConfig should render list 1`] = `
                         </ToolTip>
                       </span>
                     </TagLabel>
-                    <TagButton
-                      icon="fa-trash-o"
-                      label={null}
-                      onClick={[Function]}
-                    >
-                      <button
-                        className="nice-tag-btn"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="icon fa-trash-o"
-                        />
-                      </button>
-                    </TagButton>
                   </div>
                 </Tag>
                 <Tag
@@ -1022,20 +1008,25 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
         >
           <div>
             <TagContainer
+              className={null}
+              disabled={false}
               items={
                 Array [
                   Object {
                     "code": "a",
                     "color": "warning",
+                    "disabled": true,
                     "label": "a",
                   },
                   Object {
                     "code": "b",
                     "color": "warning",
+                    "disabled": true,
                     "label": "b",
                   },
                 ]
               }
+              multiple={false}
               onAdd={[Function]}
               onDelete={[Function]}
               setState={[Function]}
@@ -1046,24 +1037,143 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                 ]
               }
             >
-              <BaseTagContainer>
+              <BaseTagContainer
+                className={null}
+              >
                 <div
                   className="base-tag-container nice-tags-container"
                 >
+                  <TagSelect
+                    current={
+                      Array [
+                        "a",
+                      ]
+                    }
+                    items={
+                      Array [
+                        Object {
+                          "code": "a",
+                          "color": "warning",
+                          "disabled": true,
+                          "label": "a",
+                        },
+                        Object {
+                          "code": "b",
+                          "color": "warning",
+                          "disabled": true,
+                          "label": "b",
+                        },
+                      ]
+                    }
+                    multiple={false}
+                    onSelect={[Function]}
+                  >
+                    <SingleSelect
+                      defaultValue={null}
+                      emptyLabel="Add..."
+                      isDisabled={[Function]}
+                      items={
+                        Array [
+                          Object {
+                            "code": "b",
+                            "label": "b",
+                          },
+                        ]
+                      }
+                      renderEmpty={null}
+                      selected={null}
+                      setState={[Function]}
+                    >
+                      <OnClickOutside(BaseSelect)
+                        eventTypes={
+                          Array [
+                            "mousedown",
+                            "touchstart",
+                          ]
+                        }
+                        excludeScrollbar={false}
+                        label="Add..."
+                        outsideClickIgnoreClass="ignore-react-onclickoutside"
+                        preventDefault={false}
+                        stopPropagation={false}
+                      >
+                        <BaseSelect
+                          className={null}
+                          closeOnClick={true}
+                          description={null}
+                          disableOnClickOutside={[Function]}
+                          enableOnClickOutside={[Function]}
+                          eventTypes={
+                            Array [
+                              "mousedown",
+                              "touchstart",
+                            ]
+                          }
+                          heading={null}
+                          label="Add..."
+                          outsideClickIgnoreClass="ignore-react-onclickoutside"
+                          preventDefault={false}
+                          stopPropagation={false}
+                        >
+                          <div
+                            className="nice-dropdown nice-form-control"
+                          >
+                            <SelectButton
+                              label="Add..."
+                              onToggle={[Function]}
+                            >
+                              <button
+                                className="nice-btn"
+                                onClick={[Function]}
+                              >
+                                Add...
+                                <i
+                                  className="icon fa-angle-down"
+                                />
+                              </button>
+                            </SelectButton>
+                            <ul
+                              className="dropdown-menu"
+                              onClick={[Function]}
+                            >
+                              <SelectItem
+                                disabled={false}
+                                id="b"
+                                key="b"
+                                label="b"
+                                onClick={[Function]}
+                                selected={false}
+                              >
+                                <li
+                                  className={null}
+                                  data-value="b"
+                                  onClick={[Function]}
+                                >
+                                  <a>
+                                    b
+                                  </a>
+                                </li>
+                              </SelectItem>
+                            </ul>
+                          </div>
+                        </BaseSelect>
+                      </OnClickOutside(BaseSelect)>
+                    </SingleSelect>
+                  </TagSelect>
                   <Tag
                     badges={Array []}
                     className={null}
                     color={null}
                     count={1}
                     description={null}
-                    disabled={false}
+                    disabled={true}
                     key="a"
                     label="a"
                     onChange={null}
                     onDelete={[Function]}
                   >
                     <div
-                      className="nice-tag"
+                      className="nice-tag muted"
                     >
                       <TagLabel>
                         <span
@@ -1076,20 +1186,6 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                           </ToolTip>
                         </span>
                       </TagLabel>
-                      <TagButton
-                        icon="fa-trash-o"
-                        label={null}
-                        onClick={[Function]}
-                      >
-                        <button
-                          className="nice-tag-btn"
-                          onClick={[Function]}
-                        >
-                          <i
-                            className="icon fa-trash-o"
-                          />
-                        </button>
-                      </TagButton>
                     </div>
                   </Tag>
                 </div>
@@ -1790,7 +1886,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                   className={null}
                   color="good"
                   description={null}
-                  disabled={false}
+                  disabled={true}
                   id="bar"
                   key="tag-0"
                   label="bar"
@@ -1798,7 +1894,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                   onDelete={[Function]}
                 >
                   <div
-                    className="nice-tag good"
+                    className="nice-tag muted"
                   >
                     <TagLabel>
                       <span
@@ -1811,20 +1907,6 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                         </ToolTip>
                       </span>
                     </TagLabel>
-                    <TagButton
-                      icon="fa-trash-o"
-                      label={null}
-                      onClick={[Function]}
-                    >
-                      <button
-                        className="nice-tag-btn"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="icon fa-trash-o"
-                        />
-                      </button>
-                    </TagButton>
                   </div>
                 </Tag>
               </div>
@@ -2251,7 +2333,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                   className={null}
                   color="good"
                   description={null}
-                  disabled={false}
+                  disabled={true}
                   id="bar"
                   key="tag-0"
                   label="bar"
@@ -2259,7 +2341,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                   onDelete={[Function]}
                 >
                   <div
-                    className="nice-tag good"
+                    className="nice-tag muted"
                   >
                     <TagLabel>
                       <span
@@ -2272,20 +2354,6 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                         </ToolTip>
                       </span>
                     </TagLabel>
-                    <TagButton
-                      icon="fa-trash-o"
-                      label={null}
-                      onClick={[Function]}
-                    >
-                      <button
-                        className="nice-tag-btn"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="icon fa-trash-o"
-                        />
-                      </button>
-                    </TagButton>
                   </div>
                 </Tag>
               </div>

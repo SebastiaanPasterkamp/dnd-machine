@@ -4,13 +4,13 @@ import _ from 'lodash';
 
 import '../../sass/_user-edit.scss';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
 
-import ControlGroup from '../components/ControlGroup.jsx';
-import InputField from '../components/InputField.jsx';
-import Panel from '../components/Panel.jsx';
-import TagContainer from '../components/TagContainer.jsx';
+import ControlGroup from '../components/ControlGroup';
+import InputField from '../components/InputField';
+import Panel from '../components/Panel';
+import TagContainer from '../components/TagContainer';
 import ToggleSwitch from '../components/ToggleSwitch';
 
 import { memoize } from '../utils';

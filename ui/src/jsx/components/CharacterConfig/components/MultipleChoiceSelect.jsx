@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import TagContainer from '../../TagContainer.jsx';
+import TagContainer from '../../TagContainer';
 
-import CharacterConfig from '../CharacterConfig.jsx';
-import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
+import CharacterConfig from '../CharacterConfig';
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper';
 
 export class MultipleChoiceSelect extends React.Component
 {
@@ -118,6 +118,7 @@ export class MultipleChoiceSelect extends React.Component
             this.props,
             this.state
         );
+        const itemsDisabled = disabled || removed.length >= replace;
         const items = _.chain(options)
             .filter(option => !option.hidden)
             .map(option => {
@@ -125,7 +126,8 @@ export class MultipleChoiceSelect extends React.Component
                 return {
                     code: option.label,
                     label: option.label,
-                    color: isNew ? 'info' : 'warning'
+                    color: isNew ? 'info' : 'warning',
+                    disabled: !isNew && itemsDisabled,
                 };
             })
             .value();

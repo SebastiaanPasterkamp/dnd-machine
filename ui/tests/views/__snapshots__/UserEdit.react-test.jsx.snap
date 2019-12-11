@@ -161,6 +161,8 @@ exports[`UserEdit should render with full props as admin 1`] = `
       label="Role"
     >
       <TagContainer
+        className={null}
+        disabled={false}
         items={
           Array [
             Object {
@@ -177,7 +179,11 @@ exports[`UserEdit should render with full props as admin 1`] = `
             },
           ]
         }
+        multiple={false}
+        onAdd={null}
+        onDelete={null}
         setState={[Function]}
+        showSelect={true}
         value={
           Array [
             "player",

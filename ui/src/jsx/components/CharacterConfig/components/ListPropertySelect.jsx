@@ -154,6 +154,7 @@ export class ListPropertySelect extends LazyComponent
                 code => ({
                     ...this.findItem(code),
                     color: 'good',
+                    disabled: true,
                 })
             )(given)
         );
@@ -181,7 +182,7 @@ export class ListPropertySelect extends LazyComponent
                     }
                     return ({
                         ..._current,
-                        color: 'warning',
+                        color: disabled ? null : 'warning',
                         disabled,
                     });
                 }

@@ -4,17 +4,17 @@ import MDReactComponent from 'markdown-react-js';
 
 import '../../sass/_npc-view.scss';
 
-import BaseViewWrapper from '../hocs/BaseViewWrapper.jsx';
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper.jsx';
+import BaseViewWrapper from '../hocs/BaseViewWrapper';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
 
-import Bonus from '../components/Bonus.jsx';
-import DiceNotation from '../components/DiceNotation.jsx';
-import Panel from '../components/Panel.jsx';
-import ListLabel from '../components/ListLabel.jsx';
-import NpcLinks from '../components/NpcLinks.jsx';
-import StatsBlock from '../components/StatsBlock.jsx';
-import TagContainer from '../components/TagContainer.jsx';
+import Bonus from '../components/Bonus';
+import DiceNotation from '../components/DiceNotation';
+import Panel from '../components/Panel';
+import ListLabel from '../components/ListLabel';
+import NpcLinks from '../components/NpcLinks';
+import StatsBlock from '../components/StatsBlock';
+import TagContainer from '../components/TagContainer';
 
 export class NpcView extends React.Component
 {

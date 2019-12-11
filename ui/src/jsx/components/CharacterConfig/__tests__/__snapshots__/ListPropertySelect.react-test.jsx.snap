@@ -260,7 +260,7 @@ exports[`Component: ListPropertySelect should allow replacing one existing 1`] =
             className={null}
             color="good"
             description="Char"
-            disabled={false}
+            disabled={true}
             id="charisma"
             key="tag-0"
             label="Charisma"
@@ -268,7 +268,7 @@ exports[`Component: ListPropertySelect should allow replacing one existing 1`] =
             onDelete={[Function]}
           >
             <div
-              className="nice-tag good"
+              className="nice-tag muted"
             >
               <TagLabel>
                 <span
@@ -300,20 +300,6 @@ exports[`Component: ListPropertySelect should allow replacing one existing 1`] =
                   </ToolTip>
                 </span>
               </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
-              >
-                <button
-                  className="nice-tag-btn"
-                  onClick={[Function]}
-                >
-                  <i
-                    className="icon fa-trash-o"
-                  />
-                </button>
-              </TagButton>
             </div>
           </Tag>
         </div>
@@ -530,7 +516,7 @@ exports[`Component: ListPropertySelect should allow replacing one existing 2`] =
             className={null}
             color="good"
             description="Char"
-            disabled={false}
+            disabled={true}
             id="charisma"
             key="tag-1"
             label="Charisma"
@@ -538,7 +524,7 @@ exports[`Component: ListPropertySelect should allow replacing one existing 2`] =
             onDelete={[Function]}
           >
             <div
-              className="nice-tag good"
+              className="nice-tag muted"
             >
               <TagLabel>
                 <span
@@ -570,20 +556,6 @@ exports[`Component: ListPropertySelect should allow replacing one existing 2`] =
                   </ToolTip>
                 </span>
               </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
-              >
-                <button
-                  className="nice-tag-btn"
-                  onClick={[Function]}
-                >
-                  <i
-                    className="icon fa-trash-o"
-                  />
-                </button>
-              </TagButton>
             </div>
           </Tag>
         </div>
@@ -880,7 +852,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
             className={null}
             color="good"
             description="Char"
-            disabled={false}
+            disabled={true}
             id="charisma"
             key="tag-0"
             label="Charisma"
@@ -888,7 +860,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
             onDelete={[Function]}
           >
             <div
-              className="nice-tag good"
+              className="nice-tag muted"
             >
               <TagLabel>
                 <span
@@ -920,26 +892,12 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
                   </ToolTip>
                 </span>
               </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
-              >
-                <button
-                  className="nice-tag-btn"
-                  onClick={[Function]}
-                >
-                  <i
-                    className="icon fa-trash-o"
-                  />
-                </button>
-              </TagButton>
             </div>
           </Tag>
           <Tag
             badges={Array []}
             className={null}
-            color="warning"
+            color={null}
             description="Dex"
             disabled={true}
             id="dexterity"
@@ -1178,7 +1136,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
             className={null}
             color="good"
             description="Char"
-            disabled={false}
+            disabled={true}
             id="charisma"
             key="tag-1"
             label="Charisma"
@@ -1186,7 +1144,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
             onDelete={[Function]}
           >
             <div
-              className="nice-tag good"
+              className="nice-tag muted"
             >
               <TagLabel>
                 <span
@@ -1218,26 +1176,12 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
                   </ToolTip>
                 </span>
               </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
-              >
-                <button
-                  className="nice-tag-btn"
-                  onClick={[Function]}
-                >
-                  <i
-                    className="icon fa-trash-o"
-                  />
-                </button>
-              </TagButton>
             </div>
           </Tag>
           <Tag
             badges={Array []}
             className={null}
-            color="warning"
+            color={null}
             description="Dex"
             disabled={true}
             id="dexterity"
@@ -1477,7 +1421,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
             className={null}
             color="good"
             description="Char"
-            disabled={false}
+            disabled={true}
             id="charisma"
             key="tag-1"
             label="Charisma"
@@ -1485,7 +1429,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
             onDelete={[Function]}
           >
             <div
-              className="nice-tag good"
+              className="nice-tag muted"
             >
               <TagLabel>
                 <span
@@ -1517,26 +1461,12 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
                   </ToolTip>
                 </span>
               </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
-              >
-                <button
-                  className="nice-tag-btn"
-                  onClick={[Function]}
-                >
-                  <i
-                    className="icon fa-trash-o"
-                  />
-                </button>
-              </TagButton>
             </div>
           </Tag>
           <Tag
             badges={Array []}
             className={null}
-            color="warning"
+            color={null}
             description="Dex"
             disabled={true}
             id="dexterity"
@@ -1583,7 +1513,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
           <Tag
             badges={Array []}
             className={null}
-            color="warning"
+            color={null}
             description="Int"
             disabled={true}
             id="intelligence"
@@ -1899,7 +1829,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 4`]
             className={null}
             color="good"
             description="Char"
-            disabled={false}
+            disabled={true}
             id="charisma"
             key="tag-0"
             label="Charisma"
@@ -1907,7 +1837,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 4`]
             onDelete={[Function]}
           >
             <div
-              className="nice-tag good"
+              className="nice-tag muted"
             >
               <TagLabel>
                 <span
@@ -1939,26 +1869,12 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 4`]
                   </ToolTip>
                 </span>
               </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
-              >
-                <button
-                  className="nice-tag-btn"
-                  onClick={[Function]}
-                >
-                  <i
-                    className="icon fa-trash-o"
-                  />
-                </button>
-              </TagButton>
             </div>
           </Tag>
           <Tag
             badges={Array []}
             className={null}
-            color="warning"
+            color={null}
             description="Dex"
             disabled={true}
             id="dexterity"
@@ -2005,7 +1921,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 4`]
           <Tag
             badges={Array []}
             className={null}
-            color="warning"
+            color={null}
             description="Int"
             disabled={true}
             id="intelligence"
@@ -2185,7 +2101,7 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
           <Tag
             badges={Array []}
             className={null}
-            color="warning"
+            color={null}
             description="Dex"
             disabled={true}
             id="dexterity"
@@ -2508,7 +2424,7 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
             className={null}
             color="good"
             description={null}
-            disabled={false}
+            disabled={true}
             id="foo"
             key="tag-0"
             label="foo"
@@ -2516,7 +2432,7 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
             onDelete={[Function]}
           >
             <div
-              className="nice-tag good"
+              className="nice-tag muted"
             >
               <TagLabel>
                 <span
@@ -2529,26 +2445,12 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
                   </ToolTip>
                 </span>
               </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
-              >
-                <button
-                  className="nice-tag-btn"
-                  onClick={[Function]}
-                >
-                  <i
-                    className="icon fa-trash-o"
-                  />
-                </button>
-              </TagButton>
             </div>
           </Tag>
           <Tag
             badges={Array []}
             className={null}
-            color="warning"
+            color={null}
             description="Dex"
             disabled={true}
             id="dexterity"
@@ -2874,7 +2776,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
             className={null}
             color="good"
             description="Con"
-            disabled={false}
+            disabled={true}
             id="constitution"
             key="tag-0"
             label="Constitution"
@@ -2882,7 +2784,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
             onDelete={[Function]}
           >
             <div
-              className="nice-tag good"
+              className="nice-tag muted"
             >
               <TagLabel>
                 <span
@@ -2914,20 +2816,6 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
                   </ToolTip>
                 </span>
               </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
-              >
-                <button
-                  className="nice-tag-btn"
-                  onClick={[Function]}
-                >
-                  <i
-                    className="icon fa-trash-o"
-                  />
-                </button>
-              </TagButton>
             </div>
           </Tag>
           <Tag
@@ -2935,7 +2823,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
             className={null}
             color="good"
             description="Char"
-            disabled={false}
+            disabled={true}
             id="charisma"
             key="tag-1"
             label="Charisma"
@@ -2943,7 +2831,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
             onDelete={[Function]}
           >
             <div
-              className="nice-tag good"
+              className="nice-tag muted"
             >
               <TagLabel>
                 <span
@@ -2975,20 +2863,6 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
                   </ToolTip>
                 </span>
               </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
-              >
-                <button
-                  className="nice-tag-btn"
-                  onClick={[Function]}
-                >
-                  <i
-                    className="icon fa-trash-o"
-                  />
-                </button>
-              </TagButton>
             </div>
           </Tag>
           <Tag

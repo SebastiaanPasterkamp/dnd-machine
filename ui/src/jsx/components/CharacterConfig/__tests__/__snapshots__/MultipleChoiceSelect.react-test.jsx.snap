@@ -85,20 +85,25 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
   >
     <div>
       <TagContainer
+        className={null}
+        disabled={false}
         items={
           Array [
             Object {
               "code": "Simple",
               "color": "info",
+              "disabled": false,
               "label": "Simple",
             },
             Object {
               "code": "Complex",
               "color": "warning",
+              "disabled": true,
               "label": "Complex",
             },
           ]
         }
+        multiple={false}
         onAdd={[Function]}
         onDelete={[Function]}
         setState={[Function]}
@@ -110,10 +115,38 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
           ]
         }
       >
-        <BaseTagContainer>
+        <BaseTagContainer
+          className={null}
+        >
           <div
             className="base-tag-container nice-tags-container"
           >
+            <TagSelect
+              current={
+                Array [
+                  "Simple",
+                  "Complex",
+                ]
+              }
+              items={
+                Array [
+                  Object {
+                    "code": "Simple",
+                    "color": "info",
+                    "disabled": false,
+                    "label": "Simple",
+                  },
+                  Object {
+                    "code": "Complex",
+                    "color": "warning",
+                    "disabled": true,
+                    "label": "Complex",
+                  },
+                ]
+              }
+              multiple={false}
+              onSelect={[Function]}
+            />
             <Tag
               badges={Array []}
               className={null}
@@ -162,14 +195,14 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
               color={null}
               count={1}
               description={null}
-              disabled={false}
+              disabled={true}
               key="Complex"
               label="Complex"
               onChange={null}
               onDelete={[Function]}
             >
               <div
-                className="nice-tag"
+                className="nice-tag muted"
               >
                 <TagLabel>
                   <span
@@ -182,20 +215,6 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
                     </ToolTip>
                   </span>
                 </TagLabel>
-                <TagButton
-                  icon="fa-trash-o"
-                  label={null}
-                  onClick={[Function]}
-                >
-                  <button
-                    className="nice-tag-btn"
-                    onClick={[Function]}
-                  >
-                    <i
-                      className="icon fa-trash-o"
-                    />
-                  </button>
-                </TagButton>
               </div>
             </Tag>
           </div>
@@ -484,20 +503,25 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
   >
     <div>
       <TagContainer
+        className={null}
+        disabled={false}
         items={
           Array [
             Object {
               "code": "Simple",
               "color": "warning",
+              "disabled": true,
               "label": "Simple",
             },
             Object {
               "code": "Complex",
               "color": "warning",
+              "disabled": true,
               "label": "Complex",
             },
           ]
         }
+        multiple={false}
         onAdd={[Function]}
         onDelete={[Function]}
         setState={[Function]}
@@ -508,115 +532,143 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
           ]
         }
       >
-        <BaseTagContainer>
+        <BaseTagContainer
+          className={null}
+        >
           <div
             className="base-tag-container nice-tags-container"
           >
-            <SingleSelect
-              defaultValue={null}
-              emptyLabel="Add..."
-              isDisabled={[Function]}
+            <TagSelect
+              current={
+                Array [
+                  "Complex",
+                ]
+              }
               items={
                 Array [
                   Object {
                     "code": "Simple",
+                    "color": "warning",
+                    "disabled": true,
                     "label": "Simple",
+                  },
+                  Object {
+                    "code": "Complex",
+                    "color": "warning",
+                    "disabled": true,
+                    "label": "Complex",
                   },
                 ]
               }
-              renderEmpty={null}
-              selected={null}
-              setState={[Function]}
+              multiple={false}
+              onSelect={[Function]}
             >
-              <OnClickOutside(BaseSelect)
-                eventTypes={
+              <SingleSelect
+                defaultValue={null}
+                emptyLabel="Add..."
+                isDisabled={[Function]}
+                items={
                   Array [
-                    "mousedown",
-                    "touchstart",
+                    Object {
+                      "code": "Simple",
+                      "label": "Simple",
+                    },
                   ]
                 }
-                excludeScrollbar={false}
-                label="Add..."
-                outsideClickIgnoreClass="ignore-react-onclickoutside"
-                preventDefault={false}
-                stopPropagation={false}
+                renderEmpty={null}
+                selected={null}
+                setState={[Function]}
               >
-                <BaseSelect
-                  className={null}
-                  closeOnClick={true}
-                  description={null}
-                  disableOnClickOutside={[Function]}
-                  enableOnClickOutside={[Function]}
+                <OnClickOutside(BaseSelect)
                   eventTypes={
                     Array [
                       "mousedown",
                       "touchstart",
                     ]
                   }
-                  heading={null}
+                  excludeScrollbar={false}
                   label="Add..."
                   outsideClickIgnoreClass="ignore-react-onclickoutside"
                   preventDefault={false}
                   stopPropagation={false}
                 >
-                  <div
-                    className="nice-dropdown nice-form-control"
+                  <BaseSelect
+                    className={null}
+                    closeOnClick={true}
+                    description={null}
+                    disableOnClickOutside={[Function]}
+                    enableOnClickOutside={[Function]}
+                    eventTypes={
+                      Array [
+                        "mousedown",
+                        "touchstart",
+                      ]
+                    }
+                    heading={null}
+                    label="Add..."
+                    outsideClickIgnoreClass="ignore-react-onclickoutside"
+                    preventDefault={false}
+                    stopPropagation={false}
                   >
-                    <SelectButton
-                      label="Add..."
-                      onToggle={[Function]}
+                    <div
+                      className="nice-dropdown nice-form-control"
                     >
-                      <button
-                        className="nice-btn"
-                        onClick={[Function]}
+                      <SelectButton
+                        label="Add..."
+                        onToggle={[Function]}
                       >
-                        Add...
-                        <i
-                          className="icon fa-angle-down"
-                        />
-                      </button>
-                    </SelectButton>
-                    <ul
-                      className="dropdown-menu"
-                      onClick={[Function]}
-                    >
-                      <SelectItem
-                        disabled={false}
-                        id="Simple"
-                        key="Simple"
-                        label="Simple"
-                        onClick={[Function]}
-                        selected={false}
-                      >
-                        <li
-                          className={null}
-                          data-value="Simple"
+                        <button
+                          className="nice-btn"
                           onClick={[Function]}
                         >
-                          <a>
-                            Simple
-                          </a>
-                        </li>
-                      </SelectItem>
-                    </ul>
-                  </div>
-                </BaseSelect>
-              </OnClickOutside(BaseSelect)>
-            </SingleSelect>
+                          Add...
+                          <i
+                            className="icon fa-angle-down"
+                          />
+                        </button>
+                      </SelectButton>
+                      <ul
+                        className="dropdown-menu"
+                        onClick={[Function]}
+                      >
+                        <SelectItem
+                          disabled={false}
+                          id="Simple"
+                          key="Simple"
+                          label="Simple"
+                          onClick={[Function]}
+                          selected={false}
+                        >
+                          <li
+                            className={null}
+                            data-value="Simple"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Simple
+                            </a>
+                          </li>
+                        </SelectItem>
+                      </ul>
+                    </div>
+                  </BaseSelect>
+                </OnClickOutside(BaseSelect)>
+              </SingleSelect>
+            </TagSelect>
             <Tag
               badges={Array []}
               className={null}
               color={null}
               count={1}
               description={null}
-              disabled={false}
+              disabled={true}
               key="Complex"
               label="Complex"
               onChange={null}
               onDelete={[Function]}
             >
               <div
-                className="nice-tag"
+                className="nice-tag muted"
               >
                 <TagLabel>
                   <span
@@ -629,20 +681,6 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
                     </ToolTip>
                   </span>
                 </TagLabel>
-                <TagButton
-                  icon="fa-trash-o"
-                  label={null}
-                  onClick={[Function]}
-                >
-                  <button
-                    className="nice-tag-btn"
-                    onClick={[Function]}
-                  >
-                    <i
-                      className="icon fa-trash-o"
-                    />
-                  </button>
-                </TagButton>
               </div>
             </Tag>
           </div>
@@ -844,143 +882,172 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
   >
     <div>
       <TagContainer
+        className={null}
+        disabled={false}
         items={
           Array [
             Object {
               "code": "Simple",
               "color": "warning",
+              "disabled": true,
               "label": "Simple",
             },
             Object {
               "code": "Complex",
               "color": "warning",
+              "disabled": true,
               "label": "Complex",
             },
           ]
         }
+        multiple={false}
         onAdd={[Function]}
         onDelete={[Function]}
         setState={[Function]}
         showSelect={true}
         value={Array []}
       >
-        <BaseTagContainer>
+        <BaseTagContainer
+          className={null}
+        >
           <div
             className="base-tag-container nice-tags-container"
           >
-            <SingleSelect
-              defaultValue={null}
-              emptyLabel="Add..."
-              isDisabled={[Function]}
+            <TagSelect
+              current={Array []}
               items={
                 Array [
                   Object {
                     "code": "Simple",
+                    "color": "warning",
+                    "disabled": true,
                     "label": "Simple",
                   },
                   Object {
                     "code": "Complex",
+                    "color": "warning",
+                    "disabled": true,
                     "label": "Complex",
                   },
                 ]
               }
-              renderEmpty={null}
-              selected={null}
-              setState={[Function]}
+              multiple={false}
+              onSelect={[Function]}
             >
-              <OnClickOutside(BaseSelect)
-                eventTypes={
+              <SingleSelect
+                defaultValue={null}
+                emptyLabel="Add..."
+                isDisabled={[Function]}
+                items={
                   Array [
-                    "mousedown",
-                    "touchstart",
+                    Object {
+                      "code": "Simple",
+                      "label": "Simple",
+                    },
+                    Object {
+                      "code": "Complex",
+                      "label": "Complex",
+                    },
                   ]
                 }
-                excludeScrollbar={false}
-                label="Add..."
-                outsideClickIgnoreClass="ignore-react-onclickoutside"
-                preventDefault={false}
-                stopPropagation={false}
+                renderEmpty={null}
+                selected={null}
+                setState={[Function]}
               >
-                <BaseSelect
-                  className={null}
-                  closeOnClick={true}
-                  description={null}
-                  disableOnClickOutside={[Function]}
-                  enableOnClickOutside={[Function]}
+                <OnClickOutside(BaseSelect)
                   eventTypes={
                     Array [
                       "mousedown",
                       "touchstart",
                     ]
                   }
-                  heading={null}
+                  excludeScrollbar={false}
                   label="Add..."
                   outsideClickIgnoreClass="ignore-react-onclickoutside"
                   preventDefault={false}
                   stopPropagation={false}
                 >
-                  <div
-                    className="nice-dropdown nice-form-control"
+                  <BaseSelect
+                    className={null}
+                    closeOnClick={true}
+                    description={null}
+                    disableOnClickOutside={[Function]}
+                    enableOnClickOutside={[Function]}
+                    eventTypes={
+                      Array [
+                        "mousedown",
+                        "touchstart",
+                      ]
+                    }
+                    heading={null}
+                    label="Add..."
+                    outsideClickIgnoreClass="ignore-react-onclickoutside"
+                    preventDefault={false}
+                    stopPropagation={false}
                   >
-                    <SelectButton
-                      label="Add..."
-                      onToggle={[Function]}
+                    <div
+                      className="nice-dropdown nice-form-control"
                     >
-                      <button
-                        className="nice-btn"
-                        onClick={[Function]}
+                      <SelectButton
+                        label="Add..."
+                        onToggle={[Function]}
                       >
-                        Add...
-                        <i
-                          className="icon fa-angle-down"
-                        />
-                      </button>
-                    </SelectButton>
-                    <ul
-                      className="dropdown-menu"
-                      onClick={[Function]}
-                    >
-                      <SelectItem
-                        disabled={false}
-                        id="Simple"
-                        key="Simple"
-                        label="Simple"
-                        onClick={[Function]}
-                        selected={false}
-                      >
-                        <li
-                          className={null}
-                          data-value="Simple"
+                        <button
+                          className="nice-btn"
                           onClick={[Function]}
                         >
-                          <a>
-                            Simple
-                          </a>
-                        </li>
-                      </SelectItem>
-                      <SelectItem
-                        disabled={false}
-                        id="Complex"
-                        key="Complex"
-                        label="Complex"
+                          Add...
+                          <i
+                            className="icon fa-angle-down"
+                          />
+                        </button>
+                      </SelectButton>
+                      <ul
+                        className="dropdown-menu"
                         onClick={[Function]}
-                        selected={false}
                       >
-                        <li
-                          className={null}
-                          data-value="Complex"
+                        <SelectItem
+                          disabled={false}
+                          id="Simple"
+                          key="Simple"
+                          label="Simple"
                           onClick={[Function]}
+                          selected={false}
                         >
-                          <a>
-                            Complex
-                          </a>
-                        </li>
-                      </SelectItem>
-                    </ul>
-                  </div>
-                </BaseSelect>
-              </OnClickOutside(BaseSelect)>
-            </SingleSelect>
+                          <li
+                            className={null}
+                            data-value="Simple"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Simple
+                            </a>
+                          </li>
+                        </SelectItem>
+                        <SelectItem
+                          disabled={false}
+                          id="Complex"
+                          key="Complex"
+                          label="Complex"
+                          onClick={[Function]}
+                          selected={false}
+                        >
+                          <li
+                            className={null}
+                            data-value="Complex"
+                            onClick={[Function]}
+                          >
+                            <a>
+                              Complex
+                            </a>
+                          </li>
+                        </SelectItem>
+                      </ul>
+                    </div>
+                  </BaseSelect>
+                </OnClickOutside(BaseSelect)>
+              </SingleSelect>
+            </TagSelect>
           </div>
         </BaseTagContainer>
       </TagContainer>
@@ -995,21 +1062,40 @@ exports[`Component: MultipleChoiceSelect should render with minimum props 1`] = 
     className="base-tag-container nice-tags-container"
   >
     <div
-      className="nice-tag"
+      className="nice-dropdown nice-form-control"
+    >
+      <button
+        className="nice-btn"
+        onClick={[Function]}
+      >
+        Add...
+        <i
+          className="icon fa-angle-down"
+        />
+      </button>
+      <ul
+        className="dropdown-menu"
+        onClick={[Function]}
+      >
+        <li
+          className={null}
+          data-value="Simple"
+          onClick={[Function]}
+        >
+          <a>
+            Simple
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      className="nice-tag muted"
     >
       <span
         className="nice-tag-label"
       >
         Complex
       </span>
-      <button
-        className="nice-tag-btn"
-        onClick={[Function]}
-      >
-        <i
-          className="icon fa-trash-o"
-        />
-      </button>
     </div>
   </div>
   <div
