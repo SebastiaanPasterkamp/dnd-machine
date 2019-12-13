@@ -1,15 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import TagValueContainer from 'components/TagValueContainer.jsx';
 import renderer from 'react-test-renderer';
+
+import TagValueContainer from '..';
 
 const items = [
     { code: "a", label: "Aaa" },
     { name: "b", label: "Bbb", description: "Bee" },
-];
-const tagValues = [
-    { code: 0, label: 'Zero' },
-    { name: 5, label: 'Five' },
 ];
 
 describe('Component: TagValueContainer', () => {
@@ -19,7 +16,7 @@ describe('Component: TagValueContainer', () => {
             <TagValueContainer
                 setState={setState}
                 value={{}}
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -31,10 +28,9 @@ describe('Component: TagValueContainer', () => {
             <TagValueContainer
                 setState={setState}
                 items={items}
-                tagValues={tagValues}
                 value={{a: 5, b: 0}}
                 className="info"
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -46,10 +42,9 @@ describe('Component: TagValueContainer', () => {
             <TagValueContainer
                 setState={setState}
                 items={items}
-                tagValues={tagValues}
                 value={{a: 5, b: 0}}
                 disabled={true}
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -62,7 +57,7 @@ describe('Component: TagValueContainer', () => {
                 setState={setState}
                 items={items}
                 value={{a: 5, b: 0}}
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -78,7 +73,7 @@ describe('Component: TagValueContainer', () => {
                 items={items}
                 value={{a: 5}}
                 multiple={true}
-                />
+            />
         );
 
         wrapper
@@ -94,29 +89,6 @@ describe('Component: TagValueContainer', () => {
             .toBeCalledWith({a: 5, b: 0});
     });
 
-    it('should emit changes when changing by dropdown', () => {
-        const setState = jest.fn();
-        const onChange = jest.fn();
-        const wrapper = mount(
-            <TagValueContainer
-                setState={setState}
-                onChange={onChange}
-                tagValues={tagValues}
-                items={items}
-                value={{a: 5}}
-                />
-        );
-
-        wrapper
-            .find('[data-value=0]')
-            .simulate('click');
-
-        expect(onChange)
-            .toBeCalledWith('a', 0);
-        expect(setState)
-            .toBeCalledWith({a: 0});
-    });
-
     it('should emit changes when changing input', () => {
         const setState = jest.fn();
         const onChange = jest.fn();
@@ -126,7 +98,7 @@ describe('Component: TagValueContainer', () => {
                 onChange={onChange}
                 items={items}
                 value={{a: 5, b: 0}}
-                />
+            />
         );
 
         wrapper
@@ -149,7 +121,7 @@ describe('Component: TagValueContainer', () => {
                 onDelete={onDelete}
                 items={items}
                 value={{a: 5, b: 0}}
-                />
+            />
         );
 
         wrapper

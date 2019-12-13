@@ -3899,15 +3899,32 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                             </ToolTip>
                                                           </span>
                                                         </TagLabel>
-                                                        <TagBadge
-                                                          icon={null}
+                                                        <ValueBadge
+                                                          badgeItems={null}
+                                                          disabled={true}
+                                                          onChange={[Function]}
+                                                          tag={
+                                                            Object {
+                                                              "description": undefined,
+                                                              "disabled": true,
+                                                              "key": "walk",
+                                                              "label": "Walk",
+                                                              "onChange": [Function],
+                                                              "onDelete": [Function],
+                                                              "value": 30,
+                                                            }
+                                                          }
                                                         >
-                                                          <span
-                                                            className="nice-tag-badge"
+                                                          <TagBadge
+                                                            icon={null}
                                                           >
-                                                            30
-                                                          </span>
-                                                        </TagBadge>
+                                                            <span
+                                                              className="nice-tag-badge"
+                                                            >
+                                                              30
+                                                            </span>
+                                                          </TagBadge>
+                                                        </ValueBadge>
                                                       </div>
                                                     </Tag>
                                                   </div>
@@ -4604,15 +4621,32 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                                 </ToolTip>
                                                               </span>
                                                             </TagLabel>
-                                                            <TagBadge
-                                                              icon={null}
+                                                            <ValueBadge
+                                                              badgeItems={null}
+                                                              disabled={true}
+                                                              onChange={[Function]}
+                                                              tag={
+                                                                Object {
+                                                                  "description": undefined,
+                                                                  "disabled": true,
+                                                                  "key": "average",
+                                                                  "label": "Average",
+                                                                  "onChange": [Function],
+                                                                  "onDelete": [Function],
+                                                                  "value": 1,
+                                                                }
+                                                              }
                                                             >
-                                                              <span
-                                                                className="nice-tag-badge"
+                                                              <TagBadge
+                                                                icon={null}
                                                               >
-                                                                1
-                                                              </span>
-                                                            </TagBadge>
+                                                                <span
+                                                                  className="nice-tag-badge"
+                                                                >
+                                                                  1
+                                                                </span>
+                                                              </TagBadge>
+                                                            </ValueBadge>
                                                           </div>
                                                         </Tag>
                                                         <Tag
@@ -4641,15 +4675,32 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                                 </ToolTip>
                                                               </span>
                                                             </TagLabel>
-                                                            <TagBadge
-                                                              icon={null}
+                                                            <ValueBadge
+                                                              badgeItems={null}
+                                                              disabled={true}
+                                                              onChange={[Function]}
+                                                              tag={
+                                                                Object {
+                                                                  "description": undefined,
+                                                                  "disabled": true,
+                                                                  "key": "critical",
+                                                                  "label": "Critical",
+                                                                  "onChange": [Function],
+                                                                  "onDelete": [Function],
+                                                                  "value": 4,
+                                                                }
+                                                              }
                                                             >
-                                                              <span
-                                                                className="nice-tag-badge"
+                                                              <TagBadge
+                                                                icon={null}
                                                               >
-                                                                4
-                                                              </span>
-                                                            </TagBadge>
+                                                                <span
+                                                                  className="nice-tag-badge"
+                                                                >
+                                                                  4
+                                                                </span>
+                                                              </TagBadge>
+                                                            </ValueBadge>
                                                           </div>
                                                         </Tag>
                                                       </div>
@@ -5001,15 +5052,32 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                                 </ToolTip>
                                                               </span>
                                                             </TagLabel>
-                                                            <TagBadge
-                                                              icon={null}
+                                                            <ValueBadge
+                                                              badgeItems={null}
+                                                              disabled={true}
+                                                              onChange={[Function]}
+                                                              tag={
+                                                                Object {
+                                                                  "description": undefined,
+                                                                  "disabled": true,
+                                                                  "key": "average",
+                                                                  "label": "Average",
+                                                                  "onChange": [Function],
+                                                                  "onDelete": [Function],
+                                                                  "value": 4,
+                                                                }
+                                                              }
                                                             >
-                                                              <span
-                                                                className="nice-tag-badge"
+                                                              <TagBadge
+                                                                icon={null}
                                                               >
-                                                                4
-                                                              </span>
-                                                            </TagBadge>
+                                                                <span
+                                                                  className="nice-tag-badge"
+                                                                >
+                                                                  4
+                                                                </span>
+                                                              </TagBadge>
+                                                            </ValueBadge>
                                                           </div>
                                                         </Tag>
                                                         <Tag
@@ -5038,15 +5106,32 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                                 </ToolTip>
                                                               </span>
                                                             </TagLabel>
-                                                            <TagBadge
-                                                              icon={null}
+                                                            <ValueBadge
+                                                              badgeItems={null}
+                                                              disabled={true}
+                                                              onChange={[Function]}
+                                                              tag={
+                                                                Object {
+                                                                  "description": undefined,
+                                                                  "disabled": true,
+                                                                  "key": "critical",
+                                                                  "label": "Critical",
+                                                                  "onChange": [Function],
+                                                                  "onDelete": [Function],
+                                                                  "value": 7,
+                                                                }
+                                                              }
                                                             >
-                                                              <span
-                                                                className="nice-tag-badge"
+                                                              <TagBadge
+                                                                icon={null}
                                                               >
-                                                                7
-                                                              </span>
-                                                            </TagBadge>
+                                                                <span
+                                                                  className="nice-tag-badge"
+                                                                >
+                                                                  7
+                                                                </span>
+                                                              </TagBadge>
+                                                            </ValueBadge>
                                                           </div>
                                                         </Tag>
                                                       </div>
@@ -9052,15 +9137,32 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                             </ToolTip>
                                                           </span>
                                                         </TagLabel>
-                                                        <TagBadge
-                                                          icon={null}
+                                                        <ValueBadge
+                                                          badgeItems={null}
+                                                          disabled={true}
+                                                          onChange={[Function]}
+                                                          tag={
+                                                            Object {
+                                                              "description": undefined,
+                                                              "disabled": true,
+                                                              "key": "walk",
+                                                              "label": "Walk",
+                                                              "onChange": [Function],
+                                                              "onDelete": [Function],
+                                                              "value": 30,
+                                                            }
+                                                          }
                                                         >
-                                                          <span
-                                                            className="nice-tag-badge"
+                                                          <TagBadge
+                                                            icon={null}
                                                           >
-                                                            30
-                                                          </span>
-                                                        </TagBadge>
+                                                            <span
+                                                              className="nice-tag-badge"
+                                                            >
+                                                              30
+                                                            </span>
+                                                          </TagBadge>
+                                                        </ValueBadge>
                                                       </div>
                                                     </Tag>
                                                   </div>
@@ -9757,15 +9859,32 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                                 </ToolTip>
                                                               </span>
                                                             </TagLabel>
-                                                            <TagBadge
-                                                              icon={null}
+                                                            <ValueBadge
+                                                              badgeItems={null}
+                                                              disabled={true}
+                                                              onChange={[Function]}
+                                                              tag={
+                                                                Object {
+                                                                  "description": undefined,
+                                                                  "disabled": true,
+                                                                  "key": "average",
+                                                                  "label": "Average",
+                                                                  "onChange": [Function],
+                                                                  "onDelete": [Function],
+                                                                  "value": 1,
+                                                                }
+                                                              }
                                                             >
-                                                              <span
-                                                                className="nice-tag-badge"
+                                                              <TagBadge
+                                                                icon={null}
                                                               >
-                                                                1
-                                                              </span>
-                                                            </TagBadge>
+                                                                <span
+                                                                  className="nice-tag-badge"
+                                                                >
+                                                                  1
+                                                                </span>
+                                                              </TagBadge>
+                                                            </ValueBadge>
                                                           </div>
                                                         </Tag>
                                                         <Tag
@@ -9794,15 +9913,32 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                                 </ToolTip>
                                                               </span>
                                                             </TagLabel>
-                                                            <TagBadge
-                                                              icon={null}
+                                                            <ValueBadge
+                                                              badgeItems={null}
+                                                              disabled={true}
+                                                              onChange={[Function]}
+                                                              tag={
+                                                                Object {
+                                                                  "description": undefined,
+                                                                  "disabled": true,
+                                                                  "key": "critical",
+                                                                  "label": "Critical",
+                                                                  "onChange": [Function],
+                                                                  "onDelete": [Function],
+                                                                  "value": 4,
+                                                                }
+                                                              }
                                                             >
-                                                              <span
-                                                                className="nice-tag-badge"
+                                                              <TagBadge
+                                                                icon={null}
                                                               >
-                                                                4
-                                                              </span>
-                                                            </TagBadge>
+                                                                <span
+                                                                  className="nice-tag-badge"
+                                                                >
+                                                                  4
+                                                                </span>
+                                                              </TagBadge>
+                                                            </ValueBadge>
                                                           </div>
                                                         </Tag>
                                                       </div>
@@ -10154,15 +10290,32 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                                 </ToolTip>
                                                               </span>
                                                             </TagLabel>
-                                                            <TagBadge
-                                                              icon={null}
+                                                            <ValueBadge
+                                                              badgeItems={null}
+                                                              disabled={true}
+                                                              onChange={[Function]}
+                                                              tag={
+                                                                Object {
+                                                                  "description": undefined,
+                                                                  "disabled": true,
+                                                                  "key": "average",
+                                                                  "label": "Average",
+                                                                  "onChange": [Function],
+                                                                  "onDelete": [Function],
+                                                                  "value": 4,
+                                                                }
+                                                              }
                                                             >
-                                                              <span
-                                                                className="nice-tag-badge"
+                                                              <TagBadge
+                                                                icon={null}
                                                               >
-                                                                4
-                                                              </span>
-                                                            </TagBadge>
+                                                                <span
+                                                                  className="nice-tag-badge"
+                                                                >
+                                                                  4
+                                                                </span>
+                                                              </TagBadge>
+                                                            </ValueBadge>
                                                           </div>
                                                         </Tag>
                                                         <Tag
@@ -10191,15 +10344,32 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                                 </ToolTip>
                                                               </span>
                                                             </TagLabel>
-                                                            <TagBadge
-                                                              icon={null}
+                                                            <ValueBadge
+                                                              badgeItems={null}
+                                                              disabled={true}
+                                                              onChange={[Function]}
+                                                              tag={
+                                                                Object {
+                                                                  "description": undefined,
+                                                                  "disabled": true,
+                                                                  "key": "critical",
+                                                                  "label": "Critical",
+                                                                  "onChange": [Function],
+                                                                  "onDelete": [Function],
+                                                                  "value": 7,
+                                                                }
+                                                              }
                                                             >
-                                                              <span
-                                                                className="nice-tag-badge"
+                                                              <TagBadge
+                                                                icon={null}
                                                               >
-                                                                7
-                                                              </span>
-                                                            </TagBadge>
+                                                                <span
+                                                                  className="nice-tag-badge"
+                                                                >
+                                                                  7
+                                                                </span>
+                                                              </TagBadge>
+                                                            </ValueBadge>
                                                           </div>
                                                         </Tag>
                                                       </div>
@@ -14247,15 +14417,32 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                             </ToolTip>
                                                           </span>
                                                         </TagLabel>
-                                                        <TagBadge
-                                                          icon={null}
+                                                        <ValueBadge
+                                                          badgeItems={null}
+                                                          disabled={true}
+                                                          onChange={[Function]}
+                                                          tag={
+                                                            Object {
+                                                              "description": undefined,
+                                                              "disabled": true,
+                                                              "key": "walk",
+                                                              "label": "Walk",
+                                                              "onChange": [Function],
+                                                              "onDelete": [Function],
+                                                              "value": 30,
+                                                            }
+                                                          }
                                                         >
-                                                          <span
-                                                            className="nice-tag-badge"
+                                                          <TagBadge
+                                                            icon={null}
                                                           >
-                                                            30
-                                                          </span>
-                                                        </TagBadge>
+                                                            <span
+                                                              className="nice-tag-badge"
+                                                            >
+                                                              30
+                                                            </span>
+                                                          </TagBadge>
+                                                        </ValueBadge>
                                                       </div>
                                                     </Tag>
                                                   </div>
@@ -14952,15 +15139,32 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                                 </ToolTip>
                                                               </span>
                                                             </TagLabel>
-                                                            <TagBadge
-                                                              icon={null}
+                                                            <ValueBadge
+                                                              badgeItems={null}
+                                                              disabled={true}
+                                                              onChange={[Function]}
+                                                              tag={
+                                                                Object {
+                                                                  "description": undefined,
+                                                                  "disabled": true,
+                                                                  "key": "average",
+                                                                  "label": "Average",
+                                                                  "onChange": [Function],
+                                                                  "onDelete": [Function],
+                                                                  "value": 1,
+                                                                }
+                                                              }
                                                             >
-                                                              <span
-                                                                className="nice-tag-badge"
+                                                              <TagBadge
+                                                                icon={null}
                                                               >
-                                                                1
-                                                              </span>
-                                                            </TagBadge>
+                                                                <span
+                                                                  className="nice-tag-badge"
+                                                                >
+                                                                  1
+                                                                </span>
+                                                              </TagBadge>
+                                                            </ValueBadge>
                                                           </div>
                                                         </Tag>
                                                         <Tag
@@ -14989,15 +15193,32 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                                 </ToolTip>
                                                               </span>
                                                             </TagLabel>
-                                                            <TagBadge
-                                                              icon={null}
+                                                            <ValueBadge
+                                                              badgeItems={null}
+                                                              disabled={true}
+                                                              onChange={[Function]}
+                                                              tag={
+                                                                Object {
+                                                                  "description": undefined,
+                                                                  "disabled": true,
+                                                                  "key": "critical",
+                                                                  "label": "Critical",
+                                                                  "onChange": [Function],
+                                                                  "onDelete": [Function],
+                                                                  "value": 4,
+                                                                }
+                                                              }
                                                             >
-                                                              <span
-                                                                className="nice-tag-badge"
+                                                              <TagBadge
+                                                                icon={null}
                                                               >
-                                                                4
-                                                              </span>
-                                                            </TagBadge>
+                                                                <span
+                                                                  className="nice-tag-badge"
+                                                                >
+                                                                  4
+                                                                </span>
+                                                              </TagBadge>
+                                                            </ValueBadge>
                                                           </div>
                                                         </Tag>
                                                       </div>
@@ -15349,15 +15570,32 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                                 </ToolTip>
                                                               </span>
                                                             </TagLabel>
-                                                            <TagBadge
-                                                              icon={null}
+                                                            <ValueBadge
+                                                              badgeItems={null}
+                                                              disabled={true}
+                                                              onChange={[Function]}
+                                                              tag={
+                                                                Object {
+                                                                  "description": undefined,
+                                                                  "disabled": true,
+                                                                  "key": "average",
+                                                                  "label": "Average",
+                                                                  "onChange": [Function],
+                                                                  "onDelete": [Function],
+                                                                  "value": 4,
+                                                                }
+                                                              }
                                                             >
-                                                              <span
-                                                                className="nice-tag-badge"
+                                                              <TagBadge
+                                                                icon={null}
                                                               >
-                                                                4
-                                                              </span>
-                                                            </TagBadge>
+                                                                <span
+                                                                  className="nice-tag-badge"
+                                                                >
+                                                                  4
+                                                                </span>
+                                                              </TagBadge>
+                                                            </ValueBadge>
                                                           </div>
                                                         </Tag>
                                                         <Tag
@@ -15386,15 +15624,32 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                                 </ToolTip>
                                                               </span>
                                                             </TagLabel>
-                                                            <TagBadge
-                                                              icon={null}
+                                                            <ValueBadge
+                                                              badgeItems={null}
+                                                              disabled={true}
+                                                              onChange={[Function]}
+                                                              tag={
+                                                                Object {
+                                                                  "description": undefined,
+                                                                  "disabled": true,
+                                                                  "key": "critical",
+                                                                  "label": "Critical",
+                                                                  "onChange": [Function],
+                                                                  "onDelete": [Function],
+                                                                  "value": 7,
+                                                                }
+                                                              }
                                                             >
-                                                              <span
-                                                                className="nice-tag-badge"
+                                                              <TagBadge
+                                                                icon={null}
                                                               >
-                                                                7
-                                                              </span>
-                                                            </TagBadge>
+                                                                <span
+                                                                  className="nice-tag-badge"
+                                                                >
+                                                                  7
+                                                                </span>
+                                                              </TagBadge>
+                                                            </ValueBadge>
                                                           </div>
                                                         </Tag>
                                                       </div>
