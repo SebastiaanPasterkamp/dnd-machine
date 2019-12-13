@@ -118,7 +118,6 @@ exports[`View PropertiesPanel rendering should work w/ full props 1`] = `
             className="nice-tag-badge"
           >
             <input
-              disabled={false}
               onChange={[Function]}
               type="number"
               value={20}
@@ -145,7 +144,6 @@ exports[`View PropertiesPanel rendering should work w/ full props 1`] = `
             className="nice-tag-badge"
           >
             <input
-              disabled={false}
               onChange={[Function]}
               type="number"
               value={40}

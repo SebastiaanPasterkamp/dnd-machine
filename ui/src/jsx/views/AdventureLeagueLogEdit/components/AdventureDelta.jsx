@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CalculatorInputField from '../../../components/CalculatorInputField.jsx';
-import ControlGroup from '../../../components/ControlGroup.jsx';
-import InputField from '../../../components/InputField.jsx';
-import Panel from '../../../components/Panel.jsx';
+import CalculatorInputField from '../../../components/CalculatorInputField';
+import ControlGroup from '../../../components/ControlGroup';
+import InputField from '../../../components/InputField';
+import Panel from '../../../components/Panel';
 
 export class AdventureDelta extends React.PureComponent
 {

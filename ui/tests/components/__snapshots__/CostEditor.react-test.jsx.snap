@@ -122,7 +122,6 @@ exports[`Component: CostEditor should show coins in provided order 1`] = `
       className="nice-tag-badge"
     >
       <input
-        disabled={false}
         onChange={[Function]}
         type="number"
         value={5}
@@ -149,7 +148,6 @@ exports[`Component: CostEditor should show coins in provided order 1`] = `
       className="nice-tag-badge"
     >
       <input
-        disabled={false}
         onChange={[Function]}
         type="number"
         value={5}
@@ -176,7 +174,6 @@ exports[`Component: CostEditor should show coins in provided order 1`] = `
       className="nice-tag-badge"
     >
       <input
-        disabled={false}
         onChange={[Function]}
         type="number"
         value={5}

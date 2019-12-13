@@ -61,11 +61,15 @@ export class TagValueContainer extends React.Component
         return this.memoize(
             `onDelete-${key}`,
             () => {
-                const { value, onDelete, setState } = this.props;
-                setState({
-                    ...value,
-                    [key]: undefined,
-                });
+                const {
+                    value: {
+                        [key]: removed,
+                        ...remaining,
+                    },
+                    onDelete,
+                    setState,
+                } = this.props;
+                setState(remaining);
 
                 if (onDelete) {
                     onDelete(key);

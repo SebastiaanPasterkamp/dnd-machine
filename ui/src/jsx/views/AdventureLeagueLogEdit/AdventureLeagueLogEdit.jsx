@@ -12,23 +12,23 @@ import {
 
 import { memoize } from '../../utils';
 
-import ListDataWrapper from '../../hocs/ListDataWrapper.jsx';
-import ObjectDataWrapper from '../../hocs/ObjectDataWrapper.jsx';
-import RoutedObjectDataWrapper from '../../hocs/RoutedObjectDataWrapper.jsx';
+import ListDataWrapper from '../../hocs/ListDataWrapper';
+import ObjectDataWrapper from '../../hocs/ObjectDataWrapper';
+import RoutedObjectDataWrapper from '../../hocs/RoutedObjectDataWrapper';
 
-import CalculatorInputField from '../../components/CalculatorInputField.jsx';
-import CharacterLabel from '../../components/CharacterLabel.jsx';
+import CalculatorInputField from '../../components/CalculatorInputField';
+import CharacterLabel from '../../components/CharacterLabel';
 import CharacterPicker from '../../components/CharacterPicker';
-import ToggleSwitch from '../../components/ToggleSwitch.jsx';
-import ControlGroup from '../../components/ControlGroup.jsx';
-import Coinage from '../../components/Coinage.jsx';
-import CostEditor from '../../components/CostEditor.jsx';
-import InputField from '../../components/InputField.jsx';
-import ListComponent from '../../components/ListComponent.jsx';
-import MarkdownTextField from '../../components/MarkdownTextField.jsx';
-import Panel from '../../components/Panel.jsx';
-import UserLabel from '../../components/UserLabel.jsx';
-import TabComponent from '../../components/TabComponent.jsx';
+import ToggleSwitch from '../../components/ToggleSwitch';
+import ControlGroup from '../../components/ControlGroup';
+import Coinage from '../../components/Coinage';
+import CostEditor from '../../components/CostEditor';
+import InputField from '../../components/InputField';
+import ListComponent from '../../components/ListComponent';
+import MarkdownTextField from '../../components/MarkdownTextField';
+import Panel from '../../components/Panel';
+import UserLabel from '../../components/UserLabel';
+import TabComponent from '../../components/TabComponent';
 
 import './sass/_adventure-league-log-edit.scss';
 import AdventureDelta from './components/AdventureDelta';

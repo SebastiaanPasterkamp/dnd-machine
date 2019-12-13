@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { mergeWith } from 'lodash/fp';
 
-import Coinage from '../../../components/Coinage.jsx';
-import ControlGroup from '../../../components/ControlGroup.jsx';
-import CostEditor from '../../../components/CostEditor.jsx';
-import Panel from '../../../components/Panel.jsx';
+import Coinage from '../../../components/Coinage';
+import ControlGroup from '../../../components/ControlGroup';
+import CostEditor from '../../../components/CostEditor';
+import Panel from '../../../components/Panel';
 
 export class AdventureGold extends React.PureComponent
 {

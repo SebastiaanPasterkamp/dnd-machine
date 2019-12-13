@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import LazyComponent from '../components/LazyComponent.jsx';
-import TagValueContainer from '../components/TagValueContainer.jsx';
+import LazyComponent from '../components/LazyComponent';
+import TagValueContainer from '../components/TagValueContainer';
 
 class CostEditor extends LazyComponent
 {
@@ -25,6 +25,9 @@ class CostEditor extends LazyComponent
             value = _.mapValues(
                 newValue,
                 amount => {
+                    if (amount === undefined) {
+                        return amount;
+                    }
                     const asNumber = parseInt(amount, 10);
                     if (_.isNaN(asNumber)) {
                         throw amount;
