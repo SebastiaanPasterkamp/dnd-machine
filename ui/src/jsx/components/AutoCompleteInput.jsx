@@ -31,7 +31,7 @@ export class AutoCompleteInput extends LazyComponent
 
         const filtered = _.filter(
             items,
-            item => item.label.match(filter)
+            ({ label = '' }) => label.match(filter)
         );
 
         const dropStyle = utils.makeStyle({
