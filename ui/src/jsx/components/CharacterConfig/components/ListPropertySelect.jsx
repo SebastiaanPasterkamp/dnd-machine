@@ -12,7 +12,6 @@ import {
     get,
     includes,
     isArray,
-    isNil,
     intersection,
     map,
     keys,
@@ -133,8 +132,10 @@ export class ListPropertySelect extends LazyComponent
         };
 
         return {
-            id: isNil(item.id) ? ( isNil(item.code) ? item.name : item.code ) : item.id,
-            label: isNil(item.label) ? item.name : item.label,
+            id: item.id !== undefined ? item.id : (
+                item.code !== undefined ? item.code : item.name
+            ),
+            label: item.name !== undefined ? item.name : item.label,
             description: item.description,
         };
     }
@@ -234,18 +235,22 @@ export class ListPropertySelect extends LazyComponent
             item => (
                 multiple
                 || includes(
-                    isNil(item.code) ? item.name : item.code,
+                    item.id !== undefined ? item.id : (
+                        item.code !== undefined ? item.code : item.name
+                    ),
                     removed
                 )
                 || !includes(
-                    isNil(item.code) ? item.name : item.code,
+                    item.code !== undefined ? item.code : item.name,
                     values
                 )
             ),
             filter(
                 item => (
                     includes(
-                        isNil(item.code) ? item.name : item.code,
+                        item.id !== undefined ? item.id : (
+                            item.code !== undefined ? item.code : item.name
+                        ),
                         removed
                     )
                     || this.matchesFilters(item, filters)
