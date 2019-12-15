@@ -89,7 +89,7 @@ TableRow.propTypes = {
         }),
     }),
     name: PropTypes.string.isRequired,
-    monster_ids: PropTypes.arrayOf( PropTypes.number ),
+    monster_ids: PropTypes.arrayOf( PropTypes.object ),
     challenge_rating: PropTypes.number,
     xp_rating: PropTypes.number,
     xp: PropTypes.number,
