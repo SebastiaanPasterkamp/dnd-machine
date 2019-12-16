@@ -30,7 +30,7 @@ describe('SpellEdit', () => {
         concentration: true,
         components: ["vocal", "somatic", "material"],
         cost: "Entangled photon",
-        range: 60,
+        range: "60",
         school: "illusion",
         classes: ["Wizard"],
     };
