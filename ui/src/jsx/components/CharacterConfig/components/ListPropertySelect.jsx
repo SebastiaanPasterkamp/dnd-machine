@@ -16,6 +16,7 @@ import {
     map,
     keys,
     some,
+    uniq,
     without,
 } from 'lodash/fp';
 
@@ -43,6 +44,24 @@ export class ListPropertySelect extends LazyComponent
             disabled: true,
         };
         this.memoize = memoize.bind(this);
+        this.onSetState = this.onSetState.bind(this);
+    }
+
+    getId({ id, code, name}) {
+        if (id !== undefined) {
+            return id;
+        }
+        if (code !== undefined) {
+            return code;
+        }
+        return name;
+    }
+
+    getLabel({ label, name}) {
+        if (label !== undefined) {
+            return label;
+        }
+        return name;
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -79,23 +98,26 @@ export class ListPropertySelect extends LazyComponent
         });
     }
 
-    onDelete = (value) => this.memoize(
-        `delete-${value}`,
+    onDelete = (id) => this.memoize(
+        `delete-${id}`,
         () => {
-            const { replace } = this.props;
+            const { replace, multiple } = this.props;
             const { added, removed } = this.state;
             const state = { added, removed };
-            if (includes(value, added)) {
-                state.added = without([ value ], added);
+            if (includes(id, added)) {
+                state.added = without([ id ], added);
             } else if (removed.length < replace) {
-                state.removed = concat(removed, [value]);
+                state.removed = concat(removed, [id]);
+                if (!multiple) {
+                    state.removed = uniq(state.removed);
+                }
             }
-            this.setState(state, () => this.onSetState());
+            this.setState(state, this.onSetState);
         }
     );
 
-    onAdd = (value) => {
-        const { add, limit, current } = this.props;
+    onAdd = (id) => {
+        const { add, limit, current, multiple } = this.props;
         const { added, removed } = this.state;
 
         if (limit) {
@@ -107,53 +129,54 @@ export class ListPropertySelect extends LazyComponent
         }
 
         const state = { added, removed };
-        if (includes(value, removed)) {
-            state.removed = without([ value ], removed);
+        if (includes(id, removed)) {
+            state.removed = without([ id ], removed);
         } else {
-            state.added = concat(added, [value]);
+            state.added = concat(added, [id]);
+            if (!multiple) {
+                state.added = uniq(state.added);
+            }
         }
-        this.setState(state, () => this.onSetState());
+        this.setState(state, this.onSetState);
     }
 
-    findItem(value, _default={label: value, color: 'bad'}) {
-        const { items = [] } = this.props;
-        const match = find({code: value}, items)
-            || find({id: value}, items)
-            || find({name: value}, items);
+    findItem(id, _default=undefined) {
+        _default = _default || { label: `${id}`, color: 'bad' };
+        const { items } = this.props;
+        const match = find({id: id}, items)
+                    || find({code: id}, items)
+                    || find({name: id}, items);
 
-        if (!match && !_default) {
+        if (!match && _default !== undefined) {
             return _default;
         }
 
         const item = match || {
             ..._default,
-            code: value,
-            label: value,
+            id,
         };
 
-        return {
-            id: item.id !== undefined ? item.id : (
-                item.code !== undefined ? item.code : item.name
-            ),
-            label: item.name !== undefined ? item.name : item.label,
+        return ({
+            id: this.getId(item),
+            label: this.getLabel(item),
             description: item.description,
-        };
+        });
     }
 
     getValue() {
         const { given, current, replace } = this.props;
-        const { added, removed } = this.state;
+        const { added, removed, disabled } = this.state;
 
         const tags = concat(
             map(
-                code => ({
-                    ...this.findItem(code),
+                id => ({
+                    ...this.findItem(id),
                     color: 'info',
                 })
             )(added),
             map(
-                code => ({
-                    ...this.findItem(code),
+                id => ({
+                    ...this.findItem(id),
                     color: 'good',
                     disabled: true,
                 })
@@ -163,21 +186,26 @@ export class ListPropertySelect extends LazyComponent
         let upgrade = countBy('id', tags);
         let downgrade = countBy('id', removed);
         forEach(
-            (count, code) => {
-                upgrade[code] = (upgrade[code] || 0) - count;
+            (count, id) => {
+                upgrade[id] = (upgrade[id] || 0) - count;
             }
         )(downgrade);
 
-        const disabled = (replace - removed.length) <= 0;
         return concat(
             tags,
             filter(null, map(
-                code => {
-                    if ((upgrade[code] || 0) > 0) {
-                        upgrade[code] -= 1;
+                id => {
+                    if (includes(id, given)) {
                         return null;
                     }
-                    const _current = this.findItem(code, null);
+                    if (includes(id, removed)) {
+                        return null;
+                    }
+                    if ((upgrade[id] || 0) > 0) {
+                        upgrade[id] -= 1;
+                        return null;
+                    }
+                    const _current = this.findItem(id, null);
                     if (!_current) {
                         return null;
                     }
@@ -187,7 +215,7 @@ export class ListPropertySelect extends LazyComponent
                         disabled,
                     });
                 }
-            )(without(removed, current)))
+            )(current))
         );
     }
 
@@ -219,8 +247,14 @@ export class ListPropertySelect extends LazyComponent
 
     renderSelect() {
         const {
-            multiple, filter: filters, items, current, given,
-            limit, add, replace,
+            multiple,
+            filter: filters,
+            items,
+            current,
+            given,
+            limit,
+            add,
+            replace,
         } = this.props;
         const { added, removed, showSelect } = this.state;
 
@@ -234,25 +268,12 @@ export class ListPropertySelect extends LazyComponent
         const filtered = filter(
             item => (
                 multiple
-                || includes(
-                    item.id !== undefined ? item.id : (
-                        item.code !== undefined ? item.code : item.name
-                    ),
-                    removed
-                )
-                || !includes(
-                    item.code !== undefined ? item.code : item.name,
-                    values
-                )
+                || includes( this.getId(item), removed )
+                || !includes( this.getId(item), values )
             ),
             filter(
                 item => (
-                    includes(
-                        item.id !== undefined ? item.id : (
-                            item.code !== undefined ? item.code : item.name
-                        ),
-                        removed
-                    )
+                    includes( this.getId(item), removed )
                     || this.matchesFilters(item, filters)
                 ),
                 items
@@ -276,13 +297,6 @@ export class ListPropertySelect extends LazyComponent
             return null;
         }
 
-        const tags = map(
-            tag => ({
-                ...tag,
-                onDelete: this.onDelete(tag.id),
-            })
-        )(this.getValue());
-
         return (
             <BaseTagContainer>
                 {this.renderSelect()}
@@ -290,9 +304,10 @@ export class ListPropertySelect extends LazyComponent
                 {flow(entries, map(([i, tag]) => (
                     <Tag
                         key={`tag-${i}`}
+                        onDelete={this.onDelete(tag.id)}
                         {...tag}
                     />
-                )))(tags)}
+                )))(this.getValue())}
             </BaseTagContainer>
         );
     }

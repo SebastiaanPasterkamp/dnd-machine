@@ -768,7 +768,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
                   onDelete={[Function]}
                 >
                   <div
-                    className="nice-tag muted"
+                    className="nice-tag good"
                   >
                     <TagLabel>
                       <span
@@ -1894,7 +1894,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                   onDelete={[Function]}
                 >
                   <div
-                    className="nice-tag muted"
+                    className="nice-tag good"
                   >
                     <TagLabel>
                       <span
@@ -2334,14 +2334,13 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                   color="good"
                   description={null}
                   disabled={true}
-                  id="bar"
                   key="tag-0"
                   label="bar"
                   onChange={null}
                   onDelete={[Function]}
                 >
                   <div
-                    className="nice-tag muted"
+                    className="nice-tag good"
                   >
                     <TagLabel>
                       <span

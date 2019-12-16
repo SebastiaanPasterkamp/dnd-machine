@@ -268,7 +268,7 @@ exports[`Component: ListPropertySelect should allow replacing one existing 1`] =
             onDelete={[Function]}
           >
             <div
-              className="nice-tag muted"
+              className="nice-tag good"
             >
               <TagLabel>
                 <span
@@ -524,7 +524,7 @@ exports[`Component: ListPropertySelect should allow replacing one existing 2`] =
             onDelete={[Function]}
           >
             <div
-              className="nice-tag muted"
+              className="nice-tag good"
             >
               <TagLabel>
                 <span
@@ -860,7 +860,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
             onDelete={[Function]}
           >
             <div
-              className="nice-tag muted"
+              className="nice-tag good"
             >
               <TagLabel>
                 <span
@@ -1144,7 +1144,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 2`]
             onDelete={[Function]}
           >
             <div
-              className="nice-tag muted"
+              className="nice-tag good"
             >
               <TagLabel>
                 <span
@@ -1429,7 +1429,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 3`]
             onDelete={[Function]}
           >
             <div
-              className="nice-tag muted"
+              className="nice-tag good"
             >
               <TagLabel>
                 <span
@@ -1837,7 +1837,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 4`]
             onDelete={[Function]}
           >
             <div
-              className="nice-tag muted"
+              className="nice-tag good"
             >
               <TagLabel>
                 <span
@@ -2186,7 +2186,35 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
       <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
-        />
+        >
+          <Tag
+            badges={Array []}
+            className={null}
+            color={null}
+            description={null}
+            disabled={true}
+            key="tag-0"
+            label="dexterity"
+            onChange={null}
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag muted"
+            >
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
+                >
+                  <ToolTip
+                    content={null}
+                  >
+                    dexterity
+                  </ToolTip>
+                </span>
+              </TagLabel>
+            </div>
+          </Tag>
+        </div>
       </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
@@ -2425,14 +2453,13 @@ exports[`Component: ListPropertySelect should omit unknown current values 1`] = 
             color="good"
             description={null}
             disabled={true}
-            id="foo"
             key="tag-0"
             label="foo"
             onChange={null}
             onDelete={[Function]}
           >
             <div
-              className="nice-tag muted"
+              className="nice-tag good"
             >
               <TagLabel>
                 <span
@@ -2784,7 +2811,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
             onDelete={[Function]}
           >
             <div
-              className="nice-tag muted"
+              className="nice-tag good"
             >
               <TagLabel>
                 <span
@@ -2831,7 +2858,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
             onDelete={[Function]}
           >
             <div
-              className="nice-tag muted"
+              className="nice-tag good"
             >
               <TagLabel>
                 <span
@@ -2965,7 +2992,35 @@ exports[`Component: ListPropertySelect should render with minimum props 1`] = `
       <BaseTagContainer>
         <div
           className="base-tag-container nice-tags-container"
-        />
+        >
+          <Tag
+            badges={Array []}
+            className={null}
+            color={null}
+            description={null}
+            disabled={true}
+            key="tag-0"
+            label="dexterity"
+            onChange={null}
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag muted"
+            >
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
+                >
+                  <ToolTip
+                    content={null}
+                  >
+                    dexterity
+                  </ToolTip>
+                </span>
+              </TagLabel>
+            </div>
+          </Tag>
+        </div>
       </BaseTagContainer>
     </ListPropertySelect>
   </CharacterEditorComponent>
