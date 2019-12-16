@@ -341,7 +341,7 @@ class CharacterObject(JsonObject):
             self.spellCantrips = []
             for level, spells in list(self.spellLevel.items()):
                 spells = [
-                    spell['name'] if isinstance(spell, dict) else spell
+                    spell['id'] if isinstance(spell, dict) else spell
                     for spell in spells
                     ]
                 if level == "cantrip":
@@ -449,19 +449,32 @@ class CharacterObject(JsonObject):
             self.armor_class_bonus += armor.get('bonus', 0)
 
         self.spellLevel = {}
-        for spell in set(self.spellList).union(self.spellPrepared).union(self.spellCantrips):
-            objs = self.mapper.spell.getMultiple(
-                'name COLLATE nocase = :name',
-                {'name': spell}
-                )
-            if not len(objs):
-                continue
-            spell = objs[0]
+        known, prepared, cantrips = [], [], []
+        for spellId in set(self.spellList).union(self.spellPrepared).union(self.spellCantrips):
+            spell = self.mapper.spell.getById(spellId)
+            if spell is None:
+                objs = self.mapper.spell.getMultiple(
+                    'name COLLATE nocase = :name',
+                    {'name': spellId}
+                    )
+                if not len(objs):
+                    continue
+                spell = objs[0]
             level = "cantrip" \
                 if spell.level == "Cantrip" \
                 else "level_" + spell.level
+
+            if level == "cantrip":
+                cantrips.append(spell.id)
+            elif spellId in self.spellPrepared:
+                prepared.append(spell.id)
+            else:
+                known.append(spell.id)
             self.spellLevel[level] = self.spellLevel.get(level, [])
             self.spellLevel[level].append(spell._config)
+        self.spellCantrips = cantrips
+        self.spellPrepared = prepared
+        self.spellList = known
 
         self.abilities = self._expandFormulas(self.abilities)
         # No type-casting
