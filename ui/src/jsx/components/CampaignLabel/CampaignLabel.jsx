@@ -11,14 +11,13 @@ import ObjectDataWrapper from '../../hocs/ObjectDataWrapper';
 
 import ToolTip from '../ToolTip';
 
-export function CampaignLabel(props) {
-    const {
-        showTooltip,
-        campaign: {
-            name,
-            description,
-        },
-    } = props;
+export const CampaignLabel = function({
+    showTooltip,
+    campaign: {
+        name,
+        description,
+    },
+}) {
     return (
         <div className="campaign-label inline">
             {showTooltip
