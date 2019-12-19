@@ -4067,6 +4067,7 @@ exports[`MonsterEdit should render with full props 1`] = `
         className="nice-panel-content"
       >
         <button
+          accessKey="x"
           className="nice-btn muted icon fa-ban"
           name="button"
           onClick={[Function]}
@@ -4074,6 +4075,7 @@ exports[`MonsterEdit should render with full props 1`] = `
           Cancel
         </button>
         <button
+          accessKey="c"
           className="nice-btn accent icon fa-calculator"
           name="button"
           onClick={[Function]}
@@ -4081,6 +4083,7 @@ exports[`MonsterEdit should render with full props 1`] = `
           Recompute
         </button>
         <button
+          accessKey="s"
           className="nice-btn primary icon fa-save"
           name="button"
           onClick={[Function]}
@@ -7989,6 +7992,7 @@ exports[`MonsterEdit should render without props 1`] = `
         className="nice-panel-content"
       >
         <button
+          accessKey="x"
           className="nice-btn muted icon fa-ban"
           name="button"
           onClick={[Function]}
@@ -7996,6 +8000,7 @@ exports[`MonsterEdit should render without props 1`] = `
           Cancel
         </button>
         <button
+          accessKey="c"
           className="nice-btn accent icon fa-calculator"
           name="button"
           onClick={[Function]}
@@ -8003,6 +8008,7 @@ exports[`MonsterEdit should render without props 1`] = `
           Recompute
         </button>
         <button
+          accessKey="s"
           className="nice-btn primary icon fa-save"
           name="button"
           onClick={[Function]}
