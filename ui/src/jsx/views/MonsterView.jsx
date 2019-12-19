@@ -37,7 +37,7 @@ const AttackViewComponent = function({
                     <th colSpan={2}>
                         <h4>{name}</h4>
                         <MDReactComponent
-                            text={description}
+                            text={description || ''}
                         />
                     </th>
                 </tr>
@@ -101,7 +101,7 @@ const AttackViewComponent = function({
                     <th>On Hit</th>
                     <td>
                         <MDReactComponent
-                            text={on_hit}
+                            text={on_hit || ''}
                         />
                     </td>
                 </tr> : null}
@@ -109,7 +109,7 @@ const AttackViewComponent = function({
                     <th>On Mis</th>
                     <td>
                         <MDReactComponent
-                            text={on_mis}
+                            text={on_mis || ''}
                         />
                     </td>
                 </tr> : null}
@@ -159,7 +159,7 @@ class MultiAttackView extends LazyComponent
                     <th colSpan={2}>
                         <h4>{name}</h4>
                         <MDReactComponent
-                            text={description}
+                            text={description || ''}
                             />
                     </th>
                 </tr>
@@ -167,7 +167,7 @@ class MultiAttackView extends LazyComponent
                     <th>Condition</th>
                     <td>
                         <MDReactComponent
-                            text={condition}
+                            text={condition || ''}
                             />
                     </td>
                 </tr> : null}
