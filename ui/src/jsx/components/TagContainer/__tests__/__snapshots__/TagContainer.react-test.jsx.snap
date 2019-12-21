@@ -48,6 +48,12 @@ exports[`Component: TagContainer should allow all items in select in multiple mo
     >
       Aaa
     </span>
+    <span
+      className="nice-tag-badge"
+    >
+      × 
+      1
+    </span>
     <button
       className="nice-tag-btn"
       onClick={[Function]}
@@ -148,6 +154,12 @@ exports[`Component: TagContainer should render with all props 1`] = `
           </p>
         </span>
       </div>
+    </span>
+    <span
+      className="nice-tag-badge"
+    >
+      × 
+      1
     </span>
   </div>
 </div>

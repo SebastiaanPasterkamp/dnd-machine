@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: TagBadge works with all props 1`] = `
+<span
+  className="nice-tag-badge"
+>
+  <i
+    className="icon fa-eye"
+  />
+  Hello world!
+</span>
+`;
+
+exports[`Component: TagBadge works with minimum props 1`] = `
+<span
+  className="nice-tag-badge"
+/>
+`;
+
+exports[`Component: TagBadge works without icon 1`] = `
+<span
+  className="nice-tag-badge"
+>
+  Where's world?
+</span>
+`;

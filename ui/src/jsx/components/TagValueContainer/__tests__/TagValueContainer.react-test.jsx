@@ -1,21 +1,22 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import TagContainer from 'components/TagContainer.jsx';
 import renderer from 'react-test-renderer';
+
+import TagValueContainer from '..';
 
 const items = [
     { code: "a", label: "Aaa" },
     { name: "b", label: "Bbb", description: "Bee" },
 ];
 
-describe('Component: TagContainer', () => {
+describe('Component: TagValueContainer', () => {
     it('should render with minimal props', () => {
         const setState = jest.fn();
         const tree = renderer.create(
-            <TagContainer
+            <TagValueContainer
                 setState={setState}
-                value={[]}
-                />
+                value={{}}
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -24,15 +25,26 @@ describe('Component: TagContainer', () => {
     it('should render with all props', () => {
         const setState = jest.fn();
         const tree = renderer.create(
-            <TagContainer
+            <TagValueContainer
                 setState={setState}
                 items={items}
-                value={['a', 'b', 'a']}
+                value={{a: 5, b: 0}}
                 className="info"
+            />
+        ).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should render disabled', () => {
+        const setState = jest.fn();
+        const tree = renderer.create(
+            <TagValueContainer
+                setState={setState}
+                items={items}
+                value={{a: 5, b: 0}}
                 disabled={true}
-                multiple={true}
-                showSelect={false}
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -41,25 +53,11 @@ describe('Component: TagContainer', () => {
     it('should exclude selected items from select in single mode', () => {
         const setState = jest.fn();
         const tree = renderer.create(
-            <TagContainer
+            <TagValueContainer
                 setState={setState}
                 items={items}
-                value={['a']}
-                />
-        ).toJSON();
-
-        expect(tree).toMatchSnapshot();
-    });
-
-    it('should allow all items in select in multiple mode', () => {
-        const setState = jest.fn();
-        const tree = renderer.create(
-            <TagContainer
-                setState={setState}
-                items={items}
-                value={['a']}
-                multiple={true}
-                />
+                value={{a: 5, b: 0}}
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -69,13 +67,13 @@ describe('Component: TagContainer', () => {
         const setState = jest.fn();
         const onAdd = jest.fn();
         const wrapper = mount(
-            <TagContainer
+            <TagValueContainer
                 setState={setState}
                 onAdd={onAdd}
                 items={items}
-                value={['a']}
+                value={{a: 5}}
                 multiple={true}
-                />
+            />
         );
 
         wrapper
@@ -85,22 +83,45 @@ describe('Component: TagContainer', () => {
             .find('li[data-value="b"] a')
             .simulate('click');
 
-        expect(setState)
-            .toBeCalledWith(['a', 'b']);
         expect(onAdd)
-            .toBeCalledWith('b');
+            .toBeCalledWith('b', 0);
+        expect(setState)
+            .toBeCalledWith({a: 5, b: 0});
+    });
+
+    it('should emit changes when changing input', () => {
+        const setState = jest.fn();
+        const onChange = jest.fn();
+        const wrapper = mount(
+            <TagValueContainer
+                setState={setState}
+                onChange={onChange}
+                items={items}
+                value={{a: 5, b: 0}}
+            />
+        );
+
+        wrapper
+            .find('input')
+            .at(1)
+            .simulate('change', { target: {value: 3} });
+
+        expect(onChange)
+            .toBeCalledWith('b', 3);
+        expect(setState)
+            .toBeCalledWith({a: 5, b: 3});
     });
 
     it('should emit changes when deleting', () => {
         const setState = jest.fn();
         const onDelete = jest.fn();
         const wrapper = mount(
-            <TagContainer
+            <TagValueContainer
                 setState={setState}
                 onDelete={onDelete}
                 items={items}
-                value={['a', 'b']}
-                />
+                value={{a: 5, b: 0}}
+            />
         );
 
         wrapper
@@ -108,9 +129,9 @@ describe('Component: TagContainer', () => {
             .at(0)
             .simulate('click');
 
-        expect(setState)
-            .toBeCalledWith(['b']);
         expect(onDelete)
-            .toBeCalledWith('a', 0);
+            .toBeCalledWith('a');
+        expect(setState)
+            .toBeCalledWith({b: 0});
     });
 });

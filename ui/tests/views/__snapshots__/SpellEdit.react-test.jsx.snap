@@ -259,7 +259,7 @@ Array [
           onKeyPress={null}
           placeholder="Distance..."
           type={undefined}
-          value={60}
+          value="60"
         />
         <span
           className="nice-input-addon"
@@ -1794,7 +1794,7 @@ Array [
           onKeyPress={null}
           placeholder="Distance..."
           type={undefined}
-          value={60}
+          value="60"
         />
         <span
           className="nice-input-addon"

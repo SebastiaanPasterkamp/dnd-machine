@@ -70,7 +70,7 @@ describe('Component: MultipleChoiceSelect', () => {
         const tree = renderer.create(
             <MultipleChoiceSelect
                 {...props}
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();

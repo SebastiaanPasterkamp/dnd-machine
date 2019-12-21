@@ -129,7 +129,7 @@ steps:
             --publish "5005:5000/tcp" \
             --volume "stagingdata:/data" \
             --volume "/etc/dnd-machine/staging.json:/dnd-machine/app/config.local.json:ro" \
-            --restart on-failure:3 \
+            --restart always \
             --name dndmachine_staging \
             "dnd-machine:staging"
     depends_on:
@@ -386,7 +386,7 @@ steps:
             --publish "5000:5000/tcp" \
             --volume "productiondata:/data" \
             --volume "/etc/dnd-machine/production.json:/dnd-machine/app/config.local.json:ro" \
-            --restart on-failure:3 \
+            --restart always \
             --name dndmachine_production \
             "dnd-machine:latest"
     depends_on:
@@ -402,6 +402,6 @@ volumes:
 
 ---
 kind: signature
-hmac: cca44a1c8207024da8da8f64a9a89b1f4e3e7d24183f662ff11ebe88b7252823
+hmac: 803a431a48818822d10bcb503bb3b2950e45c8a1f585107bd94d9f65ad81f5c2
 
 ...

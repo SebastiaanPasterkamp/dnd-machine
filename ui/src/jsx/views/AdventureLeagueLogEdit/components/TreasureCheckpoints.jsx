@@ -7,10 +7,10 @@ import {
 
 import { memoize } from '../../../utils';
 
-import CalculatorInputField from '../../../components/CalculatorInputField.jsx';
-import ControlGroup from '../../../components/ControlGroup.jsx';
-import InputField from '../../../components/InputField.jsx';
-import Panel from '../../../components/Panel.jsx';
+import CalculatorInputField from '../../../components/CalculatorInputField';
+import ControlGroup from '../../../components/ControlGroup';
+import InputField from '../../../components/InputField';
+import Panel from '../../../components/Panel';
 
 import { tierType, tierDefault } from '../extraProps';
 

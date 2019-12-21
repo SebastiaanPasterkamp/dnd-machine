@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: TagButton works with all props 1`] = `
+<button
+  className="nice-tag-btn"
+  onClick={[Function]}
+>
+  <i
+    className="icon fa-trash-o"
+  />
+  Delete
+</button>
+`;
+
+exports[`Component: TagButton works with minimum props 1`] = `
+<button
+  className="nice-tag-btn"
+  onClick={[Function]}
+/>
+`;

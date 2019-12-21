@@ -5,17 +5,17 @@ import MDReactComponent from 'markdown-react-js';
 
 import '../../sass/_spell-label.scss';
 
-import utils from '../utils.jsx';
+import utils from '../utils';
 
-import ListDataWrapper from '../hocs/ListDataWrapper.jsx';
-import ObjectDataWrapper from '../hocs/ObjectDataWrapper.jsx';
+import ListDataWrapper from '../hocs/ListDataWrapper';
+import ObjectDataWrapper from '../hocs/ObjectDataWrapper';
 
-import Bonus from '../components/Bonus.jsx';
-import DiceNotation from '../components/DiceNotation.jsx';
-import LazyComponent from '../components/LazyComponent.jsx';
-import ListLabel from '../components/ListLabel.jsx';
-import Reach from '../components/Reach.jsx';
-import ToolTip from '../components/ToolTip.jsx';
+import Bonus from '../components/Bonus';
+import DiceNotation from '../components/DiceNotation';
+import LazyComponent from '../components/LazyComponent';
+import ListLabel from '../components/ListLabel';
+import Reach from '../components/Reach';
+import ToolTip from '../components/ToolTip';
 
 export class SpellLabel extends LazyComponent
 {

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: BaseTagContainer works with all props 1`] = `
+<div
+  className="base-tag-container nice-tags-container"
+>
+  Put tag stuff here
+</div>
+`;
+
+exports[`Component: BaseTagContainer works with minimum props 1`] = `
+<div
+  className="base-tag-container nice-tags-container"
+/>
+`;

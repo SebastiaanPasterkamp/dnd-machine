@@ -42,7 +42,7 @@ describe('Component: CostEditor', () => {
         );
 
         wrapper
-            .find('button i.fa-trash-o')
+            .find('.fa-trash-o')
             .simulate('click');
         expect(setState)
             .toBeCalledWith({});

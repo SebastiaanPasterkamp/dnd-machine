@@ -1532,7 +1532,6 @@ Array [
               className="nice-tag-badge"
             >
               <input
-                disabled={false}
                 onChange={[Function]}
                 type="number"
                 value={-2}
@@ -3018,7 +3017,6 @@ Array [
               className="nice-tag-badge"
             >
               <input
-                disabled={false}
                 onChange={[Function]}
                 type="number"
                 value={-2}

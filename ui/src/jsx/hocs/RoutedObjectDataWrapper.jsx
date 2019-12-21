@@ -267,6 +267,7 @@ function RoutedObjectDataWrapper(
                         icon="ban"
                         onClick={this.onNextView}
                         label="Cancel"
+                        accessKey="x"
                         />
                     : null
                 }
@@ -277,6 +278,7 @@ function RoutedObjectDataWrapper(
                         icon="refresh"
                         onClick={this.onReload}
                         label="Reload"
+                        accessKey="r"
                         />
                     : null
                 }
@@ -287,6 +289,7 @@ function RoutedObjectDataWrapper(
                         icon="calculator"
                         onClick={this.onRecompute}
                         label="Recompute"
+                        accessKey="c"
                         />
                     : null
                 }
@@ -297,6 +300,7 @@ function RoutedObjectDataWrapper(
                         icon="save"
                         onClick={this.onSave}
                         label="Save"
+                        accessKey="s"
                         />
                     : null
                 }

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ToolTip should not show a tooltip when not provided 1`] = `"Foo"`;
+
+exports[`Component: ToolTip should show a tooltip if provided 1`] = `
+<div
+  className="tool-tip inline"
+>
+  Foo
+  <span
+    className="tool-tip--content"
+  >
+    <p>
+      Bar
+    </p>
+  </span>
+</div>
+`;

@@ -875,7 +875,6 @@ Array [
               className="nice-tag-badge"
             >
               <input
-                disabled={false}
                 onChange={[Function]}
                 type="number"
                 value={3}

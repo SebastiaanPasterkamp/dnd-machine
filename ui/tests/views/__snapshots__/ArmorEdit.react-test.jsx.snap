@@ -356,7 +356,6 @@ exports[`ArmorEdit render should work with all props 1`] = `
                 className="nice-tag-badge"
               >
                 <input
-                  disabled={false}
                   onChange={[Function]}
                   type="number"
                   value={2}
@@ -440,6 +439,7 @@ exports[`ArmorEdit render should work with all props 1`] = `
         className="nice-panel-content"
       >
         <button
+          accessKey="x"
           className="nice-btn muted icon fa-ban"
           name="button"
           onClick={[Function]}
@@ -447,6 +447,7 @@ exports[`ArmorEdit render should work with all props 1`] = `
           Cancel
         </button>
         <button
+          accessKey="s"
           className="nice-btn primary icon fa-save"
           name="button"
           onClick={[Function]}
@@ -885,6 +886,7 @@ exports[`ArmorEdit render should work without props 1`] = `
         className="nice-panel-content"
       >
         <button
+          accessKey="x"
           className="nice-btn muted icon fa-ban"
           name="button"
           onClick={[Function]}
@@ -892,6 +894,7 @@ exports[`ArmorEdit render should work without props 1`] = `
           Cancel
         </button>
         <button
+          accessKey="s"
           className="nice-btn primary icon fa-save"
           name="button"
           onClick={[Function]}

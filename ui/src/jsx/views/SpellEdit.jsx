@@ -193,7 +193,7 @@ SpellEdit.propTypes = {
     duration: PropTypes.string,
     level: PropTypes.string,
     name: PropTypes.string,
-    range: PropTypes.number,
+    range: PropTypes.string,
     school: PropTypes.string,
     classes: PropTypes.array,
     _classes: PropTypes.array,

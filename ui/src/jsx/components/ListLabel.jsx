@@ -4,10 +4,10 @@ import {
     find,
 } from 'lodash/fp';
 
-import utils from '../utils.jsx';
+import utils from '../utils';
 
-import LazyComponent from '../components/LazyComponent.jsx';
-import ToolTip from '../components/ToolTip.jsx';
+import LazyComponent from '../components/LazyComponent';
+import ToolTip from '../components/ToolTip';
 
 class ListLabel extends LazyComponent
 {

@@ -92,7 +92,7 @@ describe('Component: ListPropertySelect', () => {
             <ListPropertySelect
                 {...props}
                 hidden={true}
-                />
+            />
         );
         jest.runAllTimers();
 
@@ -118,7 +118,7 @@ describe('Component: ListPropertySelect', () => {
                     some_formula: 'blah blah',
                 }}
                 multiple={true}
-                />
+            />
         );
         jest.runAllTimers();
 
@@ -133,7 +133,7 @@ describe('Component: ListPropertySelect', () => {
                 given={[
                     'foo',
                 ]}
-                />
+            />
         );
         jest.runAllTimers();
 
