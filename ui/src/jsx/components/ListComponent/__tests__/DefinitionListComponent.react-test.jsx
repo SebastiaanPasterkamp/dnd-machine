@@ -2,16 +2,16 @@ import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
-import DefinitionList from 'components/DefinitionList.jsx';
+import { DefinitionListComponent } from '..';
 
-describe('Component: DefinitionList', () => {
+describe('Component: DefinitionListComponent', () => {
     it('should render with minimum props', () => {
         const setState = jest.fn();
         const tree = renderer.create(
-            <DefinitionList
+            <DefinitionListComponent
                 list={ {} }
                 setState={ setState }
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -20,13 +20,13 @@ describe('Component: DefinitionList', () => {
     it('show some items', () => {
         const setState = jest.fn();
         const tree = renderer.create(
-            <DefinitionList
+            <DefinitionListComponent
                 list={ {
                     foo: 'bar',
                     hello: '*mark* _down_',
                 } }
                 setState={ setState }
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
@@ -35,13 +35,13 @@ describe('Component: DefinitionList', () => {
     it('allow deletion', () => {
         const setState = jest.fn();
         const wrapper = mount(
-            <DefinitionList
+            <DefinitionListComponent
                 list={ {
                     foo: 'bar',
                     hello: '*mark* _down_',
                 } }
                 setState={ setState }
-                />
+            />
         );
 
         wrapper
@@ -58,13 +58,13 @@ describe('Component: DefinitionList', () => {
     it('allow changes in keys', () => {
         const setState = jest.fn();
         const wrapper = mount(
-            <DefinitionList
+            <DefinitionListComponent
                 list={ {
                     foo: 'bar',
                     hello: '*mark* _down_',
                 } }
                 setState={ setState }
-                />
+            />
         );
 
         wrapper
@@ -82,13 +82,13 @@ describe('Component: DefinitionList', () => {
     it('allow changes in values', () => {
         const setState = jest.fn();
         const wrapper = mount(
-            <DefinitionList
+            <DefinitionListComponent
                 list={ {
                     foo: 'bar',
                     hello: '*mark* _down_',
                 } }
                 setState={ setState }
-                />
+            />
         );
 
         wrapper
@@ -106,13 +106,13 @@ describe('Component: DefinitionList', () => {
     it('allow adding keys', () => {
         const setState = jest.fn();
         const wrapper = mount(
-            <DefinitionList
+            <DefinitionListComponent
                 list={ {
                     foo: 'bar',
                     hello: '*mark* _down_',
                 } }
                 setState={ setState }
-                />
+            />
         );
 
         wrapper
@@ -131,13 +131,13 @@ describe('Component: DefinitionList', () => {
     it('allow adding descriptions', () => {
         const setState = jest.fn();
         const wrapper = mount(
-            <DefinitionList
+            <DefinitionListComponent
                 list={ {
                     foo: 'bar',
                     hello: '*mark* _down_',
                 } }
                 setState={ setState }
-                />
+            />
         );
 
         wrapper

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component: DefinitionList should render with minimum props 1`] = `
+exports[`Component: DefinitionListComponent should render with minimum props 1`] = `
 <ul
   className="list-component"
 >
@@ -40,11 +40,19 @@ exports[`Component: DefinitionList should render with minimum props 1`] = `
         />
       </div>
     </div>
+    <button
+      className="nice-btn list-component__delete warning icon fa-minus"
+      disabled={true}
+      name="del"
+      onClick={[Function]}
+    >
+      ​
+    </button>
   </li>
 </ul>
 `;
 
-exports[`Component: DefinitionList show some items 1`] = `
+exports[`Component: DefinitionListComponent show some items 1`] = `
 <ul
   className="list-component"
 >
@@ -85,6 +93,7 @@ exports[`Component: DefinitionList show some items 1`] = `
     </div>
     <button
       className="nice-btn list-component__delete warning icon fa-minus"
+      disabled={false}
       name="del"
       onClick={[Function]}
     >
@@ -134,6 +143,7 @@ exports[`Component: DefinitionList show some items 1`] = `
     </div>
     <button
       className="nice-btn list-component__delete warning icon fa-minus"
+      disabled={false}
       name="del"
       onClick={[Function]}
     >
@@ -176,6 +186,14 @@ exports[`Component: DefinitionList show some items 1`] = `
         />
       </div>
     </div>
+    <button
+      className="nice-btn list-component__delete warning icon fa-minus"
+      disabled={true}
+      name="del"
+      onClick={[Function]}
+    >
+      ​
+    </button>
   </li>
 </ul>
 `;
