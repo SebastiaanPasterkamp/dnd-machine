@@ -10,7 +10,7 @@ import { memoize } from '../../../utils';
 import ListDataWrapper from '../../../hocs/ListDataWrapper';
 
 import ControlGroup from '../../../components/ControlGroup';
-import DefinitionList from '../../../components/DefinitionList';
+import { DefinitionListComponent } from '../../../components/ListComponent';
 import InputField from '../../../components/InputField';
 import FormGroup from '../../../components/FormGroup';
 import Panel from '../../../components/Panel';
@@ -81,7 +81,7 @@ export class PropertiesPanel extends React.Component
                     />
                 </ControlGroup>
                 <FormGroup label="Traits">
-                    <DefinitionList
+                    <DefinitionListComponent
                         list={traits}
                         newItem="auto"
                         setState={this.onFieldChange('traits')}

@@ -23,7 +23,7 @@ import RoutedObjectDataWrapper from '../../hocs/RoutedObjectDataWrapper';
 
 import Panel from '../../components/Panel';
 import StatsBlock from '../../components/StatsBlock';
-import ListComponent from '../../components/ListComponent';
+import { ListComponent } from '../../components/ListComponent';
 
 import AttackEditor from './components/AttackEditor';
 import DescriptionPanel from './components/DescriptionPanel';

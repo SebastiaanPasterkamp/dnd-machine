@@ -699,6 +699,14 @@ Array [
               type={undefined}
               value="Health Potion"
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
           <li>
             <input
@@ -710,6 +718,14 @@ Array [
               type={undefined}
               value=""
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
         </ul>
       </div>
@@ -787,6 +803,14 @@ Array [
               type={undefined}
               value="+1 Handaxe"
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
           <li>
             <input
@@ -798,6 +822,14 @@ Array [
               type={undefined}
               value=""
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
         </ul>
       </div>
@@ -1620,6 +1652,7 @@ Array [
             />
             <button
               className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={false}
               name="del"
               onClick={[Function]}
             >
@@ -1636,6 +1669,14 @@ Array [
               type={undefined}
               value=""
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
         </ul>
       </div>
@@ -1715,6 +1756,7 @@ Array [
             />
             <button
               className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={false}
               name="del"
               onClick={[Function]}
             >
@@ -1731,6 +1773,14 @@ Array [
               type={undefined}
               value=""
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
         </ul>
       </div>
@@ -2339,6 +2389,14 @@ Array [
               type={undefined}
               value="Health Potion"
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
           <li>
             <input
@@ -2350,6 +2408,14 @@ Array [
               type={undefined}
               value=""
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
         </ul>
       </div>
@@ -2427,6 +2493,14 @@ Array [
               type={undefined}
               value="+1 Handaxe"
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
           <li>
             <input
@@ -2438,6 +2512,14 @@ Array [
               type={undefined}
               value=""
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
         </ul>
       </div>
@@ -3105,6 +3187,7 @@ Array [
             />
             <button
               className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={false}
               name="del"
               onClick={[Function]}
             >
@@ -3121,6 +3204,14 @@ Array [
               type={undefined}
               value=""
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
         </ul>
       </div>
@@ -3200,6 +3291,7 @@ Array [
             />
             <button
               className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={false}
               name="del"
               onClick={[Function]}
             >
@@ -3216,6 +3308,14 @@ Array [
               type={undefined}
               value=""
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
         </ul>
       </div>
@@ -3830,6 +3930,14 @@ Array [
               type={undefined}
               value=""
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
         </ul>
       </div>
@@ -3907,6 +4015,14 @@ Array [
               type={undefined}
               value=""
             />
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
         </ul>
       </div>

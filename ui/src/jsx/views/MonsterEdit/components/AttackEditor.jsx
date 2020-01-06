@@ -13,7 +13,7 @@ import ControlGroup from '../../../components/ControlGroup';
 import InputField from '../../../components/InputField';
 import ReachEdit from '../../../components/ReachEdit';
 import SingleSelect from '../../../components/SingleSelect';
-import ListComponent from '../../../components/ListComponent';
+import { ListComponent } from '../../../components/ListComponent';
 import MarkdownTextField from '../../../components/MarkdownTextField';
 
 export class AttackEditor extends React.Component

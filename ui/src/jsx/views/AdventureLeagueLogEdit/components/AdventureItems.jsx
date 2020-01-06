@@ -9,7 +9,7 @@ import {
 import ControlGroup from '../../../components/ControlGroup';
 import InputField from '../../../components/InputField';
 import Panel from '../../../components/Panel';
-import ListComponent from '../../../components/ListComponent';
+import { ListComponent } from '../../../components/ListComponent';
 
 export class AdventureItems extends React.PureComponent
 {

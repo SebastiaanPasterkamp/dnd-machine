@@ -11,7 +11,7 @@ import RoutedObjectDataWrapper from '../../hocs/RoutedObjectDataWrapper';
 import AutoCompleteInput from '../../components/AutoCompleteInput';
 import ButtonField from '../../components/ButtonField';
 import ControlGroup from '../../components/ControlGroup';
-import DefinitionList from '../../components/DefinitionList';
+import { DefinitionListComponent } from '../../components/ListComponent';
 import FormGroup from '../../components/FormGroup';
 import InputField from '../../components/InputField';
 import Panel from '../../components/Panel';
@@ -269,7 +269,7 @@ export class NpcEdit extends React.Component
                 header="Properties"
                 >
                 <FormGroup label="Traits">
-                    <DefinitionList
+                    <DefinitionListComponent
                         list={traits}
                         newItem="initial"
                         setState={this.onFieldChange('traits')}

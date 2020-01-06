@@ -24,7 +24,7 @@ import ControlGroup from '../../components/ControlGroup';
 import Coinage from '../../components/Coinage';
 import CostEditor from '../../components/CostEditor';
 import InputField from '../../components/InputField';
-import ListComponent from '../../components/ListComponent';
+import { ListComponent } from '../../components/ListComponent';
 import MarkdownTextField from '../../components/MarkdownTextField';
 import Panel from '../../components/Panel';
 import UserLabel from '../../components/UserLabel';

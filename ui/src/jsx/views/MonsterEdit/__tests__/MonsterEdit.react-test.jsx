@@ -192,8 +192,10 @@ describe('MonsterEdit', () => {
         });
 
         it('should remove deleted attacks from the multiattack sequences', () => {
-            wrapped.find('.monster-edit__attacks .fa-minus')
-                .at(0).simulate('click');
+            wrapped
+                .find('.monster-edit__attacks .fa-minus')
+                .at(1)
+                .simulate('click');
 
             expect(setState).toBeCalledWith({
                 attacks: [

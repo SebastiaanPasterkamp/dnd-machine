@@ -98,6 +98,7 @@ describe('AdventureItems', () => {
 
         wrapper
             .find('button[name="del"]')
+            .at(0)
             .simulate('click');
 
         expect(setState).toBeCalledWith({

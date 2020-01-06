@@ -276,6 +276,7 @@ exports[`View PropertiesPanel rendering should work w/ full props 1`] = `
           </div>
           <button
             className="nice-btn list-component__delete warning icon fa-minus"
+            disabled={false}
             name="del"
             onClick={[Function]}
           >
@@ -318,6 +319,14 @@ exports[`View PropertiesPanel rendering should work w/ full props 1`] = `
               />
             </div>
           </div>
+          <button
+            className="nice-btn list-component__delete warning icon fa-minus"
+            disabled={true}
+            name="del"
+            onClick={[Function]}
+          >
+            ​
+          </button>
         </li>
       </ul>
     </div>
@@ -557,6 +566,14 @@ exports[`View PropertiesPanel rendering should work w/ minimum props 1`] = `
               />
             </div>
           </div>
+          <button
+            className="nice-btn list-component__delete warning icon fa-minus"
+            disabled={true}
+            name="del"
+            onClick={[Function]}
+          >
+            ​
+          </button>
         </li>
       </ul>
     </div>

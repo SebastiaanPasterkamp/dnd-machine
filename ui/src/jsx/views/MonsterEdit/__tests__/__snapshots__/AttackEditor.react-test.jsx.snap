@@ -490,13 +490,16 @@ exports[`AttackEditor should render with full props 1`] = `
       </div>
       <button
         className="nice-btn list-component__delete warning icon fa-minus"
+        disabled={false}
         name="del"
         onClick={[Function]}
       >
         ​
       </button>
     </li>
-    <li>
+    <li
+      className="list-component__last"
+    >
       <button
         className="nice-btn list-component__add primary icon fa-plus"
         name="add"
@@ -1089,6 +1092,14 @@ exports[`AttackEditor should render without props 1`] = `
           />
         </div>
       </div>
+      <button
+        className="nice-btn list-component__delete warning icon fa-minus"
+        disabled={true}
+        name="del"
+        onClick={[Function]}
+      >
+        ​
+      </button>
     </li>
   </ul>
   <div

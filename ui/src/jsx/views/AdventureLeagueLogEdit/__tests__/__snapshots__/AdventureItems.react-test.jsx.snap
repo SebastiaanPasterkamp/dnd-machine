@@ -54,6 +54,7 @@ exports[`AdventureItems should render with full props 1`] = `
           />
           <button
             className="nice-btn list-component__delete warning icon fa-minus"
+            disabled={false}
             name="del"
             onClick={[Function]}
           >
@@ -70,6 +71,14 @@ exports[`AdventureItems should render with full props 1`] = `
             type={undefined}
             value=""
           />
+          <button
+            className="nice-btn list-component__delete warning icon fa-minus"
+            disabled={true}
+            name="del"
+            onClick={[Function]}
+          >
+            ​
+          </button>
         </li>
       </ul>
     </div>
@@ -150,6 +159,14 @@ exports[`AdventureItems should render with minimum props 1`] = `
             type={undefined}
             value=""
           />
+          <button
+            className="nice-btn list-component__delete warning icon fa-minus"
+            disabled={true}
+            name="del"
+            onClick={[Function]}
+          >
+            ​
+          </button>
         </li>
       </ul>
     </div>

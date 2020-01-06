@@ -652,6 +652,14 @@ Array [
                 />
               </div>
             </div>
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
         </ul>
       </div>
@@ -3446,6 +3454,14 @@ Array [
                 />
               </div>
             </div>
+            <button
+              className="nice-btn list-component__delete warning icon fa-minus"
+              disabled={true}
+              name="del"
+              onClick={[Function]}
+            >
+              ​
+            </button>
           </li>
         </ul>
       </div>
