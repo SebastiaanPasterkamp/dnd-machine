@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: SelectListComponent should render with minimum props 1`] = `
+<ul
+  className="select-list-component"
+/>
+`;
+
+exports[`Component: SelectListComponent show an item 1`] = `
+<ul
+  className="select-list-component"
+>
+  <li>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="B..."
+      type="b"
+      value="Bar"
+    />
+    <button
+      className="nice-btn select-list-component__delete warning icon fa-minus"
+      name="del"
+      onClick={[Function]}
+    >
+      ​
+    </button>
+  </li>
+  <li
+    className="select-list-component__last"
+  >
+    <div
+      className="nice-dropdown nice-form-control select-list-component__add"
+      color="primary"
+      name="add"
+    >
+      <button
+        className="nice-btn"
+        onClick={[Function]}
+      >
+        Add...
+        <i
+          className="icon fa-angle-down"
+        />
+      </button>
+      <ul
+        className="dropdown-menu"
+        onClick={[Function]}
+      >
+        <li
+          className="info"
+          data-value={null}
+          onClick={[Function]}
+        >
+          <a>
+            Add...
+          </a>
+        </li>
+        <li
+          className={null}
+          data-value="a"
+          onClick={[Function]}
+        >
+          <a>
+            Input A
+          </a>
+        </li>
+        <li
+          className={null}
+          data-value="b"
+          onClick={[Function]}
+        >
+          <a>
+            Input B
+          </a>
+        </li>
+      </ul>
+    </div>
+  </li>
+</ul>
+`;
+
+exports[`Component: SelectListComponent show some options 1`] = `
+<ul
+  className="select-list-component"
+>
+  <li
+    className="select-list-component__last"
+  >
+    <div
+      className="nice-dropdown nice-form-control select-list-component__add"
+      color="primary"
+      name="add"
+    >
+      <button
+        className="nice-btn"
+        onClick={[Function]}
+      >
+        Add...
+        <i
+          className="icon fa-angle-down"
+        />
+      </button>
+      <ul
+        className="dropdown-menu"
+        onClick={[Function]}
+      >
+        <li
+          className="info"
+          data-value={null}
+          onClick={[Function]}
+        >
+          <a>
+            Add...
+          </a>
+        </li>
+        <li
+          className={null}
+          data-value="a"
+          onClick={[Function]}
+        >
+          <a>
+            Input A
+          </a>
+        </li>
+        <li
+          className={null}
+          data-value="b"
+          onClick={[Function]}
+        >
+          <a>
+            Input B
+          </a>
+        </li>
+      </ul>
+    </div>
+  </li>
+</ul>
+`;
