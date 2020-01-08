@@ -175,6 +175,49 @@ def register_paths(app):
             'path': url_for('user.overview'),
             })
 
+        admin_group['items'].append({
+            'label': 'Classes',
+            'roles': ['admin'],
+            'icon': 'user',
+            'path': url_for('class.overview'),
+            })
+
+        admin_group['items'].append({
+            'label': 'Sub Classes',
+            'roles': ['admin'],
+            'icon': 'users',
+            'path': url_for('subclass.overview'),
+            })
+
+
+        admin_group['items'].append({
+            'label': 'Races',
+            'roles': ['admin'],
+            'icon': 'cube',
+            'path': url_for('race.overview'),
+            })
+
+        admin_group['items'].append({
+            'label': 'Sub Races',
+            'roles': ['admin'],
+            'icon': 'cubes',
+            'path': url_for('subrace.overview'),
+            })
+
+        admin_group['items'].append({
+            'label': 'Backgrounds',
+            'roles': ['admin'],
+            'icon': 'history',
+            'path': url_for('background.overview'),
+            })
+
+        admin_group['items'].append({
+            'label': 'Options',
+            'roles': ['admin'],
+            'icon': 'gear',
+            'path': url_for('options.overview'),
+            })
+
         navigation.append(admin_group)
 
         user_group = {

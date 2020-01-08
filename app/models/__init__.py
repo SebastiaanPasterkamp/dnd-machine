@@ -4,6 +4,12 @@ import json
 
 from .campaign import CampaignMapper
 from .character import CharacterMapper
+from .data.race import RaceMapper
+from .data.subrace import SubRaceMapper
+from .data.klass import ClassMapper
+from .data.subclass import SubClassMapper
+from .data.background import BackgroundMapper
+from .data.options import OptionsMapper
 from .dndmachine import DndMachine
 from .encounter import EncounterMapper
 from .monster import MonsterMapper
@@ -31,6 +37,12 @@ class Datamapper(object):
         'armor': lambda self: ArmorMapper(self.app.db),
         'weapon': lambda self: WeaponMapper(self.app.db),
         'spell': lambda self: SpellMapper(self.app.db),
+        'klass': lambda self: ClassMapper(self.app.db),
+        'subclass': lambda self: SubClassMapper(self.app.db),
+        'race': lambda self: RaceMapper(self.app.db),
+        'subrace': lambda self: SubRaceMapper(self.app.db),
+        'background': lambda self: BackgroundMapper(self.app.db),
+        'options': lambda self: OptionsMapper(self.app.db),
         'campaign': lambda self: CampaignMapper(self.app.db),
         'items': lambda self: ItemsObject(
             os.path.abspath(

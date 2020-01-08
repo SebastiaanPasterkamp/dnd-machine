@@ -63,12 +63,6 @@ class CharacterBlueprint(BaseApiBlueprint):
     def usermapper(self):
         return self.basemapper.user
 
-    @property
-    def character_data(self):
-        if '_character_data' not in self.__dict__:
-            self._character_data = get_character_data()
-        return self._character_data
-
     def _exposeAttributes(self, obj):
         if obj.user_id == request.user.id \
                 or self.checkRole(['admin', 'dm']):
@@ -100,12 +94,31 @@ class CharacterBlueprint(BaseApiBlueprint):
             )
 
     def get_character_data(self, field):
+        options = self.basemapper.options
+
+        def inlineIncludes(data):
+            if isinstance(data, dict):
+                if 'include' in data:
+                    include = options.getById(data['include'])
+                    if include is not None:
+                        include = include.clone().config
+                        include.update(data)
+                        data.update(include)
+                    del data['include']
+                for key, value in list(data.items()):
+                    inlineIncludes(value)
+            if isinstance(data, list):
+                for value in data:
+                    inlineIncludes(value)
+
         items = []
-        for item in self.character_data[field]:
-            item = dict(item)
+        for item in self.basemapper[field].getMultiple():
+            item = item.clone().config
             if 'phases' in item:
                 del item['phases']
+            inlineIncludes(item)
             items.append(item)
+
         return jsonify([{
             'type': 'choice',
             'options': items,
@@ -115,7 +128,7 @@ class CharacterBlueprint(BaseApiBlueprint):
         return self.get_character_data('race')
 
     def get_classes(self):
-        return self.get_character_data('class')
+        return self.get_character_data('klass')
 
     def get_backgrounds(self):
         return self.get_character_data('background')
