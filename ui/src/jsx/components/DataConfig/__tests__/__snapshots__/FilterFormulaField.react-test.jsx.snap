@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: FilterFormulaField when rendering should work with full props 1`] = `
+<div
+  className="nice-control-group"
+>
+  <span
+    className="nice-input-addon"
+  >
+    Field
+  </span>
+  <input
+    className="nice-form-control"
+    disabled={undefined}
+    onChange={[Function]}
+    onKeyPress={null}
+    placeholder="Field..."
+    type="text"
+    value="attrib"
+  />
+  <span
+    className="nice-input-addon"
+  >
+    Formula
+  </span>
+  <input
+    className="nice-form-control"
+    disabled={undefined}
+    onChange={[Function]}
+    onKeyPress={null}
+    placeholder="Formula..."
+    type="text"
+    value="2 * some.value"
+  />
+</div>
+`;
+
+exports[`Component: FilterFormulaField when rendering should work with minimum props 1`] = `
+<div
+  className="nice-control-group"
+>
+  <span
+    className="nice-input-addon"
+  >
+    Field
+  </span>
+  <input
+    className="nice-form-control"
+    disabled={undefined}
+    onChange={[Function]}
+    onKeyPress={null}
+    placeholder="Field..."
+    type="text"
+    value=""
+  />
+  <span
+    className="nice-input-addon"
+  >
+    Formula
+  </span>
+  <input
+    className="nice-form-control"
+    disabled={undefined}
+    onChange={[Function]}
+    onKeyPress={null}
+    placeholder="Formula..."
+    type="text"
+    value=""
+  />
+</div>
+`;

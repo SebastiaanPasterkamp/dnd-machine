@@ -1,0 +1,347 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ValueOption when rendering should show label/desc when cannot be hidden 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Value option
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Path
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Path..."
+      type="text"
+      value="some.path"
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Label
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Label..."
+      type="text"
+      value="My Label"
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Value
+    </span>
+    <div
+      className="markdown-textedit small preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Value..."
+        rows={8}
+        value="Some *value*"
+      />
+      <span
+        className="markdown-textedit__preview"
+      >
+        <p>
+          Some 
+          <em>
+            value
+          </em>
+        </p>
+      </span>
+    </div>
+  </div>
+</fieldset>
+`;
+
+exports[`Component: ValueOption when rendering should show label/desc when not hidden 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Value option
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Path
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Path..."
+      type="text"
+      value="some.path"
+    />
+  </div>
+  <input
+    checked={false}
+    className="nice-toggle"
+    disabled={undefined}
+    id="toggle-1"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <label
+    className="nice-toggle-btn"
+    htmlFor="toggle-1"
+  >
+    Hidden
+  </label>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Label
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Label..."
+      type="text"
+      value="My Label"
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Value
+    </span>
+    <div
+      className="markdown-textedit small preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Value..."
+        rows={8}
+        value="Some *value*"
+      />
+      <span
+        className="markdown-textedit__preview"
+      >
+        <p>
+          Some 
+          <em>
+            value
+          </em>
+        </p>
+      </span>
+    </div>
+  </div>
+</fieldset>
+`;
+
+exports[`Component: ValueOption when rendering should work with full props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Value option
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Path
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Path..."
+      type="text"
+      value="some.path"
+    />
+  </div>
+  <input
+    checked={true}
+    className="nice-toggle"
+    disabled={undefined}
+    id="toggle-1"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <label
+    className="nice-toggle-btn"
+    htmlFor="toggle-1"
+  >
+    Hidden
+  </label>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Value
+    </span>
+    <div
+      className="markdown-textedit small preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Value..."
+        rows={8}
+        value="Some *value*"
+      />
+      <span
+        className="markdown-textedit__preview"
+      >
+        <p>
+          Some 
+          <em>
+            value
+          </em>
+        </p>
+      </span>
+    </div>
+  </div>
+</fieldset>
+`;
+
+exports[`Component: ValueOption when rendering should work with minimum props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Value option
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Path
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Path..."
+      type="text"
+      value=""
+    />
+  </div>
+  <input
+    checked={false}
+    className="nice-toggle"
+    disabled={undefined}
+    id="toggle-1"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <label
+    className="nice-toggle-btn"
+    htmlFor="toggle-1"
+  >
+    Hidden
+  </label>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Label
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Label..."
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Value
+    </span>
+    <div
+      className="markdown-textedit small preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <span
+        className="markdown-textedit__placeholder"
+      >
+        Value...
+      </span>
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Value..."
+        rows={8}
+        value=""
+      />
+      <span
+        className="markdown-textedit__preview"
+      />
+    </div>
+  </div>
+</fieldset>
+`;

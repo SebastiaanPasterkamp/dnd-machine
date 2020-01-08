@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ASIOption when rendering should work with full props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Ability Score Increase
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Label
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Label..."
+      type="text"
+      value="My Label"
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Description
+    </span>
+    <div
+      className="markdown-textedit small preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Description..."
+        rows={8}
+        value="Bump it up"
+      />
+      <span
+        className="markdown-textedit__preview"
+      >
+        <p>
+          Bump it up
+        </p>
+      </span>
+    </div>
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Limit
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Limit..."
+      type="number"
+      value={2}
+    />
+  </div>
+</fieldset>
+`;
+
+exports[`Component: ASIOption when rendering should work with minimum props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Ability Score Increase
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Label
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Label..."
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Description
+    </span>
+    <div
+      className="markdown-textedit small preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <span
+        className="markdown-textedit__placeholder"
+      >
+        Description...
+      </span>
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Description..."
+        rows={8}
+        value=""
+      />
+      <span
+        className="markdown-textedit__preview"
+      />
+    </div>
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Limit
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Limit..."
+      type="number"
+      value={0}
+    />
+  </div>
+</fieldset>
+`;

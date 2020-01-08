@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: FilterTextField when rendering should work with full props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Filter textfield
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Field
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Field..."
+      type="text"
+      value="attrib"
+    />
+  </div>
+  <fieldset
+    className="nice-form-group"
+  >
+    <legend>
+      Values
+    </legend>
+    <ul
+      className="list-component"
+    >
+      <li>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          type={undefined}
+          value="foo"
+        />
+        <button
+          className="nice-btn list-component__delete warning icon fa-minus"
+          disabled={false}
+          name="del"
+          onClick={[Function]}
+        >
+          ​
+        </button>
+      </li>
+      <li>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          type={undefined}
+          value="bar"
+        />
+        <button
+          className="nice-btn list-component__delete warning icon fa-minus"
+          disabled={false}
+          name="del"
+          onClick={[Function]}
+        >
+          ​
+        </button>
+      </li>
+      <li>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          type={undefined}
+          value=""
+        />
+        <button
+          className="nice-btn list-component__delete warning icon fa-minus"
+          disabled={true}
+          name="del"
+          onClick={[Function]}
+        >
+          ​
+        </button>
+      </li>
+    </ul>
+  </fieldset>
+</fieldset>
+`;
+
+exports[`Component: FilterTextField when rendering should work with minimum props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Filter textfield
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Field
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Field..."
+      type="text"
+      value=""
+    />
+  </div>
+  <fieldset
+    className="nice-form-group"
+  >
+    <legend>
+      Values
+    </legend>
+    <ul
+      className="list-component"
+    >
+      <li>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          type={undefined}
+          value=""
+        />
+        <button
+          className="nice-btn list-component__delete warning icon fa-minus"
+          disabled={true}
+          name="del"
+          onClick={[Function]}
+        >
+          ​
+        </button>
+      </li>
+    </ul>
+  </fieldset>
+</fieldset>
+`;

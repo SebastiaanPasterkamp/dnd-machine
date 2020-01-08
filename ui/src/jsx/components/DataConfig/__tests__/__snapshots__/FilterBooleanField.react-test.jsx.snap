@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: FilterBooleanField when rendering should work with full props 1`] = `
+<div
+  className="nice-control-group"
+>
+  <span
+    className="nice-input-addon"
+  >
+    Field
+  </span>
+  <input
+    className="nice-form-control"
+    disabled={undefined}
+    onChange={[Function]}
+    onKeyPress={null}
+    placeholder="Field..."
+    type="text"
+    value="attrib"
+  />
+  <span
+    className="nice-input-addon"
+  >
+    Boolean
+  </span>
+  <div
+    className="nice-dropdown nice-form-control"
+  >
+    <button
+      className="nice-btn"
+      disabled={false}
+      onClick={[Function]}
+    >
+      True
+      <i
+        className="icon fa-angle-down"
+      />
+    </button>
+    <ul
+      className="dropdown-menu"
+      onClick={[Function]}
+    >
+      <li
+        className="info"
+        data-value={true}
+        onClick={[Function]}
+      >
+        <a>
+          True
+        </a>
+      </li>
+      <li
+        className={null}
+        data-value={false}
+        onClick={[Function]}
+      >
+        <a>
+          False
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Component: FilterBooleanField when rendering should work with minimum props 1`] = `
+<div
+  className="nice-control-group"
+>
+  <span
+    className="nice-input-addon"
+  >
+    Field
+  </span>
+  <input
+    className="nice-form-control"
+    disabled={undefined}
+    onChange={[Function]}
+    onKeyPress={null}
+    placeholder="Field..."
+    type="text"
+    value=""
+  />
+  <span
+    className="nice-input-addon"
+  >
+    Boolean
+  </span>
+  <div
+    className="nice-dropdown nice-form-control"
+  >
+    <button
+      className="nice-btn"
+      disabled={false}
+      onClick={[Function]}
+    >
+      False
+      <i
+        className="icon fa-angle-down"
+      />
+    </button>
+    <ul
+      className="dropdown-menu"
+      onClick={[Function]}
+    >
+      <li
+        className={null}
+        data-value={true}
+        onClick={[Function]}
+      >
+        <a>
+          True
+        </a>
+      </li>
+      <li
+        className="info"
+        data-value={false}
+        onClick={[Function]}
+      >
+        <a>
+          False
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

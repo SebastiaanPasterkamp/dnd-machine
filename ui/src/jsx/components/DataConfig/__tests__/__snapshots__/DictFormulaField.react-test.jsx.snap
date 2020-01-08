@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: DictFormulaField when rendering should work with full props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Formula value
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Field
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Field..."
+      type="text"
+      value="attrib"
+    />
+    <span
+      className="nice-input-addon"
+    >
+      Formula
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Formula..."
+      type="text"
+      value="character.something"
+    />
+  </div>
+  <div
+    className="markdown-textedit small preview"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <textarea
+      className="nice-form-control"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      placeholder="Alternative text..."
+      rows={8}
+      value="Something from the character"
+    />
+    <span
+      className="markdown-textedit__preview"
+    >
+      <p>
+        Something from the character
+      </p>
+    </span>
+  </div>
+</fieldset>
+`;
+
+exports[`Component: DictFormulaField when rendering should work with minimum props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Formula value
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Field
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Field..."
+      type="text"
+      value=""
+    />
+    <span
+      className="nice-input-addon"
+    >
+      Formula
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Formula..."
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="markdown-textedit small preview"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <span
+      className="markdown-textedit__placeholder"
+    >
+      Alternative text...
+    </span>
+    <textarea
+      className="nice-form-control"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      placeholder="Alternative text..."
+      rows={8}
+      value=""
+    />
+    <span
+      className="markdown-textedit__preview"
+    />
+  </div>
+</fieldset>
+`;

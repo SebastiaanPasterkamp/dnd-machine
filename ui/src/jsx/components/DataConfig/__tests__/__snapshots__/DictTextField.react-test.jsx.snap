@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: DictTextField when rendering should work with full props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Text value
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Field
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Field..."
+      type="text"
+      value="attrib"
+    />
+  </div>
+  <div
+    className="markdown-textedit small preview"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <textarea
+      className="nice-form-control"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      placeholder="Value..."
+      rows={8}
+      value="Foo Bar"
+    />
+    <span
+      className="markdown-textedit__preview"
+    >
+      <p>
+        Foo Bar
+      </p>
+    </span>
+  </div>
+</fieldset>
+`;
+
+exports[`Component: DictTextField when rendering should work with minimum props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Text value
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Field
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Field..."
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="markdown-textedit small preview"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <span
+      className="markdown-textedit__placeholder"
+    >
+      Value...
+    </span>
+    <textarea
+      className="nice-form-control"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      placeholder="Value..."
+      rows={8}
+      value=""
+    />
+    <span
+      className="markdown-textedit__preview"
+    />
+  </div>
+</fieldset>
+`;

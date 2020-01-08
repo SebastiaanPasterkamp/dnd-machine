@@ -1,0 +1,884 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ConfigOption when rendering should show label/desc when cannot be hidden 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Config option
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Label
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Label..."
+      type="text"
+      value="Some config"
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Description
+    </span>
+    <div
+      className="markdown-textedit small preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Description..."
+        rows={8}
+        value="Config _desc_"
+      />
+      <span
+        className="markdown-textedit__preview"
+      >
+        <p>
+          Config 
+          <em>
+            desc
+          </em>
+        </p>
+      </span>
+    </div>
+  </div>
+  <ul
+    className="select-list-component"
+  >
+    <li>
+      <fieldset
+        className="nice-form-group"
+      >
+        <legend>
+          Value option
+        </legend>
+        <div
+          className="nice-control-group"
+        >
+          <span
+            className="nice-input-addon"
+          >
+            Path
+          </span>
+          <input
+            className="nice-form-control"
+            disabled={undefined}
+            onChange={[Function]}
+            onKeyPress={null}
+            placeholder="Path..."
+            type="text"
+            value="some.path"
+          />
+        </div>
+        <input
+          checked={true}
+          className="nice-toggle"
+          disabled={undefined}
+          id="toggle-1"
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <label
+          className="nice-toggle-btn"
+          htmlFor="toggle-1"
+        >
+          Hidden
+        </label>
+        <div
+          className="nice-control-group"
+        >
+          <span
+            className="nice-input-addon"
+          >
+            Value
+          </span>
+          <div
+            className="markdown-textedit small preview"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <textarea
+              className="nice-form-control"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder="Value..."
+              rows={8}
+              value="some value"
+            />
+            <span
+              className="markdown-textedit__preview"
+            >
+              <p>
+                some value
+              </p>
+            </span>
+          </div>
+        </div>
+      </fieldset>
+      <button
+        className="nice-btn select-list-component__delete warning icon fa-minus"
+        name="del"
+        onClick={[Function]}
+      >
+        ​
+      </button>
+    </li>
+    <li
+      className="select-list-component__last"
+    >
+      <div
+        className="nice-dropdown nice-form-control select-list-component__add"
+        color="primary"
+        name="add"
+      >
+        <button
+          className="nice-btn"
+          disabled={false}
+          onClick={[Function]}
+        >
+          Add...
+          <i
+            className="icon fa-angle-down"
+          />
+        </button>
+        <ul
+          className="dropdown-menu"
+          onClick={[Function]}
+        >
+          <li
+            className="info"
+            data-value={null}
+            onClick={[Function]}
+          >
+            <a>
+              Add...
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="ability_score"
+            onClick={[Function]}
+          >
+            <a>
+              Ability Score Improvement
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="dict"
+            onClick={[Function]}
+          >
+            <a>
+              Dictionary option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="choice"
+            onClick={[Function]}
+          >
+            <a>
+              Choice option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="config"
+            onClick={[Function]}
+          >
+            <a>
+              Config option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="list"
+            onClick={[Function]}
+          >
+            <a>
+              List option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="multichoice"
+            onClick={[Function]}
+          >
+            <a>
+              Multichoice option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="value"
+            onClick={[Function]}
+          >
+            <a>
+              Value option
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</fieldset>
+`;
+
+exports[`Component: ConfigOption when rendering should show label/desc when not hidden 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Config option
+  </legend>
+  <input
+    checked={false}
+    className="nice-toggle"
+    disabled={undefined}
+    id="toggle-1"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <label
+    className="nice-toggle-btn"
+    htmlFor="toggle-1"
+  >
+    Hidden
+  </label>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Label
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Label..."
+      type="text"
+      value="Some config"
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Description
+    </span>
+    <div
+      className="markdown-textedit small preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Description..."
+        rows={8}
+        value="Config _desc_"
+      />
+      <span
+        className="markdown-textedit__preview"
+      >
+        <p>
+          Config 
+          <em>
+            desc
+          </em>
+        </p>
+      </span>
+    </div>
+  </div>
+  <ul
+    className="select-list-component"
+  >
+    <li>
+      <fieldset
+        className="nice-form-group"
+      >
+        <legend>
+          Value option
+        </legend>
+        <div
+          className="nice-control-group"
+        >
+          <span
+            className="nice-input-addon"
+          >
+            Path
+          </span>
+          <input
+            className="nice-form-control"
+            disabled={undefined}
+            onChange={[Function]}
+            onKeyPress={null}
+            placeholder="Path..."
+            type="text"
+            value="some.path"
+          />
+        </div>
+        <input
+          checked={true}
+          className="nice-toggle"
+          disabled={undefined}
+          id="toggle-1"
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <label
+          className="nice-toggle-btn"
+          htmlFor="toggle-1"
+        >
+          Hidden
+        </label>
+        <div
+          className="nice-control-group"
+        >
+          <span
+            className="nice-input-addon"
+          >
+            Value
+          </span>
+          <div
+            className="markdown-textedit small preview"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <textarea
+              className="nice-form-control"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder="Value..."
+              rows={8}
+              value="some value"
+            />
+            <span
+              className="markdown-textedit__preview"
+            >
+              <p>
+                some value
+              </p>
+            </span>
+          </div>
+        </div>
+      </fieldset>
+      <button
+        className="nice-btn select-list-component__delete warning icon fa-minus"
+        name="del"
+        onClick={[Function]}
+      >
+        ​
+      </button>
+    </li>
+    <li
+      className="select-list-component__last"
+    >
+      <div
+        className="nice-dropdown nice-form-control select-list-component__add"
+        color="primary"
+        name="add"
+      >
+        <button
+          className="nice-btn"
+          disabled={false}
+          onClick={[Function]}
+        >
+          Add...
+          <i
+            className="icon fa-angle-down"
+          />
+        </button>
+        <ul
+          className="dropdown-menu"
+          onClick={[Function]}
+        >
+          <li
+            className="info"
+            data-value={null}
+            onClick={[Function]}
+          >
+            <a>
+              Add...
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="ability_score"
+            onClick={[Function]}
+          >
+            <a>
+              Ability Score Improvement
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="dict"
+            onClick={[Function]}
+          >
+            <a>
+              Dictionary option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="choice"
+            onClick={[Function]}
+          >
+            <a>
+              Choice option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="config"
+            onClick={[Function]}
+          >
+            <a>
+              Config option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="list"
+            onClick={[Function]}
+          >
+            <a>
+              List option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="multichoice"
+            onClick={[Function]}
+          >
+            <a>
+              Multichoice option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="value"
+            onClick={[Function]}
+          >
+            <a>
+              Value option
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</fieldset>
+`;
+
+exports[`Component: ConfigOption when rendering should work with full props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Config option
+  </legend>
+  <input
+    checked={true}
+    className="nice-toggle"
+    disabled={undefined}
+    id="toggle-1"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <label
+    className="nice-toggle-btn"
+    htmlFor="toggle-1"
+  >
+    Hidden
+  </label>
+  <ul
+    className="select-list-component"
+  >
+    <li>
+      <fieldset
+        className="nice-form-group"
+      >
+        <legend>
+          Value option
+        </legend>
+        <div
+          className="nice-control-group"
+        >
+          <span
+            className="nice-input-addon"
+          >
+            Path
+          </span>
+          <input
+            className="nice-form-control"
+            disabled={undefined}
+            onChange={[Function]}
+            onKeyPress={null}
+            placeholder="Path..."
+            type="text"
+            value="some.path"
+          />
+        </div>
+        <input
+          checked={true}
+          className="nice-toggle"
+          disabled={undefined}
+          id="toggle-1"
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <label
+          className="nice-toggle-btn"
+          htmlFor="toggle-1"
+        >
+          Hidden
+        </label>
+        <div
+          className="nice-control-group"
+        >
+          <span
+            className="nice-input-addon"
+          >
+            Value
+          </span>
+          <div
+            className="markdown-textedit small preview"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <textarea
+              className="nice-form-control"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder="Value..."
+              rows={8}
+              value="some value"
+            />
+            <span
+              className="markdown-textedit__preview"
+            >
+              <p>
+                some value
+              </p>
+            </span>
+          </div>
+        </div>
+      </fieldset>
+      <button
+        className="nice-btn select-list-component__delete warning icon fa-minus"
+        name="del"
+        onClick={[Function]}
+      >
+        ​
+      </button>
+    </li>
+    <li
+      className="select-list-component__last"
+    >
+      <div
+        className="nice-dropdown nice-form-control select-list-component__add"
+        color="primary"
+        name="add"
+      >
+        <button
+          className="nice-btn"
+          disabled={false}
+          onClick={[Function]}
+        >
+          Add...
+          <i
+            className="icon fa-angle-down"
+          />
+        </button>
+        <ul
+          className="dropdown-menu"
+          onClick={[Function]}
+        >
+          <li
+            className="info"
+            data-value={null}
+            onClick={[Function]}
+          >
+            <a>
+              Add...
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="ability_score"
+            onClick={[Function]}
+          >
+            <a>
+              Ability Score Improvement
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="dict"
+            onClick={[Function]}
+          >
+            <a>
+              Dictionary option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="choice"
+            onClick={[Function]}
+          >
+            <a>
+              Choice option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="config"
+            onClick={[Function]}
+          >
+            <a>
+              Config option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="list"
+            onClick={[Function]}
+          >
+            <a>
+              List option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="multichoice"
+            onClick={[Function]}
+          >
+            <a>
+              Multichoice option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="value"
+            onClick={[Function]}
+          >
+            <a>
+              Value option
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</fieldset>
+`;
+
+exports[`Component: ConfigOption when rendering should work with minimum props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Config option
+  </legend>
+  <input
+    checked={false}
+    className="nice-toggle"
+    disabled={undefined}
+    id="toggle-1"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <label
+    className="nice-toggle-btn"
+    htmlFor="toggle-1"
+  >
+    Hidden
+  </label>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Label
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Label..."
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Description
+    </span>
+    <div
+      className="markdown-textedit small preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <span
+        className="markdown-textedit__placeholder"
+      >
+        Description...
+      </span>
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Description..."
+        rows={8}
+        value=""
+      />
+      <span
+        className="markdown-textedit__preview"
+      />
+    </div>
+  </div>
+  <ul
+    className="select-list-component"
+  >
+    <li
+      className="select-list-component__last"
+    >
+      <div
+        className="nice-dropdown nice-form-control select-list-component__add"
+        color="primary"
+        name="add"
+      >
+        <button
+          className="nice-btn"
+          disabled={false}
+          onClick={[Function]}
+        >
+          Add...
+          <i
+            className="icon fa-angle-down"
+          />
+        </button>
+        <ul
+          className="dropdown-menu"
+          onClick={[Function]}
+        >
+          <li
+            className="info"
+            data-value={null}
+            onClick={[Function]}
+          >
+            <a>
+              Add...
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="ability_score"
+            onClick={[Function]}
+          >
+            <a>
+              Ability Score Improvement
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="dict"
+            onClick={[Function]}
+          >
+            <a>
+              Dictionary option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="choice"
+            onClick={[Function]}
+          >
+            <a>
+              Choice option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="config"
+            onClick={[Function]}
+          >
+            <a>
+              Config option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="list"
+            onClick={[Function]}
+          >
+            <a>
+              List option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="multichoice"
+            onClick={[Function]}
+          >
+            <a>
+              Multichoice option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="value"
+            onClick={[Function]}
+          >
+            <a>
+              Value option
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</fieldset>
+`;

@@ -1,0 +1,328 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: DictOption when rendering should work with full props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Dictionary option
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Path
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Path..."
+      type="text"
+      value="some.path"
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Label
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Label..."
+      type="text"
+      value="Something given"
+    />
+  </div>
+  <ul
+    className="select-list-component"
+  >
+    <li>
+      <fieldset
+        className="nice-form-group"
+      >
+        <legend>
+          Text value
+        </legend>
+        <div
+          className="nice-control-group"
+        >
+          <span
+            className="nice-input-addon"
+          >
+            Field
+          </span>
+          <input
+            className="nice-form-control"
+            disabled={undefined}
+            onChange={[Function]}
+            onKeyPress={null}
+            placeholder="Field..."
+            type="text"
+            value="description"
+          />
+        </div>
+        <div
+          className="markdown-textedit small preview"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <textarea
+            className="nice-form-control"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Value..."
+            rows={8}
+            value="You're welcome: %(number)s"
+          />
+          <span
+            className="markdown-textedit__preview"
+          >
+            <p>
+              You're welcome: %(number)s
+            </p>
+          </span>
+        </div>
+      </fieldset>
+      <button
+        className="nice-btn select-list-component__delete warning icon fa-minus"
+        name="del"
+        onClick={[Function]}
+      >
+        ​
+      </button>
+    </li>
+    <li>
+      <fieldset
+        className="nice-form-group"
+      >
+        <legend>
+          Numeric value
+        </legend>
+        <div
+          className="nice-control-group"
+        >
+          <span
+            className="nice-input-addon"
+          >
+            Field
+          </span>
+          <input
+            className="nice-form-control"
+            disabled={undefined}
+            onChange={[Function]}
+            onKeyPress={null}
+            placeholder="Field..."
+            type="text"
+            value="number"
+          />
+          <span
+            className="nice-input-addon"
+          >
+            Number
+          </span>
+          <input
+            className="nice-form-control"
+            disabled={undefined}
+            onChange={[Function]}
+            onKeyPress={null}
+            placeholder={undefined}
+            type="number"
+            value={4}
+          />
+        </div>
+      </fieldset>
+      <button
+        className="nice-btn select-list-component__delete warning icon fa-minus"
+        name="del"
+        onClick={[Function]}
+      >
+        ​
+      </button>
+    </li>
+    <li
+      className="select-list-component__last"
+    >
+      <div
+        className="nice-dropdown nice-form-control select-list-component__add"
+        color="primary"
+        name="add"
+      >
+        <button
+          className="nice-btn"
+          disabled={false}
+          onClick={[Function]}
+        >
+          Add...
+          <i
+            className="icon fa-angle-down"
+          />
+        </button>
+        <ul
+          className="dropdown-menu"
+          onClick={[Function]}
+        >
+          <li
+            className="info"
+            data-value={null}
+            onClick={[Function]}
+          >
+            <a>
+              Add...
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="formula"
+            onClick={[Function]}
+          >
+            <a>
+              Formula value
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="number"
+            onClick={[Function]}
+          >
+            <a>
+              Numeric value
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="text"
+            onClick={[Function]}
+          >
+            <a>
+              Text value
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</fieldset>
+`;
+
+exports[`Component: DictOption when rendering should work with minimum props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Dictionary option
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Path
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Path..."
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Label
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Label..."
+      type="text"
+      value=""
+    />
+  </div>
+  <ul
+    className="select-list-component"
+  >
+    <li
+      className="select-list-component__last"
+    >
+      <div
+        className="nice-dropdown nice-form-control select-list-component__add"
+        color="primary"
+        name="add"
+      >
+        <button
+          className="nice-btn"
+          disabled={false}
+          onClick={[Function]}
+        >
+          Add...
+          <i
+            className="icon fa-angle-down"
+          />
+        </button>
+        <ul
+          className="dropdown-menu"
+          onClick={[Function]}
+        >
+          <li
+            className="info"
+            data-value={null}
+            onClick={[Function]}
+          >
+            <a>
+              Add...
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="formula"
+            onClick={[Function]}
+          >
+            <a>
+              Formula value
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="number"
+            onClick={[Function]}
+          >
+            <a>
+              Numeric value
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="text"
+            onClick={[Function]}
+          >
+            <a>
+              Text value
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</fieldset>
+`;
