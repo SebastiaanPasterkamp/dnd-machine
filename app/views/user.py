@@ -106,7 +106,7 @@ class UserBlueprint(BaseApiBlueprint):
         # scopes that let you retrieve user's profile from Google
         request_uri = client.prepare_request_uri(
             authorization_endpoint,
-            redirect_uri=url_for('link_google_callback', _external=True),
+            redirect_uri=url_for('user.link_google_callback', _external=True),
             scope=["profile"],
             )
         return redirect(request_uri)
@@ -126,7 +126,7 @@ class UserBlueprint(BaseApiBlueprint):
 
         token_url, headers, body = client.prepare_token_request(
             token_endpoint,
-            authorization_response=url_for('link_google_callback', _external=True),
+            authorization_response=url_for('user.link_google_callback', _external=True),
             redirect_url=url_for('home', _external=True),
             code=code,
         )
