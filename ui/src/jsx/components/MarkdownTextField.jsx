@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    isEmpty,
+} from 'lodash/fp';
 import MDReactComponent from 'markdown-react-js';
 
 import utils from './../utils.jsx';
@@ -16,31 +18,50 @@ export class MarkdownTextField extends LazyComponent
             editing: false,
             hovering: false,
         };
+        this.onChange = this.onChange.bind(this);
+        this.refTextarea = this.refTextarea.bind(this);
+        this.setEditing = this.setEditing.bind(this);
+        this.unsetEditing = this.unsetEditing.bind(this);
+        this.setHovering = this.setHovering.bind(this);
+        this.unsetHovering = this.unsetHovering.bind(this);
     }
 
-    onChange(value) {
-        this.props.setState(value);
+    refTextarea(textarea) {
+        this.textarea = textarea;
     }
 
-    setEditing(editing) {
-        let autofocus = null;
-        if (!this.state.editing) {
-            autofocus = () => this.textarea.focus();
+    onChange(e) {
+        this.props.setState(e.target.value);
+    }
+
+    setEditing() {
+        const { editing } = this.state;
+        if (editing) {
+            return;
         }
-        this.setState({editing}, autofocus);
+        this.setState(
+            { editing: true },
+            () => this.textarea.focus()
+        );
     }
 
-    setHovering(hovering) {
-        this.setState({hovering});
+    unsetEditing() {
+        this.setState( { editing: false } );
+    }
+
+    setHovering() {
+        this.setState({ hovering: true });
+    }
+
+    unsetHovering() {
+        this.setState({ hovering:false });
     }
 
     render() {
+        const { editing, hovering } = this.state;
         const {
-            className, value = '', placeholder = '', rows = 1, disabled
+            className, value, placeholder, rows, disabled,
         } = this.props;
-        const {
-            editing, hovering
-        } = this.state;
         const style = utils.makeStyle(
             {
                 "edit": !disabled && (editing || hovering),
@@ -53,56 +74,52 @@ export class MarkdownTextField extends LazyComponent
         );
 
         if (disabled) {
-            return <div className={style}>
+            return (
+                <div className={style}>
+                    <MDReactComponent
+                        className="markdown-textedit__preview"
+                        text={value || ''}
+                    />
+                </div>
+            );
+        }
+
+        return (
+            <div
+                className={style}
+                onClick={this.setEditing}
+                onMouseEnter={this.setHovering}
+                onMouseLeave={this.unsetHovering}
+            >
+                {(
+                    !editing
+                    && isEmpty(value)
+                    && !isEmpty(placeholder)
+                ) ? (
+                    <span className="markdown-textedit__placeholder">
+                        {placeholder}
+                    </span>
+                ) : null}
+                <textarea
+                    className="nice-form-control"
+                    value={value}
+                    rows={rows}
+                    ref={(textarea) => {
+                        this.textarea = textarea;
+                    }}
+                    placeholder={placeholder}
+                    onChange={this.onChange}
+                    onFocus={this.setEditing}
+                    onBlur={this.unsetEditing}
+                />
                 <MDReactComponent
                     className="markdown-textedit__preview"
                     text={value || ''}
-                    />
-            </div>;
-        }
-
-        return <div
-                className={style}
-                onClick={editing ? null : () => this.setEditing(true)}
-                onMouseEnter={() => this.setHovering(true)}
-                onMouseLeave={() => this.setHovering(false)}
-                >
-            {
-                (
-                    !editing
-                    && _.isEmpty(value)
-                    && !_.isEmpty(placeholder)
-                ) ?
-                <span className="markdown-textedit__placeholder">
-                    {placeholder}
-                </span>
-                : null
-            }
-            <textarea
-                className="nice-form-control"
-                value={value || ''}
-                rows={rows}
-                ref={(textarea) => {
-                    this.textarea = textarea;
-                }}
-                placeholder={placeholder}
-                onChange={(e) => this.onChange(e.target.value)}
-                onFocus={() => this.setEditing(true)}
-                onBlur={() => this.setEditing(false)}
                 />
-            <MDReactComponent
-                className="markdown-textedit__preview"
-                text={value || ''}
-                />
-        </div>;
+            </div>
+        );
     }
 }
-
-MarkdownTextField.defaultProps = {
-    setState: (value) => {
-        console.log(['TextField', value]);
-    }
-};
 
 MarkdownTextField.propTypes = {
     setState: PropTypes.func.isRequired,
@@ -111,6 +128,14 @@ MarkdownTextField.propTypes = {
     className: PropTypes.string,
     placeholder: PropTypes.string,
     value: PropTypes.string,
+};
+
+MarkdownTextField.defaultProps = {
+    rows: 8,
+    disabled: false,
+    className: '',
+    placeholder: '',
+    value: '',
 };
 
 export default MarkdownTextField;
