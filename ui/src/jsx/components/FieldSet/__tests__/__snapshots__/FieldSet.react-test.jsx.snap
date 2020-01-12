@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: FieldSet should render 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    test
+  </legend>
+  Foo bar
+</fieldset>
+`;

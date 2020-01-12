@@ -1,17 +1,19 @@
 import React from 'react';
-import LazyComponent from '../components/LazyComponent.jsx';
+import PropTypes from 'prop-types';
 
-export class FormGroup extends LazyComponent
+export const FormGroup = function({ label, children })
 {
-    render() {
-        const {
-            label, children,
-        } = this.props;
-        return <div className="nice-form-group">
+    return (
+        <div className="nice-form-group">
             <label>{ label }</label>
             { children }
-        </div>;
-    }
-}
+        </div>
+    );
+};
+
+FormGroup.propTypes = {
+    label: PropTypes.string,
+    children: PropTypes.any,
+};
 
 export default FormGroup;
