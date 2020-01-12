@@ -62,7 +62,7 @@ export class TagContainer extends React.Component
 
         const tags = map(
             key => {
-                const { label, description, disabled } = (
+                const { name, label, description, disabled } = (
                     find({ id: key }, items)
                     || find({ code: key }, items)
                     || find({ name: key }, items)
@@ -72,7 +72,7 @@ export class TagContainer extends React.Component
                 return {
                     key,
                     count: counts[key],
-                    label,
+                    label: name !== undefined ? name : label,
                     description,
                     disabled: propDisabled || disabled,
                     onDelete: this.onDelete.bind(this, key, value.indexOf(key)),

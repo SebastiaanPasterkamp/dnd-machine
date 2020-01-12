@@ -6,7 +6,7 @@ import TagContainer from '..';
 
 const items = [
     { code: "a", label: "Aaa" },
-    { name: "b", label: "Bbb", description: "Bee" },
+    { id: "b", label: "Bbb", description: "Bee" },
 ];
 
 describe('Component: TagContainer', () => {
