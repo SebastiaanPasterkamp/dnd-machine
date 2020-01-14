@@ -33,38 +33,25 @@ exports[`Component: ValuePropertySelect should render the formatted description 
     type="value"
     value="This shows _formatted_ content."
   >
-    <MarkdownTextField
-      className="small"
-      disabled={true}
-      setState={[Function]}
-      value="This shows _formatted_ content."
+    <MDReactComponent
+      text="This shows _formatted_ content."
     >
-      <div
-        className="markdown-textedit small preview"
+      <span
+        key="mdrct-html-0"
       >
-        <MDReactComponent
-          className="markdown-textedit__preview"
-          text="This shows _formatted_ content."
+        <p
+          key="mdrct-p-0"
         >
-          <span
-            className="markdown-textedit__preview"
-            key="mdrct-html-0"
+          This shows 
+          <em
+            key="mdrct-em-1"
           >
-            <p
-              key="mdrct-p-0"
-            >
-              This shows 
-              <em
-                key="mdrct-em-1"
-              >
-                formatted
-              </em>
-               content.
-            </p>
-          </span>
-        </MDReactComponent>
-      </div>
-    </MarkdownTextField>
+            formatted
+          </em>
+           content.
+        </p>
+      </span>
+    </MDReactComponent>
   </ValuePropertySelect>
 </CharacterEditorComponent>
 `;

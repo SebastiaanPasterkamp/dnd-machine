@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MDReactComponent from 'markdown-react-js';
 
 import LazyComponent from '../../LazyComponent.jsx';
-import MarkdownTextField from '../../MarkdownTextField.jsx';
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
 export class ValuePropertySelect extends LazyComponent
@@ -37,11 +37,7 @@ export class ValuePropertySelect extends LazyComponent
         }
 
         return (
-            <MarkdownTextField
-                className="small"
-                disabled={true}
-                value={value}
-            />
+            <MDReactComponent text={value || ''} />
         );
     }
 };

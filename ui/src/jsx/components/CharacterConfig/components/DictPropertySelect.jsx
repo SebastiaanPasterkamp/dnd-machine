@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { sprintf } from 'sprintf-js';
+import MDReactComponent from 'markdown-react-js';
 
-import MarkdownTextField from '../../MarkdownTextField.jsx';
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
 
 export class DictPropertySelect extends React.Component
@@ -44,11 +44,7 @@ export class DictPropertySelect extends React.Component
         }
 
         return (
-            <MarkdownTextField
-                className="small"
-                disabled={true}
-                value={value}
-            />
+            <MDReactComponent text={value || ''} />
         );
     }
 };

@@ -87,7 +87,6 @@ describe('Component: MultipleChoiceSelect', () => {
 
         expect(wrapper.find('button.nice-btn').length).toEqual(1);
         expect(wrapper.find('button.nice-tag-btn').length).toEqual(1);
-        expect(wrapper.find('.markdown-textedit').length).toEqual(1);
     });
 
     it('should emit *Change actions on mount and umount', () => {

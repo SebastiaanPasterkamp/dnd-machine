@@ -271,32 +271,19 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
                 onUpdate={[Function]}
                 type="dict"
               >
-                <MarkdownTextField
-                  className="small"
-                  disabled={true}
-                  setState={[Function]}
-                  value="Bar is good"
+                <MDReactComponent
+                  text="Bar is good"
                 >
-                  <div
-                    className="markdown-textedit small preview"
+                  <span
+                    key="mdrct-html-0"
                   >
-                    <MDReactComponent
-                      className="markdown-textedit__preview"
-                      text="Bar is good"
+                    <p
+                      key="mdrct-p-0"
                     >
-                      <span
-                        className="markdown-textedit__preview"
-                        key="mdrct-html-0"
-                      >
-                        <p
-                          key="mdrct-p-0"
-                        >
-                          Bar is good
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </MarkdownTextField>
+                      Bar is good
+                    </p>
+                  </span>
+                </MDReactComponent>
               </DictPropertySelect>
             </CharacterEditorComponent>
           </div>
@@ -379,32 +366,19 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
                       onUpdate={[Function]}
                       type="dict"
                     >
-                      <MarkdownTextField
-                        className="small"
-                        disabled={true}
-                        setState={[Function]}
-                        value="Foo is okay"
+                      <MDReactComponent
+                        text="Foo is okay"
                       >
-                        <div
-                          className="markdown-textedit small preview"
+                        <span
+                          key="mdrct-html-0"
                         >
-                          <MDReactComponent
-                            className="markdown-textedit__preview"
-                            text="Foo is okay"
+                          <p
+                            key="mdrct-p-0"
                           >
-                            <span
-                              className="markdown-textedit__preview"
-                              key="mdrct-html-0"
-                            >
-                              <p
-                                key="mdrct-p-0"
-                              >
-                                Foo is okay
-                              </p>
-                            </span>
-                          </MDReactComponent>
-                        </div>
-                      </MarkdownTextField>
+                            Foo is okay
+                          </p>
+                        </span>
+                      </MDReactComponent>
                     </DictPropertySelect>
                   </CharacterEditorComponent>
                 </div>
@@ -763,32 +737,19 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
                       onUpdate={[Function]}
                       type="dict"
                     >
-                      <MarkdownTextField
-                        className="small"
-                        disabled={true}
-                        setState={[Function]}
-                        value="Foo is okay"
+                      <MDReactComponent
+                        text="Foo is okay"
                       >
-                        <div
-                          className="markdown-textedit small preview"
+                        <span
+                          key="mdrct-html-0"
                         >
-                          <MDReactComponent
-                            className="markdown-textedit__preview"
-                            text="Foo is okay"
+                          <p
+                            key="mdrct-p-0"
                           >
-                            <span
-                              className="markdown-textedit__preview"
-                              key="mdrct-html-0"
-                            >
-                              <p
-                                key="mdrct-p-0"
-                              >
-                                Foo is okay
-                              </p>
-                            </span>
-                          </MDReactComponent>
-                        </div>
-                      </MarkdownTextField>
+                            Foo is okay
+                          </p>
+                        </span>
+                      </MDReactComponent>
                     </DictPropertySelect>
                   </CharacterEditorComponent>
                 </div>
@@ -1108,17 +1069,11 @@ exports[`Component: MultipleChoiceSelect should render with minimum props 1`] = 
       className="nice-form-group"
     >
       <label />
-      <div
-        className="markdown-textedit small preview"
-      >
-        <span
-          className="markdown-textedit__preview"
-        >
-          <p>
-            Foo is okay
-          </p>
-        </span>
-      </div>
+      <span>
+        <p>
+          Foo is okay
+        </p>
+      </span>
     </div>
   </div>
 </div>

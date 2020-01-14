@@ -226,32 +226,19 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                                 type="value"
                                 value="bar"
                               >
-                                <MarkdownTextField
-                                  className="small"
-                                  disabled={true}
-                                  setState={[Function]}
-                                  value="bar"
+                                <MDReactComponent
+                                  text="bar"
                                 >
-                                  <div
-                                    className="markdown-textedit small preview"
+                                  <span
+                                    key="mdrct-html-0"
                                   >
-                                    <MDReactComponent
-                                      className="markdown-textedit__preview"
-                                      text="bar"
+                                    <p
+                                      key="mdrct-p-0"
                                     >
-                                      <span
-                                        className="markdown-textedit__preview"
-                                        key="mdrct-html-0"
-                                      >
-                                        <p
-                                          key="mdrct-p-0"
-                                        >
-                                          bar
-                                        </p>
-                                      </span>
-                                    </MDReactComponent>
-                                  </div>
-                                </MarkdownTextField>
+                                      bar
+                                    </p>
+                                  </span>
+                                </MDReactComponent>
                               </ValuePropertySelect>
                             </CharacterEditorComponent>
                           </div>
@@ -326,32 +313,19 @@ exports[`Component: CharacterConfig should render config 1`] = `
                 type="value"
                 value="bar"
               >
-                <MarkdownTextField
-                  className="small"
-                  disabled={true}
-                  setState={[Function]}
-                  value="bar"
+                <MDReactComponent
+                  text="bar"
                 >
-                  <div
-                    className="markdown-textedit small preview"
+                  <span
+                    key="mdrct-html-0"
                   >
-                    <MDReactComponent
-                      className="markdown-textedit__preview"
-                      text="bar"
+                    <p
+                      key="mdrct-p-0"
                     >
-                      <span
-                        className="markdown-textedit__preview"
-                        key="mdrct-html-0"
-                      >
-                        <p
-                          key="mdrct-p-0"
-                        >
-                          bar
-                        </p>
-                      </span>
-                    </MDReactComponent>
-                  </div>
-                </MarkdownTextField>
+                      bar
+                    </p>
+                  </span>
+                </MDReactComponent>
               </ValuePropertySelect>
             </CharacterEditorComponent>
           </div>
@@ -413,32 +387,19 @@ exports[`Component: CharacterConfig should render dict 1`] = `
           onUpdate={[Function]}
           type="dict"
         >
-          <MarkdownTextField
-            className="small"
-            disabled={true}
-            setState={[Function]}
-            value="foo blah"
+          <MDReactComponent
+            text="foo blah"
           >
-            <div
-              className="markdown-textedit small preview"
+            <span
+              key="mdrct-html-0"
             >
-              <MDReactComponent
-                className="markdown-textedit__preview"
-                text="foo blah"
+              <p
+                key="mdrct-p-0"
               >
-                <span
-                  className="markdown-textedit__preview"
-                  key="mdrct-html-0"
-                >
-                  <p
-                    key="mdrct-p-0"
-                  >
-                    foo blah
-                  </p>
-                </span>
-              </MDReactComponent>
-            </div>
-          </MarkdownTextField>
+                foo blah
+              </p>
+            </span>
+          </MDReactComponent>
         </DictPropertySelect>
       </CharacterEditorComponent>
     </div>
@@ -1257,32 +1218,19 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                         }
                       }
                     >
-                      <MarkdownTextField
-                        className="small"
-                        disabled={true}
-                        setState={[Function]}
-                        value="[object Object]"
+                      <MDReactComponent
+                        text="[object Object]"
                       >
-                        <div
-                          className="markdown-textedit small preview"
+                        <span
+                          key="mdrct-html-0"
                         >
-                          <MDReactComponent
-                            className="markdown-textedit__preview"
-                            text="[object Object]"
+                          <p
+                            key="mdrct-p-0"
                           >
-                            <span
-                              className="markdown-textedit__preview"
-                              key="mdrct-html-0"
-                            >
-                              <p
-                                key="mdrct-p-0"
-                              >
-                                [object Object]
-                              </p>
-                            </span>
-                          </MDReactComponent>
-                        </div>
-                      </MarkdownTextField>
+                            [object Object]
+                          </p>
+                        </span>
+                      </MDReactComponent>
                     </ValuePropertySelect>
                   </CharacterEditorComponent>
                 </div>
@@ -1655,32 +1603,19 @@ exports[`Component: CharacterConfig should render value 1`] = `
           type="value"
           value="bar"
         >
-          <MarkdownTextField
-            className="small"
-            disabled={true}
-            setState={[Function]}
-            value="bar"
+          <MDReactComponent
+            text="bar"
           >
-            <div
-              className="markdown-textedit small preview"
+            <span
+              key="mdrct-html-0"
             >
-              <MDReactComponent
-                className="markdown-textedit__preview"
-                text="bar"
+              <p
+                key="mdrct-p-0"
               >
-                <span
-                  className="markdown-textedit__preview"
-                  key="mdrct-html-0"
-                >
-                  <p
-                    key="mdrct-p-0"
-                  >
-                    bar
-                  </p>
-                </span>
-              </MDReactComponent>
-            </div>
-          </MarkdownTextField>
+                bar
+              </p>
+            </span>
+          </MDReactComponent>
         </ValuePropertySelect>
       </CharacterEditorComponent>
     </div>
