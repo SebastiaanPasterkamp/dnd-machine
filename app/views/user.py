@@ -113,7 +113,7 @@ class UserBlueprint(BaseApiBlueprint):
 
 
     def link_google_callback(self):
-        if config.get('GOOGLE_CLIENT_ID') \
+        if self.config.get('GOOGLE_CLIENT_ID') \
                 and not request.is_secure \
                 and request.headers.get('X-Forwarded-Proto', 'http') == 'https':
             os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
