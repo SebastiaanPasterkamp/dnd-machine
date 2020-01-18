@@ -76,9 +76,14 @@
     "collectCoverageFrom": [
       "**/src/**/*.{js,jsx}"
     ],
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/tests/"
+    ],
     "testPathIgnorePatterns": [
-      "__mocks__",
-      "__init__"
+      "/node_modules/",
+      "/__mocks__/",
+      "/__init__/"
     ],
     "setupFiles": [
       "<rootDir>/tests/__init__/shim.js",
