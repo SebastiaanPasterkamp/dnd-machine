@@ -26,7 +26,7 @@ class UserBlueprint(BaseApiBlueprint):
         exposed = set(['id', 'name', 'dci'])
         if obj.id == request.user.id \
                 or self.checkRole(['admin']):
-            exposed |= set(['username', 'email', 'role'])
+            exposed |= set(['username', 'email', 'role', 'google_id'])
         retval = dict([
             (key, value)
             for key, value in list(obj.config.items())
@@ -43,7 +43,7 @@ class UserBlueprint(BaseApiBlueprint):
                 ])
         if obj is not None and obj.id == request.user.id:
             mutable |= set([
-                'password', 'email', 'name', 'dci',
+                'password', 'email', 'name', 'dci', 'google_id',
                 ])
         return dict([
             (key, value)
