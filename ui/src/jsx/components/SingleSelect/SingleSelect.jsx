@@ -28,14 +28,17 @@ class SingleSelect extends React.Component
     }
 
     getItemValue(item) {
-        const { code, id, name } = item;
+        const { code, id, name, label } = item;
         if (code !== undefined) {
             return code;
         }
         if (id !== undefined) {
             return id;
         }
-        return name;
+        if (name !== undefined) {
+            return name;
+        }
+        return label;
     }
 
     getItemText(item) {
@@ -69,6 +72,7 @@ class SingleSelect extends React.Component
             find({code: selected}, items)
             || find({id: selected}, items)
             || find({name: selected}, items)
+            || find({label: selected}, items)
         );
 
         if (isNil(item)) {
