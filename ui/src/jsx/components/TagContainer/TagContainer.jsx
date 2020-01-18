@@ -5,6 +5,7 @@ import {
     find,
     keys,
     map,
+    uniqBy,
 } from 'lodash/fp';
 
 import {
@@ -60,12 +61,13 @@ export class TagContainer extends React.Component
         } = this.props;
         const counts = countBy(null, value);
 
-        const tags = map(
+        const tags = uniqBy('key', map(
             key => {
                 const { name, label, description, disabled } = (
                     find({ id: key }, items)
                     || find({ code: key }, items)
                     || find({ name: key }, items)
+                    || find({ label: key }, items)
                     || {}
                 );
 
@@ -78,7 +80,7 @@ export class TagContainer extends React.Component
                     onDelete: this.onDelete.bind(this, key, value.indexOf(key)),
                 };
             }
-        )(keys(counts));
+        )(value));
 
         return (
             <BaseTagContainer className={className}>
