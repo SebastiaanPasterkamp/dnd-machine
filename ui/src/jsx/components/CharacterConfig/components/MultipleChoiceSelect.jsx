@@ -156,20 +156,23 @@ export class MultipleChoiceSelect extends React.Component
     }
 };
 
-MultipleChoiceSelect.defaultProps = {
-    limit: 0,
-    add: 0,
-    replace: 0,
-};
-
 MultipleChoiceSelect.propTypes = {
     type: PropTypes.oneOf(['multichoice']).isRequired,
-    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    options: PropTypes.arrayOf(PropTypes.object),
     getCurrent: PropTypes.func.isRequired,
     description: PropTypes.string,
+    include: PropTypes.number,
     limit: PropTypes.number,
     add: PropTypes.number,
     replace: PropTypes.number,
+};
+
+MultipleChoiceSelect.defaultProps = {
+    options: [],
+    description: '',
+    limit: 0,
+    add: 0,
+    replace: 0,
 };
 
 export default CharacterEditorWrapper(

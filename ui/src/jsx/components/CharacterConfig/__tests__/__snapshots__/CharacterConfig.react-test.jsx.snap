@@ -930,6 +930,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
               },
             }
           }
+          description=""
           getCurrent={[Function]}
           limit={0}
           onChange={[Function]}
