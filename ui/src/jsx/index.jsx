@@ -139,6 +139,35 @@ const WeaponEdit = Loadable({
 import WeaponView from './views/WeaponView.jsx';
 import WeaponsTable from './views/WeaponsTable.jsx';
 
+const ClassEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'ClassEdit' */
+          './views/ClassEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
+const SubClassEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'SubClassEdit' */
+          './views/SubClassEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
+const RaceEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'RaceEdit' */
+          './views/RaceEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
+const OptionsEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'OptionsEdit' */
+          './views/OptionsEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
+
 import DefaultFilter from './views/DefaultFilter.jsx';
 import Navigation from './views/Navigation.jsx';
 
@@ -393,6 +422,42 @@ class DndMachine extends React.Component
                     path="/user/show/:id"
                     component={UserView}
                     />
+
+                <Route
+                    path="/data/class/new"
+                    component={ClassEdit}
+                />
+                <Route
+                    path="/data/class/edit/:id"
+                    component={ClassEdit}
+                />
+
+                <Route
+                    path="/data/subclass/new"
+                    component={SubClassEdit}
+                />
+                <Route
+                    path="/data/subclass/edit/:id"
+                    component={SubClassEdit}
+                />
+
+                <Route
+                    path="/data/race/new"
+                    component={RaceEdit}
+                />
+                <Route
+                    path="/data/race/edit/:id"
+                    component={RaceEdit}
+                />
+
+                <Route
+                    path="/data/options/new"
+                    component={OptionsEdit}
+                />
+                <Route
+                    path="/data/options/edit/:id"
+                    component={OptionsEdit}
+                />
 
                 <Redirect
                     path="/login"

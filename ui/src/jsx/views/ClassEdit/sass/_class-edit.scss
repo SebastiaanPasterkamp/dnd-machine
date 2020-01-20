@@ -1,0 +1,29 @@
+// _class-edit.scss
+
+@import '../../../../sass/widget-grid';
+
+.class-edit {
+    @extend .widget-grid;
+
+    &__levels {
+        grid-column-end: span 2;
+    }
+
+    &__features {
+        .rotate {
+            text-align: center;
+            vertical-align: middle;
+            width: 3em;
+            height: 7em;
+            padding: 0;
+
+            div {
+                 -moz-transform: rotate(-90.0deg);  /* FF3.5+ */
+                   -o-transform: rotate(-90.0deg);  /* Opera 10.5 */
+              -webkit-transform: rotate(-90.0deg);  /* Saf3.1+, Chrome */
+                         filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
+                     -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+            }
+        }
+    }
+}

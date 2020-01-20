@@ -86,13 +86,22 @@ export class CharacterCreate extends React.Component
                 mountAll={ true }
             >
                 <CharacterConfig
-                    config={ ComputeConfig(races, character) }
+                    config={ ComputeConfig([{
+                        type: "choice",
+                        options: races,
+                    }], character) }
                 />
                 <CharacterConfig
-                    config={ ComputeConfig(classes, character) }
+                    config={ ComputeConfig([{
+                        type: "choice",
+                        options: classes,
+                    }], character) }
                 />
                 <CharacterConfig
-                    config={ ComputeConfig(backgrounds, character) }
+                    config={ ComputeConfig([{
+                        type: "choice",
+                        options: backgrounds,
+                    }], character) }
                 />
                 <StatisticsSelect
                     editBase={true}
@@ -164,8 +173,13 @@ export default ListDataWrapper(
                 character: true,
             }
         ),
-        ['races', 'classes', 'backgrounds'],
-        'character',
+        ['race', 'class', 'background'],
+        'data',
+        {
+            race: 'races',
+            class: 'classes',
+            background: 'backgrounds',
+        }
     ),
     [
         'genders',

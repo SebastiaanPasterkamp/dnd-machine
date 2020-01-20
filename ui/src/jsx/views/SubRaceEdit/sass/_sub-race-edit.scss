@@ -1,0 +1,11 @@
+// _sub-race-edit.scss
+
+@import '../../../../sass/widget-grid';
+
+.sub-race-edit {
+    @extend .widget-grid;
+
+    &__config {
+        grid-column-end: span 2;
+    }
+}

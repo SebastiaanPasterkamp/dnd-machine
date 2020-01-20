@@ -1,0 +1,11 @@
+// _class-edit.scss
+
+@import '../../../../sass/widget-grid';
+
+.class-edit {
+    @extend .widget-grid;
+
+    &__levels {
+        grid-column-end: span 2;
+    }
+}
