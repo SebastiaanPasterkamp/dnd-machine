@@ -11,10 +11,11 @@ import LazyComponent from '../../LazyComponent.jsx';
 import TabComponent from '../../TabComponent.jsx';
 
 import CharacterConfig from '../CharacterConfig.jsx';
+import MatchesFilters from '../utils/MatchesFilters';
 
-export const ChoiceSelect = function({ options }) {
+export const ChoiceSelect = function({ options, filter: filters }) {
     const filtered = filter(
-        (option) => !option.hidden
+        (option) => !option.hidden && MatchesFilters(option, filters)
     )(options);
 
     return (

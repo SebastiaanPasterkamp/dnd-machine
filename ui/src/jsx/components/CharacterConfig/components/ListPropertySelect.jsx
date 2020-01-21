@@ -4,18 +4,12 @@ import {
     concat,
     countBy,
     entries,
-    every,
     find,
     filter,
     flow,
     forEach,
-    get,
     includes,
-    isArray,
-    intersection,
     map,
-    keys,
-    some,
     uniq,
     without,
 } from 'lodash/fp';
@@ -32,6 +26,7 @@ import { memoize } from '../../../utils';
 
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper';
 import ListsToItemsWrapper from '../../../hocs/ListsToItemsWrapper';
+import MatchesFilters from '../utils/MatchesFilters';
 
 export class ListPropertySelect extends LazyComponent
 {
@@ -219,32 +214,6 @@ export class ListPropertySelect extends LazyComponent
         );
     }
 
-    matchesFilters(item, filters) {
-        return flow(entries, every(
-            ([path, cond]) => {
-                if (path.match(/_(formula|default)$/)) {
-                    return true;
-                }
-                if (path === 'or') {
-                    return some(
-                        option => this.matchesFilters(item, option)
-                    )(cond);
-                }
-                if (path === 'and') {
-                    return this.matchesFilters(item, cond);
-                }
-                if (path === 'not') {
-                    return !this.matchesFilters(item, cond);
-                }
-                const value = get(path, item);
-                return intersection(
-                    isArray(value) ? value : [value],
-                    isArray(cond) ? cond : [cond],
-                ).length;
-            }
-        ))(filters);
-    }
-
     renderSelect() {
         const {
             multiple,
@@ -274,7 +243,7 @@ export class ListPropertySelect extends LazyComponent
             filter(
                 item => (
                     includes( this.getId(item), removed )
-                    || this.matchesFilters(item, filters)
+                    || MatchesFilters(item, filters)
                 ),
                 items
             )

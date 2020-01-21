@@ -6,6 +6,7 @@ import TagContainer from '../../TagContainer';
 
 import CharacterConfig from '../CharacterConfig';
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper';
+import MatchesFilters from '../utils/MatchesFilters';
 
 export class MultipleChoiceSelect extends React.Component
 {
@@ -109,7 +110,7 @@ export class MultipleChoiceSelect extends React.Component
     }
 
     render() {
-        const { options, limit, add, replace } = this.props;
+        const { options, filter: filters, limit, add, replace } = this.props;
         const {
             added, removed, filtered, showSelect, disabled,
         } = this.state;
@@ -120,7 +121,7 @@ export class MultipleChoiceSelect extends React.Component
         );
         const itemsDisabled = disabled || removed.length >= replace;
         const items = _.chain(options)
-            .filter(option => !option.hidden)
+            .filter(option => !option.hidden && MatchesFilters(option, filters))
             .map(option => {
                 const isNew = _.includes(added, option.label);
                 return {
