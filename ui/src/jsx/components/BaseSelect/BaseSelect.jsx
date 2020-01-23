@@ -42,6 +42,7 @@ export class BaseSelect extends React.Component
             heading,
             className,
             description,
+            disabled,
             children,
             /* onClickOutside */
             eventTypes,
@@ -68,6 +69,7 @@ export class BaseSelect extends React.Component
             <div className={divStyle} {...props}>
                 <SelectButton
                     label={label}
+                    disabled={disabled}
                     onToggle={this.onToggle}
                 />
                 <ul
@@ -101,6 +103,7 @@ BaseSelect.propTypes = {
     heading: PropTypes.string,
     className: PropTypes.string,
     description: PropTypes.string,
+    disabled: PropTypes.bool,
 };
 
 BaseSelect.defaultProps = {
@@ -109,6 +112,7 @@ BaseSelect.defaultProps = {
     heading: null,
     className: null,
     description: null,
+    disabled: false,
 };
 
 export default onClickOutside(BaseSelect);

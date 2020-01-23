@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const SelectButton = function({ label, onToggle })
+export const SelectButton = function({ label, onToggle, ...props })
 {
     return (
         <button
             className="nice-btn"
             onClick={onToggle}
+            {...props}
         >
             {label}
             <i className="icon fa-angle-down" />

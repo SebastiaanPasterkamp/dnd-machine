@@ -6,6 +6,7 @@ exports[`Component: BaseSelect should render without props 1`] = `
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     
@@ -26,6 +27,7 @@ exports[`Component: BaseSelect should show a dropdown with heading and descripti
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     Click me
@@ -64,6 +66,7 @@ exports[`Component: BaseSelect should show a simple dropdown with one button and
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     Click me
