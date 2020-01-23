@@ -27,6 +27,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Campaign...
@@ -304,6 +305,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Campaign...
@@ -719,6 +721,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Campaign...
@@ -1005,6 +1008,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Campaign...
@@ -1292,6 +1296,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Campaign...
@@ -1616,6 +1621,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Campaign...

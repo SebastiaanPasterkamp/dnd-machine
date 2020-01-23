@@ -46,6 +46,7 @@ exports[`MonstersTable should render with full props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Campaigns...
@@ -103,6 +104,7 @@ exports[`MonstersTable should render with full props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Sizes
@@ -216,6 +218,7 @@ exports[`MonstersTable should render with full props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Types
@@ -441,6 +444,7 @@ exports[`MonstersTable should render with full props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Alignments
@@ -596,6 +600,7 @@ exports[`MonstersTable should render with full props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           Any Level...
@@ -1277,6 +1282,7 @@ exports[`MonstersTable should render without props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Campaigns...
@@ -1320,6 +1326,7 @@ exports[`MonstersTable should render without props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Sizes
@@ -1433,6 +1440,7 @@ exports[`MonstersTable should render without props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Types
@@ -1658,6 +1666,7 @@ exports[`MonstersTable should render without props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Alignments
@@ -1813,6 +1822,7 @@ exports[`MonstersTable should render without props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           Any Level...

@@ -9,6 +9,7 @@ exports[`Component: TagContainer should allow all items in select in multiple mo
   >
     <button
       className="nice-btn"
+      disabled={false}
       onClick={[Function]}
     >
       Add...
@@ -75,6 +76,7 @@ exports[`Component: TagContainer should exclude selected items from select in si
   >
     <button
       className="nice-btn"
+      disabled={false}
       onClick={[Function]}
     >
       Add...

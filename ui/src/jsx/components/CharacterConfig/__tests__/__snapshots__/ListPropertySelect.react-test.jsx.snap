@@ -180,6 +180,7 @@ exports[`Component: ListPropertySelect should allow replacing one existing 1`] =
                 closeOnClick={true}
                 description={null}
                 disableOnClickOutside={[Function]}
+                disabled={false}
                 enableOnClickOutside={[Function]}
                 eventTypes={
                   Array [
@@ -197,11 +198,13 @@ exports[`Component: ListPropertySelect should allow replacing one existing 1`] =
                   className="nice-dropdown nice-form-control"
                 >
                   <SelectButton
+                    disabled={false}
                     label="Add..."
                     onToggle={[Function]}
                   >
                     <button
                       className="nice-btn"
+                      disabled={false}
                       onClick={[Function]}
                     >
                       Add...
@@ -736,6 +739,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
                 closeOnClick={true}
                 description={null}
                 disableOnClickOutside={[Function]}
+                disabled={false}
                 enableOnClickOutside={[Function]}
                 eventTypes={
                   Array [
@@ -753,11 +757,13 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 1`]
                   className="nice-dropdown nice-form-control"
                 >
                   <SelectButton
+                    disabled={false}
                     label="Add..."
                     onToggle={[Function]}
                   >
                     <button
                       className="nice-btn"
+                      disabled={false}
                       onClick={[Function]}
                     >
                       Add...
@@ -1731,6 +1737,7 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 4`]
                 closeOnClick={true}
                 description={null}
                 disableOnClickOutside={[Function]}
+                disabled={false}
                 enableOnClickOutside={[Function]}
                 eventTypes={
                   Array [
@@ -1748,11 +1755,13 @@ exports[`Component: ListPropertySelect should handle adding and deleting new 4`]
                   className="nice-dropdown nice-form-control"
                 >
                   <SelectButton
+                    disabled={false}
                     label="Add..."
                     onToggle={[Function]}
                   >
                     <button
                       className="nice-btn"
+                      disabled={false}
                       onClick={[Function]}
                     >
                       Add...
@@ -2723,6 +2732,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
                 closeOnClick={true}
                 description={null}
                 disableOnClickOutside={[Function]}
+                disabled={false}
                 enableOnClickOutside={[Function]}
                 eventTypes={
                   Array [
@@ -2740,11 +2750,13 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
                   className="nice-dropdown nice-form-control"
                 >
                   <SelectButton
+                    disabled={false}
                     label="Add..."
                     onToggle={[Function]}
                   >
                     <button
                       className="nice-btn"
+                      disabled={false}
                       onClick={[Function]}
                     >
                       Add...

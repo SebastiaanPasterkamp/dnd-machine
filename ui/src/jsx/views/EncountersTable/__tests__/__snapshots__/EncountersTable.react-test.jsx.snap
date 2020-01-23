@@ -46,6 +46,7 @@ exports[`EncountersTable should render with full props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Campaigns...
@@ -326,6 +327,7 @@ exports[`EncountersTable should render without props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Campaigns...

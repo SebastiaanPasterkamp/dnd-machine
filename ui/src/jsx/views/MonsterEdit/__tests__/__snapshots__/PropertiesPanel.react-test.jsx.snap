@@ -66,6 +66,7 @@ exports[`View PropertiesPanel rendering should work w/ full props 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Add...
@@ -176,6 +177,7 @@ exports[`View PropertiesPanel rendering should work w/ full props 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Add...
@@ -403,6 +405,7 @@ exports[`View PropertiesPanel rendering should work w/ minimum props 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Add...
@@ -479,6 +482,7 @@ exports[`View PropertiesPanel rendering should work w/ minimum props 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Add...

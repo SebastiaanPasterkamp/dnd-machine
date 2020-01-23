@@ -38,6 +38,7 @@ exports[`MonstersFilter should render with full props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Some campaign
@@ -95,6 +96,7 @@ exports[`MonstersFilter should render with full props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         2 selected
@@ -208,6 +210,7 @@ exports[`MonstersFilter should render with full props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         2 selected
@@ -433,6 +436,7 @@ exports[`MonstersFilter should render with full props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         All Alignments
@@ -588,6 +592,7 @@ exports[`MonstersFilter should render with full props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         3 selected
@@ -1139,6 +1144,7 @@ exports[`MonstersFilter should render without props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         All Campaigns...
@@ -1182,6 +1188,7 @@ exports[`MonstersFilter should render without props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         All Sizes
@@ -1295,6 +1302,7 @@ exports[`MonstersFilter should render without props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         All Types
@@ -1520,6 +1528,7 @@ exports[`MonstersFilter should render without props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         All Alignments
@@ -1675,6 +1684,7 @@ exports[`MonstersFilter should render without props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Any Level...

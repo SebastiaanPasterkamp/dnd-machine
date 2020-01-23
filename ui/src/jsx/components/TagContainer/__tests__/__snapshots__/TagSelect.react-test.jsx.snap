@@ -8,6 +8,7 @@ exports[`Component: TagSelect rendering works with only items 1`] = `
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     Add...
@@ -56,6 +57,7 @@ exports[`Component: TagSelect rendering works with some selected 1`] = `
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     Add...
@@ -95,6 +97,7 @@ exports[`Component: TagSelect rendering works with some selected, but allowing m
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     Add...

@@ -35,6 +35,7 @@ exports[`MonsterEdit should render with full props 1`] = `
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               Some campaign
@@ -98,6 +99,7 @@ exports[`MonsterEdit should render with full props 1`] = `
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               Medium
@@ -175,6 +177,7 @@ exports[`MonsterEdit should render with full props 1`] = `
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               Type...
@@ -328,6 +331,7 @@ exports[`MonsterEdit should render with full props 1`] = `
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               Chaotic neutral
@@ -436,6 +440,7 @@ exports[`MonsterEdit should render with full props 1`] = `
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               1
@@ -724,6 +729,7 @@ exports[`MonsterEdit should render with full props 1`] = `
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               10
@@ -930,6 +936,7 @@ exports[`MonsterEdit should render with full props 1`] = `
             >
               <button
                 className="nice-btn"
+                disabled={false}
                 onClick={[Function]}
               >
                 Add...
@@ -1023,6 +1030,7 @@ exports[`MonsterEdit should render with full props 1`] = `
             >
               <button
                 className="nice-btn"
+                disabled={false}
                 onClick={[Function]}
               >
                 Add...
@@ -1223,6 +1231,7 @@ exports[`MonsterEdit should render with full props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     
@@ -1541,6 +1550,7 @@ exports[`MonsterEdit should render with full props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     
@@ -1859,6 +1869,7 @@ exports[`MonsterEdit should render with full props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     
@@ -2177,6 +2188,7 @@ exports[`MonsterEdit should render with full props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     
@@ -2495,6 +2507,7 @@ exports[`MonsterEdit should render with full props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     
@@ -2813,6 +2826,7 @@ exports[`MonsterEdit should render with full props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     
@@ -3213,6 +3227,7 @@ exports[`MonsterEdit should render with full props 1`] = `
                     >
                       <button
                         className="nice-btn"
+                        disabled={false}
                         onClick={[Function]}
                       >
                         1
@@ -3416,6 +3431,7 @@ exports[`MonsterEdit should render with full props 1`] = `
                     >
                       <button
                         className="nice-btn"
+                        disabled={false}
                         onClick={[Function]}
                       >
                         4
@@ -3498,6 +3514,7 @@ exports[`MonsterEdit should render with full props 1`] = `
                     >
                       <button
                         className="nice-btn"
+                        disabled={false}
                         onClick={[Function]}
                       >
                         Bludgeoning
@@ -3663,6 +3680,7 @@ exports[`MonsterEdit should render with full props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     Single target
@@ -3717,6 +3735,7 @@ exports[`MonsterEdit should render with full props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     Melee Attack
@@ -3999,6 +4018,7 @@ exports[`MonsterEdit should render with full props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     Add...
@@ -4152,6 +4172,7 @@ exports[`MonsterEdit should render without props 1`] = `
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               Shared
@@ -4206,6 +4227,7 @@ exports[`MonsterEdit should render without props 1`] = `
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               Size...
@@ -4283,6 +4305,7 @@ exports[`MonsterEdit should render without props 1`] = `
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               Type...
@@ -4436,6 +4459,7 @@ exports[`MonsterEdit should render without props 1`] = `
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               Alignment...
@@ -4544,6 +4568,7 @@ exports[`MonsterEdit should render without props 1`] = `
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               1
@@ -4832,6 +4857,7 @@ exports[`MonsterEdit should render without props 1`] = `
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               10
@@ -5039,6 +5065,7 @@ exports[`MonsterEdit should render without props 1`] = `
             >
               <button
                 className="nice-btn"
+                disabled={false}
                 onClick={[Function]}
               >
                 Add...
@@ -5115,6 +5142,7 @@ exports[`MonsterEdit should render without props 1`] = `
             >
               <button
                 className="nice-btn"
+                disabled={false}
                 onClick={[Function]}
               >
                 Add...
@@ -5263,6 +5291,7 @@ exports[`MonsterEdit should render without props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     
@@ -5581,6 +5610,7 @@ exports[`MonsterEdit should render without props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     
@@ -5899,6 +5929,7 @@ exports[`MonsterEdit should render without props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     
@@ -6217,6 +6248,7 @@ exports[`MonsterEdit should render without props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     
@@ -6535,6 +6567,7 @@ exports[`MonsterEdit should render without props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     
@@ -6853,6 +6886,7 @@ exports[`MonsterEdit should render without props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     
@@ -7254,6 +7288,7 @@ exports[`MonsterEdit should render without props 1`] = `
                     >
                       <button
                         className="nice-btn"
+                        disabled={false}
                         onClick={[Function]}
                       >
                         Dice count
@@ -7457,6 +7492,7 @@ exports[`MonsterEdit should render without props 1`] = `
                     >
                       <button
                         className="nice-btn"
+                        disabled={false}
                         onClick={[Function]}
                       >
                         Dice size
@@ -7539,6 +7575,7 @@ exports[`MonsterEdit should render without props 1`] = `
                     >
                       <button
                         className="nice-btn"
+                        disabled={false}
                         onClick={[Function]}
                       >
                         Damage type
@@ -7693,6 +7730,7 @@ exports[`MonsterEdit should render without props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     Target...
@@ -7747,6 +7785,7 @@ exports[`MonsterEdit should render without props 1`] = `
                 >
                   <button
                     className="nice-btn"
+                    disabled={false}
                     onClick={[Function]}
                   >
                     Mode...

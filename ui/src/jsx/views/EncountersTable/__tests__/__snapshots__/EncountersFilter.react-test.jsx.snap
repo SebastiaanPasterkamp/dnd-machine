@@ -38,6 +38,7 @@ exports[`EncountersFilter should render with full props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Some campaign
@@ -197,6 +198,7 @@ exports[`EncountersFilter should render without props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         All Campaigns...

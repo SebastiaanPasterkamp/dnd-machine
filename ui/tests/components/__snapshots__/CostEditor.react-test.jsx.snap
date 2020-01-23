@@ -9,6 +9,7 @@ exports[`Component: CostEditor should show a blank widget 1`] = `
   >
     <button
       className="nice-btn"
+      disabled={false}
       onClick={[Function]}
     >
       Add...
@@ -79,6 +80,7 @@ exports[`Component: CostEditor should show coins in provided order 1`] = `
   >
     <button
       className="nice-btn"
+      disabled={false}
       onClick={[Function]}
     >
       Add...

@@ -7,6 +7,7 @@ exports[`Component: MultiSelect should handle unknown value 1`] = `
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     0 selected
@@ -85,6 +86,7 @@ exports[`Component: MultiSelect should show a dropdown with 4 items disabled by 
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     2 selected
@@ -163,6 +165,7 @@ exports[`Component: MultiSelect should show a dropdown with 4 items in various s
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     2 selected
@@ -241,6 +244,7 @@ exports[`Component: MultiSelect should show a simple dropdown with 4 items 1`] =
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     0 selected

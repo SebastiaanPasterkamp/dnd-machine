@@ -38,6 +38,7 @@ exports[`Component: SelectListComponent show an item 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Add...
@@ -96,6 +97,7 @@ exports[`Component: SelectListComponent show some options 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Add...

@@ -44,6 +44,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             12
@@ -175,6 +176,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             12
@@ -306,6 +308,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             12
@@ -437,6 +440,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             12
@@ -568,6 +572,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             12
@@ -699,6 +704,7 @@ exports[`Component: StatsBlock should show stat block editor 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             12

@@ -6,6 +6,7 @@ exports[`Component: SingleSelect should handle unknown value 1`] = `
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     
@@ -54,6 +55,7 @@ exports[`Component: SingleSelect should show a dropdown with 3 items disabled by
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     Three
@@ -102,6 +104,7 @@ exports[`Component: SingleSelect should show a dropdown with 3 items in various 
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     Three
@@ -150,6 +153,7 @@ exports[`Component: SingleSelect should show a simple dropdown with 3 items 1`] 
 >
   <button
     className="nice-btn"
+    disabled={false}
     onClick={[Function]}
   >
     

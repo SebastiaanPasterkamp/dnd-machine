@@ -72,6 +72,7 @@ exports[`AttackEditor should render with full props 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             1
@@ -275,6 +276,7 @@ exports[`AttackEditor should render with full props 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             4
@@ -357,6 +359,7 @@ exports[`AttackEditor should render with full props 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Bludgeoning
@@ -522,6 +525,7 @@ exports[`AttackEditor should render with full props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Single target
@@ -576,6 +580,7 @@ exports[`AttackEditor should render with full props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Melee Attack
@@ -794,6 +799,7 @@ exports[`AttackEditor should render without props 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Dice count
@@ -997,6 +1003,7 @@ exports[`AttackEditor should render without props 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Dice size
@@ -1079,6 +1086,7 @@ exports[`AttackEditor should render without props 1`] = `
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Damage type
@@ -1115,6 +1123,7 @@ exports[`AttackEditor should render without props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Target...
@@ -1141,6 +1150,7 @@ exports[`AttackEditor should render without props 1`] = `
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Mode...

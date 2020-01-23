@@ -307,6 +307,7 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
             closeOnClick={true}
             description={null}
             disableOnClickOutside={[Function]}
+            disabled={false}
             enableOnClickOutside={[Function]}
             eventTypes={
               Array [
@@ -324,11 +325,13 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
               className="nice-dropdown nice-form-control small"
             >
               <SelectButton
+                disabled={false}
                 label="Charisma"
                 onToggle={[Function]}
               >
                 <button
                   className="nice-btn"
+                  disabled={false}
                   onClick={[Function]}
                 >
                   Charisma

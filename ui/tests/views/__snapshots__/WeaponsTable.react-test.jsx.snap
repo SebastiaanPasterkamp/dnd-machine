@@ -46,6 +46,7 @@ exports[`WeaponsTable render should work with all props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Properties
@@ -229,6 +230,7 @@ exports[`WeaponsTable render should work with all props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Weapon Types
@@ -327,6 +329,7 @@ exports[`WeaponsTable render should work with all props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           Dice Sizes
@@ -422,6 +425,7 @@ exports[`WeaponsTable render should work with all props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Damage Types
@@ -780,6 +784,7 @@ exports[`WeaponsTable render should work without props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Properties
@@ -963,6 +968,7 @@ exports[`WeaponsTable render should work without props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Weapon Types
@@ -1061,6 +1067,7 @@ exports[`WeaponsTable render should work without props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           Dice Sizes
@@ -1156,6 +1163,7 @@ exports[`WeaponsTable render should work without props 1`] = `
       >
         <button
           className="nice-btn"
+          disabled={false}
           onClick={[Function]}
         >
           All Damage Types

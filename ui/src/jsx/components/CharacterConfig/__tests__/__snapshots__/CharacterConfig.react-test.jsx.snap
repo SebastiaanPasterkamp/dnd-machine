@@ -605,6 +605,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
                       closeOnClick={true}
                       description={null}
                       disableOnClickOutside={[Function]}
+                      disabled={false}
                       enableOnClickOutside={[Function]}
                       eventTypes={
                         Array [
@@ -622,11 +623,13 @@ exports[`Component: CharacterConfig should render list 1`] = `
                         className="nice-dropdown nice-form-control"
                       >
                         <SelectButton
+                          disabled={false}
                           label="Add..."
                           onToggle={[Function]}
                         >
                           <button
                             className="nice-btn"
+                            disabled={false}
                             onClick={[Function]}
                           >
                             Add...
@@ -1064,6 +1067,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                           closeOnClick={true}
                           description={null}
                           disableOnClickOutside={[Function]}
+                          disabled={false}
                           enableOnClickOutside={[Function]}
                           eventTypes={
                             Array [
@@ -1081,11 +1085,13 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                             className="nice-dropdown nice-form-control"
                           >
                             <SelectButton
+                              disabled={false}
                               label="Add..."
                               onToggle={[Function]}
                             >
                               <button
                                 className="nice-btn"
+                                disabled={false}
                                 onClick={[Function]}
                               >
                                 Add...
@@ -1417,6 +1423,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
                   closeOnClick={true}
                   description={null}
                   disableOnClickOutside={[Function]}
+                  disabled={false}
                   enableOnClickOutside={[Function]}
                   eventTypes={
                     Array [
@@ -1434,11 +1441,13 @@ exports[`Component: CharacterConfig should render select 1`] = `
                     className="nice-dropdown nice-form-control small"
                   >
                     <SelectButton
+                      disabled={false}
                       label="Strength"
                       onToggle={[Function]}
                     >
                       <button
                         className="nice-btn"
+                        disabled={false}
                         onClick={[Function]}
                       >
                         Strength
@@ -1760,6 +1769,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                       closeOnClick={true}
                       description={null}
                       disableOnClickOutside={[Function]}
+                      disabled={false}
                       enableOnClickOutside={[Function]}
                       eventTypes={
                         Array [
@@ -1777,11 +1787,13 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                         className="nice-dropdown nice-form-control"
                       >
                         <SelectButton
+                          disabled={false}
                           label="Add..."
                           onToggle={[Function]}
                         >
                           <button
                             className="nice-btn"
+                            disabled={false}
                             onClick={[Function]}
                           >
                             Add...
@@ -2117,6 +2129,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                       closeOnClick={true}
                       description={null}
                       disableOnClickOutside={[Function]}
+                      disabled={false}
                       enableOnClickOutside={[Function]}
                       eventTypes={
                         Array [
@@ -2134,11 +2147,13 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                         className="nice-dropdown nice-form-control"
                       >
                         <SelectButton
+                          disabled={false}
                           label="Add..."
                           onToggle={[Function]}
                         >
                           <button
                             className="nice-btn"
+                            disabled={false}
                             onClick={[Function]}
                           >
                             Add...

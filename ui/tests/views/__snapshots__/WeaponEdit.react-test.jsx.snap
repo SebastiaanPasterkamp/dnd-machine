@@ -45,6 +45,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             
@@ -71,6 +72,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             1
@@ -274,6 +276,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             6
@@ -356,6 +359,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Slashing
@@ -392,6 +396,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             1
@@ -595,6 +600,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             8
@@ -677,6 +683,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Slashing
@@ -814,6 +821,7 @@ Array [
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               Add...
@@ -993,6 +1001,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             
@@ -1019,6 +1028,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             1
@@ -1222,6 +1232,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             4
@@ -1304,6 +1315,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Damage type
@@ -1395,6 +1407,7 @@ Array [
           >
             <button
               className="nice-btn"
+              disabled={false}
               onClick={[Function]}
             >
               Add...

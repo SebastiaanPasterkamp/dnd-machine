@@ -571,6 +571,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
                     closeOnClick={true}
                     description={null}
                     disableOnClickOutside={[Function]}
+                    disabled={false}
                     enableOnClickOutside={[Function]}
                     eventTypes={
                       Array [
@@ -588,11 +589,13 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
                       className="nice-dropdown nice-form-control"
                     >
                       <SelectButton
+                        disabled={false}
                         label="Add..."
                         onToggle={[Function]}
                       >
                         <button
                           className="nice-btn"
+                          disabled={false}
                           onClick={[Function]}
                         >
                           Add...
@@ -933,6 +936,7 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
                     closeOnClick={true}
                     description={null}
                     disableOnClickOutside={[Function]}
+                    disabled={false}
                     enableOnClickOutside={[Function]}
                     eventTypes={
                       Array [
@@ -950,11 +954,13 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
                       className="nice-dropdown nice-form-control"
                     >
                       <SelectButton
+                        disabled={false}
                         label="Add..."
                         onToggle={[Function]}
                       >
                         <button
                           className="nice-btn"
+                          disabled={false}
                           onClick={[Function]}
                         >
                           Add...
@@ -1027,6 +1033,7 @@ exports[`Component: MultipleChoiceSelect should render with minimum props 1`] = 
     >
       <button
         className="nice-btn"
+        disabled={false}
         onClick={[Function]}
       >
         Add...

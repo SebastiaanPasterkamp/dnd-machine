@@ -27,6 +27,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Campaign...
@@ -165,6 +166,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Gender...
@@ -191,6 +193,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Alignment...
@@ -217,6 +220,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Size...
@@ -243,6 +247,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             1
@@ -698,6 +703,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Campaign...
@@ -836,6 +842,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Male
@@ -890,6 +897,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Chaotic neutral
@@ -998,6 +1006,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             Huge
@@ -1079,6 +1088,7 @@ Array [
         >
           <button
             className="nice-btn"
+            disabled={false}
             onClick={[Function]}
           >
             10
@@ -1446,6 +1456,7 @@ Array [
               >
                 <button
                   className="nice-btn"
+                  disabled={false}
                   onClick={[Function]}
                 >
                   
@@ -1772,6 +1783,7 @@ Array [
               >
                 <button
                   className="nice-btn"
+                  disabled={false}
                   onClick={[Function]}
                 >
                   
@@ -2098,6 +2110,7 @@ Array [
               >
                 <button
                   className="nice-btn"
+                  disabled={false}
                   onClick={[Function]}
                 >
                   
@@ -2424,6 +2437,7 @@ Array [
               >
                 <button
                   className="nice-btn"
+                  disabled={false}
                   onClick={[Function]}
                 >
                   
@@ -2750,6 +2764,7 @@ Array [
               >
                 <button
                   className="nice-btn"
+                  disabled={false}
                   onClick={[Function]}
                 >
                   
@@ -3076,6 +3091,7 @@ Array [
               >
                 <button
                   className="nice-btn"
+                  disabled={false}
                   onClick={[Function]}
                 >
                   
