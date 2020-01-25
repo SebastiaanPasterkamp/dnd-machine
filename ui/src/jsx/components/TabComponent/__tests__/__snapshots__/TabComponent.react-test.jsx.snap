@@ -1,0 +1,228 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: TabComponent should render with all props 1`] = `
+<TabComponent
+  activeTab={0}
+  mountAll={true}
+  onTabChange={[Function]}
+  tabConfig={
+    Array [
+      Object {
+        "icon": "pencil",
+        "label": "Foo",
+      },
+      Object {
+        "active": true,
+        "icon": "help",
+        "label": "Bar",
+      },
+      Object {
+        "disabled": true,
+        "icon": "cross",
+        "label": "Ruh",
+      },
+    ]
+  }
+>
+  <div
+    className="nice-tabs-wrapper tab-component"
+  >
+    <ul
+      className="nice-tabs bold"
+    >
+      <Tab
+        active={true}
+        color={null}
+        disabled={false}
+        icon="pencil"
+        key="tab-0/.0"
+        label="Foo"
+        onSelect={[Function]}
+      >
+        <li
+          className="tab-component__tab current"
+        >
+          <a
+            className="icon pencil cursor-pointer"
+            onClick={null}
+          >
+            Foo
+          </a>
+        </li>
+      </Tab>
+      <Tab
+        active={false}
+        color={null}
+        disabled={false}
+        icon="help"
+        key="tab-1/.1"
+        label="Bar"
+        onSelect={[Function]}
+      >
+        <li
+          className="tab-component__tab"
+        >
+          <a
+            className="icon help cursor-pointer"
+            onClick={[Function]}
+          >
+            Bar
+          </a>
+        </li>
+      </Tab>
+      <Tab
+        active={false}
+        color={null}
+        disabled={true}
+        icon="cross"
+        key="tab-2/.2"
+        label="Ruh"
+        onSelect={[Function]}
+      >
+        <li
+          className="tab-component__tab muted"
+        >
+          <a
+            className="icon cross cursor-not-allowed"
+            onClick={null}
+          >
+            Ruh
+          </a>
+        </li>
+      </Tab>
+    </ul>
+    <ul
+      className="nice-tab-content"
+    >
+      <li
+        className="current"
+        key="child-0/.0"
+      >
+        <span>
+          Foo
+        </span>
+      </li>
+      <li
+        className={null}
+        key="child-1/.1"
+      >
+        <span>
+          Bar
+        </span>
+      </li>
+      <li
+        className={null}
+        key="child-2/.2"
+      >
+        <span>
+          Ruh
+        </span>
+      </li>
+    </ul>
+  </div>
+</TabComponent>
+`;
+
+exports[`Component: TabComponent should render with minimum props 1`] = `
+<TabComponent
+  tabConfig={
+    Array [
+      Object {
+        "icon": "pencil",
+        "label": "Foo",
+      },
+      Object {
+        "active": true,
+        "icon": "help",
+        "label": "Bar",
+      },
+      Object {
+        "disabled": true,
+        "icon": "cross",
+        "label": "Ruh",
+      },
+    ]
+  }
+>
+  <div
+    className="nice-tabs-wrapper tab-component"
+  >
+    <ul
+      className="nice-tabs bold"
+    >
+      <Tab
+        active={false}
+        color={null}
+        disabled={false}
+        icon="pencil"
+        key="tab-0/.0"
+        label="Foo"
+        onSelect={[Function]}
+      >
+        <li
+          className="tab-component__tab"
+        >
+          <a
+            className="icon pencil cursor-pointer"
+            onClick={[Function]}
+          >
+            Foo
+          </a>
+        </li>
+      </Tab>
+      <Tab
+        active={true}
+        color={null}
+        disabled={false}
+        icon="help"
+        key="tab-1/.1"
+        label="Bar"
+        onSelect={[Function]}
+      >
+        <li
+          className="tab-component__tab current"
+        >
+          <a
+            className="icon help cursor-pointer"
+            onClick={null}
+          >
+            Bar
+          </a>
+        </li>
+      </Tab>
+      <Tab
+        active={false}
+        color={null}
+        disabled={true}
+        icon="cross"
+        key="tab-2/.2"
+        label="Ruh"
+        onSelect={[Function]}
+      >
+        <li
+          className="tab-component__tab muted"
+        >
+          <a
+            className="icon cross cursor-not-allowed"
+            onClick={null}
+          >
+            Ruh
+          </a>
+        </li>
+      </Tab>
+    </ul>
+    <ul
+      className="nice-tab-content"
+    >
+      <li
+        className="current"
+        key="child-1/.1"
+      >
+        <span>
+          Bar
+        </span>
+      </li>
+    </ul>
+  </div>
+</TabComponent>
+`;

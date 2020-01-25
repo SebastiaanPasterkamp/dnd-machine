@@ -1,16 +1,10 @@
 // _tab-component.scss
 
-@import 'mixins/unselectable';
-
 .tab-component {
     > ul.nice-tabs {
         overflow-x: auto;
         overflow-y: hidden;
         display: -webkit-box;
         display: -moz-box;
-
-        > li {
-            @extend .unselectable;
-        }
     }
 }
