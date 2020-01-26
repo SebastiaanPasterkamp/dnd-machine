@@ -6,6 +6,7 @@ import '../../sass/_user-edit.scss';
 
 import ListDataWrapper from '../hocs/ListDataWrapper';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
+import InlineDataWrapper from '../hocs/InlineDataWrapper.jsx';
 
 import ControlGroup from '../components/ControlGroup';
 import InputField from '../components/InputField';
@@ -35,8 +36,11 @@ export class UserEdit extends React.Component
 
     render() {
         const {
-            id, name, username, password, email, dci, google_id, role = [],
-            user_roles = [], current_user: { role: current_role = [] }
+            id, name, username, password, email, dci, google_id,
+            role, user_roles, googleAuth,
+            current_user: {
+                role: current_role = [],
+            },
         } = this.props;
         const isAdmin = _.includes(current_role, 'admin');
 
@@ -88,18 +92,20 @@ export class UserEdit extends React.Component
                     />
                 </ControlGroup>
 
-                <ToggleSwitch
-                    value={google_id}
-                    checked={!!google_id}
-                    disabled={!google_id}
-                    onChange={this.onRemoveGoogleID}
-                    label={google_id ? (
-                        "Login with Google enabled"
-                        ) : (
-                            <a href="/user/google">Enable login with Google</a>
-                        )
-                    }
-                />
+                {googleAuth ? (
+                    <ToggleSwitch
+                        value={google_id}
+                        checked={!!google_id}
+                        disabled={!google_id}
+                        onChange={this.onRemoveGoogleID}
+                        label={google_id ? (
+                            "Login with Google enabled"
+                            ) : (
+                                <a href="/user/google">Enable login with Google</a>
+                            )
+                        }
+                    />
+                ) : null}
             </Panel>
 
             {isAdmin
@@ -143,25 +149,39 @@ UserEdit.propTypes = {
             PropTypes.string
         ),
     }).isRequired,
+    googleAuth: PropTypes.bool,
 };
 
-export default ListDataWrapper(
+UserEdit.defaultProps = {
+    google_id: '',
+    name: '',
+    dci: '',
+    email: '',
+    role: [],
+    user_roles: [],
+    googleAuth: false,
+};
+
+export default InlineDataWrapper(
     ListDataWrapper(
-        RoutedObjectDataWrapper(
-            UserEdit, {
-                className: 'user-edit',
-                icon: 'fa-user',
-                label: 'User',
-                buttons: ['cancel', 'show', 'reload', 'save']
-            },
-            "user"
+        ListDataWrapper(
+            RoutedObjectDataWrapper(
+                UserEdit, {
+                    className: 'user-edit',
+                    icon: 'fa-user',
+                    label: 'User',
+                    buttons: ['cancel', 'show', 'reload', 'save']
+                },
+                "user"
+            ),
+            [
+                "user_roles",
+            ],
+            'items'
         ),
         [
-            "user_roles",
-        ],
-        'items'
+            "current_user",
+        ]
     ),
-    [
-        "current_user",
-    ]
+    'authenticate'
 );

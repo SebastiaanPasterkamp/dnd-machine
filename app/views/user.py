@@ -26,7 +26,7 @@ class UserBlueprint(BaseApiBlueprint):
         exposed = set(['id', 'name', 'dci'])
         if obj.id == request.user.id \
                 or self.checkRole(['admin']):
-            exposed |= set(['username', 'email', 'role'])
+            exposed |= set(['username', 'email', 'role', 'google_id'])
         retval = dict([
             (key, value)
             for key, value in list(obj.config.items())
@@ -43,7 +43,7 @@ class UserBlueprint(BaseApiBlueprint):
                 ])
         if obj is not None and obj.id == request.user.id:
             mutable |= set([
-                'password', 'email', 'name', 'dci',
+                'password', 'email', 'name', 'dci', 'google_id',
                 ])
         return dict([
             (key, value)
@@ -106,14 +106,14 @@ class UserBlueprint(BaseApiBlueprint):
         # scopes that let you retrieve user's profile from Google
         request_uri = client.prepare_request_uri(
             authorization_endpoint,
-            redirect_uri=url_for('link_google_callback', _external=True),
+            redirect_uri=url_for('user.link_google_callback', _external=True),
             scope=["profile"],
             )
         return redirect(request_uri)
 
 
     def link_google_callback(self):
-        if config.get('GOOGLE_CLIENT_ID') \
+        if self.config.get('GOOGLE_CLIENT_ID') \
                 and not request.is_secure \
                 and request.headers.get('X-Forwarded-Proto', 'http') == 'https':
             os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
@@ -126,8 +126,8 @@ class UserBlueprint(BaseApiBlueprint):
 
         token_url, headers, body = client.prepare_token_request(
             token_endpoint,
-            authorization_response=url_for('link_google_callback', _external=True),
-            redirect_url=url_for('home', _external=True),
+            authorization_response=request.url,
+            redirect_url=url_for('user.link_google_callback', _external=True),
             code=code,
         )
         token_response = requests.post(

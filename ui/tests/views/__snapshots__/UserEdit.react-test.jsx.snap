@@ -149,6 +149,7 @@ exports[`UserEdit should render with full props as admin 1`] = `
         </a>
       }
       onChange={[Function]}
+      value=""
     />
   </Panel>
   <Panel
@@ -251,18 +252,6 @@ exports[`UserEdit should render with minimum props 1`] = `
         value=""
       />
     </ControlGroup>
-    <ToggleSwitch
-      checked={false}
-      disabled={true}
-      label={
-        <a
-          href="/user/google"
-        >
-          Enable login with Google
-        </a>
-      }
-      onChange={[Function]}
-    />
   </Panel>
 </Fragment>
 `;
