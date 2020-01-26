@@ -45,6 +45,7 @@ describe('UserEdit', () => {
                     role: [],
                 }}
                 google_id="whatever"
+                googleAuth={true}
             />
         );
 
@@ -66,8 +67,10 @@ describe('UserEdit', () => {
                     {code: 'player', label: 'Player'},
                 ]}
                 current_user={{
+                    id: 2,
                     role: ['admin'],
                 }}
+                googleAuth={true}
             />
         );
 
