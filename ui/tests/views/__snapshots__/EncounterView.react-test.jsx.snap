@@ -2317,24 +2317,33 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                     <ul
                       className="nice-tabs bold"
                     >
-                      <li
-                        className="tab-component__tab current"
+                      <Tab
+                        active={true}
+                        color={null}
+                        disabled={false}
+                        icon={null}
                         key="tab-0/.$2"
+                        label="Kobol"
+                        onSelect={[Function]}
                       >
-                        <a
-                          className="cursor-pointer"
-                          onClick={null}
+                        <li
+                          className="tab-component__tab current"
                         >
-                          Kobol
-                        </a>
-                      </li>
+                          <a
+                            className="cursor-pointer"
+                            onClick={null}
+                          >
+                            Kobol
+                          </a>
+                        </li>
+                      </Tab>
                     </ul>
                     <ul
                       className="nice-tab-content"
                     >
                       <li
                         className="current"
-                        key=".$2"
+                        key="child-0/.$2"
                       >
                         <ListDataRoutedObjectMonsterView
                           _languages={
@@ -7483,24 +7492,33 @@ exports[`EncounterView should allow switching to combat 1`] = `
                     <ul
                       className="nice-tabs bold"
                     >
-                      <li
-                        className="tab-component__tab current"
+                      <Tab
+                        active={true}
+                        color={null}
+                        disabled={false}
+                        icon={null}
                         key="tab-0/.$2"
+                        label="Kobol"
+                        onSelect={[Function]}
                       >
-                        <a
-                          className="cursor-pointer"
-                          onClick={null}
+                        <li
+                          className="tab-component__tab current"
                         >
-                          Kobol
-                        </a>
-                      </li>
+                          <a
+                            className="cursor-pointer"
+                            onClick={null}
+                          >
+                            Kobol
+                          </a>
+                        </li>
+                      </Tab>
                     </ul>
                     <ul
                       className="nice-tab-content"
                     >
                       <li
                         className="current"
-                        key=".$2"
+                        key="child-0/.$2"
                       >
                         <ListDataRoutedObjectMonsterView
                           _languages={
@@ -12691,24 +12709,33 @@ exports[`EncounterView should allow switching to combat 2`] = `
                     <ul
                       className="nice-tabs bold"
                     >
-                      <li
-                        className="tab-component__tab current"
+                      <Tab
+                        active={true}
+                        color={null}
+                        disabled={false}
+                        icon={null}
                         key="tab-0/.$2"
+                        label="Kobol"
+                        onSelect={[Function]}
                       >
-                        <a
-                          className="cursor-pointer"
-                          onClick={null}
+                        <li
+                          className="tab-component__tab current"
                         >
-                          Kobol
-                        </a>
-                      </li>
+                          <a
+                            className="cursor-pointer"
+                            onClick={null}
+                          >
+                            Kobol
+                          </a>
+                        </li>
+                      </Tab>
                     </ul>
                     <ul
                       className="nice-tab-content"
                     >
                       <li
                         className="current"
-                        key=".$2"
+                        key="child-0/.$2"
                       >
                         <ListDataRoutedObjectMonsterView
                           _languages={
