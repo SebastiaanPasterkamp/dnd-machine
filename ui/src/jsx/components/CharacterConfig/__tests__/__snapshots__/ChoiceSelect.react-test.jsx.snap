@@ -2,37 +2,45 @@
 
 exports[`Component: ChoiceSelect should render with all props 1`] = `
 <ChoiceSelect
-  description="One choice please"
+  onChange={[Function]}
   options={
     Array [
       Object {
         "label": "Choice A",
         "limit": 1,
         "type": "ability_score",
+        "uuid": "mocked-uuid-2",
       },
       Object {
         "description": "Some *text* here",
         "label": "Choice B",
         "limit": 2,
         "type": "ability_score",
+        "uuid": "mocked-uuid-3",
       },
     ]
   }
+  selected="mocked-uuid-3"
   type="choice"
+  uuid="mocked-uuid-1"
 >
   <TabComponent
+    activeTab={1}
+    onTabChange={[Function]}
     tabConfig={
       Array [
         Object {
           "label": "Choice A",
           "limit": 1,
           "type": "ability_score",
+          "uuid": "mocked-uuid-2",
         },
         Object {
           "description": "Some *text* here",
           "label": "Choice B",
           "limit": 2,
           "type": "ability_score",
+          "uuid": "mocked-uuid-3",
         },
       ]
     }
@@ -43,74 +51,123 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
       <ul
         className="nice-tabs bold"
       >
-        <li
-          className="tab-component__tab current"
+        <Tab
+          active={false}
+          color={null}
+          disabled={false}
+          icon={null}
           key="tab-0/.$0"
+          label="Choice A"
+          limit={1}
+          onSelect={[Function]}
+          type="ability_score"
+          uuid="mocked-uuid-2"
         >
-          <a
-            className="cursor-pointer"
-            onClick={null}
+          <li
+            className="tab-component__tab"
           >
-            Choice A
-          </a>
-        </li>
-        <li
-          className="tab-component__tab"
+            <a
+              className="cursor-pointer"
+              onClick={[Function]}
+            >
+              Choice A
+            </a>
+          </li>
+        </Tab>
+        <Tab
+          active={true}
+          color={null}
+          description="Some *text* here"
+          disabled={false}
+          icon={null}
           key="tab-1/.$1"
+          label="Choice B"
+          limit={2}
+          onSelect={[Function]}
+          type="ability_score"
+          uuid="mocked-uuid-3"
         >
-          <a
-            className="cursor-pointer"
-            onClick={[Function]}
+          <li
+            className="tab-component__tab current"
           >
-            Choice B
-          </a>
-        </li>
+            <a
+              className="cursor-pointer"
+              onClick={null}
+            >
+              Choice B
+            </a>
+          </li>
+        </Tab>
       </ul>
       <ul
         className="nice-tab-content"
       >
         <li
           className="current"
-          key=".$0"
+          key="child-1/.$1"
         >
           <CharacterConfig
             config={
               Array [
                 Object {
-                  "label": "Choice A",
-                  "limit": 1,
+                  "description": "Some *text* here",
+                  "label": "Choice B",
+                  "limit": 2,
                   "type": "ability_score",
+                  "uuid": "mocked-uuid-3",
                 },
               ]
             }
-            key="0"
+            key="1"
           >
             <FormGroup
               key="0"
-              label="Choice A"
+              label="Choice B"
             >
               <div
                 className="nice-form-group"
               >
                 <label>
-                  Choice A
+                  Choice B
                 </label>
+                <MDReactComponent
+                  text="Some *text* here"
+                >
+                  <span
+                    key="mdrct-html-0"
+                  >
+                    <p
+                      key="mdrct-p-0"
+                    >
+                      Some 
+                      <em
+                        key="mdrct-em-1"
+                      >
+                        text
+                      </em>
+                       here
+                    </p>
+                  </span>
+                </MDReactComponent>
                 <ListDataStatisticsSelect
-                  limit={1}
+                  limit={2}
                   type="ability_score"
+                  uuid="mocked-uuid-3"
                 >
                   <StatisticsSelect
-                    limit={1}
+                    limit={2}
                     statistics={Array []}
                     type="ability_score"
+                    uuid="mocked-uuid-3"
                   >
                     <ListDataStatsBlock
                       bonusChange={[Function]}
                       editBase={false}
-                      increase={1}
+                      increase={2}
                       setState={[Function]}
                       statistics={Array []}
                       type="ability_score"
+                      uuid="mocked-uuid-3"
                     >
                       <StatsBlock
                         bare={Object {}}
@@ -119,13 +176,14 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
                         bonusChange={[Function]}
                         budget={0}
                         editBase={false}
-                        increase={1}
+                        increase={2}
                         maxBare={30}
                         minBare={8}
                         modifiers={Object {}}
                         setState={[Function]}
                         statistics={Array []}
                         type="ability_score"
+                        uuid="mocked-uuid-3"
                       >
                         <table
                           className="nice-table stats-block condensed bordered"
@@ -142,7 +200,7 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
                               </th>
                               <th
                                 className="text-align-center"
-                                colSpan={1}
+                                colSpan={2}
                               >
                                 Increase
                               </th>
@@ -176,22 +234,10 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
 
 exports[`Component: ChoiceSelect should render with minimum props 1`] = `
 <ChoiceSelect
+  onChange={[Function]}
   options={Array []}
+  selected="mocked-uuid-2"
   type="choice"
->
-  <TabComponent
-    tabConfig={Array []}
-  >
-    <div
-      className="nice-tabs-wrapper tab-component"
-    >
-      <ul
-        className="nice-tabs bold"
-      />
-      <ul
-        className="nice-tab-content"
-      />
-    </div>
-  </TabComponent>
-</ChoiceSelect>
+  uuid="mocked-uuid-1"
+/>
 `;

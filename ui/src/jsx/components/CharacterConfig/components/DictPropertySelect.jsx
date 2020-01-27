@@ -51,8 +51,9 @@ export class DictPropertySelect extends React.Component
 
 DictPropertySelect.propTypes = {
     type: PropTypes.oneOf(['dict']).isRequired,
-    dict: PropTypes.object.isRequired,
+    uuid: PropTypes.string,
     onChange: PropTypes.func.isRequired,
+    dict: PropTypes.object.isRequired,
     current: PropTypes.object,
     hidden: PropTypes.bool,
 };
