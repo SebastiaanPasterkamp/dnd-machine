@@ -139,6 +139,13 @@ const WeaponEdit = Loadable({
 import WeaponView from './views/WeaponView.jsx';
 import WeaponsTable from './views/WeaponsTable.jsx';
 
+const ClassesTable = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'ClassesTable' */
+          './views/ClassesTable'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 const ClassEdit = Loadable({
       loader: () => import(
           /* webpackChunkName: 'ClassEdit' */
@@ -431,6 +438,10 @@ class DndMachine extends React.Component
                     component={UserView}
                     />
 
+                <Route
+                    path="/data/class/list"
+                    component={ClassesTable}
+                />
                 <Route
                     path="/data/class/new"
                     component={ClassEdit}

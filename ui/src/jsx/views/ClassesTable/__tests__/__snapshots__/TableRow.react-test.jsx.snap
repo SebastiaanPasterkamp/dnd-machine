@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableRow should render 1`] = `
+<tr
+  data-name={1}
+>
+  <th>
+    Some option
+    <div
+      className="base-link-group nice-btn-group"
+    >
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-eye"
+        href={undefined}
+        onClick={[Function]}
+      >
+        View
+      </a>
+      <a
+        className="cursor-pointer nice-btn-alt icon fa-pencil"
+        href={undefined}
+        onClick={[Function]}
+      >
+        Edit
+      </a>
+    </div>
+  </th>
+  <td>
+    <span>
+      <p>
+        Describing the option
+      </p>
+    </span>
+  </td>
+</tr>
+`;
