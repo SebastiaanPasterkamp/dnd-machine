@@ -70,7 +70,7 @@ export class RaceEdit extends React.Component
 
                 <Panel
                     key="config"
-                    className="race-edit__levels"
+                    className="race-edit__config"
                     header="Config"
                 >
                     <SelectListComponent
