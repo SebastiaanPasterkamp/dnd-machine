@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OptionsTable should render with full props 1`] = `
+<div
+  className="options-table"
+>
+  <h2
+    className="icon fa-gear"
+  >
+    Option list
+  </h2>
+  <table
+    className="responsive-table nice-table condensed bordered responsive"
+  >
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Description
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        data-name={2}
+      >
+        <th>
+          Some option
+          <div
+            className="base-link-group nice-btn-group"
+          >
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-eye"
+              href={undefined}
+              onClick={[Function]}
+            >
+              View
+            </a>
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-pencil"
+              href={undefined}
+              onClick={[Function]}
+            >
+              Edit
+            </a>
+          </div>
+        </th>
+        <td>
+          <span>
+            <p>
+              Describing
+            </p>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td
+          colSpan={2}
+        >
+          <div
+            className="base-link-group nice-btn-group"
+          >
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-plus"
+              href={undefined}
+              onClick={[Function]}
+            >
+              New
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`OptionsTable should render without props 1`] = `
+<div
+  className="options-table"
+>
+  <h2
+    className="icon fa-gear"
+  >
+    Option list
+  </h2>
+  <table
+    className="responsive-table nice-table condensed bordered responsive"
+  >
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Description
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          colSpan={2}
+        >
+          <div
+            className="base-link-group nice-btn-group"
+          >
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-plus"
+              href={undefined}
+              onClick={[Function]}
+            >
+              New
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

@@ -160,6 +160,14 @@ const RaceEdit = Loadable({
       ),
       loading: () => <LoadingSplash loading={true} overlay={true} />,
 });
+
+const OptionsTable = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'OptionsTable' */
+          './views/OptionsTable'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 const OptionsEdit = Loadable({
       loader: () => import(
           /* webpackChunkName: 'OptionsEdit' */
@@ -450,6 +458,10 @@ class DndMachine extends React.Component
                     component={RaceEdit}
                 />
 
+                <Route
+                    path="/data/options/list"
+                    component={OptionsTable}
+                />
                 <Route
                     path="/data/options/new"
                     component={OptionsEdit}
