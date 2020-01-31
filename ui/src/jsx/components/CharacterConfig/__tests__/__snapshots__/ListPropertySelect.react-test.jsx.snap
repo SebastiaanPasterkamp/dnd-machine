@@ -1,1989 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component: ListPropertySelect should allow replacing one existing 1`] = `
-<ListsToItemsCharacterEditorComponent
-  filter={
-    Object {
-      "code": Array [
-        "strength",
-      ],
-    }
-  }
-  given={
-    Array [
-      "charisma",
-    ]
-  }
-  list={
-    Array [
-      "statistics",
-    ]
-  }
-  path="some.path"
-  replace={1}
-  type="list"
->
-  <CharacterEditorComponent
-    filter={
-      Object {
-        "code": Array [
-          "strength",
-        ],
-      }
-    }
-    given={
-      Array [
-        "charisma",
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "dexterity",
-          "description": "Dex",
-          "label": "Dexterity",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-        Object {
-          "code": "charisma",
-          "description": "Char",
-          "label": "Charisma",
-        },
-      ]
-    }
-    path="some.path"
-    replace={1}
-    type="list"
-  >
-    <ListPropertySelect
-      add={0}
-      current={
-        Array [
-          "charisma",
-        ]
-      }
-      filter={
-        Object {
-          "code": Array [
-            "strength",
-          ],
-        }
-      }
-      getCurrent={[Function]}
-      given={
-        Array [
-          "charisma",
-        ]
-      }
-      items={
-        Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
-        ]
-      }
-      limit={0}
-      multiple={false}
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      replace={1}
-      type="list"
-    >
-      <BaseTagContainer>
-        <div
-          className="base-tag-container nice-tags-container"
-        >
-          <SingleSelect
-            defaultValue={null}
-            emptyLabel="Add..."
-            isDisabled={[Function]}
-            items={
-              Array [
-                Object {
-                  "code": "strength",
-                  "description": "Str",
-                  "label": "Strength",
-                },
-                Object {
-                  "code": "dexterity",
-                  "description": "Dex",
-                  "label": "Dexterity",
-                },
-              ]
-            }
-            renderEmpty={null}
-            selected={null}
-            setState={[Function]}
-          >
-            <OnClickOutside(BaseSelect)
-              eventTypes={
-                Array [
-                  "mousedown",
-                  "touchstart",
-                ]
-              }
-              excludeScrollbar={false}
-              label="Add..."
-              outsideClickIgnoreClass="ignore-react-onclickoutside"
-              preventDefault={false}
-              stopPropagation={false}
-            >
-              <BaseSelect
-                className={null}
-                closeOnClick={true}
-                description={null}
-                disableOnClickOutside={[Function]}
-                disabled={false}
-                enableOnClickOutside={[Function]}
-                eventTypes={
-                  Array [
-                    "mousedown",
-                    "touchstart",
-                  ]
-                }
-                heading={null}
-                label="Add..."
-                outsideClickIgnoreClass="ignore-react-onclickoutside"
-                preventDefault={false}
-                stopPropagation={false}
-              >
-                <div
-                  className="nice-dropdown nice-form-control"
-                >
-                  <SelectButton
-                    disabled={false}
-                    label="Add..."
-                    onToggle={[Function]}
-                  >
-                    <button
-                      className="nice-btn"
-                      disabled={false}
-                      onClick={[Function]}
-                    >
-                      Add...
-                      <i
-                        className="icon fa-angle-down"
-                      />
-                    </button>
-                  </SelectButton>
-                  <ul
-                    className="dropdown-menu"
-                    onClick={[Function]}
-                  >
-                    <SelectItem
-                      disabled={false}
-                      id="strength"
-                      key="strength"
-                      label="Strength"
-                      onClick={[Function]}
-                      selected={false}
-                    >
-                      <li
-                        className={null}
-                        data-value="strength"
-                        onClick={[Function]}
-                      >
-                        <a>
-                          Strength
-                        </a>
-                      </li>
-                    </SelectItem>
-                    <SelectItem
-                      disabled={false}
-                      id="dexterity"
-                      key="dexterity"
-                      label="Dexterity"
-                      onClick={[Function]}
-                      selected={false}
-                    >
-                      <li
-                        className={null}
-                        data-value="dexterity"
-                        onClick={[Function]}
-                      >
-                        <a>
-                          Dexterity
-                        </a>
-                      </li>
-                    </SelectItem>
-                  </ul>
-                </div>
-              </BaseSelect>
-            </OnClickOutside(BaseSelect)>
-          </SingleSelect>
-          <Tag
-            badges={Array []}
-            className={null}
-            color="good"
-            description="Char"
-            disabled={true}
-            id="charisma"
-            key="tag-0"
-            label="Charisma"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag good"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Char"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Charisma
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Char"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Char
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-        </div>
-      </BaseTagContainer>
-    </ListPropertySelect>
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
-`;
-
-exports[`Component: ListPropertySelect should allow replacing one existing 2`] = `
-<ListsToItemsCharacterEditorComponent
-  filter={
-    Object {
-      "code": Array [
-        "strength",
-      ],
-    }
-  }
-  given={
-    Array [
-      "charisma",
-    ]
-  }
-  list={
-    Array [
-      "statistics",
-    ]
-  }
-  path="some.path"
-  replace={1}
-  type="list"
->
-  <CharacterEditorComponent
-    filter={
-      Object {
-        "code": Array [
-          "strength",
-        ],
-      }
-    }
-    given={
-      Array [
-        "charisma",
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "dexterity",
-          "description": "Dex",
-          "label": "Dexterity",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-        Object {
-          "code": "charisma",
-          "description": "Char",
-          "label": "Charisma",
-        },
-      ]
-    }
-    path="some.path"
-    replace={1}
-    type="list"
-  >
-    <ListPropertySelect
-      add={0}
-      current={
-        Array [
-          "strength",
-          "charisma",
-        ]
-      }
-      filter={
-        Object {
-          "code": Array [
-            "strength",
-          ],
-        }
-      }
-      getCurrent={[Function]}
-      given={
-        Array [
-          "charisma",
-        ]
-      }
-      items={
-        Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
-        ]
-      }
-      limit={0}
-      multiple={false}
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      replace={1}
-      type="list"
-    >
-      <BaseTagContainer>
-        <div
-          className="base-tag-container nice-tags-container"
-        >
-          <Tag
-            badges={Array []}
-            className={null}
-            color="info"
-            description="Str"
-            disabled={false}
-            id="strength"
-            key="tag-0"
-            label="Strength"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag info"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Str"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Strength
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Str"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Str
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
-              >
-                <button
-                  className="nice-tag-btn"
-                  onClick={[Function]}
-                >
-                  <i
-                    className="icon fa-trash-o"
-                  />
-                </button>
-              </TagButton>
-            </div>
-          </Tag>
-          <Tag
-            badges={Array []}
-            className={null}
-            color="good"
-            description="Char"
-            disabled={true}
-            id="charisma"
-            key="tag-1"
-            label="Charisma"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag good"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Char"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Charisma
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Char"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Char
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-        </div>
-      </BaseTagContainer>
-    </ListPropertySelect>
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
-`;
-
-exports[`Component: ListPropertySelect should handle adding and deleting new 1`] = `
-<ListsToItemsCharacterEditorComponent
-  add={1}
-  given={
-    Array [
-      "charisma",
-    ]
-  }
-  list={
-    Array [
-      "statistics",
-    ]
-  }
-  path="some.path"
-  type="list"
->
-  <CharacterEditorComponent
-    add={1}
-    given={
-      Array [
-        "charisma",
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "dexterity",
-          "description": "Dex",
-          "label": "Dexterity",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-        Object {
-          "code": "charisma",
-          "description": "Char",
-          "label": "Charisma",
-        },
-      ]
-    }
-    path="some.path"
-    type="list"
-  >
-    <ListPropertySelect
-      add={1}
-      current={
-        Array [
-          "dexterity",
-          "charisma",
-        ]
-      }
-      filter={Object {}}
-      getCurrent={[Function]}
-      given={
-        Array [
-          "charisma",
-        ]
-      }
-      items={
-        Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
-        ]
-      }
-      limit={0}
-      multiple={false}
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      replace={0}
-      type="list"
-    >
-      <BaseTagContainer>
-        <div
-          className="base-tag-container nice-tags-container"
-        >
-          <SingleSelect
-            defaultValue={null}
-            emptyLabel="Add..."
-            isDisabled={[Function]}
-            items={
-              Array [
-                Object {
-                  "code": "strength",
-                  "description": "Str",
-                  "label": "Strength",
-                },
-                Object {
-                  "code": "constitution",
-                  "description": "Con",
-                  "label": "Constitution",
-                },
-                Object {
-                  "code": "intelligence",
-                  "description": "Int",
-                  "label": "Intelligence",
-                },
-                Object {
-                  "code": "wisdom",
-                  "description": "Wis",
-                  "label": "Wisdom",
-                },
-              ]
-            }
-            renderEmpty={null}
-            selected={null}
-            setState={[Function]}
-          >
-            <OnClickOutside(BaseSelect)
-              eventTypes={
-                Array [
-                  "mousedown",
-                  "touchstart",
-                ]
-              }
-              excludeScrollbar={false}
-              label="Add..."
-              outsideClickIgnoreClass="ignore-react-onclickoutside"
-              preventDefault={false}
-              stopPropagation={false}
-            >
-              <BaseSelect
-                className={null}
-                closeOnClick={true}
-                description={null}
-                disableOnClickOutside={[Function]}
-                disabled={false}
-                enableOnClickOutside={[Function]}
-                eventTypes={
-                  Array [
-                    "mousedown",
-                    "touchstart",
-                  ]
-                }
-                heading={null}
-                label="Add..."
-                outsideClickIgnoreClass="ignore-react-onclickoutside"
-                preventDefault={false}
-                stopPropagation={false}
-              >
-                <div
-                  className="nice-dropdown nice-form-control"
-                >
-                  <SelectButton
-                    disabled={false}
-                    label="Add..."
-                    onToggle={[Function]}
-                  >
-                    <button
-                      className="nice-btn"
-                      disabled={false}
-                      onClick={[Function]}
-                    >
-                      Add...
-                      <i
-                        className="icon fa-angle-down"
-                      />
-                    </button>
-                  </SelectButton>
-                  <ul
-                    className="dropdown-menu"
-                    onClick={[Function]}
-                  >
-                    <SelectItem
-                      disabled={false}
-                      id="strength"
-                      key="strength"
-                      label="Strength"
-                      onClick={[Function]}
-                      selected={false}
-                    >
-                      <li
-                        className={null}
-                        data-value="strength"
-                        onClick={[Function]}
-                      >
-                        <a>
-                          Strength
-                        </a>
-                      </li>
-                    </SelectItem>
-                    <SelectItem
-                      disabled={false}
-                      id="constitution"
-                      key="constitution"
-                      label="Constitution"
-                      onClick={[Function]}
-                      selected={false}
-                    >
-                      <li
-                        className={null}
-                        data-value="constitution"
-                        onClick={[Function]}
-                      >
-                        <a>
-                          Constitution
-                        </a>
-                      </li>
-                    </SelectItem>
-                    <SelectItem
-                      disabled={false}
-                      id="intelligence"
-                      key="intelligence"
-                      label="Intelligence"
-                      onClick={[Function]}
-                      selected={false}
-                    >
-                      <li
-                        className={null}
-                        data-value="intelligence"
-                        onClick={[Function]}
-                      >
-                        <a>
-                          Intelligence
-                        </a>
-                      </li>
-                    </SelectItem>
-                    <SelectItem
-                      disabled={false}
-                      id="wisdom"
-                      key="wisdom"
-                      label="Wisdom"
-                      onClick={[Function]}
-                      selected={false}
-                    >
-                      <li
-                        className={null}
-                        data-value="wisdom"
-                        onClick={[Function]}
-                      >
-                        <a>
-                          Wisdom
-                        </a>
-                      </li>
-                    </SelectItem>
-                  </ul>
-                </div>
-              </BaseSelect>
-            </OnClickOutside(BaseSelect)>
-          </SingleSelect>
-          <Tag
-            badges={Array []}
-            className={null}
-            color="good"
-            description="Char"
-            disabled={true}
-            id="charisma"
-            key="tag-0"
-            label="Charisma"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag good"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Char"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Charisma
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Char"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Char
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-          <Tag
-            badges={Array []}
-            className={null}
-            color={null}
-            description="Dex"
-            disabled={true}
-            id="dexterity"
-            key="tag-1"
-            label="Dexterity"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Dex"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Dexterity
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Dex"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Dex
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-        </div>
-      </BaseTagContainer>
-    </ListPropertySelect>
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
-`;
-
-exports[`Component: ListPropertySelect should handle adding and deleting new 2`] = `
-<ListsToItemsCharacterEditorComponent
-  add={1}
-  given={
-    Array [
-      "charisma",
-    ]
-  }
-  list={
-    Array [
-      "statistics",
-    ]
-  }
-  path="some.path"
-  type="list"
->
-  <CharacterEditorComponent
-    add={1}
-    given={
-      Array [
-        "charisma",
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "dexterity",
-          "description": "Dex",
-          "label": "Dexterity",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-        Object {
-          "code": "charisma",
-          "description": "Char",
-          "label": "Charisma",
-        },
-      ]
-    }
-    path="some.path"
-    type="list"
-  >
-    <ListPropertySelect
-      add={1}
-      current={
-        Array [
-          "dexterity",
-          "strength",
-          "charisma",
-        ]
-      }
-      filter={Object {}}
-      getCurrent={[Function]}
-      given={
-        Array [
-          "charisma",
-        ]
-      }
-      items={
-        Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
-        ]
-      }
-      limit={0}
-      multiple={false}
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      replace={0}
-      type="list"
-    >
-      <BaseTagContainer>
-        <div
-          className="base-tag-container nice-tags-container"
-        >
-          <Tag
-            badges={Array []}
-            className={null}
-            color="info"
-            description="Str"
-            disabled={false}
-            id="strength"
-            key="tag-0"
-            label="Strength"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag info"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Str"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Strength
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Str"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Str
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
-              >
-                <button
-                  className="nice-tag-btn"
-                  onClick={[Function]}
-                >
-                  <i
-                    className="icon fa-trash-o"
-                  />
-                </button>
-              </TagButton>
-            </div>
-          </Tag>
-          <Tag
-            badges={Array []}
-            className={null}
-            color="good"
-            description="Char"
-            disabled={true}
-            id="charisma"
-            key="tag-1"
-            label="Charisma"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag good"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Char"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Charisma
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Char"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Char
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-          <Tag
-            badges={Array []}
-            className={null}
-            color={null}
-            description="Dex"
-            disabled={true}
-            id="dexterity"
-            key="tag-2"
-            label="Dexterity"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Dex"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Dexterity
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Dex"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Dex
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-        </div>
-      </BaseTagContainer>
-    </ListPropertySelect>
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
-`;
-
-exports[`Component: ListPropertySelect should handle adding and deleting new 3`] = `
-<ListsToItemsCharacterEditorComponent
-  add={1}
-  given={
-    Array [
-      "charisma",
-    ]
-  }
-  list={
-    Array [
-      "statistics",
-    ]
-  }
-  path="some.path"
-  type="list"
->
-  <CharacterEditorComponent
-    add={1}
-    given={
-      Array [
-        "charisma",
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "dexterity",
-          "description": "Dex",
-          "label": "Dexterity",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-        Object {
-          "code": "charisma",
-          "description": "Char",
-          "label": "Charisma",
-        },
-      ]
-    }
-    path="some.path"
-    type="list"
-  >
-    <ListPropertySelect
-      add={1}
-      current={
-        Array [
-          "dexterity",
-          "strength",
-          "charisma",
-          "intelligence",
-        ]
-      }
-      filter={Object {}}
-      getCurrent={[Function]}
-      given={
-        Array [
-          "charisma",
-        ]
-      }
-      items={
-        Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
-        ]
-      }
-      limit={0}
-      multiple={false}
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      replace={0}
-      type="list"
-    >
-      <BaseTagContainer>
-        <div
-          className="base-tag-container nice-tags-container"
-        >
-          <Tag
-            badges={Array []}
-            className={null}
-            color="info"
-            description="Str"
-            disabled={false}
-            id="strength"
-            key="tag-0"
-            label="Strength"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag info"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Str"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Strength
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Str"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Str
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
-              >
-                <button
-                  className="nice-tag-btn"
-                  onClick={[Function]}
-                >
-                  <i
-                    className="icon fa-trash-o"
-                  />
-                </button>
-              </TagButton>
-            </div>
-          </Tag>
-          <Tag
-            badges={Array []}
-            className={null}
-            color="good"
-            description="Char"
-            disabled={true}
-            id="charisma"
-            key="tag-1"
-            label="Charisma"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag good"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Char"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Charisma
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Char"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Char
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-          <Tag
-            badges={Array []}
-            className={null}
-            color={null}
-            description="Dex"
-            disabled={true}
-            id="dexterity"
-            key="tag-2"
-            label="Dexterity"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Dex"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Dexterity
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Dex"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Dex
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-          <Tag
-            badges={Array []}
-            className={null}
-            color={null}
-            description="Int"
-            disabled={true}
-            id="intelligence"
-            key="tag-3"
-            label="Intelligence"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Int"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Intelligence
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Int"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Int
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-        </div>
-      </BaseTagContainer>
-    </ListPropertySelect>
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
-`;
-
-exports[`Component: ListPropertySelect should handle adding and deleting new 4`] = `
-<ListsToItemsCharacterEditorComponent
-  add={1}
-  given={
-    Array [
-      "charisma",
-    ]
-  }
-  list={
-    Array [
-      "statistics",
-    ]
-  }
-  path="some.path"
-  type="list"
->
-  <CharacterEditorComponent
-    add={1}
-    given={
-      Array [
-        "charisma",
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "dexterity",
-          "description": "Dex",
-          "label": "Dexterity",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-        Object {
-          "code": "charisma",
-          "description": "Char",
-          "label": "Charisma",
-        },
-      ]
-    }
-    path="some.path"
-    type="list"
-  >
-    <ListPropertySelect
-      add={1}
-      current={
-        Array [
-          "dexterity",
-          "charisma",
-          "intelligence",
-        ]
-      }
-      filter={Object {}}
-      getCurrent={[Function]}
-      given={
-        Array [
-          "charisma",
-        ]
-      }
-      items={
-        Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
-        ]
-      }
-      limit={0}
-      multiple={false}
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      replace={0}
-      type="list"
-    >
-      <BaseTagContainer>
-        <div
-          className="base-tag-container nice-tags-container"
-        >
-          <SingleSelect
-            defaultValue={null}
-            emptyLabel="Add..."
-            isDisabled={[Function]}
-            items={
-              Array [
-                Object {
-                  "code": "strength",
-                  "description": "Str",
-                  "label": "Strength",
-                },
-                Object {
-                  "code": "constitution",
-                  "description": "Con",
-                  "label": "Constitution",
-                },
-                Object {
-                  "code": "wisdom",
-                  "description": "Wis",
-                  "label": "Wisdom",
-                },
-              ]
-            }
-            renderEmpty={null}
-            selected={null}
-            setState={[Function]}
-          >
-            <OnClickOutside(BaseSelect)
-              eventTypes={
-                Array [
-                  "mousedown",
-                  "touchstart",
-                ]
-              }
-              excludeScrollbar={false}
-              label="Add..."
-              outsideClickIgnoreClass="ignore-react-onclickoutside"
-              preventDefault={false}
-              stopPropagation={false}
-            >
-              <BaseSelect
-                className={null}
-                closeOnClick={true}
-                description={null}
-                disableOnClickOutside={[Function]}
-                disabled={false}
-                enableOnClickOutside={[Function]}
-                eventTypes={
-                  Array [
-                    "mousedown",
-                    "touchstart",
-                  ]
-                }
-                heading={null}
-                label="Add..."
-                outsideClickIgnoreClass="ignore-react-onclickoutside"
-                preventDefault={false}
-                stopPropagation={false}
-              >
-                <div
-                  className="nice-dropdown nice-form-control"
-                >
-                  <SelectButton
-                    disabled={false}
-                    label="Add..."
-                    onToggle={[Function]}
-                  >
-                    <button
-                      className="nice-btn"
-                      disabled={false}
-                      onClick={[Function]}
-                    >
-                      Add...
-                      <i
-                        className="icon fa-angle-down"
-                      />
-                    </button>
-                  </SelectButton>
-                  <ul
-                    className="dropdown-menu"
-                    onClick={[Function]}
-                  >
-                    <SelectItem
-                      disabled={false}
-                      id="strength"
-                      key="strength"
-                      label="Strength"
-                      onClick={[Function]}
-                      selected={false}
-                    >
-                      <li
-                        className={null}
-                        data-value="strength"
-                        onClick={[Function]}
-                      >
-                        <a>
-                          Strength
-                        </a>
-                      </li>
-                    </SelectItem>
-                    <SelectItem
-                      disabled={false}
-                      id="constitution"
-                      key="constitution"
-                      label="Constitution"
-                      onClick={[Function]}
-                      selected={false}
-                    >
-                      <li
-                        className={null}
-                        data-value="constitution"
-                        onClick={[Function]}
-                      >
-                        <a>
-                          Constitution
-                        </a>
-                      </li>
-                    </SelectItem>
-                    <SelectItem
-                      disabled={false}
-                      id="wisdom"
-                      key="wisdom"
-                      label="Wisdom"
-                      onClick={[Function]}
-                      selected={false}
-                    >
-                      <li
-                        className={null}
-                        data-value="wisdom"
-                        onClick={[Function]}
-                      >
-                        <a>
-                          Wisdom
-                        </a>
-                      </li>
-                    </SelectItem>
-                  </ul>
-                </div>
-              </BaseSelect>
-            </OnClickOutside(BaseSelect)>
-          </SingleSelect>
-          <Tag
-            badges={Array []}
-            className={null}
-            color="good"
-            description="Char"
-            disabled={true}
-            id="charisma"
-            key="tag-0"
-            label="Charisma"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag good"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Char"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Charisma
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Char"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Char
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-          <Tag
-            badges={Array []}
-            className={null}
-            color={null}
-            description="Dex"
-            disabled={true}
-            id="dexterity"
-            key="tag-1"
-            label="Dexterity"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Dex"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Dexterity
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Dex"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Dex
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-          <Tag
-            badges={Array []}
-            className={null}
-            color={null}
-            description="Int"
-            disabled={true}
-            id="intelligence"
-            key="tag-2"
-            label="Intelligence"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Int"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Intelligence
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Int"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Int
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-        </div>
-      </BaseTagContainer>
-    </ListPropertySelect>
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
-`;
-
 exports[`Component: ListPropertySelect should not render select w/ filtering all items 1`] = `
-<ListsToItemsCharacterEditorComponent
+<ListPropertySelect
   add={1}
+  added={Array []}
+  current={
+    Array [
+      "dexterity",
+    ]
+  }
   filter={
     Object {
       "code": Array [
@@ -1991,559 +16,252 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
       ],
     }
   }
+  given={Array []}
+  items={
+    Array [
+      Object {
+        "code": "strength",
+        "description": "Str",
+        "label": "Strength",
+      },
+      Object {
+        "code": "dexterity",
+        "description": "Dex",
+        "label": "Dexterity",
+      },
+      Object {
+        "code": "constitution",
+        "description": "Con",
+        "label": "Constitution",
+      },
+      Object {
+        "code": "intelligence",
+        "description": "Int",
+        "label": "Intelligence",
+      },
+      Object {
+        "code": "wisdom",
+        "description": "Wis",
+        "label": "Wisdom",
+      },
+      Object {
+        "code": "charisma",
+        "description": "Char",
+        "label": "Charisma",
+      },
+    ]
+  }
+  limit={0}
   list={
     Array [
       "statistics",
     ]
   }
+  multiple={false}
+  onChange={[Function]}
   path="some.path"
+  removed={Array []}
+  replace={0}
+  setState={[Function]}
   type="list"
+  uuid="mocked-uuid-1"
 >
-  <CharacterEditorComponent
-    add={1}
-    filter={
-      Object {
-        "code": Array [
-          "impossible",
-        ],
-      }
-    }
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "dexterity",
-          "description": "Dex",
-          "label": "Dexterity",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-        Object {
-          "code": "charisma",
-          "description": "Char",
-          "label": "Charisma",
-        },
-      ]
-    }
-    path="some.path"
-    type="list"
-  >
-    <ListPropertySelect
-      add={1}
-      current={
-        Array [
-          "dexterity",
-        ]
-      }
-      filter={
-        Object {
-          "code": Array [
-            "impossible",
-          ],
-        }
-      }
-      getCurrent={[Function]}
-      given={Array []}
-      items={
-        Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
-        ]
-      }
-      limit={0}
-      multiple={false}
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      replace={0}
-      type="list"
+  <BaseTagContainer>
+    <div
+      className="base-tag-container nice-tags-container"
     >
-      <BaseTagContainer>
+      <Tag
+        badges={Array []}
+        className={null}
+        color={null}
+        description="Dex"
+        disabled={true}
+        id="dexterity"
+        key="tag-0"
+        label="Dexterity"
+        onChange={null}
+        onDelete={[Function]}
+      >
         <div
-          className="base-tag-container nice-tags-container"
+          className="nice-tag muted"
         >
-          <Tag
-            badges={Array []}
-            className={null}
-            color={null}
-            description="Dex"
-            disabled={true}
-            id="dexterity"
-            key="tag-0"
-            label="Dexterity"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
+          <TagLabel>
+            <span
+              className="nice-tag-label"
             >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
+              <ToolTip
+                content="Dex"
+              >
+                <div
+                  className="tool-tip inline"
                 >
-                  <ToolTip
-                    content="Dex"
+                  Dexterity
+                  <MDReactComponent
+                    className="tool-tip--content"
+                    text="Dex"
                   >
-                    <div
-                      className="tool-tip inline"
+                    <span
+                      className="tool-tip--content"
+                      key="mdrct-html-0"
                     >
-                      Dexterity
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Dex"
+                      <p
+                        key="mdrct-p-0"
                       >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Dex
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
+                        Dex
+                      </p>
+                    </span>
+                  </MDReactComponent>
+                </div>
+              </ToolTip>
+            </span>
+          </TagLabel>
         </div>
-      </BaseTagContainer>
-    </ListPropertySelect>
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
+      </Tag>
+    </div>
+  </BaseTagContainer>
+</ListPropertySelect>
 `;
 
 exports[`Component: ListPropertySelect should not render select w/o items 1`] = `
-<ListsToItemsCharacterEditorComponent
+<ListPropertySelect
   add={1}
+  added={Array []}
+  current={
+    Array [
+      "dexterity",
+    ]
+  }
+  filter={Object {}}
+  given={Array []}
+  items={Array []}
+  limit={0}
+  list={
+    Array [
+      "statistics",
+    ]
+  }
+  multiple={false}
+  onChange={[Function]}
   path="some.path"
+  removed={Array []}
+  replace={0}
+  setState={[Function]}
   type="list"
+  uuid="mocked-uuid-1"
 >
-  <CharacterEditorComponent
-    add={1}
-    items={Array []}
-    path="some.path"
-    type="list"
-  >
-    <ListPropertySelect
-      add={1}
-      current={
-        Array [
-          "dexterity",
-        ]
-      }
-      filter={Object {}}
-      getCurrent={[Function]}
-      given={Array []}
-      items={Array []}
-      limit={0}
-      multiple={false}
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      replace={0}
-      type="list"
+  <BaseTagContainer>
+    <div
+      className="base-tag-container nice-tags-container"
     >
-      <BaseTagContainer>
+      <Tag
+        badges={Array []}
+        className={null}
+        color={null}
+        description={null}
+        disabled={true}
+        key="tag-0"
+        label="dexterity"
+        onChange={null}
+        onDelete={[Function]}
+      >
         <div
-          className="base-tag-container nice-tags-container"
+          className="nice-tag muted"
         >
-          <Tag
-            badges={Array []}
-            className={null}
-            color={null}
-            description={null}
-            disabled={true}
-            key="tag-0"
-            label="dexterity"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
+          <TagLabel>
+            <span
+              className="nice-tag-label"
             >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content={null}
-                  >
-                    dexterity
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
+              <ToolTip
+                content={null}
+              >
+                dexterity
+              </ToolTip>
+            </span>
+          </TagLabel>
         </div>
-      </BaseTagContainer>
-    </ListPropertySelect>
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
+      </Tag>
+    </div>
+  </BaseTagContainer>
+</ListPropertySelect>
 `;
 
 exports[`Component: ListPropertySelect should not render when hidden 1`] = `
-<ListsToItemsCharacterEditorComponent
+<ListPropertySelect
+  add={0}
+  added={Array []}
+  current={
+    Array [
+      "dexterity",
+    ]
+  }
+  filter={Object {}}
+  given={Array []}
   hidden={true}
+  items={
+    Array [
+      Object {
+        "code": "strength",
+        "description": "Str",
+        "label": "Strength",
+      },
+      Object {
+        "code": "dexterity",
+        "description": "Dex",
+        "label": "Dexterity",
+      },
+      Object {
+        "code": "constitution",
+        "description": "Con",
+        "label": "Constitution",
+      },
+      Object {
+        "code": "intelligence",
+        "description": "Int",
+        "label": "Intelligence",
+      },
+      Object {
+        "code": "wisdom",
+        "description": "Wis",
+        "label": "Wisdom",
+      },
+      Object {
+        "code": "charisma",
+        "description": "Char",
+        "label": "Charisma",
+      },
+    ]
+  }
+  limit={0}
   list={
     Array [
       "statistics",
     ]
   }
+  multiple={false}
+  onChange={[Function]}
   path="some.path"
+  removed={Array []}
+  replace={0}
+  setState={[Function]}
   type="list"
->
-  <CharacterEditorComponent
-    hidden={true}
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "dexterity",
-          "description": "Dex",
-          "label": "Dexterity",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-        Object {
-          "code": "charisma",
-          "description": "Char",
-          "label": "Charisma",
-        },
-      ]
-    }
-    path="some.path"
-    type="list"
-  >
-    <ListPropertySelect
-      add={0}
-      current={
-        Array [
-          "dexterity",
-        ]
-      }
-      filter={Object {}}
-      getCurrent={[Function]}
-      given={Array []}
-      hidden={true}
-      items={
-        Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
-        ]
-      }
-      limit={0}
-      multiple={false}
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      replace={0}
-      type="list"
-    />
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
-`;
-
-exports[`Component: ListPropertySelect should omit unknown current values 1`] = `
-<ListsToItemsCharacterEditorComponent
-  given={
-    Array [
-      "foo",
-    ]
-  }
-  list={
-    Array [
-      "statistics",
-    ]
-  }
-  path="some.path"
-  type="list"
->
-  <CharacterEditorComponent
-    given={
-      Array [
-        "foo",
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "dexterity",
-          "description": "Dex",
-          "label": "Dexterity",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-        Object {
-          "code": "charisma",
-          "description": "Char",
-          "label": "Charisma",
-        },
-      ]
-    }
-    path="some.path"
-    type="list"
-  >
-    <ListPropertySelect
-      add={0}
-      current={
-        Array [
-          "dexterity",
-          "foo",
-        ]
-      }
-      filter={Object {}}
-      getCurrent={[Function]}
-      given={
-        Array [
-          "foo",
-        ]
-      }
-      items={
-        Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
-        ]
-      }
-      limit={0}
-      multiple={false}
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      replace={0}
-      type="list"
-    >
-      <BaseTagContainer>
-        <div
-          className="base-tag-container nice-tags-container"
-        >
-          <Tag
-            badges={Array []}
-            className={null}
-            color="good"
-            description={null}
-            disabled={true}
-            key="tag-0"
-            label="foo"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag good"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content={null}
-                  >
-                    foo
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-          <Tag
-            badges={Array []}
-            className={null}
-            color={null}
-            description="Dex"
-            disabled={true}
-            id="dexterity"
-            key="tag-1"
-            label="Dexterity"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Dex"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Dexterity
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Dex"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Dex
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-        </div>
-      </BaseTagContainer>
-    </ListPropertySelect>
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
+  uuid="mocked-uuid-1"
+/>
 `;
 
 exports[`Component: ListPropertySelect should render with full props 1`] = `
-<ListsToItemsCharacterEditorComponent
+<ListPropertySelect
   add={2}
+  added={Array []}
+  current={
+    Array [
+      "dexterity",
+    ]
+  }
   filter={
     Object {
       "code": Array [
         "strength",
+        "charisma",
         "intelligence",
       ],
       "some_formula": "blah blah",
@@ -2555,486 +273,528 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       "charisma",
     ]
   }
+  items={
+    Array [
+      Object {
+        "code": "strength",
+        "description": "Str",
+        "label": "Strength",
+      },
+      Object {
+        "code": "dexterity",
+        "description": "Dex",
+        "label": "Dexterity",
+      },
+      Object {
+        "code": "constitution",
+        "description": "Con",
+        "label": "Constitution",
+      },
+      Object {
+        "code": "intelligence",
+        "description": "Int",
+        "label": "Intelligence",
+      },
+      Object {
+        "code": "wisdom",
+        "description": "Wis",
+        "label": "Wisdom",
+      },
+      Object {
+        "code": "charisma",
+        "description": "Char",
+        "label": "Charisma",
+      },
+    ]
+  }
+  limit={0}
   list={
     Array [
       "statistics",
     ]
   }
   multiple={true}
+  onChange={[Function]}
   path="some.path"
+  removed={Array []}
   replace={1}
+  setState={[Function]}
   type="list"
+  uuid="mocked-uuid-1"
 >
-  <CharacterEditorComponent
-    add={2}
-    filter={
-      Object {
-        "code": Array [
-          "strength",
-          "intelligence",
-        ],
-        "some_formula": "blah blah",
-      }
-    }
-    given={
-      Array [
-        "constitution",
-        "charisma",
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "dexterity",
-          "description": "Dex",
-          "label": "Dexterity",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-        Object {
-          "code": "charisma",
-          "description": "Char",
-          "label": "Charisma",
-        },
-      ]
-    }
-    multiple={true}
-    path="some.path"
-    replace={1}
-    type="list"
-  >
-    <ListPropertySelect
-      add={2}
-      current={
-        Array [
-          "dexterity",
-          "constitution",
-          "charisma",
-        ]
-      }
-      filter={
-        Object {
-          "code": Array [
-            "strength",
-            "intelligence",
-          ],
-          "some_formula": "blah blah",
-        }
-      }
-      getCurrent={[Function]}
-      given={
-        Array [
-          "constitution",
-          "charisma",
-        ]
-      }
-      items={
-        Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
-        ]
-      }
-      limit={0}
-      multiple={true}
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      replace={1}
-      type="list"
+  <BaseTagContainer>
+    <div
+      className="base-tag-container nice-tags-container"
     >
-      <BaseTagContainer>
-        <div
-          className="base-tag-container nice-tags-container"
+      <SingleSelect
+        defaultValue={null}
+        emptyLabel="Add..."
+        isDisabled={[Function]}
+        items={
+          Array [
+            Object {
+              "code": "strength",
+              "description": "Str",
+              "label": "Strength",
+            },
+            Object {
+              "code": "intelligence",
+              "description": "Int",
+              "label": "Intelligence",
+            },
+            Object {
+              "code": "charisma",
+              "description": "Char",
+              "label": "Charisma",
+            },
+          ]
+        }
+        renderEmpty={null}
+        selected={null}
+        setState={[Function]}
+      >
+        <OnClickOutside(BaseSelect)
+          eventTypes={
+            Array [
+              "mousedown",
+              "touchstart",
+            ]
+          }
+          excludeScrollbar={false}
+          label="Add..."
+          outsideClickIgnoreClass="ignore-react-onclickoutside"
+          preventDefault={false}
+          stopPropagation={false}
         >
-          <SingleSelect
-            defaultValue={null}
-            emptyLabel="Add..."
-            isDisabled={[Function]}
-            items={
+          <BaseSelect
+            className={null}
+            closeOnClick={true}
+            description={null}
+            disableOnClickOutside={[Function]}
+            disabled={false}
+            enableOnClickOutside={[Function]}
+            eventTypes={
               Array [
-                Object {
-                  "code": "strength",
-                  "description": "Str",
-                  "label": "Strength",
-                },
-                Object {
-                  "code": "intelligence",
-                  "description": "Int",
-                  "label": "Intelligence",
-                },
+                "mousedown",
+                "touchstart",
               ]
             }
-            renderEmpty={null}
-            selected={null}
-            setState={[Function]}
+            heading={null}
+            label="Add..."
+            outsideClickIgnoreClass="ignore-react-onclickoutside"
+            preventDefault={false}
+            stopPropagation={false}
           >
-            <OnClickOutside(BaseSelect)
-              eventTypes={
-                Array [
-                  "mousedown",
-                  "touchstart",
-                ]
-              }
-              excludeScrollbar={false}
-              label="Add..."
-              outsideClickIgnoreClass="ignore-react-onclickoutside"
-              preventDefault={false}
-              stopPropagation={false}
+            <div
+              className="nice-dropdown nice-form-control"
             >
-              <BaseSelect
-                className={null}
-                closeOnClick={true}
-                description={null}
-                disableOnClickOutside={[Function]}
+              <SelectButton
                 disabled={false}
-                enableOnClickOutside={[Function]}
-                eventTypes={
-                  Array [
-                    "mousedown",
-                    "touchstart",
-                  ]
-                }
-                heading={null}
                 label="Add..."
-                outsideClickIgnoreClass="ignore-react-onclickoutside"
-                preventDefault={false}
-                stopPropagation={false}
-              >
-                <div
-                  className="nice-dropdown nice-form-control"
-                >
-                  <SelectButton
-                    disabled={false}
-                    label="Add..."
-                    onToggle={[Function]}
-                  >
-                    <button
-                      className="nice-btn"
-                      disabled={false}
-                      onClick={[Function]}
-                    >
-                      Add...
-                      <i
-                        className="icon fa-angle-down"
-                      />
-                    </button>
-                  </SelectButton>
-                  <ul
-                    className="dropdown-menu"
-                    onClick={[Function]}
-                  >
-                    <SelectItem
-                      disabled={false}
-                      id="strength"
-                      key="strength"
-                      label="Strength"
-                      onClick={[Function]}
-                      selected={false}
-                    >
-                      <li
-                        className={null}
-                        data-value="strength"
-                        onClick={[Function]}
-                      >
-                        <a>
-                          Strength
-                        </a>
-                      </li>
-                    </SelectItem>
-                    <SelectItem
-                      disabled={false}
-                      id="intelligence"
-                      key="intelligence"
-                      label="Intelligence"
-                      onClick={[Function]}
-                      selected={false}
-                    >
-                      <li
-                        className={null}
-                        data-value="intelligence"
-                        onClick={[Function]}
-                      >
-                        <a>
-                          Intelligence
-                        </a>
-                      </li>
-                    </SelectItem>
-                  </ul>
-                </div>
-              </BaseSelect>
-            </OnClickOutside(BaseSelect)>
-          </SingleSelect>
-          <Tag
-            badges={Array []}
-            className={null}
-            color="good"
-            description="Con"
-            disabled={true}
-            id="constitution"
-            key="tag-0"
-            label="Constitution"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag good"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Con"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Constitution
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Con"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Con
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-          <Tag
-            badges={Array []}
-            className={null}
-            color="good"
-            description="Char"
-            disabled={true}
-            id="charisma"
-            key="tag-1"
-            label="Charisma"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag good"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Char"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Charisma
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Char"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Char
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
-          <Tag
-            badges={Array []}
-            className={null}
-            color="warning"
-            description="Dex"
-            disabled={false}
-            id="dexterity"
-            key="tag-2"
-            label="Dexterity"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag warning"
-            >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content="Dex"
-                  >
-                    <div
-                      className="tool-tip inline"
-                    >
-                      Dexterity
-                      <MDReactComponent
-                        className="tool-tip--content"
-                        text="Dex"
-                      >
-                        <span
-                          className="tool-tip--content"
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Dex
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </div>
-                  </ToolTip>
-                </span>
-              </TagLabel>
-              <TagButton
-                icon="fa-trash-o"
-                label={null}
-                onClick={[Function]}
+                onToggle={[Function]}
               >
                 <button
-                  className="nice-tag-btn"
+                  className="nice-btn"
+                  disabled={false}
                   onClick={[Function]}
                 >
+                  Add...
                   <i
-                    className="icon fa-trash-o"
+                    className="icon fa-angle-down"
                   />
                 </button>
-              </TagButton>
+              </SelectButton>
+              <ul
+                className="dropdown-menu"
+                onClick={[Function]}
+              >
+                <SelectItem
+                  disabled={false}
+                  id="strength"
+                  key="strength"
+                  label="Strength"
+                  onClick={[Function]}
+                  selected={false}
+                >
+                  <li
+                    className={null}
+                    data-value="strength"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Strength
+                    </a>
+                  </li>
+                </SelectItem>
+                <SelectItem
+                  disabled={false}
+                  id="intelligence"
+                  key="intelligence"
+                  label="Intelligence"
+                  onClick={[Function]}
+                  selected={false}
+                >
+                  <li
+                    className={null}
+                    data-value="intelligence"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Intelligence
+                    </a>
+                  </li>
+                </SelectItem>
+                <SelectItem
+                  disabled={false}
+                  id="charisma"
+                  key="charisma"
+                  label="Charisma"
+                  onClick={[Function]}
+                  selected={false}
+                >
+                  <li
+                    className={null}
+                    data-value="charisma"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Charisma
+                    </a>
+                  </li>
+                </SelectItem>
+              </ul>
             </div>
-          </Tag>
+          </BaseSelect>
+        </OnClickOutside(BaseSelect)>
+      </SingleSelect>
+      <Tag
+        badges={Array []}
+        className={null}
+        color="good"
+        description="Con"
+        disabled={true}
+        id="constitution"
+        key="tag-0"
+        label="Constitution"
+        onChange={null}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag good"
+        >
+          <TagLabel>
+            <span
+              className="nice-tag-label"
+            >
+              <ToolTip
+                content="Con"
+              >
+                <div
+                  className="tool-tip inline"
+                >
+                  Constitution
+                  <MDReactComponent
+                    className="tool-tip--content"
+                    text="Con"
+                  >
+                    <span
+                      className="tool-tip--content"
+                      key="mdrct-html-0"
+                    >
+                      <p
+                        key="mdrct-p-0"
+                      >
+                        Con
+                      </p>
+                    </span>
+                  </MDReactComponent>
+                </div>
+              </ToolTip>
+            </span>
+          </TagLabel>
         </div>
-      </BaseTagContainer>
-    </ListPropertySelect>
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
+      </Tag>
+      <Tag
+        badges={Array []}
+        className={null}
+        color="good"
+        description="Char"
+        disabled={true}
+        id="charisma"
+        key="tag-1"
+        label="Charisma"
+        onChange={null}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag good"
+        >
+          <TagLabel>
+            <span
+              className="nice-tag-label"
+            >
+              <ToolTip
+                content="Char"
+              >
+                <div
+                  className="tool-tip inline"
+                >
+                  Charisma
+                  <MDReactComponent
+                    className="tool-tip--content"
+                    text="Char"
+                  >
+                    <span
+                      className="tool-tip--content"
+                      key="mdrct-html-0"
+                    >
+                      <p
+                        key="mdrct-p-0"
+                      >
+                        Char
+                      </p>
+                    </span>
+                  </MDReactComponent>
+                </div>
+              </ToolTip>
+            </span>
+          </TagLabel>
+        </div>
+      </Tag>
+      <Tag
+        badges={Array []}
+        className={null}
+        color="warning"
+        description="Dex"
+        disabled={false}
+        id="dexterity"
+        key="tag-2"
+        label="Dexterity"
+        onChange={null}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag warning"
+        >
+          <TagLabel>
+            <span
+              className="nice-tag-label"
+            >
+              <ToolTip
+                content="Dex"
+              >
+                <div
+                  className="tool-tip inline"
+                >
+                  Dexterity
+                  <MDReactComponent
+                    className="tool-tip--content"
+                    text="Dex"
+                  >
+                    <span
+                      className="tool-tip--content"
+                      key="mdrct-html-0"
+                    >
+                      <p
+                        key="mdrct-p-0"
+                      >
+                        Dex
+                      </p>
+                    </span>
+                  </MDReactComponent>
+                </div>
+              </ToolTip>
+            </span>
+          </TagLabel>
+          <TagButton
+            icon="fa-trash-o"
+            label={null}
+            onClick={[Function]}
+          >
+            <button
+              className="nice-tag-btn"
+              onClick={[Function]}
+            >
+              <i
+                className="icon fa-trash-o"
+              />
+            </button>
+          </TagButton>
+        </div>
+      </Tag>
+    </div>
+  </BaseTagContainer>
+</ListPropertySelect>
 `;
 
 exports[`Component: ListPropertySelect should render with minimum props 1`] = `
-<ListsToItemsCharacterEditorComponent
-  path="some.path"
+<ListPropertySelect
+  add={0}
+  added={Array []}
+  current={Array []}
+  filter={Object {}}
+  given={Array []}
+  items={Array []}
+  limit={0}
+  multiple={false}
+  onChange={[Function]}
+  removed={Array []}
+  replace={0}
+  setState={[Function]}
   type="list"
+  uuid="mocked-uuid-1"
 >
-  <CharacterEditorComponent
-    items={Array []}
-    path="some.path"
-    type="list"
-  >
-    <ListPropertySelect
-      add={0}
-      current={
-        Array [
-          "dexterity",
-        ]
-      }
-      filter={Object {}}
-      getCurrent={[Function]}
-      given={Array []}
-      items={Array []}
-      limit={0}
-      multiple={false}
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      replace={0}
-      type="list"
+  <BaseTagContainer>
+    <div
+      className="base-tag-container nice-tags-container"
+    />
+  </BaseTagContainer>
+</ListPropertySelect>
+`;
+
+exports[`Component: ListPropertySelect should stil show unknown current values 1`] = `
+<ListPropertySelect
+  add={0}
+  added={Array []}
+  current={
+    Array [
+      "dexterity",
+    ]
+  }
+  filter={Object {}}
+  given={
+    Array [
+      "foo",
+    ]
+  }
+  items={
+    Array [
+      Object {
+        "code": "strength",
+        "description": "Str",
+        "label": "Strength",
+      },
+      Object {
+        "code": "dexterity",
+        "description": "Dex",
+        "label": "Dexterity",
+      },
+      Object {
+        "code": "constitution",
+        "description": "Con",
+        "label": "Constitution",
+      },
+      Object {
+        "code": "intelligence",
+        "description": "Int",
+        "label": "Intelligence",
+      },
+      Object {
+        "code": "wisdom",
+        "description": "Wis",
+        "label": "Wisdom",
+      },
+      Object {
+        "code": "charisma",
+        "description": "Char",
+        "label": "Charisma",
+      },
+    ]
+  }
+  limit={0}
+  list={
+    Array [
+      "statistics",
+    ]
+  }
+  multiple={false}
+  onChange={[Function]}
+  path="some.path"
+  removed={Array []}
+  replace={0}
+  setState={[Function]}
+  type="list"
+  uuid="mocked-uuid-1"
+>
+  <BaseTagContainer>
+    <div
+      className="base-tag-container nice-tags-container"
     >
-      <BaseTagContainer>
+      <Tag
+        badges={Array []}
+        className={null}
+        color="good"
+        description={null}
+        disabled={true}
+        key="tag-0"
+        label="foo"
+        onChange={null}
+        onDelete={[Function]}
+      >
         <div
-          className="base-tag-container nice-tags-container"
+          className="nice-tag good"
         >
-          <Tag
-            badges={Array []}
-            className={null}
-            color={null}
-            description={null}
-            disabled={true}
-            key="tag-0"
-            label="dexterity"
-            onChange={null}
-            onDelete={[Function]}
-          >
-            <div
-              className="nice-tag muted"
+          <TagLabel>
+            <span
+              className="nice-tag-label"
             >
-              <TagLabel>
-                <span
-                  className="nice-tag-label"
-                >
-                  <ToolTip
-                    content={null}
-                  >
-                    dexterity
-                  </ToolTip>
-                </span>
-              </TagLabel>
-            </div>
-          </Tag>
+              <ToolTip
+                content={null}
+              >
+                foo
+              </ToolTip>
+            </span>
+          </TagLabel>
         </div>
-      </BaseTagContainer>
-    </ListPropertySelect>
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
+      </Tag>
+      <Tag
+        badges={Array []}
+        className={null}
+        color={null}
+        description="Dex"
+        disabled={true}
+        id="dexterity"
+        key="tag-1"
+        label="Dexterity"
+        onChange={null}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag muted"
+        >
+          <TagLabel>
+            <span
+              className="nice-tag-label"
+            >
+              <ToolTip
+                content="Dex"
+              >
+                <div
+                  className="tool-tip inline"
+                >
+                  Dexterity
+                  <MDReactComponent
+                    className="tool-tip--content"
+                    text="Dex"
+                  >
+                    <span
+                      className="tool-tip--content"
+                      key="mdrct-html-0"
+                    >
+                      <p
+                        key="mdrct-p-0"
+                      >
+                        Dex
+                      </p>
+                    </span>
+                  </MDReactComponent>
+                </div>
+              </ToolTip>
+            </span>
+          </TagLabel>
+        </div>
+      </Tag>
+    </div>
+  </BaseTagContainer>
+</ListPropertySelect>
 `;

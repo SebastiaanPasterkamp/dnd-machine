@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component: SelectPropertySelect should not render anything 1`] = `
-<ListsToItemsCharacterEditorComponent
+<SelectPropertySelect
+  current="charisma"
   hidden={true}
   items={
     Array [
@@ -37,97 +38,17 @@ exports[`Component: SelectPropertySelect should not render anything 1`] = `
       },
     ]
   }
+  onChange={[Function]}
   path="some.path"
+  setState={[Function]}
   type="select"
->
-  <CharacterEditorComponent
-    hidden={true}
-    items={
-      Array [
-        Object {
-          "code": "strength",
-          "description": "Str",
-          "label": "Strength",
-        },
-        Object {
-          "code": "dexterity",
-          "description": "Dex",
-          "label": "Dexterity",
-        },
-        Object {
-          "code": "constitution",
-          "description": "Con",
-          "label": "Constitution",
-        },
-        Object {
-          "code": "intelligence",
-          "description": "Int",
-          "label": "Intelligence",
-        },
-        Object {
-          "code": "wisdom",
-          "description": "Wis",
-          "label": "Wisdom",
-        },
-        Object {
-          "code": "charisma",
-          "description": "Char",
-          "label": "Charisma",
-        },
-      ]
-    }
-    path="some.path"
-    type="select"
-  >
-    <SelectPropertySelect
-      current="charisma"
-      getCurrent={[Function]}
-      hidden={true}
-      items={
-        Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
-        ]
-      }
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      type="select"
-    />
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
+  uuid="mocked-uuid-1"
+/>
 `;
 
 exports[`Component: SelectPropertySelect should render the list 1`] = `
-<ListsToItemsCharacterEditorComponent
+<SelectPropertySelect
+  current="charisma"
   items={
     Array [
       Object {
@@ -162,10 +83,17 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
       },
     ]
   }
+  onChange={[Function]}
   path="some.path"
+  setState={[Function]}
   type="select"
+  uuid="mocked-uuid-1"
 >
-  <CharacterEditorComponent
+  <SingleSelect
+    className="small"
+    defaultValue={null}
+    emptyLabel="Please select"
+    isDisabled={[Function]}
     items={
       Array [
         Object {
@@ -200,264 +128,178 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
         },
       ]
     }
-    path="some.path"
-    type="select"
+    renderEmpty={null}
+    selected="charisma"
+    setState={[Function]}
   >
-    <SelectPropertySelect
-      current="charisma"
-      getCurrent={[Function]}
-      items={
+    <OnClickOutside(BaseSelect)
+      className="small"
+      eventTypes={
         Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
+          "mousedown",
+          "touchstart",
         ]
       }
-      onChange={[Function]}
-      onSave={[Function]}
-      onUpdate={[Function]}
-      type="select"
+      excludeScrollbar={false}
+      label="Charisma"
+      outsideClickIgnoreClass="ignore-react-onclickoutside"
+      preventDefault={false}
+      stopPropagation={false}
     >
-      <SingleSelect
+      <BaseSelect
         className="small"
-        defaultValue={null}
-        emptyLabel="Please select"
-        isDisabled={[Function]}
-        items={
+        closeOnClick={true}
+        description={null}
+        disableOnClickOutside={[Function]}
+        disabled={false}
+        enableOnClickOutside={[Function]}
+        eventTypes={
           Array [
-            Object {
-              "code": "strength",
-              "description": "Str",
-              "label": "Strength",
-            },
-            Object {
-              "code": "dexterity",
-              "description": "Dex",
-              "label": "Dexterity",
-            },
-            Object {
-              "code": "constitution",
-              "description": "Con",
-              "label": "Constitution",
-            },
-            Object {
-              "code": "intelligence",
-              "description": "Int",
-              "label": "Intelligence",
-            },
-            Object {
-              "code": "wisdom",
-              "description": "Wis",
-              "label": "Wisdom",
-            },
-            Object {
-              "code": "charisma",
-              "description": "Char",
-              "label": "Charisma",
-            },
+            "mousedown",
+            "touchstart",
           ]
         }
-        renderEmpty={null}
-        selected="charisma"
-        setState={[Function]}
+        heading={null}
+        label="Charisma"
+        outsideClickIgnoreClass="ignore-react-onclickoutside"
+        preventDefault={false}
+        stopPropagation={false}
       >
-        <OnClickOutside(BaseSelect)
-          className="small"
-          eventTypes={
-            Array [
-              "mousedown",
-              "touchstart",
-            ]
-          }
-          excludeScrollbar={false}
-          label="Charisma"
-          outsideClickIgnoreClass="ignore-react-onclickoutside"
-          preventDefault={false}
-          stopPropagation={false}
+        <div
+          className="nice-dropdown nice-form-control small"
         >
-          <BaseSelect
-            className="small"
-            closeOnClick={true}
-            description={null}
-            disableOnClickOutside={[Function]}
+          <SelectButton
             disabled={false}
-            enableOnClickOutside={[Function]}
-            eventTypes={
-              Array [
-                "mousedown",
-                "touchstart",
-              ]
-            }
-            heading={null}
             label="Charisma"
-            outsideClickIgnoreClass="ignore-react-onclickoutside"
-            preventDefault={false}
-            stopPropagation={false}
+            onToggle={[Function]}
           >
-            <div
-              className="nice-dropdown nice-form-control small"
+            <button
+              className="nice-btn"
+              disabled={false}
+              onClick={[Function]}
             >
-              <SelectButton
-                disabled={false}
-                label="Charisma"
-                onToggle={[Function]}
-              >
-                <button
-                  className="nice-btn"
-                  disabled={false}
-                  onClick={[Function]}
-                >
-                  Charisma
-                  <i
-                    className="icon fa-angle-down"
-                  />
-                </button>
-              </SelectButton>
-              <ul
-                className="dropdown-menu"
+              Charisma
+              <i
+                className="icon fa-angle-down"
+              />
+            </button>
+          </SelectButton>
+          <ul
+            className="dropdown-menu"
+            onClick={[Function]}
+          >
+            <SelectItem
+              disabled={false}
+              id="strength"
+              key="strength"
+              label="Strength"
+              onClick={[Function]}
+              selected={false}
+            >
+              <li
+                className={null}
+                data-value="strength"
                 onClick={[Function]}
               >
-                <SelectItem
-                  disabled={false}
-                  id="strength"
-                  key="strength"
-                  label="Strength"
-                  onClick={[Function]}
-                  selected={false}
-                >
-                  <li
-                    className={null}
-                    data-value="strength"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Strength
-                    </a>
-                  </li>
-                </SelectItem>
-                <SelectItem
-                  disabled={false}
-                  id="dexterity"
-                  key="dexterity"
-                  label="Dexterity"
-                  onClick={[Function]}
-                  selected={false}
-                >
-                  <li
-                    className={null}
-                    data-value="dexterity"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Dexterity
-                    </a>
-                  </li>
-                </SelectItem>
-                <SelectItem
-                  disabled={false}
-                  id="constitution"
-                  key="constitution"
-                  label="Constitution"
-                  onClick={[Function]}
-                  selected={false}
-                >
-                  <li
-                    className={null}
-                    data-value="constitution"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Constitution
-                    </a>
-                  </li>
-                </SelectItem>
-                <SelectItem
-                  disabled={false}
-                  id="intelligence"
-                  key="intelligence"
-                  label="Intelligence"
-                  onClick={[Function]}
-                  selected={false}
-                >
-                  <li
-                    className={null}
-                    data-value="intelligence"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Intelligence
-                    </a>
-                  </li>
-                </SelectItem>
-                <SelectItem
-                  disabled={false}
-                  id="wisdom"
-                  key="wisdom"
-                  label="Wisdom"
-                  onClick={[Function]}
-                  selected={false}
-                >
-                  <li
-                    className={null}
-                    data-value="wisdom"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Wisdom
-                    </a>
-                  </li>
-                </SelectItem>
-                <SelectItem
-                  disabled={false}
-                  id="charisma"
-                  key="charisma"
-                  label="Charisma"
-                  onClick={[Function]}
-                  selected={true}
-                >
-                  <li
-                    className="info"
-                    data-value="charisma"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Charisma
-                    </a>
-                  </li>
-                </SelectItem>
-              </ul>
-            </div>
-          </BaseSelect>
-        </OnClickOutside(BaseSelect)>
-      </SingleSelect>
-    </SelectPropertySelect>
-  </CharacterEditorComponent>
-</ListsToItemsCharacterEditorComponent>
+                <a>
+                  Strength
+                </a>
+              </li>
+            </SelectItem>
+            <SelectItem
+              disabled={false}
+              id="dexterity"
+              key="dexterity"
+              label="Dexterity"
+              onClick={[Function]}
+              selected={false}
+            >
+              <li
+                className={null}
+                data-value="dexterity"
+                onClick={[Function]}
+              >
+                <a>
+                  Dexterity
+                </a>
+              </li>
+            </SelectItem>
+            <SelectItem
+              disabled={false}
+              id="constitution"
+              key="constitution"
+              label="Constitution"
+              onClick={[Function]}
+              selected={false}
+            >
+              <li
+                className={null}
+                data-value="constitution"
+                onClick={[Function]}
+              >
+                <a>
+                  Constitution
+                </a>
+              </li>
+            </SelectItem>
+            <SelectItem
+              disabled={false}
+              id="intelligence"
+              key="intelligence"
+              label="Intelligence"
+              onClick={[Function]}
+              selected={false}
+            >
+              <li
+                className={null}
+                data-value="intelligence"
+                onClick={[Function]}
+              >
+                <a>
+                  Intelligence
+                </a>
+              </li>
+            </SelectItem>
+            <SelectItem
+              disabled={false}
+              id="wisdom"
+              key="wisdom"
+              label="Wisdom"
+              onClick={[Function]}
+              selected={false}
+            >
+              <li
+                className={null}
+                data-value="wisdom"
+                onClick={[Function]}
+              >
+                <a>
+                  Wisdom
+                </a>
+              </li>
+            </SelectItem>
+            <SelectItem
+              disabled={false}
+              id="charisma"
+              key="charisma"
+              label="Charisma"
+              onClick={[Function]}
+              selected={true}
+            >
+              <li
+                className="info"
+                data-value="charisma"
+                onClick={[Function]}
+              >
+                <a>
+                  Charisma
+                </a>
+              </li>
+            </SelectItem>
+          </ul>
+        </div>
+      </BaseSelect>
+    </OnClickOutside(BaseSelect)>
+  </SingleSelect>
+</SelectPropertySelect>
 `;

@@ -13,18 +13,16 @@ export class MultipleChoiceSelect extends React.Component
     constructor(props) {
         super(props);
         this.state = {
-            added: [],
-            removed: [],
-            filtered: [],
             showSelect: false,
             disabled: true,
         };
+        this.onAdd = this.onAdd.bind(this);
+        this.onDelete = this.onDelete.bind(this);
     }
 
     static getDerivedStateFromProps(props, state) {
-        const { add, limit, replace } = props;
-        const { added, removed } = state;
-        const current = MultipleChoiceSelect.getCurrent(props, state);
+        const { added, removed, add, limit, replace } = props;
+        const current = MultipleChoiceSelect.getCurrent(props);
 
         const showSelect = Boolean(
             (added.length - removed.length) < add
@@ -33,21 +31,18 @@ export class MultipleChoiceSelect extends React.Component
         const disabled = removed.length >= replace;
 
         if (showSelect !== state.showSelect
-            || disabled != state.disabled
+            || disabled !== state.disabled
         ) {
             return { showSelect, disabled };
         }
         return null;
     }
 
-    onAdd = (label) => {
-        const { limit, add, replace } = this.props;
-        const { added, removed, filtered } = this.state;
-
-        const current = MultipleChoiceSelect.getCurrent(
-            this.props,
-            this.state
-        );
+    onAdd(uuid) {
+        const {
+            added, removed, filtered, limit, add, replace, setState,
+        } = this.props;
+        const current = MultipleChoiceSelect.getCurrent(this.props);
 
         if (limit) {
             if (current.length >= limit) {
@@ -58,44 +53,44 @@ export class MultipleChoiceSelect extends React.Component
         }
 
         const state = { added, removed, filtered };
-        if (_.includes(removed, label)) {
-            state.removed = _.without(removed, label);
+        if (_.includes(removed, uuid)) {
+            state.removed = _.without(removed, uuid);
         } else if (added.length < (add + removed.length)) {
-            state.filtered = _.without(filtered, label);
-            state.added = _.concat(added, [label]);
+            state.filtered = _.without(filtered, uuid);
+            state.added = _.concat(added, [uuid]);
         }
-        this.setState(state);
+        setState(state);
     }
 
-    onDelete = (label) => {
-        const { limit, add, replace } = this.props;
-        const { added, removed, filtered } = this.state;
+    onDelete(uuid) {
+        const {
+            added, removed, filtered, limit, add, replace, setState,
+        } = this.props;
         const state = { added, removed, filtered };
 
-        if (_.includes(added, label)) {
-            state.added = _.without(added, label);
-            state.filtered = _.concat(removed, [label]);
+        if (_.includes(added, uuid)) {
+            state.added = _.without(added, uuid);
+            state.filtered = _.concat(removed, [uuid]);
         } else if (removed.length < replace) {
-            state.removed = _.concat(removed, [label]);
+            state.removed = _.concat(removed, [uuid]);
         }
-        this.setState(state);
+        setState(state);
     }
 
-    onSetState = () => null;
+    onSetState() {}
 
     static getCurrent(props, state) {
-        const { options, getCurrent } = props;
-        const { added, removed, filtered } = state;
+        const { added, removed, filtered, options, getCurrent } = props;
 
         const current = _.chain(options)
             .filter(option => {
-                if (_.includes(added, option.label)) {
+                if (_.includes(added, option.uuid)) {
                     return true;
                 }
-                if (_.includes(filtered, option.label)) {
+                if (_.includes(filtered, option.uuid)) {
                     return false;
                 }
-                if (_.includes(removed, option.label)) {
+                if (_.includes(removed, option.uuid)) {
                     return false;
                 }
                 const path = (
@@ -104,28 +99,26 @@ export class MultipleChoiceSelect extends React.Component
                 );
                 return getCurrent(path);
             })
-            .map(option => option.label)
+            .map(option => option.uuid)
             .value();
         return current;
     }
 
     render() {
-        const { options, filter: filters, limit, add, replace } = this.props;
         const {
-            added, removed, filtered, showSelect, disabled,
-        } = this.state;
+            added, removed, filtered, options, limit, add, replace,
+            filter: filters,
+        } = this.props;
+        const { showSelect, disabled } = this.state;
 
-        const current = MultipleChoiceSelect.getCurrent(
-            this.props,
-            this.state
-        );
+        const current = MultipleChoiceSelect.getCurrent(this.props);
         const itemsDisabled = disabled || removed.length >= replace;
         const items = _.chain(options)
             .filter(option => !option.hidden && MatchesFilters(option, filters))
             .map(option => {
-                const isNew = _.includes(added, option.label);
+                const isNew = _.includes(added, option.uuid);
                 return {
-                    code: option.label,
+                    id: option.uuid,
                     label: option.label,
                     color: isNew ? 'info' : 'warning',
                     disabled: !isNew && itemsDisabled,
@@ -138,14 +131,14 @@ export class MultipleChoiceSelect extends React.Component
                 <TagContainer
                     value={current}
                     items={items}
-                    onAdd={ this.onAdd }
-                    onDelete={ this.onDelete }
-                    setState={ this.onSetState }
-                    showSelect={ showSelect }
+                    onAdd={this.onAdd}
+                    onDelete={this.onDelete}
+                    setState={this.onSetState}
+                    showSelect={showSelect}
                 />
                 {_.map(
                     options,
-                    (config, i) => _.includes(current, config.label) ? (
+                    (config, i) => _.includes(current, config.uuid) ? (
                         <CharacterConfig
                             key={i}
                             config={ [config] }
@@ -159,16 +152,24 @@ export class MultipleChoiceSelect extends React.Component
 
 MultipleChoiceSelect.propTypes = {
     type: PropTypes.oneOf(['multichoice']).isRequired,
-    options: PropTypes.arrayOf(PropTypes.object),
+    uuid: PropTypes.string.isRequired,
+    setState: PropTypes.func.isRequired,
     getCurrent: PropTypes.func.isRequired,
+    options: PropTypes.arrayOf(PropTypes.object),
     description: PropTypes.string,
     include: PropTypes.number,
+    added: PropTypes.array,
+    removed: PropTypes.array,
+    filtered: PropTypes.array,
     limit: PropTypes.number,
     add: PropTypes.number,
     replace: PropTypes.number,
 };
 
 MultipleChoiceSelect.defaultProps = {
+    added: [],
+    removed: [],
+    filtered: [],
     options: [],
     description: '',
     limit: 0,

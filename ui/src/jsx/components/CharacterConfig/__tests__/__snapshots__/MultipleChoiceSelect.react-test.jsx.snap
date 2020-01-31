@@ -1,10 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] = `
-<CharacterEditorComponent
+<MultipleChoiceSelect
   add={1}
+  added={
+    Array [
+      "mocked-uuid-2",
+    ]
+  }
   description="Pick some"
+  filtered={Array []}
+  getCurrent={[Function]}
   label="Example"
+  limit={0}
   options={
     Array [
       Object {
@@ -14,6 +22,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
         "label": "Simple",
         "path": "foo.bar",
         "type": "dict",
+        "uuid": "mocked-uuid-2",
       },
       Object {
         "config": Array [
@@ -23,380 +32,348 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
             },
             "path": "bar.foo",
             "type": "dict",
+            "uuid": "mocked-uuid-4",
           },
         ],
         "label": "Complex",
         "type": "config",
+        "uuid": "mocked-uuid-3",
       },
     ]
   }
+  removed={Array []}
+  replace={0}
+  setState={[Function]}
   type="multichoice"
+  uuid="mocked-uuid-1"
 >
-  <MultipleChoiceSelect
-    add={1}
-    character={
-      Object {
-        "bar": Object {
-          "foo": Object {
-            "description": "Foo is okay",
+  <div>
+    <TagContainer
+      className={null}
+      disabled={false}
+      items={
+        Array [
+          Object {
+            "color": "info",
+            "disabled": false,
+            "id": "mocked-uuid-2",
+            "label": "Simple",
           },
-        },
-        "foo": Object {
-          "bar": Object {
-            "description": "Bar is good",
+          Object {
+            "color": "warning",
+            "disabled": true,
+            "id": "mocked-uuid-3",
+            "label": "Complex",
           },
-        },
+        ]
       }
-    }
-    description="Pick some"
-    getCurrent={[Function]}
-    label="Example"
-    limit={0}
-    onChange={[Function]}
-    onSave={[Function]}
-    onUpdate={[Function]}
-    options={
-      Array [
-        Object {
-          "dict": Object {
-            "description": "Bar is good",
-          },
-          "label": "Simple",
-          "path": "foo.bar",
-          "type": "dict",
-        },
-        Object {
-          "config": Array [
-            Object {
-              "dict": Object {
-                "description": "Foo is okay",
-              },
-              "path": "bar.foo",
-              "type": "dict",
-            },
-          ],
-          "label": "Complex",
-          "type": "config",
-        },
-      ]
-    }
-    replace={0}
-    type="multichoice"
-  >
-    <div>
-      <TagContainer
+      multiple={false}
+      onAdd={[Function]}
+      onDelete={[Function]}
+      setState={[Function]}
+      showSelect={false}
+      value={
+        Array [
+          "mocked-uuid-2",
+          "mocked-uuid-3",
+        ]
+      }
+    >
+      <BaseTagContainer
         className={null}
-        disabled={false}
-        items={
-          Array [
-            Object {
-              "code": "Simple",
-              "color": "info",
-              "disabled": false,
-              "label": "Simple",
-            },
-            Object {
-              "code": "Complex",
-              "color": "warning",
-              "disabled": true,
-              "label": "Complex",
-            },
-          ]
-        }
-        multiple={false}
-        onAdd={[Function]}
-        onDelete={[Function]}
-        setState={[Function]}
-        showSelect={false}
-        value={
-          Array [
-            "Simple",
-            "Complex",
-          ]
-        }
       >
-        <BaseTagContainer
-          className={null}
+        <div
+          className="base-tag-container nice-tags-container"
         >
-          <div
-            className="base-tag-container nice-tags-container"
+          <TagSelect
+            current={
+              Array [
+                "mocked-uuid-2",
+                "mocked-uuid-3",
+              ]
+            }
+            items={
+              Array [
+                Object {
+                  "color": "info",
+                  "disabled": false,
+                  "id": "mocked-uuid-2",
+                  "label": "Simple",
+                },
+                Object {
+                  "color": "warning",
+                  "disabled": true,
+                  "id": "mocked-uuid-3",
+                  "label": "Complex",
+                },
+              ]
+            }
+            multiple={false}
+            onSelect={[Function]}
+          />
+          <Tag
+            badges={Array []}
+            className={null}
+            color={null}
+            count={1}
+            description={null}
+            disabled={false}
+            key="mocked-uuid-2"
+            label="Simple"
+            onChange={null}
+            onDelete={[Function]}
           >
-            <TagSelect
-              current={
-                Array [
-                  "Simple",
-                  "Complex",
-                ]
-              }
-              items={
-                Array [
-                  Object {
-                    "code": "Simple",
-                    "color": "info",
-                    "disabled": false,
-                    "label": "Simple",
-                  },
-                  Object {
-                    "code": "Complex",
-                    "color": "warning",
-                    "disabled": true,
-                    "label": "Complex",
-                  },
-                ]
-              }
-              multiple={false}
-              onSelect={[Function]}
-            />
-            <Tag
-              badges={Array []}
-              className={null}
-              color={null}
-              count={1}
-              description={null}
-              disabled={false}
-              key="Simple"
-              label="Simple"
-              onChange={null}
-              onDelete={[Function]}
+            <div
+              className="nice-tag"
             >
-              <div
-                className="nice-tag"
-              >
-                <TagLabel>
-                  <span
-                    className="nice-tag-label"
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
+                >
+                  <ToolTip
+                    content={null}
                   >
-                    <ToolTip
-                      content={null}
-                    >
-                      Simple
-                    </ToolTip>
-                  </span>
-                </TagLabel>
-                <TagButton
-                  icon="fa-trash-o"
-                  label={null}
+                    Simple
+                  </ToolTip>
+                </span>
+              </TagLabel>
+              <TagButton
+                icon="fa-trash-o"
+                label={null}
+                onClick={[Function]}
+              >
+                <button
+                  className="nice-tag-btn"
                   onClick={[Function]}
                 >
-                  <button
-                    className="nice-tag-btn"
-                    onClick={[Function]}
-                  >
-                    <i
-                      className="icon fa-trash-o"
-                    />
-                  </button>
-                </TagButton>
-              </div>
-            </Tag>
-            <Tag
-              badges={Array []}
-              className={null}
-              color={null}
-              count={1}
-              description={null}
-              disabled={true}
-              key="Complex"
-              label="Complex"
-              onChange={null}
-              onDelete={[Function]}
-            >
-              <div
-                className="nice-tag muted"
-              >
-                <TagLabel>
-                  <span
-                    className="nice-tag-label"
-                  >
-                    <ToolTip
-                      content={null}
-                    >
-                      Complex
-                    </ToolTip>
-                  </span>
-                </TagLabel>
-              </div>
-            </Tag>
-          </div>
-        </BaseTagContainer>
-      </TagContainer>
-      <CharacterConfig
-        config={
-          Array [
-            Object {
-              "dict": Object {
-                "description": "Bar is good",
-              },
-              "label": "Simple",
-              "path": "foo.bar",
-              "type": "dict",
-            },
-          ]
-        }
-        key="0"
-      >
-        <FormGroup
-          key="0"
-          label="Simple"
-        >
-          <div
-            className="nice-form-group"
+                  <i
+                    className="icon fa-trash-o"
+                  />
+                </button>
+              </TagButton>
+            </div>
+          </Tag>
+          <Tag
+            badges={Array []}
+            className={null}
+            color={null}
+            count={1}
+            description={null}
+            disabled={true}
+            key="mocked-uuid-3"
+            label="Complex"
+            onChange={null}
+            onDelete={[Function]}
           >
-            <label>
-              Simple
-            </label>
-            <CharacterEditorComponent
+            <div
+              className="nice-tag muted"
+            >
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
+                >
+                  <ToolTip
+                    content={null}
+                  >
+                    Complex
+                  </ToolTip>
+                </span>
+              </TagLabel>
+            </div>
+          </Tag>
+        </div>
+      </BaseTagContainer>
+    </TagContainer>
+    <CharacterConfig
+      config={
+        Array [
+          Object {
+            "dict": Object {
+              "description": "Bar is good",
+            },
+            "label": "Simple",
+            "path": "foo.bar",
+            "type": "dict",
+            "uuid": "mocked-uuid-2",
+          },
+        ]
+      }
+      key="0"
+    >
+      <FormGroup
+        key="0"
+        label="Simple"
+      >
+        <div
+          className="nice-form-group"
+        >
+          <label>
+            Simple
+          </label>
+          <CharacterEditorComponent
+            dict={
+              Object {
+                "description": "Bar is good",
+              }
+            }
+            path="foo.bar"
+            type="dict"
+            uuid="mocked-uuid-2"
+          >
+            <DictPropertySelect
               dict={
                 Object {
                   "description": "Bar is good",
                 }
               }
-              path="foo.bar"
+              getCurrent={[Function]}
+              onChange={[Function]}
+              onSave={[Function]}
+              onUpdate={[Function]}
+              setState={[Function]}
               type="dict"
+              uuid="mocked-uuid-2"
             >
-              <DictPropertySelect
-                current={
-                  Object {
-                    "description": "Bar is good",
-                  }
-                }
-                dict={
-                  Object {
-                    "description": "Bar is good",
-                  }
-                }
-                getCurrent={[Function]}
-                onChange={[Function]}
-                onSave={[Function]}
-                onUpdate={[Function]}
-                type="dict"
+              <MDReactComponent
+                text="Bar is good"
               >
-                <MDReactComponent
-                  text="Bar is good"
+                <span
+                  key="mdrct-html-0"
                 >
-                  <span
-                    key="mdrct-html-0"
+                  <p
+                    key="mdrct-p-0"
                   >
-                    <p
-                      key="mdrct-p-0"
-                    >
-                      Bar is good
-                    </p>
-                  </span>
-                </MDReactComponent>
-              </DictPropertySelect>
-            </CharacterEditorComponent>
-          </div>
-        </FormGroup>
-      </CharacterConfig>
-      <CharacterConfig
-        config={
-          Array [
-            Object {
-              "config": Array [
+                    Bar is good
+                  </p>
+                </span>
+              </MDReactComponent>
+            </DictPropertySelect>
+          </CharacterEditorComponent>
+        </div>
+      </FormGroup>
+    </CharacterConfig>
+    <CharacterConfig
+      config={
+        Array [
+          Object {
+            "config": Array [
+              Object {
+                "dict": Object {
+                  "description": "Foo is okay",
+                },
+                "path": "bar.foo",
+                "type": "dict",
+                "uuid": "mocked-uuid-4",
+              },
+            ],
+            "label": "Complex",
+            "type": "config",
+            "uuid": "mocked-uuid-3",
+          },
+        ]
+      }
+      key="1"
+    >
+      <FormGroup
+        key="0"
+        label="Complex"
+      >
+        <div
+          className="nice-form-group"
+        >
+          <label>
+            Complex
+          </label>
+          <CharacterConfig
+            config={
+              Array [
                 Object {
                   "dict": Object {
                     "description": "Foo is okay",
                   },
                   "path": "bar.foo",
                   "type": "dict",
+                  "uuid": "mocked-uuid-4",
                 },
-              ],
-              "label": "Complex",
-              "type": "config",
-            },
-          ]
-        }
-        key="1"
-      >
-        <FormGroup
-          key="0"
-          label="Complex"
-        >
-          <div
-            className="nice-form-group"
+              ]
+            }
+            type="config"
+            uuid="mocked-uuid-3"
           >
-            <label>
-              Complex
-            </label>
-            <CharacterConfig
-              config={
-                Array [
-                  Object {
-                    "dict": Object {
-                      "description": "Foo is okay",
-                    },
-                    "path": "bar.foo",
-                    "type": "dict",
-                  },
-                ]
-              }
-              type="config"
+            <FormGroup
+              key="0"
             >
-              <FormGroup
-                key="0"
+              <div
+                className="nice-form-group"
               >
-                <div
-                  className="nice-form-group"
+                <label />
+                <CharacterEditorComponent
+                  dict={
+                    Object {
+                      "description": "Foo is okay",
+                    }
+                  }
+                  path="bar.foo"
+                  type="dict"
+                  uuid="mocked-uuid-4"
                 >
-                  <label />
-                  <CharacterEditorComponent
+                  <DictPropertySelect
+                    current={
+                      Object {
+                        "description": "Foo is okay",
+                      }
+                    }
                     dict={
                       Object {
                         "description": "Foo is okay",
                       }
                     }
-                    path="bar.foo"
+                    getCurrent={[Function]}
+                    onChange={[Function]}
+                    onSave={[Function]}
+                    onUpdate={[Function]}
+                    setState={[Function]}
                     type="dict"
+                    uuid="mocked-uuid-4"
                   >
-                    <DictPropertySelect
-                      current={
-                        Object {
-                          "description": "Foo is okay",
-                        }
-                      }
-                      dict={
-                        Object {
-                          "description": "Foo is okay",
-                        }
-                      }
-                      getCurrent={[Function]}
-                      onChange={[Function]}
-                      onSave={[Function]}
-                      onUpdate={[Function]}
-                      type="dict"
+                    <MDReactComponent
+                      text="Foo is okay"
                     >
-                      <MDReactComponent
-                        text="Foo is okay"
+                      <span
+                        key="mdrct-html-0"
                       >
-                        <span
-                          key="mdrct-html-0"
+                        <p
+                          key="mdrct-p-0"
                         >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Foo is okay
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </DictPropertySelect>
-                  </CharacterEditorComponent>
-                </div>
-              </FormGroup>
-            </CharacterConfig>
-          </div>
-        </FormGroup>
-      </CharacterConfig>
-    </div>
-  </MultipleChoiceSelect>
-</CharacterEditorComponent>
+                          Foo is okay
+                        </p>
+                      </span>
+                    </MDReactComponent>
+                  </DictPropertySelect>
+                </CharacterEditorComponent>
+              </div>
+            </FormGroup>
+          </CharacterConfig>
+        </div>
+      </FormGroup>
+    </CharacterConfig>
+  </div>
+</MultipleChoiceSelect>
 `;
 
 exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] = `
-<CharacterEditorComponent
+<MultipleChoiceSelect
   add={1}
+  added={Array []}
   description="Pick some"
+  filtered={
+    Array [
+      "mocked-uuid-2",
+    ]
+  }
+  getCurrent={[Function]}
   label="Example"
+  limit={0}
   options={
     Array [
       Object {
@@ -406,6 +383,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
         "label": "Simple",
         "path": "foo.bar",
         "type": "dict",
+        "uuid": "mocked-uuid-2",
       },
       Object {
         "config": Array [
@@ -415,361 +393,327 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
             },
             "path": "bar.foo",
             "type": "dict",
+            "uuid": "mocked-uuid-4",
           },
         ],
         "label": "Complex",
         "type": "config",
+        "uuid": "mocked-uuid-3",
       },
     ]
   }
+  removed={Array []}
+  replace={0}
+  setState={[Function]}
   type="multichoice"
+  uuid="mocked-uuid-1"
 >
-  <MultipleChoiceSelect
-    add={1}
-    character={
-      Object {
-        "bar": Object {
-          "foo": Object {
-            "description": "Foo is okay",
+  <div>
+    <TagContainer
+      className={null}
+      disabled={false}
+      items={
+        Array [
+          Object {
+            "color": "warning",
+            "disabled": true,
+            "id": "mocked-uuid-2",
+            "label": "Simple",
           },
-        },
-        "foo": Object {
-          "bar": Object {
-            "description": "Bar is good",
+          Object {
+            "color": "warning",
+            "disabled": true,
+            "id": "mocked-uuid-3",
+            "label": "Complex",
           },
-        },
+        ]
       }
-    }
-    description="Pick some"
-    getCurrent={[Function]}
-    label="Example"
-    limit={0}
-    onChange={[Function]}
-    onSave={[Function]}
-    onUpdate={[Function]}
-    options={
-      Array [
-        Object {
-          "dict": Object {
-            "description": "Bar is good",
-          },
-          "label": "Simple",
-          "path": "foo.bar",
-          "type": "dict",
-        },
-        Object {
-          "config": Array [
-            Object {
-              "dict": Object {
-                "description": "Foo is okay",
-              },
-              "path": "bar.foo",
-              "type": "dict",
-            },
-          ],
-          "label": "Complex",
-          "type": "config",
-        },
-      ]
-    }
-    replace={0}
-    type="multichoice"
-  >
-    <div>
-      <TagContainer
+      multiple={false}
+      onAdd={[Function]}
+      onDelete={[Function]}
+      setState={[Function]}
+      showSelect={true}
+      value={
+        Array [
+          "mocked-uuid-3",
+        ]
+      }
+    >
+      <BaseTagContainer
         className={null}
-        disabled={false}
-        items={
-          Array [
-            Object {
-              "code": "Simple",
-              "color": "warning",
-              "disabled": true,
-              "label": "Simple",
-            },
-            Object {
-              "code": "Complex",
-              "color": "warning",
-              "disabled": true,
-              "label": "Complex",
-            },
-          ]
-        }
-        multiple={false}
-        onAdd={[Function]}
-        onDelete={[Function]}
-        setState={[Function]}
-        showSelect={true}
-        value={
-          Array [
-            "Complex",
-          ]
-        }
       >
-        <BaseTagContainer
-          className={null}
+        <div
+          className="base-tag-container nice-tags-container"
         >
-          <div
-            className="base-tag-container nice-tags-container"
+          <TagSelect
+            current={
+              Array [
+                "mocked-uuid-3",
+              ]
+            }
+            items={
+              Array [
+                Object {
+                  "color": "warning",
+                  "disabled": true,
+                  "id": "mocked-uuid-2",
+                  "label": "Simple",
+                },
+                Object {
+                  "color": "warning",
+                  "disabled": true,
+                  "id": "mocked-uuid-3",
+                  "label": "Complex",
+                },
+              ]
+            }
+            multiple={false}
+            onSelect={[Function]}
           >
-            <TagSelect
-              current={
-                Array [
-                  "Complex",
-                ]
-              }
+            <SingleSelect
+              defaultValue={null}
+              emptyLabel="Add..."
+              isDisabled={[Function]}
               items={
                 Array [
                   Object {
-                    "code": "Simple",
-                    "color": "warning",
-                    "disabled": true,
+                    "code": "mocked-uuid-2",
                     "label": "Simple",
-                  },
-                  Object {
-                    "code": "Complex",
-                    "color": "warning",
-                    "disabled": true,
-                    "label": "Complex",
                   },
                 ]
               }
-              multiple={false}
-              onSelect={[Function]}
+              renderEmpty={null}
+              selected={null}
+              setState={[Function]}
             >
-              <SingleSelect
-                defaultValue={null}
-                emptyLabel="Add..."
-                isDisabled={[Function]}
-                items={
+              <OnClickOutside(BaseSelect)
+                eventTypes={
                   Array [
-                    Object {
-                      "code": "Simple",
-                      "label": "Simple",
-                    },
+                    "mousedown",
+                    "touchstart",
                   ]
                 }
-                renderEmpty={null}
-                selected={null}
-                setState={[Function]}
+                excludeScrollbar={false}
+                label="Add..."
+                outsideClickIgnoreClass="ignore-react-onclickoutside"
+                preventDefault={false}
+                stopPropagation={false}
               >
-                <OnClickOutside(BaseSelect)
+                <BaseSelect
+                  className={null}
+                  closeOnClick={true}
+                  description={null}
+                  disableOnClickOutside={[Function]}
+                  disabled={false}
+                  enableOnClickOutside={[Function]}
                   eventTypes={
                     Array [
                       "mousedown",
                       "touchstart",
                     ]
                   }
-                  excludeScrollbar={false}
+                  heading={null}
                   label="Add..."
                   outsideClickIgnoreClass="ignore-react-onclickoutside"
                   preventDefault={false}
                   stopPropagation={false}
                 >
-                  <BaseSelect
-                    className={null}
-                    closeOnClick={true}
-                    description={null}
-                    disableOnClickOutside={[Function]}
-                    disabled={false}
-                    enableOnClickOutside={[Function]}
-                    eventTypes={
-                      Array [
-                        "mousedown",
-                        "touchstart",
-                      ]
-                    }
-                    heading={null}
-                    label="Add..."
-                    outsideClickIgnoreClass="ignore-react-onclickoutside"
-                    preventDefault={false}
-                    stopPropagation={false}
+                  <div
+                    className="nice-dropdown nice-form-control"
                   >
-                    <div
-                      className="nice-dropdown nice-form-control"
+                    <SelectButton
+                      disabled={false}
+                      label="Add..."
+                      onToggle={[Function]}
                     >
-                      <SelectButton
+                      <button
+                        className="nice-btn"
                         disabled={false}
-                        label="Add..."
-                        onToggle={[Function]}
-                      >
-                        <button
-                          className="nice-btn"
-                          disabled={false}
-                          onClick={[Function]}
-                        >
-                          Add...
-                          <i
-                            className="icon fa-angle-down"
-                          />
-                        </button>
-                      </SelectButton>
-                      <ul
-                        className="dropdown-menu"
                         onClick={[Function]}
                       >
-                        <SelectItem
-                          disabled={false}
-                          id="Simple"
-                          key="Simple"
-                          label="Simple"
-                          onClick={[Function]}
-                          selected={false}
-                        >
-                          <li
-                            className={null}
-                            data-value="Simple"
-                            onClick={[Function]}
-                          >
-                            <a>
-                              Simple
-                            </a>
-                          </li>
-                        </SelectItem>
-                      </ul>
-                    </div>
-                  </BaseSelect>
-                </OnClickOutside(BaseSelect)>
-              </SingleSelect>
-            </TagSelect>
-            <Tag
-              badges={Array []}
-              className={null}
-              color={null}
-              count={1}
-              description={null}
-              disabled={true}
-              key="Complex"
-              label="Complex"
-              onChange={null}
-              onDelete={[Function]}
-            >
-              <div
-                className="nice-tag muted"
-              >
-                <TagLabel>
-                  <span
-                    className="nice-tag-label"
-                  >
-                    <ToolTip
-                      content={null}
+                        Add...
+                        <i
+                          className="icon fa-angle-down"
+                        />
+                      </button>
+                    </SelectButton>
+                    <ul
+                      className="dropdown-menu"
+                      onClick={[Function]}
                     >
-                      Complex
-                    </ToolTip>
-                  </span>
-                </TagLabel>
-              </div>
-            </Tag>
-          </div>
-        </BaseTagContainer>
-      </TagContainer>
-      <CharacterConfig
-        config={
-          Array [
-            Object {
-              "config": Array [
+                      <SelectItem
+                        disabled={false}
+                        id="mocked-uuid-2"
+                        key="mocked-uuid-2"
+                        label="Simple"
+                        onClick={[Function]}
+                        selected={false}
+                      >
+                        <li
+                          className={null}
+                          data-value="mocked-uuid-2"
+                          onClick={[Function]}
+                        >
+                          <a>
+                            Simple
+                          </a>
+                        </li>
+                      </SelectItem>
+                    </ul>
+                  </div>
+                </BaseSelect>
+              </OnClickOutside(BaseSelect)>
+            </SingleSelect>
+          </TagSelect>
+          <Tag
+            badges={Array []}
+            className={null}
+            color={null}
+            count={1}
+            description={null}
+            disabled={true}
+            key="mocked-uuid-3"
+            label="Complex"
+            onChange={null}
+            onDelete={[Function]}
+          >
+            <div
+              className="nice-tag muted"
+            >
+              <TagLabel>
+                <span
+                  className="nice-tag-label"
+                >
+                  <ToolTip
+                    content={null}
+                  >
+                    Complex
+                  </ToolTip>
+                </span>
+              </TagLabel>
+            </div>
+          </Tag>
+        </div>
+      </BaseTagContainer>
+    </TagContainer>
+    <CharacterConfig
+      config={
+        Array [
+          Object {
+            "config": Array [
+              Object {
+                "dict": Object {
+                  "description": "Foo is okay",
+                },
+                "path": "bar.foo",
+                "type": "dict",
+                "uuid": "mocked-uuid-4",
+              },
+            ],
+            "label": "Complex",
+            "type": "config",
+            "uuid": "mocked-uuid-3",
+          },
+        ]
+      }
+      key="1"
+    >
+      <FormGroup
+        key="0"
+        label="Complex"
+      >
+        <div
+          className="nice-form-group"
+        >
+          <label>
+            Complex
+          </label>
+          <CharacterConfig
+            config={
+              Array [
                 Object {
                   "dict": Object {
                     "description": "Foo is okay",
                   },
                   "path": "bar.foo",
                   "type": "dict",
+                  "uuid": "mocked-uuid-4",
                 },
-              ],
-              "label": "Complex",
-              "type": "config",
-            },
-          ]
-        }
-        key="1"
-      >
-        <FormGroup
-          key="0"
-          label="Complex"
-        >
-          <div
-            className="nice-form-group"
+              ]
+            }
+            type="config"
+            uuid="mocked-uuid-3"
           >
-            <label>
-              Complex
-            </label>
-            <CharacterConfig
-              config={
-                Array [
-                  Object {
-                    "dict": Object {
-                      "description": "Foo is okay",
-                    },
-                    "path": "bar.foo",
-                    "type": "dict",
-                  },
-                ]
-              }
-              type="config"
+            <FormGroup
+              key="0"
             >
-              <FormGroup
-                key="0"
+              <div
+                className="nice-form-group"
               >
-                <div
-                  className="nice-form-group"
+                <label />
+                <CharacterEditorComponent
+                  dict={
+                    Object {
+                      "description": "Foo is okay",
+                    }
+                  }
+                  path="bar.foo"
+                  type="dict"
+                  uuid="mocked-uuid-4"
                 >
-                  <label />
-                  <CharacterEditorComponent
+                  <DictPropertySelect
+                    current={
+                      Object {
+                        "description": "Foo is okay",
+                      }
+                    }
                     dict={
                       Object {
                         "description": "Foo is okay",
                       }
                     }
-                    path="bar.foo"
+                    getCurrent={[Function]}
+                    onChange={[Function]}
+                    onSave={[Function]}
+                    onUpdate={[Function]}
+                    setState={[Function]}
                     type="dict"
+                    uuid="mocked-uuid-4"
                   >
-                    <DictPropertySelect
-                      current={
-                        Object {
-                          "description": "Foo is okay",
-                        }
-                      }
-                      dict={
-                        Object {
-                          "description": "Foo is okay",
-                        }
-                      }
-                      getCurrent={[Function]}
-                      onChange={[Function]}
-                      onSave={[Function]}
-                      onUpdate={[Function]}
-                      type="dict"
+                    <MDReactComponent
+                      text="Foo is okay"
                     >
-                      <MDReactComponent
-                        text="Foo is okay"
+                      <span
+                        key="mdrct-html-0"
                       >
-                        <span
-                          key="mdrct-html-0"
+                        <p
+                          key="mdrct-p-0"
                         >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            Foo is okay
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </DictPropertySelect>
-                  </CharacterEditorComponent>
-                </div>
-              </FormGroup>
-            </CharacterConfig>
-          </div>
-        </FormGroup>
-      </CharacterConfig>
-    </div>
-  </MultipleChoiceSelect>
-</CharacterEditorComponent>
+                          Foo is okay
+                        </p>
+                      </span>
+                    </MDReactComponent>
+                  </DictPropertySelect>
+                </CharacterEditorComponent>
+              </div>
+            </FormGroup>
+          </CharacterConfig>
+        </div>
+      </FormGroup>
+    </CharacterConfig>
+  </div>
+</MultipleChoiceSelect>
 `;
 
 exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`] = `
-<CharacterEditorComponent
+<MultipleChoiceSelect
+  add={0}
+  added={Array []}
   description="Pick some"
+  filtered={Array []}
+  getCurrent={[Function]}
   label="Example"
+  limit={0}
   options={
     Array [
       Object {
@@ -779,6 +723,7 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
         "label": "Simple",
         "path": "foo.bar",
         "type": "dict",
+        "uuid": "mocked-uuid-2",
       },
       Object {
         "config": Array [
@@ -788,300 +733,207 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
             },
             "path": "bar.foo",
             "type": "dict",
+            "uuid": "mocked-uuid-4",
           },
         ],
         "label": "Complex",
         "type": "config",
+        "uuid": "mocked-uuid-3",
       },
     ]
   }
+  removed={
+    Array [
+      "mocked-uuid-3",
+    ]
+  }
   replace={1}
+  setState={[Function]}
   type="multichoice"
+  uuid="mocked-uuid-1"
 >
-  <MultipleChoiceSelect
-    add={0}
-    character={
-      Object {
-        "bar": Object {
-          "foo": Object {
-            "description": "Foo is okay",
+  <div>
+    <TagContainer
+      className={null}
+      disabled={false}
+      items={
+        Array [
+          Object {
+            "color": "warning",
+            "disabled": true,
+            "id": "mocked-uuid-2",
+            "label": "Simple",
           },
-        },
+          Object {
+            "color": "warning",
+            "disabled": true,
+            "id": "mocked-uuid-3",
+            "label": "Complex",
+          },
+        ]
       }
-    }
-    description="Pick some"
-    getCurrent={[Function]}
-    label="Example"
-    limit={0}
-    onChange={[Function]}
-    onSave={[Function]}
-    onUpdate={[Function]}
-    options={
-      Array [
-        Object {
-          "dict": Object {
-            "description": "Bar is good",
-          },
-          "label": "Simple",
-          "path": "foo.bar",
-          "type": "dict",
-        },
-        Object {
-          "config": Array [
-            Object {
-              "dict": Object {
-                "description": "Foo is okay",
-              },
-              "path": "bar.foo",
-              "type": "dict",
-            },
-          ],
-          "label": "Complex",
-          "type": "config",
-        },
-      ]
-    }
-    replace={1}
-    type="multichoice"
-  >
-    <div>
-      <TagContainer
+      multiple={false}
+      onAdd={[Function]}
+      onDelete={[Function]}
+      setState={[Function]}
+      showSelect={true}
+      value={Array []}
+    >
+      <BaseTagContainer
         className={null}
-        disabled={false}
-        items={
-          Array [
-            Object {
-              "code": "Simple",
-              "color": "warning",
-              "disabled": true,
-              "label": "Simple",
-            },
-            Object {
-              "code": "Complex",
-              "color": "warning",
-              "disabled": true,
-              "label": "Complex",
-            },
-          ]
-        }
-        multiple={false}
-        onAdd={[Function]}
-        onDelete={[Function]}
-        setState={[Function]}
-        showSelect={true}
-        value={Array []}
       >
-        <BaseTagContainer
-          className={null}
+        <div
+          className="base-tag-container nice-tags-container"
         >
-          <div
-            className="base-tag-container nice-tags-container"
+          <TagSelect
+            current={Array []}
+            items={
+              Array [
+                Object {
+                  "color": "warning",
+                  "disabled": true,
+                  "id": "mocked-uuid-2",
+                  "label": "Simple",
+                },
+                Object {
+                  "color": "warning",
+                  "disabled": true,
+                  "id": "mocked-uuid-3",
+                  "label": "Complex",
+                },
+              ]
+            }
+            multiple={false}
+            onSelect={[Function]}
           >
-            <TagSelect
-              current={Array []}
+            <SingleSelect
+              defaultValue={null}
+              emptyLabel="Add..."
+              isDisabled={[Function]}
               items={
                 Array [
                   Object {
-                    "code": "Simple",
-                    "color": "warning",
-                    "disabled": true,
+                    "code": "mocked-uuid-2",
                     "label": "Simple",
                   },
                   Object {
-                    "code": "Complex",
-                    "color": "warning",
-                    "disabled": true,
+                    "code": "mocked-uuid-3",
                     "label": "Complex",
                   },
                 ]
               }
-              multiple={false}
-              onSelect={[Function]}
+              renderEmpty={null}
+              selected={null}
+              setState={[Function]}
             >
-              <SingleSelect
-                defaultValue={null}
-                emptyLabel="Add..."
-                isDisabled={[Function]}
-                items={
+              <OnClickOutside(BaseSelect)
+                eventTypes={
                   Array [
-                    Object {
-                      "code": "Simple",
-                      "label": "Simple",
-                    },
-                    Object {
-                      "code": "Complex",
-                      "label": "Complex",
-                    },
+                    "mousedown",
+                    "touchstart",
                   ]
                 }
-                renderEmpty={null}
-                selected={null}
-                setState={[Function]}
+                excludeScrollbar={false}
+                label="Add..."
+                outsideClickIgnoreClass="ignore-react-onclickoutside"
+                preventDefault={false}
+                stopPropagation={false}
               >
-                <OnClickOutside(BaseSelect)
+                <BaseSelect
+                  className={null}
+                  closeOnClick={true}
+                  description={null}
+                  disableOnClickOutside={[Function]}
+                  disabled={false}
+                  enableOnClickOutside={[Function]}
                   eventTypes={
                     Array [
                       "mousedown",
                       "touchstart",
                     ]
                   }
-                  excludeScrollbar={false}
+                  heading={null}
                   label="Add..."
                   outsideClickIgnoreClass="ignore-react-onclickoutside"
                   preventDefault={false}
                   stopPropagation={false}
                 >
-                  <BaseSelect
-                    className={null}
-                    closeOnClick={true}
-                    description={null}
-                    disableOnClickOutside={[Function]}
-                    disabled={false}
-                    enableOnClickOutside={[Function]}
-                    eventTypes={
-                      Array [
-                        "mousedown",
-                        "touchstart",
-                      ]
-                    }
-                    heading={null}
-                    label="Add..."
-                    outsideClickIgnoreClass="ignore-react-onclickoutside"
-                    preventDefault={false}
-                    stopPropagation={false}
+                  <div
+                    className="nice-dropdown nice-form-control"
                   >
-                    <div
-                      className="nice-dropdown nice-form-control"
+                    <SelectButton
+                      disabled={false}
+                      label="Add..."
+                      onToggle={[Function]}
                     >
-                      <SelectButton
+                      <button
+                        className="nice-btn"
                         disabled={false}
-                        label="Add..."
-                        onToggle={[Function]}
-                      >
-                        <button
-                          className="nice-btn"
-                          disabled={false}
-                          onClick={[Function]}
-                        >
-                          Add...
-                          <i
-                            className="icon fa-angle-down"
-                          />
-                        </button>
-                      </SelectButton>
-                      <ul
-                        className="dropdown-menu"
                         onClick={[Function]}
                       >
-                        <SelectItem
-                          disabled={false}
-                          id="Simple"
-                          key="Simple"
-                          label="Simple"
+                        Add...
+                        <i
+                          className="icon fa-angle-down"
+                        />
+                      </button>
+                    </SelectButton>
+                    <ul
+                      className="dropdown-menu"
+                      onClick={[Function]}
+                    >
+                      <SelectItem
+                        disabled={false}
+                        id="mocked-uuid-2"
+                        key="mocked-uuid-2"
+                        label="Simple"
+                        onClick={[Function]}
+                        selected={false}
+                      >
+                        <li
+                          className={null}
+                          data-value="mocked-uuid-2"
                           onClick={[Function]}
-                          selected={false}
                         >
-                          <li
-                            className={null}
-                            data-value="Simple"
-                            onClick={[Function]}
-                          >
-                            <a>
-                              Simple
-                            </a>
-                          </li>
-                        </SelectItem>
-                        <SelectItem
-                          disabled={false}
-                          id="Complex"
-                          key="Complex"
-                          label="Complex"
+                          <a>
+                            Simple
+                          </a>
+                        </li>
+                      </SelectItem>
+                      <SelectItem
+                        disabled={false}
+                        id="mocked-uuid-3"
+                        key="mocked-uuid-3"
+                        label="Complex"
+                        onClick={[Function]}
+                        selected={false}
+                      >
+                        <li
+                          className={null}
+                          data-value="mocked-uuid-3"
                           onClick={[Function]}
-                          selected={false}
                         >
-                          <li
-                            className={null}
-                            data-value="Complex"
-                            onClick={[Function]}
-                          >
-                            <a>
-                              Complex
-                            </a>
-                          </li>
-                        </SelectItem>
-                      </ul>
-                    </div>
-                  </BaseSelect>
-                </OnClickOutside(BaseSelect)>
-              </SingleSelect>
-            </TagSelect>
-          </div>
-        </BaseTagContainer>
-      </TagContainer>
-    </div>
-  </MultipleChoiceSelect>
-</CharacterEditorComponent>
+                          <a>
+                            Complex
+                          </a>
+                        </li>
+                      </SelectItem>
+                    </ul>
+                  </div>
+                </BaseSelect>
+              </OnClickOutside(BaseSelect)>
+            </SingleSelect>
+          </TagSelect>
+        </div>
+      </BaseTagContainer>
+    </TagContainer>
+  </div>
+</MultipleChoiceSelect>
 `;
 
 exports[`Component: MultipleChoiceSelect should render with minimum props 1`] = `
 <div>
   <div
     className="base-tag-container nice-tags-container"
-  >
-    <div
-      className="nice-dropdown nice-form-control"
-    >
-      <button
-        className="nice-btn"
-        disabled={false}
-        onClick={[Function]}
-      >
-        Add...
-        <i
-          className="icon fa-angle-down"
-        />
-      </button>
-      <ul
-        className="dropdown-menu"
-        onClick={[Function]}
-      >
-        <li
-          className={null}
-          data-value="Simple"
-          onClick={[Function]}
-        >
-          <a>
-            Simple
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div
-      className="nice-tag muted"
-    >
-      <span
-        className="nice-tag-label"
-      >
-        Complex
-      </span>
-    </div>
-  </div>
-  <div
-    className="nice-form-group"
-  >
-    <label>
-      Complex
-    </label>
-    <div
-      className="nice-form-group"
-    >
-      <label />
-      <span>
-        <p>
-          Foo is okay
-        </p>
-      </span>
-    </div>
-  </div>
+  />
 </div>
 `;

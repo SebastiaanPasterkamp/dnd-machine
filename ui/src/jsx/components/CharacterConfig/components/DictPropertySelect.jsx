@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { sprintf } from 'sprintf-js';
 import MDReactComponent from 'markdown-react-js';
 
-import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper';
 
 export class DictPropertySelect extends React.Component
 {
@@ -13,9 +13,8 @@ export class DictPropertySelect extends React.Component
     }
 
     componentDidMount() {
-        this.props.onChange(
-            this.props.dict
-        );
+        const { onChange, dict } = this.props;
+        onChange( dict );
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -51,7 +50,7 @@ export class DictPropertySelect extends React.Component
 
 DictPropertySelect.propTypes = {
     type: PropTypes.oneOf(['dict']).isRequired,
-    uuid: PropTypes.string,
+    uuid: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     dict: PropTypes.object.isRequired,
     current: PropTypes.object,

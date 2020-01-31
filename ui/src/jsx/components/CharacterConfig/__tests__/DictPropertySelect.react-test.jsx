@@ -1,127 +1,58 @@
 import React from 'react';
-import _ from 'lodash';
-import fp from 'lodash/fp';
 import { mount } from 'enzyme';
 
-jest.useFakeTimers();
-
-import DictPropertySelect from '../components/DictPropertySelect.jsx';
-
-import actions from '../actions/CharacterEditorActions.jsx';
-import store from '../stores/CharacterEditorStore.jsx';
+import { DictPropertySelect } from '../components/DictPropertySelect';
 
 const props = {
     type: 'dict',
+    uuid: 'mocked-uuid-1',
     path: 'some.path',
     dict: {
         type: 'new',
     },
+    current: {
+        description: 'This shows _%(type)s_ content',
+        type: 'old',
+    },
 };
-
-const mockedId = 'id_1';
 
 describe('Component: DictPropertySelect', () => {
 
-    beforeEach(() => {
-        fp.uniqueId = _.uniqueId = jest.fn();
-        _.uniqueId
-            .mockReturnValueOnce(mockedId)
-            .mockReturnValueOnce('unexpected_2');
-
-        actions.editCharacter.completed({
-            some: {
-                path: {
-                    description: 'This shows _%(type)s_ content',
-                    type: 'old',
-                },
-            },
-        });
-
-        jest.runAllTimers();
-    });
-
-    afterEach(() => store.reset());
-
     it('should not render anything while hidden', () => {
+        const onChange = jest.fn();
         const wrapper = mount(
             <DictPropertySelect
+                onChange={onChange}
                 {...props}
                 hidden={true}
-                />
+            />
         );
-        jest.runAllTimers();
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should render the updated description', () => {
+        const onChange = jest.fn();
         const wrapper = mount(
             <DictPropertySelect
+                onChange={onChange}
                 {...props}
-                />
+            />
         );
-        jest.runAllTimers();
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should emit onChange dispite being hidden', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
-
+        const onChange = jest.fn();
         const wrapper = mount(
             <DictPropertySelect
+                onChange={onChange}
                 {...props}
                 hidden={true}
-                />
+            />
         );
 
-        expect(addChange)
-            .toBeCalledWith(
-                props.path,
-                props.dict,
-                mockedId,
-                {
-                    type: 'dict',
-                    dict: props.dict,
-                    hidden: true,
-                }
-             );
-    });
-
-    it('should emit *Change actions on mount and umount', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
-        const removeChange = jest.spyOn(
-            actions,
-            'removeChange'
-        );
-        const wrapper = mount(
-            <DictPropertySelect
-                {...props}
-                />
-        );
-
-        expect(addChange)
-            .toBeCalledWith(
-                props.path,
-                props.dict,
-                mockedId,
-                {
-                    type: 'dict',
-                    dict: props.dict,
-                }
-             );
-
-        wrapper.unmount();
-
-        expect(removeChange)
-            .toBeCalledWith(mockedId);
+        expect(onChange).toBeCalledWith(props.dict);
     });
 });

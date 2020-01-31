@@ -1,57 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component: ValuePropertySelect should not render anything when hidden 1`] = `
-<CharacterEditorComponent
+<ValuePropertySelect
   hidden={true}
+  onChange={[Function]}
   path="some.path"
   type="value"
+  uuid="mocked-uuid-1"
   value="This shows _formatted_ content."
->
-  <ValuePropertySelect
-    getCurrent={[Function]}
-    hidden={true}
-    onChange={[Function]}
-    onSave={[Function]}
-    onUpdate={[Function]}
-    type="value"
-    value="This shows _formatted_ content."
-  />
-</CharacterEditorComponent>
+/>
 `;
 
 exports[`Component: ValuePropertySelect should render the formatted description 1`] = `
-<CharacterEditorComponent
+<ValuePropertySelect
+  onChange={[Function]}
   path="some.path"
   type="value"
+  uuid="mocked-uuid-1"
   value="This shows _formatted_ content."
 >
-  <ValuePropertySelect
-    getCurrent={[Function]}
-    onChange={[Function]}
-    onSave={[Function]}
-    onUpdate={[Function]}
-    type="value"
-    value="This shows _formatted_ content."
+  <MDReactComponent
+    text="This shows _formatted_ content."
   >
-    <MDReactComponent
-      text="This shows _formatted_ content."
+    <span
+      key="mdrct-html-0"
     >
-      <span
-        key="mdrct-html-0"
+      <p
+        key="mdrct-p-0"
       >
-        <p
-          key="mdrct-p-0"
+        This shows 
+        <em
+          key="mdrct-em-1"
         >
-          This shows 
-          <em
-            key="mdrct-em-1"
-          >
-            formatted
-          </em>
-           content.
-        </p>
-      </span>
-    </MDReactComponent>
-  </ValuePropertySelect>
-</CharacterEditorComponent>
+          formatted
+        </em>
+         content.
+      </p>
+    </span>
+  </MDReactComponent>
+</ValuePropertySelect>
 `;

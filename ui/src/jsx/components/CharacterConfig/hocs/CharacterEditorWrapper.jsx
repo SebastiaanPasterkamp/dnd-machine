@@ -6,11 +6,10 @@ import {
     get,
     isEqual,
     keys,
-    uniqueId,
 } from 'lodash/fp';
 
-import actions from '../actions/CharacterEditorActions.jsx';
-import store from '../stores/CharacterEditorStore.jsx';
+import actions from '../actions/CharacterEditorActions';
+import store from '../stores/CharacterEditorStore';
 
 function CharacterEditorWrapper(
     WrappedComponent,
@@ -25,7 +24,11 @@ function CharacterEditorWrapper(
                 keys(storeKeys),
                 ['character']
             );
-            this._id = uniqueId();
+            this.onSave = this.onSave.bind(this);
+            this.onUpdate = this.onUpdate.bind(this);
+            this.onChange = this.onChange.bind(this);
+            this.onSetState = this.onSetState.bind(this);
+            this.getCurrent = this.getCurrent.bind(this);
         }
 
         componentWillMount() {
@@ -56,7 +59,7 @@ function CharacterEditorWrapper(
             return false;
         }
 
-        onSave = (callback=null) => {
+        onSave(callback=null) {
             const id = get('match.params.id', this.props);
 
             actions.postCharacter(
@@ -64,7 +67,7 @@ function CharacterEditorWrapper(
             );
         }
 
-        onUpdate = (callback=null) => {
+        onUpdate(callback=null) {
             const id = get('match.params.id', this.props);
 
             actions.patchCharacter(
@@ -72,21 +75,21 @@ function CharacterEditorWrapper(
             );
         }
 
-        onChange = (change) => {
+        onChange(change) {
             const {
+                uuid,
                 path,
-                match,
                 ...rest
             } = this.props;
-            actions.addChange(
-                path,
-                change,
-                this._id,
-                rest,
-            );
+            actions.addChange( uuid, path, change, rest );
         }
 
-        getCurrent = (path) => {
+        onSetState(state) {
+            const { uuid } = this.props;
+            actions.addChoice(uuid, state);
+        }
+
+        getCurrent(path) {
             const { character } = this.state;
             if (!path) {
                 return character;
@@ -96,10 +99,10 @@ function CharacterEditorWrapper(
 
         componentWillUnmount() {
             super.componentWillUnmount.call(this);
+            const { uuid } = this.props;
 
-            actions.removeChange(
-                this._id
-            );
+            actions.removeChange( uuid );
+            actions.removeChoice( uuid );
         }
 
         render() {
@@ -108,12 +111,14 @@ function CharacterEditorWrapper(
                 ...restProps
             } = this.props;
 
-            let props = {
+            const props = {
                 onSave: this.onSave,
                 onUpdate: this.onUpdate,
                 onChange: this.onChange,
+                setState: this.onSetState,
                 getCurrent: this.getCurrent,
             };
+
             forEach((key) => {
                 if (!storeKeys[key]) {
                     console.log(`skipping ${key}`);

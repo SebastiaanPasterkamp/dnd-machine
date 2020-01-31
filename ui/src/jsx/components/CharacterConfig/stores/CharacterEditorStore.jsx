@@ -9,11 +9,11 @@ import {
     set,
 } from 'lodash/fp';
 
-import CharacterEditorActions from '../actions/CharacterEditorActions.jsx';
+import CharacterEditorActions from '../actions/CharacterEditorActions';
 import {
     ComputeChange,
     ComputeConfig,
-} from '../utils/ComputeChange.jsx';
+} from '../utils/ComputeChange';
 
 class CharacterEditorStore extends Reflux.Store
 {
@@ -24,25 +24,26 @@ class CharacterEditorStore extends Reflux.Store
             original: {},
             character: {},
             config: [],
+            changes: {},
         };
         this.listenables = CharacterEditorActions;
     }
 
     reset() {
-        this.state = {};
         this.setState({
             original: {},
             character: {},
             config: [],
+            changes: {},
         });
     }
 
-    previewChange(id, path, change) {
+    previewChange(uuid, path, change) {
         const {
             original,
             character: old,
             config: oldConfig,
-            ...changes,
+            changes: oldChanges,
         } = this.state;
         const {
             level_up: {
@@ -50,6 +51,10 @@ class CharacterEditorStore extends Reflux.Store
             } = {},
         } = original;
 
+        const changes = {
+            ...oldChanges,
+            [uuid]: change,
+        };
         const preview = reduce(
             (preview, previewChange) => {
                 if (
@@ -61,10 +66,7 @@ class CharacterEditorStore extends Reflux.Store
                 return preview;
             },
             []
-        )({
-            ...changes,
-            [id]: change,
-        });
+        )(changes);
 
         const character = ComputeChange(
             preview,
@@ -74,16 +76,16 @@ class CharacterEditorStore extends Reflux.Store
         this.setState({
             character,
             config: ComputeConfig(config, character),
-            [id]: change,
+            changes,
         });
     }
 
-    computeChange = () => {
+    computeChange() {
         const {
             original,
             character: old,
             config: oldConfig,
-            ...changes,
+            changes,
         } = this.state;
         const {
             level_up: {
@@ -96,6 +98,7 @@ class CharacterEditorStore extends Reflux.Store
         this.setState({
             character,
             config: ComputeConfig(config, character),
+            changes,
         });
     }
 
@@ -143,24 +146,51 @@ class CharacterEditorStore extends Reflux.Store
         this.onSaveCharacterCompleted(id, original, callback);
     }
 
-    onAddChange(path, value, id, option) {
+    onAddChange(uuid, path, value, option) {
         const change = {
             path,
             value,
             option,
         };
 
-        this.previewChange(id, path, change);
+        this.previewChange(uuid, path, change);
         this.computeChange();
     }
 
-    onRemoveChange(id) {
-        const { [id]: change } = this.state;
+    onRemoveChange(uuid) {
+        const {
+            changes: {
+                [uuid]: change,
+            },
+        } = this.state;
         if (change === undefined) {
             return;
         }
-        this.previewChange(id, change.path, undefined);
+        this.previewChange(uuid, change.path, undefined);
         this.computeChange();
+        this.recordChoice(uuid, undefined, undefined);
+    }
+
+    onAddChoice(uuid, choice) {
+        this.recordChoice(uuid, choice);
+    }
+
+    onRemoveChoice(uuid) {
+        this.recordChoice(uuid, undefined);
+    }
+
+    recordChoice(uuid, choice) {
+        const { character } = this.state;
+
+        this.setState({
+            character: {
+                ...character,
+                choices: {
+                    ...character.choices,
+                    [uuid]: choice,
+                }
+            }
+        });
     }
 }
 

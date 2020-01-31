@@ -2,35 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MDReactComponent from 'markdown-react-js';
 
-import LazyComponent from '../../LazyComponent.jsx';
-import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper.jsx';
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper';
 
-export class ValuePropertySelect extends LazyComponent
+export class ValuePropertySelect extends React.Component
 {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: '',
-        };
-    }
-
     componentDidMount() {
-        this.props.onChange(
-            this.props.value
-        );
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        const value = props.value.toString();
-        if (value !== state.value) {
-            return { value };
-        }
-        return null;
+        const { value, onChange } = this.props;
+        onChange( value );
     }
 
     render() {
-        const { hidden } = this.props;
-        const { value } = this.state;
+        const { value, hidden } = this.props;
 
         if (hidden) {
             return null;
@@ -44,6 +26,7 @@ export class ValuePropertySelect extends LazyComponent
 
 ValuePropertySelect.propTypes = {
     type: PropTypes.oneOf(['value']).isRequired,
+    uuid: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.any.isRequired,
     hidden: PropTypes.bool,

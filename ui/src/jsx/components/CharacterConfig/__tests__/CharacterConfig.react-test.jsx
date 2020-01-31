@@ -6,22 +6,24 @@ import { mount } from 'enzyme';
 import { statistics } from '../../../../../tests/__mocks__';
 
 jest.useFakeTimers();
-jest.mock('../../../actions/ListDataActions.jsx');
+jest.mock('../../../actions/ListDataActions');
 
-import CharacterConfig from '../CharacterConfig.jsx';
+import CharacterConfig from '..';
 
-import actions from '../actions/CharacterEditorActions.jsx';
-import store from '../stores/CharacterEditorStore.jsx';
-import ListDataStore from '../../../stores/ListDataStore.jsx';
+import actions from '../actions/CharacterEditorActions';
+import store from '../stores/CharacterEditorStore';
+import ListDataStore from '../../../stores/ListDataStore';
 
 const value = {
     type: 'value',
+    uuid: 'mocked-uuid-1',
     path: 'foo.value',
     value: 'bar',
 };
 
 const dict = {
     type: 'dict',
+    uuid: 'mocked-uuid-2',
     path: 'foo.dict',
     dict: {
         description: 'foo %(bar)s',
@@ -31,12 +33,14 @@ const dict = {
 
 const select = {
     type: 'select',
+    uuid: 'mocked-uuid-2',
     list: ['statistics'],
     path: 'foo.select',
 };
 
 const list = {
     type: 'list',
+    uuid: 'mocked-uuid-4',
     list: ['statistics'],
     path: 'foo.list',
     given: ['wisdom'],
@@ -46,6 +50,7 @@ const list = {
 
 const list_array = {
     type: 'list',
+    uuid: 'mocked-uuid-5',
     items: ['foo', 'bar'],
     path: 'foo.items',
     given: ['bar'],
@@ -54,6 +59,7 @@ const list_array = {
 
 const list_object = {
     type: 'list',
+    uuid: 'mocked-uuid-6',
     items: statistics,
     path: 'foo.items',
     given: ['bar'],
@@ -62,6 +68,7 @@ const list_object = {
 
 const config = {
     type: 'config',
+    uuid: 'mocked-uuid-7',
     config: [
         value,
     ],
@@ -69,16 +76,19 @@ const config = {
 
 const choice = {
     type: 'choice',
+    uuid: 'mocked-uuid-8',
     options: [{
+        type: 'config',
+        uuid: 'mocked-uuid-9',
         label: 'a',
         description: 'foo',
-        type: 'config',
         config: [
             value,
         ],
     }, {
-        label: 'b',
         type: 'config',
+        uuid: 'mocked-uuid-10',
+        label: 'b',
         config: [
             dict,
         ],
@@ -87,23 +97,21 @@ const choice = {
 
 const multichoice = {
     type: 'multichoice',
+    uuid: 'mocked-uuid-11',
     options: [{
+        ...value,
         label: 'a',
-        path: 'foo.value',
+        uuid: 'mocked-uuid-12',
         description: 'foo',
-        type: 'value',
-        value,
     }, {
+        ...dict,
+        uuid: 'mocked-uuid-13',
         label: 'b',
-        path: 'dict',
         describe: 'bar',
-        type: 'dict',
-        dict,
     }],
 };
 
 describe('Component: CharacterConfig', () => {
-
     var mockedId = 1;
 
     beforeEach(() => {
@@ -124,9 +132,7 @@ describe('Component: CharacterConfig', () => {
         });
 
         ListDataStore.onFetchItemsCompleted(
-            {
-                statistics: statistics,
-            },
+            { statistics },
             'statistics'
         );
 
@@ -139,11 +145,10 @@ describe('Component: CharacterConfig', () => {
         const wrapper = mount(
             <CharacterConfig
                 config={[]}
-                />
+            />
         );
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should render value', () => {
@@ -157,22 +162,20 @@ describe('Component: CharacterConfig', () => {
                 config={[
                     value,
                 ]}
-                />
+            />
         );
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
 
-        expect(addChange)
-            .toBeCalledWith(
-                value.path,
-                value.value,
-                'id_1',
-                {
-                    type: value.type,
-                    value: value.value,
-                },
-            );
+        expect(addChange).toBeCalledWith(
+            value.uuid,
+            value.path,
+            value.value,
+            {
+                type: value.type,
+                value: value.value,
+            },
+        );
     });
 
     it('should render dict', () => {
@@ -186,22 +189,20 @@ describe('Component: CharacterConfig', () => {
                 config={[
                     dict,
                 ]}
-                />
+            />
         );
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
 
-        expect(addChange)
-            .toBeCalledWith(
-                dict.path,
-                dict.dict,
-                'id_1',
-                {
-                    type: dict.type,
-                    dict: dict.dict,
-                },
-            );
+        expect(addChange).toBeCalledWith(
+            dict.uuid,
+            dict.path,
+            dict.dict,
+            {
+                type: dict.type,
+                dict: dict.dict,
+            },
+        );
     });
 
     it('should render select', () => {
@@ -215,22 +216,20 @@ describe('Component: CharacterConfig', () => {
                 config={[
                     select,
                 ]}
-                />
+            />
         );
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
 
-        expect(addChange)
-            .toBeCalledWith(
-                select.path,
-                statistics[0].code,
-                'id_1',
-                {
-                    items: statistics,
-                    type: select.type,
-                },
-            );
+        expect(addChange).toBeCalledWith(
+            select.uuid,
+            select.path,
+            statistics[0].code,
+            {
+                items: statistics,
+                type: select.type,
+            },
+        );
     });
 
     it('should render list', () => {
@@ -244,23 +243,24 @@ describe('Component: CharacterConfig', () => {
                 config={[
                     list,
                 ]}
-                />
+            />
         );
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
 
-        expect(addChange)
-            .toBeCalledWith(
+        expect(addChange).toBeCalledWith(
+                list.uuid,
                 list.path,
-                {added: list.given, removed: []},
-                'id_1',
                 {
+                    added: list.given,
+                    removed: [],
+                },
+                {
+                    type: list.type,
                     given: list.given,
                     items: statistics,
                     add: list.add,
                     replace: list.replace,
-                    type: list.type,
                 },
             );
     });
@@ -279,26 +279,27 @@ describe('Component: CharacterConfig', () => {
             />
         );
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
 
-        expect(addChange)
-            .toBeCalledWith(
-                list_array.path,
-                {added: list_array.given, removed: []},
-                'id_1',
-                {
-                    given: list_array.given,
-                    items: fp.map(
-                        item => ({
-                            code: item,
-                            label: item,
-                        })
-                    )(list_array.items),
-                    add: list_array.add,
-                    type: list_array.type,
-                },
-            );
+        expect(addChange).toBeCalledWith(
+            list_array.uuid,
+            list_array.path,
+            {
+                added: list_array.given,
+                removed: [],
+            },
+            {
+                type: list_array.type,
+                given: list_array.given,
+                items: fp.map(
+                    item => ({
+                        code: item,
+                        label: item,
+                    })
+                )(list_array.items),
+                add: list_array.add,
+            },
+        );
     });
 
     it('should render with object items', () => {
@@ -312,24 +313,22 @@ describe('Component: CharacterConfig', () => {
                 config={[
                     list_object,
                 ]}
-                />
+            />
         );
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
 
-        expect(addChange)
-            .toBeCalledWith(
-                list_object.path,
-                {added: list_object.given, removed: []},
-                'id_1',
-                {
-                    given: list_object.given,
-                    items: statistics,
-                    add: list_object.add,
-                    type: list_object.type,
-                },
-            );
+        expect(addChange).toBeCalledWith(
+            list_object.uuid,
+            list_object.path,
+            {added: list_object.given, removed: []},
+            {
+                type: list_object.type,
+                given: list_object.given,
+                items: statistics,
+                add: list_object.add,
+            },
+        );
     });
 
     it('should render config', () => {
@@ -343,22 +342,20 @@ describe('Component: CharacterConfig', () => {
                 config={[
                     config,
                 ]}
-                />
+            />
         );
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
 
-        expect(addChange)
-            .toBeCalledWith(
-                config.config[0].path,
-                config.config[0].value,
-                'id_1',
-                {
-                    type: config.config[0].type,
-                    value: config.config[0].value,
-                },
-            );
+        expect(addChange).toBeCalledWith(
+            config.config[0].uuid,
+            config.config[0].path,
+            config.config[0].value,
+            {
+                type: config.config[0].type,
+                value: config.config[0].value,
+            },
+        );
     });
 
     it('should render choice', () => {
@@ -372,22 +369,20 @@ describe('Component: CharacterConfig', () => {
                 config={[
                     choice,
                 ]}
-                />
+            />
         );
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
 
-        expect(addChange)
-            .toBeCalledWith(
-                choice.options[0].config[0].path,
-                choice.options[0].config[0].value,
-                'id_1',
-                {
-                    type: choice.options[0].config[0].type,
-                    value: choice.options[0].config[0].value,
-                },
-            );
+        expect(addChange).toBeCalledWith(
+            choice.options[0].config[0].uuid,
+            choice.options[0].config[0].path,
+            choice.options[0].config[0].value,
+            {
+                type: choice.options[0].config[0].type,
+                value: choice.options[0].config[0].value,
+            },
+        );
     });
 
     it('should render multichoice', () => {
@@ -401,21 +396,19 @@ describe('Component: CharacterConfig', () => {
                 config={[
                     multichoice,
                 ]}
-                />
+            />
         );
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
 
-        expect(addChange)
-            .toBeCalledWith(
-                multichoice.options[0].path,
-                multichoice.options[0].value,
-                'id_1',
-                {
-                    type: multichoice.options[0].type,
-                    value: multichoice.options[0].value,
-                },
-            );
+        expect(addChange).toBeCalledWith(
+            multichoice.options[0].uuid,
+            multichoice.options[0].path,
+            multichoice.options[0].value,
+            {
+                type: multichoice.options[0].type,
+                value: multichoice.options[0].value,
+            },
+        );
     });
 });

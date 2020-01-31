@@ -10,6 +10,8 @@ import {
 
 import TabComponent from '../../TabComponent';
 
+import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper';
+
 import CharacterConfig from '../CharacterConfig';
 import MatchesFilters from '../utils/MatchesFilters';
 
@@ -35,15 +37,14 @@ export class ChoiceSelect extends React.Component
     }
 
     onTabChange(index) {
-        const { uuid, onChange, selected } = this.props;
+        const { uuid, setState, selected } = this.props;
         const tabs = this.getTabs();
         if (
             index >= 0
             && index < tabs.length
             && tabs[index].uuid !== selected
         ) {
-            onChange({
-                uuid,
+            setState({
                 selected: tabs[index].uuid,
             });
         }
@@ -62,7 +63,7 @@ export class ChoiceSelect extends React.Component
         return (
             <TabComponent
                 tabConfig={tabs}
-                activeTab={activeTab}
+                activeTab={activeTab >= 0 ? activeTab : 0}
                 onTabChange={this.onTabChange}
             >
                 {flow(entries, map(
@@ -81,7 +82,7 @@ export class ChoiceSelect extends React.Component
 ChoiceSelect.propTypes = {
     type: PropTypes.oneOf(['choice']).isRequired,
     uuid: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    setState: PropTypes.func.isRequired,
     options: PropTypes.arrayOf(
         PropTypes.shape({
             description: PropTypes.string,
@@ -95,4 +96,4 @@ ChoiceSelect.defaultProps = {
     selected: null,
 };
 
-export default ChoiceSelect;
+export default CharacterEditorWrapper(ChoiceSelect);

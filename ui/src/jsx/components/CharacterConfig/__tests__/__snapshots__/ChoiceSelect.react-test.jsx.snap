@@ -2,7 +2,6 @@
 
 exports[`Component: ChoiceSelect should render with all props 1`] = `
 <ChoiceSelect
-  onChange={[Function]}
   options={
     Array [
       Object {
@@ -21,6 +20,7 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
     ]
   }
   selected="mocked-uuid-3"
+  setState={[Function]}
   type="choice"
   uuid="mocked-uuid-1"
 >
@@ -234,9 +234,9 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
 
 exports[`Component: ChoiceSelect should render with minimum props 1`] = `
 <ChoiceSelect
-  onChange={[Function]}
   options={Array []}
   selected="mocked-uuid-2"
+  setState={[Function]}
   type="choice"
   uuid="mocked-uuid-1"
 />

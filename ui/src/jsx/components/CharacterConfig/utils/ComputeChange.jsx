@@ -54,8 +54,10 @@ export function ComputeChange(changes, original) {
                 if (!option.multiple) {
                     update = uniq(update);
                 }
+            } else if (option.type == 'choice') {
+                // pass
             } else {
-                throw "Unknown option type: " + JSON.stringify(option);
+                throw `Unknown option type: '${option.type} ${option.uuid}'`;
             }
 
             computed[path] = update;

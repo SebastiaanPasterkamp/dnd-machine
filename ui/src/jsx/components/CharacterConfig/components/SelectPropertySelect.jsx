@@ -9,19 +9,26 @@ import ListsToItemsWrapper from '../../../hocs/ListsToItemsWrapper';
 
 export class SelectPropertySelect extends LazyComponent
 {
+    constructor(props) {
+        super(props);
+        this.onChange = this.onChange.bind(this);
+    }
+
     componentDidMount() {
-        this.props.onChange(
-            this.props.current
-        );
+        const { current, onChange } = this.props;
+        if (current !== undefined) {
+            onChange(this.props.current);
+        }
+    }
+
+    onChange(current) {
+        const { onChange, setState } = this.props;
+        setState({ current });
+        onChange(current);
     }
 
     render() {
-        const {
-            onChange,
-            hidden,
-            items,
-            current,
-        } = this.props;
+        const { hidden, items, current } = this.props;
 
         if (hidden) {
             return null;
@@ -31,7 +38,7 @@ export class SelectPropertySelect extends LazyComponent
             <SingleSelect
                 className="small"
                 items={items}
-                setState={onChange}
+                setState={this.onChange}
                 selected={current}
                 emptyLabel="Please select"
             />
@@ -41,6 +48,8 @@ export class SelectPropertySelect extends LazyComponent
 
 SelectPropertySelect.propTypes = {
     type: PropTypes.oneOf(['select']).isRequired,
+    uuid: PropTypes.string.isRequired,
+    setState: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
     current: PropTypes.any,

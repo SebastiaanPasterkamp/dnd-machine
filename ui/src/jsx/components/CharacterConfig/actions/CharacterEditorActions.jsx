@@ -11,6 +11,8 @@ const CharacterEditorActions = Reflux.createActions({
     "patchCharacter": {asyncResult: true},
     "addChange": {},
     "removeChange": {},
+    "addChoice": {},
+    "removeChoice": {},
 });
 
 function getCharacter(action, id) {

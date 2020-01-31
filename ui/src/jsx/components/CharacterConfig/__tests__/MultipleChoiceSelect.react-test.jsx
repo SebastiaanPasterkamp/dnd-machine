@@ -1,33 +1,33 @@
 import React from 'react';
-import _ from 'lodash';
-import fp from 'lodash/fp';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+import {
+    get,
+} from 'lodash/fp';
 
-jest.useFakeTimers();
-
-import MultipleChoiceSelect from '../components/MultipleChoiceSelect.jsx';
-
-import actions from '../actions/CharacterEditorActions.jsx';
-import store from '../stores/CharacterEditorStore.jsx';
+import { MultipleChoiceSelect } from '../components/MultipleChoiceSelect';
 
 const props = {
     type: 'multichoice',
+    uuid: 'mocked-uuid-1',
     label: 'Example',
     description: 'Pick some',
     options: [{
-        label: 'Simple',
-        path: 'foo.bar',
         type: 'dict',
+        uuid: 'mocked-uuid-2',
+        path: 'foo.bar',
+        label: 'Simple',
         dict: {
             description: 'Bar is good',
         }
     }, {
-        label: 'Complex',
         type: 'config',
+        uuid: 'mocked-uuid-3',
+        label: 'Complex',
         config: [{
-            path: 'bar.foo',
             type: 'dict',
+            uuid: 'mocked-uuid-4',
+            path: 'bar.foo',
             dict: {
                 description: 'Foo is okay',
             }
@@ -35,50 +35,39 @@ const props = {
     }],
 };
 
-const mockedIds = [
-    'id_1',
-    'id_2',
-    'id_3',
-];
-
 describe('Component: MultipleChoiceSelect', () => {
-
-    beforeEach(() => {
-        fp.uniqueId = _.uniqueId = jest.fn();
-        _.uniqueId.mockReturnValue('unexpected');
-
-        actions.editCharacter.completed({
-            bar: {
-                foo: {
-                    description: 'Foo is bad',
-                },
+    const character = {
+        bar: {
+            foo: {
+                description: 'Foo is bad',
             },
-        });
-
-        _.uniqueId
-            .mockReturnValueOnce(mockedIds[0])
-            .mockReturnValueOnce(mockedIds[1])
-            .mockReturnValueOnce(mockedIds[2])
-            .mockReturnValue('unexpected');
-
-        jest.runAllTimers();
-    });
-
-    afterEach(() => store.reset());
+        },
+    };
+    const getCurrent = function(path) {
+        return get(path, character);
+    };
 
     it('should render with minimum props', () => {
+        const setState = jest.fn();
         const tree = renderer.create(
             <MultipleChoiceSelect
-                {...props}
+                setState={setState}
+                getCurrent={getCurrent}
+                type={props.type}
+                uuid={props.uuid}
             />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
+        expect(setState).not.toBeCalled();
     });
 
     it('should render with full props', () => {
+        const setState = jest.fn();
         const wrapper = mount(
             <MultipleChoiceSelect
+                setState={setState}
+                getCurrent={getCurrent}
                 {...props}
                 add={2}
                 replace={1}
@@ -87,146 +76,88 @@ describe('Component: MultipleChoiceSelect', () => {
 
         expect(wrapper.find('button.nice-btn').length).toEqual(1);
         expect(wrapper.find('button.nice-tag-btn').length).toEqual(1);
-    });
-
-    it('should emit *Change actions on mount and umount', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
-        const removeChange = jest.spyOn(
-            actions,
-            'removeChange'
-        );
-
-        const wrapper = mount(
-            <MultipleChoiceSelect
-                {...props}
-                add={1}
-            />
-        );
-
-        expect(addChange)
-            .toBeCalledWith(
-                props.options[1].config[0].path,
-                props.options[1].config[0].dict,
-                mockedIds[1],
-                {
-                    dict: props.options[1].config[0].dict,
-                    type: props.options[1].config[0].type,
-                }
-            );
-
-        wrapper.unmount();
-
-        expect(removeChange)
-            .toBeCalledWith(mockedIds[1]);
+        expect(setState).not.toBeCalled();
     });
 
     it('should handle replacing one existing', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
-
+        const setState = jest.fn();
         const wrapper = mount(
             <MultipleChoiceSelect
+                setState={setState}
+                getCurrent={getCurrent}
                 {...props}
                 replace={1}
             />
         );
 
-        wrapper
-            .find('.nice-tag-btn')
-            .at(0)
-            .simulate('click');
+        wrapper.find('.nice-tag-btn').simulate('click');
 
-        expect(addChange)
-            .toBeCalledWith(
-                props.options[1].config[0].path,
-                props.options[1].config[0].dict,
-                mockedIds[1],
-                {
-                    dict: props.options[1].config[0].dict,
-                    type: props.options[1].config[0].type,
-                }
-            );
+        expect(setState).toBeCalledWith({
+            added: [],
+            removed: ['mocked-uuid-3'],
+            filtered: [],
+        });
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        wrapper.setProps({
+            added: [],
+            removed: ["mocked-uuid-3"],
+            filtered: [],
+        });
 
-        addChange.mockClear();
+        expect(wrapper).toMatchSnapshot();
 
-        wrapper
-            .find('.nice-dropdown button')
-            .simulate('click');
-        wrapper
-            .find('li[data-value="Complex"]')
-            .simulate('click');
+        wrapper.find('.nice-btn').simulate('click');
+        wrapper.find('li[data-value="mocked-uuid-2"]').simulate('click');
 
-        expect(addChange)
-            .toBeCalledWith(
-                props.options[1].config[0].path,
-                props.options[1].config[0].dict,
-                mockedIds[2],
-                {
-                    dict: props.options[1].config[0].dict,
-                    type: props.options[1].config[0].type,
-                }
-            );
+        expect(setState).toBeCalledWith({
+            added: ["mocked-uuid-2"],
+            removed: ["mocked-uuid-3"],
+            filtered: [],
+        });
     });
 
     it('should handle removing a new pick', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
-        const removeChange = jest.spyOn(
-            actions,
-            'removeChange'
-        );
-
+        const setState = jest.fn();
         const wrapper = mount(
             <MultipleChoiceSelect
+                setState={setState}
+                getCurrent={getCurrent}
                 {...props}
                 add={1}
             />
         );
 
-        addChange.mockClear();
+        wrapper.find('.nice-btn').simulate('click');
+        wrapper.find('li[data-value="mocked-uuid-2"]').simulate('click');
 
-        wrapper
-            .find('.nice-dropdown button')
-            .simulate('click');
-        wrapper
-            .find('li[data-value="Simple"]')
-            .simulate('click');
+        expect(setState).toBeCalledWith({
+            added: ["mocked-uuid-2"],
+            removed: [],
+            filtered: [],
+        });
 
-        expect(addChange)
-            .toBeCalledWith(
-                props.options[0].path,
-                props.options[0].dict,
-                mockedIds[2],
-                {
-                    dict: props.options[0].dict,
-                    type: props.options[0].type,
-                }
-            );
+        wrapper.setProps({
+            added: ["mocked-uuid-2"],
+            removed: [],
+            filtered: [],
+        });
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
 
-        addChange.mockClear();
+        wrapper.find('.nice-tag-btn').at(0).simulate('click');
 
-        wrapper
-            .find('.nice-tag-btn')
-            .at(0)
-            .simulate('click');
+        expect(setState).toBeCalledWith({
+            added: [],
+            removed: [],
+            filtered: ["mocked-uuid-2"],
+        });
 
-        expect(removeChange)
-            .toBeCalledWith(mockedIds[2]);
+        wrapper.setProps({
+            added: [],
+            removed: [],
+            filtered: ["mocked-uuid-2"],
+        });
 
-        expect(wrapper)
-            .toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
     });
 });
