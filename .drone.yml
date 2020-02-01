@@ -8,20 +8,7 @@ platform:
     arch: arm
 
 steps:
-  - name: backend2
-    image: python:2-alpine3.8
-    volumes:
-      - name: pip-cache
-        path: /root/.cache/pip
-      - name: apk-cache
-        path: /etc/apk/cache
-    commands:
-      - apk add build-base openssl-dev libffi-dev linux-headers pdftk
-      - pip install --upgrade pip --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org
-      - pip install -r requirements.txt
-      - python app/tests/run_tests.py
-
-  - name: backend3
+  - name: Backend
     image: python:3.6-alpine3.8
     volumes:
       - name: pip-cache
@@ -70,6 +57,7 @@ platform:
 trigger:
   event:
   - push
+  - tag
   status:
   - success
 
@@ -104,7 +92,12 @@ steps:
       - name: socket
         path: /var/run/docker.sock
     commands:
-        - docker build -t dnd-machine:staging .
+        - |
+          docker build \
+              --build-arg GIT_BRANCH=${DRONE_BRANCH} \
+              --build-arg GIT_COMMIT=${DRONE_COMMIT} \
+              --build-arg GIT_TAG=${DRONE_TAG} \
+              -t dnd-machine:staging .
 
   - name: restart
     image: appleboy/drone-ssh:linux-arm
@@ -146,176 +139,6 @@ volumes:
 ---
 kind: pipeline
 type: docker
-name: Stage
-
-platform:
-    os: linux
-    arch: arm
-
-trigger:
-  event:
-  - push
-  status:
-  - success
-
-depends_on:
-  - Docker Staging
-
-steps:
-  - name: package
-    image: node:8.16-alpine
-    volumes:
-      - name: npm-cache
-        path: /drone/src/ui/node_modules
-      - name: apk-cache
-        path: /etc/apk/cache
-    commands:
-      - apk add build-base python
-      - ( cd ui && npm install && npm run build:production )
-      - |
-        tar \
-            --exclude app/Dockerfile \
-            --exclude app/docker \
-            --exclude app/tests \
-            -zcvf \
-                "dnd-machine.${DRONE_COMMIT_SHA:0:8}.tar.gz" \
-                *.md \
-                *.txt \
-                run.py \
-                app/
-
-  - name: copy
-    image: appleboy/drone-scp:linux-arm
-    settings:
-      host:
-        from_secret: ssh_host
-      username:
-        from_secret: ssh_user
-      key:
-        from_secret: ssh_key
-      target: ~/code/staging
-      source: "dnd-machine.${DRONE_COMMIT_SHA:0:8}.tar.gz"
-
-  - name: deploy
-    image: appleboy/drone-ssh:linux-arm
-    settings:
-      host:
-        from_secret: ssh_host
-      username:
-        from_secret: ssh_user
-      key:
-        from_secret: ssh_key
-      script:
-        - cd ~/code/staging
-        - mkdir -p "${DRONE_COMMIT_SHA:0:8}"
-        - |
-          tar \
-              --directory "${DRONE_COMMIT_SHA:0:8}" \
-              -zxvf "dnd-machine.${DRONE_COMMIT_SHA:0:8}.tar.gz"
-        - cp latest/app/config.local.json "${DRONE_COMMIT_SHA:0:8}/app/"
-        - . ~/.python-env/dnd-machine-beta/bin/activate
-        - pip install -r "${DRONE_COMMIT_SHA:0:8}/requirements.txt"
-        - rm latest
-        - ln -s "${DRONE_COMMIT_SHA:0:8}" latest
-        - sudo systemctl restart dndmachine-beta
-
-volumes:
-  - name: npm-cache
-    host:
-      path: /var/cache/drone/npm
-  - name: apk-cache
-    host:
-      path: /var/cache/drone/apk
-
----
-kind: pipeline
-type: docker
-name: Deploy
-
-platform:
-    os: linux
-    arch: arm
-
-trigger:
-  branch:
-  - master
-  event:
-  - push
-  status:
-  - success
-
-depends_on:
-  - Stage
-
-steps:
-  - name: package
-    image: node:8.16-alpine
-    volumes:
-      - name: npm-cache
-        path: /drone/src/ui/node_modules
-      - name: apk-cache
-        path: /etc/apk/cache
-    commands:
-      - apk add build-base python
-      - ( cd ui && npm install && npm run build:production )
-      - |
-        tar \
-            --exclude app/Dockerfile \
-            --exclude app/docker \
-            --exclude app/tests \
-            -zcvf \
-                "dnd-machine.${DRONE_COMMIT_SHA:0:8}.tar.gz" \
-                *.md \
-                *.txt \
-                run.py \
-                app/
-
-  - name: copy
-    image: appleboy/drone-scp:linux-arm
-    settings:
-      host:
-        from_secret: ssh_host
-      username:
-        from_secret: ssh_user
-      key:
-        from_secret: ssh_key
-      target: ~/code/production
-      source: "dnd-machine.${DRONE_COMMIT_SHA:0:8}.tar.gz"
-
-  - name: deploy
-    image: appleboy/drone-ssh:linux-arm
-    settings:
-      host:
-        from_secret: ssh_host
-      username:
-        from_secret: ssh_user
-      key:
-        from_secret: ssh_key
-      script:
-        - cd ~/code/production
-        - mkdir -p "${DRONE_COMMIT_SHA:0:8}"
-        - |
-          tar \
-              --directory "${DRONE_COMMIT_SHA:0:8}" \
-              -zxvf "dnd-machine.${DRONE_COMMIT_SHA:0:8}.tar.gz"
-        - cp latest/app/config.local.json "${DRONE_COMMIT_SHA:0:8}/app/"
-        - . ~/.python-env/dnd-machine/bin/activate
-        - pip install -r "${DRONE_COMMIT_SHA:0:8}/requirements.txt"
-        - rm latest
-        - ln -s "${DRONE_COMMIT_SHA:0:8}" latest
-        - sudo systemctl restart dndmachine
-
-volumes:
-  - name: npm-cache
-    host:
-      path: /var/cache/drone/npm
-  - name: apk-cache
-    host:
-      path: /var/cache/drone/apk
-
----
-kind: pipeline
-type: docker
 name: Docker Production
 
 platform:
@@ -323,15 +146,13 @@ platform:
     arch: arm
 
 trigger:
-  branch:
-  - master
   event:
-  - push
+  - tag
   status:
   - success
 
 depends_on:
-  - Deploy
+  - Docker Staging
 
 steps:
   - name: backup
@@ -361,7 +182,13 @@ steps:
       - name: socket
         path: /var/run/docker.sock
     commands:
-        - docker build -t dnd-machine:latest .
+        - |
+          docker build \
+              --build-arg GIT_BRANCH=${DRONE_BRANCH} \
+              --build-arg GIT_COMMIT=${DRONE_COMMIT} \
+              --build-arg GIT_TAG=${DRONE_TAG} \
+              -t dnd-machine:latest \
+              -t dnd-machine:${DRONE_TAG} .
 
   - name: restart
     image: appleboy/drone-ssh:linux-arm
@@ -376,10 +203,6 @@ steps:
       script:
         - docker stop dndmachine_production || true
         - docker rm dndmachine_production || true
-        - >
-          docker cp \
-            "code/production/flaskr.db" \
-            "dndmachine_production:/data/machine.db" || true
         - >
           docker run \
             --detach \
@@ -402,6 +225,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 30cf2bba4be9581911af3f6ea61bbc068fdeb17a7c01357e37449c47299c4fbe
+hmac: 786c0bbb3cf06d4315f92633787c2efd3efe1c5a723785d43158ddaefb73d4ac
 
 ...
