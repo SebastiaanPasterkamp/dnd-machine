@@ -9,9 +9,9 @@ import {
     classes,
 } from '../../../../../tests/__mocks__';
 
-import { SubClassEdit } from '..';
+import { OptionsEdit } from '..';
 
-describe.skip('View SubClassEdit', () => {
+describe.skip('View OptionsEdit', () => {
     const fullProps = {
     };
 
@@ -23,7 +23,7 @@ describe.skip('View SubClassEdit', () => {
 
     it('should render w/ minimum props', () => {
         const tree = renderer.create(
-            <SubClassEdit />
+            <OptionsEdit />
         );
 
         expect(tree.toJSON()).toMatchSnapshot();
@@ -31,7 +31,7 @@ describe.skip('View SubClassEdit', () => {
 
     it('should render w/ all props', () => {
         const tree = renderer.create(
-            <SubClassEdit {...fullProps} />
+            <OptionsEdit {...fullProps} />
         );
 
         expect(tree.toJSON()).toMatchSnapshot();
