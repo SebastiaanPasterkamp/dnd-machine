@@ -1,38 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import LazyComponent from '../../LazyComponent';
 import InputField from '../../InputField';
 import MarkdownTextField from '../../MarkdownTextField';
 
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper';
 
-export const ManualInputSelect = function({
-    onChange, setState, current, placeholder, markup,
-}) {
-    this.onSetState = this.onSetState || function(current) {
+export class ManualInputSelect extends React.Component
+{
+    constructor(props) {
+        super(props);
+        this.onChange = this.onChange.bind(this);
+    }
+
+    componentDidMount() {
+        const { current, onChange } = this.props;
+        onChange( current );
+    }
+
+    onChange(current) {
+        const { onChange, setState } = this.props;
         setState({ current });
         onChange(current);
-    }.bind(this);
+    };
 
-    if(markup) {
+    render() {
+        const { current, markup, placeholder } = this.props;
+
+        if(markup) {
+            return (
+                <MarkdownTextField
+                    placeholder={placeholder}
+                    value={current}
+                    rows={5}
+                    setState={this.onChange}
+                />
+            );
+        }
+
         return (
-            <MarkdownTextField
+            <InputField
                 placeholder={placeholder}
                 value={current}
-                rows={5}
-                setState={this.onSetState}
+                setState={this.onChange}
             />
         );
     }
-
-    return (
-        <InputField
-            placeholder={placeholder}
-            value={current}
-            setState={this.onSetState}
-        />
-    );
 };
 
 ManualInputSelect.propTypes = {

@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ManualInputSelect should render markup input 1`] = `
+<ManualInputSelect
+  current="This shows _formatted_ content."
+  markup={true}
+  onChange={[Function]}
+  path="some.path"
+  placeholder="Hold this place"
+  setState={[Function]}
+  type="manual"
+  uuid="mocked-uuid-1"
+>
+  <MarkdownTextField
+    className=""
+    disabled={false}
+    placeholder="Hold this place"
+    rows={5}
+    setState={[Function]}
+    value="This shows _formatted_ content."
+  >
+    <div
+      className="markdown-textedit preview"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <textarea
+        className="nice-form-control"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Hold this place"
+        rows={5}
+        value="This shows _formatted_ content."
+      />
+      <MDReactComponent
+        className="markdown-textedit__preview"
+        text="This shows _formatted_ content."
+      >
+        <span
+          className="markdown-textedit__preview"
+          key="mdrct-html-0"
+        >
+          <p
+            key="mdrct-p-0"
+          >
+            This shows 
+            <em
+              key="mdrct-em-1"
+            >
+              formatted
+            </em>
+             content.
+          </p>
+        </span>
+      </MDReactComponent>
+    </div>
+  </MarkdownTextField>
+</ManualInputSelect>
+`;
+
+exports[`Component: ManualInputSelect should render plain input 1`] = `
+<ManualInputSelect
+  current="This shows plain content."
+  markup={false}
+  onChange={[Function]}
+  path="some.path"
+  placeholder="Hold this place"
+  setState={[Function]}
+  type="manual"
+  uuid="mocked-uuid-1"
+>
+  <InputField
+    placeholder="Hold this place"
+    setState={[Function]}
+    value="This shows plain content."
+  >
+    <input
+      className="nice-form-control"
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Hold this place"
+      value="This shows plain content."
+    />
+  </InputField>
+</ManualInputSelect>
+`;
