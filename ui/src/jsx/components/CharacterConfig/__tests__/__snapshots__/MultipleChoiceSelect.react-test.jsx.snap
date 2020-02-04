@@ -198,7 +198,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
           },
         ]
       }
-      key="0"
+      key="mocked-uuid-2"
     >
       <FormGroup
         key="0"
@@ -272,7 +272,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 1`] =
           },
         ]
       }
-      key="1"
+      key="mocked-uuid-3"
     >
       <FormGroup
         key="0"
@@ -616,7 +616,7 @@ exports[`Component: MultipleChoiceSelect should handle removing a new pick 2`] =
           },
         ]
       }
-      key="1"
+      key="mocked-uuid-3"
     >
       <FormGroup
         key="0"

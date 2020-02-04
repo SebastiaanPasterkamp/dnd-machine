@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    includes,
+    filter,
+    get,
+    map,
+    without,
+} from 'lodash/fp';
 
 import TagContainer from '../../TagContainer';
 
@@ -53,11 +59,11 @@ export class MultipleChoiceSelect extends React.Component
         }
 
         const state = { added, removed, filtered };
-        if (_.includes(removed, uuid)) {
-            state.removed = _.without(removed, uuid);
+        if (includes(uuid, removed)) {
+            state.removed = without(removed, uuid);
         } else if (added.length < (add + removed.length)) {
-            state.filtered = _.without(filtered, uuid);
-            state.added = _.concat(added, [uuid]);
+            state.filtered = without(filtered, uuid);
+            state.added = [...added, uuid];
         }
         setState(state);
     }
@@ -68,11 +74,11 @@ export class MultipleChoiceSelect extends React.Component
         } = this.props;
         const state = { added, removed, filtered };
 
-        if (_.includes(added, uuid)) {
-            state.added = _.without(added, uuid);
-            state.filtered = _.concat(removed, [uuid]);
+        if (includes(uuid, added)) {
+            state.added = without(added, uuid);
+            state.filtered = [...removed, uuid];
         } else if (removed.length < replace) {
-            state.removed = _.concat(removed, [uuid]);
+            state.removed = [...removed, uuid];
         }
         setState(state);
     }
@@ -82,25 +88,29 @@ export class MultipleChoiceSelect extends React.Component
     static getCurrent(props, state) {
         const { added, removed, filtered, options, getCurrent } = props;
 
-        const current = _.chain(options)
-            .filter(option => {
-                if (_.includes(added, option.uuid)) {
-                    return true;
+        const current = map(
+            option => option.uuid
+        )(
+            filter(
+                option => {
+                    if (includes(option.uuid, added)) {
+                        return true;
+                    }
+                    if (includes(option.uuid, filtered)) {
+                        return false;
+                    }
+                    if (includes(option.uuid, removed)) {
+                        return false;
+                    }
+                    // TODO: Check if option.uuid is in character.choices
+                    const path = (
+                        get('path', option)
+                        || get(['config', 0, 'path'], option)
+                    );
+                    return getCurrent(path);
                 }
-                if (_.includes(filtered, option.uuid)) {
-                    return false;
-                }
-                if (_.includes(removed, option.uuid)) {
-                    return false;
-                }
-                const path = (
-                    _.get(option, 'path')
-                    || _.get(option, ['config', 0, 'path'])
-                );
-                return getCurrent(path);
-            })
-            .map(option => option.uuid)
-            .value();
+            )(options)
+        );
         return current;
     }
 
@@ -113,18 +123,21 @@ export class MultipleChoiceSelect extends React.Component
 
         const current = MultipleChoiceSelect.getCurrent(this.props);
         const itemsDisabled = disabled || removed.length >= replace;
-        const items = _.chain(options)
-            .filter(option => !option.hidden && MatchesFilters(option, filters))
-            .map(option => {
-                const isNew = _.includes(added, option.uuid);
+        const items = map(
+            option => {
+                const isNew = includes(option.uuid, added);
                 return {
                     id: option.uuid,
                     label: option.label,
                     color: isNew ? 'info' : 'warning',
                     disabled: !isNew && itemsDisabled,
                 };
-            })
-            .value();
+            }
+        )(
+            filter(
+                option => !option.hidden && MatchesFilters(option, filters)
+            )(options)
+        );
 
         return (
             <div>
@@ -136,15 +149,14 @@ export class MultipleChoiceSelect extends React.Component
                     setState={this.onSetState}
                     showSelect={showSelect}
                 />
-                {_.map(
-                    options,
-                    (config, i) => _.includes(current, config.uuid) ? (
+                {map(
+                    (config) => includes(config.uuid, current) ? (
                         <CharacterConfig
-                            key={i}
-                            config={ [config] }
+                            key={config.uuid}
+                            config={[config]}
                         />
                     ) : null
-                )}
+                )(options)}
             </div>
         );
     }
