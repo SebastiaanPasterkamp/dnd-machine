@@ -422,7 +422,10 @@ def register_paths(app):
         session.pop('user_id', None)
         session.pop('user', None)
         session.pop('party_id', None)
-        return jsonify(None)
+        if request.accept_mimetypes.accept_json \
+                and not request.accept_mimetypes.accept_html:
+            return jsonify(None)
+        return redirect(url_for('home'))
 
 
     @app.route('/privacy-policy', methods=['GET'])
