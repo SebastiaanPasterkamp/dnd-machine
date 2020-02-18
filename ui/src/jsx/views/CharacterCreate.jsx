@@ -27,9 +27,11 @@ import TabComponent from '../components/TabComponent';
 import CharacterConfig, {
     baseConfig,
     CharacterEditorWrapper,
+    ChoiceSelect,
     ComputeConfig,
     StatisticsSelect,
 } from '../components/CharacterConfig';
+import store from '../components/CharacterConfig/stores/CharacterEditorStore';
 
 export class CharacterCreate extends React.Component
 {
@@ -53,7 +55,12 @@ export class CharacterCreate extends React.Component
         color: 'info',
     }];
 
-    onSave = () => {
+    constructor(props) {
+        super(props);
+        this.onSave = this.onSave.bind(this);
+    }
+
+    onSave() {
         const {
             onSave,
             history,
@@ -62,10 +69,40 @@ export class CharacterCreate extends React.Component
         onSave((id) => history.push(`/character/show/${ id }`));
     }
 
+    componentWillReceiveProps(props) {
+        const { races, classes, backgrounds } = props;
+        const { races: oldR, classes: oldC, backgrounds: oldB } = this.props;
+
+        if (
+            !races.options
+            || !classes.options
+            || !backgrounds.options
+        ) {
+            return null;
+        }
+
+        if (
+            races === oldR
+            && classes === oldC
+            && backgrounds === oldB
+        ) {
+            return null;
+        }
+
+        store.setState({
+            config: [
+                { type: 'choice', uuid: "base-race", ...races },
+                { type: 'choice', uuid: "base-class", ...classes },
+                { type: 'choice', uuid: "base-background", ...backgrounds },
+                { type: 'statistics', uuid: "bare-statistics", editBase: true, budget: 27, minBare: 8, maxBare: 15 },
+                { type: 'config', uuid: 'base-description', config: [ ...baseConfig.description, ...baseConfig.personality ]},
+            ],
+        });
+    }
+
     render() {
         const {
-            character,
-            races, classes, backgrounds,
+            config: [ races, classes, backgrounds, statistics, description ],
             genders, alignments,
         } = this.props;
         const {
@@ -78,34 +115,22 @@ export class CharacterCreate extends React.Component
             name = '',
             gender,
             alignment,
-        } = character;
+        } = {};
+
+        if ( !races || !classes || !backgrounds || !statistics || !description ) {
+            return null;
+        }
 
         return (
             <TabComponent
                 tabConfig={ this.tabConfig }
                 mountAll={ true }
             >
-                <CharacterConfig
-                    config={ ComputeConfig(races, character) }
-                />
-                <CharacterConfig
-                    config={ ComputeConfig(classes, character) }
-                />
-                <CharacterConfig
-                    config={ ComputeConfig(backgrounds, character) }
-                />
-                <StatisticsSelect
-                    editBase={true}
-                    budget={ 27 }
-                    minBare={ 8 }
-                    maxBare={ 15 }
-                />
-                <CharacterConfig
-                    config={ concat(
-                        baseConfig.description,
-                        baseConfig.personality,
-                    ) }
-                />
+                <ChoiceSelect {...races} />
+                <ChoiceSelect {...classes} />
+                <ChoiceSelect {...backgrounds} />
+                <StatisticsSelect {...statistics} />
+                <CharacterConfig {...description} />
                 <Panel
                     header="Result"
                 >
@@ -148,10 +173,10 @@ export class CharacterCreate extends React.Component
 }
 
 CharacterCreate.defaultProps = {
-    character: {},
-    races: [],
-    classes: [],
-    backgrounds: [],
+    config: {},
+    races: {},
+    classes: {},
+    backgrounds: {},
     genders: [],
     alignments: [],
 };
@@ -161,7 +186,7 @@ export default ListDataWrapper(
         CharacterEditorWrapper(
             CharacterCreate,
             {
-                character: true,
+                config: true,
             }
         ),
         ['races', 'classes', 'backgrounds'],
