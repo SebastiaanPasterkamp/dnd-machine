@@ -84,7 +84,7 @@ export class TagContainer extends React.Component
 
         return (
             <BaseTagContainer className={className}>
-                {!propDisabled ? (
+                {!propDisabled && showSelect ? (
                     <TagSelect
                         onSelect={this.onAdd}
                         items={items}
