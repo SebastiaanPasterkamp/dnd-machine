@@ -314,11 +314,12 @@ def register_request_hooks(app):
             'recovery',
             )
         if request.endpoint not in publicPages:
-            if request.is_xhr:
+            response = redirect(url_for('login'))
+            if request.accept_mimetypes.accept_json \
+                    and not request.accept_mimetypes.accept_html:
                 response = jsonify({'message': 'Not logged in'})
-                response.status_code = 401
-                return response
-            return redirect(url_for('login'))
+            response.status_code = 401
+            return response
 
     @app.before_request
     def get_user():

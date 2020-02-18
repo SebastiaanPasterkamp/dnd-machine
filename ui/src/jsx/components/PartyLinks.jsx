@@ -20,7 +20,7 @@ export class PartyLinks extends BaseLinkGroup
             method: "POST",
             credentials: 'same-origin',
             'headers': {
-                'X-Requested-With': 'XMLHttpRequest'
+                'Accept': 'application/json'
             }
         })
         .then((response) => response.json())
@@ -36,7 +36,7 @@ export class PartyLinks extends BaseLinkGroup
         method: "POST",
             credentials: 'same-origin',
             'headers': {
-                'X-Requested-With': 'XMLHttpRequest'
+                'Accept': 'application/json'
             }
         })
         .then((response) => response.json())

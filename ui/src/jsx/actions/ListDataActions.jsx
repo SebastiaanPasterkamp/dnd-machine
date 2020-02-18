@@ -25,7 +25,7 @@ ListDataActions.doLogin.listen((credentials, success, failure) => {
         credentials: 'same-origin',
         method: 'POST',
         'headers': {
-            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(credentials)
@@ -74,7 +74,7 @@ ListDataActions.doLogout.listen((callback) => {
     fetch('/logout', {
         credentials: 'same-origin',
         'headers': {
-            'X-Requested-With': 'XMLHttpRequest'
+            'Accept': 'application/json'
         }
     })
     .then(jsonOrBust)

@@ -73,7 +73,7 @@ class AppPartyTestCase(BaseAppTestCase):
         for page, expected in list(pages.items()):
             rv = self.client.get(
                 page,
-                headers={'X-Requested-With': 'XMLHttpRequest'}
+                headers={'Accept': 'application/json'},
                 )
             self.assertResponse(page, rv, 401)
 

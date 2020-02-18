@@ -37,7 +37,7 @@ export function ObjectDataActionsFactory(id)
             credentials: 'same-origin',
             method: 'POST',
             'headers': {
-                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
@@ -72,7 +72,7 @@ export function ObjectDataActionsFactory(id)
             credentials: 'same-origin',
             method: 'PATCH',
             'headers': {
-                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
@@ -107,7 +107,7 @@ export function ObjectDataActionsFactory(id)
             credentials: 'same-origin',
             method: 'GET',
             'headers': {
-                'X-Requested-With': 'XMLHttpRequest'
+                'Accept': 'application/json'
             }
         })
         .then(jsonOrBust)
@@ -144,7 +144,7 @@ export function ObjectDataActionsFactory(id)
             credentials: 'same-origin',
             method: 'PATCH',
             'headers': {
-                'X-Requested-With': 'XMLHttpRequest'
+                'Accept': 'application/json'
             }
         })
         .then(jsonOrBust)
@@ -181,7 +181,7 @@ export function ObjectDataActionsFactory(id)
             credentials: 'same-origin',
             method: 'DELETE',
             'headers': {
-                'X-Requested-With': 'XMLHttpRequest'
+                'Accept': 'application/json'
             }
         })
         .then(jsonOrBust)
@@ -215,7 +215,7 @@ export function ObjectDataActionsFactory(id)
                 credentials: 'same-origin',
                 method: 'POST',
                 'headers': {
-                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data)

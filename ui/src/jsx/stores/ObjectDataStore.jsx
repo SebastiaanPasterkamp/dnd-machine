@@ -95,7 +95,7 @@ export function ObjectDataStoreFactory(id, listenables = null)
                 credentials: 'same-origin',
                 method: 'GET',
                 'headers': {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Accept': 'application/json'
                 }
             })
             .then((response) => {
@@ -214,7 +214,7 @@ export function ObjectDataStoreFactory(id, listenables = null)
                 credentials: 'same-origin',
                 method: 'GET',
                 'headers': {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Accept': 'application/json'
                 }
             })
             .then((response) => {

@@ -23,7 +23,7 @@ class AppTestCase(BaseAppTestCase):
 
         rv = self.client.get(
             '/current_user',
-            headers={'X-Requested-With': 'XMLHttpRequest'}
+            headers={'Accept': 'application/json'},
             )
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.mimetype, 'application/json')
@@ -50,7 +50,7 @@ class AppTestCase(BaseAppTestCase):
         for page, expected in list(self.privatePages.items()):
             rv = self.client.get(
                 page,
-                headers={'X-Requested-With': 'XMLHttpRequest'}
+                headers={'Accept': 'application/json'},
                 )
             self.assertEqual(rv.status_code, 401)
 
@@ -85,18 +85,19 @@ class AppTestCase(BaseAppTestCase):
         rv = self.client.get(
             '/current_user',
             follow_redirects=True,
-            headers={'X-Requested-With': 'XMLHttpRequest'}
+            headers={'Accept': 'application/json'},
             )
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.mimetype, 'application/json')
 
         rv = self.doLogout(False)
+        self.assertEqual(rv.get_json(), None)
         self.assertEqual(rv.status_code, 200)
 
         rv = self.client.get(
             '/current_user',
             follow_redirects=True,
-            headers={'X-Requested-With': 'XMLHttpRequest'}
+            headers={'Accept': 'application/json'},
             )
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.get_json(), None)

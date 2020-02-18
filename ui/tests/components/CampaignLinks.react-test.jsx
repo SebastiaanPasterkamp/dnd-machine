@@ -107,7 +107,7 @@ describe('Component: CampaignLinks', () => {
                 credentials: 'same-origin',
                 method: 'POST',
                 'headers': {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Accept': 'application/json'
                 }
             }
         );
@@ -150,7 +150,7 @@ describe('Component: CampaignLinks', () => {
                 credentials: 'same-origin',
                 method: 'POST',
                 'headers': {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Accept': 'application/json'
                 }
             }
         );

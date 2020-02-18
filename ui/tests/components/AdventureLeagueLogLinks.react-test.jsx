@@ -170,7 +170,7 @@ describe('Component: AdventureLeagueLogLinks', () => {
                     credentials: 'same-origin',
                     method: 'DELETE',
                     'headers': {
-                        'X-Requested-With': 'XMLHttpRequest'
+                        'Accept': 'application/json'
                     }
                 }
             );
@@ -246,7 +246,7 @@ describe('Component: AdventureLeagueLogLinks', () => {
                     credentials: 'same-origin',
                     method: 'PATCH',
                     'headers': {
-                        'X-Requested-With': 'XMLHttpRequest'
+                        'Accept': 'application/json'
                     }
                 }
             );

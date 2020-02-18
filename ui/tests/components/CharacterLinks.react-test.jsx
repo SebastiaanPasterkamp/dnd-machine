@@ -171,7 +171,7 @@ describe('Component: CharacterLinks', () => {
                 credentials: 'same-origin',
                 method: 'GET',
                 'headers': {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Accept': 'application/json'
                 }
             }
         );
@@ -211,7 +211,7 @@ describe('Component: CharacterLinks', () => {
                 credentials: 'same-origin',
                 method: 'DELETE',
                 'headers': {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Accept': 'application/json'
                 }
             }
         );

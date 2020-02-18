@@ -189,7 +189,7 @@ export class EncounterView extends React.Component
                 method: "POST",
                 credentials: 'same-origin',
                 headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Accept': 'application/json'
             }
         })
             .then(response => response.json())
