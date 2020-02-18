@@ -101,7 +101,7 @@ class CharacterBlueprint(BaseApiBlueprint):
                 if 'include' in data:
                     include = options.getById(data['include'])
                     if include is not None:
-                        include = include.clone().config
+                        include = include.clone()
                         include.update(data)
                         data.update(include)
                     del data['include']
@@ -112,17 +112,18 @@ class CharacterBlueprint(BaseApiBlueprint):
                     inlineIncludes(value)
 
         items = []
-        for item in self.basemapper[field].getMultiple():
-            item = item.clone().config
+        for obj in self.basemapper[field].getMultiple():
+            item = obj.clone()
+            item['uuid'] = "%s-%d" % (field, obj.id)
             if 'phases' in item:
                 del item['phases']
             inlineIncludes(item)
             items.append(item)
 
-        return jsonify([{
+        return jsonify({
             'type': 'choice',
             'options': items,
-            }])
+            })
 
     def get_races(self):
         return self.get_character_data('race')

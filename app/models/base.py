@@ -45,7 +45,7 @@ class JsonObject(object):
         self.compute()
 
     def clone(self):
-        clone = self.__class__(self.config)
+        clone = deepcopy(self._config)
         del clone['id']
         return clone
 
