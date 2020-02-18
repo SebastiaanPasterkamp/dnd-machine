@@ -16194,6 +16194,28 @@ exports[`EncounterView should render with full props 1`] = `
                 <div
                   className="nice-panel-content"
                 >
+                  <table
+                    className="nice-table stats-block condensed bordered"
+                  >
+                    <thead>
+                      <tr>
+                        <th>
+                          Statistic
+                        </th>
+                        <th
+                          className="text-align-center"
+                        >
+                          Base
+                        </th>
+                        <th
+                          className="text-align-center"
+                        >
+                          Modifier
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody />
+                  </table>
                   <div
                     className="clearfix"
                   />
