@@ -88,7 +88,7 @@ class AppMonsterTestCase(BaseAppTestCase):
         for page in self.dmPages:
             rv = self.client.get(
                 page,
-                headers={'X-Requested-With': 'XMLHttpRequest'}
+                headers={'Accept': 'application/json'},
                 )
             self.assertResponse(page, rv, 401)
 

@@ -289,7 +289,7 @@ class BaseAppTestCase(unittest.TestCase):
             path,
             data=json.dumps(data),
             content_type='application/json',
-            headers={'X-Requested-With': 'XMLHttpRequest'}
+            headers={'Accept': 'application/json'},
             )
 
     def patchJSON(self, path, data):
@@ -297,7 +297,7 @@ class BaseAppTestCase(unittest.TestCase):
             path,
             data=json.dumps(data),
             content_type='application/json',
-            headers={'X-Requested-With': 'XMLHttpRequest'}
+            headers={'Accept': 'application/json'},
             )
 
     def doLogin(self, username, password):
@@ -309,7 +309,8 @@ class BaseAppTestCase(unittest.TestCase):
     def doLogout(self, follow_redirects=True):
         return self.client.get(
             '/logout',
-            follow_redirects=follow_redirects
+            follow_redirects=follow_redirects,
+            headers={'Accept': 'application/json'},
             )
 
 if __name__ == '__main__':
