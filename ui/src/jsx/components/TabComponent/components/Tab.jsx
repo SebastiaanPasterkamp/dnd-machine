@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import utils, { memoize } from '../../../utils';
 
 export const Tab = function({
-    label, icon, color, active, disabled, onSelect,
+    name, label, icon, color, active, disabled, onSelect,
 }) {
     const tabStyle = utils.makeStyle({
         [color]: (color && !disabled),
@@ -28,14 +28,15 @@ export const Tab = function({
                     : null
                 }
             >
-                {label}
+                {name !== undefined ? name : label}
             </a>
         </li>
     );
 };
 
 Tab.propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
+    name: PropTypes.string,
     onSelect: PropTypes.func.isRequired,
     icon: PropTypes.string,
     color: PropTypes.string,
@@ -44,6 +45,8 @@ Tab.propTypes = {
 };
 
 Tab.defaultProps = {
+    label: undefined,
+    name: undefined,
     icon: null,
     color: null,
     active: false,
