@@ -29,13 +29,12 @@ function CharacterEditorWrapper(
                     (mapped, key) => {
                         if (storeKeys[key]) {
                             mapped[key] = updated[key];
-                            return mapped;
                         };
                         if (key === 'character') {
                             const { path } = this.props;
                             mapped.current = get(path, updated[key]);
                         }
-                        if (key === 'character') {
+                        if (key === 'choices') {
                             const { uuid } = this.props;
                             const { [uuid]: state } = updated[key];
                             mapped.state = state;

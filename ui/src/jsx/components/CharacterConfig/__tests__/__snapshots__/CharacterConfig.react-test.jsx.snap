@@ -320,6 +320,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                               >
                                 <ValuePropertySelect
                                   current="Choice A"
+                                  hidden={false}
                                   onSave={[Function]}
                                   onUpdate={[Function]}
                                   setState={[Function]}
@@ -657,6 +658,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                               >
                                 <ValuePropertySelect
                                   current="Choice B"
+                                  hidden={false}
                                   onSave={[Function]}
                                   onUpdate={[Function]}
                                   setState={[Function]}
@@ -753,6 +755,7 @@ exports[`Component: CharacterConfig should render config 1`] = `
             >
               <ValuePropertySelect
                 current="Nested config"
+                hidden={false}
                 onSave={[Function]}
                 onUpdate={[Function]}
                 setState={[Function]}
@@ -2298,6 +2301,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
                   >
                     <ValuePropertySelect
                       current="Multi choice option A"
+                      hidden={false}
                       onSave={[Function]}
                       onUpdate={[Function]}
                       setState={[Function]}
@@ -3031,6 +3035,7 @@ exports[`Component: CharacterConfig should render value 1`] = `
       >
         <ValuePropertySelect
           current="bar"
+          hidden={false}
           onSave={[Function]}
           onUpdate={[Function]}
           setState={[Function]}

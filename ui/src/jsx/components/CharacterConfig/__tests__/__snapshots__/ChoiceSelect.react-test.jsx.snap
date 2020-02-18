@@ -165,6 +165,7 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
                   value="Option two"
                 >
                   <ValuePropertySelect
+                    hidden={false}
                     onSave={[Function]}
                     onUpdate={[Function]}
                     setState={[Function]}

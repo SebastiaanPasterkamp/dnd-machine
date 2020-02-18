@@ -13,6 +13,7 @@ exports[`Component: ValuePropertySelect should not render anything when hidden 1
 
 exports[`Component: ValuePropertySelect should render the formatted description 1`] = `
 <ValuePropertySelect
+  hidden={false}
   onChange={[Function]}
   path="some.path"
   type="value"

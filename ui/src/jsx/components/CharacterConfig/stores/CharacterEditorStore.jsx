@@ -30,7 +30,7 @@ class CharacterEditorStore extends Reflux.Store
             choices: {},
         };
         this.listenables = CharacterEditorActions;
-        this.computeChange = debounce(500, this.computeChange.bind(this));
+        // this.computeChange = debounce(500, this.computeChange.bind(this));
     }
 
     reset() {

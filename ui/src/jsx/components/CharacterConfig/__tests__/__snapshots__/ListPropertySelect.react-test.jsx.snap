@@ -150,7 +150,36 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
   <BaseTagContainer>
     <div
       className="base-tag-container nice-tags-container"
-    />
+    >
+      <Tag
+        badges={Array []}
+        className={null}
+        color={null}
+        description={null}
+        disabled={true}
+        id="dexterity"
+        key="tag-0"
+        label="dexterity"
+        onChange={null}
+        onDelete={[Function]}
+      >
+        <div
+          className="nice-tag muted"
+        >
+          <TagLabel>
+            <span
+              className="nice-tag-label"
+            >
+              <ToolTip
+                content={null}
+              >
+                dexterity
+              </ToolTip>
+            </span>
+          </TagLabel>
+        </div>
+      </Tag>
+    </div>
   </BaseTagContainer>
 </ListPropertySelect>
 `;
