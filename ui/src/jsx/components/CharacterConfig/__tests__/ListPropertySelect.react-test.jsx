@@ -17,11 +17,9 @@ const props = {
 describe('Component: ListPropertySelect', () => {
 
     it('should render with minimum props', () => {
-        const onChange = jest.fn();
         const setState = jest.fn();
         const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 setState={setState}
                 type={props.type}
                 uuid={props.uuid}
@@ -29,16 +27,13 @@ describe('Component: ListPropertySelect', () => {
         );
 
         expect(wrapper).toMatchSnapshot();
-        expect(onChange).not.toBeCalled();
         expect(setState).not.toBeCalled();
     });
 
     it('should not render select w/o items', () => {
-        const onChange = jest.fn();
         const setState = jest.fn();
         const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 setState={setState}
                 {...props}
                 items={undefined}
@@ -47,16 +42,13 @@ describe('Component: ListPropertySelect', () => {
         );
 
         expect(wrapper).toMatchSnapshot();
-        expect(onChange).not.toBeCalled();
         expect(setState).not.toBeCalled();
     });
 
     it('should not render select w/ filtering all items', () => {
-        const onChange = jest.fn();
         const setState = jest.fn();
         const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 setState={setState}
                 {...props}
                 add={1}
@@ -65,16 +57,13 @@ describe('Component: ListPropertySelect', () => {
         );
 
         expect(wrapper).toMatchSnapshot();
-        expect(onChange).not.toBeCalled();
         expect(setState).not.toBeCalled();
     });
 
     it('should not render when hidden', () => {
-        const onChange = jest.fn();
         const setState = jest.fn();
         const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 setState={setState}
                 {...props}
                 hidden={true}
@@ -82,16 +71,13 @@ describe('Component: ListPropertySelect', () => {
         );
 
         expect(wrapper).toMatchSnapshot();
-        expect(onChange).not.toBeCalled();
         expect(setState).not.toBeCalled();
     });
 
     it('should render with full props', () => {
-        const onChange = jest.fn();
         const setState = jest.fn();
         const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 setState={setState}
                 {...props}
                 given={[
@@ -113,19 +99,13 @@ describe('Component: ListPropertySelect', () => {
         );
 
         expect(wrapper).toMatchSnapshot();
-        expect(onChange).toBeCalledWith({
-            added: ['constitution', 'charisma'],
-            removed: [],
-        });
         expect(setState).not.toBeCalled();
     });
 
     it('should stil show unknown current values', () => {
-        const onChange = jest.fn();
         const setState = jest.fn();
         const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 setState={setState}
                 {...props}
                 given={[
@@ -138,11 +118,9 @@ describe('Component: ListPropertySelect', () => {
     });
 
     it('should allow replacing one existing', () => {
-        const onChange = jest.fn();
         const setState = jest.fn();
         const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 setState={setState}
                 {...props}
                 given={[
@@ -154,10 +132,6 @@ describe('Component: ListPropertySelect', () => {
         );
 
         wrapper.find('.fa-trash-o').at(0).simulate('click');
-        expect(onChange).toBeCalledWith({
-            added: ["charisma"],
-            removed: ["dexterity"],
-        });
         expect(setState).toBeCalledWith({
             added: [],
             removed: ["dexterity"],
@@ -169,10 +143,6 @@ describe('Component: ListPropertySelect', () => {
 
         wrapper.find('.nice-btn').simulate('click');
         wrapper.find('[data-value="strength"]').simulate('click');
-        expect(onChange).toBeCalledWith({
-            added: ["strength", "charisma"],
-            removed: ["dexterity"],
-        });
         expect(setState).toBeCalledWith({
             added: ["strength"],
             removed: ["dexterity"],
@@ -180,11 +150,9 @@ describe('Component: ListPropertySelect', () => {
     });
 
     it('should handle adding and deleting new', () => {
-        const onChange = jest.fn();
         const setState = jest.fn();
         const wrapper = mount(
             <ListPropertySelect
-                onChange={onChange}
                 setState={setState}
                 {...props}
                 given={[
@@ -197,25 +165,16 @@ describe('Component: ListPropertySelect', () => {
         wrapper.find('.nice-btn').simulate('click');
         wrapper.find('[data-value="strength"]').simulate('click');
 
-        expect(onChange).toBeCalledWith({
-            added: ["strength", "charisma"],
-            removed: [],
-        });
         expect(setState).toBeCalledWith({
             added: ["strength"],
             removed: [],
         });
-
         wrapper.setProps({
             added: ["strength"],
         });
 
         wrapper.find('.nice-tag-btn').at(0).simulate('click');
 
-        expect(onChange).toBeCalledWith({
-            added: ["charisma"],
-            removed: [],
-        });
         expect(setState).toBeCalledWith({
             added: [],
             removed: [],
@@ -226,11 +185,9 @@ describe('Component: ListPropertySelect', () => {
         let wrapper;
 
         beforeEach(() => {
-            const onChange = jest.fn();
             const setState = jest.fn();
             wrapper = mount(
                 <ListPropertySelect
-                    onChange={onChange}
                     setState={setState}
                     {...props}
                     limit={2}

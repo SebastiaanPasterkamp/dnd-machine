@@ -58,7 +58,6 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
     ]
   }
   multiple={false}
-  onChange={[Function]}
   path="some.path"
   removed={Array []}
   replace={0}
@@ -141,7 +140,6 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
     ]
   }
   multiple={false}
-  onChange={[Function]}
   path="some.path"
   removed={Array []}
   replace={0}
@@ -152,35 +150,7 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
   <BaseTagContainer>
     <div
       className="base-tag-container nice-tags-container"
-    >
-      <Tag
-        badges={Array []}
-        className={null}
-        color={null}
-        description={null}
-        disabled={true}
-        key="tag-0"
-        label="dexterity"
-        onChange={null}
-        onDelete={[Function]}
-      >
-        <div
-          className="nice-tag muted"
-        >
-          <TagLabel>
-            <span
-              className="nice-tag-label"
-            >
-              <ToolTip
-                content={null}
-              >
-                dexterity
-              </ToolTip>
-            </span>
-          </TagLabel>
-        </div>
-      </Tag>
-    </div>
+    />
   </BaseTagContainer>
 </ListPropertySelect>
 `;
@@ -238,7 +208,6 @@ exports[`Component: ListPropertySelect should not render when hidden 1`] = `
     ]
   }
   multiple={false}
-  onChange={[Function]}
   path="some.path"
   removed={Array []}
   replace={0}
@@ -314,7 +283,6 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
     ]
   }
   multiple={true}
-  onChange={[Function]}
   path="some.path"
   removed={Array []}
   replace={1}
@@ -637,7 +605,6 @@ exports[`Component: ListPropertySelect should render with minimum props 1`] = `
   items={Array []}
   limit={0}
   multiple={false}
-  onChange={[Function]}
   removed={Array []}
   replace={0}
   setState={[Function]}
@@ -708,7 +675,6 @@ exports[`Component: ListPropertySelect should stil show unknown current values 1
     ]
   }
   multiple={false}
-  onChange={[Function]}
   path="some.path"
   removed={Array []}
   replace={0}
@@ -727,7 +693,7 @@ exports[`Component: ListPropertySelect should stil show unknown current values 1
         description={null}
         disabled={true}
         key="tag-0"
-        label="foo"
+        label={null}
         onChange={null}
         onDelete={[Function]}
       >
@@ -740,9 +706,7 @@ exports[`Component: ListPropertySelect should stil show unknown current values 1
             >
               <ToolTip
                 content={null}
-              >
-                foo
-              </ToolTip>
+              />
             </span>
           </TagLabel>
         </div>

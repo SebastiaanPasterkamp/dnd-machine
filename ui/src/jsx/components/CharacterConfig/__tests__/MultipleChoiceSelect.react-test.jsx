@@ -5,6 +5,8 @@ import {
     get,
 } from 'lodash/fp';
 
+import store from '../stores/CharacterEditorStore';
+
 import { MultipleChoiceSelect } from '../components/MultipleChoiceSelect';
 
 const props = {
@@ -29,30 +31,34 @@ const props = {
             uuid: 'mocked-uuid-4',
             path: 'bar.foo',
             dict: {
-                description: 'Foo is okay',
+                description: 'Foo is better',
             }
         }]
     }],
+    choices: {
+        'mocked-uuid-3': true,
+    },
 };
 
 describe('Component: MultipleChoiceSelect', () => {
-    const character = {
-        bar: {
-            foo: {
-                description: 'Foo is bad',
+
+    beforeEach(() => {
+        store.onEditCharacterCompleted({
+            bar: {
+                foo: {
+                    description: 'Foo is bad',
+                },
             },
-        },
-    };
-    const getCurrent = function(path) {
-        return get(path, character);
-    };
+        });
+    });
+
+    afterEach(() => store.reset());
 
     it('should render with minimum props', () => {
         const setState = jest.fn();
         const tree = renderer.create(
             <MultipleChoiceSelect
                 setState={setState}
-                getCurrent={getCurrent}
                 type={props.type}
                 uuid={props.uuid}
             />
@@ -62,12 +68,26 @@ describe('Component: MultipleChoiceSelect', () => {
         expect(setState).not.toBeCalled();
     });
 
-    it('should render with full props', () => {
+    it.only('should render with full props', () => {
+        const setState = jest.fn();
+        const tree = renderer.create(
+            <MultipleChoiceSelect
+                setState={setState}
+                {...props}
+                add={2}
+                replace={1}
+            />
+        ).toJSON();
+
+        expect(tree).toMatchSnapshot();
+        expect(setState).not.toBeCalled();
+    });
+
+    it('should render some buttons', () => {
         const setState = jest.fn();
         const wrapper = mount(
             <MultipleChoiceSelect
                 setState={setState}
-                getCurrent={getCurrent}
                 {...props}
                 add={2}
                 replace={1}
@@ -84,7 +104,6 @@ describe('Component: MultipleChoiceSelect', () => {
         const wrapper = mount(
             <MultipleChoiceSelect
                 setState={setState}
-                getCurrent={getCurrent}
                 {...props}
                 replace={1}
             />
@@ -121,7 +140,6 @@ describe('Component: MultipleChoiceSelect', () => {
         const wrapper = mount(
             <MultipleChoiceSelect
                 setState={setState}
-                getCurrent={getCurrent}
                 {...props}
                 add={1}
             />

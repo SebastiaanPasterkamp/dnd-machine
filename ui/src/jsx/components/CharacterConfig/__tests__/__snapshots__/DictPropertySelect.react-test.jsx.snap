@@ -5,7 +5,7 @@ exports[`Component: DictPropertySelect should not render anything while hidden 1
   current={
     Object {
       "description": "This shows _%(type)s_ content",
-      "type": "old",
+      "type": "new",
     }
   }
   dict={
@@ -14,8 +14,8 @@ exports[`Component: DictPropertySelect should not render anything while hidden 1
     }
   }
   hidden={true}
-  onChange={[Function]}
   path="some.path"
+  setState={[Function]}
   type="dict"
   uuid="mocked-uuid-1"
 />
@@ -26,7 +26,7 @@ exports[`Component: DictPropertySelect should render the updated description 1`]
   current={
     Object {
       "description": "This shows _%(type)s_ content",
-      "type": "old",
+      "type": "new",
     }
   }
   dict={
@@ -34,8 +34,8 @@ exports[`Component: DictPropertySelect should render the updated description 1`]
       "type": "new",
     }
   }
-  onChange={[Function]}
   path="some.path"
+  setState={[Function]}
   type="dict"
   uuid="mocked-uuid-1"
 >

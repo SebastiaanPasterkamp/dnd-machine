@@ -38,7 +38,6 @@ exports[`Component: SelectPropertySelect should not render anything 1`] = `
       },
     ]
   }
-  onChange={[Function]}
   path="some.path"
   setState={[Function]}
   type="select"
@@ -83,7 +82,6 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
       },
     ]
   }
-  onChange={[Function]}
   path="some.path"
   setState={[Function]}
   type="select"

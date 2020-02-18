@@ -19,7 +19,6 @@ import {
     Tag,
     TagBadge,
 } from '../../BaseTagContainer';
-import LazyComponent from '../../LazyComponent';
 import SingleSelect from '../../SingleSelect';
 
 import { memoize } from '../../../utils';
@@ -28,7 +27,7 @@ import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper';
 import ListsToItemsWrapper from '../../../hocs/ListsToItemsWrapper';
 import MatchesFilters from '../utils/MatchesFilters';
 
-export class ListPropertySelect extends LazyComponent
+export class ListPropertySelect extends React.Component
 {
     constructor(props) {
         super(props);
@@ -39,7 +38,6 @@ export class ListPropertySelect extends LazyComponent
         this.memoize = memoize.bind(this);
         this.onAdd = this.onAdd.bind(this);
         this.onDelete = this.onDelete.bind(this);
-        this.onChange = this.onChange.bind(this);
     }
 
     getId({ id, code, name }) {
@@ -60,7 +58,7 @@ export class ListPropertySelect extends LazyComponent
     }
 
     static getDerivedStateFromProps(props, state) {
-        const { added, removed, given, add, limit, replace, current } = props;
+        const { added, removed, given, current, add, limit, replace } = props;
 
         const showSelect = Boolean(
             (added.length - removed.length) < add
@@ -76,48 +74,34 @@ export class ListPropertySelect extends LazyComponent
         return null;
     }
 
-    componentDidMount() {
-        const { given } = this.props;
-        if (given.length) {
-            this.onChange();
-        }
-    }
-
-    onChange(update) {
-        const {
-            added, removed, given, onChange,
-        } = { ...this.props, ...update };
-        onChange({
-            added: concat(added, given),
-            removed,
-        });
-    }
-
     onDelete(id) {
         return this.memoize(
             `delete-${id}`,
             () => {
                 const {
-                    added, removed, replace, multiple, setState,
+                    added, removed,
+                    replace, multiple, setState,
                 } = this.props;
+
                 const state = { added, removed };
                 if (includes(id, added)) {
-                    state.added = without([ id ], added);
+                    state.added = without(added, id);
                 } else if (removed.length < replace) {
-                    state.removed = concat(removed, [id]);
+                    state.removed = [...removed, id];
                     if (!multiple) {
                         state.removed = uniq(state.removed);
                     }
                 }
+
                 setState(state);
-                this.onChange(state);
             }
         );
     }
 
     onAdd(id) {
         const {
-            added, removed, add, limit, current, multiple, setState,
+            added, removed, current,
+            add, limit, multiple, setState,
         } = this.props;
 
         if (limit) {
@@ -130,46 +114,45 @@ export class ListPropertySelect extends LazyComponent
 
         const state = { added, removed };
         if (includes(id, removed)) {
-            state.removed = without([ id ], removed);
+            state.removed = without(removed, id);
         } else {
-            state.added = concat(added, [id]);
+            state.added = [...added, id];
             if (!multiple) {
                 state.added = uniq(state.added);
             }
         }
 
         setState(state);
-        this.onChange(state);
     }
 
-    findItem(id, _default=undefined) {
-        _default = _default || { label: `${id}`, color: 'bad' };
+    findItem(id) {
         const { items } = this.props;
-        const match = find({id: id}, items)
-                    || find({code: id}, items)
-                    || find({name: id}, items);
+        if (!items.length) {
+            return {
+                id,
+                label: id,
+            };
+        }
+        const item = find({ id: id }, items)
+                    || find({ code: id }, items)
+                    || find({ name: id } , items);
 
-        if (!match && _default !== undefined) {
-            return _default;
+        if (!item) {
+            return undefined;
         }
 
-        const item = match || {
-            ..._default,
-            id,
-        };
-
         return ({
-            id: this.getId(item),
+            id: this.getId({id, ...item}),
             label: this.getLabel(item),
             description: item.description,
         });
     }
 
     getValue() {
-        const { added, removed, given, current, replace } = this.props;
+        const { added, removed, current, given, replace } = this.props;
         const { disabled } = this.state;
 
-        const tags = concat(
+        const tags = filter(null, concat(
             map(
                 id => ({
                     ...this.findItem(id),
@@ -183,7 +166,7 @@ export class ListPropertySelect extends LazyComponent
                     disabled: true,
                 })
             )(given)
-        );
+        ));
 
         let upgrade = countBy('id', tags);
         let downgrade = countBy('id', removed);
@@ -207,7 +190,7 @@ export class ListPropertySelect extends LazyComponent
                         upgrade[id] -= 1;
                         return null;
                     }
-                    const _current = this.findItem(id, null);
+                    const _current = this.findItem(id);
                     if (!_current) {
                         return null;
                     }
@@ -242,12 +225,11 @@ export class ListPropertySelect extends LazyComponent
             return null;
         }
 
-        const values = [...given, ...current, ...added];
         const filtered = filter(
             item => (
                 multiple
                 || includes( this.getId(item), removed )
-                || !includes( this.getId(item), values )
+                || !includes( this.getId(item), current )
             ),
             filter(
                 item => (
@@ -271,6 +253,7 @@ export class ListPropertySelect extends LazyComponent
 
     render() {
         const { hidden } = this.props;
+
         if (hidden) {
             return null;
         }
@@ -295,7 +278,6 @@ export class ListPropertySelect extends LazyComponent
 ListPropertySelect.propTypes = {
     type: PropTypes.oneOf(['list']).isRequired,
     uuid: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
     setState: PropTypes.func.isRequired,
     items: PropTypes.arrayOf(PropTypes.object),
     given: PropTypes.arrayOf(
@@ -329,11 +311,6 @@ ListPropertySelect.defaultProps = {
 };
 
 export default ListsToItemsWrapper(
-    CharacterEditorWrapper(
-        ListPropertySelect,
-        {
-            current: true,
-        }
-    ),
+    CharacterEditorWrapper(ListPropertySelect),
     'items'
 );

@@ -1,5 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Function: ComputeChange mutations to bare stats with statistics should apply configured, but keep others unchanged 1`] = `
+Object {
+  "other": Object {
+    "is": "immutable",
+  },
+  "statistics": Object {
+    "bare": Object {
+      "bar": 14,
+      "foo": 8,
+      "ruh": 10,
+    },
+    "base": Object {},
+    "bonus": Object {},
+    "modifiers": Object {},
+  },
+}
+`;
+
+exports[`Function: ComputeChange mutations to bare stats with statistics should not affect original 1`] = `
+Object {
+  "other": Object {
+    "is": "immutable",
+  },
+  "statistics": Object {
+    "bare": Object {
+      "bar": 10,
+      "foo": 8,
+    },
+    "base": Object {},
+    "bonus": Object {},
+    "modifiers": Object {},
+  },
+}
+`;
+
+exports[`Function: ComputeChange mutations to bonuses with ability_score should increase selected, but keep others unchanged 1`] = `
+Object {
+  "other": Object {
+    "is": "immutable",
+  },
+  "statistics": Object {
+    "bare": Object {},
+    "base": Object {},
+    "bonus": Object {
+      "bar": Array [
+        2,
+        1,
+        1,
+      ],
+      "foo": Array [
+        1,
+      ],
+      "ruh": Array [
+        1,
+      ],
+    },
+    "modifiers": Object {},
+  },
+}
+`;
+
+exports[`Function: ComputeChange mutations to bonuses with ability_score should not affect original 1`] = `
+Object {
+  "other": Object {
+    "is": "immutable",
+  },
+  "statistics": Object {
+    "bare": Object {},
+    "base": Object {},
+    "bonus": Object {
+      "bar": Array [
+        2,
+        1,
+      ],
+      "foo": Array [
+        1,
+      ],
+      "ruh": Array [],
+    },
+    "modifiers": Object {},
+  },
+}
+`;
+
 exports[`Function: ComputeChange mutations to lists should apply 1`] = `
 Object {
   "other": Object {
@@ -9,6 +93,7 @@ Object {
     "path": Array [
       "one",
       "foo",
+      "ruh",
     ],
   },
 }
@@ -109,14 +194,6 @@ Object {
 }
 `;
 
-exports[`Function: ComputeChange received undefined options should be ignored 1`] = `Object {}`;
-
-exports[`Function: ComputeChange received undefined options should not affect original 1`] = `Object {}`;
-
-exports[`Function: ComputeChange received undefined value should be ignored 1`] = `Object {}`;
-
-exports[`Function: ComputeChange received undefined value should not affect original 1`] = `Object {}`;
-
 exports[`Function: ComputeChange received value for select should be set 1`] = `
 Object {
   "other": Object {
@@ -151,6 +228,17 @@ exports[`Function: ComputeChange received value for value should not affect orig
 Object {
   "other": Object {
     "is": "immutable",
+  },
+}
+`;
+
+exports[`Function: ComputeChange return original if nothing changed should not affect original 1`] = `
+Object {
+  "other": Object {
+    "is": "immutable",
+  },
+  "some": Object {
+    "path": "foo",
   },
 }
 `;

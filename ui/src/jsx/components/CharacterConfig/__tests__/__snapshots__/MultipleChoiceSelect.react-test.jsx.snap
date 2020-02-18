@@ -930,6 +930,77 @@ exports[`Component: MultipleChoiceSelect should handle replacing one existing 1`
 </MultipleChoiceSelect>
 `;
 
+exports[`Component: MultipleChoiceSelect should render with full props 1`] = `
+<div>
+  <div
+    className="base-tag-container nice-tags-container"
+  >
+    <div
+      className="nice-dropdown nice-form-control"
+    >
+      <button
+        className="nice-btn"
+        disabled={false}
+        onClick={[Function]}
+      >
+        Add...
+        <i
+          className="icon fa-angle-down"
+        />
+      </button>
+      <ul
+        className="dropdown-menu"
+        onClick={[Function]}
+      >
+        <li
+          className={null}
+          data-value="mocked-uuid-2"
+          onClick={[Function]}
+        >
+          <a>
+            Simple
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      className="nice-tag"
+    >
+      <span
+        className="nice-tag-label"
+      >
+        Complex
+      </span>
+      <button
+        className="nice-tag-btn"
+        onClick={[Function]}
+      >
+        <i
+          className="icon fa-trash-o"
+        />
+      </button>
+    </div>
+  </div>
+  <div
+    className="nice-form-group"
+  >
+    <label>
+      Complex
+    </label>
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <span>
+        <p>
+          Foo is bad
+        </p>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Component: MultipleChoiceSelect should render with minimum props 1`] = `
 <div>
   <div

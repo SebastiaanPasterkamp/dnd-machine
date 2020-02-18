@@ -1,30 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import LazyComponent from '../../LazyComponent';
 import SingleSelect from '../../SingleSelect';
 
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper';
 import ListsToItemsWrapper from '../../../hocs/ListsToItemsWrapper';
 
-export class SelectPropertySelect extends LazyComponent
+export class SelectPropertySelect extends React.Component
 {
     constructor(props) {
         super(props);
-        this.onChange = this.onChange.bind(this);
+        this.onSetState = this.onSetState.bind(this);
     }
 
-    componentDidMount() {
-        const { current, onChange } = this.props;
-        if (current !== undefined) {
-            onChange(this.props.current);
-        }
-    }
-
-    onChange(current) {
-        const { onChange, setState } = this.props;
+    onSetState(current) {
+        const { setState } = this.props;
         setState({ current });
-        onChange(current);
     }
 
     render() {
@@ -38,7 +29,7 @@ export class SelectPropertySelect extends LazyComponent
             <SingleSelect
                 className="small"
                 items={items}
-                setState={this.onChange}
+                setState={this.onSetState}
                 selected={current}
                 emptyLabel="Please select"
             />
@@ -50,18 +41,12 @@ SelectPropertySelect.propTypes = {
     type: PropTypes.oneOf(['select']).isRequired,
     uuid: PropTypes.string.isRequired,
     setState: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
     current: PropTypes.any,
     hidden: PropTypes.bool,
 };
 
 export default ListsToItemsWrapper(
-    CharacterEditorWrapper(
-        SelectPropertySelect,
-        {
-            current: true,
-        }
-    ),
+    CharacterEditorWrapper(SelectPropertySelect),
     'items'
 );

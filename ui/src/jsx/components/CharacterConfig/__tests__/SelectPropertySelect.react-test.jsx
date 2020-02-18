@@ -17,11 +17,9 @@ const props = {
 describe('Component: SelectPropertySelect', () => {
     it('should not render anything', () => {
         const setState = jest.fn();
-        const onChange = jest.fn();
         const wrapper = mount(
             <SelectPropertySelect
                 setState={setState}
-                onChange={onChange}
                 {...props}
                 hidden={true}
             />
@@ -29,16 +27,13 @@ describe('Component: SelectPropertySelect', () => {
 
         expect(wrapper).toMatchSnapshot();
         expect(setState).not.toBeCalled();
-        expect(onChange).toBeCalledWith(props.current);
     });
 
     it('should render the list', () => {
         const setState = jest.fn();
-        const onChange = jest.fn();
         const wrapper = mount(
             <SelectPropertySelect
                 setState={setState}
-                onChange={onChange}
                 {...props}
             />
         );
@@ -48,27 +43,22 @@ describe('Component: SelectPropertySelect', () => {
 
     it('should emit change on mount dispite being hidden', () => {
         const setState = jest.fn();
-        const onChange = jest.fn();
         const wrapper = mount(
             <SelectPropertySelect
                 setState={setState}
-                onChange={onChange}
                 {...props}
                 hidden={true}
             />
         );
 
         expect(setState).not.toBeCalled();
-        expect(onChange).toBeCalledWith(props.current);
     });
 
     it('should emit changes on new selection', () => {
         const setState = jest.fn();
-        const onChange = jest.fn();
         const wrapper = mount(
             <SelectPropertySelect
                 setState={setState}
-                onChange={onChange}
                 {...props}
                 current={undefined}
             />
@@ -80,6 +70,5 @@ describe('Component: SelectPropertySelect', () => {
         expect(setState).toBeCalledWith({
             current: "wisdom",
         });
-        expect(onChange).toBeCalledWith("wisdom");
     });
 });

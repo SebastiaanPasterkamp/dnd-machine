@@ -1,9 +1,11 @@
 import React from 'react';
 import Reflux from 'reflux';
 import {
-    assign,
+    debounce,
     fromPairs,
+    find,
     get,
+    includes,
     map,
     reduce,
     set,
@@ -11,9 +13,10 @@ import {
 
 import CharacterEditorActions from '../actions/CharacterEditorActions';
 import {
+    CollectChanges,
     ComputeChange,
     ComputeConfig,
-} from '../utils/ComputeChange';
+} from '../utils';
 
 class CharacterEditorStore extends Reflux.Store
 {
@@ -24,9 +27,10 @@ class CharacterEditorStore extends Reflux.Store
             original: {},
             character: {},
             config: [],
-            changes: {},
+            choices: {},
         };
         this.listenables = CharacterEditorActions;
+        this.computeChange = debounce(500, this.computeChange.bind(this));
     }
 
     reset() {
@@ -34,78 +38,76 @@ class CharacterEditorStore extends Reflux.Store
             original: {},
             character: {},
             config: [],
-            changes: {},
+            choices: {},
         });
     }
 
-    previewChange(uuid, path, change) {
+    previewChange(uuid, path, choice) {
         const {
             original,
-            character: old,
-            config: oldConfig,
-            changes: oldChanges,
+            character: oldCharacter,
+            config,
+            choices,
         } = this.state;
-        const {
-            level_up: {
-                config = [],
-            } = {},
-        } = original;
 
-        const changes = {
-            ...oldChanges,
-            [uuid]: change,
-        };
-        const preview = reduce(
-            (preview, previewChange) => {
-                if (
-                    previewChange
-                    && previewChange.path === path
-                ) {
-                    preview.push(previewChange);
-                }
-                return preview;
-            },
-            []
-        )(changes);
+        const { record, changes } = CollectChanges(config, choices, path);
+        if (!changes.length) {
+            return;
+        }
 
         const character = ComputeChange(
-            preview,
-            set(path, get(path, original), old)
-        );
-
-        this.setState({
-            character,
-            config: ComputeConfig(config, character),
             changes,
-        });
+            set(path, get(path, original), oldCharacter)
+        );
+        character.choices = {...character.choices, ...record };
+
+        this.setState({ character });
     }
 
     computeChange() {
         const {
             original,
             character: old,
-            config: oldConfig,
-            changes,
+            choices,
+            config,
         } = this.state;
-        const {
-            level_up: {
-                config = [],
-            } = {},
-        } = original;
 
+        const { record, changes } = CollectChanges(config, choices);
         const character = ComputeChange(changes, original);
+        character.choices = {...character.choices, ...record };
 
         this.setState({
             character,
             config: ComputeConfig(config, character),
-            changes,
         });
+    }
+
+    onAddChoice(uuid, path, choice) {
+        const { choices } = this.state;
+        this.setState({
+            choices: { ...choices, [uuid]: choice }
+        });
+        this.previewChange(uuid, path, choice);
+        this.computeChange();
+    }
+
+    onRemoveChoice(uuid, path) {
+        const { choices } = this.state;
+        this.setState({
+            choices: { ...choices, [uuid]: undefined }
+        });
+        this.previewChange(uuid, path, undefined);
+        this.computeChange();
     }
 
     onEditCharacterCompleted(original) {
         this.setState({
             original,
             character: {},
+            config: ComputeConfig(
+                get('level_up.config', original) || [],
+                original,
+            ),
         });
         this.computeChange();
     }
@@ -124,6 +126,7 @@ class CharacterEditorStore extends Reflux.Store
                 alignment, backstory, age, weight, height,
             },
             character: {},
+            choices: {},
         });
         this.computeChange();
     }
@@ -132,6 +135,8 @@ class CharacterEditorStore extends Reflux.Store
         this.setState({
             original,
             character: original,
+            choices: {},
+            config: [],
         });
         if (callback) {
             callback(id, original);
@@ -144,53 +149,6 @@ class CharacterEditorStore extends Reflux.Store
 
     onPatchCharacterCompleted(id, original, callback) {
         this.onSaveCharacterCompleted(id, original, callback);
-    }
-
-    onAddChange(uuid, path, value, option) {
-        const change = {
-            path,
-            value,
-            option,
-        };
-
-        this.previewChange(uuid, path, change);
-        this.computeChange();
-    }
-
-    onRemoveChange(uuid) {
-        const {
-            changes: {
-                [uuid]: change,
-            },
-        } = this.state;
-        if (change === undefined) {
-            return;
-        }
-        this.previewChange(uuid, change.path, undefined);
-        this.computeChange();
-        this.recordChoice(uuid, undefined, undefined);
-    }
-
-    onAddChoice(uuid, choice) {
-        this.recordChoice(uuid, choice);
-    }
-
-    onRemoveChoice(uuid) {
-        this.recordChoice(uuid, undefined);
-    }
-
-    recordChoice(uuid, choice) {
-        const { character } = this.state;
-
-        this.setState({
-            character: {
-                ...character,
-                choices: {
-                    ...character.choices,
-                    [uuid]: choice,
-                }
-            }
-        });
     }
 }
 

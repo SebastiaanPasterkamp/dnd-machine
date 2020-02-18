@@ -4,7 +4,6 @@ exports[`Component: ManualInputSelect should render markup input 1`] = `
 <ManualInputSelect
   current="This shows _formatted_ content."
   markup={true}
-  onChange={[Function]}
   path="some.path"
   placeholder="Hold this place"
   setState={[Function]}
@@ -64,7 +63,6 @@ exports[`Component: ManualInputSelect should render plain input 1`] = `
 <ManualInputSelect
   current="This shows plain content."
   markup={false}
-  onChange={[Function]}
   path="some.path"
   placeholder="Hold this place"
   setState={[Function]}

@@ -5,61 +5,28 @@ import MDReactComponent from 'markdown-react-js';
 
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper';
 
-export class DictPropertySelect extends React.Component
+export const DictPropertySelect = function({ hidden, current })
 {
-    constructor(props) {
-        super(props);
-        this.state = this.constructor.getDerivedStateFromProps(props, {});
-    }
-
-    componentDidMount() {
-        const { onChange, dict } = this.props;
-        onChange( dict );
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        const { current, dict } = props;
-        const content = {
-            ...current,
-            ...dict,
-        };
-        const value = sprintf(
-            content.description || '',
-            content
-        );
-
-        if (value !== state.value) {
-            return { value };
-        }
+    if (hidden || !current) {
         return null;
     }
 
-    render() {
-        const { hidden } = this.props;
-        const { value } = this.state;
+    const value = sprintf(
+        current.description || '',
+        current
+    );
 
-        if (hidden) {
-            return null;
-        }
-
-        return (
-            <MDReactComponent text={value || ''} />
-        );
-    }
+    return (
+        <MDReactComponent text={value} />
+    );
 };
 
 DictPropertySelect.propTypes = {
     type: PropTypes.oneOf(['dict']).isRequired,
     uuid: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-    dict: PropTypes.object.isRequired,
     current: PropTypes.object,
+    dict: PropTypes.object,
     hidden: PropTypes.bool,
 };
 
-export default CharacterEditorWrapper(
-    DictPropertySelect,
-    {
-        current: true,
-    }
-);
+export default CharacterEditorWrapper(DictPropertySelect);

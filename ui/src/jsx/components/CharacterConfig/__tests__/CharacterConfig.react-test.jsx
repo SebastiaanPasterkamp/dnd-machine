@@ -1,12 +1,13 @@
 import React from 'react';
-import fp from 'lodash/fp';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+import {
+    map,
+} from 'lodash/fp';
 
 import { statistics } from '../../../../../tests/__mocks__';
 
 jest.useFakeTimers();
-jest.mock('../../../actions/ListDataActions');
 
 import CharacterConfig from '..';
 
@@ -14,401 +15,260 @@ import actions from '../actions/CharacterEditorActions';
 import store from '../stores/CharacterEditorStore';
 import ListDataStore from '../../../stores/ListDataStore';
 
-const value = {
-    type: 'value',
-    uuid: 'mocked-uuid-1',
-    path: 'foo.value',
-    value: 'bar',
-};
-
-const dict = {
-    type: 'dict',
-    uuid: 'mocked-uuid-2',
-    path: 'foo.dict',
-    dict: {
-        description: 'foo %(bar)s',
-        bar: 'blah',
-    }
-};
-
-const select = {
-    type: 'select',
-    uuid: 'mocked-uuid-2',
-    list: ['statistics'],
-    path: 'foo.select',
-};
-
-const list = {
-    type: 'list',
-    uuid: 'mocked-uuid-4',
-    list: ['statistics'],
-    path: 'foo.list',
-    given: ['wisdom'],
-    replace: 1,
-    add: 2,
-};
-
-const list_array = {
-    type: 'list',
-    uuid: 'mocked-uuid-5',
-    items: ['foo', 'bar'],
-    path: 'foo.items',
-    given: ['bar'],
-    add: 1,
-};
-
-const list_object = {
-    type: 'list',
-    uuid: 'mocked-uuid-6',
-    items: statistics,
-    path: 'foo.items',
-    given: ['bar'],
-    add: 1,
-};
-
-const config = {
-    type: 'config',
-    uuid: 'mocked-uuid-7',
-    config: [
-        value,
-    ],
-};
-
-const choice = {
-    type: 'choice',
-    uuid: 'mocked-uuid-8',
-    options: [{
-        type: 'config',
-        uuid: 'mocked-uuid-9',
-        label: 'a',
-        description: 'foo',
-        config: [
-            value,
-        ],
-    }, {
-        type: 'config',
-        uuid: 'mocked-uuid-10',
-        label: 'b',
-        config: [
-            dict,
-        ],
-    }],
-};
-
-const multichoice = {
-    type: 'multichoice',
-    uuid: 'mocked-uuid-11',
-    options: [{
-        ...value,
-        label: 'a',
-        uuid: 'mocked-uuid-12',
-        description: 'foo',
-    }, {
-        ...dict,
-        uuid: 'mocked-uuid-13',
-        label: 'b',
-        describe: 'bar',
-    }],
-};
+import {
+    value,
+    dict,
+    select,
+    list,
+    list_array,
+    list_object,
+    config,
+    choice,
+    multichoice,
+} from './__mocks__/example_configs';
 
 describe('Component: CharacterConfig', () => {
-    var mockedId = 1;
+    const props = {
+        type: 'config',
+        uuid: 'mocked-uuid-1',
+    };
+    const original = {
+        foo: {
+            value: 'foo',
+            select: 'strength',
+            list: ['charisma'],
+            dict: {
+                description: 'foo.dict goes here',
+            },
+        },
+    };
+
+    const injectLevelUp = function(options) {
+        const levelUp = [ options ];
+        store.onEditCharacterCompleted({
+            ...original,
+            level_up: { config: levelUp },
+        });
+        return levelUp;
+    };
+
+    let addChoice = jest.spyOn(actions, 'addChoice');
 
     beforeEach(() => {
-        mockedId = 1;
-
-        fp.uniqueId = jest.fn();
-        fp.uniqueId.mockReturnValue('id_' + mockedId++);
-
-        actions.editCharacter.completed({
-            foo: {
-                value: 'foo',
-                select: 'strength',
-                list: ['charisma'],
-                dict: {
-                    description: 'foo.dict goes here',
-                },
-            },
-        });
-
         ListDataStore.onFetchItemsCompleted(
             { statistics },
             'statistics'
         );
 
+        addChoice = jest.spyOn(actions, 'addChoice');
+
         jest.runAllTimers();
     });
 
-    afterEach(() => store.reset());
+    afterEach(() => {
+        store.reset();
+        addChoice.mockClear();
+    });
 
     it('should not render anything', () => {
         const wrapper = mount(
             <CharacterConfig
+                {...props}
                 config={[]}
             />
         );
 
         expect(wrapper).toMatchSnapshot();
+        expect(addChoice).not.toBeCalled();
     });
 
     it('should render value', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
+        const levelUp = injectLevelUp(value);
 
         const wrapper = mount(
             <CharacterConfig
-                config={[
-                    value,
-                ]}
+                {...props}
+                config={levelUp}
             />
         );
 
         expect(wrapper).toMatchSnapshot();
-
-        expect(addChange).toBeCalledWith(
-            value.uuid,
-            value.path,
-            value.value,
-            {
-                type: value.type,
-                value: value.value,
-            },
-        );
+        expect(addChoice).not.toBeCalled();
     });
 
     it('should render dict', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
+        const levelUp = injectLevelUp(dict);
 
         const wrapper = mount(
             <CharacterConfig
-                config={[
-                    dict,
-                ]}
+                {...props}
+                config={levelUp}
             />
         );
 
         expect(wrapper).toMatchSnapshot();
 
-        expect(addChange).toBeCalledWith(
-            dict.uuid,
-            dict.path,
-            dict.dict,
-            {
-                type: dict.type,
-                dict: dict.dict,
-            },
-        );
+        expect(addChoice).not.toBeCalled();
     });
 
     it('should render select', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
+        const levelUp = injectLevelUp(select);
 
         const wrapper = mount(
             <CharacterConfig
-                config={[
-                    select,
-                ]}
+                {...props}
+                config={levelUp}
             />
         );
 
         expect(wrapper).toMatchSnapshot();
+        expect(addChoice).not.toBeCalled();
 
-        expect(addChange).toBeCalledWith(
+        wrapper.find('button').simulate('click');
+        wrapper.find({'data-value': "wisdom"}).simulate('click');
+
+        expect(addChoice).toBeCalledWith(
             select.uuid,
             select.path,
-            statistics[0].code,
-            {
-                items: statistics,
-                type: select.type,
-            },
+            { current: "wisdom" },
         );
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should render list', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
+        const levelUp = injectLevelUp(list);
 
         const wrapper = mount(
             <CharacterConfig
-                config={[
-                    list,
-                ]}
+                {...props}
+                config={levelUp}
             />
         );
 
         expect(wrapper).toMatchSnapshot();
+        expect(addChoice).not.toBeCalled();
 
-        expect(addChange).toBeCalledWith(
-                list.uuid,
-                list.path,
-                {
-                    added: list.given,
-                    removed: [],
-                },
-                {
-                    type: list.type,
-                    given: list.given,
-                    items: statistics,
-                    add: list.add,
-                    replace: list.replace,
-                },
-            );
+        wrapper.find('button.nice-btn').simulate('click');
+        wrapper.find({'data-value': "intelligence"}).simulate('click');
+
+        expect(addChoice).toBeCalledWith(
+            list.uuid,
+            list.path,
+            { added: ["intelligence"], removed: [] },
+        );
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should render with array items', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
+        const levelUp = injectLevelUp(list_array);
 
         const wrapper = mount(
             <CharacterConfig
-                config={[
-                    list_array,
-                ]}
+                {...props}
+                config={levelUp}
             />
         );
 
         expect(wrapper).toMatchSnapshot();
+        expect(addChoice).not.toBeCalled();
 
-        expect(addChange).toBeCalledWith(
+        wrapper.find('button.nice-btn').simulate('click');
+        wrapper.find({'data-value': "foo"}).simulate('click');
+
+        expect(addChoice).toBeCalledWith(
             list_array.uuid,
             list_array.path,
-            {
-                added: list_array.given,
-                removed: [],
-            },
-            {
-                type: list_array.type,
-                given: list_array.given,
-                items: fp.map(
-                    item => ({
-                        code: item,
-                        label: item,
-                    })
-                )(list_array.items),
-                add: list_array.add,
-            },
+            { added: ["foo"], removed: [] },
         );
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should render with object items', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
+        const levelUp = injectLevelUp(list_object);
 
         const wrapper = mount(
             <CharacterConfig
-                config={[
-                    list_object,
-                ]}
+                {...props}
+                config={levelUp}
             />
         );
 
         expect(wrapper).toMatchSnapshot();
+        expect(addChoice).not.toBeCalled();
 
-        expect(addChange).toBeCalledWith(
+        wrapper.find('button.nice-btn').simulate('click');
+        wrapper.find({'data-value': "intelligence"}).simulate('click');
+
+        expect(addChoice).toBeCalledWith(
             list_object.uuid,
             list_object.path,
-            {added: list_object.given, removed: []},
-            {
-                type: list_object.type,
-                given: list_object.given,
-                items: statistics,
-                add: list_object.add,
-            },
+            { added: ["intelligence"], removed: [] },
         );
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should render config', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
+        const levelUp = injectLevelUp(config);
 
         const wrapper = mount(
             <CharacterConfig
-                config={[
-                    config,
-                ]}
+                {...props}
+                config={levelUp}
             />
         );
 
         expect(wrapper).toMatchSnapshot();
-
-        expect(addChange).toBeCalledWith(
-            config.config[0].uuid,
-            config.config[0].path,
-            config.config[0].value,
-            {
-                type: config.config[0].type,
-                value: config.config[0].value,
-            },
-        );
+        expect(addChoice).not.toBeCalled();
     });
 
     it('should render choice', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
+        const levelUp = injectLevelUp(choice);
 
         const wrapper = mount(
             <CharacterConfig
-                config={[
-                    choice,
-                ]}
+                {...props}
+                config={levelUp}
             />
         );
 
         expect(wrapper).toMatchSnapshot();
-
-        expect(addChange).toBeCalledWith(
-            choice.options[0].config[0].uuid,
-            choice.options[0].config[0].path,
-            choice.options[0].config[0].value,
-            {
-                type: choice.options[0].config[0].type,
-                value: choice.options[0].config[0].value,
-            },
+        expect(addChoice).toBeCalledWith(
+            choice.uuid,
+            undefined,
+            { selected: choice.options[0].uuid },
         );
+
+        wrapper.find('.tab-component__tab a').at(1).simulate('click');
+
+        expect(addChoice).toBeCalledWith(
+            choice.uuid,
+            undefined,
+            { selected: choice.options[1].uuid },
+        );
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should render multichoice', () => {
-        const addChange = jest.spyOn(
-            actions,
-            'addChange'
-        );
+        const levelUp = injectLevelUp(multichoice);
 
         const wrapper = mount(
             <CharacterConfig
-                config={[
-                    multichoice,
-                ]}
+                {...props}
+                config={levelUp}
             />
         );
 
         expect(wrapper).toMatchSnapshot();
+        expect(addChoice).not.toBeCalled();
 
-        expect(addChange).toBeCalledWith(
-            multichoice.options[0].uuid,
-            multichoice.options[0].path,
-            multichoice.options[0].value,
-            {
-                type: multichoice.options[0].type,
-                value: multichoice.options[0].value,
-            },
+        wrapper.find('button').simulate('click');
+        wrapper.find({'data-value': multichoice.options[0].uuid}).simulate('click');
+
+        expect(addChoice).toBeCalledWith(
+            multichoice.uuid,
+            undefined,
+            { added: [multichoice.options[0].uuid], removed: [] },
         );
+        expect(wrapper).toMatchSnapshot();
     });
 });

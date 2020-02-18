@@ -5,7 +5,7 @@ import ChoiceSelect from './components/ChoiceSelect';
 import {
     ComputeChange,
     ComputeConfig,
-} from './utils/ComputeChange';
+} from './utils';
 import DictPropertySelect from './components/DictPropertySelect';
 import ListPropertySelect from './components/ListPropertySelect';
 import ManualInputSelect from './components/ManualInputSelect';

@@ -71,10 +71,13 @@ const ComponentMap = {
 };
 
 CharacterConfig.propTypes = {
+    type: PropTypes.oneOf(['config']).isRequired,
+    uuid: PropTypes.string.isRequired,
     config: PropTypes.arrayOf(PropTypes.object),
 };
 
 CharacterConfig.defaultProps = {
+    type: 'config',
     config: [],
 };
 

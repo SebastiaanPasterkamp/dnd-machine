@@ -4,32 +4,30 @@ import MDReactComponent from 'markdown-react-js';
 
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper';
 
-export class ValuePropertySelect extends React.Component
+export const ValuePropertySelect = function({ value, hidden })
 {
-    componentDidMount() {
-        const { value, onChange } = this.props;
-        onChange( value );
+    if (hidden) {
+        return null;
     }
 
-    render() {
-        const { value, hidden } = this.props;
-
-        if (hidden) {
-            return null;
-        }
-
-        return (
-            <MDReactComponent text={value || ''} />
-        );
+    if (!value) {
+        return null;
     }
+
+    return (
+        <MDReactComponent text={value} />
+    );
 };
 
 ValuePropertySelect.propTypes = {
     type: PropTypes.oneOf(['value']).isRequired,
     uuid: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
     value: PropTypes.any.isRequired,
     hidden: PropTypes.bool,
+};
+
+ValuePropertySelect.defaultProps = {
+    hidden: false,
 };
 
 export default CharacterEditorWrapper(ValuePropertySelect);

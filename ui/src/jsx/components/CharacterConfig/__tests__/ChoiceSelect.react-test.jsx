@@ -1,8 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { mockedApi, statistics } from '../../../../../tests/__mocks__';
-
 import { ChoiceSelect } from '../components/ChoiceSelect';
 
 describe('Component: ChoiceSelect', () => {
@@ -11,26 +9,20 @@ describe('Component: ChoiceSelect', () => {
         uuid: 'mocked-uuid-1',
         selected: 'mocked-uuid-2',
         options: [{
-            type: 'ability_score',
+            type: 'value',
             uuid: 'mocked-uuid-2',
+            path: 'some.path',
             label: 'Choice A',
-            limit: 1,
+            value: 'Option one',
         }, {
-            type: 'ability_score',
+            type: 'value',
             uuid: 'mocked-uuid-3',
+            path: 'some.path',
             label: 'Choice B',
             description: 'Some *text* here',
-            limit: 2,
+            value: 'Option two',
         }],
     };
-
-    beforeAll(() => {
-        fetch.mockImplementation( mockedApi({
-            statistics,
-        }) );
-    });
-
-    afterAll(() => fetch.resetMocks());
 
     it('should render with minimum props', () => {
         const setState = jest.fn();

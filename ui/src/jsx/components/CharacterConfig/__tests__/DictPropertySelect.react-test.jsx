@@ -12,17 +12,17 @@ const props = {
     },
     current: {
         description: 'This shows _%(type)s_ content',
-        type: 'old',
+        type: 'new',
     },
 };
 
 describe('Component: DictPropertySelect', () => {
 
     it('should not render anything while hidden', () => {
-        const onChange = jest.fn();
+        const setState = jest.fn();
         const wrapper = mount(
             <DictPropertySelect
-                onChange={onChange}
+                setState={setState}
                 {...props}
                 hidden={true}
             />
@@ -32,27 +32,28 @@ describe('Component: DictPropertySelect', () => {
     });
 
     it('should render the updated description', () => {
-        const onChange = jest.fn();
+        const setState = jest.fn();
         const wrapper = mount(
             <DictPropertySelect
-                onChange={onChange}
+                setState={setState}
                 {...props}
+                current={{...props.current, ...props.dict}}
             />
         );
 
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('should emit onChange dispite being hidden', () => {
-        const onChange = jest.fn();
+    it('should emit setState dispite being hidden', () => {
+        const setState = jest.fn();
         const wrapper = mount(
             <DictPropertySelect
-                onChange={onChange}
+                setState={setState}
                 {...props}
                 hidden={true}
             />
         );
 
-        expect(onChange).toBeCalledWith(props.dict);
+        expect(setState).not.toBeCalled();
     });
 });

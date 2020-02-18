@@ -6,16 +6,18 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
     Array [
       Object {
         "label": "Choice A",
-        "limit": 1,
-        "type": "ability_score",
+        "path": "some.path",
+        "type": "value",
         "uuid": "mocked-uuid-2",
+        "value": "Option one",
       },
       Object {
         "description": "Some *text* here",
         "label": "Choice B",
-        "limit": 2,
-        "type": "ability_score",
+        "path": "some.path",
+        "type": "value",
         "uuid": "mocked-uuid-3",
+        "value": "Option two",
       },
     ]
   }
@@ -31,16 +33,18 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
       Array [
         Object {
           "label": "Choice A",
-          "limit": 1,
-          "type": "ability_score",
+          "path": "some.path",
+          "type": "value",
           "uuid": "mocked-uuid-2",
+          "value": "Option one",
         },
         Object {
           "description": "Some *text* here",
           "label": "Choice B",
-          "limit": 2,
-          "type": "ability_score",
+          "path": "some.path",
+          "type": "value",
           "uuid": "mocked-uuid-3",
+          "value": "Option two",
         },
       ]
     }
@@ -56,12 +60,13 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
           color={null}
           disabled={false}
           icon={null}
-          key="tab-0/.$0"
+          key="tab-0/.$mocked-uuid-2"
           label="Choice A"
-          limit={1}
           onSelect={[Function]}
-          type="ability_score"
+          path="some.path"
+          type="value"
           uuid="mocked-uuid-2"
+          value="Option one"
         >
           <li
             className="tab-component__tab"
@@ -80,12 +85,13 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
           description="Some *text* here"
           disabled={false}
           icon={null}
-          key="tab-1/.$1"
+          key="tab-1/.$mocked-uuid-3"
           label="Choice B"
-          limit={2}
           onSelect={[Function]}
-          type="ability_score"
+          path="some.path"
+          type="value"
           uuid="mocked-uuid-3"
+          value="Option two"
         >
           <li
             className="tab-component__tab current"
@@ -104,7 +110,7 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
       >
         <li
           className="current"
-          key="child-1/.$1"
+          key="child-1/.$mocked-uuid-3"
         >
           <CharacterConfig
             config={
@@ -112,13 +118,16 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
                 Object {
                   "description": "Some *text* here",
                   "label": "Choice B",
-                  "limit": 2,
-                  "type": "ability_score",
+                  "path": "some.path",
+                  "type": "value",
                   "uuid": "mocked-uuid-3",
+                  "value": "Option two",
                 },
               ]
             }
-            key="1"
+            key="mocked-uuid-3"
+            type="config"
+            uuid="mocked-uuid-3"
           >
             <FormGroup
               key="0"
@@ -149,79 +158,35 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
                     </p>
                   </span>
                 </MDReactComponent>
-                <ListDataStatisticsSelect
-                  limit={2}
-                  type="ability_score"
+                <CharacterEditorComponent
+                  path="some.path"
+                  type="value"
                   uuid="mocked-uuid-3"
+                  value="Option two"
                 >
-                  <StatisticsSelect
-                    limit={2}
-                    statistics={Array []}
-                    type="ability_score"
+                  <ValuePropertySelect
+                    onSave={[Function]}
+                    onUpdate={[Function]}
+                    setState={[Function]}
+                    type="value"
                     uuid="mocked-uuid-3"
+                    value="Option two"
                   >
-                    <ListDataStatsBlock
-                      bonusChange={[Function]}
-                      editBase={false}
-                      increase={2}
-                      setState={[Function]}
-                      statistics={Array []}
-                      type="ability_score"
-                      uuid="mocked-uuid-3"
+                    <MDReactComponent
+                      text="Option two"
                     >
-                      <StatsBlock
-                        bare={Object {}}
-                        base={Object {}}
-                        bonus={Object {}}
-                        bonusChange={[Function]}
-                        budget={0}
-                        editBase={false}
-                        increase={2}
-                        maxBare={30}
-                        minBare={8}
-                        modifiers={Object {}}
-                        setState={[Function]}
-                        statistics={Array []}
-                        type="ability_score"
-                        uuid="mocked-uuid-3"
+                      <span
+                        key="mdrct-html-0"
                       >
-                        <table
-                          className="nice-table stats-block condensed bordered"
+                        <p
+                          key="mdrct-p-0"
                         >
-                          <thead>
-                            <tr>
-                              <th>
-                                Statistic
-                              </th>
-                              <th
-                                className="text-align-center"
-                              >
-                                Base
-                              </th>
-                              <th
-                                className="text-align-center"
-                                colSpan={2}
-                              >
-                                Increase
-                              </th>
-                              <th
-                                className="text-align-center"
-                              >
-                                Final
-                              </th>
-                              <th
-                                className="text-align-center"
-                              >
-                                Modifier
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody />
-                        </table>
-                      </StatsBlock>
-                    </ListDataStatsBlock>
-                  </StatisticsSelect>
-                </ListDataStatisticsSelect>
+                          Option two
+                        </p>
+                      </span>
+                    </MDReactComponent>
+                  </ValuePropertySelect>
+                </CharacterEditorComponent>
               </div>
             </FormGroup>
           </CharacterConfig>

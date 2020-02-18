@@ -36,17 +36,4 @@ describe('Component: ValuePropertySelect', () => {
 
         expect(wrapper).toMatchSnapshot();
     });
-
-    it('should emit onChange dispite being hidden', () => {
-        const onChange = jest.fn();
-        const wrapper = mount(
-            <ValuePropertySelect
-                onChange={onChange}
-                {...props}
-                hidden={true}
-            />
-        );
-
-        expect(onChange).toBeCalledWith(props.value);
-    });
 });

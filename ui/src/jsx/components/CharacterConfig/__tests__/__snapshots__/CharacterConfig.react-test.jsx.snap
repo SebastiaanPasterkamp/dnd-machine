@@ -3,6 +3,8 @@
 exports[`Component: CharacterConfig should not render anything 1`] = `
 <CharacterConfig
   config={Array []}
+  type="config"
+  uuid="mocked-uuid-1"
 />
 `;
 
@@ -15,10 +17,10 @@ exports[`Component: CharacterConfig should render choice 1`] = `
           Object {
             "config": Array [
               Object {
-                "path": "foo.value",
+                "path": "bar.value",
                 "type": "value",
-                "uuid": "mocked-uuid-1",
-                "value": "bar",
+                "uuid": "mocked-uuid-16",
+                "value": "Choice A",
               },
             ],
             "description": "foo",
@@ -29,13 +31,10 @@ exports[`Component: CharacterConfig should render choice 1`] = `
           Object {
             "config": Array [
               Object {
-                "dict": Object {
-                  "bar": "blah",
-                  "description": "foo %(bar)s",
-                },
-                "path": "foo.dict",
-                "type": "dict",
-                "uuid": "mocked-uuid-2",
+                "path": "bar.value",
+                "type": "value",
+                "uuid": "mocked-uuid-17",
+                "value": "Choice B",
               },
             ],
             "label": "b",
@@ -48,6 +47,8 @@ exports[`Component: CharacterConfig should render choice 1`] = `
       },
     ]
   }
+  type="config"
+  uuid="mocked-uuid-1"
 >
   <FormGroup
     key="0"
@@ -62,10 +63,10 @@ exports[`Component: CharacterConfig should render choice 1`] = `
             Object {
               "config": Array [
                 Object {
-                  "path": "foo.value",
+                  "path": "bar.value",
                   "type": "value",
-                  "uuid": "mocked-uuid-1",
-                  "value": "bar",
+                  "uuid": "mocked-uuid-16",
+                  "value": "Choice A",
                 },
               ],
               "description": "foo",
@@ -76,13 +77,10 @@ exports[`Component: CharacterConfig should render choice 1`] = `
             Object {
               "config": Array [
                 Object {
-                  "dict": Object {
-                    "bar": "blah",
-                    "description": "foo %(bar)s",
-                  },
-                  "path": "foo.dict",
-                  "type": "dict",
-                  "uuid": "mocked-uuid-2",
+                  "path": "bar.value",
+                  "type": "value",
+                  "uuid": "mocked-uuid-17",
+                  "value": "Choice B",
                 },
               ],
               "label": "b",
@@ -95,8 +93,6 @@ exports[`Component: CharacterConfig should render choice 1`] = `
         uuid="mocked-uuid-8"
       >
         <ChoiceSelect
-          getCurrent={[Function]}
-          onChange={[Function]}
           onSave={[Function]}
           onUpdate={[Function]}
           options={
@@ -104,10 +100,10 @@ exports[`Component: CharacterConfig should render choice 1`] = `
               Object {
                 "config": Array [
                   Object {
-                    "path": "foo.value",
+                    "path": "bar.value",
                     "type": "value",
-                    "uuid": "mocked-uuid-1",
-                    "value": "bar",
+                    "uuid": "mocked-uuid-16",
+                    "value": "Choice A",
                   },
                 ],
                 "description": "foo",
@@ -118,13 +114,10 @@ exports[`Component: CharacterConfig should render choice 1`] = `
               Object {
                 "config": Array [
                   Object {
-                    "dict": Object {
-                      "bar": "blah",
-                      "description": "foo %(bar)s",
-                    },
-                    "path": "foo.dict",
-                    "type": "dict",
-                    "uuid": "mocked-uuid-2",
+                    "path": "bar.value",
+                    "type": "value",
+                    "uuid": "mocked-uuid-17",
+                    "value": "Choice B",
                   },
                 ],
                 "label": "b",
@@ -133,7 +126,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
               },
             ]
           }
-          selected={null}
+          selected="mocked-uuid-9"
           setState={[Function]}
           type="choice"
           uuid="mocked-uuid-8"
@@ -146,10 +139,10 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                 Object {
                   "config": Array [
                     Object {
-                      "path": "foo.value",
+                      "path": "bar.value",
                       "type": "value",
-                      "uuid": "mocked-uuid-1",
-                      "value": "bar",
+                      "uuid": "mocked-uuid-16",
+                      "value": "Choice A",
                     },
                   ],
                   "description": "foo",
@@ -160,13 +153,10 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                 Object {
                   "config": Array [
                     Object {
-                      "dict": Object {
-                        "bar": "blah",
-                        "description": "foo %(bar)s",
-                      },
-                      "path": "foo.dict",
-                      "type": "dict",
-                      "uuid": "mocked-uuid-2",
+                      "path": "bar.value",
+                      "type": "value",
+                      "uuid": "mocked-uuid-17",
+                      "value": "Choice B",
                     },
                   ],
                   "label": "b",
@@ -188,17 +178,17 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                   config={
                     Array [
                       Object {
-                        "path": "foo.value",
+                        "path": "bar.value",
                         "type": "value",
-                        "uuid": "mocked-uuid-1",
-                        "value": "bar",
+                        "uuid": "mocked-uuid-16",
+                        "value": "Choice A",
                       },
                     ]
                   }
                   description="foo"
                   disabled={false}
                   icon={null}
-                  key="tab-0/.$0"
+                  key="tab-0/.$mocked-uuid-9"
                   label="a"
                   onSelect={[Function]}
                   type="config"
@@ -221,19 +211,16 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                   config={
                     Array [
                       Object {
-                        "dict": Object {
-                          "bar": "blah",
-                          "description": "foo %(bar)s",
-                        },
-                        "path": "foo.dict",
-                        "type": "dict",
-                        "uuid": "mocked-uuid-2",
+                        "path": "bar.value",
+                        "type": "value",
+                        "uuid": "mocked-uuid-17",
+                        "value": "Choice B",
                       },
                     ]
                   }
                   disabled={false}
                   icon={null}
-                  key="tab-1/.$1"
+                  key="tab-1/.$mocked-uuid-10"
                   label="b"
                   onSelect={[Function]}
                   type="config"
@@ -256,7 +243,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
               >
                 <li
                   className="current"
-                  key="child-0/.$0"
+                  key="child-0/.$mocked-uuid-9"
                 >
                   <CharacterConfig
                     config={
@@ -264,10 +251,10 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                         Object {
                           "config": Array [
                             Object {
-                              "path": "foo.value",
+                              "path": "bar.value",
                               "type": "value",
-                              "uuid": "mocked-uuid-1",
-                              "value": "bar",
+                              "uuid": "mocked-uuid-16",
+                              "value": "Choice A",
                             },
                           ],
                           "description": "foo",
@@ -277,7 +264,9 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                         },
                       ]
                     }
-                    key="0"
+                    key="mocked-uuid-9"
+                    type="config"
+                    uuid="mocked-uuid-9"
                   >
                     <FormGroup
                       key="0"
@@ -306,10 +295,10 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                           config={
                             Array [
                               Object {
-                                "path": "foo.value",
+                                "path": "bar.value",
                                 "type": "value",
-                                "uuid": "mocked-uuid-1",
-                                "value": "bar",
+                                "uuid": "mocked-uuid-16",
+                                "value": "Choice A",
                               },
                             ]
                           }
@@ -324,23 +313,22 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                             >
                               <label />
                               <CharacterEditorComponent
-                                path="foo.value"
+                                path="bar.value"
                                 type="value"
-                                uuid="mocked-uuid-1"
-                                value="bar"
+                                uuid="mocked-uuid-16"
+                                value="Choice A"
                               >
                                 <ValuePropertySelect
-                                  getCurrent={[Function]}
-                                  onChange={[Function]}
+                                  current="Choice A"
                                   onSave={[Function]}
                                   onUpdate={[Function]}
                                   setState={[Function]}
                                   type="value"
-                                  uuid="mocked-uuid-1"
-                                  value="bar"
+                                  uuid="mocked-uuid-16"
+                                  value="Choice A"
                                 >
                                   <MDReactComponent
-                                    text="bar"
+                                    text="Choice A"
                                   >
                                     <span
                                       key="mdrct-html-0"
@@ -348,7 +336,344 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                                       <p
                                         key="mdrct-p-0"
                                       >
-                                        bar
+                                        Choice A
+                                      </p>
+                                    </span>
+                                  </MDReactComponent>
+                                </ValuePropertySelect>
+                              </CharacterEditorComponent>
+                            </div>
+                          </FormGroup>
+                        </CharacterConfig>
+                      </div>
+                    </FormGroup>
+                  </CharacterConfig>
+                </li>
+              </ul>
+            </div>
+          </TabComponent>
+        </ChoiceSelect>
+      </CharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
+exports[`Component: CharacterConfig should render choice 2`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "options": Array [
+          Object {
+            "config": Array [
+              Object {
+                "path": "bar.value",
+                "type": "value",
+                "uuid": "mocked-uuid-16",
+                "value": "Choice A",
+              },
+            ],
+            "description": "foo",
+            "label": "a",
+            "type": "config",
+            "uuid": "mocked-uuid-9",
+          },
+          Object {
+            "config": Array [
+              Object {
+                "path": "bar.value",
+                "type": "value",
+                "uuid": "mocked-uuid-17",
+                "value": "Choice B",
+              },
+            ],
+            "label": "b",
+            "type": "config",
+            "uuid": "mocked-uuid-10",
+          },
+        ],
+        "type": "choice",
+        "uuid": "mocked-uuid-8",
+      },
+    ]
+  }
+  type="config"
+  uuid="mocked-uuid-1"
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <CharacterEditorComponent
+        options={
+          Array [
+            Object {
+              "config": Array [
+                Object {
+                  "path": "bar.value",
+                  "type": "value",
+                  "uuid": "mocked-uuid-16",
+                  "value": "Choice A",
+                },
+              ],
+              "description": "foo",
+              "label": "a",
+              "type": "config",
+              "uuid": "mocked-uuid-9",
+            },
+            Object {
+              "config": Array [
+                Object {
+                  "path": "bar.value",
+                  "type": "value",
+                  "uuid": "mocked-uuid-17",
+                  "value": "Choice B",
+                },
+              ],
+              "label": "b",
+              "type": "config",
+              "uuid": "mocked-uuid-10",
+            },
+          ]
+        }
+        type="choice"
+        uuid="mocked-uuid-8"
+      >
+        <ChoiceSelect
+          onSave={[Function]}
+          onUpdate={[Function]}
+          options={
+            Array [
+              Object {
+                "config": Array [
+                  Object {
+                    "path": "bar.value",
+                    "type": "value",
+                    "uuid": "mocked-uuid-16",
+                    "value": "Choice A",
+                  },
+                ],
+                "description": "foo",
+                "label": "a",
+                "type": "config",
+                "uuid": "mocked-uuid-9",
+              },
+              Object {
+                "config": Array [
+                  Object {
+                    "path": "bar.value",
+                    "type": "value",
+                    "uuid": "mocked-uuid-17",
+                    "value": "Choice B",
+                  },
+                ],
+                "label": "b",
+                "type": "config",
+                "uuid": "mocked-uuid-10",
+              },
+            ]
+          }
+          selected="mocked-uuid-10"
+          setState={[Function]}
+          type="choice"
+          uuid="mocked-uuid-8"
+        >
+          <TabComponent
+            activeTab={1}
+            onTabChange={[Function]}
+            tabConfig={
+              Array [
+                Object {
+                  "config": Array [
+                    Object {
+                      "path": "bar.value",
+                      "type": "value",
+                      "uuid": "mocked-uuid-16",
+                      "value": "Choice A",
+                    },
+                  ],
+                  "description": "foo",
+                  "label": "a",
+                  "type": "config",
+                  "uuid": "mocked-uuid-9",
+                },
+                Object {
+                  "config": Array [
+                    Object {
+                      "path": "bar.value",
+                      "type": "value",
+                      "uuid": "mocked-uuid-17",
+                      "value": "Choice B",
+                    },
+                  ],
+                  "label": "b",
+                  "type": "config",
+                  "uuid": "mocked-uuid-10",
+                },
+              ]
+            }
+          >
+            <div
+              className="nice-tabs-wrapper tab-component"
+            >
+              <ul
+                className="nice-tabs bold"
+              >
+                <Tab
+                  active={false}
+                  color={null}
+                  config={
+                    Array [
+                      Object {
+                        "path": "bar.value",
+                        "type": "value",
+                        "uuid": "mocked-uuid-16",
+                        "value": "Choice A",
+                      },
+                    ]
+                  }
+                  description="foo"
+                  disabled={false}
+                  icon={null}
+                  key="tab-0/.$mocked-uuid-9"
+                  label="a"
+                  onSelect={[Function]}
+                  type="config"
+                  uuid="mocked-uuid-9"
+                >
+                  <li
+                    className="tab-component__tab"
+                  >
+                    <a
+                      className="cursor-pointer"
+                      onClick={[Function]}
+                    >
+                      a
+                    </a>
+                  </li>
+                </Tab>
+                <Tab
+                  active={true}
+                  color={null}
+                  config={
+                    Array [
+                      Object {
+                        "path": "bar.value",
+                        "type": "value",
+                        "uuid": "mocked-uuid-17",
+                        "value": "Choice B",
+                      },
+                    ]
+                  }
+                  disabled={false}
+                  icon={null}
+                  key="tab-1/.$mocked-uuid-10"
+                  label="b"
+                  onSelect={[Function]}
+                  type="config"
+                  uuid="mocked-uuid-10"
+                >
+                  <li
+                    className="tab-component__tab current"
+                  >
+                    <a
+                      className="cursor-pointer"
+                      onClick={null}
+                    >
+                      b
+                    </a>
+                  </li>
+                </Tab>
+              </ul>
+              <ul
+                className="nice-tab-content"
+              >
+                <li
+                  className="current"
+                  key="child-1/.$mocked-uuid-10"
+                >
+                  <CharacterConfig
+                    config={
+                      Array [
+                        Object {
+                          "config": Array [
+                            Object {
+                              "path": "bar.value",
+                              "type": "value",
+                              "uuid": "mocked-uuid-17",
+                              "value": "Choice B",
+                            },
+                          ],
+                          "label": "b",
+                          "type": "config",
+                          "uuid": "mocked-uuid-10",
+                        },
+                      ]
+                    }
+                    key="mocked-uuid-10"
+                    type="config"
+                    uuid="mocked-uuid-10"
+                  >
+                    <FormGroup
+                      key="0"
+                      label="b"
+                    >
+                      <div
+                        className="nice-form-group"
+                      >
+                        <label>
+                          b
+                        </label>
+                        <CharacterConfig
+                          config={
+                            Array [
+                              Object {
+                                "path": "bar.value",
+                                "type": "value",
+                                "uuid": "mocked-uuid-17",
+                                "value": "Choice B",
+                              },
+                            ]
+                          }
+                          type="config"
+                          uuid="mocked-uuid-10"
+                        >
+                          <FormGroup
+                            key="0"
+                          >
+                            <div
+                              className="nice-form-group"
+                            >
+                              <label />
+                              <CharacterEditorComponent
+                                path="bar.value"
+                                type="value"
+                                uuid="mocked-uuid-17"
+                                value="Choice B"
+                              >
+                                <ValuePropertySelect
+                                  current="Choice B"
+                                  onSave={[Function]}
+                                  onUpdate={[Function]}
+                                  setState={[Function]}
+                                  type="value"
+                                  uuid="mocked-uuid-17"
+                                  value="Choice B"
+                                >
+                                  <MDReactComponent
+                                    text="Choice B"
+                                  >
+                                    <span
+                                      key="mdrct-html-0"
+                                    >
+                                      <p
+                                        key="mdrct-p-0"
+                                      >
+                                        Choice B
                                       </p>
                                     </span>
                                   </MDReactComponent>
@@ -378,10 +703,10 @@ exports[`Component: CharacterConfig should render config 1`] = `
       Object {
         "config": Array [
           Object {
-            "path": "foo.value",
+            "path": "config.value",
             "type": "value",
-            "uuid": "mocked-uuid-1",
-            "value": "bar",
+            "uuid": "mocked-uuid-18",
+            "value": "Nested config",
           },
         ],
         "type": "config",
@@ -389,6 +714,8 @@ exports[`Component: CharacterConfig should render config 1`] = `
       },
     ]
   }
+  type="config"
+  uuid="mocked-uuid-1"
 >
   <FormGroup
     key="0"
@@ -401,10 +728,10 @@ exports[`Component: CharacterConfig should render config 1`] = `
         config={
           Array [
             Object {
-              "path": "foo.value",
+              "path": "config.value",
               "type": "value",
-              "uuid": "mocked-uuid-1",
-              "value": "bar",
+              "uuid": "mocked-uuid-18",
+              "value": "Nested config",
             },
           ]
         }
@@ -419,23 +746,22 @@ exports[`Component: CharacterConfig should render config 1`] = `
           >
             <label />
             <CharacterEditorComponent
-              path="foo.value"
+              path="config.value"
               type="value"
-              uuid="mocked-uuid-1"
-              value="bar"
+              uuid="mocked-uuid-18"
+              value="Nested config"
             >
               <ValuePropertySelect
-                getCurrent={[Function]}
-                onChange={[Function]}
+                current="Nested config"
                 onSave={[Function]}
                 onUpdate={[Function]}
                 setState={[Function]}
                 type="value"
-                uuid="mocked-uuid-1"
-                value="bar"
+                uuid="mocked-uuid-18"
+                value="Nested config"
               >
                 <MDReactComponent
-                  text="bar"
+                  text="Nested config"
                 >
                   <span
                     key="mdrct-html-0"
@@ -443,7 +769,7 @@ exports[`Component: CharacterConfig should render config 1`] = `
                     <p
                       key="mdrct-p-0"
                     >
-                      bar
+                      Nested config
                     </p>
                   </span>
                 </MDReactComponent>
@@ -472,6 +798,8 @@ exports[`Component: CharacterConfig should render dict 1`] = `
       },
     ]
   }
+  type="config"
+  uuid="mocked-uuid-1"
 >
   <FormGroup
     key="0"
@@ -504,8 +832,6 @@ exports[`Component: CharacterConfig should render dict 1`] = `
               "description": "foo %(bar)s",
             }
           }
-          getCurrent={[Function]}
-          onChange={[Function]}
           onSave={[Function]}
           onUpdate={[Function]}
           setState={[Function]}
@@ -551,6 +877,8 @@ exports[`Component: CharacterConfig should render list 1`] = `
       },
     ]
   }
+  type="config"
+  uuid="mocked-uuid-1"
 >
   <FormGroup
     key="0"
@@ -632,7 +960,6 @@ exports[`Component: CharacterConfig should render list 1`] = `
               ]
             }
             filter={Object {}}
-            getCurrent={[Function]}
             given={
               Array [
                 "wisdom",
@@ -674,7 +1001,6 @@ exports[`Component: CharacterConfig should render list 1`] = `
             }
             limit={0}
             multiple={false}
-            onChange={[Function]}
             onSave={[Function]}
             onUpdate={[Function]}
             removed={Array []}
@@ -969,30 +1295,508 @@ exports[`Component: CharacterConfig should render list 1`] = `
 </CharacterConfig>
 `;
 
+exports[`Component: CharacterConfig should render list 2`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "add": 2,
+        "given": Array [
+          "wisdom",
+        ],
+        "list": Array [
+          "statistics",
+        ],
+        "path": "foo.list",
+        "replace": 1,
+        "type": "list",
+        "uuid": "mocked-uuid-4",
+      },
+    ]
+  }
+  type="config"
+  uuid="mocked-uuid-1"
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <ListsToItemsCharacterEditorComponent
+        add={2}
+        given={
+          Array [
+            "wisdom",
+          ]
+        }
+        list={
+          Array [
+            "statistics",
+          ]
+        }
+        path="foo.list"
+        replace={1}
+        type="list"
+        uuid="mocked-uuid-4"
+      >
+        <CharacterEditorComponent
+          add={2}
+          given={
+            Array [
+              "wisdom",
+            ]
+          }
+          items={
+            Array [
+              Object {
+                "code": "strength",
+                "description": "Str",
+                "label": "Strength",
+              },
+              Object {
+                "code": "dexterity",
+                "description": "Dex",
+                "label": "Dexterity",
+              },
+              Object {
+                "code": "constitution",
+                "description": "Con",
+                "label": "Constitution",
+              },
+              Object {
+                "code": "intelligence",
+                "description": "Int",
+                "label": "Intelligence",
+              },
+              Object {
+                "code": "wisdom",
+                "description": "Wis",
+                "label": "Wisdom",
+              },
+              Object {
+                "code": "charisma",
+                "description": "Char",
+                "label": "Charisma",
+              },
+            ]
+          }
+          path="foo.list"
+          replace={1}
+          type="list"
+          uuid="mocked-uuid-4"
+        >
+          <ListPropertySelect
+            add={2}
+            added={
+              Array [
+                "intelligence",
+              ]
+            }
+            current={
+              Array [
+                "charisma",
+                "wisdom",
+                "intelligence",
+              ]
+            }
+            filter={Object {}}
+            given={
+              Array [
+                "wisdom",
+              ]
+            }
+            items={
+              Array [
+                Object {
+                  "code": "strength",
+                  "description": "Str",
+                  "label": "Strength",
+                },
+                Object {
+                  "code": "dexterity",
+                  "description": "Dex",
+                  "label": "Dexterity",
+                },
+                Object {
+                  "code": "constitution",
+                  "description": "Con",
+                  "label": "Constitution",
+                },
+                Object {
+                  "code": "intelligence",
+                  "description": "Int",
+                  "label": "Intelligence",
+                },
+                Object {
+                  "code": "wisdom",
+                  "description": "Wis",
+                  "label": "Wisdom",
+                },
+                Object {
+                  "code": "charisma",
+                  "description": "Char",
+                  "label": "Charisma",
+                },
+              ]
+            }
+            limit={0}
+            multiple={false}
+            onSave={[Function]}
+            onUpdate={[Function]}
+            removed={Array []}
+            replace={1}
+            setState={[Function]}
+            type="list"
+            uuid="mocked-uuid-4"
+          >
+            <BaseTagContainer>
+              <div
+                className="base-tag-container nice-tags-container"
+              >
+                <SingleSelect
+                  defaultValue={null}
+                  emptyLabel="Add..."
+                  isDisabled={[Function]}
+                  items={
+                    Array [
+                      Object {
+                        "code": "strength",
+                        "description": "Str",
+                        "label": "Strength",
+                      },
+                      Object {
+                        "code": "dexterity",
+                        "description": "Dex",
+                        "label": "Dexterity",
+                      },
+                      Object {
+                        "code": "constitution",
+                        "description": "Con",
+                        "label": "Constitution",
+                      },
+                    ]
+                  }
+                  renderEmpty={null}
+                  selected={null}
+                  setState={[Function]}
+                >
+                  <OnClickOutside(BaseSelect)
+                    eventTypes={
+                      Array [
+                        "mousedown",
+                        "touchstart",
+                      ]
+                    }
+                    excludeScrollbar={false}
+                    label="Add..."
+                    outsideClickIgnoreClass="ignore-react-onclickoutside"
+                    preventDefault={false}
+                    stopPropagation={false}
+                  >
+                    <BaseSelect
+                      className={null}
+                      closeOnClick={true}
+                      description={null}
+                      disableOnClickOutside={[Function]}
+                      disabled={false}
+                      enableOnClickOutside={[Function]}
+                      eventTypes={
+                        Array [
+                          "mousedown",
+                          "touchstart",
+                        ]
+                      }
+                      heading={null}
+                      label="Add..."
+                      outsideClickIgnoreClass="ignore-react-onclickoutside"
+                      preventDefault={false}
+                      stopPropagation={false}
+                    >
+                      <div
+                        className="nice-dropdown nice-form-control"
+                      >
+                        <SelectButton
+                          disabled={false}
+                          label="Add..."
+                          onToggle={[Function]}
+                        >
+                          <button
+                            className="nice-btn"
+                            disabled={false}
+                            onClick={[Function]}
+                          >
+                            Add...
+                            <i
+                              className="icon fa-angle-down"
+                            />
+                          </button>
+                        </SelectButton>
+                        <ul
+                          className="dropdown-menu"
+                          onClick={[Function]}
+                        >
+                          <SelectItem
+                            disabled={false}
+                            id="strength"
+                            key="strength"
+                            label="Strength"
+                            onClick={[Function]}
+                            selected={false}
+                          >
+                            <li
+                              className={null}
+                              data-value="strength"
+                              onClick={[Function]}
+                            >
+                              <a>
+                                Strength
+                              </a>
+                            </li>
+                          </SelectItem>
+                          <SelectItem
+                            disabled={false}
+                            id="dexterity"
+                            key="dexterity"
+                            label="Dexterity"
+                            onClick={[Function]}
+                            selected={false}
+                          >
+                            <li
+                              className={null}
+                              data-value="dexterity"
+                              onClick={[Function]}
+                            >
+                              <a>
+                                Dexterity
+                              </a>
+                            </li>
+                          </SelectItem>
+                          <SelectItem
+                            disabled={false}
+                            id="constitution"
+                            key="constitution"
+                            label="Constitution"
+                            onClick={[Function]}
+                            selected={false}
+                          >
+                            <li
+                              className={null}
+                              data-value="constitution"
+                              onClick={[Function]}
+                            >
+                              <a>
+                                Constitution
+                              </a>
+                            </li>
+                          </SelectItem>
+                        </ul>
+                      </div>
+                    </BaseSelect>
+                  </OnClickOutside(BaseSelect)>
+                </SingleSelect>
+                <Tag
+                  badges={Array []}
+                  className={null}
+                  color="info"
+                  description="Int"
+                  disabled={false}
+                  id="intelligence"
+                  key="tag-0"
+                  label="Intelligence"
+                  onChange={null}
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag info"
+                  >
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content="Int"
+                        >
+                          <div
+                            className="tool-tip inline"
+                          >
+                            Intelligence
+                            <MDReactComponent
+                              className="tool-tip--content"
+                              text="Int"
+                            >
+                              <span
+                                className="tool-tip--content"
+                                key="mdrct-html-0"
+                              >
+                                <p
+                                  key="mdrct-p-0"
+                                >
+                                  Int
+                                </p>
+                              </span>
+                            </MDReactComponent>
+                          </div>
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                    <TagButton
+                      icon="fa-trash-o"
+                      label={null}
+                      onClick={[Function]}
+                    >
+                      <button
+                        className="nice-tag-btn"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="icon fa-trash-o"
+                        />
+                      </button>
+                    </TagButton>
+                  </div>
+                </Tag>
+                <Tag
+                  badges={Array []}
+                  className={null}
+                  color="good"
+                  description="Wis"
+                  disabled={true}
+                  id="wisdom"
+                  key="tag-1"
+                  label="Wisdom"
+                  onChange={null}
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag good"
+                  >
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content="Wis"
+                        >
+                          <div
+                            className="tool-tip inline"
+                          >
+                            Wisdom
+                            <MDReactComponent
+                              className="tool-tip--content"
+                              text="Wis"
+                            >
+                              <span
+                                className="tool-tip--content"
+                                key="mdrct-html-0"
+                              >
+                                <p
+                                  key="mdrct-p-0"
+                                >
+                                  Wis
+                                </p>
+                              </span>
+                            </MDReactComponent>
+                          </div>
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                  </div>
+                </Tag>
+                <Tag
+                  badges={Array []}
+                  className={null}
+                  color="warning"
+                  description="Char"
+                  disabled={false}
+                  id="charisma"
+                  key="tag-2"
+                  label="Charisma"
+                  onChange={null}
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag warning"
+                  >
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content="Char"
+                        >
+                          <div
+                            className="tool-tip inline"
+                          >
+                            Charisma
+                            <MDReactComponent
+                              className="tool-tip--content"
+                              text="Char"
+                            >
+                              <span
+                                className="tool-tip--content"
+                                key="mdrct-html-0"
+                              >
+                                <p
+                                  key="mdrct-p-0"
+                                >
+                                  Char
+                                </p>
+                              </span>
+                            </MDReactComponent>
+                          </div>
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                    <TagButton
+                      icon="fa-trash-o"
+                      label={null}
+                      onClick={[Function]}
+                    >
+                      <button
+                        className="nice-tag-btn"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="icon fa-trash-o"
+                        />
+                      </button>
+                    </TagButton>
+                  </div>
+                </Tag>
+              </div>
+            </BaseTagContainer>
+          </ListPropertySelect>
+        </CharacterEditorComponent>
+      </ListsToItemsCharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
 exports[`Component: CharacterConfig should render multichoice 1`] = `
 <CharacterConfig
   config={
     Array [
       Object {
+        "add": 1,
         "options": Array [
           Object {
             "description": "foo",
             "label": "a",
-            "path": "foo.value",
+            "path": "multichoice.value",
             "type": "value",
             "uuid": "mocked-uuid-12",
-            "value": "bar",
+            "value": "Multi choice option A",
           },
           Object {
-            "describe": "bar",
-            "dict": Object {
-              "bar": "blah",
-              "description": "foo %(bar)s",
-            },
+            "description": "bar",
             "label": "b",
-            "path": "foo.dict",
-            "type": "dict",
+            "path": "multichoice.value",
+            "type": "value",
             "uuid": "mocked-uuid-13",
+            "value": "Multi choice option B",
           },
         ],
         "type": "multichoice",
@@ -1000,6 +1804,8 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
       },
     ]
   }
+  type="config"
+  uuid="mocked-uuid-1"
 >
   <FormGroup
     key="0"
@@ -1009,26 +1815,24 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
     >
       <label />
       <CharacterEditorComponent
+        add={1}
         options={
           Array [
             Object {
               "description": "foo",
               "label": "a",
-              "path": "foo.value",
+              "path": "multichoice.value",
               "type": "value",
               "uuid": "mocked-uuid-12",
-              "value": "bar",
+              "value": "Multi choice option A",
             },
             Object {
-              "describe": "bar",
-              "dict": Object {
-                "bar": "blah",
-                "description": "foo %(bar)s",
-              },
+              "description": "bar",
               "label": "b",
-              "path": "foo.dict",
-              "type": "dict",
+              "path": "multichoice.value",
+              "type": "value",
               "uuid": "mocked-uuid-13",
+              "value": "Multi choice option B",
             },
           ]
         }
@@ -1036,28 +1840,12 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
         uuid="mocked-uuid-11"
       >
         <MultipleChoiceSelect
-          add={0}
+          add={1}
           added={Array []}
-          character={
-            Object {
-              "foo": Object {
-                "dict": Object {
-                  "bar": "blah",
-                  "description": "foo %(bar)s",
-                },
-                "list": Array [
-                  "charisma",
-                ],
-                "select": "strength",
-                "value": "bar",
-              },
-            }
-          }
+          choices={Object {}}
           description=""
           filtered={Array []}
-          getCurrent={[Function]}
           limit={0}
-          onChange={[Function]}
           onSave={[Function]}
           onUpdate={[Function]}
           options={
@@ -1065,21 +1853,18 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
               Object {
                 "description": "foo",
                 "label": "a",
-                "path": "foo.value",
+                "path": "multichoice.value",
                 "type": "value",
                 "uuid": "mocked-uuid-12",
-                "value": "bar",
+                "value": "Multi choice option A",
               },
               Object {
-                "describe": "bar",
-                "dict": Object {
-                  "bar": "blah",
-                  "description": "foo %(bar)s",
-                },
+                "description": "bar",
                 "label": "b",
-                "path": "foo.dict",
-                "type": "dict",
+                "path": "multichoice.value",
+                "type": "value",
                 "uuid": "mocked-uuid-13",
+                "value": "Multi choice option B",
               },
             ]
           }
@@ -1113,13 +1898,8 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
               onAdd={[Function]}
               onDelete={[Function]}
               setState={[Function]}
-              showSelect={false}
-              value={
-                Array [
-                  "mocked-uuid-12",
-                  "mocked-uuid-13",
-                ]
-              }
+              showSelect={true}
+              value={Array []}
             >
               <BaseTagContainer
                 className={null}
@@ -1128,12 +1908,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                   className="base-tag-container nice-tags-container"
                 >
                   <TagSelect
-                    current={
-                      Array [
-                        "mocked-uuid-12",
-                        "mocked-uuid-13",
-                      ]
-                    }
+                    current={Array []}
                     items={
                       Array [
                         Object {
@@ -1152,21 +1927,298 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                     }
                     multiple={false}
                     onSelect={[Function]}
-                  />
+                  >
+                    <SingleSelect
+                      defaultValue={null}
+                      emptyLabel="Add..."
+                      isDisabled={[Function]}
+                      items={
+                        Array [
+                          Object {
+                            "code": "mocked-uuid-12",
+                            "label": "a",
+                          },
+                          Object {
+                            "code": "mocked-uuid-13",
+                            "label": "b",
+                          },
+                        ]
+                      }
+                      renderEmpty={null}
+                      selected={null}
+                      setState={[Function]}
+                    >
+                      <OnClickOutside(BaseSelect)
+                        eventTypes={
+                          Array [
+                            "mousedown",
+                            "touchstart",
+                          ]
+                        }
+                        excludeScrollbar={false}
+                        label="Add..."
+                        outsideClickIgnoreClass="ignore-react-onclickoutside"
+                        preventDefault={false}
+                        stopPropagation={false}
+                      >
+                        <BaseSelect
+                          className={null}
+                          closeOnClick={true}
+                          description={null}
+                          disableOnClickOutside={[Function]}
+                          disabled={false}
+                          enableOnClickOutside={[Function]}
+                          eventTypes={
+                            Array [
+                              "mousedown",
+                              "touchstart",
+                            ]
+                          }
+                          heading={null}
+                          label="Add..."
+                          outsideClickIgnoreClass="ignore-react-onclickoutside"
+                          preventDefault={false}
+                          stopPropagation={false}
+                        >
+                          <div
+                            className="nice-dropdown nice-form-control"
+                          >
+                            <SelectButton
+                              disabled={false}
+                              label="Add..."
+                              onToggle={[Function]}
+                            >
+                              <button
+                                className="nice-btn"
+                                disabled={false}
+                                onClick={[Function]}
+                              >
+                                Add...
+                                <i
+                                  className="icon fa-angle-down"
+                                />
+                              </button>
+                            </SelectButton>
+                            <ul
+                              className="dropdown-menu"
+                              onClick={[Function]}
+                            >
+                              <SelectItem
+                                disabled={false}
+                                id="mocked-uuid-12"
+                                key="mocked-uuid-12"
+                                label="a"
+                                onClick={[Function]}
+                                selected={false}
+                              >
+                                <li
+                                  className={null}
+                                  data-value="mocked-uuid-12"
+                                  onClick={[Function]}
+                                >
+                                  <a>
+                                    a
+                                  </a>
+                                </li>
+                              </SelectItem>
+                              <SelectItem
+                                disabled={false}
+                                id="mocked-uuid-13"
+                                key="mocked-uuid-13"
+                                label="b"
+                                onClick={[Function]}
+                                selected={false}
+                              >
+                                <li
+                                  className={null}
+                                  data-value="mocked-uuid-13"
+                                  onClick={[Function]}
+                                >
+                                  <a>
+                                    b
+                                  </a>
+                                </li>
+                              </SelectItem>
+                            </ul>
+                          </div>
+                        </BaseSelect>
+                      </OnClickOutside(BaseSelect)>
+                    </SingleSelect>
+                  </TagSelect>
+                </div>
+              </BaseTagContainer>
+            </TagContainer>
+          </div>
+        </MultipleChoiceSelect>
+      </CharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
+exports[`Component: CharacterConfig should render multichoice 2`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "add": 1,
+        "options": Array [
+          Object {
+            "description": "foo",
+            "label": "a",
+            "path": "multichoice.value",
+            "type": "value",
+            "uuid": "mocked-uuid-12",
+            "value": "Multi choice option A",
+          },
+          Object {
+            "description": "bar",
+            "label": "b",
+            "path": "multichoice.value",
+            "type": "value",
+            "uuid": "mocked-uuid-13",
+            "value": "Multi choice option B",
+          },
+        ],
+        "type": "multichoice",
+        "uuid": "mocked-uuid-11",
+      },
+    ]
+  }
+  type="config"
+  uuid="mocked-uuid-1"
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <CharacterEditorComponent
+        add={1}
+        options={
+          Array [
+            Object {
+              "description": "foo",
+              "label": "a",
+              "path": "multichoice.value",
+              "type": "value",
+              "uuid": "mocked-uuid-12",
+              "value": "Multi choice option A",
+            },
+            Object {
+              "description": "bar",
+              "label": "b",
+              "path": "multichoice.value",
+              "type": "value",
+              "uuid": "mocked-uuid-13",
+              "value": "Multi choice option B",
+            },
+          ]
+        }
+        type="multichoice"
+        uuid="mocked-uuid-11"
+      >
+        <MultipleChoiceSelect
+          add={1}
+          added={
+            Array [
+              "mocked-uuid-12",
+            ]
+          }
+          choices={
+            Object {
+              "mocked-uuid-11": Object {
+                "added": Array [
+                  "mocked-uuid-12",
+                ],
+                "removed": Array [],
+              },
+            }
+          }
+          description=""
+          filtered={Array []}
+          limit={0}
+          onSave={[Function]}
+          onUpdate={[Function]}
+          options={
+            Array [
+              Object {
+                "description": "foo",
+                "label": "a",
+                "path": "multichoice.value",
+                "type": "value",
+                "uuid": "mocked-uuid-12",
+                "value": "Multi choice option A",
+              },
+              Object {
+                "description": "bar",
+                "label": "b",
+                "path": "multichoice.value",
+                "type": "value",
+                "uuid": "mocked-uuid-13",
+                "value": "Multi choice option B",
+              },
+            ]
+          }
+          removed={Array []}
+          replace={0}
+          setState={[Function]}
+          type="multichoice"
+          uuid="mocked-uuid-11"
+        >
+          <div>
+            <TagContainer
+              className={null}
+              disabled={false}
+              items={
+                Array [
+                  Object {
+                    "color": "info",
+                    "disabled": false,
+                    "id": "mocked-uuid-12",
+                    "label": "a",
+                  },
+                  Object {
+                    "color": "warning",
+                    "disabled": true,
+                    "id": "mocked-uuid-13",
+                    "label": "b",
+                  },
+                ]
+              }
+              multiple={false}
+              onAdd={[Function]}
+              onDelete={[Function]}
+              setState={[Function]}
+              showSelect={false}
+              value={
+                Array [
+                  "mocked-uuid-12",
+                ]
+              }
+            >
+              <BaseTagContainer
+                className={null}
+              >
+                <div
+                  className="base-tag-container nice-tags-container"
+                >
                   <Tag
                     badges={Array []}
                     className={null}
                     color={null}
                     count={1}
                     description={null}
-                    disabled={true}
+                    disabled={false}
                     key="mocked-uuid-12"
                     label="a"
                     onChange={null}
                     onDelete={[Function]}
                   >
                     <div
-                      className="nice-tag muted"
+                      className="nice-tag"
                     >
                       <TagLabel>
                         <span
@@ -1179,34 +2231,20 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                           </ToolTip>
                         </span>
                       </TagLabel>
-                    </div>
-                  </Tag>
-                  <Tag
-                    badges={Array []}
-                    className={null}
-                    color={null}
-                    count={1}
-                    description={null}
-                    disabled={true}
-                    key="mocked-uuid-13"
-                    label="b"
-                    onChange={null}
-                    onDelete={[Function]}
-                  >
-                    <div
-                      className="nice-tag muted"
-                    >
-                      <TagLabel>
-                        <span
-                          className="nice-tag-label"
+                      <TagButton
+                        icon="fa-trash-o"
+                        label={null}
+                        onClick={[Function]}
+                      >
+                        <button
+                          className="nice-tag-btn"
+                          onClick={[Function]}
                         >
-                          <ToolTip
-                            content={null}
-                          >
-                            b
-                          </ToolTip>
-                        </span>
-                      </TagLabel>
+                          <i
+                            className="icon fa-trash-o"
+                          />
+                        </button>
+                      </TagButton>
                     </div>
                   </Tag>
                 </div>
@@ -1218,14 +2256,16 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                   Object {
                     "description": "foo",
                     "label": "a",
-                    "path": "foo.value",
+                    "path": "multichoice.value",
                     "type": "value",
                     "uuid": "mocked-uuid-12",
-                    "value": "bar",
+                    "value": "Multi choice option A",
                   },
                 ]
               }
-              key="0"
+              key="mocked-uuid-12"
+              type="config"
+              uuid="mocked-uuid-12"
             >
               <FormGroup
                 key="0"
@@ -1251,23 +2291,22 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                     </span>
                   </MDReactComponent>
                   <CharacterEditorComponent
-                    path="foo.value"
+                    path="multichoice.value"
                     type="value"
                     uuid="mocked-uuid-12"
-                    value="bar"
+                    value="Multi choice option A"
                   >
                     <ValuePropertySelect
-                      getCurrent={[Function]}
-                      onChange={[Function]}
+                      current="Multi choice option A"
                       onSave={[Function]}
                       onUpdate={[Function]}
                       setState={[Function]}
                       type="value"
                       uuid="mocked-uuid-12"
-                      value="bar"
+                      value="Multi choice option A"
                     >
                       <MDReactComponent
-                        text="bar"
+                        text="Multi choice option A"
                       >
                         <span
                           key="mdrct-html-0"
@@ -1275,91 +2314,11 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                           <p
                             key="mdrct-p-0"
                           >
-                            bar
+                            Multi choice option A
                           </p>
                         </span>
                       </MDReactComponent>
                     </ValuePropertySelect>
-                  </CharacterEditorComponent>
-                </div>
-              </FormGroup>
-            </CharacterConfig>
-            <CharacterConfig
-              config={
-                Array [
-                  Object {
-                    "describe": "bar",
-                    "dict": Object {
-                      "bar": "blah",
-                      "description": "foo %(bar)s",
-                    },
-                    "label": "b",
-                    "path": "foo.dict",
-                    "type": "dict",
-                    "uuid": "mocked-uuid-13",
-                  },
-                ]
-              }
-              key="1"
-            >
-              <FormGroup
-                key="0"
-                label="b"
-              >
-                <div
-                  className="nice-form-group"
-                >
-                  <label>
-                    b
-                  </label>
-                  <CharacterEditorComponent
-                    describe="bar"
-                    dict={
-                      Object {
-                        "bar": "blah",
-                        "description": "foo %(bar)s",
-                      }
-                    }
-                    path="foo.dict"
-                    type="dict"
-                    uuid="mocked-uuid-13"
-                  >
-                    <DictPropertySelect
-                      current={
-                        Object {
-                          "bar": "blah",
-                          "description": "foo %(bar)s",
-                        }
-                      }
-                      describe="bar"
-                      dict={
-                        Object {
-                          "bar": "blah",
-                          "description": "foo %(bar)s",
-                        }
-                      }
-                      getCurrent={[Function]}
-                      onChange={[Function]}
-                      onSave={[Function]}
-                      onUpdate={[Function]}
-                      setState={[Function]}
-                      type="dict"
-                      uuid="mocked-uuid-13"
-                    >
-                      <MDReactComponent
-                        text="foo blah"
-                      >
-                        <span
-                          key="mdrct-html-0"
-                        >
-                          <p
-                            key="mdrct-p-0"
-                          >
-                            foo blah
-                          </p>
-                        </span>
-                      </MDReactComponent>
-                    </DictPropertySelect>
                   </CharacterEditorComponent>
                 </div>
               </FormGroup>
@@ -1382,10 +2341,12 @@ exports[`Component: CharacterConfig should render select 1`] = `
         ],
         "path": "foo.select",
         "type": "select",
-        "uuid": "mocked-uuid-2",
+        "uuid": "mocked-uuid-3",
       },
     ]
   }
+  type="config"
+  uuid="mocked-uuid-1"
 >
   <FormGroup
     key="0"
@@ -1402,7 +2363,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
         }
         path="foo.select"
         type="select"
-        uuid="mocked-uuid-2"
+        uuid="mocked-uuid-3"
       >
         <CharacterEditorComponent
           items={
@@ -1441,11 +2402,10 @@ exports[`Component: CharacterConfig should render select 1`] = `
           }
           path="foo.select"
           type="select"
-          uuid="mocked-uuid-2"
+          uuid="mocked-uuid-3"
         >
           <SelectPropertySelect
             current="strength"
-            getCurrent={[Function]}
             items={
               Array [
                 Object {
@@ -1480,12 +2440,11 @@ exports[`Component: CharacterConfig should render select 1`] = `
                 },
               ]
             }
-            onChange={[Function]}
             onSave={[Function]}
             onUpdate={[Function]}
             setState={[Function]}
             type="select"
-            uuid="mocked-uuid-2"
+            uuid="mocked-uuid-3"
           >
             <SingleSelect
               className="small"
@@ -1707,6 +2666,341 @@ exports[`Component: CharacterConfig should render select 1`] = `
 </CharacterConfig>
 `;
 
+exports[`Component: CharacterConfig should render select 2`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "list": Array [
+          "statistics",
+        ],
+        "path": "foo.select",
+        "type": "select",
+        "uuid": "mocked-uuid-3",
+      },
+    ]
+  }
+  type="config"
+  uuid="mocked-uuid-1"
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <ListsToItemsCharacterEditorComponent
+        list={
+          Array [
+            "statistics",
+          ]
+        }
+        path="foo.select"
+        type="select"
+        uuid="mocked-uuid-3"
+      >
+        <CharacterEditorComponent
+          items={
+            Array [
+              Object {
+                "code": "strength",
+                "description": "Str",
+                "label": "Strength",
+              },
+              Object {
+                "code": "dexterity",
+                "description": "Dex",
+                "label": "Dexterity",
+              },
+              Object {
+                "code": "constitution",
+                "description": "Con",
+                "label": "Constitution",
+              },
+              Object {
+                "code": "intelligence",
+                "description": "Int",
+                "label": "Intelligence",
+              },
+              Object {
+                "code": "wisdom",
+                "description": "Wis",
+                "label": "Wisdom",
+              },
+              Object {
+                "code": "charisma",
+                "description": "Char",
+                "label": "Charisma",
+              },
+            ]
+          }
+          path="foo.select"
+          type="select"
+          uuid="mocked-uuid-3"
+        >
+          <SelectPropertySelect
+            current="wisdom"
+            items={
+              Array [
+                Object {
+                  "code": "strength",
+                  "description": "Str",
+                  "label": "Strength",
+                },
+                Object {
+                  "code": "dexterity",
+                  "description": "Dex",
+                  "label": "Dexterity",
+                },
+                Object {
+                  "code": "constitution",
+                  "description": "Con",
+                  "label": "Constitution",
+                },
+                Object {
+                  "code": "intelligence",
+                  "description": "Int",
+                  "label": "Intelligence",
+                },
+                Object {
+                  "code": "wisdom",
+                  "description": "Wis",
+                  "label": "Wisdom",
+                },
+                Object {
+                  "code": "charisma",
+                  "description": "Char",
+                  "label": "Charisma",
+                },
+              ]
+            }
+            onSave={[Function]}
+            onUpdate={[Function]}
+            setState={[Function]}
+            type="select"
+            uuid="mocked-uuid-3"
+          >
+            <SingleSelect
+              className="small"
+              defaultValue={null}
+              emptyLabel="Please select"
+              isDisabled={[Function]}
+              items={
+                Array [
+                  Object {
+                    "code": "strength",
+                    "description": "Str",
+                    "label": "Strength",
+                  },
+                  Object {
+                    "code": "dexterity",
+                    "description": "Dex",
+                    "label": "Dexterity",
+                  },
+                  Object {
+                    "code": "constitution",
+                    "description": "Con",
+                    "label": "Constitution",
+                  },
+                  Object {
+                    "code": "intelligence",
+                    "description": "Int",
+                    "label": "Intelligence",
+                  },
+                  Object {
+                    "code": "wisdom",
+                    "description": "Wis",
+                    "label": "Wisdom",
+                  },
+                  Object {
+                    "code": "charisma",
+                    "description": "Char",
+                    "label": "Charisma",
+                  },
+                ]
+              }
+              renderEmpty={null}
+              selected="wisdom"
+              setState={[Function]}
+            >
+              <OnClickOutside(BaseSelect)
+                className="small"
+                eventTypes={
+                  Array [
+                    "mousedown",
+                    "touchstart",
+                  ]
+                }
+                excludeScrollbar={false}
+                label="Wisdom"
+                outsideClickIgnoreClass="ignore-react-onclickoutside"
+                preventDefault={false}
+                stopPropagation={false}
+              >
+                <BaseSelect
+                  className="small"
+                  closeOnClick={true}
+                  description={null}
+                  disableOnClickOutside={[Function]}
+                  disabled={false}
+                  enableOnClickOutside={[Function]}
+                  eventTypes={
+                    Array [
+                      "mousedown",
+                      "touchstart",
+                    ]
+                  }
+                  heading={null}
+                  label="Wisdom"
+                  outsideClickIgnoreClass="ignore-react-onclickoutside"
+                  preventDefault={false}
+                  stopPropagation={false}
+                >
+                  <div
+                    className="nice-dropdown nice-form-control small"
+                  >
+                    <SelectButton
+                      disabled={false}
+                      label="Wisdom"
+                      onToggle={[Function]}
+                    >
+                      <button
+                        className="nice-btn"
+                        disabled={false}
+                        onClick={[Function]}
+                      >
+                        Wisdom
+                        <i
+                          className="icon fa-angle-down"
+                        />
+                      </button>
+                    </SelectButton>
+                    <ul
+                      className="dropdown-menu"
+                      onClick={[Function]}
+                    >
+                      <SelectItem
+                        disabled={false}
+                        id="strength"
+                        key="strength"
+                        label="Strength"
+                        onClick={[Function]}
+                        selected={false}
+                      >
+                        <li
+                          className={null}
+                          data-value="strength"
+                          onClick={[Function]}
+                        >
+                          <a>
+                            Strength
+                          </a>
+                        </li>
+                      </SelectItem>
+                      <SelectItem
+                        disabled={false}
+                        id="dexterity"
+                        key="dexterity"
+                        label="Dexterity"
+                        onClick={[Function]}
+                        selected={false}
+                      >
+                        <li
+                          className={null}
+                          data-value="dexterity"
+                          onClick={[Function]}
+                        >
+                          <a>
+                            Dexterity
+                          </a>
+                        </li>
+                      </SelectItem>
+                      <SelectItem
+                        disabled={false}
+                        id="constitution"
+                        key="constitution"
+                        label="Constitution"
+                        onClick={[Function]}
+                        selected={false}
+                      >
+                        <li
+                          className={null}
+                          data-value="constitution"
+                          onClick={[Function]}
+                        >
+                          <a>
+                            Constitution
+                          </a>
+                        </li>
+                      </SelectItem>
+                      <SelectItem
+                        disabled={false}
+                        id="intelligence"
+                        key="intelligence"
+                        label="Intelligence"
+                        onClick={[Function]}
+                        selected={false}
+                      >
+                        <li
+                          className={null}
+                          data-value="intelligence"
+                          onClick={[Function]}
+                        >
+                          <a>
+                            Intelligence
+                          </a>
+                        </li>
+                      </SelectItem>
+                      <SelectItem
+                        disabled={false}
+                        id="wisdom"
+                        key="wisdom"
+                        label="Wisdom"
+                        onClick={[Function]}
+                        selected={true}
+                      >
+                        <li
+                          className="info"
+                          data-value="wisdom"
+                          onClick={[Function]}
+                        >
+                          <a>
+                            Wisdom
+                          </a>
+                        </li>
+                      </SelectItem>
+                      <SelectItem
+                        disabled={false}
+                        id="charisma"
+                        key="charisma"
+                        label="Charisma"
+                        onClick={[Function]}
+                        selected={false}
+                      >
+                        <li
+                          className={null}
+                          data-value="charisma"
+                          onClick={[Function]}
+                        >
+                          <a>
+                            Charisma
+                          </a>
+                        </li>
+                      </SelectItem>
+                    </ul>
+                  </div>
+                </BaseSelect>
+              </OnClickOutside(BaseSelect)>
+            </SingleSelect>
+          </SelectPropertySelect>
+        </CharacterEditorComponent>
+      </ListsToItemsCharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
 exports[`Component: CharacterConfig should render value 1`] = `
 <CharacterConfig
   config={
@@ -1719,6 +3013,8 @@ exports[`Component: CharacterConfig should render value 1`] = `
       },
     ]
   }
+  type="config"
+  uuid="mocked-uuid-1"
 >
   <FormGroup
     key="0"
@@ -1734,8 +3030,7 @@ exports[`Component: CharacterConfig should render value 1`] = `
         value="bar"
       >
         <ValuePropertySelect
-          getCurrent={[Function]}
-          onChange={[Function]}
+          current="bar"
           onSave={[Function]}
           onUpdate={[Function]}
           setState={[Function]}
@@ -1782,6 +3077,8 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
       },
     ]
   }
+  type="config"
+  uuid="mocked-uuid-1"
 >
   <FormGroup
     key="0"
@@ -1839,7 +3136,6 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
               ]
             }
             filter={Object {}}
-            getCurrent={[Function]}
             given={
               Array [
                 "bar",
@@ -1859,7 +3155,6 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
             }
             limit={0}
             multiple={false}
-            onChange={[Function]}
             onSave={[Function]}
             onUpdate={[Function]}
             removed={Array []}
@@ -2004,7 +3299,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
 </CharacterConfig>
 `;
 
-exports[`Component: CharacterConfig should render with object items 1`] = `
+exports[`Component: CharacterConfig should render with array items 2`] = `
 <CharacterConfig
   config={
     Array [
@@ -2014,43 +3309,17 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
           "bar",
         ],
         "items": Array [
-          Object {
-            "code": "strength",
-            "description": "Str",
-            "label": "Strength",
-          },
-          Object {
-            "code": "dexterity",
-            "description": "Dex",
-            "label": "Dexterity",
-          },
-          Object {
-            "code": "constitution",
-            "description": "Con",
-            "label": "Constitution",
-          },
-          Object {
-            "code": "intelligence",
-            "description": "Int",
-            "label": "Intelligence",
-          },
-          Object {
-            "code": "wisdom",
-            "description": "Wis",
-            "label": "Wisdom",
-          },
-          Object {
-            "code": "charisma",
-            "description": "Char",
-            "label": "Charisma",
-          },
+          "foo",
+          "bar",
         ],
         "path": "foo.items",
         "type": "list",
-        "uuid": "mocked-uuid-6",
+        "uuid": "mocked-uuid-5",
       },
     ]
   }
+  type="config"
+  uuid="mocked-uuid-1"
 >
   <FormGroup
     key="0"
@@ -2068,36 +3337,200 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
         }
         items={
           Array [
-            Object {
-              "code": "strength",
-              "description": "Str",
-              "label": "Strength",
-            },
-            Object {
-              "code": "dexterity",
-              "description": "Dex",
-              "label": "Dexterity",
-            },
-            Object {
-              "code": "constitution",
-              "description": "Con",
-              "label": "Constitution",
-            },
-            Object {
-              "code": "intelligence",
-              "description": "Int",
-              "label": "Intelligence",
-            },
-            Object {
-              "code": "wisdom",
-              "description": "Wis",
-              "label": "Wisdom",
-            },
-            Object {
-              "code": "charisma",
-              "description": "Char",
-              "label": "Charisma",
-            },
+            "foo",
+            "bar",
+          ]
+        }
+        path="foo.items"
+        type="list"
+        uuid="mocked-uuid-5"
+      >
+        <CharacterEditorComponent
+          add={1}
+          given={
+            Array [
+              "bar",
+            ]
+          }
+          items={
+            Array [
+              Object {
+                "code": "foo",
+                "label": "foo",
+              },
+              Object {
+                "code": "bar",
+                "label": "bar",
+              },
+            ]
+          }
+          path="foo.items"
+          type="list"
+          uuid="mocked-uuid-5"
+        >
+          <ListPropertySelect
+            add={1}
+            added={
+              Array [
+                "foo",
+              ]
+            }
+            current={
+              Array [
+                "bar",
+                "foo",
+              ]
+            }
+            filter={Object {}}
+            given={
+              Array [
+                "bar",
+              ]
+            }
+            items={
+              Array [
+                Object {
+                  "code": "foo",
+                  "label": "foo",
+                },
+                Object {
+                  "code": "bar",
+                  "label": "bar",
+                },
+              ]
+            }
+            limit={0}
+            multiple={false}
+            onSave={[Function]}
+            onUpdate={[Function]}
+            removed={Array []}
+            replace={0}
+            setState={[Function]}
+            type="list"
+            uuid="mocked-uuid-5"
+          >
+            <BaseTagContainer>
+              <div
+                className="base-tag-container nice-tags-container"
+              >
+                <Tag
+                  badges={Array []}
+                  className={null}
+                  color="info"
+                  description={null}
+                  disabled={false}
+                  id="foo"
+                  key="tag-0"
+                  label="foo"
+                  onChange={null}
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag info"
+                  >
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content={null}
+                        >
+                          foo
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                    <TagButton
+                      icon="fa-trash-o"
+                      label={null}
+                      onClick={[Function]}
+                    >
+                      <button
+                        className="nice-tag-btn"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="icon fa-trash-o"
+                        />
+                      </button>
+                    </TagButton>
+                  </div>
+                </Tag>
+                <Tag
+                  badges={Array []}
+                  className={null}
+                  color="good"
+                  description={null}
+                  disabled={true}
+                  id="bar"
+                  key="tag-1"
+                  label="bar"
+                  onChange={null}
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag good"
+                  >
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content={null}
+                        >
+                          bar
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                  </div>
+                </Tag>
+              </div>
+            </BaseTagContainer>
+          </ListPropertySelect>
+        </CharacterEditorComponent>
+      </ListsToItemsCharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
+exports[`Component: CharacterConfig should render with object items 1`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "add": 1,
+        "given": Array [
+          "bar",
+        ],
+        "list": Array [
+          "statistics",
+        ],
+        "path": "foo.items",
+        "type": "list",
+        "uuid": "mocked-uuid-6",
+      },
+    ]
+  }
+  type="config"
+  uuid="mocked-uuid-1"
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <ListsToItemsCharacterEditorComponent
+        add={1}
+        given={
+          Array [
+            "bar",
+          ]
+        }
+        list={
+          Array [
+            "statistics",
           ]
         }
         path="foo.items"
@@ -2158,7 +3591,6 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
               ]
             }
             filter={Object {}}
-            getCurrent={[Function]}
             given={
               Array [
                 "bar",
@@ -2200,7 +3632,6 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
             }
             limit={0}
             multiple={false}
-            onChange={[Function]}
             onSave={[Function]}
             onUpdate={[Function]}
             removed={Array []}
@@ -2430,7 +3861,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                   description={null}
                   disabled={true}
                   key="tag-0"
-                  label="bar"
+                  label={null}
                   onChange={null}
                   onDelete={[Function]}
                 >
@@ -2443,9 +3874,259 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                       >
                         <ToolTip
                           content={null}
+                        />
+                      </span>
+                    </TagLabel>
+                  </div>
+                </Tag>
+              </div>
+            </BaseTagContainer>
+          </ListPropertySelect>
+        </CharacterEditorComponent>
+      </ListsToItemsCharacterEditorComponent>
+    </div>
+  </FormGroup>
+</CharacterConfig>
+`;
+
+exports[`Component: CharacterConfig should render with object items 2`] = `
+<CharacterConfig
+  config={
+    Array [
+      Object {
+        "add": 1,
+        "given": Array [
+          "bar",
+        ],
+        "list": Array [
+          "statistics",
+        ],
+        "path": "foo.items",
+        "type": "list",
+        "uuid": "mocked-uuid-6",
+      },
+    ]
+  }
+  type="config"
+  uuid="mocked-uuid-1"
+>
+  <FormGroup
+    key="0"
+  >
+    <div
+      className="nice-form-group"
+    >
+      <label />
+      <ListsToItemsCharacterEditorComponent
+        add={1}
+        given={
+          Array [
+            "bar",
+          ]
+        }
+        list={
+          Array [
+            "statistics",
+          ]
+        }
+        path="foo.items"
+        type="list"
+        uuid="mocked-uuid-6"
+      >
+        <CharacterEditorComponent
+          add={1}
+          given={
+            Array [
+              "bar",
+            ]
+          }
+          items={
+            Array [
+              Object {
+                "code": "strength",
+                "description": "Str",
+                "label": "Strength",
+              },
+              Object {
+                "code": "dexterity",
+                "description": "Dex",
+                "label": "Dexterity",
+              },
+              Object {
+                "code": "constitution",
+                "description": "Con",
+                "label": "Constitution",
+              },
+              Object {
+                "code": "intelligence",
+                "description": "Int",
+                "label": "Intelligence",
+              },
+              Object {
+                "code": "wisdom",
+                "description": "Wis",
+                "label": "Wisdom",
+              },
+              Object {
+                "code": "charisma",
+                "description": "Char",
+                "label": "Charisma",
+              },
+            ]
+          }
+          path="foo.items"
+          type="list"
+          uuid="mocked-uuid-6"
+        >
+          <ListPropertySelect
+            add={1}
+            added={
+              Array [
+                "intelligence",
+              ]
+            }
+            current={
+              Array [
+                "bar",
+                "intelligence",
+              ]
+            }
+            filter={Object {}}
+            given={
+              Array [
+                "bar",
+              ]
+            }
+            items={
+              Array [
+                Object {
+                  "code": "strength",
+                  "description": "Str",
+                  "label": "Strength",
+                },
+                Object {
+                  "code": "dexterity",
+                  "description": "Dex",
+                  "label": "Dexterity",
+                },
+                Object {
+                  "code": "constitution",
+                  "description": "Con",
+                  "label": "Constitution",
+                },
+                Object {
+                  "code": "intelligence",
+                  "description": "Int",
+                  "label": "Intelligence",
+                },
+                Object {
+                  "code": "wisdom",
+                  "description": "Wis",
+                  "label": "Wisdom",
+                },
+                Object {
+                  "code": "charisma",
+                  "description": "Char",
+                  "label": "Charisma",
+                },
+              ]
+            }
+            limit={0}
+            multiple={false}
+            onSave={[Function]}
+            onUpdate={[Function]}
+            removed={Array []}
+            replace={0}
+            setState={[Function]}
+            type="list"
+            uuid="mocked-uuid-6"
+          >
+            <BaseTagContainer>
+              <div
+                className="base-tag-container nice-tags-container"
+              >
+                <Tag
+                  badges={Array []}
+                  className={null}
+                  color="info"
+                  description="Int"
+                  disabled={false}
+                  id="intelligence"
+                  key="tag-0"
+                  label="Intelligence"
+                  onChange={null}
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag info"
+                  >
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content="Int"
                         >
-                          bar
+                          <div
+                            className="tool-tip inline"
+                          >
+                            Intelligence
+                            <MDReactComponent
+                              className="tool-tip--content"
+                              text="Int"
+                            >
+                              <span
+                                className="tool-tip--content"
+                                key="mdrct-html-0"
+                              >
+                                <p
+                                  key="mdrct-p-0"
+                                >
+                                  Int
+                                </p>
+                              </span>
+                            </MDReactComponent>
+                          </div>
                         </ToolTip>
+                      </span>
+                    </TagLabel>
+                    <TagButton
+                      icon="fa-trash-o"
+                      label={null}
+                      onClick={[Function]}
+                    >
+                      <button
+                        className="nice-tag-btn"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="icon fa-trash-o"
+                        />
+                      </button>
+                    </TagButton>
+                  </div>
+                </Tag>
+                <Tag
+                  badges={Array []}
+                  className={null}
+                  color="good"
+                  description={null}
+                  disabled={true}
+                  key="tag-1"
+                  label={null}
+                  onChange={null}
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag good"
+                  >
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content={null}
+                        />
                       </span>
                     </TagLabel>
                   </div>

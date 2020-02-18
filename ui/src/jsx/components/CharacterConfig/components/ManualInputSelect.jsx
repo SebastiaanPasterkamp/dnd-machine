@@ -10,18 +10,12 @@ export class ManualInputSelect extends React.Component
 {
     constructor(props) {
         super(props);
-        this.onChange = this.onChange.bind(this);
+        this.onSetState = this.onSetState.bind(this);
     }
 
-    componentDidMount() {
-        const { current, onChange } = this.props;
-        onChange( current );
-    }
-
-    onChange(current) {
-        const { onChange, setState } = this.props;
+    onSetState(current) {
+        const { setState } = this.props;
         setState({ current });
-        onChange(current);
     };
 
     render() {
@@ -33,7 +27,7 @@ export class ManualInputSelect extends React.Component
                     placeholder={placeholder}
                     value={current}
                     rows={5}
-                    setState={this.onChange}
+                    setState={this.onSetState}
                 />
             );
         }
@@ -42,7 +36,7 @@ export class ManualInputSelect extends React.Component
             <InputField
                 placeholder={placeholder}
                 value={current}
-                setState={this.onChange}
+                setState={this.onSetState}
             />
         );
     }
@@ -51,7 +45,6 @@ export class ManualInputSelect extends React.Component
 ManualInputSelect.propTypes = {
     type: PropTypes.oneOf(['manual']).isRequired,
     uuid: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
     setState: PropTypes.func.isRequired,
     current: PropTypes.string,
     placeholder: PropTypes.string,
@@ -64,9 +57,4 @@ ManualInputSelect.defaultProps = {
     markup: false,
 };
 
-export default CharacterEditorWrapper(
-    ManualInputSelect,
-    {
-        current: true,
-    }
-);
+export default CharacterEditorWrapper(ManualInputSelect);

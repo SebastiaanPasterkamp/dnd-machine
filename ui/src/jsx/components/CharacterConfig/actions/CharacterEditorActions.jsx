@@ -9,8 +9,6 @@ const CharacterEditorActions = Reflux.createActions({
     "resetCharacter": {asyncResult: true},
     "postCharacter": {asyncResult: true},
     "patchCharacter": {asyncResult: true},
-    "addChange": {},
-    "removeChange": {},
     "addChoice": {},
     "removeChoice": {},
 });

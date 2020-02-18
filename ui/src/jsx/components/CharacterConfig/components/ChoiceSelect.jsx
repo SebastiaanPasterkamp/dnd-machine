@@ -31,7 +31,7 @@ export class ChoiceSelect extends React.Component
 
     componentDidMount() {
         const { selected } = this.props;
-        if (selected === null || selected === undefined) {
+        if (!selected) {
             this.onTabChange(0);
         }
     }
@@ -69,7 +69,8 @@ export class ChoiceSelect extends React.Component
                 {flow(entries, map(
                     ([index, tab]) => (
                         <CharacterConfig
-                            key={ index }
+                            key={tab.uuid}
+                            uuid={tab.uuid}
                             config={ [tab] }
                         />
                     )

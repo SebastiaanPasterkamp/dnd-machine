@@ -1,84 +1,16 @@
 import {
-    concat,
-    difference,
-    forEach as forEachCapped,
-    get,
-    includes,
     isEqual,
     isObject,
     isPlainObject,
     keys,
     map,
-    pickBy,
     reduce,
     replace,
-    set,
-    uniq,
 } from 'lodash/fp';
-const forEach = forEachCapped.convert({ cap: false });
 
-import utils from '../../../utils.jsx';
+import utils from '../../../utils';
 
-export function ComputeChange(changes, original) {
-    const filtered = pickBy(
-        (fields, id) => fields !== undefined
-    )(changes);
-
-    const computed = reduce(
-        (computed, {path, value, option}) => {
-            let update = null;
-
-            if (value === undefined) {
-                return computed;
-            }
-
-            if (
-                value === null
-                || includes(option.type,['value', 'select', 'manual'])
-            ) {
-                update = value;
-            } else if (option.type == 'dict') {
-                const {
-                    [path]: current = get(path, original) || {},
-                } = computed;
-                update = {
-                    ...current,
-                    ...value,
-                };
-            } else if (option.type == 'list') {
-                const {
-                    [path]: current = get(path, original) || [],
-                } = computed;
-                update = difference(current, value.removed);
-                update = concat(update, value.added);
-                if (!option.multiple) {
-                    update = uniq(update);
-                }
-            } else if (option.type == 'choice') {
-                // pass
-            } else {
-                throw `Unknown option type: '${option.type} ${option.uuid}'`;
-            }
-
-            computed[path] = update;
-            return computed;
-        },
-        {}
-    )(filtered);
-
-    let character = original;
-    forEach((update, path) => {
-        const current = get(path, original);
-        if (!isEqual(current, update)) {
-            character = {...character}
-            character = set(path, update, {...character});
-        }
-    }, computed);
-
-    return character;
-};
-
-export function ComputeConfig(config, character) {
+export default function ComputeConfig(config, character) {
     if (isPlainObject(config)) {
         let changed = false;
         const newConfig = reduce(
