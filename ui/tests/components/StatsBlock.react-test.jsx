@@ -35,7 +35,7 @@ describe('Component: StatsBlock', () => {
             <StatsBlock
                 {...props}
                 maxBare={15}
-                />
+            />
         ).toJSON();
 
         expect(tree).toMatchSnapshot();
