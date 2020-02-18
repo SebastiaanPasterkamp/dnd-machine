@@ -111,7 +111,7 @@ describe('Component: MonsterLinks', () => {
                 credentials: 'same-origin',
                 method: 'GET',
                 'headers': {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Accept': 'application/json'
                 }
             }
         );

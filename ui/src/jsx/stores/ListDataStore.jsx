@@ -39,7 +39,7 @@ class ListDataStore extends Reflux.Store
         fetch(path, {
             credentials: 'same-origin',
             'headers': {
-                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
             }
         })
         .then((response) => {

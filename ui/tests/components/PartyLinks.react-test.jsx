@@ -174,7 +174,7 @@ describe('Component: PartyLinks', () => {
                 credentials: 'same-origin',
                 method: 'POST',
                 'headers': {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Accept': 'application/json'
                 }
             }
         );
@@ -217,7 +217,7 @@ describe('Component: PartyLinks', () => {
                 credentials: 'same-origin',
                 method: 'POST',
                 'headers': {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Accept': 'application/json'
                 }
             }
         );

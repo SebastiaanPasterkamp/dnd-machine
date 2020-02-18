@@ -23,7 +23,7 @@ ReportingActions.getMessages.listen(debounce(() => {
         credentials: 'same-origin',
         method: 'GET',
         'headers': {
-            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
     })
@@ -43,7 +43,7 @@ ReportingActions.reportError.listen((error, info) => {
         credentials: 'same-origin',
         method: 'POST',
         'headers': {
-            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({error, info})

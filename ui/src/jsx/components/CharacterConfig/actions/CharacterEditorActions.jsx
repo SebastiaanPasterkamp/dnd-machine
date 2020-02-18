@@ -23,7 +23,7 @@ function getCharacter(action, id) {
         credentials: 'same-origin',
         method: 'GET',
         'headers': {
-            'X-Requested-With': 'XMLHttpRequest'
+            'Accept': 'application/json'
         }
     })
     .then(response => response.json())
@@ -57,7 +57,7 @@ const saveCharacter = (
         credentials: 'same-origin',
         method,
         'headers': {
-            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data)
