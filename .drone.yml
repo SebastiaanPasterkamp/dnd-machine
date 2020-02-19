@@ -84,6 +84,13 @@ steps:
           cp "backups/machine.staging.db.latest" \
              "backups/machine.staging.db.$(date '+%Y%m%d')"
 
+  - name: tags
+    image: alpine
+    commands:
+      - apk add git
+      - git fetch --tags
+      - echo 'GIT_TAG='$(git describe --tags) >> .env
+
   - name: build
     image: docker
     volumes:
@@ -92,12 +99,15 @@ steps:
       - name: socket
         path: /var/run/docker.sock
     commands:
+        - . .env
         - |
           docker build \
               --build-arg GIT_BRANCH=${DRONE_BRANCH} \
               --build-arg GIT_COMMIT=${DRONE_COMMIT} \
-              --build-arg GIT_TAG=${DRONE_TAG} \
+              --build-arg GIT_TAG=$${GIT_TAG} \
               -t dnd-machine:staging .
+    depends_on:
+      - tags
 
   - name: restart
     image: appleboy/drone-ssh:linux-arm
@@ -225,6 +235,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 786c0bbb3cf06d4315f92633787c2efd3efe1c5a723785d43158ddaefb73d4ac
+hmac: 862b9926ecfde00b7e70be1e27d0afc82ed4ff5023f46c69421ecfb1a539d4cf
 
 ...
