@@ -144,7 +144,7 @@ def register_paths(app):
         items_group['items'].append({
             'label': 'Languages',
             'icon': 'language',
-            'path': url_for('items.overview', item='languages'),
+            'path': url_for('types.overview', type='languages'),
             })
 
         items_group['items'].append({

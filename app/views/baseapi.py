@@ -151,7 +151,7 @@ class BaseApiBlueprint(Blueprint):
         self.doCallback('api_list.objects', objs, *args, **kwargs)
 
         response = jsonify([
-            self._exposeAttributes(obj, *args, **kwargs)
+            self._exposeAttributes(obj)
             for obj in objs
             ])
         response.add_etag()

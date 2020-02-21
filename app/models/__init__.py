@@ -18,6 +18,7 @@ from .npc import NpcMapper
 from .party import PartyMapper
 from .user import UserMapper
 from .item.armor import ArmorMapper
+from .item.gear import GearMapper
 from .item.weapons import WeaponMapper
 from .item.spell import SpellMapper
 from .items import ItemsObject
@@ -27,23 +28,29 @@ class Datamapper(object):
     """
     _CREATORS = {
         'machine': lambda self: DndMachine(self.app.config['machine'], self),
-        'adventureleague': lambda self: AdventureLeagueLogMapper(self.app.db),
-        'user': lambda self: UserMapper(self.app.db),
-        'party': lambda self: PartyMapper(self.app.db),
+        # base
+        'campaign': lambda self: CampaignMapper(self.app.db),
         'character': lambda self: CharacterMapper(self.app.db, self),
         'encounter': lambda self: EncounterMapper(self.app.db),
         'monster': lambda self: MonsterMapper(self.app.db, self),
         'npc': lambda self: NpcMapper(self.app.db, self),
-        'armor': lambda self: ArmorMapper(self.app.db),
-        'weapon': lambda self: WeaponMapper(self.app.db),
-        'spell': lambda self: SpellMapper(self.app.db),
-        'klass': lambda self: ClassMapper(self.app.db),
+        'party': lambda self: PartyMapper(self.app.db),
+        'user': lambda self: UserMapper(self.app.db),
+        # data
+        'background': lambda self: BackgroundMapper(self.app.db),
+        'class': lambda self: ClassMapper(self.app.db),
         'subclass': lambda self: SubClassMapper(self.app.db),
+        'options': lambda self: OptionsMapper(self.app.db),
         'race': lambda self: RaceMapper(self.app.db),
         'subrace': lambda self: SubRaceMapper(self.app.db),
-        'background': lambda self: BackgroundMapper(self.app.db),
-        'options': lambda self: OptionsMapper(self.app.db),
-        'campaign': lambda self: CampaignMapper(self.app.db),
+        # item
+        'armor': lambda self: ArmorMapper(self.app.db),
+        'gear': lambda self: GearMapper(self.app.db),
+        'weapon': lambda self: WeaponMapper(self.app.db),
+        'spell': lambda self: SpellMapper(self.app.db),
+        # log
+        'adventureleague': lambda self: AdventureLeagueLogMapper(self.app.db),
+        # static
         'items': lambda self: ItemsObject(
             os.path.abspath(
                 os.path.join(
