@@ -17,7 +17,7 @@ import {
 } from '..';
 
 export const Tag = function({
-    label, description, className, color, badges,
+    name, label, description, className, color, badges,
     children, onChange, disabled, onDelete,
 }) {
     const style = utils.makeStyle(
@@ -32,7 +32,7 @@ export const Tag = function({
         <div className={style}>
             <TagLabel>
                  <ToolTip content={description}>
-                    {label}
+                    {label || name}
                 </ToolTip>
             </TagLabel>
             {children}
@@ -67,6 +67,10 @@ export const Tag = function({
 
 Tag.propTypes = {
     label: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
+    name: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
     ]),
