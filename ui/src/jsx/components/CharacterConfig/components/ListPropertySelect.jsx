@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import {
     concat,
     countBy,
-    entries,
     find,
+    findIndex,
     filter,
-    flow,
     forEach,
     includes,
+    isPlainObject,
     map,
+    sumBy,
     uniq,
     without,
 } from 'lodash/fp';
@@ -40,182 +41,156 @@ export class ListPropertySelect extends React.Component
         this.onDelete = this.onDelete.bind(this);
     }
 
-    getId({ id, code, name }) {
-        if (id !== undefined) {
-            return id;
-        }
-        if (code !== undefined) {
-            return code;
-        }
-        return name;
-    }
-
-    getLabel({ label, name }) {
-        if (label !== undefined) {
-            return label;
-        }
-        return name;
-    }
-
     static getDerivedStateFromProps(props, state) {
-        const { added, removed, given, current, add, limit, replace } = props;
+        const { added, removed, given, current, objectlist, add, limit, replace } = props;
+        const cntAdded = objectlist ? sumBy('count', added) : added.length;
+        const cntCurrent = objectlist ? sumBy('count', current) : current.length;
+        const cntRemoved = objectlist ? sumBy('count', removed) : removed.length;
 
-        const showSelect = Boolean(
-            (added.length - removed.length) < add
-            || current.length < limit
-        );
-        const disabled = removed.length >= replace;
+        const showSelect = (cntAdded - cntRemoved) < add || cntCurrent < limit;
+        const disabled = cntRemoved >= replace;
 
-        if (showSelect !== state.showSelect
-            || disabled !== state.disabled
-        ) {
+        if (showSelect !== state.showSelect || disabled !== state.disabled) {
             return { showSelect, disabled };
         }
         return null;
     }
 
-    onDelete(id) {
-        return this.memoize(
-            `delete-${id}`,
-            () => {
-                const {
-                    added, removed,
-                    replace, multiple, setState,
-                } = this.props;
+    increase(item, set) {
+        const { multiple, objectlist } = this.props;
+        const { type, id } = item;
 
-                const state = { added, removed };
-                if (includes(id, added)) {
-                    state.added = without(added, id);
-                } else if (removed.length < replace) {
-                    state.removed = [...removed, id];
-                    if (!multiple) {
-                        state.removed = uniq(state.removed);
-                    }
-                }
-
-                setState(state);
+        if (!objectlist) {
+            if (multiple) {
+                return [...set, id];
             }
-        );
+            return uniq([...set, id]);
+        }
+
+        const idx = findIndex({ type, id }, set);
+        if (idx >= 0) {
+            return [
+                ...set.slice(0, idx),
+                {...set[idx], ...item, count: multiple ? set[idx].count + 1 : 1},
+                ...set.slice(idx + 1),
+            ];
+        }
+
+        return [...set, {...item, count: 1}];
+    }
+
+    decrease(item, set) {
+        const { multiple, objectlist } = this.props;
+        const { type, id } = item;
+
+        if (!objectlist) {
+            const idx = findIndex(id, set);
+            if (multiple && idx >= 0) {
+                return [
+                    ...set.slice(0, idx),
+                    ...set.slice(idx + 1),
+                ];
+            }
+
+            return without([id], set);
+        }
+
+        const idx = findIndex({ type, id }, set);
+        if (multiple && set[idx].count > 1) {
+            return [
+                ...set.slice(0, idx),
+                {...set[idx], ...item, count: set[idx].count - 1},
+                ...set.slice(idx + 1),
+            ];
+        }
+
+        return [
+            ...set.slice(0, idx),
+            ...set.slice(idx + 1),
+        ];
+    }
+
+    onDelete(item) {
+        const { objectlist } = this.props;
+        const { type, id } = item;
+        const key = objectlist ? `delete-${type}-${id}` : `delete-${id}`;
+        const needle = objectlist ? { type, id } : i => i === id;
+
+        return this.memoize(key, () => {
+            const { added, removed, replace, setState } = this.props;
+            const cntRemoved = objectlist ? sumBy('count', removed) : removed.length;
+
+            const state = { added, removed };
+            if (find(needle, added)) {
+                state.added = this.decrease(item, added);
+            } else if (cntRemoved < replace) {
+                state.removed = this.increase(item, removed);
+            }
+
+            setState(state);
+        });
     }
 
     onAdd(id) {
-        const {
-            added, removed, current,
-            add, limit, multiple, setState,
-        } = this.props;
-
-        if (limit) {
-            if (current.length >= limit) {
-                return false;
-            }
-        } else if (added.length >= (add + removed.length)) {
-            return false;
-        }
+        const { added, removed, objectlist, setState } = this.props;
+        const item = { id };
+        const needle = objectlist ? item : i => i === id;
 
         const state = { added, removed };
-        if (includes(id, removed)) {
-            state.removed = without(removed, id);
+        if (find(needle, removed)) {
+            state.removed = this.decrease(item, removed);
         } else {
-            state.added = [...added, id];
-            if (!multiple) {
-                state.added = uniq(state.added);
-            }
+            state.added = this.increase(item, added);
         }
 
         setState(state);
     }
 
-    findItem(id) {
-        const { items } = this.props;
-        if (!items.length) {
-            return {
-                id,
-                label: id,
-            };
-        }
-        const item = find({ id: id }, items)
-                    || find({ code: id }, items)
-                    || find({ name: id } , items);
-
-        if (!item) {
-            return undefined;
-        }
-
-        return ({
-            id: this.getId({id, ...item}),
-            label: this.getLabel(item),
-            description: item.description,
-        });
-    }
-
     getValue() {
-        const { added, removed, current, given, replace } = this.props;
+        const {
+            added, removed, items, objectlist, current, given, replace
+        } = this.props;
         const { disabled } = this.state;
 
-        const tags = filter(null, concat(
-            map(
-                id => ({
-                    ...this.findItem(id),
-                    color: 'info',
-                })
-            )(added),
-            map(
-                id => ({
-                    ...this.findItem(id),
-                    color: 'good',
-                    disabled: true,
-                })
-            )(given)
-        ));
+        return map(
+            (item) => {
+                const { type, id } = objectlist ? item : { id: item };
+                const needle = objectlist ? { type, id } : i => i === item;
 
-        let upgrade = countBy('id', tags);
-        let downgrade = countBy('id', removed);
-        forEach(
-            (count, id) => {
-                upgrade[id] = (upgrade[id] || 0) - count;
+                const isAdded = find(needle, added) !== undefined;
+                const isGiven = find(needle, given) !== undefined;
+                const isRemoved = find(needle, removed) !== undefined;
+
+                const retval = objectlist ? item : (
+                    items.length
+                        ? find({ type, id }, items)
+                          || find({ id }, items)
+                          || find({ type, code: id }, items)
+                          || find({ code: id }, items)
+                          || { id, type, name: id, count: 1 }
+                        : { id, name: id, count: 1 }
+                );
+
+                return {
+                    ...retval,
+                    id: retval.id || retval.code,
+                    color: isAdded ? 'info' : (
+                        isRemoved ? 'bad' : (
+                            isGiven ? 'good' : (
+                                disabled && !isAdded ? null : 'warning'
+                            )
+                        )
+                    ),
+                    disabled: (disabled || isGiven) && !isAdded,
+                };
             }
-        )(downgrade);
-
-        return concat(
-            tags,
-            filter(null, map(
-                id => {
-                    if (includes(id, given)) {
-                        return null;
-                    }
-                    if (includes(id, removed)) {
-                        return null;
-                    }
-                    if ((upgrade[id] || 0) > 0) {
-                        upgrade[id] -= 1;
-                        return null;
-                    }
-                    const _current = this.findItem(id);
-                    if (!_current) {
-                        return null;
-                    }
-                    return ({
-                        ..._current,
-                        color: disabled ? null : 'warning',
-                        disabled,
-                    });
-                }
-            )(current))
-        );
+        )(current);
     }
 
     renderSelect() {
         const {
-            multiple,
+            multiple, items, current, removed,
             filter: filters,
-            items,
-            current,
-            added,
-            removed,
-            given,
-            limit,
-            add,
-            replace,
         } = this.props;
         const { showSelect } = this.state;
 
@@ -227,18 +202,16 @@ export class ListPropertySelect extends React.Component
 
         const filtered = filter(
             item => (
-                multiple
-                || includes( this.getId(item), removed )
-                || !includes( this.getId(item), current )
-            ),
-            filter(
-                item => (
-                    includes( this.getId(item), removed )
-                    || MatchesFilters(item, filters)
-                ),
-                items
+                find({ type: item.type, id: item.id }, removed )
+                || (
+                    MatchesFilters(item, filters)
+                    && (
+                        multiple
+                        || !find({ type: item.type, id: item.id }, current )
+                    )
+                )
             )
-        );
+        )(items);
 
         if (!filtered.length) return null;
 
@@ -262,39 +235,95 @@ export class ListPropertySelect extends React.Component
             <BaseTagContainer>
                 {this.renderSelect()}
 
-                {flow(entries, map(([i, tag]) => (
-                    <Tag
-                        key={`tag-${i}`}
-                        onDelete={this.onDelete(tag.id)}
-                        {...tag}
-                    />
-                )))(this.getValue())}
+                {map(
+                    tag => (
+                        <Tag
+                            key={`tag-${tag.type}-${tag.id}`}
+                            onDelete={this.onDelete(tag)}
+                            {...tag}
+                        >
+                            {tag.count > 1 ? (
+                                <TagBadge>
+                                    &cross; {tag.count}
+                                </TagBadge>
+                            ) : null}
+                        </Tag>
+                    )
+                )(this.getValue())}
             </BaseTagContainer>
         );
     }
+};
 
+const itemType = {
+    id: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    label: PropTypes.string,
+    description: PropTypes.string,
 };
 
 ListPropertySelect.propTypes = {
     type: PropTypes.oneOf(['list']).isRequired,
     uuid: PropTypes.string.isRequired,
     setState: PropTypes.func.isRequired,
-    items: PropTypes.arrayOf(PropTypes.object),
-    given: PropTypes.arrayOf(
-        PropTypes.oneOfType([
+    items: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        code: PropTypes.oneOfType([
             PropTypes.string,
-            PropTypes.number
-        ])
-    ),
-    current: PropTypes.array,
+            PropTypes.number,
+        ]),
+        name: PropTypes.string,
+        label: PropTypes.string,
+        description: PropTypes.string,
+    })),
+    given: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.shape({
+            ...itemType,
+            count: PropTypes.number.isRequired,
+        })),
+        PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+        ])),
+    ]),
+    current: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.shape({
+            ...itemType,
+            count: PropTypes.number.isRequired,
+        })),
+        PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+        ])),
+    ]),
     limit: PropTypes.number,
-    added: PropTypes.array,
-    removed: PropTypes.array,
+    added: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.shape({
+            ...itemType,
+            count: PropTypes.number.isRequired,
+        })),
+        PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+        ])),
+    ]),
+    removed: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.shape({
+            ...itemType,
+            count: PropTypes.number.isRequired,
+        })),
+        PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+        ])),
+    ]),
     add: PropTypes.number,
     replace: PropTypes.number,
     filter: PropTypes.object,
     multiple: PropTypes.bool,
     hidden: PropTypes.bool,
+    objectlist: PropTypes.bool,
 };
 
 ListPropertySelect.defaultProps = {
@@ -308,6 +337,8 @@ ListPropertySelect.defaultProps = {
     multiple: false,
     filter: {},
     items: [],
+    hidden: false,
+    objectlist: false,
 };
 
 export default ListsToItemsWrapper(

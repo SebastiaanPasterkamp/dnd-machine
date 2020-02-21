@@ -11,7 +11,9 @@ const props = {
     path: 'some.path',
     list: ['statistics'],
     items: statistics,
-    current: ['dexterity'],
+    current: [
+        'dexterity'
+    ],
 }
 
 describe('Component: ListPropertySelect', () => {
@@ -80,6 +82,11 @@ describe('Component: ListPropertySelect', () => {
             <ListPropertySelect
                 setState={setState}
                 {...props}
+                current={[
+                    'constitution',
+                    'charisma',
+                    ...props.current,
+                ]}
                 given={[
                     'constitution',
                     'charisma',
@@ -108,6 +115,10 @@ describe('Component: ListPropertySelect', () => {
             <ListPropertySelect
                 setState={setState}
                 {...props}
+                current={[
+                    'foo',
+                    ...props.current,
+                ]}
                 given={[
                     'foo',
                 ]}
@@ -123,6 +134,10 @@ describe('Component: ListPropertySelect', () => {
             <ListPropertySelect
                 setState={setState}
                 {...props}
+                current={[
+                    'charisma',
+                    ...props.current,
+                ]}
                 given={[
                     'charisma',
                 ]}
@@ -155,6 +170,10 @@ describe('Component: ListPropertySelect', () => {
             <ListPropertySelect
                 setState={setState}
                 {...props}
+                current={[
+                    'charisma',
+                    ...props.current,
+                ]}
                 given={[
                     'charisma',
                 ]}
@@ -171,9 +190,15 @@ describe('Component: ListPropertySelect', () => {
         });
         wrapper.setProps({
             added: ["strength"],
+            removed: [],
+            current: [
+                'charisma',
+                'strength',
+                ...props.current,
+            ]
         });
 
-        wrapper.find('.nice-tag-btn').at(0).simulate('click');
+        wrapper.find('.fa-trash-o').at(0).simulate('click');
 
         expect(setState).toBeCalledWith({
             added: [],

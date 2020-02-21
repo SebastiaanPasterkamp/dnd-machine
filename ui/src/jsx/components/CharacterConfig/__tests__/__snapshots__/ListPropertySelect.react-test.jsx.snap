@@ -17,6 +17,7 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
     }
   }
   given={Array []}
+  hidden={false}
   items={
     Array [
       Object {
@@ -58,6 +59,7 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
     ]
   }
   multiple={false}
+  objectlist={false}
   path="some.path"
   removed={Array []}
   replace={0}
@@ -72,11 +74,12 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
       <Tag
         badges={Array []}
         className={null}
+        code="dexterity"
         color={null}
         description="Dex"
         disabled={true}
         id="dexterity"
-        key="tag-0"
+        key="tag-undefined-dexterity"
         label="Dexterity"
         onChange={null}
         onDelete={[Function]}
@@ -132,6 +135,7 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
   }
   filter={Object {}}
   given={Array []}
+  hidden={false}
   items={Array []}
   limit={0}
   list={
@@ -140,6 +144,7 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
     ]
   }
   multiple={false}
+  objectlist={false}
   path="some.path"
   removed={Array []}
   replace={0}
@@ -155,11 +160,13 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
         badges={Array []}
         className={null}
         color={null}
+        count={1}
         description={null}
         disabled={true}
         id="dexterity"
-        key="tag-0"
-        label="dexterity"
+        key="tag-undefined-dexterity"
+        label={null}
+        name="dexterity"
         onChange={null}
         onDelete={[Function]}
       >
@@ -237,6 +244,7 @@ exports[`Component: ListPropertySelect should not render when hidden 1`] = `
     ]
   }
   multiple={false}
+  objectlist={false}
   path="some.path"
   removed={Array []}
   replace={0}
@@ -252,6 +260,8 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
   added={Array []}
   current={
     Array [
+      "constitution",
+      "charisma",
       "dexterity",
     ]
   }
@@ -271,6 +281,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       "charisma",
     ]
   }
+  hidden={false}
   items={
     Array [
       Object {
@@ -312,6 +323,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
     ]
   }
   multiple={true}
+  objectlist={false}
   path="some.path"
   removed={Array []}
   replace={1}
@@ -467,11 +479,12 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       <Tag
         badges={Array []}
         className={null}
+        code="constitution"
         color="good"
         description="Con"
         disabled={true}
         id="constitution"
-        key="tag-0"
+        key="tag-undefined-constitution"
         label="Constitution"
         onChange={null}
         onDelete={[Function]}
@@ -514,11 +527,12 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       <Tag
         badges={Array []}
         className={null}
+        code="charisma"
         color="good"
         description="Char"
         disabled={true}
         id="charisma"
-        key="tag-1"
+        key="tag-undefined-charisma"
         label="Charisma"
         onChange={null}
         onDelete={[Function]}
@@ -561,11 +575,12 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       <Tag
         badges={Array []}
         className={null}
+        code="dexterity"
         color="warning"
         description="Dex"
         disabled={false}
         id="dexterity"
-        key="tag-2"
+        key="tag-undefined-dexterity"
         label="Dexterity"
         onChange={null}
         onDelete={[Function]}
@@ -631,9 +646,11 @@ exports[`Component: ListPropertySelect should render with minimum props 1`] = `
   current={Array []}
   filter={Object {}}
   given={Array []}
+  hidden={false}
   items={Array []}
   limit={0}
   multiple={false}
+  objectlist={false}
   removed={Array []}
   replace={0}
   setState={[Function]}
@@ -654,6 +671,7 @@ exports[`Component: ListPropertySelect should stil show unknown current values 1
   added={Array []}
   current={
     Array [
+      "foo",
       "dexterity",
     ]
   }
@@ -663,6 +681,7 @@ exports[`Component: ListPropertySelect should stil show unknown current values 1
       "foo",
     ]
   }
+  hidden={false}
   items={
     Array [
       Object {
@@ -704,6 +723,7 @@ exports[`Component: ListPropertySelect should stil show unknown current values 1
     ]
   }
   multiple={false}
+  objectlist={false}
   path="some.path"
   removed={Array []}
   replace={0}
@@ -719,10 +739,13 @@ exports[`Component: ListPropertySelect should stil show unknown current values 1
         badges={Array []}
         className={null}
         color="good"
+        count={1}
         description={null}
         disabled={true}
-        key="tag-0"
+        id="foo"
+        key="tag-undefined-foo"
         label={null}
+        name="foo"
         onChange={null}
         onDelete={[Function]}
       >
@@ -735,7 +758,9 @@ exports[`Component: ListPropertySelect should stil show unknown current values 1
             >
               <ToolTip
                 content={null}
-              />
+              >
+                foo
+              </ToolTip>
             </span>
           </TagLabel>
         </div>
@@ -743,11 +768,12 @@ exports[`Component: ListPropertySelect should stil show unknown current values 1
       <Tag
         badges={Array []}
         className={null}
+        code="dexterity"
         color={null}
         description="Dex"
         disabled={true}
         id="dexterity"
-        key="tag-1"
+        key="tag-undefined-dexterity"
         label="Dexterity"
         onChange={null}
         onDelete={[Function]}
