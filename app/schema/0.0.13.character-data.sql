@@ -312,6 +312,7 @@ INSERT INTO `class` (id, name, config)
                             ],
                             "multiple": true,
                             "path": "equipment",
+                            "objectlist": true,
                             "type": "list",
                             "uuid": "2eca488b-8963-4187-9d80-ddda66cbb007"
                         },
@@ -325,6 +326,7 @@ INSERT INTO `class` (id, name, config)
                             ],
                             "multiple": true,
                             "path": "equipment",
+                            "objectlist": true,
                             "type": "list",
                             "uuid": "96c5c2f4-f7d1-45a1-b881-18f52c1cce0b"
                         }
@@ -346,6 +348,7 @@ INSERT INTO `class` (id, name, config)
                             ],
                             "multiple": true,
                             "path": "equipment",
+                            "objectlist": true,
                             "type": "list",
                             "uuid": "2c51e24f-8196-4099-a43a-da7d13b939de"
                         },
@@ -359,6 +362,7 @@ INSERT INTO `class` (id, name, config)
                             ],
                             "multiple": true,
                             "path": "equipment",
+                            "objectlist": true,
                             "type": "list",
                             "uuid": "b94e91c4-033a-40a3-a2ff-3bf6297bc321"
                         },
@@ -373,6 +377,7 @@ INSERT INTO `class` (id, name, config)
                             ],
                             "multiple": true,
                             "path": "equipment",
+                            "objectlist": true,
                             "type": "list",
                             "uuid": "44951c86-11a4-4406-879b-8fa57cf3cec9"
                         }
@@ -396,6 +401,7 @@ INSERT INTO `class` (id, name, config)
                             ],
                             "multiple": true,
                             "path": "equipment",
+                            "objectlist": true,
                             "type": "list",
                             "uuid": "a5c1569a-06d2-4ffd-b1c3-13e3a3490c2a"
                         },
@@ -414,6 +420,7 @@ INSERT INTO `class` (id, name, config)
                             ],
                             "multiple": true,
                             "path": "equipment",
+                            "objectlist": true,
                             "type": "list",
                             "uuid": "bce727d4-dc4e-4d4c-a44f-1e3b1826686a"
                         }
@@ -446,6 +453,7 @@ INSERT INTO `class` (id, name, config)
                     ],
                     "multiple": true,
                     "path": "equipment",
+                    "objectlist": true,
                     "type": "list",
                     "uuid": "ee4982eb-95a0-4eaf-834e-45a7ae8841e2"
                 }
@@ -473,6 +481,7 @@ INSERT INTO `class` (id, name, config)
                         "spell"
                     ],
                     "path": "spell.cantrips",
+                    "objectlist": true,
                     "type": "list",
                     "uuid": "94b03378-f4b9-47a0-9d7c-5b8f0d9d60a6"
                 },
@@ -612,6 +621,7 @@ INSERT INTO `options` (id, name, config)
             "list": [],
             "multiple": true,
             "path": "equipment",
+            "objectlist": true,
             "type": "list",
             "uuid": "5e96d2c9-0bbf-4b3f-b5b6-140785f8c535"
         },
@@ -632,6 +642,7 @@ INSERT INTO `options` (id, name, config)
             "label": "Diplomat\u2019s Pack",
             "multiple": true,
             "path": "equipment",
+            "objectlist": true,
             "type": "list",
             "uuid": "1f788e04-7367-4fde-917f-b1040d363ae2"
         },
@@ -651,6 +662,7 @@ INSERT INTO `options` (id, name, config)
             "label": "Dungeoneer\u2019s Pack",
             "multiple": true,
             "path": "equipment",
+            "objectlist": true,
             "type": "list",
             "uuid": "9866ea12-0bb0-4257-9455-e532ba3f5764"
         },
@@ -667,6 +679,7 @@ INSERT INTO `options` (id, name, config)
             "label": "Entertainer\u2019s Pack",
             "multiple": true,
             "path": "equipment",
+            "objectlist": true,
             "type": "list",
             "uuid": "fac0ec52-a25f-4aec-b6fc-6f0e00166e0a"
         },
@@ -685,6 +698,7 @@ INSERT INTO `options` (id, name, config)
             "label": "Explorer\u2019s Pack",
             "multiple": true,
             "path": "equipment",
+            "objectlist": true,
             "type": "list",
             "uuid": "28d04479-11f4-4b23-aad7-ee92ec818ddd"
         },
@@ -705,6 +719,7 @@ INSERT INTO `options` (id, name, config)
             "label": "Priest\u2019s Pack",
             "multiple": true,
             "path": "equipment",
+            "objectlist": true,
             "type": "list",
             "uuid": "2b9d026d-d989-46e7-8434-b3dbd6a1f4c7"
         },
@@ -722,6 +737,7 @@ INSERT INTO `options` (id, name, config)
             "label": "Scholar\u2019s Pack",
             "multiple": true,
             "path": "equipment",
+            "objectlist": true,
             "type": "list",
             "uuid": "2199848e-b3e3-40c8-9f8a-af3fdac5911c"
         }
