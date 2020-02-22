@@ -619,10 +619,10 @@ class CharacterObject(JsonObject):
                 ]
             levelGold = 0
             for curLevel in range(old_level + 1, self.level + 1):
-                _, gold = filter(
+                _, gold = list(filter(
                     lambda minLevel__: minLevel__[0] <= curLevel,
                     levelGoldTiers
-                    )[-1]
+                    ))[-1]
                 levelGold += gold
                 self.wealthGp += gold
             if levelGold:
