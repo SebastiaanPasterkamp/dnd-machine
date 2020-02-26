@@ -21,6 +21,7 @@ from .item.armor import ArmorMapper
 from .item.gear import GearMapper
 from .item.weapons import WeaponMapper
 from .item.spell import SpellMapper
+from .item.types import TypesMapper
 from .items import ItemsObject
 
 class Datamapper(object):
@@ -48,6 +49,7 @@ class Datamapper(object):
         'gear': lambda self: GearMapper(self.app.db),
         'weapon': lambda self: WeaponMapper(self.app.db),
         'spell': lambda self: SpellMapper(self.app.db),
+        'types': lambda self: TypesMapper(self.app.db),
         # log
         'adventureleague': lambda self: AdventureLeagueLogMapper(self.app.db),
         # static
