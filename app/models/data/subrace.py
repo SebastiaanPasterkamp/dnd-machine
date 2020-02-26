@@ -16,4 +16,4 @@ class SubRaceMapper(JsonObjectDataMapper):
     obj = SubRaceObject
     table = "subrace"
     fields = ["name"]
-    order = 'name'
+    order = ["name"]

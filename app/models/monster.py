@@ -152,12 +152,12 @@ class MonsterObject(JsonObject):
 
     def compute(self):
         machine = self.mapper.machine
-        itemMapper = self.mapper.items
+        typesMapper = self.mapper.types
 
         self.version = self._version
 
-        for stat in itemMapper.statistics:
-            stat = stat["code"]
+        for stat in typesMapper.statistics:
+            stat = stat.id
             self.statisticsBase[stat] = self.statisticsBare[stat]
             self.statisticsModifiers[stat] = floor(
                 (self.statisticsBase[stat] - 10.0) / 2.0
@@ -267,7 +267,7 @@ class MonsterMapper(JsonObjectDataMapper):
         'name', 'campaign_id',
         'challenge_rating', 'xp_rating', 'xp',
         ]
-    order = 'name'
+    order = ["name"]
 
     def __init__(self, db, mapper, config={}):
         self.mapper = mapper

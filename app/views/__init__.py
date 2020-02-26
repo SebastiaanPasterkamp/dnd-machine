@@ -2,7 +2,7 @@
 import os
 import re
 import tempfile
-from subprocess import Popen, PIPE
+from subprocess import check_output
 from io import BytesIO
 
 def fill_pdf(pdf_file, text, html={}, xfdf_file=None, debug=False):
@@ -15,11 +15,7 @@ def fill_pdf(pdf_file, text, html={}, xfdf_file=None, debug=False):
         "dont_ask"
     ]
 
-    p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-    if p.wait() != 0:
-        raise IOError(p.stderr)
-    fdf_template = p.stdout.read()
-
+    fdf_template = check_output(args, timeout=30)
 
     def generateField(key, txt, rtf):
         if rtf is None or len(rtf) == 0:
@@ -99,12 +95,6 @@ def fill_pdf(pdf_file, text, html={}, xfdf_file=None, debug=False):
         "allow", "AllFeatures",
     ]
 
-    p = Popen(args, stdin=None, stdout=PIPE, stderr=PIPE)
-    stdout, stderr = p.communicate()
-
+    pdf = check_output(args, timeout=30)
     os.remove(xfdf_file)
-
-    if stderr.strip():
-        raise IOError(stderr)
-
-    return BytesIO(stdout)
+    return BytesIO(pdf)

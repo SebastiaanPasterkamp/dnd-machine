@@ -16,4 +16,4 @@ class RaceMapper(JsonObjectDataMapper):
     obj = RaceObject
     table = "race"
     fields = ["name"]
-    order = 'name'
+    order = ["name"]

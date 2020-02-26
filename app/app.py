@@ -11,21 +11,16 @@ from errors import ApiException
 from models import Datamapper
 from models.base import JsonObjectDataMapper
 from db import Database
-from config import get_item_data
 import filters
-
-compress = Compress()
-datamapper = Datamapper()
-db = Database()
 
 def create_app(config={}):
     app = Flask(__name__)
 
     app.config.update(config)
     app.config.from_envvar('FLASKR_SETTINGS', silent=True)
-    compress.init_app(app)
-    db.init_app(app)
-    datamapper.init_app(app)
+    Compress().init_app(app)
+    Database().init_app(app)
+    Datamapper().init_app(app)
 
     register_converters(app)
     register_blueprints(app)
@@ -349,10 +344,8 @@ def register_request_hooks(app):
 
     @app.context_processor
     def inject_metadata():
-        items = get_item_data()
         return dict(
             info=app.config.get('info', {}),
-            items=items,
             now=datetime.datetime.utcnow,
             )
 

@@ -53,11 +53,3 @@ def get_npc_data():
     with open(os.path.join('app', 'npc-data.json')) as cfg:
         data['npc-data'] = json.load(cfg)
     return data['npc-data']
-
-def get_item_data():
-    global data
-    if 'item-data' in data:
-        return data['item-data']
-    with open(os.path.join('app', 'item-data.json')) as cfg:
-        data['item-data'] = json.load(cfg)
-    return data['item-data']

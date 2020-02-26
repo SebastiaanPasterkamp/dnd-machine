@@ -16,4 +16,4 @@ class ClassMapper(JsonObjectDataMapper):
     obj = ClassObject
     table = "class"
     fields = ["name"]
-    order = 'name'
+    order = ["name"]

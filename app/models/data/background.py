@@ -16,4 +16,4 @@ class BackgroundMapper(JsonObjectDataMapper):
     obj = BackgroundObject
     table = "background"
     fields = ["name"]
-    order = 'name'
+    order = ["name"]

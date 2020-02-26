@@ -268,14 +268,14 @@ class NpcObject(JsonObject):
 
     def compute(self):
         machine = self.mapper.machine
-        itemMapper = self.mapper.items
+        typesMapper = self.mapper.types
 
         self.version = self._version
 
         self.statisticsBase = {}
         self.statisticsModifiers = {}
-        for stat in itemMapper.statistics:
-            stat = stat["code"]
+        for stat in typesMapper.statistics:
+            stat = stat.id
             self.statisticsBase[stat] = self.statisticsBare[stat] \
                 + sum(self.statisticsBonus[stat])
             self.statisticsModifiers[stat] = floor(
@@ -342,7 +342,7 @@ class NpcMapper(JsonObjectDataMapper):
     obj = NpcObject
     table = "npc"
     fields = ["name", "campaign_id", "location", "organization"]
-    order = 'name'
+    order = ["name"]
 
     def __init__(self, db, mapper, config={}):
         self.mapper = mapper

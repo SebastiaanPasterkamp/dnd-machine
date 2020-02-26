@@ -118,7 +118,7 @@ class CharacterObject(JsonObject):
             "pp": 0
             },
         "features": {
-            "proficiencies": [ 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6 ],
+            "proficiency": [ 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6 ],
         },
         "level_up": {
             "creation": [],
@@ -372,7 +372,7 @@ class CharacterObject(JsonObject):
 
     def compute(self):
         machine = self.mapper.machine
-        itemMapper = self.mapper.items
+        typesMapper = self.mapper.types
 
         self.version = self._version
 
@@ -389,8 +389,8 @@ class CharacterObject(JsonObject):
         self.statisticsBase = {}
         self.statisticsModifiers = {}
 
-        for stat in itemMapper.statistics:
-            stat = stat["code"]
+        for stat in typesMapper.statistics:
+            stat = stat.id
             self.statisticsBase[stat] = self.statisticsBare[stat] \
                 + sum(self.statisticsBonus.get(stat, []))
             self.statisticsModifiers[stat] = floor(
@@ -407,8 +407,8 @@ class CharacterObject(JsonObject):
 
         self.initiative_bonus = self.statisticsModifiersDexterity
 
-        for skill in itemMapper.skills:
-            stat, skill = skill["stat"], skill["code"]
+        for skill in typesMapper.skills:
+            stat, skill = skill.stat, skill.id
             self.skills[skill] = self.statisticsModifiers[stat]
             if skill in self.proficienciesExpertise:
                 self.skills[skill] += self.proficiency * 2
@@ -434,6 +434,9 @@ class CharacterObject(JsonObject):
 
         self.update(
             machine.identifyEquipment(self.equipment)
+            )
+        self.update(
+            machine.identifyProficiencies(self.proficiencies)
             )
 
         for weapon in self.weapons:
@@ -680,7 +683,7 @@ class CharacterMapper(JsonObjectDataMapper):
     obj = CharacterObject
     table = "character"
     fields = ["name", "user_id", "level"]
-    order = 'name'
+    order = ["name"]
 
     def __init__(self, db, mapper, config={}):
         self.mapper = mapper

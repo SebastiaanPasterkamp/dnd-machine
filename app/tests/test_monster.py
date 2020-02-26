@@ -7,22 +7,30 @@ sys.path.append(os.path.abspath(os.path.join(
     )))
 
 from models.dndmachine import DndMachine
-from models.items import ItemsObject
+from models.item.types import TypesMapper
 from models.monster import MonsterObject
-from config import get_config, get_item_data
+from app import _initdb
+from config import get_config
+from db import Database
 
 class TestMonsterObject(unittest.TestCase):
 
     def setUp(self):
-        config = get_config()
-        self.machine = DndMachine(config['machine'], self)
-        self.items = ItemsObject(
-            os.path.abspath(os.path.join(
-                os.path.dirname(__file__),
-                '..',
-                'item-data.json'
-                ))
-            )
+        self.config = get_config()
+        self.config.update({
+            'DATABASE': 'file:memory.db?mode=memory&cache=shared',
+            'MAX_CONNECTIONS': 2,
+            'SERVER_NAME': 'localhost.localdomain:5000',
+            'TESTING': True,
+            'DEBUG': True,
+            })
+
+        Database().init_app(self)
+        with self.db.connect() as db:
+            _initdb(db)
+
+        self.machine = DndMachine(self.config['machine'], self)
+        self.types = TypesMapper(self.db)
 
     def tearDown(self):
         pass

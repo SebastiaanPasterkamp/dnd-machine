@@ -41,7 +41,7 @@ class WeaponMapper(JsonObjectDataMapper):
     obj = WeaponObject
     table = "item"
     fields = ["type", "name"]
-    order = 'name'
+    order = ["name"]
 
     def getMultiple(self, where="1", values={}):
         where = "(%s) AND `type` IN ('simple melee', 'simple ranged', 'martial melee', 'martial ranged')" % where

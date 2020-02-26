@@ -22,7 +22,6 @@ from .item.gear import GearMapper
 from .item.weapons import WeaponMapper
 from .item.spell import SpellMapper
 from .item.types import TypesMapper
-from .items import ItemsObject
 
 class Datamapper(object):
     """Contains instances for each type.
@@ -52,16 +51,6 @@ class Datamapper(object):
         'types': lambda self: TypesMapper(self.app.db),
         # log
         'adventureleague': lambda self: AdventureLeagueLogMapper(self.app.db),
-        # static
-        'items': lambda self: ItemsObject(
-            os.path.abspath(
-                os.path.join(
-                    os.path.dirname(__file__),
-                    '..',
-                    'item-data.json'
-                    )
-                )
-            ),
         }
 
     def init_app(self, app):

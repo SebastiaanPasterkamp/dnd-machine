@@ -56,8 +56,8 @@ class CharacterBlueprint(BaseApiBlueprint):
         return self.basemapper.weapon
 
     @property
-    def itemmapper(self):
-        return self.basemapper.items
+    def typesmapper(self):
+        return self.basemapper.types
 
     @property
     def usermapper(self):
@@ -129,7 +129,7 @@ class CharacterBlueprint(BaseApiBlueprint):
         return self.get_character_data('race')
 
     def get_classes(self):
-        return self.get_character_data('klass')
+        return self.get_character_data('class')
 
     def get_backgrounds(self):
         return self.get_character_data('background')
@@ -243,7 +243,7 @@ class CharacterBlueprint(BaseApiBlueprint):
             )
 
         user = self.usermapper.getById(obj.user_id)
-        items = self.itemmapper
+        types = self.typesmapper
         machine = self.basemapper.machine
 
         def filter_damage(damage):
@@ -274,11 +274,11 @@ class CharacterBlueprint(BaseApiBlueprint):
             "ClassLevel": "%s %d" % (obj.Class, obj.level),
             "Speed": obj.speed,
             "Background": obj.background,
-            "Alignment": items.itemByNameOrCode(
+            "Alignment": types.itemByNameOrId(
                 obj.alignment,
                 'alignments',
-                {'label': obj.alignment}
-                )['label'],
+                {'name': obj.alignment}
+                )['name'],
             "ProBonus": filter_bonus(obj.proficiency),
             "Initiative": filter_bonus(obj.initiative_bonus),
             "Passive": filter_bonus(obj.passive_perception),
@@ -342,20 +342,20 @@ class CharacterBlueprint(BaseApiBlueprint):
                 for i, spell in enumerate(spells):
                     fdf_txt[ "Spells %s" % fdf_spell_list[i] ] = spell['name']
 
-        for stat in items.statistics:
-            stat_prefix = stat['code'][:3].upper()
-            fdf_txt[stat_prefix] = obj.statisticsBase[stat['code']]
-            fdf_txt[stat_prefix + 'mod'] = filter_bonus(obj.statisticsModifiers[stat['code']])
-            fdf_txt['SavingThrow ' + stat['label']] = filter_bonus(obj.saving_throws[stat['code']])
-            if stat['code'] in obj.proficienciesAdvantages:
-                fdf_txt['SavingThrow ' + stat['label']] += 'A'
-            if stat['code'] in obj.proficienciesSaving_throws:
-                fdf_txt['ST ' + stat['label']] = True
+        for stat in types.statistics:
+            stat_prefix = stat.id[:3].upper()
+            fdf_txt[stat_prefix] = obj.statisticsBase[stat.id]
+            fdf_txt[stat_prefix + 'mod'] = filter_bonus(obj.statisticsModifiers[stat.id])
+            fdf_txt['SavingThrow ' + stat.name] = filter_bonus(obj.saving_throws[stat.id])
+            if stat.id in obj.proficienciesAdvantages:
+                fdf_txt['SavingThrow ' + stat.name] += 'A'
+            if stat.id in obj.proficienciesSaving_throws:
+                fdf_txt['ST ' + stat.name] = True
 
-        for skill in items.skills:
-            fdf_txt[skill['label']] = filter_bonus(obj.skills[skill['code']])
-            if skill['code'] in obj.proficienciesSkills:
-                fdf_txt['ChBx ' + skill['label']] = True
+        for skill in types.skills:
+            fdf_txt[skill.name] = filter_bonus(obj.skills[skill.id])
+            if skill.id in obj.proficienciesSkills:
+                fdf_txt['ChBx ' + skill.name] = True
 
         i = 0
         for count, weapon in filter_unique(obj.weapons):
@@ -378,49 +378,26 @@ class CharacterBlueprint(BaseApiBlueprint):
         if obj.languages:
             proficiencies["Languages"] = []
             for prof in obj.languages:
-                lang = items.itemByNameOrCode(prof, 'languages')
+                lang = types.itemByNameOrId(prof, 'languages')
                 proficiencies["Languages"].append(
-                    lang['label'] if lang else prof
+                    lang.name if lang else prof
                     )
 
         if obj.proficienciesArmor:
             proficiencies["Armor"] = []
             for prof in obj.proficienciesArmor:
-                label = prof
-                armor = items.itemByNameOrCode(prof, 'armor_types')
-                if armor is not None:
-                    label = armor['label']
-                else:
-                    objs = self.armormapper.getMultiple(
-                        'name COLLATE nocase = :name',
-                        {'name': prof}
-                        )
-                    if objs:
-                        label = objs[0].name
-                proficiencies["Armor"].append(label)
+                proficiencies["Armor"].append(prof['name'])
 
         if obj.proficienciesWeapons:
             proficiencies["Weapons"] = []
             for prof in obj.proficienciesWeapons:
-                label = prof
-                weapon = items.itemByNameOrCode(prof, 'weapon_types')
-                if weapon is not None:
-                    label = weapon['label']
-                else:
-                    objs = self.weaponmapper.getMultiple(
-                        'name COLLATE nocase = :name',
-                        {'name': prof}
-                        )
-                    if objs:
-                        label = objs[0].name
-                proficiencies["Weapons"].append(label)
+                proficiencies["Weapons"].append(prof['name'])
 
         if obj.proficienciesTools:
             proficiencies["Tools"] = []
             for prof in obj.proficienciesTools:
-                if prof is None:
-                    continue
-                proficiencies["Tools"].append(prof)
+                proficiencies["Tools"].append(prof['name'])
+
         fdf_txt["ProficienciesLang"] = "\n\n".join([
             "%s:\n    %s" % (
                 key, ", ".join(lines)
@@ -480,10 +457,8 @@ class CharacterBlueprint(BaseApiBlueprint):
 
                 desc = []
                 for prop in weapon.get("property", []):
-                    tag = items.itemByNameOrCode(
-                        prop, 'weapon_properties'
-                        )
-                    tag = tag['label']
+                    tag = types.itemByNameOrId(prop, 'weapon_properties')
+                    tag = tag.name
                     if prop == 'thrown':
                         tag += " (%s)" % filter_distance(weapon['range'])
                     if prop == 'versatile':
@@ -521,20 +496,18 @@ class CharacterBlueprint(BaseApiBlueprint):
         for toolType, tools in list(obj.items.items()):
             if not len(tools):
                 continue
-            _type = items.itemByNameOrCode(
-                toolType, 'tool_types'
-                )
+            _type = items.itemByNameOrId(toolType, 'tool_types')
 
-            equipment.append([_type['label'] + ":\n"])
+            equipment.append([_type.name + ":\n"])
             for count, item in filter_unique(tools):
-                label = item['label'] \
+                name = item.name \
                     if isinstance(item, dict) \
                     else item
                 desc = [
                     "*",
-                    "%d x %s" % (count, label) \
+                    "%d x %s" % (count, name) \
                         if count > 1 \
-                        else label
+                        else name
                     ]
                 equipment[-1].append(" ".join(desc))
 

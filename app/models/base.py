@@ -372,8 +372,10 @@ class JsonObject(object):
 class JsonObjectDataMapper(object):
     obj = JsonObject
     table = None
+    keys = ['id']
     fields = []
-    order = 'id'
+    order = ['id']
+    auto_increment = True
     join_tables = {}
 
     def __init__(self, db):
@@ -383,22 +385,22 @@ class JsonObjectDataMapper(object):
         if dbrow is None \
                 or not isinstance(dbrow, dict) \
                 or 'config' not in dbrow \
-                or 'id' not in dbrow:
+                or not all(key in dbrow for key in self.keys):
             raise ValueError("Invalid dbrow: %r" % dbrow)
 
         dbrow['config'] = json.loads(dbrow['config'])
-        for field in self.fields:
+        fields = self.fields + self.keys
+        for field in fields:
             dbrow['config'][field] = dbrow[field]
-        dbrow['config']['id'] = dbrow['id']
         return self.obj(dbrow['config'])
 
     def _write(self, obj):
         if not isinstance(obj, JsonObject):
             raise ValueError("Invalid object: %r" % obj)
 
-        fields = self.fields + ['id']
+        fields = self.fields + self.keys
         dbrow = dict(
-            (field, obj.getPath(field, None))
+            (field, obj[field])
             for field in fields
             )
         dbrow['config'] = dict(
@@ -418,15 +420,25 @@ class JsonObjectDataMapper(object):
         obj = self.obj(config)
         return obj
 
-    def getById(self, obj_id):
-        """Returns an object from table by obj_id"""
+    def getById(self, *args):
+        """Returns an object from table by the obj's ID(s)"""
+        if len(args) != len(self.keys):
+            raise ValueError("Expected %d arguments: %r, not %r" % (
+                len(self.keys), self.keys, args
+                ))
         with self._db.connect() as db:
             cur = db.execute("""
                 SELECT *
                 FROM `%s`
-                WHERE `id` = ?
-                """ % self.table,
-                [obj_id]
+                WHERE %s
+                """ % (
+                    self.table,
+                    " AND ".join([
+                        "`%s` = :%s" % (k, k)
+                        for k in self.keys
+                        ]),
+                    ),
+                [*args]
                 )
             obj = cur.fetchone()
             cur.close()
@@ -439,8 +451,12 @@ class JsonObjectDataMapper(object):
         """Returns a list of obj matching the where clause"""
         with self._db.connect() as db:
             cur = db.execute("""
-                SELECT * FROM `%s` WHERE %s ORDER BY `%s`
-                """ % (self.table, where, self.order),
+                SELECT * FROM `%s` WHERE %s ORDER BY %s
+                """ % (
+                    self.table,
+                    where,
+                    ", ".join(["`%s`" % col for col in self.order])
+                    ),
                 values
                 )
             objs = cur.fetchall() or []
@@ -460,9 +476,7 @@ class JsonObjectDataMapper(object):
                     DELETE FROM `%s`
                     WHERE `%s` = ?
                     """ % (table, key),
-                    [
-                        obj[attrib]
-                        ]
+                    [ obj[attrib] ]
                     )
             db.commit()
 
@@ -483,8 +497,10 @@ class JsonObjectDataMapper(object):
     def insert(self, obj):
         """Insert a new obj"""
         new_obj = self._write(obj)
-        if 'id' in new_obj:
-            del new_obj['id']
+        if self.auto_increment:
+            for key in self.keys:
+                if key in new_obj:
+                    del new_obj[key]
 
         with self._db.connect() as db:
             cur = db.execute("""
@@ -500,12 +516,13 @@ class JsonObjectDataMapper(object):
                 new_obj
                 )
             db.commit()
-            obj.id = cur.lastrowid
+            if self.auto_increment:
+                obj.id = cur.lastrowid
             cur.close()
 
         self.fillJoinTables(obj)
 
-        return self.getById(cur.lastrowid)
+        return self.getById(*[obj[key] for key in self.keys])
 
     def update(self, obj):
         """Updates an existing obj"""
@@ -515,13 +532,17 @@ class JsonObjectDataMapper(object):
             db.execute("""
                 UPDATE `%s`
                 SET `config` = :config, %s
-                WHERE `id` = :id
+                WHERE %s
                 """ % (
                     self.table,
-                    ', '.join([
+                    ", ".join([
                         "`%s` = :%s" % (f, f)
                         for f in self.fields
-                        ])
+                        ]),
+                    " AND ".join([
+                        "`%s` = :%s" % (k, k)
+                        for k in self.keys
+                        ]),
                     ),
                 new_obj
                 )
@@ -530,7 +551,7 @@ class JsonObjectDataMapper(object):
         self.clearJoinTables(obj)
         self.fillJoinTables(obj)
 
-        return self.getById(obj.id)
+        return self.getById(*[obj[key] for key in self.keys])
 
     def delete(self, obj):
         """Deletes an object from the table"""
@@ -540,8 +561,14 @@ class JsonObjectDataMapper(object):
             db.execute("""
                 DELETE
                 FROM `%s`
-                WHERE `id` = ?
-                """ % self.table,
-                [obj.id]
+                WHERE %s
+                """ % (
+                    self.table,
+                    " AND ".join([
+                        "`%s` = :%s" % (k, k)
+                        for k in self.keys
+                        ]),
+                    ),
+                [obj[key] for key in self.keys]
                 )
             db.commit()

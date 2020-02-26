@@ -22,7 +22,7 @@ class GearMapper(JsonObjectDataMapper):
     obj = GearObject
     table = "item"
     fields = ["type", "name"]
-    order = 'name'
+    order = ["name"]
 
     def getMultiple(self, where="1", values={}):
         where = "(%s) AND `type` IN ('artisan', 'kit', 'gaming', 'musical', 'trinket')" % where

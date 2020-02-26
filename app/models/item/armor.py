@@ -19,7 +19,7 @@ class ArmorObject(JsonObject):
             },
         "disadvantage": bool,
         "requirements": {
-            '*': int
+            "*": int
             },
         "value": int,
         "bonus": int
@@ -29,7 +29,7 @@ class ArmorMapper(JsonObjectDataMapper):
     obj = ArmorObject
     table = "item"
     fields = ["type", "name"]
-    order = 'name'
+    order = ["name"]
 
     def getMultiple(self, where="1", values={}):
         where = "(%s) AND `type` IN ('light', 'medium', 'heavy', 'shield')" % where

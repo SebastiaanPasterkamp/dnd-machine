@@ -16,4 +16,4 @@ class SubClassMapper(JsonObjectDataMapper):
     obj = SubClassObject
     table = "subclass"
     fields = ["name"]
-    order = 'name'
+    order = ["name"]

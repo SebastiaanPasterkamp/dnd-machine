@@ -219,37 +219,26 @@ class DndMachine(object):
                 )
             }
 
-    def findObj(self, item):
-        objs = self.mapper.weapon.getMultiple(
-            'name COLLATE nocase = :name',
-            {'name': item}
-            )
-        if len(objs):
-            return ( 'weapons', objs[0] )
-        objs = self.mapper.armor.getMultiple(
-            'name COLLATE nocase = :name',
-            {'name': item}
-            )
-        if len(objs):
-            return ( 'armor', objs[0] )
-        objs = self.mapper.gear.getMultiple(
-            'name COLLATE nocase = :name',
-            {'name': item}
-            )
-        if len(objs):
-            return ( 'items', objs[0] )
-        return (None, None)
+    def findObj(self, mappers, item):
+        for category, mapper in mappers.items():
+            objs = mapper.getMultiple(
+                'name COLLATE nocase = :name',
+                {'name': item}
+                )
+            if len(objs):
+                return category, objs[0]
+        return None, None
 
     def getGearType(self, type):
-        for armor in self.mapper.items.armor_types:
-            if armor['code'] == type:
+        for armor in self.mapper.types.armor_types:
+            if armor.id == type:
                 return 'armor', type
-        for weapon in self.mapper.items.weapon_types:
-            if weapon['code'] == type:
-                return 'weapon', type
-        for gear in self.mapper.items.equipment_types:
-            if gear['code'] == type:
-                return 'gear', type
+        for weapon in self.mapper.types.weapon_types:
+            if weapon.id == type:
+                return 'weapons', type
+        for items in self.mapper.types.equipment_types:
+            if items.id == type:
+                return 'items', type
         return 'items', 'trinket'
 
     def identifyEquipment(self, equipment):
@@ -275,7 +264,7 @@ class DndMachine(object):
 
         for item in equipment:
             obj = None
-            category = 'trinket'
+            category = 'items'
             if not isinstance(item, dict):
                 item = {
                     'name': item,
@@ -289,21 +278,16 @@ class DndMachine(object):
             else:
                 if 'path' in item:
                     del item['path']
-                category, item['type'] = self.getGearType(item.get('type'))
-                print('getById', category, item)
                 obj = mappers[category].getById(item.get('id'))
 
             if obj is None:
-                foundType, obj = self.findObj(item['name'])
-                category = foundType or category
+                foundType, obj = self.findObj(mappers, item['name'])
 
             if isinstance(obj, JsonObject):
                 obj = obj._config
 
             if obj is not None:
                 item.update(obj)
-            else:
-                print(item)
 
             for old in data['equipment']:
                 if old.get('id', old['name']) == item.get('id', item['name']) \
@@ -314,14 +298,89 @@ class DndMachine(object):
                 data['equipment'].append(item)
 
         for item in data['equipment']:
-            print(category, item)
+            category, item['type'] = self.getGearType(item.get('type'))
             if item.get('type') in data['items']:
                 data['items'][item['type']].append(item)
             else:
                 data[category].append(item)
         return data
 
+    def identifyProficiencies(self, proficiencies):
+        mappers = {
+            'armor': [
+                self.mapper.armor,
+                self.mapper.types,
+                ],
+            'weapons': [
+                self.mapper.weapon,
+                self.mapper.types,
+                ],
+            "tools": [
+                self.mapper.gear,
+                ],
+            "saving_throws": [
+                self.mapper.types,
+                ],
+            "advantages": [
+                self.mapper.types,
+                ],
+            "talent": [
+                self.mapper.types,
+                ],
+            "skills": [
+                self.mapper.types,
+                ],
+            "expertise": [
+                self.mapper.types,
+                ],
+            }
+
+        result = {}
+        for category, profs in proficiencies.items():
+            if category not in mappers:
+                category = 'tools'
+            result[category] = []
+
+            for prof in profs:
+                obj = None
+                if isinstance(prof, dict):
+                    for mapper in mappers[category]:
+                        obj = mapper.getById(*[prof[key] for key in mapper.keys])
+                        if obj is not None:
+                            break
+                else:
+                    prof = { 'name': prof, 'id': None, 'type': None }
+
+                if obj is None:
+                    for mapper in mappers[category]:
+                        objs = mapper.getMultiple(
+                            'name COLLATE nocase = :name OR id = :name',
+                            {'name': prof['name']}
+                            )
+                        if len(objs):
+                            obj = objs[0]
+                            break
+
+                if isinstance(obj, JsonObject):
+                    result[category].append(obj._config)
+                else:
+                    result[category].append(prof)
+
+        return {
+            'proficiencies': result,
+            }
+
     def computeWeaponStats(self, weapon, wielder, autoProf=False):
+        dmg = self.mapper.types.itemByNameOrId(
+            weapon["damage"]["type"],
+            'damage_types'
+            )
+        if dmg is None:
+            return weapon
+
+        weapon["damage"]["type_label"] = dmg.name
+        weapon["damage"]["type_short"] = dmg.short
+
         attack_modifier = "strength"
         if "ranged" in weapon["type"]:
             attack_modifier = "dexterity"
@@ -331,19 +390,12 @@ class DndMachine(object):
                 "dexterity": wielder.statisticsModifiersDexterity,
                 }
             attack_modifier = max(finesse, key=finesse.get)
-
-        dmg = self.mapper.items.itemByNameOrCode(
-            weapon["damage"]["type"],
-            'damage_types'
-            )
-        weapon["damage"]["type_label"] = dmg["label"]
-        weapon["damage"]["type_short"] = dmg["short"]
-
         weapon["bonus"] = weapon["damage"]["bonus"] = \
             wielder.statisticsModifiers[attack_modifier]
-        if autoProf \
-                or weapon['type'] in wielder.proficienciesWeapons \
-                or weapon['name'] in wielder.proficienciesWeapons:
+
+        if autoProf or any(
+                prof['id'] == weapon['type'] or prof['id'] == weapon['id']
+                for prof in wielder.proficienciesWeapons):
             weapon["bonus"] += wielder.proficiency
 
         weapon["damage"]["notation"] = self.diceNotation(
@@ -354,6 +406,8 @@ class DndMachine(object):
 
         if "versatile" in weapon["property"]:
             weapon["versatile"]["bonus"] = weapon["damage"]["bonus"]
+            weapon["versatile"]["type_label"] = weapon["damage"]["type_label"]
+            weapon["versatile"]["type_short"] = weapon["damage"]["type_short"]
             weapon["versatile"]["notation"] = self.diceNotation(
                 weapon["versatile"]["dice_size"],
                 weapon["versatile"]["dice_count"],

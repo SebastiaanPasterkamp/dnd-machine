@@ -49,7 +49,7 @@ class UserMapper(JsonObjectDataMapper):
     obj = UserObject
     table = "user"
     fields = ['username', 'password', 'email', 'google_id']
-    order = 'username'
+    order = ["username"]
 
     def getList(self, search=None):
         """Returns a list of users matching the search parameter"""

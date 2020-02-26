@@ -25,24 +25,21 @@ class SpellObject(JsonObject):
         }
 
     def migrate(self, mapper):
-        items = mapper.items
+        types = mapper.types
 
         self.components = list(set([
-            items.itemByNameOrCode(
-                component, 'magic_components'
-                )['code']
+            types.itemByNameOrId(
+                component, "magic_components", {"id": component}
+                )["id"]
             for component in self.components
-            if items.itemByNameOrCode(
-                component, 'magic_components'
-                )
             ]))
-        self.school = items.itemByNameOrCode(
-            self.school, 'magic_schools', {'code': self.school}
-            )['code']
+        self.school = types.itemByNameOrId(
+            self.school, "magic_schools", {"id": self.school}
+            )["id"]
         if self.concentration is None:
             self.concentration = "concentration" in self.duration.lower()
 
-        if 'damage' in self and not isinstance(self.damage, dict):
+        if "damage" in self and not isinstance(self.damage, dict):
             re_dmg = re.compile(r"^(?P<dice_count>\d+)d(?P<dice_size>\d+)(?:\s*\+\s*(?P<bonus>\d+))?\s+(?P<type>.*)$")
             match = re_dmg.match(self.damage)
             self.damage = match.groupdict()
@@ -56,4 +53,4 @@ class SpellMapper(JsonObjectDataMapper):
     obj = SpellObject
     table = "spell"
     fields = ["name", "school", "level"]
-    order = 'name'
+    order = ["name"]

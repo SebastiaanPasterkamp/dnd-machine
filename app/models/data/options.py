@@ -16,4 +16,4 @@ class OptionsMapper(JsonObjectDataMapper):
     obj = OptionsObject
     table = "options"
     fields = ["name"]
-    order = 'name'
+    order = ["name"]

@@ -7,7 +7,6 @@ except:
     import Queue as queue
 from contextlib import contextmanager
 
-from config import get_item_data
 from models import Datamapper
 
 class Database:

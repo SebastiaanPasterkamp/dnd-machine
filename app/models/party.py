@@ -62,7 +62,7 @@ class PartyMapper(JsonObjectDataMapper):
     obj = PartyObject
     table = "party"
     fields = ['name', 'user_id']
-    order = 'name'
+    order = ["name"]
     join_tables = {
         'party_characters': ('id', 'party_id'),
         }
