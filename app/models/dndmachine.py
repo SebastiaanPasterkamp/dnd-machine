@@ -225,41 +225,48 @@ class DndMachine(object):
             {'name': item}
             )
         if len(objs):
-            return (
-                'weapons',
-                objs[0]
-                )
+            return ( 'weapons', objs[0] )
         objs = self.mapper.armor.getMultiple(
             'name COLLATE nocase = :name',
             {'name': item}
             )
         if len(objs):
-            return (
-                'armor',
-                objs[0]
-                )
-        obj = self.mapper.items.itemByNameOrCode(item, 'tools')
-        if obj is not None:
-            return (
-                'items%s' % obj['type'].capitalize(),
-                obj
-                )
+            return ( 'armor', objs[0] )
+        objs = self.mapper.gear.getMultiple(
+            'name COLLATE nocase = :name',
+            {'name': item}
+            )
+        if len(objs):
+            return ( 'items', objs[0] )
         return (None, None)
 
+    def getGearType(self, type):
+        for armor in self.mapper.items.armor_types:
+            if armor['code'] == type:
+                return 'armor', type
+        for weapon in self.mapper.items.weapon_types:
+            if weapon['code'] == type:
+                return 'weapon', type
+        for gear in self.mapper.items.equipment_types:
+            if gear['code'] == type:
+                return 'gear', type
+        return 'items', 'trinket'
+
     def identifyEquipment(self, equipment):
+        re_cnt_item = re.compile(r"^(\d+)\s+x\s+(.*)$")
         mappers = {
             'armor': self.mapper.armor,
+            'items': self.mapper.gear,
             'weapons': self.mapper.weapon,
             }
-        re_cnt_item = re.compile(r"^(\d+)\s+x\s+(.*)$")
 
         data = {
             'armor': [],
             'weapons': [],
             'items': {
                 "artisan": [],
-                "kit": [],
                 "gaming": [],
+                "kit": [],
                 "musical": [],
                 "trinket": [],
                 },
@@ -268,45 +275,50 @@ class DndMachine(object):
 
         for item in equipment:
             obj = None
+            category = 'trinket'
             if not isinstance(item, dict):
                 item = {
                     'name': item,
                     'count': 1,
-                    'path': 'itemsTrinket',
+                    'type': 'trinket',
                     }
                 matches = re_cnt_item.match(item['name'])
                 if matches != None:
                     item['count'] = int(matches.group(1))
                     item['name'] = matches.group(2)
-            elif 'id' in item and item['path'] in mappers:
-                obj = mappers[ item['path'] ].getById(
-                    item['id']
-                    )
+            else:
+                if 'path' in item:
+                    del item['path']
+                category, item['type'] = self.getGearType(item.get('type'))
+                print('getById', category, item)
+                obj = mappers[category].getById(item.get('id'))
 
             if obj is None:
-                path, obj = self.findObj(item['name'])
-                item['path'] = path or item['path']
-                if obj is None:
-                    obj = item['name']
-                elif 'id' in obj:
-                    item['id'] = obj['id']
+                foundType, obj = self.findObj(item['name'])
+                category = foundType or category
+
+            if isinstance(obj, JsonObject):
+                obj = obj._config
+
+            if obj is not None:
+                item.update(obj)
+            else:
+                print(item)
 
             for old in data['equipment']:
-                if old['path'] == item['path'] \
-                        and old['name'] == item['name']:
+                if old.get('id', old['name']) == item.get('id', item['name']) \
+                        and old['type'] == item['type']:
                     old['count'] += item['count']
                     break
             else:
                 data['equipment'].append(item)
 
-            if isinstance(obj, JsonObject):
-                obj = obj._config
-
-            if item['path'].startswith('items'):
-                itemType = item['path'][5:].lower()
-                data['items'][itemType] += [obj] * item['count']
+        for item in data['equipment']:
+            print(category, item)
+            if item.get('type') in data['items']:
+                data['items'][item['type']].append(item)
             else:
-                data[item['path']] += [obj] * item['count']
+                data[category].append(item)
         return data
 
     def computeWeaponStats(self, weapon, wielder, autoProf=False):

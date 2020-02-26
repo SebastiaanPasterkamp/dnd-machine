@@ -227,8 +227,7 @@ class CharacterObject(JsonObject):
                     '*': float
                     },
                 },
-            'trinket': 'auto',
-            }
+            },
         }
 
     @property
