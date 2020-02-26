@@ -26,12 +26,14 @@ def register_paths(app):
 
     @app.route('/authenticate')
     def authenticate():
-        info = app.config.get('info', {})
+        info = dict(app.config.get('info', {}))
         info['footer'] = app.config.get('footer', [])
         if app.config.get('MAIL_USERNAME'):
             info['recoverAction'] = '/recover'
         if app.config.get('GOOGLE_CLIENT_ID'):
             info['googleAuth'] = True
+        if info.get('branch', 'master') != 'master':
+            info['version'] += '.' + info['branch']
         return jsonify(info)
 
 
