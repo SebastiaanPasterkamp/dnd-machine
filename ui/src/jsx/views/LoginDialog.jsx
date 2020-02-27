@@ -116,10 +116,7 @@ export class LoginDialog extends React.Component
                             href="/login/google"
                             className="login-dialog__google"
                         >
-                            <img
-                                src="/static/img/btn_google_signin_light_normal_web.png"
-                                alt="Login with Google"
-                            />
+                            Login with Google
                         </a>
                     </div>
                 ) : null}
