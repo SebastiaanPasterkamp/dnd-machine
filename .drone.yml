@@ -121,11 +121,11 @@ steps:
         from_secret: ssh_key
       script:
         - docker stop dndmachine_staging || true
-        - docker rm dndmachine_staging || true
         - >
           docker cp \
             "backups/machine.production.db.latest" \
             "dndmachine_staging:/data/machine.db" || true
+        - docker rm dndmachine_staging || true
         - >
           docker run \
             --detach \
@@ -235,6 +235,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 862b9926ecfde00b7e70be1e27d0afc82ed4ff5023f46c69421ecfb1a539d4cf
+hmac: 759175cac685eb9b4e1c99afda21b7b197a115a2d9841e7c968d422c9cb9e6eb
 
 ...

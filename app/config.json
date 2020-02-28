@@ -43,14 +43,14 @@
             "label": "Source"
         },
         {
-            "link": "https://nice.textkernel.nl",
-            "class": "product-icon textkernel",
-            "label": "Nice!"
-        },
-        {
             "link": "http://dnd.wizards.com/articles/features/basicrules",
             "class": "icon fa-book",
             "label": "Basic Rules for Dungeons & Dragons"
+        },
+        {
+            "link": "https://dnd.wizards.com/playevents/organized-play",
+            "class": "icon fa-gamepad",
+            "label": "D&D Adventurers League"
         }
     ],
     "data": {
