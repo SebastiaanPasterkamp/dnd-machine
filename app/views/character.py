@@ -496,18 +496,15 @@ class CharacterBlueprint(BaseApiBlueprint):
         for toolType, tools in list(obj.items.items()):
             if not len(tools):
                 continue
-            _type = items.itemByNameOrId(toolType, 'tool_types')
+            _type = types.itemByNameOrId(toolType, 'equipment_types')
 
-            equipment.append([_type.name + ":\n"])
+            equipment.append([_type['name'] + ":\n"])
             for count, item in filter_unique(tools):
-                name = item.name \
-                    if isinstance(item, dict) \
-                    else item
                 desc = [
                     "*",
-                    "%d x %s" % (count, name) \
+                    "%d x %s" % (count, item['name']) \
                         if count > 1 \
-                        else name
+                        else item['name']
                     ]
                 equipment[-1].append(" ".join(desc))
 
