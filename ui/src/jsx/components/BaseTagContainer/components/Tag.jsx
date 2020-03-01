@@ -88,6 +88,7 @@ Tag.propTypes = {
 };
 
 Tag.defaultProps = {
+    name: null,
     label: null,
     description: null,
     disabled: false,

@@ -3896,6 +3896,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                       disabled={true}
                                                       key="walk"
                                                       label="Walk"
+                                                      name={null}
                                                       onChange={null}
                                                       onDelete={[Function]}
                                                     >
@@ -3989,6 +3990,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                       disabled={true}
                                                       key="common"
                                                       label="Common"
+                                                      name={null}
                                                       onChange={null}
                                                       onDelete={[Function]}
                                                     >
@@ -4017,6 +4019,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                       disabled={true}
                                                       key="draconic"
                                                       label="Draconic"
+                                                      name={null}
                                                       onChange={null}
                                                       onDelete={[Function]}
                                                     >
@@ -4606,6 +4609,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                           disabled={true}
                                                           key="average"
                                                           label="Average"
+                                                          name={null}
                                                           onChange={null}
                                                           onDelete={[Function]}
                                                         >
@@ -4642,6 +4646,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                           disabled={true}
                                                           key="critical"
                                                           label="Critical"
+                                                          name={null}
                                                           onChange={null}
                                                           onDelete={[Function]}
                                                         >
@@ -5007,6 +5012,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                           disabled={true}
                                                           key="average"
                                                           label="Average"
+                                                          name={null}
                                                           onChange={null}
                                                           onDelete={[Function]}
                                                         >
@@ -5043,6 +5049,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                           disabled={true}
                                                           key="critical"
                                                           label="Critical"
+                                                          name={null}
                                                           onChange={null}
                                                           onDelete={[Function]}
                                                         >
@@ -9071,6 +9078,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                       disabled={true}
                                                       key="walk"
                                                       label="Walk"
+                                                      name={null}
                                                       onChange={null}
                                                       onDelete={[Function]}
                                                     >
@@ -9164,6 +9172,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                       disabled={true}
                                                       key="common"
                                                       label="Common"
+                                                      name={null}
                                                       onChange={null}
                                                       onDelete={[Function]}
                                                     >
@@ -9192,6 +9201,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                       disabled={true}
                                                       key="draconic"
                                                       label="Draconic"
+                                                      name={null}
                                                       onChange={null}
                                                       onDelete={[Function]}
                                                     >
@@ -9781,6 +9791,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                           disabled={true}
                                                           key="average"
                                                           label="Average"
+                                                          name={null}
                                                           onChange={null}
                                                           onDelete={[Function]}
                                                         >
@@ -9817,6 +9828,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                           disabled={true}
                                                           key="critical"
                                                           label="Critical"
+                                                          name={null}
                                                           onChange={null}
                                                           onDelete={[Function]}
                                                         >
@@ -10182,6 +10194,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                           disabled={true}
                                                           key="average"
                                                           label="Average"
+                                                          name={null}
                                                           onChange={null}
                                                           onDelete={[Function]}
                                                         >
@@ -10218,6 +10231,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                           disabled={true}
                                                           key="critical"
                                                           label="Critical"
+                                                          name={null}
                                                           onChange={null}
                                                           onDelete={[Function]}
                                                         >
@@ -14288,6 +14302,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                       disabled={true}
                                                       key="walk"
                                                       label="Walk"
+                                                      name={null}
                                                       onChange={null}
                                                       onDelete={[Function]}
                                                     >
@@ -14381,6 +14396,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                       disabled={true}
                                                       key="common"
                                                       label="Common"
+                                                      name={null}
                                                       onChange={null}
                                                       onDelete={[Function]}
                                                     >
@@ -14409,6 +14425,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                       disabled={true}
                                                       key="draconic"
                                                       label="Draconic"
+                                                      name={null}
                                                       onChange={null}
                                                       onDelete={[Function]}
                                                     >
@@ -14998,6 +15015,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                           disabled={true}
                                                           key="average"
                                                           label="Average"
+                                                          name={null}
                                                           onChange={null}
                                                           onDelete={[Function]}
                                                         >
@@ -15034,6 +15052,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                           disabled={true}
                                                           key="critical"
                                                           label="Critical"
+                                                          name={null}
                                                           onChange={null}
                                                           onDelete={[Function]}
                                                         >
@@ -15399,6 +15418,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                           disabled={true}
                                                           key="average"
                                                           label="Average"
+                                                          name={null}
                                                           onChange={null}
                                                           onDelete={[Function]}
                                                         >
@@ -15435,6 +15455,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                           disabled={true}
                                                           key="critical"
                                                           label="Critical"
+                                                          name={null}
                                                           onChange={null}
                                                           onDelete={[Function]}
                                                         >
