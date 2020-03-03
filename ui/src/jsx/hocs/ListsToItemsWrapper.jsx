@@ -88,10 +88,7 @@ function ListsToItemsWrapper(
                 } else {
                     items = _.map(
                         propItems,
-                        item => ({
-                            code: item,
-                            label: item,
-                        })
+                        item => ({ id: item, name: item })
                     );
                 }
             }
@@ -110,8 +107,8 @@ function ListsToItemsWrapper(
         items: PropTypes.arrayOf(
             PropTypes.oneOfType([
                 PropTypes.shape({
-                    label: PropTypes.string.isRequired,
-                    code: PropTypes.string.isRequired,
+                    id: PropTypes.string.isRequired,
+                    name: PropTypes.string.isRequired,
                 }),
                 PropTypes.string,
             ])
