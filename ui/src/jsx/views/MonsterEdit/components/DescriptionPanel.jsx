@@ -166,7 +166,7 @@ export default ListDataWrapper(
                 'size_hit_dice',
                 'monster_types',
             ],
-            'items',
+            ['items', 'types']
         ),
         { campaigns: {type: 'campaign'} }
     ),

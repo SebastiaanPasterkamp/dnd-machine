@@ -32,9 +32,7 @@ class TypesObject(JsonObject):
             '*': int
             },
         }
-    def migrate(self, mapper):
-        print(self.id, self.type, self.name)
-        super(TypesObject, self).migrate()
+
 
 class TypesMapper(JsonObjectDataMapper):
     obj = TypesObject
