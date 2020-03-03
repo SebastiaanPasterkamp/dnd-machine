@@ -10,7 +10,6 @@ class DndMachine(object):
         self.xp_at_level = config['xp_at_level']
         self.challenge_rating = config["challenge_rating"]
         self.monster_scaling = config["monster_scaling"]
-        self.size_hit_dice = config["size_hit_dice"]
         self.mapper = mapper
 
         self.ns = vars(math).copy()
@@ -32,16 +31,6 @@ class DndMachine(object):
             formula = formula.replace(var, str(val))
         code = parser.expr(formula).compile()
         return eval(code, self.ns)
-
-    def findByName(self, name, items, default=None):
-        matches = [
-            item
-            for item in items
-            if item.get('name', item.get('code')) == name
-            ]
-        if matches:
-            return matches[0]
-        return default
 
     def diceCast(self, size, number=1, bonus=0):
         return {

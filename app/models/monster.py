@@ -165,10 +165,7 @@ class MonsterObject(JsonObject):
 
         self.passive_perception = 10 + self.statisticsModifiersWisdom
 
-        self.dice_size = machine.findByName(
-            self.size,
-            machine.size_hit_dice
-            )['dice_size']
+        self.dice_size = typesMapper.getById(self.size, 'size_hit_dice')['dice_size']
 
         self.hit_points = machine.diceAverage(
                 self.dice_size,

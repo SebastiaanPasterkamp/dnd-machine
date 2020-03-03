@@ -53,42 +53,6 @@ class DndMachineTestCase(unittest.TestCase):
         self.assertEqual(
             self.machine.resolveMath(obj, 'floor(5 / 2.0)'), 2)
 
-    def testFindByNameByName(self):
-        items = [
-            {'name': 'foo', 'value': 1},
-            {'name': 'bar', 'value': 2},
-            {'name': 'foo', 'value': 3},
-            {'name': 'bar', 'value': 4},
-            ]
-        self.assertEqual(
-            self.machine.findByName('foo', items), items[0])
-        self.assertEqual(
-            self.machine.findByName('bar', items), items[1])
-
-    def testFindByNameByCode(self):
-        items = [
-            {'code': 'foo', 'value': 1},
-            {'code': 'bar', 'value': 2},
-            {'name': 'foo', 'value': 3},
-            {'name': 'bar', 'value': 4},
-            ]
-        self.assertEqual(
-            self.machine.findByName('foo', items), items[0])
-        self.assertEqual(
-            self.machine.findByName('bar', items), items[1])
-
-    def testFindByNameDefault(self):
-        items = [
-            {'code': 'foo', 'value': 1},
-            {'code': 'bar', 'value': 2},
-            {'name': 'foo', 'value': 3},
-            {'name': 'bar', 'value': 4},
-            ]
-        self.assertEqual(
-            self.machine.findByName('default', items), None)
-        self.assertEqual(
-            self.machine.findByName('default', items, 'abc'), 'abc')
-
     def testDiceNotation(self):
         self.assertEqual(
             "1d4+2",

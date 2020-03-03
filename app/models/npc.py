@@ -293,10 +293,7 @@ class NpcObject(JsonObject):
                 value += machine.resolveMath(self, bonus)
             self.setPath(path, value)
 
-        dice_size = machine.findByName(
-            self.size,
-            machine.size_hit_dice
-            )['dice_size']
+        self.dice_size = typesMapper.getById(self.size, 'size_hit_dice')['dice_size']
 
         self.hit_points = machine.diceAverage(
                 self.hit_dice or dice_size,
