@@ -34,7 +34,7 @@ describe('ArmorEdit', () => {
         fetch.mockImplementation( mockedApi({
             armor_types,
         }) );
-        ListDataActions.fetchItems('armor_types', 'items');
+        ListDataActions.fetchItems('armor_types', ['items', 'types']);
     })
 
     afterAll(() => {

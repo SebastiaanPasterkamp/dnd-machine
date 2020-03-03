@@ -27,7 +27,7 @@ export const choice = {
     options: [{
         type: 'config',
         uuid: 'mocked-uuid-9',
-        label: 'a',
+        name: 'a',
         description: 'foo',
         config: [
             {
@@ -40,7 +40,7 @@ export const choice = {
     }, {
         type: 'config',
         uuid: 'mocked-uuid-10',
-        label: 'b',
+        name: 'b',
         config: [
             {
                 type: 'value',
@@ -110,18 +110,19 @@ export const multichoice = {
         type: 'value',
         uuid: 'mocked-uuid-12',
         path: 'multichoice.value',
-        label: 'a',
+        name: 'a',
         description: 'foo',
         value: 'Multi choice option A',
     }, {
         type: 'value',
         uuid: 'mocked-uuid-13',
         path: 'multichoice.value',
-        label: 'b',
+        name: 'b',
         description: 'bar',
         value: 'Multi choice option B',
     }],
     add: 1,
+    replace: 1,
 };
 
 export const select = {

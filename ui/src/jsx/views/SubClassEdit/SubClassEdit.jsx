@@ -25,7 +25,7 @@ export class SubClassEdit extends React.Component
         super(props);
 
         this.levels = map(i => ({
-            label: `Level ${i}`,
+            name: `Level ${i}`,
             level: i,
         }))(range(2, 20));
 

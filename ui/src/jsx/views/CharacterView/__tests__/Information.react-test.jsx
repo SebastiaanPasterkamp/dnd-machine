@@ -21,8 +21,8 @@ describe('Information', () => {
         fetch.mockImplementation( mockedApi({
             alignments: [
                 {
-                    code: 'true neutral',
-                    label: 'True neutral',
+                    id: 'true neutral',
+                    name: 'True neutral',
                 },
             ],
             'user' : {},

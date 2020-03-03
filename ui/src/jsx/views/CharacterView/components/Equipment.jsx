@@ -57,7 +57,7 @@ const Equipment = function({
                 const gear = countBy(
                     (item) => {
                         if (isObject(item)) {
-                            return ( item.label || item.name );
+                            return item.name;
                         }
                         return item;
                     },

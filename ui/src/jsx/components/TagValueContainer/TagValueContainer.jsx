@@ -96,9 +96,8 @@ export class TagValueContainer extends React.Component
                 ) : null}
 
                 {map(key => {
-                    const { label, name, description } = (
+                    const { name, description } = (
                         find({ id: key }, items)
-                        || find({ code: key }, items)
                         || find({ name: key }, items)
                         || {}
                     );
@@ -106,7 +105,7 @@ export class TagValueContainer extends React.Component
                     return (
                         <Tag
                             key={key}
-                            label={label}
+                            label={name}
                             description={description}
                             onDelete={this.onDelete(key)}
                             disabled={disabled}

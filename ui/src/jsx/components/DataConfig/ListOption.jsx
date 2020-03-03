@@ -27,24 +27,24 @@ export class ListOption extends React.Component
     optionType = 'list';
 
     listOptions = [
-        {id: "armor", label: "Armor"},
-        {id: "armor_types", label: "Armor types"},
-        {id: "humanoid_types", label: "Humanoid types"},
-        {id: "languages", label: "Languages"},
-        {id: "monster_types", label: "Monster types"},
-        {id: "skills", label: "Skills"},
-        {id: "spell", label: "Spells"},
-        {id: "statistics", label: "Statistics"},
-        {id: "terrain_types", label: "Terrain types"},
-        {id: "tools", label: "Tools"},
-        {id: "tool_types", label: "Tool types"},
-        {id: "weapon", label: "Weapons"},
-        {id: "weapon_types", label: "Weapon types"},
+        {id: "armor", name: "Armor"},
+        {id: "armor_types", name: "Armor types"},
+        {id: "humanoid_types", name: "Humanoid types"},
+        {id: "languages", name: "Languages"},
+        {id: "monster_types", name: "Monster types"},
+        {id: "skills", name: "Skills"},
+        {id: "spell", name: "Spells"},
+        {id: "statistics", name: "Statistics"},
+        {id: "terrain_types", name: "Terrain types"},
+        {id: "tools", name: "Tools"},
+        {id: "tool_types", name: "Tool types"},
+        {id: "weapon", name: "Weapons"},
+        {id: "weapon_types", name: "Weapon types"},
     ]
 
     hiddenOptions = [
-        {id: false, label: "Everything"},
-        {id: true, label: "Nothing"},
+        {id: false, name: "Everything"},
+        {id: true, name: "Nothing"},
     ]
 
     givenOptions = {

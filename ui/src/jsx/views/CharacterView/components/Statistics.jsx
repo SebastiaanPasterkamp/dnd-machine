@@ -36,16 +36,16 @@ const Statistics = function({
                 </tr>
             </thead>
             <tbody>
-            {map(({code, label}) => (
-                <tr key={code}>
-                    <th>{label}</th>
-                    <td>{base[code]}</td>
+            {map(({id, name}) => (
+                <tr key={id}>
+                    <th>{name}</th>
+                    <td>{base[id]}</td>
                     <td>
-                        <Bonus bonus={modifiers[code]} />
+                        <Bonus bonus={modifiers[id]} />
                     </td>
                     <td>
-                        <CheckBox isChecked={includes(code, prof_sav)} />
-                        <Bonus bonus={saving_throws[code]} />
+                        <CheckBox isChecked={includes(id, prof_sav)} />
+                        <Bonus bonus={saving_throws[id]} />
                     </td>
                 </tr>
             ))(statistics)}
@@ -57,8 +57,8 @@ const Statistics = function({
 Statistics.propTypes = {
     statistics: PropTypes.arrayOf(
         PropTypes.shape({
-            code: PropTypes.string,
-            label: PropTypes.string,
+            id: PropTypes.string,
+            name: PropTypes.string,
         })
     ),
     stats: PropTypes.shape({

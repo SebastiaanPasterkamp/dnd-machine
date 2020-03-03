@@ -15,12 +15,12 @@ export class DamageEdit extends LazyComponent
         super(props);
 
         this.dice_count = _.range(0, 20).map((count) => ({
-            code: count,
-            label: count
+            id: count,
+            name: count,
         }));
         this.dice_size = [4, 6, 8, 10, 12].map((size) => ({
-            code: size,
-            label: size
+            id: size,
+            name: size,
         }));
     }
 
@@ -39,10 +39,10 @@ export class DamageEdit extends LazyComponent
             disabledTypes = [], type
         } = this.props;
 
-        if (type == item.code) {
+        if (type == item.id) {
             return false;
         }
-        if (_.includes(disabledTypes, item.code)) {
+        if (_.includes(disabledTypes, item.id)) {
             return true;
         }
         return false;

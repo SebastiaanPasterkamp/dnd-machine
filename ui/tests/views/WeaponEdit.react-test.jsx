@@ -36,46 +36,46 @@ describe('WeaponEdit', () => {
         fetch.mockImplementation( mockedApi({
             weapon_types: [
                 {
-                    code: "simple melee",
-                    label: "Simple Melee Weapon",
+                    id: "simple melee",
+                    name: "Simple Melee Weapon",
                     short: "Melee",
                 },
                 {
-                    code: "simple ranged",
-                    label: "Simple Ranged Weapon",
+                    id: "simple ranged",
+                    name: "Simple Ranged Weapon",
                     short: "Ranged",
                 },
             ],
             weapon_properties: [
                 {
-                    code: "finesse",
-                    label: "Finesse",
+                    id: "finesse",
+                    name: "Finesse",
                     short: "Fns",
                     description: "Use **Str** or **Dex**",
                 },
                 {
-                    code: "versatile",
-                    label: "Versatile",
+                    id: "versatile",
+                    name: "Versatile",
                     short: "Vstl",
                     description: "1 or 2 hands",
                 },
                 {
-                    code: "special",
-                    label: "Special",
+                    id: "special",
+                    name: "Special",
                     short: "Spcl",
                     description: "Extra rules",
                 },
                 {
-                    code: "thrown",
-                    label: "Thrown",
+                    id: "thrown",
+                    name: "Thrown",
                     short: "Trwn",
                     description: "Airborn",
                 },
             ],
             damage_types: [
                 {
-                    code: "slashing",
-                    label: "Slashing",
+                    id: "slashing",
+                    name: "Slashing",
                     short: "Slsh",
                     description: "Slashing damage",
                 },

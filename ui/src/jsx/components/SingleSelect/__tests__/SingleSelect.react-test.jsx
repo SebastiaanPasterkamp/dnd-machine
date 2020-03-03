@@ -8,17 +8,17 @@ import SingleSelect from '../SingleSelect';
 
 const props = {
     items: [
-        {code: 1, label: 'One'},
-        {code: 2, label: 'Two'},
-        {code: 3, label: 'Three'},
+        {id: 1, name: 'One'},
+        {id: 2, name: 'Two'},
+        {id: 3, name: 'Three'},
     ],
 };
 
 const disabled = {
     items: [
-        {code: 1, label: 'One', disabled: true},
-        {code: 2, label: 'Two'},
-        {code: 3, label: 'Three'},
+        {id: 1, name: 'One', disabled: true},
+        {id: 2, name: 'Two'},
+        {id: 3, name: 'Three'},
     ],
 };
 
@@ -49,7 +49,7 @@ describe('Component: SingleSelect', () => {
             <SingleSelect
                 {...props}
                 selected={3}
-                isDisabled={(item) => { return item.code != 2; }}
+                isDisabled={(item) => { return item.id != 2; }}
             />
         ).toJSON();
 

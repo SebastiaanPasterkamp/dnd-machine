@@ -12,26 +12,26 @@ describe('Equipment', () => {
         weapons,
         weapon_properties: [
             {
-                code: "light",
-                label: "Light",
+                id: "light",
+                name: "Light",
                 description: "A light weapon.",
             },
             {
-                code: "thrown",
-                label: "Thrown",
+                id: "thrown",
+                name: "Thrown",
                 description: "You can throw the weapon.",
             },
         ],
         weapon_types: [
             {
-                code: "simple melee",
-                label: "Simple Melee Weapon",
+                id: "simple melee",
+                name: "Simple Melee Weapon",
             },
         ],
         armor_types: [
             {
-                code: "light",
-                label: "Light Armor",
+                id: "light",
+                name: "Light Armor",
             },
         ],
     };

@@ -29,7 +29,11 @@ describe('AttackEditor', () => {
     };
 
     beforeAll(() => {
-        fetch.mockImplementation(mockedApi({attack_modes, damage_types, target_methods}));
+        fetch.mockImplementation(mockedApi({
+            attack_modes,
+            damage_types,
+            target_methods,
+        }));
     });
 
     afterAll(() => {

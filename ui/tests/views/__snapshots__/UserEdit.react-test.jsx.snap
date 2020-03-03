@@ -167,16 +167,16 @@ exports[`UserEdit should render with full props as admin 1`] = `
         items={
           Array [
             Object {
-              "code": "admin",
-              "label": "Admin",
+              "id": "admin",
+              "name": "Admin",
             },
             Object {
-              "code": "dm",
-              "label": "Dungeon Master",
+              "id": "dm",
+              "name": "Dungeon Master",
             },
             Object {
-              "code": "player",
-              "label": "Player",
+              "id": "player",
+              "name": "Player",
             },
           ]
         }

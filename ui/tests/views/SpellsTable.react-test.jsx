@@ -41,9 +41,9 @@ describe('SpellsTable', () => {
             user: {},
             'spell/api': fullProps.spells,
         }) );
-        ListDataActions.fetchItems('classes', 'items');
-        ListDataActions.fetchItems('magic_components', 'items');
-        ListDataActions.fetchItems('magic_schools', 'items');
+        ListDataActions.fetchItems('classes');
+        ListDataActions.fetchItems('magic_components');
+        ListDataActions.fetchItems('magic_schools');
     })
 
     afterAll(() => {

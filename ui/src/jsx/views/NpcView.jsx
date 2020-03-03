@@ -156,7 +156,7 @@ export class NpcView extends React.Component
                                 dice_count={level}
                                 dice_size={_.get(
                                     size_hit_dice,
-                                    {code: size},
+                                    {id: size},
                                     {dice_size: 8}
                                 ).dice_size}
                                 bonus={modifiers.constitution * level}

@@ -52,27 +52,27 @@ describe('Spells', () => {
         fetch.mockImplementation( mockedApi({
             magic_components: [
                 {
-                    code: "somatic",
-                    label: "Somatic",
+                    id: "somatic",
+                    name: "Somatic",
                     short: "S",
                     description: "Gestures",
                 },
                 {
-                    code: "verbal",
-                    label: "Verbal",
+                    id: "verbal",
+                    name: "Verbal",
                     short: "V",
                     description: "Spoken",
                 },
             ],
             magic_schools: [
                 {
-                    code: "enchantment",
-                    label: "Enchantment",
+                    id: "enchantment",
+                    name: "Enchantment",
                     description: "Magically entrance people.",
                 },
                 {
-                    code: "illusion",
-                    label: "Illusion",
+                    id: "illusion",
+                    name: "Illusion",
                     description: "Magic that dazzles the senses.",
                 },
             ],

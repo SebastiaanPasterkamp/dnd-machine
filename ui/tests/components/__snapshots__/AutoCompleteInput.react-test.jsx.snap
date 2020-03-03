@@ -5,12 +5,12 @@ exports[`Component: AutoCompleteInput should expand on focus 1`] = `
   items={
     Array [
       Object {
-        "code": "light",
-        "label": "Light Armor",
+        "id": "light",
+        "name": "Light Armor",
       },
       Object {
-        "code": "heavy",
-        "label": "Heavy Armor",
+        "id": "heavy",
+        "name": "Heavy Armor",
       },
     ]
   }
@@ -70,12 +70,12 @@ exports[`Component: AutoCompleteInput should expand on focus 2`] = `
   items={
     Array [
       Object {
-        "code": "light",
-        "label": "Light Armor",
+        "id": "light",
+        "name": "Light Armor",
       },
       Object {
-        "code": "heavy",
-        "label": "Heavy Armor",
+        "id": "heavy",
+        "name": "Heavy Armor",
       },
     ]
   }
@@ -135,12 +135,12 @@ exports[`Component: AutoCompleteInput should hide when w/o results 1`] = `
   items={
     Array [
       Object {
-        "code": "light",
-        "label": "Light Armor",
+        "id": "light",
+        "name": "Light Armor",
       },
       Object {
-        "code": "heavy",
-        "label": "Heavy Armor",
+        "id": "heavy",
+        "name": "Heavy Armor",
       },
     ]
   }
@@ -283,12 +283,12 @@ exports[`Component: AutoCompleteInput should stay expanded on blur 1`] = `
   items={
     Array [
       Object {
-        "code": "light",
-        "label": "Light Armor",
+        "id": "light",
+        "name": "Light Armor",
       },
       Object {
-        "code": "heavy",
-        "label": "Heavy Armor",
+        "id": "heavy",
+        "name": "Heavy Armor",
       },
     ]
   }
@@ -348,12 +348,12 @@ exports[`Component: AutoCompleteInput should stay expanded on blur 2`] = `
   items={
     Array [
       Object {
-        "code": "light",
-        "label": "Light Armor",
+        "id": "light",
+        "name": "Light Armor",
       },
       Object {
-        "code": "heavy",
-        "label": "Heavy Armor",
+        "id": "heavy",
+        "name": "Heavy Armor",
       },
     ]
   }
@@ -413,12 +413,12 @@ exports[`Component: AutoCompleteInput should stay hide when losing focus/mouse 1
   items={
     Array [
       Object {
-        "code": "light",
-        "label": "Light Armor",
+        "id": "light",
+        "name": "Light Armor",
       },
       Object {
-        "code": "heavy",
-        "label": "Heavy Armor",
+        "id": "heavy",
+        "name": "Heavy Armor",
       },
     ]
   }

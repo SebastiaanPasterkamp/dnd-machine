@@ -18,7 +18,7 @@ export class ListFilter extends React.Component
     options = [
         {
             id: 'or',
-            label: 'Or',
+            name: 'Or',
             component: FilterOrField,
             initialItem: {
                 field: 'or',
@@ -27,7 +27,7 @@ export class ListFilter extends React.Component
         },
         {
             id: 'boolean',
-            label: 'Boolean',
+            name: 'Boolean',
             component: FilterBooleanField,
             initialItem: {
                 field: '',
@@ -36,7 +36,7 @@ export class ListFilter extends React.Component
         },
         {
             id: 'textfield',
-            label: 'Textfield',
+            name: 'Textfield',
             component: FilterTextField,
             initialItem: {
                 field: '',
@@ -45,7 +45,7 @@ export class ListFilter extends React.Component
         },
         {
             id: 'formula',
-            label: 'Formula',
+            name: 'Formula',
             component: FilterFormulaField,
             initialItem: {
                 field: '_formula',

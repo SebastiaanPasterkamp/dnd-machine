@@ -27,13 +27,13 @@ export class ArmorEdit extends React.Component
         super(props);
 
         this.armor_method = [
-            {code: "value", label: "Flat value"},
-            {code: "bonus", label: "Bonus armor"},
-            {code: "formula", label: "Formula"},
+            {id: "value", name: "Flat value"},
+            {id: "bonus", name: "Bonus armor"},
+            {id: "formula", name: "Formula"},
         ];
         this.stealth = [
-            {code: false, label: "Unhindered"},
-            {code: true, label: "Disadvantage"}
+            {id: false, name: "Unhindered"},
+            {id: true, name: "Disadvantage"}
         ];
 
         this.state = this.constructor.getDerivedStateFromProps(
@@ -96,7 +96,7 @@ export class ArmorEdit extends React.Component
         } = this.props;
 
         const {
-            code: defaultArmorType,
+            id: defaultArmorType,
         } = armor_types[0] || {};
 
         return [

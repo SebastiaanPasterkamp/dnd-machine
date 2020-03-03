@@ -7,34 +7,40 @@ exports[`Component: SelectPropertySelect should not render anything 1`] = `
   items={
     Array [
       Object {
-        "code": "strength",
         "description": "Str",
-        "label": "Strength",
+        "id": "strength",
+        "name": "Strength",
+        "type": "statistics",
       },
       Object {
-        "code": "dexterity",
         "description": "Dex",
-        "label": "Dexterity",
+        "id": "dexterity",
+        "name": "Dexterity",
+        "type": "statistics",
       },
       Object {
-        "code": "constitution",
         "description": "Con",
-        "label": "Constitution",
+        "id": "constitution",
+        "name": "Constitution",
+        "type": "statistics",
       },
       Object {
-        "code": "intelligence",
         "description": "Int",
-        "label": "Intelligence",
+        "id": "intelligence",
+        "name": "Intelligence",
+        "type": "statistics",
       },
       Object {
-        "code": "wisdom",
         "description": "Wis",
-        "label": "Wisdom",
+        "id": "wisdom",
+        "name": "Wisdom",
+        "type": "statistics",
       },
       Object {
-        "code": "charisma",
         "description": "Char",
-        "label": "Charisma",
+        "id": "charisma",
+        "name": "Charisma",
+        "type": "statistics",
       },
     ]
   }
@@ -51,34 +57,40 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
   items={
     Array [
       Object {
-        "code": "strength",
         "description": "Str",
-        "label": "Strength",
+        "id": "strength",
+        "name": "Strength",
+        "type": "statistics",
       },
       Object {
-        "code": "dexterity",
         "description": "Dex",
-        "label": "Dexterity",
+        "id": "dexterity",
+        "name": "Dexterity",
+        "type": "statistics",
       },
       Object {
-        "code": "constitution",
         "description": "Con",
-        "label": "Constitution",
+        "id": "constitution",
+        "name": "Constitution",
+        "type": "statistics",
       },
       Object {
-        "code": "intelligence",
         "description": "Int",
-        "label": "Intelligence",
+        "id": "intelligence",
+        "name": "Intelligence",
+        "type": "statistics",
       },
       Object {
-        "code": "wisdom",
         "description": "Wis",
-        "label": "Wisdom",
+        "id": "wisdom",
+        "name": "Wisdom",
+        "type": "statistics",
       },
       Object {
-        "code": "charisma",
         "description": "Char",
-        "label": "Charisma",
+        "id": "charisma",
+        "name": "Charisma",
+        "type": "statistics",
       },
     ]
   }
@@ -95,34 +107,40 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
     items={
       Array [
         Object {
-          "code": "strength",
           "description": "Str",
-          "label": "Strength",
+          "id": "strength",
+          "name": "Strength",
+          "type": "statistics",
         },
         Object {
-          "code": "dexterity",
           "description": "Dex",
-          "label": "Dexterity",
+          "id": "dexterity",
+          "name": "Dexterity",
+          "type": "statistics",
         },
         Object {
-          "code": "constitution",
           "description": "Con",
-          "label": "Constitution",
+          "id": "constitution",
+          "name": "Constitution",
+          "type": "statistics",
         },
         Object {
-          "code": "intelligence",
           "description": "Int",
-          "label": "Intelligence",
+          "id": "intelligence",
+          "name": "Intelligence",
+          "type": "statistics",
         },
         Object {
-          "code": "wisdom",
           "description": "Wis",
-          "label": "Wisdom",
+          "id": "wisdom",
+          "name": "Wisdom",
+          "type": "statistics",
         },
         Object {
-          "code": "charisma",
           "description": "Char",
-          "label": "Charisma",
+          "id": "charisma",
+          "name": "Charisma",
+          "type": "statistics",
         },
       ]
     }
@@ -190,7 +208,7 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
               disabled={false}
               id="strength"
               key="strength"
-              label="Strength"
+              name="Strength"
               onClick={[Function]}
               selected={false}
             >
@@ -208,7 +226,7 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
               disabled={false}
               id="dexterity"
               key="dexterity"
-              label="Dexterity"
+              name="Dexterity"
               onClick={[Function]}
               selected={false}
             >
@@ -226,7 +244,7 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
               disabled={false}
               id="constitution"
               key="constitution"
-              label="Constitution"
+              name="Constitution"
               onClick={[Function]}
               selected={false}
             >
@@ -244,7 +262,7 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
               disabled={false}
               id="intelligence"
               key="intelligence"
-              label="Intelligence"
+              name="Intelligence"
               onClick={[Function]}
               selected={false}
             >
@@ -262,7 +280,7 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
               disabled={false}
               id="wisdom"
               key="wisdom"
-              label="Wisdom"
+              name="Wisdom"
               onClick={[Function]}
               selected={false}
             >
@@ -280,7 +298,7 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
               disabled={false}
               id="charisma"
               key="charisma"
-              label="Charisma"
+              name="Charisma"
               onClick={[Function]}
               selected={true}
             >

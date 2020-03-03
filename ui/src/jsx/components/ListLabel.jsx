@@ -18,21 +18,17 @@ class ListLabel extends LazyComponent
         if (value == null) {
             return null;
         }
+        const item = find({ id: value }, items);
 
-        let label = emptyLabel || value;
+        let name = emptyLabel || value;
         let description = null;
 
-        let item = find({code: value}, items);
         if (item) {
-            label = (short && 'short' in item)
+            name = (short && 'short' in item)
                 ? item.short
-                : item.label;
-            description = (tooltip && 'description' in item)
-                ? item.description
-                : null;
+                : item.name;
+            description = tooltip ? item.description || null : null;
         }
-
-
 
         return (
             <div
@@ -42,7 +38,7 @@ class ListLabel extends LazyComponent
                 )}
             >
                 <ToolTip content={description}>
-                    {label}
+                    { name }
                 </ToolTip>
             </div>
         );

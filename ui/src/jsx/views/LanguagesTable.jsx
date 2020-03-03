@@ -24,11 +24,11 @@ class LanguageRow extends LazyComponent
 {
     render() {
         const {
-            code, label, speakers, script
+            id, name, speakers, script
         } = this.props;
 
-        return <tr data-name={code}>
-            <td>{label}</td>
+        return <tr data-name={id}>
+            <td>{name}</td>
             <td>{speakers}</td>
             <td>{script}</td>
         </tr>
@@ -39,7 +39,7 @@ class LanguageTable extends LazyComponent
 {
     filterRow(pattern, row) {
         return (
-            (row.label && row.label.match(pattern))
+            (row.name && row.name.match(pattern))
             || (row.speakers && row.speakers.match(pattern))
             || (row.script && row.script.match(pattern))
         );
@@ -68,7 +68,7 @@ class LanguageTable extends LazyComponent
                 <tbody key="tbody">
                     {_.map(filtered, (lang) => {
                         return <LanguageRow
-                            key={lang.code}
+                            key={lang.id}
                             {...lang}
                             />;
                     })}

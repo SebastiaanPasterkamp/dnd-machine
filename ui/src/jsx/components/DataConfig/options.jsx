@@ -11,18 +11,18 @@ import ValueOption from './ValueOption';
 export const OPTIONS = [
     {
         id: 'ability_score',
-        label: 'Ability Score Improvement',
+        name: 'Ability Score Improvement',
         initialItem: {
-            "label": "Ability Score Improvement",
-            "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
-            "type": "ability_score",
-            "limit": 2,
+            label: "Ability Score Improvement",
+            description: "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+            type: "ability_score",
+            limit: 2,
         },
         component: ASIOption,
     },
     {
         id: 'dict',
-        label: 'Dictionary option',
+        name: 'Dictionary option',
         component: DictOption,
         initialItem: {
             dict: {
@@ -32,27 +32,27 @@ export const OPTIONS = [
     },
     {
         id: 'choice',
-        label: 'Choice option',
+        name: 'Choice option',
         component: ChoiceOption,
     },
     {
         id: 'config',
-        label: 'Config option',
+        name: 'Config option',
         component: ConfigOption,
     },
     {
         id: 'list',
-        label: 'List option',
+        name: 'List option',
         component: ListOption,
     },
     {
         id: 'multichoice',
-        label: 'Multichoice option',
+        name: 'Multichoice option',
         component: MultichoiceOption,
     },
     {
         id: 'value',
-        label: 'Value option',
+        name: 'Value option',
         component: ValueOption,
     },
 ];

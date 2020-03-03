@@ -11,8 +11,8 @@ describe('Component: StatsBlock', () => {
             'intelligence', 'wisdom', 'charisma'
         ], (props, stat) => {
             props.statistics.push({
-                code: stat,
-                label: stat,
+                id: stat,
+                name: stat,
                 description: stat
             });
             props.bare[stat] = 12;

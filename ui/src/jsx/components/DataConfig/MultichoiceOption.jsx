@@ -29,7 +29,7 @@ export class MultichoiceOption extends React.Component
     options = [
         {
             id: 'choice',
-            label: 'Choice option',
+            name: 'Choice option',
             component: ChoiceOption,
             componentProps: {
                 canBeHidden: false,
@@ -37,7 +37,7 @@ export class MultichoiceOption extends React.Component
         },
         {
             id: 'config',
-            label: 'Config option',
+            name: 'Config option',
             component: ConfigOption,
             componentProps: {
                 canBeHidden: false,
@@ -45,7 +45,7 @@ export class MultichoiceOption extends React.Component
         },
         {
             id: 'dict',
-            label: 'Dictionary option',
+            name: 'Dictionary option',
             component: DictOption,
             componentProps: {
                 canBeHidden: false,
@@ -58,7 +58,7 @@ export class MultichoiceOption extends React.Component
         },
         {
             id: 'list',
-            label: 'List option',
+            name: 'List option',
             component: ListOption,
             componentProps: {
                 canBeHidden: false,
@@ -66,7 +66,7 @@ export class MultichoiceOption extends React.Component
         },
         {
             id: 'multichoice',
-            label: 'Multichoice option',
+            name: 'Multichoice option',
             component: MultichoiceOption,
             componentProps: {
                 canBeHidden: false,
@@ -74,7 +74,7 @@ export class MultichoiceOption extends React.Component
         },
         {
             id: 'value',
-            label: 'Value option',
+            name: 'Value option',
             component: ValueOption,
             componentProps: {
                 canBeHidden: false,

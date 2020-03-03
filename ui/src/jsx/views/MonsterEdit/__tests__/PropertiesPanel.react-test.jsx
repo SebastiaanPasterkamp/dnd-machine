@@ -29,7 +29,7 @@ describe('View PropertiesPanel', () => {
         fetch.mockImplementation(mockedApi({
             languages,
         }));
-        ListDataActions.fetchItems('languages', 'items');
+        ListDataActions.fetchItems('languages', ['items', 'types']);
     });
 
     afterAll(() => {

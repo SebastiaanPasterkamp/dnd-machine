@@ -18,8 +18,8 @@ describe('Basics', () => {
         fetch.mockImplementation( mockedApi({
             statistics: [
                 {
-                    code: "intelligence",
-                    label: "Intelligence",
+                    id: "intelligence",
+                    name: "Intelligence",
                     short: "Int",
                     description: "Smarts",
                 },

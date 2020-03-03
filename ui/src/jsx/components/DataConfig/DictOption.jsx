@@ -29,7 +29,7 @@ export class DictOption extends React.Component
     options = [
         {
             id: 'formula',
-            label: 'Formula value',
+            name: 'Formula value',
             component: DictFormulaField,
             initialItem: {
                 type: 'formula',
@@ -40,7 +40,7 @@ export class DictOption extends React.Component
         },
         {
             id: 'number',
-            label: 'Numeric value',
+            name: 'Numeric value',
             component: DictNumberField,
             initialItem: {
                 type: 'number',
@@ -50,7 +50,7 @@ export class DictOption extends React.Component
         },
         {
             id: 'text',
-            label: 'Text value',
+            name: 'Text value',
             component: DictTextField,
             initialItem: {
                 type: 'text',

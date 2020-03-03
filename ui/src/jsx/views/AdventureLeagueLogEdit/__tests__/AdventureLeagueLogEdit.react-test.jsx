@@ -13,12 +13,12 @@ describe('AdventureLeagueLogEdit', () => {
     beforeAll(() => {
         fetch.mockImplementation( mockedApi({
             alignment: [{
-                code: 'lawful good',
-                label: 'Lawful Good',
+                id: 'lawful good',
+                name: 'Lawful Good',
             }],
             genders: [{
-                code: 'male',
-                label: 'Male',
+                id: 'male',
+                name: 'Male',
             }],
             user: {},
             'character/api$': {},

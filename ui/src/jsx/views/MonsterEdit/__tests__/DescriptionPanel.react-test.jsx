@@ -36,9 +36,9 @@ describe('View DescriptionPanel', () => {
             monster_types,
             size_hit_dice,
         }));
-        ListDataActions.fetchItems('alignments', 'items');
-        ListDataActions.fetchItems('monster_types', 'items');
-        ListDataActions.fetchItems('size_hit_dice', 'items');
+        ListDataActions.fetchItems('alignments', ['items', 'types']);
+        ListDataActions.fetchItems('monster_types', ['items', 'types']);
+        ListDataActions.fetchItems('size_hit_dice', ['items', 'types']);
     });
 
     afterAll(() => {

@@ -22,14 +22,8 @@ export class DescriptionPanel extends React.Component
     constructor(props) {
         super(props);
 
-        this.levels = map(i => ({
-            code: i,
-            label: i,
-        }))(range(1, 30));
-        this.armor_classes = map(i => ({
-            code: i,
-            label: i,
-        }))(range(10, 20));
+        this.levels = map(i => ({ id: i, name: i }))(range(1, 30));
+        this.armor_classes = map(i => ({ id: i, name: i }))(range(10, 20));
         this.memoize = memoize.bind(this);
     }
 

@@ -20,10 +20,7 @@ export class MonstersFilter extends React.Component
     constructor(props) {
         super(props);
 
-        this.levels = map(i => ({
-            code: i,
-            label: `Level ${i}`,
-        }))(range(1, 31));
+        this.levels = map(i => ({ id: i, name: `Level ${i}` }))(range(1, 31));
 
         this.memoize = memoize.bind(this);
     }

@@ -27,28 +27,6 @@ class SingleSelect extends React.Component
         return null;
     }
 
-    getItemValue(item) {
-        const { code, id, name, label } = item;
-        if (code !== undefined) {
-            return code;
-        }
-        if (id !== undefined) {
-            return id;
-        }
-        if (name !== undefined) {
-            return name;
-        }
-        return label;
-    }
-
-    getItemText(item) {
-        const { label, name } = item;
-        if (label !== undefined) {
-            return label;
-        }
-        return name;
-    }
-
     onClick(id) {
         return this.memoize(id, () => {
             const { setState } = this.props;
@@ -68,18 +46,13 @@ class SingleSelect extends React.Component
             return renderEmpty;
         }
 
-        const item = (
-            find({code: selected}, items)
-            || find({id: selected}, items)
-            || find({name: selected}, items)
-            || find({label: selected}, items)
+        const { name } = (
+            find({ id: selected }, items)
+            || find({ name: selected }, items)
+            || { name: emptyLabel }
         );
 
-        if (isNil(item)) {
-            return emptyLabel;
-        }
-
-        return this.getItemText(item);
+        return name;
     }
 
     render() {
@@ -102,18 +75,18 @@ class SingleSelect extends React.Component
                 {renderEmpty ? (
                     <SelectItem
                         id={null}
-                        label={renderEmpty}
+                        name={renderEmpty}
                         selected={null === selected}
                         onClick={this.onClick(null)}
                     />
                 ) : null}
                 {map(item => {
-                    const id = this.getItemValue(item);
+                    const { id, name } = item;
                     return (
                         <SelectItem
                             key={id}
                             id={id}
-                            label={this.getItemText(item)}
+                            name={name}
                             selected={id === selected}
                             disabled={isDisabled(item)}
                             onClick={this.onClick(id)}

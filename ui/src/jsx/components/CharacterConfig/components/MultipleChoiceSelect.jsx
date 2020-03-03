@@ -102,11 +102,11 @@ export class MultipleChoiceSelect extends React.Component
         const current = this.getCurrent();
 
         const items = map(
-            ({ uuid, label }) => {
+            ({ uuid, name }) => {
                 const isNew = includes(uuid, added);
                 return {
                     id: uuid,
-                    label: label,
+                    name: name,
                     color: isNew ? 'info' : 'warning',
                     disabled: !isNew && disabled,
                 };

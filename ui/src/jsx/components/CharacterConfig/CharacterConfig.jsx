@@ -33,7 +33,7 @@ export class CharacterConfig extends React.Component
                 }
 
                 const {
-                    description, label, hidden, described, uuid,
+                    description, name, hidden, described, uuid,
                     ...props
                 } = option;
                 if (hidden || described) {
@@ -43,7 +43,7 @@ export class CharacterConfig extends React.Component
                 return (
                     <FormGroup
                         key={ uuid }
-                        label={ label }
+                        label={ name }
                     >
                         {description && (
                             <MDReactComponent

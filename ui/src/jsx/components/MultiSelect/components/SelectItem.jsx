@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import utils from '../../../utils';
 
 export const SelectItem = function({
-    id, label, checked, disabled, onSelect, onDeselect,
+    id, name, checked, disabled, onSelect, onDeselect,
 }) {
     if (id === undefined) {
         return null;
@@ -29,7 +29,7 @@ export const SelectItem = function({
                         : (checked ? onDeselect : onSelect)
                     }
                 />
-                {label}
+                {name}
             </label>
         </li>
     );
@@ -38,7 +38,7 @@ export const SelectItem = function({
 SelectItem.propTypes = {
     onSelect: PropTypes.func.isRequired,
     onDeselect: PropTypes.func.isRequired,
-    label: PropTypes.oneOfType([
+    name: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
     ]).isRequired,

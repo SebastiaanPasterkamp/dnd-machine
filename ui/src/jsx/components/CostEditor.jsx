@@ -10,11 +10,11 @@ class CostEditor extends LazyComponent
     constructor(props) {
         super(props);
         this.coinage = [
-            {code: 'cp', label: 'Copper'},
-            {code: 'sp', label: 'Silver'},
-            {code: 'ep', label: 'Electrum'},
-            {code: 'gp', label: 'Gold'},
-            {code: 'pp', label: 'Platinum'}
+            {id: 'cp', name: 'Copper'},
+            {id: 'sp', name: 'Silver'},
+            {id: 'ep', name: 'Electrum'},
+            {id: 'gp', name: 'Gold'},
+            {id: 'pp', name: 'Platinum'}
         ];
         this.state = {};
     }

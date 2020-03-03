@@ -46,10 +46,10 @@ describe('SpellEdit', () => {
             magic_components,
             magic_schools,
         }) );
-        ListDataActions.fetchItems('classes', 'items');
-        ListDataActions.fetchItems('magic_components', 'items');
-        ListDataActions.fetchItems('magic_schools', 'items');
-        ListDataActions.fetchItems('damage_types', 'items');
+        ListDataActions.fetchItems('classes');
+        ListDataActions.fetchItems('magic_components');
+        ListDataActions.fetchItems('magic_schools');
+        ListDataActions.fetchItems('damage_types');
         ListDataActions.fetchItems('current_user');
     })
 
@@ -60,48 +60,48 @@ describe('SpellEdit', () => {
     const listProps = {
         damage_types: [
             {
-                code: "fire",
-                label: "Fire",
+                id: "fire",
+                name: "Fire",
                 short: "Fire",
                 description: "Hot stuff",
             },
         ],
         magic_components: [
             {
-                code: "somatic",
-                label: "Somatic",
+                id: "somatic",
+                name: "Somatic",
                 short: "S",
                 description: "Gestures",
             },
             {
-                code: "verbal",
-                label: "Verbal",
+                id: "verbal",
+                name: "Verbal",
                 short: "V",
                 description: "Spoken",
             },
             {
-                code: "material",
-                label: "Material",
+                id: "material",
+                name: "Material",
                 short: "M",
                 description: "Stuff",
             },
         ],
         magic_schools: [
             {
-                code: "enchantment",
-                label: "Enchantment",
+                id: "enchantment",
+                name: "Enchantment",
                 description: "Magically entrance people.",
             },
             {
-                code: "illusion",
-                label: "Illusion",
+                id: "illusion",
+                name: "Illusion",
                 description: "Magic that dazzles the senses.",
             },
         ],
         _classes: [
             {
-                code: "Wizard",
-                label: "Wizard",
+                id: "Wizard",
+                name: "Wizard",
                 description: "Especially",
             },
         ],

@@ -8,8 +8,8 @@ import SingleSelect from '../../SingleSelect';
 export class FilterBooleanField extends React.Component
 {
     items = [
-        { id: true, label: "True" },
-        { id: false, label: "False" },
+        { id: true, name: "True" },
+        { id: false, name: "False" },
     ];
 
     constructor(props) {

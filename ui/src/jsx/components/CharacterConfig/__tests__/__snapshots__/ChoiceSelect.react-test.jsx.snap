@@ -5,7 +5,7 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
   options={
     Array [
       Object {
-        "label": "Choice A",
+        "name": "Choice A",
         "path": "some.path",
         "type": "value",
         "uuid": "mocked-uuid-2",
@@ -13,7 +13,7 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
       },
       Object {
         "description": "Some *text* here",
-        "label": "Choice B",
+        "name": "Choice B",
         "path": "some.path",
         "type": "value",
         "uuid": "mocked-uuid-3",
@@ -32,7 +32,7 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
     tabConfig={
       Array [
         Object {
-          "label": "Choice A",
+          "name": "Choice A",
           "path": "some.path",
           "type": "value",
           "uuid": "mocked-uuid-2",
@@ -40,7 +40,7 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
         },
         Object {
           "description": "Some *text* here",
-          "label": "Choice B",
+          "name": "Choice B",
           "path": "some.path",
           "type": "value",
           "uuid": "mocked-uuid-3",
@@ -61,7 +61,7 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
           disabled={false}
           icon={null}
           key="tab-0/.$mocked-uuid-2"
-          label="Choice A"
+          name="Choice A"
           onSelect={[Function]}
           path="some.path"
           type="value"
@@ -86,7 +86,7 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
           disabled={false}
           icon={null}
           key="tab-1/.$mocked-uuid-3"
-          label="Choice B"
+          name="Choice B"
           onSelect={[Function]}
           path="some.path"
           type="value"
@@ -117,7 +117,7 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
               Array [
                 Object {
                   "description": "Some *text* here",
-                  "label": "Choice B",
+                  "name": "Choice B",
                   "path": "some.path",
                   "type": "value",
                   "uuid": "mocked-uuid-3",
@@ -130,7 +130,7 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
             uuid="mocked-uuid-3"
           >
             <FormGroup
-              key="0"
+              key="mocked-uuid-3"
               label="Choice B"
             >
               <div

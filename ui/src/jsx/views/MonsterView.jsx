@@ -68,8 +68,8 @@ const AttackViewComponent = function({
                             value={{average, critical}}
                             disabled={true}
                             items={[
-                                {code: 'average', label: 'Average'},
-                                {code: 'critical', label: 'Critical'}
+                                {id: 'average', name: 'Average'},
+                                {id: 'critical', name: 'Critical'}
                             ]}
                         />
                     </td>
@@ -178,8 +178,8 @@ class MultiAttackView extends LazyComponent
                             value={sequence}
                             disabled={true}
                             items={_.map(attacks, (attack) => ({
-                                code: attack.name,
-                                label: attack.name
+                                id: attack.name,
+                                name: attack.name
                             }))}
                             />
                     </td>
@@ -191,8 +191,8 @@ class MultiAttackView extends LazyComponent
                             value={{average, critical}}
                             disabled={true}
                             items={[
-                                {code: 'average', label: 'Average'},
-                                {code: 'critical', label: 'Critical'}
+                                {id: 'average', name: 'Average'},
+                                {id: 'critical', name: 'Critical'}
                                 ]}
                             />
                     </td>
@@ -335,11 +335,11 @@ export class MonsterView extends LazyComponent
                                 value={motion}
                                 disabled={true}
                                 items={[
-                                    {code: 'walk', label: 'Walk'},
-                                    {code: 'burrow', label: 'Burrow'},
-                                    {code: 'climb', label: 'Climb'},
-                                    {code: 'fly', label: 'Fly'},
-                                    {code: 'swim', label: 'Swim'}
+                                    {id: 'walk', name: 'Walk'},
+                                    {id: 'burrow', name: 'Burrow'},
+                                    {id: 'climb', name: 'Climb'},
+                                    {id: 'fly', name: 'Fly'},
+                                    {id: 'swim', name: 'Swim'}
                                 ]}
                                 />
                         </td>

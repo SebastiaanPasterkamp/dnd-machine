@@ -31,43 +31,43 @@ const Skills = function({
             header="Skills" contentComponent="table"
         >
         {map((stat) => (
-            <React.Fragment key={stat.code}>
+            <React.Fragment key={stat.id}>
                 <thead>
                     <tr>
                         <th
                             colSpan="2"
                             className="text-align-center"
                         >
-                            {stat.label}
+                            {stat.name}
                         </th>
                     </tr>
                 </thead>
 
                 <tbody>
                 {map((skill) => {
-                    if (skill.stat !== stat.code) {
+                    if (skill.stat !== stat.id) {
                         return null;
                     }
 
                     return (
-                        <tr key={skill.code}>
-                            <th>{skill.label}</th>
+                        <tr key={skill.id}>
+                            <th>{skill.name}</th>
                             <td>
                                 <CheckBox
                                     isChecked={includes(
-                                        skill.code,
+                                        skill.id,
                                         prof_skl
                                     )}
                                 />
                                 {prof_exp.length ? (
                                     <CheckBox
                                         isChecked={includes(
-                                            skill.code,
+                                            skill.id,
                                             prof_exp
                                         )}
                                     />
                                 ) : null}
-                                <Bonus bonus={skillBonus[skill.code]} />
+                                <Bonus bonus={skillBonus[skill.id]} />
                             </td>
                         </tr>
                     );

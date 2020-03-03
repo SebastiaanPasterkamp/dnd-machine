@@ -23,11 +23,11 @@ export class PropertiesPanel extends React.Component
         super(props);
 
         this.motion = [
-            {code: 'walk', label: 'Walk'},
-            {code: 'burrow', label: 'Burrow'},
-            {code: 'climb', label: 'Climb'},
-            {code: 'fly', label: 'Fly'},
-            {code: 'swim', label: 'Swim'},
+            {id: 'walk', name: 'Walk'},
+            {id: 'burrow', name: 'Burrow'},
+            {id: 'climb', name: 'Climb'},
+            {id: 'fly', name: 'Fly'},
+            {id: 'swim', name: 'Swim'},
         ];
         this.memoize = memoize.bind(this);
     }

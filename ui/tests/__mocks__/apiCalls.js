@@ -23,6 +23,21 @@ const alignments = [
     { id: "chaotic evil", name: "Chaotic evil", type: "alignments" }
 ];
 
+const classes = [
+    {id: "Barbarian", name: "Barbarian", type: "classes", description: "A fierce warrior of primitive background who can enter a battle rage."},
+    {id: "Bard", name: "Bard", type: "classes", description: "An inspiring magician whose power echoes the music of creation."},
+    {id: "Cleric", name: "Cleric", type: "classes", description: "A priestly champion who wields divine magic in service of a higher power."},
+    {id: "Druid", name: "Druid", type: "classes", description: "A priest of the Old Faith, wielding the powers of nature — moonlight and plant growth, fire and lightning — and adopting animal forms."},
+    {id: "Fighter", name: "Fighter", type: "classes", description: "A master of martial combat, skilled wita variety of weapons and armor."},
+    {id: "Monk", name: "Monk", type: "classes", description: "An master of martial arts, harnessing the power of the body in pursuit of physical and spiritual perfection."},
+    {id: "Paladin", name: "Paladin", type: "classes", description: "A holy warrior bound to a sacred oath."},
+    {id: "Ranger", name: "Ranger", type: "classes", description: "A warrior who uses martial prowess annature magic to combat threats on the edges of civilization."},
+    {id: "Rogue", name: "Rogue", type: "classes", description: "A scoundrel who uses stealth and trickery to overcome obstacles and enemies."},
+    {id: "Sorcerer", name: "Sorcerer", type: "classes", description: "A spellcaster who draws on inherent magic from a gift or bloodline."},
+    {id: "Warlock", name: "Warlock", type: "classes", description: "A wielder of magic that is derived from a bargain with an extraplanar entity."},
+    {id: "Wizard", name: "Wizard", type: "classes", description: "A scholarly magic-user capable of manipulating the structures of reality."},
+];
+
 const damage_types = [
     {
         id: "acid",
@@ -438,6 +453,7 @@ export {
     armor_types,
     attack_modes,
     alignments,
+    classes,
     damage_types,
     genders,
     languages,

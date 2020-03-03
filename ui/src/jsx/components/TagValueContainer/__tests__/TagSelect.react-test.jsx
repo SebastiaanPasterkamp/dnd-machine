@@ -7,9 +7,9 @@ import TagSelect from '../components/TagSelect';
 describe('Component: TagSelect', () => {
     const fullProps = {
         items: [
-            { id: 1, label: 'one' },
-            { code: 2, name: 'Two' },
-            { name: 'three' },
+            { id: 1, name: 'one' },
+            { id: 2, name: 'Two' },
+            { id: 'three', name: 'three' },
         ],
         current: {
             2: 10,

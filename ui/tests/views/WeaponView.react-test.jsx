@@ -33,23 +33,23 @@ describe('WeaponView', () => {
         fetch.mockImplementation( mockedApi({
             weapon_types: [
                 {
-                    code: "simple melee",
-                    label: "Simple Melee Weapon",
+                    id: "simple melee",
+                    name: "Simple Melee Weapon",
                     short: "Melee",
                 },
             ],
             weapon_properties: [
                 {
-                    code: "finesse",
-                    label: "Finesse",
+                    id: "finesse",
+                    name: "Finesse",
                     short: "Fns",
                     description: "Use **Str** or **Dex**",
                 },
             ],
             damage_types: [
                 {
-                    code: "slashing",
-                    label: "Slashing",
+                    id: "slashing",
+                    name: "Slashing",
                     short: "Slsh",
                     description: "Slashing damage",
                 },

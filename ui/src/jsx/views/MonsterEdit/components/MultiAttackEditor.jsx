@@ -34,8 +34,8 @@ export default class MultiAttackEditor extends React.Component
             name, description, condition, sequence, attacks,
         } = this.props;
         const attackOptions = map(attack => ({
-            code: attack.name,
-            label: attack.name
+            id: attack.name,
+            name: attack.name,
         }))(attacks);
 
         return (

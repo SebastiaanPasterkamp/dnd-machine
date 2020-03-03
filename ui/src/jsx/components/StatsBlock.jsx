@@ -73,7 +73,7 @@ export class StatsBlock extends Reflux.Component
     getRange() {
         const { minBare, maxBare } = this.props;
         return map(
-            i => ({code: i, label: i})
+            i => ({id: i, name: i})
         )(range(minBare, maxBare + 1));
     }
 
@@ -97,7 +97,7 @@ export class StatsBlock extends Reflux.Component
 
         forEach(
             stat => {
-                stat = stat.code;
+                stat = stat.id;
                 props.bare[stat] = get(['bare', stat], props) || 8;
                 props.base[stat] = props.bare[stat]
                     + sum(get(['bonus', stat], props));
@@ -204,7 +204,7 @@ export class StatsBlock extends Reflux.Component
         }
         let spent = this._spent();
         spent -= this._cost(get(stat, bare) || 8);
-        spent += this._cost(item.code);
+        spent += this._cost(item.id);
         return (
             (budget - spent) < 0
         );
@@ -256,40 +256,40 @@ export class StatsBlock extends Reflux.Component
     }
 
     renderRow(stat) {
-        const code = stat.code;
+        const { id, name, description } = stat;
         const {
             editBase, base, bare, bonus, modifiers, increase,
         } = this.props;
 
         return (
-            <tr key={code} className="text-align-center">
-                <th>{stat.label}</th>
+            <tr key={id} className="text-align-center">
+                <th>{name}</th>
                 <td>
                     {editBase
                         ? <SingleSelect
-                            heading={stat.label}
-                            description={stat.description}
+                            heading={name}
+                            description={description}
                             defaultValue={8}
                             items={this.getRange()}
-                            setState={(value) => this.changeBareStat(code, value)}
-                            isDisabled={(item) => this.isDisabled(code, item)}
-                            selected={bare[code]} />
-                        : bare[code]
+                            setState={(value) => this.changeBareStat(id, value)}
+                            isDisabled={(item) => this.isDisabled(id, item)}
+                            selected={bare[id]} />
+                        : bare[id]
                     }
                 </td>
                 {this.hasBonus()
                     ? <td>
-                        <Bonus bonus={sum(bonus[code])} />
+                        <Bonus bonus={sum(bonus[id])} />
                     </td>
                     : null
                 }
-                {times(index => this.renderIncrease(index, code))(increase)}
+                {times(index => this.renderIncrease(index, id))(increase)}
                 {this.hasFinal()
-                    ? <td>{base[code]}</td>
+                    ? <td>{base[id]}</td>
                     : null
                 }
                 <td>
-                    <Bonus bonus={modifiers[code]} />
+                    <Bonus bonus={modifiers[id]} />
                 </td>
             </tr>
         );

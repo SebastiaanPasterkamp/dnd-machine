@@ -8,18 +8,18 @@ import MultiSelect from '../MultiSelect';
 
 const props = {
     items: [
-        {code: 1, label: 'One'},
-        {code: 2, label: 'Two'},
-        {code: 3, label: 'Three'},
-        {code: 4, label: 'Four'},
+        {id: 1, name: 'One'},
+        {id: 2, name: 'Two'},
+        {id: 3, name: 'Three'},
+        {id: 4, name: 'Four'},
     ],
 };
 const disabled = {
     items: [
-        {code: 1, label: 'One', disabled: true},
-        {code: 2, label: 'Two'},
-        {code: 3, label: 'Three'},
-        {code: 4, label: 'Four'},
+        {id: 1, name: 'One', disabled: true},
+        {id: 2, name: 'Two'},
+        {id: 3, name: 'Three'},
+        {id: 4, name: 'Four'},
     ],
 };
 
@@ -37,10 +37,10 @@ describe('Component: MultiSelect', () => {
 
     it('should show a dropdown with 4 items in various states', () => {
         const items = [
-            {code: 1, label: 'One'},
-            {code: 2, label: 'Two', disabled: true},
-            {code: 3, label: 'Three', disabled: true},
-            {code: 4, label: 'Four'},
+            {id: 1, name: 'One'},
+            {id: 2, name: 'Two', disabled: true},
+            {id: 3, name: 'Three', disabled: true},
+            {id: 4, name: 'Four'},
         ];
         const tree = renderer.create(
             <MultiSelect
@@ -57,7 +57,7 @@ describe('Component: MultiSelect', () => {
             <MultiSelect
                 {...props}
                 selected={[3,4]}
-                isDisabled={item => (item.code%2 == 0)}
+                isDisabled={item => (item.id % 2 == 0)}
                 />
         ).toJSON();
 

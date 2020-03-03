@@ -21,7 +21,7 @@ export class AutoCompleteInput extends LazyComponent
         if (e && 'preventDefault' in e) {
             e.preventDefault();
         }
-        this.props.setState(item.label);
+        this.props.setState(item.name);
     }
 
     render() {
@@ -31,7 +31,7 @@ export class AutoCompleteInput extends LazyComponent
 
         const filtered = _.filter(
             items,
-            ({ label = '' }) => label.match(filter)
+            ({ name = '' }) => name.match(filter)
         );
 
         const dropStyle = utils.makeStyle({
@@ -56,12 +56,12 @@ export class AutoCompleteInput extends LazyComponent
                 onMouseLeave={() => this.setState({hover: false})}
                 >
                 {_.map(filtered, item => (
-                    <li key={item.code}>
+                    <li key={item.id}>
                         <a
                             href="#"
                             onClick={(e) => this.selectItem(item, e)}
                         >
-                            {item.label}
+                            {item.name}
                         </a>
                     </li>
                 ))}
@@ -81,11 +81,11 @@ AutoCompleteInput.propTypes = {
     value: PropTypes.any,
     items: PropTypes.arrayOf(
         PropTypes.shape({
-            code: PropTypes.oneOfType([
+            id: PropTypes.oneOfType([
                 PropTypes.string,
                 PropTypes.number,
             ]),
-            label: PropTypes.string,
+            name: PropTypes.string,
             description: PropTypes.string,
         })
     ).isRequired,

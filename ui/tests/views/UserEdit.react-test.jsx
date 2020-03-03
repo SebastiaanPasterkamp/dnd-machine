@@ -37,9 +37,9 @@ describe('UserEdit', () => {
                 email="user@example.com"
                 role={['dm', 'player']}
                 user_roles={[
-                    {code: 'admin', label: 'Admin'},
-                    {code: 'dm', label: 'Dungeon Master'},
-                    {code: 'player', label: 'Player'},
+                    {id: 'admin', name: 'Admin'},
+                    {id: 'dm', name: 'Dungeon Master'},
+                    {id: 'player', name: 'Player'},
                 ]}
                 current_user={{
                     role: [],
@@ -62,9 +62,9 @@ describe('UserEdit', () => {
                 email="user@example.com"
                 role={['player']}
                 user_roles={[
-                    {code: 'admin', label: 'Admin'},
-                    {code: 'dm', label: 'Dungeon Master'},
-                    {code: 'player', label: 'Player'},
+                    {id: 'admin', name: 'Admin'},
+                    {id: 'dm', name: 'Dungeon Master'},
+                    {id: 'player', name: 'Player'},
                 ]}
                 current_user={{
                     id: 2,
@@ -87,9 +87,9 @@ describe('UserEdit', () => {
                 email="user@example.com"
                 role={['player']}
                 user_roles={[
-                    {code: 'admin', label: 'Admin'},
-                    {code: 'dm', label: 'Dungeon Master'},
-                    {code: 'player', label: 'Player'},
+                    {id: 'admin', name: 'Admin'},
+                    {id: 'dm', name: 'Dungeon Master'},
+                    {id: 'player', name: 'Player'},
                 ]}
                 current_user={{
                     role: ['admin'],
@@ -107,9 +107,9 @@ describe('UserEdit', () => {
         const wrapper = mount(
             <WrappedUserEdit
                 user_roles={[
-                    {code: 'admin', label: 'Admin'},
-                    {code: 'dm', label: 'Dungeon Master'},
-                    {code: 'player', label: 'Player'},
+                    {id: 'admin', name: 'Admin'},
+                    {id: 'dm', name: 'Dungeon Master'},
+                    {id: 'player', name: 'Player'},
                 ]}
                 current_user={{
                     role: ['admin'],

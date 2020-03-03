@@ -15,7 +15,7 @@ import uuidv4 from '../utils/uuidv4';
 jest.mock('../utils/uuidv4');
 
 const mockedId1 = '1';
-const mockedId2 = '1';
+const mockedId2 = '2';
 const mockedUUID1 = 'mocked-uuid-1';
 
 describe('Component: ListOption', () => {
@@ -47,7 +47,7 @@ describe('Component: ListOption', () => {
         fetch.mockImplementation(mockedApi({
             armor_types,
         }));
-        ListDataActions.fetchItems('armor_types', 'items');
+        ListDataActions.fetchItems('armor_types');
     });
 
     afterAll(() => fetch.resetMocks());

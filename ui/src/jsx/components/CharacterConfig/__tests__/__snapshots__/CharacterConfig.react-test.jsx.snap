@@ -24,7 +24,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
               },
             ],
             "description": "foo",
-            "label": "a",
+            "name": "a",
             "type": "config",
             "uuid": "mocked-uuid-9",
           },
@@ -37,7 +37,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                 "value": "Choice B",
               },
             ],
-            "label": "b",
+            "name": "b",
             "type": "config",
             "uuid": "mocked-uuid-10",
           },
@@ -70,7 +70,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                 },
               ],
               "description": "foo",
-              "label": "a",
+              "name": "a",
               "type": "config",
               "uuid": "mocked-uuid-9",
             },
@@ -83,7 +83,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                   "value": "Choice B",
                 },
               ],
-              "label": "b",
+              "name": "b",
               "type": "config",
               "uuid": "mocked-uuid-10",
             },
@@ -107,7 +107,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                   },
                 ],
                 "description": "foo",
-                "label": "a",
+                "name": "a",
                 "type": "config",
                 "uuid": "mocked-uuid-9",
               },
@@ -120,7 +120,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                     "value": "Choice B",
                   },
                 ],
-                "label": "b",
+                "name": "b",
                 "type": "config",
                 "uuid": "mocked-uuid-10",
               },
@@ -146,7 +146,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                     },
                   ],
                   "description": "foo",
-                  "label": "a",
+                  "name": "a",
                   "type": "config",
                   "uuid": "mocked-uuid-9",
                 },
@@ -159,7 +159,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                       "value": "Choice B",
                     },
                   ],
-                  "label": "b",
+                  "name": "b",
                   "type": "config",
                   "uuid": "mocked-uuid-10",
                 },
@@ -189,7 +189,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                   disabled={false}
                   icon={null}
                   key="tab-0/.$mocked-uuid-9"
-                  label="a"
+                  name="a"
                   onSelect={[Function]}
                   type="config"
                   uuid="mocked-uuid-9"
@@ -221,7 +221,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                   disabled={false}
                   icon={null}
                   key="tab-1/.$mocked-uuid-10"
-                  label="b"
+                  name="b"
                   onSelect={[Function]}
                   type="config"
                   uuid="mocked-uuid-10"
@@ -258,7 +258,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                             },
                           ],
                           "description": "foo",
-                          "label": "a",
+                          "name": "a",
                           "type": "config",
                           "uuid": "mocked-uuid-9",
                         },
@@ -376,7 +376,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
               },
             ],
             "description": "foo",
-            "label": "a",
+            "name": "a",
             "type": "config",
             "uuid": "mocked-uuid-9",
           },
@@ -389,7 +389,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                 "value": "Choice B",
               },
             ],
-            "label": "b",
+            "name": "b",
             "type": "config",
             "uuid": "mocked-uuid-10",
           },
@@ -422,7 +422,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                 },
               ],
               "description": "foo",
-              "label": "a",
+              "name": "a",
               "type": "config",
               "uuid": "mocked-uuid-9",
             },
@@ -435,7 +435,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                   "value": "Choice B",
                 },
               ],
-              "label": "b",
+              "name": "b",
               "type": "config",
               "uuid": "mocked-uuid-10",
             },
@@ -459,7 +459,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                   },
                 ],
                 "description": "foo",
-                "label": "a",
+                "name": "a",
                 "type": "config",
                 "uuid": "mocked-uuid-9",
               },
@@ -472,7 +472,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                     "value": "Choice B",
                   },
                 ],
-                "label": "b",
+                "name": "b",
                 "type": "config",
                 "uuid": "mocked-uuid-10",
               },
@@ -498,7 +498,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                     },
                   ],
                   "description": "foo",
-                  "label": "a",
+                  "name": "a",
                   "type": "config",
                   "uuid": "mocked-uuid-9",
                 },
@@ -511,7 +511,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                       "value": "Choice B",
                     },
                   ],
-                  "label": "b",
+                  "name": "b",
                   "type": "config",
                   "uuid": "mocked-uuid-10",
                 },
@@ -541,7 +541,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                   disabled={false}
                   icon={null}
                   key="tab-0/.$mocked-uuid-9"
-                  label="a"
+                  name="a"
                   onSelect={[Function]}
                   type="config"
                   uuid="mocked-uuid-9"
@@ -573,7 +573,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                   disabled={false}
                   icon={null}
                   key="tab-1/.$mocked-uuid-10"
-                  label="b"
+                  name="b"
                   onSelect={[Function]}
                   type="config"
                   uuid="mocked-uuid-10"
@@ -609,7 +609,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                               "value": "Choice B",
                             },
                           ],
-                          "label": "b",
+                          "name": "b",
                           "type": "config",
                           "uuid": "mocked-uuid-10",
                         },
@@ -1125,7 +1125,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
                             disabled={false}
                             id="strength"
                             key="strength"
-                            label="Strength"
+                            name="Strength"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -1143,7 +1143,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
                             disabled={false}
                             id="dexterity"
                             key="dexterity"
-                            label="Dexterity"
+                            name="Dexterity"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -1161,7 +1161,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
                             disabled={false}
                             id="constitution"
                             key="constitution"
-                            label="Constitution"
+                            name="Constitution"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -1179,7 +1179,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
                             disabled={false}
                             id="intelligence"
                             key="intelligence"
-                            label="Intelligence"
+                            name="Intelligence"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -1583,7 +1583,7 @@ exports[`Component: CharacterConfig should render list 2`] = `
                             disabled={false}
                             id="strength"
                             key="strength"
-                            label="Strength"
+                            name="Strength"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -1601,7 +1601,7 @@ exports[`Component: CharacterConfig should render list 2`] = `
                             disabled={false}
                             id="dexterity"
                             key="dexterity"
-                            label="Dexterity"
+                            name="Dexterity"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -1619,7 +1619,7 @@ exports[`Component: CharacterConfig should render list 2`] = `
                             disabled={false}
                             id="constitution"
                             key="constitution"
-                            label="Constitution"
+                            name="Constitution"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -1832,7 +1832,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
         "options": Array [
           Object {
             "description": "foo",
-            "label": "a",
+            "name": "a",
             "path": "multichoice.value",
             "type": "value",
             "uuid": "mocked-uuid-12",
@@ -1840,13 +1840,14 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
           },
           Object {
             "description": "bar",
-            "label": "b",
+            "name": "b",
             "path": "multichoice.value",
             "type": "value",
             "uuid": "mocked-uuid-13",
             "value": "Multi choice option B",
           },
         ],
+        "replace": 1,
         "type": "multichoice",
         "uuid": "mocked-uuid-11",
       },
@@ -1868,7 +1869,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
           Array [
             Object {
               "description": "foo",
-              "label": "a",
+              "name": "a",
               "path": "multichoice.value",
               "type": "value",
               "uuid": "mocked-uuid-12",
@@ -1876,7 +1877,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
             },
             Object {
               "description": "bar",
-              "label": "b",
+              "name": "b",
               "path": "multichoice.value",
               "type": "value",
               "uuid": "mocked-uuid-13",
@@ -1884,6 +1885,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
             },
           ]
         }
+        replace={1}
         type="multichoice"
         uuid="mocked-uuid-11"
       >
@@ -1900,7 +1902,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
             Array [
               Object {
                 "description": "foo",
-                "label": "a",
+                "name": "a",
                 "path": "multichoice.value",
                 "type": "value",
                 "uuid": "mocked-uuid-12",
@@ -1908,7 +1910,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
               },
               Object {
                 "description": "bar",
-                "label": "b",
+                "name": "b",
                 "path": "multichoice.value",
                 "type": "value",
                 "uuid": "mocked-uuid-13",
@@ -1917,7 +1919,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
             ]
           }
           removed={Array []}
-          replace={0}
+          replace={1}
           setState={[Function]}
           type="multichoice"
           uuid="mocked-uuid-11"
@@ -1930,15 +1932,15 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                 Array [
                   Object {
                     "color": "warning",
-                    "disabled": true,
+                    "disabled": false,
                     "id": "mocked-uuid-12",
-                    "label": "a",
+                    "name": "a",
                   },
                   Object {
                     "color": "warning",
-                    "disabled": true,
+                    "disabled": false,
                     "id": "mocked-uuid-13",
-                    "label": "b",
+                    "name": "b",
                   },
                 ]
               }
@@ -1961,15 +1963,15 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                       Array [
                         Object {
                           "color": "warning",
-                          "disabled": true,
+                          "disabled": false,
                           "id": "mocked-uuid-12",
-                          "label": "a",
+                          "name": "a",
                         },
                         Object {
                           "color": "warning",
-                          "disabled": true,
+                          "disabled": false,
                           "id": "mocked-uuid-13",
-                          "label": "b",
+                          "name": "b",
                         },
                       ]
                     }
@@ -1983,12 +1985,16 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                       items={
                         Array [
                           Object {
-                            "code": "mocked-uuid-12",
-                            "label": "a",
+                            "color": "warning",
+                            "disabled": false,
+                            "id": "mocked-uuid-12",
+                            "name": "a",
                           },
                           Object {
-                            "code": "mocked-uuid-13",
-                            "label": "b",
+                            "color": "warning",
+                            "disabled": false,
+                            "id": "mocked-uuid-13",
+                            "name": "b",
                           },
                         ]
                       }
@@ -2055,7 +2061,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                                 disabled={false}
                                 id="mocked-uuid-12"
                                 key="mocked-uuid-12"
-                                label="a"
+                                name="a"
                                 onClick={[Function]}
                                 selected={false}
                               >
@@ -2073,7 +2079,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                                 disabled={false}
                                 id="mocked-uuid-13"
                                 key="mocked-uuid-13"
-                                label="b"
+                                name="b"
                                 onClick={[Function]}
                                 selected={false}
                               >
@@ -2113,7 +2119,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
         "options": Array [
           Object {
             "description": "foo",
-            "label": "a",
+            "name": "a",
             "path": "multichoice.value",
             "type": "value",
             "uuid": "mocked-uuid-12",
@@ -2121,13 +2127,14 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
           },
           Object {
             "description": "bar",
-            "label": "b",
+            "name": "b",
             "path": "multichoice.value",
             "type": "value",
             "uuid": "mocked-uuid-13",
             "value": "Multi choice option B",
           },
         ],
+        "replace": 1,
         "type": "multichoice",
         "uuid": "mocked-uuid-11",
       },
@@ -2149,7 +2156,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
           Array [
             Object {
               "description": "foo",
-              "label": "a",
+              "name": "a",
               "path": "multichoice.value",
               "type": "value",
               "uuid": "mocked-uuid-12",
@@ -2157,7 +2164,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
             },
             Object {
               "description": "bar",
-              "label": "b",
+              "name": "b",
               "path": "multichoice.value",
               "type": "value",
               "uuid": "mocked-uuid-13",
@@ -2165,6 +2172,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
             },
           ]
         }
+        replace={1}
         type="multichoice"
         uuid="mocked-uuid-11"
       >
@@ -2194,7 +2202,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
             Array [
               Object {
                 "description": "foo",
-                "label": "a",
+                "name": "a",
                 "path": "multichoice.value",
                 "type": "value",
                 "uuid": "mocked-uuid-12",
@@ -2202,7 +2210,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
               },
               Object {
                 "description": "bar",
-                "label": "b",
+                "name": "b",
                 "path": "multichoice.value",
                 "type": "value",
                 "uuid": "mocked-uuid-13",
@@ -2211,7 +2219,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
             ]
           }
           removed={Array []}
-          replace={0}
+          replace={1}
           setState={[Function]}
           type="multichoice"
           uuid="mocked-uuid-11"
@@ -2226,13 +2234,13 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
                     "color": "info",
                     "disabled": false,
                     "id": "mocked-uuid-12",
-                    "label": "a",
+                    "name": "a",
                   },
                   Object {
                     "color": "warning",
-                    "disabled": true,
+                    "disabled": false,
                     "id": "mocked-uuid-13",
-                    "label": "b",
+                    "name": "b",
                   },
                 ]
               }
@@ -2260,9 +2268,10 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
                     count={1}
                     description={null}
                     disabled={false}
+                    id="mocked-uuid-12"
                     key="mocked-uuid-12"
-                    label="a"
-                    name={null}
+                    label={null}
+                    name="a"
                     onChange={null}
                     onDelete={[Function]}
                   >
@@ -2304,7 +2313,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
                 Array [
                   Object {
                     "description": "foo",
-                    "label": "a",
+                    "name": "a",
                     "path": "multichoice.value",
                     "type": "value",
                     "uuid": "mocked-uuid-12",
@@ -2617,7 +2626,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
                         disabled={false}
                         id="strength"
                         key="strength"
-                        label="Strength"
+                        name="Strength"
                         onClick={[Function]}
                         selected={true}
                       >
@@ -2635,7 +2644,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
                         disabled={false}
                         id="dexterity"
                         key="dexterity"
-                        label="Dexterity"
+                        name="Dexterity"
                         onClick={[Function]}
                         selected={false}
                       >
@@ -2653,7 +2662,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
                         disabled={false}
                         id="constitution"
                         key="constitution"
-                        label="Constitution"
+                        name="Constitution"
                         onClick={[Function]}
                         selected={false}
                       >
@@ -2671,7 +2680,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
                         disabled={false}
                         id="intelligence"
                         key="intelligence"
-                        label="Intelligence"
+                        name="Intelligence"
                         onClick={[Function]}
                         selected={false}
                       >
@@ -2689,7 +2698,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
                         disabled={false}
                         id="wisdom"
                         key="wisdom"
-                        label="Wisdom"
+                        name="Wisdom"
                         onClick={[Function]}
                         selected={false}
                       >
@@ -2707,7 +2716,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
                         disabled={false}
                         id="charisma"
                         key="charisma"
-                        label="Charisma"
+                        name="Charisma"
                         onClick={[Function]}
                         selected={false}
                       >
@@ -2970,7 +2979,7 @@ exports[`Component: CharacterConfig should render select 2`] = `
                         disabled={false}
                         id="strength"
                         key="strength"
-                        label="Strength"
+                        name="Strength"
                         onClick={[Function]}
                         selected={false}
                       >
@@ -2988,7 +2997,7 @@ exports[`Component: CharacterConfig should render select 2`] = `
                         disabled={false}
                         id="dexterity"
                         key="dexterity"
-                        label="Dexterity"
+                        name="Dexterity"
                         onClick={[Function]}
                         selected={false}
                       >
@@ -3006,7 +3015,7 @@ exports[`Component: CharacterConfig should render select 2`] = `
                         disabled={false}
                         id="constitution"
                         key="constitution"
-                        label="Constitution"
+                        name="Constitution"
                         onClick={[Function]}
                         selected={false}
                       >
@@ -3024,7 +3033,7 @@ exports[`Component: CharacterConfig should render select 2`] = `
                         disabled={false}
                         id="intelligence"
                         key="intelligence"
-                        label="Intelligence"
+                        name="Intelligence"
                         onClick={[Function]}
                         selected={false}
                       >
@@ -3042,7 +3051,7 @@ exports[`Component: CharacterConfig should render select 2`] = `
                         disabled={false}
                         id="wisdom"
                         key="wisdom"
-                        label="Wisdom"
+                        name="Wisdom"
                         onClick={[Function]}
                         selected={true}
                       >
@@ -3060,7 +3069,7 @@ exports[`Component: CharacterConfig should render select 2`] = `
                         disabled={false}
                         id="charisma"
                         key="charisma"
-                        label="Charisma"
+                        name="Charisma"
                         onClick={[Function]}
                         selected={false}
                       >
@@ -3331,7 +3340,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                             disabled={false}
                             id="foo"
                             key="foo"
-                            label="foo"
+                            name="foo"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -3882,7 +3891,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                             disabled={false}
                             id="strength"
                             key="strength"
-                            label="Strength"
+                            name="Strength"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -3900,7 +3909,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                             disabled={false}
                             id="dexterity"
                             key="dexterity"
-                            label="Dexterity"
+                            name="Dexterity"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -3918,7 +3927,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                             disabled={false}
                             id="constitution"
                             key="constitution"
-                            label="Constitution"
+                            name="Constitution"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -3936,7 +3945,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                             disabled={false}
                             id="intelligence"
                             key="intelligence"
-                            label="Intelligence"
+                            name="Intelligence"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -3954,7 +3963,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                             disabled={false}
                             id="wisdom"
                             key="wisdom"
-                            label="Wisdom"
+                            name="Wisdom"
                             onClick={[Function]}
                             selected={false}
                           >
@@ -3972,7 +3981,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                             disabled={false}
                             id="charisma"
                             key="charisma"
-                            label="Charisma"
+                            name="Charisma"
                             onClick={[Function]}
                             selected={false}
                           >

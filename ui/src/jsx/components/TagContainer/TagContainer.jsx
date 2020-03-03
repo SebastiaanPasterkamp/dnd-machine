@@ -63,18 +63,16 @@ export class TagContainer extends React.Component
 
         const tags = uniqBy('key', map(
             key => {
-                const { name, label, description, disabled } = (
+                const { name, description, disabled } = (
                     find({ id: key }, items)
-                    || find({ code: key }, items)
                     || find({ name: key }, items)
-                    || find({ label: key }, items)
                     || {}
                 );
 
                 return {
                     key,
                     count: counts[key],
-                    label: name !== undefined ? name : label,
+                    label: name,
                     description,
                     disabled: propDisabled || disabled,
                     onDelete: this.onDelete.bind(this, key, value.indexOf(key)),

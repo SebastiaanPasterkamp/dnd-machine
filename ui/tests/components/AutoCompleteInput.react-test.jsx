@@ -4,8 +4,8 @@ import { AutoCompleteInput } from 'components/AutoCompleteInput.jsx';
 import renderer from 'react-test-renderer';
 
 const items = [
-    {"code": "light", "label": "Light Armor"},
-    {"code": "heavy", "label": "Heavy Armor"},
+    {"id": "light", "name": "Light Armor"},
+    {"id": "heavy", "name": "Heavy Armor"},
 ];
 
 describe('Component: AutoCompleteInput', () => {

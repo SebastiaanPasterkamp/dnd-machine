@@ -42,8 +42,8 @@ describe('SpellView', () => {
         magic_schools,
         _classes: [
             {
-                code: "Wizard",
-                label: "Wizard",
+                id: "Wizard",
+                name: "Wizard",
                 description: "Especially",
             },
         ],

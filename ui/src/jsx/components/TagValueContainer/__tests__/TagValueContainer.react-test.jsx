@@ -5,8 +5,8 @@ import renderer from 'react-test-renderer';
 import TagValueContainer from '..';
 
 const items = [
-    { code: "a", label: "Aaa" },
-    { name: "b", label: "Bbb", description: "Bee" },
+    { id: "a", name: "Aaa" },
+    { id: "b", name: "Bbb", description: "Bee" },
 ];
 
 describe('Component: TagValueContainer', () => {

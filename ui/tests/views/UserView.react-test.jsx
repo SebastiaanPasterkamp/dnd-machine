@@ -23,9 +23,9 @@ describe('UserView', () => {
                 email="user@example.com"
                 role={['admin', 'dm', 'player']}
                 user_roles={[
-                    {code: 'admin', label: 'Admin'},
-                    {code: 'dm', label: 'Dungeon Master'},
-                    {code: 'player', label: 'Player'},
+                    {id: 'admin', name: 'Admin'},
+                    {id: 'dm', name: 'Dungeon Master'},
+                    {id: 'player', name: 'Player'},
                 ]}
             />
         );

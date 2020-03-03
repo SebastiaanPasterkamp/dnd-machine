@@ -5,8 +5,8 @@ import renderer from 'react-test-renderer';
 import TagContainer from '..';
 
 const items = [
-    { code: "a", label: "Aaa" },
-    { id: "b", label: "Bbb", description: "Bee" },
+    { id: "a", name: "Aaa" },
+    { id: "b", name: "Bbb", description: "Bee" },
 ];
 
 describe('Component: TagContainer', () => {

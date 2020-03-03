@@ -106,10 +106,7 @@ class WeaponsFilter extends React.Component
         super(props);
 
         this.dice_size = map(
-            size => ({
-                code: size,
-                label: size,
-            })
+            size => ({ id: size, name: size })
         )([4, 6, 8, 10, 12]);
 
         this.memoize = memoize.bind(this);

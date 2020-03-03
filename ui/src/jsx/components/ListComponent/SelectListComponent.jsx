@@ -184,7 +184,7 @@ SelectListComponent.propTypes = {
     options: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,
-            label: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
             component: PropTypes.oneOfType([
                 PropTypes.element,
                 PropTypes.func,

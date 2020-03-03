@@ -34,10 +34,10 @@ describe('View NpcEdit', () => {
         statistics: _.reduce(
             statistics,
             (statistics, stat) => {
-                statistics.bare[stat.label] = 12;
-                statistics.bonus[stat.label] = [1, 2];
-                statistics.base[stat.label] = 12;
-                statistics.modifiers[stat.label] = -1;
+                statistics.bare[stat.name] = 12;
+                statistics.bonus[stat.name] = [1, 2];
+                statistics.base[stat.name] = 12;
+                statistics.modifiers[stat.name] = -1;
                 return statistics;
             },
             {

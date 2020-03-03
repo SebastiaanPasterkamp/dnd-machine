@@ -29,25 +29,6 @@ class MultiSelect extends React.Component
         return null;
     }
 
-    getItemValue(item) {
-        const { code, id, name } = item;
-        if (code !== undefined) {
-            return code;
-        }
-        if (id !== undefined) {
-            return id;
-        }
-        return name;
-    }
-
-    getItemText(item) {
-        const { label, name } = item;
-        if (label !== undefined) {
-            return label;
-        }
-        return name;
-    }
-
     onAdd(id) {
         return this.memoize(`add-${id}`, () => {
             const { selected, setState } = this.props;
@@ -71,12 +52,10 @@ class MultiSelect extends React.Component
             if (renderEmpty && selected[0] === null) {
                 return renderEmpty;
             }
-            const current = find(
-                (item) => this.getItemValue(item) == selected[0]
-            )(items);
+            const { name } = find({ id: selected[0] }, items) || {};
 
-            if (current) {
-                return this.getItemText(current);
+            if (name !== undefined) {
+                return name;
             }
         }
 
@@ -107,19 +86,19 @@ class MultiSelect extends React.Component
                 {renderEmpty ? (
                     <SelectItem
                         id={null}
-                        label={renderEmpty}
+                        name={renderEmpty}
                         checked={includes(null, selected)}
                         onSelect={this.onAdd(null)}
                         onDeselect={this.onDel(null)}
                     />
                 ) : null}
                 {map(item => {
-                    const id = this.getItemValue(item);
+                    const { id, name } = item;
                     return (
                         <SelectItem
                             key={id}
                             id={id}
-                            label={this.getItemText(item)}
+                            name={name}
                             checked={includes(id, selected)}
                             disabled={isDisabled(item)}
                             onSelect={this.onAdd(id)}

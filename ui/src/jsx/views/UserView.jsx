@@ -78,8 +78,8 @@ UserView.propTypes = {
     ),
     user_roles: PropTypes.arrayOf(
         PropTypes.shape({
-            code: PropTypes.string.isRequired,
-            label: PropTypes.string.isRequired,
+            id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
         })
     ),
 };

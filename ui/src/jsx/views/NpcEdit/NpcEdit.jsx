@@ -26,10 +26,7 @@ export class NpcEdit extends React.Component
     constructor(props) {
         super(props);
 
-        this.levels = _.range(1, 30)
-            .map((i) => {
-                return {code: i, label: i}
-            });
+        this.levels = _.range(1, 30).map((i) => ({id: i, name: i}));
         this.memoize = memoize.bind(this);
         this.onStatisticsChange = this.onStatisticsChange.bind(this);
     }
@@ -137,10 +134,7 @@ export class NpcEdit extends React.Component
                     result,
                     _.map(
                         item.sub || [item],
-                        sub => ({
-                            code: sub.name,
-                            label: sub.name,
-                        })
+                        sub => ({ id: sub.name, name: sub.name })
                     )
                 );
             },

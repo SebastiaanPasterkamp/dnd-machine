@@ -164,13 +164,12 @@ export class ListPropertySelect extends React.Component
 
                 const retval = objectlist ? item : (
                     find({ id: item }, items)
-                    || find({ code: item }, items)
                     || { id: item, name: item, count: 1 }
                 );
 
                 return {
                     ...retval,
-                    id: retval.id || retval.code,
+                    id: retval.id,
                     color: isAdded ? 'info' : (
                         isRemoved ? 'bad' : (
                             isGiven ? 'good' : (
@@ -279,12 +278,7 @@ ListPropertySelect.propTypes = {
             PropTypes.string,
             PropTypes.number,
         ]),
-        code: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number,
-        ]),
         name: PropTypes.string,
-        label: PropTypes.string,
         description: PropTypes.string,
     })),
     given: PropTypes.arrayOf(

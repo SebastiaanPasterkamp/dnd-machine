@@ -12,20 +12,20 @@ import { MultipleChoiceSelect } from '../components/MultipleChoiceSelect';
 const props = {
     type: 'multichoice',
     uuid: 'mocked-uuid-1',
-    label: 'Example',
+    name: 'Example',
     description: 'Pick some',
     options: [{
         type: 'dict',
         uuid: 'mocked-uuid-2',
         path: 'foo.bar',
-        label: 'Simple',
+        name: 'Simple',
         dict: {
             description: 'Bar is good',
         }
     }, {
         type: 'config',
         uuid: 'mocked-uuid-3',
-        label: 'Complex',
+        name: 'Complex',
         config: [{
             type: 'dict',
             uuid: 'mocked-uuid-4',

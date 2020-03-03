@@ -168,8 +168,8 @@
         "artisan": [],
         "gaming": [],
         "kit": [{
-            "code": "Disguise kit",
-            "label": "Disguise kit",
+            "id": "Disguise kit",
+            "name": "Disguise kit",
             "type": "kit",
             "weight": {
                 "lb": 3
@@ -179,8 +179,8 @@
             }
         }],
         "musical": [{
-                "code": "Flute",
-                "label": "Flute",
+                "id": "Flute",
+                "name": "Flute",
                 "type": "musical",
                 "weight": {
                     "lb": 1
@@ -190,8 +190,8 @@
                 }
             },
             {
-                "code": "Viol",
-                "label": "Viol",
+                "id": "Viol",
+                "name": "Viol",
                 "type": "musical",
                 "weight": {
                     "lb": 1
@@ -220,8 +220,8 @@
             "Day of Rations",
             "Waterskin",
             {
-                "code": "A pipe that blows bubbles",
-                "label": "A pipe that blows bubbles",
+                "id": "A pipe that blows bubbles",
+                "name": "A pipe that blows bubbles",
                 "type": "trinket"
             }
         ]

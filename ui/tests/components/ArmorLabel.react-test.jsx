@@ -3,8 +3,8 @@ import { ArmorLabel } from 'components/ArmorLabel.jsx';
 import renderer from 'react-test-renderer';
 
 const armor_types = [
-    {"code": "light", "label": "Light Armor"},
-    {"code": "heavy", "label": "Heavy Armor"},
+    {id: "light", name: "Light Armor"},
+    {id: "heavy", name: "Heavy Armor"},
 ];
 const light_armor = {
     id: 1,

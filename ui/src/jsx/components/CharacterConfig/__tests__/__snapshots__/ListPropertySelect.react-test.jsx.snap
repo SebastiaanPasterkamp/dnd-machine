@@ -11,7 +11,7 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
   }
   filter={
     Object {
-      "code": Array [
+      "id": Array [
         "impossible",
       ],
     }
@@ -21,34 +21,40 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
   items={
     Array [
       Object {
-        "code": "strength",
         "description": "Str",
-        "label": "Strength",
+        "id": "strength",
+        "name": "Strength",
+        "type": "statistics",
       },
       Object {
-        "code": "dexterity",
         "description": "Dex",
-        "label": "Dexterity",
+        "id": "dexterity",
+        "name": "Dexterity",
+        "type": "statistics",
       },
       Object {
-        "code": "constitution",
         "description": "Con",
-        "label": "Constitution",
+        "id": "constitution",
+        "name": "Constitution",
+        "type": "statistics",
       },
       Object {
-        "code": "intelligence",
         "description": "Int",
-        "label": "Intelligence",
+        "id": "intelligence",
+        "name": "Intelligence",
+        "type": "statistics",
       },
       Object {
-        "code": "wisdom",
         "description": "Wis",
-        "label": "Wisdom",
+        "id": "wisdom",
+        "name": "Wisdom",
+        "type": "statistics",
       },
       Object {
-        "code": "charisma",
         "description": "Char",
-        "label": "Charisma",
+        "id": "charisma",
+        "name": "Charisma",
+        "type": "statistics",
       },
     ]
   }
@@ -74,16 +80,16 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
       <Tag
         badges={Array []}
         className={null}
-        code="dexterity"
         color={null}
         description="Dex"
         disabled={true}
         id="dexterity"
-        key="tag-undefined-dexterity"
-        label="Dexterity"
-        name={null}
+        key="tag-statistics-dexterity"
+        label={null}
+        name="Dexterity"
         onChange={null}
         onDelete={[Function]}
+        type="statistics"
       >
         <div
           className="nice-tag muted"
@@ -207,34 +213,40 @@ exports[`Component: ListPropertySelect should not render when hidden 1`] = `
   items={
     Array [
       Object {
-        "code": "strength",
         "description": "Str",
-        "label": "Strength",
+        "id": "strength",
+        "name": "Strength",
+        "type": "statistics",
       },
       Object {
-        "code": "dexterity",
         "description": "Dex",
-        "label": "Dexterity",
+        "id": "dexterity",
+        "name": "Dexterity",
+        "type": "statistics",
       },
       Object {
-        "code": "constitution",
         "description": "Con",
-        "label": "Constitution",
+        "id": "constitution",
+        "name": "Constitution",
+        "type": "statistics",
       },
       Object {
-        "code": "intelligence",
         "description": "Int",
-        "label": "Intelligence",
+        "id": "intelligence",
+        "name": "Intelligence",
+        "type": "statistics",
       },
       Object {
-        "code": "wisdom",
         "description": "Wis",
-        "label": "Wisdom",
+        "id": "wisdom",
+        "name": "Wisdom",
+        "type": "statistics",
       },
       Object {
-        "code": "charisma",
         "description": "Char",
-        "label": "Charisma",
+        "id": "charisma",
+        "name": "Charisma",
+        "type": "statistics",
       },
     ]
   }
@@ -268,7 +280,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
   }
   filter={
     Object {
-      "code": Array [
+      "id": Array [
         "strength",
         "charisma",
         "intelligence",
@@ -286,34 +298,40 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
   items={
     Array [
       Object {
-        "code": "strength",
         "description": "Str",
-        "label": "Strength",
+        "id": "strength",
+        "name": "Strength",
+        "type": "statistics",
       },
       Object {
-        "code": "dexterity",
         "description": "Dex",
-        "label": "Dexterity",
+        "id": "dexterity",
+        "name": "Dexterity",
+        "type": "statistics",
       },
       Object {
-        "code": "constitution",
         "description": "Con",
-        "label": "Constitution",
+        "id": "constitution",
+        "name": "Constitution",
+        "type": "statistics",
       },
       Object {
-        "code": "intelligence",
         "description": "Int",
-        "label": "Intelligence",
+        "id": "intelligence",
+        "name": "Intelligence",
+        "type": "statistics",
       },
       Object {
-        "code": "wisdom",
         "description": "Wis",
-        "label": "Wisdom",
+        "id": "wisdom",
+        "name": "Wisdom",
+        "type": "statistics",
       },
       Object {
-        "code": "charisma",
         "description": "Char",
-        "label": "Charisma",
+        "id": "charisma",
+        "name": "Charisma",
+        "type": "statistics",
       },
     ]
   }
@@ -343,19 +361,22 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
         items={
           Array [
             Object {
-              "code": "strength",
               "description": "Str",
-              "label": "Strength",
+              "id": "strength",
+              "name": "Strength",
+              "type": "statistics",
             },
             Object {
-              "code": "intelligence",
               "description": "Int",
-              "label": "Intelligence",
+              "id": "intelligence",
+              "name": "Intelligence",
+              "type": "statistics",
             },
             Object {
-              "code": "charisma",
               "description": "Char",
-              "label": "Charisma",
+              "id": "charisma",
+              "name": "Charisma",
+              "type": "statistics",
             },
           ]
         }
@@ -422,7 +443,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
                   disabled={false}
                   id="strength"
                   key="strength"
-                  label="Strength"
+                  name="Strength"
                   onClick={[Function]}
                   selected={false}
                 >
@@ -440,7 +461,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
                   disabled={false}
                   id="intelligence"
                   key="intelligence"
-                  label="Intelligence"
+                  name="Intelligence"
                   onClick={[Function]}
                   selected={false}
                 >
@@ -458,7 +479,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
                   disabled={false}
                   id="charisma"
                   key="charisma"
-                  label="Charisma"
+                  name="Charisma"
                   onClick={[Function]}
                   selected={false}
                 >
@@ -480,16 +501,16 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       <Tag
         badges={Array []}
         className={null}
-        code="constitution"
         color="good"
         description="Con"
         disabled={true}
         id="constitution"
-        key="tag-undefined-constitution"
-        label="Constitution"
-        name={null}
+        key="tag-statistics-constitution"
+        label={null}
+        name="Constitution"
         onChange={null}
         onDelete={[Function]}
+        type="statistics"
       >
         <div
           className="nice-tag good"
@@ -529,16 +550,16 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       <Tag
         badges={Array []}
         className={null}
-        code="charisma"
         color="good"
         description="Char"
         disabled={true}
         id="charisma"
-        key="tag-undefined-charisma"
-        label="Charisma"
-        name={null}
+        key="tag-statistics-charisma"
+        label={null}
+        name="Charisma"
         onChange={null}
         onDelete={[Function]}
+        type="statistics"
       >
         <div
           className="nice-tag good"
@@ -578,16 +599,16 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       <Tag
         badges={Array []}
         className={null}
-        code="dexterity"
         color="warning"
         description="Dex"
         disabled={false}
         id="dexterity"
-        key="tag-undefined-dexterity"
-        label="Dexterity"
-        name={null}
+        key="tag-statistics-dexterity"
+        label={null}
+        name="Dexterity"
         onChange={null}
         onDelete={[Function]}
+        type="statistics"
       >
         <div
           className="nice-tag warning"
@@ -689,34 +710,40 @@ exports[`Component: ListPropertySelect should stil show unknown current values 1
   items={
     Array [
       Object {
-        "code": "strength",
         "description": "Str",
-        "label": "Strength",
+        "id": "strength",
+        "name": "Strength",
+        "type": "statistics",
       },
       Object {
-        "code": "dexterity",
         "description": "Dex",
-        "label": "Dexterity",
+        "id": "dexterity",
+        "name": "Dexterity",
+        "type": "statistics",
       },
       Object {
-        "code": "constitution",
         "description": "Con",
-        "label": "Constitution",
+        "id": "constitution",
+        "name": "Constitution",
+        "type": "statistics",
       },
       Object {
-        "code": "intelligence",
         "description": "Int",
-        "label": "Intelligence",
+        "id": "intelligence",
+        "name": "Intelligence",
+        "type": "statistics",
       },
       Object {
-        "code": "wisdom",
         "description": "Wis",
-        "label": "Wisdom",
+        "id": "wisdom",
+        "name": "Wisdom",
+        "type": "statistics",
       },
       Object {
-        "code": "charisma",
         "description": "Char",
-        "label": "Charisma",
+        "id": "charisma",
+        "name": "Charisma",
+        "type": "statistics",
       },
     ]
   }
@@ -772,16 +799,16 @@ exports[`Component: ListPropertySelect should stil show unknown current values 1
       <Tag
         badges={Array []}
         className={null}
-        code="dexterity"
         color={null}
         description="Dex"
         disabled={true}
         id="dexterity"
-        key="tag-undefined-dexterity"
-        label="Dexterity"
-        name={null}
+        key="tag-statistics-dexterity"
+        label={null}
+        name="Dexterity"
         onChange={null}
         onDelete={[Function]}
+        type="statistics"
       >
         <div
           className="nice-tag muted"

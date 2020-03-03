@@ -295,21 +295,21 @@ export class CharacterStatistics extends LazyComponent
                 </tr>
             </thead>
             <tbody>{_.map(_statistics, stat => (
-                <tr key={stat.code}>
-                    <th>{stat.label}</th>
-                    <td>{statistics.base[stat.code]}</td>
+                <tr key={stat.id}>
+                    <th>{stat.name}</th>
+                    <td>{statistics.base[stat.id]}</td>
                     <td>
                         <Bonus
-                            bonus={statistics.modifiers[stat.code]}
+                            bonus={statistics.modifiers[stat.id]}
                             />
                     </td>
                     <td>
                     <CheckBox isChecked={_.includes(
                             proficiencies.saving_throws,
-                            stat.code
+                            stat.id
                         )} />
                     <Bonus
-                        bonus={saving_throws[stat.code]}
+                        bonus={saving_throws[stat.id]}
                         />
                     </td>
                 </tr>
@@ -334,35 +334,35 @@ export class CharacterSkills extends LazyComponent
             header="Skills" contentComponent="table"
         >
         {_.map(_statistics, stat => (
-            <React.Fragment  key={'stat-' + stat.code}>
+            <React.Fragment  key={'stat-' + stat.id}>
                 <thead>
                     <tr>
-                        <th colSpan="2" className="text-align-center">{stat.label}</th>
+                        <th colSpan="2" className="text-align-center">{stat.name}</th>
                     </tr>
                 </thead>
 
                 <tbody>
                 {_.map(_skills, skill => {
-                    if (skill.stat != stat.code) {
+                    if (skill.stat != stat.id) {
                         return null;
                     }
 
-                    return <tr key={skill.code}>
-                        <th>{skill.label}</th>
+                    return <tr key={skill.id}>
+                        <th>{skill.name}</th>
                         <td>
                             <CheckBox isChecked={_.includes(
                                     proficiencies.skills,
-                                    skill.code
+                                    skill.id
                                 )} />
                             {proficiencies.expertise.length
                                 ? <CheckBox isChecked={_.includes(
                                         proficiencies.expertise,
-                                        skill.code
+                                        skill.id
                                     )} />
                                 : null
                             }
                             <Bonus
-                                bonus={skills[skill.code]}
+                                bonus={skills[skill.id]}
                                 />
                         </td>
                     </tr>;
@@ -440,7 +440,7 @@ export class CharacterEquipment extends LazyComponent
             {_.map(items, (itemset, set) => {
                 let gear = _.countBy(itemset, (item) => {
                     if (_.isObject(item)) {
-                        return item.label || item.name;
+                        return item.name;
                     }
                     return item;
                 });

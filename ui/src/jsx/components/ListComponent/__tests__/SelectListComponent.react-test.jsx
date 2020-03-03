@@ -13,7 +13,7 @@ describe('Component: SelectListComponent', () => {
         options: [
             {
                 id: 'a',
-                label: 'Input A',
+                name: 'Input A',
                 component: InputField,
                 componentProps: {
                     placeholder: 'A...',
@@ -24,7 +24,7 @@ describe('Component: SelectListComponent', () => {
             },
             {
                 id: 'b',
-                label: 'Input B',
+                name: 'Input B',
                 component: InputField,
                 componentProps: {
                     placeholder: 'B...',

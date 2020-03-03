@@ -11,16 +11,16 @@ describe('MonsterLabel', () => {
         showType: true,
         showCampaign: true,
         size_hit_dice: [
-            { code: "tiny", dice_size: 4, label: "Tiny" },
-            { code: "small", dice_size: 6, label: "Small" },
+            { id: "tiny", dice_size: 4, name: "Tiny" },
+            { id: "small", dice_size: 6, name: "Small" },
         ],
         monster_types: [
-            { code: "Aberration", label: "Aberration", description: "Aberration", intelligent: false },
-            { code: "Beast", label: "Beast", description: "Beast", intelligent: false },
+            { id: "Aberration", name: "Aberration", description: "Aberration", intelligent: false },
+            { id: "Beast", name: "Beast", description: "Beast", intelligent: false },
         ],
         alignments: [
-            { code: "unaligned", label: "Unaligned" },
-            { code: "lawful good", label: "Lawful good" },
+            { id: "unaligned", name: "Unaligned" },
+            { id: "lawful good", name: "Lawful good" },
         ],
         monster: {
             id: 1,

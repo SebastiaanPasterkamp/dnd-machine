@@ -21,14 +21,14 @@ describe('Description', () => {
         fetch.mockImplementation( mockedApi({
             alignments: [
                 {
-                    code: 'chaotic good',
-                    label: 'Chaotic Good',
+                    id: 'chaotic good',
+                    name: 'Chaotic Good',
                 },
             ],
             genders: [
                 {
-                    code: 'female',
-                    label: 'Female',
+                    id: 'female',
+                    name: 'Female',
                 },
             ],
             '(user|character)' : {},

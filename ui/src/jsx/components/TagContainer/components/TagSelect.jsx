@@ -11,18 +11,9 @@ import SingleSelect from '../../SingleSelect';
 const TagSelect = function({ onSelect, items, current, multiple }) {
     if (!items.length) return null;
 
-    const mapped = map(
-        ({id, code, name, label}) => ({
-            code: id !== undefined ? id : (
-                code !== undefined ? code : name
-            ),
-            label: label !== undefined ? label : name,
-        })
-    )(items);
-
     const filtered = multiple
-        ? mapped
-        : filter(item => !includes(item.code, current))(mapped);
+        ? items
+        : filter(item => !includes(item.id, current))(items);
 
     if (!filtered.length) return null;
 

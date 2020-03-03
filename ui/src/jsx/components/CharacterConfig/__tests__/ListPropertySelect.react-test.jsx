@@ -54,7 +54,7 @@ describe('Component: ListPropertySelect', () => {
                 setState={setState}
                 {...props}
                 add={1}
-                filter={{ code: ['impossible'] }}
+                filter={{ id: ['impossible'] }}
             />
         );
 
@@ -94,7 +94,7 @@ describe('Component: ListPropertySelect', () => {
                 add={2}
                 replace={1}
                 filter={{
-                    code: [
+                    id: [
                         'strength',
                         'charisma',
                         'intelligence',
@@ -141,7 +141,7 @@ describe('Component: ListPropertySelect', () => {
                 given={[
                     'charisma',
                 ]}
-                filter={{ code: ['strength'] }}
+                filter={{ id: ['strength'] }}
                 replace={1}
             />
         );

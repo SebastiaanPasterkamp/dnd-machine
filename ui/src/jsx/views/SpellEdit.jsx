@@ -34,12 +34,8 @@ export class SpellEdit extends React.Component
         };
         this.levels = range(0, 11).map((level) => {
             return {
-                code: level
-                    ? level.toString()
-                    : 'Cantrip',
-                label: level
-                    ? 'Level ' + level
-                    : 'Cantrip',
+                id: level ? level.toString() : 'Cantrip',
+                name: level ? `Level ${level}` : 'Cantrip',
             };
         });
         this.memoize = memoize.bind(this);
