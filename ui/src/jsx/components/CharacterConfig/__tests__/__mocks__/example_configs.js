@@ -79,7 +79,7 @@ export const list_array = {
     type: 'list',
     uuid: 'mocked-uuid-5',
     items: ['foo', 'bar'],
-    path: 'foo.items',
+    path: 'foo.empty',
     given: ['bar'],
     add: 1,
 };
@@ -89,7 +89,10 @@ export const list_object = {
     uuid: 'mocked-uuid-6',
     list: ['statistics'],
     path: 'foo.items',
-    given: ['bar'],
+    objectlist: true,
+    given: [
+        {id: 'ruh', type: 'statistics', name: 'Ruh' },
+    ],
     add: 1,
 };
 

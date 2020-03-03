@@ -43,9 +43,9 @@ export class ListPropertySelect extends React.Component
 
     static getDerivedStateFromProps(props, state) {
         const { added, removed, given, current, objectlist, add, limit, replace } = props;
-        const cntAdded = objectlist ? sumBy('count', added) : added.length;
-        const cntCurrent = objectlist ? sumBy('count', current) : current.length;
-        const cntRemoved = objectlist ? sumBy('count', removed) : removed.length;
+        const cntAdded = objectlist ? sumBy(a => a.count || 1, added) : added.length;
+        const cntCurrent = objectlist ? sumBy(c => c.count || 1, current) : current.length;
+        const cntRemoved = objectlist ? sumBy(r => r.count || 1, removed) : removed.length;
 
         const showSelect = (cntAdded - cntRemoved) < add || cntCurrent < limit;
         const disabled = cntRemoved >= replace;
@@ -71,12 +71,12 @@ export class ListPropertySelect extends React.Component
         if (idx >= 0) {
             return [
                 ...set.slice(0, idx),
-                {...set[idx], ...item, count: multiple ? set[idx].count + 1 : 1},
+                {...set[idx], ...item, count: multiple ? set[idx].count + 1 : undefined},
                 ...set.slice(idx + 1),
             ];
         }
 
-        return [...set, {...item, count: 1}];
+        return [...set, {...item, count: multiple ? 1 : undefined}];
     }
 
     decrease(item, set) {
@@ -118,7 +118,7 @@ export class ListPropertySelect extends React.Component
 
         return this.memoize(key, () => {
             const { added, removed, replace, setState } = this.props;
-            const cntRemoved = objectlist ? sumBy('count', removed) : removed.length;
+            const cntRemoved = objectlist ? sumBy(r => r.count || 1, removed) : removed.length;
 
             const state = { added, removed };
             if (find(needle, added)) {
@@ -132,9 +132,10 @@ export class ListPropertySelect extends React.Component
     }
 
     onAdd(id) {
-        const { added, removed, objectlist, setState } = this.props;
-        const item = { id };
-        const needle = objectlist ? item : i => i === id;
+        const { items, added, removed, objectlist, setState } = this.props;
+        const item = find({ id }, items);
+        const { type } = item;
+        const needle = objectlist ? { type, id } : i => i === id;
 
         const state = { added, removed };
         if (find(needle, removed)) {
@@ -148,7 +149,7 @@ export class ListPropertySelect extends React.Component
 
     getValue() {
         const {
-            added, removed, items, objectlist, current, given, replace
+            added, removed, items, objectlist, current, given, replace, uuid
         } = this.props;
         const { disabled } = this.state;
 
@@ -162,13 +163,9 @@ export class ListPropertySelect extends React.Component
                 const isRemoved = find(needle, removed) !== undefined;
 
                 const retval = objectlist ? item : (
-                    items.length
-                        ? find({ type, id }, items)
-                          || find({ id }, items)
-                          || find({ type, code: id }, items)
-                          || find({ code: id }, items)
-                          || { id, type, name: id, count: 1 }
-                        : { id, name: id, count: 1 }
+                    find({ id: item }, items)
+                    || find({ code: item }, items)
+                    || { id: item, name: item, count: 1 }
                 );
 
                 return {
@@ -189,7 +186,7 @@ export class ListPropertySelect extends React.Component
 
     renderSelect() {
         const {
-            multiple, items, current, removed,
+            multiple, items, current, removed, objectlist,
             filter: filters,
         } = this.props;
         const { showSelect } = this.state;
@@ -201,16 +198,23 @@ export class ListPropertySelect extends React.Component
         }
 
         const filtered = filter(
-            item => (
-                find({ type: item.type, id: item.id }, removed )
-                || (
-                    MatchesFilters(item, filters)
-                    && (
-                        multiple
-                        || !find({ type: item.type, id: item.id }, current )
-                    )
-                )
-            )
+            item => {
+                const { type, id } = item;
+                if (find({ type, id }, removed)) {
+                    return true;
+                }
+                if (!MatchesFilters(item, filters)) {
+                    return false;
+                }
+                if (multiple) {
+                    return true;
+                }
+                const needle = objectlist ? { type, id } : i => i === item.id;
+                if (find(needle, current)) {
+                    return false;
+                }
+                return true;
+            }
         )(items);
 
         if (!filtered.length) return null;
@@ -256,11 +260,14 @@ export class ListPropertySelect extends React.Component
 };
 
 const itemType = {
-    id: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+    ]).isRequired,
     type: PropTypes.string.isRequired,
     name: PropTypes.string,
-    label: PropTypes.string,
     description: PropTypes.string,
+    count: PropTypes.number,
 };
 
 ListPropertySelect.propTypes = {
@@ -268,7 +275,10 @@ ListPropertySelect.propTypes = {
     uuid: PropTypes.string.isRequired,
     setState: PropTypes.func.isRequired,
     items: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
+        id: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+        ]),
         code: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.number,
@@ -277,47 +287,35 @@ ListPropertySelect.propTypes = {
         label: PropTypes.string,
         description: PropTypes.string,
     })),
-    given: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.shape({
-            ...itemType,
-            count: PropTypes.number.isRequired,
-        })),
-        PropTypes.arrayOf(PropTypes.oneOfType([
+    given: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+            PropTypes.shape(itemType),
             PropTypes.string,
             PropTypes.number,
-        ])),
-    ]),
-    current: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.shape({
-            ...itemType,
-            count: PropTypes.number.isRequired,
-        })),
-        PropTypes.arrayOf(PropTypes.oneOfType([
+        ]),
+    ),
+    current: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+            PropTypes.shape(itemType),
             PropTypes.string,
             PropTypes.number,
-        ])),
-    ]),
+        ]),
+    ),
     limit: PropTypes.number,
-    added: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.shape({
-            ...itemType,
-            count: PropTypes.number.isRequired,
-        })),
-        PropTypes.arrayOf(PropTypes.oneOfType([
+    added: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+            PropTypes.shape(itemType),
             PropTypes.string,
             PropTypes.number,
-        ])),
-    ]),
-    removed: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.shape({
-            ...itemType,
-            count: PropTypes.number.isRequired,
-        })),
-        PropTypes.arrayOf(PropTypes.oneOfType([
+        ]),
+    ),
+    removed: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+            PropTypes.shape(itemType),
             PropTypes.string,
             PropTypes.number,
-        ])),
-    ]),
+        ]),
+    ),
     add: PropTypes.number,
     replace: PropTypes.number,
     filter: PropTypes.object,

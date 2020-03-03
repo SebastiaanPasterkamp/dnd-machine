@@ -19,6 +19,8 @@ function CharacterEditorWrapper(
 
         constructor(props) {
             super(props);
+            this.state = {};
+
             this.onSave = this.onSave.bind(this);
             this.onUpdate = this.onUpdate.bind(this);
             this.onSetState = this.onSetState.bind(this);
@@ -78,32 +80,18 @@ function CharacterEditorWrapper(
         onSave(callback=null) {
             const id = get('match.params.id', this.props);
 
-            actions.postCharacter(
-                this.state.character, id, callback,
-            );
+            actions.postCharacter(this.state.character, id, callback);
         }
 
         onUpdate(callback=null) {
             const id = get('match.params.id', this.props);
 
-            actions.patchCharacter(
-                this.state.character, id, callback,
-            );
+            actions.patchCharacter(this.state.character, id, callback);
         }
 
         onSetState(state) {
             const { uuid, path } = this.props;
             actions.addChoice(uuid, path, state);
-        }
-
-        getState() {
-            const { state } = this.state;
-            return state;
-        }
-
-        getCurrent(path) {
-            const { current } = this.state;
-            return current;
         }
 
         render() {
@@ -122,13 +110,13 @@ function CharacterEditorWrapper(
                     return props;
                 },
                 {
+                    ...state,
                     type,
                     uuid,
                     current,
                     onSave: this.onSave,
                     onUpdate: this.onUpdate,
                     setState: this.onSetState,
-                    ...state,
                 }
             )(keys(storeKeys));
 

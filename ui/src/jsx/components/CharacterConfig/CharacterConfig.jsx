@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    entries,
-    flow,
     map,
 } from 'lodash/fp';
 import MDReactComponent from 'markdown-react-js';
@@ -18,44 +16,49 @@ import SelectPropertySelect from './components/SelectPropertySelect';
 import StatisticsSelect from './components/StatisticsSelect';
 import ValuePropertySelect from './components/ValuePropertySelect';
 
-export const CharacterConfig = function({ config })
+export class CharacterConfig extends React.Component
 {
-    return flow(entries, map(
-        ([index, option]) => {
-            const {
-                [option.type]: ConfigComponent,
-            } = ComponentMap;
+    render() {
+        const { config } = this.props;
 
-            if (!ConfigComponent) {
-                console.log({option});
-                throw `Unknown option type: '${option.type} ${option.uuid}'`;
-            }
+        return map(
+            (option) => {
+                const {
+                    [option.type]: ConfigComponent,
+                } = ComponentMap;
 
-            const {
-                description, label, hidden, described,
-                ...props
-            } = option;
-            if (hidden || described) {
-                props.hidden = true;
-            }
+                if (!ConfigComponent) {
+                    console.log({option});
+                    throw `Unknown option type: '${option.type} ${option.uuid}'`;
+                }
 
-            return (
-                <FormGroup
-                    key={ index }
-                    label={ label }
-                >
-                    {description && (
-                        <MDReactComponent
-                            text={ description }
+                const {
+                    description, label, hidden, described, uuid,
+                    ...props
+                } = option;
+                if (hidden || described) {
+                    props.hidden = true;
+                }
+
+                return (
+                    <FormGroup
+                        key={ uuid }
+                        label={ label }
+                    >
+                        {description && (
+                            <MDReactComponent
+                                text={ description }
+                            />
+                        )}
+                        <ConfigComponent
+                            uuid={ uuid }
+                            {...props}
                         />
-                    )}
-                    <ConfigComponent
-                        {...props}
-                    />
-                </FormGroup>
-            );
-        }
-    ))(config);
+                    </FormGroup>
+                );
+            }
+        )(config);
+    }
 };
 
 const ComponentMap = {

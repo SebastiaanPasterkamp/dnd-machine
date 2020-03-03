@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import {
     map,
+    cloneDeep,
 } from 'lodash/fp';
 
 import { statistics } from '../../../../../tests/__mocks__';
@@ -46,28 +47,26 @@ describe('Component: CharacterConfig', () => {
     const injectLevelUp = function(options) {
         const levelUp = [ options ];
         store.onEditCharacterCompleted({
-            ...original,
+            ...cloneDeep(original),
             level_up: { config: levelUp },
         });
         return levelUp;
     };
 
-    let addChoice = jest.spyOn(actions, 'addChoice');
+    let addChoice;
 
     beforeEach(() => {
         ListDataStore.onFetchItemsCompleted(
             { statistics },
             'statistics'
         );
-
         addChoice = jest.spyOn(actions, 'addChoice');
-
-        jest.runAllTimers();
     });
 
     afterEach(() => {
         store.reset();
         addChoice.mockClear();
+        jest.runAllTimers();
     });
 
     it('should not render anything', () => {
@@ -202,7 +201,18 @@ describe('Component: CharacterConfig', () => {
         expect(addChoice).toBeCalledWith(
             list_object.uuid,
             list_object.path,
-            { added: ["intelligence"], removed: [] },
+            {
+                added: [
+                    {
+                        type: "statistics",
+                        id: "intelligence",
+                        name: "Intelligence",
+                        description: "Int",
+                    },
+                ],
+                removed: [
+                ],
+            },
         );
         expect(wrapper).toMatchSnapshot();
     });

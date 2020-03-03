@@ -51,7 +51,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-8"
   >
     <div
       className="nice-form-group"
@@ -269,7 +269,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                     uuid="mocked-uuid-9"
                   >
                     <FormGroup
-                      key="0"
+                      key="mocked-uuid-9"
                       label="a"
                     >
                       <div
@@ -306,7 +306,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                           uuid="mocked-uuid-9"
                         >
                           <FormGroup
-                            key="0"
+                            key="mocked-uuid-16"
                           >
                             <div
                               className="nice-form-group"
@@ -403,7 +403,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-8"
   >
     <div
       className="nice-form-group"
@@ -620,7 +620,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                     uuid="mocked-uuid-10"
                   >
                     <FormGroup
-                      key="0"
+                      key="mocked-uuid-10"
                       label="b"
                     >
                       <div
@@ -644,7 +644,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                           uuid="mocked-uuid-10"
                         >
                           <FormGroup
-                            key="0"
+                            key="mocked-uuid-17"
                           >
                             <div
                               className="nice-form-group"
@@ -720,7 +720,7 @@ exports[`Component: CharacterConfig should render config 1`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-7"
   >
     <div
       className="nice-form-group"
@@ -741,7 +741,7 @@ exports[`Component: CharacterConfig should render config 1`] = `
         uuid="mocked-uuid-7"
       >
         <FormGroup
-          key="0"
+          key="mocked-uuid-18"
         >
           <div
             className="nice-form-group"
@@ -805,7 +805,7 @@ exports[`Component: CharacterConfig should render dict 1`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-2"
   >
     <div
       className="nice-form-group"
@@ -884,7 +884,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-4"
   >
     <div
       className="nice-form-group"
@@ -917,34 +917,40 @@ exports[`Component: CharacterConfig should render list 1`] = `
           items={
             Array [
               Object {
-                "code": "strength",
                 "description": "Str",
-                "label": "Strength",
+                "id": "strength",
+                "name": "Strength",
+                "type": "statistics",
               },
               Object {
-                "code": "dexterity",
                 "description": "Dex",
-                "label": "Dexterity",
+                "id": "dexterity",
+                "name": "Dexterity",
+                "type": "statistics",
               },
               Object {
-                "code": "constitution",
                 "description": "Con",
-                "label": "Constitution",
+                "id": "constitution",
+                "name": "Constitution",
+                "type": "statistics",
               },
               Object {
-                "code": "intelligence",
                 "description": "Int",
-                "label": "Intelligence",
+                "id": "intelligence",
+                "name": "Intelligence",
+                "type": "statistics",
               },
               Object {
-                "code": "wisdom",
                 "description": "Wis",
-                "label": "Wisdom",
+                "id": "wisdom",
+                "name": "Wisdom",
+                "type": "statistics",
               },
               Object {
-                "code": "charisma",
                 "description": "Char",
-                "label": "Charisma",
+                "id": "charisma",
+                "name": "Charisma",
+                "type": "statistics",
               },
             ]
           }
@@ -968,42 +974,50 @@ exports[`Component: CharacterConfig should render list 1`] = `
                 "wisdom",
               ]
             }
+            hidden={false}
             items={
               Array [
                 Object {
-                  "code": "strength",
                   "description": "Str",
-                  "label": "Strength",
+                  "id": "strength",
+                  "name": "Strength",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "dexterity",
                   "description": "Dex",
-                  "label": "Dexterity",
+                  "id": "dexterity",
+                  "name": "Dexterity",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "constitution",
                   "description": "Con",
-                  "label": "Constitution",
+                  "id": "constitution",
+                  "name": "Constitution",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "intelligence",
                   "description": "Int",
-                  "label": "Intelligence",
+                  "id": "intelligence",
+                  "name": "Intelligence",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "wisdom",
                   "description": "Wis",
-                  "label": "Wisdom",
+                  "id": "wisdom",
+                  "name": "Wisdom",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "charisma",
                   "description": "Char",
-                  "label": "Charisma",
+                  "id": "charisma",
+                  "name": "Charisma",
+                  "type": "statistics",
                 },
               ]
             }
             limit={0}
             multiple={false}
+            objectlist={false}
             onSave={[Function]}
             onUpdate={[Function]}
             removed={Array []}
@@ -1023,24 +1037,28 @@ exports[`Component: CharacterConfig should render list 1`] = `
                   items={
                     Array [
                       Object {
-                        "code": "strength",
                         "description": "Str",
-                        "label": "Strength",
+                        "id": "strength",
+                        "name": "Strength",
+                        "type": "statistics",
                       },
                       Object {
-                        "code": "dexterity",
                         "description": "Dex",
-                        "label": "Dexterity",
+                        "id": "dexterity",
+                        "name": "Dexterity",
+                        "type": "statistics",
                       },
                       Object {
-                        "code": "constitution",
                         "description": "Con",
-                        "label": "Constitution",
+                        "id": "constitution",
+                        "name": "Constitution",
+                        "type": "statistics",
                       },
                       Object {
-                        "code": "intelligence",
                         "description": "Int",
-                        "label": "Intelligence",
+                        "id": "intelligence",
+                        "name": "Intelligence",
+                        "type": "statistics",
                       },
                     ]
                   }
@@ -1183,61 +1201,16 @@ exports[`Component: CharacterConfig should render list 1`] = `
                 <Tag
                   badges={Array []}
                   className={null}
-                  color="good"
-                  description="Wis"
-                  disabled={true}
-                  id="wisdom"
-                  key="tag-0"
-                  label="Wisdom"
-                  onChange={null}
-                  onDelete={[Function]}
-                >
-                  <div
-                    className="nice-tag good"
-                  >
-                    <TagLabel>
-                      <span
-                        className="nice-tag-label"
-                      >
-                        <ToolTip
-                          content="Wis"
-                        >
-                          <div
-                            className="tool-tip inline"
-                          >
-                            Wisdom
-                            <MDReactComponent
-                              className="tool-tip--content"
-                              text="Wis"
-                            >
-                              <span
-                                className="tool-tip--content"
-                                key="mdrct-html-0"
-                              >
-                                <p
-                                  key="mdrct-p-0"
-                                >
-                                  Wis
-                                </p>
-                              </span>
-                            </MDReactComponent>
-                          </div>
-                        </ToolTip>
-                      </span>
-                    </TagLabel>
-                  </div>
-                </Tag>
-                <Tag
-                  badges={Array []}
-                  className={null}
                   color="warning"
                   description="Char"
                   disabled={false}
                   id="charisma"
-                  key="tag-1"
-                  label="Charisma"
+                  key="tag-statistics-charisma"
+                  label={null}
+                  name="Charisma"
                   onChange={null}
                   onDelete={[Function]}
+                  type="statistics"
                 >
                   <div
                     className="nice-tag warning"
@@ -1288,6 +1261,55 @@ exports[`Component: CharacterConfig should render list 1`] = `
                     </TagButton>
                   </div>
                 </Tag>
+                <Tag
+                  badges={Array []}
+                  className={null}
+                  color="good"
+                  description="Wis"
+                  disabled={true}
+                  id="wisdom"
+                  key="tag-statistics-wisdom"
+                  label={null}
+                  name="Wisdom"
+                  onChange={null}
+                  onDelete={[Function]}
+                  type="statistics"
+                >
+                  <div
+                    className="nice-tag good"
+                  >
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content="Wis"
+                        >
+                          <div
+                            className="tool-tip inline"
+                          >
+                            Wisdom
+                            <MDReactComponent
+                              className="tool-tip--content"
+                              text="Wis"
+                            >
+                              <span
+                                className="tool-tip--content"
+                                key="mdrct-html-0"
+                              >
+                                <p
+                                  key="mdrct-p-0"
+                                >
+                                  Wis
+                                </p>
+                              </span>
+                            </MDReactComponent>
+                          </div>
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                  </div>
+                </Tag>
               </div>
             </BaseTagContainer>
           </ListPropertySelect>
@@ -1321,7 +1343,7 @@ exports[`Component: CharacterConfig should render list 2`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-4"
   >
     <div
       className="nice-form-group"
@@ -1354,34 +1376,40 @@ exports[`Component: CharacterConfig should render list 2`] = `
           items={
             Array [
               Object {
-                "code": "strength",
                 "description": "Str",
-                "label": "Strength",
+                "id": "strength",
+                "name": "Strength",
+                "type": "statistics",
               },
               Object {
-                "code": "dexterity",
                 "description": "Dex",
-                "label": "Dexterity",
+                "id": "dexterity",
+                "name": "Dexterity",
+                "type": "statistics",
               },
               Object {
-                "code": "constitution",
                 "description": "Con",
-                "label": "Constitution",
+                "id": "constitution",
+                "name": "Constitution",
+                "type": "statistics",
               },
               Object {
-                "code": "intelligence",
                 "description": "Int",
-                "label": "Intelligence",
+                "id": "intelligence",
+                "name": "Intelligence",
+                "type": "statistics",
               },
               Object {
-                "code": "wisdom",
                 "description": "Wis",
-                "label": "Wisdom",
+                "id": "wisdom",
+                "name": "Wisdom",
+                "type": "statistics",
               },
               Object {
-                "code": "charisma",
                 "description": "Char",
-                "label": "Charisma",
+                "id": "charisma",
+                "name": "Charisma",
+                "type": "statistics",
               },
             ]
           }
@@ -1410,42 +1438,50 @@ exports[`Component: CharacterConfig should render list 2`] = `
                 "wisdom",
               ]
             }
+            hidden={false}
             items={
               Array [
                 Object {
-                  "code": "strength",
                   "description": "Str",
-                  "label": "Strength",
+                  "id": "strength",
+                  "name": "Strength",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "dexterity",
                   "description": "Dex",
-                  "label": "Dexterity",
+                  "id": "dexterity",
+                  "name": "Dexterity",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "constitution",
                   "description": "Con",
-                  "label": "Constitution",
+                  "id": "constitution",
+                  "name": "Constitution",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "intelligence",
                   "description": "Int",
-                  "label": "Intelligence",
+                  "id": "intelligence",
+                  "name": "Intelligence",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "wisdom",
                   "description": "Wis",
-                  "label": "Wisdom",
+                  "id": "wisdom",
+                  "name": "Wisdom",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "charisma",
                   "description": "Char",
-                  "label": "Charisma",
+                  "id": "charisma",
+                  "name": "Charisma",
+                  "type": "statistics",
                 },
               ]
             }
             limit={0}
             multiple={false}
+            objectlist={false}
             onSave={[Function]}
             onUpdate={[Function]}
             removed={Array []}
@@ -1465,19 +1501,22 @@ exports[`Component: CharacterConfig should render list 2`] = `
                   items={
                     Array [
                       Object {
-                        "code": "strength",
                         "description": "Str",
-                        "label": "Strength",
+                        "id": "strength",
+                        "name": "Strength",
+                        "type": "statistics",
                       },
                       Object {
-                        "code": "dexterity",
                         "description": "Dex",
-                        "label": "Dexterity",
+                        "id": "dexterity",
+                        "name": "Dexterity",
+                        "type": "statistics",
                       },
                       Object {
-                        "code": "constitution",
                         "description": "Con",
-                        "label": "Constitution",
+                        "id": "constitution",
+                        "name": "Constitution",
+                        "type": "statistics",
                       },
                     ]
                   }
@@ -1602,32 +1641,34 @@ exports[`Component: CharacterConfig should render list 2`] = `
                 <Tag
                   badges={Array []}
                   className={null}
-                  color="info"
-                  description="Int"
+                  color="warning"
+                  description="Char"
                   disabled={false}
-                  id="intelligence"
-                  key="tag-0"
-                  label="Intelligence"
+                  id="charisma"
+                  key="tag-statistics-charisma"
+                  label={null}
+                  name="Charisma"
                   onChange={null}
                   onDelete={[Function]}
+                  type="statistics"
                 >
                   <div
-                    className="nice-tag info"
+                    className="nice-tag warning"
                   >
                     <TagLabel>
                       <span
                         className="nice-tag-label"
                       >
                         <ToolTip
-                          content="Int"
+                          content="Char"
                         >
                           <div
                             className="tool-tip inline"
                           >
-                            Intelligence
+                            Charisma
                             <MDReactComponent
                               className="tool-tip--content"
-                              text="Int"
+                              text="Char"
                             >
                               <span
                                 className="tool-tip--content"
@@ -1636,7 +1677,7 @@ exports[`Component: CharacterConfig should render list 2`] = `
                                 <p
                                   key="mdrct-p-0"
                                 >
-                                  Int
+                                  Char
                                 </p>
                               </span>
                             </MDReactComponent>
@@ -1667,10 +1708,12 @@ exports[`Component: CharacterConfig should render list 2`] = `
                   description="Wis"
                   disabled={true}
                   id="wisdom"
-                  key="tag-1"
-                  label="Wisdom"
+                  key="tag-statistics-wisdom"
+                  label={null}
+                  name="Wisdom"
                   onChange={null}
                   onDelete={[Function]}
+                  type="statistics"
                 >
                   <div
                     className="nice-tag good"
@@ -1710,32 +1753,34 @@ exports[`Component: CharacterConfig should render list 2`] = `
                 <Tag
                   badges={Array []}
                   className={null}
-                  color="warning"
-                  description="Char"
+                  color="info"
+                  description="Int"
                   disabled={false}
-                  id="charisma"
-                  key="tag-2"
-                  label="Charisma"
+                  id="intelligence"
+                  key="tag-statistics-intelligence"
+                  label={null}
+                  name="Intelligence"
                   onChange={null}
                   onDelete={[Function]}
+                  type="statistics"
                 >
                   <div
-                    className="nice-tag warning"
+                    className="nice-tag info"
                   >
                     <TagLabel>
                       <span
                         className="nice-tag-label"
                       >
                         <ToolTip
-                          content="Char"
+                          content="Int"
                         >
                           <div
                             className="tool-tip inline"
                           >
-                            Charisma
+                            Intelligence
                             <MDReactComponent
                               className="tool-tip--content"
-                              text="Char"
+                              text="Int"
                             >
                               <span
                                 className="tool-tip--content"
@@ -1744,7 +1789,7 @@ exports[`Component: CharacterConfig should render list 2`] = `
                                 <p
                                   key="mdrct-p-0"
                                 >
-                                  Char
+                                  Int
                                 </p>
                               </span>
                             </MDReactComponent>
@@ -1811,7 +1856,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-11"
   >
     <div
       className="nice-form-group"
@@ -2092,7 +2137,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-11"
   >
     <div
       className="nice-form-group"
@@ -2217,6 +2262,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
                     disabled={false}
                     key="mocked-uuid-12"
                     label="a"
+                    name={null}
                     onChange={null}
                     onDelete={[Function]}
                   >
@@ -2271,7 +2317,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
               uuid="mocked-uuid-12"
             >
               <FormGroup
-                key="0"
+                key="mocked-uuid-12"
                 label="a"
               >
                 <div
@@ -2353,7 +2399,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-3"
   >
     <div
       className="nice-form-group"
@@ -2373,34 +2419,40 @@ exports[`Component: CharacterConfig should render select 1`] = `
           items={
             Array [
               Object {
-                "code": "strength",
                 "description": "Str",
-                "label": "Strength",
+                "id": "strength",
+                "name": "Strength",
+                "type": "statistics",
               },
               Object {
-                "code": "dexterity",
                 "description": "Dex",
-                "label": "Dexterity",
+                "id": "dexterity",
+                "name": "Dexterity",
+                "type": "statistics",
               },
               Object {
-                "code": "constitution",
                 "description": "Con",
-                "label": "Constitution",
+                "id": "constitution",
+                "name": "Constitution",
+                "type": "statistics",
               },
               Object {
-                "code": "intelligence",
                 "description": "Int",
-                "label": "Intelligence",
+                "id": "intelligence",
+                "name": "Intelligence",
+                "type": "statistics",
               },
               Object {
-                "code": "wisdom",
                 "description": "Wis",
-                "label": "Wisdom",
+                "id": "wisdom",
+                "name": "Wisdom",
+                "type": "statistics",
               },
               Object {
-                "code": "charisma",
                 "description": "Char",
-                "label": "Charisma",
+                "id": "charisma",
+                "name": "Charisma",
+                "type": "statistics",
               },
             ]
           }
@@ -2413,34 +2465,40 @@ exports[`Component: CharacterConfig should render select 1`] = `
             items={
               Array [
                 Object {
-                  "code": "strength",
                   "description": "Str",
-                  "label": "Strength",
+                  "id": "strength",
+                  "name": "Strength",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "dexterity",
                   "description": "Dex",
-                  "label": "Dexterity",
+                  "id": "dexterity",
+                  "name": "Dexterity",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "constitution",
                   "description": "Con",
-                  "label": "Constitution",
+                  "id": "constitution",
+                  "name": "Constitution",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "intelligence",
                   "description": "Int",
-                  "label": "Intelligence",
+                  "id": "intelligence",
+                  "name": "Intelligence",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "wisdom",
                   "description": "Wis",
-                  "label": "Wisdom",
+                  "id": "wisdom",
+                  "name": "Wisdom",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "charisma",
                   "description": "Char",
-                  "label": "Charisma",
+                  "id": "charisma",
+                  "name": "Charisma",
+                  "type": "statistics",
                 },
               ]
             }
@@ -2458,34 +2516,40 @@ exports[`Component: CharacterConfig should render select 1`] = `
               items={
                 Array [
                   Object {
-                    "code": "strength",
                     "description": "Str",
-                    "label": "Strength",
+                    "id": "strength",
+                    "name": "Strength",
+                    "type": "statistics",
                   },
                   Object {
-                    "code": "dexterity",
                     "description": "Dex",
-                    "label": "Dexterity",
+                    "id": "dexterity",
+                    "name": "Dexterity",
+                    "type": "statistics",
                   },
                   Object {
-                    "code": "constitution",
                     "description": "Con",
-                    "label": "Constitution",
+                    "id": "constitution",
+                    "name": "Constitution",
+                    "type": "statistics",
                   },
                   Object {
-                    "code": "intelligence",
                     "description": "Int",
-                    "label": "Intelligence",
+                    "id": "intelligence",
+                    "name": "Intelligence",
+                    "type": "statistics",
                   },
                   Object {
-                    "code": "wisdom",
                     "description": "Wis",
-                    "label": "Wisdom",
+                    "id": "wisdom",
+                    "name": "Wisdom",
+                    "type": "statistics",
                   },
                   Object {
-                    "code": "charisma",
                     "description": "Char",
-                    "label": "Charisma",
+                    "id": "charisma",
+                    "name": "Charisma",
+                    "type": "statistics",
                   },
                 ]
               }
@@ -2688,7 +2752,7 @@ exports[`Component: CharacterConfig should render select 2`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-3"
   >
     <div
       className="nice-form-group"
@@ -2708,34 +2772,40 @@ exports[`Component: CharacterConfig should render select 2`] = `
           items={
             Array [
               Object {
-                "code": "strength",
                 "description": "Str",
-                "label": "Strength",
+                "id": "strength",
+                "name": "Strength",
+                "type": "statistics",
               },
               Object {
-                "code": "dexterity",
                 "description": "Dex",
-                "label": "Dexterity",
+                "id": "dexterity",
+                "name": "Dexterity",
+                "type": "statistics",
               },
               Object {
-                "code": "constitution",
                 "description": "Con",
-                "label": "Constitution",
+                "id": "constitution",
+                "name": "Constitution",
+                "type": "statistics",
               },
               Object {
-                "code": "intelligence",
                 "description": "Int",
-                "label": "Intelligence",
+                "id": "intelligence",
+                "name": "Intelligence",
+                "type": "statistics",
               },
               Object {
-                "code": "wisdom",
                 "description": "Wis",
-                "label": "Wisdom",
+                "id": "wisdom",
+                "name": "Wisdom",
+                "type": "statistics",
               },
               Object {
-                "code": "charisma",
                 "description": "Char",
-                "label": "Charisma",
+                "id": "charisma",
+                "name": "Charisma",
+                "type": "statistics",
               },
             ]
           }
@@ -2748,34 +2818,40 @@ exports[`Component: CharacterConfig should render select 2`] = `
             items={
               Array [
                 Object {
-                  "code": "strength",
                   "description": "Str",
-                  "label": "Strength",
+                  "id": "strength",
+                  "name": "Strength",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "dexterity",
                   "description": "Dex",
-                  "label": "Dexterity",
+                  "id": "dexterity",
+                  "name": "Dexterity",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "constitution",
                   "description": "Con",
-                  "label": "Constitution",
+                  "id": "constitution",
+                  "name": "Constitution",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "intelligence",
                   "description": "Int",
-                  "label": "Intelligence",
+                  "id": "intelligence",
+                  "name": "Intelligence",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "wisdom",
                   "description": "Wis",
-                  "label": "Wisdom",
+                  "id": "wisdom",
+                  "name": "Wisdom",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "charisma",
                   "description": "Char",
-                  "label": "Charisma",
+                  "id": "charisma",
+                  "name": "Charisma",
+                  "type": "statistics",
                 },
               ]
             }
@@ -2793,34 +2869,40 @@ exports[`Component: CharacterConfig should render select 2`] = `
               items={
                 Array [
                   Object {
-                    "code": "strength",
                     "description": "Str",
-                    "label": "Strength",
+                    "id": "strength",
+                    "name": "Strength",
+                    "type": "statistics",
                   },
                   Object {
-                    "code": "dexterity",
                     "description": "Dex",
-                    "label": "Dexterity",
+                    "id": "dexterity",
+                    "name": "Dexterity",
+                    "type": "statistics",
                   },
                   Object {
-                    "code": "constitution",
                     "description": "Con",
-                    "label": "Constitution",
+                    "id": "constitution",
+                    "name": "Constitution",
+                    "type": "statistics",
                   },
                   Object {
-                    "code": "intelligence",
                     "description": "Int",
-                    "label": "Intelligence",
+                    "id": "intelligence",
+                    "name": "Intelligence",
+                    "type": "statistics",
                   },
                   Object {
-                    "code": "wisdom",
                     "description": "Wis",
-                    "label": "Wisdom",
+                    "id": "wisdom",
+                    "name": "Wisdom",
+                    "type": "statistics",
                   },
                   Object {
-                    "code": "charisma",
                     "description": "Char",
-                    "label": "Charisma",
+                    "id": "charisma",
+                    "name": "Charisma",
+                    "type": "statistics",
                   },
                 ]
               }
@@ -3021,7 +3103,7 @@ exports[`Component: CharacterConfig should render value 1`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-1"
   >
     <div
       className="nice-form-group"
@@ -3076,7 +3158,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
           "foo",
           "bar",
         ],
-        "path": "foo.items",
+        "path": "foo.empty",
         "type": "list",
         "uuid": "mocked-uuid-5",
       },
@@ -3086,7 +3168,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-5"
   >
     <div
       className="nice-form-group"
@@ -3105,7 +3187,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
             "bar",
           ]
         }
-        path="foo.items"
+        path="foo.empty"
         type="list"
         uuid="mocked-uuid-5"
       >
@@ -3119,16 +3201,16 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
           items={
             Array [
               Object {
-                "code": "foo",
-                "label": "foo",
+                "id": "foo",
+                "name": "foo",
               },
               Object {
-                "code": "bar",
-                "label": "bar",
+                "id": "bar",
+                "name": "bar",
               },
             ]
           }
-          path="foo.items"
+          path="foo.empty"
           type="list"
           uuid="mocked-uuid-5"
         >
@@ -3146,20 +3228,22 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                 "bar",
               ]
             }
+            hidden={false}
             items={
               Array [
                 Object {
-                  "code": "foo",
-                  "label": "foo",
+                  "id": "foo",
+                  "name": "foo",
                 },
                 Object {
-                  "code": "bar",
-                  "label": "bar",
+                  "id": "bar",
+                  "name": "bar",
                 },
               ]
             }
             limit={0}
             multiple={false}
+            objectlist={false}
             onSave={[Function]}
             onUpdate={[Function]}
             removed={Array []}
@@ -3179,8 +3263,8 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                   items={
                     Array [
                       Object {
-                        "code": "foo",
-                        "label": "foo",
+                        "id": "foo",
+                        "name": "foo",
                       },
                     ]
                   }
@@ -3273,8 +3357,9 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                   description={null}
                   disabled={true}
                   id="bar"
-                  key="tag-0"
-                  label="bar"
+                  key="tag-undefined-bar"
+                  label={null}
+                  name="bar"
                   onChange={null}
                   onDelete={[Function]}
                 >
@@ -3317,7 +3402,7 @@ exports[`Component: CharacterConfig should render with array items 2`] = `
           "foo",
           "bar",
         ],
-        "path": "foo.items",
+        "path": "foo.empty",
         "type": "list",
         "uuid": "mocked-uuid-5",
       },
@@ -3327,7 +3412,7 @@ exports[`Component: CharacterConfig should render with array items 2`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-5"
   >
     <div
       className="nice-form-group"
@@ -3346,7 +3431,7 @@ exports[`Component: CharacterConfig should render with array items 2`] = `
             "bar",
           ]
         }
-        path="foo.items"
+        path="foo.empty"
         type="list"
         uuid="mocked-uuid-5"
       >
@@ -3360,16 +3445,16 @@ exports[`Component: CharacterConfig should render with array items 2`] = `
           items={
             Array [
               Object {
-                "code": "foo",
-                "label": "foo",
+                "id": "foo",
+                "name": "foo",
               },
               Object {
-                "code": "bar",
-                "label": "bar",
+                "id": "bar",
+                "name": "bar",
               },
             ]
           }
-          path="foo.items"
+          path="foo.empty"
           type="list"
           uuid="mocked-uuid-5"
         >
@@ -3392,20 +3477,22 @@ exports[`Component: CharacterConfig should render with array items 2`] = `
                 "bar",
               ]
             }
+            hidden={false}
             items={
               Array [
                 Object {
-                  "code": "foo",
-                  "label": "foo",
+                  "id": "foo",
+                  "name": "foo",
                 },
                 Object {
-                  "code": "bar",
-                  "label": "bar",
+                  "id": "bar",
+                  "name": "bar",
                 },
               ]
             }
             limit={0}
             multiple={false}
+            objectlist={false}
             onSave={[Function]}
             onUpdate={[Function]}
             removed={Array []}
@@ -3421,12 +3508,42 @@ exports[`Component: CharacterConfig should render with array items 2`] = `
                 <Tag
                   badges={Array []}
                   className={null}
+                  color="good"
+                  description={null}
+                  disabled={true}
+                  id="bar"
+                  key="tag-undefined-bar"
+                  label={null}
+                  name="bar"
+                  onChange={null}
+                  onDelete={[Function]}
+                >
+                  <div
+                    className="nice-tag good"
+                  >
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content={null}
+                        >
+                          bar
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                  </div>
+                </Tag>
+                <Tag
+                  badges={Array []}
+                  className={null}
                   color="info"
                   description={null}
                   disabled={false}
                   id="foo"
-                  key="tag-0"
-                  label="foo"
+                  key="tag-undefined-foo"
+                  label={null}
+                  name="foo"
                   onChange={null}
                   onDelete={[Function]}
                 >
@@ -3460,34 +3577,6 @@ exports[`Component: CharacterConfig should render with array items 2`] = `
                     </TagButton>
                   </div>
                 </Tag>
-                <Tag
-                  badges={Array []}
-                  className={null}
-                  color="good"
-                  description={null}
-                  disabled={true}
-                  id="bar"
-                  key="tag-1"
-                  label="bar"
-                  onChange={null}
-                  onDelete={[Function]}
-                >
-                  <div
-                    className="nice-tag good"
-                  >
-                    <TagLabel>
-                      <span
-                        className="nice-tag-label"
-                      >
-                        <ToolTip
-                          content={null}
-                        >
-                          bar
-                        </ToolTip>
-                      </span>
-                    </TagLabel>
-                  </div>
-                </Tag>
               </div>
             </BaseTagContainer>
           </ListPropertySelect>
@@ -3505,11 +3594,16 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
       Object {
         "add": 1,
         "given": Array [
-          "bar",
+          Object {
+            "id": "ruh",
+            "name": "Ruh",
+            "type": "statistics",
+          },
         ],
         "list": Array [
           "statistics",
         ],
+        "objectlist": true,
         "path": "foo.items",
         "type": "list",
         "uuid": "mocked-uuid-6",
@@ -3520,7 +3614,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-6"
   >
     <div
       className="nice-form-group"
@@ -3530,7 +3624,11 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
         add={1}
         given={
           Array [
-            "bar",
+            Object {
+              "id": "ruh",
+              "name": "Ruh",
+              "type": "statistics",
+            },
           ]
         }
         list={
@@ -3538,6 +3636,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
             "statistics",
           ]
         }
+        objectlist={true}
         path="foo.items"
         type="list"
         uuid="mocked-uuid-6"
@@ -3546,43 +3645,54 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
           add={1}
           given={
             Array [
-              "bar",
+              Object {
+                "id": "ruh",
+                "name": "Ruh",
+                "type": "statistics",
+              },
             ]
           }
           items={
             Array [
               Object {
-                "code": "strength",
                 "description": "Str",
-                "label": "Strength",
+                "id": "strength",
+                "name": "Strength",
+                "type": "statistics",
               },
               Object {
-                "code": "dexterity",
                 "description": "Dex",
-                "label": "Dexterity",
+                "id": "dexterity",
+                "name": "Dexterity",
+                "type": "statistics",
               },
               Object {
-                "code": "constitution",
                 "description": "Con",
-                "label": "Constitution",
+                "id": "constitution",
+                "name": "Constitution",
+                "type": "statistics",
               },
               Object {
-                "code": "intelligence",
                 "description": "Int",
-                "label": "Intelligence",
+                "id": "intelligence",
+                "name": "Intelligence",
+                "type": "statistics",
               },
               Object {
-                "code": "wisdom",
                 "description": "Wis",
-                "label": "Wisdom",
+                "id": "wisdom",
+                "name": "Wisdom",
+                "type": "statistics",
               },
               Object {
-                "code": "charisma",
                 "description": "Char",
-                "label": "Charisma",
+                "id": "charisma",
+                "name": "Charisma",
+                "type": "statistics",
               },
             ]
           }
+          objectlist={true}
           path="foo.items"
           type="list"
           uuid="mocked-uuid-6"
@@ -3592,51 +3702,67 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
             added={Array []}
             current={
               Array [
-                "bar",
+                Object {
+                  "id": "ruh",
+                  "name": "Ruh",
+                  "type": "statistics",
+                },
               ]
             }
             filter={Object {}}
             given={
               Array [
-                "bar",
+                Object {
+                  "id": "ruh",
+                  "name": "Ruh",
+                  "type": "statistics",
+                },
               ]
             }
+            hidden={false}
             items={
               Array [
                 Object {
-                  "code": "strength",
                   "description": "Str",
-                  "label": "Strength",
+                  "id": "strength",
+                  "name": "Strength",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "dexterity",
                   "description": "Dex",
-                  "label": "Dexterity",
+                  "id": "dexterity",
+                  "name": "Dexterity",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "constitution",
                   "description": "Con",
-                  "label": "Constitution",
+                  "id": "constitution",
+                  "name": "Constitution",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "intelligence",
                   "description": "Int",
-                  "label": "Intelligence",
+                  "id": "intelligence",
+                  "name": "Intelligence",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "wisdom",
                   "description": "Wis",
-                  "label": "Wisdom",
+                  "id": "wisdom",
+                  "name": "Wisdom",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "charisma",
                   "description": "Char",
-                  "label": "Charisma",
+                  "id": "charisma",
+                  "name": "Charisma",
+                  "type": "statistics",
                 },
               ]
             }
             limit={0}
             multiple={false}
+            objectlist={true}
             onSave={[Function]}
             onUpdate={[Function]}
             removed={Array []}
@@ -3656,34 +3782,40 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                   items={
                     Array [
                       Object {
-                        "code": "strength",
                         "description": "Str",
-                        "label": "Strength",
+                        "id": "strength",
+                        "name": "Strength",
+                        "type": "statistics",
                       },
                       Object {
-                        "code": "dexterity",
                         "description": "Dex",
-                        "label": "Dexterity",
+                        "id": "dexterity",
+                        "name": "Dexterity",
+                        "type": "statistics",
                       },
                       Object {
-                        "code": "constitution",
                         "description": "Con",
-                        "label": "Constitution",
+                        "id": "constitution",
+                        "name": "Constitution",
+                        "type": "statistics",
                       },
                       Object {
-                        "code": "intelligence",
                         "description": "Int",
-                        "label": "Intelligence",
+                        "id": "intelligence",
+                        "name": "Intelligence",
+                        "type": "statistics",
                       },
                       Object {
-                        "code": "wisdom",
                         "description": "Wis",
-                        "label": "Wisdom",
+                        "id": "wisdom",
+                        "name": "Wisdom",
+                        "type": "statistics",
                       },
                       Object {
-                        "code": "charisma",
                         "description": "Char",
-                        "label": "Charisma",
+                        "id": "charisma",
+                        "name": "Charisma",
+                        "type": "statistics",
                       },
                     ]
                   }
@@ -3865,10 +3997,13 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                   color="good"
                   description={null}
                   disabled={true}
-                  key="tag-0"
+                  id="ruh"
+                  key="tag-statistics-ruh"
                   label={null}
+                  name="Ruh"
                   onChange={null}
                   onDelete={[Function]}
+                  type="statistics"
                 >
                   <div
                     className="nice-tag good"
@@ -3879,7 +4014,9 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                       >
                         <ToolTip
                           content={null}
-                        />
+                        >
+                          Ruh
+                        </ToolTip>
                       </span>
                     </TagLabel>
                   </div>
@@ -3901,11 +4038,16 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
       Object {
         "add": 1,
         "given": Array [
-          "bar",
+          Object {
+            "id": "ruh",
+            "name": "Ruh",
+            "type": "statistics",
+          },
         ],
         "list": Array [
           "statistics",
         ],
+        "objectlist": true,
         "path": "foo.items",
         "type": "list",
         "uuid": "mocked-uuid-6",
@@ -3916,7 +4058,7 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
   uuid="mocked-uuid-1"
 >
   <FormGroup
-    key="0"
+    key="mocked-uuid-6"
   >
     <div
       className="nice-form-group"
@@ -3926,7 +4068,11 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
         add={1}
         given={
           Array [
-            "bar",
+            Object {
+              "id": "ruh",
+              "name": "Ruh",
+              "type": "statistics",
+            },
           ]
         }
         list={
@@ -3934,6 +4080,7 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
             "statistics",
           ]
         }
+        objectlist={true}
         path="foo.items"
         type="list"
         uuid="mocked-uuid-6"
@@ -3942,43 +4089,54 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
           add={1}
           given={
             Array [
-              "bar",
+              Object {
+                "id": "ruh",
+                "name": "Ruh",
+                "type": "statistics",
+              },
             ]
           }
           items={
             Array [
               Object {
-                "code": "strength",
                 "description": "Str",
-                "label": "Strength",
+                "id": "strength",
+                "name": "Strength",
+                "type": "statistics",
               },
               Object {
-                "code": "dexterity",
                 "description": "Dex",
-                "label": "Dexterity",
+                "id": "dexterity",
+                "name": "Dexterity",
+                "type": "statistics",
               },
               Object {
-                "code": "constitution",
                 "description": "Con",
-                "label": "Constitution",
+                "id": "constitution",
+                "name": "Constitution",
+                "type": "statistics",
               },
               Object {
-                "code": "intelligence",
                 "description": "Int",
-                "label": "Intelligence",
+                "id": "intelligence",
+                "name": "Intelligence",
+                "type": "statistics",
               },
               Object {
-                "code": "wisdom",
                 "description": "Wis",
-                "label": "Wisdom",
+                "id": "wisdom",
+                "name": "Wisdom",
+                "type": "statistics",
               },
               Object {
-                "code": "charisma",
                 "description": "Char",
-                "label": "Charisma",
+                "id": "charisma",
+                "name": "Charisma",
+                "type": "statistics",
               },
             ]
           }
+          objectlist={true}
           path="foo.items"
           type="list"
           uuid="mocked-uuid-6"
@@ -3987,57 +4145,85 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
             add={1}
             added={
               Array [
-                "intelligence",
+                Object {
+                  "count": undefined,
+                  "description": "Int",
+                  "id": "intelligence",
+                  "name": "Intelligence",
+                  "type": "statistics",
+                },
               ]
             }
             current={
               Array [
-                "bar",
-                "intelligence",
+                Object {
+                  "id": "ruh",
+                  "name": "Ruh",
+                  "type": "statistics",
+                },
+                Object {
+                  "count": undefined,
+                  "description": "Int",
+                  "id": "intelligence",
+                  "name": "Intelligence",
+                  "type": "statistics",
+                },
               ]
             }
             filter={Object {}}
             given={
               Array [
-                "bar",
+                Object {
+                  "id": "ruh",
+                  "name": "Ruh",
+                  "type": "statistics",
+                },
               ]
             }
+            hidden={false}
             items={
               Array [
                 Object {
-                  "code": "strength",
                   "description": "Str",
-                  "label": "Strength",
+                  "id": "strength",
+                  "name": "Strength",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "dexterity",
                   "description": "Dex",
-                  "label": "Dexterity",
+                  "id": "dexterity",
+                  "name": "Dexterity",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "constitution",
                   "description": "Con",
-                  "label": "Constitution",
+                  "id": "constitution",
+                  "name": "Constitution",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "intelligence",
                   "description": "Int",
-                  "label": "Intelligence",
+                  "id": "intelligence",
+                  "name": "Intelligence",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "wisdom",
                   "description": "Wis",
-                  "label": "Wisdom",
+                  "id": "wisdom",
+                  "name": "Wisdom",
+                  "type": "statistics",
                 },
                 Object {
-                  "code": "charisma",
                   "description": "Char",
-                  "label": "Charisma",
+                  "id": "charisma",
+                  "name": "Charisma",
+                  "type": "statistics",
                 },
               ]
             }
             limit={0}
             multiple={false}
+            objectlist={true}
             onSave={[Function]}
             onUpdate={[Function]}
             removed={Array []}
@@ -4053,14 +4239,46 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
                 <Tag
                   badges={Array []}
                   className={null}
+                  color="good"
+                  description={null}
+                  disabled={true}
+                  id="ruh"
+                  key="tag-statistics-ruh"
+                  label={null}
+                  name="Ruh"
+                  onChange={null}
+                  onDelete={[Function]}
+                  type="statistics"
+                >
+                  <div
+                    className="nice-tag good"
+                  >
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content={null}
+                        >
+                          Ruh
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                  </div>
+                </Tag>
+                <Tag
+                  badges={Array []}
+                  className={null}
                   color="info"
                   description="Int"
                   disabled={false}
                   id="intelligence"
-                  key="tag-0"
-                  label="Intelligence"
+                  key="tag-statistics-intelligence"
+                  label={null}
+                  name="Intelligence"
                   onChange={null}
                   onDelete={[Function]}
+                  type="statistics"
                 >
                   <div
                     className="nice-tag info"
@@ -4109,31 +4327,6 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
                         />
                       </button>
                     </TagButton>
-                  </div>
-                </Tag>
-                <Tag
-                  badges={Array []}
-                  className={null}
-                  color="good"
-                  description={null}
-                  disabled={true}
-                  key="tag-1"
-                  label={null}
-                  onChange={null}
-                  onDelete={[Function]}
-                >
-                  <div
-                    className="nice-tag good"
-                  >
-                    <TagLabel>
-                      <span
-                        className="nice-tag-label"
-                      >
-                        <ToolTip
-                          content={null}
-                        />
-                      </span>
-                    </TagLabel>
                   </div>
                 </Tag>
               </div>
