@@ -1,509 +1,443 @@
 const armor_types = [
-    {"code": "light", "label": "Light Armor"},
-    {"code": "medium", "label": "Medium Armor"},
-    {"code": "heavy", "label": "Heavy Armor"},
-    {"code": "shield", "label": "Shields"}
+    {id: "light", name: "Light Armor", type: "armor_types"},
+    {id: "medium", name: "Medium Armor", type: "armor_types"},
+    {id: "heavy", name: "Heavy Armor", type: "armor_types"},
+    {id: "shield", name: "Shields", type: "armor_types"}
 ];
 
 const attack_modes = [
-    {"code": "melee", "label": "Melee Attack", "short": "M", "description": "Melee weapon attack."},
-    {"code": "ranged", "label": "Ranged Attack", "short": "R", "description": "Ranged weapon attack."},
-    {"code": "spell", "label": "Spell Attack", "short": "S", "description": "Spell attack."}
+    {id: "melee", name: "Melee Attack", short: "M", description: "Melee weapon attack.", type: "attack_modes"},
+    {id: "ranged", name: "Ranged Attack", short: "R", description: "Ranged weapon attack.", type: "attack_modes"},
+    {id: "spell", name: "Spell Attack", short: "S", description: "Spell attack.", type: "attack_modes"}
 ];
 
 const alignments = [
-    {
-        code: "lawful good",
-        label: "Lawful good"
-    },
-    {
-        code: "neutral good",
-        label: "Neutral good"
-    },
-    {
-        code: "chaotic good",
-        label: "Chaotic good"
-    },
-    {
-        code: "lawful neutral",
-        label: "Lawful neutral"
-    },
-    {
-        code: "true neutral",
-        label: "True neutral"
-    },
-    {
-        code: "chaotic neutral",
-        label: "Chaotic neutral"
-    },
-    {
-        code: "lawful evil",
-        label: "Lawful evil"
-    },
-    {
-        code: "neutral evil",
-        label: "Neutral evil"
-    },
-    {
-        code: "chaotic evil",
-        label: "Chaotic evil"
-    }
-];
-
-const classes = [
-    {"code": "Barbarian", "label": "Barbarian", "description": "A fierce warrior of primitive background who can enter a battle rage."},
-    {"code": "Bard", "label": "Bard", "description": "An inspiring magician whose power echoes the music of creation."},
-    {"code": "Cleric", "label": "Cleric", "description": "A priestly champion who wields divine magic in service of a higher power."},
-    {"code": "Druid", "label": "Druid", "description": "A priest of the Old Faith, wielding the powers of nature — moonlight and plant growth, fire and lightning — and adopting animal forms."},
-    {"code": "Fighter", "label": "Fighter", "description": "A master of martial combat, skilled wita variety of weapons and armor."},
-    {"code": "Monk", "label": "Monk", "description": "An master of martial arts, harnessing the power of the body in pursuit of physical and spiritual perfection."},
-    {"code": "Paladin", "label": "Paladin", "description": "A holy warrior bound to a sacred oath."},
-    {"code": "Ranger", "label": "Ranger", "description": "A warrior who uses martial prowess annature magic to combat threats on the edges of civilization."},
-    {"code": "Rogue", "label": "Rogue", "description": "A scoundrel who uses stealth and trickery to overcome obstacles and enemies."},
-    {"code": "Sorcerer", "label": "Sorcerer", "description": "A spellcaster who draws on inherent magic from a gift or bloodline."},
-    {"code": "Warlock", "label": "Warlock", "description": "A wielder of magic that is derived from a bargain with an extraplanar entity."},
-    {"code": "Wizard", "label": "Wizard", "description": "A scholarly magic-user capable of manipulating the structures of reality."}
+    { id: "lawful good", name: "Lawful good", type: "alignments" },
+    { id: "neutral good", name: "Neutral good", type: "alignments" },
+    { id: "chaotic good", name: "Chaotic good", type: "alignments" },
+    { id: "lawful neutral", name: "Lawful neutral", type: "alignments" },
+    { id: "true neutral", name: "True neutral", type: "alignments" },
+    { id: "chaotic neutral", name: "Chaotic neutral", type: "alignments" },
+    { id: "lawful evil", name: "Lawful evil", type: "alignments" },
+    { id: "neutral evil", name: "Neutral evil", type: "alignments" },
+    { id: "chaotic evil", name: "Chaotic evil", type: "alignments" }
 ];
 
 const damage_types = [
     {
-        code: "acid",
-        label: "Acid",
+        id: "acid",
+        name: "Acid",
         short: "Acd",
-        description: "Corrosive spray"
+        description: "Corrosive spray",
+        type: "damage_types",
     }, {
-        code: "bludgeoning",
-        label: "Bludgeoning",
+        id: "bludgeoning",
+        name: "Bludgeoning",
         short: "Bldg",
-        description: "Blunt force"
+        description: "Blunt force",
+        type: "damage_types",
     }, {
-        code: "cold",
-        label: "Cold",
+        id: "cold",
+        name: "Cold",
         short: "Cld",
-        description: "The infernal chill"
+        description: "The infernal chill",
+        type: "damage_types",
     }, {
-        code: "fire",
-        label: "Fire",
+        id: "fire",
+        name: "Fire",
         short: "Fr",
-        description: "Red dragons breathe fire"
+        description: "Red dragons breathe fire",
+        type: "damage_types",
     }, {
-        code: "force",
-        label: "Force",
+        id: "force",
+        name: "Force",
         short: "Frc",
-        description: "Force is pure magical"
+        description: "Force is pure magical",
+        type: "damage_types",
     }, {
-        code: "lightning",
-        label: "Lightning",
+        id: "lightning",
+        name: "Lightning",
         short: "Ltn",
-        description: "A lightning bolt"
+        description: "A lightning bolt",
+        type: "damage_types",
     }, {
-        code: "necrotic",
-        label: "Necrotic",
+        id: "necrotic",
+        name: "Necrotic",
         short: "Ncr",
-        description: "Necrotic damage"
+        description: "Necrotic damage",
+        type: "damage_types",
     }, {
-        code: "piercing",
-        label: "Piercing",
+        id: "piercing",
+        name: "Piercing",
         short: "Pcn",
-        description: "Puncturing"
+        description: "Puncturing",
+        type: "damage_types",
     }, {
-        code: "poison",
-        label: "Poison",
+        id: "poison",
+        name: "Poison",
         short: "Psn",
-        description: "Venomous stings"
+        description: "Venomous stings",
+        type: "damage_types",
     }, {
-        code: "psychic",
-        label: "Psychic",
+        id: "psychic",
+        name: "Psychic",
         short: "Psy",
-        description: "Mental abilities"
+        description: "Mental abilities",
+        type: "damage_types",
     }, {
-        code: "radiant",
-        label: "Radiant",
+        id: "radiant",
+        name: "Radiant",
         short: "Rdnt",
-        description: "Radiant damage"
+        description: "Radiant damage",
+        type: "damage_types",
     }, {
-        code: "slashing",
-        label: "Slashing",
+        id: "slashing",
+        name: "Slashing",
         short: "Slsh",
-        description: "Swords"
+        description: "Swords",
+        type: "damage_types",
     }, {
-        code: "thunder",
-        label: "Thunder",
+        id: "thunder",
+        name: "Thunder",
         short: "Tndr",
-        description: "Burst of sound"
+        description: "Burst of sound",
+        type: "damage_types",
     }
 ];
 
 const genders = [
-    {
-        code: "genderless",
-        label: "Genderless"
-    },
-    {
-        code: "male",
-        label: "Male"
-    },
-    {
-        code: "female",
-        label: "Female"
-    }
+    { id: "genderless", name: "Genderless", type: "genders" },
+    { id: "male", name: "Male", type: "genders" },
+    { id: "female", name: "Female", type: "genders" }
 ];
 
 const languages = [{
-        code: "common",
-        label: "Common",
+        id: "common",
+        name: "Common",
         speakers: "Humans",
         script: "Common",
-        type: "common"
+        group: "common",
+        type: "languages",
     },
     {
-        code: "dwarvish",
-        label: "Dwarvish",
+        id: "dwarvish",
+        name: "Dwarvish",
         speakers: "Dwarves",
         script: "Dwarvish",
-        type: "common"
+        group: "common",
+        type: "languages",
     },
     {
-        code: "draconic",
-        label: "Draconic",
+        id: "draconic",
+        name: "Draconic",
         speakers: "Dragons, Dragonborn",
         script: "Draconic",
-        type: "exotic"
+        group: "exotic",
+        type: "languages",
     },
 ];
 const magic_components = [{
-        code: "verbal",
-        label: "Verbal",
+        id: "verbal",
+        name: "Verbal",
         short: "V",
-        description: "Spoken"
+        description: "Spoken",
+        type: "magic_components",
     },
     {
-        code: "somatic",
-        label: "Somatic",
+        id: "somatic",
+        name: "Somatic",
         short: "S",
-        description: "Gestured"
+        description: "Gestured",
+        type: "magic_components",
     },
     {
-        code: "material",
-        label: "Material",
+        id: "material",
+        name: "Material",
         short: "M",
-        description: "Stuff"
+        description: "Stuff",
+        type: "magic_components",
     }
 ];
 
 const magic_schools = [{
-        code: "abjuration",
-        label: "Abjuration",
-        description: "Magic that blocks"
+        id: "abjuration",
+        name: "Abjuration",
+        description: "Magic that blocks",
+        type: "magic_schools",
     },
     {
-        code: "conjuration",
-        label: "Conjuration",
-        description: "Produce objects"
+        id: "conjuration",
+        name: "Conjuration",
+        description: "Produce objects",
+        type: "magic_schools",
     },
     {
-        code: "divination",
-        label: "Divination",
-        description: "Spells of discernment"
+        id: "divination",
+        name: "Divination",
+        description: "Spells of discernment",
+        type: "magic_schools",
     },
     {
-        code: "enchantment",
-        label: "Enchantment",
-        description: "<agically entrance and beguile"
+        id: "enchantment",
+        name: "Enchantment",
+        description: "<agically entrance and beguile",
+        type: "magic_schools",
     },
     {
-        code: "evocation",
-        label: "Evocation",
-        description: "Creates powerful elemental effects"
+        id: "evocation",
+        name: "Evocation",
+        description: "Creates powerful elemental effects",
+        type: "magic_schools",
     },
     {
-        code: "illusion",
-        label: "Illusion",
-        description: "Dazzles the senses"
+        id: "illusion",
+        name: "Illusion",
+        description: "Dazzles the senses",
+        type: "magic_schools",
     },
     {
-        code: "necromancy",
-        label: "Necromancy",
-        description: "Cosmic forces of death"
+        id: "necromancy",
+        name: "Necromancy",
+        description: "Cosmic forces of death",
+        type: "magic_schools",
     },
     {
-        code: "transmutation",
-        label: "Transmutation",
-        description: "Modify energy and matter"
+        id: "transmutation",
+        name: "Transmutation",
+        description: "Modify energy and matter",
+        type: "magic_schools",
     }
 ];
 
 const monster_types = [
     {
-        code: "Aberration",
-        label: "Aberration",
+        id: "Aberration",
+        name: "Aberration",
         description: "Aberration",
-        intelligent: false
+        intelligent: false,
+        type: "monster_types",
     }, {
-        code: "Beast",
-        label: "Beast",
+        id: "Beast",
+        name: "Beast",
         description: "Beast",
-        intelligent: false
+        intelligent: false,
+        type: "monster_types",
     }, {
-        code: "Celestial",
-        label: "Celestial",
+        id: "Celestial",
+        name: "Celestial",
         description: "Celestial",
-        intelligent: true
+        intelligent: true,
+        type: "monster_types",
     }, {
-        code: "Construct",
-        label: "Construct",
+        id: "Construct",
+        name: "Construct",
         description: "Construct",
-        intelligent: false
+        intelligent: false,
+        type: "monster_types",
     }, {
-        code: "Dragon",
-        label: "Dragon",
+        id: "Dragon",
+        name: "Dragon",
         description: "Dragon",
-        intelligent: true
+        intelligent: true,
+        type: "monster_types",
     }, {
-        code: "Elemental",
-        label: "Elemental",
+        id: "Elemental",
+        name: "Elemental",
         description: "Elemental",
-        intelligent: false
+        intelligent: false,
+        type: "monster_types",
     }, {
-        code: "Fey",
-        label: "Fey",
+        id: "Fey",
+        name: "Fey",
         description: "Fey",
-        intelligent: true
+        intelligent: true,
+        type: "monster_types",
     }, {
-        code: "Fiend",
-        label: "Fiend",
+        id: "Fiend",
+        name: "Fiend",
         description: "Fiend",
-        intelligent: false
+        intelligent: false,
+        type: "monster_types",
     }, {
-        code: "Giant",
-        label: "Giant",
+        id: "Giant",
+        name: "Giant",
         description: "Giant",
-        intelligent: true
+        intelligent: true,
+        type: "monster_types",
     }, {
-        code: "Humanoid",
-        label: "Humanoid",
+        id: "Humanoid",
+        name: "Humanoid",
         description: "Humanoid",
-        intelligent: true
+        intelligent: true,
+        type: "monster_types",
     }, {
-        code: "Monstrosity",
-        label: "Monstrosity",
+        id: "Monstrosity",
+        name: "Monstrosity",
         description: "Monstrosity",
-        intelligent: false
+        intelligent: false,
+        type: "monster_types",
     }, {
-        code: "Ooze",
-        label: "Ooze",
+        id: "Ooze",
+        name: "Ooze",
         description: "Ooze",
-        intelligent: false
+        intelligent: false,
+        type: "monster_types",
     }, {
-        code: "Plant",
-        label: "Plant",
+        id: "Plant",
+        name: "Plant",
         description: "Plant",
-        intelligent: false
+        intelligent: false,
+        type: "monster_types",
     }, {
-        code: "Undead",
-        label: "Undead",
+        id: "Undead",
+        name: "Undead",
         description: "Undead",
-        intelligent: false
+        intelligent: false,
+        type: "monster_types",
     }
 ];
 
 const size_hit_dice = [
-    {
-        code: "tiny",
-        dice_size: 4,
-        label: "Tiny"
-    },
-    {
-        code: "small",
-        dice_size: 6,
-        label: "Small"
-    },
-    {
-        code: "medium",
-        dice_size: 8,
-        label: "Medium"
-    },
-    {
-        code: "large",
-        dice_size: 10,
-        label: "Large"
-    },
-    {
-        code: "huge",
-        dice_size: 12,
-        label: "Huge"
-    },
-    {
-        code: "gargantuan",
-        dice_size: 20,
-        label: "Gargantuan"
-    }
+    { id: "tiny", dice_size: 4, name: "Tiny", type: "size_hit_dice" },
+    { id: "small", dice_size: 6, name: "Small", type: "size_hit_dice" },
+    { id: "medium", dice_size: 8, name: "Medium", type: "size_hit_dice" },
+    { id: "large", dice_size: 10, name: "Large", type: "size_hit_dice" },
+    { id: "huge", dice_size: 12, name: "Huge", type: "size_hit_dice" },
+    { id: "gargantuan", dice_size: 20, name: "Gargantuan", type: "size_hit_dice" }
 ];
 
 const skills = [
-    {code: "athletics", label: "Athletics", stat: "strength"},
-    {code: "acrobatics", label: "Acrobatics", stat: "dexterity"},
-    {code: "sleight of hand", label: "Sleight of Hand", stat: "dexterity"},
-    {code: "stealth", label: "Stealth", stat: "dexterity"},
-    {code: "arcana", label: "Arcana", stat: "intelligence"},
-    {code: "history", label: "History", stat: "intelligence"},
-    {code: "investigation", label: "Investigation", stat: "intelligence"},
-    {code: "nature", label: "Nature", stat: "intelligence"},
-    {code: "religion", label: "Religion", stat: "intelligence"},
-    {code: "animal handling", label: "Animal Handling", stat: "wisdom"},
-    {code: "insight", label: "Insight", stat: "wisdom"},
-    {code: "medicine", label: "Medicine", stat: "wisdom"},
-    {code: "perception", label: "Perception", stat: "wisdom"},
-    {code: "survival", label: "Survival", stat: "wisdom"},
-    {code: "deception", label: "Deception", stat: "charisma"},
-    {code: "intimidation", label: "Intimidation", stat: "charisma"},
-    {code: "performance", label: "Performance", stat: "charisma"},
-    {code: "persuasion", label: "Persuasion", stat: "charisma"}
+    {id: "athletics", name: "Athletics", stat: "strength", type: "skills" },
+    {id: "acrobatics", name: "Acrobatics", stat: "dexterity", type: "skills" },
+    {id: "sleight of hand", name: "Sleight of Hand", stat: "dexterity"},
+    {id: "stealth", name: "Stealth", stat: "dexterity", type: "skills" },
+    {id: "arcana", name: "Arcana", stat: "intelligence", type: "skills" },
+    {id: "history", name: "History", stat: "intelligence", type: "skills" },
+    {id: "investigation", name: "Investigation", stat: "intelligence", type: "skills" },
+    {id: "nature", name: "Nature", stat: "intelligence", type: "skills" },
+    {id: "religion", name: "Religion", stat: "intelligence", type: "skills" },
+    {id: "animal handling", name: "Animal Handling", stat: "wisdom", type: "skills" },
+    {id: "insight", name: "Insight", stat: "wisdom", type: "skills" },
+    {id: "medicine", name: "Medicine", stat: "wisdom", type: "skills" },
+    {id: "perception", name: "Perception", stat: "wisdom", type: "skills" },
+    {id: "survival", name: "Survival", stat: "wisdom", type: "skills" },
+    {id: "deception", name: "Deception", stat: "charisma", type: "skills" },
+    {id: "intimidation", name: "Intimidation", stat: "charisma", type: "skills" },
+    {id: "performance", name: "Performance", stat: "charisma", type: "skills" },
+    {id: "persuasion", name: "Persuasion", stat: "charisma", type: "skills" }
 ];
 
 const statistics = [
-    {
-        description: "Str",
-        label: "Strength",
-        code: "strength"
-    }, {
-        description: "Dex",
-        label: "Dexterity",
-        code: "dexterity"
-    }, {
-        description: "Con",
-        label: "Constitution",
-        code: "constitution"
-    }, {
-        description: "Int",
-        label: "Intelligence",
-        code: "intelligence"
-    }, {
-        description: "Wis",
-        label: "Wisdom",
-        code: "wisdom"
-    }, {
-        description: "Char",
-        label: "Charisma",
-        code: "charisma"
-    }
+    { name: "Strength", id: "strength", description: "Str", type: "statistics" },
+    { name: "Dexterity", id: "dexterity", description: "Dex", type: "statistics" },
+    { name: "Constitution", id: "constitution", description: "Con", type: "statistics" },
+    { name: "Intelligence", id: "intelligence", description: "Int", type: "statistics" },
+    { name: "Wisdom", id: "wisdom", description: "Wis", type: "statistics" },
+    { name: "Charisma", id: "charisma", description: "Char", type: "statistics" }
 ];
 
 const target_methods = [
-    {"code": "single", "label": "Single target", "short": "ST", "description": "One target is affected."},
-    {"code": "multiple", "label": "Multi-target", "short": "MT", "description": "Multiple targets are affected. Usually when clustered together."},
-    {"code": "area", "label": "Area of Effect", "short": "AoE", "description": "An area of a specific size and shape is affected. Every designated target inside is affected."}
+    {id: "single", name: "Single target", short: "ST", description: "One target is affected.", type: "target_methods" },
+    {id: "multiple", name: "Multi-target", short: "MT", description: "Multiple targets are affected. Usually when clustered together.", type: "target_methods" },
+    {id: "area", name: "Area of Effect", short: "AoE", description: "An area of a specific size and shape is affected. Every designated target inside is affected.", type: "target_methods" },
 ];
 
-const user_roles = [{
-        "code": "admin",
-        "label": "Site Administrator"
-    },
-    {
-        "code": "dm",
-        "label": "Dungeon Master"
-    },
-    {
-        "code": "player",
-        "label": "Player"
-    }
+const user_roles = [
+    { id: "admin", name: "Site Administrator", type: "user_roles" },
+    { id: "dm", name: "Dungeon Master", type: "user_roles" },
+    { id: "player", name: "Player", type: "user_roles" },
 ];
 const weapon_properties = [{
-        "code": "ammunition",
-        "label": "Ammunition",
-        "short": "Ammo",
-        "description": "You can use a weapon that has the ammunition property to make a ranged attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one piece of ammunition. Drawing the ammunition from a quiver, case, or other container is part of the attack. At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield. If you use a weapon that has the ammunition property to make a melee attack, you treat the weapon as an improvised weapon. A sling must be loaded to deal any damage when used in this way."
+        id: "ammunition",
+        name: "Ammunition",
+        short: "Ammo",
+        description: "You can use a weapon that has the ammunition property to make a ranged attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one piece of ammunition. Drawing the ammunition from a quiver, case, or other container is part of the attack. At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield. If you use a weapon that has the ammunition property to make a melee attack, you treat the weapon as an improvised weapon. A sling must be loaded to deal any damage when used in this way.",
+        type: "weapon_properties",
     },
     {
-        "code": "finesse",
-        "label": "Finesse",
-        "short": "Fns",
-        "description": "When making an attack with a finesse weapon, you use your choice of your **Strength** or **Dexterity** modifier for the attack and damage rolls. You must use the same modifier for both rolls."
+        id: "finesse",
+        name: "Finesse",
+        short: "Fns",
+        description: "When making an attack with a finesse weapon, you use your choice of your **Strength** or **Dexterity** modifier for the attack and damage rolls. You must use the same modifier for both rolls.",
+        type: "weapon_properties",
     },
     {
-        "code": "heavy",
-        "label": "Heavy",
-        "short": "Heav",
-        "description": "Small creatures have **Disadvantage** on attack rolls with heavy weapons. A heavy weapon's size and bulk make it too large for a Small creature to use effectively."
+        id: "heavy",
+        name: "Heavy",
+        short: "Heav",
+        description: "Small creatures have **Disadvantage** on attack rolls with heavy weapons. A heavy weapon's size and bulk make it too large for a Small creature to use effectively.",
+        type: "weapon_properties",
     },
     {
-        "code": "light",
-        "label": "Light",
-        "short": "Lite",
-        "description": "A light weapon is small and easy to handle. making it ideal for use when fighting with two weapons."
+        id: "light",
+        name: "Light",
+        short: "Lite",
+        description: "A light weapon is small and easy to handle. making it ideal for use when fighting with two weapons.",
+        type: "weapon_properties",
     },
     {
-        "code": "loading",
-        "label": "Loading",
-        "short": "Ldng",
-        "description": "Because of the time required to load this weapon, you can fire only one piece of ammunition from it when you use an action, bonus action, or reaction to fire it, regardless of the number of attacks you can normally make."
+        id: "loading",
+        name: "Loading",
+        short: "Ldng",
+        description: "Because of the time required to load this weapon, you can fire only one piece of ammunition from it when you use an action, bonus action, or reaction to fire it, regardless of the number of attacks you can normally make.",
+        type: "weapon_properties",
     },
     {
-        "code": "reach",
-        "label": "Reach",
-        "short": "Rch",
-        "description": "This weapon adds 5 feet to your reach when you attack with it."
+        id: "reach",
+        name: "Reach",
+        short: "Rch",
+        description: "This weapon adds 5 feet to your reach when you attack with it.",
+        type: "weapon_properties",
     },
     {
-        "code": "ranged",
-        "label": "Ranged",
-        "short": "Rngd",
-        "hidden": true,
-        "description": "A weapon that can be used to make a ranged attack has a range shown in parentheses after the Ammunition or Thrown property. The range lists two numbers. The first is the weapon's normal range in feet, and the second indicates the weapon's maximum range. When attacking a target beyond normal range you have **Disadvantage** on the attack roll. You can't attack a target beyond the weapon's long range."
+        id: "ranged",
+        name: "Ranged",
+        short: "Rngd",
+        hidden: true,
+        description: "A weapon that can be used to make a ranged attack has a range shown in parentheses after the Ammunition or Thrown property. The range lists two numbers. The first is the weapon's normal range in feet, and the second indicates the weapon's maximum range. When attacking a target beyond normal range you have **Disadvantage** on the attack roll. You can't attack a target beyond the weapon's long range.",
+        type: "weapon_properties",
     },
     {
-        "code": "special",
-        "label": "Special",
-        "short": "Spcl",
-        "description": "A weapon with the special property has unusual rules governing its use, explained in the weapon's description."
+        id: "special",
+        name: "Special",
+        short: "Spcl",
+        description: "A weapon with the special property has unusual rules governing its use, explained in the weapon's description.",
+        type: "weapon_properties",
     },
     {
-        "code": "thrown",
-        "label": "Thrown",
-        "short": "Trwn",
-        "description": "If a weapon has the thrown property, you can throw the weapon to make a ranged attack. If the weapon is a melee weapon, you use the same ability modifier for that attack roll and damage roll that you would use for a melee attack with the weapon. For example, if you throw a handaxe, you use your **Strength**, but if you throw a dagger, you can use either your **Strength** or your **Dexterity**, since the dagger has the **Finesse** property."
+        id: "thrown",
+        name: "Thrown",
+        short: "Trwn",
+        description: "If a weapon has the thrown property, you can throw the weapon to make a ranged attack. If the weapon is a melee weapon, you use the same ability modifier for that attack roll and damage roll that you would use for a melee attack with the weapon. For example, if you throw a handaxe, you use your **Strength**, but if you throw a dagger, you can use either your **Strength** or your **Dexterity**, since the dagger has the **Finesse** property.",
+        type: "weapon_properties",
     },
     {
-        "code": "two-handed",
-        "label": "Two-Handed",
-        "short": "2H",
-        "description": "This weapon requires two hands to use."
+        id: "two-handed",
+        name: "Two-Handed",
+        short: "2H",
+        description: "This weapon requires two hands to use.",
+        type: "weapon_properties",
     },
     {
-        "code": "versatile",
-        "label": "Versatile",
-        "short": "Vstl",
-        "description": "This weapon can be used with one or two hands. A damage value in parentheses appears with the property - the damage when the weapon is used with two hands to make a melee attack."
+        id: "versatile",
+        name: "Versatile",
+        short: "Vstl",
+        description: "This weapon can be used with one or two hands. A damage value in parentheses appears with the property - the damage when the weapon is used with two hands to make a melee attack.",
+        type: "weapon_properties",
     }
 ];
 
-const weapon_types = [{
-        "code": "simple melee",
-        "label": "Simple Melee Weapon",
-        "short": "Melee"
-    },
-    {
-        "code": "simple ranged",
-        "label": "Simple Ranged Weapon",
-        "short": "Ranged"
-    },
-    {
-        "code": "martial melee",
-        "label": "Martial Melee Weapon",
-        "short": "Melee"
-    },
-    {
-        "code": "martial ranged",
-        "label": "Martial Ranged Weapon",
-        "short": "Ranged"
-    }
-]
+const weapon_types = [
+    { id: "simple melee", name: "Simple Melee Weapon", short: "Melee", type: "weapon_types" },
+    { id: "simple ranged", name: "Simple Ranged Weapon", short: "Ranged", type: "weapon_types" },
+    { id: "martial melee", name: "Martial Melee Weapon", short: "Melee", type: "weapon_types" },
+    { id: "martial ranged", name: "Martial Ranged Weapon", short: "Ranged", type: "weapon_types" },
+];
 
 export {
     armor_types,
     attack_modes,
     alignments,
-    classes,
     damage_types,
     genders,
     languages,
