@@ -55,7 +55,7 @@ const SpellsFooter = function() {
 
 const SpellRow = function({
     id, name, level, range, cost, description, damage, casting_time, duration,
-    concentration, classes = [], _classes = []
+    concentration, classes, _classes
 }) {
     return (
         <tr data-id={id}>
@@ -162,7 +162,7 @@ class SpellsFilter extends React.Component
                 <ControlGroup label="Class">
                     <MultiSelect
                         id="classes"
-                        items={_classes || []}
+                        items={_classes}
                         selected={classes}
                         emptyLabel="All classes"
                         setState={this.onChange('classes')}
@@ -297,13 +297,15 @@ SpellsTable.defaultProps = {
 };
 
 export default ListDataWrapper(
-    ObjectDataListWrapper(
-        SpellsTable,
-        {spells: {group: 'items', type: 'spell'}}
+    ListDataWrapper(
+        ObjectDataListWrapper(
+            SpellsTable,
+            {spells: {group: 'items', type: 'spell'}}
+        ),
+        ['search', 'magic_components', 'magic_schools'],
+        'items',
     ),
-    ['search', 'classes', 'magic_components', 'magic_schools'],
-    'items',
-    {
-        'classes': '_classes',
-    }
+    ['class'],
+    'data',
+    {'class': '_classes'},
 );

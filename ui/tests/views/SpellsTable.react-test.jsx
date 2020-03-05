@@ -35,13 +35,13 @@ describe('SpellsTable', () => {
 
     beforeAll(() => {
         fetch.mockImplementation( mockedApi({
-            classes,
+            'class': classes,
             magic_components,
             magic_schools,
             user: {},
             'spell/api': fullProps.spells,
         }) );
-        ListDataActions.fetchItems('classes');
+        ListDataActions.fetchItems('class', 'data');
         ListDataActions.fetchItems('magic_components');
         ListDataActions.fetchItems('magic_schools');
     })
