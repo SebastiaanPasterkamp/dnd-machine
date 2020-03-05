@@ -206,9 +206,10 @@ export function ObjectDataStoreFactory(id, listenables = null)
             });
             LoadingActions.start(type);
 
-            const path = '/' + filter(null, [
-                group, type, 'api', id
-            ]).join('/');
+            const path = '/' + filter(
+                p => (p !== null && p !== undefined),
+                [ group, type, 'api', id ]
+            ).join('/');
 
             fetch(path, {
                 credentials: 'same-origin',

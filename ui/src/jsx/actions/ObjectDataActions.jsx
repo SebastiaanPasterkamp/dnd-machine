@@ -29,9 +29,10 @@ export function ObjectDataActionsFactory(id)
     };
 
     oda.postObject.listen((type, data, group=null, callback=null) => {
-        const path = '/' + filter(null, [
-            group, type, 'api'
-        ]).join('/');
+        const path = '/' + filter(
+            p => (p !== null && p !== undefined),
+            [ group, type, 'api' ]
+        ).join('/');
 
         fetch(path, {
             credentials: 'same-origin',
@@ -64,9 +65,10 @@ export function ObjectDataActionsFactory(id)
     });
 
     oda.patchObject.listen((type, id, data, group=null, callback=null) => {
-        const path = '/' + filter(null, [
-            group, type, 'api', id
-        ]).join('/');
+        const path = '/' + filter(
+            p => (p !== null && p !== undefined),
+            [ group, type, 'api', id ]
+        ).join('/');
 
         fetch(path, {
             credentials: 'same-origin',
@@ -99,9 +101,10 @@ export function ObjectDataActionsFactory(id)
     });
 
     oda.copyObject.listen((type, id, group=null, callback=null) => {
-        const path = '/' + filter(null, [
-            group, type, 'copy', id
-        ]).join('/');
+        const path = '/' + filter(
+            p => (p !== null && p !== undefined),
+            [ group, type, 'copy', id ]
+        ).join('/');
 
         fetch(path, {
             credentials: 'same-origin',
@@ -132,9 +135,10 @@ export function ObjectDataActionsFactory(id)
     });
 
     oda.consumeObject.listen((type, id, group=null, callback=null) => {
-        const path = '/' + filter(null, [
-            group, type, 'consume', id
-        ]).join('/');
+        const path = '/' + filter(
+            p => (p !== null && p !== undefined),
+            [ group, type, 'consume', id ]
+        ).join('/');
 
         if (!confirm("Are you sure you wish to consume this?")) {
             return false;
@@ -169,9 +173,10 @@ export function ObjectDataActionsFactory(id)
     });
 
     oda.deleteObject.listen((type, id, group=null, callback=null) => {
-        const path = '/' + filter(null, [
-            group, type, 'api', id
-        ]).join('/');
+        const path = '/' + filter(
+            p => (p !== null && p !== undefined),
+            [ group, type, 'api', id ]
+        ).join('/');
 
         if (!confirm("Are you sure you wish to delete this?")) {
             return false;
@@ -206,9 +211,10 @@ export function ObjectDataActionsFactory(id)
     });
 
     oda.recomputeObject.listen((type, id, data, group=null, callback=null) => {
-        const path = '/' + filter(null, [
-            group, type, 'recompute', id
-        ]).join('/');
+        const path = '/' + filter(
+            p => (p !== null && p !== undefined),
+            [ group, type, 'recompute', id ]
+        ).join('/');
 
         const delayedRecompute = oda.debounce(path, (path, type, id, data, group, callback) => {
             fetch(path, {
