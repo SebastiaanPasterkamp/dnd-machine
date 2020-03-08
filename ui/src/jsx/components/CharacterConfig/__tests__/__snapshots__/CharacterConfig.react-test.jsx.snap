@@ -1062,6 +1062,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
                       },
                     ]
                   }
+                  objects={false}
                   renderEmpty={null}
                   selected={null}
                   setState={[Function]}
@@ -1520,6 +1521,7 @@ exports[`Component: CharacterConfig should render list 2`] = `
                       },
                     ]
                   }
+                  objects={false}
                   renderEmpty={null}
                   selected={null}
                   setState={[Function]}
@@ -1945,6 +1947,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                 ]
               }
               multiple={false}
+              objects={false}
               onAdd={[Function]}
               onDelete={[Function]}
               setState={[Function]}
@@ -1976,6 +1979,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                       ]
                     }
                     multiple={false}
+                    objects={false}
                     onSelect={[Function]}
                   >
                     <SingleSelect
@@ -1998,6 +2002,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                           },
                         ]
                       }
+                      objects={false}
                       renderEmpty={null}
                       selected={null}
                       setState={[Function]}
@@ -2245,6 +2250,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
                 ]
               }
               multiple={false}
+              objects={false}
               onAdd={[Function]}
               onDelete={[Function]}
               setState={[Function]}
@@ -2562,6 +2568,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
                   },
                 ]
               }
+              objects={false}
               renderEmpty={null}
               selected="strength"
               setState={[Function]}
@@ -2915,6 +2922,7 @@ exports[`Component: CharacterConfig should render select 2`] = `
                   },
                 ]
               }
+              objects={false}
               renderEmpty={null}
               selected="wisdom"
               setState={[Function]}
@@ -3277,6 +3285,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                       },
                     ]
                   }
+                  objects={false}
                   renderEmpty={null}
                   selected={null}
                   setState={[Function]}
@@ -3828,6 +3837,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                       },
                     ]
                   }
+                  objects={false}
                   renderEmpty={null}
                   selected={null}
                   setState={[Function]}

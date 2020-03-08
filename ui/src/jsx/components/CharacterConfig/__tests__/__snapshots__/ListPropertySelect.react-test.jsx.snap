@@ -380,6 +380,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
             },
           ]
         }
+        objects={false}
         renderEmpty={null}
         selected={null}
         setState={[Function]}
