@@ -23,11 +23,11 @@ describe('Component: ConfigOption', () => {
                 uuid: mockedUUID2,
                 path: 'some.path',
                 value: 'some value',
-                label: 'My Label',
+                name: 'My Label',
                 hidden: true,
             },
         ],
-        label: 'Some config',
+        name: 'Some config',
         description: 'Config _desc_',
         hidden: true,
     };
@@ -105,14 +105,14 @@ describe('Component: ConfigOption', () => {
             />
         );
 
-        wrapper.find('input[type="text"]').simulate('change', {
-            target: { value: fullProps.label }
+        wrapper.find('input[placeholder="Label..."]').simulate('change', {
+            target: { value: fullProps.name }
         });
 
         expect(setState).toBeCalledWith({
             type: 'config',
             uuid: mockedUUID1,
-            label: fullProps.label,
+            name: fullProps.name,
         });
     });
 
@@ -126,7 +126,7 @@ describe('Component: ConfigOption', () => {
             />
         );
 
-        wrapper.find('input[type="text"]').simulate('change', {
+        wrapper.find('input[type="text"]').at(0).simulate('change', {
             target: { value: 'other.path' }
         });
 

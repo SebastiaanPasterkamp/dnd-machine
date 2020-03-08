@@ -1,100 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+    find,
+} from 'lodash/fp';
 
 import { memoize } from '../../utils';
-import { uuidv4 } from './utils';
 
 import ListDataWrapper from '../../hocs/ListDataWrapper.jsx';
 
 import ControlGroup from '../ControlGroup';
 import FieldSet from '../FieldSet';
 import InputField from '../InputField';
-import { SelectListComponent } from '../ListComponent';
 import MarkdownTextField from '../MarkdownTextField';
-
-import ASIOption from './ASIOption';
-import ConfigOption from './ConfigOption';
-import DictOption from './DictOption';
-import ListOption from './ListOption';
-import MultichoiceOption from './MultichoiceOption';
 import SingleSelect from '../SingleSelect';
-import ValueOption from './ValueOption';
+import ToggleSwitch from '../ToggleSwitch';
 
+import { uuidv4 } from './utils';
+import DataConfig from './DataConfig';
 import ListFilter from './components/ListFilter';
+
 
 export class ChoiceOption extends React.Component
 {
     optionType = 'choice';
-
-    options = [
-        {
-            id: 'ability_score',
-            name: 'Ability Score Improvement',
-            component: ASIOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-            initialItem: {
-                label: "Ability Score Improvement",
-                description: "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
-                type: "ability_score",
-                limit: 2,
-            },
-        },
-        {
-            id: 'choice',
-            name: 'Choice option',
-            component: ChoiceOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-        },
-        {
-            id: 'config',
-            name: 'Config option',
-            component: ConfigOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-        },
-        {
-            id: 'dict',
-            name: 'Dictionary option',
-            component: DictOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-            initialItem: {
-                dict: {
-                    description: '',
-                },
-            },
-        },
-        {
-            id: 'list',
-            name: 'List option',
-            component: ListOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-        },
-        {
-            id: 'multichoice',
-            name: 'Multichoice option',
-            component: MultichoiceOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-        },
-        {
-            id: 'value',
-            name: 'Value option',
-            component: ValueOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-        },
-    ];
 
     constructor(props) {
         super(props);
@@ -118,7 +46,7 @@ export class ChoiceOption extends React.Component
 
     render() {
         const {
-            label, description, options, includes, include, filter,
+            name, description, options, includes, include, filter, subtype,
         } = this.props;
 
         return (
@@ -126,9 +54,9 @@ export class ChoiceOption extends React.Component
                 <ControlGroup label="Label">
                     <InputField
                         placeholder="Label..."
-                        value={label}
+                        value={name}
                         type="text"
-                        setState={this.onFieldChange('label')}
+                        setState={this.onFieldChange('name')}
                     />
                 </ControlGroup>
 
@@ -141,7 +69,7 @@ export class ChoiceOption extends React.Component
                     />
                 </ControlGroup>
 
-                {includes.length && !options.length ? (
+                {includes.length && !(options.length || subtype) ? (
                     <ControlGroup label="Include">
                         <SingleSelect
                             selected={include}
@@ -156,15 +84,25 @@ export class ChoiceOption extends React.Component
                     <FieldSet label="Filter">
                         <ListFilter
                             filter={filter}
+                            items={(
+                                find({id: include}, includes) || {}
+                            ).options}
                             setState={this.onFieldChange('filter')}
                         />
                     </FieldSet>
                 ) : null}
 
-                {!include ? (
-                    <SelectListComponent
+                {!(include || options.length) ? (
+                    <ToggleSwitch
+                        checked={subtype}
+                        onChange={this.onFieldChange('subtype')}
+                        label="Include sub-type choice"
+                    />
+                ) : null}
+
+                {!(include || subtype) ? (
+                    <DataConfig
                         list={options}
-                        options={this.options}
                         setState={this.onFieldChange('options')}
                     />
                 ) : null}
@@ -178,9 +116,12 @@ ChoiceOption.propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
     includes: PropTypes.arrayOf(PropTypes.object),
     include: PropTypes.number,
-    filter: PropTypes.object,
+    filter: PropTypes.arrayOf(
+        PropTypes.object
+    ),
+    subtype: PropTypes.bool,
     setState: PropTypes.func.isRequired,
-    label: PropTypes.string,
+    name: PropTypes.string,
     description: PropTypes.string,
 };
 
@@ -189,8 +130,9 @@ ChoiceOption.defaultProps = {
     options: [],
     includes: [],
     include: null,
-    filter: {},
-    label: '',
+    filter: [],
+    subtype: false,
+    name: '',
     description: '',
 };
 

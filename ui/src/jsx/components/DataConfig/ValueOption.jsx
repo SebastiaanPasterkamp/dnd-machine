@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { memoize } from '../../utils';
-import { uuidv4 } from './utils';
 
 import ControlGroup from '../ControlGroup';
 import FieldSet from '../FieldSet';
 import InputField from '../InputField';
 import MarkdownTextField from '../MarkdownTextField';
 import ToggleSwitch from '../ToggleSwitch';
+
+import { uuidv4 } from './utils';
+
 
 export class ValueOption extends React.Component
 {
@@ -50,7 +52,7 @@ export class ValueOption extends React.Component
 
     render() {
         const {
-            label, path, value, canBeHidden, hidden,
+            name, path, value, canBeHidden, hidden,
         } = this.props;
 
         return (
@@ -76,9 +78,9 @@ export class ValueOption extends React.Component
                     <ControlGroup label="Label">
                         <InputField
                             placeholder="Label..."
-                            value={label}
+                            value={name}
                             type="text"
-                            setState={this.onFieldChange('label')}
+                            setState={this.onFieldChange('name')}
                         />
                     </ControlGroup>
                 ) : null}
@@ -101,7 +103,7 @@ ValueOption.propTypes = {
     path: PropTypes.string,
     value: PropTypes.any,
     setState: PropTypes.func.isRequired,
-    label: PropTypes.string,
+    name: PropTypes.string,
     hidden: PropTypes.bool,
     canBeHidden: PropTypes.bool,
 };
@@ -109,7 +111,7 @@ ValueOption.propTypes = {
 ValueOption.defaultProps = {
     type: 'value',
     value: '',
-    label: '',
+    name: '',
     hidden: false,
     canBeHidden: true,
 };

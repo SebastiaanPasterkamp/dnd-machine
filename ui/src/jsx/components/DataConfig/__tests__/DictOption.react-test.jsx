@@ -13,7 +13,7 @@ describe('Component: DictOption', () => {
         type: 'dict',
         uuid: mockedUUID1,
         path: 'some.path',
-        label: 'Something given',
+        name: 'Something given',
         dict: {
             description: "You're welcome: %(number)s",
             number: 4,
@@ -82,13 +82,13 @@ describe('Component: DictOption', () => {
             );
 
             wrapper.find('input[type="text"]').at(1).simulate('change', {
-                target: { value: fullProps.label }
+                target: { value: fullProps.name }
             });
 
             expect(setState).toBeCalledWith({
                 type: 'dict',
                 uuid: mockedUUID1,
-                label: fullProps.label,
+                name: fullProps.name,
             });
         });
 

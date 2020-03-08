@@ -6,8 +6,9 @@ import FilterTextField from '../components/FilterTextField';
 
 describe('Component: FilterTextField', () => {
     const fullProps = {
+        type: 'textfield',
         field: 'attrib',
-        filter: ['foo', 'bar']
+        options: ['foo', 'bar']
     };
 
     describe('when rendering', () => {
@@ -50,6 +51,7 @@ describe('Component: FilterTextField', () => {
             });
 
             expect(setState).toBeCalledWith({
+                type: fullProps.type,
                 field: fullProps.field,
             });
         });
@@ -69,7 +71,8 @@ describe('Component: FilterTextField', () => {
             });
 
             expect(setState).toBeCalledWith({
-                filter: ['FOO', 'bar']
+                type: fullProps.type,
+                options: ['FOO', 'bar']
             });
         });
 
@@ -88,7 +91,8 @@ describe('Component: FilterTextField', () => {
             });
 
             expect(setState).toBeCalledWith({
-                filter: ['foo', 'bar', 'ruh']
+                type: fullProps.type,
+                options: ['foo', 'bar', 'ruh']
             });
         });
 
@@ -105,7 +109,8 @@ describe('Component: FilterTextField', () => {
             wrapper.find('button[name="del"]').at(0).simulate('click');
 
             expect(setState).toBeCalledWith({
-                filter: ['bar']
+                type: fullProps.type,
+                options: ['bar']
             });
         });
     });

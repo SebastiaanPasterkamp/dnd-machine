@@ -8,15 +8,15 @@ import {
     values,
 } from 'lodash/fp';
 
-import { SelectListComponent } from '../ListComponent';
-
 import { memoize } from '../../utils';
-import { uuidv4 } from './utils';
+
+import { SelectListComponent } from '../ListComponent';
 
 import ControlGroup from '../ControlGroup';
 import FieldSet from '../FieldSet';
 import InputField from '../InputField';
 
+import { uuidv4 } from './utils';
 import DictFormulaField from './components/DictFormulaField';
 import DictNumberField from './components/DictNumberField';
 import DictTextField from './components/DictTextField';
@@ -137,7 +137,7 @@ export class DictOption extends React.Component
     }
 
     render() {
-        const { label, path, dict } = this.props;
+        const { name, path, dict } = this.props;
 
         return (
             <FieldSet label="Dictionary option">
@@ -153,9 +153,9 @@ export class DictOption extends React.Component
                 <ControlGroup label="Label">
                     <InputField
                         placeholder="Label..."
-                        value={label}
+                        value={name}
                         type="text"
-                        setState={this.onFieldChange('label')}
+                        setState={this.onFieldChange('name')}
                     />
                 </ControlGroup>
 
@@ -172,7 +172,7 @@ export class DictOption extends React.Component
 DictOption.propTypes = {
     type: PropTypes.oneOf(['dict']),
     path: PropTypes.string,
-    label: PropTypes.string,
+    name: PropTypes.string,
     dict: PropTypes.object,
     setState: PropTypes.func.isRequired,
 };
@@ -180,7 +180,7 @@ DictOption.propTypes = {
 DictOption.defaultProps = {
     type: 'dict',
     path: '',
-    label: '',
+    name: '',
     dict: {},
 };
 

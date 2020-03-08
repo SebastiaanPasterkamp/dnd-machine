@@ -13,7 +13,7 @@ describe('Component: ASIOption', () => {
         type: 'ability_score',
         uuid: mockedUUID1,
         limit: 2,
-        label: 'My Label',
+        name: 'My Label',
         description: 'Bump it up',
     };
 
@@ -59,13 +59,13 @@ describe('Component: ASIOption', () => {
             );
 
             wrapper.find('input[type="text"]').simulate('change', {
-                target: { value: fullProps.label }
+                target: { value: fullProps.name }
             });
 
             expect(setState).toBeCalledWith({
                 type: 'ability_score',
                 uuid: mockedUUID1,
-                label: fullProps.label,
+                name: fullProps.name,
             });
         });
 

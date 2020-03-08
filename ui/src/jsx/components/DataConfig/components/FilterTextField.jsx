@@ -9,24 +9,33 @@ import TagContainer from '../../TagContainer';
 
 export class FilterTextField extends React.Component
 {
+    filterType = 'textfield';
+
     constructor(props) {
         super(props);
         this.onFieldChange = this.onFieldChange.bind(this);
-        this.onFilterChange = this.onFilterChange.bind(this);
+        this.onOptionsChange = this.onOptionsChange.bind(this);
     }
 
     onFieldChange(field) {
         const { setState } = this.props;
-        setState({ field });
+        setState({
+            type: this.filterType,
+            field,
+        });
     }
 
-    onFilterChange(filter) {
+    onOptionsChange(options) {
         const { setState } = this.props;
-        setState({ filter });
+        setState({
+            type: this.filterType,
+            method: this.filterMethod,
+            options,
+        });
     }
 
     render() {
-        const { field, filter } = this.props;
+        const { field, options } = this.props;
 
         return (
             <FieldSet label="Filter textfield">
@@ -38,12 +47,12 @@ export class FilterTextField extends React.Component
                         setState={this.onFieldChange}
                     />
                 </ControlGroup>
-                <FieldSet label="Values">
+                <FieldSet label="Options">
                     <ListComponent
-                        list={filter}
+                        list={options}
                         component={InputField}
                         newItem="auto"
-                        setState={this.onFilterChange}
+                        setState={this.onOptionsChange}
                     />
                 </FieldSet>
             </FieldSet>
@@ -52,13 +61,15 @@ export class FilterTextField extends React.Component
 };
 
 FilterTextField.propTypes = {
+    type: PropTypes.oneOf(['textfield']),
     field: PropTypes.string,
-    filter: PropTypes.arrayOf(PropTypes.string),
+    options: PropTypes.arrayOf(PropTypes.string),
 };
 
 FilterTextField.defaultProps = {
+    type: 'textfield',
     field: '',
-    filter: [],
+    options: [],
 };
 
 export default FilterTextField;

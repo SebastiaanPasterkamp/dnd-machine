@@ -29,7 +29,7 @@ exports[`Component: FilterTextField when rendering should work with full props 1
     className="nice-form-group"
   >
     <legend>
-      Values
+      Options
     </legend>
     <ul
       className="list-component"
@@ -125,7 +125,7 @@ exports[`Component: FilterTextField when rendering should work with minimum prop
     className="nice-form-group"
   >
     <legend>
-      Values
+      Options
     </legend>
     <ul
       className="list-component"

@@ -7,6 +7,9 @@ import SingleSelect from '../../SingleSelect';
 
 export class FilterBooleanField extends React.Component
 {
+    filterType = 'boolean';
+    filterMethod = 'absolute';
+
     items = [
         { id: true, name: "True" },
         { id: false, name: "False" },
@@ -15,21 +18,29 @@ export class FilterBooleanField extends React.Component
     constructor(props) {
         super(props);
         this.onFieldChange = this.onFieldChange.bind(this);
-        this.onFilterChange = this.onFilterChange.bind(this);
+        this.onConditionChange = this.onConditionChange.bind(this);
     }
 
     onFieldChange(field) {
         const { setState } = this.props;
-        setState({ field });
+        setState({
+            type: this.filterType,
+            method: this.filterMethod,
+            field,
+        });
     }
 
-    onFilterChange(filter) {
+    onConditionChange(condition) {
         const { setState } = this.props;
-        setState({ filter });
+        setState({
+            type: this.filterType,
+            method: this.filterMethod,
+            condition,
+        });
     }
 
     render() {
-        const { field, filter } = this.props;
+        const { field, condition } = this.props;
 
         return (
             <ControlGroup labels={["Field", "Boolean"]}>
@@ -40,9 +51,9 @@ export class FilterBooleanField extends React.Component
                     setState={this.onFieldChange}
                 />
                 <SingleSelect
-                    selected={filter}
+                    selected={condition}
                     items={this.items}
-                    setState={this.onFilterChange}
+                    setState={this.onConditionChange}
                 />
             </ControlGroup>
         );
@@ -50,13 +61,17 @@ export class FilterBooleanField extends React.Component
 };
 
 FilterBooleanField.propTypes = {
+    type: PropTypes.oneOf(['boolean']),
+    method: PropTypes.oneOf(['absolute']),
     field: PropTypes.string,
-    filter: PropTypes.bool,
+    condition: PropTypes.bool,
 };
 
 FilterBooleanField.defaultProps = {
+    field: 'boolean',
+    method: 'absolute',
     field: '',
-    filter: false,
+    condition: false,
 };
 
 export default FilterBooleanField;

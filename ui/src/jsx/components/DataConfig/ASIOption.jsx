@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { memoize } from '../../utils';
-import { uuidv4 } from './utils';
 
 import ControlGroup from '../ControlGroup';
 import FieldSet from '../FieldSet';
 import InputField from '../InputField';
 import MarkdownTextField from '../MarkdownTextField';
 import ToggleSwitch from '../ToggleSwitch';
+
+import { uuidv4 } from './utils';
+
 
 export class ASIOption extends React.Component
 {
@@ -36,7 +38,7 @@ export class ASIOption extends React.Component
 
     render() {
         const {
-            label, limit, description,
+            name, description, limit,
         } = this.props;
 
         return (
@@ -44,9 +46,9 @@ export class ASIOption extends React.Component
                 <ControlGroup label="Label">
                     <InputField
                         placeholder="Label..."
-                        value={label}
+                        value={name}
                         type="text"
-                        setState={this.onFieldChange('label')}
+                        setState={this.onFieldChange('name')}
                     />
                 </ControlGroup>
 
@@ -76,14 +78,14 @@ ASIOption.propTypes = {
     type: PropTypes.oneOf(['ability_score']),
     limit: PropTypes.number,
     setState: PropTypes.func.isRequired,
-    label: PropTypes.string,
+    name: PropTypes.string,
     description: PropTypes.string,
 };
 
 ASIOption.defaultProps = {
     type: 'ability_score',
     limit: 0,
-    label: '',
+    name: '',
     description: '',
 };
 

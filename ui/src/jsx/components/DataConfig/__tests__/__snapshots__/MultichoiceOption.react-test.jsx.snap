@@ -137,6 +137,20 @@ exports[`Component: MultichoiceOption when rendering should work with full props
             value="some.path"
           />
         </div>
+        <input
+          checked={false}
+          className="nice-toggle"
+          disabled={undefined}
+          id="toggle-1"
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <label
+          className="nice-toggle-btn"
+          htmlFor="toggle-1"
+        >
+          Hidden
+        </label>
         <div
           className="nice-control-group"
         >
@@ -218,6 +232,17 @@ exports[`Component: MultichoiceOption when rendering should work with full props
           className="dropdown-menu"
           onClick={[Function]}
         >
+          <input
+            className="nice-form-control"
+            data-name="filter"
+            disabled={undefined}
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={null}
+            placeholder="Filter..."
+            type="text"
+            value=""
+          />
           <li
             className="info"
             data-value={null}
@@ -225,6 +250,24 @@ exports[`Component: MultichoiceOption when rendering should work with full props
           >
             <a>
               Add...
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="ability_score"
+            onClick={[Function]}
+          >
+            <a>
+              Ability Score Improvement
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="dict"
+            onClick={[Function]}
+          >
+            <a>
+              Dictionary option
             </a>
           </li>
           <li
@@ -247,15 +290,6 @@ exports[`Component: MultichoiceOption when rendering should work with full props
           </li>
           <li
             className={null}
-            data-value="dict"
-            onClick={[Function]}
-          >
-            <a>
-              Dictionary option
-            </a>
-          </li>
-          <li
-            className={null}
             data-value="list"
             onClick={[Function]}
           >
@@ -274,12 +308,243 @@ exports[`Component: MultichoiceOption when rendering should work with full props
           </li>
           <li
             className={null}
+            data-value="objectlist"
+            onClick={[Function]}
+          >
+            <a>
+              Object list option
+            </a>
+          </li>
+          <li
+            className={null}
             data-value="value"
             onClick={[Function]}
           >
             <a>
               Value option
             </a>
+          </li>
+          <li>
+            Prefab options
+            <ul>
+              <li
+                className={null}
+                data-value="asi"
+                onClick={[Function]}
+              >
+                <a>
+                  Ability Score Increase
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="asi or feat"
+                onClick={[Function]}
+              >
+                <a>
+                  ASI or Feat
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="darkvision"
+                onClick={[Function]}
+              >
+                <a>
+                  Darkvision
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="equipment"
+                onClick={[Function]}
+              >
+                <a>
+                  Equipment
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="equipment packs"
+                onClick={[Function]}
+              >
+                <a>
+                  Equipment Packs
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="hit dice"
+                onClick={[Function]}
+              >
+                <a>
+                  Hit Dice
+                </a>
+              </li>
+              <li>
+                Proficiencies
+                <ul>
+                  <li
+                    className={null}
+                    data-value="proficiencies.armor"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Armor Proficiency
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.weapons"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Weapon Proficiency
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.languages"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Language Proficiency
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.saving_throws"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Saving Throws
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.expertise"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Expertise (Double Proficiency)
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.skills"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Skill Proficiency
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.talent"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Talent (Half Proficiency)
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.tools"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Tool Proficiency
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                className={null}
+                data-value="size"
+                onClick={[Function]}
+              >
+                <a>
+                  Size
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="speed"
+                onClick={[Function]}
+              >
+                <a>
+                  Speed
+                </a>
+              </li>
+              <li>
+                Spells
+                <ul>
+                  <li
+                    className={null}
+                    data-value="ability"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Spellcasting Ability
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="cantrips"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Cantrips
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="spell.list"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Spells
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="casting"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Casting Spells
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="focus"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Spellcasting Focus
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="preparing"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Preparing Spells
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="ritual"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Ritual Casting
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -466,6 +731,17 @@ exports[`Component: MultichoiceOption when rendering should work with minimum pr
           className="dropdown-menu"
           onClick={[Function]}
         >
+          <input
+            className="nice-form-control"
+            data-name="filter"
+            disabled={undefined}
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={null}
+            placeholder="Filter..."
+            type="text"
+            value=""
+          />
           <li
             className="info"
             data-value={null}
@@ -473,6 +749,24 @@ exports[`Component: MultichoiceOption when rendering should work with minimum pr
           >
             <a>
               Add...
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="ability_score"
+            onClick={[Function]}
+          >
+            <a>
+              Ability Score Improvement
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="dict"
+            onClick={[Function]}
+          >
+            <a>
+              Dictionary option
             </a>
           </li>
           <li
@@ -495,15 +789,6 @@ exports[`Component: MultichoiceOption when rendering should work with minimum pr
           </li>
           <li
             className={null}
-            data-value="dict"
-            onClick={[Function]}
-          >
-            <a>
-              Dictionary option
-            </a>
-          </li>
-          <li
-            className={null}
             data-value="list"
             onClick={[Function]}
           >
@@ -522,12 +807,243 @@ exports[`Component: MultichoiceOption when rendering should work with minimum pr
           </li>
           <li
             className={null}
+            data-value="objectlist"
+            onClick={[Function]}
+          >
+            <a>
+              Object list option
+            </a>
+          </li>
+          <li
+            className={null}
             data-value="value"
             onClick={[Function]}
           >
             <a>
               Value option
             </a>
+          </li>
+          <li>
+            Prefab options
+            <ul>
+              <li
+                className={null}
+                data-value="asi"
+                onClick={[Function]}
+              >
+                <a>
+                  Ability Score Increase
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="asi or feat"
+                onClick={[Function]}
+              >
+                <a>
+                  ASI or Feat
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="darkvision"
+                onClick={[Function]}
+              >
+                <a>
+                  Darkvision
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="equipment"
+                onClick={[Function]}
+              >
+                <a>
+                  Equipment
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="equipment packs"
+                onClick={[Function]}
+              >
+                <a>
+                  Equipment Packs
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="hit dice"
+                onClick={[Function]}
+              >
+                <a>
+                  Hit Dice
+                </a>
+              </li>
+              <li>
+                Proficiencies
+                <ul>
+                  <li
+                    className={null}
+                    data-value="proficiencies.armor"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Armor Proficiency
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.weapons"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Weapon Proficiency
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.languages"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Language Proficiency
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.saving_throws"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Saving Throws
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.expertise"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Expertise (Double Proficiency)
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.skills"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Skill Proficiency
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.talent"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Talent (Half Proficiency)
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="proficiencies.tools"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Tool Proficiency
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                className={null}
+                data-value="size"
+                onClick={[Function]}
+              >
+                <a>
+                  Size
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="speed"
+                onClick={[Function]}
+              >
+                <a>
+                  Speed
+                </a>
+              </li>
+              <li>
+                Spells
+                <ul>
+                  <li
+                    className={null}
+                    data-value="ability"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Spellcasting Ability
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="cantrips"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Cantrips
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="spell.list"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Spells
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="casting"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Casting Spells
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="focus"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Spellcasting Focus
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="preparing"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Preparing Spells
+                    </a>
+                  </li>
+                  <li
+                    className={null}
+                    data-value="ritual"
+                    onClick={[Function]}
+                  >
+                    <a>
+                      Ritual Casting
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

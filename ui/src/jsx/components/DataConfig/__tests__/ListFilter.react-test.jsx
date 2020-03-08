@@ -6,15 +6,42 @@ import ListFilter from '../components/ListFilter';
 
 describe('Component: ListFilter', () => {
     const fullProps = {
-        filter: {
-            'or': [
-                { 'foo': true },
-                { 'bar': false },
-            ],
-            'foo': true,
-            'bar': ['x', 'y'],
-            'ruh_formula': 'some.path',
-        },
+        filter: [
+            {
+                type: 'or',
+                method: 'or',
+                filters: [
+                    {
+                        type: "boolean",
+                        method: "absolute",
+                        field: "foo",
+                        condition: true,
+                    },
+                    {
+                        type: "boolean",
+                        method: "absolute",
+                        field: "bar",
+                        condition: false,
+                    },
+                ],
+            },
+            {
+                type: 'boolean',
+                method: 'absolute',
+                field: 'foo',
+                condition: true,
+            },
+            {
+                type: 'textfield',
+                field: 'bar',
+                options: ['x', 'y']
+            },
+            {
+                type: "formula",
+                field: 'ruh',
+                options: 'some.path',
+            },
+        ],
     };
 
     describe('when rendering', () => {
@@ -60,36 +87,47 @@ describe('Component: ListFilter', () => {
             wrapper.find('div[name="add"] button').simulate('click');
             wrapper.find('li[data-value="or"]').simulate('click');
 
-            expect(setState).toBeCalledWith({
-                'or': [],
-            });
+            expect(setState).toBeCalledWith([
+                {
+                    type: "or",
+                    method: "or",
+                }
+            ], null);
         });
 
         it('should emit a boolean', () => {
             wrapper.find('div[name="add"] button').simulate('click');
             wrapper.find('li[data-value="boolean"]').simulate('click');
 
-            expect(setState).toBeCalledWith({
-                '': true,
-            });
+            expect(setState).toBeCalledWith([
+                {
+                    type: "boolean",
+                    method: "absolute",
+                    condition: false,
+                }
+            ], null);
         });
 
         it('should emit a textfield', () => {
             wrapper.find('div[name="add"] button').simulate('click');
             wrapper.find('li[data-value="textfield"]').simulate('click');
 
-            expect(setState).toBeCalledWith({
-                '': [],
-            });
+            expect(setState).toBeCalledWith([
+                {
+                    type: "textfield",
+                }
+            ], null);
         });
 
         it('should emit a formula', () => {
             wrapper.find('div[name="add"] button').simulate('click');
             wrapper.find('li[data-value="formula"]').simulate('click');
 
-            expect(setState).toBeCalledWith({
-                '_formula': '',
-            });
+            expect(setState).toBeCalledWith([
+                {
+                    type: "formula",
+                }
+            ], null);
         });
     });
 });

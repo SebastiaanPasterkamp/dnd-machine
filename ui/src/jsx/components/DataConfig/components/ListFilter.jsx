@@ -8,21 +8,23 @@ import {
 
 import { SelectListComponent } from '../../ListComponent';
 
+import FilterAttributeField from './FilterAttributeField';
 import FilterBooleanField from './FilterBooleanField';
 import FilterFormulaField from './FilterFormulaField';
 import FilterOrField from './FilterOrField';
+import FilterProficiencies from './FilterProficiencies';
 import FilterTextField from './FilterTextField';
 
 export class ListFilter extends React.Component
 {
     options = [
         {
-            id: 'or',
-            name: 'Or',
-            component: FilterOrField,
-            initialItem: {
-                field: 'or',
-                filter: [],
+            id: 'attribute',
+            name: 'Attribute',
+            component: FilterAttributeField,
+            componentProps: () => {
+                const { items } = this.props;
+                return { items };
             },
         },
         {
@@ -30,78 +32,72 @@ export class ListFilter extends React.Component
             name: 'Boolean',
             component: FilterBooleanField,
             initialItem: {
-                field: '',
-                filter: true,
-            },
-        },
-        {
-            id: 'textfield',
-            name: 'Textfield',
-            component: FilterTextField,
-            initialItem: {
-                field: '',
-                filter: [],
+                method: 'absolute',
+                condition: false,
             },
         },
         {
             id: 'formula',
             name: 'Formula',
             component: FilterFormulaField,
+        },
+        {
+            id: 'or',
+            name: 'Or',
+            component: FilterOrField,
             initialItem: {
-                field: '_formula',
-                filter: '',
+                method: 'or',
+            },
+            componentProps: () => {
+                const { items } = this.props;
+                return { items };
             },
         },
+        {
+            id: 'proficiencies',
+            name: 'Proficiencies',
+            component: FilterProficiencies,
+            initialItem: {
+                method: 'proficiency',
+            },
+            componentProps: () => {
+                const { items } = this.props;
+                return { items };
+            },
+        },
+        {
+            id: 'textfield',
+            name: 'Textfield',
+            component: FilterTextField,
+        },
     ];
-
-    constructor(props) {
-        super(props);
-        this.mapField = this.mapField.bind(this);
-        this.onSetState = this.onSetState.bind(this);
-    }
-
-    mapField(field) {
-        const { filter: { [field]: filter } } = this.props;
-        if (field === 'or') {
-            return { type: 'or', field, filter };
-        }
-        if (filter === true || filter === false) {
-            return { type: 'boolean', field, filter };
-        }
-        if (field.match(/_formula$/)) {
-            return { type: 'formula', field, filter };
-        }
-        return { type: 'textfield', field, filter };
-    }
-
-    onSetState(filter) {
-        const { setState } = this.props;
-        setState(reduce(
-            (result, {field, filter}) => ({...result, [field]: filter}),
-            {}
-        )(filter));
-    }
 
     render() {
         const { filter, setState } = this.props;
 
         return (
             <SelectListComponent
-                list={map(this.mapField)(keys(filter))}
+                list={filter}
                 options={this.options}
-                setState={this.onSetState}
+                setState={setState}
             />
         );
     }
 }
 
 ListFilter.propTypes = {
-    filter: PropTypes.object,
+    filter: PropTypes.arrayOf(
+        PropTypes.object
+    ),
+    items: PropTypes.arrayOf(
+        PropTypes.object
+    ),
     setState: PropTypes.func.isRequired,
 };
 
 ListFilter.defaultProps = {
-    filter: {},
+    filter: [],
+    items: [],
 };
 
 export default ListFilter;

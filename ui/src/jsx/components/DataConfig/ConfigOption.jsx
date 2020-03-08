@@ -2,74 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { memoize } from '../../utils';
-import { uuidv4 } from './utils';
 
 import ControlGroup from '../ControlGroup';
 import FieldSet from '../FieldSet';
 import InputField from '../InputField';
-import { SelectListComponent } from '../ListComponent';
 import MarkdownTextField from '../MarkdownTextField';
 import ToggleSwitch from '../ToggleSwitch';
 
-import ASIOption from './ASIOption';
-import ChoiceOption from './ChoiceOption';
-import DictOption from './DictOption';
-import ListOption from './ListOption';
-import MultichoiceOption from './MultichoiceOption';
-import ValueOption from './ValueOption';
+import { uuidv4 } from './utils';
+import DataConfig from './DataConfig';
 
 export class ConfigOption extends React.Component
 {
     optionType = 'config';
-
-    options = [
-        {
-            id: 'ability_score',
-            name: 'Ability Score Improvement',
-            initialItem: {
-                "label": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
-                "type": "ability_score",
-                "limit": 2,
-            },
-            component: ASIOption,
-        },
-        {
-            id: 'dict',
-            name: 'Dictionary option',
-            component: DictOption,
-            initialItem: {
-                dict: {
-                    description: '',
-                },
-            },
-        },
-        {
-            id: 'choice',
-            name: 'Choice option',
-            component: ChoiceOption,
-        },
-        {
-            id: 'config',
-            name: 'Config option',
-            component: ConfigOption,
-        },
-        {
-            id: 'list',
-            name: 'List option',
-            component: ListOption,
-        },
-        {
-            id: 'multichoice',
-            name: 'Multichoice option',
-            component: MultichoiceOption,
-        },
-        {
-            id: 'value',
-            name: 'Value option',
-            component: ValueOption,
-        },
-    ];
 
     constructor(props) {
         super(props);
@@ -93,7 +38,7 @@ export class ConfigOption extends React.Component
 
     render() {
         const {
-            label, description, config, canBeHidden, hidden,
+            name, description, config, canBeHidden, hidden,
         } = this.props;
 
         return (
@@ -110,9 +55,9 @@ export class ConfigOption extends React.Component
                     <ControlGroup label="Label">
                         <InputField
                             placeholder="Label..."
-                            value={label}
+                            value={name}
                             type="text"
-                            setState={this.onFieldChange('label')}
+                            setState={this.onFieldChange('name')}
                         />
                     </ControlGroup>
                 ) : null}
@@ -128,9 +73,8 @@ export class ConfigOption extends React.Component
                     </ControlGroup>
                 ) : null}
 
-                <SelectListComponent
+                <DataConfig
                     list={config}
-                    options={this.options}
                     setState={this.onFieldChange('config')}
                 />
             </FieldSet>
@@ -142,7 +86,7 @@ ConfigOption.propTypes = {
     type: PropTypes.oneOf(['config']),
     config: PropTypes.arrayOf(PropTypes.object),
     setState: PropTypes.func.isRequired,
-    label: PropTypes.string,
+    name: PropTypes.string,
     description: PropTypes.string,
     hidden: PropTypes.bool,
     canBeHidden: PropTypes.bool,
@@ -151,7 +95,7 @@ ConfigOption.propTypes = {
 ConfigOption.defaultProps = {
     type: 'config',
     config: [],
-    label: '',
+    name: '',
     description: '',
     hidden: false,
     canBeHidden: true,

@@ -2,42 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import FieldSet from '../../FieldSet';
-import { ListComponent } from '../../ListComponent';
 
 import ListFilter from './ListFilter';
 
 export class FilterOrField extends React.Component
 {
-    filterField = 'or';
-
-    component = ({setState, onChange, ...props}) => (
-        <ListFilter
-            setState={setState}
-            onChange={onChange}
-            filter={props}
-        />
-    );
+    filterType = 'or';
+    filterMethod = 'or';
 
     constructor(props) {
         super(props);
-        this.onFilterChange = this.onFilterChange.bind(this);
+        this.onFiltersChange = this.onFiltersChange.bind(this);
     }
 
-    onFilterChange(filter) {
+    onFiltersChange(filters) {
         const { setState } = this.props;
-        setState({ field: this.filterField, filter });
+        setState({
+            type: this.filterType,
+            method: this.filterMethod,
+            filters,
+        });
     }
 
     render() {
-        const { filter } = this.props;
+        const { filters, ...props } = this.props;
 
         return (
             <FieldSet label="Or filter">
-                <ListComponent
-                    list={filter}
-                    component={this.component}
-                    newItem="auto"
-                    setState={this.onFilterChange}
+                <ListFilter
+                    {...props}
+                    filter={filters}
+                    setState={this.onFiltersChange}
                 />
             </FieldSet>
         );
@@ -45,13 +40,15 @@ export class FilterOrField extends React.Component
 };
 
 FilterOrField.propTypes = {
-    field: PropTypes.oneOf(['or']),
-    filter: PropTypes.arrayOf(PropTypes.object),
+    type: PropTypes.oneOf(['or']),
+    method: PropTypes.oneOf(['or']),
+    filters: PropTypes.arrayOf(PropTypes.object),
 };
 
 FilterOrField.defaultProps = {
     field: 'or',
-    filter: [],
+    method: 'or',
+    filters: [],
 };
 
 export default FilterOrField;

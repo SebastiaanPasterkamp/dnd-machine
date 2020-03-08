@@ -6,8 +6,10 @@ import FilterBooleanField from '../components/FilterBooleanField';
 
 describe('Component: FilterBooleanField', () => {
     const fullProps = {
+        type: 'boolean',
+        method: 'absolute',
         field: 'attrib',
-        filter: true,
+        condition: true,
     };
 
     describe('when rendering', () => {
@@ -49,6 +51,8 @@ describe('Component: FilterBooleanField', () => {
         });
 
         expect(setState).toBeCalledWith({
+            type: fullProps.type,
+            method: fullProps.method,
             field: fullProps.field,
         });
     });
@@ -66,7 +70,9 @@ describe('Component: FilterBooleanField', () => {
         wrapper.find('li[data-value=true]').simulate('click');
 
         expect(setState).toBeCalledWith({
-            filter: true,
+            type: fullProps.type,
+            method: fullProps.method,
+            condition: fullProps.condition,
         });
     });
 });

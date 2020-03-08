@@ -10,7 +10,7 @@ import {
     armor_types,
 } from '../../../../../tests/__mocks__';
 
-import { ListOption } from '..';
+import { ObjectListOption } from '..';
 import uuidv4 from '../utils/uuidv4';
 jest.mock('../utils/uuidv4');
 
@@ -18,12 +18,14 @@ const mockedId1 = '1';
 const mockedId2 = '2';
 const mockedUUID1 = 'mocked-uuid-1';
 
-describe('Component: ListOption', () => {
+describe('Component: ObjectListOption', () => {
     const fullProps = {
-        type: 'list',
+        type: 'objectlist',
         uuid: mockedUUID1,
         path: 'some.path',
-        given: ["2", '1 * level'],
+        given: [
+            {id: "light", name: "Light Armor", type: "armor_types"},
+        ],
         name: 'Something given',
         description: "You're welcome",
         multiple: true,
@@ -31,18 +33,19 @@ describe('Component: ListOption', () => {
     };
 
     const listProps = {
-        type: 'list',
+        type: 'objectlist',
         uuid: mockedUUID1,
         path: 'proficiencies.armor',
         list: ['armor_types'],
         filter: [
             {
-                type: 'intersection',
+                type: 'textfield',
                 field: 'type',
                 options: ['shield'],
             }
         ],
-        given: ['shield'],
+        add: 1,
+        given: [],
         name: 'Some armor',
         description: "You're welcome",
     };
@@ -74,7 +77,7 @@ describe('Component: ListOption', () => {
 
         it('should work with minimum props', () => {
             const tree = renderer.create(
-                <ListOption
+                <ObjectListOption
                     setState={setState}
                 />
             ).toJSON();
@@ -84,7 +87,7 @@ describe('Component: ListOption', () => {
 
         it('should work with full props', () => {
             const tree = renderer.create(
-                <ListOption
+                <ObjectListOption
                     {...fullProps}
                     setState={setState}
                 />
@@ -95,7 +98,7 @@ describe('Component: ListOption', () => {
 
         it('should show label/desc when not hidden', () => {
             const tree = renderer.create(
-                <ListOption
+                <ObjectListOption
                     {...fullProps}
                     hidden={false}
                     setState={setState}
@@ -107,7 +110,7 @@ describe('Component: ListOption', () => {
 
         it('should show label/desc when cannot be hidden', () => {
             const tree = renderer.create(
-                <ListOption
+                <ObjectListOption
                     {...fullProps}
                     canBeHidden={false}
                     setState={setState}
@@ -119,7 +122,7 @@ describe('Component: ListOption', () => {
 
         it('should show more options with a list', () => {
             const tree = renderer.create(
-                <ListOption
+                <ObjectListOption
                     {...listProps}
                     setState={setState}
                 />
@@ -133,7 +136,7 @@ describe('Component: ListOption', () => {
         const setState = jest.fn();
 
         const wrapper = mount(
-            <ListOption
+            <ObjectListOption
                 setState={setState}
             />
         );
@@ -143,30 +146,9 @@ describe('Component: ListOption', () => {
         });
 
         expect(setState).toBeCalledWith({
-            type: 'list',
+            type: 'objectlist',
             uuid: mockedUUID1,
             name: fullProps.name,
-        });
-    });
-
-    it('should emit changes in the child component', () => {
-        const setState = jest.fn();
-
-        const wrapper = mount(
-            <ListOption
-                {...fullProps}
-                setState={setState}
-            />
-        );
-
-        wrapper.find('input[type="text"]').at(1).simulate('change', {
-            target: { value: "3" }
-        });
-
-        expect(setState).toBeCalledWith({
-            type: 'list',
-            uuid: mockedUUID1,
-            given: [ 3, '1 * level' ],
         });
     });
 
@@ -174,7 +156,7 @@ describe('Component: ListOption', () => {
         const setState = jest.fn();
 
         const wrapper = mount(
-            <ListOption
+            <ObjectListOption
                 setState={setState}
             />
         );
@@ -183,7 +165,7 @@ describe('Component: ListOption', () => {
         wrapper.find('li[data-value="armor_types"]').simulate('click');
 
         expect(setState).toBeCalledWith({
-            type: 'list',
+            type: 'objectlist',
             uuid: mockedUUID1,
             list: ['armor_types'],
         });
@@ -193,7 +175,7 @@ describe('Component: ListOption', () => {
         const setState = jest.fn();
 
         const wrapper = mount(
-            <ListOption
+            <ObjectListOption
                 list={['armor_types']}
                 add={1}
                 setState={setState}
@@ -204,14 +186,14 @@ describe('Component: ListOption', () => {
         wrapper.find('li[data-value="boolean"]').simulate('click');
 
         expect(setState).toBeCalledWith({
-            type: 'list',
+            type: 'objectlist',
             uuid: mockedUUID1,
             filter: [
                 {
                     type: 'boolean',
                     method: 'absolute',
                     condition: false,
-                },
+                }
             ],
         });
     });
@@ -223,7 +205,7 @@ describe('Component: ListOption', () => {
             setState = jest.fn();
 
             wrapper = mount(
-                <ListOption
+                <ObjectListOption
                     list={['armor_types']}
                     setState={setState}
                 />
@@ -236,7 +218,7 @@ describe('Component: ListOption', () => {
             });
 
             expect(setState).toBeCalledWith({
-                type: 'list',
+                type: 'objectlist',
                 uuid: mockedUUID1,
                 limit: undefined,
                 limit_formula: "spells.max_cantrips",
@@ -249,7 +231,7 @@ describe('Component: ListOption', () => {
             });
 
             expect(setState).toBeCalledWith({
-                type: 'list',
+                type: 'objectlist',
                 uuid: mockedUUID1,
                 limit: 4,
                 limit_formula: undefined,
@@ -262,7 +244,7 @@ describe('Component: ListOption', () => {
             });
 
             expect(setState).toBeCalledWith({
-                type: 'list',
+                type: 'objectlist',
                 uuid: mockedUUID1,
                 limit: undefined,
                 limit_formula: undefined,

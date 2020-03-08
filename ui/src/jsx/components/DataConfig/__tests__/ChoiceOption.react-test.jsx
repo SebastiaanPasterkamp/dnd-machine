@@ -25,10 +25,10 @@ describe('Component: ChoiceOption', () => {
                 uuid: mockedUUID2,
                 path: 'some.path',
                 value: 'some value',
-                label: 'My Label',
+                name: 'My Label',
             },
         ],
-        label: 'Some choice',
+        name: 'Some choice',
         description: 'Choice _desc_',
     };
 
@@ -89,14 +89,14 @@ describe('Component: ChoiceOption', () => {
             />
         );
 
-        wrapper.find('input[type="text"]').simulate('change', {
-            target: { value: fullProps.label }
+        wrapper.find('input[placeholder="Label..."]').simulate('change', {
+            target: { value: fullProps.name }
         });
 
         expect(setState).toBeCalledWith({
             type: 'choice',
             uuid: mockedUUID1,
-            label: fullProps.label,
+            name: fullProps.name,
         });
     });
 

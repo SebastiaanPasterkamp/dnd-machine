@@ -6,8 +6,9 @@ import FilterFormulaField from '../components/FilterFormulaField';
 
 describe('Component: FilterFormulaField', () => {
     const fullProps = {
+        type: "formula",
         field: 'attrib',
-        filter: '2 * some.value',
+        options: '2 * some.value',
     };
 
     describe('when rendering', () => {
@@ -49,6 +50,7 @@ describe('Component: FilterFormulaField', () => {
         });
 
         expect(setState).toBeCalledWith({
+            type: fullProps.type,
             field: fullProps.field + '_formula',
         });
     });
@@ -63,11 +65,12 @@ describe('Component: FilterFormulaField', () => {
         );
 
         wrapper.find('input[type="text"]').at(1).simulate('change', {
-            target: { value: fullProps.filter }
+            target: { value: fullProps.options }
         });
 
         expect(setState).toBeCalledWith({
-            filter: fullProps.filter,
+            type: fullProps.type,
+            options: fullProps.options,
         });
     });
 });

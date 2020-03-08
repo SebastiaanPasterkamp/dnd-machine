@@ -26,10 +26,10 @@ describe('Component: MultichoiceOption', () => {
                 uuid: mockedUUID2,
                 path: 'some.path',
                 value: 'some value',
-                label: 'My Label',
+                name: 'My Label',
             },
         ],
-        label: 'Some choice',
+        name: 'Some choice',
         description: 'Choice _desc_',
     };
 
@@ -87,14 +87,14 @@ describe('Component: MultichoiceOption', () => {
             />
         );
 
-        wrapper.find('input[type="text"]').simulate('change', {
-            target: { value: fullProps.label }
+        wrapper.find('input[placeholder="Label..."]').simulate('change', {
+            target: { value: fullProps.name }
         });
 
         expect(setState).toBeCalledWith({
             type: 'multichoice',
             uuid: mockedUUID1,
-            label: fullProps.label,
+            name: fullProps.name,
         });
     });
 

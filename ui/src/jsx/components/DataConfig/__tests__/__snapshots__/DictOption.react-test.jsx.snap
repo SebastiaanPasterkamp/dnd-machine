@@ -173,6 +173,17 @@ exports[`Component: DictOption when rendering should work with full props 1`] = 
           className="dropdown-menu"
           onClick={[Function]}
         >
+          <input
+            className="nice-form-control"
+            data-name="filter"
+            disabled={undefined}
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={null}
+            placeholder="Filter..."
+            type="text"
+            value=""
+          />
           <li
             className="info"
             data-value={null}
@@ -284,6 +295,17 @@ exports[`Component: DictOption when rendering should work with minimum props 1`]
           className="dropdown-menu"
           onClick={[Function]}
         >
+          <input
+            className="nice-form-control"
+            data-name="filter"
+            disabled={undefined}
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={null}
+            placeholder="Filter..."
+            type="text"
+            value=""
+          />
           <li
             className="info"
             data-value={null}

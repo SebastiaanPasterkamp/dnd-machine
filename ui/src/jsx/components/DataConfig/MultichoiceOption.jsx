@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { memoize } from '../../utils';
-import { uuidv4 } from './utils';
 
 import ListDataWrapper from '../../hocs/ListDataWrapper.jsx';
 
@@ -10,77 +9,16 @@ import ControlGroup from '../ControlGroup';
 import FieldSet from '../FieldSet';
 import InputField from '../InputField';
 import SingleSelect from '../SingleSelect';
-import { SelectListComponent } from '../ListComponent';
 import MarkdownTextField from '../MarkdownTextField';
 
-import ASIOption from './ASIOption';
-import ChoiceOption from './ChoiceOption';
-import ConfigOption from './ConfigOption';
-import DictOption from './DictOption';
-import ListOption from './ListOption';
-import ValueOption from './ValueOption';
+import { uuidv4 } from './utils';
+import DataConfig from './DataConfig';
 
 import ListFilter from './components/ListFilter';
 
 export class MultichoiceOption extends React.Component
 {
     optionType = 'multichoice';
-
-    options = [
-        {
-            id: 'choice',
-            name: 'Choice option',
-            component: ChoiceOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-        },
-        {
-            id: 'config',
-            name: 'Config option',
-            component: ConfigOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-        },
-        {
-            id: 'dict',
-            name: 'Dictionary option',
-            component: DictOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-            initialItem: {
-                dict: {
-                    description: '',
-                },
-            },
-        },
-        {
-            id: 'list',
-            name: 'List option',
-            component: ListOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-        },
-        {
-            id: 'multichoice',
-            name: 'Multichoice option',
-            component: MultichoiceOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-        },
-        {
-            id: 'value',
-            name: 'Value option',
-            component: ValueOption,
-            componentProps: {
-                canBeHidden: false,
-            },
-        },
-    ];
 
     constructor(props) {
         super(props);
@@ -104,8 +42,8 @@ export class MultichoiceOption extends React.Component
 
     render() {
         const {
-            label, description, options, includes, include, filter,
-             add, limit, replace,
+            name, description, options, includes, include, filter,
+            add, limit, replace,
          } = this.props;
 
         return (
@@ -113,9 +51,9 @@ export class MultichoiceOption extends React.Component
                 <ControlGroup label="Label">
                     <InputField
                         placeholder="Label..."
-                        value={label}
+                        value={name}
                         type="text"
-                        setState={this.onFieldChange('label')}
+                        setState={this.onFieldChange('name')}
                     />
                 </ControlGroup>
 
@@ -175,9 +113,8 @@ export class MultichoiceOption extends React.Component
                 ) : null}
 
                 {!include ? (
-                    <SelectListComponent
+                    <DataConfig
                         list={options}
-                        options={this.options}
                         setState={this.onFieldChange('options')}
                     />
                 ) : null}
@@ -191,12 +128,14 @@ MultichoiceOption.propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
     includes: PropTypes.arrayOf(PropTypes.object),
     include: PropTypes.number,
-    filter: PropTypes.object,
+    filter: PropTypes.arrayOf(
+        PropTypes.object
+    ),
     add: PropTypes.number,
     limit: PropTypes.number,
     replace: PropTypes.number,
     setState: PropTypes.func.isRequired,
-    label: PropTypes.string,
+    name: PropTypes.string,
     description: PropTypes.string,
 };
 
@@ -205,11 +144,11 @@ MultichoiceOption.defaultProps = {
     options: [],
     includes: [],
     include: null,
-    filter: {},
+    filter: [],
     add: 0,
     limit: 0,
     replace: 0,
-    label: '',
+    name: '',
     description: '',
 };
 

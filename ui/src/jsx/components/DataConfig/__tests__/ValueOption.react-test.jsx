@@ -17,7 +17,7 @@ describe('Component: ValueOption', () => {
         uuid: mockedUUID1,
         path: 'some.path',
         value: 'Some *value*',
-        label: 'My Label',
+        name: 'My Label',
         hidden: true,
     };
 
@@ -92,13 +92,13 @@ describe('Component: ValueOption', () => {
         );
 
         wrapper.find('input[type="text"]').at(1).simulate('change', {
-            target: { value: fullProps.label }
+            target: { value: fullProps.name }
         });
 
         expect(setState).toBeCalledWith({
             type: 'value',
             uuid: mockedUUID1,
-            label: fullProps.label,
+            name: fullProps.name,
         });
     });
 

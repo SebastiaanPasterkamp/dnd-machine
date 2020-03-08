@@ -12,308 +12,71 @@ exports[`Component: ListFilter when rendering should work with full props 1`] = 
         Or filter
       </legend>
       <ul
-        className="list-component"
+        className="select-list-component"
       >
         <li>
-          <ul
-            className="select-list-component"
+          <div
+            className="nice-control-group"
           >
-            <li>
-              <div
-                className="nice-control-group"
+            <span
+              className="nice-input-addon"
+            >
+              Field
+            </span>
+            <input
+              className="nice-form-control"
+              disabled={undefined}
+              onChange={[Function]}
+              onKeyPress={null}
+              placeholder="Field..."
+              type="text"
+              value="foo"
+            />
+            <span
+              className="nice-input-addon"
+            >
+              Boolean
+            </span>
+            <div
+              className="nice-dropdown nice-form-control"
+            >
+              <button
+                className="nice-btn"
+                disabled={false}
+                onClick={[Function]}
               >
-                <span
-                  className="nice-input-addon"
-                >
-                  Field
-                </span>
-                <input
-                  className="nice-form-control"
-                  disabled={undefined}
-                  onChange={[Function]}
-                  onKeyPress={null}
-                  placeholder="Field..."
-                  type="text"
-                  value="foo"
+                True
+                <i
+                  className="icon fa-angle-down"
                 />
-                <span
-                  className="nice-input-addon"
+              </button>
+              <ul
+                className="dropdown-menu"
+                onClick={[Function]}
+              >
+                <li
+                  className="info"
+                  data-value={true}
+                  onClick={[Function]}
                 >
-                  Boolean
-                </span>
-                <div
-                  className="nice-dropdown nice-form-control"
-                >
-                  <button
-                    className="nice-btn"
-                    disabled={false}
-                    onClick={[Function]}
-                  >
+                  <a>
                     True
-                    <i
-                      className="icon fa-angle-down"
-                    />
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    onClick={[Function]}
-                  >
-                    <li
-                      className="info"
-                      data-value={true}
-                      onClick={[Function]}
-                    >
-                      <a>
-                        True
-                      </a>
-                    </li>
-                    <li
-                      className={null}
-                      data-value={false}
-                      onClick={[Function]}
-                    >
-                      <a>
-                        False
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <button
-                className="nice-btn select-list-component__delete warning icon fa-minus"
-                name="del"
-                onClick={[Function]}
-              >
-                ​
-              </button>
-            </li>
-            <li
-              className="select-list-component__last"
-            >
-              <div
-                className="nice-dropdown nice-form-control select-list-component__add"
-                color="primary"
-                name="add"
-              >
-                <button
-                  className="nice-btn"
-                  disabled={false}
+                  </a>
+                </li>
+                <li
+                  className={null}
+                  data-value={false}
                   onClick={[Function]}
                 >
-                  Add...
-                  <i
-                    className="icon fa-angle-down"
-                  />
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  onClick={[Function]}
-                >
-                  <li
-                    className="info"
-                    data-value={null}
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Add...
-                    </a>
-                  </li>
-                  <li
-                    className={null}
-                    data-value="or"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Or
-                    </a>
-                  </li>
-                  <li
-                    className={null}
-                    data-value="boolean"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Boolean
-                    </a>
-                  </li>
-                  <li
-                    className={null}
-                    data-value="textfield"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Textfield
-                    </a>
-                  </li>
-                  <li
-                    className={null}
-                    data-value="formula"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Formula
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-          <button
-            className="nice-btn list-component__delete warning icon fa-minus"
-            disabled={false}
-            name="del"
-            onClick={[Function]}
-          >
-            ​
-          </button>
-        </li>
-        <li>
-          <ul
-            className="select-list-component"
-          >
-            <li>
-              <div
-                className="nice-control-group"
-              >
-                <span
-                  className="nice-input-addon"
-                >
-                  Field
-                </span>
-                <input
-                  className="nice-form-control"
-                  disabled={undefined}
-                  onChange={[Function]}
-                  onKeyPress={null}
-                  placeholder="Field..."
-                  type="text"
-                  value="bar"
-                />
-                <span
-                  className="nice-input-addon"
-                >
-                  Boolean
-                </span>
-                <div
-                  className="nice-dropdown nice-form-control"
-                >
-                  <button
-                    className="nice-btn"
-                    disabled={false}
-                    onClick={[Function]}
-                  >
+                  <a>
                     False
-                    <i
-                      className="icon fa-angle-down"
-                    />
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    onClick={[Function]}
-                  >
-                    <li
-                      className={null}
-                      data-value={true}
-                      onClick={[Function]}
-                    >
-                      <a>
-                        True
-                      </a>
-                    </li>
-                    <li
-                      className="info"
-                      data-value={false}
-                      onClick={[Function]}
-                    >
-                      <a>
-                        False
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <button
-                className="nice-btn select-list-component__delete warning icon fa-minus"
-                name="del"
-                onClick={[Function]}
-              >
-                ​
-              </button>
-            </li>
-            <li
-              className="select-list-component__last"
-            >
-              <div
-                className="nice-dropdown nice-form-control select-list-component__add"
-                color="primary"
-                name="add"
-              >
-                <button
-                  className="nice-btn"
-                  disabled={false}
-                  onClick={[Function]}
-                >
-                  Add...
-                  <i
-                    className="icon fa-angle-down"
-                  />
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  onClick={[Function]}
-                >
-                  <li
-                    className="info"
-                    data-value={null}
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Add...
-                    </a>
-                  </li>
-                  <li
-                    className={null}
-                    data-value="or"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Or
-                    </a>
-                  </li>
-                  <li
-                    className={null}
-                    data-value="boolean"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Boolean
-                    </a>
-                  </li>
-                  <li
-                    className={null}
-                    data-value="textfield"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Textfield
-                    </a>
-                  </li>
-                  <li
-                    className={null}
-                    data-value="formula"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Formula
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
           <button
-            className="nice-btn list-component__delete warning icon fa-minus"
-            disabled={false}
+            className="nice-btn select-list-component__delete warning icon fa-minus"
             name="del"
             onClick={[Function]}
           >
@@ -321,88 +84,172 @@ exports[`Component: ListFilter when rendering should work with full props 1`] = 
           </button>
         </li>
         <li>
-          <ul
-            className="select-list-component"
+          <div
+            className="nice-control-group"
           >
-            <li
-              className="select-list-component__last"
+            <span
+              className="nice-input-addon"
             >
-              <div
-                className="nice-dropdown nice-form-control select-list-component__add"
-                color="primary"
-                name="add"
+              Field
+            </span>
+            <input
+              className="nice-form-control"
+              disabled={undefined}
+              onChange={[Function]}
+              onKeyPress={null}
+              placeholder="Field..."
+              type="text"
+              value="bar"
+            />
+            <span
+              className="nice-input-addon"
+            >
+              Boolean
+            </span>
+            <div
+              className="nice-dropdown nice-form-control"
+            >
+              <button
+                className="nice-btn"
+                disabled={false}
+                onClick={[Function]}
               >
-                <button
-                  className="nice-btn"
-                  disabled={false}
+                False
+                <i
+                  className="icon fa-angle-down"
+                />
+              </button>
+              <ul
+                className="dropdown-menu"
+                onClick={[Function]}
+              >
+                <li
+                  className={null}
+                  data-value={true}
                   onClick={[Function]}
                 >
-                  Add...
-                  <i
-                    className="icon fa-angle-down"
-                  />
-                </button>
-                <ul
-                  className="dropdown-menu"
+                  <a>
+                    True
+                  </a>
+                </li>
+                <li
+                  className="info"
+                  data-value={false}
                   onClick={[Function]}
                 >
-                  <li
-                    className="info"
-                    data-value={null}
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Add...
-                    </a>
-                  </li>
-                  <li
-                    className={null}
-                    data-value="or"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Or
-                    </a>
-                  </li>
-                  <li
-                    className={null}
-                    data-value="boolean"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Boolean
-                    </a>
-                  </li>
-                  <li
-                    className={null}
-                    data-value="textfield"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Textfield
-                    </a>
-                  </li>
-                  <li
-                    className={null}
-                    data-value="formula"
-                    onClick={[Function]}
-                  >
-                    <a>
-                      Formula
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
+                  <a>
+                    False
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
           <button
-            className="nice-btn list-component__delete warning icon fa-minus"
-            disabled={true}
+            className="nice-btn select-list-component__delete warning icon fa-minus"
             name="del"
             onClick={[Function]}
           >
             ​
           </button>
+        </li>
+        <li
+          className="select-list-component__last"
+        >
+          <div
+            className="nice-dropdown nice-form-control select-list-component__add"
+            color="primary"
+            name="add"
+          >
+            <button
+              className="nice-btn"
+              disabled={false}
+              onClick={[Function]}
+            >
+              Add...
+              <i
+                className="icon fa-angle-down"
+              />
+            </button>
+            <ul
+              className="dropdown-menu"
+              onClick={[Function]}
+            >
+              <input
+                className="nice-form-control"
+                data-name="filter"
+                disabled={undefined}
+                onChange={[Function]}
+                onClick={[Function]}
+                onKeyPress={null}
+                placeholder="Filter..."
+                type="text"
+                value=""
+              />
+              <li
+                className="info"
+                data-value={null}
+                onClick={[Function]}
+              >
+                <a>
+                  Add...
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="attribute"
+                onClick={[Function]}
+              >
+                <a>
+                  Attribute
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="boolean"
+                onClick={[Function]}
+              >
+                <a>
+                  Boolean
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="formula"
+                onClick={[Function]}
+              >
+                <a>
+                  Formula
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="or"
+                onClick={[Function]}
+              >
+                <a>
+                  Or
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="proficiencies"
+                onClick={[Function]}
+              >
+                <a>
+                  Proficiencies
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="textfield"
+                onClick={[Function]}
+              >
+                <a>
+                  Textfield
+                </a>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
     </fieldset>
@@ -512,7 +359,7 @@ exports[`Component: ListFilter when rendering should work with full props 1`] = 
         className="nice-form-group"
       >
         <legend>
-          Values
+          Options
         </legend>
         <ul
           className="list-component"
@@ -648,6 +495,17 @@ exports[`Component: ListFilter when rendering should work with full props 1`] = 
         className="dropdown-menu"
         onClick={[Function]}
       >
+        <input
+          className="nice-form-control"
+          data-name="filter"
+          disabled={undefined}
+          onChange={[Function]}
+          onClick={[Function]}
+          onKeyPress={null}
+          placeholder="Filter..."
+          type="text"
+          value=""
+        />
         <li
           className="info"
           data-value={null}
@@ -659,11 +517,11 @@ exports[`Component: ListFilter when rendering should work with full props 1`] = 
         </li>
         <li
           className={null}
-          data-value="or"
+          data-value="attribute"
           onClick={[Function]}
         >
           <a>
-            Or
+            Attribute
           </a>
         </li>
         <li
@@ -677,20 +535,38 @@ exports[`Component: ListFilter when rendering should work with full props 1`] = 
         </li>
         <li
           className={null}
-          data-value="textfield"
-          onClick={[Function]}
-        >
-          <a>
-            Textfield
-          </a>
-        </li>
-        <li
-          className={null}
           data-value="formula"
           onClick={[Function]}
         >
           <a>
             Formula
+          </a>
+        </li>
+        <li
+          className={null}
+          data-value="or"
+          onClick={[Function]}
+        >
+          <a>
+            Or
+          </a>
+        </li>
+        <li
+          className={null}
+          data-value="proficiencies"
+          onClick={[Function]}
+        >
+          <a>
+            Proficiencies
+          </a>
+        </li>
+        <li
+          className={null}
+          data-value="textfield"
+          onClick={[Function]}
+        >
+          <a>
+            Textfield
           </a>
         </li>
       </ul>
@@ -725,6 +601,17 @@ exports[`Component: ListFilter when rendering should work with minimum props 1`]
         className="dropdown-menu"
         onClick={[Function]}
       >
+        <input
+          className="nice-form-control"
+          data-name="filter"
+          disabled={undefined}
+          onChange={[Function]}
+          onClick={[Function]}
+          onKeyPress={null}
+          placeholder="Filter..."
+          type="text"
+          value=""
+        />
         <li
           className="info"
           data-value={null}
@@ -736,11 +623,11 @@ exports[`Component: ListFilter when rendering should work with minimum props 1`]
         </li>
         <li
           className={null}
-          data-value="or"
+          data-value="attribute"
           onClick={[Function]}
         >
           <a>
-            Or
+            Attribute
           </a>
         </li>
         <li
@@ -754,20 +641,38 @@ exports[`Component: ListFilter when rendering should work with minimum props 1`]
         </li>
         <li
           className={null}
-          data-value="textfield"
-          onClick={[Function]}
-        >
-          <a>
-            Textfield
-          </a>
-        </li>
-        <li
-          className={null}
           data-value="formula"
           onClick={[Function]}
         >
           <a>
             Formula
+          </a>
+        </li>
+        <li
+          className={null}
+          data-value="or"
+          onClick={[Function]}
+        >
+          <a>
+            Or
+          </a>
+        </li>
+        <li
+          className={null}
+          data-value="proficiencies"
+          onClick={[Function]}
+        >
+          <a>
+            Proficiencies
+          </a>
+        </li>
+        <li
+          className={null}
+          data-value="textfield"
+          onClick={[Function]}
+        >
+          <a>
+            Textfield
           </a>
         </li>
       </ul>

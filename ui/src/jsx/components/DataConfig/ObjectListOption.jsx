@@ -17,17 +17,18 @@ import SingleSelect from '../SingleSelect';
 import ToggleSwitch from '../ToggleSwitch';
 import TagContainer from '../TagContainer';
 
-import { uuidv4 } from './utils';
 import ListFilter from './components/ListFilter';
 
+import { uuidv4 } from './utils';
+const ItemizedListFilter = ListsToItemsWrapper(ListFilter, 'items');
 const ListTagContainer = ListsToItemsWrapper(TagContainer, 'items');
 
 
-export class ListOption extends React.Component
+export class ObjectListOption extends React.Component
 {
-    optionType = 'list';
+    optionType = 'objectlist';
 
-    listOptions = [
+    objectListOptions = [
         {id: "armor", name: "Armor"},
         {id: "armor_types", name: "Armor types"},
         {id: "gear", name: "Gear"},
@@ -41,12 +42,12 @@ export class ListOption extends React.Component
         {id: "equipment_types", name: "Tool types"},
         {id: "weapon", name: "Weapons"},
         {id: "weapon_types", name: "Weapon types"},
-    ]
+    ];
 
     hiddenOptions = [
         {id: false, name: "Everything"},
         {id: true, name: "Nothing"},
-    ]
+    ];
 
     givenOptions = {
         component: InputField,
@@ -54,7 +55,7 @@ export class ListOption extends React.Component
             type: "text",
         },
         newItem: "auto",
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -100,14 +101,6 @@ export class ListOption extends React.Component
     onGivenChange(given) {
         const { uuid } = this.state;
         const { setState } = this.props;
-        given = map(
-            (value) => {
-                if (typeof value === 'string' && value.match(/^\d+(?:\.\d+)?$/)) {
-                    return parseFloat(value);
-                }
-                return value;
-            }
-        )(given);
         setState({
             type: this.optionType,
             uuid,
@@ -126,7 +119,7 @@ export class ListOption extends React.Component
         } = this.props;
 
         return (
-            <FieldSet label="List option">
+            <FieldSet label="Object list option">
                 <ControlGroup label="Path">
                     <InputField
                         placeholder="Path..."
@@ -176,15 +169,13 @@ export class ListOption extends React.Component
                     </ControlGroup>
                 ) : null}
 
-                {!(canBeHidden && hidden) ? (
-                    <ControlGroup label="Lists">
-                        <TagContainer
-                            items={this.listOptions}
-                            value={list}
-                            setState={this.onFieldChange('list')}
-                        />
-                    </ControlGroup>
-                ) : null}
+                <ControlGroup label="Lists">
+                    <TagContainer
+                        items={this.objectListOptions}
+                        value={list}
+                        setState={this.onFieldChange('list')}
+                    />
+                </ControlGroup>
 
                 {!(canBeHidden && hidden) && list.length ? (
                     <ControlGroup
@@ -218,7 +209,9 @@ export class ListOption extends React.Component
                     && list.length
                     && (add || add_formula || replace || replace_formula || limit || limit_formula) ? (
                     <FieldSet label="Filter">
-                        <ListFilter
+                        <ItemizedListFilter
+                            key={list}
+                            list={list}
                             filter={filter}
                             setState={this.onFieldChange('filter')}
                         />
@@ -226,21 +219,15 @@ export class ListOption extends React.Component
                 ) : null}
 
                 <ControlGroup label="Given">
-                    {list.length ? (
-                        <ListTagContainer
-                            key={list}
-                            list={list}
-                            value={given}
-                            setState={this.onGivenChange}
-                            filterable={true}
-                        />
-                    ) : (
-                        <ListComponent
-                            list={given}
-                            {...this.givenOptions}
-                            setState={this.onGivenChange}
-                        />
-                    )}
+                    <ListTagContainer
+                        key={list}
+                        list={list}
+                        value={given}
+                        multiple={multiple}
+                        objects={true}
+                        setState={this.onGivenChange}
+                        filterable={true}
+                    />
                 </ControlGroup>
 
                 <ToggleSwitch
@@ -248,14 +235,13 @@ export class ListOption extends React.Component
                     onChange={this.onFieldChange('multiple')}
                     label="Can have duplicates in the same list (multiple)"
                 />
-
             </FieldSet>
         );
     }
 };
 
-ListOption.propTypes = {
-    type: PropTypes.oneOf(['list']),
+ObjectListOption.propTypes = {
+    type: PropTypes.oneOf(['objectlist']),
     path: PropTypes.string,
     list: PropTypes.arrayOf(PropTypes.string),
     add_formula: PropTypes.string,
@@ -266,13 +252,15 @@ ListOption.propTypes = {
     replace: PropTypes.number,
     hidden_formula: PropTypes.string,
     hidden: PropTypes.bool,
-    filter: PropTypes.arrayOf(
-        PropTypes.object
-    ),
-    given: PropTypes.arrayOf(PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string,
-    ])),
+    filter: PropTypes.arrayOf(PropTypes.object),
+    given: PropTypes.arrayOf(PropTypes.shape({
+        type: PropTypes.string,
+        id: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string,
+        ]),
+        name: PropTypes.string,
+    })),
     setState: PropTypes.func.isRequired,
     name: PropTypes.string,
     description: PropTypes.string,
@@ -280,8 +268,8 @@ ListOption.propTypes = {
     canBeHidden: PropTypes.bool,
 };
 
-ListOption.defaultProps = {
-    type: 'list',
+ObjectListOption.defaultProps = {
+    type: 'objectlist',
     given: [],
     list: [],
     add_formula: '',
@@ -299,4 +287,4 @@ ListOption.defaultProps = {
     canBeHidden: true,
 };
 
-export default ListOption;
+export default ObjectListOption;

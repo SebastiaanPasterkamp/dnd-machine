@@ -6,10 +6,21 @@ import FilterOrField from '../components/FilterOrField';
 
 describe('Component: FilterOrField', () => {
     const fullProps = {
-        field: 'or',
-        filter: [
-            { 'foo': false },
-            { 'bar': true },
+        type: 'or',
+        method: 'or',
+        filters: [
+            {
+                type: "boolean",
+                method: "absolute",
+                field: "foo",
+                condition: false,
+            },
+            {
+                type: "boolean",
+                method: "absolute",
+                field: "bar",
+                condition: true,
+            },
         ],
     };
 
@@ -57,9 +68,14 @@ describe('Component: FilterOrField', () => {
             wrapper.find('li[data-value="boolean"]').simulate('click');
 
             expect(setState).toBeCalledWith({
-                'field': "or",
-                'filter': [
-                    {'': true},
+                type: fullProps.type,
+                method: fullProps.method,
+                filters: [
+                    {
+                        type: "boolean",
+                        method: "absolute",
+                        condition: false,
+                    },
                 ]
             });
         });
