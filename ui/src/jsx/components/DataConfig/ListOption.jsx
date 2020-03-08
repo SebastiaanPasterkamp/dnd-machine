@@ -101,7 +101,7 @@ export class ListOption extends React.Component
         const { setState } = this.props;
         given = map(
             (value) => {
-                if (value.match(/^\d+(?:\.\d+)?$/)) {
+                if (typeof value === 'string' && value.match(/^\d+(?:\.\d+)?$/)) {
                     return parseFloat(value);
                 }
                 return value;
