@@ -27,10 +27,15 @@ class SingleSelect extends React.Component
         return null;
     }
 
-    onClick(id) {
+    onClick(item) {
+        const { id } = item || {};
         return this.memoize(id, () => {
-            const { setState } = this.props;
-            setState(id);
+            const { objects, setState } = this.props;
+            if (objects) {
+                setState(item);
+            } else {
+                setState(id);
+            }
         });
     }
 
@@ -38,6 +43,7 @@ class SingleSelect extends React.Component
         const {
             items,
             selected,
+            objects,
             renderEmpty,
             emptyLabel,
         } = this.props;
@@ -46,11 +52,13 @@ class SingleSelect extends React.Component
             return renderEmpty;
         }
 
-        const { name } = (
-            find({ id: selected }, items)
-            || find({ name: selected }, items)
-            || { name: emptyLabel }
-        );
+        const { name } = objects
+            ? (selected || {})
+            : (
+                find({ id: selected }, items)
+                || find({ name: selected }, items)
+                || { name: emptyLabel }
+            );
 
         return name;
     }
@@ -59,6 +67,7 @@ class SingleSelect extends React.Component
         const {
             items,
             selected,
+            objects,
             setState,
             isDisabled,
             emptyLabel,
@@ -66,6 +75,10 @@ class SingleSelect extends React.Component
             defaultValue,
             ...props,
         } = this.props;
+
+        const { name: current = null } = objects
+            ? (selected || {})
+            : { name : selected };
 
         return (
             <BaseSelect
@@ -76,7 +89,7 @@ class SingleSelect extends React.Component
                     <SelectItem
                         id={null}
                         name={renderEmpty}
-                        selected={null === selected}
+                        selected={current === null}
                         onClick={this.onClick(null)}
                     />
                 ) : null}
@@ -87,9 +100,9 @@ class SingleSelect extends React.Component
                             key={id}
                             id={id}
                             name={name}
-                            selected={id === selected}
+                            selected={current === id}
                             disabled={isDisabled(item)}
-                            onClick={this.onClick(id)}
+                            onClick={this.onClick(item)}
                         />
                     );
                 })(items)}
@@ -98,23 +111,36 @@ class SingleSelect extends React.Component
     }
 }
 
+SingleSelect.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    selected: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+        PropTypes.bool,
+        PropTypes.shape({
+            id: PropTypes.oneOfType([
+                PropTypes.number,
+                PropTypes.string,
+            ]).isRequired,
+            name: PropTypes.string.isRequired,
+        }),
+    ]),
+    objects: PropTypes.bool,
+    setState: PropTypes.func.isRequired,
+    isDisabled: PropTypes.func.isRequired,
+    emptyLabel: PropTypes.string,
+    renderEmpty: PropTypes.string,
+};
+
 SingleSelect.defaultProps = {
     isDisabled: (item) => item.disabled,
     selected: null,
+    objects: false,
     defaultValue: null,
     renderEmpty: null,
     setState: (selected) => {
         console.log(['SingleSelect', selected]);
     },
-};
-
-SingleSelect.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.object).isRequired,
-    selected: PropTypes.any,
-    setState: PropTypes.func.isRequired,
-    isDisabled: PropTypes.func.isRequired,
-    emptyLabel: PropTypes.string,
-    renderEmpty: PropTypes.string,
 };
 
 export default SingleSelect;
