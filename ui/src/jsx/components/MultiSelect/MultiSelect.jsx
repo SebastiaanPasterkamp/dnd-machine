@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    concat,
-    difference,
     find,
+    indexOf,
     includes,
     map,
 } from 'lodash/fp';
@@ -29,31 +28,46 @@ class MultiSelect extends React.Component
         return null;
     }
 
-    onAdd(id) {
+    onAdd(item) {
+        const { id } = item || {};
         return this.memoize(`add-${id}`, () => {
-            const { selected, setState } = this.props;
-            setState(concat(selected, [id]));
+            const { selected, objects, setState } = this.props;
+            if (objects) {
+                setState([...selected, item]);
+            } else {
+                setState([...selected, id]);
+            }
         });
     }
 
-    onDel(id) {
+    onDel(item) {
+        const { id } = item || {};
         return this.memoize(`del-${id}`, () => {
-            const { selected, setState } = this.props;
-            setState(difference(selected, [id]));
+            const { selected, objects, setState } = this.props;
+            const needle = objects ? { id } : id;
+            const index = indexOf(needle, selected);
+
+            setState([
+                ...selected.slice(0, index),
+                ...selected.slice(index + 1),
+            ]);
         });
     }
 
     getLabel() {
         const {
-            items, selected, renderEmpty, emptyLabel,
+            items, selected, objects, renderEmpty, emptyLabel,
         } = this.props;
 
         if (selected.length == 1) {
             if (renderEmpty && selected[0] === null) {
                 return renderEmpty;
             }
-            const { name } = find({ id: selected[0] }, items) || {};
+            if (objects) {
+                return selected.name;
+            }
 
+            const { name } = find({ id: selected[0] }, items) || {};
             if (name !== undefined) {
                 return name;
             }
@@ -70,6 +84,7 @@ class MultiSelect extends React.Component
         const {
             items,
             selected,
+            objects,
             setState,
             isDisabled,
             emptyLabel,
@@ -99,10 +114,10 @@ class MultiSelect extends React.Component
                             key={id}
                             id={id}
                             name={name}
-                            checked={includes(id, selected)}
+                            checked={includes(objects ? { id } : id, selected)}
                             disabled={isDisabled(item)}
-                            onSelect={this.onAdd(id)}
-                            onDeselect={this.onDel(id)}
+                            onSelect={this.onAdd(item)}
+                            onDeselect={this.onDel(item)}
                         />
                     );
                 })(items)}
@@ -111,24 +126,26 @@ class MultiSelect extends React.Component
     }
 }
 
+MultiSelect.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    selected: PropTypes.arrayOf(PropTypes.any).isRequired,
+    objects: PropTypes.bool,
+    setState: PropTypes.func.isRequired,
+    isDisabled: PropTypes.func.isRequired,
+    emptyLabel: PropTypes.string,
+    renderEmpty: PropTypes.string,
+};
+
 MultiSelect.defaultProps = {
     emptyLabel: "0 selected",
     isDisabled: (item) => item.disabled,
     selected: [],
+    objects: false,
     defaultValue: [],
     renderEmpty: null,
     setState: (selected) => {
         console.log(['MultiSelect', selected]);
     }
-};
-
-MultiSelect.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.object).isRequired,
-    selected: PropTypes.arrayOf(PropTypes.any).isRequired,
-    setState: PropTypes.func.isRequired,
-    isDisabled: PropTypes.func.isRequired,
-    emptyLabel: PropTypes.string,
-    renderEmpty: PropTypes.string,
 };
 
 export default MultiSelect;
