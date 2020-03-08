@@ -8,7 +8,7 @@ import {
 
 import SingleSelect from '../../SingleSelect';
 
-const TagSelect = function({ onSelect, items, current, multiple }) {
+const TagSelect = function({ onSelect, items, current, multiple, objects }) {
     if (!items.length) return null;
 
     const filtered = multiple
@@ -21,6 +21,7 @@ const TagSelect = function({ onSelect, items, current, multiple }) {
         <SingleSelect
             emptyLabel="Add..."
             items={filtered}
+            objects={objects}
             setState={onSelect}
         />
     );
@@ -30,20 +31,36 @@ TagSelect.propTypes = {
     onSelect: PropTypes.func.isRequired,
     current: PropTypes.arrayOf(
         PropTypes.oneOfType([
-            PropTypes.string,
             PropTypes.number,
+            PropTypes.string,
+            PropTypes.bool,
+            PropTypes.shape({
+                id: PropTypes.oneOfType([
+                    PropTypes.number,
+                    PropTypes.string,
+                ]).isRequired,
+                name: PropTypes.string.isRequired,
+            }),
         ])
     ),
     items: PropTypes.arrayOf(
-        PropTypes.object
+        PropTypes.shape({
+            id: PropTypes.oneOfType([
+                PropTypes.number,
+                PropTypes.string,
+            ]).isRequired,
+            name: PropTypes.string.isRequired,
+        }),
     ),
     multiple: PropTypes.bool,
+    objects: PropTypes.bool,
 };
 
 TagSelect.defaultProps = {
     current: [],
     items: [],
     multiple: false,
+    objects: false,
 };
 
 export default TagSelect;
