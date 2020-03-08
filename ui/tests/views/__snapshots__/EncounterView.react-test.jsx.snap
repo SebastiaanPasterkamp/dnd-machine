@@ -4188,6 +4188,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                                   ]
                                                 }
                                                 multiple={false}
+                                                objects={false}
                                                 onAdd={null}
                                                 onDelete={null}
                                                 setState={null}
@@ -9628,6 +9629,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                                   ]
                                                 }
                                                 multiple={false}
+                                                objects={false}
                                                 onAdd={null}
                                                 onDelete={null}
                                                 setState={null}
@@ -15110,6 +15112,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                                   ]
                                                 }
                                                 multiple={false}
+                                                objects={false}
                                                 onAdd={null}
                                                 onDelete={null}
                                                 setState={null}

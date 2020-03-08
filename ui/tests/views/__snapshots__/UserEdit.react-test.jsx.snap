@@ -181,6 +181,7 @@ exports[`UserEdit should render with full props as admin 1`] = `
           ]
         }
         multiple={false}
+        objects={false}
         onAdd={null}
         onDelete={null}
         setState={[Function]}

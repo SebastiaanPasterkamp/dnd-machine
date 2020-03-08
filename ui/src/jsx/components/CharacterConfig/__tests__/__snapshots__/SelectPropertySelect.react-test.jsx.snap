@@ -144,6 +144,7 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
         },
       ]
     }
+    objects={false}
     renderEmpty={null}
     selected="charisma"
     setState={[Function]}
