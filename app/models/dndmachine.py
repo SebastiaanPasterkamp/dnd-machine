@@ -244,6 +244,7 @@ class DndMachine(object):
             'items': {
                 "artisan": [],
                 "gaming": [],
+                "gear": [],
                 "kit": [],
                 "musical": [],
                 "trinket": [],

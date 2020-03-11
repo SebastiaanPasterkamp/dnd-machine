@@ -25,7 +25,7 @@ class GearMapper(JsonObjectDataMapper):
     order = ["name"]
 
     def getMultiple(self, where="1", values={}):
-        where = "(%s) AND `type` IN ('artisan', 'kit', 'gaming', 'musical', 'trinket')" % where
+        where = "(%s) AND `type` IN ('artisan', 'kit', 'gaming', 'musical', 'trinket', 'gear')" % where
         return super(GearMapper, self).getMultiple(
             where=where, values=values
             )

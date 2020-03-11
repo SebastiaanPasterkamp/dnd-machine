@@ -38,6 +38,7 @@ class Datamapper(object):
         'user': lambda self: UserMapper(self.app.db),
         # data
         'background': lambda self: BackgroundMapper(self.app.db),
+        'class': lambda self: ClassMapper(self.app.db),
         'klass': lambda self: ClassMapper(self.app.db),
         'subclass': lambda self: SubClassMapper(self.app.db),
         'options': lambda self: OptionsMapper(self.app.db),

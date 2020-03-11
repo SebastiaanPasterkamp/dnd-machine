@@ -6,6 +6,7 @@ from flask import Flask, request, session, redirect, url_for, jsonify
 from flask_compress import Compress
 from werkzeug.utils import find_modules, import_string
 from werkzeug.routing import IntegerConverter
+from sqlite3 import DatabaseError
 
 from errors import ApiException
 from models import Datamapper
@@ -204,7 +205,12 @@ def _updatedb(db, force_skipped=False):
 
         with open(os.path.abspath(change), mode='r') as f:
             comment = f.readline().strip("\n\t\r- ")
-            db.executescript(f.read())
+            try:
+                db.executescript(f.read())
+            except DatabaseError as dbe:
+                print(change, dbe)
+                raise
+
             db.execute(record_schema, {
                 'version': version_string(version),
                 'path': change,

@@ -275,4 +275,224 @@ INSERT INTO `item` (id, type, name, config)
     VALUES (190, 'trinket', 'A wooden box with a ceramic bottom that holds a living worm with a head on each end of its body', '{}');
 INSERT INTO `item` (id, type, name, config)
     VALUES (191, 'trinket', 'A metal urn containing the ashes of a hero', '{}');
+
+INSERT INTO `item` (id, type, name, config)
+    VALUES (192, 'gear', 'Abacus', '{"cost": {"gp": 2}, "weight": {"lb": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (193, 'gear', 'Acid (vial)', '{"cost": {"gp": 25}, "group": "vial", "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (194, 'gear', 'Alchemist''s fire (flask)', '{"cost": {"gp": 50}, "group": "vial", "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (195, 'gear', 'Antitoxin (vial)', '{"cost": {"gp": 50}, "group": "vial"}');
+
+INSERT INTO `item` (id, type, name, config)
+    VALUES (196, 'gear', 'Arrows (20)', '{"cost": {"gp": 1}, "group": "ammunition", "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (197, 'gear', 'Blowgun needles (50)', '{"cost": {"gp": 1}, "group": "ammunition", "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (198, 'gear', 'Crossbow bolts (20)', '{"cost": {"gp": 1}, "group": "ammunition", "weight": {"lb": 1.5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (199, 'gear', 'Sling bullets (20)', '{"cost": {"cp": 4}, "group": "ammunition", "weight": {"lb": 1.5}}');
+
+INSERT INTO `item` (id, type, name, config)
+    VALUES (200, 'gear', 'Crystal', '{"cost": {"gp": 10}, "group": "arcane focus", "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (201, 'gear', 'Orb', '{"cost": {"gp": 20}, "group": "arcane focus", "weight": {"lb": 3}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (202, 'gear', 'Rod', '{"cost": {"gp": 10}, "group": "arcane focus", "weight": {"lb": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (203, 'gear', 'Staff', '{"cost": {"gp": 5}, "group": "arcane focus", "weight": {"lb": 4}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (204, 'gear', 'Wand', '{"cost": {"gp": 10}, "group": "arcane focus", "weight": {"lb": 1}}');
+
+INSERT INTO `item` (id, type, name, config)
+    VALUES (205, 'gear', 'Backpack', '{"cost": {"gp": 2}, "weight": {"lb": 5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (206, 'gear', 'Ball bearings (bag of 1,000)', '{"cost": {"gp": 1}, "weight": {"lb": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (207, 'gear', 'Barrel', '{"cost": {"gp": 2}, "weight": {"lb": 70}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (208, 'gear', 'Basket', '{"cost": {"sp": 4}, "weight": {"lb": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (209, 'gear', 'Bedroll', '{"cost": {"gp": 1}, "weight": {"lb": 7}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (210, 'gear', 'Bell', '{"cost": {"gp": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (211, 'gear', 'Blanket', '{"cost": {"sp": 5}, "weight": {"lb": 3}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (212, 'gear', 'Block and tackle', '{"cost": {"gp": 1}, "weight": {"lb": 5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (213, 'gear', 'Book', '{"cost": {"gp": 25}, "weight": {"lb": 5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (214, 'gear', 'Bottle, glass', '{"cost": {"gp": 2}, "weight": {"lb": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (215, 'gear', 'Bucket', '{"cost": {"cp": 5}, "weight": {"lb": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (216, 'gear', 'Caltrops (bag of 20)', '{"cost": {"gp": 1}, "weight": {"lb": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (217, 'gear', 'Candle', '{"cost": {"cp": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (218, 'gear', 'Case, crossbow bolt', '{"cost": {"gp": 1}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (219, 'gear', 'Case, map or scroll', '{"cost": {"gp": 1}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (220, 'gear', 'Chain (10 feet)', '{"cost": {"gp": 5}, "weight": {"lb": 10}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (221, 'gear', 'Chalk (1 piece)', '{"cost": {"cp": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (222, 'gear', 'Chest', '{"cost": {"gp": 5}, "weight": {"lb": 25}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (223, 'gear', 'Climber’s kit', '{"cost": {"gp": 25}, "weight": {"lb": 12}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (224, 'gear', 'Clothes, common', '{"cost": {"sp": 5}, "weight": {"lb": 3}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (225, 'gear', 'Clothes, costume', '{"cost": {"gp": 5}, "weight": {"lb": 4}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (226, 'gear', 'Clothes, fine', '{"cost": {"gp": 15}, "weight": {"lb": 6}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (227, 'gear', 'Clothes, traveler’s', '{"cost": {"gp": 2}, "weight": {"lb": 4}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (228, 'gear', 'Component pouch', '{"cost": {"gp": 25}, "weight": {"lb": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (229, 'gear', 'Crowbar', '{"cost": {"gp": 2}, "weight": {"lb": 5}}');
+
+INSERT INTO `item` (id, type, name, config)
+    VALUES (230, 'gear', 'Sprig of mistletoe', '{"cost": {"gp": 1}, "group": "druidic focus"}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (231, 'gear', 'Totem', '{"cost": {"gp": 5}, "group": "druidic focus"}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (232, 'gear', 'Wooden staff', '{"cost": {"gp": 5}, "group": "druidic focus", "weight": {"lb": 4}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (233, 'gear', 'Yew wand', '{"cost": {"gp": 10}, "group": "druidic focus", "weight": {"lb": 1}}');
+
+INSERT INTO `item` (id, type, name, config)
+    VALUES (234, 'gear', 'Fishing tackle', '{"cost": {"gp": 1}, "weight": {"lb": 4}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (235, 'gear', 'Flask or tankard', '{"cost": {"cp": 2}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (236, 'gear', 'Grappling hook', '{"cost": {"gp": 2}, "weight": {"lb": 4}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (237, 'gear', 'Hammer', '{"cost": {"gp": 1}, "weight": {"lb": 3}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (238, 'gear', 'Hammer, sledge', '{"cost": {"gp": 2}, "weight": {"lb": 10}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (239, 'gear', 'Healer’s kit', '{"cost": {"gp": 5}, "weight": {"lb": 3}}');
+
+INSERT INTO `item` (id, type, name, config)
+    VALUES (240, 'gear', 'Amulet', '{"cost": {"gp": 5}, "group": "holy symbol", "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (241, 'gear', 'Emblem', '{"cost": {"gp": 5}, "group": "holy symbol"}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (242, 'gear', 'Reliquary', '{"cost": {"gp": 5}, "group": "holy symbol", "weight": {"lb": 2}}');
+
+INSERT INTO `item` (id, type, name, config)
+    VALUES (243, 'gear', 'Holy water (flask)', '{"cost": {"gp": 25}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (244, 'gear', 'Hourglass', '{"cost": {"gp": 25}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (245, 'gear', 'Hunting trap', '{"cost": {"gp": 5}, "weight": {"lb": 25}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (246, 'gear', 'Ink (1 ounce bottle)', '{"cost": {"gp": 10}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (247, 'gear', 'Ink pen', '{"cost": {"cp": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (248, 'gear', 'Jug or pitcher', '{"cost": {"cp": 2}, "weight": {"lb": 4}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (249, 'gear', 'Ladder (10-foot)', '{"cost": {"sp": 1}, "weight": {"lb": 25}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (250, 'gear', 'Lamp', '{"cost": {"sp": 5}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (251, 'gear', 'Lantern, bullseye', '{"cost": {"gp": 10}, "weight": {"lb": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (252, 'gear', 'Lantern, hooded', '{"cost": {"gp": 5}, "weight": {"lb": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (253, 'gear', 'Lock', '{"cost": {"gp": 10}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (254, 'gear', 'Magnifying glass', '{"cost": {"gp": 100}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (255, 'gear', 'Manacles', '{"cost": {"gp": 2}, "weight": {"lb": 6}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (256, 'gear', 'Mess kit', '{"cost": {"sp": 2}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (257, 'gear', 'Mirror, steel', '{"cost": {"gp": 5}, "weight": {"lb": 0.5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (258, 'gear', 'Oil (flask)', '{"cost": {"sp": 1}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (259, 'gear', 'Paper (one sheet)', '{"cost": {"sp": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (260, 'gear', 'Parchment (one sheet)', '{"cost": {"sp": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (261, 'gear', 'Perfume (vial)', '{"cost": {"gp": 5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (262, 'gear', 'Pick, miner’s', '{"cost": {"gp": 2}, "weight": {"lb": 10}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (263, 'gear', 'Piton', '{"cost": {"cp": 5}, "weight": {"lb": 0.25}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (264, 'gear', 'Poison, basic (vial)', '{"cost": {"gp": 100}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (265, 'gear', 'Pole (10-foot)', '{"cost": {"cp": 5}, "weight": {"lb": 7}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (266, 'gear', 'Pot, iron', '{"cost": {"gp": 2}, "weight": {"lb": 10}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (267, 'gear', 'Potion of healing', '{"cost": {"gp": 50}, "weight": {"lb": 0.5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (268, 'gear', 'Pouch', '{"cost": {"sp": 5}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (269, 'gear', 'Quiver', '{"cost": {"gp": 1}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (270, 'gear', 'Ram, portable', '{"cost": {"gp": 4}, "weight": {"lb": 35}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (271, 'gear', 'Rations (1 day)', '{"cost": {"sp": 5}, "weight": {"lb": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (272, 'gear', 'Robes', '{"cost": {"gp": 1}, "weight": {"lb": 4}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (273, 'gear', 'Rope, hempen (50 feet)', '{"cost": {"gp": 1}, "weight": {"lb": 10}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (274, 'gear', 'Rope, silk (50 feet)', '{"cost": {"gp": 10}, "weight": {"lb": 5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (275, 'gear', 'Sack', '{"cost": {"cp": 1}, "weight": {"lb": 0.5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (276, 'gear', 'Scale, merchant’s', '{"cost": {"gp": 5}, "weight": {"lb": 3}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (277, 'gear', 'Sealing wax', '{"cost": {"sp": 5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (278, 'gear', 'Shovel', '{"cost": {"gp": 2}, "weight": {"lb": 5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (279, 'gear', 'Signal whistle', '{"cost": {"cp": 5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (280, 'gear', 'Signet ring', '{"cost": {"gp": 5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (281, 'gear', 'Soap', '{"cost": {"cp": 2}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (282, 'gear', 'Spellbook', '{"cost": {"gp": 50}, "weight": {"lb": 3}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (283, 'gear', 'Spikes, iron (10)', '{"cost": {"gp": 1}, "weight": {"lb": 5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (284, 'gear', 'Spyglass', '{"cost": {"gp": 1000}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (285, 'gear', 'Tent, two-person', '{"cost": {"gp": 2}, "weight": {"lb": 20}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (286, 'gear', 'Tinderbox', '{"cost": {"sp": 5}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (287, 'gear', 'Torch', '{"cost": {"cp": 1}, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (288, 'gear', 'Vial', '{"cost": {"gp": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (289, 'gear', 'Waterskin', '{"cost": {"sp": 2}, "weight": {"lb": 5}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (291, 'gear', 'String (10 ft)', '{"sp": 1}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (292, 'gear', 'Block of incense', '{"gp": 1}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (293, 'gear', 'Censer', '{"gp": 5, "weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (294, 'gear', 'Vestments', '{"gp": 15, "weight": {"lb": 6}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (295, 'gear', 'Sand (little bag)', '{"weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (296, 'gear', 'Small knife', '{"weight": {"lb": 1}}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (297, 'gear', 'Alms box', '{}');
+INSERT INTO `item` (id, type, name, config)
+    VALUES (298, 'gear', 'Book of lore', '{"weight": {"lb": 1}}');
 COMMIT;
