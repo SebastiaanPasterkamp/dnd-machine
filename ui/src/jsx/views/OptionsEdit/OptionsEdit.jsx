@@ -15,11 +15,11 @@ import ControlGroup from '../../components/ControlGroup';
 import InputField from '../../components/InputField';
 import MarkdownTextField from '../../components/MarkdownTextField';
 import Panel from '../../components/Panel';
-import { SelectListComponent } from '../../components/ListComponent';
 import TabComponent from '../../components/TabComponent';
 
 import {
-    OPTIONS,
+    DataConfig,
+    uuidv4,
 } from '../../components/DataConfig';
 
 export class OptionsEdit extends React.Component
@@ -28,15 +28,21 @@ export class OptionsEdit extends React.Component
 
     constructor(props) {
         super(props);
-        this.onFieldChange = this.onFieldChange.bind(this);
+        const { uuid = uuidv4() } = props;
+        this.state = {
+            uuid,
+        };
         this.memoize = memoize.bind(this);
+        this.onFieldChange = this.onFieldChange.bind(this);
     }
 
     onFieldChange(field) {
         return this.memoize(field, value => {
-            const { setState } = this.props;
+            const { uuid: stateUUID } = this.state;
+            const { setState, uuid = stateUUID } = this.props;
             setState({
                 type: this.optionsType,
+                uuid,
                 [field]: value,
             });
         });
@@ -74,9 +80,8 @@ export class OptionsEdit extends React.Component
                     className="options-edit__options"
                     header="Options"
                 >
-                    <SelectListComponent
+                    <DataConfig
                         list={options}
-                        options={OPTIONS}
                         setState={this.onFieldChange('options')}
                     />
                 </Panel>
@@ -103,7 +108,7 @@ export default RoutedObjectDataWrapper(
     OptionsEdit,
     {
         className: 'options-edit',
-        icon: 'fa-user',
+        icon: 'fa-gear',
         label: 'Options',
         buttons: ['cancel', 'save']
     },
