@@ -1,6 +1,7 @@
 import {
     entries,
     every,
+    find,
     flow,
     get,
     isArray,
@@ -8,30 +9,47 @@ import {
     some,
 } from 'lodash/fp';
 
-export const MatchesFilters = function(item, filters) {
-    return flow(entries, every(
-        ([path, cond]) => {
-            if (path.match(/_(formula|default)$/)) {
-                return true;
-            }
-            if (path === 'or') {
-                return some(
-                    option => MatchesFilters(item, option)
-                )(cond);
-            }
-            if (path === 'and') {
-                return MatchesFilters(item, cond);
-            }
-            if (path === 'not') {
-                return !MatchesFilters(item, cond);
-            }
-            const value = get(path, item);
-            return intersection(
-                isArray(value) ? value : [value],
-                isArray(cond) ? cond : [cond],
-            ).length;
+const filterMethods = {
+    absolute: function({ item, field, condition }) {
+        return get(field, item) === condition;
+    },
+    and: function({ item, filters }) {
+        return MatchesFilters(item, filters);
+    },
+    intersection: function({ item, field, options }) {
+        const value = get(field, item);
+        return intersection(
+            isArray(value) ? value : [value],
+            isArray(options) ? options : [options],
+        ).length;
+    },
+    proficiency: function({ item, objects }) {
+        if (!item) {
+            return false;
         }
-    ))(filters);
+        const { id, type } = item;
+        return (
+            find({id, type}, objects) !== undefined
+            || find({id: type}, objects) !== undefined
+        );
+    },
+    or: function({ item, filters }) {
+        return some(
+            filter => MatchesFilters(item, [filter])
+        )(filters);
+    },
+};
+
+export const MatchesFilters = function(item, filters) {
+    return every(
+        ({ method = 'intersection', ...filter }) => {
+            if (!(method in filterMethods)) {
+                console.error(`Invalid filter '${method}'`, filter);
+                return false;
+            }
+            return filterMethods[method]({item, ...filter});
+        }
+    )(filters);
 };
 
 export default MatchesFilters;

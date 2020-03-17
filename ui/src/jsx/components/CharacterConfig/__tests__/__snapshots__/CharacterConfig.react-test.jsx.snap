@@ -243,7 +243,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
               >
                 <li
                   className="current"
-                  key="child-0/.$mocked-uuid-9"
+                  key=".$mocked-uuid-9"
                 >
                   <CharacterConfig
                     config={
@@ -258,7 +258,7 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                             },
                           ],
                           "description": "foo",
-                          "name": "a",
+                          "name": null,
                           "type": "config",
                           "uuid": "mocked-uuid-9",
                         },
@@ -270,14 +270,12 @@ exports[`Component: CharacterConfig should render choice 1`] = `
                   >
                     <FormGroup
                       key="mocked-uuid-9"
-                      label="a"
+                      label={null}
                     >
                       <div
                         className="nice-form-group"
                       >
-                        <label>
-                          a
-                        </label>
+                        <label />
                         <MDReactComponent
                           text="foo"
                         >
@@ -595,7 +593,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
               >
                 <li
                   className="current"
-                  key="child-1/.$mocked-uuid-10"
+                  key=".$mocked-uuid-10"
                 >
                   <CharacterConfig
                     config={
@@ -609,7 +607,7 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                               "value": "Choice B",
                             },
                           ],
-                          "name": "b",
+                          "name": null,
                           "type": "config",
                           "uuid": "mocked-uuid-10",
                         },
@@ -621,14 +619,12 @@ exports[`Component: CharacterConfig should render choice 2`] = `
                   >
                     <FormGroup
                       key="mocked-uuid-10"
-                      label="b"
+                      label={null}
                     >
                       <div
                         className="nice-form-group"
                       >
-                        <label>
-                          b
-                        </label>
+                        <label />
                         <CharacterConfig
                           config={
                             Array [
@@ -968,7 +964,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
                 "wisdom",
               ]
             }
-            filter={Object {}}
+            filter={Array []}
             given={
               Array [
                 "wisdom",
@@ -1033,6 +1029,7 @@ exports[`Component: CharacterConfig should render list 1`] = `
                 <SingleSelect
                   defaultValue={null}
                   emptyLabel="Add..."
+                  filterable={true}
                   isDisabled={[Function]}
                   items={
                     Array [
@@ -1075,7 +1072,9 @@ exports[`Component: CharacterConfig should render list 1`] = `
                       ]
                     }
                     excludeScrollbar={false}
+                    filter=""
                     label="Add..."
+                    onFilter={[Function]}
                     outsideClickIgnoreClass="ignore-react-onclickoutside"
                     preventDefault={false}
                     stopPropagation={false}
@@ -1093,8 +1092,10 @@ exports[`Component: CharacterConfig should render list 1`] = `
                           "touchstart",
                         ]
                       }
+                      filter=""
                       heading={null}
                       label="Add..."
+                      onFilter={[Function]}
                       outsideClickIgnoreClass="ignore-react-onclickoutside"
                       preventDefault={false}
                       stopPropagation={false}
@@ -1122,6 +1123,26 @@ exports[`Component: CharacterConfig should render list 1`] = `
                           className="dropdown-menu"
                           onClick={[Function]}
                         >
+                          <InputField
+                            data-name="filter"
+                            inputRef={[Function]}
+                            onClick={[Function]}
+                            placeholder="Filter..."
+                            setState={[Function]}
+                            type="text"
+                            value=""
+                          >
+                            <input
+                              className="nice-form-control"
+                              data-name="filter"
+                              onChange={[Function]}
+                              onClick={[Function]}
+                              onKeyPress={null}
+                              placeholder="Filter..."
+                              type="text"
+                              value=""
+                            />
+                          </InputField>
                           <SelectItem
                             disabled={false}
                             id="strength"
@@ -1433,7 +1454,7 @@ exports[`Component: CharacterConfig should render list 2`] = `
                 "intelligence",
               ]
             }
-            filter={Object {}}
+            filter={Array []}
             given={
               Array [
                 "wisdom",
@@ -1498,6 +1519,7 @@ exports[`Component: CharacterConfig should render list 2`] = `
                 <SingleSelect
                   defaultValue={null}
                   emptyLabel="Add..."
+                  filterable={true}
                   isDisabled={[Function]}
                   items={
                     Array [
@@ -1534,7 +1556,9 @@ exports[`Component: CharacterConfig should render list 2`] = `
                       ]
                     }
                     excludeScrollbar={false}
+                    filter=""
                     label="Add..."
+                    onFilter={[Function]}
                     outsideClickIgnoreClass="ignore-react-onclickoutside"
                     preventDefault={false}
                     stopPropagation={false}
@@ -1552,8 +1576,10 @@ exports[`Component: CharacterConfig should render list 2`] = `
                           "touchstart",
                         ]
                       }
+                      filter=""
                       heading={null}
                       label="Add..."
+                      onFilter={[Function]}
                       outsideClickIgnoreClass="ignore-react-onclickoutside"
                       preventDefault={false}
                       stopPropagation={false}
@@ -1581,6 +1607,26 @@ exports[`Component: CharacterConfig should render list 2`] = `
                           className="dropdown-menu"
                           onClick={[Function]}
                         >
+                          <InputField
+                            data-name="filter"
+                            inputRef={[Function]}
+                            onClick={[Function]}
+                            placeholder="Filter..."
+                            setState={[Function]}
+                            type="text"
+                            value=""
+                          >
+                            <input
+                              className="nice-form-control"
+                              data-name="filter"
+                              onChange={[Function]}
+                              onClick={[Function]}
+                              onKeyPress={null}
+                              placeholder="Filter..."
+                              type="text"
+                              value=""
+                            />
+                          </InputField>
                           <SelectItem
                             disabled={false}
                             id="strength"
@@ -1896,7 +1942,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
           added={Array []}
           choices={Object {}}
           description=""
-          filtered={Array []}
+          filter={Object {}}
           limit={0}
           onSave={[Function]}
           onUpdate={[Function]}
@@ -1930,6 +1976,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
             <TagContainer
               className={null}
               disabled={false}
+              filterable={false}
               items={
                 Array [
                   Object {
@@ -1962,6 +2009,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                 >
                   <TagSelect
                     current={Array []}
+                    filterable={false}
                     items={
                       Array [
                         Object {
@@ -1985,6 +2033,7 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                     <SingleSelect
                       defaultValue={null}
                       emptyLabel="Add..."
+                      filterable={false}
                       isDisabled={[Function]}
                       items={
                         Array [
@@ -2015,7 +2064,9 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                           ]
                         }
                         excludeScrollbar={false}
+                        filter=""
                         label="Add..."
+                        onFilter={null}
                         outsideClickIgnoreClass="ignore-react-onclickoutside"
                         preventDefault={false}
                         stopPropagation={false}
@@ -2033,8 +2084,10 @@ exports[`Component: CharacterConfig should render multichoice 1`] = `
                               "touchstart",
                             ]
                           }
+                          filter=""
                           heading={null}
                           label="Add..."
+                          onFilter={null}
                           outsideClickIgnoreClass="ignore-react-onclickoutside"
                           preventDefault={false}
                           stopPropagation={false}
@@ -2199,7 +2252,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
             }
           }
           description=""
-          filtered={Array []}
+          filter={Object {}}
           limit={0}
           onSave={[Function]}
           onUpdate={[Function]}
@@ -2233,6 +2286,7 @@ exports[`Component: CharacterConfig should render multichoice 2`] = `
             <TagContainer
               className={null}
               disabled={false}
+              filterable={false}
               items={
                 Array [
                   Object {
@@ -2527,6 +2581,7 @@ exports[`Component: CharacterConfig should render select 1`] = `
               className="small"
               defaultValue={null}
               emptyLabel="Please select"
+              filterable={false}
               isDisabled={[Function]}
               items={
                 Array [
@@ -2582,7 +2637,9 @@ exports[`Component: CharacterConfig should render select 1`] = `
                   ]
                 }
                 excludeScrollbar={false}
+                filter=""
                 label="Strength"
+                onFilter={null}
                 outsideClickIgnoreClass="ignore-react-onclickoutside"
                 preventDefault={false}
                 stopPropagation={false}
@@ -2600,8 +2657,10 @@ exports[`Component: CharacterConfig should render select 1`] = `
                       "touchstart",
                     ]
                   }
+                  filter=""
                   heading={null}
                   label="Strength"
+                  onFilter={null}
                   outsideClickIgnoreClass="ignore-react-onclickoutside"
                   preventDefault={false}
                   stopPropagation={false}
@@ -2881,6 +2940,7 @@ exports[`Component: CharacterConfig should render select 2`] = `
               className="small"
               defaultValue={null}
               emptyLabel="Please select"
+              filterable={false}
               isDisabled={[Function]}
               items={
                 Array [
@@ -2936,7 +2996,9 @@ exports[`Component: CharacterConfig should render select 2`] = `
                   ]
                 }
                 excludeScrollbar={false}
+                filter=""
                 label="Wisdom"
+                onFilter={null}
                 outsideClickIgnoreClass="ignore-react-onclickoutside"
                 preventDefault={false}
                 stopPropagation={false}
@@ -2954,8 +3016,10 @@ exports[`Component: CharacterConfig should render select 2`] = `
                       "touchstart",
                     ]
                   }
+                  filter=""
                   heading={null}
                   label="Wisdom"
+                  onFilter={null}
                   outsideClickIgnoreClass="ignore-react-onclickoutside"
                   preventDefault={false}
                   stopPropagation={false}
@@ -3239,7 +3303,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                 "bar",
               ]
             }
-            filter={Object {}}
+            filter={Array []}
             given={
               Array [
                 "bar",
@@ -3276,6 +3340,7 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                 <SingleSelect
                   defaultValue={null}
                   emptyLabel="Add..."
+                  filterable={true}
                   isDisabled={[Function]}
                   items={
                     Array [
@@ -3298,7 +3363,9 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                       ]
                     }
                     excludeScrollbar={false}
+                    filter=""
                     label="Add..."
+                    onFilter={[Function]}
                     outsideClickIgnoreClass="ignore-react-onclickoutside"
                     preventDefault={false}
                     stopPropagation={false}
@@ -3316,8 +3383,10 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                           "touchstart",
                         ]
                       }
+                      filter=""
                       heading={null}
                       label="Add..."
+                      onFilter={[Function]}
                       outsideClickIgnoreClass="ignore-react-onclickoutside"
                       preventDefault={false}
                       stopPropagation={false}
@@ -3345,6 +3414,26 @@ exports[`Component: CharacterConfig should render with array items 1`] = `
                           className="dropdown-menu"
                           onClick={[Function]}
                         >
+                          <InputField
+                            data-name="filter"
+                            inputRef={[Function]}
+                            onClick={[Function]}
+                            placeholder="Filter..."
+                            setState={[Function]}
+                            type="text"
+                            value=""
+                          >
+                            <input
+                              className="nice-form-control"
+                              data-name="filter"
+                              onChange={[Function]}
+                              onClick={[Function]}
+                              onKeyPress={null}
+                              placeholder="Filter..."
+                              type="text"
+                              value=""
+                            />
+                          </InputField>
                           <SelectItem
                             disabled={false}
                             id="foo"
@@ -3489,7 +3578,7 @@ exports[`Component: CharacterConfig should render with array items 2`] = `
                 "foo",
               ]
             }
-            filter={Object {}}
+            filter={Array []}
             given={
               Array [
                 "bar",
@@ -3621,9 +3710,8 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
         "list": Array [
           "statistics",
         ],
-        "objectlist": true,
         "path": "foo.items",
-        "type": "list",
+        "type": "objectlist",
         "uuid": "mocked-uuid-6",
       },
     ]
@@ -3654,9 +3742,8 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
             "statistics",
           ]
         }
-        objectlist={true}
         path="foo.items"
-        type="list"
+        type="objectlist"
         uuid="mocked-uuid-6"
       >
         <CharacterEditorComponent
@@ -3710,12 +3797,11 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
               },
             ]
           }
-          objectlist={true}
           path="foo.items"
-          type="list"
+          type="objectlist"
           uuid="mocked-uuid-6"
         >
-          <ListPropertySelect
+          <ObjectListPropertySelect
             add={1}
             added={Array []}
             current={
@@ -3727,7 +3813,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                 },
               ]
             }
-            filter={Object {}}
+            filter={Array []}
             given={
               Array [
                 Object {
@@ -3780,13 +3866,12 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
             }
             limit={0}
             multiple={false}
-            objectlist={true}
             onSave={[Function]}
             onUpdate={[Function]}
             removed={Array []}
             replace={0}
             setState={[Function]}
-            type="list"
+            type="objectlist"
             uuid="mocked-uuid-6"
           >
             <BaseTagContainer>
@@ -3796,6 +3881,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                 <SingleSelect
                   defaultValue={null}
                   emptyLabel="Add..."
+                  filterable={true}
                   isDisabled={[Function]}
                   items={
                     Array [
@@ -3837,7 +3923,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                       },
                     ]
                   }
-                  objects={false}
+                  objects={true}
                   renderEmpty={null}
                   selected={null}
                   setState={[Function]}
@@ -3850,7 +3936,9 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                       ]
                     }
                     excludeScrollbar={false}
+                    filter=""
                     label="Add..."
+                    onFilter={[Function]}
                     outsideClickIgnoreClass="ignore-react-onclickoutside"
                     preventDefault={false}
                     stopPropagation={false}
@@ -3868,8 +3956,10 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                           "touchstart",
                         ]
                       }
+                      filter=""
                       heading={null}
                       label="Add..."
+                      onFilter={[Function]}
                       outsideClickIgnoreClass="ignore-react-onclickoutside"
                       preventDefault={false}
                       stopPropagation={false}
@@ -3897,6 +3987,26 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                           className="dropdown-menu"
                           onClick={[Function]}
                         >
+                          <InputField
+                            data-name="filter"
+                            inputRef={[Function]}
+                            onClick={[Function]}
+                            placeholder="Filter..."
+                            setState={[Function]}
+                            type="text"
+                            value=""
+                          >
+                            <input
+                              className="nice-form-control"
+                              data-name="filter"
+                              onChange={[Function]}
+                              onClick={[Function]}
+                              onKeyPress={null}
+                              placeholder="Filter..."
+                              type="text"
+                              value=""
+                            />
+                          </InputField>
                           <SelectItem
                             disabled={false}
                             id="strength"
@@ -4042,7 +4152,7 @@ exports[`Component: CharacterConfig should render with object items 1`] = `
                 </Tag>
               </div>
             </BaseTagContainer>
-          </ListPropertySelect>
+          </ObjectListPropertySelect>
         </CharacterEditorComponent>
       </ListsToItemsCharacterEditorComponent>
     </div>
@@ -4066,9 +4176,8 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
         "list": Array [
           "statistics",
         ],
-        "objectlist": true,
         "path": "foo.items",
-        "type": "list",
+        "type": "objectlist",
         "uuid": "mocked-uuid-6",
       },
     ]
@@ -4099,9 +4208,8 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
             "statistics",
           ]
         }
-        objectlist={true}
         path="foo.items"
-        type="list"
+        type="objectlist"
         uuid="mocked-uuid-6"
       >
         <CharacterEditorComponent
@@ -4155,12 +4263,11 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
               },
             ]
           }
-          objectlist={true}
           path="foo.items"
-          type="list"
+          type="objectlist"
           uuid="mocked-uuid-6"
         >
-          <ListPropertySelect
+          <ObjectListPropertySelect
             add={1}
             added={
               Array [
@@ -4176,20 +4283,20 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
             current={
               Array [
                 Object {
-                  "id": "ruh",
-                  "name": "Ruh",
-                  "type": "statistics",
-                },
-                Object {
                   "count": undefined,
                   "description": "Int",
                   "id": "intelligence",
                   "name": "Intelligence",
                   "type": "statistics",
                 },
+                Object {
+                  "id": "ruh",
+                  "name": "Ruh",
+                  "type": "statistics",
+                },
               ]
             }
-            filter={Object {}}
+            filter={Array []}
             given={
               Array [
                 Object {
@@ -4242,49 +4349,18 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
             }
             limit={0}
             multiple={false}
-            objectlist={true}
             onSave={[Function]}
             onUpdate={[Function]}
             removed={Array []}
             replace={0}
             setState={[Function]}
-            type="list"
+            type="objectlist"
             uuid="mocked-uuid-6"
           >
             <BaseTagContainer>
               <div
                 className="base-tag-container nice-tags-container"
               >
-                <Tag
-                  badges={Array []}
-                  className={null}
-                  color="good"
-                  description={null}
-                  disabled={true}
-                  id="ruh"
-                  key="tag-statistics-ruh"
-                  label={null}
-                  name="Ruh"
-                  onChange={null}
-                  onDelete={[Function]}
-                  type="statistics"
-                >
-                  <div
-                    className="nice-tag good"
-                  >
-                    <TagLabel>
-                      <span
-                        className="nice-tag-label"
-                      >
-                        <ToolTip
-                          content={null}
-                        >
-                          Ruh
-                        </ToolTip>
-                      </span>
-                    </TagLabel>
-                  </div>
-                </Tag>
                 <Tag
                   badges={Array []}
                   className={null}
@@ -4348,9 +4424,39 @@ exports[`Component: CharacterConfig should render with object items 2`] = `
                     </TagButton>
                   </div>
                 </Tag>
+                <Tag
+                  badges={Array []}
+                  className={null}
+                  color="good"
+                  description={null}
+                  disabled={true}
+                  id="ruh"
+                  key="tag-statistics-ruh"
+                  label={null}
+                  name="Ruh"
+                  onChange={null}
+                  onDelete={[Function]}
+                  type="statistics"
+                >
+                  <div
+                    className="nice-tag good"
+                  >
+                    <TagLabel>
+                      <span
+                        className="nice-tag-label"
+                      >
+                        <ToolTip
+                          content={null}
+                        >
+                          Ruh
+                        </ToolTip>
+                      </span>
+                    </TagLabel>
+                  </div>
+                </Tag>
               </div>
             </BaseTagContainer>
-          </ListPropertySelect>
+          </ObjectListPropertySelect>
         </CharacterEditorComponent>
       </ListsToItemsCharacterEditorComponent>
     </div>

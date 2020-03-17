@@ -1,14 +1,17 @@
 import React from 'react';
 import Reflux from 'reflux';
 import {
+    clone,
+    concat,
     debounce,
     fromPairs,
     find,
     get,
     includes,
+    isEqual,
     map,
     reduce,
-    set,
+    setWith,
 } from 'lodash/fp';
 
 import CharacterEditorActions from '../actions/CharacterEditorActions';
@@ -24,9 +27,12 @@ class CharacterEditorStore extends Reflux.Store
     {
         super();
         this.state = {
-            original: {},
+            original: {
+              level: 1,
+              proficiency: 2,
+            },
             character: {},
-            config: [],
+            configs: [],
             choices: {},
         };
         this.listenables = CharacterEditorActions;
@@ -37,57 +43,86 @@ class CharacterEditorStore extends Reflux.Store
         this.setState({
             original: {},
             character: {},
-            config: [],
+            configs: [],
             choices: {},
         });
     }
 
     previewChange(uuid, path, choice) {
+        if (!path) {
+            return;
+        }
+
         const {
             original,
-            character: oldCharacter,
-            config,
-            choices,
+            character: old,
         } = this.state;
 
-        const { record, changes } = CollectChanges(config, choices, path);
+        const { record, changes } = this.collectChanges(path);
         if (!changes.length) {
             return;
         }
 
         const character = ComputeChange(
             changes,
-            set(path, get(path, original), oldCharacter)
+            setWith(clone, path, get(path, original), oldCharacter)
         );
         character.choices = {...character.choices, ...record };
 
         this.setState({ character });
     }
 
+    collectChanges(path) {
+        const { configs, choices } = this.state;
+        const changes = reduce(
+            (changes, field) => {
+                const { [field]: change } = this.state;
+                return concat(changes, change);
+            },
+            []
+        )(configs);
+        return CollectChanges(changes, choices, path);
+    }
+
     computeChange() {
         const {
             original,
-            character: old,
-            choices,
-            config,
         } = this.state;
 
-        const { record, changes } = CollectChanges(config, choices);
+        const { record, changes } = this.collectChanges();
         const character = ComputeChange(changes, original);
         character.choices = {...character.choices, ...record };
 
         this.setState({
             character,
-            config: ComputeConfig(config, character),
+            ...this.computeConfigs(character),
         });
     }
+
+    computeConfigs(character) {
+        const { configs } = this.state;
+        return reduce(
+            (updates, field) => {
+                const {
+                    [field]: previous,
+                    [`orig.${field}`]: config,
+                } = this.state;
+                const update = ComputeConfig(config, character, previous);
+                if (!isEqual(update, config)) {
+                    updates[field] = update;
+                }
+                return updates;
+            },
+            {}
+        )(configs);
+    };
 
     onAddChoice(uuid, path, choice) {
         const { choices } = this.state;
         this.setState({
             choices: { ...choices, [uuid]: choice }
         });
-        this.previewChange(uuid, path, choice);
+        // this.previewChange(uuid, path, choice);
         this.computeChange();
     }
 
@@ -96,18 +131,28 @@ class CharacterEditorStore extends Reflux.Store
         this.setState({
             choices: { ...choices, [uuid]: undefined }
         });
-        this.previewChange(uuid, path, undefined);
+        // this.previewChange(uuid, path, undefined);
         this.computeChange();
     }
 
+    onGetCharacterConfigCompleted(field, value) {
+        const { configs } = this.state;
+        this.setState({
+            [field]: value,
+            [`orig.${field}`]: value,
+            configs: [...configs, field],
+        });
+    }
+
     onEditCharacterCompleted(original) {
+        const { configs } = this.state;
+        const config = get('level_up.config', original) || [];
         this.setState({
             original,
             character: {},
-            config: ComputeConfig(
-                get('level_up.config', original) || [],
-                original,
-            ),
+            config,
+            'orig.config': config,
+            configs: [...configs, 'config'],
         });
         this.computeChange();
     }
@@ -132,12 +177,7 @@ class CharacterEditorStore extends Reflux.Store
     }
 
     onSaveCharacterCompleted(id, original, callback) {
-        this.setState({
-            original,
-            character: original,
-            choices: {},
-            config: [],
-        });
+        this.reset();
         if (callback) {
             callback(id, original);
         }

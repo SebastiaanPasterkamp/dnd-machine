@@ -21,7 +21,7 @@ const props = {
         name: 'Simple',
         dict: {
             description: 'Bar is good',
-        }
+        },
     }, {
         type: 'config',
         uuid: 'mocked-uuid-3',
@@ -32,7 +32,7 @@ const props = {
             path: 'bar.foo',
             dict: {
                 description: 'Foo is better',
-            }
+            },
         }]
     }],
     choices: {
@@ -68,7 +68,7 @@ describe('Component: MultipleChoiceSelect', () => {
         expect(setState).not.toBeCalled();
     });
 
-    it.only('should render with full props', () => {
+    it('should render with full props', () => {
         const setState = jest.fn();
         const tree = renderer.create(
             <MultipleChoiceSelect
@@ -114,13 +114,11 @@ describe('Component: MultipleChoiceSelect', () => {
         expect(setState).toBeCalledWith({
             added: [],
             removed: ['mocked-uuid-3'],
-            filtered: [],
         });
 
         wrapper.setProps({
             added: [],
             removed: ["mocked-uuid-3"],
-            filtered: [],
         });
 
         expect(wrapper).toMatchSnapshot();
@@ -131,7 +129,6 @@ describe('Component: MultipleChoiceSelect', () => {
         expect(setState).toBeCalledWith({
             added: ["mocked-uuid-2"],
             removed: ["mocked-uuid-3"],
-            filtered: [],
         });
     });
 
@@ -151,13 +148,11 @@ describe('Component: MultipleChoiceSelect', () => {
         expect(setState).toBeCalledWith({
             added: ["mocked-uuid-2"],
             removed: [],
-            filtered: [],
         });
 
         wrapper.setProps({
             added: ["mocked-uuid-2"],
             removed: [],
-            filtered: [],
         });
 
         expect(wrapper).toMatchSnapshot();
@@ -167,13 +162,11 @@ describe('Component: MultipleChoiceSelect', () => {
         expect(setState).toBeCalledWith({
             added: [],
             removed: [],
-            filtered: ["mocked-uuid-2"],
         });
 
         wrapper.setProps({
             added: [],
             removed: [],
-            filtered: ["mocked-uuid-2"],
         });
 
         expect(wrapper).toMatchSnapshot();

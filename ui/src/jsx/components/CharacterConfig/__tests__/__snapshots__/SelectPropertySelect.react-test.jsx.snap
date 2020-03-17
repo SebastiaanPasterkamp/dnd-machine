@@ -103,6 +103,7 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
     className="small"
     defaultValue={null}
     emptyLabel="Please select"
+    filterable={false}
     isDisabled={[Function]}
     items={
       Array [
@@ -158,7 +159,9 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
         ]
       }
       excludeScrollbar={false}
+      filter=""
       label="Charisma"
+      onFilter={null}
       outsideClickIgnoreClass="ignore-react-onclickoutside"
       preventDefault={false}
       stopPropagation={false}
@@ -176,8 +179,10 @@ exports[`Component: SelectPropertySelect should render the list 1`] = `
             "touchstart",
           ]
         }
+        filter=""
         heading={null}
         label="Charisma"
+        onFilter={null}
         outsideClickIgnoreClass="ignore-react-onclickoutside"
         preventDefault={false}
         stopPropagation={false}

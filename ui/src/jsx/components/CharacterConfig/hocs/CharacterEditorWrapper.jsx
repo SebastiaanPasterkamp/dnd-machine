@@ -2,6 +2,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import {
     concat,
+    forEach,
     get,
     isEqual,
     keys,
@@ -63,10 +64,19 @@ function CharacterEditorWrapper(
         componentWillMount() {
             super.componentWillMount.call(this);
 
+            forEach(
+                (config) => {
+                    if (storeKeys[config] !== 'fetch') {
+                        return;
+                    }
+                    actions.getCharacterConfig(config)
+                }
+            )(keys(storeKeys));
+
             const id = get('match.params.id', this.props);
             const path = get('match.path', this.props);
 
-            if (path == null) {
+            if (path === null || id === undefined) {
                 return;
             }
 

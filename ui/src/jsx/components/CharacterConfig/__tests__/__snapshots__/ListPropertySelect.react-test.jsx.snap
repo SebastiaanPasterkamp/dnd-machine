@@ -10,11 +10,13 @@ exports[`Component: ListPropertySelect should not render select w/ filtering all
     ]
   }
   filter={
-    Object {
-      "id": Array [
-        "impossible",
-      ],
-    }
+    Array [
+      Object {
+        "condition": "impossible",
+        "field": "id",
+        "type": "absolute",
+      },
+    ]
   }
   given={Array []}
   hidden={false}
@@ -140,7 +142,7 @@ exports[`Component: ListPropertySelect should not render select w/o items 1`] = 
       "dexterity",
     ]
   }
-  filter={Object {}}
+  filter={Array []}
   given={Array []}
   hidden={false}
   items={Array []}
@@ -207,7 +209,7 @@ exports[`Component: ListPropertySelect should not render when hidden 1`] = `
       "dexterity",
     ]
   }
-  filter={Object {}}
+  filter={Array []}
   given={Array []}
   hidden={true}
   items={
@@ -279,14 +281,17 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
     ]
   }
   filter={
-    Object {
-      "id": Array [
-        "strength",
-        "charisma",
-        "intelligence",
-      ],
-      "some_formula": "blah blah",
-    }
+    Array [
+      Object {
+        "field": "id",
+        "options": Array [
+          "strength",
+          "charisma",
+          "intelligence",
+        ],
+        "type": "intersection",
+      },
+    ]
   }
   given={
     Array [
@@ -357,6 +362,7 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
       <SingleSelect
         defaultValue={null}
         emptyLabel="Add..."
+        filterable={true}
         isDisabled={[Function]}
         items={
           Array [
@@ -393,7 +399,9 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
             ]
           }
           excludeScrollbar={false}
+          filter=""
           label="Add..."
+          onFilter={[Function]}
           outsideClickIgnoreClass="ignore-react-onclickoutside"
           preventDefault={false}
           stopPropagation={false}
@@ -411,8 +419,10 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
                 "touchstart",
               ]
             }
+            filter=""
             heading={null}
             label="Add..."
+            onFilter={[Function]}
             outsideClickIgnoreClass="ignore-react-onclickoutside"
             preventDefault={false}
             stopPropagation={false}
@@ -440,6 +450,26 @@ exports[`Component: ListPropertySelect should render with full props 1`] = `
                 className="dropdown-menu"
                 onClick={[Function]}
               >
+                <InputField
+                  data-name="filter"
+                  inputRef={[Function]}
+                  onClick={[Function]}
+                  placeholder="Filter..."
+                  setState={[Function]}
+                  type="text"
+                  value=""
+                >
+                  <input
+                    className="nice-form-control"
+                    data-name="filter"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    onKeyPress={null}
+                    placeholder="Filter..."
+                    type="text"
+                    value=""
+                  />
+                </InputField>
                 <SelectItem
                   disabled={false}
                   id="strength"
@@ -670,7 +700,7 @@ exports[`Component: ListPropertySelect should render with minimum props 1`] = `
   add={0}
   added={Array []}
   current={Array []}
-  filter={Object {}}
+  filter={Array []}
   given={Array []}
   hidden={false}
   items={Array []}
@@ -701,7 +731,7 @@ exports[`Component: ListPropertySelect should stil show unknown current values 1
       "dexterity",
     ]
   }
-  filter={Object {}}
+  filter={Array []}
   given={
     Array [
       "foo",

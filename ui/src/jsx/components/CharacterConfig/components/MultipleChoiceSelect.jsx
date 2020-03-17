@@ -62,9 +62,11 @@ export class MultipleChoiceSelect extends React.Component
 
         if (limit) {
             if (current.length >= limit) {
+                console.error("Adding beyond limit", {uuid, current, limit});
                 return false;
             }
         } else if (added.length >= (add + removed.length)) {
+            console.error("Adding beyond max", {uuid, added, removed, add});
             return false;
         }
 
@@ -95,7 +97,7 @@ export class MultipleChoiceSelect extends React.Component
 
     render() {
         const {
-            added, options,
+            added, removed, options,
             filter: filters,
         } = this.props;
         const { showSelect, disabled } = this.state;
@@ -104,16 +106,25 @@ export class MultipleChoiceSelect extends React.Component
         const items = map(
             ({ uuid, name }) => {
                 const isNew = includes(uuid, added);
+                const isRemoved = includes(uuid, removed);
                 return {
                     id: uuid,
                     name: name,
                     color: isNew ? 'info' : 'warning',
-                    disabled: !isNew && disabled,
+                    disabled: !isNew && !isRemoved && disabled,
                 };
             }
         )(
             filter(
-                option => !option.hidden && MatchesFilters(option, filters)
+                option => {
+                    if (includes(options.uuid, removed)) {
+                        return true;
+                    }
+                    if (option.hidden) {
+                        return false;
+                    }
+                    return MatchesFilters(option, filters);
+                }
             )(options)
         );
 
@@ -147,11 +158,11 @@ MultipleChoiceSelect.propTypes = {
     setState: PropTypes.func.isRequired,
     options: PropTypes.arrayOf(PropTypes.object),
     choices: PropTypes.object,
+    filter: PropTypes.object,
     description: PropTypes.string,
     include: PropTypes.number,
     added: PropTypes.array,
     removed: PropTypes.array,
-    filtered: PropTypes.array,
     limit: PropTypes.number,
     add: PropTypes.number,
     replace: PropTypes.number,
@@ -160,9 +171,9 @@ MultipleChoiceSelect.propTypes = {
 MultipleChoiceSelect.defaultProps = {
     added: [],
     removed: [],
-    filtered: [],
     options: [],
     choices: {},
+    filter: {},
     description: '',
     limit: 0,
     add: 0,

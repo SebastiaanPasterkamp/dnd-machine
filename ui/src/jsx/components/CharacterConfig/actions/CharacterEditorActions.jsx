@@ -5,6 +5,7 @@ import {
 } from 'lodash/fp';
 
 const CharacterEditorActions = Reflux.createActions({
+    "getCharacterConfig": {asyncResult: true},
     "editCharacter": {asyncResult: true},
     "resetCharacter": {asyncResult: true},
     "postCharacter": {asyncResult: true},
@@ -12,6 +13,24 @@ const CharacterEditorActions = Reflux.createActions({
     "addChoice": {},
     "removeChoice": {},
 });
+
+CharacterEditorActions.getCharacterConfig.listen(
+    (config) => fetch(`/character/${config}/api`, {
+        credentials: 'same-origin',
+        method: 'GET',
+        'headers': {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(result => {
+        CharacterEditorActions.getCharacterConfig.completed(config, result);
+    })
+    .catch(error => {
+        console.log(error);
+        CharacterEditorActions.getCharacterConfig.failed(config, error);
+    })
+);
 
 function getCharacter(action, id) {
     if (id === null) {

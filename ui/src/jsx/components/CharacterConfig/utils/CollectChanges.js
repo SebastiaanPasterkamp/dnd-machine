@@ -12,7 +12,7 @@ export default function CollectChanges(config, choices, path) {
 
             if (includes(
                 type,
-                ['value', 'dict', 'list', 'select', 'manual', 'ability_score', 'statistics']
+                ['value', 'dict', 'list', 'objectlist', 'select', 'manual', 'ability_score', 'statistics']
             )) {
                 if (path && option.path !== path) {
                     return { record, changes };
@@ -40,7 +40,7 @@ export default function CollectChanges(config, choices, path) {
                             changes: [...changes, ...c],
                         };
                     },
-                    { record, changes }
+                    { record: {}, changes: [] }
                 )(type === 'choice'
                     ? (selected ? [selected] : [])
                     : added

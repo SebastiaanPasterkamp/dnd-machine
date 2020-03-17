@@ -10,6 +10,7 @@ import DictPropertySelect from './components/DictPropertySelect';
 import ListPropertySelect from './components/ListPropertySelect';
 import ManualInputSelect from './components/ManualInputSelect';
 import MultipleChoiceSelect from './components/MultipleChoiceSelect';
+import ObjectListPropertySelect from './components/ObjectListPropertySelect';
 import SelectPropertySelect from './components/SelectPropertySelect';
 import StatisticsSelect from './components/StatisticsSelect';
 import ValuePropertySelect from './components/ValuePropertySelect';
@@ -26,6 +27,7 @@ export {
     ListPropertySelect,
     ManualInputSelect,
     MultipleChoiceSelect,
+    ObjectListPropertySelect,
     SelectPropertySelect,
     StatisticsSelect,
     ValuePropertySelect,

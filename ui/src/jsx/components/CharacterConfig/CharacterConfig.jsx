@@ -12,6 +12,7 @@ import DictPropertySelect from './components/DictPropertySelect';
 import ListPropertySelect from './components/ListPropertySelect';
 import ManualInputSelect from './components/ManualInputSelect';
 import MultipleChoiceSelect from './components/MultipleChoiceSelect';
+import ObjectListPropertySelect from './components/ObjectListPropertySelect';
 import SelectPropertySelect from './components/SelectPropertySelect';
 import StatisticsSelect from './components/StatisticsSelect';
 import ValuePropertySelect from './components/ValuePropertySelect';
@@ -28,7 +29,7 @@ export class CharacterConfig extends React.Component
                 } = ComponentMap;
 
                 if (!ConfigComponent) {
-                    console.log({option});
+                    console.error({option});
                     throw `Unknown option type: '${option.type} ${option.uuid}'`;
                 }
 
@@ -67,10 +68,11 @@ const ComponentMap = {
     config: CharacterConfig,
     dict: DictPropertySelect,
     list: ListPropertySelect,
+    manual: ManualInputSelect,
     multichoice: MultipleChoiceSelect,
+    objectlist: ObjectListPropertySelect,
     select: SelectPropertySelect,
     value: ValuePropertySelect,
-    manual: ManualInputSelect,
 };
 
 CharacterConfig.propTypes = {

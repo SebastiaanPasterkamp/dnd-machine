@@ -71,7 +71,7 @@ export class ChoiceSelect extends React.Component
                         <CharacterConfig
                             key={tab.uuid}
                             uuid={tab.uuid}
-                            config={ [tab] }
+                            config={ [{...tab, name: null}] }
                         />
                     )
                 ))(tabs)}

@@ -1,15 +1,19 @@
 import {
+    clone,
     difference,
+    findIndex,
     forEach as forEachCapped,
     get,
     includes,
     isEqual,
     pickBy,
     reduce,
-    set,
+    setWith,
     uniq,
 } from 'lodash/fp';
 const forEach = forEachCapped.convert({ cap: false });
+
+let errors = {};
 
 export default function ComputeChange(changes, original) {
     const filtered = pickBy(
@@ -42,6 +46,68 @@ export default function ComputeChange(changes, original) {
                     update = uniq(update);
                 }
                 computed[option.path] = update;
+                return computed;
+            }
+
+            if (option.type === 'objectlist') {
+                const { path, given = [], multiple = false } = option;
+                const { added = [], removed = [] } = choice || {};
+                const {
+                    [path]: current = get(path, original) || [],
+                } = computed;
+
+                computed[path] = current;
+
+                computed[path] = reduce(
+                    (update, {type, id, count = 1}) => {
+                        const idx = findIndex({ type, id }, update);
+                        if (idx < 0) {
+                            if (!errors[option.uuid]) {
+                                errors[option.uuid] = true;
+                                console.error("Cannot reduce item", {update, item: {type, id, count}, uuid: option.uuid});
+                            }
+                            return update;
+                        }
+
+                        if (!multiple || count >= (update[idx].count || 1)) {
+                            console.assert(count <= (update[idx].count || 1), "Reduced items below 0", update, {type, id, count});
+                            return [
+                                ...update.slice(0, idx),
+                                ...update.slice(idx + 1),
+                            ];
+                        }
+
+                        return [
+                            ...update.slice(0, idx),
+                            {...update[idx], ...item, count: (update[idx].count || 1) - count},
+                            ...update.slice(idx + 1),
+                        ];
+                    },
+                    computed[path]
+                )(removed);
+
+                computed[option.path] = reduce(
+                    (update, item) => {
+                        const { type, id, count = 1 } = item;
+                        const idx = findIndex({ type, id }, update);
+                        if (idx < 0) {
+                            return [...update, item];
+                        }
+
+                        if (!multiple) {
+                            // Not adding duplicates
+                            return update;
+                        }
+
+                        return [
+                            ...update.slice(0, idx),
+                            {...update[idx], ...item, count: (update[idx].count || 1) + count},
+                            ...update.slice(idx + 1),
+                        ];
+                    },
+                    computed[option.path]
+                )([...added, ...given]);
+
                 return computed;
             }
 
@@ -92,11 +158,11 @@ export default function ComputeChange(changes, original) {
         {}
     )(filtered);
 
-    let character = original;
+    let character = original;1
     forEach((update, path) => {
         const current = get(path, original);
         if (!isEqual(current, update)) {
-            character = set(path, update, {...character});
+            character = setWith(clone, path, update, clone(character));
         }
     }, computed);
 

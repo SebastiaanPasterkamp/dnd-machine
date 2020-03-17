@@ -465,6 +465,7 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
               <SingleSelect
                 defaultValue={8}
                 description="Str"
+                filterable={false}
                 heading="Strength"
                 isDisabled={[Function]}
                 items={
@@ -489,7 +490,9 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
                     ]
                   }
                   excludeScrollbar={false}
+                  filter=""
                   heading="Strength"
+                  onFilter={null}
                   outsideClickIgnoreClass="ignore-react-onclickoutside"
                   preventDefault={false}
                   stopPropagation={false}
@@ -507,8 +510,10 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
                         "touchstart",
                       ]
                     }
+                    filter=""
                     heading="Strength"
                     label=""
+                    onFilter={null}
                     outsideClickIgnoreClass="ignore-react-onclickoutside"
                     preventDefault={false}
                     stopPropagation={false}
@@ -594,6 +599,7 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
               <SingleSelect
                 defaultValue={8}
                 description="Dex"
+                filterable={false}
                 heading="Dexterity"
                 isDisabled={[Function]}
                 items={
@@ -618,7 +624,9 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
                     ]
                   }
                   excludeScrollbar={false}
+                  filter=""
                   heading="Dexterity"
+                  onFilter={null}
                   outsideClickIgnoreClass="ignore-react-onclickoutside"
                   preventDefault={false}
                   stopPropagation={false}
@@ -636,8 +644,10 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
                         "touchstart",
                       ]
                     }
+                    filter=""
                     heading="Dexterity"
                     label=""
+                    onFilter={null}
                     outsideClickIgnoreClass="ignore-react-onclickoutside"
                     preventDefault={false}
                     stopPropagation={false}
@@ -723,6 +733,7 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
               <SingleSelect
                 defaultValue={8}
                 description="Con"
+                filterable={false}
                 heading="Constitution"
                 isDisabled={[Function]}
                 items={
@@ -747,7 +758,9 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
                     ]
                   }
                   excludeScrollbar={false}
+                  filter=""
                   heading="Constitution"
+                  onFilter={null}
                   outsideClickIgnoreClass="ignore-react-onclickoutside"
                   preventDefault={false}
                   stopPropagation={false}
@@ -765,8 +778,10 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
                         "touchstart",
                       ]
                     }
+                    filter=""
                     heading="Constitution"
                     label=""
+                    onFilter={null}
                     outsideClickIgnoreClass="ignore-react-onclickoutside"
                     preventDefault={false}
                     stopPropagation={false}
@@ -852,6 +867,7 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
               <SingleSelect
                 defaultValue={8}
                 description="Int"
+                filterable={false}
                 heading="Intelligence"
                 isDisabled={[Function]}
                 items={
@@ -876,7 +892,9 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
                     ]
                   }
                   excludeScrollbar={false}
+                  filter=""
                   heading="Intelligence"
+                  onFilter={null}
                   outsideClickIgnoreClass="ignore-react-onclickoutside"
                   preventDefault={false}
                   stopPropagation={false}
@@ -894,8 +912,10 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
                         "touchstart",
                       ]
                     }
+                    filter=""
                     heading="Intelligence"
                     label=""
+                    onFilter={null}
                     outsideClickIgnoreClass="ignore-react-onclickoutside"
                     preventDefault={false}
                     stopPropagation={false}
@@ -981,6 +1001,7 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
               <SingleSelect
                 defaultValue={8}
                 description="Wis"
+                filterable={false}
                 heading="Wisdom"
                 isDisabled={[Function]}
                 items={
@@ -1005,7 +1026,9 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
                     ]
                   }
                   excludeScrollbar={false}
+                  filter=""
                   heading="Wisdom"
+                  onFilter={null}
                   outsideClickIgnoreClass="ignore-react-onclickoutside"
                   preventDefault={false}
                   stopPropagation={false}
@@ -1023,8 +1046,10 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
                         "touchstart",
                       ]
                     }
+                    filter=""
                     heading="Wisdom"
                     label=""
+                    onFilter={null}
                     outsideClickIgnoreClass="ignore-react-onclickoutside"
                     preventDefault={false}
                     stopPropagation={false}
@@ -1110,6 +1135,7 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
               <SingleSelect
                 defaultValue={8}
                 description="Char"
+                filterable={false}
                 heading="Charisma"
                 isDisabled={[Function]}
                 items={
@@ -1134,7 +1160,9 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
                     ]
                   }
                   excludeScrollbar={false}
+                  filter=""
                   heading="Charisma"
+                  onFilter={null}
                   outsideClickIgnoreClass="ignore-react-onclickoutside"
                   preventDefault={false}
                   stopPropagation={false}
@@ -1152,8 +1180,10 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
                         "touchstart",
                       ]
                     }
+                    filter=""
                     heading="Charisma"
                     label=""
+                    onFilter={null}
                     outsideClickIgnoreClass="ignore-react-onclickoutside"
                     preventDefault={false}
                     stopPropagation={false}

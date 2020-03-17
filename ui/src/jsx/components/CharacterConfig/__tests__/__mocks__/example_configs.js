@@ -85,11 +85,10 @@ export const list_array = {
 };
 
 export const list_object = {
-    type: 'list',
+    type: 'objectlist',
     uuid: 'mocked-uuid-6',
     list: ['statistics'],
     path: 'foo.items',
-    objectlist: true,
     given: [
         {id: 'ruh', type: 'statistics', name: 'Ruh' },
     ],
