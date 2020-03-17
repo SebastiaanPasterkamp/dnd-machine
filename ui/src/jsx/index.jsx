@@ -139,6 +139,20 @@ const WeaponEdit = Loadable({
 import WeaponView from './views/WeaponView.jsx';
 import WeaponsTable from './views/WeaponsTable.jsx';
 
+const BackgroundsTable = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'BackgroundsTable' */
+          './views/BackgroundsTable'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
+const BackgroundEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'BackgroundEdit' */
+          './views/BackgroundEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 const ClassesTable = Loadable({
       loader: () => import(
           /* webpackChunkName: 'ClassesTable' */
@@ -153,6 +167,13 @@ const ClassEdit = Loadable({
       ),
       loading: () => <LoadingSplash loading={true} overlay={true} />,
 });
+const SubClassesTable = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'SubClassesTable' */
+          './views/SubClassesTable'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 const SubClassEdit = Loadable({
       loader: () => import(
           /* webpackChunkName: 'SubClassEdit' */
@@ -160,10 +181,31 @@ const SubClassEdit = Loadable({
       ),
       loading: () => <LoadingSplash loading={true} overlay={true} />,
 });
+const RacesTable = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'RacesTable' */
+          './views/RacesTable'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
 const RaceEdit = Loadable({
       loader: () => import(
           /* webpackChunkName: 'RaceEdit' */
           './views/RaceEdit'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
+const SubRacesTable = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'SubRacesTable' */
+          './views/SubRacesTable'
+      ),
+      loading: () => <LoadingSplash loading={true} overlay={true} />,
+});
+const SubRaceEdit = Loadable({
+      loader: () => import(
+          /* webpackChunkName: 'SubRaceEdit' */
+          './views/SubRaceEdit'
       ),
       loading: () => <LoadingSplash loading={true} overlay={true} />,
 });
@@ -439,6 +481,19 @@ class DndMachine extends React.Component
                     />
 
                 <Route
+                    path="/data/background/list"
+                    component={BackgroundsTable}
+                />
+                <Route
+                    path="/data/background/new"
+                    component={BackgroundEdit}
+                />
+                <Route
+                    path="/data/background/edit/:id"
+                    component={BackgroundEdit}
+                />
+
+                <Route
                     path="/data/class/list"
                     component={ClassesTable}
                 />
@@ -452,6 +507,10 @@ class DndMachine extends React.Component
                 />
 
                 <Route
+                    path="/data/subclass/list"
+                    component={SubClassesTable}
+                />
+                <Route
                     path="/data/subclass/new"
                     component={SubClassEdit}
                 />
@@ -461,12 +520,29 @@ class DndMachine extends React.Component
                 />
 
                 <Route
+                    path="/data/race/list"
+                    component={RacesTable}
+                />
+                <Route
                     path="/data/race/new"
                     component={RaceEdit}
                 />
                 <Route
                     path="/data/race/edit/:id"
                     component={RaceEdit}
+                />
+
+                <Route
+                    path="/data/subrace/list"
+                    component={SubRacesTable}
+                />
+                <Route
+                    path="/data/subrace/new"
+                    component={SubRaceEdit}
+                />
+                <Route
+                    path="/data/subrace/edit/:id"
+                    component={SubRaceEdit}
                 />
 
                 <Route
