@@ -15,10 +15,11 @@ import ControlGroup from '../../components/ControlGroup';
 import InputField from '../../components/InputField';
 import MarkdownTextField from '../../components/MarkdownTextField';
 import Panel from '../../components/Panel';
-import { SelectListComponent } from '../../components/ListComponent';
 
 import {
-    OPTIONS,
+    DataConfig,
+    ListConditions,
+    uuidv4,
 } from '../../components/DataConfig';
 
 export class RaceEdit extends React.Component
@@ -27,15 +28,21 @@ export class RaceEdit extends React.Component
 
     constructor(props) {
         super(props);
-        this.onFieldChange = this.onFieldChange.bind(this);
+        const { uuid = uuidv4() } = props;
+        this.state = {
+            uuid,
+        };
         this.memoize = memoize.bind(this);
+        this.onFieldChange = this.onFieldChange.bind(this);
     }
 
     onFieldChange(field) {
         return this.memoize(field, value => {
-            const { setState } = this.props;
+            const { uuid: stateUUID } = this.state;
+            const { setState, uuid = stateUUID } = this.props;
             setState({
                 type: this.optionType,
+                uuid,
                 [field]: value,
             });
         });
@@ -73,9 +80,8 @@ export class RaceEdit extends React.Component
                     className="race-edit__config"
                     header="Config"
                 >
-                    <SelectListComponent
+                    <DataConfig
                         list={config}
-                        options={OPTIONS}
                         setState={this.onFieldChange('config')}
                     />
                 </Panel>
@@ -103,7 +109,7 @@ export default RoutedObjectDataWrapper(
     {
         className: 'race-edit',
         icon: 'fa-cube',
-        label: 'Class',
+        label: 'Race',
         buttons: ['cancel', 'save']
     },
     "race",
