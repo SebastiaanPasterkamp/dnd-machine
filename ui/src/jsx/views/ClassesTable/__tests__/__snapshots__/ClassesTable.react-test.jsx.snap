@@ -2,7 +2,7 @@
 
 exports[`ClassesTable should render with full props 1`] = `
 <div
-  className="options-table"
+  className="classes-table"
 >
   <h2
     className="icon fa-user"
@@ -82,7 +82,7 @@ exports[`ClassesTable should render with full props 1`] = `
 
 exports[`ClassesTable should render without props 1`] = `
 <div
-  className="options-table"
+  className="classes-table"
 >
   <h2
     className="icon fa-user"

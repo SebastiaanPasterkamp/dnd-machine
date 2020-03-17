@@ -14,7 +14,11 @@ describe('ClassesTable', () => {
     beforeAll(() => {
         fetch.mockImplementation(mockedApi({
             class: {
-                2: { id: 2, name: "Some class", description: "Foo _bar_" },
+                2: {
+                    id: 2,
+                    name: "Some class",
+                    description: "Foo _bar_",
+                },
             },
             current_user: {
                 id: 3,

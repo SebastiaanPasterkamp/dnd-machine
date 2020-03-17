@@ -17,7 +17,7 @@ import TableFooter from './components/TableFooter';
 
 const ClassesTable = function({ classes }) {
     return (
-        <div className="options-table">
+        <div className="classes-table">
             <h2 className="icon fa-user">Classes list</h2>
             <ResponsiveTable
                 headerComponent={TableHeader}
