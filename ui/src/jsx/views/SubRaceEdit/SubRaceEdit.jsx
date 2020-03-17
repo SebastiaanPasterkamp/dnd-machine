@@ -19,29 +19,78 @@ import Panel from '../../components/Panel';
 import SingleSelect from '../../components/SingleSelect';
 import TabComponent from '../../components/TabComponent';
 
+import {
+    DataConfig,
+    PhasePanel,
+    uuidv4,
+} from '../../components/DataConfig';
+
 export class SubRaceEdit extends React.Component
 {
+    optionType = 'config';
+
     constructor(props) {
         super(props);
-        this.onFieldChange = this.onFieldChange.bind(this);
+        const { uuid = uuidv4() } = props;
+        this.state = {
+            uuid,
+            levels: map(
+                (level) => ({ name: `${level}` })
+            )(range(1, 20)),
+        };
         this.memoize = memoize.bind(this);
+        this.onFieldChange = this.onFieldChange.bind(this);
+        this.onPhaseChange = this.onPhaseChange.bind(this);
     }
 
     onFieldChange(field) {
         return this.memoize(field, value => {
-            const { setState } = this.props;
-            setState({ [field]: value });
+            const { uuid: stateUUID } = this.state;
+            const { setState, uuid = stateUUID } = this.props;
+            setState({
+                type: this.optionType,
+                uuid,
+                [field]: value,
+            });
         });
     }
 
+    onPhaseChange(index) {
+        const padding = map(() => ({}))(range(2, 20));
+        return this.memoize(`phase-${index}`, phase => {
+            const { uuid: stateUUID } = this.state;
+            const { setState, phases, uuid = stateUUID } = this.props;
+            setState({
+                type: this.optionType,
+                uuid,
+                phases: [
+                    ...[...phases, ...padding].slice(0, index),
+                    {...phases[index], ...phase},
+                    ...phases.slice(index + 1),
+                ],
+            });
+        });
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            levels: [
+                { name: `${props.name} 1`},
+                ...map(
+                    (index) => {
+                        const {
+                            name = `${index + 2}`,
+                        } = props.phases[index] || {};
+                        return { name };
+                    }
+                )(range(0, 19)),
+            ],
+        };
+    }
+
     render() {
-        const {
-            id,
-            race,
-            subrace,
-            description,
-            races,
-        } = this.props;
+        const { levels } = this.state;
+        const { id, race_id, name, description, config, phases, races } = this.props;
 
         return (
             <React.Fragment>
@@ -50,19 +99,19 @@ export class SubRaceEdit extends React.Component
                     className="sub-race-edit__description"
                     header="Description"
                 >
-                    <ControlGroup label="Class">
+                    <ControlGroup label="Race">
                         <SingleSelect
-                            selected={race}
-                            items={races.length ? races[0].options : []}
-                            setState={this.onFieldChange('race')}
+                            selected={race_id}
+                            items={races}
+                            setState={this.onFieldChange('race_id')}
                         />
                     </ControlGroup>
 
                     <ControlGroup label="Sub Race">
                         <InputField
                             placeholder="Sub Race..."
-                            value={subrace}
-                            setState={this.onFieldChange('subrace')}
+                            value={name}
+                            setState={this.onFieldChange('name')}
                         />
                     </ControlGroup>
 
@@ -76,17 +125,28 @@ export class SubRaceEdit extends React.Component
                 </Panel>
 
                 <Panel
-                    key="requirements"
-                    className="sub-race-edit__requirements"
-                    header="Requirements"
-                >
-                </Panel>
-
-                <Panel
                     key="config"
                     className="sub-race-edit__config"
                     header="Config"
                 >
+                    <TabComponent
+                        tabConfig={levels}
+                        mountAll={true}
+                    >
+                        <DataConfig
+                            list={config}
+                            setState={this.onFieldChange('config')}
+                        />
+                        {map(
+                            (index) =>(<PhasePanel
+                                key={`phase-${index}`}
+                                level={index + 2}
+                                class={name}
+                                {...phases[index]}
+                                setState={this.onPhaseChange(index)}
+                            />)
+                        )(range(0, levels.length-1))}
+                    </TabComponent>
                 </Panel>
             </React.Fragment>
         );
@@ -95,16 +155,21 @@ export class SubRaceEdit extends React.Component
 
 SubRaceEdit.propTypes = {
     id: PropTypes.number,
-    race: PropTypes.string,
-    subrace: PropTypes.string,
+    race_id: PropTypes.number,
+    name: PropTypes.string,
+    description: PropTypes.string,
+    config: PropTypes.arrayOf(PropTypes.object),
+    phases: PropTypes.arrayOf(PropTypes.object),
     description: PropTypes.string,
     races: PropTypes.array,
 };
 
 SubRaceEdit.defaultProps = {
-    race: '',
-    subrace: '',
+    race_id: null,
+    name: '',
     description: '',
+    config: [],
+    phases: [],
     classes: [],
 };
 
@@ -117,10 +182,12 @@ export default ListDataWrapper(
             label: 'Sub Races',
             buttons: ['cancel', 'save']
         },
-        "subrace"
+        ["subrace"],
+        "data",
     ),
-    [
-        'race',
-    ],
-    'data'
+    ["race"],
+    "data",
+    {
+        race: "races",
+    },
 );
