@@ -88,7 +88,7 @@ export default ListDataWrapper(
     RoutedObjectDataWrapper(
         UserView, {
             className: 'user-view',
-            icon: 'fa-user',
+            icon: 'fa-address-book-o',
             label: 'User',
         },
         "user"

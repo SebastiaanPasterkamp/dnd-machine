@@ -103,7 +103,7 @@ class UserTable extends LazyComponent
 
         return (
             <div>
-                <h2 className="icon fa-user">Users</h2>
+                <h2 className="icon fa-address-book-o">Users</h2>
 
                 <table className="nice-table users-table condensed bordered responsive">
                     <UserHeader />

@@ -168,7 +168,7 @@ export default InlineDataWrapper(
             RoutedObjectDataWrapper(
                 UserEdit, {
                     className: 'user-edit',
-                    icon: 'fa-user',
+                    icon: 'icon fa-address-book-o',
                     label: 'User',
                     buttons: ['cancel', 'show', 'reload', 'save']
                 },
