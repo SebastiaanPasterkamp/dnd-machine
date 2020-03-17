@@ -57,7 +57,7 @@ export class InputField extends LazyComponent
     render() {
         const {
             value, type, className, disabled, placeholder, onEnter,
-            setState, ...props
+            setState, inputRef, ...props
         } = this.props;
         const { isFloat, style } = this.state;
 
@@ -68,6 +68,7 @@ export class InputField extends LazyComponent
                 value={isFloat ? `${value}.` : value}
                 disabled={disabled}
                 placeholder={placeholder}
+                ref={inputRef}
                 {...props}
                 onChange={this.onChange}
                 onKeyPress={onEnter ? this.onKeyPress : null}
