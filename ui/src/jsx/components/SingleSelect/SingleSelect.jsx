@@ -15,7 +15,10 @@ class SingleSelect extends React.Component
 {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            filter: '',
+        };
+        this.onFilter = this.onFilter.bind(this);
         this.memoize = memoize.bind(this);
     }
 
@@ -39,6 +42,10 @@ class SingleSelect extends React.Component
         });
     }
 
+    onFilter(filter) {
+        this.setState({ filter });
+    }
+
     getLabel() {
         const {
             items,
@@ -53,7 +60,7 @@ class SingleSelect extends React.Component
         }
 
         const { name } = objects
-            ? (selected || {})
+            ? (selected || { name: emptyLabel })
             : (
                 find({ id: selected }, items)
                 || find({ name: selected }, items)
@@ -73,16 +80,22 @@ class SingleSelect extends React.Component
             emptyLabel,
             renderEmpty,
             defaultValue,
+            filterable,
             ...props,
         } = this.props;
+        const { filter } = this.state;
 
         const { name: current = null } = objects
             ? (selected || {})
             : { name : selected };
 
+        const pattern = new RegExp(filter, "i");
+
         return (
             <BaseSelect
                 label={ this.getLabel() }
+                filter={filter}
+                onFilter={filterable ? this.onFilter : null}
                 {...props}
             >
                 {renderEmpty ? (
@@ -95,6 +108,9 @@ class SingleSelect extends React.Component
                 ) : null}
                 {map(item => {
                     const { id, name } = item;
+                    if (!`${name}`.match(pattern)) {
+                        return null;
+                    }
                     return (
                         <SelectItem
                             key={id}
@@ -130,6 +146,7 @@ SingleSelect.propTypes = {
     isDisabled: PropTypes.func.isRequired,
     emptyLabel: PropTypes.string,
     renderEmpty: PropTypes.string,
+    filterable: PropTypes.bool,
 };
 
 SingleSelect.defaultProps = {
@@ -141,6 +158,7 @@ SingleSelect.defaultProps = {
     setState: (selected) => {
         console.log(['SingleSelect', selected]);
     },
+    filterable: false,
 };
 
 export default SingleSelect;

@@ -16,7 +16,10 @@ class MultiSelect extends React.Component
 {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            filter: '',
+        };
+        this.onFilter = this.onFilter.bind(this);
         this.memoize = memoize.bind(this);
     }
 
@@ -54,6 +57,10 @@ class MultiSelect extends React.Component
         });
     }
 
+    onFilter(filter) {
+        this.setState({ filter });
+    }
+
     getLabel() {
         const {
             items, selected, objects, renderEmpty, emptyLabel,
@@ -89,13 +96,19 @@ class MultiSelect extends React.Component
             isDisabled,
             emptyLabel,
             renderEmpty,
+            filterable,
             ...props,
         } = this.props;
+        const { filter } = this.state;
+
+        const pattern = new RegExp(filter, "i");
 
         return (
             <BaseSelect
                 label={ this.getLabel() }
                 closeOnClick={ false }
+                filter={filter}
+                onFilter={filterable ? this.onFilter : null}
                 {...props}
             >
                 {renderEmpty ? (
@@ -109,6 +122,9 @@ class MultiSelect extends React.Component
                 ) : null}
                 {map(item => {
                     const { id, name } = item;
+                    if (!`${name}`.match(pattern)) {
+                        return null;
+                    }
                     return (
                         <SelectItem
                             key={id}
@@ -134,6 +150,7 @@ MultiSelect.propTypes = {
     isDisabled: PropTypes.func.isRequired,
     emptyLabel: PropTypes.string,
     renderEmpty: PropTypes.string,
+    filterable: PropTypes.bool,
 };
 
 MultiSelect.defaultProps = {
@@ -145,7 +162,8 @@ MultiSelect.defaultProps = {
     renderEmpty: null,
     setState: (selected) => {
         console.log(['MultiSelect', selected]);
-    }
+    },
+    filterable: false,
 };
 
 export default MultiSelect;

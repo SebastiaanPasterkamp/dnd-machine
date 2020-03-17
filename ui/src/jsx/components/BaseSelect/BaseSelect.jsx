@@ -6,6 +6,7 @@ import './sass/_base-select.scss';
 
 import utils from '../../utils';
 
+import InputField from '../../components/InputField';
 import SelectButton from './components/SelectButton';
 
 export class BaseSelect extends React.Component
@@ -15,8 +16,14 @@ export class BaseSelect extends React.Component
         this.state = {
             shown: false,
         };
+        this.filter = null;
+        this.filterRef = this.filterRef.bind(this);
         this.onToggle = this.onToggle.bind(this);
         this.onClick = this.onClick.bind(this);
+    }
+
+    filterRef(filter) {
+        this.filter = filter;
     }
 
     handleClickOutside() {
@@ -25,13 +32,26 @@ export class BaseSelect extends React.Component
 
     onToggle() {
         const { shown } = this.state;
-        this.setState({ shown: !shown });
+        this.setState(
+            { shown: !shown },
+            () => {
+                if (this.state.shown && this.filter) {
+                    this.filter.focus();
+                }
+            }
+        );
     }
 
-    onClick() {
+    onClick(e) {
         const { closeOnClick } = this.props;
         if (closeOnClick) {
             this.setState({ shown: false });
+        }
+    }
+
+    stopPropagation(e) {
+        if (e) {
+            e.stopPropagation();
         }
     }
 
@@ -42,6 +62,8 @@ export class BaseSelect extends React.Component
             heading,
             className,
             description,
+            filter,
+            onFilter,
             disabled,
             children,
             /* onClickOutside */
@@ -76,6 +98,17 @@ export class BaseSelect extends React.Component
                     className={ulStyle}
                     onClick={this.onClick}
                 >
+                    {onFilter ? (
+                        <InputField
+                            data-name="filter"
+                            type="text"
+                            value={filter}
+                            placeholder="Filter..."
+                            setState={onFilter}
+                            onClick={this.stopPropagation}
+                            inputRef={this.filterRef}
+                        />
+                    ) : null}
                     {heading ? (
                         <li className="heading">
                             <span>{heading}</span>
@@ -103,6 +136,8 @@ BaseSelect.propTypes = {
     heading: PropTypes.string,
     className: PropTypes.string,
     description: PropTypes.string,
+    filter: PropTypes.string,
+    onFilter: PropTypes.func,
     disabled: PropTypes.bool,
 };
 
@@ -112,6 +147,8 @@ BaseSelect.defaultProps = {
     heading: null,
     className: null,
     description: null,
+    filter: '',
+    onFilter: null,
     disabled: false,
 };
 
