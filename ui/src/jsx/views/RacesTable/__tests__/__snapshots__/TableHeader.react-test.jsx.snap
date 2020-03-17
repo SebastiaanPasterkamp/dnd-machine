@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableHeader should render 1`] = `
+<tr>
+  <th>
+    Name
+  </th>
+  <th>
+    Description
+  </th>
+</tr>
+`;

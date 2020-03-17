@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RacesTable should render with full props 1`] = `
+<div
+  className="races-table"
+>
+  <h2
+    className="icon fa-cube"
+  >
+    Races list
+  </h2>
+  <table
+    className="responsive-table nice-table condensed bordered responsive"
+  >
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Description
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        data-name={2}
+      >
+        <th>
+          Some race
+          <div
+            className="base-link-group nice-btn-group"
+          >
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-eye"
+              href={undefined}
+              onClick={[Function]}
+            >
+              View
+            </a>
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-pencil"
+              href={undefined}
+              onClick={[Function]}
+            >
+              Edit
+            </a>
+          </div>
+        </th>
+        <td>
+          <span>
+            <p>
+              Foo 
+              <em>
+                bar
+              </em>
+            </p>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td
+          colSpan={2}
+        >
+          <div
+            className="base-link-group nice-btn-group"
+          >
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-plus"
+              href={undefined}
+              onClick={[Function]}
+            >
+              New
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`RacesTable should render without props 1`] = `
+<div
+  className="races-table"
+>
+  <h2
+    className="icon fa-cube"
+  >
+    Races list
+  </h2>
+  <table
+    className="responsive-table nice-table condensed bordered responsive"
+  >
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Description
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          colSpan={2}
+        >
+          <div
+            className="base-link-group nice-btn-group"
+          >
+            <a
+              className="cursor-pointer nice-btn-alt icon fa-plus"
+              href={undefined}
+              onClick={[Function]}
+            >
+              New
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
