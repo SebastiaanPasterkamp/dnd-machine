@@ -4049,6 +4049,14 @@ exports[`MonsterEdit should render with full props 1`] = `
                   >
                     Punch
                   </span>
+                  <button
+                    className="nice-tag-btn"
+                    onClick={[Function]}
+                  >
+                    <i
+                      className="icon fa-plus"
+                    />
+                  </button>
                   <span
                     className="nice-tag-badge"
                   >

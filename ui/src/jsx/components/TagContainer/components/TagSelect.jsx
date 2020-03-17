@@ -8,6 +8,8 @@ import {
 
 import SingleSelect from '../../SingleSelect';
 
+const isDisabled = () => false;
+
 const TagSelect = function({ onSelect, items, current, multiple, objects }) {
     if (!items.length) return null;
 
@@ -23,6 +25,7 @@ const TagSelect = function({ onSelect, items, current, multiple, objects }) {
             items={filtered}
             objects={objects}
             setState={onSelect}
+            isDisabled={isDisabled}
         />
     );
 };

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
     countBy,
     find,
+    findIndex,
     indexOf,
     keys,
     map,
@@ -15,6 +16,7 @@ import {
     BaseTagContainer,
     Tag,
     TagBadge,
+    TagButton,
 } from '../BaseTagContainer';
 import SingleSelect from '../SingleSelect';
 
@@ -24,15 +26,16 @@ export class TagContainer extends React.Component
 {
     constructor(props) {
         super(props);
-        this.onAdd = this.onAdd.bind(this);
+        this.onNew = this.onNew.bind(this);
         this.memoize = memoize.bind(this);
     }
 
-    onAdd(item) {
+    onNew(item) {
         const { value, onAdd, multiple, objects, setState } = this.props;
         const { type, id, name } = objects ? item : { id: item };
-        const needle = objects ? { type, id } : item;
-        const index = indexOf(needle, value);
+        const index = objects
+            ? findIndex({ type, id }, value)
+            : indexOf(item, value);
 
         if (!multiple && index >= 0) {
             return;
@@ -64,29 +67,39 @@ export class TagContainer extends React.Component
                 ...value,
                 { type, id, name, count: 1},
             ]);
-            return;
+        } else {
+            setState([
+                ...value,
+                { type, id, name },
+            ]);
         }
+    }
 
-        setState([
-            ...value,
-            { type, id, name },
-        ]);
+    onAdd(item) {
+        const key = this.getKey('add', item);
+
+        return this.memoize(key, () => this.onNew(item));
     }
 
     onDelete(item) {
-        const key = this.getKey(item);
+        const key = this.getKey('delete', item);
 
         return this.memoize(key, () => {
             const { value, onDelete, multiple, objects, setState } = this.props;
             const { type, id, name } = objects ? item : { id: item };
-            const needle = objects ? { type, id } : item;
-            const index = indexOf(needle, value);
+            const index = objects
+                ? findIndex({ type, id }, value)
+                : indexOf(item, value);
+
+            if (index < 0) {
+                return;
+            }
 
             if (onDelete) {
                 onDelete(item, index);
             }
 
-            if (multiple && objects && value[index].count > 0) {
+            if (multiple && objects && (value[index].count || 1) > 1) {
                 setState([
                     ...value.slice(0, index),
                     {...value[index], count: value[index].count - 1},
@@ -102,9 +115,9 @@ export class TagContainer extends React.Component
         });
     }
 
-    getKey(item) {
+    getKey(action, item) {
         const { objects } = this.props;
-        return objects ? `${item.type}.${item.id}` : item;
+        return objects ? `${action}-${item.type}.${item.id}` : item;
     }
 
     render() {
@@ -117,11 +130,11 @@ export class TagContainer extends React.Component
             showSelect,
            className,
         } = this.props;
-        const counts = countBy(item => this.getKey(item))(value);
+        const counts = countBy(item => this.getKey('count', item))(value);
 
         const tags = uniqBy('key', map(
             item => {
-                const key = this.getKey(item);
+                const key = this.getKey('count', item);
                 const {
                     id = item,
                     count = counts[key],
@@ -149,7 +162,7 @@ export class TagContainer extends React.Component
             <BaseTagContainer className={className}>
                 {!propDisabled && showSelect ? (
                     <TagSelect
-                        onSelect={this.onAdd}
+                        onSelect={this.onNew}
                         items={items}
                         current={value}
                         objects={objects}
@@ -160,11 +173,18 @@ export class TagContainer extends React.Component
                 {map(
                     tag => (
                         <Tag {...tag}>
-                            {multiple ? (
-                                <TagBadge>
+                            {multiple ? ([
+                                <TagButton
+                                    key="plus"
+                                    icon="fa-plus"
+                                    onClick={this.onAdd(tag)}
+                                >
+                                    &nbsp;
+                                </TagButton>,
+                                <TagBadge key="count">
                                     &times;&nbsp;{ tag.count }
                                 </TagBadge>
-                            ) : null}
+                            ]) : null}
                         </Tag>
                     )
                 )(tags)}
