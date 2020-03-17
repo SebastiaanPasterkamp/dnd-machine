@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BackgroundLinks should not render links for non-admin 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <span>
+    Hi
+  </span>
+</div>
+`;
+
+exports[`BackgroundLinks should render with full props 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn-alt icon fa-eye"
+    href={undefined}
+    onClick={[Function]}
+  >
+    View
+  </a>
+  <a
+    className="cursor-pointer nice-btn-alt icon fa-pencil"
+    href={undefined}
+    onClick={[Function]}
+  >
+    Edit
+  </a>
+  <span>
+    Hi
+  </span>
+</div>
+`;
+
+exports[`BackgroundLinks should render with minimum props 1`] = `null`;
+
+exports[`BackgroundLinks should render without current full props 1`] = `
+<div
+  className="base-link-group nice-btn-group"
+>
+  <a
+    className="cursor-pointer nice-btn-alt icon fa-plus"
+    href={undefined}
+    onClick={[Function]}
+  >
+    New
+  </a>
+  <span>
+    Hi
+  </span>
+</div>
+`;
