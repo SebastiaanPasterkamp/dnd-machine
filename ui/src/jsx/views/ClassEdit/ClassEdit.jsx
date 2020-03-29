@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+    fill,
     map,
     range,
+    reduce,
 } from 'lodash/fp';
 
 import './sass/_class-edit.scss';
@@ -15,13 +17,15 @@ import ControlGroup from '../../components/ControlGroup';
 import InputField from '../../components/InputField';
 import MarkdownTextField from '../../components/MarkdownTextField';
 import Panel from '../../components/Panel';
-import { SelectListComponent } from '../../components/ListComponent';
 import TabComponent from '../../components/TabComponent';
 
 import CasterPanel from './components/CasterPanel';
 
 import {
-    OPTIONS,
+    DataConfig,
+    ListConditions,
+    PhasePanel,
+    uuidv4,
 } from '../../components/DataConfig';
 
 export class ClassEdit extends React.Component
@@ -30,40 +34,98 @@ export class ClassEdit extends React.Component
 
     constructor(props) {
         super(props);
-
-        this.levels = map(i => ({
-            label: `Level ${i}`,
-            level: i,
-        }))(range(1, 20));
-
-        this.onFieldChange = this.onFieldChange.bind(this);
-        this.onDictChange = this.onDictChange.bind(this);
-
+        const { uuid = uuidv4() } = props;
+        this.state = {
+            uuid,
+            levels: map(
+                (level) => ({ name: `${level}` })
+            )(range(1, 20)),
+        };
         this.memoize = memoize.bind(this);
     }
 
-    onFieldChange(field) {
-        return this.memoize(field, value => {
-            const { setState } = this.props;
-            setState({
-                type: this.optionType,
-                [field]: value,
+    initPhase(level) {
+        return this.memoize(`init-level-${level}`, ({name}) => {
+            if (name !== '') {
+                return null;
+            }
+            const { name: _class } = this.props;
+
+            return ({
+                name: `${_class} ${level}`,
+                conditions: [
+                    {path: 'class', type: 'contains', needle: _class},
+                    {path: 'level', type: 'gte', value: level },
+                ],
             });
         });
     }
 
     onDictChange(dict) {
         return this.memoize(dict, update => {
-            const { setState, [dict]: previous } = this.props;
+            const { uuid: stateUUID } = this.state;
+            const { setState, [dict]: previous, uuid = stateUUID } = this.props;
             setState({
                 type: this.optionType,
+                uuid,
                 [dict]: {...previous, ...update},
             });
         });
     }
 
+    onFieldChange(field) {
+        return this.memoize(field, value => {
+            const { uuid: stateUUID } = this.state;
+            const { setState, uuid = stateUUID } = this.props;
+            setState({
+                type: this.optionType,
+                uuid,
+                [field]: value,
+            });
+        });
+    }
+
+    onPhaseChange(index) {
+        const padding = map(() => ({}))(range(2, 20));
+        return this.memoize(`phase-${index}`, phase => {
+            const { uuid: stateUUID } = this.state;
+            const { setState, phases, uuid = stateUUID } = this.props;
+            const updated = 'config' in phase && !phase.config.length
+                ? null
+                : {...phases[index], ...phase};
+            setState({
+                type: this.optionType,
+                uuid,
+                phases: [
+                    ...[...phases, ...padding].slice(0, index),
+                    updated,
+                    ...phases.slice(index + 1),
+                ],
+            });
+        });
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            levels: [
+                { name: `${props.name} 1`},
+                ...map(
+                    (index) => {
+                        const {
+                            name = `${index + 2}`,
+                        } = props.phases[index] || {};
+                        return { name };
+                    }
+                )(range(0, 19)),
+            ],
+        };
+    }
+
     render() {
-        const { id, name, description, config, features } = this.props;
+        const { levels } = this.state;
+        const {
+            id, name, description, subclass_level, config, features, phases, conditions,
+        } = this.props;
 
         return (
             <React.Fragment>
@@ -77,6 +139,17 @@ export class ClassEdit extends React.Component
                             placeholder="Class..."
                             value={name}
                             setState={this.onFieldChange('name')}
+                        />
+                    </ControlGroup>
+
+                    <ControlGroup label="Sub class level">
+                        <InputField
+                            placeholder="Sub class level..."
+                            min={1}
+                            max={20}
+                            type="number"
+                            value={subclass_level}
+                            setState={this.onFieldChange('subclass_level')}
                         />
                     </ControlGroup>
 
@@ -95,19 +168,38 @@ export class ClassEdit extends React.Component
                 />
 
                 <Panel
+                    key="conditions"
+                    className="class-edit__conditions"
+                    header="Multiclassing requirements"
+                >
+                    <ListConditions
+                        conditions={conditions}
+                        setState={this.onFieldChange('conditions')}
+                    />
+                </Panel>
+
+                <Panel
                     key="levels"
                     className="class-edit__levels"
                     header="Levels"
                 >
                     <TabComponent
-                        tabConfig={this.levels}
+                        tabConfig={levels}
                         mountAll={true}
                     >
-                        <SelectListComponent
+                        <DataConfig
+                            key="phase-orig"
                             list={config}
-                            options={OPTIONS}
                             setState={this.onFieldChange('config')}
                         />
+                        {map(
+                            (index) =>(<PhasePanel
+                                key={`phase-${index}`}
+                                initPhase={this.initPhase(index + 2)}
+                                {...phases[index]}
+                                setState={this.onPhaseChange(index)}
+                            />)
+                        )(range(0, levels.length-1))}
                     </TabComponent>
                 </Panel>
             </React.Fragment>
@@ -119,7 +211,17 @@ ClassEdit.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     description: PropTypes.string,
+    subclass_level: PropTypes.number,
+    conditions: PropTypes.arrayOf(PropTypes.shape({
+        type: PropTypes.string,
+        value: PropTypes.number,
+        min: PropTypes.value,
+        max: PropTypes.value,
+        needle: PropTypes.any,
+        conditions: PropTypes.array,
+    })),
     config: PropTypes.arrayOf(PropTypes.object),
+    phases: PropTypes.arrayOf(PropTypes.object),
     features: PropTypes.object,
 };
 
@@ -127,7 +229,10 @@ ClassEdit.defaultProps = {
     id: null,
     name: '',
     description: '',
+    subclass_level: 1,
+    conditions: [],
     config: [],
+    phases: [],
     features: {},
 };
 
