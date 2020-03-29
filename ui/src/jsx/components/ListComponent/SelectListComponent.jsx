@@ -22,21 +22,18 @@ export class SelectListComponent extends React.Component
         this.memoize = memoize.bind(this);
     }
 
-    onAdd(id) {
+    onAdd(option) {
         const {
             options,
             list,
             setState,
             onAdd,
         } = this.props;
-        const option = find({id}, options);
-        if (option === undefined) {
-            return false;
-        }
+        const { id } = option;
         const { initialItem = {} } = option;
         const update = [
             ...list,
-            {...initialItem, type: id},
+            {type: id, ...initialItem},
         ];
         setState(
             update,
@@ -112,6 +109,8 @@ export class SelectListComponent extends React.Component
                 <SingleSelect
                     items={options}
                     setState={this.onAdd}
+                    objects={true}
+                    filterable={true}
                     renderEmpty="Add..."
                     className="select-list-component__add"
                     color="primary"
@@ -188,7 +187,7 @@ SelectListComponent.propTypes = {
             component: PropTypes.oneOfType([
                 PropTypes.element,
                 PropTypes.func,
-            ]).isRequired,
+            ]),
             componentProps: PropTypes.object,
             initialItem: PropTypes.object,
         })
