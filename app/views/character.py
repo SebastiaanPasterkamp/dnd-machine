@@ -94,33 +94,13 @@ class CharacterBlueprint(BaseApiBlueprint):
             )
 
     def get_character_data(self, field):
-        options = self.basemapper.options
-
-        def inlineIncludes(data):
-            if isinstance(data, dict):
-                if 'include' in data:
-                    include = options.getById(data['include'])
-                    if include is not None:
-                        include = include.clone()
-                        include.update(data)
-                        data.update(include)
-                    del data['include']
-                for key, value in list(data.items()):
-                    inlineIncludes(value)
-            if isinstance(data, list):
-                for value in data:
-                    inlineIncludes(value)
-
         items = []
         for obj in self.basemapper[field].getMultiple():
-            item = obj.clone()
-            item['uuid'] = "%s-%d" % (field, obj.id)
-            if 'phases' in item:
-                del item['phases']
-            inlineIncludes(item)
+            item = obj.compileConfig(self.basemapper)
             items.append(item)
 
         return jsonify({
+            'uuid': field,
             'type': 'choice',
             'options': items,
             })
