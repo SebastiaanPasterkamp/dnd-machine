@@ -117,9 +117,6 @@ class CharacterObject(JsonObject):
             "gp": 0,
             "pp": 0
             },
-        "features": {
-            "proficiency": [ 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6 ],
-        },
         "level_up": {
             "creation": [],
             "config": []
