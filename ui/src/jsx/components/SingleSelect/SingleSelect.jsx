@@ -70,6 +70,36 @@ class SingleSelect extends React.Component
         return name;
     }
 
+    renderItems(items, current, pattern) {
+        const { isDisabled } = this.props;
+        return map(item => {
+            const { id, name, children } = item;
+            if (children) {
+                return (
+                    <li key={id}>
+                        {name}
+                        <ul>
+                            {this.renderItems(children, current, pattern)}
+                        </ul>
+                    </li>
+                );
+            }
+            if (!`${name}`.match(pattern)) {
+                return null;
+            }
+            return (
+                <SelectItem
+                    key={id}
+                    id={id}
+                    name={name}
+                    selected={current === id}
+                    disabled={isDisabled(item)}
+                    onClick={this.onClick(item)}
+                />
+            );
+        })(items);
+    }
+
     render() {
         const {
             items,
@@ -106,22 +136,7 @@ class SingleSelect extends React.Component
                         onClick={this.onClick(null)}
                     />
                 ) : null}
-                {map(item => {
-                    const { id, name } = item;
-                    if (!`${name}`.match(pattern)) {
-                        return null;
-                    }
-                    return (
-                        <SelectItem
-                            key={id}
-                            id={id}
-                            name={name}
-                            selected={current === id}
-                            disabled={isDisabled(item)}
-                            onClick={this.onClick(item)}
-                        />
-                    );
-                })(items)}
+                {this.renderItems(items, current, pattern)}
             </BaseSelect>
         );
     }
