@@ -19,7 +19,7 @@ export class TabComponent extends React.Component
         this.memoize = memoize.bind(this);
     }
 
-    getTabConfig(index) {
+    getTabConfig(index, child) {
         const { tabConfig } = this.props;
         return isFunction(tabConfig)
             ? tabConfig(index)
@@ -37,7 +37,7 @@ export class TabComponent extends React.Component
         React.Children.forEach(
             children,
             (child, index) => {
-                const { active } = this.getTabConfig(index);
+                const { active } = this.getTabConfig(index, child);
                 if (active) {
                     selectedTab = index;
                 }
@@ -85,7 +85,7 @@ export class TabComponent extends React.Component
                         (child, index) => (
                             <Tab
                                 key={`tab-${index}`}
-                                {...this.getTabConfig(index)}
+                                {...this.getTabConfig(index, child)}
                                 active={index === stateTab}
                                 onSelect={this.switchTab(index)}
                             />
@@ -96,7 +96,6 @@ export class TabComponent extends React.Component
                     {React.Children.map(children, (child, index) => (
                         (mountAll || index == activeTab) ? (
                             <li
-                                key={`child-${index}`}
                                 className={utils.makeStyle({
                                     current: index == activeTab,
                                 })}
