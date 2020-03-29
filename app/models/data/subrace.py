@@ -1,19 +1,12 @@
-from ..base import JsonObject, JsonObjectDataMapper
+from .base import BaseDataObject
+from ..base import JsonObjectDataMapper
 
-class SubRaceObject(JsonObject):
+class SubRaceObject(BaseDataObject):
     _pathPrefix = "subrace"
-    _defaultConfig = {
-        "name": "",
-        "description": "",
-        "type": "config",
-        "config": []
-        }
-    _fieldTypes = {
-        "id": int,
-        }
+
 
 class SubRaceMapper(JsonObjectDataMapper):
     obj = SubRaceObject
     table = "subrace"
-    fields = ["name"]
+    fields = ["name", "race_id"]
     order = ["name"]

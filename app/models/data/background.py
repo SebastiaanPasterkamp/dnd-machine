@@ -1,16 +1,15 @@
-from ..base import JsonObject, JsonObjectDataMapper
+from .base import BaseDataObject
+from ..base import JsonObjectDataMapper
 
-class BackgroundObject(JsonObject):
+class BackgroundObject(BaseDataObject):
     _pathPrefix = "background"
     _defaultConfig = {
         "name": "",
         "description": "",
         "type": "config",
-        "config": []
+        "config": [],
         }
-    _fieldTypes = {
-        "id": int,
-        }
+
 
 class BackgroundMapper(JsonObjectDataMapper):
     obj = BackgroundObject
