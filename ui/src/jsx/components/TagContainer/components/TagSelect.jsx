@@ -10,7 +10,7 @@ import SingleSelect from '../../SingleSelect';
 
 const isDisabled = () => false;
 
-const TagSelect = function({ onSelect, items, current, multiple, objects }) {
+const TagSelect = function({ onSelect, items, current, multiple, ...props }) {
     if (!items.length) return null;
 
     const filtered = multiple
@@ -23,9 +23,9 @@ const TagSelect = function({ onSelect, items, current, multiple, objects }) {
         <SingleSelect
             emptyLabel="Add..."
             items={filtered}
-            objects={objects}
             setState={onSelect}
             isDisabled={isDisabled}
+            {...props}
         />
     );
 };

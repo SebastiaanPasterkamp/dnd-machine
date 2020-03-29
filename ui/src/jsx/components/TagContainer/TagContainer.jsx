@@ -126,6 +126,7 @@ export class TagContainer extends React.Component
             items,
             disabled: propDisabled,
             multiple,
+            filterable,
             objects,
             showSelect,
            className,
@@ -167,6 +168,7 @@ export class TagContainer extends React.Component
                         current={value}
                         objects={objects}
                         multiple={multiple}
+                        filterable={filterable}
                     />
                 ) : null}
 
@@ -213,6 +215,7 @@ TagContainer.propTypes = {
     className: PropTypes.string,
     showSelect: PropTypes.bool,
     multiple: PropTypes.bool,
+    filterable: PropTypes.bool,
     objects: PropTypes.bool,
     disabled: PropTypes.bool,
     items: PropTypes.arrayOf(
@@ -228,6 +231,7 @@ TagContainer.defaultProps = {
     className: null,
     showSelect: true,
     multiple: false,
+    filterable: false,
     objects: false,
     disabled: false,
     items: [],
