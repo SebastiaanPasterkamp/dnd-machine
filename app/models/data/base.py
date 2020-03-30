@@ -10,7 +10,6 @@ class BaseDataObject(JsonObject):
         "description": "",
         "type": "config",
         "config": [],
-        "phases": [],
         }
     _fieldTypes = {
         "id": int,
