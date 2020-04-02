@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     find,
+    isFunction,
     isObject,
     map,
     range,
@@ -31,14 +32,17 @@ export class SelectListComponent extends React.Component
         } = this.props;
         const { id } = option;
         const { initialItem = {} } = option;
+        const item = isFunction(initialItem)
+            ? initialItem()
+            : initialItem;
         const update = [
             ...list,
-            {type: id, ...initialItem},
+            {type: id, ...item},
         ];
         setState(
             update,
             onAdd
-                ? () => onAdd(list.length, item)
+                ? () => onAdd(list.length, update)
                 : null
         );
     }
@@ -189,7 +193,10 @@ SelectListComponent.propTypes = {
                 PropTypes.func,
             ]),
             componentProps: PropTypes.object,
-            initialItem: PropTypes.object,
+            initialItem: PropTypes.oneOfType([
+                PropTypes.func,
+                PropTypes.object,
+            ]),
         })
     ),
     disabled: PropTypes.bool,
