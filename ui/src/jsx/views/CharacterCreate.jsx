@@ -103,7 +103,7 @@ export class CharacterCreate extends React.Component
     render() {
         const {
             config: [ races, classes, backgrounds, statistics, description ],
-            genders, alignments,
+            character, genders, alignments,
         } = this.props;
         const {
             race = 'Race',
@@ -115,7 +115,7 @@ export class CharacterCreate extends React.Component
             name = '',
             gender,
             alignment,
-        } = {};
+        } = character;
 
         if ( !races || !classes || !backgrounds || !statistics || !description ) {
             return null;
@@ -186,8 +186,9 @@ export default ListDataWrapper(
         CharacterEditorWrapper(
             CharacterCreate,
             {
+                character: true,
                 config: true,
-            }
+            },
         ),
         ['races', 'classes', 'backgrounds'],
         'character',
