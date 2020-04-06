@@ -34,10 +34,14 @@ class BaseDataObject(JsonObject):
             ),
         }
 
-    def compileConfig(self, datamapper, char=None):
+    def _getChar(self, char):
         # default = level 1 , no creation history
-        if char is None:
-            char = CharacterObject()
+        if char is not None:
+            return char
+        return CharacterObject()
+
+    def compileConfig(self, datamapper, char=None):
+        char = self._getChar(char)
 
         clone = self.clone()
         for phase in clone.get("phases", []):
@@ -56,6 +60,17 @@ class BaseDataObject(JsonObject):
                 }
 
         config = clone.get("config", [])
+
+        config.insert(0, {
+            "uuid": "pick-%s-%s" % (
+                self._pathPrefix.lower(),
+                self.name.lower(),
+                ),
+            "path": self._pathPrefix,
+            "type": "value",
+            "value": self.name,
+            })
+
         self._inlineIncludes(datamapper, config)
         return {
             "uuid": self.uuid,

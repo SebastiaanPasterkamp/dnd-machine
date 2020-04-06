@@ -1,8 +1,6 @@
 from .base import BaseDataObject
 from ..base import JsonObjectDataMapper
 
-from models.character import CharacterObject
-
 class ClassObject(BaseDataObject):
     _pathPrefix = "class"
     _subtype = "subclass"
@@ -10,6 +8,7 @@ class ClassObject(BaseDataObject):
     _defaultConfig = {
         "name": "",
         "description": "",
+        "subclass_level": 1,
         "type": "config",
         "config": [],
         "features": {},
@@ -17,6 +16,7 @@ class ClassObject(BaseDataObject):
         }
     _fieldTypes = {
         "id": int,
+        "subclass_level": int,
         "features": {
             "proficiency": [ 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6 ],
             "max_cantrips_formula": str,
@@ -35,10 +35,7 @@ class ClassObject(BaseDataObject):
         }
 
     def compileConfig(self, datamapper, char=None):
-        # default = level 1 , no creation history
-        if char is None:
-            char = CharacterObject()
-
+        char = self._getChar(char)
         config = super(ClassObject, self).compileConfig(datamapper, char)
 
         if char.level - 1 < len(self.featuresProficiency or []):
