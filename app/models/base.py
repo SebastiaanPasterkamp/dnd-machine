@@ -388,7 +388,11 @@ class JsonObjectDataMapper(object):
                 or not all(key in dbrow for key in self.keys):
             raise ValueError("Invalid dbrow: %r" % dbrow)
 
-        dbrow['config'] = json.loads(dbrow['config'])
+        try:
+            dbrow['config'] = json.loads(dbrow['config'])
+        except:
+            print(self.table, dbrow['id'])
+            raise
         fields = self.fields + self.keys
         for field in fields:
             dbrow['config'][field] = dbrow[field]
