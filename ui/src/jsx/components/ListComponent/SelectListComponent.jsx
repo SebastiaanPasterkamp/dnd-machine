@@ -154,10 +154,14 @@ export class SelectListComponent extends React.Component
                             componentProps = {},
                         } = option;
 
+                        const props = isFunction(componentProps)
+                            ? componentProps()
+                            : componentProps;
+
                         return (
                             <li key={index}>
                                 <Component
-                                    {...componentProps}
+                                    {...props}
                                     {...item}
                                     onChange={this.onChange(index)}
                                     setState={this.onSetState(index)}
@@ -192,7 +196,10 @@ SelectListComponent.propTypes = {
                 PropTypes.element,
                 PropTypes.func,
             ]),
-            componentProps: PropTypes.object,
+            componentProps: PropTypes.oneOfType([
+                PropTypes.func,
+                PropTypes.object,
+            ]),
             initialItem: PropTypes.oneOfType([
                 PropTypes.func,
                 PropTypes.object,
