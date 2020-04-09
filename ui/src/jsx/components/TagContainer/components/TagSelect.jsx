@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     filter,
+    find,
     includes,
     map,
 } from 'lodash/fp';
@@ -10,12 +11,14 @@ import SingleSelect from '../../SingleSelect';
 
 const isDisabled = () => false;
 
-const TagSelect = function({ onSelect, items, current, multiple, ...props }) {
+const TagSelect = function({ onSelect, items, current, objects, multiple, ...props }) {
     if (!items.length) return null;
 
-    const filtered = multiple
-        ? items
-        : filter(item => !includes(item.id, current))(items);
+    const filtered = multiple ? items : (
+        objects
+            ? filter(item => !find({id: item.id}, current))(items)
+            : filter(item => !includes(item.id, current))(items)
+        );
 
     if (!filtered.length) return null;
 
@@ -25,6 +28,7 @@ const TagSelect = function({ onSelect, items, current, multiple, ...props }) {
             items={filtered}
             setState={onSelect}
             isDisabled={isDisabled}
+            objects={objects}
             {...props}
         />
     );
