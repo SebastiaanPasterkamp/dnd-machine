@@ -22,5 +22,10 @@
         &:active {
             background-position: 0 -92px;
         }
+
+        @media (prefers-color-scheme: dark) {
+            background-image: url('../img/btn_google_signin_sprite_web-dark.png');
+            filter: invert(100%);
+        }
     }
 }
