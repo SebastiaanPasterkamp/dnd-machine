@@ -4,7 +4,6 @@ const path = require('path');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HotModuleReplacementPlugin = require('webpack-hot-middleware');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -38,7 +37,7 @@ const config = {
         inline: true,
         proxy: {
             '/': {
-                target: 'http://nginx:8080',
+                target: 'http://nginx:80',
                 secure: false,
             }
         }
@@ -59,7 +58,7 @@ const config = {
         rules : [
             {
                 test: /\.jsx?$/,
-                include: SOURCE_PATH_JSX,
+                exclude: /node_modules/,
                 loader: 'babel-loader',
             },
             {
@@ -104,7 +103,6 @@ const config = {
             filename: `${OUTPUT_PATH_SASS}/[name].css`,
             chunkFilename: `${OUTPUT_PATH_SASS}/[name].css`,
         }),
-        new ProgressBarPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new BundleAnalyzerPlugin({
             analyzerMode: 'static',

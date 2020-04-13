@@ -1,8 +1,16 @@
 {
-  "presets" : ["env", "react"],
   "plugins": [
-    "transform-object-rest-spread",
-    "transform-class-properties",
-    "syntax-dynamic-import"
+    "@babel/plugin-transform-runtime"
+  ],
+  "presets": [
+    "@babel/preset-react",
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "14.3"
+        }
+      }
+    ]
   ]
 }
