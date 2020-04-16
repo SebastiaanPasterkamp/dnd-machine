@@ -3,7 +3,7 @@
 exports[`UsersTable render should work with all props 1`] = `
 <div>
   <h2
-    className="icon fa-user"
+    className="icon fa-address-book-o"
   >
     Users
   </h2>
