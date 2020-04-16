@@ -21,6 +21,12 @@ class CharacterBlueprint(BaseApiBlueprint):
             '/api/<int:obj_id>', 'api_post',
             self.api_post, methods=['POST'])
         self.add_url_rule(
+            '/statistics/api', 'get_statistics',
+            self.get_statistics, methods=['GET'])
+        self.add_url_rule(
+            '/base/api', 'get_base',
+            self.get_base, methods=['GET'])
+        self.add_url_rule(
             '/races/api', 'get_races',
             self.get_races, methods=['GET'])
         self.add_url_rule(
@@ -93,26 +99,105 @@ class CharacterBlueprint(BaseApiBlueprint):
             if not obj or key not in immutable
             )
 
-    def get_character_data(self, field):
+    def get_statistics(self):
+        return jsonify({
+            "type": 'statistics',
+            "uuid": "e62a2c52-7350-4c9c-9af9-9025bba1e218",
+            "editBase": True,
+            "budget": 27,
+            "minBare": 8,
+            "maxBare": 15,
+            })
+
+    def get_base(self):
+        return jsonify({
+            "type": "config",
+            "uuid": "60722722-b678-49b6-ba32-1b9ae2ec454d",
+            "config": [
+                {
+                    "type": "manual",
+                    "uuid": "1c5448ed-7240-408b-b1bc-3ad1559a8521",
+                    "path": "name",
+                    "label": "Name",
+                    "placeholder": "Name..."
+                },
+                {
+                    "type": "select",
+                    "uuid": "6f557232-b4db-472f-b9d2-ab3cf7d01c3c",
+                    "path": "alignment",
+                    "label": "Alignment",
+                    "list": ["alignments"],
+                },
+                {
+                    "type": "select",
+                    "uuid": "49db5884-6198-4689-b214-15925f2a087f",
+                    "path": "gender",
+                    "label": "Gender",
+                    "list": ["genders"],
+                },
+                {
+                    "type": "manual",
+                    "uuid": "72b412fe-61a4-47b5-a84d-d526809bef36",
+                    "path": "personality.traits",
+                    "label": "Traits",
+                    "placeholder": "Traits...",
+                    "markup": True,
+                },
+                {
+                    "type": "manual",
+                    "uuid": "15465b20-db2a-4e3e-ac99-cd5405770d75",
+                    "path": "personality.ideals",
+                    "label": "Ideals",
+                    "placeholder": "Ideals...",
+                    "markup": True,
+                },
+                {
+                    "type": "manual",
+                    "uuid": "cc206f59-e874-43c0-bc56-a8a798e4a373",
+                    "path": "personality.bonds",
+                    "label": "Bonds",
+                    "placeholder": "Bonds...",
+                    "markup": True,
+                },
+                {
+                    "type": "manual",
+                    "uuid": "cd088592-3004-43ee-86a3-d7ad5e5cd25c",
+                    "path": "personality.flaws",
+                    "label": "Flaws",
+                    "placeholder": "Flaws...",
+                    "markup": True,
+                },
+                {
+                    "type": "manual",
+                    "uuid": "df0943dd-cf57-4cd2-a02f-5e320e4b0fc6",
+                    "path": "backstory",
+                    "label": "Backstory",
+                    "placeholder": "Backstory...",
+                    "markup": True,
+                }
+            ],
+        })
+
+    def get_character_data(self, field, uuid):
         items = []
         for obj in self.basemapper[field].getMultiple():
             item = obj.compileConfig(self.basemapper)
             items.append(item)
 
         return jsonify({
-            'uuid': field,
+            'uuid': uuid,
             'type': 'choice',
             'options': items,
             })
 
     def get_races(self):
-        return self.get_character_data('race')
+        return self.get_character_data('race', "ccea31d9-1a0a-424d-8b0a-0c597bf58016")
 
     def get_classes(self):
-        return self.get_character_data('class')
+        return self.get_character_data('class', "5d9df8c2-b1f0-4a50-8772-3a9b838d0005")
 
     def get_backgrounds(self):
-        return self.get_character_data('background')
+        return self.get_character_data('background', "00bb6113-e274-42f5-88b4-df9632ed4347")
 
     @BaseApiCallback('new')
     @BaseApiCallback('edit')
