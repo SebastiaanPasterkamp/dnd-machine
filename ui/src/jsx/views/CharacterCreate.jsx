@@ -25,13 +25,11 @@ import SingleSelect from '../components/SingleSelect';
 import TabComponent from '../components/TabComponent';
 
 import CharacterConfig, {
-    baseConfig,
     CharacterEditorWrapper,
     ChoiceSelect,
     ComputeConfig,
     StatisticsSelect,
 } from '../components/CharacterConfig';
-import store from '../components/CharacterConfig/stores/CharacterEditorStore';
 
 export class CharacterCreate extends React.Component
 {
@@ -69,40 +67,9 @@ export class CharacterCreate extends React.Component
         onSave((id) => history.push(`/character/show/${ id }`));
     }
 
-    componentWillReceiveProps(props) {
-        const { races, classes, backgrounds } = props;
-        const { races: oldR, classes: oldC, backgrounds: oldB } = this.props;
-
-        if (
-            !races.options
-            || !classes.options
-            || !backgrounds.options
-        ) {
-            return null;
-        }
-
-        if (
-            races === oldR
-            && classes === oldC
-            && backgrounds === oldB
-        ) {
-            return null;
-        }
-
-        store.setState({
-            config: [
-                { type: 'choice', uuid: "base-race", ...races },
-                { type: 'choice', uuid: "base-class", ...classes },
-                { type: 'choice', uuid: "base-background", ...backgrounds },
-                { type: 'statistics', uuid: "bare-statistics", editBase: true, budget: 27, minBare: 8, maxBare: 15 },
-                { type: 'config', uuid: 'base-description', config: [ ...baseConfig.description, ...baseConfig.personality ]},
-            ],
-        });
-    }
-
     render() {
         const {
-            config: [ races, classes, backgrounds, statistics, description ],
+            races, classes, backgrounds, statistics, base,
             character, genders, alignments,
         } = this.props;
         const {
@@ -117,7 +84,13 @@ export class CharacterCreate extends React.Component
             alignment,
         } = character;
 
-        if ( !races || !classes || !backgrounds || !statistics || !description ) {
+        if (
+            !races.uuid
+            || !classes.uuid
+            || !backgrounds.uuid
+            || !statistics.uuid
+            || !base.uuid
+        ) {
             return null;
         }
 
@@ -130,7 +103,7 @@ export class CharacterCreate extends React.Component
                 <ChoiceSelect {...classes} />
                 <ChoiceSelect {...backgrounds} />
                 <StatisticsSelect {...statistics} />
-                <CharacterConfig {...description} />
+                <CharacterConfig {...base} />
                 <Panel
                     header="Result"
                 >
@@ -173,25 +146,26 @@ export class CharacterCreate extends React.Component
 }
 
 CharacterCreate.defaultProps = {
-    config: {},
     races: {},
     classes: {},
     backgrounds: {},
+    statistics: {},
+    base: {},
     genders: [],
     alignments: [],
 };
 
 export default ListDataWrapper(
-    ListDataWrapper(
-        CharacterEditorWrapper(
-            CharacterCreate,
-            {
-                character: true,
-                config: true,
-            },
-        ),
-        ['races', 'classes', 'backgrounds'],
-        'character',
+    CharacterEditorWrapper(
+        CharacterCreate,
+        {
+            character: true,
+            races: 'fetch',
+            classes: 'fetch',
+            backgrounds: 'fetch',
+            statistics: 'fetch',
+            base: 'fetch',
+        },
     ),
     [
         'genders',
