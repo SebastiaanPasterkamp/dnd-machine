@@ -10,9 +10,23 @@ import {
     reduce,
     replace,
 } from 'lodash/fp';
+
 import core from 'mathjs/core';
 const math = core.create();
 math.import(require('mathjs/lib/expression/function/eval'));
+math.import(require('mathjs/lib/type/matrix/function/matrix'));
+math.import(require('mathjs/lib/type/matrix/Matrix'));
+math.import(require('mathjs/lib/type/matrix/DenseMatrix'));
+
+const evalLite = math.eval;
+
+var allFromMath = {};
+Object.getOwnPropertyNames(Math).forEach(function (name) {
+    if (!Object.prototype.hasOwnProperty(name)) {
+        allFromMath[name] = Math[name];
+    }
+});
+math.import(allFromMath);
 
 // create simple functions for all operators
 math.import({
@@ -52,15 +66,18 @@ math.import({
     'true': true,
     'false': false,
     'null': null,
-});
 
-var allFromMath = {};
-Object.getOwnPropertyNames(Math).forEach(function (name) {
-    if (!Object.prototype.hasOwnProperty(name)) {
-        allFromMath[name] = Math[name];
-    }
+    // safety overrides
+    import: function () { throw new Error('Function import is disabled') },
+    createUnit: function () { throw new Error('Function createUnit is disabled') },
+    eval: function () { throw new Error('Function eval is disabled') },
+    evaluate: function () { throw new Error('Function evaluate is disabled') },
+    parse: function () { throw new Error('Function parse is disabled') },
+    simplify: function () { throw new Error('Function simplify is disabled') },
+    derivative: function () { throw new Error('Function derivative is disabled') }
+}, {
+  override: true
 });
-math.import(allFromMath);
 
 const styleCache = {
     '': null,
@@ -123,13 +140,14 @@ const utils = {
             }
         })(formula.match(re));
 
+        let code = `${formula}`;
         flow(entries, forEach(([match, value]) => {
-            formula = replace(match, value, formula);
+            code = replace(match, value, code);
         }))(replacings);
 
         try {
-            const result = math.eval(formula);
-            if (result.toArray !== undefined) {
+            const result = evalLite(code);
+            if (result !== undefined && result.toArray !== undefined) {
                 return result.toArray();
             }
             return result;
