@@ -164,6 +164,7 @@ exports[`UserEdit should render with full props as admin 1`] = `
       <TagContainer
         className={null}
         disabled={false}
+        filterable={false}
         items={
           Array [
             Object {

@@ -2439,7 +2439,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                     >
                       <li
                         className="current"
-                        key="child-0/.$2"
+                        key=".$2"
                       >
                         <ListDataRoutedObjectMonsterView
                           _languages={
@@ -4159,6 +4159,7 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                               <TagContainer
                                                 className={null}
                                                 disabled={true}
+                                                filterable={false}
                                                 items={
                                                   Array [
                                                     Object {
@@ -7880,7 +7881,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                     >
                       <li
                         className="current"
-                        key="child-0/.$2"
+                        key=".$2"
                       >
                         <ListDataRoutedObjectMonsterView
                           _languages={
@@ -9600,6 +9601,7 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                               <TagContainer
                                                 className={null}
                                                 disabled={true}
+                                                filterable={false}
                                                 items={
                                                   Array [
                                                     Object {
@@ -13363,7 +13365,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                     >
                       <li
                         className="current"
-                        key="child-0/.$2"
+                        key=".$2"
                       >
                         <ListDataRoutedObjectMonsterView
                           _languages={
@@ -15083,6 +15085,7 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                               <TagContainer
                                                 className={null}
                                                 disabled={true}
+                                                filterable={false}
                                                 items={
                                                   Array [
                                                     Object {
