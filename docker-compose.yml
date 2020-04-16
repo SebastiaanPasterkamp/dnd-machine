@@ -27,6 +27,7 @@ services:
             dnd-network:
                 aliases:
                     - api
+        user: "${UID}:${GID}"
         volumes:
             - .:/dnd-machine
 
@@ -39,6 +40,7 @@ services:
             dnd-network:
                 aliases:
                     - ui
+        user: "${UID}:${GID}"
         volumes:
             - .:/dnd-machine
 

@@ -1,5 +1,6 @@
 *~
 *pyc
+__pycache__
 app/coverage
 ui/node_modules
 ui/coverage
