@@ -10,6 +10,8 @@ RUN apk \
         build-base \
         python
 
+USER 1000
+
 COPY app/static /dnd-machine/app/static
 COPY ui /dnd-machine/ui
 
