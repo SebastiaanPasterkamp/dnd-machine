@@ -39,7 +39,7 @@ RUN apk add \
     && apk del \
         .build-deps \
     && mkdir /data \
-    && chown -R $UID:$GID /data /dnd-machine
+    && chown -R $UID:$GID /data /dnd-machine /data
 
 USER $UID
 
