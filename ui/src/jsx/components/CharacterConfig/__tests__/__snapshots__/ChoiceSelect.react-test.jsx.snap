@@ -110,14 +110,14 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
       >
         <li
           className="current"
-          key="child-1/.$mocked-uuid-3"
+          key=".$mocked-uuid-3"
         >
           <CharacterConfig
             config={
               Array [
                 Object {
                   "description": "Some *text* here",
-                  "name": "Choice B",
+                  "name": null,
                   "path": "some.path",
                   "type": "value",
                   "uuid": "mocked-uuid-3",
@@ -131,14 +131,12 @@ exports[`Component: ChoiceSelect should render with all props 1`] = `
           >
             <FormGroup
               key="mocked-uuid-3"
-              label="Choice B"
+              label={null}
             >
               <div
                 className="nice-form-group"
               >
-                <label>
-                  Choice B
-                </label>
+                <label />
                 <MDReactComponent
                   text="Some *text* here"
                 >
