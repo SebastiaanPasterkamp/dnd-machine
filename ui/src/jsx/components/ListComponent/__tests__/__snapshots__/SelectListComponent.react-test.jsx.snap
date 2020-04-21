@@ -50,6 +50,17 @@ exports[`Component: SelectListComponent show an item 1`] = `
         className="dropdown-menu"
         onClick={[Function]}
       >
+        <input
+          className="nice-form-control"
+          data-name="filter"
+          disabled={undefined}
+          onChange={[Function]}
+          onClick={[Function]}
+          onKeyPress={null}
+          placeholder="Filter..."
+          type="text"
+          value=""
+        />
         <li
           className="info"
           data-value={null}
@@ -109,6 +120,17 @@ exports[`Component: SelectListComponent show some options 1`] = `
         className="dropdown-menu"
         onClick={[Function]}
       >
+        <input
+          className="nice-form-control"
+          data-name="filter"
+          disabled={undefined}
+          onChange={[Function]}
+          onClick={[Function]}
+          onKeyPress={null}
+          placeholder="Filter..."
+          type="text"
+          value=""
+        />
         <li
           className="info"
           data-value={null}
