@@ -96,7 +96,7 @@ exports[`Component: TabComponent should render with all props 1`] = `
     >
       <li
         className="current"
-        key="child-0/.0"
+        key=".0"
       >
         <span>
           Foo
@@ -104,7 +104,7 @@ exports[`Component: TabComponent should render with all props 1`] = `
       </li>
       <li
         className={null}
-        key="child-1/.1"
+        key=".1"
       >
         <span>
           Bar
@@ -112,7 +112,7 @@ exports[`Component: TabComponent should render with all props 1`] = `
       </li>
       <li
         className={null}
-        key="child-2/.2"
+        key=".2"
       >
         <span>
           Ruh
@@ -216,7 +216,7 @@ exports[`Component: TabComponent should render with minimum props 1`] = `
     >
       <li
         className="current"
-        key="child-1/.1"
+        key=".1"
       >
         <span>
           Bar
