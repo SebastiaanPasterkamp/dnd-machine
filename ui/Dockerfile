@@ -2,17 +2,25 @@ FROM node:8.16-alpine
 
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
+RUN echo "export PATH=/dnd-machine/ui/node_modules/.bin:$PATH" > /etc/environment
+
 WORKDIR /dnd-machine/ui
 
 RUN apk \
     --no-cache \
     add \
         build-base \
-        python
+        python \
+    && chown -R 1000:1000 /dnd-machine
 
 USER 1000
 
-COPY app/static /dnd-machine/app/static
-COPY ui /dnd-machine/ui
+COPY package.json \
+    package-lock.json \
+    ./
+
+RUN npm install
+
+COPY . .
 
 CMD [ "/bin/sh", "docker/run.sh" ]

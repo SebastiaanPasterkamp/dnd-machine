@@ -33,8 +33,8 @@ services:
 
     node:
         build:
-            context: .
-            dockerfile: ui/Dockerfile
+            context: ui
+            dockerfile: Dockerfile
         container_name: dnd-node
         networks:
             dnd-network:
@@ -42,7 +42,13 @@ services:
                     - ui
         user: "${UID}:${GID}"
         volumes:
-            - .:/dnd-machine
+            - ./ui/docker:/dnd-machine/ui/docker
+            - ./ui/package.json:/dnd-machine/ui/package.json
+            - ./ui/package-lock.json:/dnd-machine/ui/package-lock.json
+            - ./ui/src:/dnd-machine/ui/src
+            - ./ui/tests:/dnd-machine/ui/tests
+            - ./ui/coverage:/dnd-machine/ui/coverage
+            - ./ui/webpack.config.js:/dnd-machine/ui/webpack.config.js
 
 networks:
     dnd-network:

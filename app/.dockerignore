@@ -1,0 +1,5 @@
+*~
+*.bak
+*pyc
+__pycache__
+coverage
