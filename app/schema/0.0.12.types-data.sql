@@ -145,17 +145,17 @@ INSERT INTO `types` (id, type, name, config)
      VALUES ('undercommon', 'languages', 'Undercommon', '{"group": "exotic", "speakers": "Underdark traders", "script": "Elvish"}');
 
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('strength', 'statistics', 'Strength', '{"short": "Str", "description": "Strength is being able to crush a tomato." }');
+     VALUES ('strength', 'statistics', 'Strength', '{"short": "Str", "prio": 1, "description": "Strength is being able to crush a tomato." }');
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('dexterity', 'statistics', 'Dexterity', '{"short": "Dex", "description": "Dexterity is being able to dodge a tomato." }');
+     VALUES ('dexterity', 'statistics', 'Dexterity', '{"short": "Dex", "prio": 2, "description": "Dexterity is being able to dodge a tomato." }');
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('constitution', 'statistics', 'Constitution', '{"short": "Con", "description": "Constitution is being able to eat a bad tomato." }');
+     VALUES ('constitution', 'statistics', 'Constitution', '{"short": "Con", "prio": 3, "description": "Constitution is being able to eat a bad tomato." }');
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('intelligence', 'statistics', 'Intelligence', '{"short": "Int", "description": "Intelligence is knowing a tomato is a fruit." }');
+     VALUES ('intelligence', 'statistics', 'Intelligence', '{"short": "Int", "prio": 4, "description": "Intelligence is knowing a tomato is a fruit." }');
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('wisdom', 'statistics', 'Wisdom', '{"short": "Wis", "description": "Wisdom is knowing not to put a tomato in a fruit salad." }');
+     VALUES ('wisdom', 'statistics', 'Wisdom', '{"short": "Wis", "prio": 5, "description": "Wisdom is knowing not to put a tomato in a fruit salad." }');
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('charisma', 'statistics', 'Charisma', '{"short": "Cha", "description": "Charisma is being able to sell a tomato based fruit salad." }');
+     VALUES ('charisma', 'statistics', 'Charisma', '{"short": "Cha", "prio": 6, "description": "Charisma is being able to sell a tomato based fruit salad." }');
 
 INSERT INTO `types` (id, type, name, config)
      VALUES ('single', 'target_methods', 'Single target', '{"short": "ST", "description": "One target is affected."}');
@@ -213,21 +213,21 @@ INSERT INTO `types` (id, type, name, config)
      VALUES ('material', 'magic_components', 'Material', '{"short": "M", "description": "Casting some spells requires particular objects, specified in the component entry. A character can use a *Component pouch *or a *Spellcasting focus* in place of the components specified for a spell. But if a cost is indicated for a component, a character must have that specific component before he or she can cast the spell.\n\nIf a spell states that a material component is consumed by the spell, the caster must provide this component for each casting of the spell.\nA spellcaster must have a hand free to access a spell''s material components - or to hold a spellcasting focus - but it can be the same hand that he or she uses to perform somatic components." }');
 
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('abjuration', 'magic_schools', 'Abjuration', '{"description": "Magic that blocks, banishes, or protects. Detractors of this school say that its tradition is about denial, negation rather than positive assertion. Others say that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void."}');
+     VALUES ('abjuration', 'magic_schools', 'Abjuration', '{"description": "You protect the frog."}');
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('conjuration', 'magic_schools', 'Conjuration', '{"description": "Spells that produce objects and creatures out of thin air. Ranging from billowing clouds of killing fog or summon creatures from elsewhere to fight on your behalf."}');
+     VALUES ('conjuration', 'magic_schools', 'Conjuration', '{"description": "You make a frog appear."}');
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('divination', 'magic_schools', 'Divination', '{"description": "Spells of discernment, remote viewing, supernatural knowledge, and foresight."}');
+     VALUES ('divination', 'magic_schools', 'Divination', '{"description": "You know that it was actually a toad and not a frog the whole time."}');
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('enchantment', 'magic_schools', 'Enchantment', '{"description": "Abilities to magically entrance and beguile people and monsters."}');
+     VALUES ('enchantment', 'magic_schools', 'Enchantment', '{"description": "You make someone think they''re a frog."}');
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('evocation', 'magic_schools', 'Evocation', '{"description": "Magic that creates powerful elemental effects such as bitter cold, searing flame, rolling thunder, crackling lightning, and burning acid."}');
+     VALUES ('evocation', 'magic_schools', 'Evocation', '{"description": "You kill the frog."}');
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('illusion', 'magic_schools', 'Illusion', '{"description": "Magic that dazzles the senses, befuddles the mind, and tricks even the wisest folk."}');
+     VALUES ('illusion', 'magic_schools', 'Illusion', '{"description": "You make someone look like a frog."}');
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('necromancy', 'magic_schools', 'Necromancy', '{"description": "Concerns the cosmic forces of life, death, and undeath. Manipulates the energy that animates all living things."}');
+     VALUES ('necromancy', 'magic_schools', 'Necromancy', '{"description": "You revive the dead frog."}');
 INSERT INTO `types` (id, type, name, config)
-     VALUES ('transmutation', 'magic_schools', 'Transmutation', '{"description": "Spells that modify energy and matter."}');
+     VALUES ('transmutation', 'magic_schools', 'Transmutation', '{"description": "You turn someone into a frog."}');
 
 INSERT INTO `types` (id, type, name, config)
      VALUES ('Aasimar', 'humanoid_types', 'Aasimar', '{}');
