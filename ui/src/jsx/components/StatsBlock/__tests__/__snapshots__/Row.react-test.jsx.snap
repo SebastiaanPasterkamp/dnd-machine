@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Row should render with full props 1`] = `
+<tr
+  className="text-align-center"
+>
+  <th>
+    <div
+      className="tool-tip inline"
+    >
+      Wisdom
+      <span
+        className="tool-tip--content"
+      >
+        <p>
+          Something
+        </p>
+      </span>
+    </div>
+  </th>
+  <td>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      max={15}
+      min={8}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder={undefined}
+      selected={10}
+      type="number"
+      value={10}
+    />
+  </td>
+  <td>
+    <input
+      checked={true}
+      disabled={false}
+      name="stats-increase-0"
+      onChange={[Function]}
+      type="radio"
+    />
+  </td>
+  <td>
+    <input
+      checked={false}
+      disabled={false}
+      name="stats-increase-1"
+      onChange={[Function]}
+      type="radio"
+    />
+  </td>
+  <td>
+    <div
+      className="bonus inline"
+    >
+      +
+      3
+    </div>
+  </td>
+  <td>
+    13
+  </td>
+  <td>
+    <div
+      className="bonus inline"
+    >
+      +
+      1
+    </div>
+  </td>
+</tr>
+`;
+
+exports[`Component: Row should render with minimum props 1`] = `
+<tr
+  className="text-align-center"
+>
+  <th>
+    Wisdom
+  </th>
+  <td>
+    8
+  </td>
+  <td>
+    <div
+      className="bonus inline"
+    >
+      -1
+    </div>
+  </td>
+</tr>
+`;

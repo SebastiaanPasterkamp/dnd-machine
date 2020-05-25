@@ -1,0 +1,948 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: StatsBlock should render with minimum props 1`] = `
+<table
+  className="nice-table stats-block condensed bordered"
+>
+  <thead>
+    <tr>
+      <th>
+        Statistic
+      </th>
+      <th
+        className="text-align-center"
+      >
+        Base
+      </th>
+      <th
+        className="text-align-center"
+      >
+        Bonus
+      </th>
+      <th
+        className="text-align-center"
+      >
+        Final
+      </th>
+      <th
+        className="text-align-center"
+      >
+        Modifier
+      </th>
+    </tr>
+  </thead>
+  <tbody />
+</table>
+`;
+
+exports[`Component: StatsBlock should show increase options 1`] = `
+<table
+  className="nice-table stats-block condensed bordered"
+>
+  <thead>
+    <tr>
+      <th>
+        Statistic
+      </th>
+      <th
+        className="text-align-center"
+      >
+        Base
+      </th>
+      <th
+        className="text-align-center"
+        colSpan={2}
+      >
+        Increase
+      </th>
+      <th
+        className="text-align-center"
+      >
+        Bonus
+      </th>
+      <th
+        className="text-align-center"
+      >
+        Final
+      </th>
+      <th
+        className="text-align-center"
+      >
+        Modifier
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      className="text-align-center"
+    >
+      <th>
+        <div
+          className="tool-tip inline"
+        >
+          strength
+          <span
+            className="tool-tip--content"
+          >
+            <p>
+              strength
+            </p>
+          </span>
+        </div>
+      </th>
+      <td>
+        12
+      </td>
+      <td>
+        <input
+          checked={false}
+          disabled={false}
+          name="stats-increase-0"
+          onChange={[Function]}
+          type="radio"
+        />
+      </td>
+      <td>
+        <input
+          checked={false}
+          disabled={false}
+          name="stats-increase-1"
+          onChange={[Function]}
+          type="radio"
+        />
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          +
+          3
+        </div>
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          -1
+        </div>
+      </td>
+    </tr>
+    <tr
+      className="text-align-center"
+    >
+      <th>
+        <div
+          className="tool-tip inline"
+        >
+          dexterity
+          <span
+            className="tool-tip--content"
+          >
+            <p>
+              dexterity
+            </p>
+          </span>
+        </div>
+      </th>
+      <td>
+        12
+      </td>
+      <td>
+        <input
+          checked={false}
+          disabled={false}
+          name="stats-increase-0"
+          onChange={[Function]}
+          type="radio"
+        />
+      </td>
+      <td>
+        <input
+          checked={false}
+          disabled={false}
+          name="stats-increase-1"
+          onChange={[Function]}
+          type="radio"
+        />
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          +
+          3
+        </div>
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          -1
+        </div>
+      </td>
+    </tr>
+    <tr
+      className="text-align-center"
+    >
+      <th>
+        <div
+          className="tool-tip inline"
+        >
+          constitution
+          <span
+            className="tool-tip--content"
+          >
+            <p>
+              constitution
+            </p>
+          </span>
+        </div>
+      </th>
+      <td>
+        12
+      </td>
+      <td>
+        <input
+          checked={false}
+          disabled={false}
+          name="stats-increase-0"
+          onChange={[Function]}
+          type="radio"
+        />
+      </td>
+      <td>
+        <input
+          checked={false}
+          disabled={false}
+          name="stats-increase-1"
+          onChange={[Function]}
+          type="radio"
+        />
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          +
+          3
+        </div>
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          -1
+        </div>
+      </td>
+    </tr>
+    <tr
+      className="text-align-center"
+    >
+      <th>
+        <div
+          className="tool-tip inline"
+        >
+          intelligence
+          <span
+            className="tool-tip--content"
+          >
+            <p>
+              intelligence
+            </p>
+          </span>
+        </div>
+      </th>
+      <td>
+        12
+      </td>
+      <td>
+        <input
+          checked={false}
+          disabled={false}
+          name="stats-increase-0"
+          onChange={[Function]}
+          type="radio"
+        />
+      </td>
+      <td>
+        <input
+          checked={false}
+          disabled={false}
+          name="stats-increase-1"
+          onChange={[Function]}
+          type="radio"
+        />
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          +
+          3
+        </div>
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          -1
+        </div>
+      </td>
+    </tr>
+    <tr
+      className="text-align-center"
+    >
+      <th>
+        <div
+          className="tool-tip inline"
+        >
+          wisdom
+          <span
+            className="tool-tip--content"
+          >
+            <p>
+              wisdom
+            </p>
+          </span>
+        </div>
+      </th>
+      <td>
+        12
+      </td>
+      <td>
+        <input
+          checked={false}
+          disabled={false}
+          name="stats-increase-0"
+          onChange={[Function]}
+          type="radio"
+        />
+      </td>
+      <td>
+        <input
+          checked={false}
+          disabled={false}
+          name="stats-increase-1"
+          onChange={[Function]}
+          type="radio"
+        />
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          +
+          3
+        </div>
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          -1
+        </div>
+      </td>
+    </tr>
+    <tr
+      className="text-align-center"
+    >
+      <th>
+        <div
+          className="tool-tip inline"
+        >
+          charisma
+          <span
+            className="tool-tip--content"
+          >
+            <p>
+              charisma
+            </p>
+          </span>
+        </div>
+      </th>
+      <td>
+        12
+      </td>
+      <td>
+        <input
+          checked={false}
+          disabled={false}
+          name="stats-increase-0"
+          onChange={[Function]}
+          type="radio"
+        />
+      </td>
+      <td>
+        <input
+          checked={false}
+          disabled={false}
+          name="stats-increase-1"
+          onChange={[Function]}
+          type="radio"
+        />
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          +
+          3
+        </div>
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          -1
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Component: StatsBlock should show stat block editor 1`] = `
+<table
+  className="nice-table stats-block condensed bordered"
+>
+  <thead>
+    <tr>
+      <th>
+        Statistic
+      </th>
+      <th
+        className="text-align-center"
+      >
+        Base
+      </th>
+      <th
+        className="text-align-center"
+      >
+        Bonus
+      </th>
+      <th
+        className="text-align-center"
+      >
+        Final
+      </th>
+      <th
+        className="text-align-center"
+      >
+        Modifier
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      className="text-align-center"
+    >
+      <th>
+        <div
+          className="tool-tip inline"
+        >
+          strength
+          <span
+            className="tool-tip--content"
+          >
+            <p>
+              strength
+            </p>
+          </span>
+        </div>
+      </th>
+      <td>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          max={30}
+          min={8}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          selected={12}
+          type="number"
+          value={12}
+        />
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          +
+          3
+        </div>
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          -1
+        </div>
+      </td>
+    </tr>
+    <tr
+      className="text-align-center"
+    >
+      <th>
+        <div
+          className="tool-tip inline"
+        >
+          dexterity
+          <span
+            className="tool-tip--content"
+          >
+            <p>
+              dexterity
+            </p>
+          </span>
+        </div>
+      </th>
+      <td>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          max={30}
+          min={8}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          selected={12}
+          type="number"
+          value={12}
+        />
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          +
+          3
+        </div>
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          -1
+        </div>
+      </td>
+    </tr>
+    <tr
+      className="text-align-center"
+    >
+      <th>
+        <div
+          className="tool-tip inline"
+        >
+          constitution
+          <span
+            className="tool-tip--content"
+          >
+            <p>
+              constitution
+            </p>
+          </span>
+        </div>
+      </th>
+      <td>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          max={30}
+          min={8}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          selected={12}
+          type="number"
+          value={12}
+        />
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          +
+          3
+        </div>
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          -1
+        </div>
+      </td>
+    </tr>
+    <tr
+      className="text-align-center"
+    >
+      <th>
+        <div
+          className="tool-tip inline"
+        >
+          intelligence
+          <span
+            className="tool-tip--content"
+          >
+            <p>
+              intelligence
+            </p>
+          </span>
+        </div>
+      </th>
+      <td>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          max={30}
+          min={8}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          selected={12}
+          type="number"
+          value={12}
+        />
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          +
+          3
+        </div>
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          -1
+        </div>
+      </td>
+    </tr>
+    <tr
+      className="text-align-center"
+    >
+      <th>
+        <div
+          className="tool-tip inline"
+        >
+          wisdom
+          <span
+            className="tool-tip--content"
+          >
+            <p>
+              wisdom
+            </p>
+          </span>
+        </div>
+      </th>
+      <td>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          max={30}
+          min={8}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          selected={12}
+          type="number"
+          value={12}
+        />
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          +
+          3
+        </div>
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          -1
+        </div>
+      </td>
+    </tr>
+    <tr
+      className="text-align-center"
+    >
+      <th>
+        <div
+          className="tool-tip inline"
+        >
+          charisma
+          <span
+            className="tool-tip--content"
+          >
+            <p>
+              charisma
+            </p>
+          </span>
+        </div>
+      </th>
+      <td>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          max={30}
+          min={8}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          selected={12}
+          type="number"
+          value={12}
+        />
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          +
+          3
+        </div>
+      </td>
+      <td>
+        12
+      </td>
+      <td>
+        <div
+          className="bonus inline"
+        >
+          -1
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Component: StatsBlock when editing should recompute after base edits 1`] = `
+Array [
+  Array [
+    Object {
+      "bare": Object {
+        "charisma": 12,
+        "constitution": 12,
+        "dexterity": 15,
+        "intelligence": 12,
+        "strength": 12,
+        "wisdom": 12,
+      },
+      "base": Object {
+        "charisma": 15,
+        "constitution": 15,
+        "dexterity": 18,
+        "intelligence": 15,
+        "strength": 15,
+        "wisdom": 15,
+      },
+      "bonus": Object {
+        "charisma": Array [
+          1,
+          2,
+        ],
+        "constitution": Array [
+          1,
+          2,
+        ],
+        "dexterity": Array [
+          1,
+          2,
+        ],
+        "intelligence": Array [
+          1,
+          2,
+        ],
+        "strength": Array [
+          1,
+          2,
+        ],
+        "wisdom": Array [
+          1,
+          2,
+        ],
+      },
+      "modifiers": Object {
+        "charisma": 2,
+        "constitution": 2,
+        "dexterity": 4,
+        "intelligence": 2,
+        "strength": 2,
+        "wisdom": 2,
+      },
+    },
+  ],
+]
+`;
+
+exports[`Component: StatsBlock when editing should recompute after selecting an increase 1`] = `
+Array [
+  Array [
+    Object {
+      "bare": Object {
+        "charisma": 12,
+        "constitution": 12,
+        "dexterity": 12,
+        "intelligence": 12,
+        "strength": 12,
+        "wisdom": 12,
+      },
+      "base": Object {
+        "charisma": 15,
+        "constitution": 15,
+        "dexterity": 15,
+        "intelligence": 15,
+        "strength": 16,
+        "wisdom": 15,
+      },
+      "bonus": Object {
+        "charisma": Array [
+          1,
+          2,
+        ],
+        "constitution": Array [
+          1,
+          2,
+        ],
+        "dexterity": Array [
+          1,
+          2,
+        ],
+        "intelligence": Array [
+          1,
+          2,
+        ],
+        "strength": Array [
+          1,
+          2,
+          1,
+        ],
+        "wisdom": Array [
+          1,
+          2,
+        ],
+      },
+      "improvement": Array [
+        "strength",
+      ],
+      "modifiers": Object {
+        "charisma": 2,
+        "constitution": 2,
+        "dexterity": 2,
+        "intelligence": 2,
+        "strength": 3,
+        "wisdom": 2,
+      },
+    },
+  ],
+]
+`;
+
+exports[`Component: StatsBlock when editing should recompute after selecting an increase 2`] = `
+Array [
+  Array [
+    Object {
+      "bare": Object {
+        "charisma": 12,
+        "constitution": 12,
+        "dexterity": 12,
+        "intelligence": 12,
+        "strength": 12,
+        "wisdom": 12,
+      },
+      "base": Object {
+        "charisma": 15,
+        "constitution": 15,
+        "dexterity": 15,
+        "intelligence": 15,
+        "strength": 17,
+        "wisdom": 15,
+      },
+      "bonus": Object {
+        "charisma": Array [
+          1,
+          2,
+        ],
+        "constitution": Array [
+          1,
+          2,
+        ],
+        "dexterity": Array [
+          1,
+          2,
+        ],
+        "intelligence": Array [
+          1,
+          2,
+        ],
+        "strength": Array [
+          1,
+          2,
+          2,
+        ],
+        "wisdom": Array [
+          1,
+          2,
+        ],
+      },
+      "improvement": Array [
+        "strength",
+        "strength",
+      ],
+      "modifiers": Object {
+        "charisma": 2,
+        "constitution": 2,
+        "dexterity": 2,
+        "intelligence": 2,
+        "strength": 3,
+        "wisdom": 2,
+      },
+    },
+  ],
+]
+`;

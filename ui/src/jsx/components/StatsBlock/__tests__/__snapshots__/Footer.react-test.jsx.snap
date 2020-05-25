@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Footer should not render without budget 1`] = `null`;
+
+exports[`Component: Footer should render with full props 1`] = `
+<tfoot>
+  <tr
+    className="text-align-center"
+  >
+    <th>
+      Budget
+    </th>
+    <td>
+      17
+    </td>
+    <td
+      colSpan={5}
+    />
+  </tr>
+</tfoot>
+`;
+
+exports[`Component: Footer should render with only budget 1`] = `
+<tfoot>
+  <tr
+    className="text-align-center"
+  >
+    <th>
+      Budget
+    </th>
+    <td>
+      27
+    </td>
+    <td
+      colSpan={1}
+    />
+  </tr>
+</tfoot>
+`;

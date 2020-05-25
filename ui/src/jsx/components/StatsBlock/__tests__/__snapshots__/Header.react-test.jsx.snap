@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Header should render with full props 1`] = `
+<thead>
+  <tr>
+    <th>
+      Statistic
+    </th>
+    <th
+      className="text-align-center"
+    >
+      Base
+    </th>
+    <th
+      className="text-align-center"
+      colSpan={2}
+    >
+      Increase
+    </th>
+    <th
+      className="text-align-center"
+    >
+      Bonus
+    </th>
+    <th
+      className="text-align-center"
+    >
+      Final
+    </th>
+    <th
+      className="text-align-center"
+    >
+      Modifier
+    </th>
+  </tr>
+</thead>
+`;
+
+exports[`Component: Header should render without props 1`] = `
+<thead>
+  <tr>
+    <th>
+      Statistic
+    </th>
+    <th
+      className="text-align-center"
+    >
+      Base
+    </th>
+    <th
+      className="text-align-center"
+    >
+      Modifier
+    </th>
+  </tr>
+</thead>
+`;
