@@ -34,7 +34,7 @@ function CharacterEditorWrapper(
                             mapped[key] = updated[key];
                         };
                         if (key === 'character') {
-                            const { path } = this.props;
+                            const { path, type } = this.props;
                             mapped.current = get(path, updated[key]);
                         }
                         if (key === 'choices') {

@@ -248,7 +248,6 @@ describe('Function: ComputeChange', () => {
 
         it('should not mutate unrelated paths', () => {
             expect(change.other === original.other).toBeTruthy();
-            expect(change.statistics.base === original.statistics.base).toBeTruthy();
         });
     });
 
@@ -283,12 +282,10 @@ describe('Function: ComputeChange', () => {
         it('should mutate affected paths', () => {
             expect(change === original).toBeFalsy();
             expect(change.statistics === original.statistics).toBeFalsy();
-            expect(change.statistics.bare === original.statistics.bare).toBeFalsy();
         });
 
         it('should not mutate unrelated paths', () => {
             expect(change.other === original.other).toBeTruthy();
-            expect(change.statistics.bonus === original.statistics.bonus).toBeTruthy();
         });
     });
 

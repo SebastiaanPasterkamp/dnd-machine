@@ -11,9 +11,18 @@ Object {
       "foo": 8,
       "ruh": 10,
     },
-    "base": Object {},
-    "bonus": Object {},
-    "modifiers": Object {},
+    "base": Object {
+      "bar": 14,
+      "ruh": 10,
+    },
+    "bonus": Object {
+      "bar": Array [],
+      "ruh": Array [],
+    },
+    "modifiers": Object {
+      "bar": 2,
+      "ruh": 0,
+    },
   },
 }
 `;
@@ -41,8 +50,14 @@ Object {
     "is": "immutable",
   },
   "statistics": Object {
-    "bare": Object {},
-    "base": Object {},
+    "bare": Object {
+      "bar": 8,
+      "ruh": 8,
+    },
+    "base": Object {
+      "bar": 12,
+      "ruh": 9,
+    },
     "bonus": Object {
       "bar": Array [
         2,
@@ -56,7 +71,10 @@ Object {
         1,
       ],
     },
-    "modifiers": Object {},
+    "modifiers": Object {
+      "bar": 1,
+      "ruh": -1,
+    },
   },
 }
 `;

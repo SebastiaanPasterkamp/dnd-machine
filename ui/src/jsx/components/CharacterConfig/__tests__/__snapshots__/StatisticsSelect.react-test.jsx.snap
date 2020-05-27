@@ -2,6 +2,63 @@
 
 exports[`Component: StatisticsSelect should render with ASI props 1`] = `
 <StatisticsSelect
+  character={
+    Object {
+      "statistics": Object {
+        "bare": Object {
+          "charisma": 12,
+          "constitution": 12,
+          "dexterity": 12,
+          "intelligence": 12,
+          "strength": 12,
+          "wisdom": 12,
+        },
+        "base": Object {
+          "charisma": 12,
+          "constitution": 12,
+          "dexterity": 12,
+          "intelligence": 12,
+          "strength": 12,
+          "wisdom": 12,
+        },
+        "bonus": Object {
+          "charisma": Array [
+            1,
+            2,
+          ],
+          "constitution": Array [
+            1,
+            2,
+          ],
+          "dexterity": Array [
+            1,
+            2,
+          ],
+          "intelligence": Array [
+            1,
+            2,
+          ],
+          "strength": Array [
+            1,
+            2,
+          ],
+          "wisdom": Array [
+            1,
+            2,
+          ],
+        },
+        "modifiers": Object {
+          "charisma": -1,
+          "constitution": -1,
+          "dexterity": -1,
+          "intelligence": -1,
+          "strength": -1,
+          "wisdom": -1,
+        },
+        "statistics": Array [],
+      },
+    }
+  }
   editBase={false}
   limit={2}
   path="character.statistics"
@@ -10,348 +67,211 @@ exports[`Component: StatisticsSelect should render with ASI props 1`] = `
   uuid="mock-uuid-asi-1"
 >
   <ListDataStatsBlock
+    bare={
+      Object {
+        "charisma": 12,
+        "constitution": 12,
+        "dexterity": 12,
+        "intelligence": 12,
+        "strength": 12,
+        "wisdom": 12,
+      }
+    }
+    base={
+      Object {
+        "charisma": 12,
+        "constitution": 12,
+        "dexterity": 12,
+        "intelligence": 12,
+        "strength": 12,
+        "wisdom": 12,
+      }
+    }
+    bonus={
+      Object {
+        "charisma": Array [
+          1,
+          2,
+        ],
+        "constitution": Array [
+          1,
+          2,
+        ],
+        "dexterity": Array [
+          1,
+          2,
+        ],
+        "intelligence": Array [
+          1,
+          2,
+        ],
+        "strength": Array [
+          1,
+          2,
+        ],
+        "wisdom": Array [
+          1,
+          2,
+        ],
+      }
+    }
     budget={27}
     editBase={false}
     increase={2}
     manualChange={[Function]}
     maxBare={15}
     minBare={8}
+    modifiers={
+      Object {
+        "charisma": -1,
+        "constitution": -1,
+        "dexterity": -1,
+        "intelligence": -1,
+        "strength": -1,
+        "wisdom": -1,
+      }
+    }
     path="character.statistics"
     setState={[Function]}
+    statistics={Array []}
   >
     <StatsBlock
-      bare={Object {}}
-      base={Object {}}
-      bonus={Object {}}
+      bare={
+        Object {
+          "charisma": 12,
+          "constitution": 12,
+          "dexterity": 12,
+          "intelligence": 12,
+          "strength": 12,
+          "wisdom": 12,
+        }
+      }
+      base={
+        Object {
+          "charisma": 12,
+          "constitution": 12,
+          "dexterity": 12,
+          "intelligence": 12,
+          "strength": 12,
+          "wisdom": 12,
+        }
+      }
+      bonus={
+        Object {
+          "charisma": Array [
+            1,
+            2,
+          ],
+          "constitution": Array [
+            1,
+            2,
+          ],
+          "dexterity": Array [
+            1,
+            2,
+          ],
+          "intelligence": Array [
+            1,
+            2,
+          ],
+          "strength": Array [
+            1,
+            2,
+          ],
+          "wisdom": Array [
+            1,
+            2,
+          ],
+        }
+      }
       budget={27}
       editBase={false}
       increase={2}
       manualChange={[Function]}
       maxBare={15}
       minBare={8}
-      modifiers={Object {}}
+      modifiers={
+        Object {
+          "charisma": -1,
+          "constitution": -1,
+          "dexterity": -1,
+          "intelligence": -1,
+          "strength": -1,
+          "wisdom": -1,
+        }
+      }
       path="character.statistics"
       setState={[Function]}
-      statistics={
-        Array [
-          Object {
-            "description": "Str",
-            "id": "strength",
-            "name": "Strength",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Dex",
-            "id": "dexterity",
-            "name": "Dexterity",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Con",
-            "id": "constitution",
-            "name": "Constitution",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Int",
-            "id": "intelligence",
-            "name": "Intelligence",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Wis",
-            "id": "wisdom",
-            "name": "Wisdom",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Char",
-            "id": "charisma",
-            "name": "Charisma",
-            "type": "statistics",
-          },
-        ]
-      }
+      statistics={Array []}
     >
       <table
         className="nice-table stats-block condensed bordered"
       >
-        <thead>
-          <tr>
-            <th>
-              Statistic
-            </th>
-            <th
+        <Header
+          increase={2}
+          showBonus={true}
+          showFinal={true}
+        >
+          <thead>
+            <tr>
+              <th>
+                Statistic
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Base
+              </th>
+              <th
+                className="text-align-center"
+                colSpan={2}
+              >
+                Increase
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Bonus
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Final
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Modifier
+              </th>
+            </tr>
+          </thead>
+        </Header>
+        <tbody />
+        <Footer
+          bonus={0}
+          budget={27}
+          increase={2}
+          showBonus={true}
+          showFinal={true}
+          spent={0}
+        >
+          <tfoot>
+            <tr
               className="text-align-center"
+              key="budget"
             >
-              Base
-            </th>
-            <th
-              className="text-align-center"
-              colSpan={2}
-            >
-              Increase
-            </th>
-            <th
-              className="text-align-center"
-            >
-              Final
-            </th>
-            <th
-              className="text-align-center"
-            >
-              Modifier
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            className="text-align-center"
-            key="strength"
-          >
-            <th>
-              Strength
-            </th>
-            <td />
-            <td
-              key="strength-0"
-            >
-              <input
-                checked={false}
-                disabled={false}
-                name="radio-0"
-                onChange={[Function]}
-                type="radio"
+              <th>
+                Budget
+              </th>
+              <td>
+                27
+              </td>
+              <td
+                colSpan={5}
               />
-            </td>
-            <td
-              key="strength-1"
-            >
-              <input
-                checked={false}
-                disabled={false}
-                name="radio-1"
-                onChange={[Function]}
-                type="radio"
-              />
-            </td>
-            <td />
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="dexterity"
-          >
-            <th>
-              Dexterity
-            </th>
-            <td />
-            <td
-              key="dexterity-0"
-            >
-              <input
-                checked={false}
-                disabled={false}
-                name="radio-0"
-                onChange={[Function]}
-                type="radio"
-              />
-            </td>
-            <td
-              key="dexterity-1"
-            >
-              <input
-                checked={false}
-                disabled={false}
-                name="radio-1"
-                onChange={[Function]}
-                type="radio"
-              />
-            </td>
-            <td />
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="constitution"
-          >
-            <th>
-              Constitution
-            </th>
-            <td />
-            <td
-              key="constitution-0"
-            >
-              <input
-                checked={false}
-                disabled={false}
-                name="radio-0"
-                onChange={[Function]}
-                type="radio"
-              />
-            </td>
-            <td
-              key="constitution-1"
-            >
-              <input
-                checked={false}
-                disabled={false}
-                name="radio-1"
-                onChange={[Function]}
-                type="radio"
-              />
-            </td>
-            <td />
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="intelligence"
-          >
-            <th>
-              Intelligence
-            </th>
-            <td />
-            <td
-              key="intelligence-0"
-            >
-              <input
-                checked={false}
-                disabled={false}
-                name="radio-0"
-                onChange={[Function]}
-                type="radio"
-              />
-            </td>
-            <td
-              key="intelligence-1"
-            >
-              <input
-                checked={false}
-                disabled={false}
-                name="radio-1"
-                onChange={[Function]}
-                type="radio"
-              />
-            </td>
-            <td />
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="wisdom"
-          >
-            <th>
-              Wisdom
-            </th>
-            <td />
-            <td
-              key="wisdom-0"
-            >
-              <input
-                checked={false}
-                disabled={false}
-                name="radio-0"
-                onChange={[Function]}
-                type="radio"
-              />
-            </td>
-            <td
-              key="wisdom-1"
-            >
-              <input
-                checked={false}
-                disabled={false}
-                name="radio-1"
-                onChange={[Function]}
-                type="radio"
-              />
-            </td>
-            <td />
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="charisma"
-          >
-            <th>
-              Charisma
-            </th>
-            <td />
-            <td
-              key="charisma-0"
-            >
-              <input
-                checked={false}
-                disabled={false}
-                name="radio-0"
-                onChange={[Function]}
-                type="radio"
-              />
-            </td>
-            <td
-              key="charisma-1"
-            >
-              <input
-                checked={false}
-                disabled={false}
-                name="radio-1"
-                onChange={[Function]}
-                type="radio"
-              />
-            </td>
-            <td />
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-        </tbody>
+            </tr>
+          </tfoot>
+        </Footer>
       </table>
     </StatsBlock>
   </ListDataStatsBlock>
@@ -360,6 +280,63 @@ exports[`Component: StatisticsSelect should render with ASI props 1`] = `
 
 exports[`Component: StatisticsSelect should render with base stats props 1`] = `
 <StatisticsSelect
+  character={
+    Object {
+      "statistics": Object {
+        "bare": Object {
+          "charisma": 12,
+          "constitution": 12,
+          "dexterity": 12,
+          "intelligence": 12,
+          "strength": 12,
+          "wisdom": 12,
+        },
+        "base": Object {
+          "charisma": 12,
+          "constitution": 12,
+          "dexterity": 12,
+          "intelligence": 12,
+          "strength": 12,
+          "wisdom": 12,
+        },
+        "bonus": Object {
+          "charisma": Array [
+            1,
+            2,
+          ],
+          "constitution": Array [
+            1,
+            2,
+          ],
+          "dexterity": Array [
+            1,
+            2,
+          ],
+          "intelligence": Array [
+            1,
+            2,
+          ],
+          "strength": Array [
+            1,
+            2,
+          ],
+          "wisdom": Array [
+            1,
+            2,
+          ],
+        },
+        "modifiers": Object {
+          "charisma": -1,
+          "constitution": -1,
+          "dexterity": -1,
+          "intelligence": -1,
+          "strength": -1,
+          "wisdom": -1,
+        },
+        "statistics": Array [],
+      },
+    }
+  }
   editBase={true}
   limit={0}
   maxBare={10}
@@ -370,909 +347,205 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
   uuid="mock-uuid-stats-1"
 >
   <ListDataStatsBlock
+    bare={
+      Object {
+        "charisma": 12,
+        "constitution": 12,
+        "dexterity": 12,
+        "intelligence": 12,
+        "strength": 12,
+        "wisdom": 12,
+      }
+    }
+    base={
+      Object {
+        "charisma": 12,
+        "constitution": 12,
+        "dexterity": 12,
+        "intelligence": 12,
+        "strength": 12,
+        "wisdom": 12,
+      }
+    }
+    bonus={
+      Object {
+        "charisma": Array [
+          1,
+          2,
+        ],
+        "constitution": Array [
+          1,
+          2,
+        ],
+        "dexterity": Array [
+          1,
+          2,
+        ],
+        "intelligence": Array [
+          1,
+          2,
+        ],
+        "strength": Array [
+          1,
+          2,
+        ],
+        "wisdom": Array [
+          1,
+          2,
+        ],
+      }
+    }
     budget={27}
     editBase={true}
     increase={0}
     manualChange={[Function]}
     maxBare={10}
     minBare={10}
+    modifiers={
+      Object {
+        "charisma": -1,
+        "constitution": -1,
+        "dexterity": -1,
+        "intelligence": -1,
+        "strength": -1,
+        "wisdom": -1,
+      }
+    }
     path="character.statistics"
     setState={[Function]}
+    statistics={Array []}
   >
     <StatsBlock
-      bare={Object {}}
-      base={Object {}}
-      bonus={Object {}}
+      bare={
+        Object {
+          "charisma": 12,
+          "constitution": 12,
+          "dexterity": 12,
+          "intelligence": 12,
+          "strength": 12,
+          "wisdom": 12,
+        }
+      }
+      base={
+        Object {
+          "charisma": 12,
+          "constitution": 12,
+          "dexterity": 12,
+          "intelligence": 12,
+          "strength": 12,
+          "wisdom": 12,
+        }
+      }
+      bonus={
+        Object {
+          "charisma": Array [
+            1,
+            2,
+          ],
+          "constitution": Array [
+            1,
+            2,
+          ],
+          "dexterity": Array [
+            1,
+            2,
+          ],
+          "intelligence": Array [
+            1,
+            2,
+          ],
+          "strength": Array [
+            1,
+            2,
+          ],
+          "wisdom": Array [
+            1,
+            2,
+          ],
+        }
+      }
       budget={27}
       editBase={true}
       increase={0}
       manualChange={[Function]}
       maxBare={10}
       minBare={10}
-      modifiers={Object {}}
+      modifiers={
+        Object {
+          "charisma": -1,
+          "constitution": -1,
+          "dexterity": -1,
+          "intelligence": -1,
+          "strength": -1,
+          "wisdom": -1,
+        }
+      }
       path="character.statistics"
       setState={[Function]}
-      statistics={
-        Array [
-          Object {
-            "description": "Str",
-            "id": "strength",
-            "name": "Strength",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Dex",
-            "id": "dexterity",
-            "name": "Dexterity",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Con",
-            "id": "constitution",
-            "name": "Constitution",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Int",
-            "id": "intelligence",
-            "name": "Intelligence",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Wis",
-            "id": "wisdom",
-            "name": "Wisdom",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Char",
-            "id": "charisma",
-            "name": "Charisma",
-            "type": "statistics",
-          },
-        ]
-      }
+      statistics={Array []}
     >
       <table
         className="nice-table stats-block condensed bordered"
       >
-        <thead>
-          <tr>
-            <th>
-              Statistic
-            </th>
-            <th
+        <Header
+          increase={0}
+          showBonus={true}
+          showFinal={true}
+        >
+          <thead>
+            <tr>
+              <th>
+                Statistic
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Base
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Bonus
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Final
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Modifier
+              </th>
+            </tr>
+          </thead>
+        </Header>
+        <tbody />
+        <Footer
+          bonus={0}
+          budget={27}
+          increase={0}
+          showBonus={true}
+          showFinal={true}
+          spent={0}
+        >
+          <tfoot>
+            <tr
               className="text-align-center"
+              key="budget"
             >
-              Base
-            </th>
-            <th
-              className="text-align-center"
-            >
-              Modifier
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            className="text-align-center"
-            key="strength"
-          >
-            <th>
-              Strength
-            </th>
-            <td>
-              <SingleSelect
-                defaultValue={8}
-                description="Str"
-                filterable={false}
-                heading="Strength"
-                isDisabled={[Function]}
-                items={
-                  Array [
-                    Object {
-                      "id": 10,
-                      "name": 10,
-                    },
-                  ]
-                }
-                objects={false}
-                renderEmpty={null}
-                selected={null}
-                setState={[Function]}
-              >
-                <OnClickOutside(BaseSelect)
-                  description="Str"
-                  eventTypes={
-                    Array [
-                      "mousedown",
-                      "touchstart",
-                    ]
-                  }
-                  excludeScrollbar={false}
-                  filter=""
-                  heading="Strength"
-                  onFilter={null}
-                  outsideClickIgnoreClass="ignore-react-onclickoutside"
-                  preventDefault={false}
-                  stopPropagation={false}
-                >
-                  <BaseSelect
-                    className={null}
-                    closeOnClick={true}
-                    description="Str"
-                    disableOnClickOutside={[Function]}
-                    disabled={false}
-                    enableOnClickOutside={[Function]}
-                    eventTypes={
-                      Array [
-                        "mousedown",
-                        "touchstart",
-                      ]
-                    }
-                    filter=""
-                    heading="Strength"
-                    label=""
-                    onFilter={null}
-                    outsideClickIgnoreClass="ignore-react-onclickoutside"
-                    preventDefault={false}
-                    stopPropagation={false}
-                  >
-                    <div
-                      className="nice-dropdown nice-form-control"
-                    >
-                      <SelectButton
-                        disabled={false}
-                        label=""
-                        onToggle={[Function]}
-                      >
-                        <button
-                          className="nice-btn"
-                          disabled={false}
-                          onClick={[Function]}
-                        >
-                          <i
-                            className="icon fa-angle-down"
-                          />
-                        </button>
-                      </SelectButton>
-                      <ul
-                        className="dropdown-menu"
-                        onClick={[Function]}
-                      >
-                        <li
-                          className="heading"
-                        >
-                          <span>
-                            Strength
-                          </span>
-                        </li>
-                        <li
-                          className="description"
-                        >
-                          <span>
-                            Str
-                          </span>
-                        </li>
-                        <SelectItem
-                          disabled={false}
-                          id={10}
-                          key="10"
-                          name={10}
-                          onClick={[Function]}
-                          selected={false}
-                        >
-                          <li
-                            className={null}
-                            data-value={10}
-                            onClick={[Function]}
-                          >
-                            <a>
-                              10
-                            </a>
-                          </li>
-                        </SelectItem>
-                      </ul>
-                    </div>
-                  </BaseSelect>
-                </OnClickOutside(BaseSelect)>
-              </SingleSelect>
-            </td>
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="dexterity"
-          >
-            <th>
-              Dexterity
-            </th>
-            <td>
-              <SingleSelect
-                defaultValue={8}
-                description="Dex"
-                filterable={false}
-                heading="Dexterity"
-                isDisabled={[Function]}
-                items={
-                  Array [
-                    Object {
-                      "id": 10,
-                      "name": 10,
-                    },
-                  ]
-                }
-                objects={false}
-                renderEmpty={null}
-                selected={null}
-                setState={[Function]}
-              >
-                <OnClickOutside(BaseSelect)
-                  description="Dex"
-                  eventTypes={
-                    Array [
-                      "mousedown",
-                      "touchstart",
-                    ]
-                  }
-                  excludeScrollbar={false}
-                  filter=""
-                  heading="Dexterity"
-                  onFilter={null}
-                  outsideClickIgnoreClass="ignore-react-onclickoutside"
-                  preventDefault={false}
-                  stopPropagation={false}
-                >
-                  <BaseSelect
-                    className={null}
-                    closeOnClick={true}
-                    description="Dex"
-                    disableOnClickOutside={[Function]}
-                    disabled={false}
-                    enableOnClickOutside={[Function]}
-                    eventTypes={
-                      Array [
-                        "mousedown",
-                        "touchstart",
-                      ]
-                    }
-                    filter=""
-                    heading="Dexterity"
-                    label=""
-                    onFilter={null}
-                    outsideClickIgnoreClass="ignore-react-onclickoutside"
-                    preventDefault={false}
-                    stopPropagation={false}
-                  >
-                    <div
-                      className="nice-dropdown nice-form-control"
-                    >
-                      <SelectButton
-                        disabled={false}
-                        label=""
-                        onToggle={[Function]}
-                      >
-                        <button
-                          className="nice-btn"
-                          disabled={false}
-                          onClick={[Function]}
-                        >
-                          <i
-                            className="icon fa-angle-down"
-                          />
-                        </button>
-                      </SelectButton>
-                      <ul
-                        className="dropdown-menu"
-                        onClick={[Function]}
-                      >
-                        <li
-                          className="heading"
-                        >
-                          <span>
-                            Dexterity
-                          </span>
-                        </li>
-                        <li
-                          className="description"
-                        >
-                          <span>
-                            Dex
-                          </span>
-                        </li>
-                        <SelectItem
-                          disabled={false}
-                          id={10}
-                          key="10"
-                          name={10}
-                          onClick={[Function]}
-                          selected={false}
-                        >
-                          <li
-                            className={null}
-                            data-value={10}
-                            onClick={[Function]}
-                          >
-                            <a>
-                              10
-                            </a>
-                          </li>
-                        </SelectItem>
-                      </ul>
-                    </div>
-                  </BaseSelect>
-                </OnClickOutside(BaseSelect)>
-              </SingleSelect>
-            </td>
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="constitution"
-          >
-            <th>
-              Constitution
-            </th>
-            <td>
-              <SingleSelect
-                defaultValue={8}
-                description="Con"
-                filterable={false}
-                heading="Constitution"
-                isDisabled={[Function]}
-                items={
-                  Array [
-                    Object {
-                      "id": 10,
-                      "name": 10,
-                    },
-                  ]
-                }
-                objects={false}
-                renderEmpty={null}
-                selected={null}
-                setState={[Function]}
-              >
-                <OnClickOutside(BaseSelect)
-                  description="Con"
-                  eventTypes={
-                    Array [
-                      "mousedown",
-                      "touchstart",
-                    ]
-                  }
-                  excludeScrollbar={false}
-                  filter=""
-                  heading="Constitution"
-                  onFilter={null}
-                  outsideClickIgnoreClass="ignore-react-onclickoutside"
-                  preventDefault={false}
-                  stopPropagation={false}
-                >
-                  <BaseSelect
-                    className={null}
-                    closeOnClick={true}
-                    description="Con"
-                    disableOnClickOutside={[Function]}
-                    disabled={false}
-                    enableOnClickOutside={[Function]}
-                    eventTypes={
-                      Array [
-                        "mousedown",
-                        "touchstart",
-                      ]
-                    }
-                    filter=""
-                    heading="Constitution"
-                    label=""
-                    onFilter={null}
-                    outsideClickIgnoreClass="ignore-react-onclickoutside"
-                    preventDefault={false}
-                    stopPropagation={false}
-                  >
-                    <div
-                      className="nice-dropdown nice-form-control"
-                    >
-                      <SelectButton
-                        disabled={false}
-                        label=""
-                        onToggle={[Function]}
-                      >
-                        <button
-                          className="nice-btn"
-                          disabled={false}
-                          onClick={[Function]}
-                        >
-                          <i
-                            className="icon fa-angle-down"
-                          />
-                        </button>
-                      </SelectButton>
-                      <ul
-                        className="dropdown-menu"
-                        onClick={[Function]}
-                      >
-                        <li
-                          className="heading"
-                        >
-                          <span>
-                            Constitution
-                          </span>
-                        </li>
-                        <li
-                          className="description"
-                        >
-                          <span>
-                            Con
-                          </span>
-                        </li>
-                        <SelectItem
-                          disabled={false}
-                          id={10}
-                          key="10"
-                          name={10}
-                          onClick={[Function]}
-                          selected={false}
-                        >
-                          <li
-                            className={null}
-                            data-value={10}
-                            onClick={[Function]}
-                          >
-                            <a>
-                              10
-                            </a>
-                          </li>
-                        </SelectItem>
-                      </ul>
-                    </div>
-                  </BaseSelect>
-                </OnClickOutside(BaseSelect)>
-              </SingleSelect>
-            </td>
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="intelligence"
-          >
-            <th>
-              Intelligence
-            </th>
-            <td>
-              <SingleSelect
-                defaultValue={8}
-                description="Int"
-                filterable={false}
-                heading="Intelligence"
-                isDisabled={[Function]}
-                items={
-                  Array [
-                    Object {
-                      "id": 10,
-                      "name": 10,
-                    },
-                  ]
-                }
-                objects={false}
-                renderEmpty={null}
-                selected={null}
-                setState={[Function]}
-              >
-                <OnClickOutside(BaseSelect)
-                  description="Int"
-                  eventTypes={
-                    Array [
-                      "mousedown",
-                      "touchstart",
-                    ]
-                  }
-                  excludeScrollbar={false}
-                  filter=""
-                  heading="Intelligence"
-                  onFilter={null}
-                  outsideClickIgnoreClass="ignore-react-onclickoutside"
-                  preventDefault={false}
-                  stopPropagation={false}
-                >
-                  <BaseSelect
-                    className={null}
-                    closeOnClick={true}
-                    description="Int"
-                    disableOnClickOutside={[Function]}
-                    disabled={false}
-                    enableOnClickOutside={[Function]}
-                    eventTypes={
-                      Array [
-                        "mousedown",
-                        "touchstart",
-                      ]
-                    }
-                    filter=""
-                    heading="Intelligence"
-                    label=""
-                    onFilter={null}
-                    outsideClickIgnoreClass="ignore-react-onclickoutside"
-                    preventDefault={false}
-                    stopPropagation={false}
-                  >
-                    <div
-                      className="nice-dropdown nice-form-control"
-                    >
-                      <SelectButton
-                        disabled={false}
-                        label=""
-                        onToggle={[Function]}
-                      >
-                        <button
-                          className="nice-btn"
-                          disabled={false}
-                          onClick={[Function]}
-                        >
-                          <i
-                            className="icon fa-angle-down"
-                          />
-                        </button>
-                      </SelectButton>
-                      <ul
-                        className="dropdown-menu"
-                        onClick={[Function]}
-                      >
-                        <li
-                          className="heading"
-                        >
-                          <span>
-                            Intelligence
-                          </span>
-                        </li>
-                        <li
-                          className="description"
-                        >
-                          <span>
-                            Int
-                          </span>
-                        </li>
-                        <SelectItem
-                          disabled={false}
-                          id={10}
-                          key="10"
-                          name={10}
-                          onClick={[Function]}
-                          selected={false}
-                        >
-                          <li
-                            className={null}
-                            data-value={10}
-                            onClick={[Function]}
-                          >
-                            <a>
-                              10
-                            </a>
-                          </li>
-                        </SelectItem>
-                      </ul>
-                    </div>
-                  </BaseSelect>
-                </OnClickOutside(BaseSelect)>
-              </SingleSelect>
-            </td>
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="wisdom"
-          >
-            <th>
-              Wisdom
-            </th>
-            <td>
-              <SingleSelect
-                defaultValue={8}
-                description="Wis"
-                filterable={false}
-                heading="Wisdom"
-                isDisabled={[Function]}
-                items={
-                  Array [
-                    Object {
-                      "id": 10,
-                      "name": 10,
-                    },
-                  ]
-                }
-                objects={false}
-                renderEmpty={null}
-                selected={null}
-                setState={[Function]}
-              >
-                <OnClickOutside(BaseSelect)
-                  description="Wis"
-                  eventTypes={
-                    Array [
-                      "mousedown",
-                      "touchstart",
-                    ]
-                  }
-                  excludeScrollbar={false}
-                  filter=""
-                  heading="Wisdom"
-                  onFilter={null}
-                  outsideClickIgnoreClass="ignore-react-onclickoutside"
-                  preventDefault={false}
-                  stopPropagation={false}
-                >
-                  <BaseSelect
-                    className={null}
-                    closeOnClick={true}
-                    description="Wis"
-                    disableOnClickOutside={[Function]}
-                    disabled={false}
-                    enableOnClickOutside={[Function]}
-                    eventTypes={
-                      Array [
-                        "mousedown",
-                        "touchstart",
-                      ]
-                    }
-                    filter=""
-                    heading="Wisdom"
-                    label=""
-                    onFilter={null}
-                    outsideClickIgnoreClass="ignore-react-onclickoutside"
-                    preventDefault={false}
-                    stopPropagation={false}
-                  >
-                    <div
-                      className="nice-dropdown nice-form-control"
-                    >
-                      <SelectButton
-                        disabled={false}
-                        label=""
-                        onToggle={[Function]}
-                      >
-                        <button
-                          className="nice-btn"
-                          disabled={false}
-                          onClick={[Function]}
-                        >
-                          <i
-                            className="icon fa-angle-down"
-                          />
-                        </button>
-                      </SelectButton>
-                      <ul
-                        className="dropdown-menu"
-                        onClick={[Function]}
-                      >
-                        <li
-                          className="heading"
-                        >
-                          <span>
-                            Wisdom
-                          </span>
-                        </li>
-                        <li
-                          className="description"
-                        >
-                          <span>
-                            Wis
-                          </span>
-                        </li>
-                        <SelectItem
-                          disabled={false}
-                          id={10}
-                          key="10"
-                          name={10}
-                          onClick={[Function]}
-                          selected={false}
-                        >
-                          <li
-                            className={null}
-                            data-value={10}
-                            onClick={[Function]}
-                          >
-                            <a>
-                              10
-                            </a>
-                          </li>
-                        </SelectItem>
-                      </ul>
-                    </div>
-                  </BaseSelect>
-                </OnClickOutside(BaseSelect)>
-              </SingleSelect>
-            </td>
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="charisma"
-          >
-            <th>
-              Charisma
-            </th>
-            <td>
-              <SingleSelect
-                defaultValue={8}
-                description="Char"
-                filterable={false}
-                heading="Charisma"
-                isDisabled={[Function]}
-                items={
-                  Array [
-                    Object {
-                      "id": 10,
-                      "name": 10,
-                    },
-                  ]
-                }
-                objects={false}
-                renderEmpty={null}
-                selected={null}
-                setState={[Function]}
-              >
-                <OnClickOutside(BaseSelect)
-                  description="Char"
-                  eventTypes={
-                    Array [
-                      "mousedown",
-                      "touchstart",
-                    ]
-                  }
-                  excludeScrollbar={false}
-                  filter=""
-                  heading="Charisma"
-                  onFilter={null}
-                  outsideClickIgnoreClass="ignore-react-onclickoutside"
-                  preventDefault={false}
-                  stopPropagation={false}
-                >
-                  <BaseSelect
-                    className={null}
-                    closeOnClick={true}
-                    description="Char"
-                    disableOnClickOutside={[Function]}
-                    disabled={false}
-                    enableOnClickOutside={[Function]}
-                    eventTypes={
-                      Array [
-                        "mousedown",
-                        "touchstart",
-                      ]
-                    }
-                    filter=""
-                    heading="Charisma"
-                    label=""
-                    onFilter={null}
-                    outsideClickIgnoreClass="ignore-react-onclickoutside"
-                    preventDefault={false}
-                    stopPropagation={false}
-                  >
-                    <div
-                      className="nice-dropdown nice-form-control"
-                    >
-                      <SelectButton
-                        disabled={false}
-                        label=""
-                        onToggle={[Function]}
-                      >
-                        <button
-                          className="nice-btn"
-                          disabled={false}
-                          onClick={[Function]}
-                        >
-                          <i
-                            className="icon fa-angle-down"
-                          />
-                        </button>
-                      </SelectButton>
-                      <ul
-                        className="dropdown-menu"
-                        onClick={[Function]}
-                      >
-                        <li
-                          className="heading"
-                        >
-                          <span>
-                            Charisma
-                          </span>
-                        </li>
-                        <li
-                          className="description"
-                        >
-                          <span>
-                            Char
-                          </span>
-                        </li>
-                        <SelectItem
-                          disabled={false}
-                          id={10}
-                          key="10"
-                          name={10}
-                          onClick={[Function]}
-                          selected={false}
-                        >
-                          <li
-                            className={null}
-                            data-value={10}
-                            onClick={[Function]}
-                          >
-                            <a>
-                              10
-                            </a>
-                          </li>
-                        </SelectItem>
-                      </ul>
-                    </div>
-                  </BaseSelect>
-                </OnClickOutside(BaseSelect)>
-              </SingleSelect>
-            </td>
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="budget"
-          >
-            <th>
-              Budget
-            </th>
-            <td>
-              27
-            </td>
-            <td
-              colSpan={2}
-            />
-          </tr>
-        </tbody>
+              <th>
+                Budget
+              </th>
+              <td>
+                27
+              </td>
+              <td
+                colSpan={3}
+              />
+            </tr>
+          </tfoot>
+        </Footer>
       </table>
     </StatsBlock>
   </ListDataStatsBlock>
@@ -1281,6 +554,63 @@ exports[`Component: StatisticsSelect should render with base stats props 1`] = `
 
 exports[`Component: StatisticsSelect should render with minimum props 1`] = `
 <StatisticsSelect
+  character={
+    Object {
+      "statistics": Object {
+        "bare": Object {
+          "charisma": 12,
+          "constitution": 12,
+          "dexterity": 12,
+          "intelligence": 12,
+          "strength": 12,
+          "wisdom": 12,
+        },
+        "base": Object {
+          "charisma": 12,
+          "constitution": 12,
+          "dexterity": 12,
+          "intelligence": 12,
+          "strength": 12,
+          "wisdom": 12,
+        },
+        "bonus": Object {
+          "charisma": Array [
+            1,
+            2,
+          ],
+          "constitution": Array [
+            1,
+            2,
+          ],
+          "dexterity": Array [
+            1,
+            2,
+          ],
+          "intelligence": Array [
+            1,
+            2,
+          ],
+          "strength": Array [
+            1,
+            2,
+          ],
+          "wisdom": Array [
+            1,
+            2,
+          ],
+        },
+        "modifiers": Object {
+          "charisma": -1,
+          "constitution": -1,
+          "dexterity": -1,
+          "intelligence": -1,
+          "strength": -1,
+          "wisdom": -1,
+        },
+        "statistics": Array [],
+      },
+    }
+  }
   editBase={false}
   limit={0}
   path="character.statistics"
@@ -1289,199 +619,205 @@ exports[`Component: StatisticsSelect should render with minimum props 1`] = `
   uuid="mock-uuid-asi-1"
 >
   <ListDataStatsBlock
+    bare={
+      Object {
+        "charisma": 12,
+        "constitution": 12,
+        "dexterity": 12,
+        "intelligence": 12,
+        "strength": 12,
+        "wisdom": 12,
+      }
+    }
+    base={
+      Object {
+        "charisma": 12,
+        "constitution": 12,
+        "dexterity": 12,
+        "intelligence": 12,
+        "strength": 12,
+        "wisdom": 12,
+      }
+    }
+    bonus={
+      Object {
+        "charisma": Array [
+          1,
+          2,
+        ],
+        "constitution": Array [
+          1,
+          2,
+        ],
+        "dexterity": Array [
+          1,
+          2,
+        ],
+        "intelligence": Array [
+          1,
+          2,
+        ],
+        "strength": Array [
+          1,
+          2,
+        ],
+        "wisdom": Array [
+          1,
+          2,
+        ],
+      }
+    }
     budget={27}
     editBase={false}
     increase={0}
     manualChange={[Function]}
     maxBare={15}
     minBare={8}
+    modifiers={
+      Object {
+        "charisma": -1,
+        "constitution": -1,
+        "dexterity": -1,
+        "intelligence": -1,
+        "strength": -1,
+        "wisdom": -1,
+      }
+    }
     path="character.statistics"
     setState={[Function]}
+    statistics={Array []}
   >
     <StatsBlock
-      bare={Object {}}
-      base={Object {}}
-      bonus={Object {}}
+      bare={
+        Object {
+          "charisma": 12,
+          "constitution": 12,
+          "dexterity": 12,
+          "intelligence": 12,
+          "strength": 12,
+          "wisdom": 12,
+        }
+      }
+      base={
+        Object {
+          "charisma": 12,
+          "constitution": 12,
+          "dexterity": 12,
+          "intelligence": 12,
+          "strength": 12,
+          "wisdom": 12,
+        }
+      }
+      bonus={
+        Object {
+          "charisma": Array [
+            1,
+            2,
+          ],
+          "constitution": Array [
+            1,
+            2,
+          ],
+          "dexterity": Array [
+            1,
+            2,
+          ],
+          "intelligence": Array [
+            1,
+            2,
+          ],
+          "strength": Array [
+            1,
+            2,
+          ],
+          "wisdom": Array [
+            1,
+            2,
+          ],
+        }
+      }
       budget={27}
       editBase={false}
       increase={0}
       manualChange={[Function]}
       maxBare={15}
       minBare={8}
-      modifiers={Object {}}
+      modifiers={
+        Object {
+          "charisma": -1,
+          "constitution": -1,
+          "dexterity": -1,
+          "intelligence": -1,
+          "strength": -1,
+          "wisdom": -1,
+        }
+      }
       path="character.statistics"
       setState={[Function]}
-      statistics={
-        Array [
-          Object {
-            "description": "Str",
-            "id": "strength",
-            "name": "Strength",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Dex",
-            "id": "dexterity",
-            "name": "Dexterity",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Con",
-            "id": "constitution",
-            "name": "Constitution",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Int",
-            "id": "intelligence",
-            "name": "Intelligence",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Wis",
-            "id": "wisdom",
-            "name": "Wisdom",
-            "type": "statistics",
-          },
-          Object {
-            "description": "Char",
-            "id": "charisma",
-            "name": "Charisma",
-            "type": "statistics",
-          },
-        ]
-      }
+      statistics={Array []}
     >
       <table
         className="nice-table stats-block condensed bordered"
       >
-        <thead>
-          <tr>
-            <th>
-              Statistic
-            </th>
-            <th
+        <Header
+          increase={0}
+          showBonus={true}
+          showFinal={true}
+        >
+          <thead>
+            <tr>
+              <th>
+                Statistic
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Base
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Bonus
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Final
+              </th>
+              <th
+                className="text-align-center"
+              >
+                Modifier
+              </th>
+            </tr>
+          </thead>
+        </Header>
+        <tbody />
+        <Footer
+          bonus={0}
+          budget={27}
+          increase={0}
+          showBonus={true}
+          showFinal={true}
+          spent={0}
+        >
+          <tfoot>
+            <tr
               className="text-align-center"
+              key="budget"
             >
-              Base
-            </th>
-            <th
-              className="text-align-center"
-            >
-              Modifier
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            className="text-align-center"
-            key="strength"
-          >
-            <th>
-              Strength
-            </th>
-            <td />
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="dexterity"
-          >
-            <th>
-              Dexterity
-            </th>
-            <td />
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="constitution"
-          >
-            <th>
-              Constitution
-            </th>
-            <td />
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="intelligence"
-          >
-            <th>
-              Intelligence
-            </th>
-            <td />
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="wisdom"
-          >
-            <th>
-              Wisdom
-            </th>
-            <td />
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-          <tr
-            className="text-align-center"
-            key="charisma"
-          >
-            <th>
-              Charisma
-            </th>
-            <td />
-            <td>
-              <Bonus>
-                <div
-                  className="bonus inline"
-                >
-                  —
-                </div>
-              </Bonus>
-            </td>
-          </tr>
-        </tbody>
+              <th>
+                Budget
+              </th>
+              <td>
+                27
+              </td>
+              <td
+                colSpan={3}
+              />
+            </tr>
+          </tfoot>
+        </Footer>
       </table>
     </StatsBlock>
   </ListDataStatsBlock>

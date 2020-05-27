@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import _ from 'lodash';
 
 import { mockedApi, statistics } from '../../../../../tests/__mocks__';
 import ListDataActions from 'actions/ListDataActions';
@@ -18,6 +19,26 @@ const statsProps = {
     editBase: true,
 };
 
+const charStats = _.reduce(
+    [
+        'strength', 'dexterity', 'constitution',
+        'intelligence', 'wisdom', 'charisma'
+    ], (props, stat) => {
+        props.bare[stat] = 12;
+        props.bonus[stat] = [1, 2];
+        props.base[stat] = 12;
+        props.modifiers[stat] = -1;
+        return props;
+    },
+    {
+        statistics: [],
+        bare: {},
+        bonus: {},
+        base: {},
+        modifiers: {}
+    }
+);
+
 describe('Component: StatisticsSelect', () => {
 
     beforeAll(() => {
@@ -34,6 +55,9 @@ describe('Component: StatisticsSelect', () => {
         const wrapper = mount(
             <StatisticsSelect
                 setState={setState}
+                character={{
+                    statistics: charStats,
+                }}
                 type={ASIProps.type}
                 uuid={ASIProps.uuid}
             />
@@ -48,6 +72,9 @@ describe('Component: StatisticsSelect', () => {
         const wrapper = mount(
             <StatisticsSelect
                 setState={setState}
+                character={{
+                    statistics: charStats,
+                }}
                 {...ASIProps}
             />
         );
@@ -60,6 +87,9 @@ describe('Component: StatisticsSelect', () => {
         const wrapper = mount(
             <StatisticsSelect
                 setState={setState}
+                character={{
+                    statistics: charStats,
+                }}
                 {...statsProps}
                 minBare={ 10 }
                 maxBare={ 10 }

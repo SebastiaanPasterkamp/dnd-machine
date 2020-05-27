@@ -1,14 +1,17 @@
 import {
     clone,
+    countBy,
     difference,
     findIndex,
     forEach as forEachCapped,
     get,
     includes,
     isEqual,
+    keys,
     pickBy,
     reduce,
     setWith,
+    sum,
     uniq,
 } from 'lodash/fp';
 const forEach = forEachCapped.convert({ cap: false });
@@ -20,6 +23,7 @@ export default function ComputeChange(changes, original) {
         (fields, id) => fields !== undefined
     )(changes);
 
+    let statisticsChanged = [];
     const computed = reduce(
         (computed, {option, choice}) => {
 
@@ -122,20 +126,22 @@ export default function ComputeChange(changes, original) {
                 if (!choice) {
                     return computed;
                 }
+                const bonus = countBy(i => i)(choice.improvement);
                 forEach(
-                    stat => {
+                    (value, stat) => {
                         const path = `statistics.bonus.${stat}`;
                         const {
                             [path]: current = get(path, original) || [],
                         } = computed;
-                        computed[path] = [...current, 1];
+                        computed[path] = [...current, value];
+                        statisticsChanged.push(stat);
                     }
-                )(choice.improvement);
+                )(bonus);
                 return computed;
             }
 
             if (option.type === 'statistics') {
-                if (!choice) {
+                if (!choice || !choice.bare) {
                     return computed;
                 }
                 const {
@@ -145,6 +151,7 @@ export default function ComputeChange(changes, original) {
                     ...current,
                     ...choice.bare,
                 };
+                statisticsChanged = [...statisticsChanged, ...keys(choice.bare)];
                 return computed;
             }
 
@@ -158,13 +165,53 @@ export default function ComputeChange(changes, original) {
         {}
     )(filtered);
 
-    let character = original;1
+    let character = original;
     forEach((update, path) => {
         const current = get(path, original);
         if (!isEqual(current, update)) {
             character = setWith(clone, path, update, clone(character));
         }
     }, computed);
+
+    if (statisticsChanged.length) {
+        const statistics = uniq(statisticsChanged);
+
+        let {
+            bare = {},
+            bonus = {},
+            base = {},
+            modifiers = {},
+        } = character.statistics;
+
+        forEach(
+            stat => {
+                bare = {
+                    ...bare,
+                    [stat]: bare[stat] || 8,
+                };
+                bonus = {
+                    ...bonus,
+                    [stat]: bonus[stat] || [],
+                }
+                base = {
+                    ...base,
+                    [stat]: bare[stat] + sum(bonus[stat]),
+                };
+                modifiers = {
+                    ...modifiers,
+                    [stat]: Math.floor((base[stat] - 10) / 2),
+                };
+            }
+        )(statistics);
+
+        character.statistics = {
+            ...character.statistics,
+            bare,
+            bonus,
+            base,
+            modifiers,
+        };
+    }
 
     return character;
 };

@@ -32,9 +32,13 @@ export class StatisticsSelect extends Reflux.Component
     render() {
         const {
             type, uuid, setState,
-            limit,
+            limit, character,
             ...props
         } = this.props;
+
+        if (!character) {
+            return null;
+        }
 
         return (
             <StatsBlock
@@ -43,6 +47,7 @@ export class StatisticsSelect extends Reflux.Component
                 minBare={ 8 }
                 maxBare={ 15 }
                 {...props}
+                {...character.statistics}
                 setState={ this.onStatisticsChange }
                 manualChange={ this.onManualChange }
             />
@@ -54,6 +59,7 @@ StatisticsSelect.propTypes = {
     type: PropTypes.oneOf(['ability_score', 'statistics']).isRequired,
     uuid: PropTypes.string.isRequired,
     setState: PropTypes.func.isRequired,
+    character: PropTypes.object,
     limit: PropTypes.number,
     editBase: PropTypes.bool,
 };
@@ -61,7 +67,8 @@ StatisticsSelect.propTypes = {
 StatisticsSelect.defaultProps = {
     editBase: false,
     limit: 0,
+    character: {},
     path: 'character.statistics',
 };
 
-export default CharacterEditorWrapper(StatisticsSelect);
+export default CharacterEditorWrapper(StatisticsSelect, {character: true});
