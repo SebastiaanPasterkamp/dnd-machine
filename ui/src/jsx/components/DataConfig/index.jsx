@@ -5,6 +5,7 @@ import DataConfig from './DataConfig';
 import DictOption from './DictOption';
 import ListConditions from './ListConditions';
 import ListOption from './ListOption';
+import ManualValueOption from './ManualValueOption';
 import MultichoiceOption from './MultichoiceOption';
 import ObjectListOption from './ObjectListOption';
 import PhasePanel from './PhasePanel';
@@ -20,6 +21,7 @@ export {
     DictOption,
     ListConditions,
     ListOption,
+    ManualValueOption,
     MultichoiceOption,
     ObjectListOption,
     PhasePanel,

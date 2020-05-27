@@ -11,7 +11,6 @@ import ListsToItemsWrapper from '../../hocs/ListsToItemsWrapper';
 import ControlGroup from '../ControlGroup';
 import FieldSet from '../FieldSet';
 import InputField from '../InputField';
-import { ListComponent, DefinitionListComponent } from '../ListComponent';
 import MarkdownTextField from '../MarkdownTextField';
 import SingleSelect from '../SingleSelect';
 import ToggleSwitch from '../ToggleSwitch';

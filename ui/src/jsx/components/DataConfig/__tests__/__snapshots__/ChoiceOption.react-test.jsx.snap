@@ -250,6 +250,15 @@ exports[`Component: ChoiceOption when rendering should work with full props 1`] 
           </li>
           <li
             className={null}
+            data-value="manual"
+            onClick={[Function]}
+          >
+            <a>
+              Manual value option
+            </a>
+          </li>
+          <li
+            className={null}
             data-value="multichoice"
             onClick={[Function]}
           >
@@ -330,6 +339,15 @@ exports[`Component: ChoiceOption when rendering should work with full props 1`] 
               >
                 <a>
                   Hit Dice
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="personalities"
+                onClick={[Function]}
+              >
+                <a>
+                  Personalities
                 </a>
               </li>
               <li>
@@ -714,6 +732,15 @@ exports[`Component: ChoiceOption when rendering should work with minimum props 1
           </li>
           <li
             className={null}
+            data-value="manual"
+            onClick={[Function]}
+          >
+            <a>
+              Manual value option
+            </a>
+          </li>
+          <li
+            className={null}
             data-value="multichoice"
             onClick={[Function]}
           >
@@ -794,6 +821,15 @@ exports[`Component: ChoiceOption when rendering should work with minimum props 1
               >
                 <a>
                   Hit Dice
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="personalities"
+                onClick={[Function]}
+              >
+                <a>
+                  Personalities
                 </a>
               </li>
               <li>

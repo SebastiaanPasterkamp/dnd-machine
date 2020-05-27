@@ -8,6 +8,7 @@ import ChoiceOption from './ChoiceOption';
 import ConfigOption from './ConfigOption';
 import DictOption from './DictOption';
 import ListOption from './ListOption';
+import ManualValueOption from './ManualValueOption';
 import MultichoiceOption from './MultichoiceOption';
 import ObjectListOption from './ObjectListOption';
 import ValueOption from './ValueOption';
@@ -53,6 +54,11 @@ export class DataConfig extends React.Component
             id: 'list',
             name: 'List option',
             component: ListOption,
+        },
+        {
+            id: 'manual',
+            name: 'Manual value option',
+            component: ManualValueOption,
         },
         {
             id: 'multichoice',
@@ -195,6 +201,43 @@ export class DataConfig extends React.Component
                                         value: "( + statistics.modifiers.constitution) + ( + statistics.modifiers.constitution) * (level - 1)"
                                     },
                                 ],
+                            },
+                        ],
+                    }),
+                },
+                {
+                    id: 'personalities',
+                    name: 'Personalities',
+                    component: ConfigOption,
+                    initialItem: () => ({
+                        uuid: uuidv4(),
+                        type: 'config',
+                        name: "Suggested Characteristics",
+                        description: "",
+                        config: [
+                            {
+                                uuid: uuidv4(),
+                                type: "manual",
+                                path: "personality.traits",
+                                name: "Personality Trait",
+                            },
+                            {
+                                uuid: uuidv4(),
+                                type: "manual",
+                                path: "personality.ideals",
+                                name: "Ideal",
+                            },
+                            {
+                                uuid: uuidv4(),
+                                type: "manual",
+                                path: "personality.bonds",
+                                name: "Bond",
+                            },
+                            {
+                                uuid: uuidv4(),
+                                type: "manual",
+                                path: "personality.flaws",
+                                name: "Flaw",
                             },
                         ],
                     }),

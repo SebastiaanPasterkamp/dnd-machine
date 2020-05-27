@@ -232,6 +232,15 @@ exports[`Component: ConfigOption when rendering should show label/desc when cann
           </li>
           <li
             className={null}
+            data-value="manual"
+            onClick={[Function]}
+          >
+            <a>
+              Manual value option
+            </a>
+          </li>
+          <li
+            className={null}
             data-value="multichoice"
             onClick={[Function]}
           >
@@ -312,6 +321,15 @@ exports[`Component: ConfigOption when rendering should show label/desc when cann
               >
                 <a>
                   Hit Dice
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="personalities"
+                onClick={[Function]}
+              >
+                <a>
+                  Personalities
                 </a>
               </li>
               <li>
@@ -732,6 +750,15 @@ exports[`Component: ConfigOption when rendering should show label/desc when not 
           </li>
           <li
             className={null}
+            data-value="manual"
+            onClick={[Function]}
+          >
+            <a>
+              Manual value option
+            </a>
+          </li>
+          <li
+            className={null}
             data-value="multichoice"
             onClick={[Function]}
           >
@@ -812,6 +839,15 @@ exports[`Component: ConfigOption when rendering should show label/desc when not 
               >
                 <a>
                   Hit Dice
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="personalities"
+                onClick={[Function]}
+              >
+                <a>
+                  Personalities
                 </a>
               </li>
               <li>
@@ -1179,6 +1215,15 @@ exports[`Component: ConfigOption when rendering should work with full props 1`] 
           </li>
           <li
             className={null}
+            data-value="manual"
+            onClick={[Function]}
+          >
+            <a>
+              Manual value option
+            </a>
+          </li>
+          <li
+            className={null}
             data-value="multichoice"
             onClick={[Function]}
           >
@@ -1259,6 +1304,15 @@ exports[`Component: ConfigOption when rendering should work with full props 1`] 
               >
                 <a>
                   Hit Dice
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="personalities"
+                onClick={[Function]}
+              >
+                <a>
+                  Personalities
                 </a>
               </li>
               <li>
@@ -1597,6 +1651,15 @@ exports[`Component: ConfigOption when rendering should work with minimum props 1
           </li>
           <li
             className={null}
+            data-value="manual"
+            onClick={[Function]}
+          >
+            <a>
+              Manual value option
+            </a>
+          </li>
+          <li
+            className={null}
             data-value="multichoice"
             onClick={[Function]}
           >
@@ -1677,6 +1740,15 @@ exports[`Component: ConfigOption when rendering should work with minimum props 1
               >
                 <a>
                   Hit Dice
+                </a>
+              </li>
+              <li
+                className={null}
+                data-value="personalities"
+                onClick={[Function]}
+              >
+                <a>
+                  Personalities
                 </a>
               </li>
               <li>

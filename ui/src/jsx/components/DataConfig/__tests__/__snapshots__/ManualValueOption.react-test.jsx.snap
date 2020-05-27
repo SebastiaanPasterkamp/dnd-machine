@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ManualValueOption when rendering should work with full props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Manual Value option
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Path
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Path..."
+      type="text"
+      value="some.path"
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Label
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Label..."
+      type="text"
+      value="My Label"
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Suggestions
+    </span>
+    <ul
+      className="list-component"
+    >
+      <li>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          type="text"
+          value="some"
+        />
+        <button
+          className="nice-btn list-component__delete warning icon fa-minus"
+          disabled={false}
+          name="del"
+          onClick={[Function]}
+        >
+          ​
+        </button>
+      </li>
+      <li>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          type="text"
+          value="suggestions"
+        />
+        <button
+          className="nice-btn list-component__delete warning icon fa-minus"
+          disabled={false}
+          name="del"
+          onClick={[Function]}
+        >
+          ​
+        </button>
+      </li>
+      <li>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          type="text"
+          value=""
+        />
+        <button
+          className="nice-btn list-component__delete warning icon fa-minus"
+          disabled={true}
+          name="del"
+          onClick={[Function]}
+        >
+          ​
+        </button>
+      </li>
+    </ul>
+  </div>
+</fieldset>
+`;
+
+exports[`Component: ManualValueOption when rendering should work with minimum props 1`] = `
+<fieldset
+  className="nice-form-group"
+>
+  <legend>
+    Manual Value option
+  </legend>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Path
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Path..."
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Label
+    </span>
+    <input
+      className="nice-form-control"
+      disabled={undefined}
+      onChange={[Function]}
+      onKeyPress={null}
+      placeholder="Label..."
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="nice-control-group"
+  >
+    <span
+      className="nice-input-addon"
+    >
+      Suggestions
+    </span>
+    <ul
+      className="list-component"
+    >
+      <li>
+        <input
+          className="nice-form-control"
+          disabled={undefined}
+          onChange={[Function]}
+          onKeyPress={null}
+          placeholder={undefined}
+          type="text"
+          value=""
+        />
+        <button
+          className="nice-btn list-component__delete warning icon fa-minus"
+          disabled={true}
+          name="del"
+          onClick={[Function]}
+        >
+          ​
+        </button>
+      </li>
+    </ul>
+  </div>
+</fieldset>
+`;
