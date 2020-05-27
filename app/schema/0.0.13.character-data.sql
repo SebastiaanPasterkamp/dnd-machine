@@ -5634,6 +5634,72 @@ INSERT INTO `background` (id, name, config)
             "type": "value",
             "uuid": "f9258216-06ce-4783-822a-50fac59a6b8b",
             "value": "As an acolyte, you command the respect of those who\nshare your faith, and you can perform the religious\nceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at\na temple, shrine, or other established presence of your\nfaith, though you must provide any material components\nneeded for spells. Those who share your religion will support you (but only you) at a modest lifestyle.\n\nYou might also have ties to a specific temple dedicated\nto your chosen deity or pantheon, and you have a residence there. This could be the temple where you used to\nserve, if you remain on good terms with it, or a temple\nwhere you have found a new home. While near your temple, you can call upon the priests for assistance, provided\nthe assistance you ask for is not hazardous and you remain in good standing with your temple."
+        },
+        {
+            "config": [
+                {
+                    "name": "Personality Trait",
+                    "path": "personality.traits",
+                    "suggestions": [
+                        "I idolize a particular hero of my faith, and constantly refer to that person\u2019s deeds and example.",
+                        "I can find common ground between the fiercest enemies, empathizing with them and always working toward peace.",
+                        "I see omens in every event and action. The gods try to speak to us, we just need to listen.",
+                        "Nothing can shake my optimistic attitude.",
+                        "I quote (or misquote) sacred texts and proverbs in almost every situation.",
+                        "I am tolerant (or intolerant) of other faiths and respect (or condemn) the worship of other gods",
+                        "I\u2019ve enjoyed fine food, drink, and high society among my temple\u2019s elite. Rough living grates on me.",
+                        "I\u2019ve spent so long in the temple that I have little practical experience dealing with people in the outside world."
+                    ],
+                    "type": "manual",
+                    "uuid": "4f9abfa7-463b-4e6f-9e7c-ced3b98c5e2c"
+                },
+                {
+                    "name": "Ideal",
+                    "path": "personality.ideals",
+                    "suggestions": [
+                        "*Tradition*. The ancient traditions of worship and sacrifice must be preserved and upheld. (Lawful)",
+                        "*Charity*. I always try to help those in need, no matter what the personal cost. (Good)",
+                        "*Change*. We must help bring about the changes the gods are constantly working in the world. (Chaotic)",
+                        "*Power*. I hope to one day rise to the top of my faith\u2019s religious hierarchy. (Lawful)",
+                        "*Faith*. I trust that my deity will guide my actions. I have faith that if I work hard, things will go well. (Lawful)",
+                        "*Aspiration*. I seek to prove myself worthy of my god\u2019s favor by matching my actions against his or her teachings. (Any)"
+                    ],
+                    "type": "manual",
+                    "uuid": "5d9d0bf8-c2de-4307-9df3-ab477a11e043"
+                },
+                {
+                    "name": "Bond",
+                    "path": "personality.bonds",
+                    "suggestions": [
+                        "I would die to recover an ancient relic of my faith that was lost long ago.",
+                        "I will someday get revenge on the corrupt temple hierarchy who branded me a heretic.",
+                        "I owe my life to the priest who took me in when my parents died.",
+                        "Everything I do is for the common people.",
+                        "I will do anything to protect the temple where I served.",
+                        "I seek to preserve a sacred text that my enemies consider heretical and seek to destroy."
+                    ],
+                    "type": "manual",
+                    "uuid": "d6608541-e169-462e-80dd-ca6a79cccc8f"
+                },
+                {
+                    "name": "Flaw",
+                    "path": "personality.flaws",
+                    "suggestions": [
+                        "I judge others harshly, and myself even more severely.",
+                        "I put too much trust in those who wield power within my temple\u2019s hierarchy.",
+                        "My piety sometimes leads me to blindly trust those that profess faith in my god.",
+                        "I am inflexible in my thinking.",
+                        "I am suspicious of strangers and expect the worst of them.",
+                        "Once I pick a goal, I become obsessed with it to the detriment of everything else in my life."
+                    ],
+                    "type": "manual",
+                    "uuid": "4c0370a0-5d48-4fa9-9179-6c2a0ac86f16"
+                }
+            ],
+            "description": "Acolytes are shaped by their experience in temples or\nother religious communities. Their study of the history\nand tenets of their faith and their relationships to temples, shrines, or hierarchies affect their mannerisms and\nideals. Their flaws might be some hidden hypocrisy or\nheretical idea, or an ideal or bond taken to an extreme.",
+            "name": "Suggested Characteristics",
+            "type": "config",
+            "uuid": "1c036dc5-7af0-4834-8f17-bf98ade12100"
         }
     ],
     "description": "You have spent your life in the service of a temple to a\nspecific god or pantheon of gods. You act as an intermediary between the realm of the holy and the mortal world,\nperforming sacred rites and offering sacrifices in order to\nconduct worshipers into the presence of the divine. You\nare not necessarily a cleric\u2014performing sacred rites is\nnot the same thing as channeling divine power.\n\nChoose a god, a pantheon of gods, or some other quasidivine being, and work with your DM to detail the nature\nof your religious service. Appendix B contains a sample\npantheon, from the Forgotten Realms setting. Were you\na lesser functionary in a temple, raised from childhood\nto assist the priests in the sacred rites? Or were you a\nhigh priest who suddenly experienced a call to serve your\ngod in a different way? Perhaps you were the leader of a\nsmall cult outside of any established temple structure, or\neven an occult group that served a fiendish master that\nyou now deny.",
@@ -5711,11 +5777,7 @@ INSERT INTO `background` (id, name, config)
                     "type": "gear"
                 }
             ],
-            "list": [
-                "armor",
-                "gear",
-                "weapon"
-            ],
+            "list": [],
             "multiple": true,
             "name": "Equipment",
             "path": "equipment",
@@ -5732,18 +5794,881 @@ INSERT INTO `background` (id, name, config)
         {
             "config": [
                 {
-                    "type": "list"
+                    "name": "Criminal Specialty",
+                    "path": "info.Criminal Specialty",
+                    "suggestions": [
+                        "Blackmailer",
+                        "Burglar",
+                        "Enforcer",
+                        "Fence",
+                        "Highway robber",
+                        "Hired killer",
+                        "Pickpocket",
+                        "Smuggler"
+                    ],
+                    "type": "manual",
+                    "uuid": "e864036f-695e-4fcd-9fba-0096b58778e8"
                 }
             ],
             "description": "There are many kinds of criminals, and within a thieves\u2019\nguild or similar criminal organization, individual members have particular specialties. Even criminals who\noperate outside of such organizations have strong preferences for certain kinds of crimes over others. Choose\nthe role you played in your criminal life.",
             "name": "Criminal Specialty",
             "type": "config",
             "uuid": "a6ac9664-6c4d-4729-962f-006285965ca8"
+        },
+        {
+            "dict": {
+                "description": "You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you."
+            },
+            "name": "Feature: Criminal Contact",
+            "path": "abilities.Feature: Criminal Contact",
+            "type": "dict",
+            "uuid": "d289600a-1eb4-4d7d-9fe0-e1048ed71754"
+        },
+        {
+            "config": [
+                {
+                    "name": "Personality Trait",
+                    "path": "personality.traits",
+                    "suggestions": [
+                        "I always have a plan for what to do when things go wrong.",
+                        "I am always calm, no matter what the situation. I never raise my voice or let my emotions control me.",
+                        "The first thing I do in a new place is note the locations of everything valuable\u2014or where such things could be hidden.",
+                        "I would rather make a new friend than a new enemy.",
+                        "I am incredibly slow to trust. Those who seem the fairest often have the most to hide.",
+                        "I don\u2019t pay attention to the risks in a situation. Never tell me the odds.",
+                        "The best way to get me to do something is to tell me I can\u2019t do it.",
+                        "I blow up at the slightest insult."
+                    ],
+                    "type": "manual",
+                    "uuid": "b1bcd85f-f39e-4d81-88c5-b96088071d63"
+                },
+                {
+                    "name": "Ideal",
+                    "path": "personality.ideals",
+                    "suggestions": [
+                        "*Honor*. I don\u2019t steal from others in the trade. (Lawful)",
+                        "*Freedom*. Chains are meant to be broken, as are those who would forge them. (Chaotic)",
+                        "*Charity*. I steal from the wealthy so that I can help people in need. (Good)",
+                        "*Greed*. I will do whatever it takes to become wealthy. (Evil)",
+                        "*People*. I\u2019m loyal to my friends, not to any ideals, and everyone else can take a trip down the Styx for all I care. (Neutral)",
+                        "*Redemption*. There\u2019s a spark of good in everyone. (Good)"
+                    ],
+                    "type": "manual",
+                    "uuid": "1fcd6a1e-0ec8-4642-a8c1-7e54e10bf9c3"
+                },
+                {
+                    "name": "Bond",
+                    "path": "personality.bonds",
+                    "suggestions": [
+                        "I\u2019m trying to pay off an old debt I owe to a generous benefactor.",
+                        "My ill-gotten gains go to support my family.",
+                        "3 Something important was taken from me, and I aim to steal it back.",
+                        "I will become the greatest thief that ever lived.",
+                        "I\u2019m guilty of a terrible crime. I hope I can redeem myself for it.",
+                        "Someone I loved died because of I mistake I made. That will never happen again."
+                    ],
+                    "type": "manual",
+                    "uuid": "a126d267-15fb-4935-8bd2-bbb2bd91294f"
+                },
+                {
+                    "name": "Flaw",
+                    "path": "personality.flaws",
+                    "suggestions": [
+                        "When I see something valuable, I can\u2019t think about anything but how to steal it.",
+                        "When faced with a choice between money and my friends, I usually choose the money.",
+                        "If there\u2019s a plan, I\u2019ll forget it. If I don\u2019t forget it, I\u2019ll ignore it.",
+                        "I have a \u201ctell\u201d that reveals when I\u2019m lying.",
+                        "I turn tail and run when things look bad.",
+                        "An innocent person is in prison for a crime that I committed. I\u2019m okay with that."
+                    ],
+                    "type": "manual",
+                    "uuid": "0f3e9e83-aaf4-4f4b-990b-84026db7d5a4"
+                }
+            ],
+            "description": "",
+            "name": "Suggested Characteristics",
+            "type": "config",
+            "uuid": "7b47366a-bca4-4100-8bdd-08adb7beb588"
         }
     ],
     "description": "You are an experienced criminal with a history of\nbreaking the law. You have spent a lot of time among\nother criminals and still have contacts within the\ncriminal underworld. You\u2019re far closer than most people\nto the world of murder, theft, and violence that pervades\nthe underbelly of civilization, and you have survived up to\nthis point by flouting the rules and regulations of society.",
     "type": "config",
     "uuid": "c427d072-6d00-4064-b295-0787d2c61cd1"
+}');
+INSERT INTO `background` (id, name, config)
+    VALUES (3, 'Folk Hero', '{
+    "config": [
+        {
+            "description": " Animal Handling, Survival",
+            "given": [
+                {
+                    "id": "animal handling",
+                    "name": "Animal Handling",
+                    "type": "skills"
+                },
+                {
+                    "id": "survival",
+                    "name": "Survival",
+                    "type": "skills"
+                }
+            ],
+            "list": [],
+            "name": "Skill Proficiency",
+            "path": "proficiencies.skills",
+            "type": "objectlist",
+            "uuid": "2d785d22-2080-4e6c-a2eb-5a3465bf2974"
+        },
+        {
+            "add": 1,
+            "description": "One type of artisan\u2019s tools, vehicles (land)",
+            "filter": [
+                {
+                    "field": "type",
+                    "options": [
+                        "artisan"
+                    ],
+                    "type": "attribute"
+                }
+            ],
+            "list": [
+                "gear"
+            ],
+            "name": "Tool Proficiency",
+            "path": "proficiencies.tools",
+            "type": "objectlist",
+            "uuid": "535e0c04-685a-4637-9212-8e7376a2abdd"
+        },
+        {
+            "add": 1,
+            "description": " A set of artisan\u2019s tools (one of your choice),\na shovel, an iron pot, a set of common clothes, and a\npouch containing 10 gp",
+            "filter": [
+                {
+                    "field": "type",
+                    "options": [
+                        "artisan"
+                    ],
+                    "type": "attribute"
+                }
+            ],
+            "given": [
+                {
+                    "count": 1,
+                    "id": 278,
+                    "name": "Shovel",
+                    "type": "gear"
+                },
+                {
+                    "count": 1,
+                    "id": 266,
+                    "name": "Pot, iron",
+                    "type": "gear"
+                },
+                {
+                    "count": 1,
+                    "id": 224,
+                    "name": "Clothes, common",
+                    "type": "gear"
+                },
+                {
+                    "count": 1,
+                    "id": 268,
+                    "name": "Pouch",
+                    "type": "gear"
+                }
+            ],
+            "list": [
+                "gear"
+            ],
+            "multiple": true,
+            "name": "Equipment",
+            "path": "equipment",
+            "type": "objectlist",
+            "uuid": "eb0cf537-06f8-4406-a036-3cdc12645269"
+        },
+        {
+            "hidden": true,
+            "path": "wealth.gp",
+            "type": "value",
+            "uuid": "d2fd2a34-f2fe-4b7a-8869-fad14112dcea",
+            "value": 10
+        },
+        {
+            "config": [
+                {
+                    "path": "info.Defining Event",
+                    "suggestions": [
+                        "I stood up to a tyrant\u2019s agents.",
+                        "I saved people during a natural disaster.",
+                        "I stood alone against a terrible monster.",
+                        "I stole from a corrupt merchant to help the poor.",
+                        "I led a militia to fight off an invading army.",
+                        "I broke into a tyrant\u2019s castle and stole weapons to arm the people.",
+                        "I trained the peasantry to use farm implements as weapons against a tyrant\u2019s soldiers.",
+                        "A lord rescinded an unpopular decree after I led a symbolic act of protest against it.",
+                        "A celestial, fey, or similar creature gave me a blessing or revealed my secret origin.",
+                        "Recruited into a lord\u2019s army, I rose to leadership and was commended for my heroism."
+                    ],
+                    "type": "manual",
+                    "uuid": "86d15f4e-b265-422b-8e90-4b939a44f5fe"
+                }
+            ],
+            "description": "You previously pursued a simple profession among the\npeasantry, perhaps as a farmer, miner, servant, shepherd,\nwoodcutter, or gravedigger. But something happened that\nset you on a different path and marked you for greater\nthings. Choose or randomly determine a defining event\nthat marked you as a hero of the people.",
+            "name": "Defining Event",
+            "type": "config",
+            "uuid": "2dc96e58-ce93-4452-8d10-1eff27207cdb"
+        },
+        {
+            "name": "Feature: Rustic Hospitality",
+            "path": "info.Feature: Rustic Hospitality",
+            "type": "value",
+            "uuid": "efe2eb67-7555-4911-948e-b0321ca2cb61",
+            "value": "Since you come from the ranks of the common folk, you\nfit in among them with ease. You can find a place to hide,\nrest, or recuperate among other commoners, unless you\nhave shown yourself to be a danger to them. They will\nshield you from the law or anyone else searching for you,\nthough they will not risk their lives for you."
+        },
+        {
+            "config": [
+                {
+                    "name": "Personality Trait",
+                    "path": "personality.traits",
+                    "suggestions": [
+                        "I judge people by their actions, not their words.",
+                        "If someone is in trouble, I\u2019m always ready to lend help.",
+                        "When I set my mind to something, I follow through no matter what gets in my way.",
+                        "I have a strong sense of fair play and always try to find the most equitable solution to arguments.",
+                        "I\u2019m confident in my own abilities and do what I can to instill confidence in others.",
+                        "Thinking is for other people. I prefer action.",
+                        "I misuse long words in an attempt to sound smarter.",
+                        "I get bored easily. When am I going to get on with my destiny?"
+                    ],
+                    "type": "manual",
+                    "uuid": "56ecddd2-d524-4947-92a1-a851c1f65bcd"
+                },
+                {
+                    "name": "Ideal",
+                    "path": "personality.ideals",
+                    "suggestions": [
+                        "*Respect*. People deserve to be treated with dignity and respect. (Good)",
+                        "*Fairness*. No one should get preferential treatment before the law, and no one is above the law. (Lawful)",
+                        "*Freedom*. Tyrants must not be allowed to oppress the people. (Chaotic)",
+                        "*Might*. If I become strong, I can take what I want\u2014what I deserve. (Evil)",
+                        "*Sincerity*. There\u2019s no good in pretending to be something I\u2019m not. (Neutral)",
+                        "*Destiny*. Nothing and no one can steer me away from my higher calling. (Any)"
+                    ],
+                    "type": "manual",
+                    "uuid": "876042e8-8ff2-48f6-9b76-d977bc439bfe"
+                },
+                {
+                    "name": "Bond",
+                    "path": "personality.bonds",
+                    "suggestions": [
+                        "I have a family, but I have no idea where they are. One day, I hope to see them again.",
+                        "I worked the land, I love the land, and I will protect the land.",
+                        "A proud noble once gave me a horrible beating, and I will take my revenge on any bully I encounter.",
+                        "My tools are symbols of my past life, and I carry them so that I will never forget my roots.",
+                        "I protect those who cannot protect themselves.",
+                        "I wish my childhood sweetheart had come with me to pursue my destiny"
+                    ],
+                    "type": "manual",
+                    "uuid": "2dd468bb-1f59-4dc2-bf10-653411d00b75"
+                },
+                {
+                    "name": "Flaw",
+                    "path": "personality.flaws",
+                    "suggestions": [
+                        "The tyrant who rules my land will stop at nothing to see me killed.",
+                        "I\u2019m convinced of the significance of my destiny, and blind to my shortcomings and the risk of failure.",
+                        "The people who knew me when I was young know my shameful secret, so I can never go home again.",
+                        "I have a weakness for the vices of the city, especially hard drink.",
+                        "Secretly, I believe that things would be better if I were a tyrant lording over the land.",
+                        "I have trouble trusting in my allies."
+                    ],
+                    "type": "manual",
+                    "uuid": "847696ef-ead1-485c-a9a6-179d37997319"
+                }
+            ],
+            "description": "A folk hero is one of the common people, for better or for\nworse. Most folk heroes look on their humble origins as\na virtue, not a shortcoming, and their home communities\nremain very important to them.",
+            "name": "Suggested Characteristics",
+            "type": "config",
+            "uuid": "caa0d5ce-398a-4e7c-9ff3-3891c8bf8598"
+        }
+    ],
+    "description": "You come from a humble social rank, but you are\ndestined for so much more. Already the people of\nyour home village regard you as their champion, and\nyour destiny calls you to stand against the tyrants and\nmonsters that threaten the common folk everywhere.",
+    "type": "config",
+    "uuid": "d77a73fa-4d7b-4963-9224-a3fa77cfe4c5"
+}');
+INSERT INTO `background` (id, name, config)
+    VALUES (4, 'Noble', '{
+    "config": [
+        {
+            "description": "History, Persuasion",
+            "given": [
+                {
+                    "id": "history",
+                    "name": "History",
+                    "type": "skills"
+                },
+                {
+                    "id": "persuasion",
+                    "name": "Persuasion",
+                    "type": "skills"
+                }
+            ],
+            "list": [],
+            "name": "Skill Proficiency",
+            "path": "proficiencies.skills",
+            "type": "objectlist",
+            "uuid": "acea2c60-cb78-41b7-8cf6-5387977fdf20"
+        },
+        {
+            "add": 1,
+            "description": "One type of gaming set",
+            "filter": [
+                {
+                    "field": "type",
+                    "options": [
+                        "gaming"
+                    ],
+                    "type": "attribute"
+                }
+            ],
+            "list": [
+                "gear"
+            ],
+            "name": "Tool Proficiency",
+            "path": "proficiencies.tools",
+            "type": "objectlist",
+            "uuid": "d92cb0f7-6211-468d-92dc-9ad5f9a73088"
+        },
+        {
+            "add": 1,
+            "description": " One of your choice",
+            "list": [
+                "languages"
+            ],
+            "name": "Languages",
+            "path": "proficiencies.languages",
+            "type": "objectlist",
+            "uuid": "363401e7-d35e-40b9-b1e8-d9ea3401a2b1"
+        },
+        {
+            "description": "A set of fine clothes, a signet ring, a scroll of\npedigree, and a purse containing 25 gp",
+            "given": [
+                {
+                    "count": 1,
+                    "id": 226,
+                    "name": "Clothes, fine",
+                    "type": "gear"
+                },
+                {
+                    "count": 1,
+                    "id": 280,
+                    "name": "Signet ring",
+                    "type": "gear"
+                },
+                {
+                    "count": 1,
+                    "id": 219,
+                    "name": "Case, map or scroll",
+                    "type": "gear"
+                },
+                {
+                    "count": 1,
+                    "id": 268,
+                    "name": "Pouch",
+                    "type": "gear"
+                }
+            ],
+            "list": [],
+            "multiple": true,
+            "name": "Equipment",
+            "path": "equipment",
+            "type": "objectlist",
+            "uuid": "07b69d1e-43f3-4583-bf7f-70e8104da4f0"
+        },
+        {
+            "hidden": true,
+            "path": "wealth.gp",
+            "type": "value",
+            "uuid": "75f1003f-3882-4956-b544-fc049054d4c1",
+            "value": 25
+        },
+        {
+            "name": "Feature: Position of Privilege",
+            "path": "info.Feature: Position of Privilege",
+            "type": "value",
+            "uuid": "c5c8565c-39dd-4f04-b7c3-4f508035c00c",
+            "value": "Thanks to your noble birth, people are inclined to think\nthe best of you. You are welcome in high society, and\npeople assume you have the right to be wherever you are.\nThe common folk make every effort to accommodate you\nand avoid your displeasure, and other people of high birth\ntreat you as a member of the same social sphere. You can\nsecure an audience with a local noble if you need to."
+        },
+        {
+            "config": [
+                {
+                    "name": "Personality Trait",
+                    "path": "personality.traits",
+                    "suggestions": [
+                        "My eloquent flattery makes everyone I talk to feel like the most wonderful and important person in the world.",
+                        "The common folk love me for my kindness and generosity.",
+                        "No one could doubt by looking at my regal bearing that I am a cut above the unwashed masses.",
+                        "I take great pains to always look my best and follow the latest fashions.",
+                        "I don\u2019t like to get my hands dirty, and I won\u2019t be caught dead in unsuitable accommodations.",
+                        "Despite my noble birth, I do not place myself above other folk. We all have the same blood.",
+                        "My favor, once lost, is lost forever.",
+                        "If you do me an injury, I will crush you, ruin your name, and salt your fields."
+                    ],
+                    "type": "manual",
+                    "uuid": "6ceddba2-8e3f-466d-8da7-12be30c73576"
+                },
+                {
+                    "name": "Ideal",
+                    "path": "personality.ideals",
+                    "suggestions": [
+                        "*Respect*. Respect is due to me because of my position, but all people regardless of station deserve to be treated with dignity. (Good)",
+                        "*Responsibility*. It is my duty to respect the authority of those above me, just as those below me must respect mine. (Lawful)",
+                        "*Independence*. I must prove that I can handle myself without the coddling of my family. (Chaotic)",
+                        "*Power*. If I can attain more power, no one will tell me what to do. (Evil)",
+                        "*Family*. Blood runs thicker than water. (Any)",
+                        "*Noble Obligation*. It is my duty to protect and care for the people beneath me. (Good)"
+                    ],
+                    "type": "manual",
+                    "uuid": "8c2a91d1-6ff3-40a9-9316-0977420c4501"
+                },
+                {
+                    "name": "Bond",
+                    "path": "personality.bonds",
+                    "suggestions": [
+                        "I will face any challenge to win the approval of my family.",
+                        "My house\u2019s alliance with another noble family must be sustained at all costs.",
+                        "Nothing is more important than the other members of my family.",
+                        "I am in love with the heir of a family that my family despises.",
+                        "My loyalty to my sovereign is unwavering.",
+                        "The common folk must see me as a hero of the people."
+                    ],
+                    "type": "manual",
+                    "uuid": "c57a2bbc-8de7-4560-a661-6e24ffab8c24"
+                },
+                {
+                    "name": "Flaw",
+                    "path": "personality.flaws",
+                    "suggestions": [
+                        "I secretly believe that everyone is beneath me.",
+                        "I hide a truly scandalous secret that could ruin my family forever.",
+                        "I too often hear veiled insults and threats in every word addressed to me, and I\u2019m quick to anger.",
+                        "I have an insatiable desire for carnal pleasures.",
+                        "In fact, the world does revolve around me.",
+                        "By my words and actions, I often bring shameto my family."
+                    ],
+                    "type": "manual",
+                    "uuid": "43c22cf5-a87b-4c18-883c-88dd6cff8efa"
+                }
+            ],
+            "description": "Nobles are born and raised to a very different lifestyle\nthan most people ever experience, and their personalities\nreflect that upbringing. A noble title comes with a plethora of bonds\u2014responsibilities to family, to other nobles\n(including the sovereign), to the people entrusted to the\nfamily\u2019s care, or even to the title itself. But this responsibility is often a good way to undermine a noble.",
+            "name": "Suggested Characteristics",
+            "type": "config",
+            "uuid": "0d6ffd42-7276-4269-b33b-271e2ece5381"
+        }
+    ],
+    "description": "You understand wealth, power, and privilege. You carry\na noble title, and your family owns land, collects taxes,\nand wields significant political influence. You might be\na pampered aristocrat unfamiliar with work or discomfort, a former merchant just elevated to the nobility, or\na disinherited scoundrel with a disproportionate sense\nof entitlement. Or you could be an honest, hard-working\nlandowner who cares deeply about the people who live\nand work on your land, keenly aware of your responsibility to them.",
+    "type": "config",
+    "uuid": "8949d8ae-83b3-4364-982b-8956b0537767"
+}');
+INSERT INTO `background` (id, name, config)
+    VALUES (5, 'Sage', '{
+    "config": [
+        {
+            "description": "Arcana, History",
+            "given": [
+                {
+                    "id": "arcana",
+                    "name": "Arcana",
+                    "type": "skills"
+                },
+                {
+                    "id": "history",
+                    "name": "History",
+                    "type": "skills"
+                }
+            ],
+            "list": [],
+            "name": "Skill Proficiency",
+            "path": "proficiencies.skills",
+            "type": "objectlist",
+            "uuid": "d5d744db-74ae-488a-9fde-116eae0995a9"
+        },
+        {
+            "add": 2,
+            "description": "Two of your choice",
+            "list": [
+                "languages"
+            ],
+            "name": "Languages",
+            "path": "proficiencies.languages",
+            "type": "objectlist",
+            "uuid": "b57efafc-f882-43bd-bddc-28c92642de93"
+        },
+        {
+            "description": "A bottle of black ink, a quill, a small knife, a\nletter from a dead colleague posing a question you have\nnot yet been able to answer, a set of common clothes,\nand a pouch containing 10 gp",
+            "given": [
+                {
+                    "count": 1,
+                    "id": 246,
+                    "name": "Ink (1 ounce bottle)",
+                    "type": "gear"
+                },
+                {
+                    "count": 1,
+                    "id": 247,
+                    "name": "Ink pen",
+                    "type": "gear"
+                },
+                {
+                    "count": 1,
+                    "id": 296,
+                    "name": "Small knife",
+                    "type": "gear"
+                },
+                {
+                    "count": 1,
+                    "id": 259,
+                    "name": "Paper (one sheet)",
+                    "type": "gear"
+                },
+                {
+                    "count": 1,
+                    "id": 224,
+                    "name": "Clothes, common",
+                    "type": "gear"
+                },
+                {
+                    "count": 1,
+                    "id": 268,
+                    "name": "Pouch",
+                    "type": "gear"
+                }
+            ],
+            "list": [
+                "armor",
+                "gear",
+                "weapon"
+            ],
+            "multiple": true,
+            "name": "Equipment",
+            "path": "equipment",
+            "type": "objectlist",
+            "uuid": "f276db4f-003c-434f-bb6b-23beae746435"
+        },
+        {
+            "hidden": true,
+            "path": "wealth.gp",
+            "type": "value",
+            "uuid": "cde82df5-db56-44b1-a2fb-e573e55cbc1a",
+            "value": 10
+        },
+        {
+            "config": [
+                {
+                    "path": "info.Specialty",
+                    "suggestions": [
+                        "Alchemist",
+                        "Astronomer",
+                        "Discredited academic",
+                        "Librarian",
+                        "Professor",
+                        "Researcher",
+                        "Wizard\u2019s apprentice",
+                        "Scribe"
+                    ],
+                    "type": "manual",
+                    "uuid": "5dc06d82-4d8d-4403-bbc3-6dc46130c7c0"
+                }
+            ],
+            "description": "To determine the nature of your scholarly training, choose from the options in the table below.",
+            "name": "Specialty",
+            "type": "config",
+            "uuid": "206caf2f-99bc-4678-8e60-87539dcc5cea"
+        },
+        {
+            "name": "Feature: Researcher",
+            "path": "info.Feature: Researcher",
+            "type": "value",
+            "uuid": "09d15c1c-9762-4cfa-b8c0-146517c4a0f1",
+            "value": "When you attempt to learn or recall a piece of lore, if you\ndo not know that information, you often know where and\nfrom whom you can obtain it. Usually, this information\ncomes from a library, scriptorium, university, or a sage\nor other learned person or creature. Your DM might rule\nthat the knowledge you seek is secreted away in an almost inaccessible place, or that it simply cannot be found.\nUnearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign."
+        },
+        {
+            "config": [
+                {
+                    "name": "Personality Trait",
+                    "path": "personality.traits",
+                    "suggestions": [
+                        "I use polysyllabic words that convey the impression of great erudition.",
+                        "I\u2019ve read every book in the world\u2019s greatest libraries\u2014or I like to boast that I have.",
+                        "I\u2019m used to helping out those who aren\u2019t as smart as I am, and I patiently explain anything and everything to others.",
+                        "There\u2019s nothing I like more than a good mystery.",
+                        "I\u2019m willing to listen to every side of an argument before I make my own judgment.",
+                        "I . . . speak . . . slowly . . . when talking . . . to idiots, . . . which . . . almost . . . everyone . . . is . . . compared . . . to me.",
+                        "I am horribly, horribly awkward in social situations.",
+                        "I\u2019m convinced that people are always trying to steal my secrets."
+                    ],
+                    "type": "manual",
+                    "uuid": "eeb9c74b-d7cc-487e-82e3-32439764ed24"
+                },
+                {
+                    "name": "Ideal",
+                    "path": "personality.ideals",
+                    "suggestions": [
+                        "*Knowledge*. The path to power and self-improvement is through knowledge. (Neutral)",
+                        "*Beauty*. What is beautiful points us beyond itself toward what is true. (Good)",
+                        "*Logic*. Emotions must not cloud our logical thinking. (Lawful)",
+                        "*No Limits*. Nothing should fetter the infinite possibility inherent in all existence. (Chaotic)",
+                        "*Power*. Knowledge is the path to power and domination. (Evil)",
+                        "*Self-Improvement*. The goal of a life of study is the betterment of oneself. (Any)"
+                    ],
+                    "type": "manual",
+                    "uuid": "e902349a-7ed6-4241-a4e4-8a4e4c23b9f4"
+                },
+                {
+                    "name": "Bond",
+                    "path": "personality.bonds",
+                    "suggestions": [
+                        "It is my duty to protect my students.",
+                        "I have an ancient text that holds terrible secrets that must not fall into the wrong hands.",
+                        "I work to preserve a library, university, scriptorium, or monastery.",
+                        "My life\u2019s work is a series of tomes related to a specific field of lore.",
+                        "I\u2019ve been searching my whole life for the answer to a certain question.",
+                        "I sold my soul for knowledge. I hope to do great deeds and win it back."
+                    ],
+                    "type": "manual",
+                    "uuid": "879298c8-8cbc-4aee-aa23-4b243f5ccd39"
+                },
+                {
+                    "name": "Flaw",
+                    "path": "personality.flaws",
+                    "suggestions": [
+                        "I am easily distracted by the promise of information.",
+                        "Most people scream and run when they see a demon. I stop and take notes on its anatomy.",
+                        "Unlocking an ancient mystery is worth the price of a civilization.",
+                        "I overlook obvious solutions in favor of complicated ones.",
+                        "I speak without really thinking through my words, invariably insulting others.",
+                        "I can\u2019t keep a secret to save my life, or anyone else\u2019s"
+                    ],
+                    "type": "manual",
+                    "uuid": "4c6b63b9-8092-4ab4-8b60-c1600f27d68c"
+                }
+            ],
+            "description": "Sages are defined by their extensive studies, and their\ncharacteristics reflect this life of study. Devoted to\nscholarly pursuits, a sage values knowledge highly\u2014\nsometimes in its own right, sometimes as a means\ntoward other ideals.",
+            "name": "Suggested Characteristics",
+            "type": "config",
+            "uuid": "650f4953-757c-4bc9-b147-19b956dec28f"
+        }
+    ],
+    "description": "You spent years learning the lore of the multiverse. You\nscoured manuscripts, studied scrolls, and listened to the\ngreatest experts on the subjects that interest you. Your\nefforts have made you a master in your fields of study.",
+    "type": "config",
+    "uuid": "17bc5ecf-0a6c-44ad-8a14-705b5d852bed"
+}');
+INSERT INTO `background` (id, name, config)
+    VALUES (6, 'Soldier', '{
+    "config": [
+        {
+            "description": "Athletics, Intimidation",
+            "given": [
+                {
+                    "id": "athletics",
+                    "name": "Athletics",
+                    "type": "skills"
+                },
+                {
+                    "id": "intimidation",
+                    "name": "Intimidation",
+                    "type": "skills"
+                }
+            ],
+            "list": [],
+            "name": "Skill Proficiency",
+            "path": "proficiencies.skills",
+            "type": "objectlist",
+            "uuid": "43411722-34ea-4f47-b9b5-a2dda83c9770"
+        },
+        {
+            "add": 1,
+            "description": "One type of gaming set,\nvehicles (land)",
+            "filter": [
+                {
+                    "field": "type",
+                    "options": [
+                        "gaming"
+                    ],
+                    "type": "attribute"
+                }
+            ],
+            "list": [
+                "gear"
+            ],
+            "name": "Tool Proficiency",
+            "path": "proficiencies.tools",
+            "type": "objectlist",
+            "uuid": "ab806eec-09b0-40db-99da-566c9f64cd29"
+        },
+        {
+            "add": 1,
+            "description": "An insignia of rank, a trophy taken from\na fallen enemy (a dagger, broken blade, or piece of a\nbanner), a set of bone dice or deck of cards, a set of\ncommon clothes, and a pouch containing 10 gp",
+            "filter": [
+                {
+                    "field": "id",
+                    "options": [
+                        169,
+                        132,
+                        296
+                    ],
+                    "type": "attribute"
+                }
+            ],
+            "given": [
+                {
+                    "count": 1,
+                    "id": 133,
+                    "name": "A rank insignia from a lost legionnaire",
+                    "type": "trinket"
+                },
+                {
+                    "count": 1,
+                    "id": 78,
+                    "name": "Dice set",
+                    "type": "gaming"
+                },
+                {
+                    "count": 1,
+                    "id": 80,
+                    "name": "Playing card set",
+                    "type": "gaming"
+                },
+                {
+                    "count": 1,
+                    "id": 224,
+                    "name": "Clothes, common",
+                    "type": "gear"
+                },
+                {
+                    "count": 1,
+                    "id": 268,
+                    "name": "Pouch",
+                    "type": "gear"
+                }
+            ],
+            "list": [
+                "armor",
+                "gear",
+                "weapon"
+            ],
+            "multiple": true,
+            "name": "Equipment",
+            "path": "equipment",
+            "type": "objectlist",
+            "uuid": "8efc5f8b-1552-42a1-b3b0-c3b99f4a57ce"
+        },
+        {
+            "hidden": true,
+            "path": "wealth.gp",
+            "type": "value",
+            "uuid": "7d305cfc-d142-4d79-9522-0d191f911b0b",
+            "value": 10
+        },
+        {
+            "config": [
+                {
+                    "path": "info.Specialty",
+                    "suggestions": [
+                        "Officer",
+                        "Scout",
+                        "Infantry",
+                        "Cavalry",
+                        "Healer",
+                        "Quartermaster",
+                        "Standard bearer",
+                        "Support staff (cook, blacksmith, or the like)"
+                    ],
+                    "type": "manual",
+                    "uuid": "44605c0c-3152-4542-ad6d-0162dbf54320"
+                }
+            ],
+            "description": "During your time as a soldier, you had a specific role to\nplay in your unit or army. Choose from the options in the table below to determine your role:",
+            "name": "Specialty",
+            "type": "config",
+            "uuid": "5470c17c-46a2-4d0d-aedf-f956b1ead763"
+        },
+        {
+            "name": "Feature: Military Rank",
+            "path": "info.Feature: Military Rank",
+            "type": "value",
+            "uuid": "f0632127-c4b3-4d42-b2d2-60cf9e14036b",
+            "value": "You have a military rank from your career as a soldier.\nSoldiers loyal to your former military organization still\nrecognize your authority and influence, and they defer to\nyou if they are of a lower rank. You can invoke your rank\nto exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also\nusually gain access to friendly military encampments and\nfortresses where your rank is recognized."
+        },
+        {
+            "config": [
+                {
+                    "name": "Personality Trait",
+                    "path": "personality.traits",
+                    "suggestions": [
+                        "I\u2019m always polite and respectful.",
+                        "I\u2019m haunted by memories of war. I can\u2019t get the images of violence out of my mind.",
+                        "I\u2019ve lost too many friends, and I\u2019m slow to make new ones.",
+                        "I\u2019m full of inspiring and cautionary tales from my military experience relevant to almost every combat situation.",
+                        "I can stare down a hell hound without flinching.",
+                        "I enjoy being strong and like breaking things.",
+                        "I have a crude sense of humor.",
+                        "I face problems head-on. A simple, direct solution is the best path to success."
+                    ],
+                    "type": "manual",
+                    "uuid": "bd786c6a-f0b2-4937-85ec-e841f679bf2e"
+                },
+                {
+                    "name": "Ideal",
+                    "path": "personality.ideals",
+                    "suggestions": [
+                        "*Greater Good*. Our lot is to lay down our lives in defense of others. (Good)",
+                        "*Responsibility*. I do what I must and obey just authority. (Lawful)",
+                        "*Independence*. When people follow orders blindly, they embrace a kind of tyranny. (Chaotic)",
+                        "*Might*. In life as in war, the stronger force wins. (Evil)",
+                        "*Live and Let Live*. Ideals aren\u2019t worth killing over or going to war for. (Neutral)",
+                        "*Nation*. My city, nation, or people are all that matter. (Any)"
+                    ],
+                    "type": "manual",
+                    "uuid": "0e6eb585-701e-4eba-a6ec-d890e320c448"
+                },
+                {
+                    "name": "Bond",
+                    "path": "personality.bonds",
+                    "suggestions": [
+                        "I would still lay down my life for the people I served with.",
+                        "Someone saved my life on the battlefield. To this day, I will never leave a friend behind.",
+                        "My honor is my life.",
+                        "I\u2019ll never forget the crushing defeat my company suffered or the enemies who dealt it.",
+                        "Those who fight beside me are those worth dying for.",
+                        "I fight for those who cannot fight for themselves."
+                    ],
+                    "type": "manual",
+                    "uuid": "d646b79d-2921-4ce3-b26d-961a986a7498"
+                },
+                {
+                    "name": "Flaw",
+                    "path": "personality.flaws",
+                    "suggestions": [
+                        "The monstrous enemy we faced in battle still leaves me quivering with fear.",
+                        "I have little respect for anyone who is not a proven warrior.",
+                        "I made a terrible mistake in battle that cost many lives \u2014 and I would do anything to keep that mistake secret.",
+                        "My hatred of my enemies is blind and unreasoning.",
+                        "I obey the law, even if the law causes misery.",
+                        "I\u2019d rather eat my armor than admit when I\u2019m wrong"
+                    ],
+                    "type": "manual",
+                    "uuid": "0642c15c-7669-418a-a2b5-5d2bc7587c95"
+                }
+            ],
+            "description": "The horrors of war combined with the rigid discipline of\nmilitary service leave their mark on all soldiers, shaping\ntheir ideals, creating strong bonds, and often leaving\nthem scarred and vulnerable to fear, shame, and hatred.",
+            "name": "Suggested Characteristics",
+            "type": "config",
+            "uuid": "9d11d102-85e1-4849-a0c7-7e0715cbcb02"
+        }
+    ],
+    "description": "War has been your life for as long as you care to remember. You trained as a youth, studied the use of weapons\nand armor, learned basic survival techniques, including\nhow to stay alive on the battlefield. You might have been\npart of a standing national army or a mercenary company, or perhaps a member of a local militia who rose to\nprominence during a recent war.",
+    "type": "config",
+    "uuid": "5ba17745-b07c-4d8d-a306-c0fcc07e4eac"
 }');
 
 INSERT INTO `options` (id, name, config)
