@@ -292,7 +292,18 @@ exports[`MonsterView should render a kobol 1`] = `
               className="text-align-center"
             >
               <th>
-                Strength
+                <div
+                  className="tool-tip inline"
+                >
+                  Strength
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Str
+                    </p>
+                  </span>
+                </div>
               </th>
               <td>
                 8
@@ -309,7 +320,18 @@ exports[`MonsterView should render a kobol 1`] = `
               className="text-align-center"
             >
               <th>
-                Dexterity
+                <div
+                  className="tool-tip inline"
+                >
+                  Dexterity
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Dex
+                    </p>
+                  </span>
+                </div>
               </th>
               <td>
                 15
@@ -327,7 +349,18 @@ exports[`MonsterView should render a kobol 1`] = `
               className="text-align-center"
             >
               <th>
-                Constitution
+                <div
+                  className="tool-tip inline"
+                >
+                  Constitution
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Con
+                    </p>
+                  </span>
+                </div>
               </th>
               <td>
                 9
@@ -344,7 +377,18 @@ exports[`MonsterView should render a kobol 1`] = `
               className="text-align-center"
             >
               <th>
-                Intelligence
+                <div
+                  className="tool-tip inline"
+                >
+                  Intelligence
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Int
+                    </p>
+                  </span>
+                </div>
               </th>
               <td>
                 8
@@ -361,7 +405,18 @@ exports[`MonsterView should render a kobol 1`] = `
               className="text-align-center"
             >
               <th>
-                Wisdom
+                <div
+                  className="tool-tip inline"
+                >
+                  Wisdom
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Wis
+                    </p>
+                  </span>
+                </div>
               </th>
               <td>
                 8
@@ -378,7 +433,18 @@ exports[`MonsterView should render a kobol 1`] = `
               className="text-align-center"
             >
               <th>
-                Charisma
+                <div
+                  className="tool-tip inline"
+                >
+                  Charisma
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Char
+                    </p>
+                  </span>
+                </div>
               </th>
               <td>
                 8
@@ -977,7 +1043,18 @@ exports[`MonsterView should render with full props 1`] = `
               className="text-align-center"
             >
               <th>
-                Strength
+                <div
+                  className="tool-tip inline"
+                >
+                  Strength
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Str
+                    </p>
+                  </span>
+                </div>
               </th>
               <td>
                 5
@@ -994,14 +1071,27 @@ exports[`MonsterView should render with full props 1`] = `
               className="text-align-center"
             >
               <th>
-                Dexterity
+                <div
+                  className="tool-tip inline"
+                >
+                  Dexterity
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Dex
+                    </p>
+                  </span>
+                </div>
               </th>
-              <td />
+              <td>
+                8
+              </td>
               <td>
                 <div
                   className="bonus inline"
                 >
-                  —
+                  -1
                 </div>
               </td>
             </tr>
@@ -1009,14 +1099,27 @@ exports[`MonsterView should render with full props 1`] = `
               className="text-align-center"
             >
               <th>
-                Constitution
+                <div
+                  className="tool-tip inline"
+                >
+                  Constitution
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Con
+                    </p>
+                  </span>
+                </div>
               </th>
-              <td />
+              <td>
+                8
+              </td>
               <td>
                 <div
                   className="bonus inline"
                 >
-                  —
+                  -1
                 </div>
               </td>
             </tr>
@@ -1024,14 +1127,27 @@ exports[`MonsterView should render with full props 1`] = `
               className="text-align-center"
             >
               <th>
-                Intelligence
+                <div
+                  className="tool-tip inline"
+                >
+                  Intelligence
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Int
+                    </p>
+                  </span>
+                </div>
               </th>
-              <td />
+              <td>
+                8
+              </td>
               <td>
                 <div
                   className="bonus inline"
                 >
-                  —
+                  -1
                 </div>
               </td>
             </tr>
@@ -1039,14 +1155,27 @@ exports[`MonsterView should render with full props 1`] = `
               className="text-align-center"
             >
               <th>
-                Wisdom
+                <div
+                  className="tool-tip inline"
+                >
+                  Wisdom
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Wis
+                    </p>
+                  </span>
+                </div>
               </th>
-              <td />
+              <td>
+                8
+              </td>
               <td>
                 <div
                   className="bonus inline"
                 >
-                  —
+                  -1
                 </div>
               </td>
             </tr>
@@ -1054,14 +1183,27 @@ exports[`MonsterView should render with full props 1`] = `
               className="text-align-center"
             >
               <th>
-                Charisma
+                <div
+                  className="tool-tip inline"
+                >
+                  Charisma
+                  <span
+                    className="tool-tip--content"
+                  >
+                    <p>
+                      Char
+                    </p>
+                  </span>
+                </div>
               </th>
-              <td />
+              <td>
+                8
+              </td>
               <td>
                 <div
                   className="bonus inline"
                 >
-                  —
+                  -1
                 </div>
               </td>
             </tr>
