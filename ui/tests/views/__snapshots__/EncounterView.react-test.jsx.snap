@@ -4429,158 +4429,442 @@ exports[`EncounterView initiative should accept initiative input 1`] = `
                                             <table
                                               className="nice-table stats-block condensed bordered"
                                             >
-                                              <thead>
-                                                <tr>
-                                                  <th>
-                                                    Statistic
-                                                  </th>
-                                                  <th
-                                                    className="text-align-center"
-                                                  >
-                                                    Base
-                                                  </th>
-                                                  <th
-                                                    className="text-align-center"
-                                                  >
-                                                    Modifier
-                                                  </th>
-                                                </tr>
-                                              </thead>
+                                              <Header
+                                                increase={0}
+                                                showBonus={false}
+                                                showFinal={false}
+                                              >
+                                                <thead>
+                                                  <tr>
+                                                    <th>
+                                                      Statistic
+                                                    </th>
+                                                    <th
+                                                      className="text-align-center"
+                                                    >
+                                                      Base
+                                                    </th>
+                                                    <th
+                                                      className="text-align-center"
+                                                    >
+                                                      Modifier
+                                                    </th>
+                                                  </tr>
+                                                </thead>
+                                              </Header>
                                               <tbody>
-                                                <tr
-                                                  className="text-align-center"
+                                                <Row
+                                                  bare={8}
+                                                  base={8}
+                                                  bonus={Array []}
+                                                  description="Str"
+                                                  editBase={false}
+                                                  id="strength"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="strength"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Strength"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Strength
-                                                  </th>
-                                                  <td>
-                                                    8
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="strength"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Str"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Strength
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Str"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Str
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      8
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={15}
+                                                  base={15}
+                                                  bonus={Array []}
+                                                  description="Dex"
+                                                  editBase={false}
+                                                  id="dexterity"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="dexterity"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={2}
+                                                  name="Dexterity"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Dexterity
-                                                  </th>
-                                                  <td>
-                                                    15
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={2}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="dexterity"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Dex"
                                                       >
-                                                        +
-                                                        2
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Dexterity
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Dex"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Dex
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      15
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={2}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          +
+                                                          2
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={9}
+                                                  base={9}
+                                                  bonus={Array []}
+                                                  description="Con"
+                                                  editBase={false}
+                                                  id="constitution"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="constitution"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Constitution"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Constitution
-                                                  </th>
-                                                  <td>
-                                                    9
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="constitution"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Con"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Constitution
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Con"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Con
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      9
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={8}
+                                                  base={8}
+                                                  bonus={Array []}
+                                                  description="Int"
+                                                  editBase={false}
+                                                  id="intelligence"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="intelligence"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Intelligence"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Intelligence
-                                                  </th>
-                                                  <td>
-                                                    8
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="intelligence"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Int"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Intelligence
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Int"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Int
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      8
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={8}
+                                                  base={8}
+                                                  bonus={Array []}
+                                                  description="Wis"
+                                                  editBase={false}
+                                                  id="wisdom"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="wisdom"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Wisdom"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Wisdom
-                                                  </th>
-                                                  <td>
-                                                    8
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="wisdom"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Wis"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Wisdom
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Wis"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Wis
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      8
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={8}
+                                                  base={8}
+                                                  bonus={Array []}
+                                                  description="Char"
+                                                  editBase={false}
+                                                  id="charisma"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="charisma"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Charisma"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Charisma
-                                                  </th>
-                                                  <td>
-                                                    8
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="charisma"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Char"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Charisma
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Char"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Char
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      8
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
                                               </tbody>
+                                              <Footer
+                                                bonus={0}
+                                                budget={0}
+                                                increase={0}
+                                                showBonus={false}
+                                                showFinal={false}
+                                                spent={10}
+                                              />
                                             </table>
                                           </StatsBlock>
                                         </ListDataStatsBlock>
@@ -9871,158 +10155,442 @@ exports[`EncounterView should allow switching to combat 1`] = `
                                             <table
                                               className="nice-table stats-block condensed bordered"
                                             >
-                                              <thead>
-                                                <tr>
-                                                  <th>
-                                                    Statistic
-                                                  </th>
-                                                  <th
-                                                    className="text-align-center"
-                                                  >
-                                                    Base
-                                                  </th>
-                                                  <th
-                                                    className="text-align-center"
-                                                  >
-                                                    Modifier
-                                                  </th>
-                                                </tr>
-                                              </thead>
+                                              <Header
+                                                increase={0}
+                                                showBonus={false}
+                                                showFinal={false}
+                                              >
+                                                <thead>
+                                                  <tr>
+                                                    <th>
+                                                      Statistic
+                                                    </th>
+                                                    <th
+                                                      className="text-align-center"
+                                                    >
+                                                      Base
+                                                    </th>
+                                                    <th
+                                                      className="text-align-center"
+                                                    >
+                                                      Modifier
+                                                    </th>
+                                                  </tr>
+                                                </thead>
+                                              </Header>
                                               <tbody>
-                                                <tr
-                                                  className="text-align-center"
+                                                <Row
+                                                  bare={8}
+                                                  base={8}
+                                                  bonus={Array []}
+                                                  description="Str"
+                                                  editBase={false}
+                                                  id="strength"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="strength"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Strength"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Strength
-                                                  </th>
-                                                  <td>
-                                                    8
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="strength"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Str"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Strength
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Str"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Str
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      8
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={15}
+                                                  base={15}
+                                                  bonus={Array []}
+                                                  description="Dex"
+                                                  editBase={false}
+                                                  id="dexterity"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="dexterity"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={2}
+                                                  name="Dexterity"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Dexterity
-                                                  </th>
-                                                  <td>
-                                                    15
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={2}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="dexterity"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Dex"
                                                       >
-                                                        +
-                                                        2
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Dexterity
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Dex"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Dex
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      15
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={2}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          +
+                                                          2
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={9}
+                                                  base={9}
+                                                  bonus={Array []}
+                                                  description="Con"
+                                                  editBase={false}
+                                                  id="constitution"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="constitution"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Constitution"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Constitution
-                                                  </th>
-                                                  <td>
-                                                    9
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="constitution"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Con"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Constitution
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Con"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Con
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      9
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={8}
+                                                  base={8}
+                                                  bonus={Array []}
+                                                  description="Int"
+                                                  editBase={false}
+                                                  id="intelligence"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="intelligence"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Intelligence"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Intelligence
-                                                  </th>
-                                                  <td>
-                                                    8
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="intelligence"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Int"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Intelligence
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Int"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Int
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      8
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={8}
+                                                  base={8}
+                                                  bonus={Array []}
+                                                  description="Wis"
+                                                  editBase={false}
+                                                  id="wisdom"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="wisdom"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Wisdom"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Wisdom
-                                                  </th>
-                                                  <td>
-                                                    8
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="wisdom"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Wis"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Wisdom
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Wis"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Wis
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      8
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={8}
+                                                  base={8}
+                                                  bonus={Array []}
+                                                  description="Char"
+                                                  editBase={false}
+                                                  id="charisma"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="charisma"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Charisma"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Charisma
-                                                  </th>
-                                                  <td>
-                                                    8
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="charisma"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Char"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Charisma
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Char"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Char
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      8
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
                                               </tbody>
+                                              <Footer
+                                                bonus={0}
+                                                budget={0}
+                                                increase={0}
+                                                showBonus={false}
+                                                showFinal={false}
+                                                spent={10}
+                                              />
                                             </table>
                                           </StatsBlock>
                                         </ListDataStatsBlock>
@@ -15355,158 +15923,442 @@ exports[`EncounterView should allow switching to combat 2`] = `
                                             <table
                                               className="nice-table stats-block condensed bordered"
                                             >
-                                              <thead>
-                                                <tr>
-                                                  <th>
-                                                    Statistic
-                                                  </th>
-                                                  <th
-                                                    className="text-align-center"
-                                                  >
-                                                    Base
-                                                  </th>
-                                                  <th
-                                                    className="text-align-center"
-                                                  >
-                                                    Modifier
-                                                  </th>
-                                                </tr>
-                                              </thead>
+                                              <Header
+                                                increase={0}
+                                                showBonus={false}
+                                                showFinal={false}
+                                              >
+                                                <thead>
+                                                  <tr>
+                                                    <th>
+                                                      Statistic
+                                                    </th>
+                                                    <th
+                                                      className="text-align-center"
+                                                    >
+                                                      Base
+                                                    </th>
+                                                    <th
+                                                      className="text-align-center"
+                                                    >
+                                                      Modifier
+                                                    </th>
+                                                  </tr>
+                                                </thead>
+                                              </Header>
                                               <tbody>
-                                                <tr
-                                                  className="text-align-center"
+                                                <Row
+                                                  bare={8}
+                                                  base={8}
+                                                  bonus={Array []}
+                                                  description="Str"
+                                                  editBase={false}
+                                                  id="strength"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="strength"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Strength"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Strength
-                                                  </th>
-                                                  <td>
-                                                    8
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="strength"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Str"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Strength
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Str"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Str
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      8
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={15}
+                                                  base={15}
+                                                  bonus={Array []}
+                                                  description="Dex"
+                                                  editBase={false}
+                                                  id="dexterity"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="dexterity"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={2}
+                                                  name="Dexterity"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Dexterity
-                                                  </th>
-                                                  <td>
-                                                    15
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={2}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="dexterity"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Dex"
                                                       >
-                                                        +
-                                                        2
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Dexterity
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Dex"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Dex
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      15
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={2}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          +
+                                                          2
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={9}
+                                                  base={9}
+                                                  bonus={Array []}
+                                                  description="Con"
+                                                  editBase={false}
+                                                  id="constitution"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="constitution"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Constitution"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Constitution
-                                                  </th>
-                                                  <td>
-                                                    9
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="constitution"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Con"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Constitution
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Con"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Con
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      9
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={8}
+                                                  base={8}
+                                                  bonus={Array []}
+                                                  description="Int"
+                                                  editBase={false}
+                                                  id="intelligence"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="intelligence"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Intelligence"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Intelligence
-                                                  </th>
-                                                  <td>
-                                                    8
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="intelligence"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Int"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Intelligence
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Int"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Int
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      8
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={8}
+                                                  base={8}
+                                                  bonus={Array []}
+                                                  description="Wis"
+                                                  editBase={false}
+                                                  id="wisdom"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="wisdom"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Wisdom"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Wisdom
-                                                  </th>
-                                                  <td>
-                                                    8
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="wisdom"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Wis"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
-                                                <tr
-                                                  className="text-align-center"
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Wisdom
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Wis"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Wis
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      8
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
+                                                <Row
+                                                  bare={8}
+                                                  base={8}
+                                                  bonus={Array []}
+                                                  description="Char"
+                                                  editBase={false}
+                                                  id="charisma"
+                                                  improvement={Array []}
+                                                  increase={0}
                                                   key="charisma"
+                                                  maxBare={30}
+                                                  minBare={8}
+                                                  modifier={-1}
+                                                  name="Charisma"
+                                                  onBareChange={[Function]}
+                                                  onIncreaseChange={[Function]}
+                                                  selectRange={Array []}
+                                                  showBonus={false}
+                                                  showFinal={false}
+                                                  type="statistics"
                                                 >
-                                                  <th>
-                                                    Charisma
-                                                  </th>
-                                                  <td>
-                                                    8
-                                                  </td>
-                                                  <td>
-                                                    <Bonus
-                                                      bonus={-1}
-                                                    >
-                                                      <div
-                                                        className="bonus inline"
+                                                  <tr
+                                                    className="text-align-center"
+                                                    key="charisma"
+                                                  >
+                                                    <th>
+                                                      <ToolTip
+                                                        content="Char"
                                                       >
-                                                        -1
-                                                      </div>
-                                                    </Bonus>
-                                                  </td>
-                                                </tr>
+                                                        <div
+                                                          className="tool-tip inline"
+                                                        >
+                                                          Charisma
+                                                          <MDReactComponent
+                                                            className="tool-tip--content"
+                                                            text="Char"
+                                                          >
+                                                            <span
+                                                              className="tool-tip--content"
+                                                              key="mdrct-html-0"
+                                                            >
+                                                              <p
+                                                                key="mdrct-p-0"
+                                                              >
+                                                                Char
+                                                              </p>
+                                                            </span>
+                                                          </MDReactComponent>
+                                                        </div>
+                                                      </ToolTip>
+                                                    </th>
+                                                    <td>
+                                                      8
+                                                    </td>
+                                                    <td>
+                                                      <Bonus
+                                                        bonus={-1}
+                                                      >
+                                                        <div
+                                                          className="bonus inline"
+                                                        >
+                                                          -1
+                                                        </div>
+                                                      </Bonus>
+                                                    </td>
+                                                  </tr>
+                                                </Row>
                                               </tbody>
+                                              <Footer
+                                                bonus={0}
+                                                budget={0}
+                                                increase={0}
+                                                showBonus={false}
+                                                showFinal={false}
+                                                spent={10}
+                                              />
                                             </table>
                                           </StatsBlock>
                                         </ListDataStatsBlock>
