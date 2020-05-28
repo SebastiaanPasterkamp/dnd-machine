@@ -17,6 +17,7 @@ export class ListComponent extends React.Component
     constructor(props) {
         super(props);
         this.onAdd = this.onAdd.bind(this);
+        this.onPaste = this.onPaste.bind(this);
         this.memoize = memoize.bind(this);
     }
 
@@ -33,6 +34,19 @@ export class ListComponent extends React.Component
                 ? () => onAdd(list.length, item)
                 : null
         );
+    }
+
+    onPaste(items) {
+        const { list, initialItem, setState } = this.props;
+        const update = [
+            ...list,
+            ...map(
+                item => isObject(item)
+                    ? ({...initialItem, ...item})
+                    : item
+            )(items),
+        ];
+        setState(update);
     }
 
     onChange(index) {
@@ -131,6 +145,9 @@ export class ListComponent extends React.Component
             items.push({
                 item: initialItem,
                 index: list.length,
+                extraProps: {
+                    onPaste: this.onPaste,
+                },
                 disabled: true,
             });
         }
@@ -143,7 +160,7 @@ export class ListComponent extends React.Component
                 )}
             >
                 {map(
-                    ({item, index, disabled}) => (
+                    ({item, index, disabled, extraProps}) => (
                         <li key={index}>
                             <Component
                                 {...componentProps}
@@ -151,6 +168,7 @@ export class ListComponent extends React.Component
                                     ? item
                                     : { value: item }
                                 )}
+                                {...extraProps}
                                 onChange={this.onChange(index)}
                                 setState={this.onSetState(index)}
                             />

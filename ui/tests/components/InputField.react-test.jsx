@@ -39,28 +39,28 @@ describe('Component: InputField', () => {
         expect(mock).toBeCalledWith(3);
         expect(wrapper.state('isFloat')).toBe(false);
 
-        input.simulate('change', { target: {value: '3x'} });
+        input.simulate('change', { target: {value: '4x'} });
         expect(mock).toBeCalledWith(3);
         expect(wrapper.state('isFloat')).toBe(false);
 
-        input.simulate('change', { target: {value: '3.'} });
-        expect(mock).toBeCalledWith(3);
+        input.simulate('change', { target: {value: '5.'} });
+        expect(mock).toBeCalledWith(5);
         expect(wrapper.state('isFloat')).toBe(true);
 
-        input.simulate('change', { target: {value: '3.y'} });
-        expect(mock).toBeCalledWith(3);
+        input.simulate('change', { target: {value: '6.y'} });
+        expect(mock).toBeCalledWith(5);
         expect(wrapper.state('isFloat')).toBe(false);
 
-        input.simulate('change', { target: {value: '3.2'} });
-        expect(mock).toBeCalledWith(3.2);
+        input.simulate('change', { target: {value: '7.2'} });
+        expect(mock).toBeCalledWith(7.2);
         expect(wrapper.state('isFloat')).toBe(false);
 
-        input.simulate('change', { target: {value: '3.'} });
-        expect(mock).toBeCalledWith(3);
+        input.simulate('change', { target: {value: '8.'} });
+        expect(mock).toBeCalledWith(8);
         expect(wrapper.state('isFloat')).toBe(true);
 
-        input.simulate('change', { target: {value: '3'} });
-        expect(mock).toBeCalledWith(3);
+        input.simulate('change', { target: {value: '9'} });
+        expect(mock).toBeCalledWith(9);
         expect(wrapper.state('isFloat')).toBe(false);
 
         input.simulate('change', { target: {value: ''} });
@@ -107,5 +107,27 @@ describe('Component: InputField', () => {
 
         input.simulate('keyPress', { key: 'Enter' });
         expect(mock).toBeCalled();
+    });
+
+    it('should split and parse pasted values when handled', () => {
+        const setState = jest.fn();
+        const onPaste = jest.fn();
+        const wrapper = shallow(
+            <InputField
+                type="number"
+                setState={setState}
+                onPaste={onPaste}
+            />
+        );
+
+        wrapper.find('input').simulate('paste', {
+            clipboardData: {
+                getData: jest.fn().mockReturnValueOnce('1\n2\n3\n'),
+            },
+            preventDefault: jest.fn(),
+        });
+
+        expect(setState).not.toBeCalled();
+        expect(onPaste).toBeCalledWith([1,2,3]);
     });
 });

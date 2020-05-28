@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+    filter,
+    map,
+} from 'lodash/fp';
 
 import utils from '../utils.jsx';
 
@@ -13,6 +17,7 @@ export class InputField extends LazyComponent
             isFloat: false,
             style: 'nice-form-control',
         };
+        this.onPaste = this.onPaste.bind(this);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -27,24 +32,31 @@ export class InputField extends LazyComponent
         return null;
     }
 
-    onChange = (e) => {
-        let value = e.target.value;
-        const { type = 'text', setState } = this.props;
+    typeCast(value='', remember=true) {
+        const { type = 'text' } = this.props;
         const { isFloat } = this.state;
 
-        if (type == 'float') {
-            let float = (
-                value.length
-                && value.indexOf('.') == (value.length - 1)
+        if (type === 'float') {
+            const float = (
+                value.length > 0
+                && value.indexOf('.') === (value.length - 1)
             );
-            if (float != isFloat) {
-                this.setState({isFloat: float});
+            if (remember && float !== isFloat) {
+                this.setState({ isFloat: float });
             }
-            value = parseFloat(value) || null;
+            return parseFloat(value) || null;
         }
-        if (type == 'number') {
-            value = parseInt(value) || null;
+
+        if (type === 'number') {
+            return parseInt(value) || null;
         }
+
+        return value;
+    }
+
+    onChange = (e) => {
+        const { setState } = this.props;
+        const value = this.typeCast(e.target.value);
         setState(value);
     }
 
@@ -54,12 +66,37 @@ export class InputField extends LazyComponent
         }
     }
 
+    onPaste(e) {
+        const { onPaste, setState } = this.props;
+        if (!onPaste) {
+            return;
+        }
+        e.preventDefault();
+
+        const rawValues = e.clipboardData
+            .getData('text/plain')
+            .split(/\s*\n\s*/);
+
+        const values = map(
+            value => this.typeCast(value, false)
+        )(
+            filter(
+                value => (value && value.length > 0)
+            )(rawValues)
+        );
+        onPaste(values);
+    }
+
     render() {
         const {
             value, type, className, disabled, placeholder, onEnter,
-            setState, inputRef, ...props
+            setState, inputRef, onPaste, ...props
         } = this.props;
         const { isFloat, style } = this.state;
+
+        if (onPaste) {
+            props.onPaste = this.onPaste;
+        }
 
         return (
             <input
@@ -90,6 +127,7 @@ InputField.propTypes = {
         PropTypes.number
     ]),
     setState: PropTypes.func,
+    onPaste: PropTypes.func,
     type: PropTypes.string,
     className: PropTypes.string,
     disabled: PropTypes.bool,
