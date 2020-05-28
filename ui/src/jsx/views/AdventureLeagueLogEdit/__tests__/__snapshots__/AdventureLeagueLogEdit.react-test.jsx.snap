@@ -714,6 +714,7 @@ Array [
               disabled={true}
               onChange={[Function]}
               onKeyPress={null}
+              onPaste={[Function]}
               placeholder={undefined}
               type={undefined}
               value=""
@@ -818,6 +819,7 @@ Array [
               disabled={true}
               onChange={[Function]}
               onKeyPress={null}
+              onPaste={[Function]}
               placeholder={undefined}
               type={undefined}
               value=""
@@ -1666,6 +1668,7 @@ Array [
               disabled={false}
               onChange={[Function]}
               onKeyPress={null}
+              onPaste={[Function]}
               placeholder={undefined}
               type={undefined}
               value=""
@@ -1770,6 +1773,7 @@ Array [
               disabled={false}
               onChange={[Function]}
               onKeyPress={null}
+              onPaste={[Function]}
               placeholder={undefined}
               type={undefined}
               value=""
@@ -2405,6 +2409,7 @@ Array [
               disabled={true}
               onChange={[Function]}
               onKeyPress={null}
+              onPaste={[Function]}
               placeholder={undefined}
               type={undefined}
               value=""
@@ -2509,6 +2514,7 @@ Array [
               disabled={true}
               onChange={[Function]}
               onKeyPress={null}
+              onPaste={[Function]}
               placeholder={undefined}
               type={undefined}
               value=""
@@ -3202,6 +3208,7 @@ Array [
               disabled={false}
               onChange={[Function]}
               onKeyPress={null}
+              onPaste={[Function]}
               placeholder={undefined}
               type={undefined}
               value=""
@@ -3306,6 +3313,7 @@ Array [
               disabled={false}
               onChange={[Function]}
               onKeyPress={null}
+              onPaste={[Function]}
               placeholder={undefined}
               type={undefined}
               value=""
@@ -3929,6 +3937,7 @@ Array [
               disabled={false}
               onChange={[Function]}
               onKeyPress={null}
+              onPaste={[Function]}
               placeholder={undefined}
               type={undefined}
               value=""
@@ -4014,6 +4023,7 @@ Array [
               disabled={false}
               onChange={[Function]}
               onKeyPress={null}
+              onPaste={[Function]}
               placeholder={undefined}
               type={undefined}
               value=""
