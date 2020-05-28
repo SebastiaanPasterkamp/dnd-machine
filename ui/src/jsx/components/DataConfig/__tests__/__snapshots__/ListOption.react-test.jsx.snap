@@ -279,6 +279,7 @@ exports[`Component: ListOption when rendering should show label/desc when cannot
           disabled={undefined}
           onChange={[Function]}
           onKeyPress={null}
+          onPaste={[Function]}
           placeholder={undefined}
           type="text"
           value=""
@@ -650,6 +651,7 @@ exports[`Component: ListOption when rendering should show label/desc when not hi
           disabled={undefined}
           onChange={[Function]}
           onKeyPress={null}
+          onPaste={[Function]}
           placeholder={undefined}
           type="text"
           value=""
@@ -1264,6 +1266,7 @@ exports[`Component: ListOption when rendering should work with full props 1`] = 
           disabled={undefined}
           onChange={[Function]}
           onKeyPress={null}
+          onPaste={[Function]}
           placeholder={undefined}
           type="text"
           value=""
@@ -1598,6 +1601,7 @@ exports[`Component: ListOption when rendering should work with minimum props 1`]
           disabled={undefined}
           onChange={[Function]}
           onKeyPress={null}
+          onPaste={[Function]}
           placeholder={undefined}
           type="text"
           value=""

@@ -78,6 +78,7 @@ exports[`Component: FilterTextField when rendering should work with full props 1
           disabled={undefined}
           onChange={[Function]}
           onKeyPress={null}
+          onPaste={[Function]}
           placeholder={undefined}
           type={undefined}
           value=""
@@ -136,6 +137,7 @@ exports[`Component: FilterTextField when rendering should work with minimum prop
           disabled={undefined}
           onChange={[Function]}
           onKeyPress={null}
+          onPaste={[Function]}
           placeholder={undefined}
           type={undefined}
           value=""

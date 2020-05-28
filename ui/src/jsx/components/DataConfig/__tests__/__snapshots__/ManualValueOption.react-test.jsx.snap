@@ -98,6 +98,7 @@ exports[`Component: ManualValueOption when rendering should work with full props
           disabled={undefined}
           onChange={[Function]}
           onKeyPress={null}
+          onPaste={[Function]}
           placeholder={undefined}
           type="text"
           value=""
@@ -176,6 +177,7 @@ exports[`Component: ManualValueOption when rendering should work with minimum pr
           disabled={undefined}
           onChange={[Function]}
           onKeyPress={null}
+          onPaste={[Function]}
           placeholder={undefined}
           type="text"
           value=""

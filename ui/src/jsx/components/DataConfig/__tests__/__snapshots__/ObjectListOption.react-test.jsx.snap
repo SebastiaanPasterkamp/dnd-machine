@@ -1036,6 +1036,7 @@ exports[`Component: ObjectListOption when rendering should show more options wit
                   disabled={undefined}
                   onChange={[Function]}
                   onKeyPress={null}
+                  onPaste={[Function]}
                   placeholder={undefined}
                   type={undefined}
                   value=""
