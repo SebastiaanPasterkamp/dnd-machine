@@ -17,6 +17,7 @@ const OUTPUT_PATH_SASS = 'css';
 const SOURCE_PATH_SASS = path.resolve(__dirname, 'src', 'sass');
 const OUTPUT_PATH_IMG = 'img';
 const SOURCE_PATH_IMG = path.resolve(__dirname, 'src', 'img');
+const OUTPUT_PATH_FONT = 'fonts';
 
 const config = {
     mode: process.env.NODE_ENV,
@@ -63,10 +64,20 @@ const config = {
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
+                exclude: /fonts/,
                 loader: 'file-loader',
                 options: {
                     name: '[name].[ext]',
                     outputPath: OUTPUT_PATH_IMG,
+                }
+            },
+            {
+                test: /\.(eot|woff2?|ttf|svg)$/i,
+                exclude: /img/,
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: OUTPUT_PATH_FONT,
                 }
             },
             {
