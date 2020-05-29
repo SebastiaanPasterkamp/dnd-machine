@@ -2,6 +2,7 @@
 
 exports[`Component: AutoCompleteInput should expand on focus 1`] = `
 <AutoCompleteInput
+  disabled={false}
   items={
     Array [
       Object {
@@ -14,12 +15,14 @@ exports[`Component: AutoCompleteInput should expand on focus 1`] = `
       },
     ]
   }
-  setState={[Function]}
+  markup={false}
+  value=""
 >
   <div
     className="nice-dropdown nice-form-control"
   >
     <InputField
+      disabled={false}
       onBlur={[Function]}
       onEnter={[Function]}
       onFocus={[Function]}
@@ -28,6 +31,7 @@ exports[`Component: AutoCompleteInput should expand on focus 1`] = `
     >
       <input
         className="nice-form-control"
+        disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -67,6 +71,7 @@ exports[`Component: AutoCompleteInput should expand on focus 1`] = `
 
 exports[`Component: AutoCompleteInput should expand on focus 2`] = `
 <AutoCompleteInput
+  disabled={false}
   items={
     Array [
       Object {
@@ -79,12 +84,14 @@ exports[`Component: AutoCompleteInput should expand on focus 2`] = `
       },
     ]
   }
-  setState={[Function]}
+  markup={false}
+  value=""
 >
   <div
     className="nice-dropdown nice-form-control"
   >
     <InputField
+      disabled={false}
       onBlur={[Function]}
       onEnter={[Function]}
       onFocus={[Function]}
@@ -93,6 +100,7 @@ exports[`Component: AutoCompleteInput should expand on focus 2`] = `
     >
       <input
         className="nice-form-control"
+        disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -132,6 +140,7 @@ exports[`Component: AutoCompleteInput should expand on focus 2`] = `
 
 exports[`Component: AutoCompleteInput should hide when w/o results 1`] = `
 <AutoCompleteInput
+  disabled={false}
   items={
     Array [
       Object {
@@ -144,6 +153,7 @@ exports[`Component: AutoCompleteInput should hide when w/o results 1`] = `
       },
     ]
   }
+  markup={false}
   setState={[Function]}
   value="unknown"
 >
@@ -151,6 +161,7 @@ exports[`Component: AutoCompleteInput should hide when w/o results 1`] = `
     className="nice-dropdown nice-form-control"
   >
     <InputField
+      disabled={false}
       onBlur={[Function]}
       onEnter={null}
       onFocus={[Function]}
@@ -159,6 +170,7 @@ exports[`Component: AutoCompleteInput should hide when w/o results 1`] = `
     >
       <input
         className="nice-form-control"
+        disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -221,7 +233,7 @@ exports[`Component: AutoCompleteInput should render value not in the list 1`] = 
 >
   <input
     className="nice-form-control"
-    disabled={undefined}
+    disabled={false}
     onBlur={[Function]}
     onChange={[Function]}
     onFocus={[Function]}
@@ -244,7 +256,7 @@ exports[`Component: AutoCompleteInput should render with minimum props 1`] = `
 >
   <input
     className="nice-form-control"
-    disabled={undefined}
+    disabled={false}
     onBlur={[Function]}
     onChange={[Function]}
     onFocus={[Function]}
@@ -280,6 +292,7 @@ exports[`Component: AutoCompleteInput should render with minimum props 1`] = `
 
 exports[`Component: AutoCompleteInput should stay expanded on blur 1`] = `
 <AutoCompleteInput
+  disabled={false}
   items={
     Array [
       Object {
@@ -292,12 +305,14 @@ exports[`Component: AutoCompleteInput should stay expanded on blur 1`] = `
       },
     ]
   }
-  setState={[Function]}
+  markup={false}
+  value=""
 >
   <div
     className="nice-dropdown nice-form-control"
   >
     <InputField
+      disabled={false}
       onBlur={[Function]}
       onEnter={[Function]}
       onFocus={[Function]}
@@ -306,6 +321,7 @@ exports[`Component: AutoCompleteInput should stay expanded on blur 1`] = `
     >
       <input
         className="nice-form-control"
+        disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -345,6 +361,7 @@ exports[`Component: AutoCompleteInput should stay expanded on blur 1`] = `
 
 exports[`Component: AutoCompleteInput should stay expanded on blur 2`] = `
 <AutoCompleteInput
+  disabled={false}
   items={
     Array [
       Object {
@@ -357,12 +374,14 @@ exports[`Component: AutoCompleteInput should stay expanded on blur 2`] = `
       },
     ]
   }
-  setState={[Function]}
+  markup={false}
+  value=""
 >
   <div
     className="nice-dropdown nice-form-control"
   >
     <InputField
+      disabled={false}
       onBlur={[Function]}
       onEnter={[Function]}
       onFocus={[Function]}
@@ -371,6 +390,7 @@ exports[`Component: AutoCompleteInput should stay expanded on blur 2`] = `
     >
       <input
         className="nice-form-control"
+        disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -410,6 +430,7 @@ exports[`Component: AutoCompleteInput should stay expanded on blur 2`] = `
 
 exports[`Component: AutoCompleteInput should stay hide when losing focus/mouse 1`] = `
 <AutoCompleteInput
+  disabled={false}
   items={
     Array [
       Object {
@@ -422,12 +443,14 @@ exports[`Component: AutoCompleteInput should stay hide when losing focus/mouse 1
       },
     ]
   }
-  setState={[Function]}
+  markup={false}
+  value=""
 >
   <div
     className="nice-dropdown nice-form-control"
   >
     <InputField
+      disabled={false}
       onBlur={[Function]}
       onEnter={[Function]}
       onFocus={[Function]}
@@ -436,6 +459,7 @@ exports[`Component: AutoCompleteInput should stay hide when losing focus/mouse 1
     >
       <input
         className="nice-form-control"
+        disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}

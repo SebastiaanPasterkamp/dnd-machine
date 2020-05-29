@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    isObject,
+    filter,
+    map,
+} from 'lodash/fp';
 
-import utils from '../utils.jsx';
+import utils, { memoize } from '../utils.jsx';
 
 import InputField from './InputField.jsx';
-import LazyComponent from './LazyComponent.jsx';
+import MarkdownTextField from './MarkdownTextField';
 
-export class AutoCompleteInput extends LazyComponent
+export class AutoCompleteInput extends React.Component
 {
     constructor(props) {
         super(props);
@@ -15,58 +19,91 @@ export class AutoCompleteInput extends LazyComponent
             focus: false,
             hover: false,
         };
+        this.memoize = memoize.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+        this.onMouseEnter = this.onMouseEnter.bind(this);
+        this.onMouseLeave = this.onMouseLeave.bind(this);
+        this.onFocus = this.onFocus.bind(this);
     }
 
-    selectItem(item, e) {
-        if (e && 'preventDefault' in e) {
-            e.preventDefault();
-        }
-        this.props.setState(item.name);
+    onBlur() {
+        this.setState({focus: false});
+    }
+
+    onFocus() {
+        this.setState({focus: true});
+    }
+
+    onMouseEnter() {
+        this.setState({hover: true});
+    }
+
+    onMouseLeave() {
+        this.setState({hover: false});
+    }
+
+    selectItem(item) {
+        const { id, name } = isObject(item) ? item : {id: item, name: item};
+        return this.memoize(id, (e) => {
+            const { setState } = this.props;
+            if (e && 'preventDefault' in e) {
+                e.preventDefault();
+            }
+            setState(name);
+        });
     }
 
     render() {
-        const { items, value, disabled, ...props } = this.props;
+        const { items, markup, value, ...rest } = this.props;
         const { focus, hover } = this.state;
-        const filter = new RegExp(value, "i");
+        const Component = markup ? MarkdownTextField : InputField;
 
-        const filtered = _.filter(
-            items,
-            ({ name = '' }) => name.match(filter)
-        );
+        const search = value.toLowerCase();
+        const filtered = filter(
+            item => (isObject(item) ? item.name : item)
+                .toLowerCase()
+                .includes(search)
+        )(items);
 
         const dropStyle = utils.makeStyle({
             shown: (focus || hover) && filtered.length
         }, ['dropdown-menu']);
 
-        return <div className="nice-dropdown nice-form-control">
-            <InputField
-                {...props}
-                value={value}
-                disabled={disabled}
-                onFocus={() => this.setState({focus: true})}
-                onBlur={() => this.setState({focus: false})}
-                onEnter={filtered.length
-                    ? (e) => this.selectItem(filtered[0], e)
-                    : null
-                }
+        return (
+            <div className="nice-dropdown nice-form-control">
+                <Component
+                    {...rest}
+                    value={value}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
+                    onEnter={filtered.length ? this.selectItem(filtered[0]) : null}
                 />
-            <ul
-                className={dropStyle}
-                onMouseEnter={() => this.setState({hover: true})}
-                onMouseLeave={() => this.setState({hover: false})}
+                <ul
+                    className={dropStyle}
+                    onMouseEnter={this.onMouseEnter}
+                    onMouseLeave={this.onMouseLeave}
                 >
-                {_.map(filtered, item => (
-                    <li key={item.id}>
-                        <a
-                            href="#"
-                            onClick={(e) => this.selectItem(item, e)}
-                        >
-                            {item.name}
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        </div>;
+                    {map(
+                        item => (
+                            <li key={item.id}>
+                                <a
+                                    href="#"
+                                    onClick={this.selectItem(item)}
+                                >
+                                    {item.name}
+                                </a>
+                            </li>
+                        )
+                    )(
+                        map(
+                            item => isObject(item)
+                                ? item
+                                : { id: item, name: item }
+                        )(filtered)
+                    )}
+                </ul>
+            </div>
+        );
     }
 }
 
@@ -80,16 +117,26 @@ AutoCompleteInput.propTypes = {
     setState: PropTypes.func,
     value: PropTypes.any,
     items: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-            ]),
-            name: PropTypes.string,
-            description: PropTypes.string,
-        })
+        PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.shape({
+                id: PropTypes.oneOfType([
+                    PropTypes.string,
+                    PropTypes.number,
+                ]),
+                name: PropTypes.string,
+                description: PropTypes.string,
+            })
+        ])
     ).isRequired,
     disabled: PropTypes.bool,
+    markup: PropTypes.bool,
+};
+
+AutoCompleteInput.defaultProps = {
+    value: '',
+    disabled: false,
+    markup: false,
 };
 
 export default AutoCompleteInput;
