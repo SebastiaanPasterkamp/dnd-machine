@@ -108,7 +108,7 @@ Array [
         >
           <input
             className="nice-form-control"
-            disabled={undefined}
+            disabled={false}
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
@@ -137,7 +137,7 @@ Array [
         >
           <input
             className="nice-form-control"
-            disabled={undefined}
+            disabled={false}
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
@@ -784,7 +784,7 @@ Array [
         >
           <input
             className="nice-form-control"
-            disabled={undefined}
+            disabled={false}
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
@@ -813,7 +813,7 @@ Array [
         >
           <input
             className="nice-form-control"
-            disabled={undefined}
+            disabled={false}
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
