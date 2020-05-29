@@ -7,55 +7,78 @@ exports[`Component: ManualInputSelect should render markup input 1`] = `
   path="some.path"
   placeholder="Hold this place"
   setState={[Function]}
+  suggestions={Array []}
   type="manual"
   uuid="mocked-uuid-1"
 >
-  <MarkdownTextField
-    className=""
+  <AutoCompleteInput
     disabled={false}
+    items={Array []}
+    markup={true}
     placeholder="Hold this place"
     rows={5}
     setState={[Function]}
     value="This shows _formatted_ content."
   >
     <div
-      className="markdown-textedit preview"
-      onClick={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
+      className="nice-dropdown nice-form-control"
     >
-      <textarea
-        className="nice-form-control"
+      <MarkdownTextField
+        className=""
+        disabled={false}
         onBlur={[Function]}
-        onChange={[Function]}
+        onEnter={null}
         onFocus={[Function]}
         placeholder="Hold this place"
         rows={5}
+        setState={[Function]}
         value="This shows _formatted_ content."
-      />
-      <MDReactComponent
-        className="markdown-textedit__preview"
-        text="This shows _formatted_ content."
       >
-        <span
-          className="markdown-textedit__preview"
-          key="mdrct-html-0"
+        <div
+          className="markdown-textedit preview"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
-          <p
-            key="mdrct-p-0"
+          <textarea
+            className="nice-form-control"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Hold this place"
+            rows={5}
+            value="This shows _formatted_ content."
+          />
+          <MDReactComponent
+            className="markdown-textedit__preview"
+            text="This shows _formatted_ content."
           >
-            This shows 
-            <em
-              key="mdrct-em-1"
+            <span
+              className="markdown-textedit__preview"
+              key="mdrct-html-0"
             >
-              formatted
-            </em>
-             content.
-          </p>
-        </span>
-      </MDReactComponent>
+              <p
+                key="mdrct-p-0"
+              >
+                This shows 
+                <em
+                  key="mdrct-em-1"
+                >
+                  formatted
+                </em>
+                 content.
+              </p>
+            </span>
+          </MDReactComponent>
+        </div>
+      </MarkdownTextField>
+      <ul
+        className="dropdown-menu"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      />
     </div>
-  </MarkdownTextField>
+  </AutoCompleteInput>
 </ManualInputSelect>
 `;
 
@@ -66,21 +89,50 @@ exports[`Component: ManualInputSelect should render plain input 1`] = `
   path="some.path"
   placeholder="Hold this place"
   setState={[Function]}
+  suggestions={Array []}
   type="manual"
   uuid="mocked-uuid-1"
 >
-  <InputField
+  <AutoCompleteInput
+    disabled={false}
+    items={Array []}
+    markup={false}
     placeholder="Hold this place"
+    rows={5}
     setState={[Function]}
     value="This shows plain content."
   >
-    <input
-      className="nice-form-control"
-      onChange={[Function]}
-      onKeyPress={null}
-      placeholder="Hold this place"
-      value="This shows plain content."
-    />
-  </InputField>
+    <div
+      className="nice-dropdown nice-form-control"
+    >
+      <InputField
+        disabled={false}
+        onBlur={[Function]}
+        onEnter={null}
+        onFocus={[Function]}
+        placeholder="Hold this place"
+        rows={5}
+        setState={[Function]}
+        value="This shows plain content."
+      >
+        <input
+          className="nice-form-control"
+          disabled={false}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyPress={null}
+          placeholder="Hold this place"
+          rows={5}
+          value="This shows plain content."
+        />
+      </InputField>
+      <ul
+        className="dropdown-menu"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      />
+    </div>
+  </AutoCompleteInput>
 </ManualInputSelect>
 `;

@@ -11,10 +11,15 @@ export const DictPropertySelect = function({ hidden, current })
         return null;
     }
 
-    const value = sprintf(
-        current.description || '',
-        current
-    );
+    let value = current.description;
+    try {
+        value = sprintf(
+            current.description || '',
+            current
+        );
+    } catch(err) {
+        console.error(err);
+    }
 
     return (
         <MDReactComponent text={value} />

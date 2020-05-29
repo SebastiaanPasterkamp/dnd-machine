@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import InputField from '../../InputField';
-import MarkdownTextField from '../../MarkdownTextField';
+import AutoCompleteInput from '../../AutoCompleteInput';
 
 import CharacterEditorWrapper from '../hocs/CharacterEditorWrapper';
 
@@ -19,23 +18,15 @@ export class ManualInputSelect extends React.Component
     };
 
     render() {
-        const { current, markup, placeholder } = this.props;
-
-        if(markup) {
-            return (
-                <MarkdownTextField
-                    placeholder={placeholder}
-                    value={current}
-                    rows={5}
-                    setState={this.onSetState}
-                />
-            );
-        }
+        const { current, placeholder, suggestions, markup } = this.props;
 
         return (
-            <InputField
-                placeholder={placeholder}
+            <AutoCompleteInput
                 value={current}
+                placeholder={placeholder}
+                items={suggestions}
+                markup={markup}
+                rows={5}
                 setState={this.onSetState}
             />
         );
@@ -47,6 +38,7 @@ ManualInputSelect.propTypes = {
     uuid: PropTypes.string.isRequired,
     setState: PropTypes.func.isRequired,
     current: PropTypes.string,
+    suggestions: PropTypes.arrayOf(PropTypes.string),
     placeholder: PropTypes.string,
     markup: PropTypes.bool,
 };
@@ -54,6 +46,7 @@ ManualInputSelect.propTypes = {
 ManualInputSelect.defaultProps = {
     current: '',
     placeholder: '',
+    suggestions: [],
     markup: false,
 };
 

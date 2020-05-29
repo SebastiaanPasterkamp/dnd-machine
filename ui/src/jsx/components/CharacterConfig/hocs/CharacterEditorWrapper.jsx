@@ -61,6 +61,10 @@ function CharacterEditorWrapper(
             return false;
         }
 
+        componentWillUnmount() {
+            super.componentWillUnmount.call(this);
+        }
+
         componentWillMount() {
             super.componentWillMount.call(this);
 
