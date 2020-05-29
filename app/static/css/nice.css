@@ -22,12 +22,11 @@ html {
 
 .nice-header .nice-header-brand, .nice-form-inline .nice-form-group, .nice-form-inline .nice-form-group input.nice-form-control,
 .nice-form-inline .nice-form-group select.nice-form-control, .nice-form-inline .nice-form-group label, .nice-radio label,
-.nice-checkbox label, .nice-tabs > li a .badge, .nice-stacked-list .list-item .item-heading.icon:before, .nice-breadcrumb li, .nice-pagination, .nice-menu.stacked > li a.icon:before, .nice-menu.stacked > li span.icon:before, .nice-btn, .nice-toggle + .nice-toggle-btn, .nice-dropdown, .nice-dropdown.shown, .nice-dropdown .dropdown-menu li a i, .nice-dropdown .dropdown-menu li span i, .nice-dropdown .dropdown-menu li label i, .nice-alert .nice-alert-dismiss .icon, .nice-tooltip, .nice-popover .nice-popover-title .icon,
+.nice-checkbox label, .nice-tabs > li a .badge, .nice-stacked-list .list-item .item-heading.icon:before, .nice-breadcrumb li, .nice-pagination, .nice-menu.stacked > li a.icon:before, .nice-menu.stacked > li span.icon:before, .nice-btn, .nice-toggle + .nice-toggle-btn, .nice-dropdown.shown, .nice-dropdown .dropdown-menu li a i, .nice-dropdown .dropdown-menu li span i, .nice-dropdown .dropdown-menu li label i, .nice-alert .nice-alert-dismiss .icon, .nice-tooltip, .nice-popover .nice-popover-title .icon,
 .nice-popover .nice-popover-title .product-icon,
 .nice-popover .nice-popover-title .additional-icon, .nice-loading {
   display: -moz-inline-stack;
   display: inline-block;
-  *display: inline-block;
   zoom: 1; }
 
 input.nice-form-control, select.nice-form-control, textarea.nice-form-control, .nice-radio input[type="checkbox"],
@@ -4186,7 +4185,6 @@ body.nice-fixed-header {
             .nice-header .nice-header-collapse .nice-header-menu li a::before, .nice-header .nice-header-collapse .nice-header-menu li span::before {
               display: -moz-inline-stack;
               display: inline-block;
-              *display: inline-block;
               zoom: 1;
               width: 20px;
               text-align: center;
