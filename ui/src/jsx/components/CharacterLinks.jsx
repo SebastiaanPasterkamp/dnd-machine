@@ -13,7 +13,13 @@ import { userHasRole } from '../utils.jsx';
 
 export class CharacterLinks extends React.Component
 {
-    onCopy = () => {
+    constructor(props) {
+        super(props);
+        this.onCopy = this.onCopy.bind(this);
+        this.onDelete = this.onDelete.bind(this);
+    }
+
+    onCopy() {
         const { router } = this.context;
         const { id } = this.props;
         ObjectDataActions.copyObject(
@@ -24,7 +30,7 @@ export class CharacterLinks extends React.Component
         );
     }
 
-    onDelete = () => {
+    onDelete() {
         const { id } = this.props;
         ObjectDataActions.deleteObject("character", id);
     }

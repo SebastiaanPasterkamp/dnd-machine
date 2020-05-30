@@ -16,7 +16,7 @@ import TableHeader from './components/TableHeader';
 import TableRow from './components/TableRow';
 import TableFooter from './components/TableFooter';
 
-class MonstersTable extends React.Component
+export class MonstersTable extends React.Component
 {
     constructor(props) {
         super(props);

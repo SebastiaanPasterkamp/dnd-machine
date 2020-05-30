@@ -13,6 +13,8 @@ export class InputField extends LazyComponent
             isFloat: false,
             style: 'nice-form-control',
         };
+        this.onChange = this.onChange.bind(this);
+        this.onKeyPress = this.onKeyPress.bind(this);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -27,7 +29,7 @@ export class InputField extends LazyComponent
         return null;
     }
 
-    onChange = (e) => {
+    onChange(e) {
         let value = e.target.value;
         const { type = 'text', setState } = this.props;
         const { isFloat } = this.state;
@@ -48,7 +50,7 @@ export class InputField extends LazyComponent
         setState(value);
     }
 
-    onKeyPress = (e) => {
+    onKeyPress(e) {
         if (e.key === 'Enter') {
             this.props.onEnter(e);
         }

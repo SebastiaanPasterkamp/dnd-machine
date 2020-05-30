@@ -12,8 +12,12 @@ import { userHasRole } from '../utils.jsx';
 
 export class UserLinks extends BaseLinkGroup
 {
+    constructor(props) {
+        super(props);
+        this.onDelete = this.onDelete.bind(this);
+    }
 
-    onDelete = () => {
+    onDelete() {
         const { id } = this.props;
         ObjectDataActions.deleteObject("user", id);
     }

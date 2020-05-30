@@ -17,15 +17,19 @@ export class CharacterPicker extends React.Component
             currentPick: null,
             search: '',
         };
+        this.onDone = this.onDone.bind(this);
+        this.onFilter = this.onFilter.bind(this);
+        this.onPick = this.onPick.bind(this);
+        this.onSearch = this.onSearch.bind(this);
     }
 
-    onDone = () => {
+    onDone() {
         const { onDone } = this.props;
         const { currentPick } = this.state;
         onDone(currentPick);
     }
 
-    onFilter = (character) => {
+    onFilter(character) {
         const { onFilter } = this.props;
         const { search } = this.state;
         if (onFilter !== undefined
@@ -47,13 +51,15 @@ export class CharacterPicker extends React.Component
         );
     }
 
-    onPick = (currentPick) => {
+    onPick(currentPick) {
         this.setState({ currentPick });
     }
 
-    onSearch = (search) => this.setState({
-        search: search || '',
-    });
+    onSearch(search) {
+        this.setState({
+            search: search || '',
+        });
+    }
 
     render() {
         const {

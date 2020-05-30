@@ -17,7 +17,7 @@ import TableHeader from './components/TableHeader';
 import TableRow from './components/TableRow';
 import TableFooter from './components/TableFooter';
 
-class EncounterTable extends React.Component
+export class EncountersTable extends React.Component
 {
     constructor(props) {
         super(props);
@@ -100,21 +100,21 @@ class EncounterTable extends React.Component
     }
 };
 
-EncounterTable.propTypes = {
+EncountersTable.propTypes = {
     encounters: PropTypes.objectOf( PropTypes.shape({
         id: PropTypes.number.isRequired,
     }) ),
     search: PropTypes.string,
 };
 
-EncounterTable.defaultProps = {
+EncountersTable.defaultProps = {
     encounters: {},
     search: '',
 }
 
 export default ListDataWrapper(
     ObjectDataListWrapper(
-        EncounterTable,
+        EncountersTable,
         {encounters: {type: 'encounter'}}
     ),
     ['search']

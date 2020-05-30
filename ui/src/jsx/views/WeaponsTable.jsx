@@ -113,9 +113,10 @@ class WeaponsFilter extends React.Component
         )([4, 6, 8, 10, 12]);
 
         this.memoize = memoize.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
-    onChange = (field) => {
+    onChange(field) {
         const { setState } = this.props;
         return this.memoize(field, (value) => {
             setState({ [field]: value });
@@ -204,9 +205,10 @@ class WeaponsTable extends LazyComponent
             weapon_type: [],
             weapon_property: [],
         };
+        this.onSearch = this.onSearch.bind(this);
     }
 
-    onSearch = (update) => {
+    onSearch(update) {
         this.setState(update);
     };
 

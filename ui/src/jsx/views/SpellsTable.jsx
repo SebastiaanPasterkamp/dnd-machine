@@ -139,9 +139,10 @@ class SpellsFilter extends React.Component
         });
 
         this.memoize = memoize.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
-    onChange = (field) => {
+    onChange(field) {
         const { setState } = this.props;
         return this.memoize(field, (value) => {
             setState({ [field]: value });
@@ -204,9 +205,10 @@ class SpellsTable extends React.Component
             offset: 0,
             limit: 10,
         };
+        this.onSearch = this.onSearch.bind(this);
     }
 
-    onSearch = (update) => {
+    onSearch(update) {
         this.setState(update);
     };
 

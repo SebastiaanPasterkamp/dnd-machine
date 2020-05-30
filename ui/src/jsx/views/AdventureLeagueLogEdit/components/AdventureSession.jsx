@@ -14,10 +14,12 @@ export class AdventureSession extends React.PureComponent
         this.memoize = memoize.bind(this);
     }
 
-    onChange = (field) => this.memoize(
-        field,
-        (value) => this.props.setState({ [field]: value })
-    )
+    onChange(field) {
+        return this.memoize(
+            field,
+            (value) => this.props.setState({ [field]: value })
+        );
+    }
 
     render() {
         const {

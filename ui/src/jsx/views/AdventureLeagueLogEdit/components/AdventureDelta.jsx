@@ -11,9 +11,10 @@ export class AdventureDelta extends React.PureComponent
     constructor(props) {
         super(props);
         this.state = {};
+        this.onChange = this.onChange.bind(this);
     }
 
-    onChange = (earned, formula) => {
+    onChange(earned, formula) {
         const { starting, disabled, setState } = this.props;
         if (disabled) {
             return;

@@ -16,7 +16,7 @@ import TableHeader from './components/TableHeader';
 import TableRow from './components/TableRow';
 import TableFooter from './components/TableFooter';
 
-class NpcsTable extends React.Component
+export class NpcsTable extends React.Component
 {
     constructor(props) {
         super(props);

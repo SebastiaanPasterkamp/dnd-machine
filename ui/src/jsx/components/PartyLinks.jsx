@@ -14,7 +14,14 @@ import { userHasRole } from '../utils.jsx';
 
 export class PartyLinks extends BaseLinkGroup
 {
-    onHost = () => {
+    constructor(props) {
+        super(props);
+        this.onHost = this.onHost.bind(this);
+        this.onUnhost = this.onUnhost.bind(this);
+        this.onDelete = this.onDelete.bind(this);
+    }
+
+    onHost() {
         const { id } = this.props;
         fetch(`/party/host/${id}`, {
             method: "POST",
@@ -31,7 +38,7 @@ export class PartyLinks extends BaseLinkGroup
         });
     }
 
-    onUnhost = () => {
+    onUnhost() {
         fetch("/party/host", {
         method: "POST",
             credentials: 'same-origin',
@@ -47,7 +54,7 @@ export class PartyLinks extends BaseLinkGroup
         });
     }
 
-    onDelete = () => {
+    onDelete() {
         const { id } = this.props;
         ObjectDataActions.deleteObject("character", id);
     }

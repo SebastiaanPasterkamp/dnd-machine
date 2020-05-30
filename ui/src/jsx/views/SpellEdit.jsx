@@ -43,6 +43,7 @@ export class SpellEdit extends React.Component
             };
         });
         this.memoize = memoize.bind(this);
+        this.onFieldChange = this.onFieldChange.bind(this);
     }
 
     componentDidMount() {
@@ -75,7 +76,7 @@ export class SpellEdit extends React.Component
         return update;
     }
 
-    onFieldChange = (field) => {
+    onFieldChange(field) {
         const { setState } = this.props;
         return this.memoize(field, (value) => {
             const update = this.fixConditionalFields({

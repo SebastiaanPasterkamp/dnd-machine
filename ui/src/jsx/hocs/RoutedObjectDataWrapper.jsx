@@ -28,6 +28,15 @@ function RoutedObjectDataWrapper(
                 'routed', this.actions
             );
             this.storeKeys = [loadableType];
+            this.setButtons = this.setButtons.bind(this);
+            this.onNextView = this.onNextView.bind(this);
+            this.onSetState = this.onSetState.bind(this);
+            this.onReload = this.onReload.bind(this);
+            this.reload = this.reload.bind(this);
+            this.onRecompute = this.onRecompute.bind(this);
+            this.recompute = this.recompute.bind(this);
+            this.onSave = this.onSave.bind(this);
+            this.save = this.save.bind(this);
         }
 
         getId() {
@@ -38,7 +47,7 @@ function RoutedObjectDataWrapper(
             return parseInt(id);
         }
 
-        setButtons = (buttons) => {
+        setButtons(buttons) {
             this.setState({ buttons });
         }
 
@@ -77,7 +86,7 @@ function RoutedObjectDataWrapper(
             return false;
         }
 
-        onNextView = () => {
+        onNextView() {
             this.nextView();
         }
 
@@ -89,7 +98,7 @@ function RoutedObjectDataWrapper(
             );
         }
 
-        onSetState = (update, callback=null) => {
+        onSetState(update, callback=null) {
             const id = this.getId();
 
             const loadable = _.assign(
@@ -106,11 +115,11 @@ function RoutedObjectDataWrapper(
             );
         }
 
-        onReload = () => {
+        onReload() {
             this.reload();
         }
 
-        reload = (callback=null) => {
+        reload(callback=null) {
             const id = this.getId();
             if (id === null) {
                 this.actions.getObject.completed(
@@ -141,11 +150,11 @@ function RoutedObjectDataWrapper(
             );
         }
 
-        onRecompute = () => {
+        onRecompute() {
             this.recompute();
         }
 
-        recompute = (callback=null) => {
+        recompute(callback=null) {
             const id = this.getId();
 
             this.actions.recomputeObject(
@@ -167,11 +176,11 @@ function RoutedObjectDataWrapper(
             );
         }
 
-        onSave = () => {
+        onSave() {
             this.save();
         }
 
-        save = (callback=null) => {
+        save(callback=null) {
             const id = this.getId();
 
             if (id === null) {

@@ -31,8 +31,8 @@ export class TagValueContainer extends React.Component
         const { value, defaultValue, onAdd, setState } = this.props;
 
         setState({
-            ...value,
             [key]: defaultValue,
+            ...value
         });
 
         if (onAdd) {
@@ -46,8 +46,8 @@ export class TagValueContainer extends React.Component
             e => {
                 const { value, onChange, setState } = this.props;
                 setState({
-                    ...value,
                     [key]: e.target.value,
+                    ...value
                 });
 
                 if (onChange) {
@@ -64,7 +64,7 @@ export class TagValueContainer extends React.Component
                 const {
                     value: {
                         [key]: removed,
-                        ...remaining,
+                        ...remaining
                     },
                     onDelete,
                     setState,

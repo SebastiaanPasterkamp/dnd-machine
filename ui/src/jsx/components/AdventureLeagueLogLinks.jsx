@@ -14,7 +14,13 @@ import { userHasRole } from '../utils.jsx';
 
 export class AdventureLeagueLogLinks extends React.Component
 {
-    onConsume = () => {
+    constructor(props) {
+        super(props);
+        this.onConsume = this.onConsume.bind(this);
+        this.onDelete = this.onDelete.bind(this);
+    }
+
+    onConsume() {
         const {
             id,
             adventureleague: { character_id },
@@ -27,7 +33,7 @@ export class AdventureLeagueLogLinks extends React.Component
         );
     }
 
-    onDelete = () => {
+    onDelete() {
         const { id } = this.props;
         ObjectDataActions.deleteObject("adventureleague", id,  "log");
     }

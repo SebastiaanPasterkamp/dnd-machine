@@ -95,7 +95,7 @@ class MultiSelect extends React.Component
             isDisabled,
             emptyLabel,
             renderEmpty,
-            ...props,
+            ...props
         } = this.props;
 
         return (

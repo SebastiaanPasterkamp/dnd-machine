@@ -178,9 +178,11 @@ export class EncounterView extends React.Component
         this.state = {
             combat: false
         };
+        this.awardXP = this.awardXP.bind(this);
+        this.toggleCombat = this.toggleCombat.bind(this);
     }
 
-    awardXP = () => {
+    awardXP() {
         const { xp, hosted_party: { id, size } = {} } = this.props;
 
         fetch(
@@ -204,7 +206,7 @@ export class EncounterView extends React.Component
             });
     }
 
-    toggleCombat = () => {
+    toggleCombat() {
         this.setState({
             combat: !this.state.combat
         });
