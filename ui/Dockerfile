@@ -1,4 +1,4 @@
-FROM node:8.16-alpine
+FROM node:14.3-slim
 
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
@@ -6,11 +6,11 @@ RUN echo "export PATH=/dnd-machine/ui/node_modules/.bin:$PATH" > /etc/environmen
 
 WORKDIR /dnd-machine/ui
 
-RUN apk \
-    --no-cache \
-    add \
-        build-base \
-        python \
+RUN apt-get update \
+    && apt-get install -yq --no-install-recommends \
+        build-essential \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
     && chown -R 1000:1000 /dnd-machine
 
 USER 1000

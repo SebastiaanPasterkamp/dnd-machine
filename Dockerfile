@@ -1,4 +1,4 @@
-FROM node:8.16-alpine as node
+FROM node:14.3-slim AS node
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
 WORKDIR /dnd-machine
@@ -6,17 +6,13 @@ WORKDIR /dnd-machine
 COPY ui ./ui
 
 RUN cd /dnd-machine/ui \
-    && apk \
-        --virtual .build-deps \
-        --no-cache \
-        add \
-            build-base \
-            python \
+    && apt-get update \
+    && apt-get install -yq --no-install-recommends \
+        build-essential \
     && npm install \
-    && apk del .build-deps \
     && npm run build:production
 
-FROM python:3.6-alpine3.8
+FROM python:3.8-alpine
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
 ARG GIT_TAG
