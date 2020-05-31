@@ -1,7 +1,4 @@
 "use strict";
-import "core-js/modules/es6.promise";
-import "core-js/modules/es6.array.iterator";
-
 import '../css/nice.css';
 import '../sass/base.scss';
 

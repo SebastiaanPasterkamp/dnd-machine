@@ -20,15 +20,17 @@ const OUTPUT_PATH_FONT = 'fonts';
 
 const config = {
     mode: process.env.NODE_ENV,
+    devtool: 'inline-source-map',
     entry: {
         [PROJECT]: SOURCE_PATH_JSX + '/index.jsx',
+        polyfills: SOURCE_PATH_JSX + '/polyfills.jsx',
     },
     devServer: {
         host: "0.0.0.0",
         port: 8080,
         disableHostCheck: true,
         compress: true,
-        contentBase: "../app/static/",
+        contentBase: OUTPUT_PATH_JSX,
         publicPath: "/static/",
         open: false,
         overlay: true,
