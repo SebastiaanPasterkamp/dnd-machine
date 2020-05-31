@@ -35,13 +35,6 @@ const config = {
         hot: true,
         hotOnly: true,
         inline: true,
-        proxy: {
-            '/': {
-                target: 'http://nginx:80',
-                secure: false,
-            }
-        }
-
     },
     output: {
         path: OUTPUT_PATH_JSX,
