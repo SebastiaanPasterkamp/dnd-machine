@@ -11,6 +11,7 @@
     "build:development": "webpack --mode development",
     "build:production": "webpack --mode production",
     "test": "node_modules/.bin/jest --ci",
+    "lint": "node_modules/.bin/eslint --ext .jsx --ext .js src tests",
     "test:watch": "npm run test -- --watchAll",
     "test:coverage": "npm run test -- --coverage"
   },
@@ -21,9 +22,13 @@
     "collectCoverageFrom": [
       "**/src/**/*.{js,jsx}"
     ],
+    "watchPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
     "testPathIgnorePatterns": [
       "__mocks__",
-      "__init__"
+      "__init__",
+      "/node_modules/"
     ],
     "setupFiles": [
       "<rootDir>/tests/__init__/shim.js",
@@ -37,7 +42,8 @@
     },
     "modulePaths": [
       "src/jsx",
-      "src/sass"
+      "src/sass",
+      "src/css"
     ]
   },
   "repository": {
@@ -59,11 +65,17 @@
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.3",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.5.0",
+    "eslint": "^7.1.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0",
     "file-loader": "^6.0.0",
     "jest": "^26.0.1",
     "jest-enzyme": "^7.1.2",

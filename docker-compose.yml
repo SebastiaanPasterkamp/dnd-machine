@@ -44,6 +44,7 @@ services:
         volumes:
             - ./ui/docker:/dnd-machine/ui/docker
             - ./ui/.babelrc:/dnd-machine/ui/.babelrc
+            - ./ui/.eslintrc:/dnd-machine/ui/.eslintrc
             - ./ui/package.json:/dnd-machine/ui/package.json
             - ./ui/package-lock.json:/dnd-machine/ui/package-lock.json
             - ./ui/src:/dnd-machine/ui/src
