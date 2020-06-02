@@ -21,6 +21,9 @@ const OUTPUT_PATH_FONT = 'fonts';
 const config = {
     mode: process.env.NODE_ENV,
     devtool: 'inline-source-map',
+    watchOptions: {
+        ignored: /node_modules/,
+    },
     entry: {
         [PROJECT]: SOURCE_PATH_JSX + '/index.jsx',
         polyfills: SOURCE_PATH_JSX + '/polyfills.jsx',
