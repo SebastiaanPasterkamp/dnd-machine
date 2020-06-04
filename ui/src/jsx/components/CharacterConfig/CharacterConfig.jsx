@@ -72,6 +72,7 @@ const ComponentMap = {
     multichoice: MultipleChoiceSelect,
     objectlist: ObjectListPropertySelect,
     select: SelectPropertySelect,
+    statistics: StatisticsSelect,
     value: ValuePropertySelect,
 };
 

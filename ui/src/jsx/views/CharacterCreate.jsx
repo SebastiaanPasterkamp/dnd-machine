@@ -28,7 +28,7 @@ import CharacterConfig, {
     CharacterEditorWrapper,
     ChoiceSelect,
     ComputeConfig,
-    StatisticsSelect,
+    $Select,
 } from '../components/CharacterConfig';
 
 export class CharacterCreate extends React.Component
@@ -41,9 +41,6 @@ export class CharacterCreate extends React.Component
         color: 'info',
     }, {
         label: 'Background',
-        color: 'info',
-    }, {
-        label: 'Statistics',
         color: 'info',
     }, {
         label: 'Description',
@@ -69,7 +66,7 @@ export class CharacterCreate extends React.Component
 
     render() {
         const {
-            races, classes, backgrounds, statistics, base,
+            races, classes, backgrounds, base,
             character, genders, alignments,
         } = this.props;
         const {
@@ -88,7 +85,6 @@ export class CharacterCreate extends React.Component
             !races.uuid
             || !classes.uuid
             || !backgrounds.uuid
-            || !statistics.uuid
             || !base.uuid
         ) {
             return null;
@@ -102,7 +98,6 @@ export class CharacterCreate extends React.Component
                 <ChoiceSelect {...races} />
                 <ChoiceSelect {...classes} />
                 <ChoiceSelect {...backgrounds} />
-                <StatisticsSelect {...statistics} />
                 <CharacterConfig {...base} />
                 <Panel
                     header="Result"
@@ -149,7 +144,6 @@ CharacterCreate.defaultProps = {
     races: {},
     classes: {},
     backgrounds: {},
-    statistics: {},
     base: {},
     genders: [],
     alignments: [],
@@ -163,7 +157,6 @@ export default ListDataWrapper(
             races: 'fetch',
             classes: 'fetch',
             backgrounds: 'fetch',
-            statistics: 'fetch',
             base: 'fetch',
         },
     ),
