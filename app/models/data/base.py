@@ -10,6 +10,7 @@ class BaseDataObject(JsonObject):
         "description": "",
         "type": "config",
         "config": [],
+        "phases": [],
         }
     _fieldTypes = {
         "id": int,
@@ -44,33 +45,29 @@ class BaseDataObject(JsonObject):
         char = self._getChar(char)
 
         clone = self.clone()
+
         for phase in clone.get("phases", []):
             if not len(phase.get("config", [])):
                 continue
             if not self._meetsConditions(char, phase):
                 continue
-            config = phase.get("config", [])
-            self._inlineIncludes(datamapper, config),
-            return {
+            config = {
                 "uuid": phase["uuid"],
                 "type": "config",
                 "name": phase.get("name"),
                 "description": phase.get("description"),
-                "config": config,
+                "config": phase.get("config", []),
                 }
+            self._inlineIncludes(datamapper, config),
+            return config
 
         config = clone.get("config", [])
-
         config.insert(0, {
-            "uuid": "pick-%s-%s" % (
-                self._pathPrefix.lower(),
-                self.name.lower(),
-                ),
+            "uuid": "pick-%s" % self.uuid,
             "path": self._pathPrefix,
             "type": "value",
             "value": self.name,
             })
-
         self._inlineIncludes(datamapper, config)
         return {
             "uuid": self.uuid,
