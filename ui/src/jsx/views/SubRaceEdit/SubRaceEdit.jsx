@@ -125,9 +125,9 @@ export class SubRaceEdit extends React.Component
                 </Panel>
 
                 <Panel
-                    key="config"
-                    className="sub-race-edit__config"
-                    header="Config"
+                    key="levels"
+                    className="sub-race-edit__levels"
+                    header="Levels"
                 >
                     <TabComponent
                         tabConfig={levels}

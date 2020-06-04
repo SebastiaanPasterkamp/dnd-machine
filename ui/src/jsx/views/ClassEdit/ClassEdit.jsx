@@ -124,7 +124,8 @@ export class ClassEdit extends React.Component
     render() {
         const { levels } = this.state;
         const {
-            id, name, description, subclass_level, config, features, phases, conditions,
+            id, name, description, subclass_level,
+            config, features, phases, conditions,
         } = this.props;
 
         return (

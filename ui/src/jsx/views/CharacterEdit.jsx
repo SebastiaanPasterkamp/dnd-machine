@@ -92,6 +92,17 @@ export class CharacterEdit extends React.Component
                 ) : null }
 
                 <Panel
+                    key="permanent"
+                    className="character-edit__permanent"
+                    header="Permanent configuration options"
+                >
+                    <CharacterConfig
+                        {...character.permanent}
+                    />
+
+                </Panel>
+
+                <Panel
                     key="description"
                     className="character-edit__description"
                     header="Description"
@@ -101,6 +112,7 @@ export class CharacterEdit extends React.Component
                         showInfo={true}
                         showProgress={true}
                     />
+
 
                     <CharacterConfig
                         config={ baseConfig.description }

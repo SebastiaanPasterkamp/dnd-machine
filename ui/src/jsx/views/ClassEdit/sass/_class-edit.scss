@@ -5,8 +5,8 @@
 .class-edit {
     @extend .widget-grid;
 
-    &__conditions, &__levels {
-        grid-column-end: span 2;
+    &__levels {
+        grid-column: span 2;
     }
 
     &__features {

@@ -124,7 +124,8 @@ export class SubClassEdit extends React.Component
     render() {
         const { levels, subclass_level } = this.state;
         const {
-            id, class_id, name, description, config, phases, conditions, classes,
+            id, class_id, name, description,
+            config, phases, conditions, classes,
         } = this.props;
 
         return (

@@ -15,10 +15,12 @@ import ControlGroup from '../../components/ControlGroup';
 import InputField from '../../components/InputField';
 import MarkdownTextField from '../../components/MarkdownTextField';
 import Panel from '../../components/Panel';
+import TabComponent from '../../components/TabComponent';
 
 import {
     DataConfig,
     ListConditions,
+    PhasePanel,
     uuidv4,
 } from '../../components/DataConfig';
 
@@ -31,9 +33,29 @@ export class RaceEdit extends React.Component
         const { uuid = uuidv4() } = props;
         this.state = {
             uuid,
+            levels: map(
+                (level) => ({ name: `${level}` })
+            )(range(1, 20)),
         };
         this.memoize = memoize.bind(this);
         this.onFieldChange = this.onFieldChange.bind(this);
+    }
+
+    initPhase(level) {
+        return this.memoize(`init-level-${level}`, ({name}) => {
+            if (name !== '') {
+                return null;
+            }
+            const { name: _class } = this.props;
+
+            return ({
+                name: `${_class} ${level}`,
+                conditions: [
+                    {path: 'class', type: 'contains', needle: _class},
+                    {path: 'level', type: 'gte', value: level },
+                ],
+            });
+        });
     }
 
     onFieldChange(field) {
@@ -48,8 +70,45 @@ export class RaceEdit extends React.Component
         });
     }
 
+    onPhaseChange(index) {
+        const padding = map(() => ({}))(range(2, 20));
+        return this.memoize(`phase-${index}`, phase => {
+            const { uuid: stateUUID } = this.state;
+            const { setState, phases, uuid = stateUUID } = this.props;
+            const updated = 'config' in phase && !phase.config.length
+                ? null
+                : {...phases[index], ...phase};
+            setState({
+                type: this.optionType,
+                uuid,
+                phases: [
+                    ...[...phases, ...padding].slice(0, index),
+                    updated,
+                    ...phases.slice(index + 1),
+                ],
+            });
+        });
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            levels: [
+                { name: `${props.name} 1`},
+                ...map(
+                    (index) => {
+                        const {
+                            name = `${index + 2}`,
+                        } = props.phases[index] || {};
+                        return { name };
+                    }
+                )(range(0, 19)),
+            ],
+        };
+    }
+
     render() {
-        const { id, name, config, description } = this.props;
+        const { levels } = this.state;
+        const { id, name, description, config, phases } = this.props;
 
         return (
             <React.Fragment>
@@ -76,14 +135,28 @@ export class RaceEdit extends React.Component
                 </Panel>
 
                 <Panel
-                    key="config"
-                    className="race-edit__config"
-                    header="Config"
+                    key="levels"
+                    className="race-edit__levels"
+                    header="Levels"
                 >
-                    <DataConfig
-                        list={config}
-                        setState={this.onFieldChange('config')}
-                    />
+                    <TabComponent
+                        tabConfig={levels}
+                        mountAll={true}
+                    >
+                        <DataConfig
+                            key="phase-orig"
+                            list={config}
+                            setState={this.onFieldChange('config')}
+                        />
+                        {map(
+                            (index) =>(<PhasePanel
+                                key={`phase-${index}`}
+                                initPhase={this.initPhase(index + 2)}
+                                {...phases[index]}
+                                setState={this.onPhaseChange(index)}
+                            />)
+                        )(range(0, levels.length-1))}
+                    </TabComponent>
                 </Panel>
             </React.Fragment>
         );
@@ -93,13 +166,15 @@ export class RaceEdit extends React.Component
 RaceEdit.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
-    config: PropTypes.arrayOf(PropTypes.object),
     description: PropTypes.string,
+    config: PropTypes.arrayOf(PropTypes.object),
+    phases: PropTypes.arrayOf(PropTypes.object),
 };
 
 RaceEdit.defaultProps = {
     id: null,
     config: [],
+    phases: [],
     name: '',
     description: '',
 };

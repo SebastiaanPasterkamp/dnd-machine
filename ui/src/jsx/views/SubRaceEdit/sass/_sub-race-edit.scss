@@ -5,7 +5,7 @@
 .sub-race-edit {
     @extend .widget-grid;
 
-    &__config {
+    &__levels {
         grid-column-end: span 2;
     }
 }

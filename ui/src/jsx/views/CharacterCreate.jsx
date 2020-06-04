@@ -79,6 +79,7 @@ export class CharacterCreate extends React.Component
             name = '',
             gender,
             alignment,
+            permanent = [],
         } = character;
 
         if (
@@ -129,6 +130,14 @@ export class CharacterCreate extends React.Component
                         label={`${level} (${xp_progress} / ${xp_level})`}
                     />
 
+                    {permanent ? (
+                        <CharacterConfig
+                            uuid="58ab8d25-c578-4709-b646-631b1a491f74"
+                            type="config"
+                            config={permanent}
+                        />
+                    ) : null}
+
                     <ButtonField
                         label="Save"
                         className="primary"
@@ -144,6 +153,7 @@ CharacterCreate.defaultProps = {
     races: {},
     classes: {},
     backgrounds: {},
+    character: {},
     base: {},
     genders: [],
     alignments: [],
