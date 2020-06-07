@@ -21,9 +21,6 @@ class CharacterBlueprint(BaseApiBlueprint):
             '/api/<int:obj_id>', 'api_post',
             self.api_post, methods=['POST'])
         self.add_url_rule(
-            '/statistics/api', 'get_statistics',
-            self.get_statistics, methods=['GET'])
-        self.add_url_rule(
             '/base/api', 'get_base',
             self.get_base, methods=['GET'])
         self.add_url_rule(
@@ -98,16 +95,6 @@ class CharacterBlueprint(BaseApiBlueprint):
             for key, value in update.items()
             if not obj or key not in immutable
             )
-
-    def get_statistics(self):
-        return jsonify({
-            "type": 'statistics',
-            "uuid": "e62a2c52-7350-4c9c-9af9-9025bba1e218",
-            "editBase": True,
-            "budget": 27,
-            "minBare": 8,
-            "maxBare": 15,
-            })
 
     def get_base(self):
         return jsonify({
