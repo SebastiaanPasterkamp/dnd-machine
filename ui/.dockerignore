@@ -1,4 +1,5 @@
 *~
+.git
 *.bak
 node_modules
 coverage
