@@ -259,6 +259,15 @@ exports[`Component: ConfigOption when rendering should show label/desc when cann
           </li>
           <li
             className={null}
+            data-value="permanent"
+            onClick={[Function]}
+          >
+            <a>
+              Permanent Config Options
+            </a>
+          </li>
+          <li
+            className={null}
             data-value="value"
             onClick={[Function]}
           >
@@ -777,6 +786,15 @@ exports[`Component: ConfigOption when rendering should show label/desc when not 
           </li>
           <li
             className={null}
+            data-value="permanent"
+            onClick={[Function]}
+          >
+            <a>
+              Permanent Config Options
+            </a>
+          </li>
+          <li
+            className={null}
             data-value="value"
             onClick={[Function]}
           >
@@ -1242,6 +1260,15 @@ exports[`Component: ConfigOption when rendering should work with full props 1`] 
           </li>
           <li
             className={null}
+            data-value="permanent"
+            onClick={[Function]}
+          >
+            <a>
+              Permanent Config Options
+            </a>
+          </li>
+          <li
+            className={null}
             data-value="value"
             onClick={[Function]}
           >
@@ -1674,6 +1701,15 @@ exports[`Component: ConfigOption when rendering should work with minimum props 1
           >
             <a>
               Object list option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="permanent"
+            onClick={[Function]}
+          >
+            <a>
+              Permanent Config Options
             </a>
           </li>
           <li

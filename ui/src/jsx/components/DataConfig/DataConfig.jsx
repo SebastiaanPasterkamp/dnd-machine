@@ -11,6 +11,7 @@ import ListOption from './ListOption';
 import ManualValueOption from './ManualValueOption';
 import MultichoiceOption from './MultichoiceOption';
 import ObjectListOption from './ObjectListOption';
+import PermanentOption from './PermanentOption';
 import ValueOption from './ValueOption';
 
 
@@ -69,6 +70,11 @@ export class DataConfig extends React.Component
             id: 'objectlist',
             name: 'Object list option',
             component: ObjectListOption,
+        },
+        {
+            id: 'permanent',
+            name: 'Permanent Config Options',
+            component: PermanentOption,
         },
         {
             id: 'value',

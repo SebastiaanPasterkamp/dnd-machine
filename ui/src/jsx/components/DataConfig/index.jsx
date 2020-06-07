@@ -8,6 +8,7 @@ import ListOption from './ListOption';
 import ManualValueOption from './ManualValueOption';
 import MultichoiceOption from './MultichoiceOption';
 import ObjectListOption from './ObjectListOption';
+import PermanentOption from './PermanentOption';
 import PhasePanel from './PhasePanel';
 import ValueOption from './ValueOption';
 import { uuidv4 } from './utils';
@@ -24,6 +25,7 @@ export {
     ManualValueOption,
     MultichoiceOption,
     ObjectListOption,
+    PermanentOption,
     PhasePanel,
     ValueOption,
     uuidv4,

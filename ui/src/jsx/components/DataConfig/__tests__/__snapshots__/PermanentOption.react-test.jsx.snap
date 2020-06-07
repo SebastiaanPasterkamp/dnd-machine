@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component: MultichoiceOption when rendering should work with full props 1`] = `
+exports[`Component: PermanentOption when rendering should work with full props 1`] = `
 <fieldset
   className="nice-form-group"
 >
   <legend>
-    Multichoice option
+    Permanent config option
   </legend>
   <div
     className="nice-control-group"
@@ -22,7 +22,7 @@ exports[`Component: MultichoiceOption when rendering should work with full props
       onKeyPress={null}
       placeholder="Label..."
       type="text"
-      value="Some choice"
+      value="Some config"
     />
   </div>
   <div
@@ -46,68 +46,19 @@ exports[`Component: MultichoiceOption when rendering should work with full props
         onFocus={[Function]}
         placeholder="Description..."
         rows={8}
-        value="Choice _desc_"
+        value="Config _desc_"
       />
       <span
         className="markdown-textedit__preview"
       >
         <p>
-          Choice 
+          Config 
           <em>
             desc
           </em>
         </p>
       </span>
     </div>
-  </div>
-  <div
-    className="nice-control-group"
-  >
-    <span
-      className="nice-input-addon"
-    >
-      Add
-    </span>
-    <input
-      className="nice-form-control"
-      disabled={false}
-      min={0}
-      onChange={[Function]}
-      onKeyPress={null}
-      placeholder="Add..."
-      type="number"
-      value={2}
-    />
-    <span
-      className="nice-input-addon"
-    >
-      Limit
-    </span>
-    <input
-      className="nice-form-control"
-      disabled={true}
-      min={0}
-      onChange={[Function]}
-      onKeyPress={null}
-      placeholder="Limit..."
-      type="number"
-      value={0}
-    />
-    <span
-      className="nice-input-addon"
-    >
-      Replace
-    </span>
-    <input
-      className="nice-form-control"
-      disabled={undefined}
-      min={0}
-      onChange={[Function]}
-      onKeyPress={null}
-      placeholder="Replace..."
-      type="number"
-      value={1}
-    />
   </div>
   <ul
     className="select-list-component"
@@ -138,7 +89,7 @@ exports[`Component: MultichoiceOption when rendering should work with full props
           />
         </div>
         <input
-          checked={false}
+          checked={true}
           className="nice-toggle"
           disabled={undefined}
           id="toggle-1"
@@ -151,24 +102,6 @@ exports[`Component: MultichoiceOption when rendering should work with full props
         >
           Hidden
         </label>
-        <div
-          className="nice-control-group"
-        >
-          <span
-            className="nice-input-addon"
-          >
-            Label
-          </span>
-          <input
-            className="nice-form-control"
-            disabled={undefined}
-            onChange={[Function]}
-            onKeyPress={null}
-            placeholder="Label..."
-            type="text"
-            value="My Label"
-          />
-        </div>
         <div
           className="nice-control-group"
         >
@@ -580,12 +513,12 @@ exports[`Component: MultichoiceOption when rendering should work with full props
 </fieldset>
 `;
 
-exports[`Component: MultichoiceOption when rendering should work with minimum props 1`] = `
+exports[`Component: PermanentOption when rendering should work with minimum props 1`] = `
 <fieldset
   className="nice-form-group"
 >
   <legend>
-    Multichoice option
+    Permanent config option
   </legend>
   <div
     className="nice-control-group"
@@ -636,101 +569,6 @@ exports[`Component: MultichoiceOption when rendering should work with minimum pr
       <span
         className="markdown-textedit__preview"
       />
-    </div>
-  </div>
-  <div
-    className="nice-control-group"
-  >
-    <span
-      className="nice-input-addon"
-    >
-      Add
-    </span>
-    <input
-      className="nice-form-control"
-      disabled={false}
-      min={0}
-      onChange={[Function]}
-      onKeyPress={null}
-      placeholder="Add..."
-      type="number"
-      value={0}
-    />
-    <span
-      className="nice-input-addon"
-    >
-      Limit
-    </span>
-    <input
-      className="nice-form-control"
-      disabled={false}
-      min={0}
-      onChange={[Function]}
-      onKeyPress={null}
-      placeholder="Limit..."
-      type="number"
-      value={0}
-    />
-    <span
-      className="nice-input-addon"
-    >
-      Replace
-    </span>
-    <input
-      className="nice-form-control"
-      disabled={undefined}
-      min={0}
-      onChange={[Function]}
-      onKeyPress={null}
-      placeholder="Replace..."
-      type="number"
-      value={0}
-    />
-  </div>
-  <div
-    className="nice-control-group"
-  >
-    <span
-      className="nice-input-addon"
-    >
-      Include
-    </span>
-    <div
-      className="nice-dropdown nice-form-control"
-    >
-      <button
-        className="nice-btn"
-        disabled={false}
-        onClick={[Function]}
-      >
-        Include option...
-        <i
-          className="icon fa-angle-down"
-        />
-      </button>
-      <ul
-        className="dropdown-menu"
-        onClick={[Function]}
-      >
-        <li
-          className="info"
-          data-value={null}
-          onClick={[Function]}
-        >
-          <a>
-            Include option...
-          </a>
-        </li>
-        <li
-          className={null}
-          data-value={1}
-          onClick={[Function]}
-        >
-          <a>
-            Example include
-          </a>
-        </li>
-      </ul>
     </div>
   </div>
   <ul
