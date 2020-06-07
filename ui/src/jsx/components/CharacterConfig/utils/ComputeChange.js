@@ -27,6 +27,17 @@ export default function ComputeChange(changes, original) {
     const computed = reduce(
         (computed, {option, choice}) => {
 
+            if (option.type === 'permanent') {
+                const {
+                    permanent: current = get('permanent', original) || [],
+                } = computed;
+                computed.permanent = {
+                    ...current,
+                    ...option.config,
+                };
+                return computed;
+            }
+
             if (option.type === 'dict') {
                 const {
                     [option.path]: current = get(option.path, original) || {},

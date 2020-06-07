@@ -71,6 +71,7 @@ const ComponentMap = {
     manual: ManualInputSelect,
     multichoice: MultipleChoiceSelect,
     objectlist: ObjectListPropertySelect,
+    permanent: CharacterConfig,
     select: SelectPropertySelect,
     statistics: StatisticsSelect,
     value: ValuePropertySelect,

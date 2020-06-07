@@ -64,6 +64,18 @@ export default function CollectChanges(config, choices, path) {
                 };
             }
 
+            if (type === 'permanent') {
+                const {
+                    record: r,
+                    changes: c,
+                } = CollectChanges(option.config, choices, path);
+                record[uuid] = choice || true;
+                return {
+                    record: {...record, ...r},
+                    changes: [...changes, { option, choice }, ...c],
+                };
+            }
+
             throw `Unknown option type: '${type} ${uuid}'`;
         },
         { changes: [], record: {} }
