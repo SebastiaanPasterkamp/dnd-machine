@@ -41,6 +41,7 @@ export class ClassEdit extends React.Component
                 (level) => ({ name: `${level}` })
             )(range(1, 20)),
         };
+        this.onFeaturesChange = this.onFeaturesChange.bind(this);
         this.memoize = memoize.bind(this);
     }
 
@@ -61,15 +62,13 @@ export class ClassEdit extends React.Component
         });
     }
 
-    onDictChange(dict) {
-        return this.memoize(dict, update => {
-            const { uuid: stateUUID } = this.state;
-            const { setState, [dict]: previous, uuid = stateUUID } = this.props;
-            setState({
-                type: this.optionType,
-                uuid,
-                [dict]: {...previous, ...update},
-            });
+    onFeaturesChange(features) {
+        const { uuid: stateUUID } = this.state;
+        const { setState, features: previous, uuid = stateUUID } = this.props;
+        setState({
+            type: this.optionType,
+            uuid,
+            features: {...previous, ...update},
         });
     }
 
@@ -165,7 +164,7 @@ export class ClassEdit extends React.Component
 
                 <CasterPanel
                     {...features}
-                    setState={this.onDictChange('features')}
+                    setState={this.onFeaturesChange}
                 />
 
                 <Panel
