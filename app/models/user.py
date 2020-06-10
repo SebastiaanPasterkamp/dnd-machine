@@ -1,4 +1,5 @@
 from passlib.hash import pbkdf2_sha256
+import uuid
 
 from .base import JsonObject, JsonObjectDataMapper
 
@@ -31,11 +32,13 @@ class UserObject(JsonObject):
         except AttributeError:
             self.password = pbkdf2_sha256.encrypt(password)
 
-    def setRecovery(self, key):
+    def startRecovery(self):
+        key = str(uuid.uuid4().hex.upper()[:32])
         try:
             self.recovery = pbkdf2_sha256.hash(key)
         except AttributeError:
             self.recovery = pbkdf2_sha256.encrypt(key)
+        return key
 
     def checkRecovery(self, key):
         if not self.recovery:

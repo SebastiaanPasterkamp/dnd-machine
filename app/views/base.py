@@ -3,7 +3,6 @@ import os
 from flask import request, session, redirect, url_for, \
     render_template, jsonify, flash, get_flashed_messages
 from flask_mail import Mail, Message
-import uuid
 from oauthlib.oauth2 import WebApplicationClient
 import json
 import requests
@@ -244,10 +243,7 @@ def register_paths(app):
             return redirect(url_for('login'))
         user = users[0]
 
-        key = str(
-            uuid.uuid4().hex.upper()[:32]
-            )
-        user.setRecovery(key)
+        key = user.startRecovery()
         app.datamapper.user.update(user)
 
         mail = Mail(app)
