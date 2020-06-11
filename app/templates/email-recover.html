@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
-                Greetings <strong>{{ user.name }}</strong>,
+                Greetings <strong>{{ user.name | default(user.username) }}</strong>,
 
                 <p>
                 It has come to my attention that you may have forgotten your
