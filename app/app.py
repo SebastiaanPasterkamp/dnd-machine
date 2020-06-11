@@ -4,6 +4,7 @@ import glob
 import datetime
 from flask import Flask, request, session, redirect, url_for, jsonify
 from flask_compress import Compress
+from flask_mail import Mail
 from werkzeug.utils import find_modules, import_string
 from werkzeug.routing import IntegerConverter
 
@@ -17,6 +18,7 @@ import filters
 compress = Compress()
 datamapper = Datamapper()
 db = Database()
+mail = Mail()
 
 def create_app(config={}):
     app = Flask(__name__)
@@ -26,6 +28,7 @@ def create_app(config={}):
     compress.init_app(app)
     db.init_app(app)
     datamapper.init_app(app)
+    mail.init_app(app)
 
     register_converters(app)
     register_blueprints(app)
