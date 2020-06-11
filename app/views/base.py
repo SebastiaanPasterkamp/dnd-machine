@@ -229,9 +229,8 @@ def register_paths(app):
                 )
 
         flash(
-            "If your input matched our information for your"
-            " registered account, an email has been sent to the"
-            " associated email address."
+            "An email has been sent to your email address if your input matched"
+            " our information for your registered account."
             )
 
         match = request.form.get("match")
@@ -280,7 +279,10 @@ def register_paths(app):
                 headers=[['Content-ID','<d20>']],
                 )
 
-        mail.send(msg)
+        try:
+            mail.send(msg)
+        except Exception as e:
+            app.logger.error(e.message)
         return redirect(url_for('login'))
 
 
