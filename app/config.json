@@ -15,7 +15,7 @@
 
     "MAIL_SERVER": "smtp.gmail.com",
     "MAIL_PORT": 465,
-    "MAIL_MAIL_USE_TLS": false,
+    "MAIL_USE_TLS": false,
     "MAIL_USE_SSL": true,
     "MAIL_USERNAME": "",
     "MAIL_PASSWORD": "",
