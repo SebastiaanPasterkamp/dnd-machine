@@ -20,7 +20,7 @@ export class ActivityStore extends Reflux.Store
     {
         const {
             loading,
-            ...activity,
+            ...activity
         } = this.state;
 
         this.setState({
@@ -34,7 +34,7 @@ export class ActivityStore extends Reflux.Store
         const {
             loading,
             [action]: finished,
-            ...activity,
+            ...activity
         } = this.state;
 
         this.setState({

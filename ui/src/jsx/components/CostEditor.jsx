@@ -17,9 +17,10 @@ class CostEditor extends LazyComponent
             {code: 'pp', label: 'Platinum'}
         ];
         this.state = {};
+        this.onSetState = this.onSetState.bind(this);
     }
 
-    onSetState = (newValue) => {
+    onSetState(newValue) {
         let value = {}
         try {
             value = _.mapValues(

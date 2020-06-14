@@ -8,7 +8,7 @@ import utils from '../../utils.jsx';
 
 import './sass/_responsive-table.scss';
 
-const ResponsiveTable = function({
+export const ResponsiveTable = function({
     items,
     headerComponent: HeaderComponent,
     rowComponent: RowComponent,

@@ -33,27 +33,31 @@ import CharacterConfig, {
 
 export class CharacterCreate extends React.Component
 {
-    tabConfig = [{
-        label: 'Race',
-        color: 'info',
-    }, {
-        label: 'Class',
-        color: 'info',
-    }, {
-        label: 'Background',
-        color: 'info',
-    }, {
-        label: 'Statistics',
-        color: 'info',
-    }, {
-        label: 'Description',
-        color: 'info',
-    }, {
-        label: 'Result',
-        color: 'info',
-    }];
+    constructor(props) {
+        super(props);
+        this.tabConfig = [{
+            label: 'Race',
+            color: 'info',
+        }, {
+            label: 'Class',
+            color: 'info',
+        }, {
+            label: 'Background',
+            color: 'info',
+        }, {
+            label: 'Statistics',
+            color: 'info',
+        }, {
+            label: 'Description',
+            color: 'info',
+        }, {
+            label: 'Result',
+            color: 'info',
+        }];
+        this.onSave = this.onSave.bind(this);
+    }
 
-    onSave = () => {
+    onSave() {
         const {
             onSave,
             history,

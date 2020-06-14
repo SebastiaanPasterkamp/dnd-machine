@@ -26,6 +26,7 @@ class CharacterEditorStore extends Reflux.Store
             config: [],
         };
         this.listenables = CharacterEditorActions;
+        this.computeChange = this.computeChange.bind(this);
     }
 
     reset() {
@@ -42,7 +43,7 @@ class CharacterEditorStore extends Reflux.Store
             original,
             character: old,
             config: oldConfig,
-            ...changes,
+            ...changes
         } = this.state;
         const {
             level_up: {
@@ -62,8 +63,8 @@ class CharacterEditorStore extends Reflux.Store
             },
             []
         )({
-            ...changes,
             [id]: change,
+            ...changes
         });
 
         const character = ComputeChange(
@@ -78,12 +79,12 @@ class CharacterEditorStore extends Reflux.Store
         });
     }
 
-    computeChange = () => {
+    computeChange() {
         const {
             original,
             character: old,
             config: oldConfig,
-            ...changes,
+            ...changes
         } = this.state;
         const {
             level_up: {

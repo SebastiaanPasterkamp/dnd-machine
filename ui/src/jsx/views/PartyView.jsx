@@ -21,7 +21,10 @@ import PartyLinks from '../components/PartyLinks';
 
 export class PartyView extends React.Component
 {
-    characterLinks = ['view'];
+    constructor(props) {
+        super(props);
+        this.characterLinks = ['view'];
+    }
 
     render() {
         const {

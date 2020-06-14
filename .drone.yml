@@ -9,7 +9,7 @@ platform:
 
 steps:
   - name: Backend
-    image: python:3.6-alpine3.8
+    image: python:3.7-alpine3.8
     volumes:
       - name: pip-cache
         path: /root/.cache/pip
@@ -22,14 +22,15 @@ steps:
       - python app/tests/run_tests.py
 
   - name: frontend
-    image: node:8.16-alpine
+    image: node:14.3-slim
     volumes:
       - name: npm-cache
         path: /drone/src/ui/node_modules
-      - name: apk-cache
-        path: /etc/apk/cache
+      - name: apt-cache
+        path: /var/lib/apt/lists/
     commands:
-      - apk add build-base python
+      - apt-get update
+      - apt-get install -yq --no-install-recommends build-essential
       - cd ui
       - npm install
       - npm run test
@@ -41,9 +42,9 @@ volumes:
   - name: pip-cache
     host:
       path: /var/cache/drone/pip
-  - name: apk-cache
+  - name: apt-cache
     host:
-      path: /var/cache/drone/apk
+      path: /var/cache/drone/apt
 
 ---
 kind: pipeline
@@ -235,6 +236,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 759175cac685eb9b4e1c99afda21b7b197a115a2d9841e7c968d422c9cb9e6eb
+hmac: 7f28046500fc9ca77b9d5e9165346e2d83e8e22ad795145b8fd6279e7e02d604
 
 ...

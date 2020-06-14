@@ -1,5 +1,6 @@
 *~
 *pyc
+*.bak
 coverage
 app/config.local.json
 app/static/

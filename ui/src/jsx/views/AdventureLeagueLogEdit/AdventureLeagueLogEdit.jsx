@@ -41,27 +41,31 @@ import { deltaType, deltaDefault } from './extraProps';
 
 export class AdventureLeagueLogEdit extends React.Component
 {
-    tierLevels = {
-        one: 1,
-        two: 5,
-        three: 11,
-        four: 17,
-    };
-
     constructor(props) {
         super(props);
         this.state = {
             forceAdventureCheckpoints: false,
         };
+        this.tierLevels = {
+            one: 1,
+            two: 5,
+            three: 11,
+            four: 17,
+        };
 
         this.memoize = memoize.bind(this);
+        this.onSwitchSlow = this.onSwitchSlow.bind(this);
+        this.onSwitchACP = this.onSwitchACP.bind(this);
+        this.onFieldChange = this.onFieldChange.bind(this);
+        this.onCharacterFilter = this.onCharacterFilter.bind(this);
+        this.onCharacterSelect = this.onCharacterSelect.bind(this);
     }
 
-    onSwitchSlow = (slow_progress) => {
+    onSwitchSlow(slow_progress) {
         this.props.setState({ slow_progress });
     }
 
-    onSwitchACP = (forceAdventureCheckpoints) => {
+    onSwitchACP(forceAdventureCheckpoints) {
         this.setState({ forceAdventureCheckpoints });
         if (this.state.slow_progress) {
             this.props.setState({ slow_progress: false });
@@ -73,7 +77,7 @@ export class AdventureLeagueLogEdit extends React.Component
         setState({ character_id, user_id });
     }
 
-    onFieldChange = (field) => {
+    onFieldChange(field) {
         return this.memoize(field, update => {
             const { [field]: original, setState } = this.props;
             let value = {};
@@ -84,7 +88,7 @@ export class AdventureLeagueLogEdit extends React.Component
         });
     };
 
-    onCharacterFilter = (character) => {
+    onCharacterFilter(character) {
         const { current_user } = this.props;
         return (
             current_user
@@ -96,7 +100,7 @@ export class AdventureLeagueLogEdit extends React.Component
         );
     }
 
-    onCharacterSelect = ({ id }) => {
+    onCharacterSelect({ id }) {
         const { setState } = this.props;
         setState({ character_id: id });
     }

@@ -10,9 +10,9 @@ import {
     reduce,
     replace,
 } from 'lodash/fp';
-import core from 'mathjs/core';
-const math = core.create();
-math.import(require('mathjs/lib/expression/function/eval'));
+import { create } from 'mathjs'
+const math = create();
+// math.import(require('mathjs/lib/expression/function/eval'));
 
 // create simple functions for all operators
 math.import({

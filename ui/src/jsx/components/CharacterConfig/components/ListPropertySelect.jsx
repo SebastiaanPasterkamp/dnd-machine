@@ -45,6 +45,7 @@ export class ListPropertySelect extends LazyComponent
         };
         this.memoize = memoize.bind(this);
         this.onSetState = this.onSetState.bind(this);
+        this.onAdd = this.onAdd.bind(this);
     }
 
     getId({ id, code, name}) {
@@ -98,25 +99,27 @@ export class ListPropertySelect extends LazyComponent
         });
     }
 
-    onDelete = (id) => this.memoize(
-        `delete-${id}`,
-        () => {
-            const { replace, multiple } = this.props;
-            const { added, removed } = this.state;
-            const state = { added, removed };
-            if (includes(id, added)) {
-                state.added = without([ id ], added);
-            } else if (removed.length < replace) {
-                state.removed = concat(removed, [id]);
-                if (!multiple) {
-                    state.removed = uniq(state.removed);
+    onDelete(id) {
+        return this.memoize(
+            `delete-${id}`,
+            () => {
+                const { replace, multiple } = this.props;
+                const { added, removed } = this.state;
+                const state = { added, removed };
+                if (includes(id, added)) {
+                    state.added = without([ id ], added);
+                } else if (removed.length < replace) {
+                    state.removed = concat(removed, [id]);
+                    if (!multiple) {
+                        state.removed = uniq(state.removed);
+                    }
                 }
+                this.setState(state, this.onSetState);
             }
-            this.setState(state, this.onSetState);
-        }
-    );
+        );
+    }
 
-    onAdd = (id) => {
+    onAdd(id) {
         const { add, limit, current, multiple } = this.props;
         const { added, removed } = this.state;
 

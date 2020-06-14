@@ -16,35 +16,36 @@ import { tierType, tierDefault } from '../extraProps';
 
 export class TreasureCheckpoints extends React.PureComponent
 {
-    tiers = [ 'one', 'two', 'three', 'four' ];
-
     constructor(props) {
         super(props);
         this.memoize = memoize.bind(this);
+        this.tiers = [ 'one', 'two', 'three', 'four' ];
     }
 
-    onChange = (tier) => this.memoize(tier, (value) => {
-        const {
-            disabled,
-            starting,
-            earned: oldEarned,
-            total: oldTotal,
-            setState,
-        } = this.props;
-        if (disabled) {
-            return;
-        }
-        let earned = assign({}, oldEarned);
-        earned = assign(earned, {
-            [tier]: value,
-        });
-        let total = assign({}, oldTotal);
-        total = assign(total, {
-            [tier]: (starting[tier] || 0) + value,
-        });
+    onChange(tier) {
+        return this.memoize(tier, (value) => {
+            const {
+                disabled,
+                starting,
+                earned: oldEarned,
+                total: oldTotal,
+                setState,
+            } = this.props;
+            if (disabled) {
+                return;
+            }
+            let earned = assign({}, oldEarned);
+            earned = assign(earned, {
+                [tier]: value,
+            });
+            let total = assign({}, oldTotal);
+            total = assign(total, {
+                [tier]: (starting[tier] || 0) + value,
+            });
 
-        setState({ starting, earned, total });
-    })
+            setState({ starting, earned, total });
+        });
+    }
 
     render() {
         const {

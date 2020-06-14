@@ -29,24 +29,29 @@ import UserLabel from '../components/UserLabel';
 
 export class PartyEdit extends React.PureComponent
 {
-    characterLinks = ['view', 'remove'];
-
     constructor(props) {
         super(props);
         this.state = {
             dialog: false,
         };
         this.memoize = {};
+        this.characterLinks = ['view', 'remove'];
+        this.callback = this.callback.bind(this);
+        this.onCancel = this.onCancel.bind(this);
+        this.toggleDialog = this.toggleDialog.bind(this);
+        this.onRemoveMember = this.onRemoveMember.bind(this);
+        this.onAddMember = this.onAddMember.bind(this);
+        this.onCharacterFilter = this.onCharacterFilter.bind(this);
     }
 
-    callback = (name, callback) => {
+    callback(name, callback) {
         if (!(name in this.memoize)) {
             this.memoize[name] = callback;
         }
         return this.memoize[name];
     }
 
-    onCancel = () => {
+    onCancel() {
         const { reload } = this.props;
         if (reload) {
             reload();
@@ -54,12 +59,12 @@ export class PartyEdit extends React.PureComponent
         this.toggleDialog();
     }
 
-    toggleDialog = () => {
+    toggleDialog(){
         const { dialog } = this.state;
         this.setState({ dialog: !dialog });
     }
 
-    onRemoveMember = (id) => {
+    onRemoveMember(id) {
         const {
             member_ids: old_party,
             setState,
@@ -70,7 +75,7 @@ export class PartyEdit extends React.PureComponent
         setState({ member_ids }, () => recompute());
     }
 
-    onAddMember = (id) => {
+    onAddMember(id) {
         const {
             member_ids: old_party,
             setState,
@@ -81,7 +86,7 @@ export class PartyEdit extends React.PureComponent
         setState({ member_ids }, () => recompute());
     }
 
-    onCharacterFilter = (character) => {
+    onCharacterFilter(character) {
         const { member_ids } = this.props;
 
         return !includes(character.id, member_ids);

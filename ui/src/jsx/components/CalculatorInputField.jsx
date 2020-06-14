@@ -17,6 +17,7 @@ export class CalculatorInputField extends LazyComponent
             value: props.value,
             validation: null,
         };
+        this.onChange = this.onChange.bind(this);
     }
 
     clipValue(value) {
@@ -31,7 +32,7 @@ export class CalculatorInputField extends LazyComponent
         return clipped;
     }
 
-    onChange = (formula) => {
+    onChange(formula) {
         const { value, setState } = this.props;
 
         if (formula === "") {

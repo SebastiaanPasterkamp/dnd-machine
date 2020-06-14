@@ -24,17 +24,20 @@ export class LoginDialog extends React.Component
             error: false,
             processing: false,
         };
+        this.onUsernameChange = this.onUsernameChange.bind(this);
+        this.onPasswordChange = this.onPasswordChange.bind(this);
+        this.doLogin = this.doLogin.bind(this);
     }
 
-    onUsernameChange = (username) => {
+    onUsernameChange(username) {
         this.setState({ username, error: false });
     }
 
-    onPasswordChange = (password) => {
+    onPasswordChange(password) {
         this.setState({ password, error: false });
     }
 
-    doLogin = () => {
+    doLogin() {
         const { onLogin } = this.props;
         const { username, password } = this.state;
 

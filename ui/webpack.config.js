@@ -4,7 +4,6 @@ const path = require('path');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HotModuleReplacementPlugin = require('webpack-hot-middleware');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -17,31 +16,30 @@ const OUTPUT_PATH_SASS = 'css';
 const SOURCE_PATH_SASS = path.resolve(__dirname, 'src', 'sass');
 const OUTPUT_PATH_IMG = 'img';
 const SOURCE_PATH_IMG = path.resolve(__dirname, 'src', 'img');
+const OUTPUT_PATH_FONT = 'fonts';
 
 const config = {
     mode: process.env.NODE_ENV,
+    devtool: 'inline-source-map',
+    watchOptions: {
+        ignored: /node_modules/,
+    },
     entry: {
         [PROJECT]: SOURCE_PATH_JSX + '/index.jsx',
+        polyfills: SOURCE_PATH_JSX + '/polyfills.jsx',
     },
     devServer: {
         host: "0.0.0.0",
         port: 8080,
         disableHostCheck: true,
         compress: true,
-        contentBase: "../app/static/",
+        contentBase: OUTPUT_PATH_JSX,
         publicPath: "/static/",
         open: false,
         overlay: true,
         hot: true,
         hotOnly: true,
         inline: true,
-        proxy: {
-            '/': {
-                target: 'http://nginx:8080',
-                secure: false,
-            }
-        }
-
     },
     output: {
         path: OUTPUT_PATH_JSX,
@@ -58,15 +56,25 @@ const config = {
         rules : [
             {
                 test: /\.jsx?$/,
-                include: SOURCE_PATH_JSX,
+                exclude: /node_modules/,
                 loader: 'babel-loader',
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
+                exclude: /fonts/,
                 loader: 'file-loader',
                 options: {
                     name: '[name].[ext]',
                     outputPath: OUTPUT_PATH_IMG,
+                }
+            },
+            {
+                test: /\.(eot|woff2?|ttf|svg)$/i,
+                exclude: /img/,
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: OUTPUT_PATH_FONT,
                 }
             },
             {
@@ -93,7 +101,6 @@ const config = {
             filename: `${OUTPUT_PATH_SASS}/[name].css`,
             chunkFilename: `${OUTPUT_PATH_SASS}/[name].css`,
         }),
-        new ProgressBarPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new BundleAnalyzerPlugin({
             analyzerMode: 'static',

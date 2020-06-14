@@ -26,6 +26,10 @@ function CharacterEditorWrapper(
                 ['character']
             );
             this._id = uniqueId();
+            this.onSave = this.onSave.bind(this);
+            this.onUpdate = this.onUpdate.bind(this);
+            this.onChange = this.onChange.bind(this);
+            this.getCurrent = this.getCurrent.bind(this);
         }
 
         componentWillMount() {
@@ -56,7 +60,7 @@ function CharacterEditorWrapper(
             return false;
         }
 
-        onSave = (callback=null) => {
+        onSave(callback=null) {
             const id = get('match.params.id', this.props);
 
             actions.postCharacter(
@@ -64,7 +68,7 @@ function CharacterEditorWrapper(
             );
         }
 
-        onUpdate = (callback=null) => {
+        onUpdate(callback=null) {
             const id = get('match.params.id', this.props);
 
             actions.patchCharacter(
@@ -72,7 +76,7 @@ function CharacterEditorWrapper(
             );
         }
 
-        onChange = (change) => {
+        onChange(change) {
             const {
                 path,
                 match,
@@ -86,7 +90,7 @@ function CharacterEditorWrapper(
             );
         }
 
-        getCurrent = (path) => {
+        getCurrent(path) {
             const { character } = this.state;
             if (!path) {
                 return character;

@@ -42,9 +42,12 @@ export class ArmorEdit extends React.Component
         );
 
         this.memoize = memoize.bind(this);
+        this.onArmorMethod = this.onArmorMethod.bind(this);
+        this.onFieldChange = this.onFieldChange.bind(this);
+        this.onFieldChangeDefault = this.onFieldChangeDefault.bind(this);
     }
 
-    onArmorMethod = (to) => {
+    onArmorMethod(to) {
         const { armor_method: from } = this.state;
         this.setState(
             {
@@ -58,14 +61,14 @@ export class ArmorEdit extends React.Component
         );
     }
 
-    onFieldChange = (field) => {
+    onFieldChange(field) {
         const { setState } = this.props;
         return this.memoize(field, value => {
             setState({ [field]: value });
         });
     }
 
-    onFieldChangeDefault = (field, alternative) => {
+    onFieldChangeDefault(field, alternative) {
         const { setState } = this.props;
         return this.memoize(field, value => {
             setState({ [field]: value || alternative });

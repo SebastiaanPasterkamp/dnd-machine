@@ -40,13 +40,18 @@ const viewConfig = {
 
 export class CharacterEdit extends React.Component
 {
+    constructor(props) {
+        super(props);
+        this.onSave = this.onSave.bind(this);
+    }
+
     onFieldChange(field, value) {
         this.props.setState({
             [field]: value
         });
     }
 
-    onSave = () => {
+    onSave() {
         const {
             onUpdate,
             history,

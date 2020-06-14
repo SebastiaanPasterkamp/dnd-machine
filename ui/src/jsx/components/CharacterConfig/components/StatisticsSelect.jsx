@@ -19,6 +19,8 @@ class StatisticsSelect extends Reflux.Component
         this.store = store;
         this.storeKeys = ['character'];
         this._id = uniqueId();
+        this.onStatisticsChange = this.onStatisticsChange.bind(this);
+        this.onBonusChange = this.onBonusChange.bind(this);
     }
 
     componentWillUnmount() {
@@ -34,7 +36,7 @@ class StatisticsSelect extends Reflux.Component
         ))(statistics);
     }
 
-    onStatisticsChange = ({ bare, base, modifiers }) => {
+    onStatisticsChange({ bare, base, modifiers }) {
         const {
             character: {
                 statistics = {},
@@ -67,7 +69,7 @@ class StatisticsSelect extends Reflux.Component
         }
     }
 
-    onBonusChange = (bonus) => {
+    onBonusChange(bonus) {
         const { statistics } = this.props;
 
         forEach(({ code }) => {

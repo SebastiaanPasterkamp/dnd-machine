@@ -87,7 +87,7 @@ class SingleSelect extends React.Component
             emptyLabel,
             renderEmpty,
             defaultValue,
-            ...props,
+            ...props
         } = this.props;
 
         return (

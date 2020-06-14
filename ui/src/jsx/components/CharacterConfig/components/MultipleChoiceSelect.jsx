@@ -18,6 +18,9 @@ export class MultipleChoiceSelect extends React.Component
             showSelect: false,
             disabled: true,
         };
+        this.onAdd = this.onAdd.bind(this);
+        this.onDelete = this.onDelete.bind(this);
+        this.onSetState = () => null;
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -39,7 +42,7 @@ export class MultipleChoiceSelect extends React.Component
         return null;
     }
 
-    onAdd = (label) => {
+    onAdd(label) {
         const { limit, add, replace } = this.props;
         const { added, removed, filtered } = this.state;
 
@@ -66,7 +69,7 @@ export class MultipleChoiceSelect extends React.Component
         this.setState(state);
     }
 
-    onDelete = (label) => {
+    onDelete(label) {
         const { limit, add, replace } = this.props;
         const { added, removed, filtered } = this.state;
         const state = { added, removed, filtered };
@@ -79,8 +82,6 @@ export class MultipleChoiceSelect extends React.Component
         }
         this.setState(state);
     }
-
-    onSetState = () => null;
 
     static getCurrent(props, state) {
         const { options, getCurrent } = props;

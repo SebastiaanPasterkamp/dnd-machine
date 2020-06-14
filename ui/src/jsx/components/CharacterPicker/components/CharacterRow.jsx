@@ -11,7 +11,12 @@ import UserLabel from '../../UserLabel.jsx';
 
 class CharacterRow extends React.PureComponent
 {
-    onPick = () => {
+    constructor(props) {
+        super(props);
+        this.onPick = this.onPick.bind(this);
+    }
+
+    onPick() {
         const { item: { id }, onPick } = this.props;
         onPick(id);
     }

@@ -13,11 +13,15 @@ import ListComponent from '../../../components/ListComponent';
 
 export class AdventureItems extends React.PureComponent
 {
-    initalItem = {
-        value: '',
-    };
+    constructor(props) {
+        super(props);
+        this.initalItem = {
+            value: '',
+        };
+        this.onChange = this.onChange.bind(this);
+    }
 
-    onChange = (items) => {
+    onChange(items) {
         const { starting, disabled, setState } = this.props;
         if (disabled) {
             return;

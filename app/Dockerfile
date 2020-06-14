@@ -1,8 +1,23 @@
-FROM python:3.6-alpine3.8
+FROM python:3.7-alpine3.8
 
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
 WORKDIR /dnd-machine
+
+ENV USER=docker
+ENV UID=1000
+ENV GID=1000
+
+RUN addgroup \
+        -g $GID \
+        $USER \
+    && adduser \
+        --disabled-password \
+        --gecos "" \
+        --ingroup "$USER" \
+        --no-create-home \
+        --uid "$UID" \
+        "$USER"
 
 COPY requirements.txt *.md *.py ./
 
@@ -23,7 +38,10 @@ RUN apk add \
         -r requirements.txt \
     && apk del \
         .build-deps \
-    && mkdir /data
+    && mkdir /data \
+    && chown -R $UID:$GID /data /dnd-machine /data
+
+USER $UID
 
 COPY app/ ./app
 

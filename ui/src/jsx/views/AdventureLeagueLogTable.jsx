@@ -157,10 +157,12 @@ class AdventureLeagueLogTable extends LazyComponent
             dialog: false,
         };
 
+        this.onCharacterFilter = this.onCharacterFilter.bind(this);
+        this.onCharacterSelect = this.onCharacterSelect.bind(this);
         this.toggleDialog = this.toggleDialog.bind(this);
     }
 
-    onCharacterFilter = (character) => {
+    onCharacterFilter(character) {
         const { currentUser } = this.props;
         return (
             currentUser.id == character.user_id
@@ -171,7 +173,7 @@ class AdventureLeagueLogTable extends LazyComponent
         );
     }
 
-    onCharacterSelect = (id) => {
+    onCharacterSelect(id) {
         const { router: { history } } = this.context;
         history.push(`/log/adventureleague/new/${id}`);
     }

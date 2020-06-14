@@ -37,13 +37,12 @@ import MonsterRow from './components/MonsterRow';
 
 export class EncounterEdit extends React.Component
 {
-    monsterLinks = ['view'];
-
     constructor(props) {
         super(props);
         this.state = {
             dialog: false,
         };
+        this.monsterLinks = ['view'];
         this.memoize = memoize.bind(this);
         this.onAddMonster = this.onAddMonster.bind(this);
         this.onAddMonsterButton = this.onAddMonsterButton.bind(this);
