@@ -67,7 +67,7 @@ export class CharacterCreate extends React.Component
     render() {
         const {
             races, classes, backgrounds, base,
-            character, genders, alignments,
+            character, genders, alignments, permanent,
         } = this.props;
         const {
             race = 'Race',
@@ -79,7 +79,6 @@ export class CharacterCreate extends React.Component
             name = '',
             gender,
             alignment,
-            permanent = [],
         } = character;
 
         if (
@@ -164,6 +163,7 @@ export default ListDataWrapper(
         CharacterCreate,
         {
             character: true,
+            permanent: true,
             races: 'fetch',
             classes: 'fetch',
             backgrounds: 'fetch',

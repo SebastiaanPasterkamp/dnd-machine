@@ -100,7 +100,11 @@ class CharacterEditorStore extends Reflux.Store
     }
 
     computeConfigs(character) {
-        const { configs } = this.state;
+        const { permanent: previous, configs } = this.state;
+        const update = ComputeConfig(character.permanent || [], character, previous);
+        const updates = {
+            permanent: isEqual(update, previous) ? previous : update,
+        };
         return reduce(
             (updates, field) => {
                 const {
@@ -108,12 +112,12 @@ class CharacterEditorStore extends Reflux.Store
                     [`orig.${field}`]: config,
                 } = this.state;
                 const update = ComputeConfig(config, character, previous);
-                if (!isEqual(update, config)) {
+                if (!isEqual(update, previous)) {
                     updates[field] = update;
                 }
                 return updates;
             },
-            {}
+            updates,
         )(configs);
     };
 
