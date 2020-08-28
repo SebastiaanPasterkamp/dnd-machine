@@ -442,6 +442,7 @@ INSERT INTO `race` (id, name, config)
         }
     ],
     "description": "The comforts of home are the goals of most halflings\u2019\nlives: a place to settle in peace and quiet, far from marauding monsters and clashing armies; a blazing fire\nand a generous meal; fine drink and fine conversation.\nThough some halflings live out their days in remote agricultural communities, others form nomadic bands that\ntravel constantly, lured by the open road and the wide\nhorizon to discover the wonders of new lands and peoples. But even these wanderers love peace, food, hearth,\nand home, though home might be a wagon jostling along\nan dirt road or a raft floating downriver.\n\n## Small and Practical\n\nThe diminutive halflings survive in a world full of larger\ncreatures by avoiding notice or, barring that, avoiding\noffense. Standing about 3 feet tall, they appear relatively\nharmless and so have managed to survive for centuries\nin the shadow of empires and on the edges of wars and\npolitical strife. They are inclined to be stout, weighing\nbetween 40 and 45 pounds.\n\nHalflings\u2019 skin ranges from tan to pale with a ruddy\ncast, and their hair is usually brown or sandy brown and\nwavy. They have brown or hazel eyes. Halfling men often\nsport long sideburns, but beards are rare among them\nand mustaches even more so. They like to wear simple,\ncomfortable, and practical clothes, favoring bright colors.\n\nHalfling practicality extends beyond their clothing.\nThey\u2019re concerned with basic needs and simple pleasures\nand have little use for ostentation. Even the wealthiest\nof halflings keep their treasures locked in a cellar rather\nthan on display for all to see. They have\na knack for finding the most straightforward solution\nto a problem, and have little patience for dithering.\n\n## Kind and Curious\n\nHalflings are an affable and cheerful people. They\ncherish the bonds of family and friendship as well\nas the comforts of hearth and home, harboring few\ndreams of gold or glory. Even adventurers among\nthem usually venture into the world for reasons of\ncommunity, friendship, wanderlust, or curiosity. They\nlove discovering new things, even simple things, such\nas an exotic food or an unfamiliar style of clothing.\n\nHalflings are easily moved to pity and hate to see any\nliving thing suffer. They are generous, happily sharing\nwhat they have even in lean times.\n\n## Blend into the Crowd\n\nHalflings are adept at fitting into a community of humans, dwarves, or elves, making themselves valuable\nand welcome. The combination of their inherent stealth\nand their unassuming nature helps halflings to avoid unwanted attention.\nHalflings work readily with others, and they are loyal\nto their friends, whether halfling or otherwise. They can\ndisplay remarkable ferocity when their friends, families,\nor communities are threatened.\n\n## Pastoral Pleasantries\n\nMost halflings live in small, peaceful communities with\nlarge farms and well-kept groves. They rarely build\nkingdoms of their own or even hold much land beyond\ntheir quiet shires. They typically don\u2019t recognize any sort\nof halfling nobility or royalty, instead looking to family\nelders to guide them. Families preserve their traditional\nways despite the rise and fall of empires.\n\nMany halflings live among other races, where the\nhalflings\u2019 hard work and loyal outlook offer them abundant rewards and creature comforts. Some halfling\ncommunities travel as a way of life, driving wagons or\nguiding boats from place to place and maintaining no\npermanent home.\n\n## Exploring Opportunities\n\nHalflings usually set out on the adventurer\u2019s path to defend their communities, support their friends, or explore\na wide and wonder-filled world. For them, adventuring\nis less a career than an opportunity or sometimes a\nnecessity.",
+    "phases": [],
     "type": "config",
     "uuid": "9139627a-af43-45d9-991d-41d6ae621471"
 }');
@@ -577,6 +578,7 @@ INSERT INTO `race` (id, name, config)
         }
     ],
     "description": "In the reckonings of most worlds, humans are the youngest of the common races, late to arrive on the world scene\nand short-lived in comparison to dwarves, elves, and\ndragons. Perhaps it is because of their shorter lives that\nthey strive to achieve as much as they can in the years\nthey are given. Or maybe they feel they have something\nto prove to the elder races, and that\u2019s why they build their\nmighty empires on the foundation of conquest and trade.\nWhatever drives them, humans are the innovators, the\nachievers, and the pioneers of the worlds.\n\n## A Broad Spectrum\n\nWith their penchant for migration and conquest, humans\nare more physically diverse than other common races.\nThere is no typical human. An individual can stand from\n5 feet to a little over 6 feet tall and weigh from 125 to 250\npounds. Human skin shades range from nearly black\nto very pale, and hair colors from black to blond (curly,\nkinky, or straight); males might sport facial hair that is\nsparse or thick. A lot of humans have a dash of nonhuman blood, revealing hints of elf, orc, or other lineages.\nHumans reach adulthood in their late teens and rarely\nlive even a single century.\n\n## Variety in All Things\n\nHumans are the most adaptable and ambitious people\namong the common races. They have widely varying\ntastes, morals, and customs in the many different lands\nwhere they have settled. When they settle, though, they\nstay: they build cities to last for the ages, and great kingdoms that can persist for long centuries. An individual\nhuman might have a relatively short life span, but a human nation or culture preserves traditions with origins\nfar beyond the reach of any single human\u2019s memory. They\nlive fully in the present\u2014making them well suited to the\nadventuring life\u2014but also plan for the future, striving to\nleave a lasting legacy. Individually and as a group, humans are adaptable opportunists, and they stay alert to\nchanging political and social dynamics.\n\n## Lasting Institutions\n\nWhere a single elf or dwarf might take on the responsibility of guarding a special location or a powerful secret,\nhumans found sacred orders and institutions for such\npurposes. While dwarf clans and halfling elders pass on\nthe ancient traditions to each new generation, human\ntemples, governments, libraries, and codes of law fix\ntheir traditions in the bedrock of history. Humans dream\nof immortality, but (except for those few who seek undeath or divine ascension to escape death\u2019s clutches) they\nachieve it by ensuring that they will be remembered when\nthey are gone.\n\nAlthough some humans can be xenophobic, in general\ntheir societies are inclusive. Human lands welcome large\nnumbers of nonhumans compared to the proportion of\nhumans who live in nonhuman lands.\n\n## Exemplars of Ambition\n\nHumans who seek adventure are the most daring and\nambitious members of a daring and ambitious race. They\nseek to earn glory in the eyes of their fellows by amassing\npower, wealth, and fame. More than other people, humans champion causes rather than territories or groups.",
+    "phases": [],
     "type": "config",
     "uuid": "f41a040f-3db5-4a89-aaa5-e05ab46d3802"
 }');
@@ -609,9 +611,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
                         "character.level"
                     ],
                     "hidden": true,
-                    "hidden_formula": "",
                     "multiple": true,
-                    "name": "",
                     "path": "computed.hit_points.bonus",
                     "type": "list",
                     "uuid": "805f31a6-fc18-49f8-8a3f-756651e2a232"
@@ -624,6 +624,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "As a hill dwarf, you have keen senses, deep intuition, and\nremarkable resilience. The gold dwarves of Faer\u00fbn in\ntheir mighty southern kingdom are hill dwarves, as are\nthe exiled Neidar and the debased Klar of Krynn in the\nDragonlance setting",
+    "phases": [],
     "type": "config",
     "uuid": "25306b59-9b26-4232-adf4-9ce0131de0d1"
 }');
@@ -672,6 +673,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "As a mountain dwarf, you\u2019re strong and hardy, accustomed to a difficult life in rugged terrain. You\u2019re probably\non the tall side (for a dwarf), and tend toward lighter coloration. The shield dwarves of northern Faer\u00fbn, as well\nas the ruling Hylar clan and the noble Daewar clan of\nDragonlance, are mountain dwarves.",
+    "phases": [],
     "type": "config",
     "uuid": "0af3ca02-c9c1-4336-8ddd-5db7600ef287"
 }');
@@ -729,31 +731,80 @@ INSERT INTO `subrace` (id, name, race_id, config)
             "uuid": "9f94d8ac-1bd5-4cdf-bcaa-57aa01cc067b"
         },
         {
-            "add": 1,
-            "description": "You know one cantrip of your choice from the\nwizard spell list. **Intelligence** is your spellcasting ability for it.",
-            "filter": [
+            "config": [
                 {
-                    "field": "classes",
-                    "options": [
-                        "Wizard"
+                    "add": 1,
+                    "description": "You know one cantrip of your choice from the\nwizard spell list. **Intelligence** is your spellcasting ability for it.",
+                    "filter": [
+                        {
+                            "field": "classes",
+                            "options": [
+                                "Wizard"
+                            ],
+                            "type": "attribute"
+                        },
+                        {
+                            "field": "level",
+                            "options": [
+                                "Cantrip"
+                            ],
+                            "type": "attribute"
+                        }
                     ],
-                    "type": "attribute"
+                    "list": [
+                        "spell"
+                    ],
+                    "name": "Cantrip",
+                    "path": "sub.elf.spell.cantrips",
+                    "type": "objectlist",
+                    "uuid": "8e2c32c1-da29-4b02-bf48-9669088a1d9e"
                 },
                 {
-                    "field": "level",
-                    "options": [
-                        "Cantrip"
+                    "hidden": true,
+                    "path": "sub.elf.spell.stat",
+                    "type": "value",
+                    "uuid": "12412749-6d5a-451b-87d8-878fb84d7ac2",
+                    "value": "intelligence"
+                },
+                {
+                    "config": [
+                        {
+                            "given": [
+                                "8 + character.proficiency + statistics.modifiers.intelligence"
+                            ],
+                            "hidden": true,
+                            "path": "computed.subElfSpellSafe_dc.formulas",
+                            "type": "list",
+                            "uuid": "6d119c8e-bdb7-4262-b4db-ee87ae128352"
+                        },
+                        {
+                            "config": [
+                                {
+                                    "given": [
+                                        "character.proficiency + statistics.modifiers.intelligence"
+                                    ],
+                                    "hidden": true,
+                                    "path": "computed.subElfSpellAttack_modifier.formulas",
+                                    "type": "list",
+                                    "uuid": "39d8e825-1129-4c5e-a437-bb12967e9b6b"
+                                }
+                            ],
+                            "description": "Your **proficiency bonus** + your **Intelligence modifier**",
+                            "name": "Spell attack modifier",
+                            "type": "config",
+                            "uuid": "126a8d1a-7dc6-4e20-b408-a1a9e7579dac"
+                        }
                     ],
-                    "type": "attribute"
+                    "description": "`8` + your **Proficiency bonus** + your **Intelligence modifier**",
+                    "name": "Spell save DC",
+                    "type": "config",
+                    "uuid": "9124368e-d1fa-42bc-8a88-90e4bf7e1b25"
                 }
             ],
-            "list": [
-                "spell"
-            ],
-            "name": "Cantrip",
-            "path": "spell.cantrips",
-            "type": "objectlist",
-            "uuid": "8e2c32c1-da29-4b02-bf48-9669088a1d9e"
+            "description": "Your **Intelligence** score increases by .",
+            "name": "Ability Score Increase",
+            "type": "config",
+            "uuid": "98cceb9d-8e4d-4146-b43c-ea88080eea57"
         },
         {
             "add": 1,
@@ -849,6 +900,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "As a wood elf, you have keen senses and intuition, and\nyour fleet feet carry you quickly and stealthily through\nyour native forests. This category includes the wild elves\n(grugach) of Greyhawk and the Kagonesti of Dragonlance, as well as the races called wood elves in Greyhawk\nand the Forgotten Realms. In Faer\u00fbn, wood elves (also\ncalled wild elves, green elves, or forest elves) are reclusive and distrusting of non-elves.\n\nWood elves\u2019 skin tends to be copperish in hue, sometimes with traces of green. Their hair tends toward\nbrowns and blacks, but it is occasionally blond or copper-colored. Their eyes are green, brown, or hazel.",
+    "phases": [],
     "type": "config",
     "uuid": "961bd14e-d13a-48bd-9c95-71caa2e22677"
 }');
@@ -882,6 +934,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "As a lightfoot halfling, you can easily hide from notice,\neven using other people as cover. You\u2019re inclined to be\naffable and get along well with others. In the Forgotten\nRealms, lightfoot halflings have spread the farthest and\nthus are the most common variety.\nLightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a\nnomadic life. In the world of Greyhawk, these halflings\nare called hairfeet or tallfellows.",
+    "phases": [],
     "type": "config",
     "uuid": "b22d5fba-1ed5-486f-b6a9-88a57a2064a0"
 }');
@@ -915,6 +968,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "As a stout halfling, you\u2019re hardier than average and have\nsome resistance to poison. Some say that stouts have\ndwarven blood. In the Forgotten Realms, these halflings\nare called stronghearts, and they\u2019re most common in\nthe south.",
+    "phases": [],
     "type": "config",
     "uuid": "981998de-c1f7-4309-9586-0ea6801101d9"
 }');
@@ -991,6 +1045,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "",
+    "phases": [],
     "type": "config",
     "uuid": "9e541a9e-c409-457b-b114-98f968a42247"
 }');
@@ -1024,6 +1079,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "",
+    "phases": [],
     "type": "config",
     "uuid": "a0c7e359-94fb-409f-9766-412d530ea92e"
 }');
@@ -1035,25 +1091,62 @@ INSERT INTO `class` (id, name, config)
             "config": [
                 {
                     "hidden": true,
-                    "path": "hit_dice",
+                    "path": "sub.cleric.hit_dice",
                     "type": "value",
                     "uuid": "df63bdd1-bc20-4577-9185-c5573a2a26cd",
                     "value": 8
                 },
                 {
-                    "config": [
+                    "conditions": [
                         {
-                            "hidden": true,
-                            "path": "computed.hit_points.formula",
-                            "type": "value",
-                            "uuid": "0a16619d-067f-4302-a9e6-5c796d95daeb",
-                            "value": "(8 + statistics.modifiers.constitution) + (5 + statistics.modifiers.constitution) * (level - 1)"
+                            "needle": 1,
+                            "path": "character.level",
+                            "type": "lte"
                         }
                     ],
-                    "description": "* **At 1st Level**: `8` + your **Constitution modifier**\n* **At Higher Levels**: `1d8` (or `5`) + your\n**Constitution modifier** per **cleric** level after 1st",
-                    "name": "Hit Points",
+                    "config": [
+                        {
+                            "given": [
+                                "sub.cleric.hit_dice"
+                            ],
+                            "hidden": true,
+                            "path": "computed.hit_points.formulas",
+                            "type": "list",
+                            "uuid": "0a16619d-067f-4302-a9e6-5c796d95daeb"
+                        },
+                        {
+                            "uuid": "4f3d2549-65ed-4d41-b3c1-598b2fe4ba42",
+                            "type": "list",
+                            "path": "computed.hit_points.bonus",
+                            "hidden": true,
+                            "multiple": true,
+                            "given": [
+                                "statistics.bonus.constitution * character.level"
+                            ]
+                        }
+                    ],
+                    "description": "`8` + your **Constitution modifier**",
+                    "name": "Hit Points at First Level",
                     "type": "config",
                     "uuid": "19f4ee8d-d8b6-4d1d-8249-9467809fa8ef"
+                },
+                {
+                    "config": [
+                        {
+                            "given": [
+                                "5 * (sub.cleric.level - 1)"
+                            ],
+                            "hidden": true,
+                            "multiple": true,
+                            "path": "computed.hit_points.bonus",
+                            "type": "list",
+                            "uuid": "ec310ed9-7eae-4d2b-b35b-60406947f1a2"
+                        }
+                    ],
+                    "description": "`1d8` (`5`) + your **Constitution modifier** per **Cleric** level after 1st",
+                    "name": "Hit Points at Higher Levels",
+                    "type": "config",
+                    "uuid": "67da2006-18bc-4e48-b0d4-6fee507fe22f"
                 }
             ],
             "description": "`1d8` per **Cleric** level",
@@ -1406,7 +1499,7 @@ INSERT INTO `class` (id, name, config)
                         "spell"
                     ],
                     "name": "Cantrips",
-                    "path": "spell.cantrips",
+                    "path": "sub.cleric.spell.cantrips",
                     "type": "objectlist",
                     "uuid": "f0b7f0e8-4179-44cc-a481-70229987e15b"
                 },
@@ -1414,16 +1507,16 @@ INSERT INTO `class` (id, name, config)
                     "dict": {
                         "description": "You prepare the list of cleric spells that are available for\nyou to cast, choosing from the cleric spell list. When you\ndo so, choose a number of cleric spells equal to %(limit)s.\nThe spells must be of a level for which you have spell slots.\n\nYou can change your list of prepared spells when you\nfinish a long rest. Preparing a new list of cleric spells\nrequires time spent in prayer and meditation: at least 1\nminute per spell level for each spell on your list.",
                         "limit_default": "your **Wisdom modifier** + your cleric level (minimum of one spell)",
-                        "limit_formula": "max(1, character.level + statistics.modifiers.wisdom)"
+                        "limit_formula": "max(1, sub.cleric.level + statistics.modifiers.wisdom)"
                     },
-                    "name": "Preparing Spells",
-                    "path": "abilities.Preparing Spells",
+                    "name": "Preparing Cleric Spells",
+                    "path": "abilities.Preparing Cleric Spells",
                     "type": "dict",
                     "uuid": "0d65d204-9a75-4e62-82fe-e4d58af040ad"
                 },
                 {
-                    "name": "Casting Spells",
-                    "path": "info.Casting Spells",
+                    "name": "Casting Cleric Spells",
+                    "path": "info.Casting Cleric Spells",
                     "type": "value",
                     "uuid": "0ca2ffff-ec2b-4cb3-8c26-3ed729a7816b",
                     "value": "The Cleric table shows how many spell slots you have to\ncast your cleric spells of 1st level and higher. To cast one\nof these spells, you must expend a slot of the spell\u2019s level\nor higher. You regain all expended spell slots when you\nfinish a long rest."
@@ -1432,7 +1525,7 @@ INSERT INTO `class` (id, name, config)
                     "config": [
                         {
                             "hidden": true,
-                            "path": "spell.stat",
+                            "path": "sub.cleric.spell.stat",
                             "type": "value",
                             "uuid": "a757d136-5a41-4662-915b-1363e997d3ef",
                             "value": "wisdom"
@@ -1440,20 +1533,24 @@ INSERT INTO `class` (id, name, config)
                         {
                             "config": [
                                 {
+                                    "given": [
+                                        "8 + character.proficiency + statistics.modifiers.wisdom"
+                                    ],
                                     "hidden": true,
-                                    "path": "computed.spellSafe_dc.formula",
-                                    "type": "value",
-                                    "uuid": "b273893b-3937-4329-9ea4-6c1f64885a6f",
-                                    "value": "8 + character.proficiency + statistics.modifiers.wisdom"
+                                    "path": "computed.subClericSpellSafe_dc.formulas",
+                                    "type": "list",
+                                    "uuid": "b273893b-3937-4329-9ea4-6c1f64885a6f"
                                 },
                                 {
                                     "config": [
                                         {
+                                            "given": [
+                                                "character.proficiency + statistics.modifiers.wisdom"
+                                            ],
                                             "hidden": true,
-                                            "path": "computed.spellAttack_modifier.formula",
-                                            "type": "value",
-                                            "uuid": "0ead6985-9c16-49f1-8dbc-574b979c419f",
-                                            "value": "character.proficiency + statistics.modifiers.wisdom"
+                                            "path": "computed.subClericSpellAttack_modifier.formulas",
+                                            "type": "list",
+                                            "uuid": "0ead6985-9c16-49f1-8dbc-574b979c419f"
                                         }
                                     ],
                                     "description": "Your **proficiency bonus** + your **Wisdom modifier**",
@@ -1547,7 +1644,7 @@ INSERT INTO `class` (id, name, config)
                 {
                     "dict": {
                         "dc_default": "your cleric spell save DC",
-                        "dc_formula": "`spell.save_dc`",
+                        "dc_formula": "`sub.cleric.spell.save_dc`",
                         "description": "You have the ability to channel divine energy\ndirectly from your deity, using that energy to fuel magical\neffects. When you use your **Channel Divinity**, you choose which\neffect to create. You can use your **Channel Divinity** %(uses)s until\nyou must finish a short or long rest to use your **Channel Divinity** again.\nWhen you finish a short or long rest, you regain your expended uses.\nSome **Channel Divinity** effects require saving throws.\nWhen you use such an effect from this class, the DC equals %(dc)s.",
                         "uses": "once"
                     },
@@ -1739,7 +1836,7 @@ INSERT INTO `class` (id, name, config)
                     "dict": {
                         "description": "You can call on your deity to intervene on your behalf when your need is great.\nImploring your deity\u2019s aid requires you to use your **action*. Describe the assistance you seek, and roll percentile\ndice. If you roll a number equal to or lower than %(level)s, your deity intervenes. The DM chooses the\nnature of the intervention; the effect of any cleric spell or\ncleric domain spell would be appropriate.\nIf your deity intervenes, you can\u2019t use this feature again\nfor 7 days. Otherwise, you can use it again after you finish a long rest.",
                         "level_default": "your cleric level",
-                        "level_formula": "character.level"
+                        "level_formula": "sub.cleric.level"
                     },
                     "name": "Divine Intervention",
                     "path": "abilities.Divine Intervention",
@@ -2028,25 +2125,62 @@ INSERT INTO `class` (id, name, config)
             "config": [
                 {
                     "hidden": true,
-                    "path": "hit_dice",
+                    "path": "sub.fighter.hit_dice",
                     "type": "value",
                     "uuid": "c89f9a5c-1481-4b62-aac8-d79d54410a89",
                     "value": 10
                 },
                 {
-                    "config": [
+                    "conditions": [
                         {
-                            "hidden": true,
-                            "path": "computed.hit_points.formula",
-                            "type": "value",
-                            "uuid": "07035d99-3a76-4a4d-a46b-17318d79f0ad",
-                            "value": "(10 + statistics.modifiers.constitution) + (6 + statistics.modifiers.constitution) * (level - 1)"
+                            "needle": 1,
+                            "path": "character.level",
+                            "type": "lte"
                         }
                     ],
-                    "description": "* **At 1st Level**: `10` + your **Constitution modifier**\n* **At Higher Levels**: `1d10` (or `6`) + your\n**Constitution modifier** per **Fighter** level after 1st",
-                    "name": "Hit Points",
+                    "config": [
+                        {
+                            "given": [
+                                "sub.fighter.hit_dice"
+                            ],
+                            "hidden": true,
+                            "path": "computed.hit_points.formulas",
+                            "type": "list",
+                            "uuid": "07035d99-3a76-4a4d-a46b-17318d79f0ad"
+                        },
+                        {
+                            "uuid": "1933b150-4603-4f31-aa74-39ff5b700a73",
+                            "type": "list",
+                            "path": "computed.hit_points.bonus",
+                            "hidden": true,
+                            "multiple": true,
+                            "given": [
+                                "statistics.bonus.constitution * character.level"
+                            ]
+                        }
+                    ],
+                    "description": "`10` + your **Constitution modifier**",
+                    "name": "Hit Points at First Level",
                     "type": "config",
                     "uuid": "8fc450ea-3fe6-41c1-b74d-b171b3670279"
+                },
+                {
+                    "config": [
+                        {
+                            "given": [
+                                "6 * (sub.fighter.level - 1)"
+                            ],
+                            "hidden": true,
+                            "multiple": true,
+                            "path": "computed.hit_points.bonus",
+                            "type": "list",
+                            "uuid": "4f3d2549-65ed-4d41-b3c1-598b2fe4ba42"
+                        }
+                    ],
+                    "description": "`1d10` (or `6`) + your **Constitution modifier** per **Fighter** level after 1st",
+                    "name": "Hit Points at Higher Levels",
+                    "type": "config",
+                    "uuid": "af2e6279-9f3c-418e-83d0-39400d676b7a"
                 }
             ],
             "description": "`1d10` per **Fighter** level",
@@ -2915,25 +3049,62 @@ INSERT INTO `class` (id, name, config)
             "config": [
                 {
                     "hidden": true,
-                    "path": "hit_dice",
+                    "path": "sub.rogue.hit_dice",
                     "type": "value",
                     "uuid": "570326ba-e82b-4403-9c39-d1c15c934e11",
                     "value": 8
                 },
                 {
-                    "config": [
+                    "conditions": [
                         {
-                            "hidden": true,
-                            "path": "computed.hit_points.formula",
-                            "type": "value",
-                            "uuid": "6769943d-432b-4f60-a2d5-d4b946f78c7d",
-                            "value": "(8 + statistics.modifiers.constitution) + (5 + statistics.modifiers.constitution) * (level - 1)"
+                            "needle": 1,
+                            "path": "character.level",
+                            "type": "lte"
                         }
                     ],
-                    "description": "* **At 1st Level**: `8` + your **Constitution modifier**\n* **At Higher Levels**: `1d8` (or `5`) + your\n**Constitution modifier** per **Rogue** level after 1st",
-                    "name": "Hit Points",
+                    "config": [
+                        {
+                            "given": [
+                                "sub.rogue.hit_dice"
+                            ],
+                            "hidden": true,
+                            "path": "computed.hit_points.formulas",
+                            "type": "list",
+                            "uuid": "6769943d-432b-4f60-a2d5-d4b946f78c7d"
+                        },
+                        {
+                            "uuid": "0e406255-ec18-4254-8bd8-5c26ea4fdf44",
+                            "type": "list",
+                            "path": "computed.hit_points.bonus",
+                            "hidden": true,
+                            "multiple": true,
+                            "given": [
+                                "statistics.bonus.constitution * character.level"
+                            ]
+                        }
+                    ],
+                    "description": "`8` + your **Constitution modifier**",
+                    "name": "Hit Points at First Level",
                     "type": "config",
                     "uuid": "d66cf8e3-cc3f-4895-837d-f0412ca8535e"
+                },
+                {
+                    "config": [
+                        {
+                            "given": [
+                                "5 * (sub.rogue.level - 1)"
+                            ],
+                            "hidden": true,
+                            "multiple": true,
+                            "path": "computed.hit_points.bonus",
+                            "type": "list",
+                            "uuid": "a8156093-b7ac-40ca-8ebe-f9bf1b82fefd"
+                        }
+                    ],
+                    "description": "`1d8` (`5`) + your **Constitution modifier** per **Rogue** level after 1st",
+                    "name": "Hit Points at Higher Levels",
+                    "type": "config",
+                    "uuid": "dc6cccba-a686-4a97-8ed7-26611d323b4a"
                 }
             ],
             "description": "`1d8` per **Rogue** level",
@@ -4009,25 +4180,62 @@ INSERT INTO `class` (id, name, config)
             "config": [
                 {
                     "hidden": true,
-                    "path": "hit_dice",
+                    "path": "sub.wizard.hit_dice",
                     "type": "value",
                     "uuid": "751c8976-6eef-41aa-bb8f-c730c868e086",
                     "value": 6
                 },
                 {
-                    "config": [
+                    "conditions": [
                         {
-                            "hidden": true,
-                            "path": "computed.hit_points.formula",
-                            "type": "value",
-                            "uuid": "12e78422-a6b2-4c59-858c-1553331bc63b",
-                            "value": "(6 + statistics.modifiers.constitution) + (4 + statistics.modifiers.constitution) * (level - 1)"
+                            "needle": 1,
+                            "path": "character.level",
+                            "type": "lte"
                         }
                     ],
-                    "description": "* **At 1st Level**: `6` + your **Constitution modifier**\n* **At Higher Levels**: `1d6` (or `4`) + your\n**Constitution modifier** per **wizard** level after 1st",
-                    "name": "Hit Points",
+                    "config": [
+                        {
+                            "given": [
+                                "sub.wizard.hit_dice"
+                            ],
+                            "hidden": true,
+                            "path": "computed.hit_points.formulas",
+                            "type": "list",
+                            "uuid": "12e78422-a6b2-4c59-858c-1553331bc63b"
+                        },
+                        {
+                            "uuid": "8d17ea37-1331-47b0-80f8-550148507390",
+                            "type": "list",
+                            "path": "computed.hit_points.bonus",
+                            "hidden": true,
+                            "multiple": true,
+                            "given": [
+                                "statistics.bonus.constitution * character.level"
+                            ]
+                        }
+                    ],
+                    "description": "`6` + your **Constitution modifier**",
+                    "name": "Hit Points at First Level",
                     "type": "config",
                     "uuid": "1aee06cf-05b6-4939-978b-f37f488dab4e"
+                },
+                {
+                    "config": [
+                        {
+                            "given": [
+                                "4 * (sub.wizard.level - 1)"
+                            ],
+                            "hidden": true,
+                            "multiple": true,
+                            "path": "computed.hit_points.bonus",
+                            "type": "list",
+                            "uuid": "609d0546-e73f-43e2-a663-c28aedd84698"
+                        }
+                    ],
+                    "description": "`1d6` (`4`) + your **Constitution modifier** per **Wizard** level after 1st",
+                    "name": "Hit Points at Higher Levels",
+                    "type": "config",
+                    "uuid": "128ee3ed-5341-41ec-a671-8aae204bc464"
                 }
             ],
             "description": "`1d6` per **Wizard** level",
@@ -4282,7 +4490,7 @@ INSERT INTO `class` (id, name, config)
                         "spell"
                     ],
                     "name": "Cantrips",
-                    "path": "spell.cantrips",
+                    "path": "sub.wizard.spell.cantrips",
                     "type": "objectlist",
                     "uuid": "7d2483bd-922e-4e9d-908b-86b359215ec6"
                 },
@@ -4294,11 +4502,11 @@ INSERT INTO `class` (id, name, config)
                     "value": "\nYou have a spellbook containing all your wizard spells of your choice. Your spellbook is the repository of the wizard spells you know, except your cantrips,\nwhich are fixed in your mind."
                 },
                 {
-                    "name": "Casting Spells",
-                    "path": "info.Casting Spells",
+                    "name": "Casting Wizard Spells",
+                    "path": "info.Casting Wizard Spells",
                     "type": "value",
                     "uuid": "ae3be339-f8cb-4885-9f4d-55e47f60a765",
-                    "value": "The Wizard table shows how many spell slots you have\nto cast your wizard spells of 1st level and higher. To cast\none of these spells, you must expend a slot of the spell\u2019s\nlevel or higher. You regain all expended spell slots when\nyou finish a long rest. "
+                    "value": "The Wizard table shows how many spell slots you have\nto cast your wizard spells of 1st level and higher. To cast\none of these spells, you must expend a slot of the spell\u2019s\nlevel or higher. You regain all expended spell slots when\nyou finish a long rest."
                 },
                 {
                     "dict": {
@@ -4306,8 +4514,8 @@ INSERT INTO `class` (id, name, config)
                         "limit_default": "your **Intelligence modifier** + your wizard level (minimum of one spell)",
                         "limit_formula": "max(1, character.level + statistics.modifiers.intelligence)"
                     },
-                    "name": "Preparing Spells",
-                    "path": "abilities.Preparing Spells",
+                    "name": "Preparing Wizard Spells",
+                    "path": "abilities.Preparing Wizard Spells",
                     "type": "dict",
                     "uuid": "40b135c0-d2b8-4147-ac5e-ea083c690d7d"
                 },
@@ -4315,7 +4523,7 @@ INSERT INTO `class` (id, name, config)
                     "config": [
                         {
                             "hidden": true,
-                            "path": "spell.stat",
+                            "path": "sub.wizard.spell.stat",
                             "type": "value",
                             "uuid": "fe6e224e-e57d-4c48-85d9-6a0ab94bc944",
                             "value": "intelligence"
@@ -4324,7 +4532,7 @@ INSERT INTO `class` (id, name, config)
                             "config": [
                                 {
                                     "hidden": true,
-                                    "path": "computed.spellSafe_dc.formula",
+                                    "path": "computed.subWizardSpellSafe_dc.formulas",
                                     "type": "value",
                                     "uuid": "ca49b542-5855-411a-81f2-dfda7811124a",
                                     "value": "8 + character.proficiency + statistics.modifiers.intelligence"
@@ -4333,7 +4541,7 @@ INSERT INTO `class` (id, name, config)
                                     "config": [
                                         {
                                             "hidden": true,
-                                            "path": "computed.spellAttack_modifier.formula",
+                                            "path": "computed.subWizardSpellAttack_modifier.formulas",
                                             "type": "value",
                                             "uuid": "3cf908fd-9b3f-4915-90df-76ec1f766ba3",
                                             "value": "character.proficiency + statistics.modifiers.intelligence"
@@ -4381,7 +4589,7 @@ INSERT INTO `class` (id, name, config)
                     "dict": {
                         "description": "You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than %(limit)s, and none of the slots can be 6th level or higher.",
                         "limit_default": "half your wizard level (rounded up)",
-                        "limit_formula": "ceil(character.level / 2.0)"
+                        "limit_formula": "ceil(sub.wizard.level / 2.0)"
                     },
                     "name": "Arcane Recovery",
                     "path": "abilities.Arcane Recovery",
@@ -4584,9 +4792,9 @@ INSERT INTO `class` (id, name, config)
                             "dict": {
                                 "description": "You can cast *%(first)s* and *%(second)s* at their lowest level without expending a spell slot when you have them prepared. If you want to cast either spell at a higher level, you must expend a spell slot as normal. By spending 8 hours in study, you can exchange one or both of the spells you chose for different spells of the same levels.",
                                 "first_default": "your first level mastery spell",
-                                "first_formula": "spells.mastery.first[0].name",
+                                "first_formula": "sub.wizard.spell.mastery.first[0].name",
                                 "second_default": "your second level mastery spell",
-                                "second_formula": "spells.mastery.second[0].name"
+                                "second_formula": "sub.wizard.spell.mastery.second[0].name"
                             },
                             "name": "",
                             "path": "abilities.Spell Mastery",
@@ -4615,7 +4823,7 @@ INSERT INTO `class` (id, name, config)
                                 "spell"
                             ],
                             "name": "First level Mastery Spell",
-                            "path": "spells.mastery.first",
+                            "path": "sub.wizard.spell.mastery.first",
                             "type": "objectlist",
                             "uuid": "3ee54421-3e99-49cb-8870-0e4f3f1a2454"
                         },
@@ -4641,7 +4849,7 @@ INSERT INTO `class` (id, name, config)
                                 "spell"
                             ],
                             "name": "Second level Mastery Spell",
-                            "path": "spells.mastery.second",
+                            "path": "sub.wizard.spell.mastery.second",
                             "type": "objectlist",
                             "uuid": "df2c8921-1b49-420c-8e41-7f7fb050e399"
                         }
@@ -4702,16 +4910,15 @@ INSERT INTO `class` (id, name, config)
                             "dict": {
                                 "description": "You always have *%(first)s* and *%(second)s* prepared. They don\u2019t count against the number of spells you\nhave prepared, and you can cast each of them once at 3rd level without expending a spell slot. When you do so, you\ncan\u2019t do so again until you finish a short or long rest. If you want to cast either spell at a higher level, you\nmust expend a spell slot as normal.",
                                 "first_default": "your first 3rd level Signature spell",
-                                "first_formula": "spell.list[0].name",
+                                "first_formula": "sub.wizard.spell.signature[0].name",
                                 "second_default": "your second 3rd level Signature spell",
-                                "second_formula": "spell.list[1].name"
+                                "second_formula": "sub.wizard.spell.signature[1].name"
                             },
                             "path": "abilities.Signature Spells",
                             "type": "dict",
                             "uuid": "92ca4efe-632c-4ae7-bbad-15e49ee5cea3"
                         },
                         {
-                            "add": 2,
                             "filter": [
                                 {
                                     "field": "classes",
@@ -4728,11 +4935,12 @@ INSERT INTO `class` (id, name, config)
                                     "type": "attribute"
                                 }
                             ],
+                            "limit": 2,
                             "list": [
                                 "spell"
                             ],
                             "name": "Spells",
-                            "path": "spell.list",
+                            "path": "sub.wizard.spell.signature",
                             "type": "objectlist",
                             "uuid": "d132a10a-5395-472e-a0b8-f3f329a6d65f"
                         }
@@ -4794,7 +5002,7 @@ INSERT INTO `subclass` (id, name, class_id, config)
             ],
             "list": [],
             "name": "Life Domain Spells",
-            "path": "spell.list",
+            "path": "sub.cleric.spell.list",
             "type": "objectlist",
             "uuid": "e7ecaf3c-495a-4c71-a09a-ae6a99950204"
         }
@@ -4859,7 +5067,7 @@ INSERT INTO `subclass` (id, name, class_id, config)
                     ],
                     "list": [],
                     "name": "Life Domain Spells",
-                    "path": "spell.list",
+                    "path": "sub.cleric.spell.list",
                     "type": "objectlist",
                     "uuid": "bbc6c51b-1525-4cb4-95d1-49c3519bdc22"
                 }
@@ -4896,7 +5104,7 @@ INSERT INTO `subclass` (id, name, class_id, config)
                     ],
                     "list": [],
                     "name": "Life Domain Spells",
-                    "path": "spell.list",
+                    "path": "sub.cleric.spell.list",
                     "type": "objectlist",
                     "uuid": "e4db07b6-8869-4387-bdf1-70b215daeb53"
                 }
@@ -4958,7 +5166,7 @@ INSERT INTO `subclass` (id, name, class_id, config)
                     ],
                     "list": [],
                     "name": "Life Domain Spells",
-                    "path": "spell.list",
+                    "path": "sub.cleric.spell.list",
                     "type": "objectlist",
                     "uuid": "671e5995-02a8-4b60-9557-663803898b33"
                 }
@@ -5023,7 +5231,7 @@ INSERT INTO `subclass` (id, name, class_id, config)
                     ],
                     "list": [],
                     "name": "Life Domain Spells",
-                    "path": "spell.list",
+                    "path": "sub.cleric.spell.list",
                     "type": "objectlist",
                     "uuid": "7f4ac717-5c49-45a4-8597-a893ac9a60e9"
                 }
