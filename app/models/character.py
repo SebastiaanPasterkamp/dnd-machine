@@ -85,6 +85,7 @@ class CharacterObject(JsonObject):
             "skills": [],
             "talent": [],
             },
+        "sub": {},
         "spell": {
             "safe_dc": 0,
             "attack_modifier": 0,
@@ -113,7 +114,7 @@ class CharacterObject(JsonObject):
                 },
             "passive_perception": {
                 "formulas": [
-                    "10 + self.skillsPerception",
+                    "10 + skills.perception",
                     ],
                 },
             },
@@ -259,11 +260,10 @@ class CharacterObject(JsonObject):
         return self._character_data
 
     def migrate(self, datamapper):
-        try:
-            super(CharacterMapper, self).migrate(self, datamapper)
-        except:
-            pass
-        return self
+        self.update(
+            self.mapper.machine.identifyEquipment(self.equipment)
+            )
+        super(CharacterObject, self).migrate(datamapper)
 
     def compute(self):
         machine = self.mapper.machine
