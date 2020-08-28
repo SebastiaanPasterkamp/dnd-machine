@@ -25,7 +25,7 @@ class CharacterObject(JsonObject):
                 "constitution": 8,
                 "intelligence": 8,
                 "wisdom": 8,
-                "charisma": 8
+                "charisma": 8,
                 },
             "bonus": {
                 "strength": [],
@@ -33,7 +33,7 @@ class CharacterObject(JsonObject):
                 "constitution": [],
                 "intelligence": [],
                 "wisdom": [],
-                "charisma": []
+                "charisma": [],
                 },
             "base": {
                 "strength": 8,
@@ -41,7 +41,7 @@ class CharacterObject(JsonObject):
                 "constitution": 8,
                 "intelligence": 8,
                 "wisdom": 8,
-                "charisma": 8
+                "charisma": 8,
                 },
             "modifiers": {
                 "strength": 0,
@@ -49,8 +49,8 @@ class CharacterObject(JsonObject):
                 "constitution": 0,
                 "intelligence": 0,
                 "wisdom": 0,
-                "charisma": 0
-                }
+                "charisma": 0,
+                },
             },
         "saving_throws": {
             "strength": 0,
@@ -58,7 +58,7 @@ class CharacterObject(JsonObject):
             "constitution": 0,
             "intelligence": 0,
             "wisdom": 0,
-            "charisma": 0
+            "charisma": 0,
             },
         "challenge": {},
         "skills": {},
@@ -70,7 +70,7 @@ class CharacterObject(JsonObject):
             "kit": [],
             "gaming": [],
             "musical": [],
-            "trinket": []
+            "trinket": [],
             },
         "proficiency": 2,
         "languages": [],
@@ -83,7 +83,7 @@ class CharacterObject(JsonObject):
             "advantages": [],
             "expertise": [],
             "skills": [],
-            "talent": []
+            "talent": [],
             },
         "spell": {
             "safe_dc": 0,
@@ -96,31 +96,34 @@ class CharacterObject(JsonObject):
             "expanded": [],
             "prepared": [],
             "slots": {},
-            "level": {}
+            "level": {},
             },
         "personality": {
             "traits": "",
             "ideals": "",
             "bonds": "",
-            "flaws": ""
+            "flaws": "",
             },
         "appearance": "",
         "computed": {
             "unarmored": {
-                "formula": "10 + statistics.modifiers.dexterity"
-                }
+                "formulas": [
+                    "10 + statistics.modifiers.dexterity",
+                    ],
+                },
+            "passive_perception": {
+                "formulas": [
+                    "10 + self.skillsPerception",
+                    ],
+                },
             },
         "wealth": {
             "cp": 0,
             "sp": 0,
             "ep": 0,
             "gp": 0,
-            "pp": 0
+            "pp": 0,
             },
-        "level_up": {
-            "creation": [],
-            "config": []
-            }
         }
     _fieldTypes = {
         'id': int,
@@ -152,21 +155,21 @@ class CharacterObject(JsonObject):
         "armor_class_bonus": int,
         "equipment": 'auto',
         "challenge": {
-            "*": int
+            "*": int,
             },
         "statistics": {
             "*": {
-                "*": int
+                "*": int,
                 }
             },
         "saving_throws": {
-            "*": int
+            "*": int,
             },
         "skills": {
-            "*": int
+            "*": int,
             },
         "wealth": {
-            "*": int
+            "*": int,
             },
         "armor": {
             "id": int,
@@ -175,11 +178,11 @@ class CharacterObject(JsonObject):
             "disadvantage": bool,
             "strength": int,
             "cost": {
-                "*": int
+                "*": int,
                 },
             "weight": {
-                "*": float
-                }
+                "*": float,
+                },
             },
         "weapons": {
             "id": int,
@@ -190,19 +193,20 @@ class CharacterObject(JsonObject):
                 },
             "range": {
                 "min": int,
-                "max": int
+                "max": int,
                 },
             "versatile": {
                 "dice_count": int,
-                "dice_size": int
+                "dice_size": int,
+                "bonus": int,
                 },
             "bonus": int,
             "cost": {
-                "*": int
+                "*": int,
                 },
             "weight": {
-                "*": float
-                }
+                "*": float,
+                },
             },
         "spell": {
             "safe_dc": int,
@@ -211,17 +215,29 @@ class CharacterObject(JsonObject):
             "max_known": int,
             "max_prepared": int,
             "slots": {
-                "*": int
+                "*": int,
                 }
+            },
+        "sub": {
+            "spell": {
+                "safe_dc": int,
+                "attack_modifier": int,
+                "max_cantrips": int,
+                "max_known": int,
+                "max_prepared": int,
+                "slots": {
+                    "*": int,
+                    }
+                },
             },
         "items": {
             "*": {
                 '*': 'auto',
                 'worth': {
-                    '*': int
+                    '*': int,
                     },
                 'weight': {
-                    '*': float
+                    '*': float,
                     },
                 },
             },
@@ -242,130 +258,12 @@ class CharacterObject(JsonObject):
             self._character_data = get_character_data()
         return self._character_data
 
-    def migrate(self, mapper):
-        if self.race == "Stout Halfing":
-            self.race = "Stout Halfling"
-
-        def fixComputed(old, new, pattern=None):
-            re_mod = re.compile(pattern or re.escape(old))
-            computed = self.config.get('computed', {})
-            if old in computed:
-                if new not in computed:
-                    computed[new] = computed[old]
-                del computed[old]
-            for path, compute in list(computed.items()):
-                if 'formula' not in compute:
-                    continue
-                compute['formula'] = re_mod.sub(
-                    new,
-                    compute['formula']
-                    )
-            abilities = self.config.get('abilities', {})
-            for ability in list(abilities.values()):
-                for key, val in list(ability.items()):
-                    if not key.endswith('_formula'):
-                        continue
-                    ability[key] = re_mod.sub(new, val)
-
-        fixComputed('int(', 'floor(')
-
-        if "base_stats" in self.config:
-            fixComputed(
-                "modifiers",
-                "statistics.modifiers",
-                r"(?<!statistics\.)modifiers"
-                )
-
-            self.statistics = {
-                "bare": self.config['base_stats'],
-                "bonus": self.config['stats_bonus'],
-                "base": self.config['stats'],
-                "modifiers": self.config['modifiers']
-                }
-            del self.config['base_stats']
-            del self.config['stats_bonus']
-            del self.config['stats']
-            del self.config['modifiers']
-
-        self.personality = self.config.get('personality', {})
-        for key in ["traits", "ideals", "bonds", "flaws"]:
-            if key in self.config:
-                if not self.personality.get(key):
-                    self.personality[key] = self.config[key]
-                del self.config[key]
-
-        migrate = {
-            "spell_stat": "spell.stat",
-            "cantrips_known": "spell.max_cantrips",
-            "spells_known": "spell.max_known",
-            "spell_attack_modifier": "spell.attack_modifier",
-            "spell_safe_dc": "spell.safe_dc",
-            }
-        for old, new in list(migrate.items()):
-            fixComputed(old, new)
-            if old in self.config:
-                self[new] = self[old]
-                del self.config[old]
-        if "spell_slots" in self.config:
-            slots = self.spell_slots
-            self.spellSlots = {
-                "level_1": slots.get("1st_level", 0),
-                "level_2": slots.get("2nd_level", 0),
-                "level_3": slots.get("3rd_level", 0),
-                "level_4": slots.get("4th_level", 0),
-                "level_5": slots.get("5th_level", 0),
-                "level_6": slots.get("6th_level", 0),
-                "level_7": slots.get("7th_level", 0),
-                "level_8": slots.get("8th_level", 0),
-                "level_9": slots.get("9th_level", 0),
-                }
-            del self.config["spell_slots"]
-        if "spells" in self.config:
-            levels = self.spells or {}
-            del self.config["spells"]
-            self.spellLevel = {
-                "cantrip": levels.get("cantrip", []),
-                "level_1": levels.get("1st_level", []),
-                "level_2": levels.get("2nd_level", []),
-                "level_3": levels.get("3rd_level", []),
-                "level_4": levels.get("4th_level", []),
-                "level_5": levels.get("5th_level", []),
-                "level_6": levels.get("6th_level", []),
-                "level_7": levels.get("7th_level", []),
-                "level_8": levels.get("8th_level", []),
-                "level_9": levels.get("9th_level", []),
-                }
-        if self.spellStat and not (self.spellList and self.spellCantrips):
-            self.spellList = []
-            self.spellCantrips = []
-            for level, spells in list(self.spellLevel.items()):
-                spells = [
-                    spell['id'] if isinstance(spell, dict) else spell
-                    for spell in spells
-                    ]
-                if level == "cantrip":
-                    self.spellCantrips.extend(spells)
-                else:
-                    self.spellList.extend(spells)
-        if 'weapon' in self.config:
-            del self.config['weapon']
-        if 'misc' in self.config.get('items', {}):
-            del self.items['misc']
-
-        self.armor = []
-        self.weapons = []
-        self.items = {
-            "artisan": [],
-            "kit": [],
-            "gaming": [],
-            "musical": [],
-            "trinket": []
-            }
-
-        if mapper.adventureleague.getByCharacterId(self.id):
-            self.adventure_league = True
-
-        super(CharacterObject, self).migrate()
+    def migrate(self, datamapper):
+        try:
+            super(CharacterMapper, self).migrate(self, datamapper)
+        except:
+            pass
+        return self
 
     def compute(self):
         machine = self.mapper.machine
@@ -414,16 +312,15 @@ class CharacterObject(JsonObject):
             elif skill in self.proficienciesTalent:
                 self.skills[skill] += ceil(self.proficiency / 2.0)
 
-        self.passive_perception = 10 + self.skillsPerception
-
         for path, compute in list(self.computed.items()):
-            value = 0
-            if 'formula' in compute:
-                value += machine.resolveMath(
-                    self, compute["formula"]
-                    )
-            for bonus in compute.get("bonus", []):
-                value += machine.resolveMath(self, bonus)
+            value = max([
+                machine.resolveMath(self, formula)
+                for formula in compute.get('formulas', [])
+                ] + [0])
+            value += sum([
+                machine.resolveMath(self, bonus)
+                for bonus in compute.get("bonus", [])
+                ])
             self.setPath(path, value)
 
         cr = machine.challengeByLevel(self.level)
@@ -436,8 +333,10 @@ class CharacterObject(JsonObject):
             machine.identifyProficiencies(self.proficiencies)
             )
 
-        for weapon in self.weapons:
-            weapon = machine.computeWeaponStats(weapon, self)
+        self.weapons = [
+            machine.computeWeaponStats(weapon, self)
+            for weapon in self.weapons
+            ]
 
         self.armor_class = self.unarmored
         self.armor_class_bonus = 0
@@ -450,37 +349,46 @@ class CharacterObject(JsonObject):
                 self.armor_class = armor.get('value', 0)
             self.armor_class_bonus += armor.get('bonus', 0)
 
-        self.spellLevel = {}
-        known, prepared, cantrips = [], [], []
-        for spellId in set(self.spellList).union(self.spellPrepared).union(self.spellCantrips):
-            spell = self.mapper.spell.getById(spellId)
-            if spell is None:
-                objs = self.mapper.spell.getMultiple(
-                    'name COLLATE nocase = :name',
-                    {'name': spellId}
-                    )
-                if not len(objs):
-                    continue
-                spell = objs[0]
-            level = "cantrip" \
-                if spell.level == "Cantrip" \
-                else "level_" + spell.level
+        known, prepared, cantrips, perLevel = [], [], [], {}
+        for sub, data in self.sub:
+            spellData = data.get("spell", {})
+            preparedSpells = set(spellData.get("prepared", []))
+            cantrips = set(spellData.get("cantrips", []))
+            spells = set(spellData.get("list", [])).union(preparedSpells).union(cantrips)
 
-            if level == "cantrip":
-                cantrips.append(spell.id)
-            elif spellId in self.spellPrepared:
-                prepared.append(spell.id)
-            else:
-                known.append(spell.id)
-            self.spellLevel[level] = self.spellLevel.get(level, [])
-            self.spellLevel[level].append(spell._config)
+            for spellId in spells:
+                spell = self.mapper.spell.getById(spellId)
+                if spell is None:
+                    objs = self.mapper.spell.getMultiple(
+                        'name COLLATE nocase = :name',
+                        {'name': spellId}
+                        )
+                    if not len(objs):
+                        continue
+                    spell = objs[0]
+                level = "cantrip" \
+                    if spell.level == "Cantrip" \
+                    else "level_" + spell.level
+                spell.stat = data["stat"]
+                spell.save_dc = data["save_dc"]
+                spell.attack_modifier = data["attack_modifier"]
+
+                if level == "cantrip":
+                    cantrips.append(spell._config)
+                elif spellId in preparedSpells:
+                    prepared.append(spell._config)
+                else:
+                    known.append(spell._config)
+                perLevel[level] = perLevel.get(level, [])
+                perLevel[level].append(spell._config)
+        self.spellLevel = perLevel
         self.spellCantrips = cantrips
         self.spellPrepared = prepared
         self.spellList = known
 
         self.abilities = self._expandFormulas(self.abilities)
         # No type-casting
-        self.config['level_up'] = self.getLevelUp()
+        # self.config['level_up'] = self.getLevelUp()
 
     def _meetsCondition(self, creation, phase):
         if creation in self.creation:
