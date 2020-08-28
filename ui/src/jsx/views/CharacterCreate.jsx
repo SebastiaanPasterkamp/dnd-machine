@@ -67,7 +67,8 @@ export class CharacterCreate extends React.Component
     render() {
         const {
             races, classes, backgrounds, base,
-            character, genders, alignments, permanent,
+            character, genders, alignments,
+            permanent, features,
         } = this.props;
         const {
             race = 'Race',
@@ -137,6 +138,14 @@ export class CharacterCreate extends React.Component
                         />
                     ) : null}
 
+                    {features ? (
+                        <CharacterConfig
+                            uuid="3e22f1f8-cf54-4273-ad5c-350a11552951"
+                            type="config"
+                            config={features}
+                        />
+                    ) : null}
+
                     <ButtonField
                         label="Save"
                         className="primary"
@@ -164,6 +173,7 @@ export default ListDataWrapper(
         {
             character: true,
             permanent: true,
+            features: true,
             races: 'fetch',
             classes: 'fetch',
             backgrounds: 'fetch',

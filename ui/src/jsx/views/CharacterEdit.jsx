@@ -91,16 +91,19 @@ export class CharacterEdit extends React.Component
                     </Panel>
                 ) : null }
 
-                <Panel
-                    key="permanent"
-                    className="character-edit__permanent"
-                    header="Permanent configuration options"
-                >
-                    <CharacterConfig
-                        {...character.permanent}
-                    />
-
-                </Panel>
+                {character.permanent ? (
+                    <Panel
+                        key="permanent"
+                        className="character-edit__permanent"
+                        header="Permanent configuration options"
+                    >
+                        <CharacterConfig
+                            uuid="58ab8d25-c578-4709-b646-631b1a491f74"
+                            type="config"
+                            config={character.permanent}
+                        />
+                    </Panel>
+                ) : null}
 
                 <Panel
                     key="description"
@@ -113,7 +116,6 @@ export class CharacterEdit extends React.Component
                         showProgress={true}
                     />
 
-
                     <CharacterConfig
                         config={ baseConfig.description }
                     />
@@ -124,50 +126,6 @@ export class CharacterEdit extends React.Component
                         onClick={this.onSave}
                     />
                 </Panel>
-
-                {max_prepared || list.length || cantrips.length ? <Panel
-                    key="prepared"
-                    className="character-edit__prepared"
-                    header="Spells Prepared"
-                >
-                    {max_prepared ? <CharacterConfig
-                        config={[{
-                            "label": "Prepared spells",
-                            "path": "spell.prepared",
-                            "type": "list",
-                            "list": ["spell"],
-                            "limit": max_prepared,
-                            "replace": max_prepared,
-                            "filter": {
-                                "or": [{
-                                    "classes": _class,
-                                    "level": levelFilter,
-                                }, {
-                                    "name": expanded,
-                                }],
-                                "not": {
-                                    "name": list,
-                                },
-                            },
-                        }]}
-                    /> : null }
-                    {cantrips.length ? <CharacterConfig
-                        config={[{
-                            "label": "Known cantrips",
-                            "path": "spell.cantrips",
-                            "type": "list",
-                            "list": ["spell"],
-                        }]}
-                    /> : null}
-                    {list.length ? <CharacterConfig
-                        config={[{
-                            "label": "Known spells",
-                            "path": "spell.list",
-                            "type": "list",
-                            "list": ["spell"],
-                        }]}
-                    /> : null }
-                </Panel> : null}
 
                 <Panel
                     key="personality"
