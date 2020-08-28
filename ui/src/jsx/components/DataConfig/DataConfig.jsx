@@ -93,12 +93,12 @@ export class DataConfig extends React.Component
                         uuid: uuidv4(),
                         type: 'config',
                         name: "Ability Score Increase",
-                        description: "Your **** score increases by .",
+                        description: "Your **STAT** score increases by `AMOUNT`.",
                         config: [
                             {
                                 uuid: uuidv4(),
                                 type: "list",
-                                path: "statistics.bonus.",
+                                path: "statistics.bonus.STAT",
                                 hidden: true,
                                 multiple: true,
                             },
@@ -184,27 +184,64 @@ export class DataConfig extends React.Component
                         uuid: uuidv4(),
                         type: "config",
                         name: "Hit Dice",
-                        description: "`1d` per **** level",
+                        description: "`1d#` per **CLASS** level",
                         config: [
                             {
                                 uuid: uuidv4(),
                                 type: "value",
-                                path: "hit_dice",
+                                path: "sub.CLASS.hit_dice",
                                 hidden: true,
                                 value: 0,
                             },
                             {
                                 uuid: uuidv4(),
                                 type: "config",
-                                name: "Hit Points",
-                                description: "* **At 1st Level**: `` + your **Constitution modifier**\n* **At Higher Levels**: `1d` (or ``) + your\n**Constitution modifier** per **** level after 1st",
+                                name: "Hit Points at First Level",
+                                description: "`#` + your **Constitution modifier**",
                                 config: [
                                     {
                                         uuid: uuidv4(),
-                                        type: "value",
-                                        path: "computed.hit_points.formula",
+                                        type: "list",
+                                        path: "computed.hit_points.formulas",
                                         hidden: true,
-                                        value: "( + statistics.modifiers.constitution) + ( + statistics.modifiers.constitution) * (level - 1)"
+                                        given: [
+                                            "sub.CLASS.hit_dice",
+                                        ],
+                                    },
+                                    {
+                                        uuid: uuidv4(),
+                                        type: "list",
+                                        path: "computed.hit_points.bonus",
+                                        hidden: true,
+                                        multiple: true,
+                                        given: [
+                                            "statistics.bonus.constitution * character.level",
+                                        ],
+                                    },
+                                ],
+                                conditions: [
+                                    {
+                                        value: 1,
+                                        path: "character.level",
+                                        type: "lre",
+                                    }
+                                ],
+                            },
+                            {
+                                uuid: uuidv4(),
+                                type: "config",
+                                name: "Hit Points at Higher Levels",
+                                description: "`1d#` (`#`) + your **Constitution modifier** per **CLASS** level after 1st",
+                                config: [
+                                    {
+                                        uuid: uuidv4(),
+                                        type: "list",
+                                        path: "computed.hit_points.bonus",
+                                        given: [
+                                            "# * (sub.CLASS.level - 1)",
+                                        ],
+                                        hidden: true,
+                                        multiple: true,
                                     },
                                 ],
                             },
@@ -404,7 +441,7 @@ export class DataConfig extends React.Component
                                     {
                                         uuid: uuidv4(),
                                         type: "value",
-                                        path: "spell.stat",
+                                        path: "sub.CLASS.spell.stat",
                                         hidden: true,
                                     },
                                     {
@@ -415,10 +452,12 @@ export class DataConfig extends React.Component
                                         config: [
                                             {
                                                 uuid: uuidv4(),
-                                                type: "value",
-                                                path: "computed.spellSafe_dc.formula",
+                                                type: "list",
+                                                path: "computed.subClassSpellSafe_dc.formulas",
                                                 hidden: true,
-                                                value: "8 + character.proficiency + statistics.modifiers.",
+                                                given: [
+                                                    "8 + character.proficiency + statistics.modifiers.STAT",
+                                                ],
                                             },
                                             {
                                                 uuid: uuidv4(),
@@ -428,10 +467,12 @@ export class DataConfig extends React.Component
                                                 config: [
                                                     {
                                                         uuid: uuidv4(),
-                                                        type: "value",
+                                                        type: "list",
                                                         hidden: true,
-                                                        path: "computed.spellAttack_modifier.formula",
-                                                        value: "character.proficiency + statistics.modifiers.",
+                                                        path: "computed.subClassSpellAttack_modifier.formulas",
+                                                        given: [
+                                                            "character.proficiency + statistics.modifiers.STAT",
+                                                        ],
                                                     }
                                                 ],
                                             },
@@ -447,7 +488,7 @@ export class DataConfig extends React.Component
                             initialItem: () => ({
                                 uuid: uuidv4(),
                                 type: "objectlist",
-                                path: "spell.cantrips",
+                                path: "sub.CLASS.spell.cantrips",
                                 name: "Cantrips",
                                 filter: [
                                     {
@@ -472,7 +513,7 @@ export class DataConfig extends React.Component
                             initialItem: () => ({
                                 uuid: uuidv4(),
                                 type: "objectlist",
-                                path: "spell.list",
+                                path: "sub.CLASS.spell.list",
                                 name: "Spells",
                                 list: [ "spell" ],
                             }),
@@ -511,7 +552,7 @@ export class DataConfig extends React.Component
                                 dict: {
                                     description: "You prepare the list of spells that are available for you to cast, choosing from your spell list. When you do so, choose a number of spells equal to %(limit)s.\nThe spells must be of a level for which you have spell slots.\n\nYou can change your list of prepared spells when you finish a long rest.",
                                     limit_default: "your **Spellcasting modifier** + your class level (minimum of one spell)",
-                                    limit_formula: "max(1, character.level + statistics.modifiers['spell.stat'])",
+                                    limit_formula: "max(1, sub.CLASS.level + statistics.modifiers.STAT)",
                                 },
                             }),
                         },
