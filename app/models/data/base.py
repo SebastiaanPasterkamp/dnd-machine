@@ -41,6 +41,49 @@ class BaseDataObject(JsonObject):
             return char
         return CharacterObject()
 
+    def collectChanges(self, datamapper, char):
+        config = self.compileConfig(datamapper, char)
+        return self._collectChanges(config, char.choices)
+
+    def _collectChanges(self, config, choices):
+        changes = []
+        for option in config:
+            type, uuid, path = option["type"], option["uuid"], option["path"]
+            assert type is not None
+            assert uuid is not None
+            choice = choices.get(uuid)
+
+            if type in ["value", "dict", "list", "objectlist", "select",
+                    "manual", "ability_score", "statistics"]:
+                changes.append((option, choice))
+
+            elif type in ["choice", "multichoice"]:
+                selection = choice.get("added", []) if type == "choice"
+                    else [ choice.get("selected") ]
+
+                for selected in selection:
+                    cfg = next((opt
+                        for opt in options.get("options", [])
+                        if opt["uuid"] == selected
+                        ), None)
+                    assert cfg is not None,
+                        "Can't find %r option in '%s %s' % (selected, type, uuid)
+
+                    c = self._collectChanges([ cfg ], choices)
+                    changes.extend(c)
+
+            elif type in ["config", "permanent"]:
+                c = self._collectChanges(option.get("config", []), choices)
+                if type == "permanent":
+                    changes.append((option, choice))
+                changes.extend(c)
+
+            else:
+                raise ValueError(
+                    "Unknown option type '%s %s' for %r" % (type, uuid, path))
+        return changes
+
+
     def compileConfig(self, datamapper, char=None):
         char = self._getChar(char)
 

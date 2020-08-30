@@ -265,6 +265,139 @@ class CharacterObject(JsonObject):
             )
         super(CharacterObject, self).migrate(datamapper)
 
+    def recompute(self, datamapper):
+        # TODO: Figure out what to keep, or how to incorporate session logs here
+        char = CharacterObject({
+            'id': self.id,
+            'user_id': self.user_id,
+            'xp': self.xp,
+            'adventure_checkpoints': self.adventure_checkpoints,
+            'choices': dict(self.choices),
+            })
+
+        changes = char._getChanges()
+        while changes.size:
+            combined = char._combineChanges(changes)
+            for path, update in combined:
+                char._setPath(path, update)
+            char.compute()
+            changes = char._getChanges()
+
+        self._config = char._config
+
+    def _combineChanges(self, changes):
+        combined = {}
+        for option, choice in changes:
+            type, uuid, path = option['type'], option['uuid'], option['path']
+            assert type is not None
+            assert uuid is not None
+
+            if type == 'permanent':
+                combined.setdefault("permanent", [])
+                combined["permanent"].append(option["config"])
+
+            elif type == 'dict':
+                combined.setdefault("path", dict(self._getPath(path, {})))
+                combined[path].update(option["dict"])
+
+            elif type == 'list':
+                combined.setdefault("path", list(self._getPath(path, [])))
+                added, removed = choice.get("added", []), choice.get("removed", [])
+                given, multiple = option.get("given", []), option.get("multiple", False)
+
+                update = [i for i in combined[path]
+                    if not i in removed
+                    or removed.remove(i)]
+                update.extend(given).extend(added)
+                if !multiple:
+                    update = list(set(update))
+                combined[path] = updated
+
+            elif type == 'objectlist':
+                combined.setdefault("path", list(self._getPath(path, [])))
+                added, removed = choice.get("added", []), choice.get("removed", [])
+                given, multiple = option.get("given", []), option.get("multiple", False)
+
+                for item in removed:
+                    itype, id, count = item.get("type"), item.get("id"), item.get("count", 1)
+                    idx = next((index
+                        for (index, d) in enumerate(combined[path])
+                        if d["type"] == itemtype and d["id"] == id
+                        ), None)
+                    assert idx is not None,
+                        "Cannot remove '%s %s' from %r" % (remtype, id, path)
+
+                    if !multiple:
+                        combined[path].pop(idx)
+                    elif count >= combined[path][idx].get("count", 1):
+                        assert count <= combined[path][idx].get("count", 1),
+                            "Reduced item '%s %s' from %r below 0" % (remtype, id, path)
+                        combined[path].pop(idx)
+                    else:
+                        combined[path][idx]["count"] -= count
+
+                for item in added + given:
+                    itype, id, count = item.get("type"), item.get("id"), item.get("count", 1)
+                    idx = next((index
+                        for (index, d) in enumerate(combined[path])
+                        if d["type"] == itemtype and d["id"] == id
+                        ), None)
+
+                    if idx is None:
+                        # New item in list
+                        combined[path].append(item)
+
+                    elif !multiple:
+                        # Not adding duplicates
+                        pass
+                    else:
+                        combined[path][idx]["count"] += count
+                    computed[option.path]
+
+            elif type in ['manual', 'select']:
+                computed[path] = choice.get("current")
+
+
+            elif type == 'ability_score':
+                improvement = choice.get("improvement", [])
+                bonus = dict([
+                    (stat, improvement.count(stat))
+                    for stat in improvement
+                    ])
+
+                for stat, count in bonus:
+                    path = "statistics.bonus.%s" % stat
+                    combined.setdefault(path, [])
+                    computed[path].append(count)
+
+            elif option.type == 'statistics':
+                path = 'statistics.bare'
+                combined.setdefault(path, {})
+                bare = choice.get('bare', {})
+                computed[path].update({ 'bare': bare })
+
+            elif type == 'value':
+                computed[path] = option.get("value")
+
+            else:
+                raise ValueError(
+                    "Unknown option type '%s %s' for %r" % (type, uuid, path))
+
+        return combined
+
+    def _getChanges(self):
+        changes = {}
+        for src in [
+                datamapper.race,
+                datamapper.subrace,
+                datamapper.klass,
+                datamapper.subclass,
+                datamapper.background,
+                ]:
+            c = src.collectChanges(datamapper, self)
+            changes.extend(r)
+        return changes
+
     def compute(self):
         machine = self.mapper.machine
         typesMapper = self.mapper.types
