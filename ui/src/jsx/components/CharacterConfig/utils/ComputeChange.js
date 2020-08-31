@@ -27,6 +27,12 @@ export default function ComputeChange(changes, original) {
     const computed = reduce(
         (computed, {option, choice}) => {
 
+            if (option.conditions
+                && !MatchesFilters(original, option.conditions)
+            ) {
+                return computed;
+            }
+
             if (option.type === 'permanent') {
                 const {
                     permanent: current = get('permanent', original) || [],
