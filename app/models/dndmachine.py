@@ -27,10 +27,15 @@ class DndMachine(object):
                 replace[path] = obj.getPath(path)
             elif path.startswith(obj._pathPrefix):
                 replace[path] = None
+        expanded = formula
         for var, val in replace.items():
-            formula = formula.replace(var, str(val))
-        code = parser.expr(formula).compile()
-        return eval(code, self.ns)
+            expanded = expanded.replace(var, str(val))
+        code = parser.expr(expanded).compile()
+        try:
+            return eval(code, self.ns)
+        except:
+            print(formula, expanded)
+            raise
 
     def diceCast(self, size, number=1, bonus=0):
         return {
