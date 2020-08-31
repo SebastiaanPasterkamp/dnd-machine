@@ -2502,7 +2502,7 @@ INSERT INTO `class` (id, name, config)
             "dict": {
                 "description": "You have a limited well of stamina that you can draw on\nto protect yourself from harm. On your turn, you can use\na bonus action to regain hit points equal to 1d10 + %(level)s.\nOnce you use this feature, you must finish a short or\nlong rest before you can use it again.",
                 "level_default": "your fighter level",
-                "level_formula": "character.level"
+                "level_formula": "sub.fighter.level"
             },
             "name": "Second Wind",
             "path": "abilities.Second Wind",
