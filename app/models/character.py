@@ -277,7 +277,7 @@ class CharacterObject(JsonObject):
 
         changes = char._getChanges()
         while changes.size:
-            combined = char._combineChanges(changes)
+            combined = char._combineChanges(changes, datamapper.machine)
             for path, update in combined:
                 char._setPath(path, update)
             char.compute()
@@ -285,12 +285,15 @@ class CharacterObject(JsonObject):
 
         self._config = char._config
 
-    def _combineChanges(self, changes):
+    def _combineChanges(self, changes, machine):
         combined = {}
         for option, choice in changes:
             type, uuid, path = option['type'], option['uuid'], option['path']
             assert type is not None
             assert uuid is not None
+
+            if not machine.MatchesFilters(self, option.get("conditions", [])):
+                return combined
 
             if type == 'permanent':
                 combined.setdefault("permanent", [])
@@ -309,7 +312,7 @@ class CharacterObject(JsonObject):
                     if not i in removed
                     or removed.remove(i)]
                 update.extend(given).extend(added)
-                if !multiple:
+                if not multiple:
                     update = list(set(update))
                 combined[path] = updated
 
@@ -324,13 +327,13 @@ class CharacterObject(JsonObject):
                         for (index, d) in enumerate(combined[path])
                         if d["type"] == itemtype and d["id"] == id
                         ), None)
-                    assert idx is not None,
+                    assert idx is not None, \
                         "Cannot remove '%s %s' from %r" % (remtype, id, path)
 
-                    if !multiple:
+                    if not multiple:
                         combined[path].pop(idx)
                     elif count >= combined[path][idx].get("count", 1):
-                        assert count <= combined[path][idx].get("count", 1),
+                        assert count <= combined[path][idx].get("count", 1), \
                             "Reduced item '%s %s' from %r below 0" % (remtype, id, path)
                         combined[path].pop(idx)
                     else:
@@ -346,8 +349,7 @@ class CharacterObject(JsonObject):
                     if idx is None:
                         # New item in list
                         combined[path].append(item)
-
-                    elif !multiple:
+                    elif not multiple:
                         # Not adding duplicates
                         pass
                     else:
@@ -397,6 +399,23 @@ class CharacterObject(JsonObject):
             c = src.collectChanges(datamapper, self)
             changes.extend(r)
         return changes
+
+    def _meetsCondition(self, conditions):
+        for check, condition in list(conditions.items()):
+            if check == 'level':
+                if self.level < condition:
+                    return False
+                continue
+
+            if check == 'creation':
+                if condition not in self.creation:
+                    return False
+                continue
+
+            attrib = self[check] or []
+            if not all(c in attrib for c in condition):
+                return False
+        return True
 
     def compute(self):
         machine = self.mapper.machine
@@ -520,30 +539,6 @@ class CharacterObject(JsonObject):
         self.spellList = known
 
         self.abilities = self._expandFormulas(self.abilities)
-        # No type-casting
-        # self.config['level_up'] = self.getLevelUp()
-
-    def _meetsCondition(self, creation, phase):
-        if creation in self.creation:
-            return False
-        if not len(phase.get('config', [])):
-            return False
-        conditions = phase.get('conditions', {})
-        for check, condition in list(conditions.items()):
-            if check == 'level':
-                if self.level < condition:
-                    return False
-                continue
-
-            if check == 'creation':
-                if condition not in self.creation:
-                    return False
-                continue
-
-            attrib = self[check] or []
-            if not all(c in attrib for c in condition):
-                return False
-        return True
 
     def _expandFormulas(self, obj):
         machine = self.mapper.machine
@@ -685,37 +680,6 @@ class CharacterObject(JsonObject):
                 'adventure_checkpoints', 'acp_progress', 'acp_level',
                 ]
             ])
-
-    def getLevelUp(self):
-        levelUp = {
-            "creation": set(),
-            "config": []
-            }
-
-        for field in ['race', 'class', 'background']:
-            data, sub = self._find_caracter_field(field, self[field])
-            for creation, phase in list(data.get('phases', {}).items()):
-                if self._meetsCondition(creation, phase):
-                    levelUp["creation"].add(creation)
-                    levelUp["config"] += phase["config"]
-            if sub is None:
-                continue
-            for creation, phase in list(sub.get('phases', {}).items()):
-                if self._meetsCondition(creation, phase):
-                    levelUp["creation"].add(creation)
-                    levelUp["config"] += phase["config"]
-
-        levelUp['creation'] = list(levelUp['creation'])
-        levelUp['config'] = levelUp['config']
-        return levelUp
-
-    def _find_caracter_field(self, field, value):
-        if value is None:
-            return {}, None
-        for data in self.character_data[field]:
-            if data.get('name', data.get('label')) in value:
-                return data, None
-        return {}, None
 
 class CharacterMapper(JsonObjectDataMapper):
     obj = CharacterObject

@@ -404,3 +404,58 @@ class DndMachine(object):
                 weapon["versatile"]["bonus"]
                 )
         return weapon
+
+    def MatchesFilters(self, item, filters):
+        filterMethods = {
+            'absolute': self._filterAbsolute,
+            'and': self._filterAnd,
+            'intersection': self._filterIntersection,
+            'proficiency': self._filterProficiency,
+            'or': self._filterOr,
+            }
+
+        for filter in filters:
+            method = filterMethods.get(filter["type"])
+            assert method is not None, "Invalid filter: %r" % filter
+            try:
+                if not method(item, **filter):
+                    return False
+            except:
+                print(filter)
+                raise
+        return True
+
+    def _filterAbsolute(self, item, field, condition):
+        return item._getPath(field) == condition
+
+    def _filterAnd(self, item, filters):
+        return self.MatchesFilters(obj, filters)
+
+    def _filterIntersection(self, item, field, options):
+        value = item._getPath(field)
+        value = set(value) if instanceof(value, list) else set([value])
+        options = set(options) if instanceof(options, list) else set([options])
+        return (value * options).length
+
+    def _filterProficiency(self, item, objects):
+        id, type = item.get("id"), item.get("type")
+
+        needle = next((object
+            for object in objects
+            if object.get(id, None) == id and object.get("type") == type
+            ), None)
+        if needle is not None:
+            return True
+
+        needle = next((object
+            for object in objects
+            if object.get(id, None) == type
+            ), None)
+        if needle is not None:
+            return True
+
+        return False
+
+    def _filterOr(self, item, filters):
+        return any(self.MatchesFilters(item, [filter])
+            for filter in filters)

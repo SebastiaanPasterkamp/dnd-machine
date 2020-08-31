@@ -43,7 +43,7 @@ class BaseDataObject(JsonObject):
 
     def collectChanges(self, datamapper, char):
         config = self.compileConfig(datamapper, char)
-        return self._collectChanges(config, char.choices)
+        return self._collectChanges(config["config"], char.choices)
 
     def _collectChanges(self, config, choices):
         changes = []
@@ -58,7 +58,7 @@ class BaseDataObject(JsonObject):
                 changes.append((option, choice))
 
             elif type in ["choice", "multichoice"]:
-                selection = choice.get("added", []) if type == "choice"
+                selection = choice.get("added", []) if type == "choice" \
                     else [ choice.get("selected") ]
 
                 for selected in selection:
@@ -66,8 +66,8 @@ class BaseDataObject(JsonObject):
                         for opt in options.get("options", [])
                         if opt["uuid"] == selected
                         ), None)
-                    assert cfg is not None,
-                        "Can't find %r option in '%s %s' % (selected, type, uuid)
+                    assert cfg is not None, \
+                        "Can't find %r option in '%s %s'" % (selected, type, uuid)
 
                     c = self._collectChanges([ cfg ], choices)
                     changes.extend(c)
