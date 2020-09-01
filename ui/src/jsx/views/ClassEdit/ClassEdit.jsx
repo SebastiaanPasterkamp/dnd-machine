@@ -52,12 +52,21 @@ export class ClassEdit extends React.Component
                 return null;
             }
             const { name: _class } = this.props;
+            const levelPath = `sub.${_class.toLowerCase()}.level`;
 
             return ({
                 name: `${_class} ${level}`,
                 conditions: [
-                    {path: 'class', type: 'contains', needle: _class},
-                    {path: 'level', type: 'gte', value: level },
+                    {path: levelPath, type: 'gte', value: level },
+                ],
+                config: [
+                    {
+                        hidden: true,
+                        path: levelPath,
+                        type: "value",
+                        uuid: uuidv4(),
+                        value: level,
+                    },
                 ],
             });
         });

@@ -62,12 +62,21 @@ export class SubClassEdit extends React.Component
                 return null;
             }
             const { name: subclass } = this.props;
+            const levelPath = `sub.${subclass.toLowerCase()}.level`;
 
             return ({
                 name: `${subclass} ${level}`,
                 conditions: [
-                    {path: 'subclass', type: 'contains', needle: subclass},
-                    {path: 'level', type: 'gte', value: level },
+                    {path: levelPath, type: 'gte', value: level },
+                ],
+                config: [
+                    {
+                        hidden: true,
+                        path: levelPath,
+                        type: "value",
+                        uuid: uuidv4(),
+                        value: level,
+                    },
                 ],
             });
         });

@@ -34,8 +34,13 @@ export class PhasePanel extends React.PureComponent
         return this.memoize(field, value => {
             const { uuid: stateUUID } = this.state;
             const { setState, initPhase, uuid = stateUUID } = this.props;
+            const init = initPhase(this.props);
+            if (init !== null && field === 'config') {
+                const { config = [] } = init;
+                value = [...config, ...value];
+            }
             setState({
-                ...initPhase(this.props),
+                ...init,
                 type: this.optionType,
                 uuid,
                 [field]: value,
