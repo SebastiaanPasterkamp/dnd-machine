@@ -17,11 +17,12 @@ import ControlGroup from '../../components/ControlGroup';
 import InputField from '../../components/InputField';
 import MarkdownTextField from '../../components/MarkdownTextField';
 import Panel from '../../components/Panel';
+import SingleSelect from '../../components/SingleSelect';
 import TabComponent from '../../components/TabComponent';
 
-import CasterPanel from './components/CasterPanel';
-
 import {
+    CasterPanel,
+    casterRanking,
     DataConfig,
     ListConditions,
     PhasePanel,
@@ -123,7 +124,7 @@ export class ClassEdit extends React.Component
     render() {
         const { levels } = this.state;
         const {
-            id, name, description, subclass_level,
+            id, name, description, caster_rank, subclass_level,
             config, features, phases, conditions,
         } = this.props;
 
@@ -153,6 +154,14 @@ export class ClassEdit extends React.Component
                         />
                     </ControlGroup>
 
+                    <ControlGroup label="Caster rank">
+                        <SingleSelect
+                            selected={caster_rank}
+                            items={casterRanking}
+                            setState={this.onFieldChange('caster_rank')}
+                        />
+                    </ControlGroup>
+
                     <ControlGroup label="Description">
                         <MarkdownTextField
                             placeholder="Description..."
@@ -162,10 +171,12 @@ export class ClassEdit extends React.Component
                     </ControlGroup>
                 </Panel>
 
-                <CasterPanel
-                    {...features}
-                    setState={this.onFeaturesChange}
-                />
+                { caster_rank > 0 ? (
+                    <CasterPanel
+                        {...features}
+                        setState={this.onFeaturesChange}
+                    />
+                ) : null }
 
                 <Panel
                     key="conditions"
@@ -211,6 +222,7 @@ ClassEdit.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     description: PropTypes.string,
+    caster_rank: PropTypes.number,
     subclass_level: PropTypes.number,
     conditions: PropTypes.arrayOf(PropTypes.shape({
         type: PropTypes.string,
@@ -229,6 +241,7 @@ ClassEdit.defaultProps = {
     id: null,
     name: '',
     description: '',
+    caster_rank: 0,
     subclass_level: 1,
     conditions: [],
     config: [],

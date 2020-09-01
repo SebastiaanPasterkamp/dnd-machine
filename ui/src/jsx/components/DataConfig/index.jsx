@@ -1,4 +1,5 @@
 import ASIOption from './ASIOption';
+import CasterPanel, { casterRanking } from './CasterPanel';
 import ChoiceOption from './ChoiceOption';
 import ConfigOption from './ConfigOption';
 import DataConfig from './DataConfig';
@@ -16,6 +17,8 @@ import { uuidv4 } from './utils';
 
 export {
     ASIOption,
+    CasterPanel,
+    casterRanking,
     ChoiceOption,
     ConfigOption,
     DataConfig,

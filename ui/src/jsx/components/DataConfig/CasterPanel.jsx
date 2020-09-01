@@ -5,13 +5,20 @@ import {
     range,
 } from 'lodash/fp';
 
-import { memoize } from '../../../utils';
+import { memoize } from '../../utils';
 
-import ListDataWrapper from '../../../hocs/ListDataWrapper';
+import ListDataWrapper from '../../hocs/ListDataWrapper';
 
-import ControlGroup from '../../../components/ControlGroup';
-import InputField from '../../../components/InputField';
-import Panel from '../../../components/Panel';
+import ControlGroup from '../ControlGroup';
+import InputField from '../InputField';
+import Panel from '../Panel';
+
+export const casterRanking = [
+    { name: "Not a magic user", id: 0 },
+    { name: "Full Caster", id: 1 },
+    { name: "Half Caster", id: 2 },
+    { name: "Third Caster", id: 3 },
+];
 
 export class CasterPanel extends React.Component
 {

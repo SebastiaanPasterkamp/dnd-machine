@@ -21,6 +21,8 @@ import SingleSelect from '../../components/SingleSelect';
 import TabComponent from '../../components/TabComponent';
 
 import {
+    CasterPanel,
+    casterRanking,
     DataConfig,
     ListConditions,
     PhasePanel,
@@ -40,6 +42,7 @@ export class SubClassEdit extends React.Component
         } = props;
         const {
             subclass_level = 1,
+            caster_rank: class_caster_rank = 0,
         } = find({id: class_id}, classes) || {};
         this.state = {
             uuid,
@@ -47,7 +50,9 @@ export class SubClassEdit extends React.Component
                 (level) => ({ name: `${level}` })
             )(range(subclass_level, 20)),
             subclass_level,
+            class_caster_rank,
         };
+        this.onFeaturesChange = this.onFeaturesChange.bind(this);
         this.memoize = memoize.bind(this);
     }
 
@@ -65,6 +70,16 @@ export class SubClassEdit extends React.Component
                     {path: 'level', type: 'gte', value: level },
                 ],
             });
+        });
+    }
+
+    onFeaturesChange(features) {
+        const { uuid: stateUUID } = this.state;
+        const { setState, features: previous, uuid = stateUUID } = this.props;
+        setState({
+            type: this.optionType,
+            uuid,
+            features: {...previous, ...update},
         });
     }
 
@@ -102,8 +117,10 @@ export class SubClassEdit extends React.Component
 
     static getDerivedStateFromProps(props, state) {
         const { class_id, classes } = props;
+        const { caster_rank } = state;
         const {
             subclass_level = 1,
+            caster_rank: class_caster_rank = 0,
         } = find({id: class_id}, classes) || {};
         return {
             levels: [
@@ -118,13 +135,15 @@ export class SubClassEdit extends React.Component
                 )(range(0, 20 - subclass_level)),
             ],
             subclass_level,
+            class_caster_rank,
+            caster_rank: class_caster_rank > 0 ? 0 : caster_rank,
         };
     }
 
     render() {
-        const { levels, subclass_level } = this.state;
+        const { levels, subclass_level, class_caster_rank } = this.state;
         const {
-            id, class_id, name, description,
+            id, class_id, name, description, caster_rank,
             config, phases, conditions, classes,
         } = this.props;
 
@@ -151,6 +170,16 @@ export class SubClassEdit extends React.Component
                         />
                     </ControlGroup>
 
+                    { !class_caster_rank ? (
+                        <ControlGroup label="Caster rank">
+                            <SingleSelect
+                                selected={caster_rank}
+                                items={casterRanking}
+                                setState={this.onFieldChange('caster_rank')}
+                            />
+                        </ControlGroup>
+                    ) : null }
+
                     <ControlGroup label="Description">
                         <MarkdownTextField
                             placeholder="Description..."
@@ -159,6 +188,13 @@ export class SubClassEdit extends React.Component
                         />
                     </ControlGroup>
                 </Panel>
+
+                { !class_caster_rank && caster_rank > 0 ? (
+                    <CasterPanel
+                        {...features}
+                        setState={this.onFeaturesChange}
+                    />
+                ) : null }
 
                 <Panel
                     key="conditions"
@@ -204,6 +240,7 @@ SubClassEdit.propTypes = {
     class_id: PropTypes.number,
     name: PropTypes.string,
     description: PropTypes.string,
+    caster_rank: PropTypes.number,
     config: PropTypes.arrayOf(PropTypes.object),
     phases: PropTypes.arrayOf(PropTypes.object),
     description: PropTypes.string,
@@ -214,6 +251,7 @@ SubClassEdit.defaultProps = {
     class_id: null,
     name: '',
     description: '',
+    caster_rank: 0,
     config: [],
     phases: [],
     classes: [],

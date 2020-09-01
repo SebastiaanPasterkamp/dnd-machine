@@ -44,7 +44,7 @@ export class PhasePanel extends React.PureComponent
     }
 
     render() {
-        const { id, name, description, config, conditions } = this.props;
+        const { name, description, config, conditions } = this.props;
 
         return (
             <React.Fragment>
@@ -89,7 +89,7 @@ export class PhasePanel extends React.PureComponent
 }
 
 PhasePanel.propTypes = {
-    id: PropTypes.number,
+    uuid: PropTypes.string,
     name: PropTypes.string,
     description: PropTypes.string,
     conditions: PropTypes.arrayOf(PropTypes.shape({
@@ -101,10 +101,12 @@ PhasePanel.propTypes = {
         conditions: PropTypes.array,
     })),
     config: PropTypes.arrayOf(PropTypes.object),
+    setState: PropTypes.func.isRequired,
+    initPhase: PropTypes.func.isRequired,
 };
 
 PhasePanel.defaultProps = {
-    id: null,
+    uuid: undefined,
     name: '',
     description: '',
     config: [],
