@@ -1,0 +1,1104 @@
+{
+    "abilities": {
+        "Second Wind": {
+            "description": "You have a limited well of stamina that you can draw on\nto protect yourself from harm. On your turn, you can use\na bonus action to regain hit points equal to 1d10 + %(level)s.\nOnce you use this feature, you must finish a short or\nlong rest before you can use it again.",
+            "level": 1,
+            "level_default": "your fighter level",
+            "level_formula": "sub.fighter.level"
+        }
+    },
+    "adventure_league": false,
+    "alignment": "lawful good",
+    "appearance": "",
+    "armor": [
+        {
+            "cost": {
+                "gp": 75
+            },
+            "count": 1,
+            "disadvantage": true,
+            "id": 48,
+            "name": "Chain Mail",
+            "requirements": {
+                "strength": 13
+            },
+            "type": "heavy",
+            "value": 16,
+            "weight": {
+                "lb": 55.0
+            }
+        },
+        {
+            "bonus": 2,
+            "cost": {
+                "gp": 10
+            },
+            "count": 1,
+            "disadvantage": false,
+            "id": 51,
+            "name": "Shield",
+            "requirements": {},
+            "type": "shield",
+            "weight": {
+                "lb": 6.0
+            }
+        }
+    ],
+    "armor_class": 16,
+    "armor_class_bonus": 2,
+    "background": "Soldier",
+    "challenge": {
+        "deadly": 100,
+        "easy": 25,
+        "hard": 75,
+        "medium": 50
+    },
+    "choices": {
+        "00509e09-d475-4d1e-a2e7-7e4bd8d6a5ec": true,
+        "00bb6113-e274-42f5-88b4-df9632ed4347": {
+            "selected": "5ba17745-b07c-4d8d-a306-c0fcc07e4eac"
+        },
+        "02c50a57-a363-477a-9951-65c194b01321": true,
+        "05d5e537-8ecd-44ad-b066-ccb35bbb2055": true,
+        "0642c15c-7669-418a-a2b5-5d2bc7587c95": {
+            "current": "I\u2019d rather eat my armor than admit when I\u2019m wrong"
+        },
+        "07035d99-3a76-4a4d-a46b-17318d79f0ad": true,
+        "0a6c9349-4c6e-46ab-85b7-5be7e3ae3ce3": true,
+        "0af3ca02-c9c1-4336-8ddd-5db7600ef287": true,
+        "0ba4cec9-83bd-4d53-85a1-cebc41e8c3d5": true,
+        "0e6eb585-701e-4eba-a6ec-d890e320c448": {
+            "current": "*Greater Good*. Our lot is to lay down our lives in defense of others. (Good)"
+        },
+        "169d1d60-1241-43d8-a564-e18d8b8a36c7": {
+            "selected": "95ea96d0-26d7-4890-aa03-82be3c7f8bba"
+        },
+        "1933b150-4603-4f31-aa74-39ff5b700a73": true,
+        "19daade5-50e7-4203-ab87-9b66dcd894ec": true,
+        "1a509a75-3974-431f-b7e9-625c6068951d": true,
+        "1bd5f104-c8f0-4d54-b93d-5c2296d13116": {
+            "selected": "1a509a75-3974-431f-b7e9-625c6068951d"
+        },
+        "1c5448ed-7240-408b-b1bc-3ad1559a8521": {
+            "current": "Testy McTestFace"
+        },
+        "2e8b2e97-6e59-416f-9dff-db9fb12e0b17": true,
+        "3c9d67af-128b-4d18-8ad9-29996600e92a": true,
+        "43411722-34ea-4f47-b9b5-a2dda83c9770": true,
+        "44605c0c-3152-4542-ad6d-0162dbf54320": {
+            "current": "Quartermaster"
+        },
+        "49db5884-6198-4689-b214-15925f2a087f": {
+            "current": "male"
+        },
+        "4ad9e96d-8240-43d8-bbbf-18be95e2d69b": true,
+        "50dcaaf6-288b-434c-a367-be5106df317d": true,
+        "5470c17c-46a2-4d0d-aedf-f956b1ead763": true,
+        "54734758-1295-41d8-bca2-5e32a098b408": true,
+        "5ba0541d-138b-4a8f-937a-53a3c85dce0d": true,
+        "5ba17745-b07c-4d8d-a306-c0fcc07e4eac": true,
+        "5d362fe7-51ad-4da2-a0e5-84ced7edc2eb": true,
+        "5d9df8c2-b1f0-4a50-8772-3a9b838d0005": {
+            "selected": "9809ac5b-f41d-4d13-ab9d-323ca00b0040"
+        },
+        "60722722-b678-49b6-ba32-1b9ae2ec454d": true,
+        "64242cd6-b761-42f2-88eb-bcc4b994b790": true,
+        "65acafac-a57a-41f8-8258-6bb506f94d0c": true,
+        "6a49e108-44bc-455b-a04c-bef989b5e6d1": true,
+        "6f2d21d7-9655-482b-b87e-6324606d509c": {
+            "selected": "b02952e3-a00c-4dd6-8d0b-00c6735218c5"
+        },
+        "6f557232-b4db-472f-b9d2-ab3cf7d01c3c": {
+            "current": "lawful good"
+        },
+        "75780f29-19bf-4a5d-b484-59bd571b0386": true,
+        "7704efcd-1281-4f48-85f1-44e07f6ddf97": {
+            "added": [
+                {
+                    "id": "perception",
+                    "name": "Perception",
+                    "stat": "wisdom",
+                    "type": "skills"
+                },
+                {
+                    "id": "survival",
+                    "name": "Survival",
+                    "stat": "wisdom",
+                    "type": "skills"
+                }
+            ],
+            "removed": []
+        },
+        "7d305cfc-d142-4d79-9522-0d191f911b0b": true,
+        "7da7e7de-49f1-4b77-b898-520b10ffe521": {
+            "selected": "9866ea12-0bb0-4257-9455-e532ba3f5764"
+        },
+        "820502f0-698a-433a-9a98-b7e62a4dcd62": true,
+        "896f5ee6-c76c-4cfb-b1d9-85eaf2787222": true,
+        "8d65adcb-ea3e-4e15-ac36-3b06c3337e78": true,
+        "8dc11eac-18f7-4f68-bd54-6f63bb985600": true,
+        "8efc5f8b-1552-42a1-b3b0-c3b99f4a57ce": {
+            "added": [
+                {
+                    "cost": {},
+                    "count": 1,
+                    "id": 296,
+                    "name": "Small knife",
+                    "type": "gear",
+                    "weight": {
+                        "lb": 1
+                    }
+                }
+            ],
+            "removed": []
+        },
+        "8fc450ea-3fe6-41c1-b74d-b171b3670279": true,
+        "93aca1ef-b58b-45ce-805d-891548baaa23": true,
+        "95ea96d0-26d7-4890-aa03-82be3c7f8bba": true,
+        "9809ac5b-f41d-4d13-ab9d-323ca00b0040": true,
+        "9866ea12-0bb0-4257-9455-e532ba3f5764": true,
+        "9d11d102-85e1-4849-a0c7-7e0715cbcb02": true,
+        "ab806eec-09b0-40db-99da-566c9f64cd29": {
+            "added": [
+                {
+                    "cost": {},
+                    "id": 78,
+                    "name": "Dice set",
+                    "type": "gaming",
+                    "weight": {},
+                    "worth": {
+                        "gp": 1
+                    }
+                }
+            ],
+            "removed": []
+        },
+        "ac1edc9b-a9eb-4431-8b52-6fbab220d48a": true,
+        "af2e6279-9f3c-418e-83d0-39400d676b7a": true,
+        "b02952e3-a00c-4dd6-8d0b-00c6735218c5": true,
+        "b308edf3-05d2-4c4a-aa7d-c1e6166848ca": true,
+        "bbeb2291-4443-4dd6-a936-80ed1148862d": true,
+        "bd786c6a-f0b2-4937-85ec-e841f679bf2e": {
+            "current": "I\u2019m full of inspiring and cautionary tales from my military experience relevant to almost every combat situation."
+        },
+        "c500eb36-8ff7-48fb-b4a8-da1ee82a045b": true,
+        "c7989c39-b7b5-41d4-aad6-400484afc8fb": true,
+        "c89f9a5c-1481-4b62-aac8-d79d54410a89": true,
+        "c956d288-1a02-4a1f-8bde-b312be3b9d4d": true,
+        "c9becef4-2f7e-46cd-b15b-f087493374f6": true,
+        "cc3349fd-2be7-4667-8c83-9c9372e41cae": {
+            "added": [
+                "6a49e108-44bc-455b-a04c-bef989b5e6d1"
+            ],
+            "removed": []
+        },
+        "ccea31d9-1a0a-424d-8b0a-0c597bf58016": {
+            "selected": "50dcaaf6-288b-434c-a367-be5106df317d"
+        },
+        "ccffadb1-b939-4b9b-b9f7-72a1b0b1e5d4": true,
+        "d27c5535-d67f-4254-90e2-2d9368dc01d6": {
+            "selected": "0af3ca02-c9c1-4336-8ddd-5db7600ef287"
+        },
+        "d545e20a-f3d3-4410-82ee-4d23ddf02eac": true,
+        "d646b79d-2921-4ce3-b26d-961a986a7498": {
+            "current": "Those who fight beside me are those worth dying for."
+        },
+        "dcab5d32-3953-4743-b14e-4f94865946cc": true,
+        "df0943dd-cf57-4cd2-a02f-5e320e4b0fc6": true,
+        "f0632127-c4b3-4d42-b2d2-60cf9e14036b": true,
+        "f6efd12a-0912-4ce7-b185-892aa4149313": true,
+        "fee2ccfb-7bd7-4b0e-9486-5aad04932c59": {
+            "added": [
+                {
+                    "cost": {},
+                    "id": 56,
+                    "name": "Brewer''s supplies",
+                    "type": "artisan",
+                    "weight": {
+                        "lb": 9
+                    },
+                    "worth": {
+                        "gp": 20
+                    }
+                }
+            ],
+            "removed": []
+        },
+        "ff2f55a5-15e1-4ebd-8c83-d0b52f98fb08": {
+            "bare": {
+                "charisma": 8,
+                "constitution": 13,
+                "dexterity": 14,
+                "intelligence": 12,
+                "strength": 15,
+                "wisdom": 10
+            },
+            "base": {
+                "charisma": 8,
+                "constitution": 15,
+                "dexterity": 14,
+                "intelligence": 12,
+                "strength": 17,
+                "wisdom": 10
+            },
+            "bonus": {
+                "charisma": [],
+                "constitution": [
+                    2
+                ],
+                "dexterity": [],
+                "intelligence": [],
+                "strength": [
+                    2
+                ],
+                "wisdom": []
+            },
+            "modifiers": {
+                "charisma": -1,
+                "constitution": 2,
+                "dexterity": 2,
+                "intelligence": 1,
+                "strength": 3,
+                "wisdom": 0
+            }
+        },
+        "pick-0af3ca02-c9c1-4336-8ddd-5db7600ef287": true,
+        "pick-50dcaaf6-288b-434c-a367-be5106df317d": true,
+        "pick-5ba17745-b07c-4d8d-a306-c0fcc07e4eac": true,
+        "pick-9809ac5b-f41d-4d13-ab9d-323ca00b0040": true
+    },
+    "class": "Fighter",
+    "computed": {
+        "hit_points": {
+            "bonus": [
+                "statistics.modifiers.constitution * character.level",
+                "6 * (sub.fighter.level - 1)"
+            ],
+            "formulas": [
+                "sub.fighter.hit_dice"
+            ]
+        },
+        "passive_perception": {
+            "formulas": [
+                "10 + skills.perception"
+            ]
+        },
+        "unarmored": {
+            "formulas": [
+                "10 + statistics.modifiers.dexterity"
+            ]
+        }
+    },
+    "creation": [],
+    "equipment": [
+        {
+            "cost": {},
+            "count": 1,
+            "id": 296,
+            "name": "Small knife",
+            "type": "gear",
+            "weight": {
+                "lb": 1.0
+            }
+        },
+        {
+            "cost": {},
+            "count": 1,
+            "id": 133,
+            "name": "A rank insignia from a lost legionnaire",
+            "type": "trinket",
+            "weight": {}
+        },
+        {
+            "cost": {},
+            "count": 1,
+            "id": 78,
+            "name": "Dice set",
+            "type": "gaming",
+            "weight": {},
+            "worth": {
+                "gp": 1
+            }
+        },
+        {
+            "cost": {},
+            "count": 1,
+            "id": 80,
+            "name": "Playing card set",
+            "type": "gaming",
+            "weight": {},
+            "worth": {
+                "sp": 5
+            }
+        },
+        {
+            "cost": {
+                "sp": 5
+            },
+            "count": 1,
+            "id": 224,
+            "name": "Clothes, common",
+            "type": "gear",
+            "weight": {
+                "lb": 3.0
+            }
+        },
+        {
+            "cost": {
+                "sp": 5
+            },
+            "count": 1,
+            "id": 268,
+            "name": "Pouch",
+            "type": "gear",
+            "weight": {
+                "lb": 1.0
+            }
+        },
+        {
+            "cost": {
+                "gp": 75
+            },
+            "count": 1,
+            "disadvantage": true,
+            "id": 48,
+            "name": "Chain Mail",
+            "requirements": {
+                "strength": 13
+            },
+            "type": "heavy",
+            "value": 16,
+            "weight": {
+                "lb": 55.0
+            }
+        },
+        {
+            "bonus": 2,
+            "cost": {
+                "gp": 10
+            },
+            "count": 1,
+            "disadvantage": false,
+            "id": 51,
+            "name": "Shield",
+            "requirements": {},
+            "type": "shield",
+            "weight": {
+                "lb": 6.0
+            }
+        },
+        {
+            "cost": {
+                "gp": 5
+            },
+            "count": 2,
+            "damage": {
+                "dice_count": 1,
+                "dice_size": 6,
+                "type": "slashing"
+            },
+            "id": 4,
+            "name": "Handaxe",
+            "property": [
+                "light",
+                "thrown"
+            ],
+            "range": {
+                "max": 60,
+                "min": 20
+            },
+            "type": "simple melee",
+            "weight": {
+                "lb": 2.0
+            }
+        },
+        {
+            "cost": {
+                "gp": 2
+            },
+            "count": 1,
+            "id": 205,
+            "name": "Backpack",
+            "type": "gear",
+            "weight": {
+                "lb": 5.0
+            }
+        },
+        {
+            "cost": {
+                "gp": 2
+            },
+            "count": 1,
+            "id": 229,
+            "name": "Crowbar",
+            "type": "gear",
+            "weight": {
+                "lb": 5.0
+            }
+        },
+        {
+            "cost": {
+                "gp": 1
+            },
+            "count": 1,
+            "id": 237,
+            "name": "Hammer",
+            "type": "gear",
+            "weight": {
+                "lb": 3.0
+            }
+        },
+        {
+            "cost": {
+                "cp": 5
+            },
+            "count": 10,
+            "id": 263,
+            "name": "Piton",
+            "type": "gear",
+            "weight": {
+                "lb": 0.25
+            }
+        },
+        {
+            "cost": {
+                "cp": 1
+            },
+            "count": 10,
+            "id": 287,
+            "name": "Torch",
+            "type": "gear",
+            "weight": {
+                "lb": 1.0
+            }
+        },
+        {
+            "cost": {
+                "sp": 5
+            },
+            "count": 1,
+            "id": 286,
+            "name": "Tinderbox",
+            "type": "gear",
+            "weight": {
+                "lb": 1.0
+            }
+        },
+        {
+            "cost": {
+                "sp": 5
+            },
+            "count": 10,
+            "id": 271,
+            "name": "Rations (1 day)",
+            "type": "gear",
+            "weight": {
+                "lb": 2.0
+            }
+        },
+        {
+            "cost": {
+                "sp": 2
+            },
+            "count": 1,
+            "id": 289,
+            "name": "Waterskin",
+            "type": "gear",
+            "weight": {
+                "lb": 5.0
+            }
+        },
+        {
+            "cost": {
+                "gp": 1
+            },
+            "count": 1,
+            "id": 273,
+            "name": "Rope, hempen (50 feet)",
+            "type": "gear",
+            "weight": {
+                "lb": 10.0
+            }
+        }
+    ],
+    "gender": "male",
+    "hit_points": 12,
+    "info": {
+        "Darkvision": "Accustomed to life underground, you have\nsuperior vision in dark and dim conditions. You can see\nin dim light within 60 feet of you as if it were bright light,\nand in darkness as if it were dim light. You can\u2019t discern\ncolor in darkness, only shades of gray.",
+        "Defense": "When a creature you can see attacks a target other than\nyou that is within 5 feet of you, you can use your *reaction*\nto impose **disadvantage** on the attack roll. You must be\nwielding a shield.",
+        "Dwarven Resilience": "You have advantage on saving\nthrows against poison, and you have resistance against\npoison damage (explained in chapter 9).",
+        "Feature: Military Rank": "You have a military rank from your career as a soldier.\nSoldiers loyal to your former military organization still\nrecognize your authority and influence, and they defer to\nyou if they are of a lower rank. You can invoke your rank\nto exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also\nusually gain access to friendly military encampments and\nfortresses where your rank is recognized.",
+        "Specialty": "Quartermaster",
+        "Speed": "Your *speed* is not reduced by wearing **heavy armor**.",
+        "Stonecunning": "Whenever you make an *Intelligence\n(History)* check related to the origin of stonework, you are\nconsidered proficient in the *History* skill and add double\nyour proficiency bonus to the check, instead of your normal proficiency bonus."
+    },
+    "initiative_bonus": 2,
+    "items": {
+        "artisan": [],
+        "gaming": [
+            {
+                "cost": {},
+                "count": 1,
+                "id": 78,
+                "name": "Dice set",
+                "type": "gaming",
+                "weight": {},
+                "worth": {
+                    "gp": 1
+                }
+            },
+            {
+                "cost": {},
+                "count": 1,
+                "id": 80,
+                "name": "Playing card set",
+                "type": "gaming",
+                "weight": {},
+                "worth": {
+                    "sp": 5
+                }
+            }
+        ],
+        "gear": [
+            {
+                "cost": {},
+                "count": 1,
+                "id": 296,
+                "name": "Small knife",
+                "type": "gear",
+                "weight": {
+                    "lb": 1.0
+                }
+            },
+            {
+                "cost": {
+                    "sp": 5
+                },
+                "count": 1,
+                "id": 224,
+                "name": "Clothes, common",
+                "type": "gear",
+                "weight": {
+                    "lb": 3.0
+                }
+            },
+            {
+                "cost": {
+                    "sp": 5
+                },
+                "count": 1,
+                "id": 268,
+                "name": "Pouch",
+                "type": "gear",
+                "weight": {
+                    "lb": 1.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 2
+                },
+                "count": 1,
+                "id": 205,
+                "name": "Backpack",
+                "type": "gear",
+                "weight": {
+                    "lb": 5.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 2
+                },
+                "count": 1,
+                "id": 229,
+                "name": "Crowbar",
+                "type": "gear",
+                "weight": {
+                    "lb": 5.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 1
+                },
+                "count": 1,
+                "id": 237,
+                "name": "Hammer",
+                "type": "gear",
+                "weight": {
+                    "lb": 3.0
+                }
+            },
+            {
+                "cost": {
+                    "cp": 5
+                },
+                "count": 10,
+                "id": 263,
+                "name": "Piton",
+                "type": "gear",
+                "weight": {
+                    "lb": 0.25
+                }
+            },
+            {
+                "cost": {
+                    "cp": 1
+                },
+                "count": 10,
+                "id": 287,
+                "name": "Torch",
+                "type": "gear",
+                "weight": {
+                    "lb": 1.0
+                }
+            },
+            {
+                "cost": {
+                    "sp": 5
+                },
+                "count": 1,
+                "id": 286,
+                "name": "Tinderbox",
+                "type": "gear",
+                "weight": {
+                    "lb": 1.0
+                }
+            },
+            {
+                "cost": {
+                    "sp": 5
+                },
+                "count": 10,
+                "id": 271,
+                "name": "Rations (1 day)",
+                "type": "gear",
+                "weight": {
+                    "lb": 2.0
+                }
+            },
+            {
+                "cost": {
+                    "sp": 2
+                },
+                "count": 1,
+                "id": 289,
+                "name": "Waterskin",
+                "type": "gear",
+                "weight": {
+                    "lb": 5.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 1
+                },
+                "count": 1,
+                "id": 273,
+                "name": "Rope, hempen (50 feet)",
+                "type": "gear",
+                "weight": {
+                    "lb": 10.0
+                }
+            }
+        ],
+        "kit": [],
+        "musical": [],
+        "trinket": [
+            {
+                "cost": {},
+                "count": 1,
+                "id": 133,
+                "name": "A rank insignia from a lost legionnaire",
+                "type": "trinket",
+                "weight": {}
+            }
+        ]
+    },
+    "languages": [],
+    "passive_perception": 10,
+    "personality": {
+        "bonds": "Those who fight beside me are those worth dying for.",
+        "flaws": "I\u2019d rather eat my armor than admit when I\u2019m wrong",
+        "ideals": "*Greater Good*. Our lot is to lay down our lives in defense of others. (Good)",
+        "traits": "I\u2019m full of inspiring and cautionary tales from my military experience relevant to almost every combat situation."
+    },
+    "proficiencies": {
+        "advantages": [],
+        "armor": [
+            {
+                "id": "light",
+                "name": "Light Armor",
+                "type": "armor_types"
+            },
+            {
+                "id": "medium",
+                "name": "Medium Armor",
+                "type": "armor_types"
+            },
+            {
+                "id": "heavy",
+                "name": "Heavy Armor",
+                "type": "armor_types"
+            },
+            {
+                "id": "shield",
+                "name": "Shields",
+                "type": "armor_types"
+            }
+        ],
+        "expertise": [],
+        "saving_throws": [
+            {
+                "description": "Strength is being able to crush a tomato.",
+                "id": "strength",
+                "name": "Strength",
+                "prio": 1,
+                "short": "Str",
+                "type": "statistics"
+            },
+            {
+                "description": "Constitution is being able to eat a bad tomato.",
+                "id": "constitution",
+                "name": "Constitution",
+                "prio": 3,
+                "short": "Con",
+                "type": "statistics"
+            }
+        ],
+        "skills": [
+            {
+                "id": "athletics",
+                "name": "Athletics",
+                "stat": "strength",
+                "type": "skills"
+            },
+            {
+                "id": "intimidation",
+                "name": "Intimidation",
+                "stat": "charisma",
+                "type": "skills"
+            },
+            {
+                "id": "perception",
+                "name": "Perception",
+                "stat": "wisdom",
+                "type": "skills"
+            },
+            {
+                "id": "survival",
+                "name": "Survival",
+                "stat": "wisdom",
+                "type": "skills"
+            }
+        ],
+        "talent": [],
+        "tools": [
+            {
+                "id": "common",
+                "name": "Common",
+                "type": "languages"
+            },
+            {
+                "id": "dwarvish",
+                "name": "Dwarvish",
+                "type": "languages"
+            }
+        ],
+        "weapons": [
+            {
+                "cost": {
+                    "gp": 10
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 8,
+                    "type": "slashing"
+                },
+                "id": 16,
+                "name": "Battleaxe",
+                "property": [
+                    "versatile"
+                ],
+                "type": "martial melee",
+                "versatile": {
+                    "dice_count": 1,
+                    "dice_size": 10,
+                    "type": "slashing"
+                },
+                "weight": {
+                    "lb": 4.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 5
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 6,
+                    "type": "slashing"
+                },
+                "id": 4,
+                "name": "Handaxe",
+                "property": [
+                    "light",
+                    "thrown"
+                ],
+                "range": {
+                    "max": 60,
+                    "min": 20
+                },
+                "type": "simple melee",
+                "weight": {
+                    "lb": 2.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 2
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 4,
+                    "type": "bludgeoning"
+                },
+                "id": 6,
+                "name": "Light Hammer",
+                "property": [
+                    "light",
+                    "thrown"
+                ],
+                "range": {
+                    "max": 60,
+                    "min": 20
+                },
+                "type": "simple melee",
+                "weight": {
+                    "lb": 2.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 15
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 8,
+                    "type": "bludgeoning"
+                },
+                "id": 32,
+                "name": "Warhammer",
+                "property": [
+                    "versatile"
+                ],
+                "type": "martial melee",
+                "versatile": {
+                    "dice_count": 1,
+                    "dice_size": 10,
+                    "type": "bludgeoning"
+                },
+                "weight": {
+                    "lb": 2.0
+                }
+            },
+            {
+                "id": "simple melee",
+                "name": "Simple Melee Weapon",
+                "short": "Melee",
+                "type": "weapon_types"
+            },
+            {
+                "id": "simple ranged",
+                "name": "Simple Ranged Weapon",
+                "short": "Ranged",
+                "type": "weapon_types"
+            },
+            {
+                "id": "martial melee",
+                "name": "Martial Melee Weapon",
+                "short": "Melee",
+                "type": "weapon_types"
+            },
+            {
+                "id": "martial ranged",
+                "name": "Martial Ranged Weapon",
+                "short": "Ranged",
+                "type": "weapon_types"
+            }
+        ]
+    },
+    "proficiency": 2,
+    "race": "Dwarf",
+    "saving_throws": {
+        "charisma": -1,
+        "constitution": 2,
+        "dexterity": 2,
+        "intelligence": 1,
+        "strength": 3,
+        "wisdom": 0
+    },
+    "size": "medium",
+    "skills": {
+        "acrobatics": 2,
+        "animal handling": 0,
+        "arcana": 1,
+        "athletics": 3,
+        "deception": -1,
+        "history": 1,
+        "insight": 0,
+        "intimidation": -1,
+        "investigation": 1,
+        "medicine": 0,
+        "nature": 1,
+        "perception": 0,
+        "performance": -1,
+        "persuasion": -1,
+        "religion": 1,
+        "sleight of hand": 2,
+        "stealth": 2,
+        "survival": 0
+    },
+    "speed": 25,
+    "spell": {
+        "attack_modifier": 0,
+        "cantrips": [],
+        "expanded": [],
+        "level": {},
+        "list": [],
+        "max_cantrips": 0,
+        "max_known": 0,
+        "max_prepared": 0,
+        "prepared": [],
+        "safe_dc": 0,
+        "slots": {}
+    },
+    "statistics": {
+        "bare": {
+            "charisma": 8,
+            "constitution": 13,
+            "dexterity": 14,
+            "intelligence": 12,
+            "strength": 15,
+            "wisdom": 10
+        },
+        "base": {
+            "charisma": 8,
+            "constitution": 15,
+            "dexterity": 14,
+            "intelligence": 12,
+            "strength": 17,
+            "wisdom": 10
+        },
+        "bonus": {
+            "charisma": [],
+            "constitution": [
+                2
+            ],
+            "dexterity": [],
+            "intelligence": [],
+            "strength": [
+                2
+            ],
+            "wisdom": []
+        },
+        "modifiers": {
+            "charisma": -1,
+            "constitution": 2,
+            "dexterity": 2,
+            "intelligence": 1,
+            "strength": 3,
+            "wisdom": 0
+        }
+    },
+    "sub": {
+        "dwarf": {
+            "level": 1,
+            "leveling": [
+                {
+                    "hidden": true,
+                    "path": "sub.dwarf.level",
+                    "type": "value",
+                    "uuid": "04a36959-dbb9-43f6-a9c4-c0f545fd2cfb",
+                    "value": 2,
+                    "value_formula": "sub.dwarf.level + 1"
+                }
+            ]
+        },
+        "fighter": {
+            "hit_dice": 10,
+            "level": 1,
+            "leveling": [
+                {
+                    "hidden": true,
+                    "path": "sub.fighter.level",
+                    "type": "value",
+                    "uuid": "af2246db-9d14-4aab-b146-38729eba6917",
+                    "value": 2,
+                    "value_formula": "sub.fighter.level + 1"
+                }
+            ]
+        },
+        "mountaindwarf": {
+            "level": 1,
+            "leveling": [
+                {
+                    "hidden": true,
+                    "path": "sub.mountaindwarf.level",
+                    "type": "value",
+                    "uuid": "803b7e5d-e2d3-4079-a29f-0505b5d1bae0",
+                    "value": 2,
+                    "value_formula": "sub.mountaindwarf.level + 1"
+                }
+            ]
+        }
+    },
+    "subrace": "Mountain Dwarf",
+    "treasure_checkpoints": {},
+    "unarmored": 12,
+    "version": "1.0",
+    "wealth": {
+        "cp": 0,
+        "ep": 0,
+        "gp": 10,
+        "pp": 0,
+        "sp": 0
+    },
+    "weapon": [],
+    "weapons": [
+        {
+            "bonus": 5,
+            "cost": {
+                "gp": 5
+            },
+            "count": 2,
+            "damage": {
+                "bonus": 3,
+                "dice_count": 1,
+                "dice_size": 6,
+                "notation": "1d6+3",
+                "type": "slashing",
+                "type_label": "Slashing",
+                "type_short": "Slsh"
+            },
+            "id": 4,
+            "name": "Handaxe",
+            "property": [
+                "light",
+                "thrown"
+            ],
+            "range": {
+                "max": 60,
+                "min": 20
+            },
+            "type": "simple melee",
+            "weight": {
+                "lb": 2.0
+            }
+        }
+    ],
+    "xp": 0,
+    "xp_level": 300,
+    "xp_progress": 0
+}
