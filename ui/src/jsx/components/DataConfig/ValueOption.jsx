@@ -21,6 +21,7 @@ export class ValueOption extends React.Component
         const { uuid = uuidv4() } = props;
         this.state = { uuid };
         this.onFieldChange = this.onFieldChange.bind(this);
+        this.onToggleFormula = this.onToggleFormula.bind(this);
         this.onValueChange = this.onValueChange.bind(this);
         this.memoize = memoize.bind(this);
     }
@@ -35,6 +36,33 @@ export class ValueOption extends React.Component
                 [field]: value,
             });
         });
+    }
+
+    onToggleFormula(field) {
+        const { uuid, old_value, old_formula = '' } = this.state;
+        const { setState, value, value_formula } = this.props;
+
+        if (value_formula !== undefined) {
+            this.setState({
+                old_formula: value_formula,
+            });
+            setState({
+                type: this.optionType,
+                uuid,
+                value: old_value,
+                value_formula: undefined,
+            });
+        } else {
+            this.setState({
+                old_value: value,
+            });
+            setState({
+                type: this.optionType,
+                uuid,
+                value: undefined,
+                value_formula: old_formula,
+            });
+        }
     }
 
     onValueChange(value) {
@@ -52,7 +80,7 @@ export class ValueOption extends React.Component
 
     render() {
         const {
-            name, path, value, canBeHidden, hidden,
+            name, path, value, value_formula, canBeHidden, hidden,
         } = this.props;
 
         return (
@@ -67,12 +95,22 @@ export class ValueOption extends React.Component
                 </ControlGroup>
 
                 {canBeHidden ? (
-                    <ToggleSwitch
-                        checked={hidden}
-                        onChange={this.onFieldChange('hidden')}
-                        label="Hidden"
-                    />
+                    <ControlGroup>
+                        <ToggleSwitch
+                            checked={hidden}
+                            onChange={this.onFieldChange('hidden')}
+                            label="Hidden"
+                        />
+                    </ControlGroup>
                 ) : null}
+
+                <ControlGroup>
+                    <ToggleSwitch
+                        checked={value_formula !== undefined}
+                        onChange={this.onToggleFormula}
+                        label="Formula"
+                    />
+                </ControlGroup>
 
                 {!(canBeHidden && hidden) ? (
                     <ControlGroup label="Label">
@@ -85,14 +123,24 @@ export class ValueOption extends React.Component
                     </ControlGroup>
                 ) : null}
 
-                <ControlGroup label="Value">
-                    <MarkdownTextField
-                        placeholder="Value..."
-                        value={`${value}`}
-                        className="small"
-                        setState={this.onValueChange}
-                    />
-                </ControlGroup>
+                { value_formula !== undefined ? (
+                    <ControlGroup label="Value formula">
+                        <InputField
+                            placeholder="Value formula..."
+                            value={value_formula}
+                            setState={this.onFieldChange('value_formula')}
+                        />
+                    </ControlGroup>
+                ) : (
+                    <ControlGroup label="Value">
+                        <MarkdownTextField
+                            placeholder="Value..."
+                            value={`${value}`}
+                            className="small"
+                            setState={this.onValueChange}
+                        />
+                    </ControlGroup>
+                )}
             </FieldSet>
         );
     }
@@ -102,6 +150,7 @@ ValueOption.propTypes = {
     type: PropTypes.oneOf(['value']),
     path: PropTypes.string,
     value: PropTypes.any,
+    value_formula: PropTypes.string,
     setState: PropTypes.func.isRequired,
     name: PropTypes.string,
     hidden: PropTypes.bool,
@@ -111,6 +160,7 @@ ValueOption.propTypes = {
 ValueOption.defaultProps = {
     type: 'value',
     value: '',
+    value_formula: undefined,
     name: '',
     hidden: false,
     canBeHidden: true,

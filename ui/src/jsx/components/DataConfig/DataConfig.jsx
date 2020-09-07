@@ -1,19 +1,27 @@
 import React from 'react';
+import {
+    lowerCase,
+    startCase,
+} from 'lodash/fp';
 
 import { SelectListComponent } from '../ListComponent';
 
-import { uuidv4 } from './utils';
+import {
+    toDotCase,
+    toCamelCase,
+    uuidv4,
+} from './utils';
 import ASIOption from './ASIOption';
 import ChoiceOption from './ChoiceOption';
 import ConfigOption from './ConfigOption';
 import DictOption from './DictOption';
+import LevelingOption from './LevelingOption';
 import ListOption from './ListOption';
 import ManualValueOption from './ManualValueOption';
 import MultichoiceOption from './MultichoiceOption';
 import ObjectListOption from './ObjectListOption';
 import PermanentOption from './PermanentOption';
 import ValueOption from './ValueOption';
-
 
 export class DataConfig extends React.Component
 {
@@ -22,7 +30,7 @@ export class DataConfig extends React.Component
         {
             id: 'ability_score',
             name: 'Ability Score Improvement',
-            initialItem: () => ({
+            initialItem: ({ configType, configStat }) => ({
                 uuid: uuidv4(),
                 name: "Ability Score Improvement",
                 description: "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
@@ -34,7 +42,7 @@ export class DataConfig extends React.Component
             id: 'dict',
             name: 'Dictionary option',
             component: DictOption,
-            initialItem: () => ({
+            initialItem: ({ configType, configStat }) => ({
                 uuid: uuidv4(),
                 dict: {
                     description: "",
@@ -55,6 +63,16 @@ export class DataConfig extends React.Component
             id: 'list',
             name: 'List option',
             component: ListOption,
+        },
+        {
+            id: 'leveling',
+            name: 'Leveling option',
+            component: LevelingOption,
+            initialItem: ({ configType, configStat }) => ({
+                uuid: uuidv4(),
+                type: 'leveling',
+                path: toDotCase(['sub', configType, 'leveling']),
+            }),
         },
         {
             id: 'manual',
@@ -89,16 +107,16 @@ export class DataConfig extends React.Component
                     id: 'asi',
                     name: 'Ability Score Increase',
                     component: ConfigOption,
-                    initialItem: () => ({
+                    initialItem: ({ configType, configStat }) => ({
                         uuid: uuidv4(),
                         type: 'config',
                         name: "Ability Score Increase",
-                        description: "Your **STAT** score increases by `AMOUNT`.",
+                        description: `Your **STAT** score increases by \`AMOUNT\`.`,
                         config: [
                             {
                                 uuid: uuidv4(),
                                 type: "list",
-                                path: "statistics.bonus.STAT",
+                                path: 'statistics.bonus.STAT',
                                 hidden: true,
                                 multiple: true,
                             },
@@ -109,7 +127,7 @@ export class DataConfig extends React.Component
                     id: 'asi or feat',
                     name: 'ASI or Feat',
                     component: ChoiceOption,
-                    initialItem: () => ({
+                    initialItem: ({ configType, configStat }) => ({
                         uuid: uuidv4(),
                         type: 'choice',
                         name: "ASI or Feat",
@@ -136,7 +154,7 @@ export class DataConfig extends React.Component
                     id: 'darkvision',
                     name: "Darkvision",
                     component: ValueOption,
-                    initialItem: () => ({
+                    initialItem: ({ configType, configStat }) => ({
                         uuid: uuidv4(),
                         type: "value",
                         path: "info.Darkvision",
@@ -148,7 +166,7 @@ export class DataConfig extends React.Component
                     id: 'equipment',
                     name: "Equipment",
                     component: ObjectListOption,
-                    initialItem: () => ({
+                    initialItem: ({ configType, configStat }) => ({
                         uuid: uuidv4(),
                         type: "objectlist",
                         path: "equipment",
@@ -161,7 +179,7 @@ export class DataConfig extends React.Component
                     id: 'equipment packs',
                     name: "Equipment Packs",
                     component: ChoiceOption,
-                    initialItem: () => ({
+                    initialItem: ({ configType, configStat }) => ({
                         uuid: uuidv4(),
                         type: "choice",
                         name: "Equipment Packs",
@@ -180,16 +198,16 @@ export class DataConfig extends React.Component
                     id: "hit dice",
                     name: "Hit Dice",
                     component: ConfigOption,
-                    initialItem: () => ({
+                    initialItem: ({ configType, configStat }) => ({
                         uuid: uuidv4(),
                         type: "config",
                         name: "Hit Dice",
-                        description: "`1d#` per **CLASS** level",
+                        description: `\`1d#\` per **${configType}** level`,
                         config: [
                             {
                                 uuid: uuidv4(),
                                 type: "value",
-                                path: "sub.CLASS.hit_dice",
+                                path: toDotCase(['sub', configType, 'hit_dice']),
                                 hidden: true,
                                 value: 0,
                             },
@@ -205,7 +223,7 @@ export class DataConfig extends React.Component
                                         path: "computed.hit_points.formulas",
                                         hidden: true,
                                         given: [
-                                            "sub.CLASS.hit_dice",
+                                            toDotCase(['sub', configType, 'hit_dice']),
                                         ],
                                     },
                                     {
@@ -215,7 +233,7 @@ export class DataConfig extends React.Component
                                         hidden: true,
                                         multiple: true,
                                         given: [
-                                            "statistics.bonus.constitution * character.level",
+                                            "statistics.modifiers.constitution * character.level",
                                         ],
                                     },
                                 ],
@@ -231,14 +249,14 @@ export class DataConfig extends React.Component
                                 uuid: uuidv4(),
                                 type: "config",
                                 name: "Hit Points at Higher Levels",
-                                description: "`1d#` (`#`) + your **Constitution modifier** per **CLASS** level after 1st",
+                                description: `\`1d#\` (\`#\`) + your **Constitution modifier** per level after 1st`,
                                 config: [
                                     {
                                         uuid: uuidv4(),
                                         type: "list",
                                         path: "computed.hit_points.bonus",
                                         given: [
-                                            "# * (sub.CLASS.level - 1)",
+                                            `# * (${toDotCase(['sub', configType, 'hit_dice'])} - 1)`,
                                         ],
                                         hidden: true,
                                         multiple: true,
@@ -252,7 +270,7 @@ export class DataConfig extends React.Component
                     id: 'personalities',
                     name: 'Personalities',
                     component: ConfigOption,
-                    initialItem: () => ({
+                    initialItem: ({ configType, configStat }) => ({
                         uuid: uuidv4(),
                         type: 'config',
                         name: "Suggested Characteristics",
@@ -293,7 +311,7 @@ export class DataConfig extends React.Component
                             id: 'proficiencies.armor',
                             name: "Armor Proficiency",
                             component: ObjectListOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "objectlist",
                                 path: "proficiencies.armor",
@@ -305,7 +323,7 @@ export class DataConfig extends React.Component
                             id: 'proficiencies.weapons',
                             name: "Weapon Proficiency",
                             component: ObjectListOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "objectlist",
                                 path: "proficiencies.weapons",
@@ -317,7 +335,7 @@ export class DataConfig extends React.Component
                             id: 'proficiencies.languages',
                             name: "Language Proficiency",
                             component: ObjectListOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "objectlist",
                                 name: "Languages",
@@ -329,7 +347,7 @@ export class DataConfig extends React.Component
                             id: 'proficiencies.saving_throws',
                             name: "Saving Throws",
                             component: ObjectListOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "objectlist",
                                 name: "Saving Throws",
@@ -341,7 +359,7 @@ export class DataConfig extends React.Component
                             id: "proficiencies.expertise",
                             name: "Expertise (Double Proficiency)",
                             component: ObjectListOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "objectlist",
                                 name: "Expertise (Double Proficiency)",
@@ -353,7 +371,7 @@ export class DataConfig extends React.Component
                             id: "proficiencies.skills",
                             name: "Skill Proficiency",
                             component: ObjectListOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "objectlist",
                                 name: "Skill Proficiency",
@@ -365,7 +383,7 @@ export class DataConfig extends React.Component
                             id: "proficiencies.talent",
                             name: "Talent (Half Proficiency)",
                             component: ObjectListOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "objectlist",
                                 name: "Talent (Half Proficiency)",
@@ -377,7 +395,7 @@ export class DataConfig extends React.Component
                             id: 'proficiencies.tools',
                             name: "Tool Proficiency",
                             component: ObjectListOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "objectlist",
                                 path: "proficiencies.tools",
@@ -391,7 +409,7 @@ export class DataConfig extends React.Component
                     id: 'size',
                     name: "Size",
                     component: ValueOption,
-                    initialItem: () => ({
+                    initialItem: ({ configType, configStat }) => ({
                         uuid: uuidv4(),
                         type: "config",
                         name: "Size",
@@ -410,7 +428,7 @@ export class DataConfig extends React.Component
                     id: 'speed',
                     name: "Speed",
                     component: ValueOption,
-                    initialItem: () => ({
+                    initialItem: ({ configType, configStat }) => ({
                         uuid: uuidv4(),
                         type: "config",
                         name: "Speed",
@@ -433,7 +451,7 @@ export class DataConfig extends React.Component
                             id: 'ability',
                             name: "Spellcasting Ability",
                             component: ConfigOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "config",
                                 name: "Spellcasting Ability",
@@ -441,37 +459,37 @@ export class DataConfig extends React.Component
                                     {
                                         uuid: uuidv4(),
                                         type: "value",
-                                        path: "sub.CLASS.spell.stat",
+                                        path: toDotCase(['sub', configType, 'spell', 'stat']),
                                         hidden: true,
                                     },
                                     {
                                         uuid: uuidv4(),
                                         type: "config",
                                         name: "Spell save DC",
-                                        description: "`8` + your **Proficiency bonus** + your **Casting modifier**",
+                                        description: `\`8\` + your **Proficiency bonus** + your **${startCase(configStat)} modifier**`,
                                         config: [
                                             {
                                                 uuid: uuidv4(),
                                                 type: "list",
-                                                path: "computed.subClassSpellSafe_dc.formulas",
+                                                path: `computed.${toCamelCase(['sub', configType, 'spell', 'safe_dc'])}.formulas`,
                                                 hidden: true,
                                                 given: [
-                                                    "8 + character.proficiency + statistics.modifiers.STAT",
+                                                    `8 + character.proficiency + ${toDotCase(['statistics', 'modifiers', configStat])}`,
                                                 ],
                                             },
                                             {
                                                 uuid: uuidv4(),
                                                 type: "config",
-                                                description: "Your **proficiency bonus** + your **Casting modifier**",
+                                                description: `Your **Proficiency bonus** + your **${startCase(configStat)} modifier**`,
                                                 name: "Spell attack modifier",
                                                 config: [
                                                     {
                                                         uuid: uuidv4(),
                                                         type: "list",
                                                         hidden: true,
-                                                        path: "computed.subClassSpellAttack_modifier.formulas",
+                                                        path: `computed.${toCamelCase(['sub', configType, 'spell', 'attack_modifier'])}.formulas`,
                                                         given: [
-                                                            "character.proficiency + statistics.modifiers.STAT",
+                                                            `character.proficiency + ${toDotCase(['statistics', 'modifiers', configStat])}`,
                                                         ],
                                                     }
                                                 ],
@@ -485,10 +503,10 @@ export class DataConfig extends React.Component
                             id: 'cantrips',
                             name: "Cantrips",
                             component: ObjectListOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "objectlist",
-                                path: "sub.CLASS.spell.cantrips",
+                                path: toDotCase(['sub', configType, 'spell', 'cantrips']),
                                 name: "Cantrips",
                                 filter: [
                                     {
@@ -510,10 +528,10 @@ export class DataConfig extends React.Component
                             id: 'spell.list',
                             name: "Spells",
                             component: ObjectListOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "objectlist",
-                                path: "sub.CLASS.spell.list",
+                                path: toDotCase(['sub', configType, 'spell', 'list']),
                                 name: "Spells",
                                 list: [ "spell" ],
                             }),
@@ -522,7 +540,7 @@ export class DataConfig extends React.Component
                             id: 'casting',
                             name: "Casting Spells",
                             component: ValueOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "value",
                                 name: "Casting Spells",
@@ -533,7 +551,7 @@ export class DataConfig extends React.Component
                             id: 'focus',
                             name: "Spellcasting Focus",
                             component: ValueOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "value",
                                 path: "info.Spellcasting Focus",
@@ -544,15 +562,15 @@ export class DataConfig extends React.Component
                             id: "preparing",
                             name: "Preparing Spells",
                             component: ValueOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "dict",
                                 name: "Preparing Spells",
                                 path: "abilities.Preparing Spells",
                                 dict: {
                                     description: "You prepare the list of spells that are available for you to cast, choosing from your spell list. When you do so, choose a number of spells equal to %(limit)s.\nThe spells must be of a level for which you have spell slots.\n\nYou can change your list of prepared spells when you finish a long rest.",
-                                    limit_default: "your **Spellcasting modifier** + your class level (minimum of one spell)",
-                                    limit_formula: "max(1, sub.CLASS.level + statistics.modifiers.STAT)",
+                                    limit_default: `your **Spellcasting modifier** + your **${configType}** level (minimum of one spell)`,
+                                    limit_formula: `max(1, ${toDotCase(['sub', configType, 'level'])} + ${toDotCase(['statistics', 'modifiers', configStat])}`,
                                 },
                             }),
                         },
@@ -560,7 +578,7 @@ export class DataConfig extends React.Component
                             id: 'ritual',
                             name: "Ritual Casting",
                             component: ValueOption,
-                            initialItem: () => ({
+                            initialItem: ({ configType, configStat }) => ({
                                 uuid: uuidv4(),
                                 type: "value",
                                 path: "info.Ritual Casting",

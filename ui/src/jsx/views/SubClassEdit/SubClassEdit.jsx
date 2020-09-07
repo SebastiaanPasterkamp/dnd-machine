@@ -26,6 +26,8 @@ import {
     DataConfig,
     ListConditions,
     PhasePanel,
+    toDotCase,
+    updatePath,
     uuidv4,
 } from '../../components/DataConfig';
 
@@ -52,6 +54,8 @@ export class SubClassEdit extends React.Component
             subclass_level,
             class_caster_rank,
         };
+        this.onNameChange = this.onNameChange.bind(this);
+        this.onClassChange = this.onClassChange.bind(this);
         this.onFeaturesChange = this.onFeaturesChange.bind(this);
         this.memoize = memoize.bind(this);
     }
@@ -62,12 +66,12 @@ export class SubClassEdit extends React.Component
                 return null;
             }
             const { name: subclass } = this.props;
-            const levelPath = `sub.${subclass.toLowerCase()}.level`;
+            const levelPath = toDotCase(['sub', subclass, 'level']);
 
             return ({
                 name: `${subclass} ${level}`,
                 conditions: [
-                    {path: levelPath, type: 'gte', value: level },
+                    {path: levelPath, type: 'gte', value: level - 1 },
                 ],
                 config: [
                     {
@@ -89,6 +93,46 @@ export class SubClassEdit extends React.Component
             type: this.optionType,
             uuid,
             features: {...previous, ...update},
+        });
+    }
+
+    onNameChange(name) {
+        const { uuid: stateUUID } = this.state;
+        const {
+            setState, uuid = stateUUID,
+            name: oldName, conditions, config, phases,
+        } = this.props;
+        setState({
+            type: this.optionType,
+            uuid,
+            name,
+            ...updatePath(
+                ['sub', oldName],
+                ['sub', name],
+                {
+                    conditions,
+                    config,
+                    phases,
+                }
+            ),
+        });
+    }
+
+    onClassChange(class_id) {
+        const { uuid: stateUUID } = this.state;
+        const { setState, uuid = stateUUID, classes, caster_rank } = this.props;
+        const {
+            subclass_level = 1,
+            caster_rank: class_caster_rank = 0,
+        } = find({ id: class_id }, classes) || {};
+
+        setState({
+            type: this.optionType,
+            uuid,
+            class_id,
+            subclass_level,
+            class_caster_rank,
+            caster_rank: class_caster_rank > 0 ? 0 : caster_rank,
         });
     }
 
@@ -167,7 +211,7 @@ export class SubClassEdit extends React.Component
                         <SingleSelect
                             selected={class_id}
                             items={classes}
-                            setState={this.onFieldChange('class_id')}
+                            setState={this.onClassChange}
                         />
                     </ControlGroup>
 
@@ -175,7 +219,7 @@ export class SubClassEdit extends React.Component
                         <InputField
                             placeholder="Sub Class..."
                             value={name}
-                            setState={this.onFieldChange('name')}
+                            setState={this.onNameChange}
                         />
                     </ControlGroup>
 
@@ -228,6 +272,7 @@ export class SubClassEdit extends React.Component
                         <DataConfig
                             list={config}
                             setState={this.onFieldChange('config')}
+                            configType={name}
                         />
                         {map(
                             (index) =>(<PhasePanel
@@ -235,6 +280,7 @@ export class SubClassEdit extends React.Component
                                 initPhase={this.initPhase(index + 1 + subclass_level)}
                                 {...phases[index]}
                                 setState={this.onPhaseChange(index)}
+                                configType={name}
                             />)
                         )(range(0, levels.length-1))}
                     </TabComponent>
@@ -261,7 +307,29 @@ SubClassEdit.defaultProps = {
     name: '',
     description: '',
     caster_rank: 0,
-    config: [],
+    config: [
+        {
+            hidden: true,
+            path: 'sub..level',
+            type: "value",
+            uuid: uuidv4(),
+            value: 1,
+        },
+        {
+            hidden: true,
+            type: "leveling",
+            uuid: uuidv4(),
+            config: [
+                {
+                    hidden: true,
+                    path: 'sub..level',
+                    type: "value",
+                    uuid: uuidv4(),
+                    value_formula: "sub..level + 1",
+                },
+            ],
+        },
+    ],
     phases: [],
     classes: [],
 };

@@ -49,7 +49,10 @@ export class PhasePanel extends React.PureComponent
     }
 
     render() {
-        const { name, description, config, conditions } = this.props;
+        const {
+            uuid, name, description, config, conditions,
+            setState, initPhase, ...props,
+        } = this.props;
 
         return (
             <React.Fragment>
@@ -86,6 +89,7 @@ export class PhasePanel extends React.PureComponent
                     <DataConfig
                         list={config}
                         setState={this.onFieldChange('config')}
+                        {...props}
                     />
                 </FieldSet>
             </React.Fragment>

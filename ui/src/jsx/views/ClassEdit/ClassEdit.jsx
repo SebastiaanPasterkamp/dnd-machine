@@ -26,6 +26,8 @@ import {
     DataConfig,
     ListConditions,
     PhasePanel,
+    toDotCase,
+    updatePath,
     uuidv4,
 } from '../../components/DataConfig';
 
@@ -42,6 +44,7 @@ export class ClassEdit extends React.Component
                 (level) => ({ name: `${level}` })
             )(range(1, 20)),
         };
+        this.onNameChange = this.onNameChange.bind(this);
         this.onFeaturesChange = this.onFeaturesChange.bind(this);
         this.memoize = memoize.bind(this);
     }
@@ -52,12 +55,12 @@ export class ClassEdit extends React.Component
                 return null;
             }
             const { name: _class } = this.props;
-            const levelPath = `sub.${_class.toLowerCase()}.level`;
+            const levelPath = toDotCase(['sub', _class, 'level']);
 
             return ({
                 name: `${_class} ${level}`,
                 conditions: [
-                    {path: levelPath, type: 'gte', value: level },
+                    {path: levelPath, type: 'gte', value: level - 1 },
                 ],
                 config: [
                     {
@@ -72,13 +75,35 @@ export class ClassEdit extends React.Component
         });
     }
 
-    onFeaturesChange(features) {
+    onFeaturesChange(update) {
         const { uuid: stateUUID } = this.state;
         const { setState, features: previous, uuid = stateUUID } = this.props;
         setState({
             type: this.optionType,
             uuid,
             features: {...previous, ...update},
+        });
+    }
+
+    onNameChange(name) {
+        const { uuid: stateUUID } = this.state;
+        const {
+            setState, uuid = stateUUID,
+            name: oldName, conditions, config, phases,
+        } = this.props;
+        setState({
+            type: this.optionType,
+            uuid,
+            name,
+            ...updatePath(
+                ['sub', oldName],
+                ['sub', name],
+                {
+                    conditions,
+                    config,
+                    phases,
+                }
+            ),
         });
     }
 
@@ -136,6 +161,7 @@ export class ClassEdit extends React.Component
             id, name, description, caster_rank, subclass_level,
             config, features, phases, conditions,
         } = this.props;
+        const { casting_stat } = features;
 
         return (
             <React.Fragment>
@@ -148,7 +174,7 @@ export class ClassEdit extends React.Component
                         <InputField
                             placeholder="Class..."
                             value={name}
-                            setState={this.onFieldChange('name')}
+                            setState={this.onNameChange}
                         />
                     </ControlGroup>
 
@@ -183,6 +209,7 @@ export class ClassEdit extends React.Component
                 { caster_rank > 0 ? (
                     <CasterPanel
                         {...features}
+                        configType={name}
                         setState={this.onFeaturesChange}
                     />
                 ) : null }
@@ -211,6 +238,8 @@ export class ClassEdit extends React.Component
                             key="phase-orig"
                             list={config}
                             setState={this.onFieldChange('config')}
+                            configType={name}
+                            configStat={casting_stat}
                         />
                         {map(
                             (index) =>(<PhasePanel
@@ -218,6 +247,8 @@ export class ClassEdit extends React.Component
                                 initPhase={this.initPhase(index + 2)}
                                 {...phases[index]}
                                 setState={this.onPhaseChange(index)}
+                                configType={name}
+                                configStat={casting_stat}
                             />)
                         )(range(0, levels.length-1))}
                     </TabComponent>
@@ -253,7 +284,15 @@ ClassEdit.defaultProps = {
     caster_rank: 0,
     subclass_level: 1,
     conditions: [],
-    config: [],
+    config: [
+        {
+            hidden: true,
+            path: 'sub..level',
+            type: "value",
+            uuid: uuidv4(),
+            value: 1,
+        },
+    ],
     phases: [],
     features: {},
 };
