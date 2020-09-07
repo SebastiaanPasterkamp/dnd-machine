@@ -67,6 +67,7 @@ const ComponentMap = {
     choice: ChoiceSelect,
     config: CharacterConfig,
     dict: DictPropertySelect,
+    leveling: function() { return null; },
     list: ListPropertySelect,
     manual: ManualInputSelect,
     multichoice: MultipleChoiceSelect,

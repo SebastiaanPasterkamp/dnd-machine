@@ -55,7 +55,7 @@ export default function ComputeChange(changes, original) {
                 return computed;
             }
 
-            if (option.type === 'list') {
+            if (includes(option.type, ['leveling', 'list'])) {
                 const {
                     [option.path]: current = get(option.path, original) || [],
                 } = computed;

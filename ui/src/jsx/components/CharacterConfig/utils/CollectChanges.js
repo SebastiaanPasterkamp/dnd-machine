@@ -64,7 +64,7 @@ export default function CollectChanges(config, choices, path) {
                 };
             }
 
-            if (type === 'permanent') {
+            if (includes(type, ['leveling', 'permanent'])) {
                 const {
                     record: r,
                     changes: c,
