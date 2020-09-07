@@ -502,7 +502,7 @@ class CharacterObject(JsonObject):
             self.armor_class_bonus += armor.get('bonus', 0)
 
         known, prepared, cantrips, perLevel = [], [], [], {}
-        for sub, data in self.sub:
+        for sub, data in self.sub.items():
             spellData = data.get("spell", {})
             preparedSpells = set(spellData.get("prepared", []))
             cantrips = set(spellData.get("cantrips", []))
@@ -534,8 +534,8 @@ class CharacterObject(JsonObject):
                 perLevel[level] = perLevel.get(level, [])
                 perLevel[level].append(spell._config)
         self.spellLevel = perLevel
-        self.spellCantrips = cantrips
-        self.spellPrepared = prepared
+        self.spellCantrips = list(cantrips)
+        self.spellPrepared = list(prepared)
         self.spellList = known
 
         self.abilities = self._expandFormulas(self.abilities)
