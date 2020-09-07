@@ -12,6 +12,9 @@ import ListDataWrapper from '../../hocs/ListDataWrapper';
 import ControlGroup from '../ControlGroup';
 import InputField from '../InputField';
 import Panel from '../Panel';
+import SingleSelect from '../SingleSelect';
+
+import { toDotCase } from './utils';
 
 export const casterRanking = [
     { name: "Not a magic user", id: 0 },
@@ -68,6 +71,7 @@ export class CasterPanel extends React.Component
             max_cantrips_formula, max_cantrips,
             max_known_formula, max_known,
             max_prepared_formula, slots,
+            statistics, configType,
         } = this.props;
 
         return (
@@ -76,9 +80,17 @@ export class CasterPanel extends React.Component
                 className="class-edit__caster-panel"
                 header="Caster Table"
             >
+                <ControlGroup label="Casting Stat">
+                    <SingleSelect
+                        selected={casting_stat}
+                        items={statistics}
+                        setState={this.onFieldChange('casting_stat')}
+                    />
+                </ControlGroup>
+
                 <ControlGroup label="Max. Known cantrips formula">
                     <InputField
-                        placeholder="max(1, character.level + statistics.modifiers.wisdom)"
+                        placeholder={`max(1, ${toDotCase(['sub', configType, 'level'])} + ${toDotCase(['statistics', 'modifiers', casting_stat])})`}
                         value={max_cantrips_formula}
                         setState={this.onFieldChange('max_cantrips_formula')}
                     />
@@ -86,7 +98,7 @@ export class CasterPanel extends React.Component
 
                 <ControlGroup label="Max. known spells Formula">
                     <InputField
-                        placeholder="4 + 2 * character.level"
+                        placeholder={`4 + 2 * ${toDotCase(['sub', configType, 'level'])}`}
                         value={max_known_formula}
                         disabled={!!max_prepared_formula}
                         setState={this.onFieldChange('max_known_formula')}
@@ -95,7 +107,7 @@ export class CasterPanel extends React.Component
 
                 <ControlGroup label="Max. prepared spells formula">
                     <InputField
-                        placeholder="max(1, statistics.modifiers.charisma + floor(character.level / 2.0))"
+                        placeholder={`max(1, ${toDotCase(['statistics', 'modifiers', casting_stat])} + floor(${toDotCase(['sub', configType, 'level'])} / 2.0))`}
                         value={max_prepared_formula}
                         disabled={!!max_known_formula}
                         setState={this.onFieldChange('max_prepared_formula')}
