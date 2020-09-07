@@ -33,7 +33,7 @@ export class SelectListComponent extends React.Component
         const { id } = option;
         const { initialItem = {} } = option;
         const item = isFunction(initialItem)
-            ? initialItem()
+            ? initialItem(this.props)
             : initialItem;
         const update = [
             ...list,
