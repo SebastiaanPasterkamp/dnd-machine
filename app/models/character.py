@@ -9,7 +9,7 @@ class CharacterObject(JsonObject):
     _pathPrefix = "character"
     _defaultConfig = {
         "name": "",
-        "creation": [],
+        "choices": {},
         "race": "",
         "class": "",
         "background": "",
@@ -210,6 +210,7 @@ class CharacterObject(JsonObject):
                 },
             },
         "spell": {
+            "*": "auto",
             "safe_dc": int,
             "attack_modifier": int,
             "max_cantrips": int,
@@ -221,6 +222,7 @@ class CharacterObject(JsonObject):
             },
         "sub": {
             "spell": {
+                "*": "auto",
                 "safe_dc": int,
                 "attack_modifier": int,
                 "max_cantrips": int,
@@ -272,7 +274,7 @@ class CharacterObject(JsonObject):
             'user_id': self.user_id,
             'xp': self.xp,
             'adventure_checkpoints': self.adventure_checkpoints,
-            'choices': dict(self.choices),
+            'choices': self.choices,
             })
 
         changes = char._getChanges()
@@ -504,20 +506,21 @@ class CharacterObject(JsonObject):
         known, prepared, cantrips, perLevel = [], [], [], {}
         for sub, data in self.sub.items():
             spellData = data.get("spell", {})
-            preparedSpells = set(spellData.get("prepared", []))
-            cantrips = set(spellData.get("cantrips", []))
-            spells = set(spellData.get("list", [])).union(preparedSpells).union(cantrips)
+            preparedSpells = spellData.get("prepared", [])
+            cantrips = spellData.get("cantrips", [])
+            spells = spellData.get("list", []) + preparedSpells + cantrips
 
-            for spellId in spells:
-                spell = self.mapper.spell.getById(spellId)
-                if spell is None:
+            for spell in spells:
+                if isinstance(spell, dict):
+                    spell = self.mapper.spell.getById(spell.get("id"))
+                elif isinstance(spell, str):
                     objs = self.mapper.spell.getMultiple(
                         'name COLLATE nocase = :name',
-                        {'name': spellId}
+                        {'name': spell}
                         )
-                    if not len(objs):
-                        continue
-                    spell = objs[0]
+                    spell = next(objs, None)
+                if not isinstance(spell, dict):
+                    continue
                 level = "cantrip" \
                     if spell.level == "Cantrip" \
                     else "level_" + spell.level
