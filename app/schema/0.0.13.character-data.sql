@@ -4891,20 +4891,24 @@ INSERT INTO `class` (id, name, config)
                         {
                             "config": [
                                 {
+                                    "given": [
+                                        "8 + character.proficiency + statistics.modifiers.intelligence"
+                                    ],
                                     "hidden": true,
                                     "path": "computed.subWizardSpellSafe_dc.formulas",
-                                    "type": "value",
-                                    "uuid": "ca49b542-5855-411a-81f2-dfda7811124a",
-                                    "value": "8 + character.proficiency + statistics.modifiers.intelligence"
+                                    "type": "list",
+                                    "uuid": "ca49b542-5855-411a-81f2-dfda7811124a"
                                 },
                                 {
                                     "config": [
                                         {
+                                            "given": [
+                                                "character.proficiency + statistics.modifiers.intelligence"
+                                            ],
                                             "hidden": true,
                                             "path": "computed.subWizardSpellAttack_modifier.formulas",
-                                            "type": "value",
-                                            "uuid": "3cf908fd-9b3f-4915-90df-76ec1f766ba3",
-                                            "value": "character.proficiency + statistics.modifiers.intelligence"
+                                            "type": "list",
+                                            "uuid": "3cf908fd-9b3f-4915-90df-76ec1f766ba3"
                                         },
                                         {
                                             "name": "Ritual Casting",
