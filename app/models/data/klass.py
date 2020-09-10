@@ -46,6 +46,9 @@ class ClassObject(BaseDataObject):
                 "value": self.featuresProficiency[char.level-1],
                 "hidden": True,
                 })
+
+        # TODO: Move spell casting to base as it applies to sub classes too
+
         if self.featuresMax_cantrips_formula:
             config['config'].append({
                 "uuid": "8e57dc60-1546-4493-876d-85f612219fc3",

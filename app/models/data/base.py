@@ -1,3 +1,5 @@
+import re
+
 from ..base import JsonObject
 
 from models.character import CharacterObject
@@ -34,6 +36,11 @@ class BaseDataObject(JsonObject):
             for condition in conditions
             ),
         }
+
+    @property
+    def normalizedName(self):
+        name = self.name.lower()
+        return re.sub(r"[^a-z0-9]+", "", name)
 
     def _getChar(self, char):
         # default = level 1 , no creation history
@@ -92,26 +99,35 @@ class BaseDataObject(JsonObject):
         for phase in clone.get("phases", []):
             if not len(phase.get("config", [])):
                 continue
+
+            config = phase.get("config", [])
+            self._inlineIncludes(datamapper, config)
+            phase["config"] = config + self.collectLeveling(datamapper, char)
+
             if not self._meetsConditions(char, phase):
                 continue
-            config = {
+
+            return {
                 "uuid": phase["uuid"],
                 "type": "config",
                 "name": phase.get("name"),
                 "description": phase.get("description"),
-                "config": phase.get("config", []),
+                "config": phase["config"],
                 }
-            self._inlineIncludes(datamapper, config),
-            return config
 
+        if not self._meetsConditions(char, clone):
+            return {
+                "config": [],
+                }
         config = clone.get("config", [])
+        self._inlineIncludes(datamapper, config)
+
         config.insert(0, {
             "uuid": "pick-%s" % self.uuid,
             "path": self._pathPrefix,
             "type": "value",
             "value": self.name,
             })
-        self._inlineIncludes(datamapper, config)
         return {
             "uuid": self.uuid,
             "type": "config",
@@ -122,7 +138,7 @@ class BaseDataObject(JsonObject):
 
     def _meetsConditions(self, char, phase):
         # Already completed
-        if phase.get("uuid") in char.creation:
+        if phase.get("uuid") in char.choices:
             return False
 
         # Nothing to do
@@ -151,6 +167,7 @@ class BaseDataObject(JsonObject):
                     include.update(data)
                     data.update(include)
                 del data['include']
+
             if data.get('subtype', False):
                 data['options'] = []
                 if self._subtype and self._subkey:
@@ -165,8 +182,27 @@ class BaseDataObject(JsonObject):
                 if len(data['options']) == 0:
                     data['hidden'] = True
                 del data['subtype']
+
             for key, value in list(data.items()):
                 self._inlineIncludes(datamapper, value)
+
         if isinstance(data, list):
             for value in data:
                 self._inlineIncludes(datamapper, value)
+
+    def collectLeveling(self, datamapper, char):
+        config = char.getPath(['sub', self.normalizedName, 'leveling'], [])
+        self._prefixUUIDs(self.uuid, config)
+        self._inlineIncludes(datamapper, config)
+        return config
+
+    def _prefixUUIDs(self, uuid, data):
+        if isinstance(data, dict):
+            if "uuid" in data:
+                data["uuid"] = "%s.%s" % (uuid, data["uuid"])
+            for key, value in list(data.items()):
+                self._prefixUUIDs(uuid, value)
+
+        if isinstance(data, list):
+            for value in data:
+                self._prefixUUIDs(uuid, value)
