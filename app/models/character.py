@@ -63,7 +63,6 @@ class CharacterObject(JsonObject):
         "challenge": {},
         "skills": {},
         "equipment": [],
-        "weapon": [],
         "armor": [],
         "items": {
             "artisan": [],
