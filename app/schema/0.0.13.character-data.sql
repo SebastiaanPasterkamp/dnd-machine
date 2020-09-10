@@ -58,10 +58,6 @@ INSERT INTO `race` (id, name, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.dwarf.leveling",
-            "type": "leveling",
-            "uuid": "c9becef4-2f7e-46cd-b15b-f087493374f6",
             "given": [
                 {
                     "hidden": true,
@@ -70,7 +66,11 @@ INSERT INTO `race` (id, name, config)
                     "uuid": "04a36959-dbb9-43f6-a9c4-c0f545fd2cfb",
                     "value_formula": "sub.dwarf.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.dwarf.leveling",
+            "type": "leveling",
+            "uuid": "c9becef4-2f7e-46cd-b15b-f087493374f6"
         },
         {
             "config": [
@@ -248,10 +248,6 @@ INSERT INTO `race` (id, name, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.elf.leveling",
-            "type": "leveling",
-            "uuid": "17e430a1-d31b-421b-9de1-5509e9015637",
             "given": [
                 {
                     "hidden": true,
@@ -260,7 +256,11 @@ INSERT INTO `race` (id, name, config)
                     "uuid": "c8a78e10-2a9b-4174-b6d3-ae0855ff4b4e",
                     "value_formula": "sub.elf.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.elf.leveling",
+            "type": "leveling",
+            "uuid": "17e430a1-d31b-421b-9de1-5509e9015637"
         },
         {
             "config": [
@@ -394,10 +394,6 @@ INSERT INTO `race` (id, name, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.halfling.leveling",
-            "type": "leveling",
-            "uuid": "819efec1-7052-4018-ba7f-08bbdb52a9a6",
             "given": [
                 {
                     "hidden": true,
@@ -406,7 +402,11 @@ INSERT INTO `race` (id, name, config)
                     "uuid": "26911233-0f34-4993-9231-eecddf6850a0",
                     "value_formula": "sub.halfling.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.halfling.leveling",
+            "type": "leveling",
+            "uuid": "819efec1-7052-4018-ba7f-08bbdb52a9a6"
         },
         {
             "config": [
@@ -523,10 +523,6 @@ INSERT INTO `race` (id, name, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.human.leveling",
-            "type": "leveling",
-            "uuid": "1a4c28b6-7762-4c8f-a75e-d88654ca2442",
             "given": [
                 {
                     "hidden": true,
@@ -535,7 +531,11 @@ INSERT INTO `race` (id, name, config)
                     "uuid": "59e613da-192f-4b38-8486-875c380dfdfd",
                     "value_formula": "sub.human.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.human.leveling",
+            "type": "leveling",
+            "uuid": "1a4c28b6-7762-4c8f-a75e-d88654ca2442"
         },
         {
             "description": "In the Forgotten Realms, nine human ethnic groups\nare widely recognized, though over a dozen others are ",
@@ -682,10 +682,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.hilldwarf.leveling",
-            "type": "leveling",
-            "uuid": "8a5db494-fdf3-4a27-95c0-bd85f340d6c8",
             "given": [
                 {
                     "hidden": true,
@@ -694,7 +690,11 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "uuid": "89267565-216d-4b35-a618-004376ff47cf",
                     "value_formula": "sub.hilldwarf.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.hilldwarf.leveling",
+            "type": "leveling",
+            "uuid": "8a5db494-fdf3-4a27-95c0-bd85f340d6c8"
         },
         {
             "config": [
@@ -749,10 +749,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.mountaindwarf.leveling",
-            "type": "leveling",
-            "uuid": "c956d288-1a02-4a1f-8bde-b312be3b9d4d",
             "given": [
                 {
                     "hidden": true,
@@ -761,7 +757,11 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "uuid": "803b7e5d-e2d3-4079-a29f-0505b5d1bae0",
                     "value_formula": "sub.mountaindwarf.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.mountaindwarf.leveling",
+            "type": "leveling",
+            "uuid": "c956d288-1a02-4a1f-8bde-b312be3b9d4d"
         },
         {
             "config": [
@@ -776,7 +776,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "uuid": "65acafac-a57a-41f8-8258-6bb506f94d0c"
                 }
             ],
-            "description": "Your Strength score increases by 2.",
+            "description": "Your **Strength** score increases by 2.",
             "name": "Ability Score Increase",
             "type": "config",
             "uuid": "bbeb2291-4443-4dd6-a936-80ed1148862d"
@@ -820,10 +820,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.highelf.leveling",
-            "type": "leveling",
-            "uuid": "70ca225f-c594-443c-b643-a537f3bdcd61",
             "given": [
                 {
                     "hidden": true,
@@ -832,7 +828,11 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "uuid": "90ba0fec-5cbb-4b17-862c-e935a73549c4",
                     "value_formula": "sub.highelf.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.highelf.leveling",
+            "type": "leveling",
+            "uuid": "70ca225f-c594-443c-b643-a537f3bdcd61"
         },
         {
             "config": [
@@ -847,7 +847,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "uuid": "bfc80f5f-f645-403a-b766-1c37a2a504b5"
                 }
             ],
-            "description": "Your **Intelligence** score increases by .",
+            "description": "Your **Intelligence** score increases by `1`.",
             "name": "Ability Score Increase",
             "type": "config",
             "uuid": "6b6c4c62-23b4-4bc4-ae22-b331ec543ba7"
@@ -888,7 +888,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
             "config": [
                 {
                     "add": 1,
-                    "description": "You know one cantrip of your choice from the\nwizard spell list. **Intelligence** is your spellcasting ability for it.",
+                    "description": "You know one cantrip of your choice from the wizard spell list. **Intelligence** is your spellcasting ability for it.",
                     "filter": [
                         {
                             "field": "classes",
@@ -988,10 +988,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.woodelf.leveling",
-            "type": "leveling",
-            "uuid": "163729e1-80ef-48cf-81aa-6f813ce1f26f",
             "given": [
                 {
                     "hidden": true,
@@ -1000,7 +996,11 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "uuid": "d223ac4b-1fbf-4efd-ab73-3d253bbf3b21",
                     "value_formula": "sub.woodelf.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.woodelf.leveling",
+            "type": "leveling",
+            "uuid": "163729e1-80ef-48cf-81aa-6f813ce1f26f"
         },
         {
             "config": [
@@ -1091,10 +1091,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.lightfoothalfling.leveling",
-            "type": "leveling",
-            "uuid": "643bf5a1-1145-4045-a545-67f1361947ec",
             "given": [
                 {
                     "hidden": true,
@@ -1103,7 +1099,11 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "uuid": "6dd40f2d-f494-48e3-932b-1c9b7221035b",
                     "value_formula": "sub.lightfoothalfling.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.lightfoothalfling.leveling",
+            "type": "leveling",
+            "uuid": "643bf5a1-1145-4045-a545-67f1361947ec"
         },
         {
             "config": [
@@ -1147,10 +1147,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.stouthalfling.leveling",
-            "type": "leveling",
-            "uuid": "96032db1-07c3-4ed3-abcf-6914ef7b82b2",
             "given": [
                 {
                     "hidden": true,
@@ -1159,7 +1155,11 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "uuid": "e66078f9-bd2d-4199-aad1-a5dae0278394",
                     "value_formula": "sub.stouthalfling.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.stouthalfling.leveling",
+            "type": "leveling",
+            "uuid": "96032db1-07c3-4ed3-abcf-6914ef7b82b2"
         },
         {
             "config": [
@@ -1197,16 +1197,12 @@ INSERT INTO `subrace` (id, name, race_id, config)
     "config": [
         {
             "hidden": true,
-            "type": "value",
             "path": "sub.standardhuman.level",
+            "type": "value",
             "uuid": "abf2e4e9-00ef-4a95-a117-ebc2afd13b06",
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.standardhuman.leveling",
-            "type": "leveling",
-            "uuid": "8929dc35-871f-4bfb-9740-ebb2b6a14fae",
             "given": [
                 {
                     "hidden": true,
@@ -1215,7 +1211,11 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "uuid": "4f608f15-f40d-4916-a330-54ae25ad8683",
                     "value_formula": "sub.standardhuman.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.standardhuman.leveling",
+            "type": "leveling",
+            "uuid": "8929dc35-871f-4bfb-9740-ebb2b6a14fae"
         },
         {
             "config": [
@@ -1302,10 +1302,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.humanvariant.leveling",
-            "type": "leveling",
-            "uuid": "e4c16940-9438-47f5-b37e-129b2dd4f842",
             "given": [
                 {
                     "hidden": true,
@@ -1314,7 +1310,11 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "uuid": "8d67914b-9eac-40bc-81b6-8b2e617e1cab",
                     "value_formula": "sub.humanvariant.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.humanvariant.leveling",
+            "type": "leveling",
+            "uuid": "e4c16940-9438-47f5-b37e-129b2dd4f842"
         },
         {
             "description": "Two different ability scores of your choice increase by 1.",
@@ -1360,10 +1360,6 @@ INSERT INTO `class` (id, name, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.cleric.leveling",
-            "type": "leveling",
-            "uuid": "a0cb4aa1-c147-4b4b-903e-7b7e29f746c0",
             "given": [
                 {
                     "hidden": true,
@@ -1372,7 +1368,11 @@ INSERT INTO `class` (id, name, config)
                     "uuid": "9f333555-4f22-4629-aaf9-83709f7ba424",
                     "value_formula": "sub.cleric.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.cleric.leveling",
+            "type": "leveling",
+            "uuid": "a0cb4aa1-c147-4b4b-903e-7b7e29f746c0"
         },
         {
             "config": [
@@ -2417,16 +2417,12 @@ INSERT INTO `class` (id, name, config)
     "config": [
         {
             "hidden": true,
-            "type": "value",
             "path": "sub.fighter.level",
+            "type": "value",
             "uuid": "d545e20a-f3d3-4410-82ee-4d23ddf02eac",
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.fighter.leveling",
-            "type": "leveling",
-            "uuid": "f6efd12a-0912-4ce7-b185-892aa4149313",
             "given": [
                 {
                     "hidden": true,
@@ -2435,7 +2431,11 @@ INSERT INTO `class` (id, name, config)
                     "uuid": "af2246db-9d14-4aab-b146-38729eba6917",
                     "value_formula": "sub.fighter.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.fighter.leveling",
+            "type": "leveling",
+            "uuid": "f6efd12a-0912-4ce7-b185-892aa4149313"
         },
         {
             "config": [
@@ -3369,10 +3369,6 @@ INSERT INTO `class` (id, name, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.rogue.leveling",
-            "type": "leveling",
-            "uuid": "380fdbc4-4b2a-4b4c-a0ee-d2f527aa2c93",
             "given": [
                 {
                     "hidden": true,
@@ -3381,7 +3377,11 @@ INSERT INTO `class` (id, name, config)
                     "uuid": "a68c7d24-fa38-42cf-9f12-b8fafffab6c6",
                     "value_formula": "sub.rogue.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.rogue.leveling",
+            "type": "leveling",
+            "uuid": "380fdbc4-4b2a-4b4c-a0ee-d2f527aa2c93"
         },
         {
             "config": [
@@ -4522,10 +4522,6 @@ INSERT INTO `class` (id, name, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.wizard.leveling",
-            "type": "leveling",
-            "uuid": "62276030-f933-4a2a-819f-74af0d4ca40d",
             "given": [
                 {
                     "hidden": true,
@@ -4534,7 +4530,11 @@ INSERT INTO `class` (id, name, config)
                     "uuid": "88545d66-f231-43ed-a443-90642612ff41",
                     "value_formula": "sub.wizard.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.wizard.leveling",
+            "type": "leveling",
+            "uuid": "62276030-f933-4a2a-819f-74af0d4ca40d"
         },
         {
             "config": [
@@ -5332,10 +5332,6 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "value": 1
         },
         {
-            "hidden": true,
-            "path": "sub.lifedomain.leveling",
-            "type": "leveling",
-            "uuid": "d606823a-cc28-49d1-ba41-19a44fbe6848",
             "given": [
                 {
                     "hidden": true,
@@ -5344,7 +5340,11 @@ INSERT INTO `subclass` (id, name, class_id, config)
                     "uuid": "c7ff5b59-31d3-454b-a643-327a8982d7a7",
                     "value_formula": "sub.lifedomain.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.lifedomain.leveling",
+            "type": "leveling",
+            "uuid": "d606823a-cc28-49d1-ba41-19a44fbe6848"
         },
         {
             "description": "When you choose this domain at 1st level, you gain proficiency with heavy armor.",
@@ -5697,10 +5697,6 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "value": 3
         },
         {
-            "hidden": true,
-            "path": "sub.champion.leveling",
-            "type": "leveling",
-            "uuid": "17524e2e-6f6b-4d6c-910a-b6805240dc26",
             "given": [
                 {
                     "hidden": true,
@@ -5709,7 +5705,11 @@ INSERT INTO `subclass` (id, name, class_id, config)
                     "uuid": "393ce478-5936-4afe-a84d-f2510581a932",
                     "value_formula": "sub.champion.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.champion.leveling",
+            "type": "leveling",
+            "uuid": "17524e2e-6f6b-4d6c-910a-b6805240dc26"
         },
         {
             "dict": {
@@ -5910,10 +5910,6 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "value": 3
         },
         {
-            "hidden": true,
-            "path": "sub.thief.leveling",
-            "type": "leveling",
-            "uuid": "47332b1a-548c-445a-8b19-d9560fc6e51a",
             "given": [
                 {
                     "hidden": true,
@@ -5922,7 +5918,11 @@ INSERT INTO `subclass` (id, name, class_id, config)
                     "uuid": "cb28a054-24f4-4d5f-a6f0-1549ad4cd8b8",
                     "value_formula": "sub.thief.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.thief.leveling",
+            "type": "leveling",
+            "uuid": "47332b1a-548c-445a-8b19-d9560fc6e51a"
         },
         {
             "dict": {
@@ -6057,10 +6057,6 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "value": 2
         },
         {
-            "hidden": true,
-            "path": "sub.schoolofevocation.leveling",
-            "type": "leveling",
-            "uuid": "9bb29ddf-56d3-473c-82cb-ab73c9b34d35",
             "given": [
                 {
                     "hidden": true,
@@ -6069,7 +6065,11 @@ INSERT INTO `subclass` (id, name, class_id, config)
                     "uuid": "48933e37-a33f-4655-a387-4f71fad16989",
                     "value_formula": "sub.schoolofevocation.level + 1"
                 }
-            ]
+            ],
+            "hidden": true,
+            "path": "sub.schoolofevocation.leveling",
+            "type": "leveling",
+            "uuid": "9bb29ddf-56d3-473c-82cb-ab73c9b34d35"
         },
         {
             "name": "Evocation Savant",
