@@ -30,8 +30,8 @@ class DndMachine(object):
         expanded = formula
         for var, val in replace.items():
             expanded = expanded.replace(var, str(val))
-        code = parser.expr(expanded).compile()
         try:
+            code = parser.expr(expanded).compile()
             return eval(code, self.ns)
         except:
             print(formula, expanded)
