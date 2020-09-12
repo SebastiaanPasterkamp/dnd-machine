@@ -1,0 +1,1470 @@
+{
+    "abilities": {
+        "Arcane Recovery": {
+            "description": "You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than %(limit)s, and none of the slots can be 6th level or higher.",
+            "limit": 1,
+            "limit_default": "half your wizard level (rounded up)",
+            "limit_formula": "ceil(sub.wizard.level / 2.0)"
+        },
+        "Preparing Wizard Spells": {
+            "description": "You prepare the list of wizard spells that are available or you to cast. To do so, choose a number of wizard spells\nfrom your spellbook equal to %(limit)s. The spells must be of a level for which you have spell slots.\n\nYou can change your list of prepared spells when you finish a long rest. Preparing a new list of wizard spells\nrequires time spent studying your spellbook and memorizing the incantations and gestures you must make to\ncast the spell: at least 1 minute per spell level for each spell on your list.",
+            "limit": 4,
+            "limit_default": "your **Intelligence modifier** + your wizard level (minimum of one spell)",
+            "limit_formula": "max(1, character.level + statistics.modifiers.intelligence)"
+        }
+    },
+    "adventure_league": false,
+    "alignment": "chaotic good",
+    "appearance": "",
+    "armor": [],
+    "armor_class": 12,
+    "armor_class_bonus": 0,
+    "background": "Sage",
+    "challenge": {
+        "deadly": 100,
+        "easy": 25,
+        "hard": 75,
+        "medium": 50
+    },
+    "choices": {
+        "00bb6113-e274-42f5-88b4-df9632ed4347": {
+            "selected": "17bc5ecf-0a6c-44ad-8a14-705b5d852bed"
+        },
+        "01f23581-8294-46ff-9ddc-356f354608b7": true,
+        "01f49422-429d-4082-8600-1ad796300f50": {
+            "added": [
+                {
+                    "id": "investigation",
+                    "name": "Investigation",
+                    "stat": "intelligence",
+                    "type": "skills"
+                },
+                {
+                    "id": "arcana",
+                    "name": "Arcana",
+                    "stat": "intelligence",
+                    "type": "skills"
+                }
+            ],
+            "removed": []
+        },
+        "037005f2-2b29-4f48-9ea4-8bf4c8ca6b4f": true,
+        "04f75e13-1012-43e7-a35d-0a28e2ed3270": true,
+        "0927bef2-7a4c-45d3-a155-3f3650cf29cd": true,
+        "09d15c1c-9762-4cfa-b8c0-146517c4a0f1": true,
+        "1129e749-7528-4ab4-9f69-b1d9419a508f": true,
+        "12412749-6d5a-451b-87d8-878fb84d7ac2": true,
+        "126a8d1a-7dc6-4e20-b408-a1a9e7579dac": true,
+        "128ee3ed-5341-41ec-a671-8aae204bc464": true,
+        "12e78422-a6b2-4c59-858c-1553331bc63b": true,
+        "17bc5ecf-0a6c-44ad-8a14-705b5d852bed": true,
+        "17e430a1-d31b-421b-9de1-5509e9015637": true,
+        "1aee06cf-05b6-4939-978b-f37f488dab4e": true,
+        "1c5448ed-7240-408b-b1bc-3ad1559a8521": {
+            "current": "Merlin"
+        },
+        "206caf2f-99bc-4678-8e60-87539dcc5cea": true,
+        "21a9d3d0-be32-479e-859c-c1bb4b0979cc": true,
+        "23961b53-ed8f-48a5-b0a5-32886688d1c3": true,
+        "23edbb33-adba-4a28-81a2-9f6a3c4b7467": true,
+        "28d04479-11f4-4b23-aad7-ee92ec818ddd": true,
+        "2a75a7dc-46bb-4688-b0ce-56098326b95c": true,
+        "2c3c704b-e112-463b-992c-820c4d158b66": true,
+        "2e489581-ebb2-4b47-8f7e-6719c1063ed2": true,
+        "31e76eb7-797c-40ec-a8d9-c02a7269b15f": true,
+        "339f5b06-2680-4329-a26b-aa3ced3472ae": true,
+        "35d5bdca-24d0-41bd-a6fc-bd49d7f02781": true,
+        "378e8720-218b-4699-8127-75daa858ebd0": true,
+        "39d8e825-1129-4c5e-a437-bb12967e9b6b": true,
+        "3cf908fd-9b3f-4915-90df-76ec1f766ba3": true,
+        "3e34a3fe-edf7-4711-9691-b606ee2b9a85": true,
+        "40b135c0-d2b8-4147-ac5e-ea083c690d7d": true,
+        "49db5884-6198-4689-b214-15925f2a087f": {
+            "current": "male"
+        },
+        "4b90bedb-a6fe-4fe1-aed0-9317d6078cc6": true,
+        "4c6b63b9-8092-4ab4-8b60-c1600f27d68c": {
+            "current": "Unlocking an ancient mystery is worth the price of a civilization."
+        },
+        "5c38c1b0-9be6-4492-831a-11fc79eec03f": {
+            "selected": "6fa0c10b-6ac6-4cdc-808b-1447862d0e37"
+        },
+        "5d9df8c2-b1f0-4a50-8772-3a9b838d0005": {
+            "selected": "e3dc2ba1-0014-4797-aa57-83d1f28954e8"
+        },
+        "5dc06d82-4d8d-4403-bbc3-6dc46130c7c0": {
+            "current": "Alchemist"
+        },
+        "5ec1e55c-dbfe-4165-8ebb-cc24e8473fd7": true,
+        "6005a890-504d-4676-9353-34332d871562": true,
+        "60722722-b678-49b6-ba32-1b9ae2ec454d": true,
+        "609d0546-e73f-43e2-a663-c28aedd84698": true,
+        "62276030-f933-4a2a-819f-74af0d4ca40d": true,
+        "642d8ad7-4eb2-43f8-befc-b9d95918bdf0": true,
+        "650f4953-757c-4bc9-b147-19b956dec28f": true,
+        "65b88912-2d65-4b06-a379-80d61720d696": true,
+        "6b6c4c62-23b4-4bc4-ae22-b331ec543ba7": true,
+        "6d119c8e-bdb7-4262-b4db-ee87ae128352": true,
+        "6f557232-b4db-472f-b9d2-ab3cf7d01c3c": {
+            "current": "chaotic good"
+        },
+        "6fa0c10b-6ac6-4cdc-808b-1447862d0e37": true,
+        "706111a0-2d31-4c44-a9a4-8d456fdee769": true,
+        "70ca225f-c594-443c-b643-a537f3bdcd61": true,
+        "751c8976-6eef-41aa-bb8f-c730c868e086": true,
+        "77525cad-68f4-47e8-a09a-a5a35fce5bd7": true,
+        "7d2483bd-922e-4e9d-908b-86b359215ec6": {
+            "added": [
+                {
+                    "casting_time": "1 Action",
+                    "classes": [
+                        "Sorcerer",
+                        "Wizard"
+                    ],
+                    "components": [
+                        "verbal",
+                        "somatic"
+                    ],
+                    "concentration": false,
+                    "cost": "",
+                    "damage": {
+                        "bonus": 0,
+                        "dice_count": 1,
+                        "dice_size": 10,
+                        "type": "fire"
+                    },
+                    "description": "You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes `1d10` *fire damage*. A flammable object hit by this spell ignites if it isn''t being worn or carried.\n\nThis spell''s damage increases by `1d10` when you reach 5th level (`2d10`), 11th level (`3d10`), and 17th level (`4d10`).\n\nPHB, 5.0, page 242",
+                    "duration": "Instantaneous",
+                    "id": 116,
+                    "level": "Cantrip",
+                    "name": "Fire Bolt",
+                    "range": "120 feet",
+                    "school": "evocation"
+                },
+                {
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Bard",
+                        "Cleric",
+                        "Sorcerer",
+                        "Wizard"
+                    ],
+                    "components": [
+                        "verbal"
+                    ],
+                    "concentration": false,
+                    "cost": "A firefly or phosphorescent moss",
+                    "description": "You touch one object that is no larger than 10 feet in any dimension. Until the spell ends, the object sheds bright light in a 20-foot radius and dim light for an additional 20 feet. The light can be colored as you like. Completely covering the object with something opaque blocks the light. The spell ends if you cast it again or dismiss it as an action.\n\nIf you target an object held or worn by a hostile creature, that creature must succeed on a **Dexterity** *saving throw* to avoid the spell.",
+                    "duration": "1 hour",
+                    "id": 180,
+                    "level": "Cantrip",
+                    "name": "Light",
+                    "range": "Touch",
+                    "save": "Dexterity",
+                    "school": "evocation"
+                },
+                {
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Bard",
+                        "Sorcerer",
+                        "Warlock",
+                        "Wizard"
+                    ],
+                    "components": [
+                        "somatic",
+                        "material"
+                    ],
+                    "concentration": false,
+                    "cost": "A bit of fleece",
+                    "description": "You create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again.\n\nIf you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else''s voice, a lion''s roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.\n\nIf you create an image of an object-such as a chair, muddy footprints, or a small chest-it must be no larger than a 5-foot cube. The image can''t create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.\n\nIf a creature uses its action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.",
+                    "duration": "1 minute",
+                    "id": 205,
+                    "level": "Cantrip",
+                    "name": "Minor Illusion",
+                    "range": "30 feet",
+                    "school": "illusion"
+                }
+            ],
+            "removed": []
+        },
+        "7e4e2bdd-bc84-464c-ac9b-4e2d57ba32b0": true,
+        "879298c8-8cbc-4aee-aa23-4b243f5ccd39": {
+            "current": "It is my duty to protect my students."
+        },
+        "899412c9-9054-4c46-b4e3-f5df1bb49af9": true,
+        "8c2ed8db-0f5d-4e70-b050-c66685c2ff30": true,
+        "8d17ea37-1331-47b0-80f8-550148507390": true,
+        "8e2c32c1-da29-4b02-bf48-9669088a1d9e": {
+            "added": [
+                {
+                    "casting_time": "1 action",
+                    "classes": [
+                        "Bard",
+                        "Sorcerer",
+                        "Warlock",
+                        "Wizard"
+                    ],
+                    "components": [
+                        "verbal",
+                        "somatic"
+                    ],
+                    "concentration": false,
+                    "cost": "",
+                    "description": "This spell is a minor magical trick that novice spellcasters use for practice. You create one of the following magical effects within range.\n\n* You create an instantaneous, harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, or an odd odor.\n\n* You instantaneously light or snuff out a candle, a torch, or a small campfire.\n\n* You instantaneously clean or soil an object no larger than 1 cubic foot.\n\n* You chill, warm, or flavor up to 1 cubic foot of nonliving material for 1 hour.\n\n* You make a color, a small mark, or a symbol appear on an object or a surface for 1 hour.\n\n* You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the end of your next turn.\n\nIf you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action.",
+                    "duration": "Up to 1 hour",
+                    "id": 227,
+                    "level": "Cantrip",
+                    "name": "Prestidigitation",
+                    "range": "10 feet",
+                    "school": "transmutation"
+                }
+            ],
+            "removed": []
+        },
+        "9124368e-d1fa-42bc-8a88-90e4bf7e1b25": true,
+        "93aa295a-a614-4dbc-9d94-f030980b0ff7": true,
+        "98cceb9d-8e4d-4146-b43c-ea88080eea57": true,
+        "9f94d8ac-1bd5-4cdf-bcaa-57aa01cc067b": true,
+        "a5225c43-8c6b-47f1-8aff-3d7e2084fbe7": true,
+        "a9929780-beb2-4fcd-b077-390a8faeccc8": true,
+        "ac2b22db-9f5f-4b8a-9312-eb5df4db151f": {
+            "selected": "037005f2-2b29-4f48-9ea4-8bf4c8ca6b4f"
+        },
+        "acbceb59-e763-49bf-bbb2-e505413774f2": true,
+        "ae3be339-f8cb-4885-9f4d-55e47f60a765": true,
+        "b1ae897e-7490-4bec-afde-c4be60a96778": true,
+        "b57efafc-f882-43bd-bddc-28c92642de93": {
+            "added": [
+                {
+                    "group": "common",
+                    "id": "gnomish",
+                    "name": "Gnomish",
+                    "script": "Dwarvish",
+                    "speakers": "Gnomes",
+                    "type": "languages"
+                },
+                {
+                    "group": "exotic",
+                    "id": "undercommon",
+                    "name": "Undercommon",
+                    "script": "Elvish",
+                    "speakers": "Underdark traders",
+                    "type": "languages"
+                }
+            ],
+            "removed": []
+        },
+        "b6286af2-3f83-44b4-95b3-d1ffb98dff13": true,
+        "b6812539-edb2-40b5-9418-9c0319d0b90b": true,
+        "bb78219a-0e19-478d-928a-bad753d2a56a": {
+            "selected": "28d04479-11f4-4b23-aad7-ee92ec818ddd"
+        },
+        "bfc80f5f-f645-403a-b766-1c37a2a504b5": true,
+        "ca49b542-5855-411a-81f2-dfda7811124a": true,
+        "ccea31d9-1a0a-424d-8b0a-0c597bf58016": {
+            "selected": "23961b53-ed8f-48a5-b0a5-32886688d1c3"
+        },
+        "cd303285-3a6c-4b19-956d-b7cb33cca7a0": true,
+        "cde69de2-61bc-4c85-bd49-5e00bf6b243b": true,
+        "cde82df5-db56-44b1-a2fb-e573e55cbc1a": true,
+        "cf7942bc-2f6b-4cdd-a439-426761a2091e": {
+            "selected": "2c3c704b-e112-463b-992c-820c4d158b66"
+        },
+        "d59ce4c9-8609-40af-91de-98342ab43922": true,
+        "d5d744db-74ae-488a-9fde-116eae0995a9": true,
+        "d843be48-4f51-4794-95e0-5918bb083221": true,
+        "df0943dd-cf57-4cd2-a02f-5e320e4b0fc6": true,
+        "e3dc2ba1-0014-4797-aa57-83d1f28954e8": true,
+        "e902349a-7ed6-4241-a4e4-8a4e4c23b9f4": {
+            "current": "*No Limits*. Nothing should fetter the infinite possibility inherent in all existence. (Chaotic)"
+        },
+        "eeb9c74b-d7cc-487e-82e3-32439764ed24": {
+            "current": "There\u2019s nothing I like more than a good mystery."
+        },
+        "f276db4f-003c-434f-bb6b-23beae746435": true,
+        "f608d256-a0c1-4ba5-88d2-b463ba0fbb8a": {
+            "added": [
+                {
+                    "group": "exotic",
+                    "id": "celestial",
+                    "name": "Celestial",
+                    "script": "Celestial",
+                    "speakers": "Celestials",
+                    "type": "languages"
+                }
+            ],
+            "removed": []
+        },
+        "fe6e224e-e57d-4c48-85d9-6a0ab94bc944": true,
+        "ff2f55a5-15e1-4ebd-8c83-d0b52f98fb08": {
+            "bare": {
+                "charisma": 13,
+                "constitution": 14,
+                "dexterity": 12,
+                "intelligence": 15,
+                "strength": 8,
+                "wisdom": 10
+            },
+            "base": {
+                "charisma": 13,
+                "constitution": 14,
+                "dexterity": 14,
+                "intelligence": 16,
+                "strength": 8,
+                "wisdom": 10
+            },
+            "bonus": {
+                "charisma": [],
+                "constitution": [],
+                "dexterity": [
+                    2
+                ],
+                "intelligence": [
+                    1
+                ],
+                "strength": [],
+                "wisdom": []
+            },
+            "modifiers": {
+                "charisma": 1,
+                "constitution": 2,
+                "dexterity": 2,
+                "intelligence": 3,
+                "strength": -1,
+                "wisdom": 0
+            }
+        },
+        "pick-037005f2-2b29-4f48-9ea4-8bf4c8ca6b4f": true,
+        "pick-17bc5ecf-0a6c-44ad-8a14-705b5d852bed": true,
+        "pick-23961b53-ed8f-48a5-b0a5-32886688d1c3": true,
+        "pick-e3dc2ba1-0014-4797-aa57-83d1f28954e8": true
+    },
+    "class": "Wizard",
+    "computed": {
+        "hit_points": {
+            "bonus": [
+                "statistics.modifiers.constitution * character.level",
+                "4 * (sub.wizard.level - 1)"
+            ],
+            "formulas": [
+                "sub.wizard.hit_dice"
+            ]
+        },
+        "passive_perception": {
+            "formulas": [
+                "10 + skills.perception"
+            ]
+        },
+        "spellMax_prepared": {
+            "formula": "max(1, character.level + statistics.modifiers.intelligence)"
+        },
+        "subElfSpellAttack_modifier": {
+            "formulas": [
+                "character.proficiency + statistics.modifiers.intelligence"
+            ]
+        },
+        "subElfSpellSafe_dc": {
+            "formulas": [
+                "8 + character.proficiency + statistics.modifiers.intelligence"
+            ]
+        },
+        "subWizardSpellAttack_modifier": {
+            "formulas": [
+                "character.proficiency + statistics.modifiers.intelligence"
+            ]
+        },
+        "subWizardSpellSafe_dc": {
+            "formulas": [
+                "8 + character.proficiency + statistics.modifiers.intelligence"
+            ]
+        },
+        "unarmored": {
+            "formulas": [
+                "10 + statistics.modifiers.dexterity"
+            ]
+        }
+    },
+    "equipment": [
+        {
+            "cost": {
+                "sp": 2
+            },
+            "count": 1,
+            "damage": {
+                "dice_count": 1,
+                "dice_size": 6,
+                "type": "bludgeoning"
+            },
+            "id": 8,
+            "name": "Quarterstaff",
+            "property": [
+                "versatile"
+            ],
+            "type": "simple melee",
+            "versatile": {
+                "dice_count": 1,
+                "dice_size": 8,
+                "type": "bludgeoning"
+            },
+            "weight": {
+                "lb": 2.0
+            }
+        },
+        {
+            "cost": {
+                "gp": 25
+            },
+            "count": 1,
+            "id": 228,
+            "name": "Component pouch",
+            "type": "gear",
+            "weight": {
+                "lb": 2.0
+            }
+        },
+        {
+            "cost": {
+                "gp": 2
+            },
+            "count": 1,
+            "id": 205,
+            "name": "Backpack",
+            "type": "gear",
+            "weight": {
+                "lb": 5.0
+            }
+        },
+        {
+            "cost": {
+                "gp": 1
+            },
+            "count": 1,
+            "id": 209,
+            "name": "Bedroll",
+            "type": "gear",
+            "weight": {
+                "lb": 7.0
+            }
+        },
+        {
+            "cost": {
+                "sp": 2
+            },
+            "count": 1,
+            "id": 256,
+            "name": "Mess kit",
+            "type": "gear",
+            "weight": {
+                "lb": 1.0
+            }
+        },
+        {
+            "cost": {
+                "sp": 5
+            },
+            "count": 1,
+            "id": 286,
+            "name": "Tinderbox",
+            "type": "gear",
+            "weight": {
+                "lb": 1.0
+            }
+        },
+        {
+            "cost": {
+                "cp": 1
+            },
+            "count": 10,
+            "id": 287,
+            "name": "Torch",
+            "type": "gear",
+            "weight": {
+                "lb": 1.0
+            }
+        },
+        {
+            "cost": {
+                "sp": 5
+            },
+            "count": 10,
+            "id": 271,
+            "name": "Rations (1 day)",
+            "type": "gear",
+            "weight": {
+                "lb": 2.0
+            }
+        },
+        {
+            "cost": {
+                "sp": 2
+            },
+            "count": 1,
+            "id": 289,
+            "name": "Waterskin",
+            "type": "gear",
+            "weight": {
+                "lb": 5.0
+            }
+        },
+        {
+            "cost": {
+                "gp": 1
+            },
+            "count": 1,
+            "id": 273,
+            "name": "Rope, hempen (50 feet)",
+            "type": "gear",
+            "weight": {
+                "lb": 10.0
+            }
+        },
+        {
+            "cost": {
+                "gp": 50
+            },
+            "count": 1,
+            "id": 282,
+            "name": "Spellbook",
+            "type": "gear",
+            "weight": {
+                "lb": 3.0
+            }
+        },
+        {
+            "cost": {
+                "gp": 10
+            },
+            "count": 1,
+            "id": 246,
+            "name": "Ink (1 ounce bottle)",
+            "type": "gear",
+            "weight": {}
+        },
+        {
+            "cost": {
+                "cp": 2
+            },
+            "count": 1,
+            "id": 247,
+            "name": "Ink pen",
+            "type": "gear",
+            "weight": {}
+        },
+        {
+            "cost": {},
+            "count": 1,
+            "id": 296,
+            "name": "Small knife",
+            "type": "gear",
+            "weight": {
+                "lb": 1.0
+            }
+        },
+        {
+            "cost": {
+                "sp": 2
+            },
+            "count": 1,
+            "id": 259,
+            "name": "Paper (one sheet)",
+            "type": "gear",
+            "weight": {}
+        },
+        {
+            "cost": {
+                "sp": 5
+            },
+            "count": 1,
+            "id": 224,
+            "name": "Clothes, common",
+            "type": "gear",
+            "weight": {
+                "lb": 3.0
+            }
+        },
+        {
+            "cost": {
+                "sp": 5
+            },
+            "count": 1,
+            "id": 268,
+            "name": "Pouch",
+            "type": "gear",
+            "weight": {
+                "lb": 1.0
+            }
+        }
+    ],
+    "gender": "male",
+    "hit_points": 8,
+    "info": {
+        "Casting Wizard Spells": "The Wizard table shows how many spell slots you have\nto cast your wizard spells of 1st level and higher. To cast\none of these spells, you must expend a slot of the spell\u2019s\nlevel or higher. You regain all expended spell slots when\nyou finish a long rest.",
+        "Darkvision": "Accustomed to twilit forests and the night\nsky, you have superior vision in dark and dim conditions.\nYou can see in dim light within 60 feet of you as if it were\nbright light, and in darkness as if it were dim light. You\ncan\u2019t discern color in darkness, only shades of gray.",
+        "Feature: Researcher": "When you attempt to learn or recall a piece of lore, if you\ndo not know that information, you often know where and\nfrom whom you can obtain it. Usually, this information\ncomes from a library, scriptorium, university, or a sage\nor other learned person or creature. Your DM might rule\nthat the knowledge you seek is secreted away in an almost inaccessible place, or that it simply cannot be found.\nUnearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign.",
+        "Fey Ancestry": "You have **advantage** on *saving throws*\nagainst being **charmed**, and magic can\u2019t put you to **sleep**.",
+        "Learning Spells of 1st Level and Higher": "Each time you gain a wizard level, you can add two wizard spells of your choice to your spellbook for free. Each\nof these spells must be of a level for which you have spell slots, as shown on the Wizard table. On your adventures,\nyou might find other spells that you can add to your spellbook (see the \u201cYour Spellbook\u201d sidebar).",
+        "Ritual Casting": "You can cast a wizard spell as a ritual if that spell has the ritual tag and you have the spell in your spellbook. You\ndon\u2019t need to have the spell prepared.",
+        "Specialty": "Alchemist",
+        "Spellbook": "\nYou have a spellbook containing all your wizard spells of your choice. Your spellbook is the repository of the wizard spells you know, except your cantrips,\nwhich are fixed in your mind.",
+        "Spellcasting Focus": "You can use an arcane focus (found in chapter 5) as a\nspellcasting focus for your wizard spells.",
+        "Trance": "Elves don\u2019t need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day.\n(The Common word for such meditation is \u201ctrance.\u201d)\nWhile meditating, you can dream after a fashion; such\ndreams are actually mental exercises that have become\nreflexive through years of practice. After resting in this\nway, you gain the same benefit that a human does from 8\nhours of sleep"
+    },
+    "initiative_bonus": 2,
+    "items": {
+        "artisan": [],
+        "gaming": [],
+        "gear": [
+            {
+                "cost": {
+                    "gp": 25
+                },
+                "count": 1,
+                "id": 228,
+                "name": "Component pouch",
+                "type": "gear",
+                "weight": {
+                    "lb": 2.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 2
+                },
+                "count": 1,
+                "id": 205,
+                "name": "Backpack",
+                "type": "gear",
+                "weight": {
+                    "lb": 5.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 1
+                },
+                "count": 1,
+                "id": 209,
+                "name": "Bedroll",
+                "type": "gear",
+                "weight": {
+                    "lb": 7.0
+                }
+            },
+            {
+                "cost": {
+                    "sp": 2
+                },
+                "count": 1,
+                "id": 256,
+                "name": "Mess kit",
+                "type": "gear",
+                "weight": {
+                    "lb": 1.0
+                }
+            },
+            {
+                "cost": {
+                    "sp": 5
+                },
+                "count": 1,
+                "id": 286,
+                "name": "Tinderbox",
+                "type": "gear",
+                "weight": {
+                    "lb": 1.0
+                }
+            },
+            {
+                "cost": {
+                    "cp": 1
+                },
+                "count": 10,
+                "id": 287,
+                "name": "Torch",
+                "type": "gear",
+                "weight": {
+                    "lb": 1.0
+                }
+            },
+            {
+                "cost": {
+                    "sp": 5
+                },
+                "count": 10,
+                "id": 271,
+                "name": "Rations (1 day)",
+                "type": "gear",
+                "weight": {
+                    "lb": 2.0
+                }
+            },
+            {
+                "cost": {
+                    "sp": 2
+                },
+                "count": 1,
+                "id": 289,
+                "name": "Waterskin",
+                "type": "gear",
+                "weight": {
+                    "lb": 5.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 1
+                },
+                "count": 1,
+                "id": 273,
+                "name": "Rope, hempen (50 feet)",
+                "type": "gear",
+                "weight": {
+                    "lb": 10.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 50
+                },
+                "count": 1,
+                "id": 282,
+                "name": "Spellbook",
+                "type": "gear",
+                "weight": {
+                    "lb": 3.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 10
+                },
+                "count": 1,
+                "id": 246,
+                "name": "Ink (1 ounce bottle)",
+                "type": "gear",
+                "weight": {}
+            },
+            {
+                "cost": {
+                    "cp": 2
+                },
+                "count": 1,
+                "id": 247,
+                "name": "Ink pen",
+                "type": "gear",
+                "weight": {}
+            },
+            {
+                "cost": {},
+                "count": 1,
+                "id": 296,
+                "name": "Small knife",
+                "type": "gear",
+                "weight": {
+                    "lb": 1.0
+                }
+            },
+            {
+                "cost": {
+                    "sp": 2
+                },
+                "count": 1,
+                "id": 259,
+                "name": "Paper (one sheet)",
+                "type": "gear",
+                "weight": {}
+            },
+            {
+                "cost": {
+                    "sp": 5
+                },
+                "count": 1,
+                "id": 224,
+                "name": "Clothes, common",
+                "type": "gear",
+                "weight": {
+                    "lb": 3.0
+                }
+            },
+            {
+                "cost": {
+                    "sp": 5
+                },
+                "count": 1,
+                "id": 268,
+                "name": "Pouch",
+                "type": "gear",
+                "weight": {
+                    "lb": 1.0
+                }
+            }
+        ],
+        "kit": [],
+        "musical": [],
+        "trinket": []
+    },
+    "languages": [],
+    "passive_perception": 10,
+    "personality": {
+        "bonds": "It is my duty to protect my students.",
+        "flaws": "Unlocking an ancient mystery is worth the price of a civilization.",
+        "ideals": "*No Limits*. Nothing should fetter the infinite possibility inherent in all existence. (Chaotic)",
+        "traits": "There\u2019s nothing I like more than a good mystery."
+    },
+    "proficiencies": {
+        "advantages": [],
+        "armor": [],
+        "expertise": [],
+        "saving_throws": [
+            {
+                "description": "Intelligence is knowing a tomato is a fruit.",
+                "id": "intelligence",
+                "name": "Intelligence",
+                "prio": 4,
+                "short": "Int",
+                "type": "statistics"
+            },
+            {
+                "description": "Wisdom is knowing not to put a tomato in a fruit salad.",
+                "id": "wisdom",
+                "name": "Wisdom",
+                "prio": 5,
+                "short": "Wis",
+                "type": "statistics"
+            }
+        ],
+        "skills": [
+            {
+                "id": "perception",
+                "name": "Perception",
+                "stat": "wisdom",
+                "type": "skills"
+            },
+            {
+                "id": "investigation",
+                "name": "Investigation",
+                "stat": "intelligence",
+                "type": "skills"
+            },
+            {
+                "id": "arcana",
+                "name": "Arcana",
+                "stat": "intelligence",
+                "type": "skills"
+            },
+            {
+                "id": "history",
+                "name": "History",
+                "stat": "intelligence",
+                "type": "skills"
+            }
+        ],
+        "talent": [],
+        "tools": [
+            {
+                "id": "common",
+                "name": "Common",
+                "type": "languages"
+            },
+            {
+                "id": "elvish",
+                "name": "Elvish",
+                "type": "languages"
+            },
+            {
+                "group": "exotic",
+                "id": "celestial",
+                "name": "Celestial",
+                "script": "Celestial",
+                "speakers": "Celestials",
+                "type": "languages"
+            },
+            {
+                "group": "common",
+                "id": "gnomish",
+                "name": "Gnomish",
+                "script": "Dwarvish",
+                "speakers": "Gnomes",
+                "type": "languages"
+            },
+            {
+                "group": "exotic",
+                "id": "undercommon",
+                "name": "Undercommon",
+                "script": "Elvish",
+                "speakers": "Underdark traders",
+                "type": "languages"
+            }
+        ],
+        "weapons": [
+            {
+                "cost": {
+                    "gp": 15
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 8,
+                    "type": "slashing"
+                },
+                "id": 22,
+                "name": "Longsword",
+                "property": [
+                    "versatile"
+                ],
+                "type": "martial melee",
+                "versatile": {
+                    "dice_count": 1,
+                    "dice_size": 10,
+                    "type": "bludgeoning"
+                },
+                "weight": {
+                    "lb": 3.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 10
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 6,
+                    "type": "piercing"
+                },
+                "id": 27,
+                "name": "Shortsword",
+                "property": [
+                    "finesse",
+                    "light"
+                ],
+                "type": "martial melee",
+                "weight": {
+                    "lb": 2.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 25
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 6,
+                    "type": "piercing"
+                },
+                "id": 14,
+                "name": "Shortbow",
+                "property": [
+                    "ammunition",
+                    "two-handed"
+                ],
+                "range": {
+                    "max": 320,
+                    "min": 80
+                },
+                "type": "simple ranged",
+                "weight": {
+                    "lb": 2.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 50
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 8,
+                    "type": "piercing"
+                },
+                "id": 37,
+                "name": "Longbow",
+                "property": [
+                    "ammunition",
+                    "heavy",
+                    "two-handed"
+                ],
+                "range": {
+                    "max": 600,
+                    "min": 150
+                },
+                "type": "martial ranged",
+                "weight": {
+                    "lb": 2.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 2
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 4,
+                    "type": "piercing"
+                },
+                "id": 1,
+                "name": "Dagger",
+                "property": [
+                    "thrown",
+                    "finesse",
+                    "light"
+                ],
+                "range": {
+                    "max": 60,
+                    "min": 20
+                },
+                "type": "simple melee",
+                "weight": {
+                    "lb": 1.0
+                }
+            },
+            {
+                "cost": {
+                    "cp": 5
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 4,
+                    "type": "piercing"
+                },
+                "id": 13,
+                "name": "Dart",
+                "property": [
+                    "finesse",
+                    "thrown"
+                ],
+                "range": {
+                    "max": 60,
+                    "min": 20
+                },
+                "type": "simple ranged",
+                "weight": {
+                    "lb": 0.25
+                }
+            },
+            {
+                "cost": {
+                    "sp": 1
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 4,
+                    "type": "bludgeoning"
+                },
+                "id": 15,
+                "name": "Sling",
+                "property": [
+                    "ammunition"
+                ],
+                "range": {
+                    "max": 120,
+                    "min": 30
+                },
+                "type": "simple ranged",
+                "weight": {}
+            },
+            {
+                "cost": {
+                    "sp": 2
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 6,
+                    "type": "bludgeoning"
+                },
+                "id": 8,
+                "name": "Quarterstaff",
+                "property": [
+                    "versatile"
+                ],
+                "type": "simple melee",
+                "versatile": {
+                    "dice_count": 1,
+                    "dice_size": 8,
+                    "type": "bludgeoning"
+                },
+                "weight": {
+                    "lb": 2.0
+                }
+            },
+            {
+                "cost": {
+                    "gp": 25
+                },
+                "damage": {
+                    "dice_count": 1,
+                    "dice_size": 8,
+                    "type": "piercing"
+                },
+                "id": 12,
+                "name": "Crossbow, light",
+                "property": [
+                    "ammunition",
+                    "loading",
+                    "two-handed"
+                ],
+                "range": {
+                    "max": 320,
+                    "min": 80
+                },
+                "type": "simple ranged",
+                "weight": {
+                    "lb": 5.0
+                }
+            }
+        ]
+    },
+    "proficiency": 2,
+    "race": "Elf",
+    "saving_throws": {
+        "charisma": 1,
+        "constitution": 2,
+        "dexterity": 2,
+        "intelligence": 3,
+        "strength": -1,
+        "wisdom": 0
+    },
+    "size": "medium",
+    "skills": {
+        "acrobatics": 2,
+        "animal handling": 0,
+        "arcana": 3,
+        "athletics": -1,
+        "deception": 1,
+        "history": 3,
+        "insight": 0,
+        "intimidation": 1,
+        "investigation": 3,
+        "medicine": 0,
+        "nature": 3,
+        "perception": 0,
+        "performance": 1,
+        "persuasion": 1,
+        "religion": 3,
+        "sleight of hand": 2,
+        "stealth": 2,
+        "survival": 0
+    },
+    "speed": 30,
+    "spell": {
+        "attack_modifier": 0,
+        "cantrips": [
+            {
+                "casting_time": "1 Action",
+                "classes": [
+                    "Sorcerer",
+                    "Wizard"
+                ],
+                "components": [
+                    "verbal",
+                    "somatic"
+                ],
+                "concentration": false,
+                "cost": "",
+                "damage": {
+                    "bonus": 0,
+                    "dice_count": 1,
+                    "dice_size": 10,
+                    "type": "fire"
+                },
+                "description": "You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes `1d10` *fire damage*. A flammable object hit by this spell ignites if it isn''t being worn or carried.\n\nThis spell''s damage increases by `1d10` when you reach 5th level (`2d10`), 11th level (`3d10`), and 17th level (`4d10`).\n\nPHB, 5.0, page 242",
+                "duration": "Instantaneous",
+                "id": 116,
+                "level": "Cantrip",
+                "name": "Fire Bolt",
+                "range": "120 feet",
+                "school": "evocation"
+            },
+            {
+                "casting_time": "1 action",
+                "classes": [
+                    "Bard",
+                    "Cleric",
+                    "Sorcerer",
+                    "Wizard"
+                ],
+                "components": [
+                    "verbal"
+                ],
+                "concentration": false,
+                "cost": "A firefly or phosphorescent moss",
+                "description": "You touch one object that is no larger than 10 feet in any dimension. Until the spell ends, the object sheds bright light in a 20-foot radius and dim light for an additional 20 feet. The light can be colored as you like. Completely covering the object with something opaque blocks the light. The spell ends if you cast it again or dismiss it as an action.\n\nIf you target an object held or worn by a hostile creature, that creature must succeed on a **Dexterity** *saving throw* to avoid the spell.",
+                "duration": "1 hour",
+                "id": 180,
+                "level": "Cantrip",
+                "name": "Light",
+                "range": "Touch",
+                "save": "Dexterity",
+                "school": "evocation"
+            },
+            {
+                "casting_time": "1 action",
+                "classes": [
+                    "Bard",
+                    "Sorcerer",
+                    "Warlock",
+                    "Wizard"
+                ],
+                "components": [
+                    "somatic",
+                    "material"
+                ],
+                "concentration": false,
+                "cost": "A bit of fleece",
+                "description": "You create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again.\n\nIf you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else''s voice, a lion''s roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.\n\nIf you create an image of an object-such as a chair, muddy footprints, or a small chest-it must be no larger than a 5-foot cube. The image can''t create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.\n\nIf a creature uses its action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.",
+                "duration": "1 minute",
+                "id": 205,
+                "level": "Cantrip",
+                "name": "Minor Illusion",
+                "range": "30 feet",
+                "school": "illusion"
+            }
+        ],
+        "expanded": [],
+        "level": {},
+        "list": [],
+        "max_cantrips": 3,
+        "max_known": 0,
+        "max_prepared": 0,
+        "prepared": [],
+        "safe_dc": 0,
+        "slots": {
+            "level_1": 2
+        }
+    },
+    "statistics": {
+        "bare": {
+            "charisma": 13,
+            "constitution": 14,
+            "dexterity": 12,
+            "intelligence": 15,
+            "strength": 8,
+            "wisdom": 10
+        },
+        "base": {
+            "charisma": 13,
+            "constitution": 14,
+            "dexterity": 14,
+            "intelligence": 16,
+            "strength": 8,
+            "wisdom": 10
+        },
+        "bonus": {
+            "charisma": [],
+            "constitution": [],
+            "dexterity": [
+                2
+            ],
+            "intelligence": [
+                1
+            ],
+            "strength": [],
+            "wisdom": []
+        },
+        "modifiers": {
+            "charisma": 1,
+            "constitution": 2,
+            "dexterity": 2,
+            "intelligence": 3,
+            "strength": -1,
+            "wisdom": 0
+        }
+    },
+    "sub": {
+        "elf": {
+            "level": 1,
+            "leveling": [
+                {
+                    "hidden": true,
+                    "path": "sub.elf.level",
+                    "type": "value",
+                    "uuid": "c8a78e10-2a9b-4174-b6d3-ae0855ff4b4e",
+                    "value": 2,
+                    "value_formula": "sub.elf.level + 1"
+                }
+            ],
+            "spell": {
+                "attack_modifier": 5,
+                "cantrips": [
+                    {
+                        "casting_time": "1 action",
+                        "classes": [
+                            "Bard",
+                            "Sorcerer",
+                            "Warlock",
+                            "Wizard"
+                        ],
+                        "components": [
+                            "verbal",
+                            "somatic"
+                        ],
+                        "concentration": false,
+                        "cost": "",
+                        "description": "This spell is a minor magical trick that novice spellcasters use for practice. You create one of the following magical effects within range.\n\n* You create an instantaneous, harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, or an odd odor.\n\n* You instantaneously light or snuff out a candle, a torch, or a small campfire.\n\n* You instantaneously clean or soil an object no larger than 1 cubic foot.\n\n* You chill, warm, or flavor up to 1 cubic foot of nonliving material for 1 hour.\n\n* You make a color, a small mark, or a symbol appear on an object or a surface for 1 hour.\n\n* You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the end of your next turn.\n\nIf you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action.",
+                        "duration": "Up to 1 hour",
+                        "id": 227,
+                        "level": "Cantrip",
+                        "name": "Prestidigitation",
+                        "range": "10 feet",
+                        "school": "transmutation"
+                    }
+                ],
+                "safe_dc": 13,
+                "stat": "intelligence"
+            }
+        },
+        "highelf": {
+            "level": 1,
+            "leveling": [
+                {
+                    "hidden": true,
+                    "path": "sub.highelf.level",
+                    "type": "value",
+                    "uuid": "90ba0fec-5cbb-4b17-862c-e935a73549c4",
+                    "value": 2,
+                    "value_formula": "sub.highelf.level + 1"
+                }
+            ]
+        },
+        "wizard": {
+            "hit_dice": 6,
+            "level": 1,
+            "leveling": [
+                {
+                    "hidden": true,
+                    "path": "sub.wizard.level",
+                    "type": "value",
+                    "uuid": "88545d66-f231-43ed-a443-90642612ff41",
+                    "value": 2,
+                    "value_formula": "sub.wizard.level + 1"
+                }
+            ],
+            "spell": {
+                "attack_modifier": 5,
+                "cantrips": [
+                    {
+                        "casting_time": "1 Action",
+                        "classes": [
+                            "Sorcerer",
+                            "Wizard"
+                        ],
+                        "components": [
+                            "verbal",
+                            "somatic"
+                        ],
+                        "concentration": false,
+                        "cost": "",
+                        "damage": {
+                            "bonus": 0,
+                            "dice_count": 1,
+                            "dice_size": 10,
+                            "type": "fire"
+                        },
+                        "description": "You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes `1d10` *fire damage*. A flammable object hit by this spell ignites if it isn''t being worn or carried.\n\nThis spell''s damage increases by `1d10` when you reach 5th level (`2d10`), 11th level (`3d10`), and 17th level (`4d10`).\n\nPHB, 5.0, page 242",
+                        "duration": "Instantaneous",
+                        "id": 116,
+                        "level": "Cantrip",
+                        "name": "Fire Bolt",
+                        "range": "120 feet",
+                        "school": "evocation"
+                    },
+                    {
+                        "casting_time": "1 action",
+                        "classes": [
+                            "Bard",
+                            "Cleric",
+                            "Sorcerer",
+                            "Wizard"
+                        ],
+                        "components": [
+                            "verbal"
+                        ],
+                        "concentration": false,
+                        "cost": "A firefly or phosphorescent moss",
+                        "description": "You touch one object that is no larger than 10 feet in any dimension. Until the spell ends, the object sheds bright light in a 20-foot radius and dim light for an additional 20 feet. The light can be colored as you like. Completely covering the object with something opaque blocks the light. The spell ends if you cast it again or dismiss it as an action.\n\nIf you target an object held or worn by a hostile creature, that creature must succeed on a **Dexterity** *saving throw* to avoid the spell.",
+                        "duration": "1 hour",
+                        "id": 180,
+                        "level": "Cantrip",
+                        "name": "Light",
+                        "range": "Touch",
+                        "save": "Dexterity",
+                        "school": "evocation"
+                    },
+                    {
+                        "casting_time": "1 action",
+                        "classes": [
+                            "Bard",
+                            "Sorcerer",
+                            "Warlock",
+                            "Wizard"
+                        ],
+                        "components": [
+                            "somatic",
+                            "material"
+                        ],
+                        "concentration": false,
+                        "cost": "A bit of fleece",
+                        "description": "You create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again.\n\nIf you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else''s voice, a lion''s roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.\n\nIf you create an image of an object-such as a chair, muddy footprints, or a small chest-it must be no larger than a 5-foot cube. The image can''t create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.\n\nIf a creature uses its action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.",
+                        "duration": "1 minute",
+                        "id": 205,
+                        "level": "Cantrip",
+                        "name": "Minor Illusion",
+                        "range": "30 feet",
+                        "school": "illusion"
+                    }
+                ],
+                "safe_dc": 13,
+                "stat": "intelligence"
+            }
+        }
+    },
+    "subrace": "High Elf",
+    "treasure_checkpoints": {},
+    "unarmored": 12,
+    "version": "1.0",
+    "wealth": {
+        "cp": 0,
+        "ep": 0,
+        "gp": 10,
+        "pp": 0,
+        "sp": 0
+    },
+    "weapon": [],
+    "weapons": [
+        {
+            "bonus": 1,
+            "cost": {
+                "sp": 2
+            },
+            "count": 1,
+            "damage": {
+                "bonus": -1,
+                "dice_count": 1,
+                "dice_size": 6,
+                "notation": "1d6+-1",
+                "type": "bludgeoning",
+                "type_label": "Bludgeoning",
+                "type_short": "Bldg"
+            },
+            "id": 8,
+            "name": "Quarterstaff",
+            "property": [
+                "versatile"
+            ],
+            "type": "simple melee",
+            "versatile": {
+                "bonus": -1,
+                "dice_count": 1,
+                "dice_size": 8,
+                "notation": "1d8+-1",
+                "type": "bludgeoning",
+                "type_label": "Bludgeoning",
+                "type_short": "Bldg"
+            },
+            "weight": {
+                "lb": 2.0
+            }
+        }
+    ],
+    "xp": 0,
+    "xp_level": 300,
+    "xp_progress": 0
+}
