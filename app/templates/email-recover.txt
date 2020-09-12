@@ -1,4 +1,4 @@
-Greetings {{ user.name }},
+Greetings {{ user.name | default(user.username) }},
 
 It has come to my attention that you may have forgotten your
 credentials for your account on D&D Machine. Fear not! It is but a

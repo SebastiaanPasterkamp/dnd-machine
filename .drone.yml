@@ -9,15 +9,17 @@ platform:
 
 steps:
   - name: Backend
-    image: python:3.6-alpine3.8
+    image: python:3.8-slim
     volumes:
       - name: pip-cache
         path: /root/.cache/pip
-      - name: apk-cache
-        path: /etc/apk/cache
+      - name: apt-cache
+        path: /var/lib/apt/lists
     commands:
-      - apk add build-base openssl-dev libffi-dev linux-headers pdftk
-      - pip install --upgrade pip --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org
+      - apt-get update
+      - mkdir -p /usr/share/man/man1/
+      - touch /usr/share/man/man1/rmid.1.gz.dpkg-tmp
+      - apt-get install -y pdftk build-essential python3-dev libffi-dev libssl-dev
       - pip install -r requirements.txt
       - python app/tests/run_tests.py
 
@@ -235,6 +237,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 759175cac685eb9b4e1c99afda21b7b197a115a2d9841e7c968d422c9cb9e6eb
+hmac: 69f11f84f90e7819062fd24141ceaf6efc83d210ad9a16f7092be44d0f3e7b58
 
 ...

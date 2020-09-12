@@ -2,8 +2,7 @@
 import os
 from flask import request, session, redirect, url_for, \
     render_template, jsonify, flash, get_flashed_messages
-from flask_mail import Mail, Message
-import uuid
+from flask_mail import Message
 from oauthlib.oauth2 import WebApplicationClient
 import json
 import requests
@@ -23,6 +22,7 @@ def register_paths(app):
         data = request.get_json()
         print(data)
         return jsonify({"status": "Received"})
+
 
     @app.route('/authenticate')
     def authenticate():
@@ -230,9 +230,8 @@ def register_paths(app):
                 )
 
         flash(
-            "If your input matched our information for your"
-            " registered account, an email has been sent to the"
-            " associated email address."
+            "An email has been sent to your email address if your input matched"
+            " our information for your registered account."
             )
 
         match = request.form.get("match")
@@ -244,13 +243,9 @@ def register_paths(app):
             return redirect(url_for('login'))
         user = users[0]
 
-        key = str(
-            uuid.uuid4().hex.upper()[:32]
-            )
-        user.setRecovery(key)
+        key = user.startRecovery()
         app.datamapper.user.update(user)
 
-        mail = Mail(app)
         msg = Message(
             subject="D&D Machine account recovery",
             sender="D&D Machine <%s>" % (
@@ -271,7 +266,7 @@ def register_paths(app):
                 'email-recover.html',
                 user=user,
                 key=key,
-                )
+                ),
             )
 
         img_path = os.path.join(app.static_folder, 'img', 'd20.png')
@@ -284,7 +279,7 @@ def register_paths(app):
                 headers=[['Content-ID','<d20>']],
                 )
 
-        mail.send(msg)
+        app.extensions['mail'].send(msg)
         return redirect(url_for('login'))
 
 

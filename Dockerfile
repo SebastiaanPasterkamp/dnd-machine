@@ -16,7 +16,8 @@ RUN cd /dnd-machine/ui \
     && apk del .build-deps \
     && npm run build:production
 
-FROM python:3.6-alpine3.8
+FROM python:3.8-slim
+
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
 ARG GIT_TAG
@@ -27,31 +28,29 @@ WORKDIR /dnd-machine
 
 COPY requirements.txt *.md *.py ./
 
-RUN apk add \
-        --no-cache \
-        --virtual .build-deps \
-        build-base \
-        linux-headers \
-    && apk add \
-        --no-cache \
-        pcre \
-        pcre-dev \
-        openssl-dev \
-        libffi-dev \
+RUN apt-get update \
+    && mkdir -p \
+        /usr/share/man/man1/ \
+    && touch \
+        /usr/share/man/man1/rmid.1.gz.dpkg-tmp \
+    && apt-get install -y \
         pdftk \
+        build-essential \
+        python3-dev \
+        libffi-dev \
+        libssl-dev \
     && pip install \
-        --no-cache-dir \
-        -r requirements.txt \
-    && apk del \
-        .build-deps \
+        -r ./requirements.txt \
+    && apt-get purge -y --auto-remove \
+        build-essential \
+    && rm -rf /var/lib/apt/lists/* \
     && mkdir /data
 
 COPY app/ /dnd-machine/app
 COPY --from=node /dnd-machine/app/static/ /dnd-machine/app/static/
 
-RUN apk add \
-        --no-cache \
-        --virtual .build-deps \
+RUN apt-get update \
+    && apt-get install -y \
         jq \
     && cat app/config.json \
         | jq '. | .info.version = "'$GIT_TAG'"' \
@@ -59,9 +58,10 @@ RUN apk add \
         | jq '. | .info.date = "2017 - '$(date +'%Y')'"' \
         | jq '. | .info.branch = "'$GIT_BRANCH'"' \
         > app/config.json.new \
-    && mv app/config.json.new app/config.json \
-    && apk del \
-        .build-deps
+    && apt-get purge -y --auto-remove \
+        jq \
+    && rm -rf /var/lib/apt/lists/* \
+    && mv app/config.json.new app/config.json
 
 VOLUME [ "/data" ]
 

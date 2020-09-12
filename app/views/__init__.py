@@ -5,72 +5,38 @@ import tempfile
 from subprocess import Popen, PIPE
 from io import BytesIO
 
+def generateXfdfField(key, txt, rtf):
+    if rtf is None or len(rtf) == 0:
+        return u"""
+    <field name="%s">
+        <value>%s</value>
+    </field>""" % (key, txt)
+
+    return u"""
+    <field name="%s">
+        <value>%s</value>
+        <value-richtext>
+            <body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/" xfa:APIVersion="Acrobat:6.0.0" xfa:spec="2.0.2">
+                <p><span style="font-size:10.0pt">%s</span></p>
+            </body>
+        </value-richtext>
+    </field>""" % (key, txt, rtf)
+
+def generateXfdfBool(key, value):
+    return u"""
+    <field name="%s">
+        <value>%s</value>
+    </field>""" % (key, u'Yes' if value else u'Off')
+
 def fill_pdf(pdf_file, text, html={}, xfdf_file=None, debug=False):
-    # Get empty FDF
-    args = [
-        "pdftk",
-        pdf_file,
-        "generate_fdf",
-        "output", "-",
-        "dont_ask"
-    ]
-
-    p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-    if p.wait() != 0:
-        raise IOError(p.stderr)
-    fdf_template = p.stdout.read()
-
-
-    def generateField(key, txt, rtf):
-        if rtf is None or len(rtf) == 0:
-            return u"""
-        <field name="%s">
-            <value>%s</value>
-        </field>""" % (key, txt)
-
-        return u"""
-        <field name="%s">
-            <value>%s</value>
-            <value-richtext>
-                <body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/" xfa:APIVersion="Acrobat:6.0.0" xfa:spec="2.0.2">
-                    <p><span style="font-size:10.0pt">%s</span></p>
-                </body>
-            </value-richtext>
-        </field>""" % (key, txt, rtf)
-
-    def generateBool(key, value):
-        return u"""
-        <field name="%s">
-            <value>%s</value>
-        </field>""" % (key, u'Yes' if text.get(key, False) else u'Off')
-
     # Populate FDF
-    re_value = re.compile(br'(<<\s+/V \(.*?\)\s+\/T \((.*?)\)\s+>>)')
-    re_bool = re.compile(br'(<<\s+/V /\S*\s+/T \((.*?)\)\s+>>)')
-
     xfdf_fields = []
-    for val in re_value.finditer(fdf_template):
-        (replace, field) = val.groups()
-        key = field.decode('utf-8')
-        if key not in text:
-            continue
-
-        xfdf_fields.append(generateField(
-            key,
-            text.get(key, field if debug else ''),
-            html.get(key),
-            ))
-
-    for val in re_bool.finditer(fdf_template):
-        (replace, field) = val.groups()
-        key = field.decode('utf-8')
-        if text.get(key) is None:
-            continue
-
-        xfdf_fields.append(generateBool(
-            key,
-            text.get(key),
-            ))
+    for key, value in text.items():
+        if type(value) != bool:
+            rich = html.get(key)
+            xfdf_fields.append(generateXfdfField(key, value, rich))
+        else:
+            xfdf_fields.append(generateXfdfBool(key, value))
 
     xfdf_data = u"""<?xml version="1.0" encoding="UTF-8"?>
 <xfdf xmlns="http://ns.adobe.com/xfdf/" xml:space="preserve">
@@ -97,7 +63,7 @@ def fill_pdf(pdf_file, text, html={}, xfdf_file=None, debug=False):
         "need_appearances",
         "compress",
         "allow", "AllFeatures",
-    ]
+        ]
 
     p = Popen(args, stdin=None, stdout=PIPE, stderr=PIPE)
     stdout, stderr = p.communicate()

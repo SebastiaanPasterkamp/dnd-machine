@@ -1,5 +1,7 @@
 *~
 *pyc
+*.db
+coverage
 app/coverage
 ui/node_modules
 ui/coverage
