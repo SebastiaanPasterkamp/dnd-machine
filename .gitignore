@@ -5,3 +5,5 @@ coverage
 app/config.local.json
 app/static/
 ui/node_modules
+app/tests/data/**/expected.*
+app/tests/data/**/actual.*

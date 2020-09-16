@@ -8,7 +8,7 @@
     },
     "Preparing Wizard Spells": {
       "description": "You prepare the list of wizard spells that are available or you to cast. To do so, choose a number of wizard spells\nfrom your spellbook equal to %(limit)s. The spells must be of a level for which you have spell slots.\n\nYou can change your list of prepared spells when you finish a long rest. Preparing a new list of wizard spells\nrequires time spent studying your spellbook and memorizing the incantations and gestures you must make to\ncast the spell: at least 1 minute per spell level for each spell on your list.",
-      "limit": 4,
+      "limit": 5,
       "limit_default": "your **Intelligence modifier** + your wizard level (minimum of one spell)",
       "limit_formula": "max(1, character.level + statistics.modifiers.intelligence)"
     }
@@ -20,10 +20,10 @@
   "armor_class": 12,
   "armor_class_bonus": 0,
   "challenge": {
-    "deadly": 100,
-    "easy": 25,
-    "hard": 75,
-    "medium": 50
+    "deadly": 200,
+    "easy": 50,
+    "hard": 150,
+    "medium": 100
   },
   "choices": {
     "00bb6113-e274-42f5-88b4-df9632ed4347": {
@@ -33,14 +33,14 @@
     "01f49422-429d-4082-8600-1ad796300f50": {
       "added": [
         {
-          "id": "investigation",
-          "name": "Investigation",
+          "id": "arcana",
+          "name": "Arcana",
           "stat": "intelligence",
           "type": "skills"
         },
         {
-          "id": "arcana",
-          "name": "Arcana",
+          "id": "investigation",
+          "name": "Investigation",
           "stat": "intelligence",
           "type": "skills"
         }
@@ -167,8 +167,8 @@
             "Wizard"
           ],
           "components": [
-            "somatic",
-            "material"
+            "material",
+            "somatic"
           ],
           "concentration": false,
           "cost": "A bit of fleece",
@@ -423,7 +423,7 @@
       "name": "Component pouch",
       "type": "gear",
       "weight": {
-        "lb": 2.0
+                "lb": 2.0
       }
     },
     {
@@ -435,7 +435,7 @@
       "name": "Backpack",
       "type": "gear",
       "weight": {
-        "lb": 5.0
+                "lb": 5.0
       }
     },
     {
@@ -447,7 +447,7 @@
       "name": "Bedroll",
       "type": "gear",
       "weight": {
-        "lb": 7.0
+                "lb": 7.0
       }
     },
     {
@@ -459,7 +459,7 @@
       "name": "Mess kit",
       "type": "gear",
       "weight": {
-        "lb": 1.0
+                "lb": 1.0
       }
     },
     {
@@ -471,7 +471,7 @@
       "name": "Tinderbox",
       "type": "gear",
       "weight": {
-        "lb": 1.0
+                "lb": 1.0
       }
     },
     {
@@ -483,7 +483,7 @@
       "name": "Torch",
       "type": "gear",
       "weight": {
-        "lb": 1.0
+                "lb": 1.0
       }
     },
     {
@@ -495,7 +495,7 @@
       "name": "Rations (1 day)",
       "type": "gear",
       "weight": {
-        "lb": 2.0
+                "lb": 2.0
       }
     },
     {
@@ -507,7 +507,7 @@
       "name": "Waterskin",
       "type": "gear",
       "weight": {
-        "lb": 5.0
+                "lb": 5.0
       }
     },
     {
@@ -519,7 +519,7 @@
       "name": "Rope, hempen (50 feet)",
       "type": "gear",
       "weight": {
-        "lb": 10.0
+                "lb": 10.0
       }
     },
     {
@@ -531,7 +531,7 @@
       "name": "Spellbook",
       "type": "gear",
       "weight": {
-        "lb": 3.0
+                "lb": 3.0
       }
     },
     {
@@ -558,7 +558,7 @@
       "name": "Small knife",
       "type": "gear",
       "weight": {
-        "lb": 1.0
+                "lb": 1.0
       }
     },
     {
@@ -579,7 +579,7 @@
       "name": "Clothes, common",
       "type": "gear",
       "weight": {
-        "lb": 3.0
+                "lb": 3.0
       }
     },
     {
@@ -591,7 +591,7 @@
       "name": "Pouch",
       "type": "gear",
       "weight": {
-        "lb": 1.0
+                "lb": 1.0
       }
     }
   ],
@@ -620,8 +620,8 @@
     ]
   },
   "gender": "male",
-  "hit_points": 8,
-  "id": 1,
+  "hit_points": 10,
+  "id": 4,
   "info": {
     "Casting Wizard Spells": "The Wizard table shows how many spell slots you have\nto cast your wizard spells of 1st level and higher. To cast\none of these spells, you must expend a slot of the spell’s\nlevel or higher. You regain all expended spell slots when\nyou finish a long rest.",
     "Darkvision": "Accustomed to twilit forests and the night\nsky, you have superior vision in dark and dim conditions.\nYou can see in dim light within 60 feet of you as if it were\nbright light, and in darkness as if it were dim light. You\ncan’t discern color in darkness, only shades of gray.",
@@ -825,8 +825,8 @@
     "trinket": []
   },
   "languages": [],
-  "level": 1,
-  "level_reached": 1,
+  "level": 2,
+  "level_reached": 6,
   "name": "Testy McTestFace",
   "passive_perception": 10,
   "personality": {
@@ -865,14 +865,14 @@
         "type": "skills"
       },
       {
-        "id": "investigation",
-        "name": "Investigation",
+        "id": "arcana",
+        "name": "Arcana",
         "stat": "intelligence",
         "type": "skills"
       },
       {
-        "id": "arcana",
-        "name": "Arcana",
+        "id": "investigation",
+        "name": "Investigation",
         "stat": "intelligence",
         "type": "skills"
       },
@@ -1181,7 +1181,7 @@
           "somatic",
           "verbal"
         ],
-        "concentration": false,
+                "concentration": false,
         "cost": "",
         "description": "This spell is a minor magical trick that novice spellcasters use for practice. You create one of the following magical effects within range.\n\n* You create an instantaneous, harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, or an odd odor.\n\n* You instantaneously light or snuff out a candle, a torch, or a small campfire.\n\n* You instantaneously clean or soil an object no larger than 1 cubic foot.\n\n* You chill, warm, or flavor up to 1 cubic foot of nonliving material for 1 hour.\n\n* You make a color, a small mark, or a symbol appear on an object or a surface for 1 hour.\n\n* You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the end of your next turn.\n\nIf you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action.",
         "duration": "Up to 1 hour",
@@ -1201,7 +1201,7 @@
           "somatic",
           "verbal"
         ],
-        "concentration": false,
+                "concentration": false,
         "cost": "",
         "damage": {
           "bonus": 0,
@@ -1228,7 +1228,7 @@
         "components": [
           "verbal"
         ],
-        "concentration": false,
+                "concentration": false,
         "cost": "A firefly or phosphorescent moss",
         "description": "You touch one object that is no larger than 10 feet in any dimension. Until the spell ends, the object sheds bright light in a 20-foot radius and dim light for an additional 20 feet. The light can be colored as you like. Completely covering the object with something opaque blocks the light. The spell ends if you cast it again or dismiss it as an action.\n\nIf you target an object held or worn by a hostile creature, that creature must succeed on a **Dexterity** *saving throw* to avoid the spell.",
         "duration": "1 hour",
@@ -1248,10 +1248,10 @@
           "Wizard"
         ],
         "components": [
-          "material",
-          "somatic"
+                    "material",
+                    "somatic"
         ],
-        "concentration": false,
+                "concentration": false,
         "cost": "A bit of fleece",
         "description": "You create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again.\n\nIf you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a lion's roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.\n\nIf you create an image of an object-such as a chair, muddy footprints, or a small chest-it must be no larger than a 5-foot cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.\n\nIf a creature uses its action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.",
         "duration": "1 minute",
@@ -1277,7 +1277,7 @@
             "somatic",
             "verbal"
           ],
-          "concentration": false,
+                    "concentration": false,
           "cost": "",
           "description": "This spell is a minor magical trick that novice spellcasters use for practice. You create one of the following magical effects within range.\n\n* You create an instantaneous, harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, or an odd odor.\n\n* You instantaneously light or snuff out a candle, a torch, or a small campfire.\n\n* You instantaneously clean or soil an object no larger than 1 cubic foot.\n\n* You chill, warm, or flavor up to 1 cubic foot of nonliving material for 1 hour.\n\n* You make a color, a small mark, or a symbol appear on an object or a surface for 1 hour.\n\n* You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the end of your next turn.\n\nIf you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action.",
           "duration": "Up to 1 hour",
@@ -1297,7 +1297,7 @@
             "somatic",
             "verbal"
           ],
-          "concentration": false,
+                    "concentration": false,
           "cost": "",
           "damage": {
             "bonus": 0,
@@ -1324,7 +1324,7 @@
           "components": [
             "verbal"
           ],
-          "concentration": false,
+                    "concentration": false,
           "cost": "A firefly or phosphorescent moss",
           "description": "You touch one object that is no larger than 10 feet in any dimension. Until the spell ends, the object sheds bright light in a 20-foot radius and dim light for an additional 20 feet. The light can be colored as you like. Completely covering the object with something opaque blocks the light. The spell ends if you cast it again or dismiss it as an action.\n\nIf you target an object held or worn by a hostile creature, that creature must succeed on a **Dexterity** *saving throw* to avoid the spell.",
           "duration": "1 hour",
@@ -1344,10 +1344,10 @@
             "Wizard"
           ],
           "components": [
-            "material",
-            "somatic"
+                        "material",
+                        "somatic"
           ],
-          "concentration": false,
+                    "concentration": false,
           "cost": "A bit of fleece",
           "description": "You create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again.\n\nIf you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a lion's roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.\n\nIf you create an image of an object-such as a chair, muddy footprints, or a small chest-it must be no larger than a 5-foot cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.\n\nIf a creature uses its action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.",
           "duration": "1 minute",
@@ -1362,7 +1362,7 @@
     "list": [],
     "max_cantrips": 3,
     "max_known": 0,
-    "max_prepared": 4,
+    "max_prepared": 5,
     "prepared": [],
     "safe_dc": 0,
     "slots": {
@@ -1494,7 +1494,7 @@
           "hidden": true,
           "path": "sub.wizard.level",
           "type": "value",
-          "uuid": "0777a4ed-3758-4285-8e35-44cd7a455742",
+          "uuid": "e3dc2ba1-0014-4797-aa57-83d1f28954e8.0777a4ed-3758-4285-8e35-44cd7a455742",
           "value": 2,
           "value_default": 1,
           "value_formula": "sub.wizard.level + 1"
@@ -1561,8 +1561,8 @@
               "Wizard"
             ],
             "components": [
-              "somatic",
-              "material"
+              "material",
+              "somatic"
             ],
             "concentration": false,
             "cost": "A bit of fleece",
@@ -1628,7 +1628,7 @@
       }
     }
   ],
-  "xp": 0,
-  "xp_level": 300,
+  "xp": 14000,
+  "xp_level": 9000,
   "xp_progress": 0
 }

@@ -8,7 +8,7 @@
     },
     "Preparing Wizard Spells": {
       "description": "You prepare the list of wizard spells that are available or you to cast. To do so, choose a number of wizard spells\nfrom your spellbook equal to %(limit)s. The spells must be of a level for which you have spell slots.\n\nYou can change your list of prepared spells when you finish a long rest. Preparing a new list of wizard spells\nrequires time spent studying your spellbook and memorizing the incantations and gestures you must make to\ncast the spell: at least 1 minute per spell level for each spell on your list.",
-      "limit": 4,
+      "limit": 5,
       "limit_default": "your **Intelligence modifier** + your wizard level (minimum of one spell)",
       "limit_formula": "max(1, character.level + statistics.modifiers.intelligence)"
     }
@@ -20,10 +20,10 @@
   "armor_class": 12,
   "armor_class_bonus": 0,
   "challenge": {
-    "deadly": 100,
-    "easy": 25,
-    "hard": 75,
-    "medium": 50
+    "deadly": 200,
+    "easy": 50,
+    "hard": 150,
+    "medium": 100
   },
   "choices": {
     "00bb6113-e274-42f5-88b4-df9632ed4347": {
@@ -620,8 +620,8 @@
     ]
   },
   "gender": "male",
-  "hit_points": 8,
-  "id": 1,
+  "hit_points": 10,
+  "id": 3,
   "info": {
     "Casting Wizard Spells": "The Wizard table shows how many spell slots you have\nto cast your wizard spells of 1st level and higher. To cast\none of these spells, you must expend a slot of the spell’s\nlevel or higher. You regain all expended spell slots when\nyou finish a long rest.",
     "Darkvision": "Accustomed to twilit forests and the night\nsky, you have superior vision in dark and dim conditions.\nYou can see in dim light within 60 feet of you as if it were\nbright light, and in darkness as if it were dim light. You\ncan’t discern color in darkness, only shades of gray.",
@@ -825,8 +825,8 @@
     "trinket": []
   },
   "languages": [],
-  "level": 1,
-  "level_reached": 1,
+  "level": 2,
+  "level_reached": 5,
   "name": "Testy McTestFace",
   "passive_perception": 10,
   "personality": {
@@ -1362,7 +1362,7 @@
     "list": [],
     "max_cantrips": 3,
     "max_known": 0,
-    "max_prepared": 4,
+    "max_prepared": 5,
     "prepared": [],
     "safe_dc": 0,
     "slots": {
@@ -1494,7 +1494,7 @@
           "hidden": true,
           "path": "sub.wizard.level",
           "type": "value",
-          "uuid": "0777a4ed-3758-4285-8e35-44cd7a455742",
+          "uuid": "e3dc2ba1-0014-4797-aa57-83d1f28954e8.0777a4ed-3758-4285-8e35-44cd7a455742",
           "value": 2,
           "value_default": 1,
           "value_formula": "sub.wizard.level + 1"
@@ -1628,7 +1628,7 @@
       }
     }
   ],
-  "xp": 0,
-  "xp_level": 300,
+  "xp": 6500,
+  "xp_level": 7500,
   "xp_progress": 0
 }

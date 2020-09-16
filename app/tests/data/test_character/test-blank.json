@@ -1,0 +1,157 @@
+{
+  "abilities": {},
+  "adventure_league": false,
+  "appearance": "",
+  "armor": [],
+  "armor_class": 9,
+  "armor_class_bonus": 0,
+  "challenge": {
+    "deadly": 100,
+    "easy": 25,
+    "hard": 75,
+    "medium": 50
+  },
+  "choices": {},
+  "computed": {
+    "passive_perception": {
+      "formulas": [
+        "10 + skills.perception"
+      ]
+    },
+    "proficiency": {
+      "formulas": [
+        "2 + floor(character.level / 4)"
+      ]
+    },
+    "unarmored": {
+      "formulas": [
+        "10 + statistics.modifiers.dexterity"
+      ]
+    }
+  },
+  "equipment": [],
+  "features": {
+    "proficiency": [
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      4,
+      4,
+      4,
+      4,
+      5,
+      5,
+      5,
+      5,
+      6,
+      6,
+      6,
+      6
+    ]
+  },
+  "id": 0,
+  "initiative_bonus": 0,
+  "items": {
+    "artisan": [],
+    "gaming": [],
+    "gear": [],
+    "kit": [],
+    "musical": [],
+    "trinket": []
+  },
+  "languages": [],
+  "level": 1,
+  "level_reached": 1,
+  "name": "",
+  "passive_perception": 10,
+  "personality": {},
+  "proficiencies": {
+    "advantages": [],
+    "armor": [],
+    "expertise": [],
+    "saving_throws": [],
+    "skills": [],
+    "talent": [],
+    "tools": [],
+    "weapons": []
+  },
+  "proficiency": 2,
+  "saving_throws": {
+    "charisma": 0,
+    "constitution": 2,
+    "dexterity": 2,
+    "intelligence": -1,
+    "strength": 3,
+    "wisdom": 1
+  },
+  "skills": {
+  },
+  "spell": {
+    "attack_modifier": 0,
+    "cantrips": [],
+    "expanded": [],
+    "level": {},
+    "list": [],
+    "max_cantrips": 0,
+    "max_known": 0,
+    "max_prepared": 0,
+    "prepared": [],
+    "safe_dc": 0,
+    "slots": {}
+  },
+  "statistics": {
+    "bare": {
+      "charisma": 8,
+      "constitution": 8,
+      "dexterity": 8,
+      "intelligence": 8,
+      "strength": 8,
+      "wisdom": 8
+    },
+    "base": {
+      "charisma": 8,
+      "constitution": 8,
+      "dexterity": 8,
+      "intelligence": 8,
+      "strength": 8,
+      "wisdom": 8
+    },
+    "bonus": {
+      "charisma": [],
+      "constitution": [],
+      "dexterity": [],
+      "intelligence": [],
+      "strength": [],
+      "wisdom": []
+    },
+    "modifiers": {
+      "charisma": -1,
+      "constitution": -1,
+      "dexterity": -1,
+      "intelligence": -1,
+      "strength": -1,
+      "wisdom": -1
+    }
+  },
+  "sub": {},
+  "treasure_checkpoints": {},
+  "unarmored": 9,
+  "user_id": 1,
+  "version": "1.0",
+  "wealth": {
+    "cp": 0,
+    "ep": 0,
+    "gp": 0,
+    "pp": 0,
+    "sp": 0
+  },
+  "weapons": [],
+  "xp": 0,
+  "xp_level": 300,
+  "xp_progress": 0
+}
