@@ -276,13 +276,13 @@ class CharacterObject(JsonObject):
             'choices': self.choices,
             })
 
-        changes = char._getChanges()
+        changes = char._getChanges(datamapper)
         while changes.size:
             combined = char._combineChanges(changes, datamapper.machine)
             for path, update in combined:
                 char._setPath(path, update)
             char.compute()
-            changes = char._getChanges()
+            changes = char._getChanges(datamapper)
 
         self._config = char._config
 
@@ -388,17 +388,19 @@ class CharacterObject(JsonObject):
 
         return combined
 
-    def _getChanges(self):
+    def _getChanges(self, datamapper):
         changes = {}
-        for src in [
+        for mapper in [
                 datamapper.race,
                 datamapper.subrace,
                 datamapper.klass,
                 datamapper.subclass,
                 datamapper.background,
                 ]:
-            c = src.collectChanges(datamapper, self)
-            changes.extend(r)
+            objs = mapper.getMultiple()
+            for obj in objs:
+                c = obj.collectChanges(datamapper, self)
+                changes.extend(c)
         return changes
 
     def _meetsCondition(self, conditions):
