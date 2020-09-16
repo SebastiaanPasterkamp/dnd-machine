@@ -1,4 +1,7 @@
 {
+    "id": 1,
+    "user_id": 2,
+    "name": "Testy McTestFace",
     "abilities": {
         "Arcane Recovery": {
             "description": "You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than %(limit)s, and none of the slots can be 6th level or higher.",
