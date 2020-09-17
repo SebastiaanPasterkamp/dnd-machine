@@ -1,6 +1,12 @@
 // base.sass
 @charset "UTF-8";
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        filter: invert(100%);
+    }
+}
+
 @import 'table-responsive';
 @import 'media-print';
 @import 'media-values';
