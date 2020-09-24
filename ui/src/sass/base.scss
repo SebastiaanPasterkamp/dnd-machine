@@ -1,6 +1,18 @@
 // base.sass
 @charset "UTF-8";
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        filter: invert(100%);
+    }
+    .nice-header-collapse, footer, .message-stack, .nice-tag, .nice-progress, .nice-btn, .nice-btn-alt {
+        filter: invert(100%);
+    }
+    .nice-header-menu {
+        color: #F5F7F7;
+    }
+}
+
 @import 'table-responsive';
 @import 'media-print';
 @import 'media-values';
