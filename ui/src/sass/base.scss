@@ -5,6 +5,12 @@
     :root {
         filter: invert(100%);
     }
+    .nice-header-collapse, footer, .message-stack, .nice-tag, .nice-progress, .nice-btn, .nice-btn-alt {
+        filter: invert(100%);
+    }
+    .nice-header-menu {
+        color: #F5F7F7;
+    }
 }
 
 @import 'table-responsive';
