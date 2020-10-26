@@ -60,16 +60,13 @@ export class ClassEdit extends React.Component
             return ({
                 name: `${_class} ${level}`,
                 conditions: [
-                    {path: levelPath, type: 'gte', value: level - 1 },
+                    {
+                        path: levelPath,
+                        type: 'eq',
+                        value: level - 1,
+                    },
                 ],
                 config: [
-                    {
-                        hidden: true,
-                        path: levelPath,
-                        type: "value",
-                        uuid: uuidv4(),
-                        value: level,
-                    },
                 ],
             });
         });
@@ -284,15 +281,7 @@ ClassEdit.defaultProps = {
     caster_rank: 0,
     subclass_level: 1,
     conditions: [],
-    config: [
-        {
-            hidden: true,
-            path: 'sub..level',
-            type: "value",
-            uuid: uuidv4(),
-            value: 1,
-        },
-    ],
+    config: [],
     phases: [],
     features: {},
 };

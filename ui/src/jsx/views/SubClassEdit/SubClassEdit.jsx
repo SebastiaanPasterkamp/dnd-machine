@@ -71,16 +71,13 @@ export class SubClassEdit extends React.Component
             return ({
                 name: `${subclass} ${level}`,
                 conditions: [
-                    {path: levelPath, type: 'gte', value: level - 1 },
+                    {
+                        path: levelPath,
+                        type: 'eq',
+                        value: level - 1,
+                    },
                 ],
                 config: [
-                    {
-                        hidden: true,
-                        path: levelPath,
-                        type: "value",
-                        uuid: uuidv4(),
-                        value: level,
-                    },
                 ],
             });
         });
@@ -307,29 +304,7 @@ SubClassEdit.defaultProps = {
     name: '',
     description: '',
     caster_rank: 0,
-    config: [
-        {
-            hidden: true,
-            path: 'sub..level',
-            type: "value",
-            uuid: uuidv4(),
-            value: 1,
-        },
-        {
-            hidden: true,
-            type: "leveling",
-            uuid: uuidv4(),
-            config: [
-                {
-                    hidden: true,
-                    path: 'sub..level',
-                    type: "value",
-                    uuid: uuidv4(),
-                    value_formula: "sub..level + 1",
-                },
-            ],
-        },
-    ],
+    config: [],
     phases: [],
     classes: [],
 };
