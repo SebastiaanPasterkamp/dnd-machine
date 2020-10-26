@@ -49,29 +49,14 @@ CREATE TABLE `options` (
 BEGIN TRANSACTION;
 INSERT INTO `race` (id, name, config)
     VALUES (1, 'Dwarf', '{
+    "conditions": [
+        {
+            "value": 1,
+            "path": "character.level",
+            "type": "lte"
+        }
+    ],
     "config": [
-        {
-            "hidden": true,
-            "path": "sub.dwarf.level",
-            "type": "value",
-            "uuid": "ccffadb1-b939-4b9b-b9f7-72a1b0b1e5d4",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.dwarf.level",
-                    "type": "value",
-                    "uuid": "04a36959-dbb9-43f6-a9c4-c0f545fd2cfb",
-                    "value_formula": "sub.dwarf.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.dwarf.leveling",
-            "type": "leveling",
-            "uuid": "c9becef4-2f7e-46cd-b15b-f087493374f6"
-        },
         {
             "config": [
                 {
@@ -164,10 +149,7 @@ INSERT INTO `race` (id, name, config)
                     "type": "martial melee"
                 }
             ],
-            "list": [
-                "weapon",
-                "weapon_types"
-            ],
+            "list": [],
             "name": "Dwarven Combat Training",
             "path": "proficiencies.weapons",
             "type": "objectlist",
@@ -216,9 +198,7 @@ INSERT INTO `race` (id, name, config)
                     "type": "languages"
                 }
             ],
-            "list": [
-                "languages"
-            ],
+            "list": [],
             "name": "Languages",
             "path": "proficiencies.languages",
             "type": "objectlist",
@@ -239,29 +219,14 @@ INSERT INTO `race` (id, name, config)
 }');
 INSERT INTO `race` (id, name, config)
     VALUES (2, 'Elf', '{
+    "conditions": [
+        {
+            "value": 1,
+            "path": "character.level",
+            "type": "lte"
+        }
+    ],
     "config": [
-        {
-            "hidden": true,
-            "path": "sub.elf.level",
-            "type": "value",
-            "uuid": "04f75e13-1012-43e7-a35d-0a28e2ed3270",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.elf.level",
-                    "type": "value",
-                    "uuid": "c8a78e10-2a9b-4174-b6d3-ae0855ff4b4e",
-                    "value_formula": "sub.elf.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.elf.leveling",
-            "type": "leveling",
-            "uuid": "17e430a1-d31b-421b-9de1-5509e9015637"
-        },
         {
             "config": [
                 {
@@ -326,9 +291,7 @@ INSERT INTO `race` (id, name, config)
                     "type": "skills"
                 }
             ],
-            "list": [
-                "skills"
-            ],
+            "list": [],
             "name": "Keen Senses",
             "path": "proficiencies.skills",
             "type": "objectlist",
@@ -362,9 +325,7 @@ INSERT INTO `race` (id, name, config)
                     "type": "languages"
                 }
             ],
-            "list": [
-                "languages"
-            ],
+            "list": [],
             "name": "Languages",
             "path": "proficiencies.languages",
             "type": "objectlist",
@@ -385,29 +346,14 @@ INSERT INTO `race` (id, name, config)
 }');
 INSERT INTO `race` (id, name, config)
     VALUES (3, 'Halfling', '{
+    "conditions": [
+        {
+            "value": 1,
+            "path": "character.level",
+            "type": "lte"
+        }
+    ],
     "config": [
-        {
-            "hidden": true,
-            "path": "sub.halfling.level",
-            "type": "value",
-            "uuid": "2b5e047f-1e56-4adb-97b2-ac58b6ae3b92",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.halfling.level",
-                    "type": "value",
-                    "uuid": "26911233-0f34-4993-9231-eecddf6850a0",
-                    "value_formula": "sub.halfling.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.halfling.leveling",
-            "type": "leveling",
-            "uuid": "819efec1-7052-4018-ba7f-08bbdb52a9a6"
-        },
         {
             "config": [
                 {
@@ -491,9 +437,7 @@ INSERT INTO `race` (id, name, config)
                     "type": "languages"
                 }
             ],
-            "list": [
-                "languages"
-            ],
+            "list": [],
             "name": "Languages",
             "path": "proficiencies.languages",
             "type": "objectlist",
@@ -514,29 +458,14 @@ INSERT INTO `race` (id, name, config)
 }');
 INSERT INTO `race` (id, name, config)
     VALUES (4, 'Human', '{
+    "conditions": [
+        {
+            "value": 1,
+            "path": "character.level",
+            "type": "lte"
+        }
+    ],
     "config": [
-        {
-            "hidden": true,
-            "path": "sub.human.level",
-            "type": "value",
-            "uuid": "0f022476-1552-4f0f-83a1-5fc597e53c4d",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.human.level",
-                    "type": "value",
-                    "uuid": "59e613da-192f-4b38-8486-875c380dfdfd",
-                    "value_formula": "sub.human.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.human.leveling",
-            "type": "leveling",
-            "uuid": "1a4c28b6-7762-4c8f-a75e-d88654ca2442"
-        },
         {
             "description": "In the Forgotten Realms, nine human ethnic groups\nare widely recognized, though over a dozen others are ",
             "name": "Human Ethnicities",
@@ -675,28 +604,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (1, 'Hill Dwarf', 1, '{
     "config": [
         {
-            "hidden": true,
-            "path": "sub.hilldwarf.level",
-            "type": "value",
-            "uuid": "4039df57-06c4-4e57-a6d6-f35b9193f83b",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.hilldwarf.level",
-                    "type": "value",
-                    "uuid": "89267565-216d-4b35-a618-004376ff47cf",
-                    "value_formula": "sub.hilldwarf.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.hilldwarf.leveling",
-            "type": "leveling",
-            "uuid": "8a5db494-fdf3-4a27-95c0-bd85f340d6c8"
-        },
-        {
             "config": [
                 {
                     "given": [
@@ -742,28 +649,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (2, 'Mountain Dwarf', 1, '{
     "config": [
         {
-            "hidden": true,
-            "path": "sub.mountaindwarf.level",
-            "type": "value",
-            "uuid": "8d65adcb-ea3e-4e15-ac36-3b06c3337e78",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.mountaindwarf.level",
-                    "type": "value",
-                    "uuid": "803b7e5d-e2d3-4079-a29f-0505b5d1bae0",
-                    "value_formula": "sub.mountaindwarf.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.mountaindwarf.leveling",
-            "type": "leveling",
-            "uuid": "c956d288-1a02-4a1f-8bde-b312be3b9d4d"
-        },
-        {
             "config": [
                 {
                     "given": [
@@ -795,9 +680,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "type": "armor_types"
                 }
             ],
-            "list": [
-                "armor_types"
-            ],
+            "list": [],
             "name": "Dwarven Armor Training",
             "path": "proficiencies.armor",
             "type": "objectlist",
@@ -812,28 +695,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
 INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (3, 'High Elf', 2, '{
     "config": [
-        {
-            "hidden": true,
-            "path": "sub.highelf.level",
-            "type": "value",
-            "uuid": "35d5bdca-24d0-41bd-a6fc-bd49d7f02781",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.highelf.level",
-                    "type": "value",
-                    "uuid": "90ba0fec-5cbb-4b17-862c-e935a73549c4",
-                    "value_formula": "sub.highelf.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.highelf.leveling",
-            "type": "leveling",
-            "uuid": "70ca225f-c594-443c-b643-a537f3bdcd61"
-        },
         {
             "config": [
                 {
@@ -876,9 +737,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "type": "martial ranged"
                 }
             ],
-            "list": [
-                "weapon"
-            ],
+            "list": [],
             "name": "Elf Weapon Training",
             "path": "proficiencies.weapons",
             "type": "objectlist",
@@ -981,28 +840,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (4, 'Wood Elf', 2, '{
     "config": [
         {
-            "hidden": true,
-            "path": "sub.woodelf.level",
-            "type": "value",
-            "uuid": "d6823f98-6b17-45bb-8e9b-b4f02bc3dee8",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.woodelf.level",
-                    "type": "value",
-                    "uuid": "d223ac4b-1fbf-4efd-ab73-3d253bbf3b21",
-                    "value_formula": "sub.woodelf.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.woodelf.leveling",
-            "type": "leveling",
-            "uuid": "163729e1-80ef-48cf-81aa-6f813ce1f26f"
-        },
-        {
             "config": [
                 {
                     "given": [
@@ -1044,9 +881,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
                     "type": "martial ranged"
                 }
             ],
-            "list": [
-                "weapon"
-            ],
+            "list": [],
             "name": "Elf Weapon Training",
             "path": "proficiencies.weapons",
             "type": "objectlist",
@@ -1084,28 +919,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (5, 'Lightfoot Halfling', 3, '{
     "config": [
         {
-            "hidden": true,
-            "path": "sub.lightfoothalfling.level",
-            "type": "value",
-            "uuid": "6cbbd017-bb0f-4eae-a852-c44975bb21b2",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.lightfoothalfling.level",
-                    "type": "value",
-                    "uuid": "6dd40f2d-f494-48e3-932b-1c9b7221035b",
-                    "value_formula": "sub.lightfoothalfling.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.lightfoothalfling.leveling",
-            "type": "leveling",
-            "uuid": "643bf5a1-1145-4045-a545-67f1361947ec"
-        },
-        {
             "config": [
                 {
                     "given": [
@@ -1140,28 +953,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (6, 'Stout Halfling', 3, '{
     "config": [
         {
-            "hidden": true,
-            "path": "sub.stouthalfling.level",
-            "type": "value",
-            "uuid": "ffa4c1e3-6d19-4bf1-b089-20c4e135f832",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.stouthalfling.level",
-                    "type": "value",
-                    "uuid": "e66078f9-bd2d-4199-aad1-a5dae0278394",
-                    "value_formula": "sub.stouthalfling.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.stouthalfling.leveling",
-            "type": "leveling",
-            "uuid": "96032db1-07c3-4ed3-abcf-6914ef7b82b2"
-        },
-        {
             "config": [
                 {
                     "given": [
@@ -1195,28 +986,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
 INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (7, 'Standard Human', 4, '{
     "config": [
-        {
-            "hidden": true,
-            "path": "sub.standardhuman.level",
-            "type": "value",
-            "uuid": "abf2e4e9-00ef-4a95-a117-ebc2afd13b06",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.standardhuman.level",
-                    "type": "value",
-                    "uuid": "4f608f15-f40d-4916-a330-54ae25ad8683",
-                    "value_formula": "sub.standardhuman.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.standardhuman.leveling",
-            "type": "leveling",
-            "uuid": "8929dc35-871f-4bfb-9740-ebb2b6a14fae"
-        },
         {
             "config": [
                 {
@@ -1295,28 +1064,6 @@ INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (8, 'Human Variant', 4, '{
     "config": [
         {
-            "hidden": true,
-            "path": "sub.humanvariant.level",
-            "type": "value",
-            "uuid": "a7fac886-dfa5-4919-aaa4-938bafa096c4",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.humanvariant.level",
-                    "type": "value",
-                    "uuid": "8d67914b-9eac-40bc-81b6-8b2e617e1cab",
-                    "value_formula": "sub.humanvariant.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.humanvariant.leveling",
-            "type": "leveling",
-            "uuid": "e4c16940-9438-47f5-b37e-129b2dd4f842"
-        },
-        {
             "description": "Two different ability scores of your choice increase by 1.",
             "limit": 2,
             "name": "Ability Score Improvement",
@@ -1336,7 +1083,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
         },
         {
             "description": "You gain one feat of your choice.",
-            "include": 2,
+            "include": 3,
             "name": "Feat",
             "type": "choice",
             "uuid": "e647ea54-4a30-4a1a-a3f0-a797bf049c39"
@@ -1353,28 +1100,6 @@ INSERT INTO `class` (id, name, config)
     "caster_rank": 1,
     "config": [
         {
-            "hidden": true,
-            "path": "sub.cleric.level",
-            "type": "value",
-            "uuid": "5ea532da-ac39-48ef-9326-31edebd6cd87",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.cleric.level",
-                    "type": "value",
-                    "uuid": "9f333555-4f22-4629-aaf9-83709f7ba424",
-                    "value_formula": "sub.cleric.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.cleric.leveling",
-            "type": "leveling",
-            "uuid": "a0cb4aa1-c147-4b4b-903e-7b7e29f746c0"
-        },
-        {
             "config": [
                 {
                     "hidden": true,
@@ -1386,7 +1111,7 @@ INSERT INTO `class` (id, name, config)
                 {
                     "conditions": [
                         {
-                            "needle": 1,
+                            "value": 1,
                             "path": "character.level",
                             "type": "lte"
                         }
@@ -1722,7 +1447,7 @@ INSERT INTO `class` (id, name, config)
                             "type": "attribute"
                         }
                     ],
-                    "include": 1,
+                    "include": 2,
                     "name": "Equipment Packs",
                     "type": "choice",
                     "uuid": "057523f6-4fa2-427d-a886-ab3ea53ea0b2"
@@ -1917,24 +1642,12 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
                     "path": "sub.cleric.level",
-                    "type": "gte",
+                    "type": "eq",
                     "value": 1
                 }
             ],
             "config": [
-                {
-                    "hidden": true,
-                    "path": "sub.cleric.level",
-                    "type": "value",
-                    "uuid": "9b48be19-7060-49ec-974a-dd9ba56ff53c",
-                    "value": 2
-                },
                 {
                     "dict": {
                         "dc_default": "your cleric spell save DC",
@@ -1965,14 +1678,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 4
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 3
                 }
             ],
             "config": [
@@ -1989,7 +1697,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "327507a1-b05d-4032-a39c-c9224671af44"
@@ -2006,14 +1714,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 5
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 4
                 }
             ],
             "config": [
@@ -2035,14 +1738,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 6
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 5
                 }
             ],
             "config": [
@@ -2064,14 +1762,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 8
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 7
                 }
             ],
             "config": [
@@ -2088,7 +1781,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "671e6216-0f3c-4dac-b22c-97a0b8e8671c"
@@ -2115,14 +1808,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 10
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 9
                 }
             ],
             "config": [
@@ -2145,14 +1833,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 11
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 10
                 }
             ],
             "config": [
@@ -2173,14 +1856,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 12
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 11
                 }
             ],
             "config": [
@@ -2197,7 +1875,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "b03934f2-bdbb-465f-a52a-12185f8f8842"
@@ -2215,14 +1893,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 14
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 13
                 }
             ],
             "config": [
@@ -2244,14 +1917,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 16
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 15
                 }
             ],
             "config": [
@@ -2268,7 +1936,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "ff288ddf-736b-4118-ae8a-e756e9f83e2a"
@@ -2285,14 +1953,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 17
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 16
                 }
             ],
             "config": [
@@ -2313,14 +1976,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 18
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 17
                 }
             ],
             "config": [
@@ -2341,14 +1999,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 19
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 18
                 }
             ],
             "config": [
@@ -2365,7 +2018,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "2705bef9-e4bd-4e05-a905-efa34a1ef105"
@@ -2382,14 +2035,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Cleric",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 20
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 19
                 }
             ],
             "config": [
@@ -2416,28 +2064,6 @@ INSERT INTO `class` (id, name, config)
     VALUES (2, 'Fighter', '{
     "config": [
         {
-            "hidden": true,
-            "path": "sub.fighter.level",
-            "type": "value",
-            "uuid": "d545e20a-f3d3-4410-82ee-4d23ddf02eac",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.fighter.level",
-                    "type": "value",
-                    "uuid": "af2246db-9d14-4aab-b146-38729eba6917",
-                    "value_formula": "sub.fighter.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.fighter.leveling",
-            "type": "leveling",
-            "uuid": "f6efd12a-0912-4ce7-b185-892aa4149313"
-        },
-        {
             "config": [
                 {
                     "hidden": true,
@@ -2449,7 +2075,7 @@ INSERT INTO `class` (id, name, config)
                 {
                     "conditions": [
                         {
-                            "needle": 1,
+                            "value": 1,
                             "path": "character.level",
                             "type": "lte"
                         }
@@ -2796,7 +2422,7 @@ INSERT INTO `class` (id, name, config)
                             "type": "attribute"
                         }
                     ],
-                    "include": 1,
+                    "include": 2,
                     "type": "choice",
                     "uuid": "7da7e7de-49f1-4b77-b898-520b10ffe521"
                 }
@@ -2809,7 +2435,7 @@ INSERT INTO `class` (id, name, config)
         {
             "add": 1,
             "description": "You adopt a particular style of fighting as your specialty.\nChoose one of the following options. You can\u2019t take a\n**Fighting Style** option more than once, even if you later\nget to choose again.",
-            "include": 3,
+            "include": 4,
             "name": "Fighting Style",
             "type": "multichoice",
             "uuid": "cc3349fd-2be7-4667-8c83-9c9372e41cae"
@@ -2832,14 +2458,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 2
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 1
                 }
             ],
             "config": [
@@ -2860,14 +2481,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 3
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 2
                 }
             ],
             "config": [
@@ -2886,14 +2502,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 4
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 3
                 }
             ],
             "config": [
@@ -2910,7 +2521,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "6ae742bf-8ce3-4540-a022-5117a2302350"
@@ -2927,14 +2538,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 5
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 4
                 }
             ],
             "config": [
@@ -2956,14 +2562,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 6
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 5
                 }
             ],
             "config": [
@@ -2980,7 +2581,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "1e3941c8-c8ac-49c6-b596-214f0f1b0959"
@@ -2998,14 +2599,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 8
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 7
                 }
             ],
             "config": [
@@ -3022,7 +2618,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "74c3c9a8-d414-435e-95a8-7a1818684957"
@@ -3039,14 +2635,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 9
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 8
                 }
             ],
             "config": [
@@ -3069,14 +2660,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 11
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 10
                 }
             ],
             "config": [
@@ -3097,14 +2683,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 12
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 11
                 }
             ],
             "config": [
@@ -3121,7 +2702,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "4fc6f7b4-3850-4224-aca2-150b7a037bdf"
@@ -3138,14 +2719,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 13
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 12
                 }
             ],
             "config": [
@@ -3166,14 +2742,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 14
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 13
                 }
             ],
             "config": [
@@ -3190,7 +2761,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "fb3fc5f8-3ec5-4529-88d4-b7fe062e15e1"
@@ -3208,14 +2779,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 16
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 15
                 }
             ],
             "config": [
@@ -3232,7 +2798,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "fa0a6645-3331-4c95-bd08-118f77a14038"
@@ -3249,14 +2815,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 17
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 16
                 }
             ],
             "config": [
@@ -3287,14 +2848,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 19
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 18
                 }
             ],
             "config": [
@@ -3311,7 +2867,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "a5c95bd4-80e9-4c69-b1a9-3f501e1fbad5"
@@ -3328,14 +2884,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Fighter",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 20
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 19
                 }
             ],
             "config": [
@@ -3362,28 +2913,6 @@ INSERT INTO `class` (id, name, config)
     VALUES (3, 'Rogue', '{
     "config": [
         {
-            "hidden": true,
-            "path": "sub.rogue.level",
-            "type": "value",
-            "uuid": "6eeb1598-9cf1-4186-9709-7f8c4220f04f",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.rogue.level",
-                    "type": "value",
-                    "uuid": "a68c7d24-fa38-42cf-9f12-b8fafffab6c6",
-                    "value_formula": "sub.rogue.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.rogue.leveling",
-            "type": "leveling",
-            "uuid": "380fdbc4-4b2a-4b4c-a0ee-d2f527aa2c93"
-        },
-        {
             "config": [
                 {
                     "hidden": true,
@@ -3395,7 +2924,7 @@ INSERT INTO `class` (id, name, config)
                 {
                     "conditions": [
                         {
-                            "needle": 1,
+                            "value": 1,
                             "path": "character.level",
                             "type": "lte"
                         }
@@ -3728,7 +3257,7 @@ INSERT INTO `class` (id, name, config)
                             "type": "attribute"
                         }
                     ],
-                    "include": 1,
+                    "include": 2,
                     "name": "",
                     "type": "choice",
                     "uuid": "30feb2fe-26e9-4a9e-bd31-ad6a104f3ce4"
@@ -3830,14 +3359,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 2
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 1
                 }
             ],
             "config": [
@@ -3858,14 +3382,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 3
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 2
                 }
             ],
             "config": [
@@ -3893,14 +3412,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 4
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 3
                 }
             ],
             "config": [
@@ -3917,7 +3431,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "996f96ab-6de6-435a-b135-0a7b41c8f683"
@@ -3934,14 +3448,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 5
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 4
                 }
             ],
             "config": [
@@ -3971,14 +3480,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 6
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 5
                 }
             ],
             "config": [
@@ -4010,14 +3514,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 7
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 6
                 }
             ],
             "config": [
@@ -4047,14 +3546,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 8
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 7
                 }
             ],
             "config": [
@@ -4071,7 +3565,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "edc217a9-ebad-4fdf-bf4c-abe8b523a810"
@@ -4088,14 +3582,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 9
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 8
                 }
             ],
             "config": [
@@ -4116,14 +3605,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 10
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 9
                 }
             ],
             "config": [
@@ -4140,7 +3624,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "1eff9898-c10b-4982-9776-464716636929"
@@ -4157,14 +3641,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 11
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 10
                 }
             ],
             "config": [
@@ -4194,14 +3673,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 12
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 11
                 }
             ],
             "config": [
@@ -4218,7 +3692,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "81ab5829-c8f6-4b5f-85b6-741f0614fdc3"
@@ -4235,14 +3709,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 13
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 12
                 }
             ],
             "config": [
@@ -4263,14 +3732,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 14
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 13
                 }
             ],
             "config": [
@@ -4291,14 +3755,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 15
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 14
                 }
             ],
             "config": [
@@ -4334,14 +3793,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 16
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 15
                 }
             ],
             "config": [
@@ -4358,7 +3812,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "283cd754-e8ef-4574-8eaa-ab29e7b68bbb"
@@ -4375,14 +3829,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 17
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 16
                 }
             ],
             "config": [
@@ -4403,14 +3852,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 18
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 17
                 }
             ],
             "config": [
@@ -4431,14 +3875,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 19
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 18
                 }
             ],
             "config": [
@@ -4464,7 +3903,7 @@ INSERT INTO `class` (id, name, config)
                         {
                             "add": 1,
                             "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
-                            "include": 2,
+                            "include": 3,
                             "name": "Feat",
                             "type": "multichoice",
                             "uuid": "91c547e3-0e6c-41bf-a6ac-d2601693645b"
@@ -4481,14 +3920,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Rogue",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 20
+                    "path": "sub.rogue.level",
+                    "type": "eq",
+                    "value": 19
                 }
             ],
             "config": [
@@ -4515,28 +3949,6 @@ INSERT INTO `class` (id, name, config)
     VALUES (4, 'Wizard', '{
     "config": [
         {
-            "hidden": true,
-            "path": "sub.wizard.level",
-            "type": "value",
-            "uuid": "378e8720-218b-4699-8127-75daa858ebd0",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.wizard.level",
-                    "type": "value",
-                    "uuid": "88545d66-f231-43ed-a443-90642612ff41",
-                    "value_formula": "sub.wizard.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.wizard.leveling",
-            "type": "leveling",
-            "uuid": "62276030-f933-4a2a-819f-74af0d4ca40d"
-        },
-        {
             "config": [
                 {
                     "hidden": true,
@@ -4548,7 +3960,7 @@ INSERT INTO `class` (id, name, config)
                 {
                     "conditions": [
                         {
-                            "needle": 1,
+                            "value": 1,
                             "path": "character.level",
                             "type": "lte"
                         }
@@ -4799,7 +4211,7 @@ INSERT INTO `class` (id, name, config)
                             "type": "attribute"
                         }
                     ],
-                    "include": 1,
+                    "include": 2,
                     "type": "choice",
                     "uuid": "bb78219a-0e19-478d-928a-bad753d2a56a"
                 },
@@ -4998,14 +4410,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Wizard",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 2
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 1
                 }
             ],
             "config": [
@@ -5025,14 +4432,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Wizard",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 4
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 3
                 }
             ],
             "config": [
@@ -5054,14 +4456,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Wizard",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 8
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 7
                 }
             ],
             "config": [
@@ -5083,14 +4480,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Wizard",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 12
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 11
                 }
             ],
             "config": [
@@ -5112,14 +4504,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Wizard",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 16
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 15
                 }
             ],
             "config": [
@@ -5139,14 +4526,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Wizard",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 18
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 17
                 }
             ],
             "config": [
@@ -5231,14 +4613,9 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Wizard",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 19
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 18
                 }
             ],
             "config": [
@@ -5257,13 +4634,8 @@ INSERT INTO `class` (id, name, config)
         {
             "conditions": [
                 {
-                    "needle": "Wizard",
-                    "path": "class",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
+                    "path": "sub.wizard.level",
+                    "type": "eq",
                     "value": 20
                 }
             ],
@@ -5329,28 +4701,6 @@ INSERT INTO `subclass` (id, name, class_id, config)
     VALUES (1, 'Life Domain', 1, '{
     "config": [
         {
-            "hidden": true,
-            "path": "sub.lifedomain.level",
-            "type": "value",
-            "uuid": "f07707e7-fa24-4c3a-9f5d-07b201ffbe23",
-            "value": 1
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.lifedomain.level",
-                    "type": "value",
-                    "uuid": "c7ff5b59-31d3-454b-a643-327a8982d7a7",
-                    "value_formula": "sub.lifedomain.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.lifedomain.leveling",
-            "type": "leveling",
-            "uuid": "d606823a-cc28-49d1-ba41-19a44fbe6848"
-        },
-        {
             "description": "When you choose this domain at 1st level, you gain proficiency with heavy armor.",
             "given": [
                 {
@@ -5398,14 +4748,9 @@ INSERT INTO `subclass` (id, name, class_id, config)
         {
             "conditions": [
                 {
-                    "needle": "Life Domain",
-                    "path": "subclass",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 2
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 1
                 }
             ],
             "config": [
@@ -5694,28 +5039,6 @@ INSERT INTO `subclass` (id, name, class_id, config)
     VALUES (2, 'Champion', 2, '{
     "config": [
         {
-            "hidden": true,
-            "path": "sub.champion.level",
-            "type": "value",
-            "uuid": "1d5ae685-b466-41b0-b576-3b2cd8e770ff",
-            "value": 3
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.champion.level",
-                    "type": "value",
-                    "uuid": "393ce478-5936-4afe-a84d-f2510581a932",
-                    "value_formula": "sub.champion.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.champion.leveling",
-            "type": "leveling",
-            "uuid": "17524e2e-6f6b-4d6c-910a-b6805240dc26"
-        },
-        {
             "dict": {
                 "description": "Your weapon attacks score a critical hit on a roll of 19 or 20."
             },
@@ -5826,7 +5149,7 @@ INSERT INTO `subclass` (id, name, class_id, config)
                 {
                     "add": 1,
                     "description": "You can choose a second option from the **Fighting Style** class feature.",
-                    "include": 3,
+                    "include": 4,
                     "name": "Additional Fighting Style",
                     "type": "multichoice",
                     "uuid": "9e7daa3e-21ee-43dd-9088-a98b4f6f5bda"
@@ -5906,28 +5229,6 @@ INSERT INTO `subclass` (id, name, class_id, config)
 INSERT INTO `subclass` (id, name, class_id, config)
     VALUES (3, 'Thief', 3, '{
     "config": [
-        {
-            "hidden": true,
-            "path": "sub.thief.level",
-            "type": "value",
-            "uuid": "9c5cf506-3708-4a58-afd6-d39ed53b2c8f",
-            "value": 3
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.thief.level",
-                    "type": "value",
-                    "uuid": "cb28a054-24f4-4d5f-a6f0-1549ad4cd8b8",
-                    "value_formula": "sub.thief.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.thief.leveling",
-            "type": "leveling",
-            "uuid": "47332b1a-548c-445a-8b19-d9560fc6e51a"
-        },
         {
             "dict": {
                 "description": "You can use the **bonus action** granted by your **Cunning Action** to make a **Dexterity\n(Sleight of Hand)** check, use your *Thieves\u2019 Tools* to disarm a trap or open a lock, or take the\n**Use an Object** action."
@@ -6053,28 +5354,6 @@ INSERT INTO `subclass` (id, name, class_id, config)
 INSERT INTO `subclass` (id, name, class_id, config)
     VALUES (4, 'School of Evocation', 4, '{
     "config": [
-        {
-            "hidden": true,
-            "path": "sub.schoolofevocation.level",
-            "type": "value",
-            "uuid": "545b1083-071c-4b98-84f6-38407930fcd4",
-            "value": 2
-        },
-        {
-            "given": [
-                {
-                    "hidden": true,
-                    "path": "sub.schoolofevocation.level",
-                    "type": "value",
-                    "uuid": "48933e37-a33f-4655-a387-4f71fad16989",
-                    "value_formula": "sub.schoolofevocation.level + 1"
-                }
-            ],
-            "hidden": true,
-            "path": "sub.schoolofevocation.leveling",
-            "type": "leveling",
-            "uuid": "9bb29ddf-56d3-473c-82cb-ab73c9b34d35"
-        },
         {
             "name": "Evocation Savant",
             "path": "info.Evocation Savant",
@@ -6211,9 +5490,7 @@ INSERT INTO `background` (id, name, config)
                     "type": "skills"
                 }
             ],
-            "list": [
-                "skills"
-            ],
+            "list": [],
             "multiple": false,
             "name": "Skill Proficiencies:",
             "path": "proficiencies.skills",
@@ -7332,7 +6609,50 @@ INSERT INTO `background` (id, name, config)
 }');
 
 INSERT INTO `options` (id, name, config)
-    VALUES (1, 'Equipment Packs', '{
+    VALUES (1, 'Core Attributes', '{
+    "type": "config",
+    "uuid": "60722722-b678-49b6-ba32-1b9ae2ec454d",
+    "config": [
+        {
+            "type": "manual",
+            "uuid": "1c5448ed-7240-408b-b1bc-3ad1559a8521",
+            "path": "name",
+            "name": "Name",
+            "placeholder": "Name..."
+        },
+        {
+            "type": "select",
+            "uuid": "6f557232-b4db-472f-b9d2-ab3cf7d01c3c",
+            "path": "alignment",
+            "name": "Alignment",
+            "list": ["alignments"]
+        },
+        {
+            "type": "select",
+            "uuid": "49db5884-6198-4689-b214-15925f2a087f",
+            "path": "gender",
+            "name": "Gender",
+            "list": ["genders"]
+        },
+        {
+            "type": "statistics",
+            "uuid": "ff2f55a5-15e1-4ebd-8c83-d0b52f98fb08",
+            "path": "statistics",
+            "name": "Statistics",
+            "editBase": true
+        },
+        {
+            "type": "manual",
+            "uuid": "df0943dd-cf57-4cd2-a02f-5e320e4b0fc6",
+            "path": "backstory",
+            "name": "Backstory",
+            "placeholder": "Backstory...",
+            "markup": true
+        }
+    ]
+}');
+INSERT INTO `options` (id, name, config)
+    VALUES (2, 'Equipment Packs', '{
     "description": "The starting equipment you get from your class includes\na collection of useful adventuring gear, put together in a\npack. The contents of these packs are listed here. If you are\nbuying your starting equipment, you can purchase a pack\nfor the price shown, which might be cheaper than buying\nthe items individually.",
     "options": [
         {
@@ -7808,14 +7128,14 @@ INSERT INTO `options` (id, name, config)
     "type": "choice"
 }');
 INSERT INTO `options` (id, name, config)
-    VALUES (2, 'Feats', '{
+    VALUES (3, 'Feats', '{
     "description": "A feat represents a talent or an area of expertise that gives\na character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See\nchapter 6 of the Player\u2019s Handbook for more information.\n\nAt certain levels, your class gives you the **Ability Score\nImprovement** feature. Using the optional feats rule, you\ncan forgo taking that feature to take a feat of your choice\ninstead. You can take each feat only once, unless the\nfeat\u2019s description says otherwise.\n\nYou must meet any prerequisite specified in a feat to\ntake that feat. If you ever lose a feat\u2019s prerequisite, you\ncan\u2019t use that feat until you regain the prerequisite. ",
     "options": [],
     "type": "multichoice",
     "uuid": "a3bff055-374b-46c3-9d2f-43ddefecc833"
 }');
 INSERT INTO `options` (id, name, config)
-    VALUES (3, 'Fighting Style', '{
+    VALUES (4, 'Fighting Style', '{
     "description": "You adopt a particular style of fighting as your specialty.\nChoose one of the following options. You can\u2019t take a\n**Fighting Style** option more than once, even if you later\nget to choose again.",
     "options": [
         {
@@ -7883,7 +7203,7 @@ INSERT INTO `options` (id, name, config)
         {
             "config": [
                 {
-                    "path": "info.Defense",
+                    "path": "info.Protection",
                     "type": "value",
                     "uuid": "8dc11eac-18f7-4f68-bd54-6f63bb985600",
                     "value": "When a creature you can see attacks a target other than\nyou that is within 5 feet of you, you can use your *reaction*\nto impose **disadvantage** on the attack roll. You must be\nwielding a shield."
