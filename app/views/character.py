@@ -7,7 +7,6 @@ import re
 import markdown
 
 from views.baseapi import BaseApiBlueprint, BaseApiCallback
-from config import get_character_data
 from errors import ApiException
 from filters import filter_bonus, filter_distance, filter_unique
 from .__init__ import fill_pdf
@@ -97,69 +96,20 @@ class CharacterBlueprint(BaseApiBlueprint):
             )
 
     def get_base(self):
-        return jsonify({
-            "type": "config",
-            "uuid": "60722722-b678-49b6-ba32-1b9ae2ec454d",
-            "config": [
-                {
-                    "type": "manual",
-                    "uuid": "1c5448ed-7240-408b-b1bc-3ad1559a8521",
-                    "path": "name",
-                    "name": "Name",
-                    "placeholder": "Name..."
-                },
-                {
-                    "type": "select",
-                    "uuid": "6f557232-b4db-472f-b9d2-ab3cf7d01c3c",
-                    "path": "alignment",
-                    "name": "Alignment",
-                    "list": ["alignments"],
-                },
-                {
-                    "type": "select",
-                    "uuid": "49db5884-6198-4689-b214-15925f2a087f",
-                    "path": "gender",
-                    "name": "Gender",
-                    "list": ["genders"],
-                },
-                {
-                    "type": "statistics",
-                    "uuid": "ff2f55a5-15e1-4ebd-8c83-d0b52f98fb08",
-                    "path": "statistics",
-                    "name": "Statistics",
-                    "editBase": True,
-                },
-                {
-                    "type": "manual",
-                    "uuid": "df0943dd-cf57-4cd2-a02f-5e320e4b0fc6",
-                    "path": "backstory",
-                    "name": "Backstory",
-                    "placeholder": "Backstory...",
-                    "markup": True,
-                }
-            ],
-        })
-
-    def get_character_data(self, field, uuid):
-        items = []
-        for obj in self.basemapper[field].getMultiple():
-            item = obj.compileConfig(self.basemapper)
-            items.append(item)
-
-        return jsonify({
-            'uuid': uuid,
-            'type': 'choice',
-            'options': items,
-            })
+        config = self.basemapper.options.getAllOptions(self.basemapper)
+        return jsonify(config)
 
     def get_races(self):
-        return self.get_character_data('race', "ccea31d9-1a0a-424d-8b0a-0c597bf58016")
+        options = self.basemapper.race.getAllOptions(self.basemapper)
+        return jsonify(options)
 
     def get_classes(self):
-        return self.get_character_data('class', "5d9df8c2-b1f0-4a50-8772-3a9b838d0005")
+        options = self.basemapper.klass.getAllOptions(self.basemapper)
+        return jsonify(options)
 
     def get_backgrounds(self):
-        return self.get_character_data('background', "00bb6113-e274-42f5-88b4-df9632ed4347")
+        options = self.basemapper.background.getAllOptions(self.basemapper)
+        return jsonify(options)
 
     @BaseApiCallback('new')
     @BaseApiCallback('edit')
@@ -224,10 +174,6 @@ class CharacterBlueprint(BaseApiBlueprint):
         if obj.user_id != request.user.id \
                 and not self.checkRole(['admin', 'dm']):
             raise ApiException(403, "Insufficient privileges")
-
-    @BaseApiCallback('api_patch.object')
-    def recordCreation(self, obj):
-        obj.creation += obj.level_upCreation
 
     @BaseApiCallback('api_list.objects')
     def adminDmOrExtendedMultiple(self, objs):
