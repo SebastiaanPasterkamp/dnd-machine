@@ -49,7 +49,6 @@ class JsonObject(object):
 
     def clone(self):
         clone = deepcopy(self._config)
-        del clone['id']
         return clone
 
     def splitPath(self, path, filterPrefix=True):

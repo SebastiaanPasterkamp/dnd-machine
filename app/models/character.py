@@ -10,14 +10,20 @@ class CharacterObject(JsonObject):
     _defaultConfig = {
         "name": "",
         "choices": {},
-        "race": "",
-        "class": "",
-        "background": "",
         "alignment": "true neutral",
         "adventure_league": False,
         "treasure_checkpoints": {},
         "level": 1,
+        "level_reached": 1,
         "xp": 0,
+        "features": {
+            "proficiency": [
+                2, 2, 2, 2, 3,
+                3, 3, 3, 4, 4,
+                4, 4, 5, 5, 5,
+                5, 6, 6, 6, 6,
+                ],
+            },
         "statistics": {
             "bare": {
                 "strength": 8,
@@ -114,6 +120,11 @@ class CharacterObject(JsonObject):
             "passive_perception": {
                 "formulas": [
                     "10 + skills.perception",
+                    ],
+                },
+            "proficiency": {
+                "formulas": [
+                    "2 + floor(character.level / 4)",
                     ],
                 },
             },
@@ -261,72 +272,149 @@ class CharacterObject(JsonObject):
         return self._character_data
 
     def migrate(self, datamapper):
+        self.mapper = datamapper
         self.update(
-            self.mapper.machine.identifyEquipment(self.equipment)
+            self.mapper.machine.identifyEquipment(self.equipment or [])
             )
         super(CharacterObject, self).migrate(datamapper)
 
     def recompute(self, datamapper):
+        self.mapper = datamapper
         # TODO: Figure out what to keep, or how to incorporate session logs here
         char = CharacterObject({
-            'id': self.id,
             'user_id': self.user_id,
             'xp': self.xp,
             'adventure_checkpoints': self.adventure_checkpoints,
-            'choices': self.choices,
             })
+        char.id = self.id
+        char.migrate(datamapper)
 
-        changes = char._getChanges(datamapper)
-        while changes.size:
-            combined = char._combineChanges(changes, datamapper.machine)
-            for path, update in combined:
-                char._setPath(path, update)
+        previous_level, configured_level = -1, 0
+        while configured_level < char.level and configured_level != previous_level:
+            configs = char._getAllConfigs(datamapper)
+            configs = self.omitUnfinishedPhases(configs)
+            changes = self.rememberDecisions(configs)
+
+            combined = char.combineChanges(changes, datamapper.machine)
+            for path, update in combined.items():
+                char.setPath(path, update)
             char.compute()
-            changes = char._getChanges(datamapper)
+
+            # Only offer the next level to configure if we've actually reached it
+            previous_level, configured_level = configured_level, sum([
+                data['level']
+                for data in self.sub.values()
+                if data['type'] == 'class'
+                ])
 
         self._config = char._config
+        self.compute()
 
-    def _combineChanges(self, changes, machine):
+    def omitUnfinishedPhases(self, config):
+        return [
+            option
+            for option in config
+            if option["uuid"] in self.choices
+            ]
+
+    def rememberDecisions(self, config):
+        changes = []
+        for option in config:
+            type, uuid = option["type"], option["uuid"]
+            assert type is not None
+            assert uuid is not None
+            choice = self.choices.get(uuid)
+
+            changes.append((option, choice))
+
+            if type in ["value", "dict", "list", "objectlist", "select",
+                    "manual", "ability_score", "statistics"]:
+                continue
+
+            elif type in ["choice", "multichoice"]:
+                if not isinstance(choice, dict):
+                    print("Warning: choice for %s is not a dict" % uuid)
+                    choice = {}
+                selection = choice.get("added", [])
+                if type == "choice":
+                    selected = []
+                    if choice.get("selected") is not None:
+                        selection = [ choice.get("selected") ]
+
+                for selected in selection:
+                    cfg = next((opt
+                        for opt in option.get("options", [])
+                        if opt["uuid"] == selected
+                        ), None)
+                    assert cfg is not None, \
+                        "Can't find %r option in '%s %s'" % (selected, type, uuid)
+
+                    c = self.rememberDecisions([ cfg ])
+                    changes.extend(c)
+
+            elif type in ["config", "permanent"]:
+                c = self.rememberDecisions(option.get("config", []))
+                changes.extend(c)
+
+            elif type != 'leveling':
+                # Note: We are ignoring the 'leveling' type on purpose
+                raise ValueError(
+                    "Unknown option type '%s %s' for %r" % (type, uuid, option.get("path")))
+
+        return changes
+
+    def combineChanges(self, changes, machine):
         combined = {}
         for option, choice in changes:
-            type, uuid, path = option['type'], option['uuid'], option['path']
+            type, uuid, path = option['type'], option['uuid'], option.get("path")
             assert type is not None
             assert uuid is not None
 
             if not machine.MatchesFilters(self, option.get("conditions", [])):
                 return combined
 
-            if type == 'permanent':
-                combined.setdefault("permanent", [])
-                combined["permanent"].append(option["config"])
+            self.choices[uuid] = choice
+
+            if type in ['choice', 'config', 'multichoice', 'permanent']:
+                continue
+
+            elif type == 'permanent':
+                path = "permanent"
+                combined.setdefault(path, list(self.getPath(path, [])))
+                combined[path].append(option["config"])
 
             elif type == 'dict':
-                combined.setdefault("path", dict(self._getPath(path, {})))
+                combined.setdefault(path, dict(self.getPath(path, {})))
                 combined[path].update(option["dict"])
 
-            elif type == 'list':
-                combined.setdefault("path", list(self._getPath(path, [])))
-                added, removed = choice.get("added", []), choice.get("removed", [])
+            elif type in ['leveling', 'list']:
+                combined.setdefault(path, list(self.getPath(path, [])))
+                added, removed = [], []
+                if isinstance(choice, dict):
+                    added, removed = choice.get("added", []), choice.get("removed", [])
                 given, multiple = option.get("given", []), option.get("multiple", False)
 
                 update = [i for i in combined[path]
                     if not i in removed
                     or removed.remove(i)]
-                update.extend(given).extend(added)
-                if not multiple:
+                update.extend(given)
+                update.extend(added)
+                if type == 'list' and not multiple:
                     update = list(set(update))
-                combined[path] = updated
+                combined[path] = update
 
             elif type == 'objectlist':
-                combined.setdefault("path", list(self._getPath(path, [])))
-                added, removed = choice.get("added", []), choice.get("removed", [])
+                combined.setdefault(path, list(self.getPath(path, [])))
+                added, removed = [], []
+                if isinstance(choice, dict):
+                    added, removed = choice.get("added", []), choice.get("removed", [])
                 given, multiple = option.get("given", []), option.get("multiple", False)
 
                 for item in removed:
-                    itype, id, count = item.get("type"), item.get("id"), item.get("count", 1)
+                    itemtype, id, count = item.get("type"), item.get("id"), item.get("count", 1)
                     idx = next((index
                         for (index, d) in enumerate(combined[path])
-                        if d["type"] == itemtype and d["id"] == id
+                        if d.get("type") == itemtype and d.get("id") == id
                         ), None)
                     assert idx is not None, \
                         "Cannot remove '%s %s' from %r" % (remtype, id, path)
@@ -341,10 +429,10 @@ class CharacterObject(JsonObject):
                         combined[path][idx]["count"] -= count
 
                 for item in added + given:
-                    itype, id, count = item.get("type"), item.get("id"), item.get("count", 1)
+                    itemtype, id, count = item.get("type"), item.get("id"), item.get("count", 1)
                     idx = next((index
                         for (index, d) in enumerate(combined[path])
-                        if d["type"] == itemtype and d["id"] == id
+                        if d.get("type") == itemtype and d.get("id") == id
                         ), None)
 
                     if idx is None:
@@ -355,32 +443,35 @@ class CharacterObject(JsonObject):
                         pass
                     else:
                         combined[path][idx]["count"] += count
-                    computed[option.path]
 
             elif type in ['manual', 'select']:
-                computed[path] = choice.get("current")
-
+                if isinstance(choice, dict):
+                    combined[path] = choice.get("current")
 
             elif type == 'ability_score':
-                improvement = choice.get("improvement", [])
+                improvement = []
+                if isinstance(choice, dict):
+                    improvement = choice.get("improvement", [])
                 bonus = dict([
                     (stat, improvement.count(stat))
                     for stat in improvement
                     ])
 
-                for stat, count in bonus:
+                for stat, count in bonus.items():
                     path = "statistics.bonus.%s" % stat
                     combined.setdefault(path, [])
-                    computed[path].append(count)
+                    combined[path].append(count)
 
-            elif option.type == 'statistics':
-                path = 'statistics.bare'
-                combined.setdefault(path, {})
-                bare = choice.get('bare', {})
-                computed[path].update({ 'bare': bare })
+            elif type == 'statistics':
+                bare = {}
+                if isinstance(choice, dict):
+                    bare = choice.get('bare', {})
+                for stat, value in bare.items():
+                    path = "statistics.bare.%s" % stat
+                    combined[path] = value
 
             elif type == 'value':
-                computed[path] = option.get("value")
+                combined[path] = option.get("value")
 
             else:
                 raise ValueError(
@@ -388,20 +479,18 @@ class CharacterObject(JsonObject):
 
         return combined
 
-    def _getChanges(self, datamapper):
-        changes = {}
+    def _getAllConfigs(self, datamapper):
+        configs = []
         for mapper in [
                 datamapper.race,
-                datamapper.subrace,
                 datamapper.klass,
-                datamapper.subclass,
                 datamapper.background,
+                datamapper.options,
                 ]:
-            objs = mapper.getMultiple()
-            for obj in objs:
-                c = obj.collectChanges(datamapper, self)
-                changes.extend(c)
-        return changes
+            config = mapper.getAllOptions(datamapper, self)
+            if len(config.get("options", [])) or len(config.get("config", [])):
+                configs.append(config)
+        return configs
 
     def _meetsCondition(self, conditions):
         for check, condition in list(conditions.items()):
@@ -428,13 +517,18 @@ class CharacterObject(JsonObject):
 
         if self.adventure_checkpoints:
             xp_to_acp = self.mapper.machine.xpToAcp(self.xp)
-            self.level, self.acp_progress, self.acp_level = \
+            self.level_reached, self.acp_progress, self.acp_level = \
                 machine.acpToLevel(
                     xp_to_acp + self.adventure_checkpoints
                     )
         else:
-            self.level, self.xp_progress, self.xp_level = \
+            self.level_reached, self.xp_progress, self.xp_level = \
                 machine.xpToLevel(self.xp)
+        self.level = min(self.level_reached, 1 + sum([
+            data['level']
+            for data in self.sub.values()
+            if data['type'] == 'class'
+            ]))
 
         self.statisticsBase = {}
         self.statisticsModifiers = {}
@@ -504,12 +598,20 @@ class CharacterObject(JsonObject):
                 self.armor_class = armor.get('value', 0)
             self.armor_class_bonus += armor.get('bonus', 0)
 
+        self.abilities = self._expandFormulas(self.abilities)
+        self.sub = self._expandFormulas(self.sub)
+
+        # Combine spells between all (sub) classes / races
         known, prepared, cantrips, perLevel = [], [], [], {}
         for sub, data in self.sub.items():
             spellData = data.get("spell", {})
-            preparedSpells = spellData.get("prepared", [])
-            cantrips = spellData.get("cantrips", [])
-            spells = spellData.get("list", []) + preparedSpells + cantrips
+            preparedSpellsIDs = set([
+                spell['id'] if instanceof(spell, dict) else spell
+                for spell in spellData.get("prepared", [])
+                ])
+            spells = spellData.get("list", []) \
+                   + spellData.get("prepared", []) \
+                   + spellData.get("cantrips", [])
 
             for spell in spells:
                 if isinstance(spell, dict):
@@ -520,29 +622,31 @@ class CharacterObject(JsonObject):
                         {'name': spell}
                         )
                     spell = next(objs, None)
-                if not isinstance(spell, dict):
+
+                if not isinstance(spell, object):
                     continue
+
                 level = "cantrip" \
                     if spell.level == "Cantrip" \
                     else "level_" + spell.level
-                spell.stat = data["stat"]
-                spell.save_dc = data["save_dc"]
-                spell.attack_modifier = data["attack_modifier"]
+                if data.get("stat"):
+                    spell.stat = data.get("stat")
+                    spell.save_dc = data.get("save_dc")
+                    spell.attack_modifier = data.get("attack_modifier")
 
                 if level == "cantrip":
                     cantrips.append(spell._config)
-                elif spellId in preparedSpells:
+                elif spell.id in preparedSpells:
                     prepared.append(spell._config)
                 else:
                     known.append(spell._config)
-                perLevel[level] = perLevel.get(level, [])
-                perLevel[level].append(spell._config)
+                perLevel.setdefault(level, []).append(spell._config)
+
         self.spellLevel = perLevel
-        self.spellCantrips = list(cantrips)
-        self.spellPrepared = list(prepared)
+        self.spellCantrips = cantrips
+        self.spellPrepared = prepared
         self.spellList = known
 
-        self.abilities = self._expandFormulas(self.abilities)
 
     def _expandFormulas(self, obj):
         machine = self.mapper.machine
