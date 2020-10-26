@@ -251,7 +251,7 @@ class AppCharacterTestCase(BaseAppTestCase):
         rv = self.patchJSON(page, char)
         self.assertResponse(page, rv, 200, 'application/json')
         charData = rv.get_json()
-        char['level'] = 2
+        char['level_reached'] = 2
         self.assertDictContainsSubset(char, charData)
         charData = self.dbGetObject('character', charData['id'])
         self.assertDictContainsSubset(char, charData)
@@ -300,32 +300,53 @@ class AppCharacterTestCase(BaseAppTestCase):
         self.assertDictContainsSubset(
             {
                 'xp': 300,
-                'level': 2
+                'level_reached': 2,
+                'level': 1,
                 },
             charData
             )
 
     def testLevelUpCharacter(self):
-        self.doLogin('dm', 'dm')
         char = self.characters['alice']
-        page = '/character/xp/%d/%d' % (char['id'], 300)
-        rv = self.postJSON(page, char)
+        page = '/character/api/%d' % char['id']
 
         self.doLogin('alice', 'alice')
-        beforeData = self.dbGetObject('character', char['id'])
-        self.assertEqual([], beforeData['creation'])
-
-        page = '/character/api/%s' % char['id']
-        rv = self.patchJSON(page, beforeData)
-        self.assertResponse(page, rv, 200, 'application/json')
-        afterData = self.dbGetObject('character', char['id'])
-        self.assertEqual(
-            afterData['creation'],
-            beforeData['level_up']['creation']
+        rv = self.client.get(
+            page,
+            headers={'Accept': 'application/json'},
             )
-        self.assertNotEqual(
-            afterData['level_up'],
-            beforeData['level_up']
+        self.assertResponse(page, rv, 200, 'application/json')
+        beforeData = rv.get_json()
+        self.assertDictContainsSubset(
+            {
+                'xp': 0,
+                'level_reached': 1,
+                'level': 1,
+                },
+            beforeData
+            )
+
+        self.doLogin('dm', 'dm')
+        self.client.get(
+            '/character/xp/%d/%d' % (char['id'], 300),
+            headers={'Accept': 'application/json'},
+            )
+
+        self.doLogin('alice', 'alice')
+        self.doLogin('alice', 'alice')
+        rv = self.client.get(
+            page,
+            headers={'Accept': 'application/json'},
+            )
+        self.assertResponse(page, rv, 200, 'application/json')
+        afterData = rv.get_json()
+        self.assertDictContainsSubset(
+            {
+                'xp': 300,
+                'level_reached': 2,
+                'level': 1,
+                },
+            afterData
             )
 
     def testDeleteCharacter200(self):
