@@ -45,28 +45,29 @@ export default function ComputeChange(changes, original) {
             }
 
             if (option.type === 'dict') {
+                const { path, dict } = option;
                 const {
-                    [option.path]: current = get(option.path, original) || {},
+                    [path]: current = get(path, original) || {},
                 } = computed;
-                computed[option.path] = {
+                computed[path] = {
                     ...current,
-                    ...option.dict,
+                    ...dict,
                 };
                 return computed;
             }
 
             if (includes(option.type, ['leveling', 'list'])) {
+                const { path, given = [] } = option;
                 const {
-                    [option.path]: current = get(option.path, original) || [],
+                    [path]: current = get(path, original) || [],
                 } = computed;
                 const { added = [], removed = [] } = choice || {};
-                const { given = [] } = option;
                 let update = difference(current, removed);
                 update = [...update, ...given, ...added];
-                if (!option.multiple) {
+                if (option.type == 'list' && !option.multiple) {
                     update = uniq(update);
                 }
-                computed[option.path] = update;
+                computed[path] = update;
                 return computed;
             }
 
@@ -107,7 +108,7 @@ export default function ComputeChange(changes, original) {
                     computed[path]
                 )(removed);
 
-                computed[option.path] = reduce(
+                computed[path] = reduce(
                     (update, item) => {
                         const { type, id, count = 1 } = item;
                         const idx = findIndex({ type, id }, update);
@@ -126,7 +127,7 @@ export default function ComputeChange(changes, original) {
                             ...update.slice(idx + 1),
                         ];
                     },
-                    computed[option.path]
+                    computed[path]
                 )([...added, ...given]);
 
                 return computed;
@@ -161,14 +162,13 @@ export default function ComputeChange(changes, original) {
                 if (!choice || !choice.bare) {
                     return computed;
                 }
-                const {
-                    ['statistics.bare']: current = get('statistics.bare', original) || {},
-                } = computed;
-                computed['statistics.bare'] = {
-                    ...current,
-                    ...choice.bare,
-                };
-                statisticsChanged = [...statisticsChanged, ...keys(choice.bare)];
+                forEach(
+                    (value, stat) => {
+                        const path = `statistics.bare.${stat}`;
+                        computed[path] = value
+                        statisticsChanged.push(stat);
+                    }
+                )(choice.bare);
                 return computed;
             }
 
