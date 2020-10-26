@@ -26,6 +26,9 @@ class JsonObject(object):
         else:
             self._config = config
 
+    def __str__(self):
+        return "%s{id=%d, uuid=%s name=%r}" % (self._pathPrefix, self.id, self.uuid, self.name)
+
     @property
     def config(self):
         return self._config
