@@ -6,7 +6,6 @@ class OptionsObject(JsonObject):
         "name": "",
         "description": "",
         "type": "multichoice",
-        "options": []
         }
     _fieldTypes = {
         "id": int,
@@ -17,3 +16,6 @@ class OptionsMapper(JsonObjectDataMapper):
     table = "options"
     fields = ["name"]
     order = ["name"]
+
+    def getAllOptions(self, datamapper, char=None, **kwargs):
+        return self.getById(1).clone()

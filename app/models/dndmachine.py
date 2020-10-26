@@ -21,12 +21,15 @@ class DndMachine(object):
 
     def resolveMath(self, obj, formula):
         replace = {}
-        for m in re.finditer(r'\b[a-z_.]+\b', formula):
+        formula = str(formula)
+        for m in re.finditer(r'\b[a-z][a-z_.]+\b', formula):
             path = m.group(0)
             if obj.hasPath(path):
                 replace[path] = obj.getPath(path)
             elif path.startswith(obj._pathPrefix):
                 replace[path] = None
+            elif path not in self.ns:
+                print("Warning: Cannot match %r in %r for %s" % (path, formula, obj))
         expanded = formula
         for var, val in replace.items():
             expanded = expanded.replace(var, str(val))
@@ -279,7 +282,7 @@ class DndMachine(object):
                 foundType, obj = self.findObj(mappers, item['name'])
 
             if isinstance(obj, JsonObject):
-                obj = obj._config
+                obj = obj.clone()
 
             if obj is not None:
                 item.update(obj)
@@ -357,9 +360,9 @@ class DndMachine(object):
                             break
 
                 if isinstance(obj, JsonObject):
-                    result[category].append(obj._config)
-                else:
-                    result[category].append(prof)
+                    prof = obj.clone()
+
+                result[category].append(prof)
 
         return {
             'proficiencies': result,
@@ -414,7 +417,13 @@ class DndMachine(object):
         filterMethods = {
             'absolute': self._filterAbsolute,
             'and': self._filterAnd,
-            'intersection': self._filterIntersection,
+            'between': self._conditionBetween,
+            'contains': self._conditionContains,
+            'eq': self._conditionEq,
+            'gte': self._conditionGTE,
+            # 'intersection': self._filterIntersection,
+            'lte': self._conditionLTE,
+            'notcontains': self._conditionNotContains,
             'proficiency': self._filterProficiency,
             'or': self._filterOr,
             }
@@ -422,25 +431,47 @@ class DndMachine(object):
         for filter in filters:
             method = filterMethods.get(filter["type"])
             assert method is not None, "Invalid filter: %r" % filter
+            kwargs = dict(
+                (key, val)
+                for key, val in filter.items()
+                if key != "type")
             try:
-                if not method(item, **filter):
+                if not method(item, **kwargs):
                     return False
-            except:
-                print(filter)
+            except Exception as e:
+                print(filter, e)
                 raise
         return True
 
     def _filterAbsolute(self, item, field, condition):
-        return item._getPath(field) == condition
+        return item.getPath(field) == condition
 
     def _filterAnd(self, item, filters):
         return self.MatchesFilters(obj, filters)
 
-    def _filterIntersection(self, item, field, options):
-        value = item._getPath(field)
-        value = set(value) if instanceof(value, list) else set([value])
-        options = set(options) if instanceof(options, list) else set([options])
-        return (value * options).length
+    def _conditionBetween(self, item, path, min, max):
+        return min <= item.getPath(path, 0) <= max
+
+    def _conditionContains(self, item, path, needle):
+        return needle in item.getPath(path, [])
+
+    def _conditionEq(self, item, path, value):
+        return item.getPath(path, 0) == value
+
+    def _conditionGTE(self, item, path, value):
+        return item.getPath(path, 0) >= value
+
+    # def _filterIntersection(self, item, field, options):
+    #     value = item.getPath(field)
+    #     value = set(value) if instanceof(value, list) else set([value])
+    #     options = set(options) if instanceof(options, list) else set([options])
+    #     return (value * options).length
+
+    def _conditionLTE(self, item, path, value):
+        return item.getPath(path, 0) <= value
+
+    def _conditionNotContains(self, item, path, needle):
+        return needle not in item.getPath(path, [])
 
     def _filterProficiency(self, item, objects):
         id, type = item.get("id"), item.get("type")

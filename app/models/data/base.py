@@ -1,6 +1,7 @@
 import re
 
 from ..base import JsonObject
+from ..base import JsonObjectDataMapper
 
 from models.character import CharacterObject
 
@@ -17,25 +18,9 @@ class BaseDataObject(JsonObject):
     _fieldTypes = {
         "id": int,
         }
-    _check = {
-        'and': lambda self, char, conditions: all(
-            self._meetsCondition(char, **condition)
-            for condition in conditions
-            ),
-        'between': lambda self, char, path, min, max: min <= (char[path] or 0) <= max,
-        'contains': lambda self, char, path, needle: needle in (char[path] or []),
-        'gte': lambda self, char, path, value: (char[path] or 0) >= value,
-        'lte': lambda self, char, path, value: (char[path] or 0) <= value,
-        'notcontains': lambda self, char, path, needle: not needle in (char[path] or []),
-        'prof': lambda self, char, path, id, type: any(
-            prof.get('type') == type and prof.get('id') == id
-            for prof in (char[path] or [])
-            ),
-        'or': lambda self, char, conditions: any(
-            self._meetsCondition(char, **condition)
-            for condition in conditions
-            ),
-        }
+
+    def __str__(self):
+        return "%s{id=%d, uuid=%r, name=%r}" % (self._pathPrefix, self.id, self.uuid, self.name)
 
     @property
     def normalizedName(self):
@@ -48,95 +33,50 @@ class BaseDataObject(JsonObject):
             return char
         return CharacterObject()
 
-    def collectChanges(self, datamapper, char):
-        config = self.compileConfig(datamapper, char)
-        return self._collectChanges(config["config"], char.choices)
-
-    def _collectChanges(self, config, choices):
-        changes = []
-        for option in config:
-            type, uuid, path = option["type"], option["uuid"], option["path"]
-            assert type is not None
-            assert uuid is not None
-            choice = choices.get(uuid)
-
-            if type in ["value", "dict", "list", "objectlist", "select",
-                    "manual", "ability_score", "statistics"]:
-                changes.append((option, choice))
-
-            elif type in ["choice", "multichoice"]:
-                selection = choice.get("added", []) if type == "choice" \
-                    else [ choice.get("selected") ]
-
-                for selected in selection:
-                    cfg = next((opt
-                        for opt in options.get("options", [])
-                        if opt["uuid"] == selected
-                        ), None)
-                    assert cfg is not None, \
-                        "Can't find %r option in '%s %s'" % (selected, type, uuid)
-
-                    c = self._collectChanges([ cfg ], choices)
-                    changes.extend(c)
-
-            elif type in ["config", "permanent"]:
-                c = self._collectChanges(option.get("config", []), choices)
-                if type == "permanent":
-                    changes.append((option, choice))
-                changes.extend(c)
-
-            else:
-                raise ValueError(
-                    "Unknown option type '%s %s' for %r" % (type, uuid, path))
-        return changes
-
-
     def compileConfig(self, datamapper, char=None):
         char = self._getChar(char)
 
         clone = self.clone()
 
-        for phase in clone.get("phases", []):
+        if self._meetsConditions(datamapper, char, clone):
+            config = clone.get("config", [])
+            self._inlineIncludes(datamapper, char, config)
+            defaultConfig = self.getDefaultConfig(datamapper, char)
+            return {
+                "uuid": self.uuid,
+                "type": "config",
+                "name": self.name,
+                "description": self.description,
+                "config": defaultConfig + config,
+                }
+
+        for level, phase in enumerate(clone.get("phases", [])):
             if not len(phase.get("config", [])):
                 continue
 
             config = phase.get("config", [])
-            self._inlineIncludes(datamapper, config)
+            self._inlineIncludes(datamapper, char, config)
             phase["config"] = config + self.collectLeveling(datamapper, char)
 
-            if not self._meetsConditions(char, phase):
+            if not self._meetsConditions(datamapper, char, phase):
                 continue
 
             return {
                 "uuid": phase["uuid"],
                 "type": "config",
-                "name": phase.get("name"),
+                "name": phase.get("name", "%s %s" % (self.name, level)),
                 "description": phase.get("description"),
                 "config": phase["config"],
                 }
 
-        if not self._meetsConditions(char, clone):
-            return {
-                "config": [],
-                }
-        config = clone.get("config", [])
-        self._inlineIncludes(datamapper, config)
-
-        config.insert(0, {
-            "uuid": "pick-%s" % self.uuid,
-            "path": self._pathPrefix,
-            "type": "value",
-            "value": self.name,
-            })
         return {
-            "uuid": self.uuid,
-            "type": "config",
-            "name": self.name,
-            "description": self.description,
-            "config": config,
+            "config": [],
             }
 
-    def _meetsConditions(self, char, phase):
+    def getDefaultConfig(self, datamapper, char):
+        return []
+
+    def _meetsConditions(self, datamapper, char, phase):
         # Already completed
         if phase.get("uuid") in char.choices:
             return False
@@ -146,19 +86,10 @@ class BaseDataObject(JsonObject):
             return False
 
         # Check conditions
-        conditions = phase.get('conditions', {})
-        for condition in conditions:
-            if not self._meetsCondition(char, **condition):
-                return False
-        return True
+        return datamapper.machine.MatchesFilters(
+            char, phase.get('conditions', {}))
 
-    def _meetsCondition(self, char, type, **args):
-        if type not in self._check:
-            raise ValueError("Unknown condition type: '%s' checking %r" % (
-                type, args))
-        return self._check[type](self, char, **args)
-
-    def _inlineIncludes(self, datamapper, data):
+    def _inlineIncludes(self, datamapper, char, data):
         if isinstance(data, dict):
             if 'include' in data:
                 include = datamapper.options.getById(data['include'])
@@ -171,29 +102,27 @@ class BaseDataObject(JsonObject):
             if data.get('subtype', False):
                 data['options'] = []
                 if self._subtype and self._subkey:
-                    subs = datamapper[self._subtype].getMultiple(
+                    subs = datamapper[self._subtype].getAllOptions(
+                        datamapper, char,
                         where="%s = :id" % self._subkey,
                         values={ "id": self.id },
                         )
-                    for obj in subs:
-                        sub = obj.compileConfig(datamapper)
-                        if len(sub["config"]):
-                            data['options'].append(sub)
+                    data['options'] = subs.get('options', [])
                 if len(data['options']) == 0:
                     data['hidden'] = True
                 del data['subtype']
 
             for key, value in list(data.items()):
-                self._inlineIncludes(datamapper, value)
+                self._inlineIncludes(datamapper, char, value)
 
         if isinstance(data, list):
             for value in data:
-                self._inlineIncludes(datamapper, value)
+                self._inlineIncludes(datamapper, char, value)
 
     def collectLeveling(self, datamapper, char):
         config = char.getPath(['sub', self.normalizedName, 'leveling'], [])
         self._prefixUUIDs(self.uuid, config)
-        self._inlineIncludes(datamapper, config)
+        self._inlineIncludes(datamapper, char, config)
         return config
 
     def _prefixUUIDs(self, uuid, data):
@@ -206,3 +135,25 @@ class BaseDataObject(JsonObject):
         if isinstance(data, list):
             for value in data:
                 self._prefixUUIDs(uuid, value)
+
+
+class BaseDataMapper(JsonObjectDataMapper):
+
+    def getAllOptions(self, datamapper, char=None, **kwargs):
+        if self.uuid is None:
+            raise NotImplementedError("Please provide a UUID")
+
+        options = []
+        if char is None or self.uuid not in char.choices:
+            for obj in self.getMultiple(**kwargs):
+                option = obj.compileConfig(datamapper, char)
+                if len(option["config"]):
+                    options.append(option)
+
+        if len(options):
+            return {
+                'uuid': self.uuid,
+                'type': 'choice',
+                'options': options,
+                }
+        return {}
