@@ -88,20 +88,48 @@ exports[`Component: ChoiceOption when rendering should work with full props 1`] 
             value="some.path"
           />
         </div>
-        <input
-          checked={false}
-          className="nice-toggle"
-          disabled={undefined}
-          id="toggle-2"
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <label
-          className="nice-toggle-btn"
-          htmlFor="toggle-2"
+        <div
+          className="nice-control-group"
         >
-          Hidden
-        </label>
+          <span
+            className="nice-input-addon"
+          />
+          <input
+            checked={false}
+            className="nice-toggle"
+            disabled={undefined}
+            id="toggle-2"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <label
+            className="nice-toggle-btn"
+            htmlFor="toggle-2"
+          >
+            Hidden
+          </label>
+        </div>
+        <div
+          className="nice-control-group"
+        >
+          <span
+            className="nice-input-addon"
+          />
+          <input
+            checked={false}
+            className="nice-toggle"
+            disabled={undefined}
+            id="toggle-3"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <label
+            className="nice-toggle-btn"
+            htmlFor="toggle-3"
+          >
+            Formula
+          </label>
+        </div>
         <div
           className="nice-control-group"
         >
@@ -246,6 +274,15 @@ exports[`Component: ChoiceOption when rendering should work with full props 1`] 
           >
             <a>
               List option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="leveling"
+            onClick={[Function]}
+          >
+            <a>
+              Leveling option
             </a>
           </li>
           <li
@@ -737,6 +774,15 @@ exports[`Component: ChoiceOption when rendering should work with minimum props 1
           >
             <a>
               List option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="leveling"
+            onClick={[Function]}
+          >
+            <a>
+              Leveling option
             </a>
           </li>
           <li

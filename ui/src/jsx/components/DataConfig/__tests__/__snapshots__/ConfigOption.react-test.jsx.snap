@@ -88,20 +88,48 @@ exports[`Component: ConfigOption when rendering should show label/desc when cann
             value="some.path"
           />
         </div>
-        <input
-          checked={true}
-          className="nice-toggle"
-          disabled={undefined}
-          id="toggle-1"
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <label
-          className="nice-toggle-btn"
-          htmlFor="toggle-1"
+        <div
+          className="nice-control-group"
         >
-          Hidden
-        </label>
+          <span
+            className="nice-input-addon"
+          />
+          <input
+            checked={true}
+            className="nice-toggle"
+            disabled={undefined}
+            id="toggle-1"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <label
+            className="nice-toggle-btn"
+            htmlFor="toggle-1"
+          >
+            Hidden
+          </label>
+        </div>
+        <div
+          className="nice-control-group"
+        >
+          <span
+            className="nice-input-addon"
+          />
+          <input
+            checked={false}
+            className="nice-toggle"
+            disabled={undefined}
+            id="toggle-1"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <label
+            className="nice-toggle-btn"
+            htmlFor="toggle-1"
+          >
+            Formula
+          </label>
+        </div>
         <div
           className="nice-control-group"
         >
@@ -228,6 +256,15 @@ exports[`Component: ConfigOption when rendering should show label/desc when cann
           >
             <a>
               List option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="leveling"
+            onClick={[Function]}
+          >
+            <a>
+              Leveling option
             </a>
           </li>
           <li
@@ -615,20 +652,48 @@ exports[`Component: ConfigOption when rendering should show label/desc when not 
             value="some.path"
           />
         </div>
-        <input
-          checked={true}
-          className="nice-toggle"
-          disabled={undefined}
-          id="toggle-1"
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <label
-          className="nice-toggle-btn"
-          htmlFor="toggle-1"
+        <div
+          className="nice-control-group"
         >
-          Hidden
-        </label>
+          <span
+            className="nice-input-addon"
+          />
+          <input
+            checked={true}
+            className="nice-toggle"
+            disabled={undefined}
+            id="toggle-1"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <label
+            className="nice-toggle-btn"
+            htmlFor="toggle-1"
+          >
+            Hidden
+          </label>
+        </div>
+        <div
+          className="nice-control-group"
+        >
+          <span
+            className="nice-input-addon"
+          />
+          <input
+            checked={false}
+            className="nice-toggle"
+            disabled={undefined}
+            id="toggle-unexpected"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <label
+            className="nice-toggle-btn"
+            htmlFor="toggle-unexpected"
+          >
+            Formula
+          </label>
+        </div>
         <div
           className="nice-control-group"
         >
@@ -755,6 +820,15 @@ exports[`Component: ConfigOption when rendering should show label/desc when not 
           >
             <a>
               List option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="leveling"
+            onClick={[Function]}
+          >
+            <a>
+              Leveling option
             </a>
           </li>
           <li
@@ -1089,20 +1163,48 @@ exports[`Component: ConfigOption when rendering should work with full props 1`] 
             value="some.path"
           />
         </div>
-        <input
-          checked={true}
-          className="nice-toggle"
-          disabled={undefined}
-          id="toggle-1"
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <label
-          className="nice-toggle-btn"
-          htmlFor="toggle-1"
+        <div
+          className="nice-control-group"
         >
-          Hidden
-        </label>
+          <span
+            className="nice-input-addon"
+          />
+          <input
+            checked={true}
+            className="nice-toggle"
+            disabled={undefined}
+            id="toggle-1"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <label
+            className="nice-toggle-btn"
+            htmlFor="toggle-1"
+          >
+            Hidden
+          </label>
+        </div>
+        <div
+          className="nice-control-group"
+        >
+          <span
+            className="nice-input-addon"
+          />
+          <input
+            checked={false}
+            className="nice-toggle"
+            disabled={undefined}
+            id="toggle-unexpected"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <label
+            className="nice-toggle-btn"
+            htmlFor="toggle-unexpected"
+          >
+            Formula
+          </label>
+        </div>
         <div
           className="nice-control-group"
         >
@@ -1229,6 +1331,15 @@ exports[`Component: ConfigOption when rendering should work with full props 1`] 
           >
             <a>
               List option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="leveling"
+            onClick={[Function]}
+          >
+            <a>
+              Leveling option
             </a>
           </li>
           <li
@@ -1674,6 +1785,15 @@ exports[`Component: ConfigOption when rendering should work with minimum props 1
           >
             <a>
               List option
+            </a>
+          </li>
+          <li
+            className={null}
+            data-value="leveling"
+            onClick={[Function]}
+          >
+            <a>
+              Leveling option
             </a>
           </li>
           <li
