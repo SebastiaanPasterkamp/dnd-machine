@@ -16,6 +16,8 @@ import {
 } from 'lodash/fp';
 const forEach = forEachCapped.convert({ cap: false });
 
+import MatchesFilters from './MatchesFilters';
+
 let errors = {};
 
 export default function ComputeChange(changes, original) {

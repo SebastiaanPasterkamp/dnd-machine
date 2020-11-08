@@ -68,27 +68,29 @@ function CharacterEditorWrapper(
         componentWillMount() {
             super.componentWillMount.call(this);
 
+            const id = get('match.params.id', this.props);
+            const path = get('match.path', this.props);
+
+            if (path === undefined) {
+                return;
+            }
+
+            if (path.match('reset')) {
+                actions.resetCharacter(id, () => this.fetchConfigs());
+            } else {
+                actions.editCharacter(id, () => this.fetchConfigs(id));
+            }
+        }
+
+        fetchConfigs(id) {
             forEach(
                 (config) => {
                     if (storeKeys[config] !== 'fetch') {
                         return;
                     }
-                    actions.getCharacterConfig(config)
+                    actions.getCharacterConfig(config, id)
                 }
             )(keys(storeKeys));
-
-            const id = get('match.params.id', this.props);
-            const path = get('match.path', this.props);
-
-            if (path === null || id === undefined) {
-                return;
-            }
-
-            if (path.match('reset')) {
-                actions.resetCharacter(id);
-            } else {
-                actions.editCharacter(id);
-            }
         }
 
         onSave(callback=null) {

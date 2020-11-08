@@ -15,7 +15,7 @@ const CharacterEditorActions = Reflux.createActions({
 });
 
 CharacterEditorActions.getCharacterConfig.listen(
-    (config) => fetch(`/character/${config}/api`, {
+    (config, id) => fetch('/' + filter(null, [ 'character', config, 'api', id ]).join('/'), {
         credentials: 'same-origin',
         method: 'GET',
         'headers': {
@@ -32,9 +32,10 @@ CharacterEditorActions.getCharacterConfig.listen(
     })
 );
 
-function getCharacter(action, id) {
+function getCharacter(action, id, callback=null) {
     if (id === null) {
         action.completed({});
+        if (callback) callback();
         return;
     }
 
@@ -46,7 +47,10 @@ function getCharacter(action, id) {
         }
     })
     .then(response => response.json())
-    .then(result => action.completed(result))
+    .then(result => {
+        action.completed(result);
+        if (callback) callback();
+    })
     .catch(error => {
         console.log(error);
         action.failed(id, error);
@@ -54,16 +58,18 @@ function getCharacter(action, id) {
 };
 
 CharacterEditorActions.editCharacter.listen(
-    (id=null) => getCharacter(
+    (id=null, callback=null) => getCharacter(
         CharacterEditorActions.editCharacter,
         id,
+        callback,
     )
 );
 
 CharacterEditorActions.resetCharacter.listen(
-    (id=null) => getCharacter(
+    (id=null, callback=null) => getCharacter(
         CharacterEditorActions.resetCharacter,
         id,
+        callback,
     )
 );
 

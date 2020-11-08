@@ -1,4 +1,3 @@
-import baseConfig from './config/base.json';
 import CharacterConfig from './CharacterConfig';
 import CharacterEditorWrapper from './hocs/CharacterEditorWrapper';
 import ChoiceSelect from './components/ChoiceSelect';
@@ -17,7 +16,6 @@ import ValuePropertySelect from './components/ValuePropertySelect';
 
 export default CharacterConfig;
 export {
-    baseConfig,
     CharacterEditorWrapper,
     CharacterConfig,
     ChoiceSelect,

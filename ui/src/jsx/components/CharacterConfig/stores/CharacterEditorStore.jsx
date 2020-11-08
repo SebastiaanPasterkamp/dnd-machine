@@ -8,10 +8,12 @@ import {
     find,
     get,
     includes,
+    isEmpty,
     isEqual,
     map,
     reduce,
     setWith,
+    uniq,
 } from 'lodash/fp';
 
 import CharacterEditorActions from '../actions/CharacterEditorActions';
@@ -41,7 +43,10 @@ class CharacterEditorStore extends Reflux.Store
 
     reset() {
         this.setState({
-            original: {},
+            original: {
+              level: 1,
+              proficiency: 2,
+            },
             character: {},
             configs: [],
             choices: {},
@@ -77,7 +82,10 @@ class CharacterEditorStore extends Reflux.Store
         const changes = reduce(
             (changes, field) => {
                 const { [field]: change } = this.state;
-                return concat(changes, change);
+                if (!isEmpty(change)) {
+                    return concat(changes, change);
+                }
+                return changes;
             },
             []
         )(configs);
@@ -144,19 +152,20 @@ class CharacterEditorStore extends Reflux.Store
         this.setState({
             [field]: value,
             [`orig.${field}`]: value,
-            configs: [...configs, field],
+            configs: uniq([...configs, field]),
         });
+        this.computeChange();
     }
 
     onEditCharacterCompleted(original) {
         const { configs } = this.state;
-        const config = get('level_up.config', original) || [];
+        const permanent = get('permanent', original) || [];
         this.setState({
             original,
             character: {},
-            config,
-            'orig.config': config,
-            configs: [...configs, 'config'],
+            permanent,
+            'orig.permanent': permanent,
+            configs: uniq([...configs, 'permanent']),
         });
         this.computeChange();
     }

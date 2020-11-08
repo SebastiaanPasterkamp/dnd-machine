@@ -46,10 +46,8 @@ describe('Component: CharacterConfig', () => {
 
     const injectLevelUp = function(options) {
         const levelUp = [ options ];
-        store.onEditCharacterCompleted({
-            ...cloneDeep(original),
-            level_up: { config: levelUp },
-        });
+        store.onEditCharacterCompleted(cloneDeep(original));
+        store.onGetCharacterConfigCompleted('test', levelUp);
         return levelUp;
     };
 
