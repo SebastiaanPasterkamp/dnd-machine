@@ -51,9 +51,9 @@ INSERT INTO `race` (id, name, config)
     VALUES (1, 'Dwarf', '{
     "conditions": [
         {
-            "value": 1,
             "path": "character.level",
-            "type": "lte"
+            "type": "lte",
+            "value": 1
         }
     ],
     "config": [
@@ -213,7 +213,217 @@ INSERT INTO `race` (id, name, config)
         }
     ],
     "description": "Kingdoms rich in ancient grandeur, halls carved into the\nroots of mountains, the echoing of picks and hammers\nin deep mines and blazing forges, a commitment to clan\nand tradition, and a burning hatred of goblins and orcs\u2014\nthese common threads unite all dwarves.\n\n## Short and Stout\n\nBold and hardy, dwarves are known as skilled warriors,\nminers, and workers of stone and metal. Though they\nstand well under 5 feet tall, dwarves are so broad and\ncompact that they can weigh as much as a human standing\nnearly two feet taller. Their courage and endurance are\nalso easily a match for any of the larger folk.\nDwarven skin ranges from deep brown to a paler\nhue tinged with red, but the most common shades are\nlight brown or deep tan, like certain tones of earth.\nTheir hair, worn long but in simple styles, is usually\nblack, gray, or brown, though paler dwarves often have\nred hair. Male dwarves value their beards highly and\ngroom them carefully.",
-    "phases": [],
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.dwarf.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Dwarf 20"
+        }
+    ],
     "type": "config",
     "uuid": "50dcaaf6-288b-434c-a367-be5106df317d"
 }');
@@ -221,9 +431,9 @@ INSERT INTO `race` (id, name, config)
     VALUES (2, 'Elf', '{
     "conditions": [
         {
-            "value": 1,
             "path": "character.level",
-            "type": "lte"
+            "type": "lte",
+            "value": 1
         }
     ],
     "config": [
@@ -340,7 +550,217 @@ INSERT INTO `race` (id, name, config)
         }
     ],
     "description": "Elves are a magical people of otherworldly grace, living\nin the world but not entirely part of it. They live in places\nof ethereal beauty, in the midst of ancient forests or in\nsilvery spires glittering with faerie light, where soft music\ndrifts through the air and gentle fragrances waft on the\nbreeze. Elves love nature and magic, art and artistry, music and poetry, and the good things of the world.\n\n## Slender and Graceful\n\nWith their unearthly grace and fine features, elves appear\nhauntingly beautiful to humans and members of many\nother races. They are slightly shorter than humans on\naverage, ranging from well under 5 feet tall to just over\n6 feet. They are more slender than humans, weighing\nonly 100 to 145 pounds. Males and females are about\nthe same height, and males are only marginally heavier\nthan females.\n\nElves\u2019 coloration encompasses the normal human\nrange and also includes skin in shades of copper, bronze,\nand almost bluish-white, hair of green or blue, and eyes\nlike pools of liquid gold or silver. Elves have no facial and\nlittle body hair. They favor elegant clothing in bright colors, and they enjoy simple yet lovely jewelry.\n\n## A Timeless Perspective\n\nElves can live well over 700 years, giving them a broad\nperspective on events that might trouble the shorter-lived\nraces more deeply. They are more often amused than\nexcited, and more likely to be curious than greedy. They\ntend to remain aloof and unfazed by petty happenstance.\nWhen pursuing a goal, however, whether adventuring\non a mission or learning a new skill or art, elves can be\nfocused and relentless. They are slow to make friends\nand enemies, and even slower to forget them. They reply\nto petty insults with disdain and to serious insults with\nvengeance.\n\nLike the branches of a young tree, elves are flexible\nin the face of danger. They trust in diplomacy and compromise to resolve differences before they escalate to\nviolence. They have been known to retreat from intrusions into their woodland homes, confident that they can\nsimply wait the invaders out. But when the need arises,\nelves reveal a stern martial side, demonstrating skill with\nsword, bow, and strategy.\n\n## Hidden Woodland Realms\n\nMost elves dwell in small forest villages hidden among\nthe trees. Elves hunt game, gather food, and grow vegetables, and their skill and magic allow them to support\nthemselves without the need for clearing and plowing\nland. They are talented artisans, crafting finely worked\nclothes and art objects. Their contact with outsiders is\nusually limited, though a few elves make a good living by\ntrading crafted items for metals (which they have no interest in mining).\n\nElves encountered outside their own lands are commonly traveling minstrels, artists, or sages. Human\nnobles compete for the services of elf instructors to teach\nswordplay or magic to their children.\n\n## Exploration and Adventure\n\nElves take up adventuring out of wanderlust. Since they\nare so long-lived, they can enjoy centuries of exploration\nand discovery. They dislike the pace of human society,\nwhich is regimented from day to day but constantly\nchanging over decades, so they find careers that let them\ntravel freely and set their own pace. Elves also enjoy\nexercising their martial prowess or gaining greater magical power, and adventuring allows them to do so. Some\nmight join with rebels fighting against oppression, and\nothers might become champions of moral causes.",
-    "phases": [],
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Elf 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Elf 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Elf 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Elf 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Elf 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Elf 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Elf 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Elf 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Elf 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Elf 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Elf 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Elf 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Elf 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Elf 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Elf 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Elf 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Elf 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Elf 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.elf.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Elf 20"
+        }
+    ],
     "type": "config",
     "uuid": "23961b53-ed8f-48a5-b0a5-32886688d1c3"
 }');
@@ -348,9 +768,9 @@ INSERT INTO `race` (id, name, config)
     VALUES (3, 'Halfling', '{
     "conditions": [
         {
-            "value": 1,
             "path": "character.level",
-            "type": "lte"
+            "type": "lte",
+            "value": 1
         }
     ],
     "config": [
@@ -452,7 +872,217 @@ INSERT INTO `race` (id, name, config)
         }
     ],
     "description": "The comforts of home are the goals of most halflings\u2019\nlives: a place to settle in peace and quiet, far from marauding monsters and clashing armies; a blazing fire\nand a generous meal; fine drink and fine conversation.\nThough some halflings live out their days in remote agricultural communities, others form nomadic bands that\ntravel constantly, lured by the open road and the wide\nhorizon to discover the wonders of new lands and peoples. But even these wanderers love peace, food, hearth,\nand home, though home might be a wagon jostling along\nan dirt road or a raft floating downriver.\n\n## Small and Practical\n\nThe diminutive halflings survive in a world full of larger\ncreatures by avoiding notice or, barring that, avoiding\noffense. Standing about 3 feet tall, they appear relatively\nharmless and so have managed to survive for centuries\nin the shadow of empires and on the edges of wars and\npolitical strife. They are inclined to be stout, weighing\nbetween 40 and 45 pounds.\n\nHalflings\u2019 skin ranges from tan to pale with a ruddy\ncast, and their hair is usually brown or sandy brown and\nwavy. They have brown or hazel eyes. Halfling men often\nsport long sideburns, but beards are rare among them\nand mustaches even more so. They like to wear simple,\ncomfortable, and practical clothes, favoring bright colors.\n\nHalfling practicality extends beyond their clothing.\nThey\u2019re concerned with basic needs and simple pleasures\nand have little use for ostentation. Even the wealthiest\nof halflings keep their treasures locked in a cellar rather\nthan on display for all to see. They have\na knack for finding the most straightforward solution\nto a problem, and have little patience for dithering.\n\n## Kind and Curious\n\nHalflings are an affable and cheerful people. They\ncherish the bonds of family and friendship as well\nas the comforts of hearth and home, harboring few\ndreams of gold or glory. Even adventurers among\nthem usually venture into the world for reasons of\ncommunity, friendship, wanderlust, or curiosity. They\nlove discovering new things, even simple things, such\nas an exotic food or an unfamiliar style of clothing.\n\nHalflings are easily moved to pity and hate to see any\nliving thing suffer. They are generous, happily sharing\nwhat they have even in lean times.\n\n## Blend into the Crowd\n\nHalflings are adept at fitting into a community of humans, dwarves, or elves, making themselves valuable\nand welcome. The combination of their inherent stealth\nand their unassuming nature helps halflings to avoid unwanted attention.\nHalflings work readily with others, and they are loyal\nto their friends, whether halfling or otherwise. They can\ndisplay remarkable ferocity when their friends, families,\nor communities are threatened.\n\n## Pastoral Pleasantries\n\nMost halflings live in small, peaceful communities with\nlarge farms and well-kept groves. They rarely build\nkingdoms of their own or even hold much land beyond\ntheir quiet shires. They typically don\u2019t recognize any sort\nof halfling nobility or royalty, instead looking to family\nelders to guide them. Families preserve their traditional\nways despite the rise and fall of empires.\n\nMany halflings live among other races, where the\nhalflings\u2019 hard work and loyal outlook offer them abundant rewards and creature comforts. Some halfling\ncommunities travel as a way of life, driving wagons or\nguiding boats from place to place and maintaining no\npermanent home.\n\n## Exploring Opportunities\n\nHalflings usually set out on the adventurer\u2019s path to defend their communities, support their friends, or explore\na wide and wonder-filled world. For them, adventuring\nis less a career than an opportunity or sometimes a\nnecessity.",
-    "phases": [],
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Halfling 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Halfling 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Halfling 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Halfling 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Halfling 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Halfling 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Halfling 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Halfling 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Halfling 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Halfling 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Halfling 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Halfling 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Halfling 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Halfling 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Halfling 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Halfling 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Halfling 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Halfling 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.halfling.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Halfling 20"
+        }
+    ],
     "type": "config",
     "uuid": "9139627a-af43-45d9-991d-41d6ae621471"
 }');
@@ -460,9 +1090,9 @@ INSERT INTO `race` (id, name, config)
     VALUES (4, 'Human', '{
     "conditions": [
         {
-            "value": 1,
             "path": "character.level",
-            "type": "lte"
+            "type": "lte",
+            "value": 1
         }
     ],
     "config": [
@@ -595,13 +1225,224 @@ INSERT INTO `race` (id, name, config)
         }
     ],
     "description": "In the reckonings of most worlds, humans are the youngest of the common races, late to arrive on the world scene\nand short-lived in comparison to dwarves, elves, and\ndragons. Perhaps it is because of their shorter lives that\nthey strive to achieve as much as they can in the years\nthey are given. Or maybe they feel they have something\nto prove to the elder races, and that\u2019s why they build their\nmighty empires on the foundation of conquest and trade.\nWhatever drives them, humans are the innovators, the\nachievers, and the pioneers of the worlds.\n\n## A Broad Spectrum\n\nWith their penchant for migration and conquest, humans\nare more physically diverse than other common races.\nThere is no typical human. An individual can stand from\n5 feet to a little over 6 feet tall and weigh from 125 to 250\npounds. Human skin shades range from nearly black\nto very pale, and hair colors from black to blond (curly,\nkinky, or straight); males might sport facial hair that is\nsparse or thick. A lot of humans have a dash of nonhuman blood, revealing hints of elf, orc, or other lineages.\nHumans reach adulthood in their late teens and rarely\nlive even a single century.\n\n## Variety in All Things\n\nHumans are the most adaptable and ambitious people\namong the common races. They have widely varying\ntastes, morals, and customs in the many different lands\nwhere they have settled. When they settle, though, they\nstay: they build cities to last for the ages, and great kingdoms that can persist for long centuries. An individual\nhuman might have a relatively short life span, but a human nation or culture preserves traditions with origins\nfar beyond the reach of any single human\u2019s memory. They\nlive fully in the present\u2014making them well suited to the\nadventuring life\u2014but also plan for the future, striving to\nleave a lasting legacy. Individually and as a group, humans are adaptable opportunists, and they stay alert to\nchanging political and social dynamics.\n\n## Lasting Institutions\n\nWhere a single elf or dwarf might take on the responsibility of guarding a special location or a powerful secret,\nhumans found sacred orders and institutions for such\npurposes. While dwarf clans and halfling elders pass on\nthe ancient traditions to each new generation, human\ntemples, governments, libraries, and codes of law fix\ntheir traditions in the bedrock of history. Humans dream\nof immortality, but (except for those few who seek undeath or divine ascension to escape death\u2019s clutches) they\nachieve it by ensuring that they will be remembered when\nthey are gone.\n\nAlthough some humans can be xenophobic, in general\ntheir societies are inclusive. Human lands welcome large\nnumbers of nonhumans compared to the proportion of\nhumans who live in nonhuman lands.\n\n## Exemplars of Ambition\n\nHumans who seek adventure are the most daring and\nambitious members of a daring and ambitious race. They\nseek to earn glory in the eyes of their fellows by amassing\npower, wealth, and fame. More than other people, humans champion causes rather than territories or groups.",
-    "phases": [],
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Human 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Human 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Human 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Human 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Human 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Human 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Human 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Human 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Human 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Human 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Human 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Human 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Human 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Human 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Human 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Human 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Human 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Human 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.human.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Human 20"
+        }
+    ],
     "type": "config",
     "uuid": "f41a040f-3db5-4a89-aaa5-e05ab46d3802"
 }');
 
 INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (1, 'Hill Dwarf', 1, '{
+    "conditions": [],
     "config": [
         {
             "config": [
@@ -641,12 +1482,223 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "As a hill dwarf, you have keen senses, deep intuition, and\nremarkable resilience. The gold dwarves of Faer\u00fbn in\ntheir mighty southern kingdom are hill dwarves, as are\nthe exiled Neidar and the debased Klar of Krynn in the\nDragonlance setting",
-    "phases": [],
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.hilldwarf.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Hill Dwarf 20"
+        }
+    ],
     "type": "config",
     "uuid": "25306b59-9b26-4232-adf4-9ce0131de0d1"
 }');
 INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (2, 'Mountain Dwarf', 1, '{
+    "conditions": [],
     "config": [
         {
             "config": [
@@ -688,12 +1740,223 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "As a mountain dwarf, you\u2019re strong and hardy, accustomed to a difficult life in rugged terrain. You\u2019re probably\non the tall side (for a dwarf), and tend toward lighter coloration. The shield dwarves of northern Faer\u00fbn, as well\nas the ruling Hylar clan and the noble Daewar clan of\nDragonlance, are mountain dwarves.",
-    "phases": [],
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.mountaindwarf.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Mountain Dwarf 20"
+        }
+    ],
     "type": "config",
     "uuid": "0af3ca02-c9c1-4336-8ddd-5db7600ef287"
 }');
 INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (3, 'High Elf', 2, '{
+    "conditions": [],
     "config": [
         {
             "config": [
@@ -832,12 +2095,223 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "As a high elf, you have a keen mind and a mastery of\nat least the basics of magic. In many of the worlds of\nD&D, there are two kinds of high elves. One type (which\nincludes the gray elves and valley elves of Greyhawk,\nthe Silvanesti of Dragonlance, and the sun elves of the\nForgotten Realms) is haughty and reclusive, believing\nthemselves to be superior to non-elves and even other\nelves. The other type (including the high elves of Greyhawk, the Qualinesti of Dragonlance, and the moon elves\nof the Forgotten Realms) are more common and more\nfriendly, and often encountered among humans and\nother races.\n\nThe sun elves of Faer\u00fbn (also called gold elves or sunrise elves) have bronze skin and hair of copper, black,\nor golden blond. Their eyes are golden, silver, or black.\nMoon elves (also called silver elves or gray elves) are\nmuch paler, with alabaster skin sometimes tinged with\nblue. They often have hair of silver-white, black, or blue,\nbut various shades of blond, brown, and red are not\nuncommon. Their eyes are blue or green and flecked\nwith gold.",
-    "phases": [],
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "High Elf 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "High Elf 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "High Elf 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "High Elf 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "High Elf 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "High Elf 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "High Elf 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "High Elf 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "High Elf 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "High Elf 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "High Elf 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "High Elf 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "High Elf 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "High Elf 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "High Elf 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "High Elf 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "High Elf 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "High Elf 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.highelf.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "High Elf 20"
+        }
+    ],
     "type": "config",
     "uuid": "037005f2-2b29-4f48-9ea4-8bf4c8ca6b4f"
 }');
 INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (4, 'Wood Elf', 2, '{
+    "conditions": [],
     "config": [
         {
             "config": [
@@ -911,12 +2385,223 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "As a wood elf, you have keen senses and intuition, and\nyour fleet feet carry you quickly and stealthily through\nyour native forests. This category includes the wild elves\n(grugach) of Greyhawk and the Kagonesti of Dragonlance, as well as the races called wood elves in Greyhawk\nand the Forgotten Realms. In Faer\u00fbn, wood elves (also\ncalled wild elves, green elves, or forest elves) are reclusive and distrusting of non-elves.\n\nWood elves\u2019 skin tends to be copperish in hue, sometimes with traces of green. Their hair tends toward\nbrowns and blacks, but it is occasionally blond or copper-colored. Their eyes are green, brown, or hazel.",
-    "phases": [],
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.woodelf.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Wood Elf 20"
+        }
+    ],
     "type": "config",
     "uuid": "961bd14e-d13a-48bd-9c95-71caa2e22677"
 }');
 INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (5, 'Lightfoot Halfling', 3, '{
+    "conditions": [],
     "config": [
         {
             "config": [
@@ -945,12 +2630,223 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "As a lightfoot halfling, you can easily hide from notice,\neven using other people as cover. You\u2019re inclined to be\naffable and get along well with others. In the Forgotten\nRealms, lightfoot halflings have spread the farthest and\nthus are the most common variety.\nLightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a\nnomadic life. In the world of Greyhawk, these halflings\nare called hairfeet or tallfellows.",
-    "phases": [],
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lightfoothalfling.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Lightfoot Halfling 20"
+        }
+    ],
     "type": "config",
     "uuid": "b22d5fba-1ed5-486f-b6a9-88a57a2064a0"
 }');
 INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (6, 'Stout Halfling', 3, '{
+    "conditions": [],
     "config": [
         {
             "config": [
@@ -979,12 +2875,223 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "As a stout halfling, you\u2019re hardier than average and have\nsome resistance to poison. Some say that stouts have\ndwarven blood. In the Forgotten Realms, these halflings\nare called stronghearts, and they\u2019re most common in\nthe south.",
-    "phases": [],
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.stouthalfling.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Stout Halfling 20"
+        }
+    ],
     "type": "config",
     "uuid": "981998de-c1f7-4309-9586-0ea6801101d9"
 }');
 INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (7, 'Standard Human', 4, '{
+    "conditions": [],
     "config": [
         {
             "config": [
@@ -1056,12 +3163,223 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "",
-    "phases": [],
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.standardhuman.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Standard Human 20"
+        }
+    ],
     "type": "config",
     "uuid": "9e541a9e-c409-457b-b114-98f968a42247"
 }');
 INSERT INTO `subrace` (id, name, race_id, config)
     VALUES (8, 'Human Variant', 4, '{
+    "conditions": [],
     "config": [
         {
             "description": "Two different ability scores of your choice increase by 1.",
@@ -1090,7 +3408,217 @@ INSERT INTO `subrace` (id, name, race_id, config)
         }
     ],
     "description": "",
-    "phases": [],
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.humanvariant.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Human Variant 20"
+        }
+    ],
     "type": "config",
     "uuid": "a0c7e359-94fb-409f-9766-412d530ea92e"
 }');
@@ -1098,6 +3626,7 @@ INSERT INTO `subrace` (id, name, race_id, config)
 INSERT INTO `class` (id, name, config)
     VALUES (1, 'Cleric', '{
     "caster_rank": 1,
+    "conditions": [],
     "config": [
         {
             "config": [
@@ -1111,9 +3640,9 @@ INSERT INTO `class` (id, name, config)
                 {
                     "conditions": [
                         {
-                            "value": 1,
                             "path": "character.level",
-                            "type": "lte"
+                            "type": "lte",
+                            "value": 1
                         }
                     ],
                     "config": [
@@ -1613,6 +4142,7 @@ INSERT INTO `class` (id, name, config)
     ],
     "description": "Arms and eyes upraised toward the sun and a prayer\non his lips, an elf begins to glow with an inner light that\nspills out to heal his battle-worn companions.\n\nChanting a song of glory, a dwarf swings his axe in\nwide swaths to cut through the ranks of orcs arrayed\nagainst him, shouting praise to the gods with every\nfoe\u2019s fall.\n\nCalling down a curse upon the forces of undeath, a\nhuman lifts her holy symbol as light pours from it to drive\nback the zombies crowding in on her companions.\n\nClerics are intermediaries between the mortal world\nand the distant planes of the gods. As varied as the gods\nthey serve, clerics strive to embody the handiwork of\ntheir deities. No ordinary priest, a cleric is imbued with\ndivine magic.\n\n## Healers and Warriors\nDivine magic, as the name suggests, is the power of the\ngods, flowing from them into the world. Clerics are conduits for that power, manifesting it as miraculous effects.\nThe gods don\u2019t grant this power to everyone who seeks it,\nbut only to those chosen to fulfill a high calling.\n\nHarnessing divine magic doesn\u2019t rely on study or training. A cleric might learn formulaic prayers and ancient\nrites, but the ability to cast cleric spells relies on devotion\nand an intuitive sense of a deity\u2019s wishes.\n\nClerics combine the helpful magic of healing and inspiring their allies with spells that harm and hinder foes.\nThey can provoke awe and dread, lay curses of plague\nor poison, and even call down flames from heaven to consume their enemies. For those evildoers who will benefit\nmost from a mace to the head, clerics depend on their\ncombat training to let them wade into melee with the\npower of the gods on their side.\n\n## Divine Agents\nNot every acolyte or officiant at a temple or shrine is a\ncleric. Some priests are called to a simple life of temple\nservice, carrying out their gods\u2019 will through prayer and \nsacrifice, not by magic and strength of arms. In some cities, priesthood amounts to a political office, viewed as a\nstepping stone to higher positions of authority and involving no communion with a god at all. True clerics are rare\nin most hierarchies.\n\nWhen a cleric takes up an adventuring life, it is usually\nbecause his or her god demands it. Pursuing the goals\nof the gods often involves braving dangers beyond the\nwalls of civilization, smiting evil or seeking holy relics in\nancient tombs. Many clerics are also expected to protect\ntheir deities\u2019 worshipers, which can mean fighting rampaging orcs, negotiating peace between warring nations,\nor sealing a portal that would allow a demon prince to\nenter the world.\n\nMost adventuring clerics maintain some connection to\nestablished temples and orders of their faiths. A temple\nmight ask for a cleric\u2019s aid, or a high priest might be in a\nposition to demand it.",
     "features": {
+        "casting_stat": "wisdom",
         "max_cantrips": [ 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 ],
         "max_prepared_formula": "max(1, character.level + statistics.modifiers.wisdom)",
         "slots": [
@@ -1674,7 +4204,17 @@ INSERT INTO `class` (id, name, config)
             "type": "config",
             "uuid": "9063617e-cc60-426a-a7e5-82cbaf32abfb"
         },
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Cleric 3"
+        },
         {
             "conditions": [
                 {
@@ -1758,7 +4298,17 @@ INSERT INTO `class` (id, name, config)
             "type": "config",
             "uuid": "cf675125-d964-4194-8e4b-01ba4978fbba"
         },
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Cleric 7"
+        },
         {
             "conditions": [
                 {
@@ -1804,7 +4354,17 @@ INSERT INTO `class` (id, name, config)
             "type": "config",
             "uuid": "0c57d7ff-db84-460a-bcf3-92291b4fa7fa"
         },
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Cleric 9"
+        },
         {
             "conditions": [
                 {
@@ -1889,7 +4449,17 @@ INSERT INTO `class` (id, name, config)
             "type": "config",
             "uuid": "756b49b3-febb-4451-9826-7f55d66e973f"
         },
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Cleric 13"
+        },
         {
             "conditions": [
                 {
@@ -1913,7 +4483,17 @@ INSERT INTO `class` (id, name, config)
             "type": "config",
             "uuid": "6343dfdd-daee-4ab9-bc08-60eb2f5894f7"
         },
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.cleric.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Cleric 15"
+        },
         {
             "conditions": [
                 {
@@ -2062,6 +4642,7 @@ INSERT INTO `class` (id, name, config)
 }');
 INSERT INTO `class` (id, name, config)
     VALUES (2, 'Fighter', '{
+    "conditions": [],
     "config": [
         {
             "config": [
@@ -2075,9 +4656,9 @@ INSERT INTO `class` (id, name, config)
                 {
                     "conditions": [
                         {
-                            "value": 1,
                             "path": "character.level",
-                            "type": "lte"
+                            "type": "lte",
+                            "value": 1
                         }
                     ],
                     "config": [
@@ -2595,7 +5176,17 @@ INSERT INTO `class` (id, name, config)
             "type": "config",
             "uuid": "1d2589ca-d729-4838-be23-14cdd5ab65a2"
         },
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Fighter 7"
+        },
         {
             "conditions": [
                 {
@@ -2656,7 +5247,17 @@ INSERT INTO `class` (id, name, config)
             "type": "config",
             "uuid": "8da08444-ce10-4573-b0c4-0006641894ac"
         },
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Fighter 10"
+        },
         {
             "conditions": [
                 {
@@ -2775,7 +5376,17 @@ INSERT INTO `class` (id, name, config)
             "type": "config",
             "uuid": "3b9ff636-38ab-4a14-b9d3-5962c9791350"
         },
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Fighter 15"
+        },
         {
             "conditions": [
                 {
@@ -2844,7 +5455,17 @@ INSERT INTO `class` (id, name, config)
             "type": "config",
             "uuid": "e6e9243e-e023-4e97-9a31-b813911294a4"
         },
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.fighter.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Fighter 18"
+        },
         {
             "conditions": [
                 {
@@ -2911,6 +5532,7 @@ INSERT INTO `class` (id, name, config)
 }');
 INSERT INTO `class` (id, name, config)
     VALUES (3, 'Rogue', '{
+    "conditions": [],
     "config": [
         {
             "config": [
@@ -2924,9 +5546,9 @@ INSERT INTO `class` (id, name, config)
                 {
                     "conditions": [
                         {
-                            "value": 1,
                             "path": "character.level",
-                            "type": "lte"
+                            "type": "lte",
+                            "value": 1
                         }
                     ],
                     "config": [
@@ -3947,6 +6569,8 @@ INSERT INTO `class` (id, name, config)
 }');
 INSERT INTO `class` (id, name, config)
     VALUES (4, 'Wizard', '{
+    "caster_rank": 1,
+    "conditions": [],
     "config": [
         {
             "config": [
@@ -3960,9 +6584,9 @@ INSERT INTO `class` (id, name, config)
                 {
                     "conditions": [
                         {
-                            "value": 1,
                             "path": "character.level",
-                            "type": "lte"
+                            "type": "lte",
+                            "value": 1
                         }
                     ],
                     "config": [
@@ -4381,6 +7005,7 @@ INSERT INTO `class` (id, name, config)
     ],
     "description": "Clad in the silver robes that denote her station, an elf\ncloses her eyes to shut out the distractions of the battlefield and begins her quiet chant. Fingers weaving in front\nof her, she completes her spell and launches a tiny bead\nof fire toward the enemy ranks, where it erupts into a conflagration that engulfs the soldiers.\n\nChecking and rechecking his work, a human scribes\nan intricate magic circle in chalk on the bare stone\nfloor, then sprinkles powdered iron along every line and\ngraceful curve. When the circle is complete, he drones\na long incantation. A hole opens in space inside the circle, bringing a whiff of brimstone from the otherworldly\nplane beyond.\n\nCrouching on the floor in a dungeon intersection, a\ngnome tosses a handful of small bones inscribed with\nmystic symbols, muttering a few words of power over\nthem. Closing his eyes to see the visions more clearly,\nhe nods slowly, then opens his eyes and points down the\npassage to his left.\n\nWizards are supreme magic-users, defined and united\nas a class by the spells they cast. Drawing on the subtle\nweave of magic that permeates the cosmos, wizards cast\nspells of explosive fire, arcing lightning, subtle deception,\nand brute-force mind control. Their magic conjures monsters from other planes of existence, glimpses the future,\nor turns slain foes into zombies. Their mightiest spells\nchange one substance into another, call meteors down\nfrom the sky, or open portals to other worlds.\n\n## Scholars of the Arcane\n\nWild and enigmatic, varied in form and function, the\npower of magic draws students who seek to master its\nmysteries. Some aspire to become like the gods, shaping reality itself. Though the casting of a typical spell\nrequires merely the utterance of a few strange words,\nfleeting gestures, and sometimes a pinch or clump of\nexotic materials, these surface components barely hint at\nthe expertise attained after years of apprenticeship and\ncountless hours of study.\n\nWizards live and die by their spells. Everything else is\nsecondary. They learn new spells as they experiment and\ngrow in experience. They can also learn them from other\nwizards, from ancient tomes or inscriptions, and from ancient creatures (such as the fey) that are steeped in magic.\n\n\n## The Lure of Knowledge\n\nWizards\u2019 lives are seldom mundane. The closest a wizard\nis likely to come to an ordinary life is working as a sage\nor lecturer in a library or university, teaching others the\nsecrets of the multiverse. Other wizards sell their services as diviners, serve in military forces, or pursue lives\nof crime or domination.\n\nBut the lure of knowledge and power calls even the\nmost unadventurous wizards out of the safety of their\nlibraries and laboratories and into crumbling ruins and\nlost cities. Most wizards believe that their counterparts\nin ancient civilizations knew secrets of magic that have\nbeen lost to the ages, and discovering those secrets could\nunlock the path to a power greater than any magic available in the present age.",
     "features": {
+        "casting_stat": "intelligence",
         "max_cantrips": [ 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 ],
         "max_prepared_formula": "max(1, character.level + statistics.modifiers.intelligence)",
         "slots": [
@@ -4428,7 +7053,17 @@ INSERT INTO `class` (id, name, config)
             "type": "config",
             "uuid": "6a914a9d-a4e1-447b-8ba8-3165cfbdbd3d"
         },
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Wizard 3"
+        },
         {
             "conditions": [
                 {
@@ -4439,20 +7074,65 @@ INSERT INTO `class` (id, name, config)
             ],
             "config": [
                 {
-                    "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can''t increase an ability score above 20 using this feature.",
-                    "limit": 2,
-                    "name": "Ability Score Improvement",
-                    "type": "ability_score",
-                    "uuid": "afea1fa2-57ae-4fd8-975e-5afcb33c8a25"
+                    "name": "ASI or Feat",
+                    "options": [
+                        {
+                            "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can''t increase an ability score above 20 using this feature.",
+                            "limit": 2,
+                            "name": "Ability Score Improvement",
+                            "type": "ability_score",
+                            "uuid": "afea1fa2-57ae-4fd8-975e-5afcb33c8a25"
+                        },
+                        {
+                            "add": 1,
+                            "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
+                            "include": 3,
+                            "name": "Feat",
+                            "type": "multichoice",
+                            "uuid": "327507a1-b05d-4032-a39c-c9224671af44"
+                        }
+                    ],
+                    "type": "choice",
+                    "uuid": "10bf3472-d8b8-427e-bf15-08e65c532934"
                 }
             ],
             "name": "Wizard 4",
             "type": "config",
             "uuid": "ca008fbe-6385-43b4-af4a-7c8506d53088"
         },
-        {},
-        {},
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Wizard 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Wizard 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Wizard 7"
+        },
         {
             "conditions": [
                 {
@@ -4463,20 +7143,65 @@ INSERT INTO `class` (id, name, config)
             ],
             "config": [
                 {
-                    "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can''t increase an ability score above 20 using this feature.",
-                    "limit": 2,
-                    "name": "Ability Score Improvement",
-                    "type": "ability_score",
-                    "uuid": "b37e5d43-8e9d-4bec-936d-1a73ed9da5f5"
+                    "name": "ASI or Feat",
+                    "options": [
+                        {
+                            "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can''t increase an ability score above 20 using this feature.",
+                            "limit": 2,
+                            "name": "Ability Score Improvement",
+                            "type": "ability_score",
+                            "uuid": "b37e5d43-8e9d-4bec-936d-1a73ed9da5f5"
+                        },
+                        {
+                            "add": 1,
+                            "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
+                            "include": 3,
+                            "name": "Feat",
+                            "type": "multichoice",
+                            "uuid": "82ac74ba-478f-4ea8-a17a-a1cd80f1e53b"
+                        }
+                    ],
+                    "type": "choice",
+                    "uuid": "06279708-9e69-4385-9f8a-34bd55d30fcd"
                 }
             ],
             "name": "Wizard 8",
             "type": "config",
             "uuid": "a0dd8ddf-b350-47a8-a9a9-d33327bfc9da"
         },
-        {},
-        {},
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Wizard 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Wizard 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Wizard 11"
+        },
         {
             "conditions": [
                 {
@@ -4487,20 +7212,65 @@ INSERT INTO `class` (id, name, config)
             ],
             "config": [
                 {
-                    "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can''t increase an ability score above 20 using this feature.",
-                    "limit": 2,
-                    "name": "Ability Score Improvement",
-                    "type": "ability_score",
-                    "uuid": "6094c2f9-a0cb-4b87-8c60-3994825d4f17"
+                    "name": "ASI or Feat",
+                    "options": [
+                        {
+                            "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can''t increase an ability score above 20 using this feature.",
+                            "limit": 2,
+                            "name": "Ability Score Improvement",
+                            "type": "ability_score",
+                            "uuid": "6094c2f9-a0cb-4b87-8c60-3994825d4f17"
+                        },
+                        {
+                            "add": 1,
+                            "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
+                            "include": 3,
+                            "name": "Feat",
+                            "type": "multichoice",
+                            "uuid": "6a0cdf8b-ad6e-46c1-aa5c-5bbfc969e2c7"
+                        }
+                    ],
+                    "type": "choice",
+                    "uuid": "38fe3010-fa0c-4116-b314-80ffb40746b6"
                 }
             ],
             "name": "Wizard 12",
             "type": "config",
             "uuid": "9b11caa6-6d81-43a3-acaa-6172b8cb3b6d"
         },
-        {},
-        {},
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Wizard 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Wizard 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Wizard 15"
+        },
         {
             "conditions": [
                 {
@@ -4511,18 +7281,43 @@ INSERT INTO `class` (id, name, config)
             ],
             "config": [
                 {
-                    "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can''t increase an ability score above 20 using this feature.",
-                    "limit": 2,
-                    "name": "Ability Score Improvement",
-                    "type": "ability_score",
-                    "uuid": "f6ac3220-56f0-4b97-84c5-b7db642f4bf9"
+                    "name": "ASI or Feat",
+                    "options": [
+                        {
+                            "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can''t increase an ability score above 20 using this feature.",
+                            "limit": 2,
+                            "name": "Ability Score Improvement",
+                            "type": "ability_score",
+                            "uuid": "f6ac3220-56f0-4b97-84c5-b7db642f4bf9"
+                        },
+                        {
+                            "add": 1,
+                            "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
+                            "include": 3,
+                            "name": "Feat",
+                            "type": "multichoice",
+                            "uuid": "619801ea-d2e5-41f0-a6b9-166463992a5c"
+                        }
+                    ],
+                    "type": "choice",
+                    "uuid": "3b374457-b69b-48de-b8d7-da857d6ad4c9"
                 }
             ],
             "name": "Wizard 16",
             "type": "config",
             "uuid": "06b0ba78-714e-4972-9673-b2848c54ab52"
         },
-        {},
+        {
+            "conditions": [
+                {
+                    "path": "sub.wizard.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Wizard 17"
+        },
         {
             "conditions": [
                 {
@@ -4620,11 +7415,26 @@ INSERT INTO `class` (id, name, config)
             ],
             "config": [
                 {
-                    "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can''t increase an ability score above 20 using this feature.",
-                    "limit": 2,
-                    "name": "Ability Score Improvement",
-                    "type": "ability_score",
-                    "uuid": "875b79a6-2083-423c-9787-4a1a7b880ea2"
+                    "name": "ASI or Feat",
+                    "options": [
+                        {
+                            "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can''t increase an ability score above 20 using this feature.",
+                            "limit": 2,
+                            "name": "Ability Score Improvement",
+                            "type": "ability_score",
+                            "uuid": "875b79a6-2083-423c-9787-4a1a7b880ea2"
+                        },
+                        {
+                            "add": 1,
+                            "description": "A feat represents a talent or an area of expertise that gives a character special capabilities. It embodies training, experience, and abilities beyond what a class provides. See chapter 6 of the Player\u2019s Handbook for more information.",
+                            "include": 3,
+                            "name": "Feat",
+                            "type": "multichoice",
+                            "uuid": "dd6e594f-0447-4351-9c0e-17f15b88a63f"
+                        }
+                    ],
+                    "type": "choice",
+                    "uuid": "226e845c-9301-4d74-9fe4-060c3b3f6bd2"
                 }
             ],
             "name": "Wizard 19",
@@ -4699,6 +7509,7 @@ INSERT INTO `class` (id, name, config)
 
 INSERT INTO `subclass` (id, name, class_id, config)
     VALUES (1, 'Life Domain', 1, '{
+    "conditions": [],
     "config": [
         {
             "description": "When you choose this domain at 1st level, you gain proficiency with heavy armor.",
@@ -4774,13 +7585,8 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "conditions": [
                 {
                     "needle": "Life Domain",
-                    "path": "subclass",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 3
+                    "path": "eq",
+                    "value": 2
                 }
             ],
             "config": [
@@ -4807,18 +7613,23 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "type": "config",
             "uuid": "61d2826a-ea77-4d42-9897-43165c15f713"
         },
-        {},
         {
             "conditions": [
                 {
-                    "needle": "Life Domain",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Life Domain 4"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 5
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 4
                 }
             ],
             "config": [
@@ -4847,14 +7658,9 @@ INSERT INTO `subclass` (id, name, class_id, config)
         {
             "conditions": [
                 {
-                    "needle": "Life Domain",
-                    "path": "subclass",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 6
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 5
                 }
             ],
             "config": [
@@ -4873,14 +7679,9 @@ INSERT INTO `subclass` (id, name, class_id, config)
         {
             "conditions": [
                 {
-                    "needle": "Life Domain",
-                    "path": "subclass",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 7
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 6
                 }
             ],
             "config": [
@@ -4909,14 +7710,9 @@ INSERT INTO `subclass` (id, name, class_id, config)
         {
             "conditions": [
                 {
-                    "needle": "Life Domain",
-                    "path": "subclass",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 8
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 7
                 }
             ],
             "config": [
@@ -4938,14 +7734,9 @@ INSERT INTO `subclass` (id, name, class_id, config)
         {
             "conditions": [
                 {
-                    "needle": "Life Domain",
-                    "path": "subclass",
-                    "type": "contains"
-                },
-                {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 9
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 8
                 }
             ],
             "config": [
@@ -4971,21 +7762,56 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "type": "config",
             "uuid": "020c8673-0949-4983-b153-b81d22c5f627"
         },
-        {},
-        {},
-        {},
-        {},
         {
             "conditions": [
                 {
-                    "needle": "Life Domain",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Life Domain 10"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 14
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Life Domain 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Life Domain 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Life Domain 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 13
                 }
             ],
             "config": [
@@ -5003,19 +7829,34 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "type": "config",
             "uuid": "a809d932-0ce3-47ba-bc9b-9cec24b016ad"
         },
-        {},
-        {},
         {
             "conditions": [
                 {
-                    "needle": "Life Domain",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Life Domain 15"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 17
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Life Domain 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 16
                 }
             ],
             "config": [
@@ -5030,6 +7871,39 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "name": "Life Domain 17",
             "type": "config",
             "uuid": "b55304fe-3f34-430a-95d9-0a2acb24a14a"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Life Domain 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Life Domain 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.lifedomain.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Life Domain 20"
         }
     ],
     "type": "config",
@@ -5037,6 +7911,7 @@ INSERT INTO `subclass` (id, name, class_id, config)
 }');
 INSERT INTO `subclass` (id, name, class_id, config)
     VALUES (2, 'Champion', 2, '{
+    "conditions": [],
     "config": [
         {
             "dict": {
@@ -5050,20 +7925,45 @@ INSERT INTO `subclass` (id, name, class_id, config)
     ],
     "description": "The archetypal **Champion** focuses on the development\nof raw physical power honed to deadly perfection.\nThose who model themselves on this archetype combine\nrigorous training with physical excellence to deal devastating blows.",
     "phases": [
-        {},
-        {},
-        {},
         {
             "conditions": [
                 {
-                    "needle": "Champion",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Champion 4"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 7
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Champion 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Champion 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 6
                 }
             ],
             "config": [
@@ -5130,19 +8030,34 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "type": "config",
             "uuid": "35928400-721c-4420-ae42-370e099b6231"
         },
-        {},
-        {},
         {
             "conditions": [
                 {
-                    "needle": "Champion",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Champion 8"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 10
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Champion 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 9
                 }
             ],
             "config": [
@@ -5159,21 +8074,56 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "type": "config",
             "uuid": "7fcad074-27e6-437f-ba72-717ebc7e58de"
         },
-        {},
-        {},
-        {},
-        {},
         {
             "conditions": [
                 {
-                    "needle": "Champion",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Champion 11"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 15
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Champion 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Champion 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Champion 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 14
                 }
             ],
             "config": [
@@ -5191,19 +8141,34 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "type": "config",
             "uuid": "c7fc6018-2267-44da-802c-67db13ebce62"
         },
-        {},
-        {},
         {
             "conditions": [
                 {
-                    "needle": "Champion",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Champion 16"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 18
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Champion 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 17
                 }
             ],
             "config": [
@@ -5221,6 +8186,28 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "name": "Champion 18",
             "type": "config",
             "uuid": "a9737a74-b334-4903-b172-9c156a70e62a"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Champion 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.champion.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Champion 20"
         }
     ],
     "type": "config",
@@ -5228,6 +8215,7 @@ INSERT INTO `subclass` (id, name, class_id, config)
 }');
 INSERT INTO `subclass` (id, name, class_id, config)
     VALUES (3, 'Thief', 3, '{
+    "conditions": [],
     "config": [
         {
             "dict": {
@@ -5252,22 +8240,67 @@ INSERT INTO `subclass` (id, name, class_id, config)
     ],
     "description": "You hone your skills in the larcenous arts. Burglars,\nbandits, cutpurses, and other criminals typically follow\nthis archetype, but so do rogues who prefer to think of\nthemselves as professional treasure seekers, explorers,\ndelvers, and investigators. In addition to improving your\nagility and stealth, you learn skills useful for delving into\nancient ruins, reading unfamiliar languages, and using\nmagic items you normally couldn\u2019t employ.",
     "phases": [
-        {},
-        {},
-        {},
-        {},
-        {},
         {
             "conditions": [
                 {
-                    "needle": "Thief",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Thief 4"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 9
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Thief 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Thief 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Thief 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Thief 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 8
                 }
             ],
             "config": [
@@ -5285,20 +8318,45 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "type": "config",
             "uuid": "b3c27d15-0603-46b7-814e-05cc5a34bb3b"
         },
-        {},
-        {},
-        {},
         {
             "conditions": [
                 {
-                    "needle": "Thief",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Thief 10"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 13
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Thief 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Thief 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 12
                 }
             ],
             "config": [
@@ -5316,20 +8374,45 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "type": "config",
             "uuid": "2c6f1208-e03d-4b9a-ae29-4b14223dd26e"
         },
-        {},
-        {},
-        {},
         {
             "conditions": [
                 {
-                    "needle": "Thief",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Thief 14"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 17
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Thief 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Thief 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 16
                 }
             ],
             "config": [
@@ -5346,6 +8429,39 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "name": "Thief 17",
             "type": "config",
             "uuid": "6f7da631-97b7-4711-b875-26c5fb0ad219"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Thief 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Thief 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.thief.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Thief 20"
         }
     ],
     "type": "config",
@@ -5353,6 +8469,7 @@ INSERT INTO `subclass` (id, name, class_id, config)
 }');
 INSERT INTO `subclass` (id, name, class_id, config)
     VALUES (4, 'School of Evocation', 4, '{
+    "conditions": [],
     "config": [
         {
             "name": "Evocation Savant",
@@ -5373,20 +8490,45 @@ INSERT INTO `subclass` (id, name, class_id, config)
     ],
     "description": "You focus your study on magic that creates powerful elemental effects such as bitter cold, searing flame, rolling\nthunder, crackling lightning, and burning acid. Some\nevokers find employment in military forces, serving as\nartillery to blast enemy armies from afar. Others use\ntheir spectacular power to protect the weak, while some\nseek their own gain as bandits, adventurers, or aspiring tyrants.",
     "phases": [
-        {},
-        {},
-        {},
         {
             "conditions": [
                 {
-                    "needle": "School of Evocation",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 3"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 6
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 5
                 }
             ],
             "config": [
@@ -5404,20 +8546,45 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "type": "config",
             "uuid": "41143d9a-a341-4591-8155-04479f33b332"
         },
-        {},
-        {},
-        {},
         {
             "conditions": [
                 {
-                    "needle": "School of Evocation",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 7"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 10
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 9
                 }
             ],
             "config": [
@@ -5437,20 +8604,45 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "type": "config",
             "uuid": "5530fdef-493b-4fb7-b2ed-410816aabaa3"
         },
-        {},
-        {},
-        {},
         {
             "conditions": [
                 {
-                    "needle": "School of Evocation",
-                    "path": "subclass",
-                    "type": "contains"
-                },
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 11"
+        },
+        {
+            "conditions": [
                 {
-                    "path": "level",
-                    "type": "gte",
-                    "value": 14
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 13
                 }
             ],
             "config": [
@@ -5467,6 +8659,72 @@ INSERT INTO `subclass` (id, name, class_id, config)
             "name": "School of Evocation 14",
             "type": "config",
             "uuid": "05dce540-3a57-4b21-b1f6-0219c8a7eeb5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.schoolofevocation.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "School of Evocation 20"
         }
     ],
     "type": "config",
@@ -5475,6 +8733,13 @@ INSERT INTO `subclass` (id, name, class_id, config)
 
 INSERT INTO `background` (id, name, config)
     VALUES (1, 'Acolyte', '{
+    "conditions": [
+        {
+            "path": "character.level",
+            "type": "lte",
+            "value": 1
+        }
+    ],
     "config": [
         {
             "description": "Insight, Religion",
@@ -5640,11 +8905,229 @@ INSERT INTO `background` (id, name, config)
         }
     ],
     "description": "You have spent your life in the service of a temple to a\nspecific god or pantheon of gods. You act as an intermediary between the realm of the holy and the mortal world,\nperforming sacred rites and offering sacrifices in order to\nconduct worshipers into the presence of the divine. You\nare not necessarily a cleric\u2014performing sacred rites is\nnot the same thing as channeling divine power.\n\nChoose a god, a pantheon of gods, or some other quasidivine being, and work with your DM to detail the nature\nof your religious service. Appendix B contains a sample\npantheon, from the Forgotten Realms setting. Were you\na lesser functionary in a temple, raised from childhood\nto assist the priests in the sacred rites? Or were you a\nhigh priest who suddenly experienced a call to serve your\ngod in a different way? Perhaps you were the leader of a\nsmall cult outside of any established temple structure, or\neven an occult group that served a fiendish master that\nyou now deny.",
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.acolyte.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Acolyte 20"
+        }
+    ],
     "type": "config",
     "uuid": "628f5594-53e4-45fa-8900-9fbfc621ac9d"
 }');
 INSERT INTO `background` (id, name, config)
     VALUES (2, 'Criminal', '{
+    "conditions": [
+        {
+            "path": "character.level",
+            "type": "lte",
+            "value": 1
+        }
+    ],
     "config": [
         {
             "description": "Deception, Stealth",
@@ -5829,11 +9312,229 @@ INSERT INTO `background` (id, name, config)
         }
     ],
     "description": "You are an experienced criminal with a history of\nbreaking the law. You have spent a lot of time among\nother criminals and still have contacts within the\ncriminal underworld. You\u2019re far closer than most people\nto the world of murder, theft, and violence that pervades\nthe underbelly of civilization, and you have survived up to\nthis point by flouting the rules and regulations of society.",
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Criminal 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Criminal 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Criminal 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Criminal 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Criminal 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Criminal 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Criminal 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Criminal 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Criminal 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Criminal 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Criminal 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Criminal 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Criminal 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Criminal 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Criminal 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Criminal 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Criminal 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Criminal 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.criminal.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Criminal 20"
+        }
+    ],
     "type": "config",
     "uuid": "c427d072-6d00-4064-b295-0787d2c61cd1"
 }');
 INSERT INTO `background` (id, name, config)
     VALUES (3, 'Folk Hero', '{
+    "conditions": [
+        {
+            "path": "character.level",
+            "type": "lte",
+            "value": 1
+        }
+    ],
     "config": [
         {
             "description": " Animal Handling, Survival",
@@ -6029,11 +9730,229 @@ INSERT INTO `background` (id, name, config)
         }
     ],
     "description": "You come from a humble social rank, but you are\ndestined for so much more. Already the people of\nyour home village regard you as their champion, and\nyour destiny calls you to stand against the tyrants and\nmonsters that threaten the common folk everywhere.",
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.folkhero.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Folk Hero 20"
+        }
+    ],
     "type": "config",
     "uuid": "d77a73fa-4d7b-4963-9224-a3fa77cfe4c5"
 }');
 INSERT INTO `background` (id, name, config)
     VALUES (4, 'Noble', '{
+    "conditions": [
+        {
+            "path": "character.level",
+            "type": "lte",
+            "value": 1
+        }
+    ],
     "config": [
         {
             "description": "History, Persuasion",
@@ -6203,11 +10122,229 @@ INSERT INTO `background` (id, name, config)
         }
     ],
     "description": "You understand wealth, power, and privilege. You carry\na noble title, and your family owns land, collects taxes,\nand wields significant political influence. You might be\na pampered aristocrat unfamiliar with work or discomfort, a former merchant just elevated to the nobility, or\na disinherited scoundrel with a disproportionate sense\nof entitlement. Or you could be an honest, hard-working\nlandowner who cares deeply about the people who live\nand work on your land, keenly aware of your responsibility to them.",
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Noble 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Noble 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Noble 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Noble 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Noble 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Noble 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Noble 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Noble 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Noble 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Noble 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Noble 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Noble 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Noble 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Noble 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Noble 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Noble 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Noble 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Noble 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.noble.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Noble 20"
+        }
+    ],
     "type": "config",
     "uuid": "8949d8ae-83b3-4364-982b-8956b0537767"
 }');
 INSERT INTO `background` (id, name, config)
     VALUES (5, 'Sage', '{
+    "conditions": [
+        {
+            "path": "character.level",
+            "type": "lte",
+            "value": 1
+        }
+    ],
     "config": [
         {
             "description": "Arcana, History",
@@ -6396,11 +10533,229 @@ INSERT INTO `background` (id, name, config)
         }
     ],
     "description": "You spent years learning the lore of the multiverse. You\nscoured manuscripts, studied scrolls, and listened to the\ngreatest experts on the subjects that interest you. Your\nefforts have made you a master in your fields of study.",
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Sage 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Sage 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Sage 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Sage 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Sage 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Sage 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Sage 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Sage 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Sage 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Sage 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Sage 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Sage 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Sage 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Sage 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Sage 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Sage 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Sage 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Sage 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.sage.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Sage 20"
+        }
+    ],
     "type": "config",
     "uuid": "17bc5ecf-0a6c-44ad-8a14-705b5d852bed"
 }');
 INSERT INTO `background` (id, name, config)
     VALUES (6, 'Soldier', '{
+    "conditions": [
+        {
+            "path": "character.level",
+            "type": "lte",
+            "value": 1
+        }
+    ],
     "config": [
         {
             "description": "Athletics, Intimidation",
@@ -6604,52 +10959,275 @@ INSERT INTO `background` (id, name, config)
         }
     ],
     "description": "War has been your life for as long as you care to remember. You trained as a youth, studied the use of weapons\nand armor, learned basic survival techniques, including\nhow to stay alive on the battlefield. You might have been\npart of a standing national army or a mercenary company, or perhaps a member of a local militia who rose to\nprominence during a recent war.",
+    "phases": [
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 1
+                }
+            ],
+            "config": [],
+            "name": "Soldier 2"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 2
+                }
+            ],
+            "config": [],
+            "name": "Soldier 3"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 3
+                }
+            ],
+            "config": [],
+            "name": "Soldier 4"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 4
+                }
+            ],
+            "config": [],
+            "name": "Soldier 5"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 5
+                }
+            ],
+            "config": [],
+            "name": "Soldier 6"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 6
+                }
+            ],
+            "config": [],
+            "name": "Soldier 7"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 7
+                }
+            ],
+            "config": [],
+            "name": "Soldier 8"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 8
+                }
+            ],
+            "config": [],
+            "name": "Soldier 9"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 9
+                }
+            ],
+            "config": [],
+            "name": "Soldier 10"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 10
+                }
+            ],
+            "config": [],
+            "name": "Soldier 11"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 11
+                }
+            ],
+            "config": [],
+            "name": "Soldier 12"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 12
+                }
+            ],
+            "config": [],
+            "name": "Soldier 13"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 13
+                }
+            ],
+            "config": [],
+            "name": "Soldier 14"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 14
+                }
+            ],
+            "config": [],
+            "name": "Soldier 15"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 15
+                }
+            ],
+            "config": [],
+            "name": "Soldier 16"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 16
+                }
+            ],
+            "config": [],
+            "name": "Soldier 17"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 17
+                }
+            ],
+            "config": [],
+            "name": "Soldier 18"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 18
+                }
+            ],
+            "config": [],
+            "name": "Soldier 19"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "sub.soldier.level",
+                    "type": "eq",
+                    "value": 19
+                }
+            ],
+            "config": [],
+            "name": "Soldier 20"
+        }
+    ],
     "type": "config",
     "uuid": "5ba17745-b07c-4d8d-a306-c0fcc07e4eac"
 }');
 
 INSERT INTO `options` (id, name, config)
     VALUES (1, 'Core Attributes', '{
-    "type": "config",
-    "uuid": "60722722-b678-49b6-ba32-1b9ae2ec454d",
     "config": [
         {
-            "type": "manual",
-            "uuid": "1c5448ed-7240-408b-b1bc-3ad1559a8521",
-            "path": "name",
             "name": "Name",
-            "placeholder": "Name..."
-        },
-        {
-            "type": "select",
-            "uuid": "6f557232-b4db-472f-b9d2-ab3cf7d01c3c",
-            "path": "alignment",
-            "name": "Alignment",
-            "list": ["alignments"]
-        },
-        {
-            "type": "select",
-            "uuid": "49db5884-6198-4689-b214-15925f2a087f",
-            "path": "gender",
-            "name": "Gender",
-            "list": ["genders"]
-        },
-        {
-            "type": "statistics",
-            "uuid": "ff2f55a5-15e1-4ebd-8c83-d0b52f98fb08",
-            "path": "statistics",
-            "name": "Statistics",
-            "editBase": true
-        },
-        {
+            "path": "name",
+            "placeholder": "Name...",
             "type": "manual",
-            "uuid": "df0943dd-cf57-4cd2-a02f-5e320e4b0fc6",
-            "path": "backstory",
+            "uuid": "1c5448ed-7240-408b-b1bc-3ad1559a8521"
+        },
+        {
+            "list": [
+                "alignments"
+            ],
+            "name": "Alignment",
+            "path": "alignment",
+            "type": "select",
+            "uuid": "6f557232-b4db-472f-b9d2-ab3cf7d01c3c"
+        },
+        {
+            "list": [
+                "genders"
+            ],
+            "name": "Gender",
+            "path": "gender",
+            "type": "select",
+            "uuid": "49db5884-6198-4689-b214-15925f2a087f"
+        },
+        {
+            "conditions": [
+                {
+                    "path": "character.level",
+                    "type": "lte",
+                    "value": 1
+                }
+            ],
+            "editBase": true,
+            "name": "Statistics",
+            "path": "statistics",
+            "type": "statistics",
+            "uuid": "ff2f55a5-15e1-4ebd-8c83-d0b52f98fb08"
+        },
+        {
+            "markup": true,
             "name": "Backstory",
+            "path": "backstory",
             "placeholder": "Backstory...",
-            "markup": true
+            "type": "manual",
+            "uuid": "df0943dd-cf57-4cd2-a02f-5e320e4b0fc6"
         }
-    ]
+    ],
+    "description": "",
+    "type": "config",
+    "uuid": "60722722-b678-49b6-ba32-1b9ae2ec454d"
 }');
 INSERT INTO `options` (id, name, config)
     VALUES (2, 'Equipment Packs', '{
