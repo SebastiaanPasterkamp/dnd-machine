@@ -1,4 +1,5 @@
 import ASIOption from './ASIOption';
+import BaseEditView from './BaseEditView';
 import CasterPanel, { casterRanking } from './CasterPanel';
 import ChoiceOption from './ChoiceOption';
 import ConfigOption from './ConfigOption';
@@ -23,6 +24,7 @@ import {
 
 export {
     ASIOption,
+    BaseEditView,
     CasterPanel,
     casterRanking,
     ChoiceOption,

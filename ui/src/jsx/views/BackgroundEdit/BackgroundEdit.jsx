@@ -18,81 +18,26 @@ import Panel from '../../components/Panel';
 import TabComponent from '../../components/TabComponent';
 
 import {
+    BaseEditView,
     DataConfig,
     uuidv4,
 } from '../../components/DataConfig';
 
-export class BackgroundEdit extends React.Component
-{
-    optionType = 'config';
-
-    constructor(props) {
-        super(props);
-        const { uuid = uuidv4() } = props;
-        this.state = { uuid };
-        this.memoize = memoize.bind(this);
-        this.onFieldChange = this.onFieldChange.bind(this);
-    }
-
-    onFieldChange(field) {
-        return this.memoize(field, value => {
-            const { uuid: stateUUID } = this.state;
-            const { setState, uuid = stateUUID } = this.props;
-            setState({
-                type: this.optionType,
-                uuid,
-                [field]: value,
-            });
-        });
-    }
-
-    render() {
-        const { id, name, description, config } = this.props;
-
-        return (
-            <React.Fragment>
-                <Panel
-                    key="description"
-                    className="background-edit__description"
-                    header="Description"
-                >
-                    <ControlGroup label="Background">
-                        <InputField
-                            placeholder="Background..."
-                            value={name}
-                            setState={this.onFieldChange('name')}
-                        />
-                    </ControlGroup>
-
-                    <ControlGroup label="Description">
-                        <MarkdownTextField
-                            placeholder="Description..."
-                            value={description}
-                            setState={this.onFieldChange('description')}
-                        />
-                    </ControlGroup>
-                </Panel>
-
-                <Panel
-                    key="config"
-                    className="background-edit__config"
-                    header="Config"
-                >
-                    <DataConfig
-                        list={config}
-                        setState={this.onFieldChange('config')}
-                    />
-                </Panel>
-            </React.Fragment>
-        );
-    }
-}
+const BackgroundEdit = function(props) {
+    return (
+        <BaseEditView
+            baseClass="background-edit"
+            {...props}
+        />
+    );
+};
 
 BackgroundEdit.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     description: PropTypes.string,
     config: PropTypes.arrayOf(PropTypes.object),
+    phases: PropTypes.arrayOf(PropTypes.object),
 };
 
 BackgroundEdit.defaultProps = {
@@ -100,6 +45,7 @@ BackgroundEdit.defaultProps = {
     name: '',
     description: '',
     config: [],
+    phases: [],
 };
 
 export default RoutedObjectDataWrapper(

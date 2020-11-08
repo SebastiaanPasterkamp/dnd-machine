@@ -5,6 +5,10 @@
 .class-edit {
     @extend .widget-grid;
 
+    &__description {
+        grid-row: span 2;
+    }
+
     &__levels {
         grid-column: span 2;
     }

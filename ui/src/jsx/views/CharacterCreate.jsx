@@ -9,26 +9,22 @@ import MDReactComponent from 'markdown-react-js';
 
 import utils from '../utils';
 
-import ListDataWrapper from '../hocs/ListDataWrapper';
 import ObjectDataListWrapper from '../hocs/ObjectDataListWrapper';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
 
 import ButtonField from '../components/ButtonField';
+import CharacterLabel from '../components/CharacterLabel';
 import ControlGroup from '../components/ControlGroup';
 import InputField from '../components/InputField';
-import LazyComponent from '../components/LazyComponent';
 import ListLabel from '../components/ListLabel';
 import MarkdownTextField from '../components/MarkdownTextField';
 import Panel from '../components/Panel';
-import Progress from '../components/Progress';
 import SingleSelect from '../components/SingleSelect';
 import TabComponent from '../components/TabComponent';
 
 import CharacterConfig, {
     CharacterEditorWrapper,
     ChoiceSelect,
-    ComputeConfig,
-    $Select,
 } from '../components/CharacterConfig';
 
 export class CharacterCreate extends React.Component
@@ -67,20 +63,8 @@ export class CharacterCreate extends React.Component
     render() {
         const {
             races, classes, backgrounds, base,
-            character, genders, alignments,
-            permanent, features,
+            character, permanent, genders, alignments,
         } = this.props;
-        const {
-            race = 'Race',
-            'class': _class = 'Class',
-            background = 'Background',
-            level = 1,
-            xp_progress = 0,
-            xp_level = 300,
-            name = '',
-            gender,
-            alignment,
-        } = character;
 
         if (
             !races.uuid
@@ -105,29 +89,10 @@ export class CharacterCreate extends React.Component
                 >
                     <h3>{name}</h3>
 
-                    <h4>
-                        Level {level}
-                        &nbsp;
-                        <ListLabel
-                            items={genders}
-                            value={gender}
-                        />
-                        &nbsp;
-                        {race}
-                        &nbsp;
-                        {_class}
-                        &nbsp;
-                        (<ListLabel
-                            items={alignments}
-                            value={alignment}
-                        />)
-                    </h4>
-
-                    <Progress
-                        value={xp_progress}
-                        total={xp_level}
-                        color={"good"}
-                        label={`${level} (${xp_progress} / ${xp_level})`}
+                    <CharacterLabel
+                        characterUpdate={character}
+                        showInfo={true}
+                        showProgress={true}
                     />
 
                     {permanent ? (
@@ -135,14 +100,6 @@ export class CharacterCreate extends React.Component
                             uuid="58ab8d25-c578-4709-b646-631b1a491f74"
                             type="config"
                             config={permanent}
-                        />
-                    ) : null}
-
-                    {features ? (
-                        <CharacterConfig
-                            uuid="3e22f1f8-cf54-4273-ad5c-350a11552951"
-                            type="config"
-                            config={features}
                         />
                     ) : null}
 
@@ -163,26 +120,16 @@ CharacterCreate.defaultProps = {
     backgrounds: {},
     character: {},
     base: {},
-    genders: [],
-    alignments: [],
 };
 
-export default ListDataWrapper(
-    CharacterEditorWrapper(
-        CharacterCreate,
-        {
-            character: true,
-            permanent: true,
-            features: true,
-            races: 'fetch',
-            classes: 'fetch',
-            backgrounds: 'fetch',
-            base: 'fetch',
-        },
-    ),
-    [
-        'genders',
-        'alignments',
-    ],
-    'items'
+export default CharacterEditorWrapper(
+    CharacterCreate,
+    {
+        character: true,
+        permanent: true,
+        races: 'fetch',
+        classes: 'fetch',
+        backgrounds: 'fetch',
+        base: 'fetch',
+    },
 );

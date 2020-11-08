@@ -15,9 +15,10 @@ import ListDataWrapper from '../hocs/ListDataWrapper';
 import ObjectDataWrapper from '../hocs/ObjectDataWrapper';
 import RoutedObjectDataWrapper from '../hocs/RoutedObjectDataWrapper';
 
-import CharacterConfig, {
-    baseConfig,
+import {
     CharacterEditorWrapper,
+    CharacterConfig,
+    ChoiceSelect,
 } from '../components/CharacterConfig';
 
 import ButtonField from '../components/ButtonField';
@@ -40,13 +41,12 @@ const viewConfig = {
 
 export class CharacterEdit extends React.Component
 {
-    onFieldChange(field, value) {
-        this.props.setState({
-            [field]: value
-        });
+    constructor(props) {
+        super(props);
+        this.onSave = this.onSave.bind(this);
     }
 
-    onSave = () => {
+    onSave() {
         const {
             onUpdate,
             history,
@@ -56,42 +56,14 @@ export class CharacterEdit extends React.Component
     }
 
     render() {
-        const { character, config } = this.props;
         const {
-            spell: {
-                max_prepared = 0,
-                prepared = [],
-                cantrips = [],
-                list = [],
-                expanded = [],
-                slots = {},
-            } = {},
-            'class': _class,
-        } = character;
-        const levelFilter = filter(
-            null,
-            flow(entries, map(([slot, count]) => count
-                ? slot.replace('level_', '')
-                : null
-            ))(slots)
-        );
+            races, classes, backgrounds, base,
+            character, permanent,
+        } = this.props;
 
         return (
             <React.Fragment>
-                { !isEmpty(config) ? (
-                    <Panel
-                        key="level-up"
-                        className="character-edit__level-up"
-                        header="Level Up"
-                    >
-                        <CharacterConfig
-                            key="level-up"
-                            config={ config }
-                        />
-                    </Panel>
-                ) : null }
-
-                {character.permanent ? (
+                {permanent.length ? (
                     <Panel
                         key="permanent"
                         className="character-edit__permanent"
@@ -100,7 +72,7 @@ export class CharacterEdit extends React.Component
                         <CharacterConfig
                             uuid="58ab8d25-c578-4709-b646-631b1a491f74"
                             type="config"
-                            config={character.permanent}
+                            config={permanent}
                         />
                     </Panel>
                 ) : null}
@@ -116,9 +88,9 @@ export class CharacterEdit extends React.Component
                         showProgress={true}
                     />
 
-                    <CharacterConfig
-                        config={ baseConfig.description }
-                    />
+                    { base.uuid ? (
+                        <CharacterConfig {...base} />
+                    ) : null}
 
                     <ButtonField
                         label="Save"
@@ -127,15 +99,26 @@ export class CharacterEdit extends React.Component
                     />
                 </Panel>
 
-                <Panel
-                    key="personality"
-                    className="character-edit__personality"
-                    header="Personality"
-                >
-                    <CharacterConfig
-                        config={ baseConfig.personality }
-                    />
-                </Panel>
+                {classes.uuid || races.uuid || backgrounds.uuid ? (
+                    <Panel
+                        key="level-up"
+                        className="character-edit__level-up"
+                        header="Level Up"
+                    >
+                        {races.uuid ? (
+                            <ChoiceSelect {...races} />
+                        ) : null}
+
+                        {classes.uuid ? (
+                            <ChoiceSelect {...classes} />
+                        ) : null}
+
+                        {backgrounds.uuid ? (
+                            <ChoiceSelect {...backgrounds} />
+                        ) : null}
+                    </Panel>
+                ) : null}
+
 
             </React.Fragment>
         );
@@ -152,8 +135,12 @@ CharacterEdit.propTypes = {
 };
 
 CharacterEdit.defaultProps = {
+    races: {},
+    classes: {},
+    backgrounds: {},
     character: {},
-    config: [],
+    base: {},
+    permanent: [],
 };
 
 export const CharacterEditView = BaseViewWrapper(
@@ -165,5 +152,9 @@ export default CharacterEditorWrapper(
     {
         character: true,
         config: true,
+        races: 'fetch',
+        classes: 'fetch',
+        backgrounds: 'fetch',
+        base: 'fetch',
     }
 );
