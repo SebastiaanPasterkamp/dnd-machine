@@ -53,7 +53,6 @@ export class FilterAttributeField extends React.Component
     static getDerivedStateFromProps(props, state) {
         const { items, field } = props;
         if (!items.length) {
-            console.log({ items, field, props, state });
             return null;
         }
         const attributes = sortBy('id')(
@@ -84,6 +83,9 @@ export class FilterAttributeField extends React.Component
                         map(
                             item => {
                                 const { [field]: id, name } = item;
+                                if (id === null || id === undefined) {
+                                    return null;
+                                }
                                 if (isArray(id)) {
                                     return map(
                                         (sub) => ({
