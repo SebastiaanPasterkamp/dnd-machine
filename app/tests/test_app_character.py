@@ -14,17 +14,6 @@ class AppCharacterTestCase(BaseAppTestCase):
 
     def setUp(self):
         super(AppCharacterTestCase, self).setUp()
-        self.privatePages = {
-            '/character/list': (200, 'text/html'),
-            '/character/new': (200, 'text/html'),
-            '/character/api': (200, 'application/json'),
-            '/character/api/999': (404, None),
-            '/character/copy/999': (404, None),
-            #'/character/download/999': (404, None),
-            '/character/races/api': (200, 'application/json'),
-            '/character/classes/api': (200, 'application/json'),
-            '/character/backgrounds/api': (200, 'application/json'),
-            }
 
         users = {
             'user': [],
@@ -51,10 +40,25 @@ class AppCharacterTestCase(BaseAppTestCase):
 
         migrate(self.app, ['user', 'character'])
         charId = self.characters['alice']['id']
+
+        self.privatePages = {
+            '/character/list': (200, 'text/html'),
+            '/character/new': (200, 'text/html'),
+            '/character/api': (200, 'application/json'),
+            '/character/reset/%d' % charId: (200, 'text/html'),
+            '/character/api/999': (404, None),
+            '/character/copy/999': (404, None),
+            '/character/download/999': (404, None),
+            '/character/races/api': (200, 'application/json'),
+            '/character/races/api/%d' % charId: (200, 'application/json'),
+            '/character/classes/api': (200, 'application/json'),
+            '/character/classes/api/%d' % charId: (200, 'application/json'),
+            '/character/backgrounds/api': (200, 'application/json'),
+            '/character/backgrounds/api/%d' % charId: (200, 'application/json'),
+            }
         self.protectedPages = {
             '/character/show/%d' % charId: (200, 'text/html'),
             '/character/api/%d' % charId: (200, 'application/json'),
-            '/character/reset/%d' % charId: (200, 'text/html'),
             '/character/copy/%d' % charId: (302, None),
             '/character/download/%d' % charId: (200, 'application/pdf'),
             }
@@ -112,6 +116,8 @@ class AppCharacterTestCase(BaseAppTestCase):
                 'character_id': charId,
                 })
         for page, expected in list(self.protectedPages.items()):
+            if 'reset' in page:
+                continue
             code, mimetype = expected
             rv = self.client.get(page)
             self.assertResponse(page, rv, *expected)

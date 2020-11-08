@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import (
-    request, abort, send_file, jsonify, redirect, url_for
+    request, send_file, jsonify, redirect, url_for
     )
 import os
 import re
@@ -23,13 +23,25 @@ class CharacterBlueprint(BaseApiBlueprint):
             '/base/api', 'get_base',
             self.get_base, methods=['GET'])
         self.add_url_rule(
+            '/base/api/<int:obj_id>', 'get_base',
+            self.get_base, methods=['GET'])
+        self.add_url_rule(
             '/races/api', 'get_races',
+            self.get_races, methods=['GET'])
+        self.add_url_rule(
+            '/races/api/<int:obj_id>', 'get_races',
             self.get_races, methods=['GET'])
         self.add_url_rule(
             '/classes/api', 'get_classes',
             self.get_classes, methods=['GET'])
         self.add_url_rule(
+            '/classes/api/<int:obj_id>', 'get_classes',
+            self.get_classes, methods=['GET'])
+        self.add_url_rule(
             '/backgrounds/api', 'get_backgrounds',
+            self.get_backgrounds, methods=['GET'])
+        self.add_url_rule(
+            '/backgrounds/api/<int:obj_id>', 'get_backgrounds',
             self.get_backgrounds, methods=['GET'])
         self.add_url_rule(
             '/download/<int:obj_id>', 'download',
@@ -95,20 +107,56 @@ class CharacterBlueprint(BaseApiBlueprint):
             if not obj or key not in immutable
             )
 
-    def get_base(self):
-        config = self.basemapper.options.getAllOptions(self.basemapper)
+    def get_base(self, obj_id=None):
+        self.doCallback('get_base', obj_id)
+
+        obj = None
+        if obj_id is not None:
+            obj = self.datamapper.getById(obj_id)
+            if obj is None:
+                raise ApiException(404, "Character not found")
+            self.doCallback('get_base.object', obj)
+
+        config = self.basemapper.options.getAllOptions(self.basemapper, obj)
         return jsonify(config)
 
-    def get_races(self):
-        options = self.basemapper.race.getAllOptions(self.basemapper)
+    def get_races(self, obj_id=None):
+        self.doCallback('get_races', obj_id)
+
+        obj = None
+        if obj_id is not None:
+            obj = self.datamapper.getById(obj_id)
+            if obj is None:
+                raise ApiException(404, "Character not found")
+            self.doCallback('get_races.object', obj)
+
+        options = self.basemapper.race.getAllOptions(self.basemapper, obj)
         return jsonify(options)
 
-    def get_classes(self):
-        options = self.basemapper.klass.getAllOptions(self.basemapper)
+    def get_classes(self, obj_id=None):
+        self.doCallback('get_classes', obj_id)
+
+        obj = None
+        if obj_id is not None:
+            obj = self.datamapper.getById(obj_id)
+            if obj is None:
+                raise ApiException(404, "Character not found")
+            self.doCallback('get_classes.object', obj)
+
+        options = self.basemapper.klass.getAllOptions(self.basemapper, obj)
         return jsonify(options)
 
-    def get_backgrounds(self):
-        options = self.basemapper.background.getAllOptions(self.basemapper)
+    def get_backgrounds(self, obj_id=None):
+        self.doCallback('get_backgrounds', obj_id)
+
+        obj = None
+        if obj_id is not None:
+            obj = self.datamapper.getById(obj_id)
+            if obj is None:
+                raise ApiException(404, "Character not found")
+            self.doCallback('get_backgrounds.object', obj)
+
+        options = self.basemapper.background.getAllOptions(self.basemapper, obj)
         return jsonify(options)
 
     @BaseApiCallback('new')
@@ -122,15 +170,35 @@ class CharacterBlueprint(BaseApiBlueprint):
             raise ApiException(403, "Insufficient privileges")
 
     @BaseApiCallback('show')
-    @BaseApiCallback('reset')
-    def pageAdminDmOrOwned(self, obj_id):
+    def pageAdminDmOrAccessible(self, obj_id):
         if self.checkRole(['admin', 'dm']):
             return
         extended_ids =  self.datamapper.getExtendedIds(
             request.user.id
             )
         if obj_id not in extended_ids:
-            abort(403)
+            raise ApiException(403, "Insufficient privileges")
+
+    @BaseApiCallback('get_backgrounds')
+    @BaseApiCallback('get_base')
+    @BaseApiCallback('get_classes')
+    @BaseApiCallback('get_races')
+    @BaseApiCallback('api_delete')
+    @BaseApiCallback('reset')
+    def pageAdminOrOwned(self, obj_id=None):
+        if self.checkRole(['admin']):
+            return
+        if obj_id is None:
+            if not self.checkRole(['player']):
+                raise ApiException(403, "Insufficient privileges")
+            return
+
+        owned_ids =  set([
+            obj.id
+            for obj in self.datamapper.getByUserId(request.user.id)
+            ])
+        if obj_id not in owned_ids:
+            raise ApiException(403, "Insufficient privileges")
 
     @BaseApiCallback('api_post.data')
     def keepFields(self, data, obj):
@@ -170,9 +238,9 @@ class CharacterBlueprint(BaseApiBlueprint):
     @BaseApiCallback('api_delete.object')
     @BaseApiCallback('api_patch.original')
     @BaseApiCallback('api_patch.object')
-    def adminDmOrOwned(self, obj):
+    def adminOrOwned(self, obj):
         if obj.user_id != request.user.id \
-                and not self.checkRole(['admin', 'dm']):
+                and not self.checkRole(['admin']):
             raise ApiException(403, "Insufficient privileges")
 
     @BaseApiCallback('api_list.objects')
