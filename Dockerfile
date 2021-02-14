@@ -39,6 +39,8 @@ RUN apt-get update \
         python3-dev \
         libffi-dev \
         libssl-dev \
+        cargo \
+        rustc \
     && pip install \
         -r ./requirements.txt \
     && apt-get purge -y --auto-remove \
