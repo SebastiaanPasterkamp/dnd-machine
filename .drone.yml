@@ -87,9 +87,8 @@ steps:
              "backups/machine.staging.db.$(date '+%Y%m%d')"
 
   - name: tags
-    image: alpine
+    image: plugins/git
     commands:
-      - apk add git
       - git fetch --tags
       - echo 'GIT_TAG='$(git describe --tags) >> .env
 
@@ -237,6 +236,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 11353ed1188155765dc6581c650c7489ac5d45831506704962dcc4a3289d148d
+hmac: f3f929c5da580f71fe19201fc5871fe3d7f65a3e6a4a7b10cf314a51df4ecbcd
 
 ...
