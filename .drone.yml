@@ -19,7 +19,7 @@ steps:
       - apt-get update
       - mkdir -p /usr/share/man/man1/
       - touch /usr/share/man/man1/rmid.1.gz.dpkg-tmp
-      - apt-get install -y pdftk build-essential python3-dev libffi-dev libssl-dev
+      - apt-get install -y pdftk build-essential python3-dev libffi-dev libssl-dev cargo rustc
       - pip install -r requirements.txt
       - python app/tests/run_tests.py
 
@@ -87,9 +87,8 @@ steps:
              "backups/machine.staging.db.$(date '+%Y%m%d')"
 
   - name: tags
-    image: alpine
+    image: plugins/git
     commands:
-      - apk add git
       - git fetch --tags
       - echo 'GIT_TAG='$(git describe --tags) >> .env
 
@@ -237,6 +236,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 69f11f84f90e7819062fd24141ceaf6efc83d210ad9a16f7092be44d0f3e7b58
+hmac: f3f929c5da580f71fe19201fc5871fe3d7f65a3e6a4a7b10cf314a51df4ecbcd
 
 ...
