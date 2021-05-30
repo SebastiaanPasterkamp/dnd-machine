@@ -1,6 +1,6 @@
 ---
 kind: pipeline
-type: docker
+type: kubernetes
 name: Test
 
 platform:
@@ -8,13 +8,8 @@ platform:
     arch: arm
 
 steps:
-  - name: Backend
+  - name: backend
     image: python:3.8-slim
-    volumes:
-      - name: pip-cache
-        path: /root/.cache/pip
-      - name: apt-cache
-        path: /var/lib/apt/lists
     commands:
       - apt-get update
       - mkdir -p /usr/share/man/man1/
@@ -25,32 +20,16 @@ steps:
 
   - name: frontend
     image: node:8.16-alpine
-    volumes:
-      - name: npm-cache
-        path: /drone/src/ui/node_modules
-      - name: apk-cache
-        path: /etc/apk/cache
     commands:
       - apk add build-base python
       - cd ui
       - npm install
       - npm run test
 
-volumes:
-  - name: npm-cache
-    host:
-      path: /var/cache/drone/npm
-  - name: pip-cache
-    host:
-      path: /var/cache/drone/pip
-  - name: apk-cache
-    host:
-      path: /var/cache/drone/apk
-
 ---
 kind: pipeline
-type: docker
-name: Docker Staging
+type: kubernetes
+name: Image Staging
 
 platform:
     os: linux
@@ -67,90 +46,22 @@ depends_on:
   - Test
 
 steps:
-  - name: backup
-    image: appleboy/drone-ssh:linux-arm
-    failure: ignore
-    settings:
-      host:
-        from_secret: ssh_host
-      username:
-        from_secret: ssh_user
-      key:
-        from_secret: ssh_key
-      script:
-        - >
-          docker cp \
-            "dndmachine_staging:/data/machine.db" \
-            "backups/machine.staging.db.latest"
-        - >
-          cp "backups/machine.staging.db.latest" \
-             "backups/machine.staging.db.$(date '+%Y%m%d')"
-
-  - name: tags
-    image: plugins/git
-    commands:
-      - git fetch --tags
-      - echo 'GIT_TAG='$(git describe --tags) >> .env
-
   - name: build
-    image: docker
-    volumes:
-      - name: npm-cache
-        path: /drone/src/ui/node_modules
-      - name: socket
-        path: /var/run/docker.sock
-    commands:
-        - . .env
-        - |
-          docker build \
-              --build-arg GIT_BRANCH=${DRONE_BRANCH} \
-              --build-arg GIT_COMMIT=${DRONE_COMMIT} \
-              --build-arg GIT_TAG=$${GIT_TAG} \
-              -t dnd-machine:staging .
-    depends_on:
-      - tags
-
-  - name: restart
-    image: appleboy/drone-ssh:linux-arm
+    image: docker-registry.pikube.dev:31443/drone-genuinetools-img
     settings:
-      command_timeout: 5m
-      host:
-        from_secret: ssh_host
-      username:
-        from_secret: ssh_user
-      key:
-        from_secret: ssh_key
-      script:
-        - docker stop dndmachine_staging || true
-        - >
-          docker cp \
-            "backups/machine.production.db.latest" \
-            "dndmachine_staging:/data/machine.db" || true
-        - docker rm dndmachine_staging || true
-        - >
-          docker run \
-            --detach \
-            --publish "5005:5000/tcp" \
-            --volume "stagingdata:/data" \
-            --volume "/etc/dnd-machine/staging.json:/dnd-machine/app/config.local.json:ro" \
-            --restart always \
-            --name dndmachine_staging \
-            "dnd-machine:staging"
-    depends_on:
-      - build
-
-volumes:
-  - name: npm-cache
-    host:
-      path: /var/cache/drone/npm
-  - name: socket
-    host:
-      path: /var/run/docker.sock
+      registry: docker-registry-service.docker-registry:5000
+      repo: dndmachine
+      build_args: GIT_BRANCH=${DRONE_BRANCH},GIT_COMMIT=${DRONE_COMMIT},GIT_TAG=unstable
+      tags:
+        - ${DRONE_BRANCH}
+        - unstable
+      cache: true
+      insecure_registry: true
 
 ---
 kind: pipeline
-type: docker
-name: Docker Production
+type: kubernetes
+name: Image Production
 
 platform:
     os: linux
@@ -163,79 +74,21 @@ trigger:
   - success
 
 depends_on:
-  - Docker Staging
+  - Image Staging
 
 steps:
-  - name: backup
-    image: appleboy/drone-ssh:linux-arm
-    failure: ignore
-    settings:
-      host:
-        from_secret: ssh_host
-      username:
-        from_secret: ssh_user
-      key:
-        from_secret: ssh_key
-      script:
-        - >
-          docker cp \
-            "dndmachine_production:/data/machine.db" \
-            "backups/machine.production.db.latest"
-        - >
-          cp "backups/machine.production.db.latest" \
-             "backups/machine.production.db.$(date '+%Y%m%d')"
-
   - name: build
-    image: docker
-    volumes:
-      - name: npm-cache
-        path: /drone/src/ui/node_modules
-      - name: socket
-        path: /var/run/docker.sock
-    commands:
-        - |
-          docker build \
-              --build-arg GIT_BRANCH=${DRONE_BRANCH} \
-              --build-arg GIT_COMMIT=${DRONE_COMMIT} \
-              --build-arg GIT_TAG=${DRONE_TAG} \
-              -t dnd-machine:latest \
-              -t dnd-machine:${DRONE_TAG} .
-
-  - name: restart
-    image: appleboy/drone-ssh:linux-arm
+    image: docker-registry.pikube.dev:31443/drone-genuinetools-img
     settings:
-      command_timeout: 5m
-      host:
-        from_secret: ssh_host
-      username:
-        from_secret: ssh_user
-      key:
-        from_secret: ssh_key
-      script:
-        - docker stop dndmachine_production || true
-        - docker rm dndmachine_production || true
-        - >
-          docker run \
-            --detach \
-            --publish "5000:5000/tcp" \
-            --volume "productiondata:/data" \
-            --volume "/etc/dnd-machine/production.json:/dnd-machine/app/config.local.json:ro" \
-            --restart always \
-            --name dndmachine_production \
-            "dnd-machine:latest"
-    depends_on:
-      - build
-
-volumes:
-  - name: npm-cache
-    host:
-      path: /var/cache/drone/npm
-  - name: socket
-    host:
-      path: /var/run/docker.sock
+      registry: docker-registry-service.docker-registry:5000
+      repo: dndmachine
+      build_args: GIT_BRANCH=${DRONE_BRANCH},GIT_COMMIT=${DRONE_COMMIT},GIT_TAG=${DRONE_TAG}
+      auto_tag: true
+      cache: true
+      insecure_registry: true
 
 ---
 kind: signature
-hmac: f3f929c5da580f71fe19201fc5871fe3d7f65a3e6a4a7b10cf314a51df4ecbcd
+hmac: ca1654398265340fb7f625fd74e814413edc29464842fce66bce3f97c90cd940
 
 ...
