@@ -10,12 +10,16 @@ platform:
 steps:
   - name: backend
     image: python:3.8-slim
+    environment:
+      CRYPTOGRAPHY_DONT_BUILD_RUST: 1
     commands:
       - apt-get update
       - mkdir -p /usr/share/man/man1/
       - touch /usr/share/man/man1/rmid.1.gz.dpkg-tmp
-      - apt-get install -y pdftk build-essential python3-dev libffi-dev libssl-dev cargo rustc
-      - pip install -r requirements.txt
+      - echo "[global]\nextra-index-url=https://www.piwheels.org/simple" >> /etc/pip.conf
+      - pip install --upgrade pip
+      - apt-get install -y pdftk build-essential python3-dev libssl-dev libffi-dev cargo
+      - pip install --prefer-binary -r requirements.txt
       - python app/tests/run_tests.py
 
   - name: frontend
@@ -89,6 +93,6 @@ steps:
 
 ---
 kind: signature
-hmac: ca1654398265340fb7f625fd74e814413edc29464842fce66bce3f97c90cd940
+hmac: 0c9bd7f890e722f20b2b3bd8c9ff005fe32b0aad009f4487b30281ffbe54c3df
 
 ...
