@@ -21,6 +21,10 @@ steps:
       - apt-get install -y pdftk build-essential python3-dev libssl-dev libffi-dev cargo
       - pip install --prefer-binary -r requirements.txt
       - python app/tests/run_tests.py
+    resources:
+      requests:
+        cpu: 1000
+        memory: 750MiB
 
   - name: frontend
     image: node:8.16-alpine
@@ -29,6 +33,10 @@ steps:
       - cd ui
       - npm install
       - npm run test
+    resources:
+      requests:
+        cpu: 1000
+        memory: 750MiB
 
 ---
 kind: pipeline
@@ -39,13 +47,6 @@ platform:
     os: linux
     arch: arm
 
-trigger:
-  event:
-  - push
-  - tag
-  status:
-  - success
-
 depends_on:
   - Test
 
@@ -54,13 +55,14 @@ steps:
     image: docker-registry.pikube.dev:31443/drone-genuinetools-img
     settings:
       registry: docker-registry-service.docker-registry:5000
-      repo: dndmachine
+      repo: dnd-machine
       build_args: GIT_BRANCH=${DRONE_BRANCH},GIT_COMMIT=${DRONE_COMMIT},GIT_TAG=unstable
-      tags:
-        - ${DRONE_BRANCH}
-        - unstable
-      cache: true
+      tags: ${DRONE_BRANCH},unstable
       insecure_registry: true
+    resources:
+      requests:
+        cpu: 2000
+        memory: 750MiB
 
 ---
 kind: pipeline
@@ -74,8 +76,6 @@ platform:
 trigger:
   event:
   - tag
-  status:
-  - success
 
 depends_on:
   - Image Staging
@@ -85,14 +85,17 @@ steps:
     image: docker-registry.pikube.dev:31443/drone-genuinetools-img
     settings:
       registry: docker-registry-service.docker-registry:5000
-      repo: dndmachine
+      repo: dnd-machine
       build_args: GIT_BRANCH=${DRONE_BRANCH},GIT_COMMIT=${DRONE_COMMIT},GIT_TAG=${DRONE_TAG}
       auto_tag: true
-      cache: true
       insecure_registry: true
+    resources:
+      requests:
+        cpu: 2000
+        memory: 750MiB
 
 ---
 kind: signature
-hmac: b9f2408c352e7d000291b8d83e431e0727ca6c8a22c6609427ad29278dfe4712
+hmac: dbc5a85619e8ed65454d54ec8e0404c721fdbd0f37db28710d1767b25226afc6
 
 ...
