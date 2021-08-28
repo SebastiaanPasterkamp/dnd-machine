@@ -3,7 +3,6 @@ import os
 import glob
 import datetime
 from flask import Flask, request, session, redirect, url_for, jsonify
-from flask_compress import Compress
 from flask_mail import Mail
 from werkzeug.utils import find_modules, import_string
 from werkzeug.routing import IntegerConverter
@@ -15,17 +14,16 @@ from db import Database
 from config import get_item_data
 import filters
 
-compress = Compress()
 datamapper = Datamapper()
 db = Database()
 mail = Mail()
+
 
 def create_app(config={}):
     app = Flask(__name__)
 
     app.config.update(config)
     app.config.from_envvar('FLASKR_SETTINGS', silent=True)
-    compress.init_app(app)
     db.init_app(app)
     datamapper.init_app(app)
     mail.init_app(app)
@@ -37,6 +35,7 @@ def create_app(config={}):
     register_request_hooks(app)
     return app
 
+
 def register_converters(app):
     """
     Handle signed integers as URL parameters
@@ -44,6 +43,7 @@ def register_converters(app):
     class SignedIntConverter(IntegerConverter):
         regex = r'-?\d+'
     app.url_map.converters['signed_int'] = SignedIntConverter
+
 
 def register_blueprints(app):
     """
@@ -84,26 +84,31 @@ def register_cli(app):
         with app.db.connect() as db:
             _initdb(db)
         print('Initialized the database.')
+
     @app.cli.command('updatedb')
     def updatedb_command(force_skipped):
         print('Updating the database.')
         with app.db.connect() as db:
             _updatedb(db, force_skipped)
         print('Updated the database.')
+
     @app.cli.command('migrate')
     def migrate_command():
         print('Migrating objects.')
         _migrate(app)
         print('Migrated objects.')
+
     @app.cli.command('dump-table')
     def dump_table_command(table):
         with app.db.connect() as db:
             for line in _dump_table(db, table):
                 print(line)
+
     @app.cli.command('import-sql')
     def import_sql_command(filename):
         with app.db.connect() as db:
             _import_sql(db, filename)
+
 
 def initdb(app):
     with app.app_context():
@@ -113,20 +118,24 @@ def initdb(app):
         with app.db.connect() as db:
             _initdb(db)
 
+
 def updatedb(app, force_skipped=False):
     with app.app_context():
         with app.db.connect() as db:
             _updatedb(db, force_skipped)
 
+
 def migrate(app, objects=None):
     with app.app_context():
         _migrate(app, objects)
+
 
 def dump_table(app, table):
     with app.app_context():
         with app.db.connect() as db:
             for line in _dump_table(db, table):
                 print(line)
+
 
 def import_sql(app, filename=None):
     with app.app_context():
@@ -143,6 +152,7 @@ def _initdb(db):
         db.execute("PRAGMA synchronous = ON")
     db.commit()
     _updatedb(db)
+
 
 def _updatedb(db, force_skipped=False):
     """Updates the database."""
@@ -203,12 +213,12 @@ def _updatedb(db, force_skipped=False):
             if not force_skipped:
                 print(
                     "Skipped change %s (%s) detected! Use --force-skipped to ammend." % (
-                    version_string(version), change))
+                        version_string(version), change))
                 continue
             else:
                 print(
                     "Executing skipped change %s (%s) out of order!" % (
-                    version_string(version), change))
+                        version_string(version), change))
 
         with open(os.path.abspath(change), mode='r') as f:
             comment = f.readline().strip("\n\t\r- ")
@@ -220,6 +230,7 @@ def _updatedb(db, force_skipped=False):
                 })
             db.commit()
     db.execute("PRAGMA synchronous = ON")
+
 
 def _dump_table(db, table):
     """Dump database content to console."""
@@ -237,13 +248,13 @@ def _dump_table(db, table):
     result = db.execute(schema, {'table': table})
     for name, sql in result.fetchall():
         if name == 'sqlite_sequence':
-            yield '-- '  + sql
+            yield '-- ' + sql
             yield('DELETE FROM sqlite_sequence;')
         elif name == 'sqlite_stat1':
-            yield '-- '  + sql
+            yield '-- ' + sql
             yield('ANALYZE sqlite_master;')
         elif name.startswith('sqlite_'):
-            yield '-- '  + sql
+            yield '-- ' + sql
             continue
         else:
             yield(sql + ';')
@@ -267,6 +278,7 @@ def _dump_table(db, table):
             yield(row[0])
     yield('COMMIT;')
 
+
 def _migrate(app, objects=None):
     """Migrate all Objects to any new configuration."""
     objects = objects or app.datamapper._CREATORS.keys()
@@ -284,6 +296,7 @@ def _migrate(app, objects=None):
         db.execute("PRAGMA synchronous = ON")
         db.commit()
 
+
 def _import_sql(db, filename=None):
     """Import sql file into the database."""
     db.execute("PRAGMA synchronous = OFF")
@@ -291,6 +304,7 @@ def _import_sql(db, filename=None):
         db.executescript(f.read())
         db.commit()
     db.execute("PRAGMA synchronous = ON")
+
 
 def register_request_hooks(app):
     """
