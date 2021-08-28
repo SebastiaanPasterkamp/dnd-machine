@@ -9,7 +9,7 @@ platform:
 
 steps:
   - name: backend
-    image: python:3.9-slim
+    image: python:3.9-slim-buster
     environment:
       CRYPTOGRAPHY_DONT_BUILD_RUST: 1
     commands:
@@ -143,6 +143,6 @@ steps:
 
 ---
 kind: signature
-hmac: a23239ccfe30147fe03abdc2ba3379931a24b573041c69223fb2257d5d30bf55
+hmac: 4c629dbcdf9401624771e8bce98382f50d7bf883e6b4a6fb08ab2423c27f1064
 
 ...

@@ -16,7 +16,7 @@ RUN cd /dnd-machine/ui \
     && apk del .build-deps \
     && npm run build:production
 
-FROM python:3.9-slim
+FROM python:3.9-slim-buster
 
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
@@ -47,7 +47,6 @@ RUN apt-get update \
     && apt-get purge -y --auto-remove \
         build-essential \
         python3-dev \
-        rustc \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir /data
 

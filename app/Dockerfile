@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM python:3.9-slim-buster
 
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
@@ -11,6 +11,9 @@ RUN apt-get update \
         /usr/share/man/man1/ \
     && touch \
         /usr/share/man/man1/rmid.1.gz.dpkg-tmp \
+    && echo "[global]\nextra-index-url=https://www.piwheels.org/simple" \
+        >> /etc/pip.conf \
+    && pip install --upgrade pip \
     && apt-get install -y \
         pdftk \
         build-essential \
@@ -18,11 +21,13 @@ RUN apt-get update \
         libffi-dev \
         libssl-dev \
         cargo \
-        rustc \
-    && pip install \
+    && CRYPTOGRAPHY_DONT_BUILD_RUST=1 pip install \
+        --prefer-binary \
         -r ./requirements.txt \
-    && apt-get purge -y --auto-remove \
+    && apt-get purge -y \
+        --auto-remove \
         build-essential \
+        python3-dev \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir /data
 
