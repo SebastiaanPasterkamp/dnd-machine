@@ -4,6 +4,8 @@ MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
 WORKDIR /dnd-machine/ui
 
+ENV PATH=/dnd-machine/ui/node_modules/.bin:$PATH
+
 RUN apk \
     --no-cache \
     add \
@@ -11,6 +13,10 @@ RUN apk \
         python
 
 COPY app/static /dnd-machine/app/static
+COPY ui/package.json ui/package-lock.json /dnd-machine/ui/
+
+RUN npm install
+
 COPY ui /dnd-machine/ui
 
-CMD [ "/bin/sh", "docker/run.sh" ]
+CMD [ "npm", "run", "start" ]

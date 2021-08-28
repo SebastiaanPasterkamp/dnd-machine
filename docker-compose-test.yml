@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+    backend:
+        build:
+            context: .
+            dockerfile: app/Dockerfile
+        command: python app/tests/run_tests.py
+        volumes:
+            - ./app:/dnd-machine/app
+
+    frontend:
+        build:
+            context: .
+            dockerfile: ui/Dockerfile
+        command: npm run test
+        volumes:
+            - ./ui/package.json:/dnd-machine/ui/package.json
+            - ./ui/package-lock.json:/dnd-machine/ui/package-lock.json
+            - ./ui/src:/dnd-machine/ui/src
+            - ./ui/test:/dnd-machine/ui/test
