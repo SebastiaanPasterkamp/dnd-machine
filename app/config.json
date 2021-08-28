@@ -3,16 +3,6 @@
     "DATABASE": "flaskr.db",
     "SEND_FILE_MAX_AGE_DEFAULT": 3600,
 
-    "COMPRESS_MIMETYPES": [
-        "text/html",
-        "text/css",
-        "text/xml",
-        "application/json",
-        "application/javascript"
-    ],
-    "COMPRESS_LEVEL": 6,
-    "COMPRESS_MIN_SIZE": 256,
-
     "MAIL_SERVER": "smtp.gmail.com",
     "MAIL_PORT": 587,
     "MAIL_USE_TLS": true,
