@@ -1,4 +1,4 @@
-FROM node:8.16-alpine
+FROM node:8.17-alpine
 
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
