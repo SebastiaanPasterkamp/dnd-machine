@@ -27,7 +27,7 @@ steps:
         memory: 750MiB
 
   - name: frontend
-    image: node:8.16-alpine
+    image: node:8.17-alpine
     commands:
       - apk add build-base python
       - cd ui
