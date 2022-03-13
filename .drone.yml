@@ -8,6 +8,18 @@ platform:
     arch: arm
 
 steps:
+  - name: frontend
+    image: node:8.17-alpine
+    commands:
+      - apk add build-base python
+      - cd ui
+      - npm install
+      - npm run test
+    resources:
+      requests:
+        cpu: 1000
+        memory: 750MiB
+
   - name: backend
     image: python:3.9-slim-buster
     environment:
@@ -21,18 +33,6 @@ steps:
       - apt-get install -y pdftk build-essential python3-dev libssl-dev libffi-dev cargo
       - pip install --prefer-binary -r requirements.txt
       - python app/tests/run_tests.py
-    resources:
-      requests:
-        cpu: 1000
-        memory: 750MiB
-
-  - name: frontend
-    image: node:8.17-alpine
-    commands:
-      - apk add build-base python
-      - cd ui
-      - npm install
-      - npm run test
     resources:
       requests:
         cpu: 1000
@@ -143,6 +143,6 @@ steps:
 
 ---
 kind: signature
-hmac: 0f159b23503808cd3604f67289a10ae56221c9e2ddff1a7fa7e23dc657d19e82
+hmac: e8df945165c4d75b074d470d4f6e4b9faec1edb0e85133db583b52b6259b9e2e
 
 ...
