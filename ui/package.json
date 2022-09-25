@@ -54,7 +54,7 @@
     "react-mock-router": "1.0.15",
     "react-test-renderer": "16.2.0",
     "sass-loader": "6.0.7",
-    "sinon": "4.5.0",
+    "sinon": "14.0.0",
     "webpack": "4.46.0",
     "webpack-bundle-analyzer": "4.0.0",
     "webpack-cli": "3.3.12",
