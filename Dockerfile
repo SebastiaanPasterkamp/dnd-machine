@@ -1,4 +1,4 @@
-FROM node:8.17-alpine as node
+FROM node:18.11-alpine as node
 MAINTAINER Sebastiaan Pasterkamp "dungeons.dragons.machine@gmail.com"
 
 WORKDIR /dnd-machine
