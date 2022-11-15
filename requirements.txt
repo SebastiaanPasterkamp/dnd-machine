@@ -10,4 +10,4 @@ pyOpenSSL==22.0.0
 requests==2.28.1
 oauthlib==3.2.1
 uwsgi==2.0.20
-cryptography==38.0.1
+cryptography==38.0.3
