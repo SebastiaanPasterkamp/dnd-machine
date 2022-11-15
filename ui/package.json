@@ -53,7 +53,7 @@
     "progress-bar-webpack-plugin": "2.1.0",
     "react-mock-router": "1.0.15",
     "react-test-renderer": "16.2.0",
-    "sass-loader": "6.0.7",
+    "sass-loader": "13.2.0",
     "sinon": "14.0.0",
     "webpack": "4.46.0",
     "webpack-bundle-analyzer": "4.0.0",
