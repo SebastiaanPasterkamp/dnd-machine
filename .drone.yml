@@ -21,7 +21,7 @@ steps:
         memory: 750MiB
 
   - name: backend
-    image: python:3.9-slim-buster
+    image: python:3.11-slim-buster
     environment:
       CRYPTOGRAPHY_DONT_BUILD_RUST: 1
     commands:
