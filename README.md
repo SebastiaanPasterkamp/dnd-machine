@@ -1,5 +1,7 @@
 # D&D Machine
 
+This project has been replaced by https://github.com/SebastiaanPasterkamp/dndmachine
+
 [![Build Status](https://dndrone.nl.eu.org/api/badges/SebastiaanPasterkamp/dnd-machine/status.svg)](https://dndrone.nl.eu.org/SebastiaanPasterkamp/dnd-machine)
 
 ## Setup python environment
