@@ -52,7 +52,7 @@
     "optimize-css-assets-webpack-plugin": "5.0.8",
     "progress-bar-webpack-plugin": "2.1.0",
     "react-mock-router": "1.0.15",
-    "react-test-renderer": "16.2.0",
+    "react-test-renderer": "16.5.0",
     "sass-loader": "6.0.7",
     "sinon": "14.0.0",
     "webpack": "4.46.0",
